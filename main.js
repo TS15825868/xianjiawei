@@ -131,7 +131,7 @@
     // 6. 點擊時顯示提示文字
     btn.addEventListener("click", () => {
       if (!toast) return;
-      toast.textContent = "正在前往 LINE 諮詢…";
+      toast.textContent = "正在前往 LINE 訂購／洽詢…";
       toast.classList.add("is-show");
       setTimeout(() => toast.classList.remove("is-show"), 1200);
     });
