@@ -1,1 +1,2 @@
-TaiShing Website - Web v8.4 Cleaned Unused Files
+TaiShing Website - Web v8.8 Add new pages to hamburger + keep v8.7 layout
+Updated: 2026-03-03
