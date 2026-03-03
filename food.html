@@ -1,17 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="zh-Hant-TW">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>飲食專區｜仙加味・龜鹿</title>
-  <meta name="description" content="補養建議（綜合版）、季節推薦、龜鹿湯塊燉煮建議與常見問題（FAQ）。" />
-  <meta name="theme-color" content="#0B1F3B" />
-
-  <!-- 共用全站樣式（含漢堡選單） -->
-  <link rel="stylesheet" href="theme_herbalrosegold.css" />
-  <link rel="stylesheet" href="style.css" />
-
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>飲食專區｜仙加味・龜鹿</title>
+<meta content="補養建議（綜合版）、季節推薦、龜鹿湯塊燉煮建議與常見問題（FAQ）。" name="description"/>
+<meta content="#0B1F3B" name="theme-color"/>
+<!-- 共用全站樣式（含漢堡選單） -->
+<link href="theme_herbalrosegold.css?v=7.1" rel="stylesheet"/>
+<link href="style.css?v=7.1" rel="stylesheet"/>
+<style>
     :root{
       --bg:#0b0f14;
       --card:#121924;
@@ -89,89 +88,151 @@
       .hero h1{font-size:30px;}
     }
   </style>
-</head>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ts15825868.github.io/TaiShing/#org",
+      "name": "台興山產有限公司",
+      "alternateName": [
+        "仙加味・龜鹿",
+        "台興山產",
+        "仙加味"
+      ],
+      "url": "https://ts15825868.github.io/TaiShing/",
+      "logo": "https://ts15825868.github.io/TaiShing/assets/logo.png",
+      "telephone": "+886-2-2381-2990",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "西昌街 52 號",
+        "addressLocality": "萬華區",
+        "addressRegion": "台北市",
+        "addressCountry": "TW"
+      },
+      "sameAs": [
+        "https://www.facebook.com/TAISHING15825868/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ts15825868.github.io/TaiShing/#website",
+      "url": "https://ts15825868.github.io/TaiShing/",
+      "name": "仙加味・龜鹿｜台興山產",
+      "inLanguage": "zh-Hant-TW",
+      "publisher": {
+        "@id": "https://ts15825868.github.io/TaiShing/#org"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://ts15825868.github.io/TaiShing/food.html#webpage",
+      "url": "https://ts15825868.github.io/TaiShing/food.html",
+      "name": "飲食專區｜仙加味・龜鹿",
+      "description": "補養建議（綜合版）、季節推薦、龜鹿湯塊燉煮建議與常見問題（FAQ）。",
+      "inLanguage": "zh-Hant-TW",
+      "isPartOf": {
+        "@id": "https://ts15825868.github.io/TaiShing/#website"
+      },
+      "about": {
+        "@id": "https://ts15825868.github.io/TaiShing/#org"
+      },
+      "dateModified": "2026-03-03"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://ts15825868.github.io/TaiShing/food.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首頁",
+          "item": "https://ts15825868.github.io/TaiShing/index.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "飲食專區",
+          "item": "https://ts15825868.github.io/TaiShing/food.html"
+        }
+      ]
+    }
+  ]
+}</script><meta content="Web v7.1" name="xjw:version"/><link href="assets/css/v7.1.css?v=7.1" rel="stylesheet"/></head>
 <body>
-  <div class="wrap">
-    <header class="site-header" id="top">
-      <div class="brand">
-        <img class="logo" src="assets/logo.png" alt="台興山產 仙加味" />
-        <div class="brand-text">
-          <div class="since">SINCE 1978</div>
-          <div class="title">仙加味・龜鹿</div>
-        </div>
-      </div>
-
-      <button class="nav-toggle" aria-label="打開選單" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-
-      <nav class="nav" aria-label="主選單">
-        <a href="index.html">首頁</a>
-        <a href="products.html">產品總覽</a>
-        <a href="selector.html">依需求挑選</a>
-        <a href="food.html" class="active">飲食專區</a>
-        <a href="tcm.html">中醫觀點</a>
-        <a href="about.html">關於我們</a>
-        <a href="faq.html">常見問題</a>
-        <a href="contact.html">聯絡我們</a>
-      </nav>
-    </header>
-
-    <div class="hero">
-      <h1>飲食專區</h1>
-      <p>補養建議（綜合版）・季節推薦・龜鹿湯塊燉煮搭配・常見問題</p>
-    </div>
-
-    <div class="grid">
-      <section class="card two" id="card-nourish">
-        <header>
-          <h2>補養建議（綜合版）</h2>
-          <small class="muted">依生活節奏選擇</small>
-        </header>
-        <div class="content">
-          <div class="tabs" id="nourish-tabs"></div>
-          <div class="panel" id="nourish-panel"></div>
-          <div class="footnote" id="nourish-note"></div>
-        </div>
-      </section>
-
-      <section class="card two" id="card-season">
-        <header>
-          <h2>季節推薦</h2>
-          <small class="muted">四季飲食搭配參考</small>
-        </header>
-        <div class="content">
-          <div class="tabs" id="season-tabs"></div>
-          <div class="panel" id="season-panel"></div>
-          <div class="footnote" id="season-note"></div>
-        </div>
-      </section>
-
-      <section class="card" id="card-cook">
-        <header>
-          <h2>龜鹿湯塊（膠）燉煮建議</h2>
-          <small class="muted">更多搭配與做法</small>
-        </header>
-        <div class="content">
-          <div id="cook-panel"></div>
-          <div class="footnote" id="cook-note"></div>
-        </div>
-      </section>
-
-      <section class="card" id="card-faq">
-        <header>
-          <h2>常見問題（FAQ）</h2>
-          <small class="muted">快速解答</small>
-        </header>
-        <div class="content faq" id="faq-panel"></div>
-        <div class="content">
-          <div class="footnote" id="faq-note"></div>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <script>
+<div class="wrap">
+<header class="site-header" id="top">
+<div class="brand">
+<img alt="台興山產 仙加味" class="logo" src="assets/logo.png"/>
+<div class="brand-text">
+<div class="since">SINCE 1978</div>
+<div class="title">仙加味・龜鹿</div>
+</div>
+</div>
+<button aria-expanded="false" aria-label="打開選單" class="nav-toggle">
+<span></span><span></span><span></span>
+</button>
+<nav aria-label="主選單" class="nav">
+<a href="index.html">首頁</a>
+<a href="products.html">產品總覽</a>
+<a href="selector.html">依需求挑選</a>
+<a class="active" href="food.html">飲食專區</a>
+<a href="tcm.html">中醫觀點</a>
+<a href="about.html">關於我們</a>
+<a href="faq.html">常見問題</a>
+<a href="contact.html">聯絡我們</a>
+</nav>
+</header>
+<div class="hero">
+<h1>飲食專區</h1>
+<p>補養建議（綜合版）・季節推薦・龜鹿湯塊燉煮搭配・常見問題</p>
+</div>
+<div class="grid">
+<section class="card two" id="card-nourish">
+<header>
+<h2>補養建議（綜合版）</h2>
+<small class="muted">依生活節奏選擇</small>
+</header>
+<div class="content">
+<div class="tabs" id="nourish-tabs"></div>
+<div class="panel" id="nourish-panel"></div>
+<div class="footnote" id="nourish-note"></div>
+</div>
+</section>
+<section class="card two" id="card-season">
+<header>
+<h2>季節推薦</h2>
+<small class="muted">四季飲食搭配參考</small>
+</header>
+<div class="content">
+<div class="tabs" id="season-tabs"></div>
+<div class="panel" id="season-panel"></div>
+<div class="footnote" id="season-note"></div>
+</div>
+</section>
+<section class="card" id="card-cook">
+<header>
+<h2>龜鹿湯塊（膠）燉煮建議</h2>
+<small class="muted">更多搭配與做法</small>
+</header>
+<div class="content">
+<div id="cook-panel"></div>
+<div class="footnote" id="cook-note"></div>
+</div>
+</section>
+<section class="card" id="card-faq">
+<header>
+<h2>常見問題（FAQ）</h2>
+<small class="muted">快速解答</small>
+</header>
+<div class="content faq" id="faq-panel"></div>
+<div class="content">
+<div class="footnote" id="faq-note"></div>
+</div>
+</section>
+</div>
+</div>
+<script>
     const PRODUCTS_JSON_URL = "./products.json";
 
     function el(html){
@@ -281,8 +342,7 @@
         "<div style='padding:24px;color:#fff;font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif'>讀取 products.json 失敗，請確認檔案已放到官網根目錄（/TaiShing/products.json）。</div>";
     });
   </script>
-
-  <!-- 全站共用互動（漢堡選單等） -->
-  <script src="main.js"></script>
+<!-- 全站共用互動（漢堡選單等） -->
+<script src="main.js?v=7.1"></script>
 </body>
 </html>
