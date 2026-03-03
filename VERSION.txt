@@ -1,2 +1,1 @@
-TaiShing Website - Web v8.2 Home Simplified + Hamburger AutoClose + IA Cleanup
-Updated: 2026-03-03
+TaiShing Website - Web v8.4 Cleaned Unused Files
