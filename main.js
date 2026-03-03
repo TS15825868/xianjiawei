@@ -794,3 +794,88 @@ function setupBackLinks() {
     init();
   }
 })();
+
+/* =========================
+   Web v7.4 nav init (xjwNavInitV74)
+   - Build a consistent hamburger nav on every page
+   - Set aria-current for active link
+   ========================= */
+(function xjwNavInitV74(){
+  const nav = document.querySelector('.site-nav ul');
+  const toggle = document.querySelector('.nav-toggle');
+  const navWrap = document.querySelector('.site-nav');
+  if(!nav || !toggle || !navWrap) return;
+
+  const links = [
+    { href: 'index.html', label: '首頁' },
+    { href: 'products.html', label: '產品總覽' },
+    { href: 'guide.html', label: '依需求挑選' },
+    { href: 'food.html', label: '飲食專區' },
+    { href: 'cooking.html', label: '燉煮搭配' },
+    { href: 'season.html', label: '四季節奏' },
+    { href: 'tcm.html', label: '中醫觀點' },
+    { href: 'about.html', label: '關於我們' },
+    { href: 'faq.html', label: '常見問題' },
+    { href: 'contact.html', label: '聯絡我們' }
+  ];
+
+  // Build once
+  if(!nav.dataset.built){
+    nav.innerHTML = links.map(x => `<li><a href="${x.href}">${x.label}</a></li>`).join('');
+    nav.dataset.built = '1';
+  }
+
+  // Active state
+  const path = (location.pathname.split('/').pop() || 'index.html');
+  nav.querySelectorAll('a').forEach(a => {
+    const href = a.getAttribute('href');
+    if(href === path){
+      a.setAttribute('aria-current','page');
+    } else {
+      a.removeAttribute('aria-current');
+    }
+  });
+
+  // Toggle behavior (robust)
+  function open(){
+    document.body.style.overflow = 'hidden';
+    navWrap.classList.add('is-open');
+    toggle.setAttribute('aria-expanded','true');
+    document.body.classList.add('nav-open');
+  }
+  function close(){
+    document.body.style.overflow = '';
+    navWrap.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-open');
+  }
+  function isOpen(){ return navWrap.classList.contains('is-open'); }
+
+  toggle.addEventListener('click', (e)=>{
+    e.preventDefault();
+    isOpen() ? close() : open();
+  });
+
+  // Click outside to close
+  document.addEventListener('click', (e)=>{
+    if(!isOpen()) return;
+    const inside = navWrap.contains(e.target) || toggle.contains(e.target);
+    if(!inside) close();
+  });
+
+  // Esc to close
+  document.addEventListener('keydown',(e)=>{
+    if(e.key === 'Escape' && isOpen()) close();
+  });
+
+  // Close after click a link
+  nav.addEventListener('click',(e)=>{
+    const a = e.target.closest('a');
+    if(a) close();
+  });
+
+  // ✅ 滾動就自動收合：避免擋住視線（品牌官網常用）
+  window.addEventListener('scroll', ()=>{
+    if(isOpen()) close();
+  }, { passive: true });
+})();
