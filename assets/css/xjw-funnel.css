@@ -1,0 +1,88 @@
+
+/* 仙加味｜無價格導流（全站導向 LINE） */
+.xjw-cta-band{
+  background:#0B1F3B;
+  color:#fff;
+  border-radius:14px;
+  padding:18px 16px;
+  margin:18px auto;
+  max-width:980px;
+}
+.xjw-cta-band h3{
+  margin:0 0 8px;
+  font-size:18px;
+  letter-spacing:0.6px;
+}
+.xjw-cta-band p{
+  margin:0 0 12px;
+  opacity:0.92;
+  line-height:1.7;
+  font-size:14px;
+}
+.xjw-cta-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.xjw-btn{
+  display:inline-block;
+  padding:10px 14px;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:14px;
+  letter-spacing:0.4px;
+}
+.xjw-btn-primary{
+  background:#fff;
+  color:#0B1F3B;
+  font-weight:650;
+}
+.xjw-btn-ghost{
+  border:1px solid rgba(255,255,255,0.7);
+  color:#fff;
+}
+.xjw-funnel-hero{
+  max-width:980px;
+  margin:0 auto;
+  padding:34px 16px 18px;
+}
+.xjw-funnel-hero .brand{
+  font-size:14px;
+  letter-spacing:2px;
+  opacity:0.75;
+}
+.xjw-funnel-hero h1{
+  margin:10px 0 8px;
+  font-size:32px;
+  letter-spacing:1px;
+  line-height:1.25;
+}
+.xjw-funnel-hero .lead{
+  margin:0 0 18px;
+  color:#555;
+  line-height:1.8;
+}
+.xjw-cards{
+  max-width:980px;
+  margin:0 auto;
+  padding:0 16px 28px;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:12px;
+}
+.xjw-card{
+  grid-column:span 12;
+  background:#F7F4ED;
+  border-radius:14px;
+  padding:18px 16px;
+  line-height:1.8;
+}
+@media(min-width:800px){
+  .xjw-card{ grid-column:span 6; }
+}
+.xjw-card h3{
+  margin:0 0 8px;
+  font-size:18px;
+  letter-spacing:0.6px;
+}
+.xjw-muted{ color:#666; font-size:14px; }

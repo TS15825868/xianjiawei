@@ -1,17 +1,8 @@
-.xjw-weight{font-size:26px;font-weight:650;letter-spacing:.5px;margin:6px 0 10px;color:#0B1F3B;}/* 微調字距/行距（高端氣場） */
-:root{
-  --xjw-letter: .02em;
-  --xjw-leading: 1.78;
-}
-body{
-  letter-spacing: var(--xjw-letter);
-  line-height: var(--xjw-leading);
-  text-rendering: geometricPrecision;
-}
-h1,h2,h3{
-  letter-spacing: .01em;
-  line-height: 1.25;
-}
-p,li{
-  letter-spacing: .02em;
+
+.xjw-weight{
+  font-size:26px;
+  font-weight:650;
+  letter-spacing:0.5px;
+  margin:6px 0 10px;
+  color:#0B1F3B;
 }
