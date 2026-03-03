@@ -7,11 +7,12 @@
 
   <!-- SEO -->
   <meta name="description" content="中醫觀點影片聚合頁：用作息、體感與節奏理解龜鹿補養常見問法與選擇邏輯（不做醫療診斷／治療宣稱）。含影片清單、主題導覽、對應產品對照表與常見問題。" />
-  <meta name="keywords" content="中醫觀點,龜鹿補養,龜鹿膏,龜鹿飲,龜鹿湯塊,鹿茸粉,日常補養節奏,仙加味,萬華中藥">
+  <meta name="keywords" content="中醫觀點,龜鹿補養,龜鹿膏,龜鹿飲,龜鹿湯塊,鹿茸粉,日常補養節奏,台興山產,仙加味,萬華中藥">
   <meta name="robots" content="index,follow">
   <link rel="canonical" href="https://ts15825868.github.io/TaiShing/tcm.html">
 
   <!-- Open Graph -->
+  <meta property="og:site_name" content="仙加味・龜鹿">
   <meta property="og:title" content="中醫觀點｜龜鹿補養影片整理（聚合頁）｜仙加味・龜鹿">
   <meta property="og:description" content="公開平台影片聚合：以中醫觀點理解日常補養節奏與常見問法（不做醫療診斷／治療宣稱）。">
   <meta property="og:type" content="website">
@@ -20,100 +21,145 @@
   <meta property="og:locale" content="zh_TW">
   <meta name="theme-color" content="#0B1F3B">
 
-  <!-- 結構化資料：CollectionPage -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "中醫觀點｜龜鹿補養影片整理（聚合頁）",
-    "url": "https://ts15825868.github.io/TaiShing/tcm.html",
-    "inLanguage": "zh-Hant-TW",
-    "description": "中醫觀點影片聚合頁：用作息、體感與節奏理解龜鹿補養常見問法與選擇邏輯（不做醫療診斷／治療宣稱）。",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "仙加味・龜鹿",
-      "url": "https://ts15825868.github.io/TaiShing/"
-    }
-  }
-  </script>
-
-  <!-- BreadcrumbList -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "首頁",
-        "item": "https://ts15825868.github.io/TaiShing/index.html"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "中醫觀點",
-        "item": "https://ts15825868.github.io/TaiShing/tcm.html"
-      }
-    ]
-  }
-  </script>
-
-  <!-- FAQPage（保留公開版 FAQ；不放「新增影片 SOP」） -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {
-        "@type":"Question",
-        "name":"這些影片是否提供醫療診斷或治療建議？",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"否。本頁內容為公開平台影片整理與觀點摘要，僅供知識交流與選品參考，不提供醫療診斷或治療建議；若有個人病況或正在治療，請以專業醫師評估為準。"
-        }
-      },
-      {
-        "@type":"Question",
-        "name":"我該先看哪一支影片？",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"建議先從與你生活最貼近的主題開始：作息與睡眠、外出忙碌、想全家一起、或早餐/飲品融入等。先找到能持續的節奏，再看後續的細節安排。"
-        }
-      },
-      {
-        "@type":"Question",
-        "name":"影片看不到怎麼辦？",
-        "acceptedAnswer":{
-          "@type":"Answer",
-          "text":"若因瀏覽器隱私或平台限制無法顯示嵌入播放器，可使用每張卡片的「開啟原影片」直接到平台觀看。"
-        }
-      }
-    ]
-  }
-  </script>
-
   <!-- 全站既有 CSS/JS -->
   <link rel="stylesheet" href="theme_herbalrosegold.css">
   <link rel="stylesheet" href="style.css">
   <script src="main.js" defer></script>
 
+  <!-- =========================================================
+       ✅ 結構化資料（權威聚合頁加分版）
+       - 用 @graph 統一描述：WebSite / WebPage / Organization / BreadcrumbList / FAQPage / ItemList / VideoObject
+       - ItemList / VideoObject 使用「靜態」資料（比 JS 注入更穩）
+     ========================================================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://ts15825868.github.io/TaiShing/#website",
+        "name": "仙加味・龜鹿",
+        "url": "https://ts15825868.github.io/TaiShing/",
+        "inLanguage": "zh-Hant-TW",
+        "publisher": { "@id": "https://ts15825868.github.io/TaiShing/#org" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://ts15825868.github.io/TaiShing/#org",
+        "name": "台興山產有限公司・龜鹿",
+        "url": "https://ts15825868.github.io/TaiShing/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://ts15825868.github.io/TaiShing/images/logo-pro-og.jpg"
+        },
+        "sameAs": [
+          "https://lin.ee/sHZW7NkR"
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://ts15825868.github.io/TaiShing/tcm.html#webpage",
+        "url": "https://ts15825868.github.io/TaiShing/tcm.html",
+        "name": "中醫觀點｜龜鹿補養影片整理（聚合頁）",
+        "description": "中醫觀點影片聚合頁：用作息、體感與節奏理解龜鹿補養常見問法與選擇邏輯（不做醫療診斷／治療宣稱）。",
+        "inLanguage": "zh-Hant-TW",
+        "isPartOf": { "@id": "https://ts15825868.github.io/TaiShing/#website" },
+        "about": [
+          { "@type": "Thing", "name": "中醫觀點" },
+          { "@type": "Thing", "name": "龜鹿補養" }
+        ],
+        "mainEntity": { "@id": "https://ts15825868.github.io/TaiShing/tcm.html#itemlist" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ts15825868.github.io/TaiShing/tcm.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "首頁",
+            "item": "https://ts15825868.github.io/TaiShing/index.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "中醫觀點",
+            "item": "https://ts15825868.github.io/TaiShing/tcm.html"
+          }
+        ]
+      },
+      {
+        "@type":"FAQPage",
+        "@id":"https://ts15825868.github.io/TaiShing/tcm.html#faq",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"這些影片是否提供醫療診斷或治療建議？",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"否。本頁內容為公開平台影片整理與觀點摘要，僅供知識交流與選品參考，不提供醫療診斷或治療建議；若有個人病況或正在治療，請以專業醫師評估為準。"
+            }
+          },
+          {
+            "@type":"Question",
+            "name":"影片看不到怎麼辦？",
+            "acceptedAnswer":{
+              "@type":"Answer",
+              "text":"若因瀏覽器隱私或平台限制無法顯示嵌入播放器，可使用每張卡片的「開啟原影片」直接到平台觀看。"
+            }
+          }
+        ]
+      },
+
+      {
+        "@type": "ItemList",
+        "@id": "https://ts15825868.github.io/TaiShing/tcm.html#itemlist",
+        "name": "中醫觀點影片清單（最新在上）",
+        "itemListOrder": "http://schema.org/ItemListOrderDescending",
+        "numberOfItems": 24,
+        "itemListElement": [
+          { "@type":"ListItem","position":1,"url":"https://www.tiktok.com/@changwuchi2023/video/7599984981527530772?lang=zh-Hant-TW" },
+          { "@type":"ListItem","position":2,"url":"https://www.tiktok.com/@changwuchi2023/video/7599654150523079957" },
+          { "@type":"ListItem","position":3,"url":"https://www.tiktok.com/@changwuchi2023/video/7600388782180945172" },
+          { "@type":"ListItem","position":4,"url":"https://www.tiktok.com/@changwuchi2023/video/7597798718720576789" },
+          { "@type":"ListItem","position":5,"url":"https://www.tiktok.com/@changwuchi2023/video/7590648704156142868" },
+          { "@type":"ListItem","position":6,"url":"https://www.tiktok.com/@changwuchi2023/video/7571657095880232210" },
+          { "@type":"ListItem","position":7,"url":"https://www.tiktok.com/@changwuchi2023/video/7561374523564543249" },
+          { "@type":"ListItem","position":8,"url":"https://www.tiktok.com/@changwuchi2023/video/7490604047783726343" },
+          { "@type":"ListItem","position":9,"url":"https://www.tiktok.com/@changwuchi2023/video/7486299595979394312" },
+          { "@type":"ListItem","position":10,"url":"https://www.tiktok.com/@changwuchi2023/video/7488238569224555794" },
+          { "@type":"ListItem","position":11,"url":"https://www.tiktok.com/@changwuchi2023/video/7488239418650807560" },
+          { "@type":"ListItem","position":12,"url":"https://www.tiktok.com/@changwuchi2023/video/7475988696827727112" },
+          { "@type":"ListItem","position":13,"url":"https://www.tiktok.com/@changwuchi2023/video/7473305364415384850" },
+          { "@type":"ListItem","position":14,"url":"https://www.tiktok.com/@changwuchi2023/video/7446332181263289607" },
+          { "@type":"ListItem","position":15,"url":"https://www.tiktok.com/@changwuchi2023/video/7445221794769898759" },
+          { "@type":"ListItem","position":16,"url":"https://www.tiktok.com/@changwuchi2023/video/7444622264642833671" },
+          { "@type":"ListItem","position":17,"url":"https://www.tiktok.com/@changwuchi2023/video/7444467481059560712" },
+          { "@type":"ListItem","position":18,"url":"https://www.tiktok.com/@changwuchi2023/video/7444051217757752583" },
+          { "@type":"ListItem","position":19,"url":"https://www.tiktok.com/@changwuchi2023/video/7443754721195691319" },
+          { "@type":"ListItem","position":20,"url":"https://www.tiktok.com/@changwuchi2023/video/7442637133308759352?lang=zh-Hant-TW" },
+          { "@type":"ListItem","position":21,"url":"https://www.tiktok.com/@changwuchi2023/video/7441892944057027896?lang=zh-Hant-TW" },
+          { "@type":"ListItem","position":22,"url":"https://www.tiktok.com/@changwuchi2023/video/7441142424518315280?lang=zh-Hant-TW" },
+          { "@type":"ListItem","position":23,"url":"https://www.tiktok.com/@changwuchi2023/video/7440039107708914945?lang=zh-Hant-TW" },
+          { "@type":"ListItem","position":24,"url":"https://www.tiktok.com/@changwuchi2023/video/7410727121875782919?lang=zh-Hant-TW" }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <!-- 本頁專用樣式 -->
   <style>
     /* ===== 快速跳轉選單（整合式） ===== */
-    .jump-wrap{ margin-top: 14px; max-width: 720px; }
+    .jump-wrap{ margin-top: 14px; max-width: 620px; }
     .jump-label{
       display:block; font-weight: 900; letter-spacing:.04em;
       color:#0B1F3B; margin-bottom: 6px;
     }
     .jump-select{
-      width:100%;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border:1px solid rgba(0,0,0,.12);
-      background:#fff;
-      color:#111827;
-      font-size: 1rem;
+      width:100%; padding: 12px 14px;
+      border-radius: 14px; border:1px solid rgba(0,0,0,.12);
+      background:#fff; color:#111827; font-size: 1rem;
     }
     .jump-help{ margin-top: 8px; font-size: .92rem; color: rgba(17,24,39,.72); }
 
@@ -124,7 +170,9 @@
       gap: 18px;
       margin-top: 16px;
     }
-    @media (max-width: 768px){ .video-grid{ grid-template-columns: 1fr; } }
+    @media (max-width: 768px){
+      .video-grid{ grid-template-columns: 1fr; }
+    }
 
     /* ===== 卡片：高度貼合內容 ===== */
     .video-card{
@@ -136,11 +184,7 @@
       display:flex;
       flex-direction:column;
     }
-
-    .video-head{
-      padding: 12px 14px 10px;
-      border-bottom: 1px solid rgba(0,0,0,.08);
-    }
+    .video-head{ padding: 12px 14px 10px; border-bottom: 1px solid rgba(0,0,0,.08); }
 
     .video-title{
       margin:0;
@@ -171,14 +215,9 @@
       transform: translateY(1px);
     }
 
-    .video-desc{
-      margin: 8px 0 0;
-      font-size: .93rem;
-      color: rgba(17,24,39,.72);
-      line-height: 1.6;
-    }
+    .video-desc{ margin: 8px 0 0; font-size: .93rem; color: rgba(17,24,39,.72); line-height: 1.6; }
 
-    /* ===== 影片框：TikTok 直式 9:16（卡片跟著影片大小走） ===== */
+    /* ===== 影片框：TikTok 直式 9:16，卡片跟著影片大小走 ===== */
     .video-frame{
       width: 100%;
       position: relative;
@@ -186,62 +225,36 @@
       background: rgba(11,31,59,.07);
       border-bottom: 1px solid rgba(0,0,0,.08);
     }
-    .video-frame iframe{
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display:block;
-    }
+    .video-frame iframe{ width: 100%; height: 100%; border: 0; display:block; }
 
     .video-play-btn{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: transparent;
-      border:0;
-      cursor:pointer;
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      background: transparent; border:0; cursor:pointer;
     }
     .video-play-btn span{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 12px 16px;
-      border-radius: 999px;
-      background: #FF7A00;
-      color: #fff;
-      font-weight: 900;
-      letter-spacing: .06em;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 12px 16px; border-radius: 999px;
+      background: #FF7A00; color: #fff;
+      font-weight: 900; letter-spacing: .06em;
       box-shadow: 0 12px 24px rgba(0,0,0,.14);
     }
 
     .video-foot{
       padding: 10px 14px 14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center; justify-content:space-between;
     }
-
-    .video-link{
-      color:#0B1F3B;
-      text-decoration: underline;
-      font-weight: 800;
-    }
+    .video-link{ color:#0B1F3B; text-decoration: underline; font-weight: 800; }
     .video-link:hover{ color:#FF7A00; }
 
     .backtop{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      text-decoration:none;
-      color:#0B1F3B;
-      font-weight: 900;
+      display:inline-flex; align-items:center; gap:8px;
+      text-decoration:none; color:#0B1F3B; font-weight: 900;
     }
     .backtop:hover{ color:#FF7A00; }
   </style>
+<link rel="stylesheet" href="assets/css/xjw-premium.css">
 </head>
 
 <body>
@@ -251,7 +264,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a href="index.html" class="brand-block">
-        <img src="images/logo-pro.jpeg" alt="仙加味 Logo" class="site-logo" loading="lazy">
+        <img src="images/logo-pro.jpeg" alt="台興山產 Logo" class="site-logo" loading="lazy">
         <div class="brand-text">
           <p class="brand-since">SINCE 1978</p>
           <p class="brand-title">仙加味・龜鹿</p>
@@ -279,26 +292,81 @@
       <div class="section-kicker">TCM VIEW</div>
       <h1 class="page-title">中醫觀點｜龜鹿補養影片整理（聚合頁）</h1>
 
-      <!-- ✅ 你指定的換行版本 -->
       <p>
         這一頁整理合作中醫師在公開平台的影片，協助你用
         <strong>「作息、體感與節奏」</strong>理解常見問法。
       </p>
       <p class="text-note">
-        本頁僅供知識交流與選品參考，不提供醫療診斷或治療建議；若你正在治療、長期用藥、孕期／備孕或有重大疾病史，請以專業醫師評估為主。
+        本頁僅供知識交流與選品參考，不提供醫療診斷或治療建議；
+        若你正在治療、長期用藥、孕期／備孕或有重大疾病史，
+        請以專業醫師評估為主。
       </p>
 
       <p class="text-note">
         為了加快開啟速度，本頁影片不會自動載入；你點「播放」後才會載入並開始播放。
       </p>
 
-      <!-- ✅ 整合式：影片快速跳轉（下拉選單） -->
+      <!-- 影片快速跳轉（下拉選單） -->
       <div class="jump-wrap">
         <label class="jump-label" for="videoSelect">影片快速跳轉（最新在最上）</label>
         <select class="jump-select" id="videoSelect" aria-label="影片快速跳轉選單">
           <option value="">請選擇影片</option>
         </select>
         <div class="jump-help">提示：選擇後會自動捲動到該影片卡片。</div>
+      </div>
+    </section>
+
+    <!-- 非推銷對照表（維持你原本架構） -->
+    <section class="section" id="tcm-map" aria-labelledby="tcm-map-title">
+      <div class="section-kicker">MAPPING</div>
+      <h2 class="section-title" id="tcm-map-title">中醫觀點 → 對應產品（非推銷型對照表）</h2>
+
+      <div class="tcm-block" style="margin-top:14px;">
+        <p>
+          這張表的目的不是叫你「買哪個」，而是把影片常談的「生活情境」對應到「比較容易持續的型態」。
+          你可以先用這張表把方向抓住，再回去看影片或到產品區用彈窗看更完整的規格與 FAQ。
+        </p>
+
+        <table class="map-table" style="width:100%; border-collapse:collapse; border:1px solid rgba(0,0,0,.10); border-radius:14px; overflow:hidden; background:#fff;">
+          <thead>
+            <tr>
+              <th style="padding:12px; background:#E8EEF6; color:#0B1F3B; text-align:left; font-weight:900;">觀點/情境</th>
+              <th style="padding:12px; background:#E8EEF6; color:#0B1F3B; text-align:left; font-weight:900;">判斷方式（偏生活節奏）</th>
+              <th style="padding:12px; background:#E8EEF6; color:#0B1F3B; text-align:left; font-weight:900;">較可能持續的型態（參考）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);"><strong>想建立固定節奏</strong></td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">每天願意留 30 秒～1 分鐘，固定一個時段；重點是穩定與可追蹤。</td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">龜鹿膏（定點使用）／搭配 FAQ 先看「起步份量」</td>
+            </tr>
+            <tr>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);"><strong>工作忙、常外出</strong></td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">行程變動大，不想再多一個「要準備」的步驟；需要拿了就走。</td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">龜鹿飲（攜帶便利）</td>
+            </tr>
+            <tr>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);"><strong>想全家共享</strong></td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">家裡本來就煮湯；用「一鍋」當作節奏，不另開一條補養流程。</td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">龜鹿湯塊（入鍋/湯底）</td>
+            </tr>
+            <tr>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);"><strong>想融入早餐/飲品</strong></td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">早餐固定，能把補養塞進既有習慣（奶/豆漿/粥/茶）。</td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">鹿茸粉（混入飲食）</td>
+            </tr>
+            <tr>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);"><strong>想要原料彈性</strong></td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">有自煉/專業用途需求；更在意規格、切製與搭配方式。</td>
+              <td style="padding:12px; border-top:1px solid rgba(0,0,0,.10);">鹿角原料（規格/用途先釐清再談）</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p style="margin-top:12px;">
+          <a class="backtop" href="#top">↑ 回頂端</a>
+        </p>
       </div>
     </section>
 
@@ -310,16 +378,16 @@
       <div class="video-grid" id="videoGrid" aria-label="中醫觀點影片列表"></div>
 
       <p style="margin-top:14px;">
-        <a class="backtop" href="#top">↑ 回到頁首</a>
+        <a class="backtop" href="#top">↑ 回頂端</a>
       </p>
     </section>
 
-    <!-- Page FAQ（只留公開版） -->
+    <!-- Page FAQ（畫面版） -->
     <section class="section" id="tcm-faq">
       <div class="section-kicker">PAGE FAQ</div>
       <h2 class="section-title">本頁常見問題</h2>
 
-      <div class="tcm-block" style="margin-top:14px; padding:14px; border:1px solid rgba(0,0,0,.10); border-radius:14px; background:#fff;">
+      <div class="tcm-block" style="margin-top:14px;">
         <p><strong>Q：影片內容可以直接當作個人建議嗎？</strong><br>
           A：不建議。本頁為公開影片整理與觀點摘要，僅供知識交流；若你正在治療、長期用藥、孕期／備孕或有重大疾病史，請以醫師評估為主。</p>
 
@@ -327,7 +395,7 @@
           A：每張卡片都有「開啟原影片」連結，直接到平台看即可。</p>
 
         <p style="margin-top:12px;">
-          <a class="backtop" href="#top">↑ 回到頁首</a>
+          <a class="backtop" href="#top">↑ 回頂端</a>
         </p>
       </div>
     </section>
@@ -350,7 +418,7 @@
     <p class="footer-meta">
       公司地址：台北市萬華區西昌街 52 號<br>
       電話：<a href="tel:+886223812990">(02) 2381-2990</a><br>
-      © 版權所有
+      © 台興山產 版權所有
     </p>
   </footer>
 
@@ -362,162 +430,141 @@
 </div>
 
 <script>
-/* =========================================================
-   ✅ 影片資料：只改這裡（你的私房 SOP 放在註解，不會顯示在頁面）
-   SOP：
-   1) 貼上新影片網址
-   2) 把 /video/ 後的數字當 id
-   3) title 填「原影片標題」
-   4) 直接加在陣列最下面（越後面越新）
-   5) 頁面會自動：顯示「最新在最上」+ 標記 🔥 最新
-========================================================= */
-const VIDEOS_SEEDED = [
-  { id:"7410727121875782919", url:"https://www.tiktok.com/@changwuchi2023/video/7410727121875782919?lang=zh-Hant-TW", title:"鹿茸鹿角，怎麼分?" },
-  { id:"7440039107708914945", url:"https://www.tiktok.com/@changwuchi2023/video/7440039107708914945?lang=zh-Hant-TW", title:"無市有價，鹿角椅！" },
-  { id:"7441142424518315280", url:"https://www.tiktok.com/@changwuchi2023/video/7441142424518315280?lang=zh-Hant-TW", title:"吃過鹿角，看過鹿角嗎？" },
-  { id:"7441892944057027896", url:"https://www.tiktok.com/@changwuchi2023/video/7441892944057027896?lang=zh-Hant-TW", title:"龜鹿二仙膠為什麼有腥味!?" },
-  { id:"7442637133308759352", url:"https://www.tiktok.com/@changwuchi2023/video/7442637133308759352?lang=zh-Hant-TW", title:"帶你去看，百年鹿角店！" },
-  { id:"7443754721195691319", url:"https://www.tiktok.com/@changwuchi2023/video/7443754721195691319", title:"傳說中的鹿耳朵!?" },
-  { id:"7444051217757752583", url:"https://www.tiktok.com/@changwuchi2023/video/7444051217757752583", title:"中醫界的LV包!?" },
-  { id:"7444467481059560712", url:"https://www.tiktok.com/@changwuchi2023/video/7444467481059560712", title:"教你用鹿角，判斷鹿齡！" },
-  { id:"7444622264642833671", url:"https://www.tiktok.com/@changwuchi2023/video/7444622264642833671", title:"來支不易！龜鹿二仙膠" },
-  { id:"7445221794769898759", url:"https://www.tiktok.com/@changwuchi2023/video/7445221794769898759", title:"烏龜配麋鹿，保持骨頭健康度！" },
-  { id:"7446332181263289607", url:"https://www.tiktok.com/@changwuchi2023/video/7446332181263289607", title:"超過一甲子，保育水鹿角！" },
-  { id:"7473305364415384850", url:"https://www.tiktok.com/@changwuchi2023/video/7473305364415384850", title:"冬天提高房事，不能只吃瑪卡！" },
-  { id:"7475988696827727112", url:"https://www.tiktok.com/@changwuchi2023/video/7475988696827727112", title:"歸路二仙膠，預防天冷膝蓋痛！" },
-  { id:"7488239418650807560", url:"https://www.tiktok.com/@changwuchi2023/video/7488239418650807560", title:"女孩不孕，吃鹿便！" },
-  { id:"7488238569224555794", url:"https://www.tiktok.com/@changwuchi2023/video/7488238569224555794", title:"吃鹿便，當犁壞田的牛！" },
-  { id:"7486299595979394312", url:"https://www.tiktok.com/@changwuchi2023/video/7486299595979394312", title:"秘魯人參怎麼吃？" },
-  { id:"7490604047783726343", url:"https://www.tiktok.com/@changwuchi2023/video/7490604047783726343", title:"泡製鹿便9，撞羊又持久！" },
-  { id:"7561374523564543249", url:"https://www.tiktok.com/@changwuchi2023/video/7561374523564543249", title:"鹿角買回家，沒有用!?" },
-  { id:"7571657095880232210", url:"https://www.tiktok.com/@changwuchi2023/video/7571657095880232210", title:"撻伐章醫師？吃二仙膠沒用!?" },
-  { id:"7590648704156142868", url:"https://www.tiktok.com/@changwuchi2023/video/7590648704156142868", title:"吃了沒有效？買到假鹿茸？" },
-  { id:"7597798718720576789", url:"https://www.tiktok.com/@changwuchi2023/video/7597798718720576789", title:"鬼鬼祟祟！向內偷偷摸摸!?" },
-  { id:"7600388782180945172", url:"https://www.tiktok.com/@changwuchi2023/video/7600388782180945172", title:"他摸過上千支鹿🐦🐦！" },
-  { id:"7599654150523079957", url:"https://www.tiktok.com/@changwuchi2023/video/7599654150523079957", title:"泡製不是泡在水裡!?" },
-  { id:"7599984981527530772", url:"https://www.tiktok.com/@changwuchi2023/video/7599984981527530772?lang=zh-Hant-TW", title:"中💊版蝦味先，泡製鹿便！" }
-];
+  /**
+   * ✅ 只改這裡就好（你的內部 SOP：只在程式碼註解，不會顯示在網站）
+   * 1) 貼上新影片網址
+   * 2) 把 /video/ 後面的數字當作 id
+   * 3) title 填「原影片標題」
+   * 4) 直接加在最下面（越後面越新）
+   */
+  const VIDEOS_SEEDED = [
+    { id:"7410727121875782919", url:"https://www.tiktok.com/@changwuchi2023/video/7410727121875782919?lang=zh-Hant-TW", title:"鹿茸鹿角，怎麼分?" },
+    { id:"7440039107708914945", url:"https://www.tiktok.com/@changwuchi2023/video/7440039107708914945?lang=zh-Hant-TW", title:"無市有價，鹿角椅！" },
+    { id:"7441142424518315280", url:"https://www.tiktok.com/@changwuchi2023/video/7441142424518315280?lang=zh-Hant-TW", title:"吃過鹿角，看過鹿角嗎？" },
+    { id:"7441892944057027896", url:"https://www.tiktok.com/@changwuchi2023/video/7441892944057027896?lang=zh-Hant-TW", title:"龜鹿二仙膠為什麼有腥味!?" },
+    { id:"7442637133308759352", url:"https://www.tiktok.com/@changwuchi2023/video/7442637133308759352?lang=zh-Hant-TW", title:"帶你去看，百年鹿角店！" },
+    { id:"7443754721195691319", url:"https://www.tiktok.com/@changwuchi2023/video/7443754721195691319", title:"傳說中的鹿耳朵!?" },
+    { id:"7444051217757752583", url:"https://www.tiktok.com/@changwuchi2023/video/7444051217757752583", title:"中醫界的LV包!?" },
+    { id:"7444467481059560712", url:"https://www.tiktok.com/@changwuchi2023/video/7444467481059560712", title:"教你用鹿角，判斷鹿齡！" },
+    { id:"7444622264642833671", url:"https://www.tiktok.com/@changwuchi2023/video/7444622264642833671", title:"來支不易！龜鹿二仙膠" },
+    { id:"7445221794769898759", url:"https://www.tiktok.com/@changwuchi2023/video/7445221794769898759", title:"烏龜配麋鹿，保持骨頭健康度！" },
+    { id:"7446332181263289607", url:"https://www.tiktok.com/@changwuchi2023/video/7446332181263289607", title:"超過一甲子，保育水鹿角！" },
+    { id:"7473305364415384850", url:"https://www.tiktok.com/@changwuchi2023/video/7473305364415384850", title:"冬天提高房事，不能只吃瑪卡！" },
+    { id:"7475988696827727112", url:"https://www.tiktok.com/@changwuchi2023/video/7475988696827727112", title:"歸路二仙膠，預防天冷膝蓋痛！" },
+    { id:"7488239418650807560", url:"https://www.tiktok.com/@changwuchi2023/video/7488239418650807560", title:"女孩不孕，吃鹿便！" },
+    { id:"7488238569224555794", url:"https://www.tiktok.com/@changwuchi2023/video/7488238569224555794", title:"吃鹿便，當犁壞田的牛！" },
+    { id:"7486299595979394312", url:"https://www.tiktok.com/@changwuchi2023/video/7486299595979394312", title:"秘魯人參怎麼吃？" },
+    { id:"7490604047783726343", url:"https://www.tiktok.com/@changwuchi2023/video/7490604047783726343", title:"泡製鹿便9，撞羊又持久！" },
+    { id:"7561374523564543249", url:"https://www.tiktok.com/@changwuchi2023/video/7561374523564543249", title:"鹿角買回家，沒有用!?" },
+    { id:"7571657095880232210", url:"https://www.tiktok.com/@changwuchi2023/video/7571657095880232210", title:"撻伐章醫師？吃二仙膠沒用!?" },
+    { id:"7590648704156142868", url:"https://www.tiktok.com/@changwuchi2023/video/7590648704156142868", title:"吃了沒有效？買到假鹿茸？" },
+    { id:"7597798718720576789", url:"https://www.tiktok.com/@changwuchi2023/video/7597798718720576789", title:"鬼鬼祟祟！向內偷偷摸摸!?" },
+    { id:"7600388782180945172", url:"https://www.tiktok.com/@changwuchi2023/video/7600388782180945172", title:"他摸過上千支鹿🐦🐦！" },
+    { id:"7599654150523079957", url:"https://www.tiktok.com/@changwuchi2023/video/7599654150523079957", title:"泡製不是泡在水裡!?" },
+    { id:"7599984981527530772", url:"https://www.tiktok.com/@changwuchi2023/video/7599984981527530772?lang=zh-Hant-TW", title:"中💊版蝦味先，泡製鹿便！" }
+  ];
 
-// ✅ 顯示順序：越後面越新 → 畫面最新在最上
-const VIDEOS = VIDEOS_SEEDED.slice().reverse();
-const latestId = VIDEOS.length ? VIDEOS[0].id : null;
+  // ✅ 顯示順序：越後面越新 → 畫面最新在最上
+  const VIDEOS = [...VIDEOS_SEEDED].reverse();
+  const latestId = VIDEOS.length ? VIDEOS[0].id : null;
 
-function esc(s){
-  s = String(s || "");
-  return s
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;");
-}
-
-function buildCard(v){
-  const title = v.title || "中醫觀點分享";
-
-  const card = document.createElement("article");
-  card.className = "video-card";
-  card.id = "v-" + v.id;
-
-  const head = document.createElement("div");
-  head.className = "video-head";
-
-  const h3 = document.createElement("h3");
-  h3.className = "video-title";
-
-  const titleSpan = document.createElement("span");
-  titleSpan.textContent = title;
-  h3.appendChild(titleSpan);
-
-  if (latestId && v.id === latestId){
-    const badge = document.createElement("span");
-    badge.className = "badge-latest";
-    badge.textContent = "🔥 最新";
-    h3.appendChild(badge);
+  function escapeHtml(s){
+    return String(s || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
   }
 
-  const desc = document.createElement("p");
-  desc.className = "video-desc";
-  desc.textContent = "以「作息、體感與節奏」理解常見問法（不做醫療診斷／治療宣稱）。";
+  function buildCard(v){
+    const card = document.createElement('article');
+    card.className = 'video-card';
+    card.id = `v-${v.id}`;
 
-  head.appendChild(h3);
-  head.appendChild(desc);
+    const head = document.createElement('div');
+    head.className = 'video-head';
 
-  const frame = document.createElement("div");
-  frame.className = "video-frame";
+    const h3 = document.createElement('h3');
+    h3.className = 'video-title';
+    h3.textContent = v.title || '中醫觀點分享';
 
-  const btn = document.createElement("button");
-  btn.className = "video-play-btn";
-  btn.type = "button";
-  btn.setAttribute("aria-label", "播放影片：" + title);
-  btn.innerHTML = "<span>▶ 播放</span>";
+    if (latestId && v.id === latestId){
+      const badge = document.createElement('span');
+      badge.className = 'badge-latest';
+      badge.textContent = '🔥 最新';
+      h3.appendChild(badge);
+    }
 
-  btn.addEventListener("click", () => {
-    frame.innerHTML =
-      '<iframe src="https://www.tiktok.com/embed/v2/' + esc(v.id) + '?autoplay=1"' +
-      ' allow="autoplay; fullscreen" allowfullscreen loading="lazy"' +
-      ' title="' + esc(title) + '"></iframe>';
-  });
+    const desc = document.createElement('p');
+    desc.className = 'video-desc';
+    desc.textContent = '以「作息、體感與節奏」理解常見問法（不做醫療診斷／治療宣稱）。';
 
-  frame.appendChild(btn);
+    head.appendChild(h3);
+    head.appendChild(desc);
 
-  const foot = document.createElement("div");
-  foot.className = "video-foot";
-  foot.innerHTML =
-    '<a class="video-link" href="' + esc(v.url) + '" target="_blank" rel="noopener">開啟原影片</a>' +
-    '<a class="backtop" href="#top">↑ 回到頁首</a>';
+    const frame = document.createElement('div');
+    frame.className = 'video-frame';
 
-  card.appendChild(head);
-  card.appendChild(frame);
-  card.appendChild(foot);
+    const btn = document.createElement('button');
+    btn.className = 'video-play-btn';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', '播放影片：' + (v.title || '中醫觀點分享'));
+    btn.innerHTML = '<span>▶ 播放</span>';
 
-  return card;
-}
+    btn.addEventListener('click', () => {
+      frame.innerHTML = `
+        <iframe
+          src="https://www.tiktok.com/embed/v2/${v.id}?autoplay=1"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+          loading="lazy"
+          title="${escapeHtml(v.title || '中醫觀點分享')}">
+        </iframe>`;
+    });
 
-function render(){
-  const grid = document.getElementById("videoGrid");
-  const select = document.getElementById("videoSelect");
-  if (!grid || !select) return;
+    frame.appendChild(btn);
 
-  grid.innerHTML = "";
-  select.innerHTML = '<option value="">請選擇影片</option>';
+    const foot = document.createElement('div');
+    foot.className = 'video-foot';
+    foot.innerHTML = `
+      <a class="video-link" href="${escapeHtml(v.url)}" target="_blank" rel="noopener">開啟原影片</a>
+      <a class="backtop" href="#top">↑ 回頂端</a>
+    `;
 
-  VIDEOS.forEach(v => {
-    const opt = document.createElement("option");
-    opt.value = "v-" + v.id;
-    opt.textContent = v.title || "中醫觀點分享";
-    select.appendChild(opt);
+    card.appendChild(head);
+    card.appendChild(frame);
+    card.appendChild(foot);
 
-    grid.appendChild(buildCard(v));
-  });
+    return card;
+  }
 
-  select.addEventListener("change", () => {
-    if (!select.value) return;
-    const el = document.getElementById(select.value);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  function render(){
+    const grid = document.getElementById('videoGrid');
+    const select = document.getElementById('videoSelect');
+    if (!grid || !select) return;
 
-  // ✅ 動態注入 ItemList（SEO 加分）
-  try{
-    const itemList = {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "中醫觀點影片清單（最新在上）",
-      "itemListOrder": "http://schema.org/ItemListOrderDescending",
-      "itemListElement": VIDEOS.map((v, i) => ({
-        "@type": "ListItem",
-        "position": i + 1,
-        "url": v.url
-      }))
-    };
-    const s = document.createElement("script");
-    s.type = "application/ld+json";
-    s.textContent = JSON.stringify(itemList);
-    document.head.appendChild(s);
-  }catch(e){}
-}
+    grid.innerHTML = '';
+    select.innerHTML = '<option value="">請選擇影片</option>';
 
-document.addEventListener("DOMContentLoaded", render);
+    VIDEOS.forEach((v) => {
+      const opt = document.createElement('option');
+      opt.value = `v-${v.id}`;
+      opt.textContent = v.title || '中醫觀點分享';
+      select.appendChild(opt);
+
+      grid.appendChild(buildCard(v));
+    });
+
+    select.addEventListener('change', () => {
+      if (!select.value) return;
+      const el = document.getElementById(select.value);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+
+  render();
 </script>
 
+<script src="assets/js/unit-normalize.js" defer></script>
 </body>
 </html>
