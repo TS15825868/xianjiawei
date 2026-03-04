@@ -2,7 +2,7 @@
    規則：全站只維護這一支；保留 v7.2 原視覺（不改配色/配置）。
 */
 
-/* ===== Web v7.9 Unified Template (Palette-safe) ===== */
+
 .site-header{position:sticky;top:0;z-index:1000;background:#0B1F3B;}
 .header-inner{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
 .brand{color:#fff;text-decoration:none;font-weight:800;letter-spacing:.02em;}
@@ -61,3 +61,104 @@ main{max-width:1100px;margin:0 auto;padding:0 16px;}
 /* ===== v8.0.1 Restore original 3-line hamburger ===== */
 .nav-toggle{display:flex;flex-direction:column;justify-content:center;gap:5px;}
 .nav-toggle .burger-line{display:block;width:18px;height:2px;background:#fff;border-radius:2px;opacity:.95;}
+
+
+/* Skip link: keep accessibility but don't occupy layout */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
+.skip-link:focus{left:12px;top:12px;width:auto;height:auto;background:#fff;padding:10px 12px;border-radius:12px;z-index:2000;box-shadow:0 12px 30px rgba(0,0,0,.18);}
+
+/* Header (keeps your original visual area, only fixes menu behavior) */
+.site-header{position:sticky;top:0;z-index:1200;background:#0B1F3B;}
+.header-inner{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.brand{color:#fff;text-decoration:none;font-weight:800;letter-spacing:.02em;}
+.nav-toggle{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:14px;padding:8px 12px;font-size:18px;line-height:1;cursor:pointer;}
+
+/* Overlay container */
+.site-nav{display:none;}
+.nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .18s ease;z-index:1190;}
+.nav-overlay.open{opacity:1;pointer-events:auto;}
+
+/* Menu panel (full overlay like original) */
+.site-nav.open{display:block;position:fixed;inset:0;z-index:1210;}
+.site-nav .menu-panel{
+  position:absolute;top:70px;left:12px;right:12px;
+  background:rgba(255,255,255,.92);
+  border-radius:18px;
+  padding:14px 12px;
+  box-shadow:0 26px 75px rgba(0,0,0,.18);
+  backdrop-filter: blur(8px);
+}
+.site-nav ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+.site-nav a{
+  text-decoration:none;color:#0B1F3B;background:rgba(255,255,255,.92);
+  border:1px solid rgba(11,31,59,.10);
+  border-radius:16px;padding:14px 14px;display:block;
+  font-weight:700;
+}
+.site-nav a.active{border-color:rgba(255,122,0,.35);box-shadow:0 10px 24px rgba(255,122,0,.10);}
+
+/* Desktop: still use hamburger to keep simple (no side-stuck nav) */
+@media (min-width: 901px){
+  .site-nav .menu-panel{top:86px;left:calc(50% - 420px);right:calc(50% - 420px);max-width:840px;margin:0 auto;}
+}
+
+/* Footer keeps palette */
+.site-footer{margin-top:40px;background:#F7F4ED;}
+.footer-inner{max-width:1100px;margin:0 auto;padding:18px 16px;display:grid;gap:10px;}
+.footer-title{font-weight:900;}
+.footer-sub{opacity:.78;font-size:.95rem;line-height:1.7;}
+.footer-links{display:flex;flex-wrap:wrap;gap:12px;}
+.footer-links a{text-decoration:none;}
+.footer-copy{opacity:.65;font-size:.85rem;}
+
+main{max-width:1100px;margin:0 auto;padding:0 16px;}
+
+/* Products overview card media */
+.pmedia{aspect-ratio:4/3;background:rgba(0,0,0,.03);display:flex;align-items:center;justify-content:center;}
+.pmedia img{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* ===== Web v8.0.3 Hamburger (Original feel: click → dropdown under header) ===== */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
+.skip-link:focus{left:12px;top:12px;width:auto;height:auto;background:#fff;padding:10px 12px;border-radius:12px;z-index:2000;box-shadow:0 12px 30px rgba(0,0,0,.18);}
+
+/* Header layout uses original styling; only ensure positioning for dropdown */
+.site-header{position:sticky;top:0;z-index:1000;}
+.header-inner{position:relative;} /* anchor for absolute nav on mobile */
+
+/* Hamburger icon = 3 lines (same hand feel) */
+.nav-toggle{display:none;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.28);border-radius:12px;cursor:pointer;padding:10px 12px;transition:transform .18s ease, background .18s ease, border-color .18s ease;}
+.nav-toggle .burger-line{display:block;width:20px;height:2px;background:rgba(255,255,255,.92);border-radius:2px;}
+.nav-toggle .burger-line + .burger-line{margin-top:4px;}
+.nav-toggle.is-open{background:rgba(255,122,0,.18);border-color:rgba(255,122,0,.60);transform:translateY(-1px);}
+
+/* Desktop: nav inline */
+.site-nav{display:block;}
+.site-nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;}
+.site-nav a{text-decoration:none;}
+.nav-link{position:relative;white-space:nowrap;}
+.nav-link::after{content:"";position:absolute;left:50%;bottom:-4px;width:0;height:2px;background:rgba(255,122,0,.85);transform:translateX(-50%);transition:.3s ease;}
+.nav-link:hover::after,.nav-link--active::after{width:100%;}
+
+/* Mobile: dropdown panel under header (not side-stuck, not overlay) */
+@media (max-width: 768px){
+  .nav-toggle{display:block;}
+  .site-nav{
+    display:none !important;
+    position:absolute !important;
+    top:100% !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    margin-top:8px !important;
+    background:#ffffff !important;
+    padding:0.75rem 1.0rem 1rem !important;
+    box-shadow:0 8px 16px rgba(0,0,0,.06) !important;
+    border-radius:14px !important;
+    z-index:900 !important;
+  }
+  .site-nav.is-open{display:block !important;}
+  .site-nav ul{display:flex;flex-direction:column;gap:.35rem;margin:0;padding:0;}
+  .nav-link{display:block;padding:.45rem .15rem;font-size:.95rem;}
+}
+/* Prevent any legacy side-menu rules from leaking */
+.site-nav.open{display:block;} /* harmless if exists elsewhere */

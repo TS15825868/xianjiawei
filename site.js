@@ -1,24 +1,43 @@
 "use strict";
-/* Web v8.0.1 — Stable hamburger for original header */
+/* Web v8.0.3 — Original hamburger hand feel (dropdown under header) */
 (function(){
-  const btn=document.querySelector('main .nav-toggle') || document.querySelector('.nav-toggle');
-  const nav=document.querySelector('main .site-nav') || document.querySelector('.site-nav');
-  if(!btn || !nav) return;
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector(".site-nav");
+  if(!toggle || !nav) return;
 
-  // Create overlay if not present
-  let overlay=document.querySelector('.nav-overlay');
-  if(!overlay){
-    overlay=document.createElement('div');
-    overlay.className='nav-overlay';
-    document.body.appendChild(overlay);
+  function closeNav(){
+    nav.classList.remove("is-open");
+    toggle.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded","false");
   }
 
-  const open=()=>{ nav.classList.add('open'); overlay.classList.add('open'); btn.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; };
-  const close=()=>{ nav.classList.remove('open'); overlay.classList.remove('open'); btn.setAttribute('aria-expanded','false'); document.body.style.overflow=''; };
+  if(!toggle.hasAttribute("aria-expanded")) toggle.setAttribute("aria-expanded","false");
 
-  btn.setAttribute('aria-expanded','false');
-  btn.addEventListener('click',(e)=>{ e.preventDefault(); nav.classList.contains('open') ? close() : open(); });
-  overlay.addEventListener('click', close);
-  nav.addEventListener('click',(e)=>{ const a=e.target.closest('a'); if(a && window.matchMedia('(max-width: 900px)').matches) close(); });
-  window.addEventListener('keydown',(e)=>{ if(e.key==='Escape') close(); });
+  toggle.addEventListener("click", function(e){
+    e.stopPropagation();
+    const next = !nav.classList.contains("is-open");
+    nav.classList.toggle("is-open", next);
+    toggle.classList.toggle("is-open", next);
+    toggle.setAttribute("aria-expanded", next ? "true" : "false");
+  });
+
+  // click outside closes (original feel)
+  document.addEventListener("click", function(e){
+    const insideNav = nav.contains(e.target);
+    const onToggle = toggle.contains(e.target);
+    if(!insideNav && !onToggle) closeNav();
+  });
+
+  // mobile: scroll closes
+  window.addEventListener("scroll", function(){
+    if(window.innerWidth <= 768 && nav.classList.contains("is-open")) closeNav();
+  }, {passive:true});
+
+  // set active link
+  const path = (location.pathname.split("/").pop() || "index.html").toLowerCase();
+  nav.querySelectorAll("a.nav-link").forEach(a => {
+    const href=(a.getAttribute("href")||"").toLowerCase();
+    if(href===path) a.classList.add("nav-link--active");
+  });
+
 })();

@@ -1,2 +1,2 @@
-TaiShing Website - Web v8.0 Products overview shows 4 main products only; only 4 product pages have buttons
+TaiShing Website - Web v8.0.3 Restore original hamburger dropdown feel; unify header/footer; no extra assets
 Updated: 2026-03-04
