@@ -1,176 +1,132 @@
-/* ========= Base ========= */
-:root{
-  --bg: #f6f4ef;
-  --text: #222;
-  --muted: #777;
-  --white: #fff;
-  --shadow: 0 12px 30px rgba(0,0,0,.12);
-}
-
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
-
 body{
   font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC',sans-serif;
   margin:0;
-  background:var(--bg);
-  color:var(--text);
-  -webkit-text-size-adjust:100%;
+  background:#f6f4ef;
+  color:#222;
 }
 
-/* 打開抽屜時（JS 會加這個 class）鎖住背景滾動 */
+/* ✅ 打開抽屜時鎖住背景滾動 */
 body.drawer-open{
   overflow:hidden;
+  height:100vh;
   touch-action:none;
 }
 
-/* ========= Header ========= */
 .header{
-  position:sticky;
-  top:0;
-  z-index:50;
   display:flex;
   justify-content:space-between;
   align-items:center;
   padding:14px 20px;
-  background:var(--white);
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
 
-/* Logo 可能是 <a>，避免出現紫色/底線 */
 .logo{
-  cursor:pointer;
-  line-height:1.05;
   text-decoration:none;
-  color:inherit;
+  color:#222;
+  line-height:1.05;
   display:inline-block;
 }
-.logo:visited{ color:inherit; }
-.logo:hover{ opacity:.92; }
 
-.brand{ font-size:20px; font-weight:800; letter-spacing:.2px; }
-.sub{ font-size:16px; font-weight:700; margin-top:4px; }
-.xjw{ font-size:12px; color:var(--muted); margin-top:3px; letter-spacing:1px; }
+.brand{font-size:20px;font-weight:900;letter-spacing:.5px;}
+.sub{font-size:16px;font-weight:800;margin-top:2px;}
+.xjw{font-size:12px;color:#777;margin-top:4px;letter-spacing:2px;}
 
-/* Hamburger */
 .hamburger{
   font-size:24px;
   background:none;
-  border:0;
-  padding:8px 10px;
-  line-height:1;
-  cursor:pointer;
-}
-.hamburger:focus{
-  outline:2px solid rgba(0,0,0,.15);
-  outline-offset:2px;
-  border-radius:10px;
+  border:1px solid #ddd;
+  width:44px;
+  height:44px;
+  border-radius:12px;
 }
 
-/* ========= Drawer / Overlay ========= */
-/* 遮罩（點空白可關閉，JS 會切換 .open） */
+/* ✅ Overlay 遮罩 */
 .drawer-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.38);
+  background:rgba(0,0,0,.35);
   opacity:0;
   pointer-events:none;
-  transition:opacity .22s ease;
-  z-index:9980;
+  transition:.2s;
+  z-index:9998;
 }
 .drawer-overlay.open{
   opacity:1;
   pointer-events:auto;
 }
 
-/* 抽屜本體：用 transform 更穩，不會露底 */
+/* ✅ Drawer：用 transform 比 right 更穩（iOS 不抖） */
 .drawer{
   position:fixed;
   top:0;
   right:0;
-  width:86vw;              /* 右側 86% */
-  max-width:420px;         /* 大螢幕不要太誇張 */
-  height:100dvh;           /* iOS 比 100% 穩 */
-  background:var(--white);
+  width:86%;
+  max-width:420px;
+  height:100vh;
+  background:#fff;
   overflow:auto;
   -webkit-overflow-scrolling:touch;
   transform:translateX(100%);
-  transition:transform .28s ease;
-  padding:18px 20px 22px;
+  transition:transform .25s ease;
+  padding:16px 20px 24px;
   z-index:9999;
-  box-shadow:var(--shadow);
+  box-shadow:-18px 0 40px rgba(0,0,0,.15);
 }
-.drawer.open{
-  transform:translateX(0);
+.drawer.open{ transform:translateX(0); }
+
+.drawer-top{
+  position:sticky;
+  top:0;
+  background:#fff;
+  padding:10px 0 12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1;
+  border-bottom:1px solid #eee;
 }
 
-/* Drawer 頂部：標題 + X */
-.drawer-top{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding-bottom:10px;
-  border-bottom:1px solid rgba(0,0,0,.08);
-  margin-bottom:8px;
-}
 .drawer-title{
-  font-weight:800;
+  font-weight:900;
   font-size:16px;
 }
-.drawer-close{
-  width:38px;
-  height:38px;
-  border:1px solid rgba(0,0,0,.18); /* ✅ X 有框框 */
-  background:#fff;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:20px;
-  line-height:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.drawer-close:active{ transform:scale(.98); }
 
-/* Links / Groups */
+.drawer-close{
+  background:#fff;
+  border:1px solid #ddd;
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  font-size:18px;
+}
+
 .drawer a{
   display:block;
   padding:12px 0;
-  color:var(--text);
+  color:#222;
   text-decoration:none;
-  border-bottom:1px solid rgba(0,0,0,.06);
+  border-bottom:1px solid #f1f1f1;
 }
-.drawer a:visited{ color:var(--text); }
-.drawer a:hover{ opacity:.9; }
 
 .menu-group{
   margin-top:16px;
   font-weight:900;
-  font-size:13px;
   color:#111;
-  letter-spacing:.5px;
-  padding-top:10px;
+  padding:10px 0 6px;
 }
 
-/* ========= Layout ========= */
 .container{
   max-width:900px;
   margin:auto;
-  padding:28px 20px 40px;
+  padding:40px 20px;
 }
 
-/* ========= Footer ========= */
 .footer{
   text-align:center;
-  padding:30px 16px;
-  background:var(--white);
+  padding:30px 18px;
+  background:#fff;
   margin-top:40px;
-}
-
-/* 小螢幕微調 */
-@media (max-width:420px){
-  .header{ padding:12px 14px; }
-  .brand{ font-size:19px; }
-  .sub{ font-size:15px; }
-  .drawer{ width:86vw; }
 }
