@@ -2,12 +2,21 @@
   --bg:#f6f4ef;
   --text:#222;
   --muted:#666;
-  --card:#ffffff;
   --line:#e8e3d9;
-  --shadow: 0 10px 30px rgba(0,0,0,.08);
-  --radius: 20px;
-  --navH: 72px;
-  --footerH: 110px; /* 讓內容不會被固定頁尾蓋住 */
+  --white:#fff;
+
+  /* UI System */
+  --radius:16px;
+  --radius-lg:20px;
+  --border:2px solid #222;         /* ✅ 全站框框統一 */
+  --shadow:0 10px 30px rgba(0,0,0,.08);
+
+  /* Layout */
+  --navH:72px;
+  --footerH:120px;
+
+  /* Drawer */
+  --drawerW:86%;
 }
 
 *{box-sizing:border-box}
@@ -20,7 +29,7 @@ body{
   overflow-x:hidden;
 }
 
-/* Header 固定上方 */
+/* ===== Header fixed ===== */
 .header{
   position:fixed;
   top:0; left:0; right:0;
@@ -29,30 +38,82 @@ body{
   justify-content:space-between;
   align-items:center;
   padding:14px 18px;
-  background:#fff;
+  background:var(--white);
   border-bottom:1px solid var(--line);
   z-index:10000;
 }
 
-.logo{cursor:pointer;line-height:1}
-.brand{font-size:20px;font-weight:800;letter-spacing:.5px}
-.sub{font-size:16px;font-weight:800;margin-top:4px}
-.xjw{font-size:12px;color:#777;margin-top:6px}
+.logo{
+  cursor:pointer;
+  line-height:1.05;
+  text-decoration:none;
+  color:inherit;
+  display:inline-block;
+}
+.logo:visited{color:inherit}
+.brand{font-size:20px;font-weight:900;letter-spacing:.5px}
+.sub{font-size:16px;font-weight:900;margin-top:4px}
+.xjw{font-size:12px;color:#777;margin-top:6px;letter-spacing:2px}
 
+/* ===== UI: Buttons (統一框框系統) ===== */
+.btn,
+button.btn,
+a.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 16px;
+  border-radius:var(--radius);
+  border:var(--border);
+  background:var(--white);
+  color:var(--text);
+  text-decoration:none;
+  font-weight:900;
+  cursor:pointer;
+  min-height:44px; /* iOS friendly */
+  -webkit-tap-highlight-color:transparent;
+  transition:background .15s ease,color .15s ease,transform .05s ease;
+}
+.btn:active{transform:scale(.99)}
+
+.btn.primary{
+  background:var(--white);
+  color:var(--text);
+  border:var(--border);
+}
+.btn.ghost{
+  background:transparent;
+  color:var(--text);
+  border:var(--border);
+}
+.btn.full{width:100%}
+.btn.sm{padding:10px 12px; min-height:40px; font-size:14px}
+.btn.lg{padding:14px 18px; min-height:48px; font-size:16px}
+
+.btn:hover,
+.ql:hover,
+.hamburger:hover,
+.drawer-close:hover{
+  background:#222;
+  color:#fff;
+}
+
+/* Hamburger button (靠右 + 有框框) */
 .hamburger{
   font-size:26px;
-  background:none;
-  border:1px solid var(--line);
   width:46px;
   height:46px;
-  border-radius:14px;
+  border-radius:var(--radius);
+  border:var(--border);
+  background:var(--white);
   display:flex;
   align-items:center;
   justify-content:center;
   cursor:pointer;
 }
 
-/* 主內容：上下避開固定 header/footer，置中 */
+/* ===== Main layout (主內文全置中) ===== */
 .main{
   min-height:calc(100vh - var(--navH) - var(--footerH));
   padding-top:calc(var(--navH) + 18px);
@@ -61,116 +122,82 @@ body{
   margin:0 auto;
   padding-left:18px;
   padding-right:18px;
+
+  /* ✅ 全站主內文置中 */
+  text-align:center;
 }
 
-/* Hero */
+/* 共用段落排版 */
+h1,h2,h3{margin:0 0 12px}
+p{margin:0 0 12px; line-height:1.8; color:#333}
+
+/* Hero card */
 .hero{
-  background:rgba(255,255,255,.65);
+  background:rgba(255,255,255,.70);
   border:1px solid var(--line);
-  border-radius:var(--radius);
+  border-radius:var(--radius-lg);
   padding:30px 22px;
   box-shadow:var(--shadow);
 }
-
-.hero-title{
-  margin:0 0 12px;
-  font-size:38px;
-  letter-spacing:.5px;
-}
-
-.hero-desc{
-  margin:0;
-  color:#333;
-  font-size:18px;
-  line-height:1.75;
-}
-
+.hero-title{font-size:38px;letter-spacing:.5px}
+.hero-desc{font-size:18px;color:#333}
 .hero-actions{
   margin-top:18px;
   display:flex;
+  justify-content:center;
   gap:12px;
   flex-wrap:wrap;
 }
 
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:12px 16px;
-  border-radius:14px;
-  text-decoration:none;
-  font-weight:800;
-  border:1px solid var(--line);
-  min-width:140px;
-}
-
-.btn.primary{
-  background:#d88945;
-  color:#fff;
-  border-color:#d88945;
-}
-
-.btn.ghost{
-  background:#fff;
-  color:#222;
-}
-
-/* 三點特色 */
+/* Feature cards */
 .features{
   margin-top:16px;
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:12px;
 }
-
 .feature-card{
-  background:var(--card);
+  background:var(--white);
   border:1px solid var(--line);
   border-radius:18px;
   padding:18px 16px;
   box-shadow:var(--shadow);
 }
+.feature-title{font-weight:900;font-size:16px;margin-bottom:8px}
+.feature-text{font-size:14px;color:#333;line-height:1.7}
 
-.feature-title{
-  font-weight:900;
-  margin-bottom:8px;
-  font-size:16px;
-}
-
-.feature-text{
-  color:#333;
-  line-height:1.7;
-  font-size:14px;
-}
-
-/* 快速連結 */
+/* Quick links */
 .quicklinks{
   margin-top:14px;
   display:flex;
+  justify-content:center;
   gap:10px;
   flex-wrap:wrap;
 }
-
 .ql{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
   padding:10px 14px;
+  border-radius:var(--radius);
+  border:var(--border);
+  background:var(--white);
+  color:var(--text);
   text-decoration:none;
-  color:#222;
-  font-weight:800;
+  font-weight:900;
+  min-height:44px;
+  transition:background .15s ease,color .15s ease;
 }
 
-/* Footer 固定下面 */
+/* ===== Footer fixed ===== */
 .footer{
   position:fixed;
   left:0; right:0; bottom:0;
   height:var(--footerH);
-  background:#fff;
+  background:var(--white);
   border-top:1px solid var(--line);
   z-index:9999;
 }
-
 .footer-inner{
   max-width:960px;
   margin:0 auto;
@@ -178,20 +205,19 @@ body{
   display:grid;
   gap:8px;
 }
-
 .footer-line{
   display:flex;
   gap:10px;
   align-items:baseline;
   justify-content:center;
   flex-wrap:wrap;
-  text-align:center;
 }
-
-.footer-label{color:var(--muted); font-weight:800}
+.footer-label{color:var(--muted); font-weight:900}
 .footer-value{font-weight:900}
 
-/* Overlay + Drawer */
+/* ===== Drawer + Overlay ===== */
+body.menu-open{ overflow:hidden; }
+
 .overlay{
   position:fixed;
   inset:0;
@@ -201,7 +227,6 @@ body{
   transition:.25s;
   z-index:9998;
 }
-
 .overlay.open{
   opacity:1;
   pointer-events:auto;
@@ -210,24 +235,24 @@ body{
 .drawer{
   position:fixed;
   top:0;
-  right:-86%;
-  width:86%;
+  right:-100%;          /* ✅ 更穩，不露底 */
+  width:var(--drawerW);
+  max-width:420px;
   height:100%;
-  background:#fff;
+  background:var(--white);
   overflow:auto;
   -webkit-overflow-scrolling:touch;
-  transition:.3s;
+  transition:.25s;
   padding:16px 18px 20px;
   z-index:9999;
   border-left:1px solid var(--line);
 }
-
-.drawer.open{right:0}
+.drawer.open{ right:0; }
 
 .drawer-top{
   position:sticky;
   top:0;
-  background:#fff;
+  background:var(--white);
   padding:8px 0 10px;
   display:flex;
   align-items:center;
@@ -235,18 +260,15 @@ body{
   border-bottom:1px solid var(--line);
   z-index:2;
 }
+.drawer-title{font-weight:900;font-size:16px}
 
-.drawer-title{
-  font-weight:900;
-  font-size:16px;
-}
-
+/* ✅ X 有框框，沿用統一系統 */
 .drawer-close{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  border:1px solid var(--line);
-  background:#fff;
+  width:46px;
+  height:46px;
+  border-radius:var(--radius);
+  border:var(--border);
+  background:var(--white);
   cursor:pointer;
   font-size:18px;
   display:flex;
@@ -257,17 +279,20 @@ body{
 .drawer a{
   display:block;
   padding:12px 2px;
-  color:#222;
+  color:var(--text);
   text-decoration:none;
-  font-weight:800;
+  font-weight:900;
   border-bottom:1px dashed rgba(0,0,0,.06);
+  text-align:left; /* 內容本身置中，但抽屜選單保持左對齊較好讀 */
 }
+.drawer a:hover{background:#222;color:#fff}
 
 .menu-group{
   margin-top:14px;
   font-weight:900;
   color:#111;
   padding:10px 2px 6px;
+  text-align:left;
 }
 
 .drawer-bottom{
@@ -275,26 +300,25 @@ body{
   padding-top:10px;
 }
 
-.drawer-cta{
+/* Utility: 卡片（未來內頁用） */
+.card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);
+  padding:22px 18px;
+  text-align:center;
+}
+.card .btnrow{
   display:flex;
-  align-items:center;
   justify-content:center;
-  border-radius:14px;
-  padding:12px 14px;
-  background:#0b1f3b;
-  color:#fff !important;
-  text-decoration:none;
-  font-weight:900;
-  border:1px solid #0b1f3b;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-body.menu-open{
-  overflow:hidden;
-}
-
-/* 手機版調整 */
+/* RWD */
 @media (max-width: 860px){
   .hero-title{font-size:34px}
   .features{grid-template-columns:1fr}
-  :root{ --footerH: 120px; }
+  :root{ --footerH: 132px; }
 }
