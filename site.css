@@ -1,0 +1,76 @@
+
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;background:#F5F1EA;margin:0;color:#0B1F3B}
+header{background:#0B1F3B;color:white;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:700}
+.hamburger{font-size:22px;cursor:pointer}
+nav{position:fixed;top:0;right:-260px;width:260px;height:100%;background:#0B1F3B;transition:.3s;padding-top:60px}
+nav a{display:block;color:white;padding:16px 20px;text-decoration:none}
+nav.open{right:0}
+main{padding:30px 20px;max-width:1000px;margin:auto}
+.card{background:white;border-radius:20px;padding:24px;margin-bottom:20px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.hero{text-align:center}
+.btn{padding:12px 20px;border-radius:30px;text-decoration:none;display:inline-block;margin:8px}
+.btn.primary{background:#F07C2E;color:white}
+.btn.ghost{border:1px solid #ccc;color:#0B1F3B}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+@media(min-width:900px){.grid{grid-template-columns:repeat(4,1fr)}}
+.card-btn{background:white;border-radius:16px;padding:18px;text-align:center;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+footer{background:#0B1F3B;color:white;padding:30px;text-align:center;margin-top:40px}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center}
+.modal-content{background:white;border-radius:20px;padding:30px;max-width:500px}
+.close{cursor:pointer;font-size:18px;margin-bottom:10px}
+
+
+/* vFinal: brand wordmark */
+.logo{line-height:1.15}
+.brand{font-size:18px;font-weight:800;letter-spacing:.5px}
+.brand-sub{font-size:11px;opacity:.85;letter-spacing:1.6px;margin-top:2px}
+.brand-tag{font-size:12px;opacity:.9;margin-top:3px}
+
+/* button resets */
+.hamburger{background:transparent;border:0;color:#fff}
+
+/* premium product cards */
+.products-grid{margin-top:18px}
+.product-card{border:0;background:#fff;border-radius:20px;padding:14px;text-align:left;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.product-card img{width:100%;height:140px;object-fit:contain;border-radius:14px;background:#F5F1EA}
+@media(min-width:900px){.product-card img{height:160px}}
+.pc-title{font-weight:800;margin-top:10px}
+.pc-sub{font-size:13px;opacity:.85;margin-top:4px}
+
+/* modal improvements */
+.modal-content{width:min(520px,92vw)}
+.modal-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.modal-close{border:0;background:transparent;font-size:18px;cursor:pointer}
+.modal-brand{font-size:12px;opacity:.7;margin-bottom:4px}
+.modal-title{font-size:22px;font-weight:900}
+.modal-tag{font-size:13px;opacity:.85;margin-top:6px;line-height:1.5}
+.modal-section{margin-top:14px}
+.modal-k{font-weight:800;margin-bottom:6px}
+.modal-v{opacity:.9;line-height:1.6}
+.modal-list{margin:0;padding-left:18px;opacity:.9;line-height:1.7}
+.modal-actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
+.modal-note{margin-top:12px;font-size:12px;opacity:.75;line-height:1.5}
+
+/* typography helpers */
+.h1{margin:0 0 10px 0;font-size:28px}
+.h2{margin:0 0 10px 0;font-size:18px}
+.lead{margin:0 0 14px 0;opacity:.9;line-height:1.7}
+.note{margin-top:12px;font-size:12px;opacity:.75;line-height:1.6}
+.card.mini{padding:18px}
+.bullets{margin:0;padding-left:18px;line-height:1.8}
+.quick .card-btn{border-radius:18px;text-decoration:none;color:inherit}
+.card-btn-title{font-weight:800}
+.card-btn-sub{font-size:12px;opacity:.75;margin-top:6px}
+.footer-brand{font-weight:800}
+.footer-sub{opacity:.85;font-weight:600}
+.footer-company{font-size:12px;opacity:.8;margin-top:6px}
+.footer-line{font-size:12px;opacity:.9;margin-top:10px}
+.footer-link{color:#fff;text-decoration:underline}
+.table-wrap{overflow:auto;border-radius:14px}
+.simple-table{width:100%;border-collapse:collapse;background:#fff}
+.simple-table th,.simple-table td{padding:12px 14px;text-align:left;border-bottom:1px solid rgba(0,0,0,.06);font-size:14px}
+.faq details{background:#fff;border-radius:16px;padding:14px 16px;margin:12px 0;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.faq summary{cursor:pointer;font-weight:800}
+.season-card{background:#fff;border-radius:20px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.season-hint{font-size:12px;opacity:.8;margin-top:10px}

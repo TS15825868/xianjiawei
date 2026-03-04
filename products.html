@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="仙加味・龜鹿｜品牌官網。延續傳統熬製工序，重視原料與製程，將補養融入日常飲食搭配。">
+  <title>產品總覽｜仙加味</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+<header>
+  <div class="logo">
+    <div class="brand">仙加味</div>
+    <div class="brand-sub">XIAN JIA WEI</div>
+    <div class="brand-tag">龜鹿補養</div>
+  </div>
+  <button class="hamburger" type="button" aria-label="開啟選單" onclick="toggleMenu()">☰</button>
+</header>
+<nav id="nav">
+<a href="index.html">首頁</a>
+<a href="products.html">產品總覽</a>
+<a href="choose.html">怎麼選擇</a>
+<a href="pairing.html">怎麼搭配</a>
+<a href="usage.html">使用方式</a>
+<a href="seasons.html">四季建議</a>
+<a href="ingredients.html">食材介紹</a>
+<a href="sharing.html">合作分享</a>
+<a href="faq.html">常見問題</a>
+<a href="about.html">關於我們</a>
+<a href="contact.html">聯絡我們</a>
+<a href="line.html">LINE詢問</a>
+</nav>
+<main>
+<section class="card">
+  <h1 class="h1">產品總覽</h1>
+  <p class="lead">不同型態的龜鹿與鹿茸產品，可依生活習慣與飲食方式選擇。</p>
+
+  <div class="grid products-grid">
+    <button class="product-card" type="button" onclick="openModal('m_gao')">
+      <img src="images/guilu-gao-100g-jar.png" alt="龜鹿膏 100g" loading="lazy">
+      <div class="pc-title">龜鹿膏</div>
+      <div class="pc-sub">濃縮型態｜日常食用</div>
+    </button>
+
+    <button class="product-card" type="button" onclick="openModal('m_drink')">
+      <img src="images/guilu-drink.jpg" alt="龜鹿飲" loading="lazy">
+      <div class="pc-title">龜鹿飲</div>
+      <div class="pc-sub">液態型態｜方便飲用</div>
+    </button>
+
+    <button class="product-card" type="button" onclick="openModal('m_block')">
+      <img src="images/guilu-soup-block.jpg" alt="龜鹿湯塊" loading="lazy">
+      <div class="pc-title">龜鹿湯塊</div>
+      <div class="pc-sub">燉煮料理｜雞湯排骨湯</div>
+    </button>
+
+    <button class="product-card" type="button" onclick="openModal('m_antler')">
+      <img src="images/lurong-powder-jar.jpg" alt="鹿茸粉" loading="lazy">
+      <div class="pc-title">鹿茸粉</div>
+      <div class="pc-sub">粉末型態｜搭配飲食</div>
+    </button>
+  </div>
+</section>
+
+<div class="modal" id="m_gao" role="dialog" aria-modal="true" aria-label="龜鹿膏">
+  <div class="modal-content">
+    <div class="modal-head">
+      <div>
+        <div class="modal-brand">仙加味</div>
+        <div class="modal-title">龜鹿膏</div>
+        <div class="modal-tag">濃縮型態，適合作為日常飲食補養的搭配。</div>
+      </div>
+      <button class="modal-close" type="button" aria-label="關閉" onclick="closeModal('m_gao')">✕</button>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-k">規格</div>
+      <div class="modal-v">100g／罐</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-k">主要原料</div>
+      <ul class="modal-list">
+        <li>龜板萃取物</li>
+        <li>鹿角萃取物</li>
+        <li>粉光蔘、枸杞、紅棗、黃耆（依實際產品標示）</li>
+      </ul>
+    </div>
+    <div class="modal-section">
+      <div class="modal-k">使用方式</div>
+      <div class="modal-v">可直接食用，亦可搭配溫水；依個人習慣適量食用。</div>
+    </div>
+
+    <div class="modal-actions">
+      <a class="btn ghost" href="usage.html#gao" onclick="closeModal('m_gao')">使用方式</a>
+      <a class="btn ghost" href="pairing.html#gao" onclick="closeModal('m_gao')">怎麼搭配</a>
+      <a class="btn primary" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 詢問</a>
+    </div>
+    <div class="modal-note">若不確定如何選擇或搭配，歡迎透過 LINE 詢問。</div>
+  </div>
+</div>
+
+<div class="modal" id="m_drink" role="dialog" aria-modal="true" aria-label="龜鹿飲">
+  <div class="modal-content">
+    <div class="modal-head">
+      <div>
+        <div class="modal-brand">仙加味</div>
+        <div class="modal-title">龜鹿飲</div>
+        <div class="modal-tag">液態型態，方便飲用，適合忙碌日常的補養搭配。</div>
+      </div>
+      <button class="modal-close" type="button" aria-label="關閉" onclick="closeModal('m_drink')">✕</button>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-k">規格</div>
+      <div class="modal-v">依實際販售規格（180cc／包、30cc／瓶等）</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-k">主要原料</div>
+      <ul class="modal-list">
+        <li>龜板萃取物</li>
+        <li>鹿角萃取物</li>
+        <li>粉光蔘（依實際產品標示）</li>
+      </ul>
+    </div>
+    <div class="modal-section">
+      <div class="modal-k">使用方式</div>
+      <div class="modal-v">開封即飲；冷藏後飲用風味更佳。</div>
+    </div>
+
+    <div class="modal-actions">
+      <a class="btn ghost" href="usage.html#drink" onclick="closeModal('m_drink')">使用方式</a>
+      <a class="btn ghost" href="pairing.html#drink" onclick="closeModal('m_drink')">怎麼搭配</a>
+      <a class="btn primary" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 詢問</a>
+    </div>
+    <div class="modal-note">若不確定如何選擇或搭配，歡迎透過 LINE 詢問。</div>
+  </div>
+</div>
+
+<div class="modal" id="m_block" role="dialog" aria-modal="true" aria-label="龜鹿湯塊">
+  <div class="modal-content">
+    <div class="modal-head">
+      <div>
+        <div class="modal-brand">仙加味</div>
+        <div class="modal-title">龜鹿湯塊</div>
+        <div class="modal-tag">燉煮料理型態，適合雞湯或排骨湯等日常燉煮搭配。</div>
+      </div>
+      <button class="modal-close" type="button" aria-label="關閉" onclick="closeModal('m_block')">✕</button>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-k">規格</div>
+      <div class="modal-v">75g／150g／300g／600g</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-k">主要原料</div>
+      <ul class="modal-list">
+        <li>鹿角萃取物</li>
+        <li>全龜萃取物</li>
+      </ul>
+    </div>
+    <div class="modal-section">
+      <div class="modal-k">使用方式</div>
+      <div class="modal-v">與雞肉或排骨一起燉煮，建議小火約 30–40 分鐘；可依口味加入薑片、枸杞或紅棗。</div>
+    </div>
+
+    <div class="modal-actions">
+      <a class="btn ghost" href="usage.html#soup" onclick="closeModal('m_block')">使用方式</a>
+      <a class="btn ghost" href="pairing.html#soup" onclick="closeModal('m_block')">燉煮搭配</a>
+      <a class="btn primary" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 詢問</a>
+    </div>
+    <div class="modal-note">若不確定如何選擇規格或燉煮方式，歡迎透過 LINE 詢問。</div>
+  </div>
+</div>
+
+<div class="modal" id="m_antler" role="dialog" aria-modal="true" aria-label="鹿茸粉">
+  <div class="modal-content">
+    <div class="modal-head">
+      <div>
+        <div class="modal-brand">仙加味</div>
+        <div class="modal-title">鹿茸粉</div>
+        <div class="modal-tag">粉末型態，方便搭配飲食使用；鹿茸為尚未鈣化的鹿角部位。</div>
+      </div>
+      <button class="modal-close" type="button" aria-label="關閉" onclick="closeModal('m_antler')">✕</button>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-k">規格</div>
+      <div class="modal-v">依實際販售規格（如 75g／罐）</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-k">主要原料</div>
+      <ul class="modal-list">
+        <li>鹿茸粉</li>
+      </ul>
+    </div>
+    <div class="modal-section">
+      <div class="modal-k">使用方式</div>
+      <div class="modal-v">可加入溫水或搭配飲食；依個人習慣適量使用。</div>
+    </div>
+
+    <div class="modal-actions">
+      <a class="btn ghost" href="usage.html#antler" onclick="closeModal('m_antler')">使用方式</a>
+      <a class="btn ghost" href="pairing.html#antler" onclick="closeModal('m_antler')">怎麼搭配</a>
+      <a class="btn primary" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 詢問</a>
+    </div>
+    <div class="modal-note">若不確定如何選擇或搭配，歡迎透過 LINE 詢問。</div>
+  </div>
+</div>
+</main>
+<footer>
+  <div class="footer-brand">仙加味 <span class="footer-sub">XIAN JIA WEI</span></div>
+  <div class="footer-company">台興山產有限公司</div>
+  <div class="footer-line">LINE：@762jybnm｜<a class="footer-link" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">立即詢問</a></div>
+</footer>
+<script src="site.js" defer></script>
+</body>
+</html>
