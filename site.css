@@ -56,7 +56,7 @@ body{
   align-items:center;
   gap:10px;
 }
-.logo .seal{height:52px;width:auto;display:block}
+.logo .seal{height:60px;width:auto;display:block}
 .logo .wordmark{display:flex;flex-direction:column;align-items:center;line-height:1.05}
 .brand{font-size:20px;font-weight:900;color:var(--brand);letter-spacing:2px}
 .sub{font-size:16px;font-weight:900;letter-spacing:6px}
@@ -122,7 +122,7 @@ body{
     width:100%;
     min-width:0;
   }
-  .logo .seal{height:42px;}
+  .logo .seal{height:46px;}
 }
 
 
@@ -1163,3 +1163,33 @@ section[id], h2[id], h3[id]{scroll-margin-top:calc(var(--headerH) + 16px)}
 @media (max-width:520px){
   .footer-cardgrid{grid-template-columns:1fr;}
 }
+
+
+/* === OVERRIDE: Home hero buttons layout (desktop horizontal, mobile vertical) === */
+.hero-actions{
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  max-width: 920px;
+  margin: 22px auto 0;
+}
+.hero-actions .btn{
+  width:auto;
+  min-width:160px;
+}
+@media (max-width:768px){
+  .hero-actions{
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    max-width: 360px;
+  }
+  .hero-actions .btn{
+    width: min(360px, 100%);
+    min-width:0;
+  }
+}
+
