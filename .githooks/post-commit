@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+branch="$(git branch --show-current)"
+
+if [[ "$branch" != "work" ]]; then
+  echo "[post-commit] skip auto-push on branch: $branch"
+  exit 0
+fi
+
+echo "[post-commit] auto-pushing branch: $branch"
+git push -u origin "$branch"
