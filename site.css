@@ -56,8 +56,9 @@ body{
   align-items:center;
   gap:10px;
 }
-.logo .seal{height:60px;width:auto;display:block}
-.logo .wordmark{display:flex;flex-direction:column;align-items:center;line-height:1.05}
+.logo .seal{height:54px;width:auto;display:block}
+/* 改用新版「仙加味」紅章 Logo，先隱藏原本的文字字標，避免把漢堡推歪 */
+.logo .wordmark{display:none}
 .brand{font-size:20px;font-weight:900;color:var(--brand);letter-spacing:2px}
 .sub{font-size:16px;font-weight:900;letter-spacing:6px}
 .xjw{font-size:12px;color:#777;margin-top:2px}
@@ -122,7 +123,7 @@ body{
     width:100%;
     min-width:0;
   }
-  .logo .seal{height:46px;}
+  .logo .seal{height:48px;}
 }
 
 
@@ -283,6 +284,31 @@ body.menu-open{overflow:hidden}
   -webkit-overflow-scrolling:touch;
   padding:10px 14px 28px;
   padding-bottom: calc(var(--footerH) + 28px + env(safe-area-inset-bottom));
+  flex:1;
+  min-height:0;
+}
+
+/* Floating LINE button */
+.line-float{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:54px;
+  height:54px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#06C755;
+  color:#fff;
+  text-decoration:none;
+  box-shadow:0 10px 28px rgba(0,0,0,.22);
+  z-index:1400;
+  border:1px solid rgba(255,255,255,.28);
+}
+.line-float__text{font-weight:900;letter-spacing:.02em;font-size:14px;line-height:1}
+@media (max-width:720px){
+  .line-float{right:14px;bottom:calc(14px + env(safe-area-inset-bottom));width:52px;height:52px}
 }
 
 .drawer a{

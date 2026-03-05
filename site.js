@@ -47,3 +47,18 @@ window.addEventListener('resize', ()=>{
     d.style.height = window.innerHeight + 'px';
   }
 });
+
+// Floating LINE button（全站共用）
+document.addEventListener('DOMContentLoaded', ()=>{
+  if(document.querySelector('.line-float')) return;
+
+  const a = document.createElement('a');
+  a.className = 'line-float';
+  a.href = 'https://lin.ee/sHZW7NkR';
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.setAttribute('aria-label', 'LINE 詢問');
+  a.innerHTML = `<span class="line-float__text">LINE</span>`;
+
+  document.body.appendChild(a);
+});
