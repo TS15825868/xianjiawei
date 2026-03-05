@@ -56,9 +56,9 @@ body{
   align-items:center;
   gap:10px;
 }
-.logo .seal{height:54px;width:auto;display:block}
+.logo .seal{height:64px;width:auto;display:block}
 /* 改用新版「仙加味」紅章 Logo，先隱藏原本的文字字標，避免把漢堡推歪 */
-.logo .wordmark{display:none}
+.logo .wordmark{display:inline-block;font-weight:700;font-size:18px;letter-spacing:2px}
 .brand{font-size:20px;font-weight:900;color:var(--brand);letter-spacing:2px}
 .sub{font-size:16px;font-weight:900;letter-spacing:6px}
 .xjw{font-size:12px;color:#777;margin-top:2px}
