@@ -797,7 +797,7 @@ text-align:center;
 /* =========================
    Reading width + Typography
 ========================= */
-.main{padding-top:18px}
+.main{padding-top:calc(var(--headerH) + 24px)}
 .hero{padding:72px 0 28px}
 .hero h1{letter-spacing:-.02em}
 .hero p{max-width:60ch;margin-left:auto;margin-right:auto}
@@ -807,3 +807,11 @@ text-align:center;
 .prose details{border:1px solid rgba(0,0,0,.08);border-radius:14px;padding:12px 14px;background:#fff;margin:14px 0}
 .prose summary{cursor:pointer;font-weight:700;list-style:none}
 .prose summary::-webkit-details-marker{display:none}
+
+
+/* v15.2 - Variant selector inside modal */
+.variant-bar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 8px}
+.variant-bar .chip.is-active{background:#111;color:#fff;border-color:#111}
+
+
+section[id], h2[id], h3[id]{scroll-margin-top:calc(var(--headerH) + 16px)}
