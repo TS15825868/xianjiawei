@@ -87,34 +87,33 @@
     <p>四種型態，依照你的日常節奏選擇：膏、飲、湯塊、粉。</p>
   </section>
 
-  <section>
-    <div class="grid">
-      <article class="card">
-        <img src="images/guilu-gao-100g-jar.jpg" alt="龜鹿膏產品圖">
-        <h3>龜鹿膏</h3>
-        <p>100g／罐，適合日常小量食用。</p>
-      </article>
-
-      <article class="card">
-        <img src="images/guilu-drink-180cc.jpg" alt="龜鹿飲產品圖">
-        <h3>龜鹿飲</h3>
-        <p>180cc／包，即開即飲更方便。</p>
-      </article>
-
-      <article class="card">
-        <img src="images/guilu-soup-block.jpg" alt="龜鹿湯塊產品圖">
-        <h3>龜鹿湯塊</h3>
-        <p>多規格，適合燉湯搭配料理。</p>
-      </article>
-
-      <article class="card">
-        <img src="images/lurong-powder.jpg" alt="鹿茸粉產品圖">
-        <h3>鹿茸粉</h3>
-        <p>75g／罐，粉末型態便於調配。</p>
-      </article>
+  
+  <section class="products-tools">
+    <div class="search-row">
+      <label class="sr-only" for="q">搜尋</label>
+      <input id="q" class="search" type="search" placeholder="搜尋：龜鹿膏／180cc／75g／入湯／沖泡…" autocomplete="off">
+      <button id="clearBtn" class="btn ghost" type="button" aria-label="清除搜尋">清除</button>
     </div>
+
+    <div class="filters" role="tablist" aria-label="產品篩選">
+      <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">全部</button>
+      <button class="chip" data-filter="gel" role="tab" aria-selected="false">龜鹿膏</button>
+      <button class="chip" data-filter="drink" role="tab" aria-selected="false">龜鹿飲</button>
+      <button class="chip" data-filter="block" role="tab" aria-selected="false">龜鹿湯塊</button>
+      <button class="chip" data-filter="powder" role="tab" aria-selected="false">鹿茸粉</button>
+    </div>
+
+    <div class="muted" id="resultMeta" style="margin-top:10px;"></div>
   </section>
+
+  <section>
+    <div id="productList" class="product-list" aria-live="polite"></div>
+  </section>
+
 </main>
+
+<script defer src="products-page.js"></script>
+
 
 <footer class="footer">
   <div class="inner">
