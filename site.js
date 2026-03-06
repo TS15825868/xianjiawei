@@ -62,3 +62,15 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
   document.body.appendChild(a);
 });
+
+
+// TikTok embeds for videos page
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.video-load');
+  if(!btn) return;
+  const wrap = btn.closest('.video-embed');
+  if(!wrap) return;
+  const videoId = wrap.getAttribute('data-video-id');
+  if(!videoId) return;
+  wrap.innerHTML = `<iframe class="video-frame" src="https://www.tiktok.com/embed/v2/${videoId}" allowfullscreen loading="lazy"></iframe>`;
+});

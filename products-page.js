@@ -128,7 +128,7 @@
             <div class="p-size">${sizeLine}</div>
             ${hl ? `<ul class="p-hl">${hl}</ul>` : ''}
             <div class="p-actions">
-              <button class="btn-outline" type="button" data-open="${esc(g.id)}">規格 / 內容</button>
+              <button class="btn-outline" type="button" data-open="${esc(g.id)}">了解更多 →</button>
               <a class="btn-outline" href="line.html">LINE 詢問</a>
             </div>
           </div>
@@ -220,7 +220,8 @@
 
     if (modalBottom) {
       modalBottom.innerHTML = `
-        <a class="btn-outline" href="line.html">LINE 詢問規格</a>
+        <a class="btn-outline" href="choose.html">了解更多 →</a>
+        <a class="btn-outline" href="line.html">LINE詢問</a>
         <button class="btn-outline" type="button" id="pModalClose2">關閉</button>
       `;
       const c2 = document.getElementById('pModalClose2');

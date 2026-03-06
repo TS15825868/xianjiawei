@@ -1303,3 +1303,31 @@ section[id], h2[id], h3[id]{scroll-margin-top:calc(var(--headerH) + 16px)}
   .trust-title{font-size:14px;}
   .trust-cta{font-size:13px;}
 }
+
+
+/* v51 fixes */
+.xjw{display:none !important;}
+.logo .seal{height:72px !important;}
+@media (max-width:979px){ .logo .seal{height:58px !important;} }
+
+.hero-brand-bg{
+  background:
+    linear-gradient(rgba(247,244,237,.92), rgba(247,244,237,.92)),
+    url('images/hero-guiku-desktop.jpg') center/cover no-repeat;
+}
+@media (max-width:768px){
+  .hero-brand-bg{
+    background:
+      linear-gradient(rgba(247,244,237,.94), rgba(247,244,237,.94)),
+      url('images/hero-guiku-mobile.jpg') center/cover no-repeat;
+  }
+}
+.home-product-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:18px;}
+.product-shelf-card{cursor:pointer;}
+.product-shelf-card img{aspect-ratio:1/1;object-fit:contain;background:#fff;padding:10px;}
+.product-shelf-card .muted{margin-top:0;color:var(--muted);font-size:14px;}
+.product-shelf-card .card-hint{margin-top:12px;font-weight:800;}
+@media (max-width:760px){
+  .home-product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  .product-shelf-card{padding:16px;}
+}

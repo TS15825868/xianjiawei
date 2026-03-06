@@ -112,16 +112,16 @@
   function buildBottom(catId){
     // keep CTAs minimal (no forcing)
     const primaryMap = {
-      gel: {label:'查看怎麼搭配', href:'guilu-howto-eat.html'},
-      drink:{label:'查看使用方式', href:'guilu-eat.html'},
-      block:{label:'查看食譜', href:'guilu-recipes.html'},
-      powder:{label:'怎麼選擇', href:'choose.html'}
+      gel: {label:'了解更多 →', href:'guilu-howto-eat.html'},
+      drink:{label:'了解更多 →', href:'usage.html'},
+      block:{label:'了解更多 →', href:'guilu-recipes.html'},
+      powder:{label:'了解更多 →', href:'choose.html'}
     };
     const p = primaryMap[catId] || {label:'查看內容', href:'products.html'};
     bottom.innerHTML = `
       <a class="btn ghost" href="${esc(p.href)}">${esc(p.label)}</a>
-      <a class="btn" href="products.html?cat=${esc(catId)}">查看產品規格</a>
-      <a class="btn line" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE詢問</a>
+      <a class="btn" href="products.html?cat=${esc(catId)}">了解更多 →</a>
+      <a class="btn line" href="line.html" >LINE詢問</a>
     `;
   }
 

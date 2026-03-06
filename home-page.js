@@ -44,8 +44,9 @@
         </div>
         <div class="modal-body" id="modalBody"></div>
         <div class="modal-bottom">
-          <a class="btn" href="contact.html">立即詢問</a>
-          <button class="btn ghost" type="button" data-close>返回</button>
+          <a class="btn" href="choose.html">了解更多 →</a>
+          <a class="btn ghost" href="line.html">LINE詢問</a>
+          <button class="btn ghost" type="button" data-close>關閉</button>
         </div>
       </div>
     `;
