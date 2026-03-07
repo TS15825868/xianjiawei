@@ -1,84 +1,230 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>關於我們｜仙加味・龜鹿</title>
+  <meta name="description" content="了解仙加味・龜鹿品牌定位、門市資訊與網站整理方向，從萬華出發，把龜鹿系列整理成更容易理解的日常型態。">
+  <link rel="canonical" href="https://ts15825868.github.io/TaiShing/about.html">
 
-<title>關於我們｜仙加味・龜鹿</title>
-<meta name="description" content="仙加味龜鹿品牌介紹與門市資訊。">
+  <meta property="og:title" content="關於我們｜仙加味・龜鹿">
+  <meta property="og:description" content="了解品牌定位、門市資訊與整體內容方向。">
+  <meta property="og:image" content="https://ts15825868.github.io/TaiShing/images/guilu-gao-100g-jar.jpg">
+  <meta property="og:url" content="https://ts15825868.github.io/TaiShing/about.html">
+  <meta property="og:type" content="article">
 
-<link rel="canonical" href="https://ts15825868.github.io/TaiShing/about.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="robots" content="index,follow">
 
-<link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="site.css">
 
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"AboutPage",
+    "name":"關於我們",
+    "url":"https://ts15825868.github.io/TaiShing/about.html"
+  }
+  </script>
 </head>
 
 <body>
+  <div id="overlay" class="overlay" onclick="toggleMenu(false)"></div>
 
-<header class="header">
+  <header class="header">
+    <a class="logo" href="index.html" aria-label="回到首頁">
+      <img class="seal" src="images/logo-seal.png" alt="仙加味・龜鹿 logo">
+      <div class="wordmark">
+        <div class="brand">仙加味</div>
+        <div class="sub">龜鹿</div>
+      </div>
+    </a>
 
-<a class="logo" href="index.html">
-<img class="seal" src="images/logo-seal.png">
-<div class="wordmark">
-<div class="brand">仙加味</div>
-<div class="sub">龜鹿</div>
-</div>
-</a>
+    <button class="hamburger" type="button" onclick="toggleMenu(true)" aria-label="開啟選單">☰</button>
+  </header>
 
-<button class="hamburger" onclick="toggleMenu(true)">☰</button>
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-top">
+      <div class="drawer-title">選單</div>
+      <button class="drawer-close" type="button" onclick="toggleMenu(false)" aria-label="關閉選單">✕</button>
+    </div>
 
-</header>
+    <div class="drawer-scroll">
+      <a href="index.html">首頁</a>
 
+      <div class="menu-group">產品</div>
+      <a href="guilu-series.html">龜鹿系列</a>
+      <a href="choose.html">怎麼挑龜鹿</a>
 
-<main class="main">
+      <div class="menu-group">龜鹿知識</div>
+      <a href="what-is-guilu.html">龜鹿是什麼</a>
+      <a href="ingredients.html">食材介紹</a>
+      <a href="guilu-howto-eat.html">食用方式</a>
+      <a href="pairing.html">怎麼搭配</a>
+      <a href="seasons.html">四季建議</a>
+      <a href="guilu-recipes.html">料理食譜</a>
+      <a href="videos.html">知識影片</a>
 
-<section class="hero hero-center">
+      <div class="menu-group">品牌</div>
+      <a href="brand-story.html">品牌故事</a>
+      <a href="brand-origin.html">品牌由來</a>
+      <a href="founder.html">創始人</a>
+      <a href="about.html">關於我們</a>
 
-<div class="hero-inner">
+      <div class="menu-group">客服</div>
+      <a href="faq.html">常見問題</a>
+      <a href="contact.html">聯絡我們</a>
+      <a href="line.html">LINE詢問</a>
 
-<h1 class="hero-brand">
-<span class="brand-top">關於我們</span>
-<span class="brand-bottom">仙加味・龜鹿</span>
-</h1>
+      <div class="drawer-end"></div>
+    </div>
+  </aside>
 
-<p class="hero-copy">
-以萬華為起點，
-整理龜鹿系列與日常食補方向。
-</p>
+  <main class="main">
+    <section class="hero hero-center">
+      <div class="hero-inner">
+        <h1 class="hero-brand">
+          <span class="brand-top">關於我們</span>
+          <span class="brand-bottom">仙加味・龜鹿</span>
+        </h1>
 
-</div>
+        <p class="hero-copy">
+          以萬華為起點，整理龜鹿系列與日常食補方向。<br>
+          讓膏、飲、湯塊與粉，變成更容易理解與選擇的日常型態。
+        </p>
 
-</section>
+        <div class="hero-actions">
+          <a class="btn primary" href="guilu-series.html">龜鹿系列</a>
+          <a class="btn" href="brand-story.html">品牌故事</a>
+          <a class="btn line" href="line.html">LINE詢問</a>
+        </div>
+      </div>
+    </section>
 
+    <section class="section prose">
+      <h2>品牌定位</h2>
+      <p>
+        仙加味・龜鹿希望把傳統龜鹿相關產品，整理成更容易理解與選擇的型態。
+        所以網站不是只放產品名稱，而是把整體內容分成型態、食用方式、搭配方向、四季節奏與料理食譜。
+      </p>
+      <p>
+        這樣做的目的很簡單：讓第一次接觸的人不用先記很多名詞，而是可以先從自己的生活節奏出發，找到比較適合自己的方向。
+      </p>
+    </section>
 
-<section class="section prose">
+    <section class="section">
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="section-title">型態分流</div>
+          <p>
+            膏、飲、湯塊與粉，各自對應不同的日常習慣。有人偏好固定節奏，有人重視方便，也有人平常就有煮湯習慣。
+          </p>
+        </div>
 
-<h2>品牌定位</h2>
+        <div class="info-card">
+          <div class="section-title">內容整合</div>
+          <p>
+            網站不是只放單頁產品，而是把「龜鹿是什麼、怎麼吃、怎麼搭配、怎麼挑」整合起來，讓理解更完整。
+          </p>
+        </div>
+      </div>
+    </section>
 
-<p>
-仙加味龜鹿希望把傳統龜鹿整理成
-更容易理解與選擇的型態。
-</p>
+    <section class="section prose">
+      <h2>門市與聯絡資訊</h2>
+      <p>
+        若想進一步了解規格、日常搭配方向或選購建議，可直接透過 LINE 詢問，也可參考門市資訊。
+      </p>
+    </section>
 
-<p>
-透過膏、飲、湯塊與鹿茸粉，
-讓不同生活節奏的人都能找到適合方式。
-</p>
+    <section class="section">
+      <div class="card-grid">
+        <article class="card small">
+          <h3>LINE</h3>
+          <p>ID：@762jybnm</p>
+          <a class="btn line" href="line.html">前往 LINE</a>
+        </article>
 
-</section>
+        <article class="card small">
+          <h3>地址</h3>
+          <p>台北市萬華區西昌街52號</p>
+        </article>
 
-</main>
+        <article class="card small">
+          <h3>營業時間</h3>
+          <p>
+            週一至週五 09:30–18:30<br>
+            週六至週日 09:30–21:30
+          </p>
+        </article>
+      </div>
+    </section>
 
-<footer class="site-footer compact">
+    <section class="section prose">
+      <h2>網站想提供的是什麼</h2>
+      <p>
+        這個網站的目的，不只是展示，而是幫助你更快理解：
+        什麼是龜鹿、不同型態差在哪裡、自己的生活比較適合哪一種，以及如果要開始，應該先從哪裡看。
+      </p>
+      <p>
+        所以你會看到網站把內容分成產品、知識、品牌與客服四個方向。
+        這不是把資訊切碎，而是希望你可以從最順手的入口開始。
+      </p>
+    </section>
 
-<div class="footer-bottom2">
-© 仙加味・龜鹿
-</div>
+    <section class="section">
+      <div class="trust-grid">
+        <a class="trust-btn" href="choose.html">
+          <div class="trust-title">怎麼挑龜鹿</div>
+          <div class="muted-text">若還不確定適合哪一種，可先從選擇頁快速比較。</div>
+          <div class="trust-cta">前往 →</div>
+        </a>
 
-</footer>
+        <a class="trust-btn" href="faq.html">
+          <div class="trust-title">常見問題</div>
+          <div class="muted-text">把第一次接觸最常見的問題集中整理。</div>
+          <div class="trust-cta">前往 →</div>
+        </a>
 
-<script src="site.js"></script>
+        <a class="trust-btn" href="line.html">
+          <div class="trust-title">LINE詢問</div>
+          <div class="muted-text">若想直接了解規格與搭配建議，可直接聯絡。</div>
+          <div class="trust-cta">聯絡 →</div>
+        </a>
+      </div>
+    </section>
+  </main>
 
+  <footer class="site-footer compact">
+    <div class="footer-wrap">
+      <div class="footer-left">
+        <div class="footer-mark">
+          <img class="footer-seal" src="images/logo-seal.png" alt="仙加味・龜鹿">
+          <div class="footer-name">仙加味・龜鹿</div>
+        </div>
+        <p class="footer-desc">
+          以日常食用方式與料理搭配為主，提供型態分流、規格比較與選購建議。
+        </p>
+      </div>
+
+      <div class="footer-right">
+        <div class="footer-title2">聯絡</div>
+        <div class="footer-actions">
+          <a class="btn small line" href="line.html">LINE詢問</a>
+        </div>
+        <div class="footer-lines">
+          LINE：@762jybnm<br>
+          地址：台北市萬華區西昌街52號<br>
+          週一至週五 09:30–18:30<br>
+          週六至週日 09:30–21:30
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom2">© 仙加味・龜鹿</div>
+  </footer>
+
+  <script src="site.js"></script>
 </body>
 </html>
