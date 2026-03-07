@@ -113,7 +113,7 @@
     // keep CTAs minimal (no forcing)
     const primaryMap = {
       gel: {label:'了解更多 →', href:'guilu-howto-eat.html'},
-      drink:{label:'了解更多 →', href:'usage.html'},
+      drink:{label:'了解更多 →', href:'guilu-howto-eat.html'},
       block:{label:'了解更多 →', href:'guilu-recipes.html'},
       powder:{label:'了解更多 →', href:'choose.html'}
     };

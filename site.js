@@ -19,6 +19,19 @@ function toggleMenu(open){
   }
 }
 
+function markCurrentPage(){
+  const current = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('a[href]').forEach((link)=>{
+    const href = link.getAttribute('href');
+    if(!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) return;
+    const cleanHref = href.split('#')[0].split('?')[0] || 'index.html';
+    if(cleanHref === current){
+      link.setAttribute('aria-current', 'page');
+      link.classList.add('is-current');
+    }
+  });
+}
+
 document.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape') toggleMenu(false);
 });
@@ -36,6 +49,8 @@ document.addEventListener('click', (e)=>{
 });
 
 document.addEventListener('DOMContentLoaded', ()=>{
+  markCurrentPage();
+
   if(!document.querySelector('.line-float')){
     const a = document.createElement('a');
     a.className = 'line-float';
@@ -56,5 +71,5 @@ document.addEventListener('click', (e)=>{
   const videoId = wrap.getAttribute('data-video-id');
   if(!videoId) return;
 
-  wrap.innerHTML = `<iframe class="video-frame" src="https://www.tiktok.com/embed/v2/${videoId}" allowfullscreen loading="lazy"></iframe>`;
+  wrap.innerHTML = `<iframe class="video-frame" src="https://www.tiktok.com/embed/v2/${videoId}" allowfullscreen loading="lazy" title="龜鹿知識影片"></iframe>`;
 });

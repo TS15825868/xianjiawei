@@ -157,7 +157,8 @@
   function closeModal() {
     if (!modal) return;
     modal.classList.remove('is-open');
-    
+    modal.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('modal-open');
   }
 
   function renderVariantContent(v) {
@@ -242,6 +243,8 @@
     });
 
     modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('modal-open');
   }
 
   if (modalOverlay) modalOverlay.addEventListener('click', closeModal);

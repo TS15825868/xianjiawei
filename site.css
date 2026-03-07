@@ -471,6 +471,22 @@ body.menu-open{
   color:#fff;
 }
 
+.drawer a.is-current,
+.drawer a[aria-current="page"]{
+  color:var(--brand);
+}
+
+.topnav a.is-current,
+.topnav a[aria-current="page"]{
+  color:var(--brand);
+}
+
+.video-load{
+  appearance:none;
+  border:none;
+  cursor:pointer;
+}
+
 .menu-group{
   margin-top:14px;
   font-weight:900;
