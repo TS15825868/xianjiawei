@@ -1,13 +1,6 @@
 'use strict';
 
-/**
- * Home page modal opener (v8.3)
- * - Opens product modal from homepage featured card
- * Data source: products.json
- */
-
 (function () {
-  // Bind to any clickable element on the home page.
   const triggers = () => Array.from(document.querySelectorAll('[data-home-open]'));
   if (triggers().length === 0) return;
 
@@ -16,7 +9,6 @@
   }[c]));
 
   let flat = [];
-  let raw = null;
   let modalEl = null;
 
   function flatten(data) {
@@ -35,6 +27,7 @@
     modalEl.setAttribute('role', 'dialog');
     modalEl.setAttribute('aria-modal', 'true');
     modalEl.setAttribute('aria-hidden', 'true');
+
     modalEl.innerHTML = `
       <div class="modal-backdrop" data-close></div>
       <div class="modal-card" role="document">
@@ -44,12 +37,12 @@
         </div>
         <div class="modal-body" id="modalBody"></div>
         <div class="modal-bottom">
-          <a class="btn" href="choose.html">了解更多 →</a>
-          <a class="btn ghost" href="line.html">LINE詢問</a>
-          <button class="btn ghost" type="button" data-close>關閉</button>
+          <button class="btn ghost" type="button" data-close>返回上一頁</button>
+          <a class="btn line" href="line.html">LINE詢問</a>
         </div>
       </div>
     `;
+
     document.body.appendChild(modalEl);
 
     modalEl.addEventListener('click', (e) => {
@@ -67,7 +60,7 @@
     const titleEl = modalEl.querySelector('#modalTitle');
     const bodyEl = modalEl.querySelector('#modalBody');
 
-    const img = (item.images && item.images[0]) ? item.images[0] : 'images/product-guiku-main.jpg';
+    const img = (item.images && item.images[0]) ? item.images[0] : 'images/guilu-gao-100g-jar.jpg';
 
     const specs = (item.specs && item.specs.length)
       ? `<div class="specs">${item.specs.map(s => `
@@ -133,21 +126,30 @@
   async function boot() {
     try {
       const res = await fetch('products.json', { cache: 'no-store' });
-      raw = await res.json();
+      const raw = await res.json();
       flat = flatten(raw);
 
       triggers().forEach(el => {
         el.addEventListener('click', (e) => {
-          // allow inner links/buttons to work normally
           const a = e.target && e.target.closest ? e.target.closest('a') : null;
           if (a) return;
+
           const id = el.getAttribute('data-home-open');
           const item = flat.find(x => x.id === id);
           if (item) openModal(item);
         });
+
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            const id = el.getAttribute('data-home-open');
+            const item = flat.find(x => x.id === id);
+            if (item) openModal(item);
+          }
+        });
       });
     } catch (e) {
-      // silently fail on home
+      console.error(e);
     }
   }
 
