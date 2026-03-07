@@ -38,7 +38,7 @@
         <div class="modal-body" id="modalBody"></div>
         <div class="modal-bottom">
           <button class="btn ghost" type="button" data-close>返回上一頁</button>
-          <a class="btn line" href="line.html">LINE 詢問</a>
+          <a class="btn line" href="line.html">LINE詢問</a>
         </div>
       </div>
     `;
