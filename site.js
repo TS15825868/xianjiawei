@@ -1,1 +1,12 @@
-function toggleMenu(open){const d=document.getElementById('drawer');const o=document.getElementById('overlay');if(!d||!o)return;const willOpen=(typeof open==='boolean')?open:!d.classList.contains('open');d.classList.toggle('open',willOpen);o.classList.toggle('open',willOpen);document.body.classList.toggle('menu-open',willOpen);d.setAttribute('aria-hidden',willOpen?'false':'true');}function markCurrentPage(){const path=location.pathname.split('/').pop()||'index.html';document.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href');if(!href||href.startsWith('http')||href.startsWith('#')||href.startsWith('javascript:'))return;const clean=href.split('#')[0].split('?')[0];if(clean===path||(path===''&&clean==='index.html')){a.classList.add('is-current');a.setAttribute('aria-current','page');const details=a.closest('details');if(details)details.open=true;}});}function ensureLineFloat(){if(document.body.classList.contains('no-line-float'))return;if(!document.querySelector('.line-float')){const a=document.createElement('a');a.className='line-float';a.href='line.html';a.setAttribute('aria-label','LINE 詢問');a.innerHTML='<span class="line-float__text">LINE</span>';document.body.appendChild(a);}}document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleMenu(false);});document.addEventListener('click',e=>{if(e.target&&e.target.id==='overlay')toggleMenu(false);const d=document.getElementById('drawer');if(d&&d.classList.contains('open')){const link=e.target.closest('a');if(link&&d.contains(link))toggleMenu(false);}const btn=e.target.closest('.video-load');if(btn){const wrap=btn.closest('.video-embed');if(wrap){const videoId=wrap.getAttribute('data-video-id');if(videoId)wrap.innerHTML='<iframe class="video-frame" src="https://www.tiktok.com/embed/v2/'+videoId+'" allowfullscreen loading="lazy"></iframe>';}}});document.addEventListener('DOMContentLoaded',()=>{markCurrentPage();ensureLineFloat();});
+
+function toggleMenu(){
+document.getElementById("menu").classList.toggle("open");
+}
+
+function openModal(id){
+document.getElementById(id).style.display="flex";
+}
+
+function closeModal(id){
+document.getElementById(id).style.display="none";
+}
