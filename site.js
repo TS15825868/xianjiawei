@@ -1,38 +1,35 @@
-function toggleMenu(open){
-  const d=document.getElementById('drawer');
-  const o=document.getElementById('overlay');
+document.addEventListener("DOMContentLoaded",function(){
 
-  if(!d||!o)return;
+const line=document.createElement("a");
+line.className="line-float";
+line.href="contact.html";
+line.innerText="LINE詢問";
+document.body.appendChild(line);
 
-  const willOpen=(typeof open==='boolean')?open:!d.classList.contains('open');
+const search=document.getElementById("guideSearch");
 
-  if(willOpen){
-    d.classList.add('open');
-    o.classList.add('open');
-    document.body.classList.add('menu-open');
-  }else{
-    d.classList.remove('open');
-    o.classList.remove('open');
-    document.body.classList.remove('menu-open');
-  }
+if(search){
+
+search.addEventListener("keyup",function(){
+
+let keyword=search.value.toLowerCase();
+
+let cards=document.querySelectorAll(".guide-card");
+
+cards.forEach(function(card){
+
+let text=card.innerText.toLowerCase();
+
+if(text.includes(keyword)){
+card.style.display="block";
+}else{
+card.style.display="none";
 }
 
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape')toggleMenu(false);
 });
 
-document.addEventListener('click',e=>{
-  if(e.target.id==='overlay')toggleMenu(false);
 });
 
-document.addEventListener('DOMContentLoaded',()=>{
-
-  if(!document.querySelector('.line-float')){
-    const a=document.createElement('a');
-    a.className='line-float';
-    a.href='line.html';
-    a.innerHTML='LINE';
-    document.body.appendChild(a);
-  }
+}
 
 });
