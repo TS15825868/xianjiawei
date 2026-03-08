@@ -116,8 +116,8 @@
     const primaryMap = {
       gel: {label:'食用方式', href:'guilu-howto-eat.html'},
       drink:{label:'食用方式', href:'guilu-howto-eat.html'},
-      block:{label:'料理搭配', href:'guilu-recipes.html'},
-      powder:{label:'怎麼挑龜鹿', href:'choose.html'}
+      block:{label:'搭配建議', href:'pairing.html'},
+      powder:{label:'搭配建議', href:'pairing.html'}
     };
     const p = primaryMap[catId] || {label:'查看內容', href:'products.html'};
     bottom.innerHTML = `

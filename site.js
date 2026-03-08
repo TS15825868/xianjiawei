@@ -1,19 +1,13 @@
-document.addEventListener("DOMContentLoaded",function(){
 
-const line=document.createElement("a");
-line.className="line-float";
-line.href="contact.html";
-line.innerText="LINE詢問";
-document.body.appendChild(line);
+document.addEventListener("DOMContentLoaded",function(){
 
 const search=document.getElementById("guideSearch");
 
-if(search){
+if(!search) return;
 
 search.addEventListener("keyup",function(){
 
 let keyword=search.value.toLowerCase();
-
 let cards=document.querySelectorAll(".guide-card");
 
 cards.forEach(function(card){
@@ -29,7 +23,5 @@ card.style.display="none";
 });
 
 });
-
-}
 
 });
