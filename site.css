@@ -1,0 +1,18 @@
+
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;margin:0;background:#F7F4ED;color:#222}
+header{position:fixed;top:0;left:0;right:0;height:70px;background:#fff;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:1000}
+.logo{font-weight:700}
+.hamburger{font-size:24px;cursor:pointer}
+.menu{position:fixed;top:0;right:-320px;width:320px;height:100%;background:#fff;box-shadow:-5px 0 20px rgba(0,0,0,0.15);padding:30px;transition:.3s}
+.menu.open{right:0}
+.menu h3{margin-top:20px}
+.menu a{display:block;margin:6px 0;text-decoration:none;color:#333}
+main{max-width:1100px;margin:auto;padding:110px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:30px}
+.card{background:#fff;border-radius:16px;padding:20px;text-align:center;border:1px solid #eee;box-shadow:0 10px 25px rgba(0,0,0,0.05)}
+.card img{width:100%;border-radius:12px}
+.recipe-card{background:#fff;border-radius:16px;padding:24px;margin-bottom:20px;box-shadow:0 10px 25px rgba(0,0,0,0.05)}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);align-items:center;justify-content:center}
+.modal-content{background:#fff;padding:30px;border-radius:16px;max-width:600px;width:90%}
+.close{float:right;font-size:22px;cursor:pointer}
+.line{position:fixed;bottom:20px;right:20px;background:#06C755;color:#fff;padding:14px 18px;border-radius:30px;text-decoration:none}
