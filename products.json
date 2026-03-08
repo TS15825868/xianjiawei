@@ -2,7 +2,7 @@
   {
     "id": "gao",
     "name": "龜鹿膏",
-    "short": "100 g",
+    "spec": "100 g",
     "image": "images/guilu-gao-100g.jpg",
     "summary": "濃縮膏型，適合直接食用，也可加入溫水沖泡或搭配粥品。",
     "ingredients": [
@@ -30,7 +30,7 @@
   {
     "id": "drink",
     "name": "龜鹿飲",
-    "short": "180 cc／包",
+    "spec": "180 cc／包",
     "image": "images/guilu-drink-180cc.jpg",
     "summary": "液態型態，開封即可飲用，也可隔水加熱後飲用。",
     "ingredients": [
@@ -57,9 +57,9 @@
   {
     "id": "block",
     "name": "龜鹿湯塊",
-    "short": "75 g / 300 g / 600 g",
+    "spec": "75 g／300 g／600 g",
     "image": "images/guilu-block-300g.jpg",
-    "summary": "濃縮湯塊型態，適合燉雞湯、排骨湯、藥膳湯品，亦可用保溫壺沖泡。",
+    "summary": "濃縮湯塊型態，適合燉雞湯、排骨湯、藥膳湯品，也可用保溫壺沖泡。",
     "ingredients": [
       "龜板萃取物",
       "鹿角萃取物"
@@ -86,7 +86,7 @@
   {
     "id": "powder",
     "name": "鹿茸粉",
-    "short": "75 g",
+    "spec": "75 g",
     "image": "images/lurong-powder-75g.jpg",
     "summary": "粉末型態，可加入溫水沖泡，也可加入粥品或料理。",
     "ingredients": [
