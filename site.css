@@ -5,40 +5,67 @@ background:#F7F4ED;
 color:#222;
 }
 
-.header{
+header{
 position:fixed;
 top:0;
 left:0;
 right:0;
-height:80px;
+height:70px;
+background:#fff;
+border-bottom:1px solid #eee;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:10px 20px;
-background:#fff;
-border-bottom:1px solid #eee;
+padding:0 20px;
 z-index:1000;
 }
 
-.main{
-max-width:900px;
+.logo{
+font-weight:700;
+font-size:18px;
+}
+
+nav a{
+margin-left:16px;
+text-decoration:none;
+color:#333;
+}
+
+main{
+max-width:1100px;
 margin:auto;
 padding:120px 20px 40px;
-text-align:center;
 }
 
-.btn{
-display:inline-block;
-padding:12px 18px;
-border-radius:999px;
-border:1px solid #222;
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:24px;
+margin-top:30px;
+}
+
+.card{
 background:#fff;
-font-weight:700;
+border-radius:18px;
+padding:24px;
+border:1px solid #eee;
+transition:0.2s;
 }
 
-.btn:hover{
-background:#222;
-color:#fff;
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 12px 30px rgba(0,0,0,0.06);
+}
+
+.card img{
+width:100%;
+border-radius:12px;
+}
+
+footer{
+text-align:center;
+padding:40px;
+color:#777;
 }
 
 .line-float{
@@ -47,15 +74,8 @@ bottom:20px;
 right:20px;
 background:#06C755;
 color:#fff;
-padding:14px 16px;
+padding:14px 20px;
 border-radius:30px;
 font-weight:700;
-z-index:999;
-}
-
-footer{
-margin-top:40px;
-padding:20px;
-text-align:center;
-color:#666;
+text-decoration:none;
 }
