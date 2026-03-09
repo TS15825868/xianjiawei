@@ -8,3 +8,10 @@ document.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{
  if(e.key==='Escape')drawer.classList.remove('open');
 });
+
+function openModal(t,txt){
+document.getElementById('modal').style.display='flex';
+document.getElementById('modalTitle').innerText=t;
+document.getElementById('modalText').innerText=txt;
+}
+function closeModal(){document.getElementById('modal').style.display='none'}
