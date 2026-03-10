@@ -1,71 +1,57 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>常見問題｜仙加味</title>
-<meta name="description" content="仙加味常見問題，整理龜鹿膏、龜鹿飲、龜鹿湯塊、鹿茸粉與柒玄茶龜鹿調飲粉的食用方式與常見疑問。">
+<meta name="description" content="仙加味常見問題整理。">
+<meta property="og:title" content="常見問題｜仙加味">
+<meta property="og:description" content="仙加味常見問題整理。">
+<meta property="og:type" content="website">
 <link rel="stylesheet" href="site.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"龜鹿膏怎麼吃？","acceptedAnswer":{"@type":"Answer","text":"可直接食用，也可加入溫水沖泡。"}},
+    {"@type":"Question","name":"龜鹿湯塊怎麼使用？","acceptedAnswer":{"@type":"Answer","text":"常見用於燉雞湯、排骨湯與藥膳湯品，也可用保溫壺沖泡。"}}
+  ]
+}
+</script>
+
 </head>
 <body>
-
 <header>
-  <div class="nav">
-    <a class="logo" href="index.html">仙加味</a>
-    <button class="menu-btn" type="button" aria-label="開啟選單">選單</button>
-    <nav class="menu">
-      <a href="guilu-series.html">仙加味・龜鹿</a>
-      <a href="qixuan-tea.html">柒玄茶</a>
-      <a href="guide.html">食用指南</a>
-      <a href="recipes.html">料理搭配</a>
-      <a href="brand.html">品牌</a>
-      <a href="faq.html">FAQ</a>
-      <a href="contact.html">聯絡我們</a>
-    </nav>
+  <div class="header-inner">
+    <a class="brand-link" href="index.html"><img src="images/logo-seal.png" alt="仙加味 LOGO"><span>仙加味</span></a>
+    <button class="menu-btn" aria-label="選單" onclick="toggleMenu()">☰</button>
   </div>
 </header>
+<nav id="drawer" class="drawer">
+<a href="index.html">首頁</a>
+<h4>產品</h4>
+<a href="products.html">產品總覽</a>
+<h4>內容</h4>
+<a href="recipes.html">料理資料庫</a>
+<a href="compare.html">產品比較</a>
+<a href="faq.html">常見問題</a>
+<a href="brand.html">品牌故事</a>
+<a href="contact.html">聯絡我們</a>
+</nav>
 
-<section class="hero">
-  <h1>常見問題</h1>
-  <p>關於產品與食用方式的常見問題</p>
-</section>
-
-<section class="section">
-  <div class="faq">
-    <div class="faq-item">
-      <div class="faq-question">龜鹿膏怎麼食用？</div>
-      <div class="faq-answer">可直接食用，或加入溫熱開水攪拌後飲用。</div>
+<div class="container">
+  <section class="section">
+    <h2>常見問題</h2>
+    <div class="accordion">
+      <div class="acc-item"><div class="acc-q">龜鹿膏怎麼吃？</div><div class="acc-a">可直接食用，也可加入溫水沖泡。</div></div><div class="acc-item"><div class="acc-q">龜鹿飲怎麼喝？</div><div class="acc-a">開封即可飲用，若偏好溫熱口感，也可隔水加熱後飲用。</div></div><div class="acc-item"><div class="acc-q">龜鹿湯塊怎麼使用？</div><div class="acc-a">常見用於燉雞湯、排骨湯與藥膳湯品，也可用保溫壺沖泡。</div></div><div class="acc-item"><div class="acc-q">鹿茸粉怎麼使用？</div><div class="acc-a">可加入溫水沖泡，也可加入料理或粥品。</div></div><div class="acc-item"><div class="acc-q">柒玄茶・龜鹿調飲粉怎麼用？</div><div class="acc-a">可加入茶、咖啡或其他熱飲中飲用，作為日常草本調飲。</div></div>
     </div>
-
-    <div class="faq-item">
-      <div class="faq-question">龜鹿飲需要加熱嗎？</div>
-      <div class="faq-answer">龜鹿飲可直接飲用，也可先溫熱後飲用。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">龜鹿湯塊怎麼使用？</div>
-      <div class="faq-answer">可加入雞湯、排骨湯或其他燉湯料理中燉煮。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">鹿茸粉怎麼食用？</div>
-      <div class="faq-answer">可依個人習慣搭配溫熱飲品或加入日常飲食中。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-question">柒玄茶・龜鹿調飲粉怎麼使用？</div>
-      <div class="faq-answer">可加入茶飲、咖啡或其他飲品中調和飲用。</div>
-    </div>
-  </div>
-</section>
-
-<div class="footer">
-  仙加味<br>
-  © 2026
+  </section>
 </div>
 
-<a class="line-btn" href="https://lin.ee/" target="_blank">LINE詢問</a>
-
+<a class="line-btn" href="contact.html">LINE詢問</a>
+<footer>© 2026 仙加味</footer>
 <script src="site.js"></script>
 </body>
 </html>

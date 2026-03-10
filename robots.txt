@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://ts15825868.github.io/TaiShing/sitemap.xml

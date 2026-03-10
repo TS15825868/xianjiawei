@@ -1,32 +1,251 @@
-
 <!DOCTYPE html>
-<html><head>
+<html lang="zh-Hant-TW">
+<head>
 <meta charset="utf-8">
-<title>產品</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>產品總覽｜仙加味</title>
+<meta name="description" content="仙加味產品總覽，包含龜鹿膏、龜鹿飲、龜鹿湯塊、鹿茸粉與柒玄茶龜鹿調飲粉。">
+<meta property="og:title" content="產品總覽｜仙加味">
+<meta property="og:description" content="仙加味產品總覽，包含龜鹿膏、龜鹿飲、龜鹿湯塊、鹿茸粉與柒玄茶龜鹿調飲粉。">
+<meta property="og:type" content="website">
 <link rel="stylesheet" href="site.css">
+
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@graph":[
+   {"@type":"Product","name":"仙加味龜鹿膏","brand":{"@type":"Brand","name":"仙加味"}},
+   {"@type":"Product","name":"仙加味龜鹿飲","brand":{"@type":"Brand","name":"仙加味"}},
+   {"@type":"Product","name":"龜鹿湯塊 300g","brand":{"@type":"Brand","name":"仙加味"}},
+   {"@type":"Product","name":"龜鹿湯塊 600g","brand":{"@type":"Brand","name":"仙加味"}},
+   {"@type":"Product","name":"仙加味鹿茸粉","brand":{"@type":"Brand","name":"仙加味"}},
+   {"@type":"Product","name":"柒玄茶・龜鹿調飲粉","brand":{"@type":"Brand","name":"柒玄茶"}}
+ ]
+}
+</script>
+
 </head>
 <body>
-
 <header>
-<div class="brand">
-<a href="index.html"><img src="images/logo-seal.png"></a>
-<span>仙加味・龜鹿</span>
-</div>
-<div class="menu" onclick="toggleMenu()">☰</div>
+  <div class="header-inner">
+    <a class="brand-link" href="index.html"><img src="images/logo-seal.png" alt="仙加味 LOGO"><span>仙加味</span></a>
+    <button class="menu-btn" aria-label="選單" onclick="toggleMenu()">☰</button>
+  </div>
 </header>
-
 <nav id="drawer" class="drawer">
-<a href="index.html" onclick="closeMenu()">首頁</a>
-<a href="products.html" onclick="closeMenu()">產品</a>
-<a href="recipes.html" onclick="closeMenu()">料理</a>
-<a href="faq.html" onclick="closeMenu()">FAQ</a>
-<a href="brand.html" onclick="closeMenu()">品牌</a>
+<a href="index.html">首頁</a>
+<h4>產品</h4>
+<a href="products.html">產品總覽</a>
+<h4>內容</h4>
+<a href="recipes.html">料理資料庫</a>
+<a href="compare.html">產品比較</a>
+<a href="faq.html">常見問題</a>
+<a href="brand.html">品牌故事</a>
+<a href="contact.html">聯絡我們</a>
 </nav>
 
-<div class="grid">
-<div class="card"><img src="images/guilu-block-piece.jpg"><h3>龜鹿湯塊 75g</h3></div>
-<div class="card"><img src="images/guilu-block-300g-traditional.jpg"><h3>龜鹿湯塊 300g</h3></div>
-<div class="card"><img src="images/guilu-block-600g-box.jpg"><h3>龜鹿湯塊 600g</h3></div>
+<div class="container">
+  <section class="section">
+    <h2>產品總覽</h2>
+    <p class="lead">完整收錄仙加味・龜鹿與柒玄茶產品，所有圖片皆已放入 images 資料夾。</p>
+    <div class="grid">
+      
+<div class="card product-card">
+  <img src="images/guilu-gao.jpg" alt="仙加味龜鹿膏">
+  <h3>仙加味龜鹿膏</h3>
+  <p>濃縮膏狀型態，可直接食用，也可加入溫水沖泡，亦可搭配粥品。</p>
+  <div class="btn-row">
+    <button class="btn" onclick="openModal('gao')">查看介紹</button>
+  </div>
 </div>
+
+<div class="card product-card">
+  <img src="images/guilu-drink.jpg" alt="仙加味龜鹿飲">
+  <h3>仙加味龜鹿飲</h3>
+  <p>液態型態，開封即可飲用；若偏好溫熱口感，也可隔水加熱後再飲用。</p>
+  <div class="btn-row">
+    <button class="btn" onclick="openModal('drink')">查看介紹</button>
+  </div>
+</div>
+
+<div class="card product-card">
+  <img src="images/guilu-block-piece.jpg" alt="龜鹿湯塊 75g">
+  <h3>龜鹿湯塊 75g</h3>
+  <p>入門規格，常見用於燉雞湯、排骨湯與保溫壺沖泡飲。</p>
+  <div class="btn-row">
+    <button class="btn" onclick="openModal('block75')">查看介紹</button>
+  </div>
+</div>
+
+<div class="card product-card">
+  <img src="images/guilu-block-300g-traditional.jpg" alt="龜鹿湯塊 300g">
+  <h3>龜鹿湯塊 300g</h3>
+  <p>日常規格，常見用於燉雞湯、排骨湯與藥膳湯品。</p>
+  <div class="btn-row">
+    <button class="btn" onclick="openModal('block300')">查看介紹</button>
+  </div>
+</div>
+
+<div class="card product-card">
+  <img src="images/guilu-block-600g-box.jpg" alt="龜鹿湯塊 600g">
+  <h3>龜鹿湯塊 600g</h3>
+  <p>長期食用規格，適合規律燉煮與家庭使用。</p>
+  <div class="btn-row">
+    <button class="btn" onclick="openModal('block600')">查看介紹</button>
+  </div>
+</div>
+
+<div class="card product-card">
+  <img src="images/lurong-powder.jpg" alt="仙加味鹿茸粉">
+  <h3>仙加味鹿茸粉</h3>
+  <p>粉末型態，可加入溫水沖泡，也可作為粥品或料理的日常搭配方式。</p>
+  <div class="btn-row">
+    <button class="btn" onclick="openModal('powder')">查看介紹</button>
+  </div>
+</div>
+
+<div class="card product-card">
+  <img src="images/qixuan-guilu-mix.jpg" alt="柒玄茶・龜鹿調飲粉">
+  <h3>柒玄茶・龜鹿調飲粉</h3>
+  <p>可加入茶、咖啡或其他熱飲中飲用，作為日常草本調飲。</p>
+  <div class="btn-row">
+    <button class="btn" onclick="openModal('qixuan')">查看介紹</button>
+  </div>
+</div>
+
+    </div>
+  </section>
+</div>
+
+<div id="gao" class="modal">
+  <div class="modal-panel">
+    <div class="modal-top"><h2>仙加味龜鹿膏</h2><div class="close" onclick="closeModal('gao')">×</div></div>
+    <div class="modal-grid">
+      <div><img src="images/guilu-gao.jpg" alt="仙加味龜鹿膏"></div>
+      <div>
+        <p><strong>所屬產品線：</strong>仙加味・龜鹿</p>
+        <p><strong>規格：</strong>100 g</p>
+        <p>濃縮膏狀型態，可直接食用，也可加入溫水沖泡，亦可搭配粥品。</p>
+        <div class="meta-grid">
+          <div class="meta-box"><strong>常見使用方式</strong><br>直接食用、溫水沖泡、粥品搭配</div>
+          <div class="meta-box"><strong>主要原料</strong><br>龜板萃取物、鹿角萃取物、粉光蔘、枸杞、紅棗、黃耆</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="drink" class="modal">
+  <div class="modal-panel">
+    <div class="modal-top"><h2>仙加味龜鹿飲</h2><div class="close" onclick="closeModal('drink')">×</div></div>
+    <div class="modal-grid">
+      <div><img src="images/guilu-drink.jpg" alt="仙加味龜鹿飲"></div>
+      <div>
+        <p><strong>所屬產品線：</strong>仙加味・龜鹿</p>
+        <p><strong>規格：</strong>180 cc／包</p>
+        <p>液態型態，開封即可飲用；若偏好溫熱口感，也可隔水加熱後再飲用。</p>
+        <div class="meta-grid">
+          <div class="meta-box"><strong>常見使用方式</strong><br>開封即飲、隔水加熱</div>
+          <div class="meta-box"><strong>主要原料</strong><br>水、鹿角、全龜、枸杞、黃耆、紅棗、粉光蔘</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="block75" class="modal">
+  <div class="modal-panel">
+    <div class="modal-top"><h2>龜鹿湯塊 75g</h2><div class="close" onclick="closeModal('block75')">×</div></div>
+    <div class="modal-grid">
+      <div><img src="images/guilu-block-piece.jpg" alt="龜鹿湯塊 75g"></div>
+      <div>
+        <p><strong>所屬產品線：</strong>仙加味・龜鹿</p>
+        <p><strong>規格：</strong>75 g／盒（8塊，每塊約 9.375 g ± 5 g）</p>
+        <p>入門規格，常見用於燉雞湯、排骨湯與保溫壺沖泡飲。</p>
+        <div class="meta-grid">
+          <div class="meta-box"><strong>常見使用方式</strong><br>雞湯、排骨湯、保溫壺沖泡</div>
+          <div class="meta-box"><strong>主要原料</strong><br>龜板萃取物、鹿角萃取物</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="block300" class="modal">
+  <div class="modal-panel">
+    <div class="modal-top"><h2>龜鹿湯塊 300g</h2><div class="close" onclick="closeModal('block300')">×</div></div>
+    <div class="modal-grid">
+      <div><img src="images/guilu-block-300g-traditional.jpg" alt="龜鹿湯塊 300g"></div>
+      <div>
+        <p><strong>所屬產品線：</strong>仙加味・龜鹿</p>
+        <p><strong>規格：</strong>300 g／盒（傳統紅盒）</p>
+        <p>日常規格，常見用於燉雞湯、排骨湯與藥膳湯品。</p>
+        <div class="meta-grid">
+          <div class="meta-box"><strong>常見使用方式</strong><br>雞湯、排骨湯、藥膳湯品</div>
+          <div class="meta-box"><strong>主要原料</strong><br>龜板萃取物、鹿角萃取物</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="block600" class="modal">
+  <div class="modal-panel">
+    <div class="modal-top"><h2>龜鹿湯塊 600g</h2><div class="close" onclick="closeModal('block600')">×</div></div>
+    <div class="modal-grid">
+      <div><img src="images/guilu-block-600g-box.jpg" alt="龜鹿湯塊 600g"></div>
+      <div>
+        <p><strong>所屬產品線：</strong>仙加味・龜鹿</p>
+        <p><strong>規格：</strong>600 g／盒（傳統紅盒）</p>
+        <p>長期食用規格，適合規律燉煮與家庭使用。</p>
+        <div class="meta-grid">
+          <div class="meta-box"><strong>常見使用方式</strong><br>雞湯、排骨湯、藥膳湯品</div>
+          <div class="meta-box"><strong>主要原料</strong><br>龜板萃取物、鹿角萃取物</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="powder" class="modal">
+  <div class="modal-panel">
+    <div class="modal-top"><h2>仙加味鹿茸粉</h2><div class="close" onclick="closeModal('powder')">×</div></div>
+    <div class="modal-grid">
+      <div><img src="images/lurong-powder.jpg" alt="仙加味鹿茸粉"></div>
+      <div>
+        <p><strong>所屬產品線：</strong>仙加味・龜鹿</p>
+        <p><strong>規格：</strong>75 g</p>
+        <p>粉末型態，可加入溫水沖泡，也可作為粥品或料理的日常搭配方式。</p>
+        <div class="meta-grid">
+          <div class="meta-box"><strong>常見使用方式</strong><br>溫水沖泡、加入料理、粥品搭配</div>
+          <div class="meta-box"><strong>主要原料</strong><br>鹿茸</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="qixuan" class="modal">
+  <div class="modal-panel">
+    <div class="modal-top"><h2>柒玄茶・龜鹿調飲粉</h2><div class="close" onclick="closeModal('qixuan')">×</div></div>
+    <div class="modal-grid">
+      <div><img src="images/qixuan-guilu-mix.jpg" alt="柒玄茶・龜鹿調飲粉"></div>
+      <div>
+        <p><strong>所屬產品線：</strong>柒玄茶</p>
+        <p><strong>規格：</strong>單包調飲型</p>
+        <p>可加入茶、咖啡或其他熱飲中飲用，作為日常草本調飲。</p>
+        <div class="meta-grid">
+          <div class="meta-box"><strong>常見使用方式</strong><br>加茶、加咖啡、加熱飲</div>
+          <div class="meta-box"><strong>主要原料</strong><br>龜鹿膠粉末調飲配方</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<a class="line-btn" href="contact.html">LINE詢問</a>
+<footer>© 2026 仙加味</footer>
 <script src="site.js"></script>
-</body></html>
+</body>
+</html>
