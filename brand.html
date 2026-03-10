@@ -1,18 +1,31 @@
 
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
-<head>
+<html><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>品牌故事</title>
+<title>品牌</title>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
 
-<div class="container">
-<h1>品牌故事</h1>
-<p>仙加味以整理龜鹿食材與料理文化為核心。</p>
+<header>
+<div class="brand">
+<a href="index.html"><img src="images/logo-seal.png"></a>
+<span>仙加味・龜鹿</span>
 </div>
+<div class="menu" onclick="toggleMenu()">☰</div>
+</header>
 
-</body>
-</html>
+<nav id="drawer" class="drawer">
+<a href="index.html" onclick="closeMenu()">首頁</a>
+<a href="products.html" onclick="closeMenu()">產品</a>
+<a href="recipes.html" onclick="closeMenu()">料理</a>
+<a href="faq.html" onclick="closeMenu()">FAQ</a>
+<a href="brand.html" onclick="closeMenu()">品牌</a>
+</nav>
+
+<div style="padding:40px">
+<h1>品牌故事</h1>
+<p>仙加味整理龜鹿食材與料理文化。</p>
+</div>
+<script src="site.js"></script>
+</body></html>
