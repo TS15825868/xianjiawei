@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       mainImage: "images/lurong-powder.jpg",
       description: "粉末形式設計，方便搭配日常飲食使用。",
       specs: ["75g"],
-      usage: "可依個人習慣搭配沖泡或加入日常飲食。",
+      usage: "可依個人習慣搭配溫熱飲品或加入日常飲食。",
       pairing: "適合搭配溫熱飲品或其他日常食用方式。",
       gallery: [
         "images/lurong-powder.jpg"
@@ -75,7 +75,8 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   if (menuBtn && menu) {
-    menuBtn.addEventListener("click", function () {
+    menuBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
       menu.classList.toggle("open");
     });
 
@@ -93,6 +94,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function renderModal(product) {
+    if (!modalBody) return;
+
     const galleryHtml = product.gallery.map(src => `<img src="${src}" alt="${product.title}">`).join("");
     const specsHtml = product.specs.map(item => `<span class="chip">${item}</span>`).join("");
 
@@ -132,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openModal(key) {
     const product = products[key];
-    if (!product || !modal || !modalBody) return;
+    if (!product || !modal) return;
     renderModal(product);
     modal.classList.add("show");
     document.body.style.overflow = "hidden";
@@ -159,6 +162,15 @@ document.addEventListener("DOMContentLoaded", function () {
       if (e.target === modal) closeModal();
     });
   }
+
+  document.querySelectorAll(".faq-item").forEach(item => {
+    item.addEventListener("click", function () {
+      const answer = item.querySelector(".faq-answer");
+      const isOpen = answer.style.display === "block";
+      document.querySelectorAll(".faq-answer").forEach(a => a.style.display = "none");
+      answer.style.display = isOpen ? "none" : "block";
+    });
+  });
 
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
