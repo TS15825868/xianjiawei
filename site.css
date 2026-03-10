@@ -1,14 +1,12 @@
 
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'PingFang TC',sans-serif;background:#f7f4ed}
-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:#fff;border-bottom:1px solid #e6dfd2;position:sticky;top:0}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'PingFang TC',sans-serif;background:#F7F4ED}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;background:#fff;border-bottom:1px solid #e5e0d6}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700}
 .brand img{height:34px}
 .menu{font-size:22px;cursor:pointer}
-.drawer{position:fixed;right:-260px;top:0;width:260px;height:100%;background:#fff;border-left:1px solid #e6dfd2;padding:20px;transition:.3s}
-.drawer.open{right:0}
-.drawer a{display:block;margin:10px 0}
-.hero{height:70vh;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(#ffffff,#f7f4ed)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;padding:40px}
-.card{background:#fff;border:1px solid #e6dfd2;border-radius:14px;padding:16px}
+.hero{height:70vh;display:flex;align-items:center;justify-content:center;font-size:48px;color:#fff;background:url('images/guilu-block-300g-traditional.jpg') center/cover fixed}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;padding:40px}
+.card{background:#fff;border-radius:14px;border:1px solid #e6dfd2;padding:16px;transition:.25s}
+.card:hover{transform:translateY(-6px)}
 .card img{width:100%;border-radius:10px}
-.line-btn{position:fixed;right:20px;bottom:20px;background:#06C755;color:#fff;padding:14px 18px;border-radius:30px;font-weight:700}
+.line{position:fixed;right:20px;bottom:20px;background:#06C755;color:#fff;padding:14px 18px;border-radius:30px;font-weight:700}
