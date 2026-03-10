@@ -1,6 +1,10 @@
 
 :root{
-  --bg:#F7F4ED; --card:#fff; --text:#1f1f1f; --muted:#666; --line:#e5e0d6;
+  --bg:#F7F4ED;
+  --card:#fff;
+  --text:#1f1f1f;
+  --muted:#666;
+  --line:#e5e0d6;
   --shadow:0 16px 40px rgba(0,0,0,.08);
 }
 *{box-sizing:border-box}
@@ -8,36 +12,42 @@ html{scroll-behavior:smooth}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC",sans-serif;background:var(--bg);color:var(--text)}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
+button,input{font:inherit}
 header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.header-inner{max-width:1200px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.header-inner{max-width:1200px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand-link{display:flex;align-items:center;gap:10px;font-weight:700}
-.brand-link img{height:34px;width:auto}
+.brand-link img{height:34px;width:34px;object-fit:contain;border-radius:999px}
 .menu-btn{width:44px;height:44px;border:1px solid #d9d3c7;border-radius:12px;background:#fff;font-size:22px;cursor:pointer}
 .drawer{position:fixed;right:-290px;top:0;width:290px;max-width:84vw;height:100%;background:#fff;border-left:1px solid var(--line);box-shadow:-14px 0 30px rgba(0,0,0,.1);padding:20px;transition:.28s ease;z-index:60;overflow:auto}
 .drawer.open{right:0}
 .drawer h4{font-size:13px;color:var(--muted);margin:18px 0 8px}
 .drawer a{display:block;padding:10px 0;border-bottom:1px solid #f2eee7}
-.hero{min-height:78vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative;overflow:hidden;background:#111}
-.hero::before{content:"";position:absolute;inset:0;background:url('images/guilu-block-300g-traditional.jpg') center/cover fixed;opacity:.48;transform:scale(1.06)}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,.3), rgba(0,0,0,.58))}
+.hero{min-height:72vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative;overflow:hidden;background:#111}
+.hero::before{content:"";position:absolute;inset:0;background:url('images/guilu-block-300g-traditional.jpg') center/cover fixed;opacity:.46;transform:scale(1.06)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.62))}
 .hero-inner{position:relative;z-index:1;padding:20px}
 .hero-kicker{font-size:14px;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
 .hero h1{font-size:clamp(40px,7vw,82px);margin:12px 0 14px;line-height:1.05}
 .hero p{max-width:760px;margin:auto;font-size:clamp(16px,2.2vw,22px);line-height:1.8;color:#f2f2f2}
 .container{max-width:1200px;margin:auto;padding:40px 20px 120px}
 .section{margin-top:56px}
-.section h2{font-size:32px;margin:0 0 14px}
-.section p.lead{margin:0 0 20px;color:var(--muted);line-height:1.85}
+.section h2{font-size:32px;margin:0 0 14px;text-align:center}
+.section p.lead{margin:0 0 20px;color:var(--muted);line-height:1.85;text-align:center}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
 .product-card{transform-style:preserve-3d;transition:transform .22s ease, box-shadow .22s ease}
 .product-card:hover{transform:perspective(900px) rotateX(2deg) rotateY(-4deg) translateY(-6px)}
-.product-card img{border-radius:14px;aspect-ratio:1/1;object-fit:cover;background:#f1eee7}
+.product-card img{border-radius:14px;aspect-ratio:1/1;object-fit:cover;background:#f1eee7;width:100%}
 .product-card h3{margin:12px 0 6px;font-size:22px}
 .product-card p{margin:0;color:var(--muted);line-height:1.8}
-.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.btn-row,.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;justify-content:center}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border:1px solid #222;border-radius:12px;background:#fff;cursor:pointer}
-.compare-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.entry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.entry-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.entry-card h3{margin:0 0 8px;font-size:26px}
+.entry-card p{margin:0;color:var(--muted);line-height:1.8}
+.product-note{text-align:center;color:var(--muted);margin-top:-8px;margin-bottom:18px}
+.compare-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;justify-content:center}
 .tab-btn{padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:#fff;cursor:pointer}
 .tab-btn.active{background:#1f1f1f;color:#fff;border-color:#1f1f1f}
 .compare-panel{display:none}
@@ -50,7 +60,7 @@ th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vert
 .recipe-card h3{margin:0 0 8px}
 .recipe-card p{margin:0;color:var(--muted);line-height:1.8}
 .search{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;margin-bottom:18px}
-.accordion{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.accordion{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;max-width:920px;margin:0 auto}
 .acc-item + .acc-item{border-top:1px solid var(--line)}
 .acc-q{padding:16px 18px;font-weight:700;cursor:pointer}
 .acc-a{display:none;padding:0 18px 16px;color:var(--muted);line-height:1.8}
@@ -58,18 +68,29 @@ th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vert
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.58);display:none;align-items:center;justify-content:center;padding:18px;z-index:80}
 .modal.open{display:flex}
 .modal-panel{background:#fff;border-radius:22px;width:100%;max-width:980px;max-height:92vh;overflow:auto;padding:22px}
-.modal-top{display:flex;justify-content:space-between;align-items:center}
-.close{width:42px;height:42px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;font-size:24px}
+.modal-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.close{width:42px;height:42px;border:1px solid var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;font-size:24px;flex:0 0 auto}
 .modal-grid{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:22px;margin-top:16px}
-.modal-grid img{border-radius:16px;background:#f1eee7}
+.modal-grid img{border-radius:16px;background:#f1eee7;width:100%;aspect-ratio:1/1;object-fit:cover}
 .meta-grid{display:grid;grid-template-columns:1fr;gap:12px}
 .meta-box{background:#faf8f3;border:1px solid var(--line);border-radius:14px;padding:12px 14px;line-height:1.8}
+.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.gallery-grid img{border-radius:14px;aspect-ratio:1/1;object-fit:cover;background:#f1eee7}
+.content-block{max-width:900px;margin:0 auto 18px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow)}
+.content-block h3{margin:0 0 8px}
+.content-block p{margin:0;color:var(--muted);line-height:1.9}
 footer{text-align:center;color:var(--muted);padding:30px 20px 110px}
 .line-btn{position:fixed;right:18px;bottom:18px;background:#06C755;color:#fff;padding:14px 18px;border-radius:999px;font-weight:700;z-index:30;box-shadow:var(--shadow)}
+.small-center{text-align:center;color:var(--muted)}
+@media (max-width:900px){
+  .entry-grid{grid-template-columns:1fr}
+  .modal-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr}
+}
 @media (max-width:760px){
-  .hero{min-height:66vh}
+  .hero{min-height:62vh}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
   .product-card h3{font-size:18px}
-  .modal-grid{grid-template-columns:1fr}
   .section h2{font-size:28px}
+  .gallery-grid{grid-template-columns:1fr}
 }
