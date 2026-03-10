@@ -1,4 +1,12 @@
+document.addEventListener("DOMContentLoaded",function(){
 
-function toggleMenu(){
-document.getElementById('nav').classList.toggle('open')
+const menuBtn=document.querySelector(".menu-btn");
+const menu=document.querySelector(".menu");
+
+if(menuBtn){
+menuBtn.onclick=function(){
+menu.classList.toggle("open");
+};
 }
+
+});
