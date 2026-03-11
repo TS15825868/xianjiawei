@@ -133,3 +133,33 @@ footer{text-align:center;color:var(--muted);padding:30px 20px 110px}
   .hero-home .hero-kicker{font-size:14px}
   .hero-visual{max-width:360px;padding:14px}
 }
+
+
+
+.hero-home{
+  background:
+    linear-gradient(rgba(245,241,234,.88), rgba(245,241,234,.94)),
+    url('images/guilu-gao.jpg') center 28px / 320px auto no-repeat;
+  background-color:#f5f1ea;
+  color:var(--text);
+  min-height:auto;
+  padding:120px 20px 56px;
+}
+.hero-home::before,.hero-home::after{display:none}
+.hero-home .hero-inner{max-width:900px;margin:0 auto;text-align:center;padding-top:300px;position:relative;z-index:1}
+.hero-home .hero-kicker{font-size:16px;color:#7a6a4f;letter-spacing:.08em;text-transform:none;opacity:1}
+.hero-home h1{font-size:clamp(34px,6vw,62px);line-height:1.15;margin:12px 0 16px;color:var(--text)}
+.hero-home p{max-width:760px;margin:auto;font-size:clamp(16px,2.2vw,22px);line-height:1.8;color:#555}
+.section.visual-section{display:none}
+@media (max-width:760px){
+  .hero-home{
+    background:
+      linear-gradient(rgba(245,241,234,.9), rgba(245,241,234,.96)),
+      url('images/guilu-gao.jpg') center 20px / 240px auto no-repeat;
+    background-color:#f5f1ea;
+    padding:96px 16px 44px;
+  }
+  .hero-home .hero-inner{padding-top:230px}
+  .hero-home h1{font-size:32px}
+  .hero-home p{font-size:16px}
+}
