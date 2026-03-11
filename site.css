@@ -23,7 +23,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdro
 .drawer h4{font-size:13px;color:var(--muted);margin:18px 0 8px}
 .drawer a{display:block;padding:10px 0;border-bottom:1px solid #f2eee7}
 .hero{min-height:72vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;position:relative;overflow:hidden;background:#111}
-.hero::before{content:"";position:absolute;inset:0;background:url('images/guilu-gao-texture.jpg') center/cover fixed;opacity:.46;transform:scale(1.06)}
+.hero::before{content:"";position:absolute;inset:0;background:url('images/guilu-block-300g-traditional.jpg') center/cover fixed;opacity:.46;transform:scale(1.06)}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.62))}
 .hero-inner{position:relative;z-index:1;padding:20px}
 .hero-kicker{font-size:14px;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
@@ -95,4 +95,41 @@ footer{text-align:center;color:var(--muted);padding:30px 20px 110px}
   .gallery-grid{grid-template-columns:1fr}
 }
 
-.hero-visual{max-width:980px;margin:-70px auto 0;position:relative;z-index:2;padding:0 20px}.hero-visual img{width:100%;border-radius:22px;box-shadow:var(--shadow);aspect-ratio:16/9;object-fit:cover;background:#f1eee7}@media (max-width:760px){.hero-visual{margin:-34px auto 0;padding:0 16px}.hero-visual img{aspect-ratio:4/3}}
+.hero-home{
+  background:
+    linear-gradient(rgba(255,255,255,.74), rgba(255,255,255,.84)),
+    url('images/guilu-gao-texture.jpg') center center/cover no-repeat;
+}
+.hero-home .hero-inner{
+  max-width:900px;
+  margin:0 auto;
+  text-align:center;
+}
+.hero-home .hero-kicker{
+  font-size:16px;
+  color:#7a6a4f;
+  letter-spacing:.08em;
+  margin-bottom:12px;
+}
+.hero-home h1{
+  margin:0 0 16px;
+}
+.visual-section{padding-top:8px}
+.hero-visual{
+  max-width:520px;
+  margin:0 auto;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+.hero-visual img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+}
+@media (max-width:760px){
+  .hero-home .hero-kicker{font-size:14px}
+  .hero-visual{max-width:360px;padding:14px}
+}
