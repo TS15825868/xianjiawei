@@ -2,12 +2,15 @@ function toggleMenu(){
   document.getElementById("drawer").classList.toggle("open")
 }
 
+
+/* 讀取產品 */
+
 async function loadProducts(){
 
   const res = await fetch("products.json")
   const data = await res.json()
 
-  const grid = document.querySelector(".product-grid")
+  const grid = document.getElementById("productGrid")
 
   if(!grid) return
 
@@ -18,15 +21,15 @@ async function loadProducts(){
 
     card.innerHTML=`
 
-    <img src="${p.image}" alt="${p.name}">
+      <img src="${p.image}" alt="${p.name}">
 
-    <h3>${p.name}</h3>
+      <h3>${p.name}</h3>
 
-    <p>${p.description}</p>
+      <p>${p.description}</p>
 
-    <button class="btn" onclick="openProduct('${p.id}')">
-    查看
-    </button>
+      <button class="btn" onclick="openProduct('${p.id}')">
+      查看
+      </button>
 
     `
 
@@ -36,6 +39,10 @@ async function loadProducts(){
 
 }
 
+
+
+/* 打開產品 */
+
 async function openProduct(id){
 
   const res = await fetch("products.json")
@@ -43,31 +50,26 @@ async function openProduct(id){
 
   const p = data.products.find(x=>x.id===id)
 
-  const modal = document.getElementById("modal")
+  const modal = document.getElementById("productModal")
+  const body = document.getElementById("modalBody")
 
-  modal.innerHTML=`
+  body.innerHTML = `
 
-  <div class="modal-content">
+    <h2>${p.name}</h2>
 
-  <h2>${p.name}</h2>
+    <p>${p.description}</p>
 
-  <p>${p.description}</p>
+    <h4>成分</h4>
 
-  <h4>成分</h4>
+    <ul>
+      ${p.ingredients.map(i=>`<li>${i}</li>`).join("")}
+    </ul>
 
-  <ul>
-  ${p.ingredients.map(i=>`<li>${i}</li>`).join("")}
-  </ul>
+    <h4>使用方式</h4>
 
-  <h4>使用方式</h4>
-
-  <ul>
-  ${p.usage.map(i=>`<li>${i}</li>`).join("")}
-  </ul>
-
-  <button class="btn" onclick="closeModal()">關閉</button>
-
-  </div>
+    <ul>
+      ${p.usage.map(i=>`<li>${i}</li>`).join("")}
+    </ul>
 
   `
 
@@ -75,8 +77,27 @@ async function openProduct(id){
 
 }
 
+
+/* 關閉 modal */
+
 function closeModal(){
-  document.getElementById("modal").classList.remove("show")
+  document.getElementById("productModal").classList.remove("show")
 }
+
+
+
+/* 點背景關閉 */
+
+document.addEventListener("click",function(e){
+
+  const modal = document.getElementById("productModal")
+
+  if(e.target === modal){
+    closeModal()
+  }
+
+})
+
+
 
 document.addEventListener("DOMContentLoaded",loadProducts)
