@@ -10,13 +10,9 @@
 --max:1200px;
 }
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
 margin:0;
@@ -26,26 +22,19 @@ color:var(--text);
 line-height:1.75;
 }
 
-a{
-color:inherit;
-text-decoration:none;
-}
+a{color:inherit;text-decoration:none}
 
-img{
-max-width:100%;
-display:block;
-}
+img{max-width:100%;display:block}
 
-button{
-font:inherit;
-cursor:pointer;
-}
+button{font:inherit;cursor:pointer}
+
+/* HEADER */
 
 header{
 position:sticky;
 top:0;
 z-index:100;
-background:rgba(255,255,255,.9);
+background:rgba(255,255,255,.88);
 backdrop-filter:blur(14px);
 border-bottom:1px solid var(--line);
 }
@@ -67,15 +56,15 @@ font-weight:600;
 font-size:18px;
 }
 
-.brand-link img{
-height:28px;
-}
+.brand-link img{height:28px}
+
+/* MENU */
 
 .menu-btn{
 width:42px;
 height:42px;
-border-radius:999px;
 border:1px solid var(--line);
+border-radius:999px;
 background:#fff;
 font-size:20px;
 }
@@ -89,19 +78,17 @@ height:100vh;
 background:#fff;
 border-left:1px solid var(--line);
 padding:30px;
-transition:.3s;
 overflow-y:auto;
+transition:.3s;
 z-index:200;
 }
 
-.drawer.open{
-right:0;
-}
+.drawer.open{right:0}
 
 .drawer a{
 display:block;
 padding:10px 0;
-border-bottom:1px solid #f1f1f1;
+border-bottom:1px solid #f2f2f2;
 }
 
 .drawer h4{
@@ -111,34 +98,24 @@ color:var(--muted);
 letter-spacing:.1em;
 }
 
+/* HERO */
+
 .hero{
-padding:140px 20px 120px;
+padding:140px 20px 110px;
 text-align:center;
-background:radial-gradient(circle at top,#f7f7f9 0%,#ffffff 70%);
-}
-
-.hero-brand{
-background:url("images/hero-guilu-gao.jpg") center/cover no-repeat;
-color:#fff;
-position:relative;
-}
-
-.hero-overlay{
-position:absolute;
-inset:0;
-background:rgba(0,0,0,.35);
+background:
+radial-gradient(circle at top,#f7f7f9 0%,#ffffff 65%);
 }
 
 .hero-inner{
-position:relative;
-max-width:760px;
+max-width:820px;
 margin:auto;
 }
 
 .hero h1{
 font-size:56px;
-letter-spacing:-1px;
 margin:0 0 12px;
+letter-spacing:-.03em;
 }
 
 .hero-sub{
@@ -146,34 +123,35 @@ font-size:26px;
 margin-bottom:10px;
 }
 
-.hero-tagline{
-font-size:18px;
-opacity:.9;
+.hero p{
+color:var(--muted);
 }
+
+/* LAYOUT */
 
 .container{
 max-width:var(--max);
 margin:auto;
-padding:20px;
+padding:24px 20px 120px;
 }
 
-.section{
-margin-bottom:100px;
-}
+.section{margin-bottom:90px}
 
 .section h2{
 text-align:center;
 font-size:38px;
-margin-bottom:16px;
+margin-bottom:14px;
 }
 
 .lead{
 text-align:center;
-max-width:720px;
+max-width:760px;
 margin:auto;
 color:var(--muted);
 font-size:17px;
 }
+
+/* GRID */
 
 .grid{
 display:grid;
@@ -181,143 +159,74 @@ grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 gap:24px;
 }
 
+/* CARD */
+
 .card{
 background:var(--card);
 border:1px solid var(--line);
 border-radius:var(--radius);
 padding:28px;
 box-shadow:var(--shadow);
-transition:.3s;
+transition:.25s;
 }
 
 .card:hover{
 transform:translateY(-4px);
-box-shadow:0 25px 60px rgba(0,0,0,.08);
+box-shadow:0 24px 48px rgba(0,0,0,.08);
 }
 
 .card img{
+aspect-ratio:1/1;
+object-fit:cover;
 border-radius:14px;
 margin-bottom:14px;
+background:#f5f5f7;
 }
 
-.card h3{
-margin:0 0 10px;
-font-size:22px;
-}
+.card h3{margin:0 0 10px;font-size:22px}
 
-.card p{
-color:var(--muted);
-font-size:15px;
-}
+.card p{color:var(--muted)}
 
-.product-hero{
-max-width:900px;
-margin:auto;
-display:grid;
-gap:30px;
-}
-
-.product-hero-card{
-padding:60px 40px;
-border-radius:28px;
-background:#fff;
-border:1px solid var(--line);
-box-shadow:0 30px 60px rgba(0,0,0,.06);
-text-align:center;
-}
-
-.product-hero-card h3{
-font-size:32px;
-margin-bottom:12px;
-}
-
-.product-hero-card p{
-color:var(--muted);
-margin-bottom:18px;
-}
+/* BUTTON */
 
 .btn{
-display:inline-block;
-padding:12px 20px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+padding:11px 18px;
+border:1px solid var(--text);
 border-radius:999px;
-border:1px solid #111;
 font-size:14px;
 transition:.2s;
 }
 
 .btn:hover{
-background:#111;
+background:var(--text);
 color:#fff;
 }
 
-.btn-row{
-display:flex;
-gap:12px;
-flex-wrap:wrap;
-justify-content:center;
-margin-top:20px;
-}
-
-.content-block{
-max-width:860px;
-margin:auto;
-padding:36px;
-background:#fff;
-border-radius:var(--radius);
-border:1px solid var(--line);
-box-shadow:var(--shadow);
-}
-
-.culture-hero{
-max-width:1100px;
-margin:auto;
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:30px;
-align-items:center;
-}
-
-.culture-hero-image img{
-border-radius:28px;
-box-shadow:0 30px 60px rgba(0,0,0,.1);
-}
-
-.culture-hero-text{
-background:#fff;
-border-radius:28px;
-border:1px solid var(--line);
-padding:40px;
-box-shadow:var(--shadow);
-}
-
-.culture-kicker{
-font-size:12px;
-letter-spacing:.1em;
-color:var(--muted);
-margin-bottom:10px;
-}
+/* MODAL */
 
 .modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.45);
+background:rgba(0,0,0,.42);
 display:none;
 align-items:center;
 justify-content:center;
+padding:20px;
 z-index:300;
 }
 
-.modal.show{
-display:flex;
-}
+.modal.show{display:flex}
 
 .modal-box{
 background:#fff;
-padding:40px;
-border-radius:26px;
+border-radius:24px;
+padding:34px;
 max-width:520px;
 width:100%;
-box-shadow:0 40px 80px rgba(0,0,0,.25);
+box-shadow:0 30px 60px rgba(0,0,0,.2);
 position:relative;
 }
 
@@ -332,62 +241,49 @@ width:36px;
 height:36px;
 }
 
-.recommend-box{
-max-width:420px;
-margin:auto;
-display:flex;
-flex-direction:column;
-gap:16px;
-}
-
-.recommend-box select{
-padding:10px;
-border-radius:8px;
-border:1px solid #ccc;
-}
-
-#recommendResult{
-margin-top:30px;
-text-align:center;
-}
+/* LINE */
 
 .line-btn{
 position:fixed;
-right:20px;
-bottom:20px;
+right:18px;
+bottom:18px;
 background:#06C755;
 color:#fff;
 padding:14px 20px;
 border-radius:999px;
 font-weight:600;
-box-shadow:0 10px 25px rgba(0,0,0,.2);
+box-shadow:0 12px 30px rgba(6,199,85,.28);
 z-index:400;
 }
+
+/* FOOTER */
 
 footer{
 border-top:1px solid var(--line);
 text-align:center;
-padding:30px;
+padding:32px;
 color:var(--muted);
 font-size:14px;
 }
 
-@media (max-width:900px){
+/* MOBILE */
+
+@media (max-width:760px){
+
+.hero{
+padding:100px 20px 70px;
+}
 
 .hero h1{
 font-size:40px;
 }
 
-.hero-sub{
-font-size:20px;
+.section{
+margin-bottom:60px;
 }
 
-.culture-hero{
+.grid{
 grid-template-columns:1fr;
-}
-
-.product-hero-card{
-padding:40px 24px;
 }
 
 }
