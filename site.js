@@ -39,35 +39,63 @@ const data = await res.json()
 
 const p = data.products.find(x=>x.id===id)
 
-let text = p.name + "\n\n"
+const modal = document.getElementById("productModal")
 
-text += p.description + "\n\n"
+const body = document.getElementById("modalBody")
+
+let html = ""
+
+html += `<h2>${p.name}</h2>`
+
+html += `<p>${p.description}</p>`
 
 if(p.size){
-text += "規格：" + p.size + "\n"
+
+html += `<h3>規格</h3>`
+
+html += `<p>${p.size}</p>`
+
 }
 
 if(p.ingredients){
-text += "\n成分：\n" + p.ingredients.join("、")
+
+html += `<h3>成分</h3>`
+
+html += `<p>${p.ingredients.join("、")}</p>`
+
 }
 
 if(p.price){
 
-text += "\n\n優惠：\n"
+html += `<h3>優惠</h3>`
 
-text += "單罐 $" + p.price.single + "\n"
+html += `<p>單罐 $${p.price.single}</p>`
 
 if(p.price.two){
-text += "2罐 $" + p.price.two + "\n"
+
+html += `<p>2罐 $${p.price.two}</p>`
+
 }
 
 if(p.price.three_avg){
-text += "3罐以上平均 $" + p.price.three_avg
-}
+
+html += `<p>3罐以上平均 $${p.price.three_avg}</p>`
 
 }
 
-alert(text)
+}
+
+body.innerHTML = html
+
+modal.style.display="flex"
+
+}
+
+
+
+function closeModal(){
+
+document.getElementById("productModal").style.display="none"
 
 }
 
@@ -75,15 +103,15 @@ alert(text)
 
 function toggleMenu(){
 
-document.getElementById("drawer")
-.classList.toggle("open")
+document.getElementById("drawer").classList.toggle("open")
 
 }
 
+
+
 function closeMenu(){
 
-document.getElementById("drawer")
-.classList.remove("open")
+document.getElementById("drawer").classList.remove("open")
 
 }
 
