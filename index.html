@@ -6,7 +6,7 @@
 
 <title>仙加味</title>
 
-<meta name="description" content="仙加味品牌官網，整理龜鹿膏、龜鹿飲、龜鹿湯塊、鹿茸粉與柒玄茶龜鹿調飲粉。">
+<meta name="description" content="仙加味品牌官網，整理龜鹿膏、龜鹿飲、龜鹿湯塊、鹿茸粉與柒玄茶龜鹿調飲粉等產品型態與日常食用方式。">
 
 <meta property="og:title" content="仙加味">
 <meta property="og:description" content="仙加味品牌官網">
@@ -14,6 +14,82 @@
 <meta property="og:image" content="images/hero-guilu-gao.jpg">
 
 <link rel="stylesheet" href="site.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"Organization",
+      "name":"仙加味",
+      "url":"https://ts15825868.github.io/TaiShing/",
+      "logo":"https://ts15825868.github.io/TaiShing/images/logo-seal.png"
+    },
+    {
+      "@type":"WebSite",
+      "name":"仙加味",
+      "url":"https://ts15825868.github.io/TaiShing/"
+    },
+    {
+      "@type":"ItemList",
+      "name":"仙加味核心產品",
+      "itemListElement":[
+        {
+          "@type":"ListItem",
+          "position":1,
+          "item":{
+            "@type":"Product",
+            "name":"仙加味・龜鹿膏",
+            "image":"https://ts15825868.github.io/TaiShing/images/guilu-gao-100g.jpg",
+            "description":"濃縮膏狀型態，可直接食用，也可加入溫熱開水攪拌飲用。"
+          }
+        },
+        {
+          "@type":"ListItem",
+          "position":2,
+          "item":{
+            "@type":"Product",
+            "name":"仙加味・龜鹿飲",
+            "image":"https://ts15825868.github.io/TaiShing/images/guilu-drink-30cc.jpg",
+            "description":"液態即飲型態，30 cc 小瓶裝與 180 cc 袋裝並列。"
+          }
+        },
+        {
+          "@type":"ListItem",
+          "position":3,
+          "item":{
+            "@type":"Product",
+            "name":"仙加味・龜鹿湯塊",
+            "image":"https://ts15825868.github.io/TaiShing/images/guilu-block-75g.jpg",
+            "description":"濃縮湯塊型態，適合雞湯、排骨湯與日常燉煮料理。"
+          }
+        },
+        {
+          "@type":"ListItem",
+          "position":4,
+          "item":{
+            "@type":"Product",
+            "name":"仙加味・鹿茸粉",
+            "image":"https://ts15825868.github.io/TaiShing/images/lurong-powder-75g.jpg",
+            "description":"粉末型態，方便加入溫熱飲品或日常飲食中。"
+          }
+        },
+        {
+          "@type":"ListItem",
+          "position":5,
+          "item":{
+            "@type":"Product",
+            "name":"柒玄茶・龜鹿調飲粉",
+            "image":"https://ts15825868.github.io/TaiShing/images/qixuan-guilu-mix.jpg",
+            "description":"2 g 小包裝適合茶飲、咖啡與熱水沖泡；20 g / 包為 10 小包。"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
 </head>
 <body>
 
@@ -37,6 +113,7 @@
 
   <h4>內容</h4>
   <a href="guide.html">食用指南</a>
+  <a href="ingredients.html">成分介紹</a>
   <a href="recipes.html">料理搭配</a>
   <a href="videos.html">中醫觀點</a>
   <a href="faq.html">常見問題</a>
@@ -54,8 +131,8 @@
     </h1>
 
     <p>
-      從龜鹿膏、龜鹿飲、龜鹿湯塊、鹿茸粉到龜鹿調飲粉，
-      整理成更清楚的產品型態與日常使用方式。
+      整理龜鹿膏、龜鹿飲、龜鹿湯塊、鹿茸粉與龜鹿調飲粉，
+      提供更清楚的產品型態與日常食用方式。
     </p>
   </div>
 </section>
@@ -72,7 +149,7 @@
     <div class="grid">
 
       <button class="card product-card card-button" type="button" onclick="openModal('gao')">
-        <img src="images/guilu-gao-100g.jpg" alt="仙加味・龜鹿膏">
+        <img src="images/guilu-gao-100g.jpg" alt="仙加味龜鹿膏">
         <h3>仙加味・龜鹿膏</h3>
         <p>
           濃縮膏狀型態<br>
@@ -82,7 +159,7 @@
       </button>
 
       <button class="card product-card card-button" type="button" onclick="openModal('drink')">
-        <img src="images/guilu-drink-30cc.jpg" alt="仙加味・龜鹿飲">
+        <img src="images/guilu-drink-30cc.jpg" alt="仙加味龜鹿飲">
         <h3>仙加味・龜鹿飲</h3>
         <p>
           30cc 小瓶裝<br>
@@ -92,7 +169,7 @@
       </button>
 
       <button class="card product-card card-button" type="button" onclick="openModal('block')">
-        <img src="images/guilu-block-75g.jpg" alt="仙加味・龜鹿湯塊">
+        <img src="images/guilu-block-75g.jpg" alt="仙加味龜鹿湯塊">
         <h3>仙加味・龜鹿湯塊</h3>
         <p>
           75g / 300g / 600g<br>
@@ -101,7 +178,7 @@
       </button>
 
       <button class="card product-card card-button" type="button" onclick="openModal('powder')">
-        <img src="images/lurong-powder-75g.jpg" alt="仙加味・鹿茸粉">
+        <img src="images/lurong-powder-75g.jpg" alt="仙加味鹿茸粉">
         <h3>仙加味・鹿茸粉</h3>
         <p>
           粉末型態<br>
@@ -110,13 +187,64 @@
       </button>
 
       <button class="card product-card card-button" type="button" onclick="openModal('qixuan')">
-        <img src="images/qixuan-guilu-mix.jpg" alt="柒玄茶・龜鹿調飲粉">
+        <img src="images/qixuan-guilu-mix.jpg" alt="龜鹿調飲粉">
         <h3>柒玄茶・龜鹿調飲粉</h3>
         <p>
           2g 小包<br>
-          20g / 包（10 小包）
+          20g / 包（10小包）
         </p>
       </button>
+
+    </div>
+  </section>
+
+  <section class="section section-showcase">
+    <h2>產品型態整理</h2>
+    <p class="lead">
+      依不同型態與日常情境整理，方便更快理解各產品的差異。
+    </p>
+
+    <div class="showcase-stack">
+
+      <div class="showcase-card">
+        <div class="showcase-media">
+          <img src="images/guilu-gao-100g.jpg" alt="仙加味龜鹿膏">
+        </div>
+        <div class="showcase-text">
+          <h3>仙加味・龜鹿膏</h3>
+          <p>濃縮膏狀型態，適合直接食用，也可加入溫熱開水攪拌飲用。</p>
+        </div>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-media">
+          <img src="images/guilu-drink-30cc.jpg" alt="仙加味龜鹿飲">
+        </div>
+        <div class="showcase-text">
+          <h3>仙加味・龜鹿飲</h3>
+          <p>液態即飲型態，30 cc 小瓶裝與 180 cc 袋裝，適合日常飲用與攜帶。</p>
+        </div>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-media">
+          <img src="images/guilu-block-75g.jpg" alt="仙加味龜鹿湯塊">
+        </div>
+        <div class="showcase-text">
+          <h3>仙加味・龜鹿湯塊</h3>
+          <p>濃縮湯塊型態，適合雞湯、排骨湯與日常燉煮料理。</p>
+        </div>
+      </div>
+
+      <div class="showcase-card">
+        <div class="showcase-media">
+          <img src="images/qixuan-guilu-mix.jpg" alt="柒玄茶龜鹿調飲粉">
+        </div>
+        <div class="showcase-text">
+          <h3>柒玄茶・龜鹿調飲粉</h3>
+          <p>2 g 小包裝更適合茶飲、咖啡與熱水沖泡情境，20 g / 包為 10 小包。</p>
+        </div>
+      </div>
 
     </div>
   </section>
@@ -180,7 +308,6 @@
 
 </div>
 
-<!-- 龜鹿膏 -->
 <div id="gao" class="modal">
   <div class="modal-panel">
     <div class="modal-top">
@@ -218,7 +345,6 @@
   </div>
 </div>
 
-<!-- 龜鹿飲 -->
 <div id="drink" class="modal">
   <div class="modal-panel">
     <div class="modal-top">
@@ -230,7 +356,7 @@
       <div>
         <img src="images/guilu-drink-30cc.jpg" alt="仙加味・龜鹿飲 30cc">
         <div class="gallery-grid">
-          <img src="images/guilu-drink-180cc.jpg" alt="龜鹿飲 180cc">
+          <img src="images/guilu-drink-180cc.jpg" alt="仙加味・龜鹿飲 180cc">
         </div>
       </div>
 
@@ -254,7 +380,6 @@
   </div>
 </div>
 
-<!-- 龜鹿湯塊 -->
 <div id="block" class="modal">
   <div class="modal-panel">
     <div class="modal-top">
@@ -291,7 +416,6 @@
   </div>
 </div>
 
-<!-- 鹿茸粉 -->
 <div id="powder" class="modal">
   <div class="modal-panel">
     <div class="modal-top">
@@ -324,7 +448,6 @@
   </div>
 </div>
 
-<!-- 調飲粉 -->
 <div id="qixuan" class="modal">
   <div class="modal-panel">
     <div class="modal-top">
