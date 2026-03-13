@@ -1,4 +1,27 @@
 
+function toggleMenu(){
+  const drawer=document.getElementById("siteDrawer")||document.getElementById("drawer");
+  const backdrop=document.getElementById("drawerBackdrop");
+  if(drawer){
+    drawer.classList.toggle("open");
+  }
+  if(backdrop){
+    backdrop.classList.toggle("show");
+  }
+}
+
+function closeMenu(){
+  const drawer=document.getElementById("siteDrawer")||document.getElementById("drawer");
+  const backdrop=document.getElementById("drawerBackdrop");
+  if(drawer){
+    drawer.classList.remove("open");
+  }
+  if(backdrop){
+    backdrop.classList.remove("show");
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded",()=>{
 const grid=document.querySelector("#productGrid");
 if(grid){
