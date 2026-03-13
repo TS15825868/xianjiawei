@@ -1,203 +1,119 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>怎麼選龜鹿｜仙加味</title>
+<meta name="description" content="依照日常使用方式，快速找到適合的龜鹿型態。">
 
-<meta name="description" content="依日常飲食方式選擇龜鹿膏、龜鹿飲、龜鹿湯塊與鹿茸粉。">
+<link rel="canonical" href="https://ts15825868.github.io/TaiShing/choose.html">
+
+<meta property="og:title" content="怎麼選龜鹿｜仙加味">
+<meta property="og:description" content="依日常飲食方式快速找到適合的龜鹿型態。">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://ts15825868.github.io/TaiShing/images/guilu-gao-100g.jpg">
 
 <link rel="stylesheet" href="site.css">
 <script defer src="site.js"></script>
-
 </head>
 
 <body>
 
 <header>
-
-<div class="header-inner">
-
-<a href="index.html" class="brand-link">
-<img src="images/logo-seal.png">
-<span>仙加味</span>
-</a>
-
-<button class="menu-btn" onclick="toggleMenu()">☰</button>
-
-</div>
-
+  <div class="header-inner">
+    <a href="index.html" class="brand-link">
+      <img src="images/logo-seal.png" alt="仙加味">
+      <span>仙加味</span>
+    </a>
+    <button class="menu-btn" type="button" aria-label="選單" onclick="toggleMenu()">☰</button>
+  </div>
 </header>
 
-
 <nav id="drawer" class="drawer">
+  <a href="index.html">首頁</a>
 
-<a href="index.html">首頁</a>
+  <h4>產品</h4>
+  <a href="guilu-series.html">仙加味・龜鹿</a>
+  <a href="qixuan-tea.html">柒玄茶</a>
+  <a href="compare.html">產品比較</a>
+  <a href="dm.html">產品總覽</a>
+  <a href="choose.html">怎麼選龜鹿</a>
 
-<h4>產品</h4>
+  <h4>使用指南</h4>
+  <a href="guide.html">食用指南</a>
+  <a href="ingredients.html">成分介紹</a>
+  <a href="recipes.html">料理搭配</a>
 
-<a href="guilu-series.html">仙加味・龜鹿</a>
-<a href="qixuan-tea.html">柒玄茶</a>
-<a href="compare.html">產品比較</a>
-<a href="dm.html">產品總覽</a>
+  <h4>知識中心</h4>
+  <a href="knowledge.html">龜鹿文化</a>
+  <a href="videos.html">中醫觀點</a>
+  <a href="faq.html">常見問題</a>
 
-<h4>指南</h4>
-
-<a href="choose.html">怎麼選龜鹿</a>
-<a href="guide.html">食用指南</a>
-<a href="recipes.html">料理搭配</a>
-
-<h4>知識</h4>
-
-<a href="knowledge.html">龜鹿文化</a>
-<a href="videos.html">中醫觀點</a>
-<a href="faq.html">常見問題</a>
-
-<h4>品牌</h4>
-
-<a href="brand.html">品牌介紹</a>
-<a href="contact.html">聯絡我們</a>
-
+  <h4>品牌</h4>
+  <a href="brand.html">品牌介紹</a>
+  <a href="contact.html">聯絡我們</a>
 </nav>
 
-
 <section class="hero">
-
-<div class="hero-inner">
-
-<h1>怎麼選龜鹿</h1>
-
-<p>
-依照你的日常使用方式，
-快速找到適合的產品型態。
-</p>
-
-</div>
-
+  <div class="hero-inner">
+    <h1>怎麼選龜鹿</h1>
+    <p class="hero-sub">依照日常使用方式，快速找到適合的型態</p>
+    <p>
+      直接食用、即飲、燉湯或沖泡飲品，不同習慣適合不同產品。
+    </p>
+  </div>
 </section>
-
 
 <div class="container">
 
-<section class="section">
+  <section class="section">
+    <h2>產品推薦器</h2>
+    <p class="lead">回答幾個問題，快速找到適合的型態</p>
 
-<h2>選擇使用方式</h2>
+    <div class="recommend-box">
+      <label>
+        使用方式
+        <select id="useType">
+          <option value="">請選擇</option>
+          <option value="eat">直接食用</option>
+          <option value="drink">即飲</option>
+          <option value="cook">燉湯料理</option>
+          <option value="mix">沖泡飲品</option>
+        </select>
+      </label>
 
-<div class="grid">
+      <label>
+        生活習慣
+        <select id="habitType">
+          <option value="">請選擇</option>
+          <option value="daily">日常補養</option>
+          <option value="busy">忙碌生活</option>
+          <option value="family">家庭燉湯</option>
+        </select>
+      </label>
 
-<div class="card" onclick="recommend('eat')">
-<h3>直接食用</h3>
-<p>適合日常補養</p>
+      <label>
+        飲食偏好
+        <select id="drinkType">
+          <option value="">請選擇</option>
+          <option value="warm">熱飲</option>
+          <option value="soup">湯品</option>
+          <option value="drink">飲品</option>
+        </select>
+      </label>
+
+      <button class="btn" type="button" onclick="recommendProduct()">查看推薦</button>
+
+      <div id="recommendResult"></div>
+    </div>
+  </section>
+
 </div>
 
-<div class="card" onclick="recommend('drink')">
-<h3>即開即飲</h3>
-<p>方便快速</p>
-</div>
+<a class="line-btn" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE</a>
 
-<div class="card" onclick="recommend('soup')">
-<h3>燉湯料理</h3>
-<p>雞湯 / 排骨湯</p>
-</div>
-
-<div class="card" onclick="recommend('tea')">
-<h3>熱飲沖泡</h3>
-<p>茶 / 咖啡</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section class="section">
-
-<h2>推薦產品</h2>
-
-<div id="recommendResult"></div>
-
-</section>
-
-</div>
-
-
-<a class="line-btn"
-href="https://lin.ee/sHZW7NkR"
-target="_blank">
-
-LINE詢問
-
-</a>
-
-<footer>
-
-© 仙加味
-
-</footer>
-
-
-<script>
-
-function recommend(type){
-
-let html=""
-
-if(type==="eat"){
-
-html=`
-<div class="card">
-<h3>龜鹿膏</h3>
-<p>濃縮膏體，可直接食用。</p>
-<a class="btn" href="guilu-series.html">查看產品</a>
-</div>
-`
-
-}
-
-if(type==="drink"){
-
-html=`
-<div class="card">
-<h3>龜鹿飲</h3>
-<p>液態型態，開封即可飲用。</p>
-<a class="btn" href="guilu-series.html">查看產品</a>
-</div>
-`
-
-}
-
-if(type==="soup"){
-
-html=`
-<div class="card">
-<h3>龜鹿湯塊</h3>
-<p>適合雞湯與燉湯料理。</p>
-<a class="btn" href="guilu-series.html">查看產品</a>
-</div>
-`
-
-}
-
-if(type==="tea"){
-
-html=`
-<div class="card">
-<h3>鹿茸粉 / 龜鹿調飲粉</h3>
-<p>適合茶、咖啡或熱水沖泡。</p>
-<a class="btn" href="guilu-series.html">查看產品</a>
-</div>
-`
-
-}
-
-document.getElementById("recommendResult").innerHTML=html
-
-}
-
-</script>
+<footer>© 仙加味</footer>
 
 </body>
 </html>
