@@ -1,37 +1,63 @@
-[
-  {
-    "id": "guilu-gao",
+{
+  "guilu-gao": {
     "name": "龜鹿膏",
-    "size": "100g",
+    "spec": "100 g",
+    "packaging": "玻璃罐",
     "image": "images/guilu-gao-100g.jpg",
-    "cat": "guilu"
+    "summary": "濃縮膏狀型態，適合直接食用或加入溫水。",
+    "how": [
+      "直接食用",
+      "加入溫水",
+      "依個人習慣搭配熱飲"
+    ],
+    "recipes": [
+      "可作為日常飲食搭配參考"
+    ]
   },
-  {
-    "id": "guilu-drink",
+  "guilu-drink": {
     "name": "龜鹿飲",
-    "size": "30cc / 180cc",
-    "image": "images/guilu-drink-30cc.jpg",
-    "cat": "guilu"
+    "spec": "30 cc / 180 cc",
+    "packaging": "30 cc 玻璃瓶 / 180 cc 鋁袋",
+    "image": "images/guilu-drink-180cc.jpg",
+    "summary": "即飲型態，方便日常飲用。",
+    "how": [
+      "開封即飲",
+      "隔水加熱後飲用",
+      "可倒入杯中加熱後飲用"
+    ],
+    "recipes": [
+      "可作為日常飲食搭配參考"
+    ]
   },
-  {
-    "id": "guilu-block",
+  "guilu-cube": {
     "name": "龜鹿湯塊",
-    "size": "75g / 300g / 600g",
+    "spec": "75 g / 300 g / 600 g",
+    "packaging": "盒裝",
     "image": "images/guilu-block-75g.jpg",
-    "cat": "guilu"
+    "summary": "適合燉煮料理的湯塊型態。",
+    "how": [
+      "加入雞湯或排骨湯燉煮",
+      "依個人習慣調整濃淡"
+    ],
+    "recipes": [
+      "龜鹿雞湯",
+      "龜鹿排骨湯",
+      "龜鹿燉雞"
+    ]
   },
-  {
-    "id": "lurong",
+  "deer-antler": {
     "name": "鹿茸粉",
-    "size": "75g",
+    "spec": "75 g",
+    "packaging": "白色塑膠罐",
     "image": "images/lurong-powder-75g.jpg",
-    "cat": "guilu"
-  },
-  {
-    "id": "mix",
-    "name": "龜鹿調飲粉",
-    "size": "20g (2g×10)",
-    "image": "images/qixuan-guilu-mix.jpg",
-    "cat": "qixuan"
+    "summary": "粉末型態，可加入茶、咖啡或熱飲。",
+    "how": [
+      "加入茶",
+      "加入咖啡",
+      "加入熱飲"
+    ],
+    "recipes": [
+      "可作為飲品搭配參考"
+    ]
   }
-]
+}
