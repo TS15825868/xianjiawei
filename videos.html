@@ -1,47 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-
 <head>
-
-<meta charset="utf-8">
-
-<title>中醫觀點｜仙加味</title>
-
-<link rel="stylesheet" href="site.css">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>影片中心｜仙加味</title>
+  <meta name="description" content="把你現有 TikTok 主題整理成可持續擴充的內容牆。">
+  <link rel="stylesheet" href="site.css">
+  <script defer src="site.js"></script>
 </head>
-
 <body>
-
-<section class="hero">
-
-<div class="hero-inner">
-
-<h1>中醫觀點</h1>
-
-</div>
-
-</section>
-
-<div class="container">
-
-<section class="section">
-
-<div class="content-block">
-
-<p>
-未來將整理更多相關影片。
-</p>
-
-</div>
-
-</section>
-
-</div>
-
-<footer>
-© 仙加味
-</footer>
-
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-link">
+        <img src="images/logo-seal.png" alt="仙加味印章標誌">
+        <span>仙加味</span>
+      </a>
+      <nav class="header-nav" aria-label="主要導覽">
+        <a href="guilu-series.html">龜鹿系列</a>
+        <a href="qixuan-tea.html">柒玄茶</a>
+        <a href="compare.html">產品比較</a>
+        <a href="videos.html">影片中心</a>
+        <a href="contact.html">聯絡我們</a>
+      </nav>
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="開啟選單" aria-controls="drawer" aria-expanded="false">☰</button>
+    </div>
+  </header>
+  <nav id="drawer" class="drawer" aria-label="行動版選單">
+    <a href="index.html">首頁</a>
+    <a href="guilu-series.html">仙加味・龜鹿系列</a>
+    <a href="qixuan-tea.html">柒玄茶</a>
+    <a href="compare.html">產品比較</a>
+    <a href="dm.html">產品總覽</a>
+    <a href="guide.html">食用指南</a>
+    <a href="ingredients.html">成分介紹</a>
+    <a href="recipes.html">料理搭配</a>
+    <a href="knowledge.html">龜鹿知識</a>
+    <a href="videos.html">影片中心</a>
+    <a href="faq.html">常見問題</a>
+    <a href="brand.html">品牌介紹</a>
+    <a href="contact.html">聯絡我們</a>
+  </nav>
+  <main>
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <h1>影片中心</h1>
+        <p>把你現有 TikTok 主題整理成可持續擴充的內容牆。</p>
+      </div>
+    </section>
+    <section class="simple-grid">
+      <article class="info-card">
+        <h3>整理重點</h3>
+        <p>這頁之後可改為實際影片嵌入，先把分類、標題與摘要建立起來。</p>
+      </article>
+      <article class="info-card">
+        <h3>頁面方向</h3>
+        <p>很適合區分成吸睛型、知識型、品牌型三種影片。</p>
+      </article>
+    </section>
+  </main>
+  <a class="line-btn" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 詢問</a>
+  <footer class="footer">© 仙加味</footer>
 </body>
 </html>

@@ -1,128 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-
 <head>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>品牌介紹｜仙加味</title>
-
-<meta name="description" content="仙加味品牌理念與龜鹿文化整理。">
-
-<link rel="stylesheet" href="site.css">
-<script defer src="site.js"></script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>品牌介紹｜仙加味</title>
+  <meta name="description" content="仙加味以更現代的方式整理傳統龜鹿文化，強調日常、清楚與可理解。">
+  <link rel="stylesheet" href="site.css">
+  <script defer src="site.js"></script>
 </head>
-
 <body>
-
-
-<header>
-
-<div class="header-inner">
-
-<a href="index.html" class="brand-link">
-
-<img src="images/logo-seal.png">
-
-<span>仙加味</span>
-
-</a>
-
-<button class="menu-btn" onclick="toggleMenu()">☰</button>
-
-</div>
-
-</header>
-
-
-
-<section class="hero">
-
-<div class="hero-inner">
-
-<h1>品牌介紹</h1>
-
-<p class="hero-sub">
-
-仙加味
-
-</p>
-
-</div>
-
-</section>
-
-
-
-<div class="container">
-
-
-<section class="section">
-
-<div class="content-block">
-
-<h2>品牌理念</h2>
-
-<p>
-
-仙加味以龜鹿文化為核心，
-整理不同型態的產品與食用方式，
-讓傳統食材能更容易融入日常生活。
-
-</p>
-
-</div>
-
-</section>
-
-
-
-<section class="section">
-
-<div class="content-block">
-
-<h2>產品型態</h2>
-
-<p>
-
-龜鹿膏  
-龜鹿飲  
-龜鹿湯塊  
-鹿茸粉  
-
-</p>
-
-<p>
-
-不同型態對應不同飲食方式，
-讓龜鹿文化更容易理解與使用。
-
-</p>
-
-</div>
-
-</section>
-
-
-</div>
-
-
-
-<a class="line-btn"
-href="https://lin.ee/sHZW7NkR"
-target="_blank">
-
-LINE
-
-</a>
-
-
-<footer>
-© 仙加味
-</footer>
-
-
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-link">
+        <img src="images/logo-seal.png" alt="仙加味印章標誌">
+        <span>仙加味</span>
+      </a>
+      <nav class="header-nav" aria-label="主要導覽">
+        <a href="guilu-series.html">龜鹿系列</a>
+        <a href="qixuan-tea.html">柒玄茶</a>
+        <a href="compare.html">產品比較</a>
+        <a href="videos.html">影片中心</a>
+        <a href="contact.html">聯絡我們</a>
+      </nav>
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="開啟選單" aria-controls="drawer" aria-expanded="false">☰</button>
+    </div>
+  </header>
+  <nav id="drawer" class="drawer" aria-label="行動版選單">
+    <a href="index.html">首頁</a>
+    <a href="guilu-series.html">仙加味・龜鹿系列</a>
+    <a href="qixuan-tea.html">柒玄茶</a>
+    <a href="compare.html">產品比較</a>
+    <a href="dm.html">產品總覽</a>
+    <a href="guide.html">食用指南</a>
+    <a href="ingredients.html">成分介紹</a>
+    <a href="recipes.html">料理搭配</a>
+    <a href="knowledge.html">龜鹿知識</a>
+    <a href="videos.html">影片中心</a>
+    <a href="faq.html">常見問題</a>
+    <a href="brand.html">品牌介紹</a>
+    <a href="contact.html">聯絡我們</a>
+  </nav>
+  <main>
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <h1>品牌介紹</h1>
+        <p>仙加味以更現代的方式整理傳統龜鹿文化，強調日常、清楚與可理解。</p>
+      </div>
+    </section>
+    <section class="simple-grid">
+      <article class="info-card">
+        <h3>整理重點</h3>
+        <p>這頁可放入台興山產、四代傳承、父子品牌故事與印章標識。</p>
+      </article>
+      <article class="info-card">
+        <h3>頁面方向</h3>
+        <p>後續可再加入創始人故事與品牌源流頁面的延伸。</p>
+      </article>
+    </section>
+  </main>
+  <a class="line-btn" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 詢問</a>
+  <footer class="footer">© 仙加味</footer>
 </body>
 </html>

@@ -1,71 +1,38 @@
-{
-"products":[
-
-{
-"id":"guilu-gao",
-"name":"龜鹿膏",
-"description":"濃縮膏狀型態，可直接食用或加入溫水。",
-"image":"images/guilu-gao-100g.jpg",
-"ingredients":[
-"龜板萃取物",
-"鹿角萃取物",
-"粉光蔘",
-"枸杞",
-"紅棗",
-"黃耆"
-],
-"usage":[
-"直接食用",
-"溫水沖泡",
-"加入牛奶"
+[
+  {
+    "id": "guilu-gao",
+    "name": "龜鹿膏",
+    "image": "images/guilu-gao-100g.jpg",
+    "desc": "濃縮膏狀型態，可直接食用或加入溫水沖泡。",
+    "sizes": ["100g"],
+    "tags": ["日常補養", "膏狀型態"],
+    "detail": "仙加味龜鹿膏以膏狀型態呈現，適合作為日常飲食搭配。可直接食用，也可依習慣加入溫水沖泡。"
+  },
+  {
+    "id": "guilu-drink",
+    "name": "龜鹿飲",
+    "image": "images/guilu-drink-180cc.jpg",
+    "desc": "即飲型態，方便日常攜帶與飲用。",
+    "sizes": ["30cc", "180cc"],
+    "tags": ["即飲方便", "快速入口"],
+    "detail": "龜鹿飲適合想要快速飲用、攜帶方便的日常節奏，可依包裝形式選擇 30cc 或 180cc 規格。"
+  },
+  {
+    "id": "guilu-block",
+    "name": "龜鹿膠湯塊",
+    "image": "images/guilu-block-75g.jpg",
+    "desc": "適合燉湯、料理搭配的塊狀型態。",
+    "sizes": ["75g", "300g", "600g"],
+    "tags": ["料理搭配", "燉湯使用"],
+    "detail": "龜鹿膠湯塊適合加入雞湯、排骨湯或各式燉湯料理中，讓龜鹿型態更自然融入日常飲食。"
+  },
+  {
+    "id": "lurong",
+    "name": "鹿茸粉",
+    "image": "images/lurong-powder-75g.jpg",
+    "desc": "粉末型態，可加入日常飲品。",
+    "sizes": ["75g"],
+    "tags": ["粉末型態", "調飲使用"],
+    "detail": "鹿茸粉為粉末型態，方便依日常習慣搭配溫水、牛奶、咖啡或其他飲品使用。"
+  }
 ]
-},
-
-{
-"id":"guilu-drink",
-"name":"龜鹿飲",
-"description":"液態型態，開封即可飲用。",
-"image":"images/guilu-drink-30cc.jpg",
-"ingredients":[
-"龜板萃取物",
-"鹿角萃取物"
-],
-"usage":[
-"常溫飲用",
-"冷藏飲用"
-]
-},
-
-{
-"id":"guilu-block",
-"name":"龜鹿湯塊",
-"description":"適合燉湯料理。",
-"image":"images/guilu-block-75g.jpg",
-"ingredients":[
-"鹿角萃取物",
-"全龜萃取物"
-],
-"usage":[
-"雞湯",
-"排骨湯",
-"燉湯料理"
-]
-},
-
-{
-"id":"lurong",
-"name":"鹿茸粉",
-"description":"可加入茶或咖啡沖泡。",
-"image":"images/lurong-powder-75g.jpg",
-"ingredients":[
-"鹿茸粉"
-],
-"usage":[
-"熱水沖泡",
-"茶",
-"咖啡"
-]
-}
-
-]
-}

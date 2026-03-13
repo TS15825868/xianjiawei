@@ -1,124 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>產品比較｜仙加味</title>
-<meta name="description" content="比較龜鹿膏、龜鹿飲、龜鹿湯塊與鹿茸粉的型態與使用方式。">
-
-<link rel="canonical" href="https://ts15825868.github.io/TaiShing/compare.html">
-
-<meta property="og:title" content="產品比較｜仙加味">
-<meta property="og:description" content="比較不同型態的龜鹿產品。">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://ts15825868.github.io/TaiShing/images/guilu-gao-100g.jpg">
-
-<link rel="stylesheet" href="site.css">
-<script defer src="site.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>產品比較｜仙加味</title>
+  <meta name="description" content="依型態與日常使用習慣，比較龜鹿膏、龜鹿飲、龜鹿膠湯塊與鹿茸粉。">
+  <link rel="stylesheet" href="site.css">
+  <script defer src="site.js"></script>
 </head>
-
 <body>
-
-<header>
-  <div class="header-inner">
-    <a href="index.html" class="brand-link">
-      <img src="images/logo-seal.png" alt="仙加味">
-      <span>仙加味</span>
-    </a>
-    <button class="menu-btn" type="button" aria-label="選單" onclick="toggleMenu()">☰</button>
-  </div>
-</header>
-
-<nav id="drawer" class="drawer">
-  <a href="index.html">首頁</a>
-
-  <h4>產品</h4>
-  <a href="guilu-series.html">仙加味・龜鹿</a>
-  <a href="qixuan-tea.html">柒玄茶</a>
-  <a href="compare.html">產品比較</a>
-  <a href="dm.html">產品總覽</a>
-  <a href="choose.html">怎麼選龜鹿</a>
-
-  <h4>使用指南</h4>
-  <a href="guide.html">食用指南</a>
-  <a href="ingredients.html">成分介紹</a>
-  <a href="recipes.html">料理搭配</a>
-
-  <h4>知識中心</h4>
-  <a href="knowledge.html">龜鹿文化</a>
-  <a href="videos.html">中醫觀點</a>
-  <a href="faq.html">常見問題</a>
-
-  <h4>品牌</h4>
-  <a href="brand.html">品牌介紹</a>
-  <a href="contact.html">聯絡我們</a>
-</nav>
-
-<section class="hero">
-  <div class="hero-inner">
-    <h1>產品比較</h1>
-    <p class="hero-sub">不同型態使用方式</p>
-    <p>
-      依照日常生活節奏與飲食方式，比較不同龜鹿型態。
-    </p>
-  </div>
-</section>
-
-<div class="container">
-
-  <section class="section">
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>產品</th>
-            <th>型態</th>
-            <th>使用方式</th>
-            <th>適合情境</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>龜鹿膏</td>
-            <td>膏</td>
-            <td>直接食用 / 溫水沖泡</td>
-            <td>偏好固定日常補養、直接食用的人</td>
-          </tr>
-          <tr>
-            <td>龜鹿飲</td>
-            <td>液態</td>
-            <td>開封即飲</td>
-            <td>生活節奏忙碌、希望快速方便的人</td>
-          </tr>
-          <tr>
-            <td>龜鹿湯塊</td>
-            <td>湯塊</td>
-            <td>燉湯料理</td>
-            <td>喜歡雞湯、排骨湯與家常燉煮的人</td>
-          </tr>
-          <tr>
-            <td>鹿茸粉</td>
-            <td>粉</td>
-            <td>熱水 / 茶 / 咖啡沖泡</td>
-            <td>偏好熱飲、茶飲、咖啡搭配的人</td>
-          </tr>
-          <tr>
-            <td>龜鹿調飲粉</td>
-            <td>調飲粉</td>
-            <td>茶飲 / 咖啡 / 熱水</td>
-            <td>偏好日常飲品情境與輕量沖泡的人</td>
-          </tr>
-        </tbody>
-      </table>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-link">
+        <img src="images/logo-seal.png" alt="仙加味印章標誌">
+        <span>仙加味</span>
+      </a>
+      <nav class="header-nav" aria-label="主要導覽">
+        <a href="guilu-series.html">龜鹿系列</a>
+        <a href="qixuan-tea.html">柒玄茶</a>
+        <a href="compare.html">產品比較</a>
+        <a href="videos.html">影片中心</a>
+        <a href="contact.html">聯絡我們</a>
+      </nav>
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="開啟選單" aria-controls="drawer" aria-expanded="false">☰</button>
     </div>
-  </section>
-
-</div>
-
-<a class="line-btn" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE</a>
-
-<footer>© 仙加味</footer>
-
+  </header>
+  <nav id="drawer" class="drawer" aria-label="行動版選單">
+    <a href="index.html">首頁</a>
+    <a href="guilu-series.html">仙加味・龜鹿系列</a>
+    <a href="qixuan-tea.html">柒玄茶</a>
+    <a href="compare.html">產品比較</a>
+    <a href="dm.html">產品總覽</a>
+    <a href="guide.html">食用指南</a>
+    <a href="ingredients.html">成分介紹</a>
+    <a href="recipes.html">料理搭配</a>
+    <a href="knowledge.html">龜鹿知識</a>
+    <a href="videos.html">影片中心</a>
+    <a href="faq.html">常見問題</a>
+    <a href="brand.html">品牌介紹</a>
+    <a href="contact.html">聯絡我們</a>
+  </nav>
+  <main>
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <h1>產品比較</h1>
+        <p>依型態與日常使用習慣，比較龜鹿膏、龜鹿飲、龜鹿膠湯塊與鹿茸粉。</p>
+      </div>
+    </section>
+    <section class="simple-grid">
+      <article class="info-card">
+        <h3>整理重點</h3>
+        <p>最快速：龜鹿飲；最日常：龜鹿膏；最適合料理：龜鹿膠湯塊；最適合調飲：鹿茸粉。</p>
+      </article>
+      <article class="info-card">
+        <h3>頁面方向</h3>
+        <p>這頁非常適合再加入表格、FAQ 與購買導流按鈕。</p>
+      </article>
+    </section>
+  </main>
+  <a class="line-btn" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 詢問</a>
+  <footer class="footer">© 仙加味</footer>
 </body>
 </html>

@@ -1,141 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-
 <head>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>仙加味・龜鹿系列</title>
-
-<meta name="description" content="仙加味整理龜鹿膏、龜鹿飲、龜鹿湯塊與鹿茸粉等不同型態，方便依日常飲食方式選擇。">
-
-<link rel="canonical" href="https://ts15825868.github.io/TaiShing/guilu-series.html">
-
-<meta property="og:title" content="仙加味・龜鹿系列">
-<meta property="og:description" content="整理不同型態的龜鹿產品。">
-<meta property="og:type" content="website">
-<meta property="og:image" content="images/guilu-gao-100g.jpg">
-
-<link rel="stylesheet" href="site.css">
-<script defer src="site.js"></script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>仙加味・龜鹿系列｜仙加味</title>
+  <meta name="description" content="整理龜鹿膏、龜鹿飲、龜鹿膠湯塊與鹿茸粉等型態，讓選擇更清楚。">
+  <link rel="stylesheet" href="site.css">
+  <script defer src="site.js"></script>
 </head>
-
 <body>
-
-<header>
-<div class="header-inner">
-
-<a href="index.html" class="brand-link">
-<img src="images/logo-seal.png">
-<span>仙加味</span>
-</a>
-
-<button class="menu-btn" onclick="toggleMenu()">☰</button>
-
-</div>
-</header>
-
-<section class="hero">
-
-<div class="hero-inner">
-
-<h1>仙加味・龜鹿系列</h1>
-
-<p class="hero-sub">
-不同型態的龜鹿產品
-</p>
-
-<p>
-龜鹿相關食材在傳統飲食文化中具有悠久歷史。
-仙加味將不同型態重新整理為膏、飲、湯塊與粉，
-讓使用方式更容易理解，也更容易融入日常生活。
-</p>
-
-</div>
-
-</section>
-
-<div class="container">
-
-<section class="section">
-
-<h2>產品型態</h2>
-
-<p class="lead">
-依日常飲食方式整理不同型態
-</p>
-
-<div id="productGrid" class="grid"></div>
-
-</section>
-
-<section class="section">
-
-<div class="content-block">
-
-<h2>如何選擇</h2>
-
-<p>
-不同生活習慣適合不同產品型態。
-</p>
-
-<ul>
-<li>偏好直接食用：可選擇龜鹿膏</li>
-<li>希望快速方便：可選擇龜鹿飲</li>
-<li>習慣燉湯料理：可選擇龜鹿湯塊</li>
-<li>偏好茶飲或咖啡：可選擇鹿茸粉或龜鹿調飲粉</li>
-</ul>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<div class="content-block">
-
-<h2>產品價格</h2>
-
-<p>
-官網主要提供產品資訊與使用方式說明。
-產品規格、優惠與購買方式，請透過 LINE 官方帳號詢問。
-</p>
-
-<a class="btn" href="https://lin.ee/sHZW7NkR" target="_blank">
-加入 LINE
-</a>
-
-</div>
-
-</section>
-
-</div>
-
-<div id="productModal" class="modal">
-
-<div class="modal-box">
-
-<button class="modal-close" onclick="closeModal()">✕</button>
-
-<div id="modalBody"></div>
-
-</div>
-
-</div>
-
-<a class="line-btn"
-href="https://lin.ee/sHZW7NkR"
-target="_blank">
-
-LINE
-
-</a>
-
-<footer>
-© 仙加味
-</footer>
-
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-link">
+        <img src="images/logo-seal.png" alt="仙加味印章標誌">
+        <span>仙加味</span>
+      </a>
+      <nav class="header-nav" aria-label="主要導覽">
+        <a href="guilu-series.html">龜鹿系列</a>
+        <a href="qixuan-tea.html">柒玄茶</a>
+        <a href="compare.html">產品比較</a>
+        <a href="videos.html">影片中心</a>
+        <a href="contact.html">聯絡我們</a>
+      </nav>
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="開啟選單" aria-controls="drawer" aria-expanded="false">☰</button>
+    </div>
+  </header>
+  <nav id="drawer" class="drawer" aria-label="行動版選單">
+    <a href="index.html">首頁</a>
+    <a href="guilu-series.html">仙加味・龜鹿系列</a>
+    <a href="qixuan-tea.html">柒玄茶</a>
+    <a href="compare.html">產品比較</a>
+    <a href="dm.html">產品總覽</a>
+    <a href="guide.html">食用指南</a>
+    <a href="ingredients.html">成分介紹</a>
+    <a href="recipes.html">料理搭配</a>
+    <a href="knowledge.html">龜鹿知識</a>
+    <a href="videos.html">影片中心</a>
+    <a href="faq.html">常見問題</a>
+    <a href="brand.html">品牌介紹</a>
+    <a href="contact.html">聯絡我們</a>
+  </nav>
+  <main>
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <h1>仙加味・龜鹿系列</h1>
+        <p>整理龜鹿膏、龜鹿飲、龜鹿膠湯塊與鹿茸粉等型態，讓選擇更清楚。</p>
+      </div>
+    </section>
+    <section class="simple-grid">
+      <article class="info-card">
+        <h3>整理重點</h3>
+        <p>產品命名已統一，不再使用龜鹿二仙膠；相關內容皆改為龜鹿膠或龜鹿膠湯塊。</p>
+      </article>
+      <article class="info-card">
+        <h3>頁面方向</h3>
+        <p>本頁可再擴充為完整產品介紹頁，放入多圖、規格、包裝形式與食用方式。</p>
+      </article>
+    </section>
+  </main>
+  <a class="line-btn" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 詢問</a>
+  <footer class="footer">© 仙加味</footer>
 </body>
 </html>

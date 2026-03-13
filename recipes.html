@@ -1,88 +1,64 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-
 <head>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>龜鹿料理｜仙加味</title>
-
-<meta name="description" content="龜鹿湯塊與龜鹿膏的料理搭配方式。">
-
-<link rel="stylesheet" href="site.css">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>料理搭配｜仙加味</title>
+  <meta name="description" content="用燉湯、雞湯與排骨湯等生活場景，讓龜鹿膠湯塊更好理解。">
+  <link rel="stylesheet" href="site.css">
+  <script defer src="site.js"></script>
 </head>
-
 <body>
-
-<section class="hero">
-
-<div class="hero-inner">
-
-<h1>龜鹿料理</h1>
-
-<p class="hero-sub">
-日常燉煮搭配
-</p>
-
-</div>
-
-</section>
-
-<div class="container">
-
-<section class="section">
-
-<div class="recipe-grid">
-
-<div class="recipe-card">
-
-<h3>龜鹿雞湯</h3>
-
-<p>
-材料：雞腿、龜鹿湯塊、紅棗、枸杞
-</p>
-
-<p>
-作法：加入水燉煮約40分鐘。
-</p>
-
-</div>
-
-<div class="recipe-card">
-
-<h3>龜鹿排骨湯</h3>
-
-<p>
-材料：排骨、龜鹿湯塊
-</p>
-
-<p>
-作法：排骨汆燙後燉煮。
-</p>
-
-</div>
-
-<div class="recipe-card">
-
-<h3>龜鹿養生湯</h3>
-
-<p>
-材料：雞肉、紅棗、枸杞、龜鹿湯塊
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-</div>
-
-<footer>
-© 仙加味
-</footer>
-
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand-link">
+        <img src="images/logo-seal.png" alt="仙加味印章標誌">
+        <span>仙加味</span>
+      </a>
+      <nav class="header-nav" aria-label="主要導覽">
+        <a href="guilu-series.html">龜鹿系列</a>
+        <a href="qixuan-tea.html">柒玄茶</a>
+        <a href="compare.html">產品比較</a>
+        <a href="videos.html">影片中心</a>
+        <a href="contact.html">聯絡我們</a>
+      </nav>
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="開啟選單" aria-controls="drawer" aria-expanded="false">☰</button>
+    </div>
+  </header>
+  <nav id="drawer" class="drawer" aria-label="行動版選單">
+    <a href="index.html">首頁</a>
+    <a href="guilu-series.html">仙加味・龜鹿系列</a>
+    <a href="qixuan-tea.html">柒玄茶</a>
+    <a href="compare.html">產品比較</a>
+    <a href="dm.html">產品總覽</a>
+    <a href="guide.html">食用指南</a>
+    <a href="ingredients.html">成分介紹</a>
+    <a href="recipes.html">料理搭配</a>
+    <a href="knowledge.html">龜鹿知識</a>
+    <a href="videos.html">影片中心</a>
+    <a href="faq.html">常見問題</a>
+    <a href="brand.html">品牌介紹</a>
+    <a href="contact.html">聯絡我們</a>
+  </nav>
+  <main>
+    <section class="page-hero">
+      <div class="page-hero-card">
+        <h1>料理搭配</h1>
+        <p>用燉湯、雞湯與排骨湯等生活場景，讓龜鹿膠湯塊更好理解。</p>
+      </div>
+    </section>
+    <section class="simple-grid">
+      <article class="info-card">
+        <h3>整理重點</h3>
+        <p>你的湯塊很適合用『日常補湯、家用燉煮、送禮盒裝』三條線去整理內容。</p>
+      </article>
+      <article class="info-card">
+        <h3>頁面方向</h3>
+        <p>後續可加食譜卡、烹煮時間與份量建議。</p>
+      </article>
+    </section>
+  </main>
+  <a class="line-btn" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 詢問</a>
+  <footer class="footer">© 仙加味</footer>
 </body>
 </html>
