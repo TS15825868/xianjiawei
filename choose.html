@@ -13,36 +13,43 @@
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="brand-link">
+    <a href="index.html" class="brand-link" aria-label="回到仙加味首頁">
       <img src="images/logo-seal.png" alt="仙加味">
       <span>仙加味</span>
     </a>
     <div class="header-actions">
       <a class="header-line-btn" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE詢問</a>
-      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      <button class="menu-btn" type="button" aria-label="開啟選單" aria-controls="siteDrawer" aria-expanded="false" onclick="toggleMenu()">☰</button>
     </div>
   </div>
 </header>
 
-<nav id="siteDrawer" class="drawer">
+<nav id="siteDrawer" class="drawer" aria-hidden="true">
   <a href="index.html">首頁</a>
+
   <h4>產品</h4>
   <a href="guilu-series.html">仙加味・龜鹿</a>
-  <a href="qixuan-tea.html">柒玄茶</a>
   <a href="compare.html">產品比較</a>
   <a href="dm.html">產品總覽</a>
+  <a href="qixuan-tea.html">柒玄茶</a>
   <a href="choose.html">怎麼選龜鹿</a>
+
   <h4>使用指南</h4>
   <a href="guide.html">食用指南</a>
   <a href="ingredients.html">成分介紹</a>
   <a href="recipes.html">料理搭配</a>
+
   <h4>知識中心</h4>
   <a href="knowledge.html">龜鹿知識</a>
   <a href="videos.html">中醫觀點</a>
   <a href="faq.html">常見問題</a>
+
   <h4>品牌</h4>
   <a href="brand.html">品牌介紹</a>
   <a href="contact.html">聯絡我們</a>
+
+  <h4>快速聯絡</h4>
+  <a class="drawer-line-btn" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE詢問</a>
 </nav>
 
 <div id="drawerBackdrop" class="drawer-backdrop" onclick="closeMenu()"></div>
