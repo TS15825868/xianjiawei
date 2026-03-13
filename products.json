@@ -2,6 +2,7 @@
   {
     "id": "guilu-gao",
     "name": "龜鹿膏",
+    "series": "guilu",
     "image": "images/guilu-gao-100g.jpg",
     "desc": "濃縮膏狀型態，可直接食用或沖泡。",
     "sizes": [
@@ -11,8 +12,9 @@
   {
     "id": "guilu-drink",
     "name": "龜鹿飲",
+    "series": "guilu",
     "image": "images/guilu-drink-180cc.jpg",
-    "desc": "即飲型態，方便日常飲用。",
+    "desc": "即飲型態。",
     "sizes": [
       "30cc",
       "180cc"
@@ -21,8 +23,9 @@
   {
     "id": "guilu-block",
     "name": "龜鹿膠湯塊",
+    "series": "guilu",
     "image": "images/guilu-block-75g.jpg",
-    "desc": "燉湯料理搭配使用。",
+    "desc": "燉湯料理搭配。",
     "sizes": [
       "75g",
       "300g",
@@ -32,6 +35,7 @@
   {
     "id": "lurong",
     "name": "鹿茸粉",
+    "series": "guilu",
     "image": "images/lurong-powder-75g.jpg",
     "desc": "粉末型態，可調飲。",
     "sizes": [
