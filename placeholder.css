@@ -1,0 +1,9 @@
+
+.img-placeholder{
+width:120px;
+height:auto;
+opacity:0.45;
+filter:grayscale(100%);
+display:block;
+margin:auto;
+}
