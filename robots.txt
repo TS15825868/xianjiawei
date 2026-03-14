@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://github.com/TS15825868/xianjiawei/sitemap.xml
+Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml

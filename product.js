@@ -15,5 +15,6 @@
   q('#product-ingredients').innerHTML = product.ingredients.map(x=>`<li>${x}</li>`).join('');
   q('#product-uses').innerHTML = product.uses.map(x=>`<li>${x}</li>`).join('');
   q('#product-recipes').innerHTML = product.recipes.map(x=>`<li>${x}</li>`).join('');
+  q('#product-type').textContent = product.type || '';
   document.title = product.name + '｜仙加味';
 })();
