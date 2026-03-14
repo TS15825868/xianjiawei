@@ -1,182 +1,203 @@
-<!DOCTYPE html>
-<html lang="zh-Hant-TW">
+(function () {
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>產品介紹｜仙加味</title>
-<meta name="description" content="查看仙加味龜鹿產品的成份、容量與食用方式。">
-<link rel="canonical" href="https://ts15825868.github.io/xianjiawei/product.html">
-<meta property="og:title" content="產品介紹｜仙加味">
-<meta property="og:description" content="查看仙加味龜鹿產品的成份、容量與食用方式。">
-<meta property="og:image" content="images/hero-guilu-gao.jpg">
-
-<link rel="stylesheet" href="site.css">
-</head>
-
-<body>
-
-<header class="header">
-  <a href="index.html" class="logo">
-    <img src="images/logo-seal.png" alt="仙加味">
-    <span>仙加味</span>
-  </a>
-
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
-</header>
-
-<div class="menu-overlay" id="menu">
-  <a href="index.html">首頁</a>
-  <a href="brand.html">品牌</a>
-  <a href="guilu-series.html">龜鹿系列</a>
-  <a href="qixuan-tea.html">柒玄茶</a>
-  <a href="recipes.html">料理搭配</a>
-  <a href="choose.html">怎麼選龜鹿</a>
-  <a href="faq.html">FAQ</a>
-  <a href="https://lin.ee/sHZW7NkR" class="line-btn" target="_blank" rel="noopener">LINE詢問</a>
-</div>
-
-<section class="section product-page">
-
-  <div style="margin-bottom:24px;">
-    <a id="backBtn" href="guilu-series.html" class="btn" style="margin-left:0;">← 返回</a>
-  </div>
-
-  <div id="product" class="product-layout reveal"></div>
-
-</section>
-
-<section class="cta">
-  <h2>想了解更多產品與食用方式？</h2>
-  <a href="https://lin.ee/sHZW7NkR" class="btn btn-dark" target="_blank" rel="noopener">LINE詢問</a>
-</section>
-
-<footer class="footer">
-  <div class="footer-container">
-
-    <div class="footer-brand">
-      <img src="images/logo-seal.png" alt="仙加味">
-      <h3>仙加味</h3>
-      <p>讓龜鹿回到日常飲食文化</p>
-    </div>
-
-    <div class="footer-links">
-      <h4>產品</h4>
-      <a href="guilu-series.html">龜鹿系列</a>
-      <a href="qixuan-tea.html">柒玄茶</a>
-    </div>
-
-    <div class="footer-links">
-      <h4>內容</h4>
-      <a href="recipes.html">料理搭配</a>
-      <a href="choose.html">怎麼選龜鹿</a>
-      <a href="how-to-eat.html">食用方式</a>
-    </div>
-
-    <div class="footer-links">
-      <h4>聯絡</h4>
-      <a href="faq.html">FAQ</a>
-      <a href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE詢問</a>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    © 仙加味
-  </div>
-</footer>
-
-<script src="site.js"></script>
-
-<script>
-const params = new URLSearchParams(location.search);
+const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 const from = params.get("from");
 
 const backBtn = document.getElementById("backBtn");
-const productWrap = document.getElementById("product");
 
-if (backBtn) {
-  if (from && from.trim() !== "") {
-    backBtn.href = from;
-  } else if (document.referrer && document.referrer.includes(window.location.host)) {
-    try {
-      const refUrl = new URL(document.referrer);
-      const refPath = refUrl.pathname.split("/").pop();
-      backBtn.href = refPath || "guilu-series.html";
-    } catch (e) {
-      backBtn.href = "guilu-series.html";
-    }
-  } else {
-    backBtn.href = "guilu-series.html";
-  }
+const productImage = document.getElementById("product-image");
+const productTitle = document.getElementById("product-title");
+const productSummary = document.getElementById("product-summary");
+const productSizes = document.getElementById("product-sizes");
+const productPackage = document.getElementById("product-package");
+const productIngredients = document.getElementById("product-ingredients");
+const productUses = document.getElementById("product-uses");
+
+const fallbackBack = "guilu-series.html";
+
+/* 返回按鈕 */
+
+if(backBtn){
+
+let backUrl = fallbackBack;
+
+if(from){
+
+backUrl = from;
+
+}else if(document.referrer && document.referrer.includes(location.host)){
+
+try{
+
+const refUrl = new URL(document.referrer);
+const refPath = refUrl.pathname.split("/").pop();
+
+backUrl = refPath || fallbackBack;
+
+}catch(e){
+
+backUrl = fallbackBack;
+
 }
 
-fetch("products.json")
-.then(r => r.json())
-.then(data => {
-  const p = data.products.find(x => x.id === id) || data.products[0];
+}
 
-  const sizes = Array.isArray(p.sizes) ? p.sizes.join(" / ") : (p.size || "—");
-  const ingredients = Array.isArray(p.ingredients)
-    ? p.ingredients.map(item => `<li>${item}</li>`).join("")
-    : String(p.ingredients || "").split(/\s+/).filter(Boolean).map(item => `<li>${item}</li>`).join("");
-  const uses = Array.isArray(p.uses) && p.uses.length
-    ? p.uses.map(item => `<li>${item}</li>`).join("")
-    : "<li>請透過 LINE 詢問食用方式。</li>";
+if(backBtn.tagName === "A"){
 
-  const packageText = p.package || "—";
+backBtn.href = backUrl;
 
-  document.title = `${p.name}｜仙加味`;
+}else{
 
-  productWrap.innerHTML = `
-    <div class="product-image">
-      <img src="${p.image}" alt="${p.name}" onerror="this.onerror=null;this.src='images/logo-seal.png';this.classList.add('img-placeholder');">
-    </div>
+backBtn.addEventListener("click",()=>{
 
-    <div class="product-info">
+location.href = backUrl;
 
-      <div class="product-card">
-        <div class="eyebrow">產品介紹</div>
-        <h1>${p.name}</h1>
-        <p>${p.desc || ""}</p>
-
-        <div style="margin-top:18px;">
-          <a href="https://lin.ee/sHZW7NkR" class="btn" target="_blank" rel="noopener">LINE詢問</a>
-        </div>
-      </div>
-
-      <div class="product-card" style="margin-top:20px;">
-        <h3>規格</h3>
-        <p><strong>容量：</strong>${sizes}</p>
-        <p><strong>包裝：</strong>${packageText}</p>
-      </div>
-
-      <div class="product-card" style="margin-top:20px;">
-        <h3>成份</h3>
-        <ul>${ingredients}</ul>
-      </div>
-
-      <div class="product-card" style="margin-top:20px;">
-        <h3>食用方式</h3>
-        <ul>${uses}</ul>
-      </div>
-
-    </div>
-  `;
-})
-.catch(err => {
-  console.error(err);
-  productWrap.innerHTML = `
-    <div class="product-card">
-      <h1>找不到產品資料</h1>
-      <p>請返回龜鹿系列重新查看。</p>
-      <a href="guilu-series.html" class="btn">返回龜鹿系列</a>
-    </div>
-  `;
 });
-</script>
 
-</body>
-</html>
+}
+
+}
+
+/* 讀取產品資料 */
+
+fetch("products.json")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+const product = data.products.find(p=>p.id===id) || data.products[0];
+
+if(!product) return;
+
+/* 標題 */
+
+document.title = `${product.name}｜仙加味`;
+
+/* OG 圖片 */
+
+const ogImage = document.querySelector('meta[property="og:image"]');
+
+if(ogImage){
+
+ogImage.setAttribute("content",product.image);
+
+}
+
+/* 圖片 */
+
+if(productImage){
+
+productImage.src = product.image;
+productImage.alt = product.name;
+
+}
+
+/* 基本資料 */
+
+if(productTitle) productTitle.textContent = product.name;
+if(productSummary) productSummary.textContent = product.desc || "";
+
+/* 容量 */
+
+let sizeText = "";
+
+if(Array.isArray(product.sizes)){
+
+sizeText = product.sizes.join(" / ");
+
+}else{
+
+sizeText = product.size || "";
+
+}
+
+if(productSizes) productSizes.textContent = sizeText;
+
+/* 包裝 */
+
+if(productPackage){
+
+productPackage.textContent = product.package || "—";
+
+}
+
+/* 成份 */
+
+let ingredientList = [];
+
+if(productIngredients){
+
+ingredientList = Array.isArray(product.ingredients)
+? product.ingredients
+: String(product.ingredients||"").split(/\s+/).filter(Boolean);
+
+productIngredients.innerHTML =
+ingredientList.map(i=>`<li>${i}</li>`).join("");
+
+}
+
+/* 食用方式 */
+
+if(productUses){
+
+const items = Array.isArray(product.uses)
+? product.uses
+: [];
+
+productUses.innerHTML =
+items.length
+? items.map(i=>`<li>${i}</li>`).join("")
+: "<li>請透過 LINE 詢問食用方式。</li>";
+
+}
+
+/* =====================
+   SEO Product Schema
+===================== */
+
+const schema = {
+
+"@context":"https://schema.org",
+
+"@type":"Product",
+
+"name":product.name,
+
+"description":product.desc || "",
+
+"image":product.image,
+
+"brand":{
+"@type":"Brand",
+"name":"仙加味"
+},
+
+"category":"龜鹿產品",
+
+"size":sizeText,
+
+"ingredients":ingredientList,
+
+"url":location.href
+
+};
+
+const script = document.createElement("script");
+
+script.type = "application/ld+json";
+
+script.text = JSON.stringify(schema);
+
+document.head.appendChild(script);
+
+})
+
+.catch(err=>{
+
+console.error("products.json 讀取失敗:",err);
+
+});
+
+})();
