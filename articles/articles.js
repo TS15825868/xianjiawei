@@ -1,4 +1,4 @@
-const ARTICLES=[
+const ARTICLES = [
 
 {
 title:"什麼是龜鹿",
@@ -55,3 +55,68 @@ category:"recipe"
 }
 
 ];
+
+
+
+/* 自動推薦系統 */
+
+(function(){
+
+if(!location.pathname.includes("/articles/")) return;
+
+const current = location.pathname.split("/").pop();
+
+const currentArticle = ARTICLES.find(a=>a.url===current);
+
+if(!currentArticle) return;
+
+const sameCategory = ARTICLES.filter(a =>
+a.category===currentArticle.category && a.url!==current
+);
+
+
+
+const others = ARTICLES.filter(a =>
+a.category!==currentArticle.category
+);
+
+
+
+const recommended = [...sameCategory,...others].slice(0,3);
+
+
+const html = `
+
+<section class="section">
+
+<h2 class="center">猜你想看</h2>
+
+<div class="product-grid">
+
+${recommended.map(a=>`
+
+<a href="${a.url}" class="product-card">
+
+<h3>${a.title}</h3>
+
+</a>
+
+`).join("")}
+
+</div>
+
+</section>
+
+`;
+
+
+
+const main = document.querySelector("main");
+
+if(main){
+
+main.insertAdjacentHTML("beforeend",html);
+
+}
+
+})();
