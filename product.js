@@ -20,7 +20,6 @@ const productInfo = document.querySelector(".product-info");
 const fallbackBack="guilu-series.html";
 
 
-
 /* =========================
 返回按鈕
 ========================= */
@@ -48,7 +47,6 @@ location.href=fallbackBack;
 }
 
 
-
 /* =========================
 讀取產品資料
 ========================= */
@@ -64,13 +62,11 @@ const product=data.products.find(p=>p.id===id) || data.products[0];
 if(!product) return;
 
 
-
 /* =========================
 標題
 ========================= */
 
 document.title=`${product.name}｜仙加味`;
-
 
 
 /* =========================
@@ -85,14 +81,12 @@ productImage.alt=`仙加味 ${product.name}`;
 }
 
 
-
 /* =========================
 基本資料
 ========================= */
 
 if(productTitle) productTitle.textContent=product.name;
 if(productSummary) productSummary.textContent=product.desc || "";
-
 
 
 /* =========================
@@ -108,7 +102,6 @@ productSizes.textContent=product.sizes
 }
 
 
-
 /* =========================
 包裝
 ========================= */
@@ -118,7 +111,6 @@ if(productPackage){
 productPackage.textContent=product.package || "—";
 
 }
-
 
 
 /* =========================
@@ -137,7 +129,6 @@ items.map(i=>`<li>${i}</li>`).join("");
 }
 
 
-
 /* =========================
 食用方式
 ========================= */
@@ -154,7 +145,6 @@ items.length
 : "<li>請透過 LINE 詢問食用方式</li>";
 
 }
-
 
 
 /* =========================
@@ -177,11 +167,11 @@ product.articles.forEach(url=>{
 
 let title=url.split("/").pop().replace(".html","");
 
-/* 如果有 ARTICLES 系統就用正式標題 */
-
 if(typeof ARTICLES!=="undefined"){
 
-const match=ARTICLES.find(a=>url.includes(a.url));
+const slug=url.split("/").pop();
+
+const match=ARTICLES.find(a=>a.url===slug);
 
 if(match) title=match.title;
 
@@ -213,7 +203,6 @@ productInfo.insertAdjacentHTML("beforeend",html);
 }
 
 
-
 /* =========================
 料理搭配
 ========================= */
@@ -236,7 +225,9 @@ let title=url.split("/").pop().replace(".html","");
 
 if(typeof ARTICLES!=="undefined"){
 
-const match=ARTICLES.find(a=>url.includes(a.url));
+const slug=url.split("/").pop();
+
+const match=ARTICLES.find(a=>a.url===slug);
 
 if(match) title=match.title;
 
@@ -266,7 +257,6 @@ html+=`
 productInfo.insertAdjacentHTML("beforeend",html);
 
 }
-
 
 
 /* =========================
