@@ -15,7 +15,9 @@ const container=document.querySelector("article");
 if(!container) return;
 
 
-/* Breadcrumb */
+/* =========================
+   Breadcrumb
+========================= */
 
 const breadcrumb=`
 
@@ -25,7 +27,7 @@ const breadcrumb=`
 
 <span>/</span>
 
-<a href="../articles/index.html">龜鹿知識</a>
+<a href="../articles.html">龜鹿知識</a>
 
 <span>/</span>
 
@@ -38,9 +40,11 @@ ${article.title}
 container.insertAdjacentHTML("afterbegin",breadcrumb);
 
 
-/* Tags */
+/* =========================
+   Tags
+========================= */
 
-if(article.tags){
+if(article.tags && article.tags.length){
 
 let tagHTML=`<div class="article-tags">`;
 
@@ -57,9 +61,15 @@ container.insertAdjacentHTML("beforeend",tagHTML);
 }
 
 
-/* Prev Next */
+/* =========================
+   Prev Next
+========================= */
 
-let navHTML=`<div class="article-nav">`;
+let navHTML=``;
+
+if(index>0 || index<ARTICLES.length-1){
+
+navHTML=`<div class="article-nav">`;
 
 if(index>0){
 
@@ -96,5 +106,56 @@ navHTML+=`
 navHTML+=`</div>`;
 
 container.insertAdjacentHTML("beforeend",navHTML);
+
+}
+
+
+/* =========================
+   Article Schema (SEO)
+========================= */
+
+const schema={
+
+"@context":"https://schema.org",
+
+"@type":"Article",
+
+"headline":article.title,
+
+"author":{
+
+"@type":"Organization",
+
+"name":"仙加味"
+
+},
+
+"publisher":{
+
+"@type":"Organization",
+
+"name":"仙加味",
+
+"logo":{
+
+"@type":"ImageObject",
+
+"url":"https://ts15825868.github.io/xianjiawei/images/logo-seal.png"
+
+}
+
+},
+
+"mainEntityOfPage":location.href
+
+};
+
+const script=document.createElement("script");
+
+script.type="application/ld+json";
+
+script.text=JSON.stringify(schema);
+
+document.head.appendChild(script);
 
 })();
