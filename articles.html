@@ -21,8 +21,6 @@
 
 <link rel="stylesheet" href="site.css">
 
-<!-- SEO -->
-
 <script type="application/ld+json">
 {
 "@context":"https://schema.org",
@@ -65,9 +63,7 @@
 
 <div class="hero-content reveal">
 
-<h1 class="hero-title">
-龜鹿知識
-</h1>
+<h1 class="hero-title">龜鹿知識</h1>
 
 <p class="hero-text">
 整理龜鹿文化、日常飲食方式與料理搭配  
@@ -88,10 +84,43 @@
 
 <a href="index.html">首頁</a>
 <span>›</span>
-
 <span>龜鹿知識</span>
 
 </nav>
+
+</section>
+
+
+
+<!-- 搜尋文章 -->
+
+<section class="section">
+
+<input
+type="search"
+id="article-search"
+placeholder="搜尋龜鹿文章..."
+style="
+width:100%;
+max-width:420px;
+padding:12px 16px;
+border-radius:12px;
+border:1px solid #ddd;
+display:block;
+margin:auto;
+">
+
+</section>
+
+
+
+<!-- 最新文章 -->
+
+<section class="section reveal">
+
+<h2>最新文章</h2>
+
+<div class="product-grid" id="article-grid"></div>
 
 </section>
 
@@ -101,11 +130,9 @@
 
 <section class="section reveal">
 
-<h2>龜鹿文化</h2>
+<h2 id="culture">龜鹿文化</h2>
 
-<div class="product-grid" id="culture-grid">
-
-</div>
+<div class="product-grid" id="culture-grid"></div>
 
 </section>
 
@@ -115,11 +142,9 @@
 
 <section class="section reveal">
 
-<h2>龜鹿產品</h2>
+<h2 id="product">龜鹿產品</h2>
 
-<div class="product-grid" id="product-grid">
-
-</div>
+<div class="product-grid" id="product-grid"></div>
 
 </section>
 
@@ -129,11 +154,9 @@
 
 <section class="section reveal">
 
-<h2>龜鹿料理</h2>
+<h2 id="recipe">龜鹿料理</h2>
 
-<div class="product-grid" id="recipe-grid">
-
-</div>
+<div class="product-grid" id="recipe-grid"></div>
 
 </section>
 
@@ -143,36 +166,28 @@
 
 <section class="section reveal">
 
-<h2>龜鹿產品</h2>
+<h2>相關產品</h2>
 
 <div class="product-grid">
 
 <a href="product.html?id=guilu-gao" class="product-card">
-
 <h3>龜鹿膏</h3>
 <p>日常補養</p>
-
 </a>
 
 <a href="product.html?id=guilu-drink" class="product-card">
-
 <h3>龜鹿飲</h3>
 <p>即飲型態</p>
-
 </a>
 
 <a href="product.html?id=guilu-block" class="product-card">
-
 <h3>龜鹿湯塊</h3>
 <p>燉湯料理</p>
-
 </a>
 
 <a href="product.html?id=lurong-powder" class="product-card">
-
 <h3>鹿茸粉</h3>
 <p>飲品搭配</p>
-
 </a>
 
 </div>
@@ -192,9 +207,7 @@
 class="btn btn-dark"
 target="_blank"
 rel="noopener">
-
 LINE詢問
-
 </a>
 
 </section>
@@ -215,9 +228,7 @@ LINE詢問
 href="https://lin.ee/sHZW7NkR"
 target="_blank"
 rel="noopener">
-
 LINE詢問
-
 </a>
 
 
@@ -226,6 +237,7 @@ LINE詢問
 
 <script src="articles.js"></script>
 <script src="articles-page.js"></script>
+<script src="article-search.js"></script>
 <script src="site.js"></script>
 
 </body>
