@@ -11,9 +11,19 @@ console.warn("ARTICLES 未載入");
 return;
 }
 
-/* 最新文章排前面 */
 
-const list = [...ARTICLES].reverse();
+/* =========================
+排序（最新文章在前）
+========================= */
+
+const list = [...ARTICLES].sort((a,b)=>{
+return new Date(b.date) - new Date(a.date);
+});
+
+
+/* =========================
+生成文章卡片
+========================= */
 
 let html = "";
 
@@ -37,14 +47,17 @@ html += `
 
 container.innerHTML = html;
 
-/* reveal 動畫 */
 
-setTimeout(()=>{
+/* =========================
+Reveal 動畫
+========================= */
+
+requestAnimationFrame(()=>{
 
 document.querySelectorAll(".reveal").forEach(el=>{
 el.classList.add("show");
 });
 
-},100);
+});
 
 })();
