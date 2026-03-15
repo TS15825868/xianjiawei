@@ -3,43 +3,43 @@ const ARTICLES = [
 {
 title:"什麼是龜鹿",
 url:"what-is-guilu.html",
-category:"knowledge",
+category:"culture",
 tags:["龜鹿","龜鹿文化"]
 },
 
 {
-title:"龜鹿怎麼吃",
-url:"how-to-eat-guilu.html",
-category:"eat",
-tags:["龜鹿","食用方式"]
+title:"龜鹿膏怎麼吃",
+url:"guilu-gao.html",
+category:"product",
+tags:["龜鹿膏"]
 },
 
 {
-title:"鹿茸粉怎麼吃",
-url:"lurong-how.html",
-category:"drink",
-tags:["鹿茸","飲品"]
+title:"龜鹿飲怎麼喝",
+url:"guilu-drink.html",
+category:"product",
+tags:["龜鹿飲"]
 },
 
 {
-title:"鹿茸牛奶",
-url:"lurong-milk.html",
-category:"drink",
-tags:["鹿茸","牛奶"]
+title:"龜鹿湯塊料理",
+url:"guilu-block.html",
+category:"product",
+tags:["龜鹿湯塊"]
 },
 
 {
-title:"鹿茸咖啡",
-url:"lurong-coffee.html",
-category:"drink",
-tags:["鹿茸","咖啡"]
+title:"鹿茸粉飲品",
+url:"lurong-powder.html",
+category:"product",
+tags:["鹿茸粉"]
 },
 
 {
-title:"鹿茸茶",
-url:"lurong-tea.html",
-category:"drink",
-tags:["鹿茸","茶"]
+title:"龜鹿調飲粉",
+url:"qixuan-guilu-mix.html",
+category:"product",
+tags:["柒玄茶"]
 },
 
 {
@@ -64,61 +64,3 @@ tags:["龜鹿","藥膳"]
 }
 
 ];
-
-
-/* =========================
-文章工具
-========================= */
-
-/* 取得文章 */
-
-function getArticle(url){
-
-return ARTICLES.find(a=>a.url===url);
-
-}
-
-
-/* 上一篇 */
-
-function getPrevArticle(index){
-
-if(index>0) return ARTICLES[index-1];
-
-return null;
-
-}
-
-
-/* 下一篇 */
-
-function getNextArticle(index){
-
-if(index<ARTICLES.length-1) return ARTICLES[index+1];
-
-return null;
-
-}
-
-
-/* 同分類文章 */
-
-function getRelatedArticles(article){
-
-return ARTICLES.filter(a=>
-
-a.category===article.category &&
-a.url!==article.url
-
-).slice(0,3);
-
-}
-
-
-/* 分類文章 */
-
-function getCategoryArticles(category){
-
-return ARTICLES.filter(a=>a.category===category);
-
-}
