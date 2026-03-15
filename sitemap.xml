@@ -4,34 +4,50 @@
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/</loc>
+<changefreq>weekly</changefreq>
+<priority>1.0</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/guilu-series.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.9</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/qixuan-tea.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles.html</loc>
+<changefreq>weekly</changefreq>
+<priority>0.9</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/recipes.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/choose.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/faq.html</loc>
+<changefreq>monthly</changefreq>
+<priority>0.7</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/brand.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.7</priority>
 </url>
 
 
@@ -39,38 +55,56 @@
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/what-is-guilu.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-gao.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-drink.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-block.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/lurong-powder.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/qixuan-guilu-mix.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-chicken-soup.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-pork-ribs.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-herbal-soup.html</loc>
+<changefreq>yearly</changefreq>
+<priority>0.8</priority>
 </url>
 
 </urlset>
