@@ -1,40 +1,57 @@
-(function(){
+const ARTICLES=[
 
-if(!location.pathname.includes("/articles/")) return;
+{
+title:"什麼是龜鹿",
+url:"what-is-guilu.html",
+category:"knowledge"
+},
 
-const main=document.querySelector("main");
+{
+title:"龜鹿怎麼吃",
+url:"how-to-eat-guilu.html",
+category:"eat"
+},
 
-if(!main) return;
+{
+title:"鹿茸粉怎麼吃",
+url:"lurong-how.html",
+category:"drink"
+},
 
-const box=document.createElement("section");
+{
+title:"鹿茸牛奶",
+url:"lurong-milk.html",
+category:"drink"
+},
 
-box.className="section";
+{
+title:"鹿茸咖啡",
+url:"lurong-coffee.html",
+category:"drink"
+},
 
-box.innerHTML=`
+{
+title:"鹿茸茶",
+url:"lurong-tea.html",
+category:"drink"
+},
 
-<h2 class="center">相關閱讀</h2>
+{
+title:"龜鹿雞湯",
+url:"guilu-chicken-soup.html",
+category:"recipe"
+},
 
-<div class="product-grid">
+{
+title:"龜鹿燉排骨",
+url:"guilu-pork-ribs.html",
+category:"recipe"
+},
 
-<a href="what-is-guilu.html" class="product-card">
-<h3>什麼是龜鹿</h3>
-<p>了解龜鹿文化</p>
-</a>
+{
+title:"龜鹿藥膳湯",
+url:"guilu-herbal-soup.html",
+category:"recipe"
+}
 
-<a href="how-to-eat-guilu.html" class="product-card">
-<h3>龜鹿怎麼吃</h3>
-<p>日常食用方式</p>
-</a>
-
-<a href="lurong-how.html" class="product-card">
-<h3>鹿茸粉怎麼吃</h3>
-<p>飲品搭配方式</p>
-</a>
-
-</div>
-
-`;
-
-main.appendChild(box);
-
-})();
+];
