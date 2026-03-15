@@ -11,7 +11,6 @@
 <priority>1.0</priority>
 </url>
 
-
 <!-- 主要頁面 -->
 
 <url>
@@ -63,77 +62,68 @@
 <priority>0.7</priority>
 </url>
 
+<!-- 產品頁 -->
+
+<url>
+<loc>https://ts15825868.github.io/xianjiawei/product.html?id=guilu-gao</loc>
+<priority>0.9</priority>
+</url>
+
+<url>
+<loc>https://ts15825868.github.io/xianjiawei/product.html?id=guilu-drink</loc>
+<priority>0.9</priority>
+</url>
+
+<url>
+<loc>https://ts15825868.github.io/xianjiawei/product.html?id=guilu-block</loc>
+<priority>0.9</priority>
+</url>
+
+<url>
+<loc>https://ts15825868.github.io/xianjiawei/product.html?id=lurong-powder</loc>
+<priority>0.9</priority>
+</url>
 
 <!-- 文章 -->
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/what-is-guilu.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/how-to-eat-guilu.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.8</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-drink.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.7</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-gao.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.7</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-block.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.7</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-herbal-soup.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.7</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-chicken-soup.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.7</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/guilu-pork-ribs.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.7</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/lurong-powder.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.7</priority>
 </url>
 
 <url>
 <loc>https://ts15825868.github.io/xianjiawei/articles/qixuan-guilu-mix.html</loc>
-<lastmod>2026-03-15</lastmod>
-<changefreq>yearly</changefreq>
-<priority>0.7</priority>
 </url>
 
 </urlset>
