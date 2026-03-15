@@ -1,4 +1,41 @@
 /* =========================
+統一漢堡選單 HTML
+========================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+const menu=document.getElementById("menuOverlay");
+
+if(menu){
+
+menu.innerHTML=`
+
+<a href="index.html">首頁</a>
+<a href="guilu-series.html">龜鹿系列</a>
+<a href="recipes.html">料理搭配</a>
+<a href="choose.html">怎麼選龜鹿</a>
+<a href="articles.html">龜鹿知識</a>
+<a href="brand.html">品牌故事</a>
+<a href="faq.html">FAQ</a>
+
+<a href="https://lin.ee/sHZW7NkR"
+class="line-btn"
+target="_blank"
+rel="noopener">
+
+LINE詢問
+
+</a>
+
+`;
+
+}
+
+});
+
+
+
+/* =========================
 漢堡選單
 ========================= */
 
@@ -23,6 +60,7 @@ document.body.style.overflow="";
 }
 
 }
+
 
 
 /* =========================
@@ -50,13 +88,14 @@ document.body.style.overflow="";
 });
 
 
+
 /* =========================
 點擊連結關閉
 ========================= */
 
-document.querySelectorAll(".menu-overlay a").forEach(link=>{
+document.addEventListener("click",function(e){
 
-link.addEventListener("click",function(){
+if(e.target.closest(".menu-overlay a")){
 
 const menu=document.getElementById("menuOverlay");
 
@@ -65,9 +104,10 @@ if(!menu) return;
 menu.classList.remove("active");
 document.body.style.overflow="";
 
-});
+}
 
 });
+
 
 
 /* =========================
@@ -88,6 +128,7 @@ document.body.style.overflow="";
 }
 
 });
+
 
 
 /* =========================
@@ -121,6 +162,7 @@ window.addEventListener("load",revealElements);
 window.addEventListener("resize",revealElements);
 
 
+
 /* =========================
 Header Scroll Blur
 ========================= */
@@ -148,6 +190,7 @@ header.style.backdropFilter="blur(18px)";
 }
 
 
+
 /* =========================
 圖片 fallback
 ========================= */
@@ -159,8 +202,6 @@ img.addEventListener("error",function(){
 if(this.dataset.fallbackApplied) return;
 
 this.dataset.fallbackApplied=true;
-
-/* 如果不是 placeholder 才替換 */
 
 if(!this.classList.contains("img-placeholder")){
 
