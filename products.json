@@ -68,7 +68,7 @@
       ],
 
       "recipes":[
-        "articles/lurong-coffee.html"
+        "articles/lurong-powder.html"
       ]
     },
 
@@ -131,9 +131,7 @@
       ],
 
       "recipes":[
-        "articles/lurong-coffee.html",
-        "articles/lurong-milk.html",
-        "articles/lurong-tea.html"
+        "articles/lurong-powder.html"
       ]
     }
 
