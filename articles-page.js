@@ -1,16 +1,27 @@
 (function(){
 
-const container=document.getElementById("article-grid");
+const container = document.getElementById("article-grid");
 
-if(!container || typeof ARTICLES==="undefined") return;
+if(!container) return;
 
-let html="";
+/* 確保 articles.js 已載入 */
 
-ARTICLES.forEach(a=>{
+if(typeof ARTICLES === "undefined"){
+console.warn("ARTICLES 未載入");
+return;
+}
 
-html+=`
+/* 最新文章排前面 */
 
-<a href="articles/${a.url}" class="product-card">
+const list = [...ARTICLES].reverse();
+
+let html = "";
+
+list.forEach(a => {
+
+html += `
+
+<a href="articles/${a.url}" class="product-card reveal">
 
 <img src="${a.image}" alt="${a.title}" loading="lazy">
 
@@ -24,6 +35,16 @@ html+=`
 
 });
 
-container.innerHTML=html;
+container.innerHTML = html;
+
+/* reveal 動畫 */
+
+setTimeout(()=>{
+
+document.querySelectorAll(".reveal").forEach(el=>{
+el.classList.add("show");
+});
+
+},100);
 
 })();
