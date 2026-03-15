@@ -1,8 +1,13 @@
 /* =========================
-統一漢堡選單 HTML
+DOM Ready
 ========================= */
 
 document.addEventListener("DOMContentLoaded",()=>{
+
+
+/* =========================
+統一漢堡選單 HTML
+========================= */
 
 const menu=document.getElementById("menuOverlay");
 
@@ -31,8 +36,33 @@ LINE詢問
 
 }
 
-});
 
+/* =========================
+圖片 fallback
+========================= */
+
+document.addEventListener("error",(e)=>{
+
+if(e.target.tagName!=="IMG") return;
+
+const img=e.target;
+
+if(img.dataset.fallbackApplied) return;
+
+img.dataset.fallbackApplied=true;
+
+if(!img.classList.contains("img-placeholder")){
+
+img.src="images/logo-seal.png";
+
+}
+
+img.classList.add("img-placeholder");
+
+},true);
+
+
+});
 
 
 /* =========================
@@ -46,8 +76,6 @@ const menu=document.getElementById("menuOverlay");
 if(!menu) return;
 
 menu.classList.toggle("active");
-
-/* 鎖定背景滾動 */
 
 if(menu.classList.contains("active")){
 
@@ -67,7 +95,7 @@ document.body.style.overflow="";
 點擊背景關閉
 ========================= */
 
-document.addEventListener("click",function(e){
+document.addEventListener("click",(e)=>{
 
 const menu=document.getElementById("menuOverlay");
 const menuBtn=document.querySelector(".menu-btn");
@@ -93,7 +121,7 @@ document.body.style.overflow="";
 點擊連結關閉
 ========================= */
 
-document.addEventListener("click",function(e){
+document.addEventListener("click",(e)=>{
 
 if(e.target.closest(".menu-overlay a")){
 
@@ -114,7 +142,7 @@ document.body.style.overflow="";
 ESC 關閉
 ========================= */
 
-document.addEventListener("keydown",function(e){
+document.addEventListener("keydown",(e)=>{
 
 const menu=document.getElementById("menuOverlay");
 
@@ -171,7 +199,13 @@ const header=document.querySelector(".header");
 
 if(header){
 
+let ticking=false;
+
 window.addEventListener("scroll",()=>{
+
+if(!ticking){
+
+window.requestAnimationFrame(()=>{
 
 if(window.scrollY>40){
 
@@ -185,32 +219,14 @@ header.style.backdropFilter="blur(18px)";
 
 }
 
+ticking=false;
+
+});
+
+ticking=true;
+
+}
+
 },{passive:true});
 
 }
-
-
-
-/* =========================
-圖片 fallback
-========================= */
-
-document.querySelectorAll("img").forEach(img=>{
-
-img.addEventListener("error",function(){
-
-if(this.dataset.fallbackApplied) return;
-
-this.dataset.fallbackApplied=true;
-
-if(!this.classList.contains("img-placeholder")){
-
-this.src="images/logo-seal.png";
-
-}
-
-this.classList.add("img-placeholder");
-
-});
-
-});
