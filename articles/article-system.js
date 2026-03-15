@@ -2,6 +2,8 @@
 
 if(!location.pathname.includes("/articles/")) return;
 
+if(typeof ARTICLES==="undefined") return;
+
 const current=location.pathname.split("/").pop();
 
 const index=ARTICLES.findIndex(a=>a.url===current);
@@ -62,10 +64,10 @@ container.insertAdjacentHTML("beforeend",tagHTML);
 
 
 /* =========================
-Prev Next
+Prev / Next
 ========================= */
 
-let navHTML=``;
+let navHTML="";
 
 if(index>0 || index<ARTICLES.length-1){
 
@@ -111,7 +113,7 @@ container.insertAdjacentHTML("beforeend",navHTML);
 
 
 /* =========================
-相關文章推薦
+相關文章
 ========================= */
 
 if(article.tags){
@@ -142,7 +144,7 @@ html+=`
 
 <h3>${a.title}</h3>
 
-<p>${a.summary||""}</p>
+<p>${a.tags ? a.tags.join(" · ") : "龜鹿知識"}</p>
 
 </a>
 
@@ -160,10 +162,48 @@ container.insertAdjacentHTML("beforeend",html);
 
 
 /* =========================
+Breadcrumb Schema
+========================= */
+
+const breadcrumbSchema={
+
+"@context":"https://schema.org",
+
+"@type":"BreadcrumbList",
+
+"itemListElement":[
+
+{
+"@type":"ListItem",
+"position":1,
+"name":"首頁",
+"item":"https://ts15825868.github.io/xianjiawei/"
+},
+
+{
+"@type":"ListItem",
+"position":2,
+"name":"龜鹿知識",
+"item":"https://ts15825868.github.io/xianjiawei/articles.html"
+},
+
+{
+"@type":"ListItem",
+"position":3,
+"name":article.title,
+"item":location.href
+}
+
+]
+
+};
+
+
+/* =========================
 Article Schema
 ========================= */
 
-const schema={
+const articleSchema={
 
 "@context":"https://schema.org",
 
@@ -171,7 +211,9 @@ const schema={
 
 "headline":article.title,
 
-"description":article.summary||"",
+"description":article.summary || "",
+
+"keywords":article.tags ? article.tags.join(",") : "",
 
 "author":{
 
@@ -201,12 +243,16 @@ const schema={
 
 };
 
-const script=document.createElement("script");
 
-script.type="application/ld+json";
+const script1=document.createElement("script");
+script1.type="application/ld+json";
+script1.text=JSON.stringify(breadcrumbSchema);
 
-script.text=JSON.stringify(schema);
+const script2=document.createElement("script");
+script2.type="application/ld+json";
+script2.text=JSON.stringify(articleSchema);
 
-document.head.appendChild(script);
+document.head.appendChild(script1);
+document.head.appendChild(script2);
 
 })();
