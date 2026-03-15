@@ -15,6 +15,7 @@
 <meta property="og:title" content="常見問題｜仙加味">
 <meta property="og:description" content="龜鹿產品常見問題整理">
 <meta property="og:image" content="images/hero-guilu-gao.jpg">
+<meta property="og:type" content="website">
 
 <meta name="googlebot" content="max-image-preview:large">
 
@@ -27,7 +28,7 @@
 <header class="header">
 
 <a class="logo" href="index.html">
-<img src="images/logo-seal.png">
+<img src="images/logo-seal.png" alt="仙加味">
 <span>仙加味</span>
 </a>
 
@@ -36,22 +37,9 @@
 </header>
 
 
-<div id="menuOverlay" class="menu-overlay">
+<!-- 自動漢堡選單 -->
 
-<a href="index.html">首頁</a>
-<a href="brand.html">品牌故事</a>
-<a href="guilu-series.html">龜鹿系列</a>
-<a href="qixuan-tea.html">柒玄茶</a>
-<a href="articles.html">龜鹿知識</a>
-<a href="recipes.html">料理搭配</a>
-<a href="choose.html">怎麼選龜鹿</a>
-<a href="faq.html">FAQ</a>
-
-<a href="https://lin.ee/sHZW7NkR" class="line-btn" target="_blank">
-LINE詢問
-</a>
-
-</div>
+<div id="menuOverlay" class="menu-overlay"></div>
 
 
 
@@ -77,13 +65,18 @@ LINE詢問
 
 
 
+<!-- breadcrumb -->
+
 <section class="section" style="padding-top:40px">
 
-<p class="center" style="opacity:.6;font-size:14px">
+<nav class="breadcrumb center">
 
-<a href="index.html">首頁</a> / 常見問題
+<a href="index.html">首頁</a>
+<span>›</span>
 
-</p>
+<span>常見問題</span>
+
+</nav>
 
 </section>
 
@@ -99,7 +92,7 @@ LINE詢問
 <div class="faq-item">
 <button class="faq-q">龜鹿膏怎麼吃？</button>
 <div class="faq-a">
-可直接食用，也可以加入溫水沖泡。
+龜鹿膏可直接食用，也可以加入溫水沖泡。
 </div>
 </div>
 
@@ -107,7 +100,7 @@ LINE詢問
 <div class="faq-item">
 <button class="faq-q">龜鹿飲怎麼喝？</button>
 <div class="faq-a">
-開瓶即可飲用，也可以稍微溫熱後飲用。
+龜鹿飲開瓶即可飲用，也可以稍微溫熱後飲用。
 </div>
 </div>
 
@@ -115,7 +108,7 @@ LINE詢問
 <div class="faq-item">
 <button class="faq-q">龜鹿湯塊怎麼煮？</button>
 <div class="faq-a">
-可搭配雞肉或排骨燉煮成日常湯品。
+龜鹿湯塊可搭配雞肉或排骨燉煮成日常湯品。
 </div>
 </div>
 
@@ -123,7 +116,7 @@ LINE詢問
 <div class="faq-item">
 <button class="faq-q">鹿茸粉怎麼搭配？</button>
 <div class="faq-a">
-可加入茶、咖啡或牛奶作為日常飲品搭配。
+鹿茸粉可加入茶、咖啡或牛奶作為日常飲品搭配。
 </div>
 </div>
 
@@ -162,7 +155,9 @@ LINE詢問
 </p>
 
 <a href="https://lin.ee/sHZW7NkR" class="btn btn-dark" target="_blank">
+
 LINE詢問
+
 </a>
 
 </section>
@@ -172,7 +167,9 @@ LINE詢問
 <footer class="footer">
 
 <div class="footer-bottom">
+
 © 仙加味 · 龜鹿日常
+
 </div>
 
 </footer>
@@ -180,8 +177,11 @@ LINE詢問
 
 
 <a class="floating-line" href="https://lin.ee/sHZW7NkR">
+
 LINE詢問
+
 </a>
+
 
 
 <script src="site.js"></script>
@@ -191,7 +191,7 @@ LINE詢問
 
 document.querySelectorAll(".faq-q").forEach(btn=>{
 
-btn.onclick=function(){
+btn.addEventListener("click",function(){
 
 const answer=this.nextElementSibling;
 
@@ -205,11 +205,12 @@ answer.style.maxHeight=answer.scrollHeight+"px";
 
 }
 
-};
+});
 
 });
 
 </script>
+
 
 
 <script type="application/ld+json">
@@ -218,6 +219,7 @@ answer.style.maxHeight=answer.scrollHeight+"px";
 "@context":"https://schema.org",
 "@type":"FAQPage",
 "mainEntity":[
+
 {
 "@type":"Question",
 "name":"龜鹿膏怎麼吃？",
@@ -226,6 +228,7 @@ answer.style.maxHeight=answer.scrollHeight+"px";
 "text":"龜鹿膏可直接食用，也可以加入溫水沖泡。"
 }
 },
+
 {
 "@type":"Question",
 "name":"龜鹿飲怎麼喝？",
@@ -233,7 +236,44 @@ answer.style.maxHeight=answer.scrollHeight+"px";
 "@type":"Answer",
 "text":"龜鹿飲開瓶即可飲用，也可以稍微溫熱後飲用。"
 }
+},
+
+{
+"@type":"Question",
+"name":"龜鹿湯塊怎麼煮？",
+"acceptedAnswer":{
+"@type":"Answer",
+"text":"龜鹿湯塊可搭配雞肉或排骨燉煮成日常湯品。"
 }
+},
+
+{
+"@type":"Question",
+"name":"鹿茸粉怎麼搭配？",
+"acceptedAnswer":{
+"@type":"Answer",
+"text":"鹿茸粉可加入茶、咖啡或牛奶作為日常飲品搭配。"
+}
+},
+
+{
+"@type":"Question",
+"name":"龜鹿產品每天可以吃嗎？",
+"acceptedAnswer":{
+"@type":"Answer",
+"text":"可依個人飲食習慣適量食用，如有疑問建議詢問專業人士。"
+}
+},
+
+{
+"@type":"Question",
+"name":"龜鹿適合什麼族群？",
+"acceptedAnswer":{
+"@type":"Answer",
+"text":"龜鹿常見於日常飲食與燉湯料理中，可依個人需求選擇不同型態。"
+}
+}
+
 ]
 }
 
