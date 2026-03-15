@@ -1,9 +1,5 @@
 (function(){
 
-const container = document.getElementById("article-grid");
-
-if(!container) return;
-
 /* 確保 articles.js 已載入 */
 
 if(typeof ARTICLES === "undefined"){
@@ -13,23 +9,34 @@ return;
 
 
 /* =========================
+取得容器
+========================= */
+
+const articleGrid = document.getElementById("article-grid");
+
+const cultureGrid = document.getElementById("culture-grid");
+const productGrid = document.getElementById("product-grid");
+const recipeGrid = document.getElementById("recipe-grid");
+
+
+/* =========================
 排序（最新文章在前）
 ========================= */
 
 const list = [...ARTICLES].sort((a,b)=>{
+
 return new Date(b.date) - new Date(a.date);
+
 });
 
 
 /* =========================
-生成文章卡片
+生成卡片
 ========================= */
 
-let html = "";
+function createCard(a){
 
-list.forEach(a => {
-
-html += `
+return `
 
 <a href="articles/${a.url}" class="product-card reveal">
 
@@ -43,9 +50,53 @@ html += `
 
 `;
 
+}
+
+
+/* =========================
+模式 1：全部文章
+========================= */
+
+if(articleGrid){
+
+let html="";
+
+list.forEach(a=>{
+
+html+=createCard(a);
+
 });
 
-container.innerHTML = html;
+articleGrid.innerHTML=html;
+
+}
+
+
+/* =========================
+模式 2：分類文章
+========================= */
+
+if(cultureGrid || productGrid || recipeGrid){
+
+list.forEach(a=>{
+
+const card=createCard(a);
+
+if(a.category==="culture" && cultureGrid){
+cultureGrid.insertAdjacentHTML("beforeend",card);
+}
+
+if(a.category==="product" && productGrid){
+productGrid.insertAdjacentHTML("beforeend",card);
+}
+
+if(a.category==="recipe" && recipeGrid){
+recipeGrid.insertAdjacentHTML("beforeend",card);
+}
+
+});
+
+}
 
 
 /* =========================
