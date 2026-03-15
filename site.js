@@ -30,6 +30,10 @@ LINE詢問
 });
 
 
+/* =========================
+漢堡選單
+========================= */
+
 function toggleMenu(){
 
 const menu=document.getElementById("menuOverlay");
@@ -39,17 +43,17 @@ if(!menu) return;
 menu.classList.toggle("active");
 
 if(menu.classList.contains("active")){
-
 document.body.style.overflow="hidden";
-
 }else{
-
 document.body.style.overflow="";
-
 }
 
 }
 
+
+/* =========================
+點擊背景關閉
+========================= */
 
 document.addEventListener("click",function(e){
 
@@ -63,6 +67,24 @@ menu.classList.contains("active") &&
 !menu.contains(e.target) &&
 !menuBtn.contains(e.target)
 ){
+menu.classList.remove("active");
+document.body.style.overflow="";
+}
+
+});
+
+
+/* =========================
+點擊選單關閉
+========================= */
+
+document.addEventListener("click",function(e){
+
+if(e.target.closest(".menu-overlay a")){
+
+const menu=document.getElementById("menuOverlay");
+
+if(!menu) return;
 
 menu.classList.remove("active");
 document.body.style.overflow="";
@@ -71,6 +93,10 @@ document.body.style.overflow="";
 
 });
 
+
+/* =========================
+ESC 關閉
+========================= */
 
 document.addEventListener("keydown",function(e){
 
@@ -84,5 +110,84 @@ menu.classList.remove("active");
 document.body.style.overflow="";
 
 }
+
+});
+
+
+/* =========================
+Scroll Reveal
+========================= */
+
+function revealElements(){
+
+const reveals=document.querySelectorAll(".reveal");
+
+if(!reveals.length) return;
+
+const windowHeight=window.innerHeight;
+
+reveals.forEach(el=>{
+
+const elementTop=el.getBoundingClientRect().top;
+
+if(elementTop < windowHeight-80){
+el.classList.add("show");
+}
+
+});
+
+}
+
+window.addEventListener("scroll",revealElements,{passive:true});
+window.addEventListener("load",revealElements);
+window.addEventListener("resize",revealElements);
+
+
+/* =========================
+Header Scroll Blur
+========================= */
+
+const header=document.querySelector(".header");
+
+if(header){
+
+window.addEventListener("scroll",()=>{
+
+if(window.scrollY>40){
+
+header.style.background="rgba(255,255,255,.92)";
+header.style.backdropFilter="blur(20px)";
+
+}else{
+
+header.style.background="rgba(255,255,255,.75)";
+header.style.backdropFilter="blur(18px)";
+
+}
+
+},{passive:true});
+
+}
+
+
+/* =========================
+圖片 fallback
+========================= */
+
+document.querySelectorAll("img").forEach(img=>{
+
+img.addEventListener("error",function(){
+
+if(this.dataset.fallbackApplied) return;
+
+this.dataset.fallbackApplied=true;
+
+if(!this.classList.contains("img-placeholder")){
+this.src="images/logo-seal.png";
+}
+
+this.classList.add("img-placeholder");
+
+});
 
 });
