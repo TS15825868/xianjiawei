@@ -8,11 +8,13 @@ if(!container) return;
 
 let html="";
 
-ARTICLES.slice(0,3).forEach(a=>{
+const shuffled=[...ARTICLES].sort(()=>0.5-Math.random()).slice(0,3);
+
+shuffled.forEach(a=>{
 
 html+=`
 
-<a href="${a.url}" class="product-card">
+<a href="../articles/${a.url}" class="product-card">
 
 <h3>${a.title}</h3>
 
