@@ -1,5 +1,5 @@
 /* =========================
-   漢堡選單
+漢堡選單
 ========================= */
 
 function toggleMenu(){
@@ -26,13 +26,12 @@ document.body.style.overflow="";
 
 
 /* =========================
-   點擊背景關閉
+點擊背景關閉
 ========================= */
 
 document.addEventListener("click",function(e){
 
 const menu=document.getElementById("menuOverlay");
-
 const menuBtn=document.querySelector(".menu-btn");
 
 if(!menu || !menuBtn) return;
@@ -44,7 +43,6 @@ menu.classList.contains("active") &&
 ){
 
 menu.classList.remove("active");
-
 document.body.style.overflow="";
 
 }
@@ -53,7 +51,7 @@ document.body.style.overflow="";
 
 
 /* =========================
-   點擊連結關閉
+點擊連結關閉
 ========================= */
 
 document.querySelectorAll(".menu-overlay a").forEach(link=>{
@@ -65,7 +63,6 @@ const menu=document.getElementById("menuOverlay");
 if(!menu) return;
 
 menu.classList.remove("active");
-
 document.body.style.overflow="";
 
 });
@@ -74,7 +71,7 @@ document.body.style.overflow="";
 
 
 /* =========================
-   ESC 關閉
+ESC 關閉
 ========================= */
 
 document.addEventListener("keydown",function(e){
@@ -86,7 +83,6 @@ if(!menu) return;
 if(e.key==="Escape"){
 
 menu.classList.remove("active");
-
 document.body.style.overflow="";
 
 }
@@ -95,12 +91,12 @@ document.body.style.overflow="";
 
 
 /* =========================
-   Scroll Reveal
+Scroll Reveal
 ========================= */
 
-const reveals=document.querySelectorAll(".reveal");
-
 function revealElements(){
+
+const reveals=document.querySelectorAll(".reveal");
 
 if(!reveals.length) return;
 
@@ -126,7 +122,7 @@ window.addEventListener("resize",revealElements);
 
 
 /* =========================
-   Header Scroll Blur
+Header Scroll Blur
 ========================= */
 
 const header=document.querySelector(".header");
@@ -153,7 +149,7 @@ header.style.backdropFilter="blur(18px)";
 
 
 /* =========================
-   圖片 fallback
+圖片 fallback
 ========================= */
 
 document.querySelectorAll("img").forEach(img=>{
@@ -164,7 +160,13 @@ if(this.dataset.fallbackApplied) return;
 
 this.dataset.fallbackApplied=true;
 
+/* 如果不是 placeholder 才替換 */
+
+if(!this.classList.contains("img-placeholder")){
+
 this.src="images/logo-seal.png";
+
+}
 
 this.classList.add("img-placeholder");
 
