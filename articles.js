@@ -1,111 +1,186 @@
-/* =========================
-   Article Recommendation
-========================= */
+const ARTICLES = [
 
-(function(){
+/* 龜鹿文化 */
 
-/* 只在文章頁面啟動 */
+{
+title:"龜鹿是什麼",
+url:"what-is-guilu.html",
+category:"culture",
+summary:"介紹龜板與鹿角在飲食文化中的來源與演變。",
+image:"images/hero-guilu-gao.jpg",
+date:"2024-01-01",
+popular:true
+},
 
-if(!location.pathname.includes("articles/")) return;
+{
+title:"龜鹿文化的歷史",
+url:"guilu-history.html",
+category:"culture",
+summary:"從傳統燉湯到現代飲食文化的龜鹿演變。",
+image:"images/hero-guilu-gao.jpg",
+date:"2024-01-02"
+},
 
+{
+title:"鹿茸是什麼",
+url:"deer-antler-what.html",
+category:"culture",
+summary:"介紹鹿茸來源與鹿角差異。",
+image:"images/lurong-powder-75g.jpg",
+date:"2024-01-03",
+popular:true
+},
 
-/* 避免重複插入 */
+{
+title:"龜鹿飲食文化",
+url:"guilu-food-culture.html",
+category:"culture",
+summary:"龜鹿食材在傳統飲食文化中的角色。",
+image:"images/hero-guilu-gao.jpg",
+date:"2024-01-04"
+},
 
-if(document.querySelector(".related-articles")) return;
+{
+title:"龜鹿文化在現代",
+url:"guilu-modern.html",
+category:"culture",
+summary:"龜鹿從傳統藥膳到現代飲食的轉變。",
+image:"images/hero-guilu-gao.jpg",
+date:"2024-01-05"
+},
 
+/* 產品 */
 
-/* 找到文章主內容 */
+{
+title:"龜鹿膏怎麼吃",
+url:"guilu-gao-how.html",
+category:"product",
+summary:"整理龜鹿膏的日常食用方式。",
+image:"images/guilu-gao-100g.jpg",
+date:"2024-01-06",
+popular:true
+},
 
-const main = document.querySelector("main") || document.body;
+{
+title:"龜鹿飲怎麼喝",
+url:"guilu-drink-how.html",
+category:"product",
+summary:"龜鹿飲的飲用方式與搭配。",
+image:"images/guilu-drink-180cc.jpg",
+date:"2024-01-07"
+},
 
+{
+title:"龜鹿湯塊怎麼用",
+url:"guilu-block-how.html",
+category:"product",
+summary:"龜鹿湯塊適合燉湯料理。",
+image:"images/guilu-block-75g.jpg",
+date:"2024-01-08"
+},
 
-/* 建立推薦區塊 */
+{
+title:"鹿茸粉怎麼搭配",
+url:"deer-powder-how.html",
+category:"product",
+summary:"鹿茸粉可以加入咖啡、牛奶或茶。",
+image:"images/lurong-powder-75g.jpg",
+date:"2024-01-09"
+},
 
-const container = document.createElement("section");
+/* 料理 */
 
-container.className = "section reveal related-articles";
+{
+title:"龜鹿雞湯",
+url:"guilu-chicken-soup.html",
+category:"recipe",
+summary:"龜鹿湯塊搭配雞肉燉煮的料理。",
+image:"images/guilu-block-75g.jpg",
+date:"2024-01-10",
+popular:true
+},
 
-container.innerHTML = `
+{
+title:"龜鹿燉排骨",
+url:"guilu-pork-ribs.html",
+category:"recipe",
+summary:"龜鹿湯塊搭配排骨燉湯。",
+image:"images/guilu-block-75g.jpg",
+date:"2024-01-11"
+},
 
-<h2>相關閱讀</h2>
+{
+title:"龜鹿藥膳湯",
+url:"guilu-herbal-soup.html",
+category:"recipe",
+summary:"龜鹿與藥膳食材搭配的燉湯。",
+image:"images/guilu-block-75g.jpg",
+date:"2024-01-12"
+},
 
-<div class="product-grid">
+{
+title:"龜鹿燉牛肉",
+url:"guilu-beef-soup.html",
+category:"recipe",
+summary:"龜鹿與牛肉燉湯料理。",
+image:"images/guilu-block-75g.jpg",
+date:"2024-01-13"
+},
 
-<a href="../articles/what-is-guilu.html" class="product-card">
-<h3>什麼是龜鹿</h3>
-<p>龜板與鹿角的飲食文化</p>
-</a>
+{
+title:"龜鹿燉鴨湯",
+url:"guilu-duck-soup.html",
+category:"recipe",
+summary:"龜鹿與鴨肉燉湯料理。",
+image:"images/guilu-block-75g.jpg",
+date:"2024-01-14"
+},
 
-<a href="../articles/how-to-eat-guilu.html" class="product-card">
-<h3>龜鹿怎麼吃</h3>
-<p>日常食用方式整理</p>
-</a>
+/* 飲品 */
 
-<a href="../articles/guilu-drink-how.html" class="product-card">
-<h3>龜鹿飲怎麼喝</h3>
-<p>即飲與加熱方式</p>
-</a>
+{
+title:"鹿茸咖啡",
+url:"deer-coffee.html",
+category:"recipe",
+summary:"鹿茸粉加入咖啡的飲品方式。",
+image:"images/lurong-powder-75g.jpg",
+date:"2024-01-15"
+},
 
-</div>
+{
+title:"鹿茸牛奶",
+url:"deer-milk.html",
+category:"recipe",
+summary:"鹿茸粉加入牛奶的飲品方式。",
+image:"images/lurong-powder-75g.jpg",
+date:"2024-01-16"
+},
 
+{
+title:"龜鹿茶飲",
+url:"guilu-tea.html",
+category:"recipe",
+summary:"龜鹿搭配茶飲的飲用方式。",
+image:"images/lurong-powder-75g.jpg",
+date:"2024-01-17"
+},
 
-<h2 style="margin-top:60px;">料理搭配</h2>
+{
+title:"龜鹿熱飲",
+url:"guilu-warm-drink.html",
+category:"recipe",
+summary:"龜鹿熱飲做法。",
+image:"images/lurong-powder-75g.jpg",
+date:"2024-01-18"
+},
 
-<div class="product-grid">
+{
+title:"龜鹿日常飲食",
+url:"guilu-daily.html",
+category:"culture",
+summary:"龜鹿如何融入日常飲食。",
+image:"images/hero-guilu-gao.jpg",
+date:"2024-01-19"
+}
 
-<a href="../articles/guilu-chicken-soup.html" class="product-card">
-<h3>龜鹿雞湯</h3>
-<p>燉雞湯料理</p>
-</a>
-
-<a href="../articles/guilu-pork-ribs.html" class="product-card">
-<h3>龜鹿排骨湯</h3>
-<p>家常燉湯</p>
-</a>
-
-<a href="../articles/lurong-coffee.html" class="product-card">
-<h3>鹿茸咖啡</h3>
-<p>飲品搭配</p>
-</a>
-
-</div>
-
-
-<h2 style="margin-top:60px;">相關產品</h2>
-
-<div class="product-grid">
-
-<a href="../product.html?id=guilu-gao&from=articles" class="product-card">
-<h3>龜鹿膏</h3>
-<p>日常補養型態</p>
-</a>
-
-<a href="../product.html?id=guilu-drink&from=articles" class="product-card">
-<h3>龜鹿飲</h3>
-<p>即飲型態</p>
-</a>
-
-<a href="../product.html?id=lurong-powder&from=articles" class="product-card">
-<h3>鹿茸粉</h3>
-<p>飲品搭配</p>
-</a>
-
-</div>
-
-`;
-
-
-/* 插入文章底部 */
-
-main.appendChild(container);
-
-
-/* 觸發 reveal 動畫 */
-
-setTimeout(()=>{
-
-container.classList.add("show");
-
-},200);
-
-})();
+];

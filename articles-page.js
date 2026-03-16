@@ -1,6 +1,8 @@
 (function(){
 
-/* 確保 articles.js 已載入 */
+/* =========================
+確保 articles.js 載入
+========================= */
 
 if(typeof ARTICLES === "undefined"){
 console.warn("ARTICLES 未載入");
@@ -20,7 +22,7 @@ const recipeGrid = document.getElementById("recipe-grid");
 
 
 /* =========================
-排序（最新文章在前）
+排序（最新文章）
 ========================= */
 
 const list = [...ARTICLES].sort((a,b)=>{
@@ -34,18 +36,20 @@ return d2 - d1;
 
 
 /* =========================
-生成卡片
+建立卡片
 ========================= */
 
 function createCard(a){
+
+const img = a.image || "images/logo-seal.png";
 
 return `
 
 <a href="articles/${a.url}" class="product-card reveal">
 
-<img 
-src="${a.image}" 
-alt="${a.title}" 
+<img
+src="${img}"
+alt="${a.title}"
 loading="lazy"
 onerror="this.src='images/logo-seal.png';this.classList.add('img-placeholder');"
 >
@@ -62,18 +66,40 @@ onerror="this.src='images/logo-seal.png';this.classList.add('img-placeholder');"
 
 
 /* =========================
+渲染 grid
+========================= */
+
+function renderGrid(grid, items){
+
+if(!grid) return;
+
+const fragment = document.createDocumentFragment();
+
+items.forEach(a=>{
+
+const temp = document.createElement("div");
+temp.innerHTML = createCard(a);
+
+fragment.appendChild(temp.firstElementChild);
+
+});
+
+grid.innerHTML = "";
+grid.appendChild(fragment);
+
+}
+
+
+/* =========================
 模式 1：全部文章
 ========================= */
 
 if(articleGrid){
 
-let html="";
-
-list.forEach(a=>{
-html+=createCard(a);
-});
-
-articleGrid.innerHTML=html;
+renderGrid(
+articleGrid,
+list.slice(0,12)
+);
 
 }
 
@@ -84,23 +110,20 @@ articleGrid.innerHTML=html;
 
 if(cultureGrid || productGrid || recipeGrid){
 
-list.forEach(a=>{
+renderGrid(
+cultureGrid,
+list.filter(a=>a.category==="culture")
+);
 
-const card=createCard(a);
+renderGrid(
+productGrid,
+list.filter(a=>a.category==="product")
+);
 
-if(a.category==="culture" && cultureGrid){
-cultureGrid.insertAdjacentHTML("beforeend",card);
-}
-
-if(a.category==="product" && productGrid){
-productGrid.insertAdjacentHTML("beforeend",card);
-}
-
-if(a.category==="recipe" && recipeGrid){
-recipeGrid.insertAdjacentHTML("beforeend",card);
-}
-
-});
+renderGrid(
+recipeGrid,
+list.filter(a=>a.category==="recipe")
+);
 
 }
 
