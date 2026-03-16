@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const menu = document.getElementById("menuOverlay");
-const btn = document.querySelector(".menu-btn");
-
 /* =========================
 MENU
 ========================= */
+
+const menu = document.getElementById("menuOverlay");
+const btn = document.querySelector(".menu-btn");
 
 if (menu) {
 
@@ -34,6 +34,7 @@ LINE詢問
 `;
 }
 
+
 /* =========================
 MENU TOGGLE
 ========================= */
@@ -54,13 +55,14 @@ menu.classList.remove("active");
 
 }
 
+
 /* =========================
 SCROLL REVEAL
 ========================= */
 
 const reveals = document.querySelectorAll(".reveal");
 
-if (reveals.length) {
+if (reveals.length && "IntersectionObserver" in window) {
 
 const observer = new IntersectionObserver(entries => {
 
@@ -75,11 +77,12 @@ observer.unobserve(entry.target);
 
 });
 
-}, { threshold: .15 });
+}, { threshold: 0.15 });
 
 reveals.forEach(el => observer.observe(el));
 
 }
+
 
 /* =========================
 ARTICLES GRID
@@ -107,7 +110,12 @@ html += `
 
 <a href="articles/${a.url}" class="product-card">
 
-<img src="${image}" alt="${a.title}" loading="lazy">
+<img
+src="${image}"
+alt="${a.title}"
+loading="lazy"
+onerror="this.src='../images/logo-seal.png';this.classList.add('img-placeholder');"
+>
 
 <h3>${a.title}</h3>
 
@@ -129,6 +137,7 @@ render(recipeGrid, "recipe");
 
 }
 
+
 /* =========================
 RELATED ARTICLES
 ========================= */
@@ -143,18 +152,16 @@ const list = ARTICLES
 .filter(a => a.url !== current)
 .slice(0, 3);
 
-const isArticle = location.pathname.includes("/articles/");
-const base = isArticle ? "" : "articles/";
-
 let html = "";
 
 list.forEach(a => {
 
 html += `
 
-<a href="${base}${a.url}" class="product-card">
+<a href="${a.url}" class="product-card">
 
 <h3>${a.title}</h3>
+
 <p>${a.summary || "龜鹿知識"}</p>
 
 </a>
@@ -166,6 +173,7 @@ html += `
 related.innerHTML = html;
 
 }
+
 
 /* =========================
 ARTICLE PAGE
@@ -185,14 +193,20 @@ if (article && container) {
 
 /* breadcrumb */
 
+if (!document.querySelector(".breadcrumb")) {
+
 const breadcrumb = `
 
 <div class="breadcrumb">
 
 <a href="../index.html">首頁</a>
+
 <span>/</span>
+
 <a href="../articles.html">龜鹿知識</a>
+
 <span>/</span>
+
 ${article.title}
 
 </div>
@@ -200,6 +214,32 @@ ${article.title}
 `;
 
 container.insertAdjacentHTML("afterbegin", breadcrumb);
+
+}
+
+
+/* 返回按鈕 */
+
+if (!document.querySelector(".article-back")) {
+
+const backBtn = `
+
+<div class="article-back" style="margin-bottom:20px">
+
+<button onclick="history.back()" class="btn">
+
+← 返回
+
+</button>
+
+</div>
+
+`;
+
+container.insertAdjacentHTML("afterbegin", backBtn);
+
+}
+
 
 /* prev next */
 
@@ -216,6 +256,7 @@ navHTML += `
 <a href="${ARTICLES[index - 1].url}">
 
 上一篇<br>
+
 <strong>${ARTICLES[index - 1].title}</strong>
 
 </a>
@@ -231,6 +272,7 @@ navHTML += `
 <a href="${ARTICLES[index + 1].url}">
 
 下一篇<br>
+
 <strong>${ARTICLES[index + 1].title}</strong>
 
 </a>
