@@ -146,7 +146,7 @@ const ARTICLES = [
   {
     "title": "Guilu Pork Ribs",
     "url": "guilu-pork-ribs.html",
-    "category": "culture",
+    "category": "recipe",
     "summary": "Guilu Pork Ribs 相關介紹。",
     "image": "images/hero-guilu-gao.jpg",
     "date": "2024-01-01"
