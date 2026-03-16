@@ -16,12 +16,13 @@
 <meta property="og:description" content="整理龜鹿日常料理與飲品搭配方式。">
 <meta property="og:image" content="images/hero-guilu-gao.jpg">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://ts15825868.github.io/xianjiawei/recipes.html">
 
 <meta name="googlebot" content="max-image-preview:large">
 
 <link rel="stylesheet" href="site.css">
 
-<!-- SEO Schema -->
+<!-- CollectionPage -->
 
 <script type="application/ld+json">
 {
@@ -33,11 +34,51 @@
 }
 </script>
 
+<!-- Recipe List -->
+
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"ItemList",
+"name":"龜鹿料理",
+"itemListElement":[
+
+{
+"@type":"ListItem",
+"position":1,
+"name":"龜鹿雞湯",
+"url":"https://ts15825868.github.io/xianjiawei/articles/guilu-chicken-soup.html"
+},
+
+{
+"@type":"ListItem",
+"position":2,
+"name":"龜鹿排骨湯",
+"url":"https://ts15825868.github.io/xianjiawei/articles/guilu-pork-ribs.html"
+},
+
+{
+"@type":"ListItem",
+"position":3,
+"name":"龜鹿藥膳湯",
+"url":"https://ts15825868.github.io/xianjiawei/articles/guilu-herbal-soup.html"
+},
+
+{
+"@type":"ListItem",
+"position":4,
+"name":"鹿茸飲品",
+"url":"https://ts15825868.github.io/xianjiawei/articles/lurong-powder.html"
+}
+
+]
+}
+</script>
+
 </head>
 
 
 <body>
-
 
 
 <header class="header">
@@ -54,24 +95,21 @@
 </header>
 
 
-
-<!-- 漢堡選單 -->
-
 <div id="menuOverlay" class="menu-overlay"></div>
-
 
 
 <main>
 
 
+<!-- HERO -->
 
-<section class="section">
+<section class="hero hero-small">
 
-<div class="center reveal">
+<div class="hero-content reveal">
 
-<h1>料理搭配</h1>
+<h1 class="hero-title">料理搭配</h1>
 
-<p style="max-width:680px;margin:auto">
+<p class="hero-text">
 
 龜鹿文化常見於燉湯與日常飲食。  
 透過簡單料理方式，  
@@ -84,16 +122,31 @@
 </section>
 
 
+<!-- breadcrumb -->
+
+<section class="section" style="padding-top:40px">
+
+<nav class="breadcrumb">
+
+<a href="index.html">首頁</a>
+<span>›</span>
+<span>料理搭配</span>
+
+</nav>
+
+</section>
+
+
+<!-- recipe list -->
 
 <section class="section">
 
 <div class="product-grid reveal">
 
 
-
 <a href="articles/guilu-chicken-soup.html" class="product-card">
 
-<img src="images/logo-seal.png" class="img-placeholder" alt="龜鹿雞湯">
+<img src="images/logo-seal.png" class="img-placeholder" alt="龜鹿雞湯" width="300" height="300">
 
 <h3>龜鹿雞湯</h3>
 
@@ -102,10 +155,9 @@
 </a>
 
 
-
 <a href="articles/guilu-pork-ribs.html" class="product-card">
 
-<img src="images/logo-seal.png" class="img-placeholder" alt="龜鹿排骨湯">
+<img src="images/logo-seal.png" class="img-placeholder" alt="龜鹿排骨湯" width="300" height="300">
 
 <h3>龜鹿排骨湯</h3>
 
@@ -114,10 +166,9 @@
 </a>
 
 
-
 <a href="articles/guilu-herbal-soup.html" class="product-card">
 
-<img src="images/logo-seal.png" class="img-placeholder" alt="龜鹿藥膳湯">
+<img src="images/logo-seal.png" class="img-placeholder" alt="龜鹿藥膳湯" width="300" height="300">
 
 <h3>龜鹿藥膳湯</h3>
 
@@ -126,10 +177,9 @@
 </a>
 
 
-
 <a href="articles/lurong-powder.html" class="product-card">
 
-<img src="images/logo-seal.png" class="img-placeholder" alt="鹿茸飲品">
+<img src="images/logo-seal.png" class="img-placeholder" alt="鹿茸飲品" width="300" height="300">
 
 <h3>鹿茸飲品</h3>
 
@@ -138,15 +188,12 @@
 </a>
 
 
-
 </div>
 
 </section>
 
 
-
 </main>
-
 
 
 <section class="cta">
@@ -163,14 +210,13 @@
 <a href="https://lin.ee/sHZW7NkR"
 class="btn btn-dark"
 target="_blank"
-rel="noopener">
+rel="noopener noreferrer">
 
 LINE詢問
 
 </a>
 
 </section>
-
 
 
 <footer class="footer">
@@ -188,7 +234,6 @@ LINE詢問
 </div>
 
 
-
 <div class="footer-links">
 
 <h4>產品</h4>
@@ -197,7 +242,6 @@ LINE詢問
 <a href="qixuan-tea.html">柒玄茶</a>
 
 </div>
-
 
 
 <div class="footer-links">
@@ -209,7 +253,6 @@ LINE詢問
 <a href="choose.html">怎麼選龜鹿</a>
 
 </div>
-
 
 
 <div class="footer-links">
@@ -224,30 +267,24 @@ LINE詢問
 </div>
 
 
-
 <div class="footer-bottom">
-
 © 仙加味 · 龜鹿日常
-
 </div>
 
 </footer>
 
 
-
 <a class="floating-line"
 href="https://lin.ee/sHZW7NkR"
 target="_blank"
-rel="noopener">
+rel="noopener noreferrer">
 
 LINE詢問
 
 </a>
 
 
-
 <script src="site.js"></script>
-
 
 
 </body>
