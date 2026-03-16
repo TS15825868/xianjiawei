@@ -1,49 +1,40 @@
 (function(){
 
-/* =========================
-確保資料存在
-========================= */
+if(typeof ARTICLES==="undefined") return;
 
-if(typeof ARTICLES === "undefined") return;
-
-const input = document.getElementById("article-search");
-const container = document.getElementById("article-grid");
+const input=document.getElementById("article-search");
+const container=document.getElementById("article-grid");
 
 if(!input || !container) return;
 
+input.addEventListener("input",function(){
 
-/* =========================
-原始文章排序
-========================= */
+const keyword=this.value.toLowerCase();
 
-const original = [...ARTICLES].sort((a,b)=>{
+const filtered=ARTICLES.filter(a=>{
 
-const d1 = new Date(a.date || "2000-01-01");
-const d2 = new Date(b.date || "2000-01-01");
-
-return d2 - d1;
+return (
+a.title.toLowerCase().includes(keyword) ||
+(a.tags && a.tags.join(" ").toLowerCase().includes(keyword))
+);
 
 });
 
+render(filtered);
 
-/* =========================
-建立卡片
-========================= */
+});
 
-function createCard(a){
+function render(list){
 
-const img = a.image || "images/logo-seal.png";
+let html="";
 
-return `
+list.forEach(a=>{
+
+html+=`
 
 <a href="articles/${a.url}" class="product-card">
 
-<img
-src="${img}"
-alt="${a.title}"
-loading="lazy"
-onerror="this.src='images/logo-seal.png';this.classList.add('img-placeholder');"
->
+<img src="${a.image}" alt="${a.title}" loading="lazy">
 
 <h3>${a.title}</h3>
 
@@ -53,76 +44,10 @@ onerror="this.src='images/logo-seal.png';this.classList.add('img-placeholder');"
 
 `;
 
-}
-
-
-/* =========================
-渲染
-========================= */
-
-function render(list){
-
-if(!list.length){
-
-container.innerHTML=`
-
-<div style="grid-column:1/-1;text-align:center;opacity:.6">
-
-沒有找到相關文章
-
-</div>
-
-`;
-
-return;
-
-}
-
-let html="";
-
-list.forEach(a=>{
-html += createCard(a);
 });
 
-container.innerHTML = html;
+container.innerHTML=html;
 
 }
-
-
-/* =========================
-搜尋
-========================= */
-
-input.addEventListener("input", function(){
-
-const keyword = this.value.trim().toLowerCase();
-
-/* 空搜尋 */
-
-if(keyword === ""){
-render(original.slice(0,12));
-return;
-}
-
-/* 篩選 */
-
-const filtered = original.filter(a=>{
-
-const title = a.title?.toLowerCase() || "";
-const summary = a.summary?.toLowerCase() || "";
-const tags = (a.tags || []).join(" ").toLowerCase();
-
-return (
-title.includes(keyword) ||
-summary.includes(keyword) ||
-tags.includes(keyword)
-);
-
-});
-
-render(filtered);
-
-});
-
 
 })();

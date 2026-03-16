@@ -1,53 +1,38 @@
 (function(){
 
-const container = document.getElementById("popular-articles");
-
-if(!container) return;
-
-/* 確保 articles.js 已載入 */
-
-if(typeof ARTICLES === "undefined" || !Array.isArray(ARTICLES)){
+if(typeof ARTICLES==="undefined"){
 console.warn("ARTICLES 未載入");
 return;
 }
+
+const container=document.getElementById("popular-articles");
+
+if(!container) return;
 
 
 /* =========================
 取得熱門文章
 ========================= */
 
-const popular = ARTICLES
-.filter(a => a && a.popular === true)
+const popular=ARTICLES
+.filter(a=>a.popular===true)
 .slice(0,3);
-
-
-/* =========================
-若沒有熱門文章，直接結束
-========================= */
-
-if(!popular.length){
-container.innerHTML = "";
-return;
-}
 
 
 /* =========================
 生成卡片
 ========================= */
 
-let html = "";
+let html="";
 
-popular.forEach(article => {
+popular.forEach(article=>{
 
-const image = article.image || "images/logo-seal.png";
-const summary = article.summary || "龜鹿知識";
+html+=`
 
-html += `
-
-<a href="articles/${article.url}" class="product-card">
+<a href="articles/${article.url}" class="product-card reveal">
 
 <img
-src="${image}"
+src="${article.image}"
 alt="${article.title}"
 loading="lazy"
 onerror="this.src='images/logo-seal.png';this.classList.add('img-placeholder');"
@@ -55,7 +40,7 @@ onerror="this.src='images/logo-seal.png';this.classList.add('img-placeholder');"
 
 <h3>${article.title}</h3>
 
-<p>${summary}</p>
+<p>${article.summary || "龜鹿知識"}</p>
 
 </a>
 
@@ -63,6 +48,19 @@ onerror="this.src='images/logo-seal.png';this.classList.add('img-placeholder');"
 
 });
 
-container.innerHTML = html;
+container.innerHTML=html;
+
+
+/* =========================
+Reveal 動畫
+========================= */
+
+requestAnimationFrame(()=>{
+
+container.querySelectorAll(".reveal").forEach(el=>{
+el.classList.add("show");
+});
+
+});
 
 })();
