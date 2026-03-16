@@ -3,13 +3,16 @@
 
     {
       "id":"guilu-gao",
+      "slug":"guilu-gao",
       "name":"龜鹿膏",
       "image":"images/guilu-gao-100g.jpg",
       "seoImage":"images/guilu-gao-100g.jpg",
+
       "desc":"龜鹿膏為濃縮膏狀型態，可直接食用或加入溫水沖泡，作為日常飲食搭配。",
+
       "sizes":["100g"],
       "package":"玻璃罐",
-      "category":"龜鹿產品",
+      "category":"guilu",
 
       "ingredients":[
         "龜板萃取物",
@@ -26,26 +29,28 @@
       ],
 
       "articles":[
-        "articles/guilu-gao.html",
-        "articles/what-is-guilu.html"
+        "guilu-gao.html",
+        "what-is-guilu.html"
       ],
 
       "recipes":[
-        "articles/guilu-chicken-soup.html"
+        "guilu-chicken-soup.html"
       ]
     },
 
 
-
     {
       "id":"guilu-drink",
+      "slug":"guilu-drink",
       "name":"龜鹿飲",
       "image":"images/guilu-drink-30cc.jpg",
       "seoImage":"images/guilu-drink-30cc.jpg",
+
       "desc":"龜鹿飲為即飲型飲品，可開瓶直接飲用，也可溫熱後飲用。",
+
       "sizes":["30cc","180cc"],
       "package":"玻璃瓶 / 鋁袋",
-      "category":"龜鹿產品",
+      "category":"guilu",
 
       "ingredients":[
         "水",
@@ -63,26 +68,28 @@
       ],
 
       "articles":[
-        "articles/guilu-drink.html",
-        "articles/what-is-guilu.html"
+        "guilu-drink.html",
+        "what-is-guilu.html"
       ],
 
       "recipes":[
-        "articles/lurong-powder.html"
+        "guilu-warm-drink.html"
       ]
     },
 
 
-
     {
       "id":"guilu-block",
+      "slug":"guilu-block",
       "name":"龜鹿湯塊",
       "image":"images/guilu-block-300g.jpg",
       "seoImage":"images/guilu-block-300g.jpg",
+
       "desc":"龜鹿湯塊為濃縮湯塊型態，適合燉雞湯或排骨湯作為日常料理。",
+
       "sizes":["75g","300g","600g"],
       "package":"盒裝",
-      "category":"龜鹿產品",
+      "category":"guilu",
 
       "ingredients":[
         "龜板萃取物",
@@ -95,26 +102,28 @@
       ],
 
       "articles":[
-        "articles/guilu-block.html"
+        "guilu-block.html"
       ],
 
       "recipes":[
-        "articles/guilu-chicken-soup.html",
-        "articles/guilu-pork-ribs.html"
+        "guilu-chicken-soup.html",
+        "guilu-pork-ribs.html"
       ]
     },
 
 
-
     {
       "id":"lurong-powder",
+      "slug":"lurong-powder",
       "name":"鹿茸粉",
       "image":"images/lurong-powder-75g.jpg",
       "seoImage":"images/lurong-powder-75g.jpg",
+
       "desc":"鹿茸粉為粉末型態，可加入咖啡、牛奶或茶飲，作為日常飲品搭配。",
+
       "sizes":["75g"],
       "package":"玻璃罐",
-      "category":"鹿茸產品",
+      "category":"lurong",
 
       "ingredients":[
         "鹿茸"
@@ -127,11 +136,12 @@
       ],
 
       "articles":[
-        "articles/lurong-powder.html"
+        "lurong-powder.html"
       ],
 
       "recipes":[
-        "articles/lurong-powder.html"
+        "deer-coffee.html",
+        "deer-milk.html"
       ]
     }
 
