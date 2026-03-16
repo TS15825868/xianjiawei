@@ -95,7 +95,7 @@ const recipeGrid = document.getElementById("recipe-grid");
 if (typeof ARTICLES !== "undefined") {
 
 const isArticle = location.pathname.includes("/articles/");
-const imgBase = isArticle ? "../" : "";
+const base = isArticle ? "../" : "";
 
 function render(grid, category) {
 
@@ -111,13 +111,13 @@ const image = a.image || "images/logo-seal.png";
 
 html += `
 
-<a href="${imgBase}articles/${a.url}" class="product-card">
+<a href="${base}articles/${a.url}" class="product-card">
 
 <img
-src="${imgBase}${image}"
+src="${base}${image}"
 alt="${a.title}"
 loading="lazy"
-onerror="this.src='${imgBase}images/logo-seal.png';this.classList.add('img-placeholder');"
+onerror="this.src='${base}images/logo-seal.png';this.classList.add('img-placeholder');"
 >
 
 <h3>${a.title}</h3>
@@ -151,12 +151,11 @@ if (related && typeof ARTICLES !== "undefined") {
 
 const current = location.pathname.split("/").pop();
 
-const isArticle = location.pathname.includes("/articles/");
-const base = isArticle ? "" : "articles/";
+const base = "../articles/";
 
 const list = ARTICLES
 .filter(a => a.url !== current)
-.slice(0, 3);
+.slice(0,3);
 
 let html = "";
 
@@ -252,7 +251,7 @@ if (index > 0) {
 
 navHTML += `
 
-<a href="${ARTICLES[index - 1].url}">
+<a href="../articles/${ARTICLES[index - 1].url}">
 
 上一篇<br>
 <strong>${ARTICLES[index - 1].title}</strong>
@@ -267,7 +266,7 @@ if (index < ARTICLES.length - 1) {
 
 navHTML += `
 
-<a href="${ARTICLES[index + 1].url}">
+<a href="../articles/${ARTICLES[index + 1].url}">
 
 下一篇<br>
 <strong>${ARTICLES[index + 1].title}</strong>
