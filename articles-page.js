@@ -1,152 +1,34 @@
-(function(){
+const related = document.getElementById("related-articles");
 
-/* =========================
-確保 articles.js 載入
-========================= */
+if (related && typeof ARTICLES !== "undefined") {
 
-if(typeof ARTICLES === "undefined"){
-console.warn("ARTICLES 未載入");
-return;
-}
+const current = location.pathname.split("/").pop();
+const currentArticle = ARTICLES.find(a => a.url === current);
 
+let list = ARTICLES.filter(a => a.url !== current);
 
-/* =========================
-頁面路徑判斷
-========================= */
-
-const isArticle = location.pathname.includes("/articles/");
-const imgBase = isArticle ? "../" : "";
-
-
-/* =========================
-取得容器
-========================= */
-
-const articleGrid = document.getElementById("article-grid");
-
-const cultureGrid = document.getElementById("culture-grid");
-const productGrid = document.getElementById("product-grid");
-const recipeGrid = document.getElementById("recipe-grid");
-
-
-/* =========================
-排序（最新文章）
-========================= */
-
-const list = [...ARTICLES].sort((a,b)=>{
-
-const d1 = new Date(a.date || "2000-01-01");
-const d2 = new Date(b.date || "2000-01-01");
-
-return d2 - d1;
-
+/* 同tag優先 */
+if(currentArticle){
+list.sort((a,b)=>{
+const aMatch = a.tags?.some(t=>currentArticle.tags?.includes(t)) ? 1 : 0;
+const bMatch = b.tags?.some(t=>currentArticle.tags?.includes(t)) ? 1 : 0;
+return bMatch - aMatch;
 });
-
-
-/* =========================
-建立卡片
-========================= */
-
-function createCard(a){
-
-const img = a.image || "images/logo-seal.png";
-
-return `
-
-<a href="articles/${a.url}" class="product-card reveal">
-
-<img
-src="${imgBase}${img}"
-alt="${a.title}"
-loading="lazy"
-onerror="this.src='${imgBase}images/logo-seal.png';this.classList.add('img-placeholder');"
->
-
-<h3>${a.title}</h3>
-
-<p>${a.summary || "龜鹿知識"}</p>
-
-</a>
-
-`;
-
 }
 
-
-/* =========================
-渲染 grid
-========================= */
-
-function renderGrid(grid, items){
-
-if(!grid) return;
-
-if(!items || items.length === 0){
-
-grid.innerHTML = "<p style='opacity:.6'>目前沒有文章</p>";
-return;
-
-}
+list = list.slice(0,3);
 
 let html = "";
 
-items.forEach(a=>{
-html += createCard(a);
+list.forEach(a=>{
+html += `
+<a href="${a.url}" class="product-card">
+<h3>${a.title}</h3>
+<p>${a.summary}</p>
+</a>
+`;
 });
 
-grid.innerHTML = html;
+related.innerHTML = html;
 
 }
-
-
-/* =========================
-全部文章（文章頁）
-========================= */
-
-if(articleGrid){
-
-renderGrid(
-articleGrid,
-list.slice(0,12)
-);
-
-}
-
-
-/* =========================
-分類文章
-========================= */
-
-if(cultureGrid || productGrid || recipeGrid){
-
-renderGrid(
-cultureGrid,
-list.filter(a=>a.category==="culture")
-);
-
-renderGrid(
-productGrid,
-list.filter(a=>a.category==="product")
-);
-
-renderGrid(
-recipeGrid,
-list.filter(a=>a.category==="recipe")
-);
-
-}
-
-
-/* =========================
-Reveal 動畫
-========================= */
-
-requestAnimationFrame(()=>{
-
-document.querySelectorAll(".reveal").forEach(el=>{
-el.classList.add("show");
-});
-
-});
-
-})();
