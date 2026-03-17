@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>訂單填寫｜仙加味</title>
+<style>
+body{font-family:sans-serif;background:#F7F4ED;padding:20px}
+.box{max-width:500px;margin:auto;background:#fff;padding:20px;border-radius:12px}
+input,select{width:100%;padding:10px;margin:10px 0}
+button{width:100%;padding:12px;background:#111;color:#fff;border:none;border-radius:999px}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>訂單填寫</h2>
+
+<label>姓名</label>
+<input id="name">
+
+<label>電話</label>
+<input id="phone">
+
+<label>產品</label>
+<select id="product">
+<option>龜鹿膏 100g</option>
+<option>龜鹿飲 180cc</option>
+<option>龜鹿湯塊</option>
+<option>鹿茸粉</option>
+</select>
+
+<label>數量</label>
+<input id="qty" type="number" value="1">
+
+<button onclick="sendOrder()">送出訂單</button>
+
+</div>
+
+<script>
+function sendOrder(){
+const name=document.getElementById('name').value;
+const phone=document.getElementById('phone').value;
+const product=document.getElementById('product').value;
+const qty=document.getElementById('qty').value;
+
+const msg = `訂單\n姓名:${name}\n電話:${phone}\n商品:${product}\n數量:${qty}`;
+
+window.open("https://line.me/R/oaMessage/@你的LINEID/?"+encodeURIComponent(msg));
+}
+</script>
+
+</body>
+</html>
