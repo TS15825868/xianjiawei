@@ -114,8 +114,64 @@ const AUTO_ARTICLES = [
 
 AUTO_ARTICLES.forEach(url => {
 
+let titleMap = {
+
+"guilu-history.html": "龜鹿文化的歷史",
+"guilu-culture.html": "龜鹿文化介紹",
+"guilu-modern.html": "龜鹿文化在現代",
+"guilu-health-food.html": "龜鹿與養生飲食",
+"guilu-ingredient.html": "龜鹿食材介紹",
+"guilu-benefits-food.html": "龜鹿飲食文化",
+"guilu-daily-food.html": "龜鹿日常飲食",
+"guilu-overview.html": "龜鹿介紹",
+"guilu-vs-herbal.html": "龜鹿與藥膳差異",
+"guilu-types.html": "龜鹿種類介紹",
+"guilu-dosage.html": "龜鹿食用份量",
+"guilu-beginner-guide.html": "龜鹿入門指南",
+
+"guilu-gao-storage.html": "龜鹿膏保存方式",
+"guilu-drink-how.html": "龜鹿飲怎麼喝",
+"guilu-drink-storage.html": "龜鹿飲保存方式",
+"guilu-block-how.html": "龜鹿湯塊怎麼用",
+"guilu-block-storage.html": "龜鹿湯塊保存方式",
+"deer-powder-how.html": "鹿茸粉怎麼搭配",
+"deer-powder-storage.html": "鹿茸粉保存方式",
+"how-to-choose-guilu.html": "龜鹿產品怎麼選",
+
+"guilu-gao-vs-drink.html": "龜鹿膏與龜鹿飲差別",
+"guilu-gao-vs-block.html": "龜鹿膏與湯塊差別",
+
+"guilu-cooking-guide.html": "龜鹿料理指南",
+"guilu-recipes.html": "龜鹿料理整理",
+"guilu-pork-ribs.html": "龜鹿燉排骨",
+"guilu-herbal-soup.html": "龜鹿藥膳湯",
+
+"guilu-food-pairing.html": "龜鹿搭配食材",
+"guilu-meal-plan.html": "龜鹿飲食規劃",
+"guilu-winter-food.html": "冬季龜鹿飲食",
+"guilu-summer-food.html": "夏季龜鹿飲食",
+"guilu-traditional-food.html": "龜鹿傳統飲食",
+
+"deer-antler-diff.html": "鹿角與鹿茸差別",
+"deer-antler-history.html": "鹿茸歷史",
+"deer-antler-usage.html": "鹿茸使用方式",
+"deer-antler-food.html": "鹿茸飲食方式",
+
+"deer-coffee.html": "鹿茸咖啡",
+"deer-milk.html": "鹿茸牛奶",
+"deer-tea.html": "鹿茸茶飲",
+"deer-recipes.html": "鹿茸料理",
+
+"guilu-seo-guide.html": "龜鹿SEO指南",
+"guilu-keyword-guide.html": "龜鹿關鍵字整理",
+"guilu-content-guide.html": "龜鹿內容策略",
+"guilu-eat-guide.html": "龜鹿怎麼吃",
+"guilu-full-guide.html": "龜鹿完整指南"
+
+};
+
 ARTICLES.push({
-title: url.replace(".html","").replace(/-/g," "),
+title: titleMap[url] || "龜鹿知識",
 url: url,
 category: url.includes("deer") ? "culture" :
 url.includes("recipe") || url.includes("soup") ? "recipe" : "product",
@@ -126,7 +182,6 @@ tags:["龜鹿"]
 });
 
 });
-
 
 /* =========================
 排序
