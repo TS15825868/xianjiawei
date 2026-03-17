@@ -1,12 +1,11 @@
 /* =========================
-仙加味 龜鹿知識系統
-articles.js
+仙加味 龜鹿知識系統（完整版）
 ========================= */
 
 const ARTICLES = [
 
 /* =========================
-龜鹿文化
+核心文章（主SEO）
 ========================= */
 
 {
@@ -17,16 +16,6 @@ summary:"介紹龜板與鹿角在飲食文化中的來源與演變。",
 image:"images/hero-guilu-gao.jpg",
 date:"2024-01-01",
 popular:true,
-tags:["龜鹿","文化"]
-},
-
-{
-title:"龜鹿文化的歷史",
-url:"guilu-history.html",
-category:"culture",
-summary:"從傳統燉湯到現代飲食文化的龜鹿演變。",
-image:"images/hero-guilu-gao.jpg",
-date:"2024-01-02",
 tags:["龜鹿","文化"]
 },
 
@@ -42,54 +31,10 @@ tags:["鹿茸"]
 },
 
 {
-title:"龜鹿飲食文化",
-url:"guilu-food-culture.html",
-category:"culture",
-summary:"龜鹿食材在傳統飲食文化中的角色。",
-image:"images/hero-guilu-gao.jpg",
-date:"2024-01-04",
-tags:["龜鹿","文化"]
-},
-
-{
-title:"龜鹿文化在現代",
-url:"guilu-modern.html",
-category:"culture",
-summary:"龜鹿從傳統藥膳到現代飲食的轉變。",
-image:"images/hero-guilu-gao.jpg",
-date:"2024-01-05",
-tags:["龜鹿","文化"]
-},
-
-{
-title:"龜鹿與養生飲食",
-url:"guilu-health-food.html",
-category:"culture",
-summary:"龜鹿食材在日常飲食中的文化背景。",
-image:"images/hero-guilu-gao.jpg",
-date:"2024-01-06",
-tags:["龜鹿"]
-},
-
-{
-title:"鹿角與鹿茸差別",
-url:"deer-antler-diff.html",
-category:"culture",
-summary:"鹿角與鹿茸在來源與用途上的差異。",
-image:"images/lurong-powder-75g.jpg",
-date:"2024-01-07",
-tags:["鹿茸"]
-},
-
-/* =========================
-產品知識
-========================= */
-
-{
 title:"龜鹿膏怎麼吃",
 url:"guilu-gao-how.html",
 category:"product",
-summary:"整理龜鹿膏的日常食用方式。",
+summary:"龜鹿膏日常食用方式。",
 image:"images/guilu-gao-100g.jpg",
 date:"2024-01-08",
 popular:true,
@@ -97,115 +42,94 @@ tags:["龜鹿膏"]
 },
 
 {
-title:"龜鹿飲怎麼喝",
-url:"guilu-drink-how.html",
-category:"product",
-summary:"龜鹿飲的飲用方式與搭配。",
-image:"images/guilu-drink-180cc.jpg",
-date:"2024-01-09",
-tags:["龜鹿飲"]
-},
-
-{
-title:"龜鹿湯塊怎麼用",
-url:"guilu-block-how.html",
-category:"product",
-summary:"龜鹿湯塊適合燉湯料理。",
-image:"images/guilu-block-75g.jpg",
-date:"2024-01-10",
-tags:["龜鹿湯塊"]
-},
-
-{
-title:"鹿茸粉怎麼搭配",
-url:"deer-powder-how.html",
-category:"product",
-summary:"鹿茸粉可以加入咖啡、牛奶或茶。",
-image:"images/lurong-powder-75g.jpg",
-date:"2024-01-11",
-tags:["鹿茸粉"]
-},
-
-{
-title:"龜鹿產品怎麼選",
-url:"how-to-choose-guilu.html",
-category:"product",
-summary:"龜鹿膏、龜鹿飲與湯塊的差異。",
-image:"images/hero-guilu-gao.jpg",
-date:"2024-01-12",
-tags:["龜鹿"]
-},
-
-/* =========================
-龜鹿料理
-========================= */
-
-{
 title:"龜鹿雞湯",
 url:"guilu-chicken-soup.html",
 category:"recipe",
-summary:"龜鹿湯塊搭配雞肉燉煮的料理。",
+summary:"龜鹿湯塊搭配雞肉料理。",
 image:"images/guilu-block-75g.jpg",
 date:"2024-01-13",
 popular:true,
 tags:["龜鹿料理"]
-},
-
-{
-title:"龜鹿燉排骨",
-url:"guilu-pork-ribs.html",
-category:"recipe",
-summary:"龜鹿湯塊搭配排骨燉湯。",
-image:"images/guilu-block-75g.jpg",
-date:"2024-01-14",
-tags:["龜鹿料理"]
-},
-
-{
-title:"龜鹿藥膳湯",
-url:"guilu-herbal-soup.html",
-category:"recipe",
-summary:"龜鹿與藥膳食材搭配的燉湯。",
-image:"images/guilu-block-75g.jpg",
-date:"2024-01-15",
-tags:["龜鹿料理"]
-},
-
-{
-title:"鹿茸咖啡",
-url:"deer-coffee.html",
-category:"recipe",
-summary:"鹿茸粉加入咖啡的飲品方式。",
-image:"images/lurong-powder-75g.jpg",
-date:"2024-01-16",
-tags:["鹿茸"]
-},
-
-{
-title:"鹿茸牛奶",
-url:"deer-milk.html",
-category:"recipe",
-summary:"鹿茸粉加入牛奶的飲品方式。",
-image:"images/lurong-powder-75g.jpg",
-date:"2024-01-17",
-tags:["鹿茸"]
-},
-
-{
-title:"鹿茸茶飲",
-url:"deer-tea.html",
-category:"recipe",
-summary:"鹿茸粉加入茶飲的飲用方式。",
-image:"images/lurong-powder-75g.jpg",
-date:"2024-01-18",
-tags:["鹿茸"]
 }
 
 ];
 
 
 /* =========================
-自動排序（最新文章）
+🔥 自動補齊文章（重點）
+========================= */
+
+const AUTO_ARTICLES = [
+
+"guilu-history.html",
+"guilu-culture.html",
+"guilu-modern.html",
+"guilu-health-food.html",
+"guilu-ingredient.html",
+"guilu-benefits-food.html",
+"guilu-daily-food.html",
+"guilu-overview.html",
+"guilu-vs-herbal.html",
+"guilu-types.html",
+"guilu-dosage.html",
+"guilu-beginner-guide.html",
+"guilu-gao-storage.html",
+"guilu-drink-how.html",
+"guilu-drink-storage.html",
+"guilu-block-how.html",
+"guilu-block-storage.html",
+"deer-powder-how.html",
+"deer-powder-storage.html",
+"how-to-choose-guilu.html",
+"guilu-gao-vs-drink.html",
+"guilu-gao-vs-block.html",
+"guilu-cooking-guide.html",
+"guilu-recipes.html",
+"guilu-pork-ribs.html",
+"guilu-herbal-soup.html",
+"guilu-food-pairing.html",
+"guilu-meal-plan.html",
+"guilu-winter-food.html",
+"guilu-summer-food.html",
+"guilu-traditional-food.html",
+"deer-antler-diff.html",
+"deer-antler-history.html",
+"deer-antler-usage.html",
+"deer-antler-food.html",
+"deer-coffee.html",
+"deer-milk.html",
+"deer-tea.html",
+"deer-recipes.html",
+"guilu-seo-guide.html",
+"guilu-keyword-guide.html",
+"guilu-content-guide.html",
+"guilu-eat-guide.html",
+"guilu-full-guide.html"
+];
+
+
+/* =========================
+自動生成文章資料
+========================= */
+
+AUTO_ARTICLES.forEach(url => {
+
+ARTICLES.push({
+title: url.replace(".html","").replace(/-/g," "),
+url: url,
+category: url.includes("deer") ? "culture" :
+url.includes("recipe") || url.includes("soup") ? "recipe" : "product",
+summary:"龜鹿與鹿茸相關知識整理",
+image:"images/hero-guilu-gao.jpg",
+date:"2024-02-01",
+tags:["龜鹿"]
+});
+
+});
+
+
+/* =========================
+排序
 ========================= */
 
 ARTICLES.sort((a,b)=>{
