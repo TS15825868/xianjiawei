@@ -26,11 +26,8 @@ menu.innerHTML = `
 class="line-btn"
 target="_blank"
 rel="noopener noreferrer">
-
 LINE詢問
-
 </a>
-
 `;
 }
 
@@ -46,11 +43,9 @@ menu.classList.toggle("active");
 });
 
 menu.querySelectorAll("a").forEach(link => {
-
 link.addEventListener("click", () => {
 menu.classList.remove("active");
 });
-
 });
 
 }
@@ -67,14 +62,10 @@ if (reveals.length && "IntersectionObserver" in window) {
 const observer = new IntersectionObserver(entries => {
 
 entries.forEach(entry => {
-
 if (entry.isIntersecting) {
-
 entry.target.classList.add("show");
 observer.unobserve(entry.target);
-
 }
-
 });
 
 }, { threshold: 0.15 });
@@ -110,22 +101,12 @@ ARTICLES
 const image = a.image || "images/logo-seal.png";
 
 html += `
-
 <a href="${base}articles/${a.url}" class="product-card">
-
-<img
-src="${base}${image}"
-alt="${a.title}"
-loading="lazy"
-onerror="this.src='${base}images/logo-seal.png';this.classList.add('img-placeholder');"
->
-
+<img src="${base}${image}" loading="lazy"
+onerror="this.src='${base}images/logo-seal.png'">
 <h3>${a.title}</h3>
-
 <p>${a.summary || "龜鹿知識"}</p>
-
 </a>
-
 `;
 
 });
@@ -142,7 +123,29 @@ render(recipeGrid, "recipe");
 
 
 /* =========================
-RELATED ARTICLES
+ARTICLE TAG（SEO）
+========================= */
+
+const tagBox = document.getElementById("article-tags");
+
+if(tagBox && typeof ARTICLES !== "undefined"){
+
+const current = location.pathname.split("/").pop();
+const article = ARTICLES.find(a => a.url === current);
+
+if(article && article.tags){
+
+tagBox.innerHTML = article.tags
+.map(t => `<span><a href="../tag/?tag=${t}">${t}</a></span>`)
+.join("");
+
+}
+
+}
+
+
+/* =========================
+RELATED ARTICLES（升級版）
 ========================= */
 
 const related = document.getElementById("related-articles");
@@ -151,26 +154,29 @@ if (related && typeof ARTICLES !== "undefined") {
 
 const current = location.pathname.split("/").pop();
 
-const base = "../articles/";
+const article = ARTICLES.find(a => a.url === current);
 
-const list = ARTICLES
-.filter(a => a.url !== current)
-.slice(0,3);
+let list = ARTICLES.filter(a => a.url !== current);
+
+/* 同分類優先 */
+
+if(article){
+list.sort((a,b)=>{
+return (b.category === article.category) - (a.category === article.category);
+});
+}
+
+list = list.slice(0,3);
 
 let html = "";
 
 list.forEach(a => {
 
 html += `
-
-<a href="${base}${a.url}" class="product-card">
-
+<a href="../articles/${a.url}" class="product-card">
 <h3>${a.title}</h3>
-
 <p>${a.summary || "龜鹿知識"}</p>
-
 </a>
-
 `;
 
 });
@@ -198,43 +204,16 @@ if (article && container) {
 if (!document.querySelector(".breadcrumb")) {
 
 const breadcrumb = `
-
 <div class="breadcrumb">
-
 <a href="../index.html">首頁</a>
 <span>/</span>
 <a href="../articles.html">龜鹿知識</a>
 <span>/</span>
 ${article.title}
-
 </div>
-
 `;
 
 container.insertAdjacentHTML("afterbegin", breadcrumb);
-
-}
-
-
-/* 返回按鈕 */
-
-if (!document.querySelector(".article-back")) {
-
-const backBtn = `
-
-<div class="article-back" style="margin-bottom:20px">
-
-<button onclick="history.back()" class="btn">
-
-← 返回
-
-</button>
-
-</div>
-
-`;
-
-container.insertAdjacentHTML("afterbegin", backBtn);
 
 }
 
@@ -248,37 +227,22 @@ if (index > 0 || index < ARTICLES.length - 1) {
 navHTML = `<div class="article-nav">`;
 
 if (index > 0) {
-
 navHTML += `
-
 <a href="../articles/${ARTICLES[index - 1].url}">
-
-上一篇<br>
-<strong>${ARTICLES[index - 1].title}</strong>
-
+上一篇<br><strong>${ARTICLES[index - 1].title}</strong>
 </a>
-
 `;
-
 }
 
 if (index < ARTICLES.length - 1) {
-
 navHTML += `
-
 <a href="../articles/${ARTICLES[index + 1].url}">
-
-下一篇<br>
-<strong>${ARTICLES[index + 1].title}</strong>
-
+下一篇<br><strong>${ARTICLES[index + 1].title}</strong>
 </a>
-
 `;
-
 }
 
 navHTML += `</div>`;
-
 container.insertAdjacentHTML("beforeend", navHTML);
 
 }
