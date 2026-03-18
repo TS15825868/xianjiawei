@@ -24,6 +24,20 @@ LINE詢問
 </a>
 `;
 
+/* 點擊連結自動關閉 */
+menu.querySelectorAll("a").forEach(link=>{
+link.addEventListener("click", ()=>{
+menu.classList.remove("active");
+});
+});
+
+/* 點背景關閉（🔥補強） */
+menu.addEventListener("click", (e)=>{
+if(e.target === menu){
+menu.classList.remove("active");
+}
+});
+
 }
 
 /* toggle */
@@ -49,7 +63,9 @@ ARTICLES.slice(0,6).forEach(a => {
 html += `
 <a href="articles/${a.url}" class="product-card scroll-card">
 
-<img src="${a.image || 'images/logo-seal.png'}">
+<img src="${a.image || 'images/logo-seal.png'}"
+loading="lazy"
+onerror="this.src='images/logo-seal.png'">
 
 <h3>${a.title}</h3>
 <p>${a.summary || '點擊查看內容'}</p>
@@ -74,16 +90,28 @@ const index = ARTICLES.findIndex(a => a.url === current);
 
 const main = document.querySelector("main");
 
-if(main){
+if(main && index !== -1){
 
-let nav = `<div style="margin-top:40px;display:flex;justify-content:space-between;">`;
+let nav = `<div style="
+margin-top:40px;
+display:flex;
+justify-content:space-between;
+gap:10px;
+flex-wrap:wrap;
+">`;
 
 if(index > 0){
-nav += `<a href="../articles/${ARTICLES[index-1].url}">← 上一篇</a>`;
+nav += `
+<a href="../articles/${ARTICLES[index-1].url}" class="btn">
+← 上一篇
+</a>`;
 }
 
 if(index < ARTICLES.length - 1){
-nav += `<a href="../articles/${ARTICLES[index+1].url}">下一篇 →</a>`;
+nav += `
+<a href="../articles/${ARTICLES[index+1].url}" class="btn">
+下一篇 →
+</a>`;
 }
 
 nav += `</div>`;
