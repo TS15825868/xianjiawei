@@ -1,151 +1,132 @@
-(function () {
+(function(){
   const params = new URLSearchParams(location.search);
-  const id = params.get("id");
+  const id = params.get('id');
 
-  const productImage = document.getElementById("product-image");
-  const productTitle = document.getElementById("product-title");
-  const productSummary = document.getElementById("product-summary");
-  const productSizes = document.getElementById("product-sizes");
-  const productPackage = document.getElementById("product-package");
-  const productIngredients = document.getElementById("product-ingredients");
-  const productUses = document.getElementById("product-uses");
-  const breadcrumb = document.getElementById("breadcrumb-product");
-  const productInfo = document.querySelector(".product-info");
-
-  const titleMap = {
-    "guilu-gao.html": "龜鹿膏介紹",
-    "guilu-drink.html": "龜鹿飲介紹",
-    "guilu-block.html": "龜鹿湯塊介紹",
-    "lurong-powder.html": "鹿茸粉介紹",
-    "what-is-guilu.html": "什麼是龜鹿",
-    "guilu-chicken-soup.html": "龜鹿雞湯",
-    "guilu-pork-soup.html": "龜鹿排骨湯",
-    "guilu-drink-guide.html": "龜鹿飲飲用指南",
-    "lurong-coffee.html": "鹿茸粉搭咖啡",
-    "lurong-milk.html": "鹿茸粉搭牛奶"
+  const el = {
+    image: document.getElementById('product-image'),
+    title: document.getElementById('product-title'),
+    summary: document.getElementById('product-summary'),
+    sizes: document.getElementById('product-sizes'),
+    pack: document.getElementById('product-package'),
+    ingredients: document.getElementById('product-ingredients'),
+    uses: document.getElementById('product-uses'),
+    breadcrumb: document.getElementById('breadcrumb-product'),
+    line: document.getElementById('product-line'),
+    extra: document.getElementById('product-extra')
   };
 
-  const getArticleTitle = (url) => {
-    const slug = url.split("/").pop();
-    if (titleMap[slug]) return titleMap[slug];
-    if (typeof ARTICLES !== "undefined") {
-      const hit = ARTICLES.find((item) => item.url === slug);
-      if (hit?.title) return hit.title;
+  function escapeHtml(str=''){
+    return str.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function titleFromSlug(url){
+    const slug = (url || '').split('/').pop();
+    if(typeof ARTICLES !== 'undefined' && Array.isArray(ARTICLES)){
+      const match = ARTICLES.find(a => a.url === slug);
+      if(match) return match.title;
     }
-    return slug.replace(".html", "").replaceAll("-", " ");
-  };
+    return slug.replace('.html','').replaceAll('-',' ');
+  }
 
-  const cardGrid = (title, items, label) => {
-    if (!items?.length) return "";
-    return `
-      <section class="info-card reveal">
-        <h3>${title}</h3>
-        <div class="product-grid" style="margin-top:16px">
-          ${items.map((url) => `
-            <a href="articles/${url}" class="product-card">
-              <h3>${getArticleTitle(url)}</h3>
-              <p>${label}</p>
-            </a>
-          `).join("")}
-        </div>
-      </section>
-    `;
-  };
+  function articleSummary(url){
+    if(typeof ARTICLES !== 'undefined' && Array.isArray(ARTICLES)){
+      const match = ARTICLES.find(a => a.url === url);
+      if(match) return match.summary || '查看內容';
+    }
+    return '查看內容';
+  }
 
-  fetch("products.json")
-    .then((res) => res.json())
-    .then((data) => {
-      if (!data || !Array.isArray(data.products)) return;
-      const product = data.products.find((p) => p.id === id) || data.products[0];
-      if (!product) return;
+  function cardLink(url, label, desc){
+    return `<a href="articles/${url}" class="product-card"><h3>${escapeHtml(label)}</h3><p>${escapeHtml(desc)}</p></a>`;
+  }
+
+  fetch('products.json')
+    .then(res => res.json())
+    .then(data => {
+      const products = Array.isArray(data?.products) ? data.products : [];
+      const product = products.find(item => item.id === id) || products[0];
+      if(!product) return;
 
       document.title = `${product.name}｜仙加味`;
       const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc && product.desc) metaDesc.setAttribute("content", product.desc);
-      const ogTitle = document.querySelector('meta[property="og:title"]');
-      if (ogTitle) ogTitle.setAttribute("content", `${product.name}｜仙加味`);
-      const ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc && product.desc) ogDesc.setAttribute("content", product.desc);
-      const ogImage = document.querySelector('meta[property="og:image"]');
-      if (ogImage) ogImage.setAttribute("content", product.seoImage || product.image);
+      if(metaDesc && product.desc) metaDesc.setAttribute('content', product.desc);
 
-      if (breadcrumb) breadcrumb.textContent = product.name;
-      if (productImage) {
-        productImage.src = product.image || "images/logo-seal.png";
-        productImage.alt = `仙加味 ${product.name}`;
+      if(el.breadcrumb) el.breadcrumb.textContent = product.name;
+      if(el.image){
+        el.image.src = product.image || 'images/logo-seal.png';
+        el.image.alt = `仙加味 ${product.name}`;
       }
-      if (productTitle) productTitle.textContent = product.name;
-      if (productSummary) productSummary.textContent = product.desc || "";
-      if (productPackage) productPackage.textContent = product.package || "—";
-
-      if (productSizes) {
-        productSizes.innerHTML = (product.sizes || [])
-          .map((size) => `<span class="tag">${size}</span>`)
-          .join("") || '<span class="tag">依現場規格為準</span>';
+      if(el.title) el.title.textContent = product.name;
+      if(el.summary) el.summary.textContent = product.desc || '';
+      if(el.sizes) el.sizes.textContent = Array.isArray(product.sizes) ? product.sizes.join(' / ') : '—';
+      if(el.pack) el.pack.textContent = product.package || '—';
+      if(el.line) el.line.href = `https://lin.ee/sHZW7NkR?text=${encodeURIComponent(`我想詢問 ${product.name}`)}`;
+      if(el.ingredients){
+        const list = Array.isArray(product.ingredients) ? product.ingredients : [];
+        el.ingredients.innerHTML = list.length ? list.map(item => `<li>${escapeHtml(item)}</li>`).join('') : '<li>請透過 LINE 詢問成份資訊</li>';
+      }
+      if(el.uses){
+        const list = Array.isArray(product.uses) ? product.uses : [];
+        el.uses.innerHTML = list.length ? list.map(item => `<li>${escapeHtml(item)}</li>`).join('') : '<li>請透過 LINE 詢問食用方式</li>';
       }
 
-      if (productIngredients) {
-        const items = Array.isArray(product.ingredients) ? product.ingredients : [];
-        productIngredients.innerHTML = items.map((item) => `<li>${item}</li>`).join("") || "<li>請以產品標示為準</li>";
-      }
-
-      if (productUses) {
-        const items = Array.isArray(product.uses) ? product.uses : [];
-        productUses.innerHTML = items.map((item) => `<li>${item}</li>`).join("") || "<li>請透過 LINE 詢問使用方式</li>";
-      }
-
-      const normalizedArticles = (product.articles || []).filter(Boolean);
-      const normalizedRecipes = (product.recipes || []).filter(Boolean);
-      const relatedProducts = data.products.filter((p) => p.id !== product.id).slice(0, 3);
-
-      if (productInfo) {
-        productInfo.insertAdjacentHTML(
-          "beforeend",
-          cardGrid("延伸閱讀", normalizedArticles, "查看內容") +
-            cardGrid("料理搭配", normalizedRecipes, "料理方式") +
-            (relatedProducts.length
-              ? `
-                <section class="info-card reveal">
-                  <h3>其他產品</h3>
-                  <div class="product-grid" style="margin-top:16px">
-                    ${relatedProducts
-                      .map(
-                        (p) => `
-                      <a href="product.html?id=${p.id}" class="product-card">
-                        <h3>${p.name}</h3>
-                        <p>${p.desc || ""}</p>
-                      </a>`
-                      )
-                      .join("")}
-                  </div>
-                </section>`
-              : "")
-        );
+      if(el.extra){
+        const sections = [];
+        if(Array.isArray(product.articles) && product.articles.length){
+          sections.push(`
+            <section class="info-card reveal">
+              <h3>相關文章</h3>
+              <div class="product-grid" style="margin-top:16px;">
+                ${product.articles.map(url => cardLink(url, titleFromSlug(url), articleSummary(url))).join('')}
+              </div>
+            </section>`);
+        }
+        if(Array.isArray(product.recipes) && product.recipes.length){
+          sections.push(`
+            <section class="info-card reveal" style="margin-top:18px;">
+              <h3>搭配方式</h3>
+              <div class="product-grid" style="margin-top:16px;">
+                ${product.recipes.map(url => cardLink(url, titleFromSlug(url), articleSummary(url))).join('')}
+              </div>
+            </section>`);
+        }
+        const relatedProducts = products.filter(item => item.id !== product.id).slice(0,3);
+        if(relatedProducts.length){
+          sections.push(`
+            <section class="info-card reveal" style="margin-top:18px;">
+              <h3>你也可以看看</h3>
+              <div class="product-grid" style="margin-top:16px;">
+                ${relatedProducts.map(item => `
+                  <a href="product.html?id=${item.id}" class="product-card">
+                    <img src="${item.image}" alt="${escapeHtml(item.name)}" loading="lazy">
+                    <h3>${escapeHtml(item.name)}</h3>
+                    <p>${escapeHtml(item.desc || '')}</p>
+                  </a>`).join('')}
+              </div>
+            </section>`);
+        }
+        el.extra.innerHTML = sections.join('');
       }
 
       const schema = {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        name: product.name,
-        description: product.desc || "",
-        image: product.seoImage || product.image,
-        sku: product.id,
-        brand: { "@type": "Brand", name: "仙加味" },
-        url: location.href,
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "TWD",
-          availability: "https://schema.org/InStock"
-        }
+        '@context':'https://schema.org',
+        '@type':'Product',
+        name:product.name,
+        description:product.desc || '',
+        image:product.seoImage || product.image,
+        sku:product.id,
+        brand:{'@type':'Brand',name:'仙加味'},
+        url:location.href,
+        offers:{'@type':'Offer',price:'0',priceCurrency:'TWD',availability:'https://schema.org/InStock'}
       };
-
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
       script.text = JSON.stringify(schema);
       document.head.appendChild(script);
+
+      setTimeout(()=>{
+        document.querySelectorAll('.reveal').forEach(node => node.classList.add('show'));
+      }, 60);
     })
-    .catch((err) => {
-      console.error("products.json 讀取失敗:", err);
-    });
+    .catch(err => console.error('products.json 讀取失敗:', err));
 })();

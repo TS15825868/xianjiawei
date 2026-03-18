@@ -1,49 +1,98 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const menu = document.getElementById("menuOverlay");
-  const btn = document.querySelector(".menu-btn");
-  if (!menu || !btn) return;
+(function(){
+  function getBasePrefix(){
+    return location.pathname.includes('/articles/') ? '../' : '';
+  }
 
-  menu.innerHTML = `
-    <a href="index.html">首頁</a>
-    <a href="guilu-series.html">龜鹿系列</a>
-    <a href="choose.html">怎麼選龜鹿</a>
-    <a href="recipes.html">料理搭配</a>
-    <a href="articles.html">龜鹿知識</a>
-    <a href="brand.html">品牌故事</a>
-    <a href="faq.html">FAQ</a>
-    <a href="https://lin.ee/sHZW7NkR?text=我想詢問仙加味產品" class="btn btn-line">LINE 詢問</a>
-  `;
+  function toggleMenu(force){
+    const menu = document.getElementById('menuOverlay');
+    if(!menu) return;
+    const shouldOpen = typeof force === 'boolean' ? force : !menu.classList.contains('active');
+    menu.classList.toggle('active', shouldOpen);
+    document.body.style.overflow = shouldOpen ? 'hidden' : '';
+  }
 
-  const setOpen = (open) => {
-    menu.classList.toggle("active", open);
-    document.body.classList.toggle("menu-open", open);
-    btn.setAttribute("aria-expanded", String(open));
-  };
+  window.toggleMenu = toggleMenu;
 
-  btn.addEventListener("click", () => setOpen(!menu.classList.contains("active")));
-  window.toggleMenu = () => setOpen(!menu.classList.contains("active"));
+  function articleCard(article, prefix=''){
+    const href = `${prefix}articles/${article.url}`;
+    const image = article.image.startsWith('images/') ? `${prefix}${article.image}` : article.image;
+    return `
+      <a href="${href}" class="product-card scroll-card">
+        <img src="${image}" alt="${article.title}" loading="lazy">
+        <h3>${article.title}</h3>
+        <p>${article.summary || '查看內容'}</p>
+      </a>`;
+  }
 
-  menu.addEventListener("click", (e) => {
-    if (e.target === menu) setOpen(false);
-  });
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefix = getBasePrefix();
+    const menu = document.getElementById('menuOverlay');
+    const btn = document.querySelector('.menu-btn');
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") setOpen(false);
-  });
+    if(menu){
+      menu.innerHTML = `
+        <a href="${prefix}index.html">首頁</a>
+        <a href="${prefix}brand.html">品牌故事</a>
+        <a href="${prefix}guilu-series.html">龜鹿系列</a>
+        <a href="${prefix}choose.html">怎麼選龜鹿</a>
+        <a href="${prefix}recipes.html">料理搭配</a>
+        <a href="${prefix}articles.html">龜鹿知識</a>
+        <a href="${prefix}faq.html">FAQ</a>
+        <a href="https://lin.ee/sHZW7NkR?text=${encodeURIComponent('我想詢問龜鹿產品') }" class="btn btn-line">LINE詢問</a>
+      `;
 
-  menu.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => setOpen(false));
-  });
+      menu.addEventListener('click',(e)=>{
+        if(e.target === menu) toggleMenu(false);
+      });
 
-  document.querySelectorAll(".faq-item").forEach((item) => {
-    const q = item.querySelector(".faq-q");
-    const a = item.querySelector(".faq-a");
-    if (!q || !a) return;
-    a.hidden = true;
-    q.addEventListener("click", () => {
-      const isOpen = !a.hidden;
-      a.hidden = isOpen;
-      q.setAttribute("aria-expanded", String(!isOpen));
+      menu.querySelectorAll('a').forEach(link=>{
+        link.addEventListener('click', ()=>toggleMenu(false));
+      });
+    }
+
+    if(btn){
+      btn.addEventListener('click', ()=>toggleMenu());
+    }
+
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') toggleMenu(false);
+    });
+
+    const revealEls = document.querySelectorAll('.reveal');
+    if('IntersectionObserver' in window && revealEls.length){
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('show');
+            obs.unobserve(entry.target);
+          }
+        });
+      },{threshold:.14});
+      revealEls.forEach(el=>obs.observe(el));
+    }else{
+      revealEls.forEach(el=>el.classList.add('show'));
+    }
+
+    if(typeof ARTICLES !== 'undefined' && Array.isArray(ARTICLES)){
+      const articleGrid = document.getElementById('article-grid');
+      if(articleGrid){
+        articleGrid.innerHTML = ARTICLES.slice(0,12).map(article => articleCard(article, prefix)).join('');
+      }
+
+      ['culture','knowledge','product','recipe'].forEach(cat=>{
+        const node = document.getElementById(`article-grid-${cat}`);
+        if(node){
+          node.innerHTML = ARTICLES.filter(a=>a.category===cat).map(article => articleCard(article, prefix)).join('');
+        }
+      });
+    }
+
+    const chooseButtons = document.querySelectorAll('.choose-btn[data-product]');
+    chooseButtons.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = btn.getAttribute('data-product');
+        if(id) location.href = `${prefix}product.html?id=${encodeURIComponent(id)}`;
+      });
     });
   });
-});
+})();

@@ -6,12 +6,12 @@
       "name": "龜鹿膏",
       "image": "images/guilu-gao-100g.jpg",
       "seoImage": "images/guilu-gao-100g.jpg",
-      "desc": "龜鹿膏為濃縮膏狀型態，可直接食用或加入溫水沖泡，作為日常飲食搭配。",
+      "desc": "龜鹿膏為濃縮膏狀型態，可直接食用或加入溫水沖泡，適合作為日常飲食中的固定補養搭配。",
       "sizes": [
-        "100g"
+        "100 g"
       ],
-      "package": "玻璃罐",
-      "category": "guilu",
+      "package": "玻璃罐裝",
+      "category": "product",
       "ingredients": [
         "龜板萃取物",
         "鹿角萃取物",
@@ -21,15 +21,20 @@
         "黃耆"
       ],
       "uses": [
-        "直接食用",
-        "加入溫水沖泡"
+        "可直接食用",
+        "可加入溫水攪勻後飲用",
+        "可依作息安排早晚固定搭配"
       ],
       "articles": [
-        "guilu-gao.html",
+        "guilu-gao-how.html",
+        "guilu-gao-dose.html",
+        "guilu-gao-storage.html",
+        "guilu-gao-for-who.html",
         "what-is-guilu.html"
       ],
       "recipes": [
-        "guilu-chicken-soup.html"
+        "guilu-breakfast.html",
+        "guilu-daily-use.html"
       ]
     },
     {
@@ -38,13 +43,13 @@
       "name": "龜鹿飲",
       "image": "images/guilu-drink-30cc.jpg",
       "seoImage": "images/guilu-drink-30cc.jpg",
-      "desc": "龜鹿飲為即飲型飲品，可開瓶直接飲用，也可溫熱後飲用。",
+      "desc": "龜鹿飲為即飲型產品，開瓶即可飲用，也可依個人習慣溫熱後再喝，適合外出攜帶或忙碌日常。",
       "sizes": [
-        "30cc",
-        "180cc"
+        "30 cc",
+        "180 cc"
       ],
-      "package": "玻璃瓶 / 鋁袋",
-      "category": "guilu",
+      "package": "玻璃瓶／鋁袋",
+      "category": "product",
       "ingredients": [
         "水",
         "龜板萃取物",
@@ -56,14 +61,19 @@
       ],
       "uses": [
         "開瓶即飲",
-        "溫熱飲用"
+        "可隔水溫熱後飲用",
+        "適合外出隨身攜帶"
       ],
       "articles": [
-        "guilu-drink.html",
-        "what-is-guilu.html"
+        "guilu-drink-guide.html",
+        "guilu-drink-time.html",
+        "guilu-drink-storage.html",
+        "guilu-drink-save.html",
+        "guilu-drink-for-who.html"
       ],
       "recipes": [
-        "guilu-drink-guide.html"
+        "guilu-drink-best-time.html",
+        "guilu-food-recommend.html"
       ]
     },
     {
@@ -72,28 +82,35 @@
       "name": "龜鹿湯塊",
       "image": "images/guilu-block-300g.jpg",
       "seoImage": "images/guilu-block-300g.jpg",
-      "desc": "龜鹿湯塊為濃縮湯塊型態，適合燉雞湯或排骨湯作為日常料理。",
+      "desc": "龜鹿湯塊為濃縮湯塊型態，適合用於燉雞湯、排骨湯或家常藥膳湯品，讓日常料理更方便。",
       "sizes": [
-        "75g",
-        "300g",
-        "600g"
+        "75 g",
+        "300 g",
+        "600 g"
       ],
       "package": "盒裝",
-      "category": "guilu",
+      "category": "recipe",
       "ingredients": [
         "龜板萃取物",
         "鹿角萃取物"
       ],
       "uses": [
-        "燉雞湯",
-        "燉排骨湯"
+        "可搭配雞肉燉煮",
+        "可搭配排骨或藥膳食材",
+        "適合家庭鍋煮與分次料理"
       ],
       "articles": [
-        "guilu-block.html"
+        "guilu-block-how.html",
+        "guilu-block-storage.html",
+        "guilu-block-vs-gao.html",
+        "guilu-block-ratio.html",
+        "guilu-block-cooking.html"
       ],
       "recipes": [
         "guilu-chicken-soup.html",
-        "guilu-pork-soup.html"
+        "guilu-pork-recipe.html",
+        "guilu-recipes.html",
+        "guilu-cooking-fast.html"
       ]
     },
     {
@@ -102,26 +119,31 @@
       "name": "鹿茸粉",
       "image": "images/lurong-powder-75g.jpg",
       "seoImage": "images/lurong-powder-75g.jpg",
-      "desc": "鹿茸粉為粉末型態，可加入咖啡、牛奶或茶飲，作為日常飲品搭配。",
+      "desc": "鹿茸粉為粉末型態，可加入咖啡、牛奶、茶飲或其他溫熱飲品中，適合做成日常飲品搭配。",
       "sizes": [
-        "75g"
+        "75 g"
       ],
-      "package": "玻璃罐",
-      "category": "lurong",
+      "package": "玻璃罐裝",
+      "category": "recipe",
       "ingredients": [
         "鹿茸"
       ],
       "uses": [
-        "加入咖啡",
-        "加入牛奶",
-        "加入茶"
+        "可加入咖啡",
+        "可加入牛奶",
+        "可加入茶飲或溫熱飲品"
       ],
       "articles": [
-        "lurong-powder.html"
+        "lurong-powder-how.html",
+        "lurong-storage.html",
+        "lurong-vs-guilu.html",
+        "lurong-combination.html"
       ],
       "recipes": [
         "lurong-coffee.html",
-        "lurong-milk.html"
+        "lurong-milk.html",
+        "lurong-tea.html",
+        "lurong-milk-ratio.html"
       ]
     }
   ]
