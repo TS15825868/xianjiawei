@@ -1,94 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title id="tag-title">標籤文章｜仙加味</title>
-
+<title>標籤文章｜仙加味</title>
 <meta name="description" content="龜鹿相關文章整理">
-
 <link rel="stylesheet" href="../site.css">
-
 </head>
-
 <body>
-
-<header class="header">
-
-<a href="../index.html" class="logo">
-<img src="../images/logo-seal.png">
-<span>仙加味</span>
-</a>
-
-<div class="menu-btn">☰</div>
-
-</header>
-
+<header class="header"><a href="../index.html" class="logo"><img src="../images/logo-seal.png" alt="仙加味"><span>仙加味</span></a><div class="menu-btn">☰</div></header>
 <div id="menuOverlay" class="menu-overlay"></div>
-
-
 <main>
-
 <section class="section">
-
-<h1 id="title"></h1>
-
+<h1 id="title" class="center">標籤文章</h1>
+<p class="section-intro" id="tag-intro">依標籤整理相關文章。</p>
 <div id="tag-grid" class="product-grid"></div>
-
 </section>
-
 </main>
-
-
-<script src="../articles.js"></script>
+<script src="../articles-data.js"></script>
 <script src="../site.js"></script>
-
 <script>
-
 const params = new URLSearchParams(location.search);
-const tag = params.get("tag");
-
-const title = document.getElementById("title");
-const grid = document.getElementById("tag-grid");
-
-if(tag){
-
-title.innerText = tag + "相關文章";
-
-const list = ARTICLES.filter(a => 
-a.tags && a.tags.includes(tag)
-);
-
-if(list.length === 0){
-grid.innerHTML = "<p style='text-align:center'>目前沒有相關文章</p>";
-}else{
-
-list.forEach(a => {
-
-grid.innerHTML += `
-
-<a href="../articles/${a.url}" class="product-card">
-
-<img src="../${a.image}" loading="lazy">
-
-<h3>${a.title}</h3>
-
-<p>${a.summary}</p>
-
-</a>
-
-`;
-
-});
-
+const tag = params.get('tag');
+const title = document.getElementById('title');
+const intro = document.getElementById('tag-intro');
+const grid = document.getElementById('tag-grid');
+if(tag && Array.isArray(ARTICLES)){
+  title.textContent = tag + ' 相關文章';
+  intro.textContent = '以下整理與「' + tag + '」有關的文章。';
+  const list = ARTICLES.filter(a => Array.isArray(a.tags) && a.tags.includes(tag));
+  if(list.length===0){
+    grid.innerHTML = '<div class="info-card" style="grid-column:1/-1;text-align:center;"><p>目前沒有相關文章。</p></div>';
+  }else{
+    grid.innerHTML = list.map(a => `<a href="../articles/${a.url}" class="product-card"><img src="../${a.image}" alt="${a.title}" loading="lazy"><h3>${a.title}</h3><p>${a.summary}</p></a>`).join('');
+  }
 }
-
-}
-
 </script>
-
 </body>
 </html>
