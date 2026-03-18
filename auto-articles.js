@@ -7,36 +7,22 @@ const topics = [
 "龜鹿湯塊怎麼用",
 "鹿茸粉怎麼吃",
 "龜鹿怎麼搭配",
-"龜鹿飲保存方式",
-"龜鹿膏保存方法",
-"龜鹿料理有哪些",
-"龜鹿雞湯做法",
-"龜鹿排骨湯",
-"鹿茸粉加咖啡",
-"鹿茸粉加牛奶",
-"鹿茸粉加茶",
-"龜鹿補養方式",
 "龜鹿日常怎麼吃",
 "龜鹿早餐搭配",
 "龜鹿晚上可以吃嗎",
-"龜鹿怎麼選",
-"龜鹿產品差別"
+"龜鹿怎麼選"
 ];
 
 function createArticle(title){
 
-const slug = title
-.replace(/\s/g,"-")
-.replace(/[^\w\u4e00-\u9fa5]/g,"")
-.toLowerCase();
+const slug = title.replace(/\s/g,"").replace(/[^\w\u4e00-\u9fa5]/g,"");
 
-const html = `
-<!DOCTYPE html>
+const html = `<!DOCTYPE html>
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8">
 <title>${title}｜仙加味</title>
-<meta name="description" content="${title}完整整理，從日常飲食角度說明。">
+<meta name="description" content="${title}完整整理與日常搭配方式">
 <link rel="stylesheet" href="../site.css">
 </head>
 
@@ -44,38 +30,40 @@ const html = `
 
 <header class="header">
 <a href="../index.html" class="logo">
+<img src="../images/logo-seal.png">
 <span>仙加味</span>
 </a>
+<div class="menu-btn">☰</div>
 </header>
 
-<main class="section">
+<div id="menuOverlay" class="menu-overlay"></div>
+
+<main class="section" style="max-width:800px;">
 
 <h1>${title}</h1>
 
-<p>
-${title}是一種以日常飲食為出發點的補養方式，
-可依照個人習慣進行調整。
-</p>
+<p>${title}可以從日常飲食角度去調整，建立適合自己的節奏。</p>
 
-<h2>怎麼做比較好？</h2>
-<p>
-建議從小量開始，觀察自己的生活節奏，
-再逐步建立固定習慣。
-</p>
+<h2>怎麼吃比較好？</h2>
+<p>建議從少量開始，依照生活習慣慢慢調整。</p>
 
-<h2>延伸搭配</h2>
-<p>
-可搭配龜鹿膏、龜鹿飲或鹿茸粉，
-依照不同情境選擇。
-</p>
+<h2>日常搭配</h2>
+<p>可搭配龜鹿膏、龜鹿飲或鹿茸粉。</p>
 
-<a href="https://lin.ee/sHZW7NkR" class="btn">LINE詢問</a>
+<div style="margin:40px 0;text-align:center;">
+<h3>不確定怎麼選？</h3>
+<a href="https://lin.ee/sHZW7NkR" class="btn btn-dark">LINE詢問</a>
+</div>
 
 </main>
 
+<a class="floating-line" href="https://lin.ee/sHZW7NkR">LINE詢問</a>
+
+<script src="../articles-data.js"></script>
+<script src="../site.js"></script>
+
 </body>
-</html>
-`;
+</html>`;
 
 fs.writeFileSync(`articles/${slug}.html`, html);
 
@@ -88,4 +76,4 @@ fs.writeFileSync("articles-data.js",
 `const ARTICLES = ${JSON.stringify(articles,null,2)};`
 );
 
-console.log("✅ 已生成文章");
+console.log("✅ 成交版文章已生成");
