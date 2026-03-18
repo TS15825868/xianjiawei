@@ -1,93 +1,120 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-
 <title>產品介紹｜仙加味</title>
 <meta name="description" content="仙加味龜鹿系列產品介紹">
-
+<meta property="og:title" content="產品介紹｜仙加味">
+<meta property="og:description" content="仙加味龜鹿系列產品介紹">
+<meta property="og:image" content="images/hero-guilu-gao.jpg">
+<meta property="og:type" content="website">
 <link rel="stylesheet" href="site.css">
 </head>
-
 <body>
-
 <header class="header">
-<a href="index.html" class="logo">
-<img src="images/logo-seal.png">
-<span>仙加味</span>
-</a>
-<div class="menu-btn">☰</div>
+  <a href="index.html" class="logo">
+    <img src="images/logo-seal.png" alt="仙加味">
+    <span>仙加味</span>
+  </a>
+  <div class="menu-btn" aria-label="開啟選單">☰</div>
 </header>
 
 <div id="menuOverlay" class="menu-overlay"></div>
 
 <main>
+  <section class="section section-tight">
+    <nav class="breadcrumb center">
+      <a href="index.html">首頁</a>
+      <span>›</span>
+      <a href="guilu-series.html">龜鹿系列</a>
+      <span>›</span>
+      <span id="breadcrumb-product">產品介紹</span>
+    </nav>
+  </section>
 
-<section class="section">
+  <section class="section">
+    <div class="product-layout">
+      <div class="product-image reveal">
+        <div class="product-image-card">
+          <img id="product-image" src="images/logo-seal.png" alt="仙加味產品圖" loading="lazy">
+        </div>
+      </div>
 
-<div class="product-layout">
+      <div class="product-info reveal">
+        <div class="eyebrow">仙加味・龜鹿系列</div>
+        <h1 id="product-title">產品名稱</h1>
+        <p id="product-summary" class="product-summary"></p>
 
-<div class="product-image">
-<img id="product-image" src="">
-</div>
+        <div class="product-actions">
+          <a href="https://lin.ee/sHZW7NkR?text=我想詢問這項產品" class="btn btn-line">LINE 詢問</a>
+          <a href="order.html" class="btn btn-dark">立即下單</a>
+        </div>
 
-<div class="product-info">
+        <div class="product-spec-grid">
+          <section class="spec-card">
+            <h3>規格</h3>
+            <div id="product-sizes" class="tag-row"></div>
+          </section>
 
-<h1 id="product-title"></h1>
-<p id="product-summary"></p>
+          <section class="spec-card">
+            <h3>包裝</h3>
+            <p id="product-package">—</p>
+          </section>
+        </div>
 
-<h3>規格</h3>
-<p id="product-sizes"></p>
+        <section class="info-card">
+          <h3>成分內容</h3>
+          <ul id="product-ingredients" class="plain-list"></ul>
+        </section>
 
-<h3>包裝</h3>
-<p id="product-package"></p>
+        <section class="info-card">
+          <h3>食用方式</h3>
+          <ul id="product-uses" class="plain-list"></ul>
+        </section>
 
-<h3>成份</h3>
-<ul id="product-ingredients"></ul>
+        <section class="product-note">
+          產品頁以日常飲食與型態介紹為主。若你想依自己的需求挑選規格，直接透過 LINE 詢問會更快。
+        </section>
+      </div>
+    </div>
+  </section>
 
-<h3>食用方式</h3>
-<ul id="product-uses"></ul>
+  <section class="section">
+    <section class="info-card reveal center">
+      <h2>怎麼搭配比較方便？</h2>
+      <div class="card-grid" style="margin-top:22px">
+        <div class="compare-card">
+          <h3>日常補養</h3>
+          <p>龜鹿膏</p>
+        </div>
+        <div class="compare-card">
+          <h3>外出補充</h3>
+          <p>龜鹿飲</p>
+        </div>
+        <div class="compare-card">
+          <h3>燉湯料理</h3>
+          <p>龜鹿湯塊</p>
+        </div>
+      </div>
+    </section>
+  </section>
 
-<div style="margin-top:20px;">
-<a href="https://lin.ee/sHZW7NkR" class="btn">LINE詢問</a>
-<a href="order.html" class="btn btn-dark">直接下單</a>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="section">
-
-<h2>怎麼搭配比較方便？</h2>
-
-<ul>
-<li>日常補養 → 龜鹿膏</li>
-<li>外出補充 → 龜鹿飲</li>
-<li>燉湯料理 → 龜鹿湯塊</li>
-</ul>
-
-</section>
-
-<section class="cta">
-<h2>不確定怎麼選？</h2>
-<a href="https://lin.ee/sHZW7NkR" class="btn btn-dark">LINE詢問</a>
-</section>
-
+  <section class="cta">
+    <h2>不確定怎麼選？</h2>
+    <p>描述你的需求、平常食用習慣或想找的型態，我幫你整理比較快。</p>
+    <a href="https://lin.ee/sHZW7NkR?text=我想問仙加味產品怎麼選" class="btn btn-line">LINE 詢問</a>
+  </section>
 </main>
 
 <footer class="footer">
-<div class="footer-bottom">© 仙加味</div>
+  <div class="footer-bottom">© 仙加味</div>
 </footer>
 
-<a class="floating-line" href="https://lin.ee/sHZW7NkR">LINE詢問</a>
+<a class="floating-line" href="https://lin.ee/sHZW7NkR?text=我想詢問仙加味產品">LINE詢問</a>
 
+<script src="articles-data.js"></script>
 <script src="product.js"></script>
 <script src="site.js"></script>
-
 </body>
 </html>

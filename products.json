@@ -1,20 +1,18 @@
 {
-  "products":[
-
+  "products": [
     {
-      "id":"guilu-gao",
-      "slug":"guilu-gao",
-      "name":"龜鹿膏",
-      "image":"images/guilu-gao-100g.jpg",
-      "seoImage":"images/guilu-gao-100g.jpg",
-
-      "desc":"龜鹿膏為濃縮膏狀型態，可直接食用或加入溫水沖泡，作為日常飲食搭配。",
-
-      "sizes":["100g"],
-      "package":"玻璃罐",
-      "category":"guilu",
-
-      "ingredients":[
+      "id": "guilu-gao",
+      "slug": "guilu-gao",
+      "name": "龜鹿膏",
+      "image": "images/guilu-gao-100g.jpg",
+      "seoImage": "images/guilu-gao-100g.jpg",
+      "desc": "龜鹿膏為濃縮膏狀型態，可直接食用或加入溫水沖泡，作為日常飲食搭配。",
+      "sizes": [
+        "100g"
+      ],
+      "package": "玻璃罐",
+      "category": "guilu",
+      "ingredients": [
         "龜板萃取物",
         "鹿角萃取物",
         "粉光蔘",
@@ -22,37 +20,32 @@
         "紅棗",
         "黃耆"
       ],
-
-      "uses":[
+      "uses": [
         "直接食用",
         "加入溫水沖泡"
       ],
-
-      "articles":[
+      "articles": [
         "guilu-gao.html",
         "what-is-guilu.html"
       ],
-
-      "recipes":[
+      "recipes": [
         "guilu-chicken-soup.html"
       ]
     },
-
-
     {
-      "id":"guilu-drink",
-      "slug":"guilu-drink",
-      "name":"龜鹿飲",
-      "image":"images/guilu-drink-30cc.jpg",
-      "seoImage":"images/guilu-drink-30cc.jpg",
-
-      "desc":"龜鹿飲為即飲型飲品，可開瓶直接飲用，也可溫熱後飲用。",
-
-      "sizes":["30cc","180cc"],
-      "package":"玻璃瓶 / 鋁袋",
-      "category":"guilu",
-
-      "ingredients":[
+      "id": "guilu-drink",
+      "slug": "guilu-drink",
+      "name": "龜鹿飲",
+      "image": "images/guilu-drink-30cc.jpg",
+      "seoImage": "images/guilu-drink-30cc.jpg",
+      "desc": "龜鹿飲為即飲型飲品，可開瓶直接飲用，也可溫熱後飲用。",
+      "sizes": [
+        "30cc",
+        "180cc"
+      ],
+      "package": "玻璃瓶 / 鋁袋",
+      "category": "guilu",
+      "ingredients": [
         "水",
         "龜板萃取物",
         "鹿角萃取物",
@@ -61,89 +54,75 @@
         "紅棗",
         "黃耆"
       ],
-
-      "uses":[
+      "uses": [
         "開瓶即飲",
         "溫熱飲用"
       ],
-
-      "articles":[
+      "articles": [
         "guilu-drink.html",
         "what-is-guilu.html"
       ],
-
-      "recipes":[
-        "guilu-warm-drink.html"
+      "recipes": [
+        "guilu-drink-guide.html"
       ]
     },
-
-
     {
-      "id":"guilu-block",
-      "slug":"guilu-block",
-      "name":"龜鹿湯塊",
-      "image":"images/guilu-block-300g.jpg",
-      "seoImage":"images/guilu-block-300g.jpg",
-
-      "desc":"龜鹿湯塊為濃縮湯塊型態，適合燉雞湯或排骨湯作為日常料理。",
-
-      "sizes":["75g","300g","600g"],
-      "package":"盒裝",
-      "category":"guilu",
-
-      "ingredients":[
+      "id": "guilu-block",
+      "slug": "guilu-block",
+      "name": "龜鹿湯塊",
+      "image": "images/guilu-block-300g.jpg",
+      "seoImage": "images/guilu-block-300g.jpg",
+      "desc": "龜鹿湯塊為濃縮湯塊型態，適合燉雞湯或排骨湯作為日常料理。",
+      "sizes": [
+        "75g",
+        "300g",
+        "600g"
+      ],
+      "package": "盒裝",
+      "category": "guilu",
+      "ingredients": [
         "龜板萃取物",
         "鹿角萃取物"
       ],
-
-      "uses":[
+      "uses": [
         "燉雞湯",
         "燉排骨湯"
       ],
-
-      "articles":[
+      "articles": [
         "guilu-block.html"
       ],
-
-      "recipes":[
+      "recipes": [
         "guilu-chicken-soup.html",
-        "guilu-pork-ribs.html"
+        "guilu-pork-soup.html"
       ]
     },
-
-
     {
-      "id":"lurong-powder",
-      "slug":"lurong-powder",
-      "name":"鹿茸粉",
-      "image":"images/lurong-powder-75g.jpg",
-      "seoImage":"images/lurong-powder-75g.jpg",
-
-      "desc":"鹿茸粉為粉末型態，可加入咖啡、牛奶或茶飲，作為日常飲品搭配。",
-
-      "sizes":["75g"],
-      "package":"玻璃罐",
-      "category":"lurong",
-
-      "ingredients":[
+      "id": "lurong-powder",
+      "slug": "lurong-powder",
+      "name": "鹿茸粉",
+      "image": "images/lurong-powder-75g.jpg",
+      "seoImage": "images/lurong-powder-75g.jpg",
+      "desc": "鹿茸粉為粉末型態，可加入咖啡、牛奶或茶飲，作為日常飲品搭配。",
+      "sizes": [
+        "75g"
+      ],
+      "package": "玻璃罐",
+      "category": "lurong",
+      "ingredients": [
         "鹿茸"
       ],
-
-      "uses":[
+      "uses": [
         "加入咖啡",
         "加入牛奶",
         "加入茶"
       ],
-
-      "articles":[
+      "articles": [
         "lurong-powder.html"
       ],
-
-      "recipes":[
-        "deer-coffee.html",
-        "deer-milk.html"
+      "recipes": [
+        "lurong-coffee.html",
+        "lurong-milk.html"
       ]
     }
-
   ]
 }
