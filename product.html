@@ -13,58 +13,28 @@
 <script>
 
 const products = {
-"guilu-gao":{
-name:"龜鹿膏",
-img:"images/guilu-gao.jpg",
-desc:"濃縮膏體｜日常補養"
-},
-"guilu-drink":{
-name:"龜鹿飲",
-img:"images/guilu-drink.jpg",
-desc:"即開即飲｜外出方便"
-},
-"guilu-block":{
-name:"龜鹿湯塊",
-img:"images/guilu-block.jpg",
-desc:"料理使用｜燉煮方便"
-},
-"lurong":{
-name:"鹿茸粉",
-img:"images/lurong-powder.jpg",
-desc:"粉末型｜可加入飲品"
-}
+"guilu-gao":{name:"龜鹿膏",desc:"日常補養"},
+"guilu-drink":{name:"龜鹿飲",desc:"外出方便"},
+"guilu-block":{name:"龜鹿湯塊",desc:"料理使用"},
+"lurong":{name:"鹿茸粉",desc:"粉末型"}
 };
 
-const params = new URLSearchParams(location.search);
-const id = params.get("id") || "guilu-gao";
+const id = new URLSearchParams(location.search).get("id") || "guilu-gao";
 const p = products[id];
 
 document.getElementById("app").innerHTML = `
-<img src="${p.img}" class="full">
-
-<div class="box">
-<h2>${p.name}</h2>
+<h1>${p.name}</h1>
 <p>${p.desc}</p>
 
-<a href="https://lin.ee/sHZW7NkR" class="btn big">
-👉 免費幫你搭配
-</a>
+<button onclick="goLine('daily')">平常保養</button>
+<button onclick="goLine('tired')">最近比較累</button>
 
-</div>
-
-<div class="switch">
-
-<a href="?id=guilu-gao">龜鹿膏</a>
-<a href="?id=guilu-drink">龜鹿飲</a>
-<a href="?id=guilu-block">龜鹿湯塊</a>
-<a href="?id=lurong">鹿茸粉</a>
-
-</div>
-
-<div class="bottom">
-<a href="https://lin.ee/sHZW7NkR" class="btn big">立即詢問</a>
-</div>
 `;
+
+function goLine(type){
+let text = type==="daily" ? "我想日常搭配" : "我最近比較累想調整";
+window.open("https://lin.ee/sHZW7NkR?text="+encodeURIComponent(text));
+}
 
 </script>
 
