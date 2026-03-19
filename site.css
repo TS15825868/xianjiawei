@@ -1,16 +1,16 @@
 body{margin:0;font-family:-apple-system,"PingFang TC";background:#F7F4ED;color:#2F2118;}
 .header{position:fixed;top:0;width:100%;display:flex;justify-content:space-between;padding:16px;background:#fff;z-index:10;}
-.hero{height:90vh;display:flex;align-items:center;justify-content:center;position:relative;background:#000;color:#fff;text-align:center;}
-.overlay{position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.5);}
-.hero-inner{position:relative;z-index:2;}
+.hero{height:90vh;display:flex;align-items:center;justify-content:center;position:relative;background:linear-gradient(#000,#2F2118);color:#fff;text-align:center;}
+.hero-overlay{position:absolute;width:100%;height:100%;background:rgba(0,0,0,0.4);}
+.hero-content{position:relative;z-index:2;}
 .hero-btns{margin-top:20px;}
-.btn{padding:12px 24px;border-radius:30px;text-decoration:none;}
+.btn{padding:12px 28px;border-radius:30px;text-decoration:none;font-size:14px;}
 .primary{background:#2F2118;color:#fff;}
 .outline{border:1px solid #fff;color:#fff;}
 .section{padding:80px 20px;text-align:center;}
-.cards{display:grid;gap:20px;}
-.card{background:#fff;padding:40px;border-radius:20px;}
+.cards{display:grid;gap:24px;}
+.card{background:#fff;padding:40px;border-radius:24px;}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
 .product{background:#fff;padding:30px;border-radius:20px;}
+.brand{padding:80px 20px;text-align:center;max-width:600px;margin:auto;}
 .cta{background:#2F2118;color:#fff;padding:80px;text-align:center;}
-.brand{max-width:600px;margin:auto;}
