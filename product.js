@@ -1,118 +1,97 @@
-(async function(){
+(function(){
 
 const params = new URLSearchParams(location.search);
-let currentId = params.get('id');
-
-const res = await fetch('products.json');
-const data = await res.json();
-const products = data.products || [];
-
-if(!currentId) currentId = products[0].id;
+const id = params.get('id');
 
 const el = {
-  image: document.getElementById('product-image'),
-  title: document.getElementById('product-title'),
-  summary: document.getElementById('product-summary'),
-  sizes: document.getElementById('product-sizes'),
-  pack: document.getElementById('product-package'),
-  ingredients: document.getElementById('product-ingredients'),
-  uses: document.getElementById('product-uses'),
-  line: document.getElementById('product-line'),
-  tabs: document.getElementById('product-tabs'),
-  extra: document.getElementById('product-extra'),
-  related: document.getElementById('related-products')
+image: document.getElementById('product-image'),
+title: document.getElementById('product-title'),
+summary: document.getElementById('product-summary'),
+sizes: document.getElementById('product-sizes'),
+pack: document.getElementById('product-package'),
+ingredients: document.getElementById('product-ingredients'),
+uses: document.getElementById('product-uses'),
+line: document.getElementById('product-line'),
+tabs: document.getElementById('product-tabs'),
+extra: document.getElementById('product-extra'),
+related: document.getElementById('related-products')
 };
 
-// 中文標題
-function getTitle(url){
-  if(typeof ARTICLES !== 'undefined'){
-    const m = ARTICLES.find(a=>a.url===url);
-    if(m) return m.title;
-  }
-  return url.replace('.html','').replaceAll('-',' ');
+function zhTitle(url){
+const map = {
+"guilu-drink-guide.html":"龜鹿飲怎麼喝",
+"guilu-drink-time.html":"龜鹿飲什麼時候喝",
+"guilu-drink-storage.html":"龜鹿飲保存方式",
+"guilu-drink-for-who.html":"龜鹿飲適合誰"
+};
+return map[url] || url.replace('.html','').replaceAll('-',' ');
 }
 
-// 中文摘要
-function getSummary(url){
-  if(typeof ARTICLES !== 'undefined'){
-    const m = ARTICLES.find(a=>a.url===url);
-    if(m) return m.summary || '查看內容';
-  }
-  return '查看內容';
-}
+fetch('./products.json')
+.then(res=>res.json())
+.then(data=>{
 
-function render(p){
+const products = data.products || [];
+const product = products.find(p=>p.id===id) || products[0];
 
-  el.image.src = p.image;
-  el.title.textContent = p.name;
-  el.summary.textContent = p.desc;
-
-  el.sizes.textContent = p.sizes.join(' / ');
-  el.pack.textContent = p.package;
-
-  el.ingredients.innerHTML =
-    p.ingredients.map(i=>`<li>${i}</li>`).join('');
-
-  el.uses.innerHTML =
-    p.uses.map(i=>`<li>${i}</li>`).join('');
-
-  el.line.href =
-    `https://lin.ee/sHZW7NkR?text=${encodeURIComponent(`我想詢問 ${p.name}`)}`;
-
-  history.replaceState(null,'',`?id=${p.id}`);
-
-  // 文章
-  el.extra.innerHTML = `
-    <h2>相關文章</h2>
-    <div class="product-grid">
-      ${p.articles.map(u=>`
-        <a href="articles/${u}" class="product-card">
-          <h3>${getTitle(u)}</h3>
-          <p>${getSummary(u)}</p>
-        </a>
-      `).join('')}
-    </div>
-
-    <h2 style="margin-top:30px">搭配方式</h2>
-    <div class="product-grid">
-      ${p.recipes.map(u=>`
-        <a href="articles/${u}" class="product-card">
-          <h3>${getTitle(u)}</h3>
-          <p>${getSummary(u)}</p>
-        </a>
-      `).join('')}
-    </div>
-  `;
-
-  // 推薦
-  const others = products.filter(x=>x.id!==p.id).slice(0,3);
-  el.related.innerHTML = `
-    <h2>你也可以看看</h2>
-    <div class="product-grid">
-      ${others.map(o=>`
-        <a href="?id=${o.id}" class="product-card">
-          <img src="${o.image}">
-          <h3>${o.name}</h3>
-        </a>
-      `).join('')}
-    </div>
-  `;
-}
-
-// 切換列
+// ===== tabs =====
+if(el.tabs){
 el.tabs.innerHTML = products.map(p=>`
-  <div class="product-card" style="min-width:140px;cursor:pointer"
-    onclick="switchProduct('${p.id}')">
-    <img src="${p.image}">
-    <h3>${p.name}</h3>
-  </div>
+<a href="product.html?id=${p.id}" class="tab ${p.id===product.id?'active':''}">
+${p.name}
+</a>
 `).join('');
+}
 
-window.switchProduct = id=>{
-  const p = products.find(x=>x.id===id);
-  render(p);
-};
+// ===== 主資料 =====
+el.image.src = product.image;
+el.title.textContent = product.name;
+el.summary.textContent = product.desc;
+el.sizes.textContent = product.sizes.join(' / ');
+el.pack.textContent = product.package;
 
-render(products.find(x=>x.id===currentId));
+el.line.href =
+`https://lin.ee/sHZW7NkR?text=${encodeURIComponent(`我想詢問 ${product.name}`)}`;
+
+// 成分
+el.ingredients.innerHTML =
+product.ingredients.map(i=>`<li>${i}</li>`).join('');
+
+// 用法
+el.uses.innerHTML =
+product.uses.map(i=>`<li>${i}</li>`).join('');
+
+// ===== 文章 =====
+if(el.extra){
+el.extra.innerHTML = `
+<div class="info-card">
+<h3>相關文章</h3>
+<div class="product-grid">
+${(product.articles||[]).map(a=>`
+<a href="articles/${a}" class="product-card">
+<h3>${zhTitle(a)}</h3>
+</a>`).join('')}
+</div>
+</div>
+`;
+}
+
+// ===== 相關商品 =====
+if(el.related){
+el.related.innerHTML = `
+<div class="info-card">
+<h3>你也可以看看</h3>
+<div class="product-grid">
+${products.filter(p=>p.id!==product.id).map(p=>`
+<a href="product.html?id=${p.id}" class="product-card">
+<img src="${p.image}">
+<h3>${p.name}</h3>
+</a>`).join('')}
+</div>
+</div>
+`;
+}
+
+});
 
 })();
