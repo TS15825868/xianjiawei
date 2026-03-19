@@ -3,18 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>龜鹿膏</title>
+<title>商品頁</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<img src="images/guilu-gao.jpg" class="full">
+<div id="app"></div>
+
+<script>
+
+const products = {
+"guilu-gao":{
+name:"龜鹿膏",
+img:"images/guilu-gao.jpg",
+desc:"濃縮膏體｜日常補養"
+},
+"guilu-drink":{
+name:"龜鹿飲",
+img:"images/guilu-drink.jpg",
+desc:"即開即飲｜外出方便"
+},
+"guilu-block":{
+name:"龜鹿湯塊",
+img:"images/guilu-block.jpg",
+desc:"料理使用｜燉煮方便"
+},
+"lurong":{
+name:"鹿茸粉",
+img:"images/lurong-powder.jpg",
+desc:"粉末型｜可加入飲品"
+}
+};
+
+const params = new URLSearchParams(location.search);
+const id = params.get("id") || "guilu-gao";
+const p = products[id];
+
+document.getElementById("app").innerHTML = `
+<img src="${p.img}" class="full">
 
 <div class="box">
-<h2>龜鹿膏</h2>
-<p>日常補養使用</p>
-<a href="https://lin.ee/sHZW7NkR" class="btn">LINE詢問</a>
+<h2>${p.name}</h2>
+<p>${p.desc}</p>
+
+<a href="https://lin.ee/sHZW7NkR" class="btn big">
+👉 免費幫你搭配
+</a>
+
 </div>
+
+<div class="switch">
+
+<a href="?id=guilu-gao">龜鹿膏</a>
+<a href="?id=guilu-drink">龜鹿飲</a>
+<a href="?id=guilu-block">龜鹿湯塊</a>
+<a href="?id=lurong">鹿茸粉</a>
+
+</div>
+
+<div class="bottom">
+<a href="https://lin.ee/sHZW7NkR" class="btn big">立即詢問</a>
+</div>
+`;
+
+</script>
 
 </body>
 </html>
