@@ -19,90 +19,100 @@ const el = {
   uses: document.getElementById('product-uses'),
   line: document.getElementById('product-line'),
   tabs: document.getElementById('product-tabs'),
-  related: document.getElementById('related-products'),
-  extra: document.getElementById('product-extra')
+  extra: document.getElementById('product-extra'),
+  related: document.getElementById('related-products')
 };
 
-// ✅ 中文標題
-function getArticleTitle(url){
+// 中文標題
+function getTitle(url){
   if(typeof ARTICLES !== 'undefined'){
-    const match = ARTICLES.find(a => a.url === url);
-    if(match) return match.title;
+    const m = ARTICLES.find(a=>a.url===url);
+    if(m) return m.title;
   }
   return url.replace('.html','').replaceAll('-',' ');
 }
 
-// ✅ 中文摘要
-function getArticleSummary(url){
+// 中文摘要
+function getSummary(url){
   if(typeof ARTICLES !== 'undefined'){
-    const match = ARTICLES.find(a => a.url === url);
-    if(match) return match.summary || '查看內容';
+    const m = ARTICLES.find(a=>a.url===url);
+    if(m) return m.summary || '查看內容';
   }
   return '查看內容';
 }
 
-function renderProduct(product){
+function render(p){
 
-  el.image.src = product.image;
-  el.title.textContent = product.name;
-  el.summary.textContent = product.desc;
+  el.image.src = p.image;
+  el.title.textContent = p.name;
+  el.summary.textContent = p.desc;
 
-  el.sizes.textContent = product.sizes.join(' / ');
-  el.pack.textContent = product.package;
+  el.sizes.textContent = p.sizes.join(' / ');
+  el.pack.textContent = p.package;
 
   el.ingredients.innerHTML =
-    product.ingredients.map(i=>`<li>${i}</li>`).join('');
+    p.ingredients.map(i=>`<li>${i}</li>`).join('');
 
   el.uses.innerHTML =
-    product.uses.map(i=>`<li>${i}</li>`).join('');
+    p.uses.map(i=>`<li>${i}</li>`).join('');
 
   el.line.href =
-    `https://lin.ee/sHZW7NkR?text=${encodeURIComponent(`我想詢問 ${product.name}`)}`;
+    `https://lin.ee/sHZW7NkR?text=${encodeURIComponent(`我想詢問 ${p.name}`)}`;
 
-  history.replaceState(null,'',`?id=${product.id}`);
+  history.replaceState(null,'',`?id=${p.id}`);
 
-  // 🔥 文章
-  if(el.extra){
-    el.extra.innerHTML = `
-      <h2>相關文章</h2>
-      <div class="product-grid">
-        ${product.articles.map(url=>`
-          <a href="articles/${url}" class="product-card">
-            <h3>${getArticleTitle(url)}</h3>
-            <p>${getArticleSummary(url)}</p>
-          </a>
-        `).join('')}
-      </div>
+  // 文章
+  el.extra.innerHTML = `
+    <h2>相關文章</h2>
+    <div class="product-grid">
+      ${p.articles.map(u=>`
+        <a href="articles/${u}" class="product-card">
+          <h3>${getTitle(u)}</h3>
+          <p>${getSummary(u)}</p>
+        </a>
+      `).join('')}
+    </div>
 
-      <h2 style="margin-top:30px">搭配方式</h2>
-      <div class="product-grid">
-        ${product.recipes.map(url=>`
-          <a href="articles/${url}" class="product-card">
-            <h3>${getArticleTitle(url)}</h3>
-            <p>${getArticleSummary(url)}</p>
-          </a>
-        `).join('')}
-      </div>
-    `;
-  }
+    <h2 style="margin-top:30px">搭配方式</h2>
+    <div class="product-grid">
+      ${p.recipes.map(u=>`
+        <a href="articles/${u}" class="product-card">
+          <h3>${getTitle(u)}</h3>
+          <p>${getSummary(u)}</p>
+        </a>
+      `).join('')}
+    </div>
+  `;
+
+  // 推薦
+  const others = products.filter(x=>x.id!==p.id).slice(0,3);
+  el.related.innerHTML = `
+    <h2>你也可以看看</h2>
+    <div class="product-grid">
+      ${others.map(o=>`
+        <a href="?id=${o.id}" class="product-card">
+          <img src="${o.image}">
+          <h3>${o.name}</h3>
+        </a>
+      `).join('')}
+    </div>
+  `;
 }
 
-// 🔥 商品切換
-el.tabs.innerHTML = products.map(p => `
-  <div class="product-card"
-    style="min-width:140px;cursor:pointer"
+// 切換列
+el.tabs.innerHTML = products.map(p=>`
+  <div class="product-card" style="min-width:140px;cursor:pointer"
     onclick="switchProduct('${p.id}')">
     <img src="${p.image}">
     <h3>${p.name}</h3>
   </div>
 `).join('');
 
-window.switchProduct = function(id){
-  const product = products.find(p=>p.id===id);
-  renderProduct(product);
+window.switchProduct = id=>{
+  const p = products.find(x=>x.id===id);
+  render(p);
 };
 
-const first = products.find(p=>p.id===currentId);
-renderProduct(first);
+render(products.find(x=>x.id===currentId));
 
 })();
