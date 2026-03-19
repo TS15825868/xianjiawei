@@ -1,11 +1,9 @@
 (function(){
 
-// ===== 路徑自動 =====
 function getBasePrefix(){
   return location.pathname.includes('/articles/') ? '../' : '';
 }
 
-// ===== 漢堡開關 =====
 function toggleMenu(force){
   const menu = document.getElementById('menuOverlay');
   if(!menu) return;
@@ -20,16 +18,14 @@ function toggleMenu(force){
 
 window.toggleMenu = toggleMenu;
 
-// ===== DOM =====
 document.addEventListener('DOMContentLoaded', () => {
 
   const prefix = getBasePrefix();
   const menu = document.getElementById('menuOverlay');
   const btn = document.querySelector('.menu-btn');
 
-  // ===== 🔥 全螢幕漢堡（封頂）=====
+  // ===== 漢堡 =====
   if(menu){
-
     menu.innerHTML = `
       <div class="menu-full">
 
@@ -64,29 +60,24 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
-    // 點背景關閉
     menu.addEventListener('click',(e)=>{
       if(e.target === menu) toggleMenu(false);
     });
 
-    // ✕ 關閉
     const closeBtn = document.getElementById('menuClose');
     if(closeBtn){
       closeBtn.addEventListener('click', ()=>toggleMenu(false));
     }
 
-    // 點連結關閉
     menu.querySelectorAll('a').forEach(link=>{
       link.addEventListener('click', ()=>toggleMenu(false));
     });
   }
 
-  // 漢堡按鈕
   if(btn){
     btn.addEventListener('click', ()=>toggleMenu());
   }
 
-  // ESC關閉
   document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape') toggleMenu(false);
   });
@@ -105,6 +96,14 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el=>obs.observe(el));
   }else{
     revealEls.forEach(el=>el.classList.add('show'));
+  }
+
+  // ===== 🔥 自動文章系統（最重要）=====
+  if(location.pathname.includes('/articles/')){
+    const script = document.createElement('script');
+    script.src = prefix + 'article.js';
+    script.defer = true;
+    document.body.appendChild(script);
   }
 
 });
