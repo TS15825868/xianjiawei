@@ -61,7 +61,7 @@ img{
   width:auto;
 }
 
-/* ===== Menu（封頂）===== */
+/* ===== Menu ===== */
 .menu-overlay{
   position:fixed;
   inset:0;
@@ -170,7 +170,7 @@ img{
   opacity:.9;
 }
 
-/* ===== Buttons（封頂）===== */
+/* ===== Buttons ===== */
 .btn{
   display:inline-flex;
   align-items:center;
@@ -194,6 +194,12 @@ img{
 .btn-dark{
   border:1.5px solid var(--text);
   color:var(--text);
+}
+
+.btn-outline-dark{
+  border:1.5px solid var(--text);
+  color:var(--text);
+  background:#fff;
 }
 
 .btn-line{
@@ -221,7 +227,7 @@ img{
   gap:22px;
 }
 
-/* ===== Card（封頂）===== */
+/* ===== Card ===== */
 .product-card{
   background:#fff;
   padding:18px;
@@ -244,11 +250,45 @@ img{
 }
 
 /* ===== Product Page ===== */
+.product-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+
 .product-actions{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
-  margin-top:20px;
+  margin:20px 0;
+}
+
+.info-card{
+  background:#fff;
+  padding:16px;
+  border-radius:16px;
+  margin-top:12px;
+}
+
+/* ===== Tabs ===== */
+.scroll-x{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+}
+
+.tab{
+  padding:8px 16px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  white-space:nowrap;
+  text-decoration:none;
+  color:var(--text);
+}
+
+.tab.active{
+  background:var(--text);
+  color:#fff;
 }
 
 /* ===== CTA ===== */
@@ -295,6 +335,10 @@ img{
 }
 
 .menu-grid{
+  grid-template-columns:1fr;
+}
+
+.product-layout{
   grid-template-columns:1fr;
 }
 
