@@ -9,7 +9,6 @@ const products = data.products || [];
 
 if(!currentId) currentId = products[0].id;
 
-// ===== DOM =====
 const el = {
   image: document.getElementById('product-image'),
   title: document.getElementById('product-title'),
@@ -20,10 +19,28 @@ const el = {
   uses: document.getElementById('product-uses'),
   line: document.getElementById('product-line'),
   tabs: document.getElementById('product-tabs'),
-  related: document.getElementById('related-products')
+  related: document.getElementById('related-products'),
+  extra: document.getElementById('product-extra')
 };
 
-// ===== 渲染商品 =====
+// ✅ 中文標題
+function getArticleTitle(url){
+  if(typeof ARTICLES !== 'undefined'){
+    const match = ARTICLES.find(a => a.url === url);
+    if(match) return match.title;
+  }
+  return url.replace('.html','').replaceAll('-',' ');
+}
+
+// ✅ 中文摘要
+function getArticleSummary(url){
+  if(typeof ARTICLES !== 'undefined'){
+    const match = ARTICLES.find(a => a.url === url);
+    if(match) return match.summary || '查看內容';
+  }
+  return '查看內容';
+}
+
 function renderProduct(product){
 
   el.image.src = product.image;
@@ -42,12 +59,35 @@ function renderProduct(product){
   el.line.href =
     `https://lin.ee/sHZW7NkR?text=${encodeURIComponent(`我想詢問 ${product.name}`)}`;
 
-  // URL 不刷新
   history.replaceState(null,'',`?id=${product.id}`);
 
+  // 🔥 文章
+  if(el.extra){
+    el.extra.innerHTML = `
+      <h2>相關文章</h2>
+      <div class="product-grid">
+        ${product.articles.map(url=>`
+          <a href="articles/${url}" class="product-card">
+            <h3>${getArticleTitle(url)}</h3>
+            <p>${getArticleSummary(url)}</p>
+          </a>
+        `).join('')}
+      </div>
+
+      <h2 style="margin-top:30px">搭配方式</h2>
+      <div class="product-grid">
+        ${product.recipes.map(url=>`
+          <a href="articles/${url}" class="product-card">
+            <h3>${getArticleTitle(url)}</h3>
+            <p>${getArticleSummary(url)}</p>
+          </a>
+        `).join('')}
+      </div>
+    `;
+  }
 }
 
-// ===== 商品切換列 =====
+// 🔥 商品切換
 el.tabs.innerHTML = products.map(p => `
   <div class="product-card"
     style="min-width:140px;cursor:pointer"
@@ -57,35 +97,12 @@ el.tabs.innerHTML = products.map(p => `
   </div>
 `).join('');
 
-// ===== 推薦 =====
-function renderRelated(current){
-  const others = products.filter(p => p.id !== current.id).slice(0,3);
-
-  el.related.innerHTML = `
-    <h2>你也可以看看</h2>
-    <div class="product-grid">
-      ${others.map(p=>`
-        <a href="?id=${p.id}" class="product-card">
-          <img src="${p.image}">
-          <h3>${p.name}</h3>
-        </a>
-      `).join('')}
-    </div>
-  `;
-}
-
-// ===== 切換 =====
 window.switchProduct = function(id){
   const product = products.find(p=>p.id===id);
-  if(!product) return;
-
   renderProduct(product);
-  renderRelated(product);
 };
 
-// ===== 初始載入 =====
 const first = products.find(p=>p.id===currentId);
 renderProduct(first);
-renderRelated(first);
 
 })();
