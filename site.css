@@ -1,18 +1,187 @@
-/* ===== 漢堡按鈕 ===== */
-.menu-btn{
-  font-size:28px;          /* 🔥 放大 */
-  cursor:pointer;
-  padding:6px 10px;
-  z-index:1100;
-  position:relative;
+/* ===== 基本 ===== */
+body{
+  margin:0;
+  font-family:-apple-system,"PingFang TC",sans-serif;
+  background:#f7f4ed;
+  color:#2f2118;
+  padding-top:70px;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* ===== 避免被壓 ===== */
+/* ===== header ===== */
 .header{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:70px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 16px;
+  background:#fff;
+  border-bottom:1px solid #eee;
   z-index:1200;
 }
 
-/* ===== 全螢幕選單 ===== */
+.logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:600;
+}
+
+.logo img{
+  height:38px;
+}
+
+/* ===== 漢堡 ===== */
+.menu-btn{
+  font-size:30px;
+  cursor:pointer;
+  padding:6px 10px;
+}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;
+  height:72vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  z-index:1;
+}
+
+.hero-bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transform:scale(1.05);
+}
+
+.hero-overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.4),
+    rgba(0,0,0,.6)
+  );
+}
+
+.hero-content{
+  position:relative;
+  color:#fff;
+  text-align:center;
+  max-width:320px;
+}
+
+.hero-title{
+  font-size:34px;
+  margin-bottom:12px;
+}
+
+.hero-text{
+  opacity:.9;
+  margin-bottom:22px;
+}
+
+/* ===== section ===== */
+.section{
+  padding:60px 16px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.section h2{
+  font-size:22px;
+  margin-bottom:18px;
+}
+
+/* ===== 卡片 ===== */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:16px;
+}
+
+.product-card{
+  background:#fff;
+  padding:20px 16px;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,.05);
+  text-align:center;
+  text-decoration:none;
+  color:inherit;
+  border:1px solid #f1eee9;
+  transition:.25s;
+}
+
+.product-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 16px 35px rgba(0,0,0,.08);
+}
+
+.product-card h3{
+  margin:6px 0;
+  font-size:16px;
+}
+
+.product-card p{
+  font-size:13px;
+  color:#777;
+}
+
+/* ===== 按鈕 ===== */
+.btn{
+  display:inline-block;
+  padding:12px 20px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  transition:.2s;
+}
+
+.btn-line{
+  background:#06C755;
+  color:#fff;
+}
+
+.btn-dark{
+  background:#2f2118;
+  color:#fff;
+}
+
+.btn-outline{
+  border:1px solid #fff;
+  color:#fff;
+}
+
+/* ===== CTA ===== */
+.cta{
+  text-align:center;
+  padding:70px 20px;
+  background:#2f2118;
+  color:#fff;
+}
+
+/* ===== 浮動 LINE ===== */
+.floating-line{
+  position:fixed;
+  right:16px;
+  bottom:20px;
+  background:#06C755;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:999px;
+  text-decoration:none;
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+  font-size:14px;
+}
+
+/* ===== 漢堡選單（全螢幕）===== */
 .menu-overlay{
   position:fixed;
   inset:0;
@@ -28,7 +197,6 @@
   pointer-events:auto;
 }
 
-/* 🔥 重點：整面，不是側滑 */
 .menu-full{
   background:#fff;
   width:100%;
@@ -45,27 +213,26 @@
   opacity:1;
 }
 
-/* ===== 關閉 ===== */
+/* ===== 選單內容 ===== */
 .menu-close{
   font-size:28px;
   cursor:pointer;
   margin-bottom:30px;
 }
 
-/* ===== 區塊 ===== */
 .menu-block{
   margin-bottom:26px;
 }
 
 .menu-block a{
   display:block;
-  font-size:18px;   /* 🔥 放大 */
+  font-size:18px;
   padding:12px 0;
   text-decoration:none;
   color:#2f2118;
 }
 
-/* ===== 底部按鈕 ===== */
+/* ===== 選單底部 ===== */
 .menu-bottom{
   margin-top:40px;
   display:flex;
@@ -73,11 +240,15 @@
   gap:12px;
 }
 
-/* ===== 手機優化 ===== */
+/* ===== 響應式 ===== */
 @media(max-width:768px){
 
+  .hero-title{
+    font-size:28px;
+  }
+
   .menu-btn{
-    font-size:30px;   /* 🔥 手機更大 */
+    font-size:32px;
   }
 
   .menu-block a{
