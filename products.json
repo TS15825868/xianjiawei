@@ -2,14 +2,11 @@
   "products": [
     {
       "id": "guilu-gao",
-      "slug": "guilu-gao",
       "name": "龜鹿膏",
       "image": "images/guilu-gao-100g.jpg",
-      "seoImage": "images/guilu-gao-100g.jpg",
-      "desc": "龜鹿膏為濃縮膏狀型態，可直接食用或加入溫水沖泡，適合作為日常飲食中的固定補養搭配。",
+      "desc": "濃縮膏狀，可直接食用或沖泡",
       "sizes": ["100 g"],
       "package": "玻璃罐裝",
-      "category": "product",
       "ingredients": [
         "龜板萃取物",
         "鹿角萃取物",
@@ -19,123 +16,40 @@
         "黃耆"
       ],
       "uses": [
-        "可直接食用",
-        "可加入溫水攪勻後飲用",
-        "可依作息安排早晚固定搭配"
-      ],
-      "articles": [
-        "guilu-gao-how.html",
-        "guilu-gao-dose.html",
-        "guilu-gao-storage.html",
-        "guilu-gao-for-who.html",
-        "what-is-guilu.html"
-      ],
-      "recipes": [
-        "guilu-breakfast.html",
-        "guilu-daily-use.html"
+        "直接食用",
+        "加入溫水",
+        "每日固定使用"
       ]
     },
-
     {
       "id": "guilu-drink",
-      "slug": "guilu-drink",
       "name": "龜鹿飲",
       "image": "images/guilu-drink-30cc.jpg",
-      "seoImage": "images/guilu-drink-30cc.jpg",
-      "desc": "龜鹿飲為即飲型產品，開瓶即可飲用，也可依個人習慣溫熱後再喝，適合外出攜帶或忙碌日常。",
-      "sizes": ["30 cc", "180 cc"],
-      "package": "玻璃瓶／鋁袋",
-      "category": "product",
-      "ingredients": [
-        "水",
-        "龜板萃取物",
-        "鹿角萃取物",
-        "粉光蔘",
-        "枸杞",
-        "紅棗",
-        "黃耆"
-      ],
-      "uses": [
-        "開瓶即飲",
-        "可隔水溫熱後飲用",
-        "適合外出隨身攜帶"
-      ],
-      "articles": [
-        "guilu-drink-guide.html",
-        "guilu-drink-time.html",
-        "guilu-drink-storage.html",
-        "guilu-drink-save.html",
-        "guilu-drink-for-who.html"
-      ],
-      "recipes": [
-        "guilu-drink-best-time.html",
-        "guilu-food-recommend.html"
-      ]
+      "desc": "即開即飲，方便攜帶",
+      "sizes": ["30 cc","180 cc"],
+      "package": "瓶裝 / 鋁袋",
+      "ingredients": ["龜板","鹿角"],
+      "uses": ["直接飲用","溫熱飲用"]
     },
-
     {
       "id": "guilu-block",
-      "slug": "guilu-block",
       "name": "龜鹿湯塊",
       "image": "images/guilu-block-300g.jpg",
-      "seoImage": "images/guilu-block-300g.jpg",
-      "desc": "龜鹿湯塊為濃縮湯塊型態，適合用於燉雞湯、排骨湯或家常藥膳湯品，讓日常料理更方便。",
-      "sizes": ["75 g", "300 g", "600 g"],
+      "desc": "適合燉雞湯、排骨",
+      "sizes": ["75 g","300 g","600 g"],
       "package": "盒裝",
-      "category": "recipe",
-      "ingredients": [
-        "龜板萃取物",
-        "鹿角萃取物"
-      ],
-      "uses": [
-        "可搭配雞肉燉煮",
-        "可搭配排骨或藥膳食材",
-        "適合家庭鍋煮與分次料理"
-      ],
-      "articles": [
-        "guilu-block-how.html",
-        "guilu-block-storage.html",
-        "guilu-block-vs-gao.html",
-        "guilu-block-ratio.html",
-        "guilu-block-cooking.html"
-      ],
-      "recipes": [
-        "guilu-chicken-soup.html",
-        "guilu-pork-recipe.html",
-        "guilu-recipes.html",
-        "guilu-cooking-fast.html"
-      ]
+      "ingredients": ["龜板","鹿角"],
+      "uses": ["燉湯使用","家庭料理"]
     },
-
     {
-      "id": "lurong-powder",
-      "slug": "lurong-powder",
+      "id": "lurong",
       "name": "鹿茸粉",
-      "image": "images/lurong-powder-75g.jpg",
-      "seoImage": "images/lurong-powder-75g.jpg",
-      "desc": "鹿茸粉為粉末型態，可加入咖啡、牛奶、茶飲或其他溫熱飲品中，適合做成日常飲品搭配。",
+      "image": "images/lurong-powder.jpg",
+      "desc": "可加入咖啡、牛奶",
       "sizes": ["75 g"],
-      "package": "玻璃罐裝",
-      "category": "recipe",
-      "ingredients": [
-        "鹿茸"
-      ],
-      "uses": [
-        "可加入咖啡",
-        "可加入牛奶",
-        "可加入茶飲或溫熱飲品"
-      ],
-      "articles": [
-        "lurong-how.html",
-        "lurong-time.html",
-        "lurong-for-who.html"
-      ],
-      "recipes": [
-        "lurong-coffee.html",
-        "lurong-milk.html",
-        "lurong-tea.html",
-        "lurong-milk-ratio.html"
-      ]
+      "package": "罐裝",
+      "ingredients": ["鹿茸"],
+      "uses": ["加入飲品","日常補充"]
     }
   ]
 }
