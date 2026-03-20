@@ -1,3 +1,4 @@
+/* ===== 基本 ===== */
 body{
   margin:0;
   font-family:-apple-system,"PingFang TC",sans-serif;
@@ -6,7 +7,7 @@ body{
   padding-top:70px;
 }
 
-/* header */
+/* ===== header ===== */
 .header{
   position:fixed;
   top:0;
@@ -18,32 +19,24 @@ body{
   padding:0 16px;
   background:#fff;
   border-bottom:1px solid #eee;
-  z-index:2000;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:8px;
+  z-index:9999;
 }
 
 .logo img{
   height:42px;
 }
 
-/* 漢堡 */
+/* ===== 漢堡 ===== */
 .menu-btn{
-  font-size:28px;
+  font-size:30px;
   cursor:pointer;
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero{
   position:relative;
-  height:70vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  height:72vh;
+  overflow:hidden;
 }
 
 .hero-bg{
@@ -55,66 +48,55 @@ body{
 
 .hero-overlay{
   position:absolute;
-  width:100%;
-  height:100%;
+  inset:0;
   background:rgba(0,0,0,.45);
 }
 
 .hero-content{
   position:relative;
+  z-index:2;
   color:#fff;
   text-align:center;
-  max-width:420px;
+  padding:0 20px;
 }
 
-.hero-title{
-  font-size:34px;
-  margin-bottom:12px;
-}
-
-.hero-text{
-  margin-bottom:20px;
-}
-
-/* section */
+/* ===== section ===== */
 .section{
   padding:60px 16px;
   max-width:1100px;
   margin:auto;
 }
 
-/* grid */
+/* ===== 卡片系統（統一🔥） */
 .product-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:16px;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:18px;
 }
 
-/* 卡片（統一🔥） */
 .product-card{
   background:#fff;
-  padding:18px;
-  border-radius:16px;
+  padding:20px;
+  border-radius:18px;
   border:1px solid #eee;
-  box-shadow:0 8px 20px rgba(0,0,0,.05);
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
   text-align:center;
-  text-decoration:none;
-  color:inherit;
   transition:.25s;
 }
 
 .product-card:hover{
   transform:translateY(-6px);
-  box-shadow:0 16px 35px rgba(0,0,0,.08);
+  box-shadow:0 18px 40px rgba(0,0,0,.08);
 }
 
-/* 按鈕系統🔥 */
+/* ===== 按鈕（統一🔥） */
 .btn{
   display:inline-block;
-  padding:12px 20px;
+  padding:12px 22px;
   border-radius:999px;
-  text-decoration:none;
   font-weight:600;
+  text-decoration:none;
+  border:1px solid transparent;
 }
 
 .btn-line{
@@ -132,7 +114,7 @@ body{
   color:#2f2118;
 }
 
-/* CTA */
+/* ===== CTA ===== */
 .cta{
   text-align:center;
   padding:70px 20px;
@@ -140,7 +122,7 @@ body{
   color:#fff;
 }
 
-/* floating */
+/* ===== 浮動LINE ===== */
 .floating-line{
   position:fixed;
   right:16px;
@@ -152,7 +134,7 @@ body{
   z-index:999;
 }
 
-/* 漢堡全頁 */
+/* ===== 漢堡全頁 ===== */
 .menu-overlay{
   position:fixed;
   inset:0;
@@ -160,7 +142,7 @@ body{
   opacity:0;
   pointer-events:none;
   transition:.3s;
-  z-index:3000;
+  z-index:10000;
 }
 
 .menu-overlay.active{
@@ -169,23 +151,11 @@ body{
 }
 
 .menu-full{
-  padding:30px;
-}
-
-.menu-block{
-  margin-bottom:20px;
+  padding:40px 24px;
 }
 
 .menu-block a{
   display:block;
-  padding:12px 0;
-  text-decoration:none;
-  color:#2f2118;
+  padding:14px 0;
   font-size:18px;
-}
-
-.menu-close{
-  font-size:22px;
-  margin-bottom:20px;
-  cursor:pointer;
 }
