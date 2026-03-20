@@ -25,6 +25,7 @@ z-index:2000;
 display:flex;
 align-items:center;
 gap:8px;
+font-weight:600;
 }
 
 .logo img{
@@ -37,13 +38,14 @@ font-size:30px;
 cursor:pointer;
 }
 
-/* hero */
+/* ===== HERO ===== */
 .hero{
-height:70vh;
+height:75vh;
 display:flex;
 align-items:center;
 justify-content:center;
 position:relative;
+overflow:hidden;
 }
 
 .hero-bg{
@@ -57,47 +59,62 @@ position:absolute;
 position:absolute;
 width:100%;
 height:100%;
-background:rgba(0,0,0,.4);
+background:rgba(0,0,0,.45);
 }
 
 .hero-content{
 position:relative;
 color:#fff;
 text-align:center;
-max-width:400px;
+max-width:420px;
+padding:0 20px;
 }
 
-/* section */
+/* ===== 區塊 ===== */
 .section{
 padding:60px 16px;
 max-width:1100px;
 margin:auto;
 }
 
-/* grid */
+/* ===== GRID ===== */
 .product-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+grid-template-columns:repeat(2,1fr);
 gap:16px;
 }
 
-/* card */
-.product-card{
-background:#fff;
-padding:20px;
-border-radius:16px;
-border:1px solid #eee;
-text-align:center;
+/* 桌機 */
+@media(min-width:768px){
+.product-grid{
+grid-template-columns:repeat(4,1fr);
+}
 }
 
-/* btn */
+/* ===== 卡片 ===== */
+.product-card{
+background:#fff;
+padding:22px 16px;
+border-radius:18px;
+border:1px solid #eee;
+text-align:center;
+box-shadow:0 10px 25px rgba(0,0,0,.05);
+transition:.25s;
+}
+
+.product-card:hover{
+transform:translateY(-6px);
+box-shadow:0 20px 40px rgba(0,0,0,.08);
+}
+
+/* ===== 按鈕 ===== */
 .btn{
 display:inline-block;
-padding:12px 18px;
+padding:12px 20px;
 border-radius:999px;
-margin-top:10px;
 text-decoration:none;
 font-weight:600;
+margin-top:10px;
 }
 
 .btn-dark{
@@ -115,7 +132,13 @@ border:1px solid #2f2118;
 color:#2f2118;
 }
 
-/* menu */
+/* ===== CTA ===== */
+.cta{
+text-align:center;
+padding:70px 20px;
+}
+
+/* ===== 漢堡（全頁🔥） ===== */
 .menu-overlay{
 position:fixed;
 inset:0;
@@ -132,11 +155,20 @@ pointer-events:auto;
 }
 
 .menu-full{
-padding:30px;
+padding:40px 24px;
+}
+
+.menu-full a{
+display:block;
+padding:14px 0;
+font-size:18px;
+text-decoration:none;
+color:#2f2118;
+border-bottom:1px solid #eee;
 }
 
 .menu-close{
-font-size:24px;
+font-size:26px;
 margin-bottom:20px;
 cursor:pointer;
 }
