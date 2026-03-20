@@ -1,100 +1,89 @@
-:root{
-  --bg:#f7f4ed;
-  --text:#2f2118;
-  --line:#e8dfd2;
-
-  --shadow:0 10px 30px rgba(0,0,0,.06);
-  --shadow-hover:0 20px 50px rgba(0,0,0,.12);
-
-  --radius:20px;
-  --max:1100px;
-}
-
-*{box-sizing:border-box;}
-
 body{
   margin:0;
   font-family:-apple-system,"PingFang TC",sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  padding-top:76px;
+  background:#f7f4ed;
+  color:#2f2118;
+  padding-top:70px;
 }
 
-/* ===== Header ===== */
 .header{
   position:fixed;
   top:0;
   width:100%;
-  height:76px;
+  height:70px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:0 20px;
-  background:rgba(255,255,255,.9);
-  border-bottom:1px solid var(--line);
-  z-index:1000;
+  padding:0 16px;
+  background:#fff;
+  border-bottom:1px solid #eee;
+  z-index:999;
 }
 
 .logo{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:8px;
 }
 
 .logo img{
-  height:42px;
+  height:38px;
 }
 
-/* ===== HERO（修正重點）===== */
-.hero{
-  position:relative;
-  height:70vh;
-  overflow:hidden;
+.section{
+  padding:40px 16px;
+  max-width:1100px;
+  margin:auto;
 }
 
-.hero-bg{
-  position:absolute;
+.product-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px;
+}
+
+.product-layout img{
   width:100%;
-  height:100%;
-  object-fit:cover;
+  border-radius:12px;
 }
 
-.hero-overlay{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,.35);
+@media(max-width:768px){
+  .product-layout{
+    grid-template-columns:1fr;
+  }
 }
 
-.hero-content{
-  position:relative;
-  z-index:2;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
+.product-card{
+  background:#fff;
+  padding:16px;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.05);
   text-align:center;
-  color:#fff;
-  padding:20px;
+  text-decoration:none;
+  color:inherit;
+  transition:.2s;
 }
 
-.hero-title{
-  font-size:42px;
-  margin-bottom:10px;
+.product-card:hover{
+  transform:translateY(-4px);
 }
 
-.hero-text{
-  opacity:.9;
-  margin-bottom:20px;
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
 }
 
-/* ===== Button ===== */
+.info-card{
+  background:#fff;
+  padding:14px;
+  border-radius:12px;
+  margin-top:12px;
+}
+
 .btn{
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  padding:12px 26px;
+  display:inline-block;
+  padding:12px 20px;
   border-radius:999px;
   text-decoration:none;
   font-weight:600;
@@ -105,48 +94,25 @@ body{
   color:#fff;
 }
 
-.btn-outline{
-  border:1px solid #fff;
-  color:#fff;
-}
-
 .btn-dark{
   border:1px solid #000;
   color:#000;
   background:#fff;
 }
 
-/* ===== Section ===== */
-.section{
-  padding:60px 20px;
-  max-width:var(--max);
-  margin:auto;
+.product-actions{
+  margin:16px 0;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
-/* ===== Grid（修正間距）===== */
-.product-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
+.product-main-text{
+  font-size:15px;
+  line-height:1.6;
+  color:#4b3a2f;
 }
 
-/* ===== Card（穩定版）===== */
-.product-card{
-  background:#fff;
-  padding:16px;
-  border-radius:var(--radius);
-  text-align:center;
-  box-shadow:var(--shadow);
-  text-decoration:none;
-  color:inherit;
-}
-
-.product-card img{
-  border-radius:12px;
-  margin-bottom:10px;
-}
-
-/* ===== CTA ===== */
 .cta{
   text-align:center;
   padding:60px 20px;
@@ -154,40 +120,13 @@ body{
   color:#fff;
 }
 
-/* ===== Floating ===== */
 .floating-line{
   position:fixed;
   right:16px;
   bottom:20px;
   background:#06C755;
   color:#fff;
-  padding:12px 18px;
+  padding:10px 16px;
   border-radius:999px;
   text-decoration:none;
-}
-
-/* ===== Menu（修正層級）===== */
-.menu-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.9);
-  display:none;
-  z-index:999;
-}
-
-.menu-overlay.active{
-  display:flex;
-}
-
-/* ===== Mobile ===== */
-@media (max-width:720px){
-
-.hero-title{
-  font-size:28px;
-}
-
-.btn{
-  width:100%;
-}
-
 }
