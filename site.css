@@ -1,169 +1,41 @@
-body{
-  margin:0;
-  font-family:-apple-system,"PingFang TC",sans-serif;
-  background:#f7f4ed;
-  color:#2f2118;
-  padding-top:70px;
-}
+body{margin:0;font-family:-apple-system,"PingFang TC";background:#f7f4ed;color:#2f2118;padding-top:70px;}
 
-/* header */
-.header{
-  position:fixed;
-  top:0;
-  width:100%;
-  height:70px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 16px;
-  background:#fff;
-  border-bottom:1px solid #eee;
-  z-index:999;
-}
+.header{position:fixed;top:0;width:100%;height:70px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;background:#fff;border-bottom:1px solid #eee;}
 
 .logo img{height:38px;}
 .menu-btn{font-size:22px;cursor:pointer;}
 
-/* hero */
-.hero{position:relative;height:70vh;display:flex;align-items:center;justify-content:center;}
-.hero-bg{position:absolute;width:100%;height:100%;object-fit:cover;}
-.hero-overlay{position:absolute;width:100%;height:100%;background:rgba(0,0,0,.5);}
-.hero-content{position:relative;color:#fff;text-align:center;}
-
-/* section */
 .section{padding:60px 16px;max-width:1100px;margin:auto;}
 
-/* grid */
-.product-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:16px;
-}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;}
 
-/* card */
-.product-card{
-  background:#fff;
-  padding:18px;
-  border-radius:16px;
-  text-align:center;
-  text-decoration:none;
-  color:inherit;
-}
+.product-card{background:#fff;padding:16px;border-radius:16px;text-align:center;text-decoration:none;color:inherit;}
 
-/* product */
-.product-layout{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
-}
-
-.product-layout img{
-  width:100%;
-  max-width:380px;
-  margin:auto;
-  display:block;
-}
+.product-layout{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+.product-layout img{width:100%;max-width:380px;margin:auto;display:block;}
 
 @media(max-width:768px){
-  .product-layout{grid-template-columns:1fr;}
-  .product-layout img{max-width:260px;}
+.product-layout{grid-template-columns:1fr;}
+.product-layout img{max-width:260px;}
 }
 
-/* btn */
-.btn{
-  display:inline-block;
-  padding:12px 20px;
-  border-radius:999px;
-  text-decoration:none;
-  font-weight:600;
-}
-
+.btn{padding:12px 20px;border-radius:999px;text-decoration:none;}
 .btn-line{background:#06C755;color:#fff;}
 .btn-dark{background:#2f2118;color:#fff;}
 
-/* actions */
-.product-actions{
-  margin:20px 0;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
+.product-actions{display:flex;gap:10px;margin:20px 0;}
+.product-actions .btn{flex:1;text-align:center;}
 
-.product-actions .btn{
-  flex:1;
-  text-align:center;
-}
+.info-card{background:#fff;padding:12px;border-radius:12px;margin-top:12px;}
 
-/* info */
-.info-card{
-  background:#fff;
-  padding:14px;
-  border-radius:12px;
-  margin-top:12px;
-}
+.cta{text-align:center;padding:60px;background:#2f2118;color:#fff;}
 
-/* CTA */
-.cta{
-  text-align:center;
-  padding:60px 20px;
-  background:#2f2118;
-  color:#fff;
-}
+.floating-line{position:fixed;right:16px;bottom:20px;background:#06C755;color:#fff;padding:12px;border-radius:999px;}
 
-/* floating */
-.floating-line{
-  position:fixed;
-  right:16px;
-  bottom:20px;
-  background:#06C755;
-  color:#fff;
-  padding:12px 18px;
-  border-radius:999px;
-}
+.menu-overlay{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;}
+.menu-overlay.active{opacity:1;pointer-events:auto;}
 
-/* ===== 全畫面漢堡 ===== */
-.menu-overlay{
-  position:fixed;
-  inset:0;
-  background:#fff;
-  opacity:0;
-  pointer-events:none;
-  transition:.3s;
-  z-index:1000;
-}
+.menu-full{padding:80px 24px;height:100%;display:flex;flex-direction:column;justify-content:space-between;}
 
-.menu-overlay.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.menu-full{
-  width:100%;
-  height:100%;
-  padding:80px 24px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-.menu-close{
-  position:absolute;
-  top:20px;
-  right:20px;
-  font-size:22px;
-  cursor:pointer;
-}
-
-.menu-block a{
-  display:block;
-  font-size:22px;
-  padding:12px 0;
-  text-decoration:none;
-  color:#2f2118;
-}
-
-.menu-bottom{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
+.menu-block a{display:block;font-size:22px;padding:12px 0;text-decoration:none;color:#2f2118;}
+.menu-close{position:absolute;top:20px;right:20px;font-size:22px;}
