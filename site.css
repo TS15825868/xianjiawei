@@ -1,1 +1,191 @@
+body{
+  margin:0;
+  font-family:-apple-system,"PingFang TC",sans-serif;
+  background:#f7f4ed;
+  color:#2f2118;
+  padding-top:70px;
+}
 
+/* header */
+.header{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:70px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 16px;
+  background:#fff;
+  border-bottom:1px solid #eee;
+  z-index:2000;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.logo img{
+  height:42px;
+}
+
+/* 漢堡 */
+.menu-btn{
+  font-size:28px;
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  position:relative;
+  height:70vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.hero-overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.45);
+}
+
+.hero-content{
+  position:relative;
+  color:#fff;
+  text-align:center;
+  max-width:420px;
+}
+
+.hero-title{
+  font-size:34px;
+  margin-bottom:12px;
+}
+
+.hero-text{
+  margin-bottom:20px;
+}
+
+/* section */
+.section{
+  padding:60px 16px;
+  max-width:1100px;
+  margin:auto;
+}
+
+/* grid */
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:16px;
+}
+
+/* 卡片（統一🔥） */
+.product-card{
+  background:#fff;
+  padding:18px;
+  border-radius:16px;
+  border:1px solid #eee;
+  box-shadow:0 8px 20px rgba(0,0,0,.05);
+  text-align:center;
+  text-decoration:none;
+  color:inherit;
+  transition:.25s;
+}
+
+.product-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 16px 35px rgba(0,0,0,.08);
+}
+
+/* 按鈕系統🔥 */
+.btn{
+  display:inline-block;
+  padding:12px 20px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.btn-line{
+  background:#06C755;
+  color:#fff;
+}
+
+.btn-dark{
+  background:#2f2118;
+  color:#fff;
+}
+
+.btn-outline{
+  border:1px solid #2f2118;
+  color:#2f2118;
+}
+
+/* CTA */
+.cta{
+  text-align:center;
+  padding:70px 20px;
+  background:#2f2118;
+  color:#fff;
+}
+
+/* floating */
+.floating-line{
+  position:fixed;
+  right:16px;
+  bottom:20px;
+  background:#06C755;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:999px;
+  z-index:999;
+}
+
+/* 漢堡全頁 */
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:3000;
+}
+
+.menu-overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.menu-full{
+  padding:30px;
+}
+
+.menu-block{
+  margin-bottom:20px;
+}
+
+.menu-block a{
+  display:block;
+  padding:12px 0;
+  text-decoration:none;
+  color:#2f2118;
+  font-size:18px;
+}
+
+.menu-close{
+  font-size:22px;
+  margin-bottom:20px;
+  cursor:pointer;
+}
