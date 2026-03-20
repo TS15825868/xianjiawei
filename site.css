@@ -6,6 +6,7 @@ body{
   padding-top:70px;
 }
 
+/* header */
 .header{
   position:fixed;
   top:0;
@@ -30,57 +31,76 @@ body{
   height:38px;
 }
 
+/* HERO */
+.hero{
+  position:relative;
+  height:70vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.hero-bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.hero-overlay{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.4);
+}
+
+.hero-content{
+  position:relative;
+  color:#fff;
+  text-align:center;
+}
+
+.hero-title{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.hero-text{
+  opacity:.9;
+  margin-bottom:20px;
+}
+
+/* section */
 .section{
-  padding:40px 16px;
+  padding:50px 16px;
   max-width:1100px;
   margin:auto;
 }
 
-.product-layout{
+/* grid */
+.product-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:16px;
 }
 
-.product-layout img{
-  width:100%;
-  border-radius:12px;
-}
-
-@media(max-width:768px){
-  .product-layout{
-    grid-template-columns:1fr;
-  }
-}
-
+/* card */
 .product-card{
   background:#fff;
-  padding:16px;
+  padding:18px;
   border-radius:16px;
   box-shadow:0 10px 25px rgba(0,0,0,.05);
   text-align:center;
   text-decoration:none;
   color:inherit;
-  transition:.2s;
+  transition:.25s;
 }
 
 .product-card:hover{
-  transform:translateY(-4px);
+  transform:translateY(-6px);
 }
 
-.product-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:16px;
-}
-
-.info-card{
-  background:#fff;
-  padding:14px;
-  border-radius:12px;
-  margin-top:12px;
-}
-
+/* btn */
 .btn{
   display:inline-block;
   padding:12px 20px;
@@ -95,24 +115,11 @@ body{
 }
 
 .btn-dark{
-  border:1px solid #000;
-  color:#000;
-  background:#fff;
+  background:#2f2118;
+  color:#fff;
 }
 
-.product-actions{
-  margin:16px 0;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.product-main-text{
-  font-size:15px;
-  line-height:1.6;
-  color:#4b3a2f;
-}
-
+/* CTA */
 .cta{
   text-align:center;
   padding:60px 20px;
@@ -120,13 +127,15 @@ body{
   color:#fff;
 }
 
+/* floating */
 .floating-line{
   position:fixed;
   right:16px;
   bottom:20px;
   background:#06C755;
   color:#fff;
-  padding:10px 16px;
+  padding:12px 18px;
   border-radius:999px;
   text-decoration:none;
+  box-shadow:0 6px 20px rgba(0,0,0,.2);
 }
