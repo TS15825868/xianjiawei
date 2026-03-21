@@ -2,59 +2,117 @@
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>仙加味｜龜鹿補養</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>仙加味｜龜鹿日常補養</title>
+<meta name="description" content="龜鹿膏・龜鹿飲・龜鹿湯塊，建立你的日常補養節奏">
+
 <link rel="stylesheet" href="site.css">
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header class="header">
-<a href="index.html" class="logo">
-<img src="images/logo-seal.png">
-<span>仙加味</span>
-</a>
-<div class="menu-btn">☰</div>
+  <a href="index.html" class="logo">
+    <img src="images/logo-seal.png">
+    <span>仙加味</span>
+  </a>
+  <div class="menu-btn">☰</div>
 </header>
 
-<div id="menuOverlay" class="menu-overlay"></div>
+<!-- MENU -->
+<div id="menuOverlay" class="menu-overlay">
+  <div class="menu-full">
+    <div class="menu-close" onclick="closeMenu()">✕</div>
+    <div class="menu-block">
+      <a href="index.html">首頁</a>
+      <a href="brand.html">品牌</a>
+      <a href="product.html">產品系列</a>
+      <a href="choose.html">怎麼選</a>
+      <a href="faq.html">FAQ</a>
+    </div>
+  </div>
+</div>
 
 <main>
 
+<!-- HERO -->
 <section class="hero">
-<img src="images/hero-guilu-gao.jpg" class="hero-bg">
-<div class="hero-overlay"></div>
+  <img src="images/hero-guilu.jpg" class="hero-bg">
+  <div class="hero-overlay"></div>
 
-<div class="hero-content">
-<h1 class="hero-title">日常補養的開始</h1>
-<p class="hero-text">從龜鹿建立你的補養節奏</p>
+  <div class="hero-content">
+    <h1 class="hero-title">日常補養的開始</h1>
+    <p class="hero-text">從龜鹿建立你的補養節奏</p>
 
-<a href="choose.html" class="btn btn-outline">怎麼選龜鹿</a>
-<a href="guilu-series.html" class="btn btn-dark">查看產品</a>
-</div>
+    <a href="choose.html" class="btn btn-outline">怎麼選龜鹿</a>
+    <a href="product.html" class="btn btn-dark">查看產品</a>
+  </div>
 </section>
 
+<!-- 快速入口 -->
 <section class="section">
-<h2>快速入口</h2>
+  <h2>快速入口</h2>
 
-<div class="product-grid">
-<a href="choose.html" class="product-card">怎麼選</a>
-<a href="guilu-series.html" class="product-card">產品系列</a>
-<a href="faq.html" class="product-card">常見問題</a>
-</div>
+  <div class="product-grid">
+
+    <a href="choose.html" class="product-card">
+      <h3>怎麼選</h3>
+      <p>快速找到適合型態</p>
+    </a>
+
+    <a href="product.html" class="product-card">
+      <h3>產品系列</h3>
+      <p>膏 / 飲 / 湯塊 / 粉</p>
+    </a>
+
+    <a href="faq.html" class="product-card">
+      <h3>常見問題</h3>
+      <p>使用與挑選方式</p>
+    </a>
+
+  </div>
 </section>
 
+<!-- 🔥 主打商品（成交關鍵） -->
+<section class="section">
+
+  <h2>熱門選擇</h2>
+
+  <div class="product-grid">
+
+    <div class="product-card">
+      <h3>龜鹿膏</h3>
+      <p>日常補養基礎</p>
+      <p>100g / $2000</p>
+      <a href="product.html" class="btn btn-outline">查看</a>
+    </div>
+
+    <div class="product-card">
+      <h3>龜鹿湯塊</h3>
+      <p>燉煮進補</p>
+      <p>75g / 300g / 600g</p>
+      <a href="product.html" class="btn btn-outline">查看</a>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- 🔥 成交區 -->
 <section class="cta">
-<h2>已經知道要買什麼？</h2>
-<a href="https://lin.ee/sHZW7NkR?text=我要購買龜鹿" class="btn btn-line">
-👉 直接幫我出單
-</a>
+
+  <h2>已經知道要買什麼？</h2>
+  <p>直接透過 LINE 詢問最省時間</p>
+
+  <a href="#" class="btn btn-line">👉 LINE詢問</a>
+
 </section>
 
 </main>
 
-<a class="floating-line" href="https://lin.ee/sHZW7NkR">LINE詢問</a>
-
 <script src="site.js"></script>
+
 </body>
 </html>
