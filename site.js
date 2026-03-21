@@ -1,18 +1,31 @@
-document.addEventListener("DOMContentLoaded",()=>{
+// ===== 初始化 =====
+document.addEventListener("DOMContentLoaded", () => {
 
+  // ===== 漢堡選單 =====
   const menuBtn = document.querySelector(".menu-btn");
-  const menu = document.getElementById("menuOverlay");
+  const menuOverlay = document.getElementById("menuOverlay");
 
-  if(menuBtn && menu){
-    menuBtn.addEventListener("click",()=>{
-      menu.classList.add("active");
+  if (menuBtn && menuOverlay) {
+    menuBtn.addEventListener("click", () => {
+      menuOverlay.classList.add("active");
     });
   }
 
-  window.closeMenu = function(){
-    if(menu){
-      menu.classList.remove("active");
-    }
+  // ===== 點背景關閉 =====
+  if (menuOverlay) {
+    menuOverlay.addEventListener("click", (e) => {
+      if (e.target === menuOverlay) {
+        closeMenu();
+      }
+    });
   }
 
 });
+
+// ===== 關閉選單（全站可用）=====
+function closeMenu() {
+  const menuOverlay = document.getElementById("menuOverlay");
+  if (menuOverlay) {
+    menuOverlay.classList.remove("active");
+  }
+}
