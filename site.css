@@ -1,174 +1,183 @@
 body{
-margin:0;
-font-family:-apple-system,"PingFang TC",sans-serif;
-background:#f7f4ed;
-color:#2f2118;
-padding-top:70px;
+  margin:0;
+  font-family:-apple-system,"PingFang TC",sans-serif;
+  background:#f7f4ed;
+  color:#2f2118;
+  padding-top:72px;
 }
 
-/* header */
+/* HEADER */
 .header{
-position:fixed;
-top:0;
-width:100%;
-height:70px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:0 16px;
-background:#fff;
-border-bottom:1px solid #eee;
-z-index:2000;
+  position:fixed;
+  top:0;
+  width:100%;
+  height:72px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 18px;
+  background:#fff;
+  border-bottom:1px solid #eee;
+  z-index:2000;
 }
 
 .logo{
-display:flex;
-align-items:center;
-gap:8px;
-font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 .logo img{
-height:42px;
+  height:44px;
 }
 
-/* 漢堡 */
+/* 漢堡（放大🔥） */
 .menu-btn{
-font-size:30px;
-cursor:pointer;
+  font-size:34px;
+  cursor:pointer;
 }
 
-/* ===== HERO ===== */
+/* HERO */
 .hero{
-height:75vh;
-display:flex;
-align-items:center;
-justify-content:center;
-position:relative;
-overflow:hidden;
+  position:relative;
+  height:72vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .hero-bg{
-width:100%;
-height:100%;
-object-fit:cover;
-position:absolute;
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .hero-overlay{
-position:absolute;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.45);
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,.45);
 }
 
 .hero-content{
-position:relative;
-color:#fff;
-text-align:center;
-max-width:420px;
-padding:0 20px;
+  position:relative;
+  color:#fff;
+  text-align:center;
+  max-width:420px;
+  padding:0 16px;
 }
 
-/* ===== 區塊 ===== */
+.hero-title{
+  font-size:34px;
+  margin-bottom:12px;
+}
+
+.hero-text{
+  margin-bottom:20px;
+}
+
+/* SECTION */
 .section{
-padding:60px 16px;
-max-width:1100px;
-margin:auto;
+  padding:60px 16px;
+  max-width:1100px;
+  margin:auto;
 }
 
-/* ===== GRID ===== */
+/* GRID */
 .product-grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:16px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
 }
 
-/* 桌機 */
-@media(min-width:768px){
-.product-grid{
-grid-template-columns:repeat(4,1fr);
-}
-}
-
-/* ===== 卡片 ===== */
+/* 卡片 */
 .product-card{
-background:#fff;
-padding:22px 16px;
-border-radius:18px;
-border:1px solid #eee;
-text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,.05);
-transition:.25s;
+  background:#fff;
+  padding:22px;
+  border-radius:18px;
+  border:1px solid #eee;
+  box-shadow:0 10px 24px rgba(0,0,0,.05);
+  text-align:center;
+  text-decoration:none;
+  color:inherit;
+  transition:.25s;
 }
 
 .product-card:hover{
-transform:translateY(-6px);
-box-shadow:0 20px 40px rgba(0,0,0,.08);
+  transform:translateY(-6px);
 }
 
-/* ===== 按鈕 ===== */
+/* 按鈕 */
 .btn{
-display:inline-block;
-padding:12px 20px;
-border-radius:999px;
-text-decoration:none;
-font-weight:600;
-margin-top:10px;
-}
-
-.btn-dark{
-background:#2f2118;
-color:#fff;
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:999px;
+  font-weight:600;
+  text-decoration:none;
+  border:1px solid transparent;
 }
 
 .btn-line{
-background:#06C755;
-color:#fff;
+  background:#06C755;
+  color:#fff;
+}
+
+.btn-dark{
+  background:#2f2118;
+  color:#fff;
 }
 
 .btn-outline{
-border:1px solid #2f2118;
-color:#2f2118;
+  border:1px solid #2f2118;
+  color:#2f2118;
 }
 
-/* ===== CTA ===== */
+/* CTA */
 .cta{
-text-align:center;
-padding:70px 20px;
+  text-align:center;
+  padding:70px 20px;
+  background:#2f2118;
+  color:#fff;
 }
 
-/* ===== 漢堡（全頁🔥） ===== */
+/* 漢堡全頁 */
 .menu-overlay{
-position:fixed;
-inset:0;
-background:#fff;
-opacity:0;
-pointer-events:none;
-transition:.3s;
-z-index:3000;
+  position:fixed;
+  inset:0;
+  background:#fff;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:3000;
 }
 
 .menu-overlay.active{
-opacity:1;
-pointer-events:auto;
+  opacity:1;
+  pointer-events:auto;
 }
 
 .menu-full{
-padding:40px 24px;
+  padding:30px;
 }
 
-.menu-full a{
-display:block;
-padding:14px 0;
-font-size:18px;
-text-decoration:none;
-color:#2f2118;
-border-bottom:1px solid #eee;
+.menu-block a{
+  display:block;
+  padding:14px 0;
+  font-size:20px;
+  text-decoration:none;
+  color:#2f2118;
 }
 
 .menu-close{
-font-size:26px;
-margin-bottom:20px;
-cursor:pointer;
+  font-size:24px;
+  margin-bottom:20px;
+  cursor:pointer;
+}
+
+/* 手機優化 */
+@media(min-width:768px){
+  .product-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
 }
