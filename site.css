@@ -18,14 +18,25 @@ body{
   padding:0 20px;
   background:#fff;
   border-bottom:1px solid #eee;
+  z-index:2000;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 .logo img{
   height:44px;
 }
 
+/* 漢堡 */
 .menu-btn{
   font-size:30px;
+  cursor:pointer;
+  padding:8px;
+  margin-right:4px;
 }
 
 /* hero */
@@ -53,10 +64,7 @@ body{
   transform:translate(-50%,-50%);
   color:#fff;
   text-align:center;
-}
-
-.hero-btns{
-  margin-top:20px;
+  width:90%;
 }
 
 /* section */
@@ -73,7 +81,7 @@ body{
   gap:16px;
 }
 
-/* card */
+/* 卡片 */
 .product-card{
   background:#fff;
   padding:20px;
@@ -81,12 +89,13 @@ body{
   text-align:center;
 }
 
-/* btn */
+/* 按鈕 */
 .btn{
   display:inline-block;
   padding:12px 20px;
   border-radius:999px;
   margin-top:10px;
+  text-decoration:none;
 }
 
 .btn-dark{
@@ -101,6 +110,7 @@ body{
 
 .btn-outline{
   border:1px solid #2f2118;
+  color:#2f2118;
 }
 
 /* CTA */
@@ -111,7 +121,7 @@ body{
   padding:60px 20px;
 }
 
-/* floating */
+/* 浮動 */
 .floating-line{
   position:fixed;
   right:16px;
@@ -129,6 +139,7 @@ body{
   background:#fff;
   opacity:0;
   pointer-events:none;
+  transition:.3s;
 }
 
 .menu-overlay.active{
