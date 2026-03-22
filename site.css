@@ -752,3 +752,66 @@ button.product-card{
 .footer-simple{max-width:var(--max);margin:0 auto;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;color:var(--muted)}
 .footer-simple a{text-decoration:none}
 @media (max-width:720px){.split-note{grid-template-columns:1fr}.article-hero-panel{padding:20px}.hero-buttons .btn,.product-actions .btn,.cta-actions .btn{min-width:0}}
+
+/* ===== 品牌升級（一定放最底） ===== */
+
+.hero-minimal{
+  max-width:520px;
+  margin:0 auto;
+}
+
+.brand-line{
+  text-align:center;
+  font-size:20px;
+  line-height:1.8;
+  color:#4b3a2f;
+  letter-spacing:.02em;
+}
+
+.section-narrow{
+  max-width:680px;
+  margin:0 auto;
+}
+
+.product-card h3{
+  margin-top:10px;
+  font-weight:600;
+}
+
+.product-card img{
+  width:100%;
+  border-radius:16px;
+}
+
+.cta{
+  background:#f7f4ed;
+  color:#2f2118;
+}
+
+.btn-line{
+  box-shadow:0 6px 18px rgba(6,199,85,.25);
+}
+
+.hero-buttons{
+  margin-top:20px;
+}
+
+.hero-text{
+  opacity:.9;
+  font-weight:400;
+}
+
+/* 🔥 關鍵：降低商業感 */
+.product-card{
+  box-shadow:0 12px 28px rgba(0,0,0,.06);
+}
+
+.product-card:hover{
+  transform:translateY(-3px);
+}
+
+/* 🔥 品牌節奏（很重要） */
+.section{
+  padding-top:72px;
+  padding-bottom:72px;
+}
