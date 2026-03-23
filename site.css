@@ -194,3 +194,8 @@ body{
 .hero{min-height:60vh;}
 .hero-bg{object-fit:cover;}
 }
+
+.product-image img{
+  max-height:420px;
+  object-fit:contain;
+}
