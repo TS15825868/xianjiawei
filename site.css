@@ -10,7 +10,6 @@
   --line-green:#06C755;
   --shadow:0 18px 40px rgba(47,33,24,.08);
   --radius:24px;
-  --radius-sm:16px;
   --max:1120px;
 }
 
@@ -27,6 +26,7 @@ body{
 
 img{max-width:100%;display:block}
 
+/* ===== Header ===== */
 .header{
   position:fixed;
   top:0;
@@ -36,35 +36,137 @@ img{max-width:100%;display:block}
   justify-content:space-between;
   align-items:center;
   padding:0 20px;
-  background:#fff;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
   z-index:999;
 }
 
-.logo img{height:42px}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
 
+.logo img{
+  height:42px;
+  width:auto;
+  object-fit:contain;
+}
+
+/* ===== 漢堡 ===== */
+.menu-btn{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:999px;
+  background:var(--surface-soft);
+  border:1px solid var(--line);
+  font-size:22px;
+}
+
+/* ===== Menu ===== */
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.92);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  opacity:0;
+  visibility:hidden;
+  transition:.3s;
+}
+
+.menu-overlay.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.menu-overlay a{
+  color:#fff;
+  font-size:22px;
+  text-decoration:none;
+}
+
+/* ===== Section ===== */
 .section{
   max-width:var(--max);
   margin:auto;
   padding:64px 20px;
 }
 
-/* ===== 卡片 ===== */
-.card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:20px;
+/* ===== HERO（關鍵🔥）===== */
+.hero{
+  position:relative;
+  min-height:70vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
-  box-shadow:var(--shadow);
-  transition:.25s;
+  color:#fff;
+  overflow:hidden;
 }
 
-.card:hover{
-  transform:translateY(-4px);
+.hero-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:-2;
 }
 
-/* ===== 插畫卡（封頂版🔥）===== */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.65));
+  z-index:-1;
+}
+
+.hero-content{
+  max-width:700px;
+  padding:20px;
+}
+
+.hero-title{
+  font-size:clamp(36px,6vw,64px);
+  line-height:1.1;
+  margin-bottom:14px;
+}
+
+.hero-text{
+  font-size:18px;
+  margin-bottom:20px;
+}
+
+/* ===== 按鈕 ===== */
+.btn{
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  margin:6px;
+  border:1px solid transparent;
+}
+
+.btn-outline{
+  border:1px solid #fff;
+  color:#fff;
+}
+
+.btn-line{
+  background:var(--line-green);
+  color:#fff;
+  box-shadow:0 10px 20px rgba(6,199,85,.25);
+}
+
+/* ===== 插畫卡 ===== */
 .entry-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -73,33 +175,28 @@ img{max-width:100%;display:block}
 }
 
 .entry-card{
-  position:relative;
   background:var(--surface-soft);
   border:1px solid var(--line);
   border-radius:28px;
-  padding:26px 20px;
+  padding:26px;
   text-align:center;
   text-decoration:none;
   color:var(--text);
   box-shadow:var(--shadow);
-  transition:.25s ease;
+  transition:.25s;
 }
 
 .entry-card:hover{
   transform:translateY(-6px);
-  box-shadow:0 22px 48px rgba(47,33,24,.12);
 }
 
 .entry-card img{
-  width:120px;
-  height:120px;
-  object-fit:contain;
-  margin:0 auto 14px;
+  width:110px;
+  margin:0 auto 12px;
 }
 
 .entry-card h3{
-  font-size:24px;
-  margin-bottom:6px;
+  font-size:22px;
 }
 
 .entry-card p{
@@ -111,60 +208,21 @@ img{max-width:100%;display:block}
   border:2px solid #d6b98c;
 }
 
-.entry-badge{
-  position:absolute;
-  top:14px;
-  right:14px;
-  background:var(--brand);
-  color:#fff;
-  font-size:12px;
-  padding:4px 10px;
-  border-radius:999px;
-}
-
-/* ===== product ===== */
-.product-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-
-.product-card{
+/* ===== 套餐 ===== */
+.combo{
   background:#fff;
+  border-radius:28px;
+  padding:24px;
   border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:18px;
+  margin-bottom:20px;
   box-shadow:var(--shadow);
 }
 
-.product-card img{
-  aspect-ratio:1/1;
-  object-fit:cover;
-  border-radius:18px;
-  margin-bottom:10px;
-}
-
-/* ===== btn ===== */
-.btn{
-  display:inline-block;
-  padding:12px 20px;
-  border-radius:999px;
-  text-decoration:none;
-}
-
-.btn-line{
-  background:var(--line-green);
-  color:#fff;
+.combo.hot{
+  border:2px solid #d6b98c;
 }
 
 /* ===== CTA ===== */
-.cta{
-  padding:60px 20px;
-  text-align:center;
-  background:#2f2118;
-  color:#fff;
-}
-
 .floating-line{
   position:fixed;
   right:16px;
@@ -175,9 +233,17 @@ img{max-width:100%;display:block}
   border-radius:999px;
 }
 
-/* ===== mobile ===== */
+/* ===== 手機 ===== */
 @media(max-width:768px){
   .entry-grid{
     grid-template-columns:1fr;
+  }
+
+  .hero{
+    min-height:60vh;
+  }
+
+  .hero-title{
+    font-size:34px;
   }
 }
