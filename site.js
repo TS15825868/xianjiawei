@@ -1,12 +1,7 @@
 (function(){
 
-/* ===== 路徑判斷（升級🔥）===== */
 function getBasePrefix(){
-  const path = location.pathname;
-  if(path.includes('/articles/') || path.includes('/pages/')){
-    return '../';
-  }
-  return '';
+  return location.pathname.includes('/articles/') ? '../' : '';
 }
 
 /* ===== 漢堡選單 ===== */
@@ -19,14 +14,12 @@ function toggleMenu(force){
     : !menu.classList.contains('active');
 
   menu.classList.toggle('active', shouldOpen);
-
-  /* 🔥 防止背景滾動 */
   document.body.style.overflow = shouldOpen ? 'hidden' : '';
 }
 
 window.toggleMenu = toggleMenu;
 
-/* ===== 文章卡片 ===== */
+/* ===== 文章卡 ===== */
 function articleCard(article, prefix=''){
   const href = `${prefix}articles/${article.url}`;
   const image = article.image.startsWith('images/')
@@ -34,7 +27,7 @@ function articleCard(article, prefix=''){
     : article.image;
 
   return `
-  <a href="${href}" class="product-card scroll-card">
+  <a href="${href}" class="product-card">
     <img src="${image}" alt="${article.title}" loading="lazy">
     <h3>${article.title}</h3>
     <p>${article.summary || '查看內容'}</p>
@@ -47,78 +40,63 @@ document.addEventListener('DOMContentLoaded', () => {
   const menu = document.getElementById('menuOverlay');
   const btn = document.querySelector('.menu-btn');
 
-  /* ===== 漢堡選單（最終版🔥）===== */
+  /* ===== 漢堡內容（封頂完整版🔥）===== */
   if(menu){
     menu.innerHTML = `
 
       <a href="${prefix}index.html">首頁</a>
 
       <div class="menu-group">
-        <div class="menu-title">了解龜鹿</div>
+        <div class="menu-title">了解</div>
         <a href="${prefix}brand.html">品牌故事</a>
         <a href="${prefix}guilu-series.html">龜鹿系列</a>
         <a href="${prefix}choose.html">怎麼選龜鹿</a>
       </div>
 
       <div class="menu-group">
-        <div class="menu-title">使用方式</div>
+        <div class="menu-title">使用</div>
         <a href="${prefix}how-to-use.html">怎麼使用</a>
         <a href="${prefix}recipes.html">料理補養</a>
       </div>
 
       <div class="menu-group">
-        <div class="menu-title">內容知識</div>
+        <div class="menu-title">內容</div>
         <a href="${prefix}articles.html">龜鹿知識</a>
-        <a href="${prefix}faq.html">常見問題</a>
+        <a href="${prefix}faq.html">FAQ</a>
       </div>
 
       <div class="menu-group">
-        <div class="menu-title">產品專區</div>
+        <div class="menu-title">產品</div>
         <a href="${prefix}product.html">產品總覽</a>
-        <a href="${prefix}product.html?id=guilu-gao">龜鹿膏</a>
-        <a href="${prefix}product.html?id=guilu-drink">龜鹿飲</a>
-        <a href="${prefix}product.html?id=guilu-block">龜鹿湯塊</a>
-        <a href="${prefix}product.html?id=antler-powder">鹿茸粉</a>
+        <a href="${prefix}combo.html">套餐推薦</a>
       </div>
 
-      <a href="https://lin.ee/sHZW7NkR?text=${encodeURIComponent('我想了解龜鹿怎麼選，幫我推薦')}" 
-         class="btn btn-line">
+      <a href="https://lin.ee/sHZW7NkR?text=我想了解龜鹿怎麼選"
+      class="btn btn-line">
         LINE詢問 →
       </a>
     `;
 
-    /* 點背景關閉 */
     menu.addEventListener('click',(e)=>{
       if(e.target === menu) toggleMenu(false);
     });
 
-    /* 點連結關閉 */
     menu.querySelectorAll('a').forEach(link=>{
       link.addEventListener('click', ()=>toggleMenu(false));
     });
-
-    /* 🔥 滾動自動關閉 */
-    window.addEventListener('scroll', ()=>{
-      if(menu.classList.contains('active')){
-        toggleMenu(false);
-      }
-    });
   }
 
-  /* ===== 漢堡按鈕 ===== */
   if(btn){
     btn.addEventListener('click', ()=>toggleMenu());
   }
 
-  /* ESC關閉 */
   document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape') toggleMenu(false);
   });
 
   /* ===== 滾動動畫 ===== */
   const revealEls = document.querySelectorAll('.reveal');
-
-  if('IntersectionObserver' in window && revealEls.length){
+  if('IntersectionObserver' in window){
     const obs = new IntersectionObserver((entries)=>{
       entries.forEach(entry=>{
         if(entry.isIntersecting){
@@ -126,45 +104,27 @@ document.addEventListener('DOMContentLoaded', () => {
           obs.unobserve(entry.target);
         }
       });
-    },{threshold:.14});
-
-    revealEls.forEach(el=>obs.observe(el));
-  }else{
-    revealEls.forEach(el=>el.classList.add('show'));
-  }
-
-  /* ===== 文章系統 ===== */
-  if(typeof ARTICLES !== 'undefined' && Array.isArray(ARTICLES)){
-
-    const articleGrid = document.getElementById('article-grid');
-
-    if(articleGrid){
-      articleGrid.innerHTML =
-        ARTICLES.slice(0,12)
-        .map(article => articleCard(article, prefix))
-        .join('');
-    }
-
-    ['culture','knowledge','product','recipe'].forEach(cat=>{
-      const node = document.getElementById(`article-grid-${cat}`);
-      if(node){
-        node.innerHTML =
-          ARTICLES
-          .filter(a=>a.category===cat)
-          .map(article => articleCard(article, prefix))
-          .join('');
-      }
     });
+    revealEls.forEach(el=>obs.observe(el));
   }
 
-  /* ===== 導流按鈕（產品跳轉）===== */
-  document.querySelectorAll('.choose-btn[data-product]').forEach(btn=>{
+  /* ===== 圖片lazy優化 ===== */
+  document.querySelectorAll('img').forEach(img=>{
+    img.setAttribute('loading','lazy');
+    img.onload = ()=> img.classList.add('loaded');
+  });
+
+  /* ===== LINE成交追蹤🔥 ===== */
+  document.querySelectorAll('a[href*="lin.ee"]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      const id = btn.getAttribute('data-product');
-      if(id){
-        location.href = `${prefix}product.html?id=${encodeURIComponent(id)}`;
+      if(typeof gtag === 'function'){
+        gtag('event','line_click',{
+          event_category:'conversion',
+          event_label: location.pathname
+        });
       }
     });
   });
 
+});
 })();
