@@ -9,6 +9,7 @@
   --brand-2:#8f6b45;
   --line-green:#06C755;
   --shadow:0 18px 40px rgba(47,33,24,.08);
+  --shadow-hover:0 24px 60px rgba(47,33,24,.12);
   --radius:24px;
   --max:1120px;
 }
@@ -17,14 +18,17 @@
 
 body{
   margin:0;
-  font-family:-apple-system,"PingFang TC","Noto Sans TC";
+  font-family:-apple-system,"PingFang TC","Noto Sans TC",sans-serif;
   background:var(--bg);
   color:var(--text);
   line-height:1.7;
   padding-top:76px;
 }
 
-img{max-width:100%;display:block}
+img{
+  max-width:100%;
+  display:block;
+}
 
 /* ===== Header ===== */
 .header{
@@ -37,7 +41,7 @@ img{max-width:100%;display:block}
   align-items:center;
   padding:0 20px;
   background:rgba(255,255,255,.95);
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
   z-index:999;
 }
@@ -46,12 +50,19 @@ img{max-width:100%;display:block}
   display:flex;
   align-items:center;
   gap:10px;
+  text-decoration:none;
+  color:var(--text);
 }
 
 .logo img{
   height:42px;
   width:auto;
   object-fit:contain;
+}
+
+.logo span{
+  font-size:22px;
+  font-weight:700;
 }
 
 /* ===== 漢堡 ===== */
@@ -64,21 +75,23 @@ img{max-width:100%;display:block}
   background:var(--surface-soft);
   border:1px solid var(--line);
   font-size:22px;
+  cursor:pointer;
 }
 
-/* ===== Menu ===== */
+/* ===== Menu（封頂🔥）===== */
 .menu-overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.92);
+  background:rgba(0,0,0,.94);
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  gap:18px;
+  gap:14px;
   opacity:0;
   visibility:hidden;
   transition:.3s;
+  z-index:998;
 }
 
 .menu-overlay.active{
@@ -92,6 +105,18 @@ img{max-width:100%;display:block}
   text-decoration:none;
 }
 
+/* 🔥 分類樣式 */
+.menu-group{
+  margin-top:14px;
+  text-align:center;
+}
+
+.menu-title{
+  font-size:13px;
+  color:#aaa;
+  margin-bottom:4px;
+}
+
 /* ===== Section ===== */
 .section{
   max-width:var(--max);
@@ -99,7 +124,7 @@ img{max-width:100%;display:block}
   padding:64px 20px;
 }
 
-/* ===== HERO（關鍵🔥）===== */
+/* ===== HERO ===== */
 .hero{
   position:relative;
   min-height:70vh;
@@ -124,7 +149,7 @@ img{max-width:100%;display:block}
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,.65));
+  background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.7));
   z-index:-1;
 }
 
@@ -144,7 +169,7 @@ img{max-width:100%;display:block}
   margin-bottom:20px;
 }
 
-/* ===== 按鈕 ===== */
+/* ===== 按鈕（升級🔥）===== */
 .btn{
   display:inline-block;
   padding:12px 22px;
@@ -153,11 +178,21 @@ img{max-width:100%;display:block}
   font-weight:600;
   margin:6px;
   border:1px solid transparent;
+  transition:.25s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
 }
 
 .btn-outline{
   border:1px solid #fff;
   color:#fff;
+}
+
+.btn-outline:hover{
+  background:#fff;
+  color:#000;
 }
 
 .btn-line{
@@ -166,7 +201,11 @@ img{max-width:100%;display:block}
   box-shadow:0 10px 20px rgba(6,199,85,.25);
 }
 
-/* ===== 插畫卡 ===== */
+.btn-line:hover{
+  box-shadow:0 16px 32px rgba(6,199,85,.35);
+}
+
+/* ===== 插畫卡（升級🔥）===== */
 .entry-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -188,6 +227,7 @@ img{max-width:100%;display:block}
 
 .entry-card:hover{
   transform:translateY(-6px);
+  box-shadow:var(--shadow-hover);
 }
 
 .entry-card img{
@@ -216,13 +256,18 @@ img{max-width:100%;display:block}
   border:1px solid var(--line);
   margin-bottom:20px;
   box-shadow:var(--shadow);
+  transition:.25s;
+}
+
+.combo:hover{
+  box-shadow:var(--shadow-hover);
 }
 
 .combo.hot{
   border:2px solid #d6b98c;
 }
 
-/* ===== CTA ===== */
+/* ===== 浮動LINE ===== */
 .floating-line{
   position:fixed;
   right:16px;
@@ -231,6 +276,8 @@ img{max-width:100%;display:block}
   color:#fff;
   padding:12px 16px;
   border-radius:999px;
+  font-weight:600;
+  box-shadow:0 18px 30px rgba(6,199,85,.25);
 }
 
 /* ===== 手機 ===== */
