@@ -4,7 +4,7 @@ function getBasePrefix(){
   return location.pathname.includes('/articles/') ? '../' : '';
 }
 
-/* ===== 選單（升級版）===== */
+/* ===== 漢堡開關 ===== */
 function toggleMenu(force){
   const menu = document.getElementById('menuOverlay');
   if(!menu) return;
@@ -40,42 +40,51 @@ document.addEventListener('DOMContentLoaded', () => {
   const menu = document.getElementById('menuOverlay');
   const btn = document.querySelector('.menu-btn');
 
-  /* ===== 漢堡選單（封頂版🔥）===== */
+  /* ===== 漢堡選單（封頂完整版🔥）===== */
   if(menu){
     menu.innerHTML = `
+
       <a href="${prefix}index.html">首頁</a>
 
       <div class="menu-group">
-        <div class="menu-title">了解</div>
-        <a href="${prefix}choose.html">怎麼選龜鹿</a>
+        <div class="menu-title">了解龜鹿</div>
+        <a href="${prefix}brand.html">品牌故事</a>
         <a href="${prefix}guilu-series.html">龜鹿系列</a>
+        <a href="${prefix}choose.html">怎麼選龜鹿</a>
       </div>
 
       <div class="menu-group">
-        <div class="menu-title">使用</div>
+        <div class="menu-title">使用方式</div>
+        <a href="${prefix}how-to-use.html">怎麼使用</a>
         <a href="${prefix}recipes.html">料理補養</a>
       </div>
 
       <div class="menu-group">
-        <div class="menu-title">內容</div>
+        <div class="menu-title">內容知識</div>
         <a href="${prefix}articles.html">龜鹿知識</a>
-        <a href="${prefix}faq.html">FAQ</a>
+        <a href="${prefix}faq.html">常見問題</a>
       </div>
 
       <div class="menu-group">
-        <div class="menu-title">開始</div>
+        <div class="menu-title">產品專區</div>
         <a href="${prefix}product.html">產品總覽</a>
+        <a href="${prefix}product.html?id=guilu-gao">龜鹿膏</a>
+        <a href="${prefix}product.html?id=guilu-drink">龜鹿飲</a>
+        <a href="${prefix}product.html?id=guilu-block">龜鹿湯塊</a>
+        <a href="${prefix}product.html?id=antler-powder">鹿茸粉</a>
       </div>
 
       <a href="https://lin.ee/sHZW7NkR?text=${encodeURIComponent('我想了解龜鹿怎麼選')}" class="btn btn-line">
-        有需要再詢問 →
+        LINE詢問 →
       </a>
     `;
 
+    /* 點背景關閉 */
     menu.addEventListener('click',(e)=>{
       if(e.target === menu) toggleMenu(false);
     });
 
+    /* 點選連結關閉 */
     menu.querySelectorAll('a').forEach(link=>{
       link.addEventListener('click', ()=>toggleMenu(false));
     });
@@ -89,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.key === 'Escape') toggleMenu(false);
   });
 
-  /* ===== 動畫 ===== */
+  /* ===== 滾動動畫 ===== */
   const revealEls = document.querySelectorAll('.reveal');
 
   if('IntersectionObserver' in window && revealEls.length){
@@ -107,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el=>el.classList.add('show'));
   }
 
-  /* ===== 文章系統（保留🔥）===== */
+  /* ===== 文章系統 ===== */
   if(typeof ARTICLES !== 'undefined' && Array.isArray(ARTICLES)){
 
     const articleGrid = document.getElementById('article-grid');
@@ -131,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ===== 選擇導流（重要🔥）===== */
+  /* ===== 導流按鈕 ===== */
   document.querySelectorAll('.choose-btn[data-product]').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const id = btn.getAttribute('data-product');
