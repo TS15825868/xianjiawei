@@ -10,19 +10,9 @@
           "fullName": "仙加味・龜鹿膏",
           "spec": "100 g / 罐",
           "image": "images/guilu-gao-100g.jpg",
-
           "aliases": ["龜鹿膏","膏"],
-
-          "keywords": ["膏","龜鹿膏","吃的","直接吃"],
-
-          "cta": "👉 想了解龜鹿膏怎麼吃？直接點我幫你搭配",
-
           "lineText": "我想了解龜鹿膏",
-
-          "intro": "濃縮膏狀型態，可直接食用，也可加入溫熱開水。",
-
-          "description": "日常飲食補養的膏狀選擇，適合想方便食用的族群。",
-
+          "intro": "濃縮膏狀型態，可直接食用。",
           "ingredients": [
             "龜板萃取物",
             "鹿角萃取物",
@@ -32,114 +22,45 @@
             "黃耆"
           ]
         },
-
         {
           "id": "guilu-drink",
           "name": "龜鹿飲",
           "fullName": "仙加味・龜鹿飲",
           "spec": "30 cc / 180 cc",
           "image": "images/guilu-drink-30cc.jpg",
-
           "aliases": ["龜鹿飲","飲"],
-
-          "keywords": ["喝的","方便","飲"],
-
-          "cta": "👉 想了解龜鹿飲怎麼喝？",
-
           "lineText": "我想了解龜鹿飲",
-
-          "intro": "液態即飲型態，方便日常飲用。",
-
-          "description": "隨手即飲型，適合忙碌生活節奏。",
-
+          "intro": "液態即飲型態。",
           "ingredients": [
             "水",
             "龜板萃取物",
-            "鹿角萃取物",
-            "粉光蔘",
-            "枸杞",
-            "紅棗",
-            "黃耆"
+            "鹿角萃取物"
           ]
         },
-
         {
           "id": "guilu-block",
           "name": "龜鹿湯塊",
           "fullName": "仙加味・龜鹿湯塊",
           "spec": "75 g / 300 g / 600 g",
           "image": "images/guilu-block-75g.jpg",
-
           "aliases": ["龜鹿湯塊","湯塊"],
-
-          "keywords": ["燉湯","料理","湯"],
-
-          "cta": "👉 想知道怎麼燉湯最簡單？",
-
           "lineText": "我想了解龜鹿湯塊",
-
-          "intro": "濃縮湯塊型態，適合燉湯與日常料理。",
-
-          "description": "燉湯直接使用的濃縮型態，日常料理更方便。",
-
+          "intro": "燉湯直接使用。",
           "ingredients": [
             "龜板萃取物",
             "鹿角萃取物"
           ]
         },
-
         {
           "id": "lurong-powder",
           "name": "鹿茸粉",
           "fullName": "仙加味・鹿茸粉",
           "spec": "75 g / 罐",
           "image": "images/lurong-powder-75g.jpg",
-
           "aliases": ["鹿茸粉","鹿茸"],
-
-          "keywords": ["粉","搭配","加入"],
-
-          "cta": "👉 想知道怎麼搭配飲用？",
-
           "lineText": "我想了解鹿茸粉",
-
-          "intro": "粉末型態，可加入熱飲或日常飲食。",
-
-          "description": "可自由搭配飲品或食物使用。",
-
-          "ingredients": [
-            "鹿茸粉"
-          ]
-        }
-      ]
-    },
-
-    {
-      "id": "qixuan-tea",
-      "name": "柒玄茶",
-      "items": [
-        {
-          "id": "guilu-mix",
-          "name": "龜鹿調飲粉",
-          "fullName": "柒玄茶・龜鹿調飲粉",
-          "spec": "2 g / 包",
-          "image": "images/qixuan-guilu-mix.jpg",
-
-          "aliases": ["龜鹿調飲粉","調飲粉"],
-
-          "keywords": ["咖啡","茶","沖泡"],
-
-          "cta": "👉 想知道怎麼搭配咖啡或茶？",
-
-          "lineText": "我想了解龜鹿調飲粉",
-
-          "intro": "可加入茶、咖啡或熱水沖泡。",
-
-          "description": "日常飲品搭配使用，增加風味。",
-
-          "ingredients": [
-            "龜鹿膠粉"
-          ]
+          "intro": "粉末型態。",
+          "ingredients": ["鹿茸粉"]
         }
       ]
     }
