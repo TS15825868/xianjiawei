@@ -39,7 +39,7 @@ body{
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  gap:20px;
+  gap:16px;
   opacity:0;
   visibility:hidden;
 }
@@ -51,7 +51,13 @@ body{
 
 .menu-overlay a{
   color:#fff;
-  font-size:22px;
+  font-size:20px;
+}
+
+.menu-group{
+  color:#888;
+  font-size:14px;
+  margin-top:20px;
 }
 
 .section{
@@ -100,6 +106,7 @@ body{
   background:#fff;
   padding:20px;
   border-radius:20px;
+  cursor:pointer;
 }
 
 .video-grid{
@@ -112,4 +119,5 @@ body{
   background:#fff;
   padding:16px;
   border-radius:16px;
+  cursor:pointer;
 }
