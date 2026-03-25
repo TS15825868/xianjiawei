@@ -1,45 +1,46 @@
 body{
   margin:0;
-  font-family:-apple-system,"PingFang TC";
+  font-family:-apple-system,"PingFang TC","Noto Sans TC";
 }
 
 .header{
-  height:60px;
+  height:70px;
   display:flex;
   justify-content:space-between;
+  align-items:center;
   padding:0 20px;
-  align-items:center;
+  border-bottom:1px solid #eee;
 }
 
-.menu-overlay{
-  position:fixed;
-  inset:0;
-  background:#000;
-  color:#fff;
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-}
-
-.menu-overlay.active{
-  display:flex;
+.hero{
+  padding:80px 20px;
+  text-align:center;
+  background:#f7f4ed;
 }
 
 .section{
-  padding:40px;
+  padding:60px 20px;
   text-align:center;
 }
 
-.entry-card{
-  border:1px solid #ddd;
-  padding:20px;
-  margin:10px;
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
 }
 
-button{
-  padding:10px 20px;
-  margin:10px;
+.card{
+  border:1px solid #ddd;
+  padding:20px;
+  border-radius:12px;
+}
+
+.btn-line{
+  background:#06C755;
+  color:#fff;
+  padding:12px 20px;
+  border:none;
+  border-radius:999px;
 }
 
 #modal{
@@ -48,7 +49,7 @@ button{
   display:none;
   justify-content:center;
   align-items:center;
-  background:rgba(0,0,0,0.8);
+  background:rgba(0,0,0,0.7);
 }
 
 .modal-box{
