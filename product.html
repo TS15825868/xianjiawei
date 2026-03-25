@@ -1,37 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>產品總覽</title>
 <link rel="stylesheet" href="site.css">
 </head>
 
 <body>
 
-<header class="header">
-<a href="index.html" class="logo">
-<img src="images/logo-seal.png">
-</a>
-<div class="menu-btn">☰</div>
-</header>
+<h1>產品</h1>
 
-<div id="menuOverlay" class="menu-overlay"></div>
+<div onclick="openProduct('龜鹿膏')">龜鹿膏</div>
+<div onclick="openProduct('龜鹿飲')">龜鹿飲</div>
+<div onclick="openProduct('龜鹿湯塊')">龜鹿湯塊</div>
+<div onclick="openProduct('鹿茸粉')">鹿茸粉</div>
 
-<section class="section">
+<div id="modal"></div>
 
-<h1>產品總覽</h1>
-
-<div class="entry-grid">
-
-<div class="entry-card" onclick="openLine('我想了解龜鹿膏')">龜鹿膏</div>
-<div class="entry-card" onclick="openLine('我想了解龜鹿飲')">龜鹿飲</div>
-<div class="entry-card" onclick="openLine('我想了解龜鹿湯塊')">龜鹿湯塊</div>
-<div class="entry-card" onclick="openLine('我想了解鹿茸粉')">鹿茸粉</div>
-
-</div>
-
-</section>
+<script src="site.js"></script>
 
 </body>
 </html>
