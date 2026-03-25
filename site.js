@@ -5,7 +5,6 @@ function openLine(msg){
 }
 window.openLine = openLine;
 
-/* ===== 漢堡（分類版🔥）===== */
 function toggleMenu(force){
   const m = document.getElementById('menuOverlay');
   if(!m) return;
@@ -25,7 +24,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 
   if(menu){
     menu.innerHTML = `
-
       <a onclick="openLine('幫我搭配')">👉 官方 LINE 諮詢</a>
 
       <div class="menu-group">產品系列</div>
@@ -44,7 +42,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 
       <div class="menu-group">其他</div>
       <a href="faq.html">FAQ</a>
-
     `;
   }
 
