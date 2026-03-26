@@ -1,31 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>套餐</title>
+<link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+
+<header class="header">
+  <a href="index.html" class="logo">
+    <img src="images/logo-small.png">
+  </a>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+</header>
+
+<div id="menu" class="menu-overlay"></div>
+
 <section class="section">
 <h1>直接幫你選</h1>
 
 <div class="card">
-<h3>入門體驗</h3>
-<p>第一次接觸，簡單開始</p>
+<h3>🔥 第一次建議選這組</h3>
+<p>簡單開始</p>
 <p>👉 龜鹿飲 + 湯塊</p>
-<a href="https://lin.ee/sHZW7NkR" class="btn btn-line">
+
+<a href="https://lin.ee/sHZW7NkR?text=我要入門體驗套餐" class="btn btn-line">
 我要這組
 </a>
 </div>
 
 <div class="card">
-<h3>日常補養</h3>
-<p>穩定日常使用</p>
+<h3>🔥 最多人這樣搭</h3>
+<p>日常穩定使用</p>
 <p>👉 龜鹿膏 + 龜鹿飲</p>
-<a href="https://lin.ee/sHZW7NkR" class="btn btn-line">
+
+<a href="https://lin.ee/sHZW7NkR?text=我要日常補養套餐" class="btn btn-line">
 我要這組
 </a>
 </div>
 
 <div class="card">
-<h3>進階搭配</h3>
-<p>自由搭配使用</p>
+<h3>自由搭配</h3>
+<p>進階使用</p>
 <p>👉 鹿茸粉 + 龜鹿膏</p>
-<a href="https://lin.ee/sHZW7NkR" class="btn btn-line">
+
+<a href="https://lin.ee/sHZW7NkR?text=我要進階搭配套餐" class="btn btn-line">
 我要這組
 </a>
 </div>
 
 </section>
+
+<!-- 浮動LINE -->
+<a href="https://lin.ee/sHZW7NkR?text=我想了解套餐" class="floating-line">
+LINE
+</a>
+
+<script src="site.js"></script>
+</body>
+</html>
