@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>怎麼選龜鹿｜仙加味</title>
+<title>怎麼選｜仙加味</title>
 <link rel="stylesheet" href="site.css">
 </head>
 
@@ -17,48 +17,85 @@
 <div id="menu" class="menu-overlay"></div>
 
 <section class="section">
-<h1>怎麼選龜鹿</h1>
-<p>不用研究很久，照這三步驟就好</p>
 
-<!-- STEP 1 -->
-<div class="card">
-<h3>① 你平常的生活節奏</h3>
-<p>👉 很忙 → 選「龜鹿飲」</p>
-<p>👉 有時間 → 選「龜鹿膏 / 湯塊」</p>
+<h1>幫你找到適合的方式</h1>
+<p>不用一次看懂全部，選擇你的情況</p>
+
+<!-- Q1 -->
+<h3>① 目前狀態</h3>
+<div class="grid">
+<div class="card" onclick="select('state','new')">第一次接觸</div>
+<div class="card" onclick="select('state','daily')">日常補養</div>
+<div class="card" onclick="select('state','advanced')">想進階搭配</div>
 </div>
 
-<!-- STEP 2 -->
-<div class="card">
-<h3>② 你想怎麼使用</h3>
-<p>👉 直接吃 → 龜鹿膏</p>
-<p>👉 快速喝 → 龜鹿飲</p>
-<p>👉 燉湯 → 龜鹿湯塊</p>
-<p>👉 自由搭配 → 鹿茸粉</p>
+<!-- Q2 -->
+<h3>② 使用方式</h3>
+<div class="grid">
+<div class="card" onclick="select('type','easy')">簡單方便</div>
+<div class="card" onclick="select('type','food')">可以料理</div>
+<div class="card" onclick="select('type','flex')">自由搭配</div>
 </div>
 
-<!-- STEP 3 -->
-<div class="card">
-<h3>③ 直接選這樣就好</h3>
-
-<p>👉 第一次 → 龜鹿飲 + 湯塊</p>
-<p>👉 日常 → 龜鹿膏 + 龜鹿飲</p>
-<p>👉 進階 → 鹿茸粉 + 龜鹿膏</p>
-
+<!-- Q3 -->
+<h3>③ 生活型態</h3>
+<div class="grid">
+<div class="card" onclick="select('life','busy')">忙碌</div>
+<div class="card" onclick="select('life','normal')">一般</div>
+<div class="card" onclick="select('life','care')">注重養生</div>
 </div>
+
+<div style="text-align:center;margin-top:30px;">
+<button onclick="calculate()" class="btn">幫我推薦</button>
+</div>
+
+<div id="result" style="margin-top:40px;"></div>
 
 </section>
 
-<!-- CTA -->
-<section class="cta">
-<h2>不想自己選？</h2>
-<p>直接跟我們說你的狀況幫你搭</p>
-
-<a href="https://lin.ee/sHZW7NkR?text=我想請你幫我選龜鹿"
-class="btn btn-line">
-LINE直接問
-</a>
-</section>
+<a href="https://lin.ee/sHZW7NkR" class="floating-line">LINE</a>
 
 <script src="site.js"></script>
+
+<script>
+let answers = {};
+
+function select(key,val){
+answers[key]=val;
+alert("已選擇");
+}
+
+function calculate(){
+
+if(Object.keys(answers).length < 3){
+alert("請先選完三題");
+return;
+}
+
+let result = "";
+
+if(answers.state==="new"){
+result="👉 建議從：龜鹿飲 + 湯塊";
+}
+else if(answers.state==="daily"){
+result="👉 建議：龜鹿膏 + 龜鹿飲";
+}
+else{
+result="👉 建議：鹿茸粉 + 龜鹿膏";
+}
+
+document.getElementById("result").innerHTML = `
+<h2>你的建議搭配</h2>
+
+<p>${result}</p>
+
+<a href="https://lin.ee/sHZW7NkR?text=${encodeURIComponent(result)}"
+class="btn btn-line">
+LINE 詢問這個搭配
+</a>
+`;
+}
+</script>
+
 </body>
 </html>
