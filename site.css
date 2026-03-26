@@ -1,1 +1,139 @@
-body{margin:0;font-family:-apple-system;background:#F7F4ED;} .hero{height:70vh;position:relative;color:#fff;display:flex;align-items:center;justify-content:center;} .hero img{position:absolute;width:100%;height:100%;object-fit:cover;}
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+font-family:-apple-system,"PingFang TC",sans-serif;
+background:#F7F4ED;
+color:#2F2118;
+}
+
+img{
+max-width:100%;
+height:auto;
+display:block;
+}
+
+/* Header */
+.header{
+position:fixed;
+top:0;
+width:100%;
+height:70px;
+background:#fff;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 20px;
+border-bottom:1px solid #eee;
+z-index:999;
+}
+
+.logo img{
+height:40px;
+width:auto;
+}
+
+/* Hero */
+.hero{
+height:70vh;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero img{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.overlay{
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.5);
+}
+
+.content{
+position:relative;
+z-index:2;
+}
+
+/* Section */
+.section{
+padding:100px 20px;
+max-width:1100px;
+margin:auto;
+}
+
+/* Grid */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+/* Card */
+.card{
+background:#fff;
+padding:16px;
+border-radius:16px;
+cursor:pointer;
+transition:.2s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
+border-radius:12px;
+margin-bottom:10px;
+}
+
+/* Button */
+.btn{
+border:1px solid #0B1F3B;
+padding:10px 16px;
+border-radius:999px;
+text-decoration:none;
+color:#0B1F3B;
+}
+
+/* Modal */
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.modal-box{
+background:#fff;
+padding:20px;
+border-radius:16px;
+width:90%;
+max-width:500px;
+max-height:90vh;
+overflow:auto;
+}
+
+.modal-box img{
+margin-bottom:10px;
+border-radius:12px;
+}
+
+.footer{
+text-align:center;
+padding:40px;
+color:#777;
+}
