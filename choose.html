@@ -10,91 +10,102 @@
 <body>
 
 <header class="header">
-<a href="index.html" class="logo"><img src="images/logo-small.png"></a>
+<a href="index.html" class="logo">
+<img src="images/logo.png">
+</a>
 <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
-<div id="menu" class="menu-overlay"></div>
+<div id="menu" class="menu-overlay">
+<a href="index.html">首頁</a>
+<a href="products.html">產品</a>
+<a href="choose.html">怎麼選</a>
+<a href="combo.html">套餐</a>
+<a href="recipes.html">料理</a>
+<a href="knowledge.html">知識</a>
+<a href="brand.html">品牌</a>
+<a href="faq.html">FAQ</a>
+<a href="contact.html">聯絡</a>
+</div>
 
 <section class="section">
 
-<h1>幫你找到適合的方式</h1>
-<p>不用一次看懂全部，選擇你的情況</p>
+<h1>怎麼選適合你的龜鹿</h1>
+<p>回答幾個問題，我幫你挑</p>
 
-<!-- Q1 -->
-<h3>① 目前狀態</h3>
-<div class="grid">
-<div class="card" onclick="select('state','new')">第一次接觸</div>
-<div class="card" onclick="select('state','daily')">日常補養</div>
-<div class="card" onclick="select('state','advanced')">想進階搭配</div>
+<!-- STEP 1 -->
+<div class="card">
+<h3>你的使用習慣</h3>
+
+<button class="btn" onclick="selectType('方便')">想方便</button>
+<button class="btn" onclick="selectType('料理')">想料理</button>
+<button class="btn" onclick="selectType('自由搭配')">想自己搭配</button>
+<button class="btn" onclick="selectType('固定食用')">固定習慣</button>
+
 </div>
 
-<!-- Q2 -->
-<h3>② 使用方式</h3>
-<div class="grid">
-<div class="card" onclick="select('type','easy')">簡單方便</div>
-<div class="card" onclick="select('type','food')">可以料理</div>
-<div class="card" onclick="select('type','flex')">自由搭配</div>
-</div>
-
-<!-- Q3 -->
-<h3>③ 生活型態</h3>
-<div class="grid">
-<div class="card" onclick="select('life','busy')">忙碌</div>
-<div class="card" onclick="select('life','normal')">一般</div>
-<div class="card" onclick="select('life','care')">注重養生</div>
-</div>
-
-<div style="text-align:center;margin-top:30px;">
-<button onclick="calculate()" class="btn">幫我推薦</button>
-</div>
-
-<div id="result" style="margin-top:40px;"></div>
+<!-- 結果 -->
+<div id="result" style="margin-top:30px;"></div>
 
 </section>
 
-<a href="https://lin.ee/sHZW7NkR" class="floating-line">LINE</a>
-
 <script src="site.js"></script>
-
 <script>
-let answers = {};
 
-function select(key,val){
-answers[key]=val;
-alert("已選擇");
+// ===== 推薦邏輯 =====
+function selectType(type){
+
+let result = {};
+
+if(type==="方便"){
+result = {
+name:"龜鹿飲",
+text:"我想了解龜鹿飲"
+};
 }
 
-function calculate(){
-
-if(Object.keys(answers).length < 3){
-alert("請先選完三題");
-return;
+if(type==="料理"){
+result = {
+name:"龜鹿湯塊",
+text:"我想了解龜鹿湯塊"
+};
 }
 
-let result = "";
+if(type==="自由搭配"){
+result = {
+name:"鹿茸粉",
+text:"我想了解鹿茸粉"
+};
+}
 
-if(answers.state==="new"){
-result="👉 建議從：龜鹿飲 + 湯塊";
-}
-else if(answers.state==="daily"){
-result="👉 建議：龜鹿膏 + 龜鹿飲";
-}
-else{
-result="👉 建議：鹿茸粉 + 龜鹿膏";
+if(type==="固定食用"){
+result = {
+name:"龜鹿膏",
+text:"我想了解龜鹿膏"
+};
 }
 
 document.getElementById("result").innerHTML = `
-<h2>你的建議搭配</h2>
+<div class="card">
 
-<p>${result}</p>
+<h2>推薦你：${result.name}</h2>
 
-<a href="https://lin.ee/sHZW7NkR?text=${encodeURIComponent(result)}"
-class="btn btn-line">
-LINE 詢問這個搭配
+<p>這個型態比較符合你的使用方式</p>
+
+<a href="products.html" class="btn">
+查看產品
 </a>
+
+<a href="https://lin.ee/sHZW7NkR?text=${encodeURIComponent(result.text)}"
+class="btn btn-line">
+LINE直接詢問
+</a>
+
+</div>
 `;
+
 }
+
 </script>
 
 </body>
