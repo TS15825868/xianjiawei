@@ -1,25 +1,56 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>料理搭配｜仙加味</title>
 <link rel="stylesheet" href="site.css">
 </head>
 
 <body>
 
 <header class="header">
-<div class="logo"><img src="images/logo.png"></div>
+<a href="index.html" class="logo"><img src="images/logo-small.png"></a>
 <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
-<div class="menu-overlay" id="menu">（貼漢堡）</div>
+<div id="menu" class="menu-overlay"></div>
 
 <section class="section">
+
 <h1>料理搭配</h1>
 
-<p>可加入湯品或日常料理</p>
+<input type="text" id="search" placeholder="搜尋料理..." style="width:100%;padding:10px">
+
+<div id="recipe-list" class="grid"></div>
 
 </section>
+
+<script>
+let recipes=[];
+
+fetch("recipes.json")
+.then(res=>res.json())
+.then(data=>{
+recipes=data;
+render(data);
+});
+
+function render(data){
+document.getElementById("recipe-list").innerHTML=
+data.map(r=>`
+<div class="card">
+<h3>${r.name}</h3>
+<p>${r.desc}</p>
+</div>
+`).join("");
+}
+
+document.getElementById("search").addEventListener("input",(e)=>{
+const val=e.target.value;
+render(recipes.filter(r=>r.name.includes(val)));
+});
+</script>
 
 </body>
 </html>
