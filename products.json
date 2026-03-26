@@ -1,34 +1,93 @@
 [
-{
-"name":"龜鹿膏",
-"image":"images/guilu-gao-100g.jpg",
-"images":["images/guilu-gao-100g.jpg"],
-"desc":"濃縮膏狀，適合日常補養",
-"ingredients":["龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],
-"usage":["早晚使用","可溫水沖泡"]
-},
-{
-"name":"龜鹿飲",
-"image":"images/guilu-drink-30cc.jpg",
-"images":["images/guilu-drink-30cc.jpg"],
-"desc":"方便飲用型",
-"ingredients":["龜板萃取物","鹿角萃取物"],
-"usage":["每日1包"]
-},
-{
-"name":"龜鹿湯塊",
-"image":"images/guilu-block-75g.jpg",
-"images":["images/guilu-block-75g.jpg"],
-"desc":"料理使用",
-"ingredients":["龜板萃取物","鹿角萃取物"],
-"usage":["煮湯使用"]
-},
-{
-"name":"鹿茸粉",
-"image":"images/lurong-powder-75g.jpg",
-"images":["images/lurong-powder-75g.jpg"],
-"desc":"可搭配飲品",
-"ingredients":["鹿茸"],
-"usage":["可加入飲品"]
-}
+  {
+    "id": "guilu-gao",
+    "name": "龜鹿膏",
+    "image": "images/guilu-gao-100g.jpg",
+    "desc": "濃縮膏狀，適合日常食用或溫水沖泡",
+    "features": [
+      "濃縮型態",
+      "可直接食用",
+      "適合日常補養節奏"
+    ],
+    "ingredients": [
+      "龜板萃取物",
+      "鹿角萃取物",
+      "粉光蔘",
+      "枸杞",
+      "紅棗",
+      "黃耆"
+    ],
+    "usage": [
+      "每日早上或下午一小匙",
+      "可搭配溫水食用",
+      "避免睡前食用"
+    ]
+  },
+
+  {
+    "id": "guilu-drink",
+    "name": "龜鹿飲",
+    "image": "images/guilu-drink-30cc.jpg",
+    "desc": "液態方便飲用，適合忙碌生活",
+    "features": [
+      "即開即飲",
+      "方便攜帶",
+      "日常快速補充"
+    ],
+    "ingredients": [
+      "水",
+      "龜板萃取物",
+      "鹿角萃取物",
+      "粉光蔘",
+      "枸杞",
+      "紅棗",
+      "黃耆"
+    ],
+    "usage": [
+      "每日一包",
+      "建議溫熱飲用",
+      "避免冰飲"
+    ]
+  },
+
+  {
+    "id": "guilu-block",
+    "name": "龜鹿湯塊",
+    "image": "images/guilu-block-75g.jpg",
+    "desc": "適合燉煮料理使用",
+    "features": [
+      "可入菜",
+      "燉湯使用",
+      "料理搭配彈性高"
+    ],
+    "ingredients": [
+      "龜板萃取物",
+      "鹿角萃取物"
+    ],
+    "usage": [
+      "加入燉湯料理",
+      "可搭配雞肉或排骨",
+      "依個人口味調整"
+    ]
+  },
+
+  {
+    "id": "lurong",
+    "name": "鹿茸粉",
+    "image": "images/lurong-powder-75g.jpg",
+    "desc": "粉末型態，可自由搭配",
+    "features": [
+      "可加入飲品",
+      "可製作膠囊",
+      "使用彈性高"
+    ],
+    "ingredients": [
+      "鹿茸粉"
+    ],
+    "usage": [
+      "可加入溫水",
+      "可搭配咖啡或茶",
+      "可裝膠囊使用"
+    ]
+  }
 ]
