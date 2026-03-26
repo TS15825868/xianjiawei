@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,36 +9,83 @@
 
 <body>
 
+<!-- HEADER -->
 <header class="header">
-<div class="logo"><img src="images/logo.png"></div>
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <a href="index.html" class="logo">
+    <img src="images/logo-small.png">
+  </a>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
-<!-- 漢堡 -->
+<!-- MENU -->
 <div class="menu-overlay" id="menu">
-（貼你的漢堡）
+
+  <div class="menu-group">開始</div>
+  <a href="choose.html">怎麼選龜鹿</a>
+  <a href="combo.html">套餐選擇</a>
+
+  <div class="menu-group">產品</div>
+  <a href="products.html">龜鹿系列</a>
+
+  <div class="menu-group">使用</div>
+  <a href="guide.html">怎麼使用</a>
+  <a href="recipes.html">料理搭配</a>
+
+  <div class="menu-group">認識</div>
+  <a href="knowledge.html">龜鹿知識</a>
+  <a href="video.html">觀點影片</a>
+  <a href="brand.html">品牌故事</a>
+
+  <div class="menu-group">幫助</div>
+  <a href="faq.html">常見問題</a>
+  <a href="contact.html">聯絡我們</a>
+
+  <a href="https://lin.ee/sHZW7NkR" class="menu-cta">LINE 諮詢</a>
+
 </div>
 
+<!-- HERO -->
 <section class="hero">
-<div class="hero-bg"></div>
-<div class="hero-content">
-<h1>補養，是一種節奏</h1>
-<p>回到日常的剛好</p>
-</div>
+  <img src="images/hero-guilu-gao.jpg" class="hero-bg">
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1>補養，是一種節奏</h1>
+    <p>延續鹿角原料與熬製工序的經驗</p>
+  </div>
 </section>
 
-<section class="section center">
-<h2>怎麼開始</h2>
-<p>先從適合自己的開始</p>
+<!-- 導流 -->
+<section class="section">
+  <div class="grid">
+
+    <div class="card">
+      <h3>怎麼選</h3>
+      <p>快速找到適合你的方式</p>
+      <a href="choose.html" class="btn">開始選擇</a>
+    </div>
+
+    <div class="card">
+      <h3>套餐選擇</h3>
+      <p>直接幫你搭配好</p>
+      <a href="combo.html" class="btn">查看套餐</a>
+    </div>
+
+    <div class="card">
+      <h3>產品介紹</h3>
+      <p>查看不同型態差異</p>
+      <a href="products.html" class="btn">查看產品</a>
+    </div>
+
+  </div>
 </section>
 
-<section class="section grid">
-<div class="card"><a href="choose.html">怎麼選</a></div>
-<div class="card"><a href="combo.html">套餐</a></div>
-<div class="card"><a href="products.html">產品</a></div>
+<!-- CTA -->
+<section class="cta">
+  <h2>不確定怎麼選？</h2>
+  <p>直接在 LINE 詢問更快</p>
+  <a href="https://lin.ee/sHZW7NkR" class="btn btn-line">LINE 諮詢</a>
 </section>
-
-<div id="modal" class="modal"></div>
 
 <script src="site.js"></script>
 </body>
