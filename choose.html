@@ -1,57 +1,160 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>怎麼選龜鹿｜仙加味</title>
-<meta name="description" content="先看型態，再看生活情境，快速比較龜鹿膏、龜鹿飲、龜鹿湯塊與鹿茸粉。">
-<link rel="canonical" href="https://ts15825868.github.io/xianjiawei/choose.html">
-<meta property="og:title" content="怎麼選龜鹿｜仙加味">
-<meta property="og:description" content="用生活情境快速比較龜鹿產品。">
-<meta property="og:image" content="images/hero-guilu-gao.jpg">
-<meta property="og:type" content="website">
 <link rel="stylesheet" href="site.css">
 </head>
+
 <body>
-<header class="header"><a href="index.html" class="logo"><img src="images/logo-seal.png" alt="仙加味"><span>仙加味</span></a><div class="menu-btn">☰</div></header>
-<div id="menuOverlay" class="menu-overlay"></div>
-<main>
-<section class="hero hero-small"><img src="images/hero-guilu-gao.jpg" class="hero-bg" alt="怎麼選龜鹿"><div class="hero-overlay"></div><div class="hero-content article-hero-panel reveal"><div class="eyebrow">怎麼選龜鹿</div><h1 class="hero-title">先看型態，再看生活情境</h1><p class="hero-text">不知道從哪一款開始很正常。把選擇縮成幾個問題：在家還是外出？喜歡料理還是飲品？想固定還是彈性搭配？方向就會清楚很多。</p></div></section>
-<section class="section"><nav class="breadcrumb"><a href="index.html">首頁</a><span>›</span><span>怎麼選龜鹿</span></nav></section>
-<section class="section reveal">
-  <h2 class="center">快速選擇</h2>
-  <p class="section-intro">點選最接近你生活情境的入口，就能直接前往對應產品頁。</p>
-  <div class="product-grid">
-    <button class="product-card choose-btn" data-product="guilu-gao"><h3>想建立固定日常節奏</h3><p>優先看龜鹿膏，適合在家安排固定食用習慣。</p></button>
-    <button class="product-card choose-btn" data-product="guilu-drink"><h3>平常外出多、求方便</h3><p>優先看龜鹿飲，開瓶即飲，較適合忙碌日常。</p></button>
-    <button class="product-card choose-btn" data-product="guilu-block"><h3>喜歡燉湯或家庭料理</h3><p>優先看龜鹿湯塊，用料理方式安排比較自然。</p></button>
-    <button class="product-card choose-btn" data-product="lurong-powder"><h3>習慣咖啡、牛奶或茶飲</h3><p>優先看鹿茸粉，適合調飲搭配與彈性使用。</p></button>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">
+    <img src="images/logo.png">
   </div>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+</header>
+
+<!-- 漢堡 -->
+<div class="menu-overlay" id="menu">
+
+  <a href="index.html">首頁</a>
+
+  <div class="menu-group">產品</div>
+  <a href="products.html">龜鹿系列</a>
+
+  <div class="menu-group">選擇</div>
+  <a href="choose.html">怎麼選龜鹿</a>
+  <a href="combo.html">套餐選擇🔥</a>
+
+  <div class="menu-group">使用</div>
+  <a href="guide.html">怎麼使用</a>
+  <a href="recipes.html">料理搭配</a>
+
+  <div class="menu-group">認識</div>
+  <a href="knowledge.html">龜鹿知識</a>
+  <a href="video.html">觀點分享</a>
+  <a href="brand.html">品牌故事</a>
+
+  <div class="menu-group">幫助</div>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">聯絡我們</a>
+
+  <a href="https://lin.ee/sHZW7NkR" class="menu-cta">🔥 直接幫我配</a>
+
+</div>
+
+<!-- 開頭 -->
+<section class="section center">
+  <h1>怎麼選，其實很簡單</h1>
+  <p>不用一次看懂全部，先從適合自己的開始</p>
 </section>
-<section class="section reveal">
-  <h2 class="center">產品比較</h2>
-  <div class="compare-table">
-    <table>
-      <thead><tr><th>產品</th><th>型態</th><th>食用方式</th><th>適合情境</th></tr></thead>
-      <tbody>
-        <tr><td><a href="product.html?id=guilu-gao">龜鹿膏</a></td><td>膏狀</td><td>直接食用 / 溫水沖泡</td><td>想建立固定節奏、在家使用較多</td></tr>
-        <tr><td><a href="product.html?id=guilu-drink">龜鹿飲</a></td><td>即飲</td><td>開瓶即飲 / 可溫熱</td><td>外出、忙碌、想省時間</td></tr>
-        <tr><td><a href="product.html?id=guilu-block">龜鹿湯塊</a></td><td>湯塊</td><td>燉雞湯 / 排骨湯</td><td>喜歡料理、家庭共享</td></tr>
-        <tr><td><a href="product.html?id=lurong-powder">鹿茸粉</a></td><td>粉末</td><td>加入咖啡 / 茶 / 牛奶</td><td>喜歡飲品搭配、彈性使用</td></tr>
-      </tbody>
-    </table>
+
+<!-- 三步驟 -->
+<section class="section">
+
+  <h2 style="text-align:center;">三步驟找到適合的方式</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>① 先選型態</h3>
+      <p>膏 / 飲 / 湯塊 / 粉</p>
+    </div>
+
+    <div class="card">
+      <h3>② 看使用習慣</h3>
+      <p>日常使用 / 偶爾補養</p>
+    </div>
+
+    <div class="card">
+      <h3>③ 再做搭配</h3>
+      <p>依生活方式調整</p>
+    </div>
+
   </div>
+
 </section>
-<section class="section reveal">
-  <div class="split-note">
-    <div class="info-card"><h3>先不要一次看太多</h3><p>第一次挑選時，先確定自己偏好「直接食用、即飲、料理或調飲」哪一種模式，再往下看規格與內容，會更容易做決定。</p></div>
-    <div class="info-card"><h3>還是不確定就先描述生活型態</h3><p>你可以直接告訴我是否常外出、平常會不會下廚、是否有固定早餐或咖啡習慣，我就能幫你把方向縮小。</p></div>
+
+<!-- 核心分類 -->
+<section class="section">
+
+  <h2 style="text-align:center;">直接幫你分好</h2>
+
+  <div class="grid">
+
+    <!-- 入門 -->
+    <div class="card">
+      <h2>入門</h2>
+      <p>第一次接觸</p>
+
+      <ul>
+        <li>✔ 想先試看看</li>
+        <li>✔ 生活忙碌</li>
+      </ul>
+
+      <p><strong>建議：龜鹿膏</strong></p>
+
+      <button onclick="openProduct(0)" class="btn">
+        查看產品
+      </button>
+    </div>
+
+    <!-- 日常 -->
+    <div class="card">
+      <h2>日常</h2>
+      <p>穩定使用</p>
+
+      <ul>
+        <li>✔ 想固定補養</li>
+        <li>✔ 已有習慣</li>
+      </ul>
+
+      <p><strong>建議：龜鹿膏＋龜鹿飲</strong></p>
+
+      <button onclick="openProduct(1)" class="btn">
+        查看產品
+      </button>
+    </div>
+
+    <!-- 完整 -->
+    <div class="card">
+      <h2>完整</h2>
+      <p>長期調整</p>
+
+      <ul>
+        <li>✔ 想完整搭配</li>
+        <li>✔ 有長期規劃</li>
+      </ul>
+
+      <p><strong>建議：全系列搭配</strong></p>
+
+      <button onclick="openProduct(2)" class="btn">
+        查看產品
+      </button>
+    </div>
+
   </div>
+
 </section>
-</main>
-<section class="cta"><h2>不確定怎麼選？</h2><p>把你的作息與偏好告訴我，我幫你整理成比較直接的建議。</p><div class="cta-actions" style="justify-content:center;"><a href="https://lin.ee/sHZW7NkR?text=我想請你幫我推薦適合的龜鹿產品" class="btn btn-line">LINE詢問</a><a href="articles.html" class="btn btn-outline">先看知識整理</a></div></section>
-<footer class="footer"><div class="footer-bottom">© 仙加味</div></footer>
-<a class="floating-line" href="https://lin.ee/sHZW7NkR">LINE詢問</a>
+
+<!-- CTA -->
+<section class="section center">
+
+  <h2>還是不確定？</h2>
+  <p>直接告訴我們你的狀況，幫你搭配會更快</p>
+
+  <a href="https://lin.ee/sHZW7NkR" class="btn">
+    🔥 直接幫我配
+  </a>
+
+</section>
+
+<!-- Modal -->
+<div id="modal" class="modal"></div>
+
 <script src="site.js"></script>
 </body>
 </html>
