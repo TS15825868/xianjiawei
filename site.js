@@ -1,98 +1,81 @@
-let products = [];
-let currentIndex = 0;
-let lastScroll = 0;
-
-fetch("products.json")
-.then(res => res.json())
-.then(data => {
-  products = data;
-  renderProducts();
-});
-
-function renderProducts(){
-  document.querySelectorAll("#product-list").forEach(container=>{
-    if(!container) return;
-
-    container.innerHTML = "";
-
-    products.forEach((p,i)=>{
-      container.innerHTML += `
-      <div class="card" onclick="openProduct(${i})">
-        <img src="${p.image}">
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-      </div>`;
-    });
-  });
-}
-
-function openProduct(i){
-  lastScroll = window.scrollY;
-  currentIndex = i;
-  renderModal();
-}
-
-function renderModal(){
-  const p = products[currentIndex];
-  const modal = document.getElementById("modal");
-
-  modal.innerHTML = `
-  <div class="modal-box">
-
-    <div class="modal-top">
-      <span onclick="prevProduct()">←</span>
-      <span onclick="closeModal()">關閉</span>
-      <span onclick="nextProduct()">→</span>
-    </div>
-
-    <h2>${p.name}</h2>
-
-    ${p.images.map(img=>`<img src="${img}">`).join("")}
-
-    <p>${p.desc}</p>
-
-    <h4>成分</h4>
-    <p>${p.ingredients.join("、")}</p>
-
-    <h4>使用方式</h4>
-    <p>${p.usage.join("<br>")}</p>
-
-    <a href="https://lin.ee/sHZW7NkR" class="btn">LINE詢問</a>
-
-  </div>
-  `;
-
-  modal.classList.add("show");
-  document.body.style.overflow = "hidden";
-}
-
-function closeModal(){
-  document.getElementById("modal").classList.remove("show");
-  document.body.style.overflow = "";
-  window.scrollTo(0, lastScroll);
-}
-
-function prevProduct(){
-  currentIndex = (currentIndex - 1 + products.length) % products.length;
-  renderModal();
-}
-
-function nextProduct(){
-  currentIndex = (currentIndex + 1) % products.length;
-  renderModal();
-}
-
+// ===== 漢堡 =====
 function toggleMenu(){
   document.getElementById("menu").classList.toggle("active");
 }
 
+// 點外面關閉
 document.addEventListener("click", function(e){
   const menu = document.getElementById("menu");
-  const btn = document.querySelector(".menu-btn");
-
-  if(!menu || !btn) return;
-
-  if(!menu.contains(e.target) && !btn.contains(e.target)){
+  if(!menu.contains(e.target) && !e.target.classList.contains("menu-btn")){
     menu.classList.remove("active");
   }
 });
+
+// ===== 產品 =====
+let productsData = [];
+let currentIndex = 0;
+
+fetch("products.json")
+.then(res=>res.json())
+.then(data=>{
+  productsData = data;
+  renderProducts(data);
+});
+
+function renderProducts(data){
+  const container = document.getElementById("product-list");
+  if(!container) return;
+
+  container.innerHTML = data.map((p,i)=>`
+    <div class="product-card" onclick="openModal(${i})">
+      <img src="${p.image}">
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+    </div>
+  `).join("");
+}
+
+// ===== modal =====
+function openModal(index){
+  currentIndex = index;
+  const p = productsData[index];
+
+  document.getElementById("modal").style.display="flex";
+
+  document.getElementById("modal-body").innerHTML = `
+    <h2>${p.name}</h2>
+    <img src="${p.image}">
+
+    <p>${p.desc}</p>
+
+    <h3>特色</h3>
+    <ul>${p.features.map(f=>`<li>${f}</li>`).join("")}</ul>
+
+    <h3>成分</h3>
+    <ul>${p.ingredients.map(i=>`<li>${i}</li>`).join("")}</ul>
+
+    <h3>使用方式</h3>
+    <ul>${p.usage.map(u=>`<li>${u}</li>`).join("")}</ul>
+
+    <div class="modal-nav">
+      <button onclick="prevProduct()">← 上一個</button>
+      <button onclick="nextProduct()">下一個 →</button>
+    </div>
+
+    <a href="https://lin.ee/sHZW7NkR" class="btn btn-line">LINE 詢問</a>
+  `;
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+function prevProduct(){
+  currentIndex = (currentIndex - 1 + productsData.length) % productsData.length;
+  openModal(currentIndex);
+}
+
+function nextProduct(){
+  currentIndex = (currentIndex + 1) % productsData.length;
+  openModal(currentIndex);
+}
