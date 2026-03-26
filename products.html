@@ -1,27 +1,33 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>產品</title>
 <link rel="stylesheet" href="site.css">
 </head>
 
 <body>
 
 <header class="header">
-<div class="logo"><img src="images/logo.png"></div>
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <a href="index.html" class="logo"><img src="images/logo-small.png"></a>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
-<div class="menu-overlay" id="menu">（貼漢堡）</div>
+<div id="menu" class="menu-overlay"></div>
 
 <section class="section">
-<h1>龜鹿系列</h1>
-<p>點產品查看詳細</p>
-
-<div id="product-list" class="grid"></div>
+  <h1>龜鹿系列</h1>
+  <div id="product-list" class="product-grid"></div>
 </section>
 
-<div id="modal" class="modal"></div>
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span onclick="closeModal()" class="close">×</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
 
 <script src="site.js"></script>
 </body>
