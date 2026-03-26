@@ -1,159 +1,43 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>怎麼選龜鹿｜仙加味</title>
+<title>怎麼選</title>
 <link rel="stylesheet" href="site.css">
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header class="header">
-  <div class="logo">
-    <img src="images/logo.png">
-  </div>
+  <a href="index.html" class="logo"><img src="images/logo-small.png"></a>
   <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
-<!-- 漢堡 -->
-<div class="menu-overlay" id="menu">
+<div id="menu" class="menu-overlay"></div>
 
-  <a href="index.html">首頁</a>
+<section class="section">
+<h1>怎麼選龜鹿</h1>
 
-  <div class="menu-group">產品</div>
-  <a href="products.html">龜鹿系列</a>
-
-  <div class="menu-group">選擇</div>
-  <a href="choose.html">怎麼選龜鹿</a>
-  <a href="combo.html">套餐選擇🔥</a>
-
-  <div class="menu-group">使用</div>
-  <a href="guide.html">怎麼使用</a>
-  <a href="recipes.html">料理搭配</a>
-
-  <div class="menu-group">認識</div>
-  <a href="knowledge.html">龜鹿知識</a>
-  <a href="video.html">觀點分享</a>
-  <a href="brand.html">品牌故事</a>
-
-  <div class="menu-group">幫助</div>
-  <a href="faq.html">FAQ</a>
-  <a href="contact.html">聯絡我們</a>
-
-  <a href="https://lin.ee/sHZW7NkR" class="menu-cta">🔥 直接幫我配</a>
-
+<div class="card">
+<h3>日常方便</h3>
+<p>適合忙碌生活</p>
+<p>👉 建議：龜鹿飲</p>
 </div>
 
-<!-- 開頭 -->
-<section class="section center">
-  <h1>怎麼選，其實很簡單</h1>
-  <p>不用一次看懂全部，先從適合自己的開始</p>
-</section>
+<div class="card">
+<h3>濃縮食用</h3>
+<p>喜歡濃度感</p>
+<p>👉 建議：龜鹿膏</p>
+</div>
 
-<!-- 三步驟 -->
-<section class="section">
-
-  <h2 style="text-align:center;">三步驟找到適合的方式</h2>
-
-  <div class="grid">
-
-    <div class="card">
-      <h3>① 先選型態</h3>
-      <p>膏 / 飲 / 湯塊 / 粉</p>
-    </div>
-
-    <div class="card">
-      <h3>② 看使用習慣</h3>
-      <p>日常使用 / 偶爾補養</p>
-    </div>
-
-    <div class="card">
-      <h3>③ 再做搭配</h3>
-      <p>依生活方式調整</p>
-    </div>
-
-  </div>
+<div class="card">
+<h3>料理搭配</h3>
+<p>可入菜燉煮</p>
+<p>👉 建議：湯塊</p>
+</div>
 
 </section>
-
-<!-- 核心分類 -->
-<section class="section">
-
-  <h2 style="text-align:center;">直接幫你分好</h2>
-
-  <div class="grid">
-
-    <!-- 入門 -->
-    <div class="card">
-      <h2>入門</h2>
-      <p>第一次接觸</p>
-
-      <ul>
-        <li>✔ 想先試看看</li>
-        <li>✔ 生活忙碌</li>
-      </ul>
-
-      <p><strong>建議：龜鹿膏</strong></p>
-
-      <button onclick="openProduct(0)" class="btn">
-        查看產品
-      </button>
-    </div>
-
-    <!-- 日常 -->
-    <div class="card">
-      <h2>日常</h2>
-      <p>穩定使用</p>
-
-      <ul>
-        <li>✔ 想固定補養</li>
-        <li>✔ 已有習慣</li>
-      </ul>
-
-      <p><strong>建議：龜鹿膏＋龜鹿飲</strong></p>
-
-      <button onclick="openProduct(1)" class="btn">
-        查看產品
-      </button>
-    </div>
-
-    <!-- 完整 -->
-    <div class="card">
-      <h2>完整</h2>
-      <p>長期調整</p>
-
-      <ul>
-        <li>✔ 想完整搭配</li>
-        <li>✔ 有長期規劃</li>
-      </ul>
-
-      <p><strong>建議：全系列搭配</strong></p>
-
-      <button onclick="openProduct(2)" class="btn">
-        查看產品
-      </button>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- CTA -->
-<section class="section center">
-
-  <h2>還是不確定？</h2>
-  <p>直接告訴我們你的狀況，幫你搭配會更快</p>
-
-  <a href="https://lin.ee/sHZW7NkR" class="btn">
-    🔥 直接幫我配
-  </a>
-
-</section>
-
-<!-- Modal -->
-<div id="modal" class="modal"></div>
 
 <script src="site.js"></script>
 </body>
