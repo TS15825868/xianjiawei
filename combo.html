@@ -1,45 +1,38 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>套餐</title>
 <link rel="stylesheet" href="site.css">
 </head>
 
 <body>
 
 <header class="header">
-<div class="logo"><img src="images/logo.png"></div>
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <a href="index.html" class="logo"><img src="images/logo-small.png"></a>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
-<div class="menu-overlay" id="menu">（貼漢堡）</div>
+<div id="menu" class="menu-overlay"></div>
 
-<section class="section center">
-<h1>套餐選擇</h1>
-<p>直接幫你分好</p>
-</section>
-
-<section class="section grid">
+<section class="section">
+<h1>推薦套餐</h1>
 
 <div class="card">
-<h2>入門</h2>
-<p>先試看看</p>
-<a href="https://lin.ee/sHZW7NkR" class="btn">LINE詢問</a>
+<h3>入門款</h3>
+<p>龜鹿飲 + 湯塊</p>
+<a href="https://lin.ee/sHZW7NkR" class="btn btn-line">直接LINE詢問</a>
 </div>
 
 <div class="card">
-<h2>日常</h2>
-<p>穩定使用</p>
-<a href="https://lin.ee/sHZW7NkR" class="btn">LINE詢問</a>
-</div>
-
-<div class="card">
-<h2>完整</h2>
-<p>長期搭配</p>
-<a href="https://lin.ee/sHZW7NkR" class="btn">LINE詢問</a>
+<h3>日常款</h3>
+<p>龜鹿膏 + 龜鹿飲</p>
+<a href="https://lin.ee/sHZW7NkR" class="btn btn-line">直接LINE詢問</a>
 </div>
 
 </section>
 
+<script src="site.js"></script>
 </body>
 </html>
