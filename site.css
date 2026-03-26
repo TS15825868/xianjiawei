@@ -6,6 +6,12 @@ color:#2F2118;
 padding-top:76px;
 }
 
+img{
+max-width:100%;
+height:auto;
+display:block;
+}
+
 /* ===== header ===== */
 .header{
 position:fixed;
@@ -15,7 +21,7 @@ height:76px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:0 20px;
+padding:0 24px;
 background:#fff;
 z-index:999;
 }
@@ -26,7 +32,12 @@ width:auto;
 object-fit:contain;
 }
 
-/* ===== menu ===== */
+.menu-btn{
+font-size:26px;
+cursor:pointer;
+}
+
+/* ===== menu（升級） ===== */
 .menu-overlay{
 position:fixed;
 top:0;
@@ -36,10 +47,12 @@ background:#0B1F3B;
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:center;
+justify-content:flex-start;
+padding:40px 20px;
 gap:10px;
 transform:translateY(-100%);
 transition:.3s;
+overflow-y:auto; /* 🔥 可滑 */
 }
 
 .menu-overlay.active{
@@ -48,23 +61,35 @@ transform:translateY(0);
 
 .menu-group{
 color:#aaa;
-margin-top:10px;
+margin-top:16px;
+width:100%;
+max-width:320px;
 }
 
 .menu-overlay a{
 display:block;
-width:260px;
-padding:12px;
+width:100%;
+max-width:320px;
+padding:12px 16px;
 border:1px solid rgba(255,255,255,0.2);
 border-radius:10px;
 color:white;
 text-decoration:none;
-text-align:left;
+transition:.2s;
+}
+
+/* 點擊回饋（重要） */
+.menu-overlay a:active{
+transform:scale(0.96);
+background:rgba(255,255,255,0.1);
 }
 
 .menu-cta{
 background:#06C755;
 text-align:center;
+font-weight:bold;
+border:none;
+margin-bottom:10px;
 }
 
 /* ===== hero ===== */
@@ -75,6 +100,7 @@ display:flex;
 align-items:center;
 justify-content:center;
 color:white;
+text-align:center;
 }
 
 .hero-bg{
@@ -94,10 +120,18 @@ background:rgba(0,0,0,0.5);
 .hero-content{
 position:relative;
 z-index:2;
-text-align:center;
+padding:20px;
 }
 
-/* ===== grid ===== */
+.hero-buttons{
+margin-top:15px;
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+/* ===== section ===== */
 .section{
 padding:60px 20px;
 max-width:1100px;
@@ -110,28 +144,42 @@ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 }
 
+/* ===== card（升級） ===== */
 .card{
 background:white;
-padding:16px;
-border-radius:14px;
+padding:18px;
+border-radius:16px;
+transition:.2s;
+}
+
+/* hover效果 */
+.card:hover{
+transform:translateY(-4px);
 }
 
 /* ===== product ===== */
 .product-card{
 background:white;
 padding:16px;
-border-radius:14px;
+border-radius:16px;
 text-align:center;
+cursor:pointer;
+transition:.2s;
+}
+
+.product-card:hover{
+transform:translateY(-4px);
 }
 
 .product-card img{
 width:100%;
 aspect-ratio:1/1;
 object-fit:cover;
-border-radius:10px;
+border-radius:12px;
+margin-bottom:10px;
 }
 
-/* ===== modal ===== */
+/* ===== modal（升級） ===== */
 .modal{
 display:none;
 position:fixed;
@@ -141,30 +189,72 @@ height:100%;
 background:rgba(0,0,0,0.7);
 justify-content:center;
 align-items:center;
+padding:20px;
 }
 
 .modal-content{
 background:white;
 padding:20px;
-max-width:500px;
-width:90%;
-border-radius:12px;
+max-width:520px;
+width:100%;
+border-radius:16px;
 overflow:auto;
 max-height:90%;
 }
 
-/* ===== btn ===== */
+/* ===== btn（升級） ===== */
 .btn{
 display:inline-block;
-padding:10px 20px;
-border-radius:30px;
+padding:12px 24px;
+border-radius:40px;
 text-decoration:none;
-border:1px solid #0B1F3B;
+border:1.5px solid #0B1F3B;
 color:#0B1F3B;
+transition:.2s;
+}
+
+.btn:hover{
+background:#0B1F3B;
+color:white;
 }
 
 .btn-line{
 background:#06C755;
 color:white;
 border:none;
+}
+
+.btn-line:hover{
+opacity:.9;
+}
+
+/* ===== floating LINE（超重要） ===== */
+.floating-line{
+position:fixed;
+right:16px;
+bottom:20px;
+background:#06C755;
+color:white;
+padding:12px 16px;
+border-radius:999px;
+z-index:999;
+font-weight:bold;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ===== 手機優化 ===== */
+@media(max-width:600px){
+
+.section{
+padding:40px 16px;
+}
+
+.hero{
+height:60vh;
+}
+
+.menu-overlay{
+padding-top:80px;
+}
+
 }
