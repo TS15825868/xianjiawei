@@ -6,7 +6,7 @@ const menu = document.getElementById("menu");
 menu.classList.toggle("active");
 }
 
-// 點外面關閉
+/* 點外面關閉 */
 document.addEventListener("click", function(e){
 const menu = document.getElementById("menu");
 const btn = document.querySelector(".menu-btn");
@@ -27,18 +27,25 @@ fetch("products.json")
 .then(data=>{
 productsData = data;
 renderSlider(data);
-});
+})
+.catch(err=>console.log(err));
 
-/* ===== 渲染 ===== */
+/* ===== 渲染產品 ===== */
 function renderSlider(data){
 const el = document.getElementById("product-slider");
 if(!el) return;
 
 el.innerHTML = data.map((p,i)=>`
 <div class="product-card" onclick="openModal(${i})">
+
 <img src="${p.image}">
 <h3>${p.name}</h3>
 <p>${p.desc}</p>
+
+<div style="margin-top:10px;">
+<span class="btn">查看介紹</span>
+</div>
+
 </div>
 `).join("");
 }
@@ -55,9 +62,7 @@ const body = document.getElementById("modal-body");
 modal.style.display="flex";
 
 body.innerHTML = `
-<div class="modal-header">
 <span class="back-btn" onclick="closeModal()">← 返回</span>
-</div>
 
 <h2>${p.name}</h2>
 
@@ -70,16 +75,16 @@ body.innerHTML = `
 
 <h3>成分</h3>
 <ul>
-${p.ingredients.map(i=>`<li>${i}</li>`).join("")}
+${p.ingredients ? p.ingredients.map(i=>`<li>${i}</li>`).join("") : ""}
 </ul>
 
 <h3>使用方式</h3>
 <ul>
-${p.usage.map(u=>`<li>${u}</li>`).join("")}
+${p.usage ? p.usage.map(u=>`<li>${u}</li>`).join("") : ""}
 </ul>
 
 <div class="modal-cta">
-<a href="https://lin.ee/sHZW7NkR?text=${encodeURIComponent(p.name)}"
+<a href="https://lin.ee/sHZW7NkR?text=${encodeURIComponent(p.lineText || p.name)}"
 class="btn btn-line">LINE詢問</a>
 </div>
 `;
@@ -95,12 +100,12 @@ modal.style.display="none";
 document.body.style.overflow="";
 
 window.scrollTo({
-top: lastScroll,
-behavior: "instant"
+top:lastScroll,
+behavior:"instant"
 });
 }
 
-/* ESC */
+/* ESC 關閉 */
 document.addEventListener("keydown", function(e){
 if(e.key==="Escape"){
 closeModal();
