@@ -3,73 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>產品</title>
+<title>龜鹿系列｜仙加味</title>
 <link rel="stylesheet" href="site.css">
 </head>
 
 <body>
 
 <header class="header">
-  <a href="index.html" class="logo">
-    <img src="images/logo-small.png">
-  </a>
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+<a href="index.html" class="logo">
+<img src="images/logo-small.png">
+</a>
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
-<!-- MENU（完整） -->
+<!-- menu -->
 <div id="menu" class="menu-overlay">
 
-  <a href="combo.html" class="menu-cta">🔥 直接幫我配</a>
+<div onclick="toggleMenu()" class="menu-close">✕</div>
 
-  <div class="menu-group">開始</div>
-  <a href="choose.html">怎麼選龜鹿</a>
-  <a href="combo.html">套餐選擇</a>
+<div class="menu-group">產品</div>
+<a href="products.html">龜鹿系列</a>
 
-  <div class="menu-group">產品</div>
-  <a href="products.html">龜鹿系列</a>
+<div class="menu-group">使用</div>
+<a href="choose.html">怎麼選</a>
+<a href="combo.html">套餐搭配</a>
 
-  <div class="menu-group">使用</div>
-  <a href="guide.html">怎麼使用</a>
-  <a href="recipes.html">料理搭配</a>
+<div class="menu-group">知識</div>
+<a href="knowledge.html">龜鹿知識</a>
 
-  <div class="menu-group">認識</div>
-  <a href="knowledge.html">龜鹿知識</a>
-  <a href="video.html">觀點影片</a>
-  <a href="brand.html">品牌故事</a>
+<div class="menu-group">幫助</div>
+<a href="faq.html">FAQ</a>
+<a href="contact.html">聯絡</a>
 
-  <div class="menu-group">幫助</div>
-  <a href="faq.html">常見問題</a>
-  <a href="contact.html">聯絡我們</a>
-
-  <a href="https://lin.ee/sHZW7NkR?text=我想了解產品" class="menu-cta">
-    LINE 諮詢
-  </a>
+<a href="https://lin.ee/sHZW7NkR"
+class="menu-cta">LINE詢問</a>
 
 </div>
 
+<!-- title -->
 <section class="section">
-  <h1>龜鹿系列</h1>
-  <p style="text-align:center;margin-bottom:20px;">
-    點擊產品查看詳細介紹
-  </p>
-  <div id="product-list" class="product-grid"></div>
+<h1>龜鹿系列</h1>
+<p>選擇適合你的型態</p>
 </section>
 
-<!-- MODAL（成交版） -->
+<!-- Apple滑動 -->
+<section class="apple-slider">
+<div id="product-slider" class="slider"></div>
+</section>
+
+<!-- modal -->
 <div id="modal" class="modal">
-  <div class="modal-content">
+<div class="modal-content">
 
-    <span onclick="closeModal()" style="cursor:pointer;font-size:20px;">✕ 關閉</span>
+<span class="close" onclick="closeModal()">×</span>
 
-    <div id="modal-body"></div>
+<div id="modal-body"></div>
 
-  </div>
+</div>
 </div>
 
-<!-- 浮動LINE -->
-<a href="https://lin.ee/sHZW7NkR?text=我想了解產品" class="floating-line">
-LINE
-</a>
+<a href="https://lin.ee/sHZW7NkR?text=我想了解龜鹿"
+class="floating-line">LINE</a>
 
 <script src="site.js"></script>
 </body>
