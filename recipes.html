@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>料理</title>
+<title>料理搭配</title>
 <link rel="stylesheet" href="site.css">
 </head>
 <body>
@@ -11,14 +11,39 @@
 
 <main>
 
-<div class="card">
+<section class="card">
 <h1>料理搭配</h1>
-<p>可加入湯品或飲品</p>
-</div>
+<p>把補養放進日常，而不是額外負擔。</p>
+</section>
+
+<div id="recipe-list" class="grid"></div>
+
+<section class="card">
+<h2>怎麼開始最簡單？</h2>
+<p>先從湯或熱飲開始。</p>
+<a href="products.html" class="btn">看產品</a>
+</section>
 
 </main>
 
 <div id="app-footer"></div>
+
+<script>
+fetch("recipes.json")
+.then(r=>r.json())
+.then(data=>{
+const el=document.getElementById("recipe-list");
+el.innerHTML=data.map(r=>`
+<div class="card">
+<img src="${r.image}" style="width:100%">
+<h3>${r.name}</h3>
+<p>${r.desc}</p>
+<p>${r.ingredients.join("、")}</p>
+</div>
+`).join("");
+});
+</script>
+
 <script src="site.js"></script>
 </body>
 </html>
