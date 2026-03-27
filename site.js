@@ -43,11 +43,17 @@ const body=document.getElementById("modal-body");
 modal.style.display="flex";
 
 body.innerHTML=`
+<div style="display:flex;justify-content:space-between;">
 <h2>${p.name}</h2>
+<button onclick="closeModal()" style="font-size:22px;border:none;background:none;">✕</button>
+</div>
+
 ${p.images.map(img=>`<img src="${img}">`).join("")}
+
 <p>${p.desc}</p>
 
-<h3>規格</h3><p>${p.spec}</p>
+<h3>規格</h3>
+<p>${p.spec}</p>
 
 <h3>成分</h3>
 <ul>${p.ingredients.map(i=>`<li>${i}</li>`).join("")}</ul>
@@ -55,11 +61,25 @@ ${p.images.map(img=>`<img src="${img}">`).join("")}
 <h3>使用方式</h3>
 <ul>${p.usage.map(u=>`<li>${u}</li>`).join("")}</ul>
 
+<a href="javascript:void(0)" onclick="closeModal()" class="btn">← 返回</a>
+
 <a href="https://lin.ee/sHZW7NkR?text=${encodeURIComponent(p.lineText)}"
 class="btn btn-line">LINE詢問</a>
 `;
 }
 
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
 document.addEventListener("click",e=>{
-if(e.target.id==="modal") e.target.style.display="none";
+if(e.target.id==="modal"){
+closeModal();
+}
+});
+
+document.addEventListener("keydown",e=>{
+if(e.key==="Escape"){
+closeModal();
+}
 });
