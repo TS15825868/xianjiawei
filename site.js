@@ -1,23 +1,22 @@
-// 共用Header
 function loadHeader() {
   document.getElementById("app-header").innerHTML = `
   <header class="header">
-    <div class="logo">
+    <a href="index.html" class="logo">
       <img src="images/logo.png">
-    </div>
+    </a>
+
     <div class="menu-btn" onclick="toggleMenu()">☰</div>
   </header>
 
   <nav id="menu" class="menu">
-    <strong>首頁</strong>
-    <a href="index.html">首頁</a>
 
-    <strong>產品</strong>
+    <strong>快速開始</strong>
+    <a href="recommend.html">👉 快速推薦</a>
     <a href="products.html">產品總覽</a>
 
-    <strong>開始使用</strong>
+    <strong>怎麼開始</strong>
     <a href="choose.html">怎麼選</a>
-    <a href="recommend.html">快速推薦</a>
+    <a href="combo.html">推薦套餐</a>
 
     <strong>內容</strong>
     <a href="knowledge.html">補養知識</a>
@@ -28,11 +27,11 @@ function loadHeader() {
     <a href="brand.html">關於我們</a>
     <a href="faq.html">常見問題</a>
     <a href="contact.html">聯絡</a>
+
   </nav>
   `;
 }
 
-// Footer
 function loadFooter() {
   document.getElementById("app-footer").innerHTML = `
   <footer class="footer">
@@ -41,13 +40,27 @@ function loadFooter() {
   `;
 }
 
-// 漢堡控制
-function toggleMenu() {
+function toggleMenu(){
   document.getElementById("menu").classList.toggle("show");
 }
 
-// 初始化
-window.onload = function () {
-  if (document.getElementById("app-header")) loadHeader();
-  if (document.getElementById("app-footer")) loadFooter();
-};
+/* 成交 modal */
+function openModal(title, img, desc){
+  document.getElementById("modal").style.display="flex";
+  document.getElementById("modal-title").innerText=title;
+  document.getElementById("modal-img").src=img;
+  document.getElementById("modal-desc").innerText=desc;
+
+  document.getElementById("line-link").href =
+    "https://line.me/R/ti/p/YOURID?text=" +
+    encodeURIComponent("我要購買：" + title);
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+window.onload = function(){
+  loadHeader();
+  loadFooter();
+}
