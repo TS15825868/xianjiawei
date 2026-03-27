@@ -1,195 +1,116 @@
-body{
-margin:0;
-font-family:-apple-system,"PingFang TC",sans-serif;
-background:#F7F4ED;
-color:#2F2118;
-padding-top:76px;
-overflow-x:hidden;
+/* ===== 安全區處理（iPhone） ===== */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 
-/* ===== header ===== */
-.header{
-position:fixed;
-top:0;
-width:100%;
-height:76px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:0 16px;
-background:#fff;
-z-index:999;
+/* ===== 漢堡選單 ===== */
+.menu-panel {
+  position: fixed;
+  top: 80px;
+  right: 16px;
+  left: 16px;
+  max-width: 420px;
+  margin: auto;
+
+  background: #0B1F3B;
+  color: #fff;
+  border-radius: 20px;
+  padding: 24px;
+
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
 }
 
-.logo img{height:42px;}
-
-.menu-btn{
-font-size:24px;
-padding:8px 12px;
-border:1px solid #ddd;
-border-radius:10px;
+.menu-panel.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
-/* ===== menu ===== */
-.menu-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-transform:translateY(-100%);
-transition:.4s;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:1000;
+/* ===== Modal（App級） ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  z-index: 999;
 }
 
-.menu-overlay.active{
-transform:translateY(0);
+.modal.active {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.menu-panel{
-width:calc(100% - 32px);
-max-width:420px;
-background:#0B1F3B;
-border-radius:20px;
-padding:28px 20px;
-display:flex;
-flex-direction:column;
-gap:14px;
-box-sizing:border-box;
+.modal-content {
+  width: 92%;
+  max-width: 420px;
+  height: 90vh;
+
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.menu-panel a{
-color:#fff;
-text-decoration:none;
-font-size:16px;
+/* 圖片固定 */
+.modal-image {
+  flex-shrink: 0;
 }
 
-/* ===== hero ===== */
-.hero{
-position:relative;
-height:75vh;
+.modal-image img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
 }
 
-.hero img{
-width:100%;
-height:100%;
-object-fit:cover;
+/* 內容可滑 */
+.modal-body {
+  overflow-y: auto;
+  padding: 20px;
 }
 
-.hero-content{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-text-align:center;
-color:#fff;
+/* ===== 鎖背景 ===== */
+body.modal-open {
+  overflow: hidden;
 }
 
-.hero-sub{
-margin-top:10px;
-opacity:.85;
+/* ===== LINE浮動 ===== */
+.line-float {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+
+  background: #22c55e;
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transition: 0.3s;
 }
 
-/* ===== section ===== */
-.section{
-padding:60px 20px;
-max-width:900px;
-margin:auto;
+.line-float:hover {
+  transform: scale(1.05);
 }
 
-/* ===== grid ===== */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
+/* ===== Footer升級 ===== */
+footer {
+  text-align: center;
+  padding: 60px 20px;
 }
 
-/* ===== card ===== */
-.card{
-background:#fff;
-padding:20px;
-border-radius:16px;
-min-height:160px;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-}
-
-/* ===== btn ===== */
-.btn{
-display:inline-block;
-margin-top:12px;
-padding:12px 20px;
-border-radius:30px;
-border:1px solid #0B1F3B;
-text-decoration:none;
-font-size:14px;
-}
-
-.btn-line{
-background:#06C755;
-color:#fff;
-border:none;
-}
-
-/* ===== modal ===== */
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.6);
-justify-content:center;
-align-items:center;
-z-index:2000;
-}
-
-.modal-content{
-background:#fff;
-padding:20px;
-width:90%;
-max-width:600px;
-border-radius:16px;
-max-height:90%;
-overflow:auto;
-}
-
-.modal-close{
-position:sticky;
-top:0;
-float:right;
-font-size:20px;
-background:none;
-border:none;
-}
-
-/* 鎖背景 */
-body.modal-open{
-overflow:hidden;
-}
-
-/* ===== 浮動LINE ===== */
-.line-float{
-position:fixed;
-right:16px;
-bottom:20px;
-background:#06C755;
-color:#fff;
-padding:14px 16px;
-border-radius:50px;
-text-decoration:none;
-z-index:999;
-}
-
-/* ===== footer ===== */
-.footer{
-padding:30px;
-text-align:center;
-background:#fff;
+.footer-line-btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 24px;
+  border: 2px solid #0B1F3B;
+  border-radius: 999px;
+  color: #0B1F3B;
+  text-decoration: none;
 }
