@@ -43,9 +43,11 @@ const body=document.getElementById("modal-body");
 modal.style.display="flex";
 
 body.innerHTML=`
+<div style="position:sticky;top:0;background:white;padding-bottom:10px;">
 <div style="display:flex;justify-content:space-between;">
 <h2>${p.name}</h2>
 <button onclick="closeModal()" style="font-size:22px;border:none;background:none;">✕</button>
+</div>
 </div>
 
 ${p.images.map(img=>`<img src="${img}">`).join("")}
