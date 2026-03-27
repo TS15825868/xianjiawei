@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>快速推薦</title>
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<div id="app-header"></div>
+
+<main>
+
+<div class="card">
+<h1>快速推薦</h1>
+<p>回答3個問題</p>
+</div>
+
+<div class="card">
+<button onclick="select('busy')">忙碌</button>
+<button onclick="select('normal')">一般</button>
+
+<button onclick="select('easy')">方便</button>
+<button onclick="select('cook')">料理</button>
+
+<button onclick="select('fixed')">固定</button>
+<button onclick="select('flex')">彈性</button>
+</div>
+
+<div id="result"></div>
+
+</main>
+
+<div id="app-footer"></div>
+<script src="site.js"></script>
+</body>
+</html>
