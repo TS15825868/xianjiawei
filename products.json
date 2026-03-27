@@ -1,92 +1,91 @@
 [
-  {
-    "id": "guilu-gao",
-    "name": "龜鹿膏",
-    "images": [
-      "images/guilu-gao-100g.jpg",
-      "images/hero-guilu-gao.jpg"
-    ],
-    "desc": "濃縮膏狀型態，可直接食用或加入溫水。",
-    "spec": "100g / 罐",
-    "category": "膏",
-    "ingredients": [
-      "龜板萃取物",
-      "鹿角萃取物",
-      "粉光蔘",
-      "枸杞",
-      "紅棗",
-      "黃耆"
-    ],
-    "usage": [
-      "每天1–2匙",
-      "可直接食用或加入溫水",
-      "依個人飲食習慣調整"
-    ],
-    "lineText": "我想了解龜鹿膏"
-  },
-  {
-    "id": "guilu-drink",
-    "name": "龜鹿飲",
-    "images": [
-      "images/guilu-drink-30cc.jpg"
-    ],
-    "desc": "液態型態，方便攜帶，開罐即可飲用。",
-    "spec": "30cc / 罐",
-    "category": "飲",
-    "ingredients": [
-      "水",
-      "龜板萃取物",
-      "鹿角萃取物",
-      "粉光蔘",
-      "枸杞",
-      "紅棗",
-      "黃耆"
-    ],
-    "usage": [
-      "每天1–2罐",
-      "建議溫熱飲用",
-      "依個人飲食習慣調整"
-    ],
-    "lineText": "我想了解龜鹿飲"
-  },
-  {
-    "id": "guilu-block",
-    "name": "龜鹿湯塊",
-    "images": [
-      "images/guilu-block-box-75g.jpg",
-      "images/guilu-block-75g.jpg"
-    ],
-    "desc": "可沖泡或入菜，方便融入日常飲食。",
-    "spec": "75 g / 盒",
-    "category": "湯塊",
-    "ingredients": [
-      "龜板萃取物",
-      "鹿角萃取物"
-    ],
-    "usage": [
-      "每天1–2塊",
-      "可沖泡或加入料理",
-      "依個人飲食習慣調整"
-    ],
-    "lineText": "我想了解龜鹿湯塊"
-  },
-  {
-    "id": "lurong-powder",
-    "name": "鹿茸粉",
-    "images": [
-      "images/lurong-powder-75g.jpg"
-    ],
-    "desc": "粉末型態，可加入飲品或依日常習慣搭配使用。",
-    "spec": "75 g / 罐",
-    "category": "粉",
-    "ingredients": [
-      "鹿茸"
-    ],
-    "usage": [
-      "每天1–2匙",
-      "可加入水、茶或咖啡",
-      "依個人飲食習慣調整"
-    ],
-    "lineText": "我想了解鹿茸粉"
-  }
+{
+"name":"龜鹿膏",
+"images":[
+"images/guilu-gao-100g.jpg",
+"images/hero-guilu-gao.jpg"
+],
+"desc":"每日固定補養，建立穩定節奏",
+"spec":"100 g / 罐",
+"target":[
+"生活有固定作息",
+"想每天穩定補養",
+"希望建立長期習慣"
+],
+"usage":"每天1–2匙，可直接食用或溫水化開",
+"ingredients":[
+"龜板萃取物",
+"鹿角萃取物",
+"粉光蔘",
+"枸杞",
+"紅棗",
+"黃耆"
+],
+"lineText":"我想了解龜鹿膏"
+},
+
+{
+"name":"龜鹿飲",
+"images":[
+"images/guilu-drink-30cc.jpg"
+],
+"desc":"隨開即飲，最方便的補養方式",
+"spec":"30 cc / 罐",
+"target":[
+"上班族",
+"外出時間長",
+"不想準備的人"
+],
+"usage":"每天1–2罐，建議溫熱飲用",
+"ingredients":[
+"水",
+"龜板萃取物",
+"鹿角萃取物",
+"粉光蔘",
+"枸杞",
+"紅棗",
+"黃耆"
+],
+"lineText":"我想了解龜鹿飲"
+},
+
+{
+"name":"龜鹿湯塊",
+"images":[
+"images/guilu-block-box-75g.jpg",
+"images/guilu-block-75g.jpg"
+],
+"desc":"可沖泡或入菜，融入日常飲食",
+"spec":"75 g / 盒",
+"target":[
+"喜歡料理的人",
+"習慣喝熱湯",
+"想用飲食方式補養"
+],
+"usage":"每天1–2塊，可沖泡或加入湯品",
+"ingredients":[
+"龜板萃取物",
+"鹿角萃取物"
+],
+"lineText":"我想了解龜鹿湯塊"
+},
+
+{
+"name":"鹿茸粉",
+"images":[
+"images/lurong-powder-75g.jpg"
+],
+"desc":"粉末型態，自由搭配飲品",
+"spec":"75 g / 罐",
+"target":[
+"喜歡自己搭配",
+"有喝咖啡或茶習慣",
+"想彈性使用"
+],
+"usage":"每天1–2匙，可加入飲品",
+"ingredients":[
+"鹿茸"
+],
+"lineText":"我想了解鹿茸粉"
+}
 ]
