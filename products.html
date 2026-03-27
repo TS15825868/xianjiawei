@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>產品總覽｜仙加味</title>
+<title>產品總覽</title>
 <link rel="stylesheet" href="site.css">
 </head>
-
 <body>
 
 <div id="app-header"></div>
@@ -16,21 +15,21 @@
 <section class="card product" onclick="openModal(
 '龜鹿膏｜穩定補養',
 'images/guilu-gao.jpg',
-'每天一點，建立身體節奏，適合長期補養'
+'建立每日節奏的核心產品'
 )">
 <img src="images/guilu-gao.jpg">
 <h3>龜鹿膏｜穩定補養</h3>
-<p>每天一點，穩定身體</p>
+<p>每天一點，建立節奏</p>
 </section>
 
 <section class="card product" onclick="openModal(
 '龜鹿飲｜快速補充',
 'images/guilu-drink.jpg',
-'忙碌時補充，不增加負擔'
+'隨身補充，不增加負擔'
 )">
 <img src="images/guilu-drink.jpg">
 <h3>龜鹿飲｜快速補充</h3>
-<p>隨身補充</p>
+<p>忙碌時使用</p>
 </section>
 
 <section class="card product" onclick="openModal(
@@ -40,13 +39,13 @@
 )">
 <img src="images/guilu-block.jpg">
 <h3>龜鹿湯塊｜日常調養</h3>
-<p>料理就能補養</p>
+<p>料理補養</p>
 </section>
 
 <section class="card product" onclick="openModal(
 '鹿茸粉｜自由搭配',
 'images/lurong.jpg',
-'進階補養，自由搭配'
+'進階補養使用'
 )">
 <img src="images/lurong.jpg">
 <h3>鹿茸粉｜自由搭配</h3>
@@ -55,18 +54,18 @@
 
 </main>
 
-<!-- modal -->
+<!-- Modal -->
 <div id="modal" class="modal" onclick="closeModal()">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <h2 id="modal-title"></h2>
-    <img id="modal-img">
-    <p id="modal-desc"></p>
-    <a id="line-link" class="btn btn-primary">👉 LINE直接下單</a>
-  </div>
+<div class="modal-content" onclick="event.stopPropagation()">
+<h2 id="modal-title"></h2>
+<img id="modal-img">
+<p id="modal-desc"></p>
+<a id="line-link" class="btn btn-primary">👉 LINE直接下單</a>
+</div>
 </div>
 
 <div id="app-footer"></div>
-
 <script src="site.js"></script>
+
 </body>
 </html>
