@@ -1,141 +1,84 @@
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont;
-  background: #F7F4ED;
-  color: #1a1a1a;
+body{
+margin:0;
+font-family:sans-serif;
+background:#F7F4ED;
 }
 
-/* ===== header ===== */
-.header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #fff;
-  padding: 12px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
+.header{
+display:flex;
+justify-content:space-between;
+padding:16px;
 }
 
-.logo { height: 42px; }
-
-.menu-btn {
-  font-size: 22px;
-  padding: 10px;
+.menu-btn{
+font-size:24px;
+margin-right:10px;
 }
 
-/* ===== menu ===== */
-.menu-panel {
-  position: fixed;
-  top: 80px;
-  left: 16px;
-  right: 16px;
-  max-width: 420px;
-  margin: auto;
-
-  background: #0B1F3B;
-  color: #fff;
-  border-radius: 20px;
-  padding: 24px;
-
-  opacity: 0;
-  transform: translateY(-20px);
-  pointer-events: none;
-  transition: .3s;
+.menu-overlay{
+position:fixed;
+top:0;
+right:-100%;
+width:80%;
+height:100%;
+background:#fff;
+transition:.3s;
+padding:20px;
 }
 
-.menu-panel.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+.menu-overlay.active{
+right:0;
 }
 
-.menu-panel a {
-  display: block;
-  margin: 10px 0;
-  color: #fff;
-  text-decoration: none;
+.menu-overlay a{
+display:block;
+margin:15px 0;
 }
 
-.menu-line {
-  margin-top: 20px;
-  background: #FF7A00;
-  padding: 12px;
-  border-radius: 999px;
-  text-align: center;
+.card{
+background:#fff;
+padding:20px;
+margin:20px;
+border-radius:12px;
 }
 
-/* ===== main ===== */
-main {
-  padding-top: 90px;
-  max-width: 1100px;
-  margin: auto;
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
 }
 
-/* ===== grid（桌機自動變多欄）===== */
-.grid {
-  display: grid;
-  gap: 20px;
-  padding: 20px;
+.btn{
+display:inline-block;
+padding:10px 20px;
+border:1px solid #000;
 }
 
-@media(min-width:768px){
-  .grid { grid-template-columns: repeat(2,1fr); }
+.btn-primary{
+background:#0B1F3B;
+color:#fff;
 }
 
-@media(min-width:1100px){
-  .grid { grid-template-columns: repeat(3,1fr); }
+.floating-line{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#06C755;
+color:#fff;
+padding:14px;
+border-radius:50%;
 }
 
-/* ===== card ===== */
-.card {
-  background: #fff;
-  padding: 24px;
-  border-radius: 20px;
+#modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#00000080;
 }
 
-/* ===== button ===== */
-.btn {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 12px 20px;
-  border-radius: 999px;
-  border: 2px solid #0B1F3B;
-  text-decoration: none;
-  color: #0B1F3B;
-}
-
-.btn-primary {
-  background: #22c55e;
-  color: #fff;
-  border: none;
-}
-
-/* ===== LINE浮動 ===== */
-.line-float {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background: #22c55e;
-  color: #fff;
-  padding: 14px 18px;
-  border-radius: 999px;
-  font-weight: bold;
-}
-
-/* ===== footer ===== */
-footer {
-  text-align: center;
-  padding: 60px 20px;
-}
-
-.footer-line-btn {
-  display: inline-block;
-  margin-top: 16px;
-  padding: 10px 20px;
-  border-radius: 999px;
-  border: 2px solid #0B1F3B;
+#modal.active{
+display:flex;
 }
