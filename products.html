@@ -1,54 +1,16 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-<meta charset="UTF-8">
-<title>產品型態｜仙加味</title>
-<meta name="description" content="了解龜鹿膏、龜鹿飲、龜鹿湯塊與鹿茸粉的差異與使用方式。">
-<link rel="stylesheet" href="site.css">
-</head>
-
 <body>
-
 <div id="header"></div>
 
-<section class="section">
-<h1>產品不是重點</h1>
-<p>重點是你的生活方式適合哪一種形式。</p>
+<section style="padding:100px 20px">
+  <h1>產品總覽</h1>
+  <div id="products" class="grid"></div>
 </section>
 
-<div id="product-page"></div>
-
-<section class="section">
-
-<h2>如何理解不同型態</h2>
-
-<div class="card">
-<h3>膏</h3>
-<p>適合穩定融入日常，維持固定節奏。</p>
-</div>
-
-<div class="card">
-<h3>飲</h3>
-<p>適合時間有限的情況，快速使用。</p>
-</div>
-
-<div class="card">
-<h3>湯</h3>
-<p>適合透過料理方式慢慢融入。</p>
-</div>
-
-<div class="card">
-<h3>粉</h3>
-<p>適合自由搭配飲品。</p>
-</div>
-
-</section>
-
-<div id="cta" class="cta-bar">
-👉 不確定怎麼選？
-<button onclick="buy('產品選擇')" class="btn-primary">LINE詢問</button>
-</div>
-
-<script src="site.js"></script>
+<script src="/site.js"></script>
+<script>
+loadData().then(()=>{
+  document.getElementById('header').innerHTML = renderHeader();
+  document.getElementById('products').innerHTML = renderProducts();
+});
+</script>
 </body>
-</html>
