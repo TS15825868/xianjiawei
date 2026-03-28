@@ -1,297 +1,189 @@
-let siteData = null;
+
+let SITE_DATA = null;
+const MENU_GROUPS = [
+  { title: '首頁', links: [{ href: 'index.html', label: '首頁' }] },
+  { title: '產品與挑選', links: [{ href: 'products.html', label: '龜鹿系列' }, { href: 'choose.html', label: '怎麼選' }, { href: 'combo.html', label: '套餐搭配' }] },
+  { title: '使用與內容', links: [{ href: 'recipes.html', label: '料理搭配' }, { href: 'knowledge.html', label: '食材與日常觀點' }, { href: 'videos.html', label: '觀點影片' }, { href: 'recommend.html', label: '推薦整理' }] },
+  { title: '品牌與服務', links: [{ href: 'brand.html', label: '品牌故事' }, { href: 'faq.html', label: 'FAQ' }, { href: 'contact.html', label: '聯絡' }] }
+];
 
 document.addEventListener('DOMContentLoaded', async () => {
-  initMenuShell();
-  initYear();
+  buildShell();
   await loadData();
-  hydrateGlobalContent();
-  initScrollReveal();
-  initModal();
-  closeMenuOnNavigation();
-  window.addEventListener('resize', syncReveal);
+  renderPage();
+  initReveal();
 });
 
-async function loadData(){
-  try {
-    const res = await fetch('data.json?v=' + Date.now());
-    siteData = await res.json();
-  } catch (err) {
-    console.error('資料載入失敗', err);
-    document.querySelectorAll('[data-render]').forEach(el => {
-      el.innerHTML = '<div class="empty-state">資料載入失敗，請重新整理頁面。</div>';
-    });
-  }
+async function loadData() {
+  if (SITE_DATA) return SITE_DATA;
+  const res = await fetch('data.json?v=' + Date.now());
+  SITE_DATA = await res.json();
+  return SITE_DATA;
 }
 
-function initMenuShell(){
-  const menu = document.getElementById('site-menu');
-  const overlay = document.getElementById('menu-overlay');
-  const toggle = document.getElementById('menu-toggle');
-  const close = document.getElementById('menu-close');
-  if(!menu || !overlay || !toggle) return;
-  toggle.addEventListener('click', openMenu);
-  overlay.addEventListener('click', closeMenu);
-  if (close) close.addEventListener('click', closeMenu);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeMenu();
-      closeModal();
-    }
-  });
-}
-function openMenu(){ document.body.classList.add('menu-open'); }
-function closeMenu(){ document.body.classList.remove('menu-open'); }
-function closeMenuOnNavigation(){
-  document.addEventListener('click', (e) => {
-    const link = e.target.closest('.menu-link');
-    if (link) closeMenu();
-  });
+function buildShell() {
+  const header = document.getElementById('site-header');
+  const footer = document.getElementById('site-footer');
+  const modal = document.getElementById('site-modal');
+  if (header) header.innerHTML = renderHeader();
+  if (footer) footer.innerHTML = renderFooter();
+  if (modal) modal.innerHTML = renderModalShell();
+  bindMenu();
 }
 
-function initYear(){
-  document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
-}
-
-function hydrateGlobalContent(){
-  if(!siteData) return;
-  renderBrandBits();
-  renderProducts();
-  renderCompare();
-  renderGuide();
-  renderRecipes();
-  renderVideos();
-  renderFaq();
-  renderRecommendations();
-}
-
-function renderBrandBits(){
-  const b = siteData.brand;
-  document.querySelectorAll('[data-brand-name]').forEach(el => el.textContent = b.name);
-  document.querySelectorAll('[data-brand-series]').forEach(el => el.textContent = b.series);
-  document.querySelectorAll('[data-brand-tagline]').forEach(el => el.textContent = b.tagline);
-  document.querySelectorAll('[data-brand-subtitle]').forEach(el => el.textContent = b.subtitle);
-  document.querySelectorAll('[data-line-url]').forEach(el => el.setAttribute('href', b.line_url));
-  document.querySelectorAll('[data-line-id]').forEach(el => el.textContent = b.line_id);
-  document.querySelectorAll('[data-logo]').forEach(el => { if (el.tagName === 'IMG') el.src = b.logo; });
-  const menu = document.getElementById('site-menu');
-  if (menu) {
-    menu.innerHTML = `
-      <div class="menu-head">
-        <strong>${b.name}</strong>
-        <button id="menu-close" class="menu-close" type="button" aria-label="關閉選單">✕</button>
-      </div>
-      <div class="menu-section">
-        <h3>首頁</h3>
-        <a class="menu-link" href="index.html"><span>品牌首頁</span><small>Hero / 產品 / 入口</small></a>
-      </div>
-      <div class="menu-section">
-        <h3>產品</h3>
-        <a class="menu-link" href="products.html"><span>龜鹿系列</span><small>完整產品總覽</small></a>
-        <a class="menu-link" href="recommend.html"><span>怎麼選龜鹿</span><small>依情境快速分流</small></a>
-      </div>
-      <div class="menu-section">
-        <h3>使用指南</h3>
-        <a class="menu-link" href="guide.html"><span>怎麼使用</span><small>型態 / 作息 / 規格</small></a>
-        <a class="menu-link" href="recipes.html"><span>料理搭配</span><small>燉湯 / 熱飲 / 調飲</small></a>
-      </div>
-      <div class="menu-section">
-        <h3>內容</h3>
-        <a class="menu-link" href="videos.html"><span>觀點影片</span><small>公開影片整理</small></a>
-        <a class="menu-link" href="knowledge.html"><span>食材與日常觀點</span><small>品牌知識整理</small></a>
-        <a class="menu-link" href="faq.html"><span>常見問題</span><small>使用與選購前整理</small></a>
-      </div>
-      <div class="menu-section">
-        <h3>品牌</h3>
-        <a class="menu-link" href="brand.html"><span>品牌故事</span><small>萬華四代熬製工序</small></a>
-        <a class="menu-link" href="contact.html"><span>聯絡我們</span><small>官方 LINE / 諮詢</small></a>
-      </div>`;
-    document.getElementById('menu-close')?.addEventListener('click', closeMenu);
-  }
-}
-
-function renderProducts(){
-  const targets = document.querySelectorAll('[data-render="products"]');
-  if (!targets.length || !siteData?.products) return;
-  const cards = siteData.products.map(p => productCardMarkup(p)).join('');
-  targets.forEach(target => { target.innerHTML = cards; bindProductCards(target); });
-}
-
-function productCardMarkup(p){
+function renderHeader() {
   return `
-    <article class="product-card glass-card reveal" data-product-id="${escapeHtml(p.id)}" tabindex="0" role="button" aria-label="查看 ${escapeHtml(p.name)} 詳細內容">
-      <div class="product-thumb"><img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.name)}"></div>
-      <div class="product-body">
-        <div class="product-meta"><strong>${escapeHtml(p.name)}</strong><span class="category-tag">${escapeHtml(p.category || '')}</span></div>
-        <p>${escapeHtml(p.description)}</p>
-        <div class="product-actions"><span>${escapeHtml(p.size || '')}</span><span>查看完整介紹 →</span></div>
-      </div>
-    </article>`;
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand-mark" href="index.html"><img src="images/logo.png" alt="仙加味"><span>仙加味</span></a>
+      <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單">☰ 選單</button>
+    </div>
+  </header>
+  <div id="menu-drawer" class="menu-drawer" aria-hidden="true">
+    <div class="menu-backdrop" data-close-menu="1"></div>
+    <aside class="menu-panel">${MENU_GROUPS.map(g => `<div class="menu-group"><h4>${g.title}</h4>${g.links.map(link => `<a href="${link.href}">${link.label}</a>`).join('')}</div>`).join('')}</aside>
+  </div>`;
 }
 
-function bindProductCards(scope){
-  scope.querySelectorAll('[data-product-id]').forEach(card => {
-    const id = card.getAttribute('data-product-id');
-    const open = () => openProductModal(id);
-    card.addEventListener('click', open);
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        open();
-      }
+function renderFooter() {
+  return `<footer class="site-footer"><div class="page-shell"><div class="footer-card panel"><div><strong>仙加味・龜鹿</strong><p>補養，是一種節奏。</p><p>把龜鹿放回日常飲食與生活安排裡。</p></div><div><p>官方 LINE：@762jybnm</p><p><a class="btn btn-line" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 聯絡</a></p><p>© 仙加味</p></div></div></div></footer>`;
+}
+
+function renderModalShell() {
+  return `<div class="modal" id="modal"><div class="modal-backdrop" data-close-modal="1"></div><div class="modal-scroll"><div class="modal-panel" id="modal-panel"></div></div></div>`;
+}
+
+function bindMenu() {
+  document.addEventListener('click', (e) => {
+    const drawer = document.getElementById('menu-drawer');
+    const btn = document.getElementById('menu-btn');
+    if (btn && (btn === e.target || btn.contains(e.target))) {
+      drawer?.classList.add('open');
+      return;
+    }
+    if (e.target.closest('[data-close-menu="1"]')) {
+      drawer?.classList.remove('open');
+    }
+    if (e.target.closest('[data-close-modal="1"]')) closeModal();
+  });
+}
+
+function renderPage() {
+  const page = document.body.dataset.page;
+  if (page === 'home') renderHome();
+  if (page === 'products') renderProductsPage();
+  if (page === 'choose') renderChoosePage();
+  if (page === 'combo') renderComboPage();
+  if (page === 'recipes') renderRecipesPage();
+  if (page === 'knowledge') renderKnowledgePage();
+  if (page === 'videos') renderVideosPage();
+  if (page === 'faq') renderFaqPage();
+  if (page === 'recommend') renderRecommendPage();
+}
+
+function renderHome() {
+  fillProducts('home-products', SITE_DATA.products);
+}
+function renderProductsPage() {
+  fillProducts('product-list', SITE_DATA.products, true);
+  const compare = document.getElementById('compare-grid');
+  if (compare) {
+    compare.innerHTML = SITE_DATA.products.map(p => `<article class="panel reveal"><span class="eyebrow">${p.size}</span><h3>${p.name}</h3><p>${p.description}</p></article>`).join('');
+  }
+}
+function renderChoosePage() {
+  const el = document.getElementById('choose-results');
+  if (!el) return;
+  el.innerHTML = SITE_DATA.recommend.map(r => `<article class="panel reveal"><strong>${r.keyword}</strong><h3>${r.result}</h3><p>${r.desc}</p></article>`).join('');
+}
+function renderComboPage() {
+  const el = document.getElementById('combo-grid');
+  if (!el) return;
+  el.innerHTML = `
+    <article class="panel reveal"><h3>日常穩定組</h3><p>龜鹿膏＋龜鹿飲。適合想把安排做得更固定、同時保留便利性的人。</p></article>
+    <article class="panel reveal"><h3>餐桌搭配組</h3><p>龜鹿湯塊＋鹿茸粉。適合會做熱飲與料理搭配、想自己調整節奏的人。</p></article>`;
+}
+function renderRecipesPage() {
+  const el = document.getElementById('recipe-grid');
+  if (!el) return;
+  el.innerHTML = SITE_DATA.recipes.map(r => `<article class="panel reveal"><span class="eyebrow">${r.category}</span><h3>${r.title}</h3><p>${r.desc}</p><ol class="steps">${r.steps.map(s => `<li>${s}</li>`).join('')}</ol></article>`).join('');
+}
+function renderKnowledgePage() {
+  const el = document.getElementById('knowledge-grid');
+  if (!el) return;
+  el.innerHTML = [
+    ['從食材出發','官網用語以龜板萃取物、鹿角萃取物為主，回到飲食搭配的理解方式。'],
+    ['從工序出發','長時間熬製、慢火濃縮，是品牌一路延續下來的做法。'],
+    ['從節奏出發','比起追求一次看見什麼，更重視能不能穩定、舒服地放進生活。'],
+    ['從餐桌出發','熱飲、調飲、燉湯、固定小匙，這些都比空泛形容更有幫助。']
+  ].map(([title,desc]) => `<article class="panel reveal"><h3>${title}</h3><p>${desc}</p></article>`).join('');
+}
+function renderVideosPage() {
+  const count = document.getElementById('video-count');
+  const grid = document.getElementById('video-grid');
+  if (count) count.textContent = SITE_DATA.videos.length;
+  if (grid) grid.innerHTML = SITE_DATA.videos.map((v, i) => `<article class="video-card reveal"><span class="eyebrow">第 ${i+1} 支</span><h3>${v.title}</h3><p>整理自公開平台，不自動播放，點擊後開啟原影片。</p><a class="watch" href="${v.url}" target="_blank" rel="noopener">開啟原影片 →</a></article>`).join('');
+}
+function renderFaqPage() {
+  const el = document.getElementById('faq-grid');
+  if (!el) return;
+  el.innerHTML = SITE_DATA.faqs.map(f => `<article class="faq-item reveal"><h3>${f.q}</h3><p>${f.a}</p></article>`).join('');
+}
+function renderRecommendPage() {
+  const el = document.getElementById('recommend-grid');
+  if (!el) return;
+  el.innerHTML = SITE_DATA.recommend.map(r => `<article class="panel reveal"><strong>${r.keyword}</strong><h3>${r.result}</h3><p>${r.desc}</p></article>`).join('');
+}
+
+function fillProducts(targetId, products, showHint = false) {
+  const list = document.getElementById(targetId);
+  if (!list) return;
+  list.innerHTML = products.map(p => `<article class="card reveal" data-product-id="${p.id}"><img src="${p.image}" alt="${p.name}"><span class="eyebrow">${p.series || ''}</span><h3>${p.name}</h3><p>${p.description}</p></article>`).join('');
+  list.querySelectorAll('[data-product-id]').forEach(card => {
+    card.addEventListener('click', () => {
+      const p = products.find(x => x.id === card.dataset.productId);
+      if (p) openProductModal(p);
     });
   });
-  syncReveal();
 }
 
-function openProductModal(id){
-  const product = siteData?.products?.find(item => item.id === id);
-  if (!product) return;
+function openProductModal(p) {
   const modal = document.getElementById('modal');
-  const content = document.getElementById('modal-content');
-  if (!modal || !content) return;
-  const gallery = [product.image].concat(product.gallery || []).filter(Boolean);
-  const uniqueGallery = [...new Set(gallery)];
-  content.innerHTML = `
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="product-modal-title">
-      <div class="modal-top">
-        <h2 id="product-modal-title">${escapeHtml(product.name)}</h2>
-        <button class="modal-close" type="button" aria-label="關閉產品詳細介紹">關閉 ×</button>
-      </div>
-      <div class="modal-layout">
-        <div class="modal-gallery">
-          ${uniqueGallery.map(src => `<img src="${escapeHtml(src)}" alt="${escapeHtml(product.name)}">`).join('')}
-        </div>
-        <div class="modal-copy">
-          <span class="spec-chip">規格：${escapeHtml(product.size || '')}</span>
-          <p>${escapeHtml(product.description)}</p>
-          <h3>成分</h3>
-          <ul>${(product.ingredients || []).map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
-          <h3>使用方式</h3>
-          <ul>${(product.usage || []).map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
-          <h3>保存方式</h3>
-          <p>${escapeHtml(product.storage || '請依包裝標示保存。')}</p>
-          ${(product.faq && product.faq.length) ? `<h3>常見問題</h3><ul>${product.faq.map(item => `<li><strong>${escapeHtml(item.q)}</strong>：${escapeHtml(item.a)}</li>`).join('')}</ul>` : ''}
-          <div class="modal-cta">
-            <a class="btn btn-primary" href="${escapeHtml(siteData.brand.line_url)}" target="_blank" rel="noopener">LINE 諮詢</a>
-            <a class="btn btn-ghost" href="products.html">回產品總覽</a>
-          </div>
-        </div>
+  const panel = document.getElementById('modal-panel');
+  if (!modal || !panel) return;
+  const gallery = [p.image].concat((p.gallery || []).filter(x => x !== p.image));
+  panel.innerHTML = `
+    <div class="modal-close"><button type="button" onclick="closeModal()">× 關閉</button></div>
+    <div class="toc"><a href="#modal-spec">規格</a><a href="#modal-ingredients">成分</a><a href="#modal-usage">使用方式</a></div>
+    <div class="modal-grid">
+      <div>${gallery.map((src,idx)=>`<img class="modal-main-image" src="${src}" alt="${p.name} 圖片 ${idx+1}">`).join('')}</div>
+      <div>
+        <span class="eyebrow">${p.series || '仙加味・龜鹿'}</span>
+        <h2>${p.name}</h2>
+        <p>${p.description}</p>
+        <p class="meta" id="modal-spec">規格：${p.size}</p>
+        <h3 id="modal-ingredients">成分</h3>
+        <ul>${p.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+        <h3 id="modal-usage">使用方式</h3>
+        <ul>${p.usage.map(i => `<li>${i}</li>`).join('')}</ul>
+        <p><a class="btn btn-line" href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener">LINE 諮詢</a></p>
       </div>
     </div>`;
   modal.classList.add('show');
-  content.querySelector('.modal-close')?.addEventListener('click', closeModal);
+  document.body.style.overflow = 'hidden';
 }
-
-function initModal(){
+function closeModal() {
   const modal = document.getElementById('modal');
-  if (!modal) return;
-  modal.addEventListener('click', (e) => {
-    if (e.target.id === 'modal' || e.target.closest('.modal-close')) closeModal();
-  });
-}
-function closeModal(){
-  const modal = document.getElementById('modal');
-  const content = document.getElementById('modal-content');
-  if (!modal || !content) return;
-  modal.classList.remove('show');
-  content.innerHTML = '';
+  if (modal) modal.classList.remove('show');
+  document.body.style.overflow = '';
 }
 
-function renderCompare(){
-  const target = document.querySelector('[data-render="compare"]');
-  if (!target || !siteData?.products) return;
-  target.innerHTML = siteData.products.map(p => `
-    <article class="compare-card reveal">
-      <h3>${escapeHtml(p.name)}</h3>
-      <p><strong>型態：</strong>${escapeHtml(p.category || '')}</p>
-      <p><strong>規格：</strong>${escapeHtml(p.size || '')}</p>
-      <p>${escapeHtml(compareDescription(p))}</p>
-    </article>`).join('');
-  syncReveal();
-}
-function compareDescription(p){
-  if (p.id === 'guilu-gao') return '適合想建立固定食用節奏者。';
-  if (p.id === 'guilu-drink') return '適合在外或忙碌時快速準備。';
-  if (p.id === 'guilu-block') return '適合燉煮、煲湯與家常料理。';
-  if (p.id === 'lurong') return '適合偏好自由調飲與粉末型態者。';
-  return p.description || '';
-}
-
-function renderGuide(){
-  const target = document.querySelector('[data-render="guide"]');
-  if (!target || !siteData?.guide?.steps) return;
-  target.innerHTML = siteData.guide.steps.map((step, idx) => `
-    <article class="guide-step reveal">
-      <span class="eyebrow">Step ${idx + 1}</span>
-      <h3>${escapeHtml(step.title)}</h3>
-      <p>${escapeHtml(step.text)}</p>
-    </article>`).join('');
-  const seasonal = document.querySelector('[data-render="seasonal"]');
-  if (seasonal && siteData.guide.seasonal) {
-    seasonal.innerHTML = `<div class="note-box reveal"><strong style="display:block;color:var(--ink);margin-bottom:8px">四季建議</strong><ul class="steps">${siteData.guide.seasonal.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></div>`;
-  }
-  syncReveal();
-}
-
-function renderRecipes(){
-  const target = document.querySelector('[data-render="recipes"]');
-  if (!target || !siteData?.recipes) return;
-  target.innerHTML = siteData.recipes.map(recipe => `
-    <article class="recipe-card reveal">
-      <div class="pill-row"><span class="pill">${escapeHtml(recipe.category || '日常')}</span></div>
-      <h3>${escapeHtml(recipe.title)}</h3>
-      <p>${escapeHtml(recipe.desc || '')}</p>
-      <ol class="steps">${(recipe.steps || []).map(step => `<li>${escapeHtml(step)}</li>`).join('')}</ol>
-    </article>`).join('');
-  syncReveal();
-}
-
-function renderVideos(){
-  const target = document.querySelector('[data-render="videos"]');
-  if (!target || !siteData?.videos) return;
-  target.innerHTML = siteData.videos.map(video => `
-    <article class="video-card reveal">
-      <div class="pill-row"><span class="pill">公開影片</span></div>
-      <h3>${escapeHtml(video.title)}</h3>
-      <p>整理自公開平台內容，僅供知識交流與選品參考。</p>
-      <p style="margin-top:12px"><a href="${escapeHtml(video.url)}" target="_blank" rel="noopener">開啟原影片 →</a></p>
-    </article>`).join('');
-  syncReveal();
-}
-
-function renderFaq(){
-  const target = document.querySelector('[data-render="faq"]');
-  if (!target || !siteData?.faq) return;
-  target.innerHTML = siteData.faq.map(item => `
-    <article class="faq-item reveal">
-      <h3>${escapeHtml(item.q)}</h3>
-      <p>${escapeHtml(item.a)}</p>
-    </article>`).join('');
-  syncReveal();
-}
-
-function renderRecommendations(){
-  const target = document.querySelector('[data-render="recommendations"]');
-  if (!target || !siteData?.recommendations) return;
-  target.innerHTML = siteData.recommendations.map(item => `
-    <article class="story-card reveal">
-      <h3>${escapeHtml(item.title)}</h3>
-      <p><strong style="color:var(--ink)">${escapeHtml(item.result)}</strong></p>
-      <p>${escapeHtml(item.desc)}</p>
-    </article>`).join('');
-  syncReveal();
-}
-
-function initScrollReveal(){
-  window.addEventListener('scroll', syncReveal, { passive: true });
-  syncReveal();
-}
-function syncReveal(){
-  document.querySelectorAll('.reveal').forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 70) el.classList.add('show');
-  });
-}
-
-function escapeHtml(value){
-  return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+function initReveal() {
+  const run = () => {
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add('show');
+    });
+  };
+  run();
+  window.addEventListener('scroll', run, { passive: true });
 }
