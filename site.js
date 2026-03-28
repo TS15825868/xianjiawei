@@ -179,7 +179,6 @@ function openProductModal(id){
       </div>
     </div>`;
   modal.classList.add('show');
-  document.body.classList.add('modal-open');
   content.querySelector('.modal-close')?.addEventListener('click', closeModal);
 }
 
@@ -195,7 +194,6 @@ function closeModal(){
   const content = document.getElementById('modal-content');
   if (!modal || !content) return;
   modal.classList.remove('show');
-  document.body.classList.remove('modal-open');
   content.innerHTML = '';
 }
 
