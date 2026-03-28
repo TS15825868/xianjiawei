@@ -1,1 +1,107 @@
+body{
+  margin:0;
+  font-family:-apple-system;
+  background:#F7F4ED;
+}
 
+/* Header */
+.header{
+  position:fixed;
+  top:0;
+  width:100%;
+  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,.8);
+  padding:14px 20px;
+  display:flex;
+  justify-content:space-between;
+  z-index:1000;
+}
+
+/* 漢堡 */
+.menu{
+  position:fixed;
+  right:-100%;
+  top:0;
+  width:75%;
+  height:100%;
+  background:#fff;
+  transition:.3s;
+  padding:24px;
+}
+
+.menu.open{ right:0; }
+
+.menu a{ display:block;padding:10px 0; }
+
+/* Hero */
+.hero{
+  height:90vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+/* Reveal */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
+
+/* 卡片 */
+.horizontal{
+  display:flex;
+  overflow-x:auto;
+  gap:20px;
+  padding:20px;
+}
+
+.card{
+  min-width:240px;
+  background:#fff;
+  border-radius:16px;
+  padding:14px;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+}
+
+/* Modal */
+#modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  background:rgba(0,0,0,.6);
+}
+
+#modal.show{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#modal-content{
+  background:#fff;
+  padding:20px;
+  max-width:520px;
+  width:90%;
+  border-radius:16px;
+}
+
+/* 按鈕 */
+.btn-line{
+  background:#06C755;
+  color:#fff;
+  padding:14px;
+  text-align:center;
+  margin-top:20px;
+  display:block;
+}
