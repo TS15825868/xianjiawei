@@ -1,159 +1,261 @@
 {
-  "brand": {
-    "name": "仙加味",
-    "slogan": "補養，是一種節奏",
-    "intro": "不是一次很多，而是每天剛好。從日常飲食出發，找到適合自己的方式。"
-  },
-
-  "home": {
-    "sections": [
-      {
-        "title": "不是先選產品",
-        "text": "每個人的生活方式不同，先理解自己的節奏，比選產品更重要。"
-      },
-      {
-        "title": "回到日常",
-        "text": "透過飲食與習慣，慢慢建立自己的補養方式。"
-      },
-      {
-        "title": "剛好的方式",
-        "text": "不是越多越好，而是找到適合自己的節奏。"
-      }
-    ]
-  },
-
   "products": [
     {
       "name": "龜鹿膏",
-      "desc": "膏狀型態，適合日常穩定使用。",
-      "scene": "適合建立固定節奏，融入每日生活。",
+      "images": ["/images/guilu-gao.jpg"],
+      "spec": "100g",
+      "desc": "膏狀型態，口感濃厚，適合融入日常飲食節奏。",
+      "ingredient": "龜板萃取物、鹿角萃取物、粉光蔘、枸杞、紅棗、黃耆",
       "usage": [
         "每日1-2次（可依個人情況調整）",
-        "每次1匙（可依習慣調整）",
-        "可直接食用或加入溫水",
-        "可搭配日常飲食"
+        "每次1匙（可依個人習慣調整用量）",
+        "可直接食用或加入溫水化開",
+        "亦可搭配日常熱飲食用"
       ]
     },
     {
       "name": "龜鹿飲",
-      "desc": "液態型態，方便快速使用。",
-      "scene": "適合忙碌時使用，快速補充。",
+      "images": ["/images/guilu-drink.jpg"],
+      "spec": "30cc",
+      "desc": "液態型態，方便攜帶，適合忙碌時的日常飲食搭配。",
+      "ingredient": "水、龜板萃取物、鹿角萃取物、粉光蔘、枸杞、紅棗、黃耆",
       "usage": [
-        "每日1-2次",
+        "每日1-2次（可依個人情況調整）",
         "每次1罐",
         "可直接飲用",
-        "建議溫熱後飲用"
+        "建議溫熱後飲用，風味較佳",
+        "避免冰飲"
       ]
     },
     {
       "name": "龜鹿湯塊",
-      "desc": "塊狀型態，適合料理使用。",
-      "scene": "適合透過飲食慢慢融入日常。",
+      "images": [
+        "/images/guilu-block-cube.jpg",
+        "/images/guilu-block.jpg"
+      ],
+      "spec": "75g",
+      "desc": "塊狀型態，適合燉煮，融入日常料理。",
+      "ingredient": "龜板萃取物、鹿角萃取物",
       "usage": [
-        "每日1-2次",
-        "每次1-2塊",
-        "可加入湯品燉煮",
-        "依料理習慣調整"
+        "每日1-2次（可依個人情況調整）",
+        "每次1-2塊（可依個人習慣調整用量）",
+        "可加入雞湯、排骨湯燉煮",
+        "可依料理習慣調整用量",
+        "建議搭配熱食食用"
       ]
     },
     {
       "name": "鹿茸粉",
-      "desc": "粉末型態，方便自由搭配。",
-      "scene": "適合搭配飲品或日常飲食。",
+      "images": ["/images/lurong.jpg"],
+      "spec": "75g",
+      "desc": "粉末型態，方便搭配各類飲品。",
+      "ingredient": "鹿茸粉",
       "usage": [
-        "每日1-2次",
-        "每次1-2小匙",
-        "可加入溫水、牛奶或飲品",
-        "依習慣調整"
+        "每日1-2次（可依個人情況調整）",
+        "每次1-2小匙（可依個人習慣調整用量）",
+        "可加入溫水、牛奶或其他飲品",
+        "亦可搭配日常飲食使用"
       ]
-    }
-  ],
-
-  "recommend": [
-    {
-      "title": "想穩定建立節奏",
-      "desc": "適合日常固定使用",
-      "product": "龜鹿膏"
-    },
-    {
-      "title": "時間有限",
-      "desc": "適合快速補充",
-      "product": "龜鹿飲"
-    },
-    {
-      "title": "喜歡料理",
-      "desc": "透過飲食融入生活",
-      "product": "龜鹿湯塊"
-    }
-  ],
-
-  "guide": [
-    {
-      "title": "基本使用方式",
-      "text": "每日1-2次（可依個人情況調整），每次1匙／塊／罐。"
-    },
-    {
-      "title": "搭配方式",
-      "text": "可搭配溫水、飲品或料理，依生活方式調整。"
-    },
-    {
-      "title": "使用節奏",
-      "text": "固定使用比一次大量更重要。"
     }
   ],
 
   "recipes": [
     {
-      "title": "雞湯燉煮",
-      "desc": "加入湯塊，融入日常飲食。"
+      "title": "龜鹿雞湯",
+      "category": "燉煮",
+      "desc": "經典搭配方式，適合日常料理使用。",
+      "steps": [
+        "雞肉川燙備用",
+        "加入龜鹿湯塊",
+        "小火燉煮30-60分鐘",
+        "依口味調整鹽巴"
+      ]
     },
     {
-      "title": "溫水沖泡",
-      "desc": "膏或粉加入溫水飲用。"
+      "title": "龜鹿排骨湯",
+      "category": "燉煮",
+      "desc": "簡單料理方式，適合日常食用。",
+      "steps": [
+        "排骨汆燙",
+        "加入龜鹿湯塊",
+        "燉煮40分鐘",
+        "加入鹽調味"
+      ]
     },
     {
-      "title": "日常飲品",
-      "desc": "搭配牛奶、茶或咖啡。"
+      "title": "龜鹿熱飲",
+      "category": "日常",
+      "desc": "快速飲用方式，適合忙碌時。",
+      "steps": [
+        "取龜鹿膏1匙",
+        "加入溫水攪拌",
+        "即可飲用"
+      ]
     }
   ],
 
-  "knowledge": [
-    {
-      "title": "補養不是短期",
-      "text": "是長時間的累積。"
-    },
-    {
-      "title": "型態不同",
-      "text": "使用方式也不同。"
-    },
-    {
-      "title": "回到生活",
-      "text": "從日常開始最重要。"
-    }
-  ],
-
-  "faq": [
-    {
-      "q": "怎麼選？",
-      "a": "從生活方式開始，而不是產品。"
-    },
-    {
-      "q": "怎麼吃？",
-      "a": "每日1-2次，依習慣調整。"
-    },
-    {
-      "q": "什麼時間使用？",
-      "a": "依作息安排即可。"
-    },
-    {
-      "q": "可以怎麼搭配？",
-      "a": "可搭配飲食或飲品。"
-    }
-  ],
-
-  "contact": {
-    "title": "直接詢問會更清楚",
-    "desc": "透過對話，更容易找到適合你的方式。",
-    "line": "@762jybnm"
+  "videos": [
+  {
+    "title": "怎麼理解鹿角與日常使用",
+    "desc": "從原料與使用方式開始理解",
+    "thumb": "/images/video-1.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7599984981527530772"
+  },
+  {
+    "title": "泡製是什麼？日常常見誤解",
+    "desc": "整理常見觀念差異",
+    "thumb": "/images/video-2.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7599654150523079957"
+  },
+  {
+    "title": "鹿角經驗分享",
+    "desc": "從實務經驗理解素材",
+    "thumb": "/images/video-3.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7600388782180945172"
+  },
+  {
+    "title": "使用方式觀察",
+    "desc": "不同角度的使用理解",
+    "thumb": "/images/video-4.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7597798718720576789"
+  },
+  {
+    "title": "如何判斷原料品質",
+    "desc": "選購前的基本認識",
+    "thumb": "/images/video-5.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7590648704156142868"
+  },
+  {
+    "title": "傳統配方觀點",
+    "desc": "不同觀點整理",
+    "thumb": "/images/video-6.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7571657095880232210"
+  },
+  {
+    "title": "鹿角日常使用觀察",
+    "desc": "日常使用方式整理",
+    "thumb": "/images/video-7.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7561374523564543249"
+  },
+  {
+    "title": "鹿角應用方式",
+    "desc": "不同應用方式整理",
+    "thumb": "/images/video-8.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7490604047783726343"
+  },
+  {
+    "title": "日常食材搭配",
+    "desc": "飲食搭配方向",
+    "thumb": "/images/video-9.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7486299595979394312"
+  },
+  {
+    "title": "生活型態與搭配",
+    "desc": "從生活節奏理解使用",
+    "thumb": "/images/video-10.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7488238569224555794"
+  },
+  {
+    "title": "不同族群使用方式",
+    "desc": "以生活方式作為參考",
+    "thumb": "/images/video-11.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7488239418650807560"
+  },
+  {
+    "title": "季節與飲食節奏",
+    "desc": "氣候與日常關係",
+    "thumb": "/images/video-12.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7475988696827727112"
+  },
+  {
+    "title": "日常補養觀點",
+    "desc": "搭配方式整理",
+    "thumb": "/images/video-13.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7473305364415384850"
+  },
+  {
+    "title": "鹿角來源介紹",
+    "desc": "原料背景說明",
+    "thumb": "/images/video-14.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7446332181263289607"
+  },
+  {
+    "title": "龜鹿食材概念",
+    "desc": "組合與應用",
+    "thumb": "/images/video-15.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7445221794769898759"
+  },
+  {
+    "title": "傳統製作理解",
+    "desc": "工序與製作方式",
+    "thumb": "/images/video-16.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7444622264642833671"
+  },
+  {
+    "title": "鹿角年齡判斷",
+    "desc": "基礎辨識方式",
+    "thumb": "/images/video-17.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7444467481059560712"
+  },
+  {
+    "title": "傳統價值分享",
+    "desc": "文化與觀點",
+    "thumb": "/images/video-18.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7444051217757752583"
+  },
+  {
+    "title": "鹿相關素材介紹",
+    "desc": "不同部位與用途",
+    "thumb": "/images/video-19.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7443754721195691319"
+  },
+  {
+    "title": "百年鹿角店觀察",
+    "desc": "產業與背景",
+    "thumb": "/images/video-20.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7442637133308759352"
+  },
+  {
+    "title": "風味來源說明",
+    "desc": "味道與製作關係",
+    "thumb": "/images/video-21.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7441892944057027896"
+  },
+  {
+    "title": "鹿角基礎認識",
+    "desc": "入門理解",
+    "thumb": "/images/video-22.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7441142424518315280"
+  },
+  {
+    "title": "鹿角工藝與應用",
+    "desc": "工藝延伸",
+    "thumb": "/images/video-23.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7440039107708914945"
+  },
+  {
+    "title": "鹿茸與鹿角差異",
+    "desc": "差別解析",
+    "thumb": "/images/video-24.jpg",
+    "url": "https://www.tiktok.com/@changwuchi2023/video/7410727121875782919"
   }
+]
+
+  "recommend": [
+    {
+      "keyword": "日常保養",
+      "result": "龜鹿膏",
+      "desc": "適合穩定日常飲食節奏"
+    },
+    {
+      "keyword": "方便快速",
+      "result": "龜鹿飲",
+      "desc": "適合忙碌生活"
+    },
+    {
+      "keyword": "料理燉煮",
+      "result": "龜鹿湯塊",
+      "desc": "適合料理搭配"
+    }
+  ]
 }
