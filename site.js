@@ -25,9 +25,12 @@ async function loadData() {
 
 function buildShell() {
   const header = document.getElementById('site-header');
+  const menuRoot = document.getElementById('site-menu-root');
   const footer = document.getElementById('site-footer');
   const modal = document.getElementById('site-modal');
-  if (header) header.innerHTML = renderHeader();
+
+  if (header) header.innerHTML = renderHeaderBar();
+  if (menuRoot) menuRoot.innerHTML = renderMenuDrawer();
   if (footer) footer.innerHTML = renderFooter();
   if (modal) modal.innerHTML = renderModalShell();
 }
@@ -39,27 +42,33 @@ function hydrateStaticFields() {
   document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 }
 
-function renderHeader() {
+function renderHeaderBar() {
   return `
-  <div class="header-inner">
-    <a class="brand-mark" href="index.html">
-      <img src="images/logo.png" alt="${SITE_DATA?.brand || '仙加味'}">
-      <span>${SITE_DATA?.brand || '仙加味'}</span>
-    </a>
-    <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-expanded="false">☰ 選單</button>
-  </div>
-  <nav id="menu-drawer" class="site-menu" aria-hidden="true">
-    <div class="site-menu__backdrop" data-close-menu="1"></div>
-    <aside class="site-menu__panel">
-      <button id="menu-close" class="menu-close" type="button" aria-label="關閉選單">✕</button>
-      ${MENU_GROUPS.map(group => `
-        <div class="menu-group">
-          <h4>${group.title}</h4>
-          ${group.links.map(link => `<a href="${link.href}">${link.label}</a>`).join('')}
-        </div>
-      `).join('')}
-    </aside>
-  </nav>`;
+    <div class="header-inner">
+      <a class="brand-mark" href="index.html">
+        <img src="images/logo.png" alt="${SITE_DATA?.brand || '仙加味'}">
+        <span>${SITE_DATA?.brand || '仙加味'}</span>
+      </a>
+      <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-expanded="false">☰ 選單</button>
+    </div>
+  `;
+}
+
+function renderMenuDrawer() {
+  return `
+    <nav id="menu-drawer" class="site-menu" aria-hidden="true">
+      <div class="site-menu__backdrop" data-close-menu="1"></div>
+      <aside class="site-menu__panel">
+        <button id="menu-close" class="menu-close" type="button" aria-label="關閉選單">✕</button>
+        ${MENU_GROUPS.map(group => `
+          <div class="menu-group">
+            <h4>${group.title}</h4>
+            ${group.links.map(link => `<a href="${link.href}">${link.label}</a>`).join('')}
+          </div>
+        `).join('')}
+      </aside>
+    </nav>
+  `;
 }
 
 function renderFooter() {
@@ -75,7 +84,8 @@ function renderFooter() {
         <p><a class="btn btn-line" href="${SITE_DATA?.lineUrl || 'https://lin.ee/sHZW7NkR'}" target="_blank" rel="noopener">LINE 聯絡</a></p>
         <p>© <span data-year></span> ${SITE_DATA?.brand || '仙加味'}</p>
       </div>
-    </div>`;
+    </div>
+  `;
 }
 
 function renderModalShell() {
