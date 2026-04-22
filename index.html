@@ -25,19 +25,22 @@
     </section>
 
     <section class="section">
-      <div class="home-split">
-        <div class="section-heading">
-          <h2>產品型態</h2>
-          <p>先從型態理解，再決定哪一種比較適合你的日常節奏。</p>
-        </div>
-        <div class="section-heading">
-          <h2>首頁精選搭配</h2>
-          <p>先看一組常被問到的方向，通常會比一開始看太多更清楚。</p>
-        </div>
-      </div>
-      <div class="home-split">
-        <div id="home-products" class="product-grid"></div>
-        <div id="home-combo-list" class="grid"></div>
+      <div class="home-columns">
+        <section class="home-column">
+          <div class="section-heading">
+            <h2>產品型態</h2>
+            <p>先從型態理解，再決定哪一種比較適合你的日常節奏。</p>
+          </div>
+          <div id="home-products" class="product-grid"></div>
+        </section>
+
+        <section class="home-column">
+          <div class="section-heading">
+            <h2>首頁精選搭配</h2>
+            <p>先看一組常被問到的方向，通常會比一開始看太多更清楚。</p>
+          </div>
+          <div id="home-combo-list" class="grid"></div>
+        </section>
       </div>
     </section>
 
@@ -49,12 +52,14 @@
           <p>想固定節奏、想方便快速、想放進料理、想自己搭配，都有不同的理解方式。</p>
           <a class="btn btn-outline" href="choose.html">看怎麼選</a>
         </article>
+
         <article class="card reveal">
           <p class="eyebrow">料理搭配</p>
           <h3>從餐桌開始</h3>
           <p>熱飲、調飲、燉湯，讓產品以更順手的方式進入日常。</p>
           <a class="btn btn-outline" href="recipes.html">看料理</a>
         </article>
+
         <article class="card reveal">
           <p class="eyebrow">FAQ</p>
           <h3>先解決常見疑問</h3>
@@ -78,6 +83,7 @@
 
   <div id="site-footer" class="site-footer"></div>
   <div id="site-modal"></div>
+
   <script src="site.js"></script>
 </body>
 </html>
