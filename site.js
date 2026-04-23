@@ -8,18 +8,31 @@ const MENU_GROUPS = [
 let lastFocusedCard = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadData();
-  buildShell();
-  hydrateStaticFields();
-  renderPage();
-  initReveal();
-  bindGlobalEvents();
+  try {
+    await loadData();
+    buildShell();
+    hydrateStaticFields();
+    renderPage();
+    initReveal();
+    bindGlobalEvents();
+  } catch (err) {
+    console.error('網站初始化失敗：', err);
+  }
 });
 
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
-  const res = await fetch('data.json?v=' + Date.now());
+
+  const res = await fetch(`data.json?v=${Date.now()}`, {
+    cache: 'no-store'
+  });
+
+  if (!res.ok) {
+    throw new Error(`data.json 載入失敗：${res.status}`);
+  }
+
   SITE_DATA = await res.json();
+  console.log('SITE_DATA loaded:', SITE_DATA);
   return SITE_DATA;
 }
 
