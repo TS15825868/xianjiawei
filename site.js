@@ -1,3 +1,4 @@
+
 let SITE_DATA = null;
 const MENU_GROUPS = [
   { title: '首頁', links: [{ href: 'index.html', label: '首頁' }] },
@@ -36,6 +37,20 @@ async function loadData() {
   return SITE_DATA;
 }
 
+function getLineId() {
+  return SITE_DATA?.lineId || '@762jybnm';
+}
+
+function buildLineAutoLink(message = '我想看適合我的龜鹿，請幫我整理。') {
+  const lineId = encodeURIComponent(getLineId());
+  const text = encodeURIComponent(message);
+  return `https://line.me/R/oaMessage/${lineId}/?${text}`;
+}
+
+function lineButton(label = 'LINE 直接幫我看適合哪個', message = '我想看適合我的龜鹿，請幫我整理。') {
+  return `<a class="btn btn-line" href="${buildLineAutoLink(message)}" target="_blank" rel="noopener">${label}</a>`;
+}
+
 function buildShell() {
   const header = document.getElementById('site-header');
   const menuRoot = document.getElementById('site-menu-root');
@@ -49,8 +64,11 @@ function buildShell() {
 }
 
 function hydrateStaticFields() {
-  document.querySelectorAll('[data-line-url]').forEach(el => el.setAttribute('href', SITE_DATA.lineUrl || 'https://lin.ee/sHZW7NkR'));
-  document.querySelectorAll('[data-line-id]').forEach(el => el.textContent = SITE_DATA.lineId || '@762jybnm');
+  document.querySelectorAll('[data-line-url]').forEach(el => {
+    const msg = el.dataset.lineMessage || '我想看適合我的龜鹿，請幫我整理。';
+    el.setAttribute('href', buildLineAutoLink(msg));
+  });
+  document.querySelectorAll('[data-line-id]').forEach(el => el.textContent = getLineId());
   document.querySelectorAll('[data-brand-name]').forEach(el => el.textContent = SITE_DATA.brand || '仙加味');
   document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 }
@@ -93,8 +111,8 @@ function renderFooter() {
         <p>把龜鹿放回日常飲食與生活安排裡。</p>
       </div>
       <div>
-        <p>官方 LINE：${SITE_DATA?.lineId || '@762jybnm'}</p>
-        <p><a class="btn btn-line" href="${SITE_DATA?.lineUrl || 'https://lin.ee/sHZW7NkR'}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a></p>
+        <p>官方 LINE：${getLineId()}</p>
+        <p>${lineButton('LINE 直接幫我看適合哪個', '我想看適合我的龜鹿，請幫我整理。')}</p>
         <p>© <span data-year></span> ${SITE_DATA?.brand || '仙加味'}</p>
       </div>
     </div>
@@ -181,14 +199,14 @@ function renderHome() {
   if (comboWrap && SITE_DATA.offers?.comboOffers?.length) {
     comboWrap.innerHTML = SITE_DATA.offers.comboOffers.slice(0, 2).map((combo, index) => `
       <article class="card combo-card--featured reveal">
-        ${index === 0 ? `<div class="combo-badge">最常先問這組</div>` : `<div class="combo-badge">想方便的人常看</div>`}
+        ${index === 0 ? `<div class="combo-badge">最常先看這組</div>` : `<div class="combo-badge">想方便的人常看</div>`}
         <p class="eyebrow">首頁精選搭配</p>
         <h3>${combo.name}</h3>
         <p>${combo.desc}</p>
         <p class="muted">內容：${combo.items.join('＋')}</p>
         ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
         <div class="final-cta__actions">
-          <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 幫我看這組適不適合</a>
+          ${lineButton('LINE 幫我看這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
           <a class="btn btn-outline" href="combo.html">看完整搭配</a>
         </div>
       </article>
@@ -206,7 +224,7 @@ function renderProductsPage() {
         <h3>${p.name}</h3>
         <p>${p.description}</p>
         <div class="final-cta__actions">
-          <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
+          ${lineButton('LINE 直接幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
         </div>
       </article>
     `).join('');
@@ -223,10 +241,10 @@ function renderChoosePage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
+        ${lineButton('LINE 直接幫我看適合哪個', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
       </div>
     </article>
-  `).join('') + finalCtaBlock('不確定怎麼挑也沒關係', '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。');
+  `).join('') + finalCtaBlock('不確定怎麼挑也沒關係', '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。', '我想看適合我的龜鹿，請幫我整理。');
 }
 
 function renderComboPage() {
@@ -241,10 +259,10 @@ function renderComboPage() {
       <p class="muted">內容：${combo.items.join('＋')}</p>
       ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
       <div class="final-cta__actions">
-        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 幫我看這組適不適合</a>
+        ${lineButton('LINE 幫我看這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
       </div>
     </article>
-  `).join('') + finalCtaBlock('想直接由我們幫你搭配', '不用自己慢慢比，直接用 LINE 告訴我們你的生活方式，我們幫你整理。');
+  `).join('') + finalCtaBlock('想直接由我們幫你搭配', '不用自己慢慢比，直接用 LINE 告訴我們你的生活方式，我們幫你整理。', '我想看適合我的龜鹿搭配，請幫我整理。');
 }
 
 function renderGuidePage() {
@@ -281,7 +299,7 @@ function renderGuidePage() {
         <h3>餐桌搭配</h3>
         <p>湯塊與熱飲類型，適合用「順手」作為安排原則，不需要每次都做得很複雜。</p>
       </article>
-    ` + finalCtaBlock('想直接問怎麼安排', '告訴我們你的作息，我們幫你整理比較好執行的方式。');
+    ` + finalCtaBlock('想直接問怎麼安排', '告訴我們你的作息，我們幫你整理比較好執行的方式。', '我想看怎麼安排比較適合我的日常。');
   }
 }
 
@@ -295,7 +313,7 @@ function renderRecipesPage() {
       <p>${r.desc}</p>
       <ol>${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
     </article>
-  `).join('') + finalCtaBlock('想直接問哪一種比較適合你', '如果你比較偏熱飲、燉湯或調飲，也可以直接用 LINE 問我們。');
+  `).join('') + finalCtaBlock('想直接問哪一種比較適合你', '如果你比較偏熱飲、燉湯或調飲，也可以直接用 LINE 問我們。', '我想看我比較適合熱飲、燉湯還是調飲。');
 }
 
 function renderKnowledgePage() {
@@ -312,7 +330,7 @@ function renderKnowledgePage() {
       <h3>${title}</h3>
       <p>${desc}</p>
     </article>
-  `).join('') + finalCtaBlock('想從比較適合自己的方式開始', '不用自己慢慢理解，直接 LINE 告訴我們你的情況，我們幫你整理。');
+  `).join('') + finalCtaBlock('想從比較適合自己的方式開始', '不用自己慢慢理解，直接 LINE 告訴我們你的情況，我們幫你整理。', '我想看比較適合我的龜鹿方式。');
 }
 
 function renderVideosPage() {
@@ -327,7 +345,7 @@ function renderVideosPage() {
         <p>整理自公開平台，不自動播放，點擊後開啟原影片。</p>
         <a class="btn btn-outline" href="${v.url}" target="_blank" rel="noopener">開啟原影片</a>
       </article>
-    `).join('') + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你現在比較在意什麼，我們幫你整理。');
+    `).join('') + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你現在比較在意什麼，我們幫你整理。', '我看完影片了，想請你幫我看適合哪一種。');
   }
 }
 
@@ -341,7 +359,7 @@ function renderFaqPage() {
         <p>${f.a}</p>
       </div>
     </details>
-  `).join('') + finalCtaBlock('還是不確定怎麼選？', '可以直接跟我們說你的生活方式，我們幫你整理比較適合的方式。');
+  `).join('') + finalCtaBlock('還是不確定怎麼選？', '可以直接跟我們說你的生活方式，我們幫你整理比較適合的方式。', '我想看適合我的龜鹿，請幫我整理。');
 }
 
 function renderRecommendPage() {
@@ -354,7 +372,7 @@ function renderRecommendPage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
+        ${lineButton('LINE 直接幫我看適合哪個', `我目前是「${r.keyword}」，想請你幫我看適合哪一種。`)}
       </div>
     </article>
   `).join('');
@@ -372,7 +390,7 @@ function renderBrandPage() {
       <h2>回到節奏</h2>
       <p>不強調神奇，不追求一次塞滿，而是把補養放回日常、放回餐桌、放回可以長久執行的方式裡。</p>
     </article>
-  ` + finalCtaBlock('想直接從適合你的方式開始', '可以直接用 LINE 跟我們說你的生活方式，我們幫你整理。');
+  ` + finalCtaBlock('想直接從適合你的方式開始', '可以直接用 LINE 跟我們說你的生活方式，我們幫你整理。', '我想直接看適合我的龜鹿方式。');
 }
 
 function renderContactPage() {
@@ -418,7 +436,7 @@ function fillProducts(targetId, products) {
           <p class="muted">規格：${p.size}</p>
           <div class="product-card__actions">
             <button class="btn btn-outline" type="button">查看詳情</button>
-            <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
+            ${lineButton('LINE 直接幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
           </div>
         </div>
       </article>
@@ -479,7 +497,7 @@ function openProductModal(p, sourceEl) {
           <h3>想知道這一種適不適合你？</h3>
           <p>直接用 LINE 告訴我們你的生活方式，我們幫你整理。</p>
           <div class="final-cta__actions">
-            <a class="btn btn-line" href="${SITE_DATA.lineUrl || 'https://lin.ee/sHZW7NkR'}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
+            ${lineButton('LINE 直接幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
           </div>
         </div>
       </div>
@@ -515,13 +533,13 @@ function initReveal() {
   window.addEventListener('scroll', run, { passive: true });
 }
 
-function finalCtaBlock(title, desc) {
+function finalCtaBlock(title, desc, message = '我想看適合我的龜鹿，請幫我整理。') {
   return `
     <section class="final-cta reveal">
       <h3>${title}</h3>
       <p>${desc}</p>
       <div class="final-cta__actions">
-        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
+        ${lineButton('LINE 直接幫我看適合哪個', message)}
       </div>
     </section>
   `;
