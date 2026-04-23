@@ -94,7 +94,7 @@ function renderFooter() {
       </div>
       <div>
         <p>官方 LINE：${SITE_DATA?.lineId || '@762jybnm'}</p>
-        <p><a class="btn btn-line" href="${SITE_DATA?.lineUrl || 'https://lin.ee/sHZW7NkR'}" target="_blank" rel="noopener">LINE 幫我整理</a></p>
+        <p><a class="btn btn-line" href="${SITE_DATA?.lineUrl || 'https://lin.ee/sHZW7NkR'}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a></p>
         <p>© <span data-year></span> ${SITE_DATA?.brand || '仙加味'}</p>
       </div>
     </div>
@@ -188,7 +188,7 @@ function renderHome() {
         <p class="muted">內容：${combo.items.join('＋')}</p>
         ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
         <div class="final-cta__actions">
-          <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 問這組</a>
+          <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 幫我看這組適不適合</a>
           <a class="btn btn-outline" href="combo.html">看完整搭配</a>
         </div>
       </article>
@@ -206,7 +206,7 @@ function renderProductsPage() {
         <h3>${p.name}</h3>
         <p>${p.description}</p>
         <div class="final-cta__actions">
-          <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 幫我整理</a>
+          <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
         </div>
       </article>
     `).join('');
@@ -223,7 +223,7 @@ function renderChoosePage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 幫我整理</a>
+        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
       </div>
     </article>
   `).join('') + finalCtaBlock('不確定怎麼挑也沒關係', '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。');
@@ -241,7 +241,7 @@ function renderComboPage() {
       <p class="muted">內容：${combo.items.join('＋')}</p>
       ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
       <div class="final-cta__actions">
-        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 問這組</a>
+        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 幫我看這組適不適合</a>
       </div>
     </article>
   `).join('') + finalCtaBlock('想直接由我們幫你搭配', '不用自己慢慢比，直接用 LINE 告訴我們你的生活方式，我們幫你整理。');
@@ -354,7 +354,7 @@ function renderRecommendPage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 幫我整理</a>
+        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
       </div>
     </article>
   `).join('');
@@ -418,7 +418,7 @@ function fillProducts(targetId, products) {
           <p class="muted">規格：${p.size}</p>
           <div class="product-card__actions">
             <button class="btn btn-outline" type="button">查看詳情</button>
-            <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 詢問</a>
+            <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
           </div>
         </div>
       </article>
@@ -479,7 +479,7 @@ function openProductModal(p, sourceEl) {
           <h3>想知道這一種適不適合你？</h3>
           <p>直接用 LINE 告訴我們你的生活方式，我們幫你整理。</p>
           <div class="final-cta__actions">
-            <a class="btn btn-line" href="${SITE_DATA.lineUrl || 'https://lin.ee/sHZW7NkR'}" target="_blank" rel="noopener">LINE 幫我整理</a>
+            <a class="btn btn-line" href="${SITE_DATA.lineUrl || 'https://lin.ee/sHZW7NkR'}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
           </div>
         </div>
       </div>
@@ -521,7 +521,7 @@ function finalCtaBlock(title, desc) {
       <h3>${title}</h3>
       <p>${desc}</p>
       <div class="final-cta__actions">
-        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 幫我整理</a>
+        <a class="btn btn-line" href="${SITE_DATA.lineUrl}" target="_blank" rel="noopener">LINE 直接幫我看適合哪個</a>
       </div>
     </section>
   `;
