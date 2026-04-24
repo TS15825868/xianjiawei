@@ -33,7 +33,6 @@ async function loadData() {
   }
 
   SITE_DATA = await res.json();
-  console.log('SITE_DATA loaded:', SITE_DATA);
   return SITE_DATA;
 }
 
@@ -206,7 +205,7 @@ function renderHome() {
         <p class="muted">內容：${combo.items.join('＋')}</p>
         ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
         <div class="final-cta__actions">
-          ${lineButton('LINE 問這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
+          ${lineButton('LINE 幫我看這組', `我想看「${combo.name}」這組適不適合我。`)}
           <a class="btn btn-outline" href="combo.html">看完整搭配</a>
         </div>
       </article>
@@ -259,7 +258,7 @@ function renderComboPage() {
       <p class="muted">內容：${combo.items.join('＋')}</p>
       ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
       <div class="final-cta__actions">
-        ${lineButton('LINE 問這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
+        ${lineButton('LINE 幫我看這組', `我想看「${combo.name}」這組適不適合我。`)}
       </div>
     </article>
   `).join('') + finalCtaBlock('想直接由我們幫你搭配', '不用自己慢慢比，直接用 LINE 告訴我們你的生活方式，我們幫你整理。', '我想看適合我的龜鹿搭配，請幫我整理。');
@@ -384,6 +383,7 @@ function renderBrandPage() {
   const store = document.getElementById('brand-store');
   const b = SITE_DATA.brandStory || {};
   const s = SITE_DATA.store || {};
+
   if (el) {
     el.innerHTML = `
       <article class="card reveal">
@@ -391,16 +391,19 @@ function renderBrandPage() {
         <h2>${b.originTitle || '仙加味的由來'}</h2>
         <p>${b.origin || '仙加味把補養加回日常，讓龜鹿產品更容易理解、安排與持續。'}</p>
       </article>
+
       <article class="card reveal">
-        <p class="eyebrow">品牌故事</p>
+        <p class="eyebrow">萬華起點</p>
         <h2>${b.storyTitle || '從萬華開始'}</h2>
         <p>${b.story || '從萬華老店出發，延續對原料、火候與工序的重視。'}</p>
       </article>
+
       <article class="card reveal">
-        <p class="eyebrow">創辦人故事</p>
+        <p class="eyebrow">創始人的選擇</p>
         <h2>${b.founderTitle || '創辦人的想法'}</h2>
         <p>${b.founder || '把補養放回餐桌、熱飲與每天可執行的生活節奏。'}</p>
       </article>
+
       <article class="card reveal">
         <p class="eyebrow">工序傳承</p>
         <h2>${b.craftTitle || '四代鹿角工序'}</h2>
@@ -408,6 +411,7 @@ function renderBrandPage() {
       </article>
     `;
   }
+
   if (timeline) {
     const items = b.timeline || [];
     timeline.innerHTML = items.map((item, idx) => `
@@ -418,15 +422,16 @@ function renderBrandPage() {
       </article>
     `).join('');
   }
+
   if (store) {
     store.innerHTML = `
       <p class="eyebrow">回到萬華</p>
       <h3>${s.name || '萬華門市'}｜${s.address || '台北市萬華區西昌街52號'}</h3>
       <p>${s.heritage || '萬華老店・四代鹿角工序傳承'}</p>
-      <p>${s.note || '建議先透過 LINE 聯絡，確認現場與安排時間。'}</p>
+      <p>如果你在萬華附近，可以先查看門市位置；若想了解產品型態與搭配方式，建議用 LINE 讓我們先幫你整理。</p>
       <div class="final-cta__actions">
-        ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，請幫我整理。')}
         <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟地圖</a>
+        ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，請幫我整理。')}
       </div>
     `;
   }
@@ -454,9 +459,9 @@ function renderContactPage() {
         </div>
       </article>
       <article class="card reveal map-card">
-        <h3>先 LINE，再安排</h3>
-        <p>如果你在萬華附近，也可以直接來店了解；但多數情況會建議先用 LINE 告訴我們想看的產品與需求，整理起來更清楚。</p>
+        <h3>門市與到店說明</h3>
         <p>門市地址：${s.address || '台北市萬華區西昌街52號'}</p>
+        <p>到店可先查看地圖；若想先了解產品型態、料理搭配或適合哪一種，透過 LINE 會整理得更清楚。</p>
       </article>
     `;
   }
