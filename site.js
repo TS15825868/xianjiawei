@@ -47,7 +47,7 @@ function buildLineAutoLink(message = '我想看適合我的龜鹿，請幫我整
   return `https://line.me/R/oaMessage/${lineId}/?${text}`;
 }
 
-function lineButton(label = 'LINE 直接幫我看適合哪個', message = '我想看適合我的龜鹿，請幫我整理。') {
+function lineButton(label = 'LINE 幫我看適合哪個', message = '我想看適合我的龜鹿，請幫我整理。') {
   return `<a class="btn btn-line" href="${buildLineAutoLink(message)}" target="_blank" rel="noopener">${label}</a>`;
 }
 
@@ -112,7 +112,7 @@ function renderFooter() {
       </div>
       <div>
         <p>官方 LINE：${getLineId()}</p>
-        <p>${lineButton('LINE 直接幫我看適合哪個', '我想看適合我的龜鹿，請幫我整理。')}</p>
+        <p>${lineButton('LINE 幫我看適合哪個', '我想看適合我的龜鹿，請幫我整理。')}</p>
         <p>© <span data-year></span> ${SITE_DATA?.brand || '仙加味'}</p>
       </div>
     </div>
@@ -206,7 +206,7 @@ function renderHome() {
         <p class="muted">內容：${combo.items.join('＋')}</p>
         ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
         <div class="final-cta__actions">
-          ${lineButton('LINE 幫我看這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
+          ${lineButton('LINE 問這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
           <a class="btn btn-outline" href="combo.html">看完整搭配</a>
         </div>
       </article>
@@ -224,7 +224,7 @@ function renderProductsPage() {
         <h3>${p.name}</h3>
         <p>${p.description}</p>
         <div class="final-cta__actions">
-          ${lineButton('LINE 直接幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
+          ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
         </div>
       </article>
     `).join('');
@@ -241,7 +241,7 @@ function renderChoosePage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        ${lineButton('LINE 直接幫我看適合哪個', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
+        ${lineButton('LINE 幫我看適合哪個', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
       </div>
     </article>
   `).join('') + finalCtaBlock('不確定怎麼挑也沒關係', '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。', '我想看適合我的龜鹿，請幫我整理。');
@@ -259,7 +259,7 @@ function renderComboPage() {
       <p class="muted">內容：${combo.items.join('＋')}</p>
       ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
       <div class="final-cta__actions">
-        ${lineButton('LINE 幫我看這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
+        ${lineButton('LINE 問這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
       </div>
     </article>
   `).join('') + finalCtaBlock('想直接由我們幫你搭配', '不用自己慢慢比，直接用 LINE 告訴我們你的生活方式，我們幫你整理。', '我想看適合我的龜鹿搭配，請幫我整理。');
@@ -372,7 +372,7 @@ function renderRecommendPage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        ${lineButton('LINE 直接幫我看適合哪個', `我目前是「${r.keyword}」，想請你幫我看適合哪一種。`)}
+        ${lineButton('LINE 幫我看適合哪個', `我目前是「${r.keyword}」，想請你幫我看適合哪一種。`)}
       </div>
     </article>
   `).join('');
@@ -425,7 +425,7 @@ function renderBrandPage() {
       <p>${s.heritage || '萬華老店・四代鹿角工序傳承'}</p>
       <p>${s.note || '建議先透過 LINE 聯絡，確認現場與安排時間。'}</p>
       <div class="final-cta__actions">
-        ${lineButton('LINE 直接幫我看適合哪個', '我想了解萬華門市與龜鹿產品，請幫我整理。')}
+        ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，請幫我整理。')}
         <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟地圖</a>
       </div>
     `;
@@ -450,7 +450,7 @@ function renderContactPage() {
         <p class="muted">${s.note || '建議先透過 LINE 聯絡，確認現場與安排時間。'}</p>
         <div class="final-cta__actions">
           <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟 Google 地圖</a>
-          ${lineButton('LINE 直接幫我看適合哪個', '我想了解萬華門市與龜鹿產品，請幫我整理。')}
+          ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，請幫我整理。')}
         </div>
       </article>
       <article class="card reveal map-card">
@@ -498,7 +498,7 @@ function fillProducts(targetId, products) {
           <p class="muted">規格：${p.size}</p>
           <div class="product-card__actions">
             <button class="btn btn-outline" type="button">查看詳情</button>
-            ${lineButton('LINE 直接幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
+            ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
           </div>
         </div>
       </article>
@@ -559,7 +559,7 @@ function openProductModal(p, sourceEl) {
           <h3>想知道這一種適不適合你？</h3>
           <p>直接用 LINE 告訴我們你的生活方式，我們幫你整理。</p>
           <div class="final-cta__actions">
-            ${lineButton('LINE 直接幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
+            ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
           </div>
         </div>
       </div>
@@ -601,7 +601,7 @@ function finalCtaBlock(title, desc, message = '我想看適合我的龜鹿，請
       <h3>${title}</h3>
       <p>${desc}</p>
       <div class="final-cta__actions">
-        ${lineButton('LINE 直接幫我看適合哪個', message)}
+        ${lineButton('LINE 幫我看適合哪個', message)}
       </div>
     </section>
   `;

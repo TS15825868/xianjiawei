@@ -45,7 +45,7 @@ body.modal-open{overflow:hidden}
 .header-inner{
   max-width:var(--max);
   margin:0 auto;
-  padding:14px 18px;
+  padding:16px 18px;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -60,12 +60,12 @@ body.modal-open{overflow:hidden}
   min-width:0;
 }
 .brand-mark img{
-  width:36px;
-  height:36px;
+  width:48px;
+  height:48px;
   object-fit:contain;
   flex:0 0 auto;
 }
-.brand-mark span{white-space:nowrap}
+.brand-mark span{white-space:nowrap;font-size:18px;font-weight:900}
 
 .menu-btn,
 .menu-close,
@@ -512,12 +512,12 @@ p{margin:0 0 12px}
   }
 
   .brand-mark span{
-    font-size:15px;
+    font-size:16px;
   }
 
   .brand-mark img{
-    width:32px;
-    height:32px;
+    width:40px;
+    height:40px;
   }
 
   .product-modal__scroll{
