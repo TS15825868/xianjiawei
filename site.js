@@ -380,17 +380,56 @@ function renderRecommendPage() {
 
 function renderBrandPage() {
   const el = document.getElementById('brand-story');
-  if (!el) return;
-  el.innerHTML = `
-    <article class="card reveal">
-      <h2>從萬華開始</h2>
-      <p>一間做鹿角的老店，一路走到現在。我們做的，其實很單純，把龜板與鹿角交給時間，用該有的火候，慢慢熬。</p>
-    </article>
-    <article class="card reveal">
-      <h2>回到節奏</h2>
-      <p>不強調神奇，不追求一次塞滿，而是把補養放回日常、放回餐桌、放回可以長久執行的方式裡。</p>
-    </article>
-  ` + finalCtaBlock('想直接從適合你的方式開始', '可以直接用 LINE 跟我們說你的生活方式，我們幫你整理。', '我想直接看適合我的龜鹿方式。');
+  const timeline = document.getElementById('brand-timeline');
+  const store = document.getElementById('brand-store');
+  const b = SITE_DATA.brandStory || {};
+  const s = SITE_DATA.store || {};
+  if (el) {
+    el.innerHTML = `
+      <article class="card reveal">
+        <p class="eyebrow">品牌由來</p>
+        <h2>${b.originTitle || '仙加味的由來'}</h2>
+        <p>${b.origin || '仙加味把補養加回日常，讓龜鹿產品更容易理解、安排與持續。'}</p>
+      </article>
+      <article class="card reveal">
+        <p class="eyebrow">品牌故事</p>
+        <h2>${b.storyTitle || '從萬華開始'}</h2>
+        <p>${b.story || '從萬華老店出發，延續對原料、火候與工序的重視。'}</p>
+      </article>
+      <article class="card reveal">
+        <p class="eyebrow">創辦人故事</p>
+        <h2>${b.founderTitle || '創辦人的想法'}</h2>
+        <p>${b.founder || '把補養放回餐桌、熱飲與每天可執行的生活節奏。'}</p>
+      </article>
+      <article class="card reveal">
+        <p class="eyebrow">工序傳承</p>
+        <h2>${b.craftTitle || '四代鹿角工序'}</h2>
+        <p>${b.craft || '真正重要的是時間與細節，不誇大、不急躁，穩穩地放進生活。'}</p>
+      </article>
+    `;
+  }
+  if (timeline) {
+    const items = b.timeline || [];
+    timeline.innerHTML = items.map((item, idx) => `
+      <article class="card timeline-card reveal">
+        <p class="eyebrow">${String(idx + 1).padStart(2, '0')}</p>
+        <h3>${item.title}</h3>
+        <p>${item.desc}</p>
+      </article>
+    `).join('');
+  }
+  if (store) {
+    store.innerHTML = `
+      <p class="eyebrow">回到萬華</p>
+      <h3>${s.name || '萬華門市'}｜${s.address || '台北市萬華區西昌街52號'}</h3>
+      <p>${s.heritage || '萬華老店・四代鹿角工序傳承'}</p>
+      <p>${s.note || '建議先透過 LINE 聯絡，確認現場與安排時間。'}</p>
+      <div class="final-cta__actions">
+        ${lineButton('LINE 直接幫我看適合哪個', '我想了解萬華門市與龜鹿產品，請幫我整理。')}
+        <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟地圖</a>
+      </div>
+    `;
+  }
 }
 
 function renderContactPage() {
@@ -398,7 +437,29 @@ function renderContactPage() {
   const shippingEl = document.getElementById('contact-shipping');
   const notesEl = document.getElementById('contact-notes');
   const askList = document.getElementById('contact-ask-list');
+  const storeCard = document.getElementById('store-card');
+  const s = SITE_DATA.store || {};
 
+  if (storeCard) {
+    storeCard.innerHTML = `
+      <article class="card reveal">
+        <p class="eyebrow">${s.area || '台北萬華'}</p>
+        <h3>${s.name || '萬華門市'}</h3>
+        <p><strong>${s.address || '台北市萬華區西昌街52號'}</strong></p>
+        <p>${s.heritage || '萬華老店・四代鹿角工序傳承'}</p>
+        <p class="muted">${s.note || '建議先透過 LINE 聯絡，確認現場與安排時間。'}</p>
+        <div class="final-cta__actions">
+          <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟 Google 地圖</a>
+          ${lineButton('LINE 直接幫我看適合哪個', '我想了解萬華門市與龜鹿產品，請幫我整理。')}
+        </div>
+      </article>
+      <article class="card reveal map-card">
+        <h3>先 LINE，再安排</h3>
+        <p>如果你在萬華附近，也可以直接來店了解；但多數情況會建議先用 LINE 告訴我們想看的產品與需求，整理起來更清楚。</p>
+        <p>門市地址：${s.address || '台北市萬華區西昌街52號'}</p>
+      </article>
+    `;
+  }
   if (paymentEl) {
     paymentEl.innerHTML = (SITE_DATA.payments || []).map(item => `<li>${item}</li>`).join('');
   }
@@ -413,7 +474,8 @@ function renderContactPage() {
       '適合哪一種型態',
       '怎麼安排日常使用',
       '搭配組合怎麼選',
-      '付款與配送方式'
+      '付款與配送方式',
+      '萬華門市地址與到店安排'
     ].map(item => `<li>${item}</li>`).join('');
   }
 }

@@ -534,3 +534,22 @@ p{margin:0 0 12px}
     padding:22px 18px;
   }
 }
+
+
+/* v62 brand/store additions */
+.timeline-card{
+  position:relative;
+}
+.map-card{
+  background:linear-gradient(135deg,#fff 0%,#f9f5ec 100%);
+}
+.grid-span-2{
+  grid-column:span 2;
+}
+.store-address{
+  font-weight:900;
+  color:var(--brand);
+}
+@media (max-width:960px){
+  .grid-span-2{grid-column:span 1;}
+}
