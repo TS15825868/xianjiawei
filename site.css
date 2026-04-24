@@ -553,3 +553,46 @@ p{margin:0 0 12px}
 @media (max-width:960px){
   .grid-span-2{grid-column:span 1;}
 }
+
+/* v66 成交優化：產品卡、主 CTA、品牌記憶點 */
+.product-tag{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  max-width:100%;
+  margin:0 0 10px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#f5eadb;
+  color:#7a4a16;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.03em;
+}
+.product-hint{
+  margin:10px 0 12px;
+  padding:10px 12px;
+  border-left:3px solid var(--accent);
+  border-radius:12px;
+  background:#fff8ef;
+  color:#5f4630;
+  font-size:14px;
+  line-height:1.7;
+}
+.product-hint--modal{font-size:15px}
+.product-card__actions .btn-line,
+.final-cta__actions .btn-line,
+.hero-actions .btn-line{box-shadow:0 10px 22px rgba(6,199,85,.22)}
+.hero-actions .btn-line{min-width:210px}
+.product-card__actions .btn-line{flex:1 1 160px}
+.product-card__actions .btn-outline{flex:0 0 auto}
+.brand-quote{background:linear-gradient(135deg,#0b1f3b 0%,#17385d 100%);color:#fff;border:0}
+.brand-quote .eyebrow{color:#f6d58b}
+.brand-quote h2{color:#fff;margin-bottom:0}
+.card .btn,.final-cta .btn{text-decoration:none}
+@media (max-width:768px){
+  .product-card__actions .btn,
+  .final-cta__actions .btn,
+  .hero-actions .btn{width:100%}
+  .product-tag{font-size:12px}
+}

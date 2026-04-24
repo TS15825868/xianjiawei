@@ -40,13 +40,13 @@ function getLineId() {
   return SITE_DATA?.lineId || '@762jybnm';
 }
 
-function buildLineAutoLink(message = '我想看適合我的龜鹿，請幫我整理。') {
+function buildLineAutoLink(message = '我想看龜鹿怎麼選，幫我整理一個方向。') {
   const lineId = encodeURIComponent(getLineId());
   const text = encodeURIComponent(message);
   return `https://line.me/R/oaMessage/${lineId}/?${text}`;
 }
 
-function lineButton(label = 'LINE 幫我看適合哪個', message = '我想看適合我的龜鹿，請幫我整理。') {
+function lineButton(label = 'LINE 幫我看適合哪個', message = '我想看龜鹿怎麼選，幫我整理一個方向。') {
   return `<a class="btn btn-line" href="${buildLineAutoLink(message)}" target="_blank" rel="noopener">${label}</a>`;
 }
 
@@ -64,7 +64,7 @@ function buildShell() {
 
 function hydrateStaticFields() {
   document.querySelectorAll('[data-line-url]').forEach(el => {
-    const msg = el.dataset.lineMessage || '我想看適合我的龜鹿，請幫我整理。';
+    const msg = el.dataset.lineMessage || '我想看龜鹿怎麼選，幫我整理一個方向。';
     el.setAttribute('href', buildLineAutoLink(msg));
   });
   document.querySelectorAll('[data-line-id]').forEach(el => el.textContent = getLineId());
@@ -111,7 +111,7 @@ function renderFooter() {
       </div>
       <div>
         <p>官方 LINE：${getLineId()}</p>
-        <p>${lineButton('LINE 幫我看適合哪個', '我想看適合我的龜鹿，請幫我整理。')}</p>
+        <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
         <p>© <span data-year></span> ${SITE_DATA?.brand || '仙加味'}</p>
       </div>
     </div>
@@ -205,7 +205,7 @@ function renderHome() {
         <p class="muted">內容：${combo.items.join('＋')}</p>
         ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
         <div class="final-cta__actions">
-          ${lineButton('LINE 幫我看這組', `我想看「${combo.name}」這組適不適合我。`)}
+          ${lineButton('LINE 幫我看適合哪個', `我想看「${combo.name}」這組適不適合我。`)}
           <a class="btn btn-outline" href="combo.html">看完整搭配</a>
         </div>
       </article>
@@ -243,7 +243,7 @@ function renderChoosePage() {
         ${lineButton('LINE 幫我看適合哪個', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
       </div>
     </article>
-  `).join('') + finalCtaBlock('不確定怎麼挑也沒關係', '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。', '我想看適合我的龜鹿，請幫我整理。');
+  `).join('') + finalCtaBlock('不確定怎麼挑也沒關係', '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。', '我想看龜鹿怎麼選，幫我整理一個方向。');
 }
 
 function renderComboPage() {
@@ -258,7 +258,7 @@ function renderComboPage() {
       <p class="muted">內容：${combo.items.join('＋')}</p>
       ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
       <div class="final-cta__actions">
-        ${lineButton('LINE 幫我看這組', `我想看「${combo.name}」這組適不適合我。`)}
+        ${lineButton('LINE 幫我看適合哪個', `我想看「${combo.name}」這組適不適合我。`)}
       </div>
     </article>
   `).join('') + finalCtaBlock('想直接由我們幫你搭配', '不用自己慢慢比，直接用 LINE 告訴我們你的生活方式，我們幫你整理。', '我想看適合我的龜鹿搭配，請幫我整理。');
@@ -358,7 +358,7 @@ function renderFaqPage() {
         <p>${f.a}</p>
       </div>
     </details>
-  `).join('') + finalCtaBlock('還是不確定怎麼選？', '可以直接跟我們說你的生活方式，我們幫你整理比較適合的方式。', '我想看適合我的龜鹿，請幫我整理。');
+  `).join('') + finalCtaBlock('還是不確定怎麼選？', '可以直接跟我們說你的生活方式，我們幫你整理比較適合的方式。', '我想看龜鹿怎麼選，幫我整理一個方向。');
 }
 
 function renderRecommendPage() {
@@ -386,6 +386,11 @@ function renderBrandPage() {
 
   if (el) {
     el.innerHTML = `
+      <article class="brand-quote card reveal">
+        <p class="eyebrow">品牌記憶點</p>
+        <h2>${b.quote || '補養，不是補很多，是讓身體有機會慢慢回來。'}</h2>
+      </article>
+
       <article class="card reveal">
         <p class="eyebrow">品牌由來</p>
         <h2>${b.originTitle || '仙加味的由來'}</h2>
@@ -499,7 +504,9 @@ function fillProducts(targetId, products) {
         <div class="product-card__body">
           <p class="eyebrow">${p.series || ''}</p>
           <h3>${p.name}</h3>
+          ${p.tag ? `<p class="product-tag">${p.tag}</p>` : ''}
           <p>${p.description}</p>
+          ${p.hint ? `<p class="product-hint">${p.hint}</p>` : ''}
           <p class="muted">規格：${p.size}</p>
           <div class="product-card__actions">
             <button class="btn btn-outline" type="button">查看詳情</button>
@@ -548,6 +555,7 @@ function openProductModal(p, sourceEl) {
         <p class="eyebrow">${p.series || '仙加味・龜鹿'}</p>
         <h2>${p.name}</h2>
         <p>${p.description}</p>
+        ${p.hint ? `<p class="product-hint product-hint--modal">${p.hint}</p>` : ''}
         <p class="muted">規格：${p.size}</p>
 
         <div class="modal-section">
@@ -600,7 +608,7 @@ function initReveal() {
   window.addEventListener('scroll', run, { passive: true });
 }
 
-function finalCtaBlock(title, desc, message = '我想看適合我的龜鹿，請幫我整理。') {
+function finalCtaBlock(title, desc, message = '我想看龜鹿怎麼選，幫我整理一個方向。') {
   return `
     <section class="final-cta reveal">
       <h3>${title}</h3>

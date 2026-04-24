@@ -93,7 +93,14 @@
         "可搭配溫熱水化開",
         "避免接近睡前食用"
       ],
-      "size": "100 g"
+      "size": "100 g",
+      "gallery": [
+        "images/guilu-gao.jpg",
+        "images/guilu-gao-side.jpg",
+        "images/guilu-gao-label.jpg"
+      ],
+      "tag": "固定節奏・膏狀型態",
+      "hint": "第一次想建立穩定節奏，通常會先從龜鹿膏理解。"
     },
     {
       "id": "guilu-drink",
@@ -115,7 +122,9 @@
         "建議溫熱後飲用",
         "避免冰飲"
       ],
-      "size": "30 cc"
+      "size": "30 cc",
+      "tag": "方便快速・即飲型態",
+      "hint": "適合外出、忙碌，或希望準備步驟更少的人。"
     },
     {
       "id": "guilu-block",
@@ -124,7 +133,9 @@
       "image": "images/guilu-block-cube.jpg",
       "gallery": [
         "images/guilu-block-cube.jpg",
-        "images/guilu-block.jpg"
+        "images/guilu-block-side.jpg",
+        "images/guilu-block-stack.jpg",
+        "images/guilu-block-label.jpg"
       ],
       "description": "塊狀型態，適合放進燉湯與日常料理，從餐桌開始建立節奏。",
       "ingredients": [
@@ -136,7 +147,9 @@
         "依料理份量調整用量",
         "建議搭配熱食使用"
       ],
-      "size": "75 g"
+      "size": "75 g",
+      "tag": "料理搭配・燉湯型態",
+      "hint": "想把龜鹿放進餐桌，通常會先從湯塊開始。"
     },
     {
       "id": "lurong",
@@ -152,7 +165,9 @@
         "可依個人習慣調整份量",
         "建議由少量開始"
       ],
-      "size": "75 g"
+      "size": "75 g",
+      "tag": "自己搭配・粉末型態",
+      "hint": "適合習慣自己安排熱飲、調飲或搭配方式的人。"
     }
   ],
   "recipes": [
@@ -532,6 +547,7 @@
         "title": "回到日常",
         "desc": "以料理、熱飲、固定節奏與 LINE 一對一整理，讓選擇變得更清楚。"
       }
-    ]
+    ],
+    "quote": "補養，不是補很多，是讓身體有機會慢慢回來。"
   }
 }
