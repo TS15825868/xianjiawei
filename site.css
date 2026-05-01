@@ -553,3 +553,17 @@ p{margin:0 0 12px}
 @media (max-width:960px){
   .grid-span-2{grid-column:span 1;}
 }
+
+/* v71 conversion polish */
+.dm-entry-card{
+  text-align:center;
+}
+.product-hint{
+  margin-top:8px;
+  color:#7a5a28;
+  font-size:14px;
+  font-weight:700;
+}
+.final-cta .eyebrow + h3{
+  margin-top:0;
+}
