@@ -110,8 +110,13 @@ function renderFooter() {
         <p>把龜鹿放回日常飲食與生活安排裡。</p>
       </div>
       <div>
-        <p>官方 LINE：${getLineId()}</p>
-        <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
+        <div class="footer-line-box">
+          <div>
+            <p>官方 LINE：${getLineId()}</p>
+            <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
+          </div>
+          <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code">
+        </div>
         <p>${SITE_DATA?.heritage?.footer || `SINCE 1978｜仙加味品牌 Founded 2008`}</p>
       </div>
     </div>
@@ -528,6 +533,21 @@ function fillProducts(targetId, products) {
   });
 }
 
+function renderSpecOptions(p) {
+  if (!p.specOptions || !p.specOptions.length) return '';
+  return `
+    <div class="modal-section spec-options">
+      <h3>規格選擇</h3>
+      ${p.specOptions.map(opt => `
+        <div class="spec-option-card">
+          <strong>${opt.title}</strong>
+          <ul>${(opt.lines || []).map(line => `<li>${line}</li>`).join('')}</ul>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
 function openProductModal(p, sourceEl) {
   const modal = document.getElementById('product-modal');
   const body = document.getElementById('product-modal-body');
@@ -550,6 +570,7 @@ function openProductModal(p, sourceEl) {
         <h2>${p.displayName || p.name}</h2>
         <p>${p.description}</p>
         <p class="muted">規格：${p.size}</p>
+        ${renderSpecOptions(p)}
 
         <div class="modal-section">
           <h3>成分</h3>

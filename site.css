@@ -620,3 +620,57 @@ p{margin:0 0 12px}
   background:#8E2A2A !important;
   box-shadow:none !important;
 }
+
+
+/* v77.2 LINE QR 與傳統紅盒規格卡 */
+.footer-line-box,
+.contact-line-layout{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.line-qr-small{
+  width:88px;
+  height:88px;
+  object-fit:cover;
+  background:#fff;
+  border:1px solid rgba(123,30,30,.18);
+  border-radius:14px;
+  padding:6px;
+}
+.line-qr-card{
+  width:132px;
+  height:132px;
+  object-fit:cover;
+  background:#fff;
+  border:1px solid rgba(123,30,30,.18);
+  border-radius:18px;
+  padding:8px;
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
+}
+.spec-options{
+  border-top:1px solid rgba(0,0,0,.08);
+  padding-top:16px;
+}
+.spec-option-card{
+  background:#fbf8f0;
+  border:1px solid rgba(123,30,30,.12);
+  border-radius:16px;
+  padding:14px 16px;
+  margin-top:10px;
+}
+.spec-option-card strong{
+  color:#7B1E1E;
+  display:block;
+  margin-bottom:6px;
+}
+.spec-option-card ul{
+  margin:0;
+  padding-left:18px;
+}
+@media (max-width:640px){
+  .line-qr-small{width:76px;height:76px;}
+  .line-qr-card{width:118px;height:118px;}
+}
