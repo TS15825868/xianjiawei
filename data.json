@@ -29,10 +29,7 @@
           "龜鹿膏 1 罐",
           "龜鹿飲 5 包"
         ],
-        "gift": "",
-        "desc": "適合想固定日常節奏，也想保留方便快速選擇的人。",
-        "price": 3000,
-        "priceNote": "依搭配方式整理"
+        "desc": "適合想固定日常節奏，也想保留方便快速選擇的人。"
       },
       {
         "name": "日常便利組",
@@ -44,10 +41,7 @@
           "龜鹿膏 1 罐",
           "龜鹿飲 10 包"
         ],
-        "gift": "",
-        "desc": "適合想固定節奏，也想增加外出或忙碌時的便利性。",
-        "price": 4000,
-        "priceNote": "依搭配方式整理"
+        "desc": "適合想固定節奏，也想增加外出或忙碌時的便利性。"
       },
       {
         "name": "餐桌搭配組",
@@ -59,10 +53,7 @@
           "龜鹿湯塊 75g 1 盒",
           "鹿茸粉 1 罐"
         ],
-        "gift": "",
-        "desc": "適合想從料理與熱飲一起安排的人。",
-        "price": 4000,
-        "priceNote": "依搭配方式整理"
+        "desc": "適合想從料理與熱飲一起安排的人。"
       },
       {
         "name": "完整體驗組",
@@ -76,10 +67,7 @@
           "龜鹿湯塊 75g 1 盒",
           "鹿茸粉 1 罐"
         ],
-        "gift": "",
-        "desc": "適合想一次了解不同型態，依生活情境安排的人。",
-        "price": 7000,
-        "priceNote": "依搭配方式整理"
+        "desc": "適合想一次了解不同型態，依生活情境安排的人。"
       },
       {
         "name": "傳統燉煮組",
@@ -93,10 +81,7 @@
           "龜鹿湯塊 傳統紅盒一斤裝 1 盒",
           "鹿茸粉 1 罐"
         ],
-        "gift": "",
-        "desc": "適合想了解傳統紅盒一斤裝、切塊規格與較大份量燉煮安排的人。",
-        "price": 17000,
-        "priceNote": "依搭配方式整理"
+        "desc": "適合想了解傳統紅盒一斤裝、切塊規格與較大份量燉煮安排的人。"
       }
     ]
   },
@@ -145,7 +130,6 @@
       ],
       "storage": "開封後需冷藏，請依標示保存。",
       "size": "100 g / 罐",
-      "price": 2000,
       "image": "images/guilu-gao-card.jpg",
       "gallery": [
         "images/guilu-gao-life.jpg",
@@ -184,14 +168,12 @@
       ],
       "storage": "常溫請放置於陰涼處，或保存於 5°C 以下冰箱。",
       "size": "180 cc / 包",
-      "price": 200,
       "image": "images/guilu-drink-card.jpg",
       "gallery": [
         "images/guilu-drink.jpg",
         "images/guilu-drink-pour.jpg"
       ],
-      "spec": "180 cc / 包",
-      "priceText": "$200 / 包"
+      "spec": "180 cc / 包"
     },
     {
       "id": "guilu-block",
@@ -219,7 +201,6 @@
       ],
       "storage": "請置於陰涼乾燥處保存。",
       "size": "75 g / 盒（8入；單塊2.5錢）",
-      "price": 2000,
       "image": "images/guilu-block-content-card.jpg",
       "gallery": [
         "images/guilu-block-content.jpg",
@@ -227,7 +208,6 @@
         "images/guilu-block-stack.jpg"
       ],
       "spec": "75 g / 盒（8入；單塊2.5錢）",
-      "priceText": "$2000 / 盒",
       "specOptions": [
         {
           "title": "75g 藍盒",
@@ -275,8 +255,6 @@
       ],
       "storage": "請置於陰涼乾燥處保存。",
       "size": "半斤 / 一斤規格（可選切塊）",
-      "price": 15000,
-      "priceText": "$15000 / 一斤裝",
       "orderable": true,
       "image": "images/guilu-block-redbox-card.jpg",
       "gallery": [
@@ -301,13 +279,6 @@
             "一斤（600g）＝64塊",
             "單塊約2.5錢（約9.375g）",
             "適合分次使用、日常料理搭配與較彈性的使用方式"
-          ]
-        },
-        {
-          "title": "建議售價",
-          "lines": [
-            "一斤裝（600g）建議售價 $15000",
-            "半斤規格與切塊方式建議先透過 LINE 確認"
           ]
         }
       ]
@@ -334,7 +305,6 @@
       ],
       "storage": "請置於陰涼乾燥處保存，開封後請依標示保存。",
       "size": "75 g / 罐",
-      "price": 2000,
       "image": "images/lurong-card.jpg",
       "gallery": [
         "images/lurong.jpg"

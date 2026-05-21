@@ -622,7 +622,7 @@ p{margin:0 0 12px}
 }
 
 
-/* v77.2 LINE QR 與傳統紅盒規格卡 */
+/* v77.3 LINE QR 與傳統紅盒規格卡 */
 .footer-line-box,
 .contact-line-layout{
   display:flex;
@@ -673,4 +673,75 @@ p{margin:0 0 12px}
 @media (max-width:640px){
   .line-qr-small{width:76px;height:76px;}
   .line-qr-card{width:118px;height:118px;}
+}
+
+
+/* v77.3 網站不公開價格：LINE/QR 區塊修正 */
+.footer-card{
+  align-items:stretch;
+}
+.footer-brand-block{
+  min-width:240px;
+  flex:1 1 280px;
+}
+.footer-line-box,
+.contact-line-layout{
+  display:grid !important;
+  grid-template-columns:auto minmax(220px,1fr) auto;
+  align-items:center;
+  gap:16px;
+  width:100%;
+  max-width:640px;
+  background:#fffaf2;
+  border:1px solid rgba(123,30,30,.14);
+  border-radius:18px;
+  padding:14px 16px;
+}
+.footer-line-logo{
+  width:58px;
+  height:70px;
+  border-radius:14px;
+  background:#7B1E1E;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  flex:0 0 auto;
+}
+.footer-line-logo img{
+  width:52px;
+  height:auto;
+  display:block;
+}
+.footer-line-title{
+  margin:0 0 2px;
+  font-weight:900;
+  color:#7B1E1E;
+}
+.footer-line-id{margin:0 0 4px; font-weight:800;}
+.footer-line-copy p{margin-top:0; margin-bottom:6px;}
+.line-qr-small,
+.line-qr-card{
+  object-fit:contain !important;
+  background:#fff !important;
+  border:1px solid rgba(123,30,30,.18) !important;
+  border-radius:14px !important;
+  padding:6px !important;
+  box-shadow:none !important;
+  flex:0 0 auto;
+}
+.line-qr-small{width:96px !important;height:96px !important;}
+.line-qr-card{width:136px !important;height:136px !important;}
+@media (max-width:700px){
+  .footer-line-box,
+  .contact-line-layout{
+    grid-template-columns:auto 1fr;
+  }
+  .line-qr-small,
+  .line-qr-card{
+    grid-column:1 / -1;
+    justify-self:start;
+    width:118px !important;
+    height:118px !important;
+  }
 }

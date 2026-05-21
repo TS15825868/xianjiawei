@@ -104,20 +104,23 @@ function renderMenuDrawer() {
 function renderFooter() {
   return `
     <div class="footer-card card">
-      <div>
+      <div class="footer-brand-block">
         <strong>${SITE_DATA?.brand || '仙加味'}・龜鹿</strong>
         <p>補養，是一種節奏。</p>
         <p>把龜鹿放回日常飲食與生活安排裡。</p>
-      </div>
-      <div>
-        <div class="footer-line-box">
-          <div>
-            <p>官方 LINE：${getLineId()}</p>
-            <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
-          </div>
-          <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code">
-        </div>
         <p>${SITE_DATA?.heritage?.footer || `SINCE 1978｜仙加味品牌 Founded 2008`}</p>
+      </div>
+      <div class="footer-line-box">
+        <div class="footer-line-logo">
+          <img src="images/logo.png" alt="仙加味 LOGO">
+        </div>
+        <div class="footer-line-copy">
+          <p class="footer-line-title">官方 LINE</p>
+          <p class="footer-line-id">LINE ID：<strong>${getLineId()}</strong></p>
+          <p class="muted">想了解搭配方式與方案，歡迎加入 LINE 詢問。</p>
+          <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
+        </div>
+        <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code">
       </div>
     </div>
   `;
