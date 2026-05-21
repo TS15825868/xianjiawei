@@ -534,7 +534,7 @@ function openProductModal(p, sourceEl) {
   if (!modal || !body) return;
 
   lastFocusedCard = sourceEl || document.activeElement;
-  const gallery = ((p.gallery && p.gallery.length) ? p.gallery : [p.image]).filter(Boolean);
+  const gallery = Array.from(new Set(((p.gallery && p.gallery.length) ? p.gallery : [p.image]).filter(Boolean)));
 
   body.innerHTML = `
     <div class="modal-top">

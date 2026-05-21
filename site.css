@@ -572,3 +572,11 @@ p{margin:0 0 12px}
 .card img, .product-card img { background:#fffaf2; }
 .brand-mark img{height:48px;width:auto;}
 @media(max-width:768px){.brand-mark img{height:42px;}}
+
+
+/* v75 final visual polish */
+.product-card img, .card img { object-fit: contain; background: #fbf7ef; }
+.modal-gallery__item img { width: 100%; max-height: 520px; object-fit: contain; background: #fbf7ef; border-radius: 18px; }
+.product-modal__panel { max-width: 1080px; }
+.btn-line { background: #7B1E1E; border-color: #7B1E1E; color: #fff; }
+.btn-line:hover { filter: brightness(1.06); }
