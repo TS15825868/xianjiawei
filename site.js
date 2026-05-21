@@ -490,7 +490,7 @@ function fillProducts(targetId, products) {
   if (!list) return;
 
   list.innerHTML = products.map(p => {
-    const thumb = (p.gallery && p.gallery[0]) || p.image;
+    const thumb = p.image || (p.gallery && p.gallery[0]);
     return `
       <article class="product-card reveal" data-product-id="${p.id}" tabindex="0" role="button" aria-label="查看 ${p.displayName || p.name} 詳細介紹">
         <div class="product-card__img">

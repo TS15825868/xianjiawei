@@ -7,10 +7,10 @@
   --brand:#0b1f3b;
   --brand-2:#1f4e79;
   --accent:#ff7a00;
-  --linegreen:#06c755;
+  --linegreen:#7B1E1E;
   --shadow:0 10px 30px rgba(0,0,0,.08);
   --shadow-strong:0 16px 38px rgba(0,0,0,.12);
-  --shadow-line:0 10px 24px rgba(6,199,85,.35);
+  --shadow-line:none;
   --radius:22px;
   --radius-sm:14px;
   --max:1200px;
@@ -580,3 +580,16 @@ p{margin:0 0 12px}
 .product-modal__panel { max-width: 1080px; }
 .btn-line { background: #7B1E1E; border-color: #7B1E1E; color: #fff; }
 .btn-line:hover { filter: brightness(1.06); }
+
+
+/* v76 final: brand CTA buttons, no green glow */
+.btn-line,
+.btn-line:hover,
+.final-cta .btn-line,
+.product-card .btn-line {
+  background:#7B1E1E !important;
+  border-color:#7B1E1E !important;
+  color:#fff !important;
+  box-shadow:none !important;
+}
+.btn-line:hover { filter:brightness(1.06); transform:translateY(-1px); }

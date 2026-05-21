@@ -121,6 +121,7 @@
       "usage": [
         "可直接食用",
         "可搭配溫熱水化開",
+        "建議依個人日常節奏安排",
         "盡量避免接近睡前食用"
       ],
       "storage": "開封後需冷藏，請依標示保存。",
@@ -130,7 +131,8 @@
       "gallery": [
         "images/guilu-gao.jpg",
         "images/guilu-gao-life.jpg",
-        "images/guilu-gao-side-real.jpg"
+        "images/guilu-gao-side-real.jpg",
+        "images/guilu-gao-label.jpg"
       ]
     },
     {
@@ -185,13 +187,14 @@
         "75g藍盒"
       ],
       "series": "仙加味・龜鹿",
-      "description": "75g 藍盒，塊狀型態，適合放進燉湯與日常料理，從餐桌開始建立節奏。",
+      "description": "75g 藍盒，一盒 8 塊，單塊約 2.5 錢，適合放進燉湯與日常料理。",
       "tag": "料理搭配・餐桌日常",
       "ingredients": [
         "鹿角萃取物",
         "全龜萃取物"
       ],
       "usage": [
+        "一盒 8 塊，單塊約 2.5 錢",
         "可加入雞湯或排骨湯燉煮",
         "依料理份量調整用量",
         "建議搭配熱食使用"
@@ -201,8 +204,10 @@
       "price": 2000,
       "image": "images/guilu-block-content-card.jpg",
       "gallery": [
+        "images/guilu-block-content.jpg",
         "images/guilu-block-box.jpg",
-        "images/guilu-block-stack.jpg"
+        "images/guilu-block-stack.jpg",
+        "images/guilu-block-label.jpg"
       ]
     },
     {
@@ -217,7 +222,10 @@
         "龜鹿湯塊一斤",
         "傳統湯塊",
         "600g",
-        "600克"
+        "600克",
+        "半斤",
+        "大塊版",
+        "小塊版"
       ],
       "series": "仙加味・龜鹿",
       "description": "傳統紅盒一斤裝，適合已有固定使用習慣、需要較大份量的人詢問。",
@@ -227,18 +235,21 @@
         "全龜萃取物"
       ],
       "usage": [
+        "一斤裝 600g，可依需求選擇切塊規格",
+        "5錢版：半斤 16 塊／一斤 32 塊",
+        "2.5錢版：半斤 32 塊／一斤 64 塊",
         "可依燉湯或料理份量調整使用",
-        "適合固定料理搭配者詢問",
-        "建議先透過 LINE 確認安排方式"
+        "建議先透過 LINE 確認切塊規格與安排方式"
       ],
       "storage": "請置於陰涼乾燥處保存。",
-      "size": "一斤裝 / 盒",
-      "price": 0,
-      "priceText": "LINE 詢問",
-      "orderable": false,
+      "size": "600 g / 盒（一斤裝）",
+      "price": 15000,
+      "priceText": "$15000 / 盒",
+      "orderable": true,
       "image": "images/guilu-block-redbox-card.jpg",
       "gallery": [
-        "images/guilu-block-redbox.jpg"
+        "images/guilu-block-redbox.jpg",
+        "images/guilu-block-redbox-content.jpg"
       ]
     },
     {
@@ -255,7 +266,7 @@
       "description": "粉末型態，方便加入日常飲品，也適合自己安排搭配方式。",
       "tag": "自行搭配・熱飲調飲",
       "ingredients": [
-        "鹿茸"
+        "鹿茸粉"
       ],
       "usage": [
         "可加入溫水或熱飲",
@@ -503,6 +514,10 @@
     {
       "q": "網站為什麼不放價格？",
       "a": "官網主要協助理解產品型態與使用方式，實際售價、搭配與出貨安排會由官方 LINE 一對一整理。"
+    },
+    {
+      "q": "龜鹿湯塊傳統紅盒怎麼選？",
+      "a": "傳統紅盒一斤裝為 600g，可依需求選擇 5錢版（一斤 32 塊）或 2.5錢版（一斤 64 塊），建議透過 LINE 先確認切塊規格與安排方式。"
     }
   ],
   "videos": [
