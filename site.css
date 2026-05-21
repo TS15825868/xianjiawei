@@ -232,7 +232,7 @@ p{margin:0 0 12px}
   border-color:var(--linegreen);
   color:#fff;
   font-weight:900;
-  box-shadow:var(--shadow-line);
+  box-shadow:none;
 }
 .btn-line:hover{
   transform:translateY(-2px);
@@ -607,3 +607,16 @@ p{margin:0 0 12px}
   filter:none;
 }
 .btn-line:hover { background:#8D2929 !important; transform:translateY(-1px); }
+
+
+/* v77.1 全站按鈕：移除綠光，統一品牌酒紅 */
+.btn-line, .btn-primary, .button-primary {
+  background:#7B1E1E !important;
+  border-color:#7B1E1E !important;
+  color:#fff !important;
+  box-shadow:none !important;
+}
+.btn-line:hover, .btn-primary:hover, .button-primary:hover {
+  background:#8E2A2A !important;
+  box-shadow:none !important;
+}

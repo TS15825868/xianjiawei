@@ -452,7 +452,7 @@ function renderContactPage() {
         <h3>${s.name || '萬華門市'}</h3>
         <p><strong>${s.address || '台北市萬華區西昌街52號'}</strong></p>
         <p>${s.heritage || '萬華老店・四代鹿角工序傳承'}</p>
-        <p class="muted">${s.note || '建議先透過 LINE 聯絡，確認現場與安排時間。'}</p>
+        <p class="muted">${s.note || '建議先透過 LINE 幫我看適合哪個，確認現場與安排時間。'}</p>
         <div class="final-cta__actions">
           <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟 Google 地圖</a>
           ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，幫我整理一個方向。')}
