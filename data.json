@@ -130,8 +130,7 @@
       "gallery": [
         "images/guilu-gao.jpg",
         "images/guilu-gao-life.jpg",
-        "images/guilu-gao-side-real.jpg",
-        "images/guilu-gao-label.jpg"
+        "images/guilu-gao-side-real.jpg"
       ]
     },
     {
@@ -203,9 +202,7 @@
       "image": "images/guilu-block-content-card.jpg",
       "gallery": [
         "images/guilu-block-box.jpg",
-        "images/guilu-block-content.jpg",
-        "images/guilu-block-stack.jpg",
-        "images/guilu-block-label.jpg"
+        "images/guilu-block-stack.jpg"
       ]
     },
     {
