@@ -698,19 +698,23 @@ p{margin:0 0 12px}
   padding:14px 16px;
 }
 .footer-line-logo{
-  width:58px;
-  height:70px;
-  border-radius:14px;
-  background:#7B1E1E;
+  width:76px;
+  height:92px;
+  border-radius:16px;
+  background:#fffdf7;
+  border:1px solid rgba(123,30,30,.20);
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
+  overflow:visible;
   flex:0 0 auto;
+  padding:8px 10px;
 }
 .footer-line-logo img{
-  width:52px;
-  height:auto;
+  width:auto;
+  height:74px;
+  max-width:56px;
+  object-fit:contain;
   display:block;
 }
 .footer-line-title{
@@ -744,4 +748,9 @@ p{margin:0 0 12px}
     width:118px !important;
     height:118px !important;
   }
+}
+
+@media (max-width:700px){
+  .footer-line-logo{width:68px;height:84px;padding:7px 9px;}
+  .footer-line-logo img{height:68px;max-width:52px;}
 }
