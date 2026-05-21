@@ -129,10 +129,8 @@
       "price": 2000,
       "image": "images/guilu-gao-card.jpg",
       "gallery": [
-        "images/guilu-gao.jpg",
         "images/guilu-gao-life.jpg",
-        "images/guilu-gao-side-real.jpg",
-        "images/guilu-gao-label.jpg"
+        "images/guilu-gao-side-real.jpg"
       ]
     },
     {
@@ -206,8 +204,7 @@
       "gallery": [
         "images/guilu-block-content.jpg",
         "images/guilu-block-box.jpg",
-        "images/guilu-block-stack.jpg",
-        "images/guilu-block-label.jpg"
+        "images/guilu-block-stack.jpg"
       ]
     },
     {
