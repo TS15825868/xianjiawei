@@ -593,3 +593,17 @@ p{margin:0 0 12px}
   box-shadow:none !important;
 }
 .btn-line:hover { filter:brightness(1.06); transform:translateY(-1px); }
+
+
+/* v77 final button / glow cleanup */
+.btn-line,
+.btn-line:hover,
+.final-cta .btn-line,
+.product-card .btn-line {
+  background:#7B1E1E !important;
+  border-color:#7B1E1E !important;
+  color:#fff !important;
+  box-shadow:none !important;
+  filter:none;
+}
+.btn-line:hover { background:#8D2929 !important; transform:translateY(-1px); }

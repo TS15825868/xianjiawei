@@ -112,7 +112,7 @@ function renderFooter() {
       <div>
         <p>官方 LINE：${getLineId()}</p>
         <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
-        <p>© <span data-year></span> ${SITE_DATA?.brand || '仙加味'}</p>
+        <p>${SITE_DATA?.heritage?.footer || `SINCE 1978｜仙加味品牌 Founded 2008`}</p>
       </div>
     </div>
   `;
