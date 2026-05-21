@@ -567,3 +567,8 @@ p{margin:0 0 12px}
 .final-cta .eyebrow + h3{
   margin-top:0;
 }
+
+/* v74 product visual refinement */
+.card img, .product-card img { background:#fffaf2; }
+.brand-mark img{height:48px;width:auto;}
+@media(max-width:768px){.brand-mark img{height:42px;}}

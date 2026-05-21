@@ -220,7 +220,7 @@ function renderProductsPage() {
     compare.innerHTML = SITE_DATA.products.map(p => `
       <article class="card reveal">
         <p class="eyebrow">${p.size}</p>
-        <h3>${p.name}</h3>
+        <h3>${p.displayName || p.name}</h3>
         <p>${p.description}</p>
         <div class="final-cta__actions">
           ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
@@ -492,13 +492,13 @@ function fillProducts(targetId, products) {
   list.innerHTML = products.map(p => {
     const thumb = (p.gallery && p.gallery[0]) || p.image;
     return `
-      <article class="product-card reveal" data-product-id="${p.id}" tabindex="0" role="button" aria-label="查看 ${p.name} 詳細介紹">
+      <article class="product-card reveal" data-product-id="${p.id}" tabindex="0" role="button" aria-label="查看 ${p.displayName || p.name} 詳細介紹">
         <div class="product-card__img">
           <img src="${thumb}" alt="${p.name}">
         </div>
         <div class="product-card__body">
           <p class="eyebrow">${p.series || ''}</p>
-          <h3>${p.name}</h3>
+          <h3>${p.displayName || p.name}</h3>
           <p>${p.description}</p>
           <p class="product-hint">第一次了解，可先從生活方式選，不一定要一次看完全部。</p>
           <p class="muted">規格：${p.size}</p>
@@ -547,7 +547,7 @@ function openProductModal(p, sourceEl) {
       </div>
       <div class="modal-copy">
         <p class="eyebrow">${p.series || '仙加味・龜鹿'}</p>
-        <h2>${p.name}</h2>
+        <h2>${p.displayName || p.name}</h2>
         <p>${p.description}</p>
         <p class="muted">規格：${p.size}</p>
 
