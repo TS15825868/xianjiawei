@@ -1,1 +1,17 @@
-上傳方式：請把這個 ZIP 解壓縮後，將裡面的所有檔案與資料夾直接放到 GitHub repo xianjiawei 的根目錄。不要只上傳 ZIP 檔，也不要多包一層資料夾。上傳後等 GitHub Pages 約 1-3 分鐘更新，手機瀏覽器請清除快取或網址後加 ?v=781。
+上傳說明：
+請把這個 ZIP 解壓縮後，將裡面的 index.html、site.css、site.js、data.json、images/ 等檔案「全部」上傳到 GitHub repo：xianjiawei 的根目錄。
+
+不要把外層資料夾 xianjiawei-main 一起丟進去。
+正確根目錄應該直接看到：
+index.html
+site.css
+site.js
+data.json
+images/
+marketing/
+
+本版已包含：
+- 首頁品牌故事圖片：images/brand-story-guilu-boxes.jpg
+- 龜鹿湯塊內容物圖片：images/guilu-tangkuai-open-box.jpg
+- 官方 LINE 區塊 Logo 完整顯示
+- 廣告圖 marketing/
