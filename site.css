@@ -754,3 +754,23 @@ p{margin:0 0 12px}
   .footer-line-logo{width:68px;height:84px;padding:7px 9px;}
   .footer-line-logo img{height:68px;max-width:52px;}
 }
+
+
+/* v78.1 story/tangkuai photo integration */
+.story-photo{
+  width:100%;
+  height:260px;
+  object-fit:cover !important;
+  border-radius:18px;
+  margin-bottom:18px;
+  background:#fbf7ef;
+}
+.brand-proof-card{
+  overflow:hidden;
+}
+.brand-proof-card .story-photo + .eyebrow{
+  margin-top:0;
+}
+@media(max-width:768px){
+  .story-photo{height:190px;}
+}
