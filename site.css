@@ -774,3 +774,15 @@ p{margin:0 0 12px}
 @media(max-width:768px){
   .story-photo{height:190px;}
 }
+
+/* v79 LINE order/accounting blocks */
+.copy-block{
+  white-space:pre-wrap;
+  background:#fbf8f0;
+  border:1px solid rgba(123,30,30,.14);
+  border-radius:16px;
+  padding:16px;
+  color:#111827;
+  line-height:1.8;
+  overflow:auto;
+}

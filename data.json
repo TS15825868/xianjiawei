@@ -8,14 +8,15 @@
   ],
   "shipping": [
     "宅配",
-    "7-11 賣貨便店到店",
+    "7-11賣貨便",
+    "門市自取",
     "雙北親送"
   ],
   "shippingNotes": {
-    "宅配": "可安排宅配寄送，實際出貨與到貨時間會依訂單順序確認，也可視情況安排貨到付款。",
-    "7-11賣貨便": "可走 7-11 賣貨便店到店，也可安排貨到付款，適合超商取貨。",
-    "雙北親送": "雙北地區可協助親送，實際區域與時間請先私訊確認。",
-    "貨到付款": "目前可配合宅配或 7-11 賣貨便店到店貨到付款；若要安排，請先告知想購買的品項與數量。"
+    "宅配": "可配送至指定地址，實際配送安排以官方 LINE 回覆為準。",
+    "7-11賣貨便": "可依訂單內容協助安排 7-11 賣貨便。",
+    "門市自取": "可於萬華門市自取，建議先透過官方 LINE 確認時間。",
+    "雙北親送": "雙北地區可安排親送，依區域、訂購內容與時段安排。"
   },
   "offers": {
     "comboOffers": [
@@ -129,12 +130,13 @@
         "建議依日常作息安排，避免接近睡前"
       ],
       "storage": "開封後需冷藏，請依標示保存。",
-      "size": "100 g / 罐",
+      "size": "100g",
       "image": "images/guilu-gao-card.jpg",
       "gallery": [
         "images/guilu-gao-life.jpg",
         "images/guilu-gao-side-real.jpg"
-      ]
+      ],
+      "priceNote": "價格與搭配方案請洽官方 LINE"
     },
     {
       "id": "guilu-drink",
@@ -150,7 +152,7 @@
         "龜鹿飲180cc"
       ],
       "series": "仙加味・龜鹿",
-      "description": "180cc 鋁袋包裝，方便日常安排，適合想要快速、簡單融入生活節奏的人。",
+      "description": "同一款龜鹿飲，提供30cc玻璃瓶與180cc鋁袋兩種包裝，方便體驗、外出與家庭分享。",
       "tag": "方便快速・日常飲用",
       "ingredients": [
         "水",
@@ -162,18 +164,18 @@
         "粉光蔘"
       ],
       "usage": [
-        "可直接飲用",
-        "建議溫熱後飲用",
-        "避免冰飲"
+        "可直接飲用，建議溫熱後飲用。",
+        "30cc玻璃瓶適合體驗與外出攜帶；180cc鋁袋適合家庭分享與回購。",
+        "建議早上或白天安排，避免冰飲。"
       ],
       "storage": "常溫請放置於陰涼處，或保存於 5°C 以下冰箱。",
       "size": "30cc玻璃瓶／180cc鋁袋",
-      "image": "images/guilu-drink-card.jpg",
+      "image": "images/guilu-drink-30cc-glass.jpg",
       "gallery": [
-        "images/guilu-drink.jpg",
-        "images/guilu-drink-pour.jpg"
+        "images/guilu-drink-30cc-glass.jpg"
       ],
-      "spec": "180 cc / 包"
+      "spec": "180 cc / 包",
+      "priceNote": "價格與搭配方案請洽官方 LINE"
     },
     {
       "id": "guilu-block",
@@ -200,7 +202,7 @@
         "建議搭配熱食使用"
       ],
       "storage": "請置於陰涼乾燥處保存。",
-      "size": "75 g / 盒（8入；單塊2.5錢）",
+      "size": "75g（8入）",
       "image": "images/guilu-tangkuai-open-box.jpg",
       "gallery": [
         "images/guilu-tangkuai-open-box.jpg",
@@ -219,12 +221,34 @@
             "適合料理搭配與日常飲食使用"
           ]
         }
-      ]
+      ],
+      "priceNote": "價格與搭配方案請洽官方 LINE"
+    },
+    {
+      "id": "guilu-jiao",
+      "name": "龜鹿膠",
+      "displayName": "龜鹿膠",
+      "series": "仙加味・龜鹿",
+      "size": "一斤裝",
+      "image": "images/guilu-block-redbox.jpg",
+      "gallery": [
+        "images/guilu-block-redbox.jpg"
+      ],
+      "description": "一斤裝龜鹿膠，適合熟悉龜鹿產品、固定使用或通路合作洽詢。",
+      "ingredients": [
+        "鹿角萃取物",
+        "龜板萃取物"
+      ],
+      "usage": [
+        "可依日常需求分切或搭配熱水、料理安排。",
+        "實際使用方式與保存建議，請透過官方 LINE 由專人協助說明。"
+      ],
+      "priceNote": "價格與搭配方案請洽官方 LINE"
     },
     {
       "id": "guilu-block-red",
-      "name": "龜鹿膠",
-      "displayName": "龜鹿膠",
+      "name": "龜鹿湯塊（傳統紅盒）",
+      "displayName": "龜鹿湯塊｜傳統紅盒",
       "aliases": [
         "紅盒",
         "傳統紅盒",
@@ -256,7 +280,7 @@
         "建議搭配熱食或熱湯使用"
       ],
       "storage": "請置於陰涼乾燥處保存。",
-      "size": "一斤裝",
+      "size": "75g（8入）",
       "orderable": true,
       "image": "images/guilu-block-redbox-card.jpg",
       "gallery": [
@@ -283,7 +307,8 @@
             "適合分次使用、日常料理搭配與較彈性的使用方式"
           ]
         }
-      ]
+      ],
+      "priceNote": "價格與搭配方案請洽官方 LINE"
     },
     {
       "id": "lurong",
@@ -454,6 +479,10 @@
     }
   ],
   "faqs": [
+    {
+      "q": "網站上為什麼沒有公開價格？",
+      "a": "仙加味官網不公開售價，價格、搭配方案、活動內容與配送安排，皆由官方 LINE 一對一回覆。"
+    },
     {
       "q": "怎麼挑比較適合？",
       "a": "先從型態想起：想固定節奏可看膏，想簡單快速可看飲，想放進料理可看湯塊，想自己搭配可看粉。"

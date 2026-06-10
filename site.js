@@ -4,7 +4,7 @@ const MENU_GROUPS = [
   { title: '首頁', links: [{ href: 'index.html', label: '首頁' }] },
   { title: '產品與挑選', links: [{ href: 'products.html', label: '龜鹿系列' }, { href: 'choose.html', label: '怎麼選' }, { href: 'combo.html', label: '套餐搭配' }, { href: 'dm.html', label: '產品整理' }] },
   { title: '使用與內容', links: [{ href: 'guide.html', label: '怎麼使用' }, { href: 'recipes.html', label: '料理搭配' }, { href: 'videos.html', label: '觀點影片' }, { href: 'knowledge.html', label: '食材與日常觀點' }, { href: 'recommend.html', label: '推薦整理' }] },
-  { title: '品牌與服務', links: [{ href: 'brand.html', label: '品牌故事' }, { href: 'faq.html', label: 'FAQ' }, { href: 'contact.html', label: '聯絡我們' }] }
+  { title: '品牌與服務', links: [{ href: 'brand.html', label: '品牌故事' }, { href: 'faq.html', label: 'FAQ' }, { href: 'contact.html', label: '聯絡我們' }, { href: 'line-order.html', label: '訂購與對帳' }] }
 ];
 let lastFocusedCard = null;
 
