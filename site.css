@@ -861,3 +861,9 @@ p{margin:0 0 12px}
     padding:12px 13px;
   }
 }
+
+
+/* v87.1 menu stability */
+.site-menu.open{display:block !important;}
+.site-menu__panel{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;}
+body.menu-open{position:fixed;width:100%;}

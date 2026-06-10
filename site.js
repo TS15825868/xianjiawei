@@ -24,15 +24,22 @@ const MENU_GROUPS = [
 let lastFocusedCard = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
+  // 先建立 Header / 選單，不要等 data.json。
+  // 這樣手機網路慢或快取卡住時，漢堡選單仍會立刻可用。
+  buildShell();
+  hydrateStaticFields();
+  initReveal();
+  bindGlobalEvents();
+
   try {
     await loadData();
     buildShell();
     hydrateStaticFields();
     renderPage();
     initReveal();
-    bindGlobalEvents();
   } catch (err) {
-    console.error('網站初始化失敗：', err);
+    console.error('網站資料載入失敗，已保留基本選單：', err);
+    SITE_DATA = SITE_DATA || { brand: '仙加味', lineId: '@762jybnm', products: [], combos: [], offers: { comboOffers: [] }, faqs: [], recipes: [], recommend: [], videos: [] };
   }
 });
 
@@ -83,7 +90,7 @@ function hydrateStaticFields() {
     el.setAttribute('href', buildLineAutoLink(msg));
   });
   document.querySelectorAll('[data-line-id]').forEach(el => el.textContent = getLineId());
-  document.querySelectorAll('[data-brand-name]').forEach(el => el.textContent = SITE_DATA.brand || '仙加味');
+  document.querySelectorAll('[data-brand-name]').forEach(el => el.textContent = SITE_DATA?.brand || '仙加味');
   document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 }
 
@@ -190,9 +197,6 @@ function bindGlobalEvents() {
     }
   });
 
-  window.addEventListener('scroll', () => {
-    closeMenu();
-  }, { passive: true });
 }
 
 function closeMenu() {
