@@ -1,0 +1,1 @@
+仙加味網站 v81：產品、套餐、料理、FAQ、配送、訂購與對帳頁已更新。官網不公開價格，價格導官方 LINE。上傳 GitHub Pages 時請把本 ZIP 解壓縮後第一層檔案全部覆蓋到 xianjiawei repo 根目錄。
