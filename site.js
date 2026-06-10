@@ -1,10 +1,25 @@
 
 let SITE_DATA = null;
 const MENU_GROUPS = [
-  { title: '首頁', links: [{ href: 'index.html', label: '首頁' }] },
-  { title: '產品與挑選', links: [{ href: 'products.html', label: '龜鹿系列' }, { href: 'choose.html', label: '怎麼選' }, { href: 'combo.html', label: '套餐搭配' }, { href: 'dm.html', label: '產品整理' }] },
-  { title: '使用與內容', links: [{ href: 'guide.html', label: '怎麼使用' }, { href: 'recipes.html', label: '料理搭配' }, { href: 'videos.html', label: '觀點影片' }, { href: 'knowledge.html', label: '食材與日常觀點' }, { href: 'recommend.html', label: '推薦整理' }] },
-  { title: '品牌與服務', links: [{ href: 'brand.html', label: '品牌故事' }, { href: 'faq.html', label: 'FAQ' }, { href: 'contact.html', label: '聯絡我們' }, { href: 'line-order.html', label: '訂購與對帳' }] }
+  { title: '🏠 首頁', links: [{ href: 'index.html', label: '首頁' }] },
+  { title: '📦 產品與挑選', links: [
+    { href: 'products.html', label: '龜鹿系列' },
+    { href: 'choose.html', label: '怎麼選龜鹿' },
+    { href: 'combo.html', label: '套餐搭配' },
+    { href: 'dm.html', label: '產品整理' }
+  ] },
+  { title: '🍵 使用與內容', links: [
+    { href: 'guide.html', label: '怎麼使用' },
+    { href: 'recipes.html', label: '料理搭配' },
+    { href: 'videos.html', label: '觀點影片' },
+    { href: 'knowledge.html', label: '龜鹿知識' },
+    { href: 'recommend.html', label: '推薦整理' }
+  ] },
+  { title: '🏛 品牌與服務', links: [
+    { href: 'brand.html', label: '品牌故事' },
+    { href: 'faq.html', label: '常見問題 FAQ' },
+    { href: 'contact.html', label: '聯絡我們' }
+  ] }
 ];
 let lastFocusedCard = null;
 
@@ -96,6 +111,11 @@ function renderMenuDrawer() {
             ${group.links.map(link => `<a href="${link.href}">${link.label}</a>`).join('')}
           </div>
         `).join('')}
+        <div class="menu-line-cta">
+          <p class="menu-line-cta__title">官方 LINE 客服</p>
+          <p class="menu-line-cta__id">LINE ID：<strong>${getLineId()}</strong></p>
+          ${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}
+        </div>
       </aside>
     </nav>
   `;
