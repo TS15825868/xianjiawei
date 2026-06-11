@@ -1,0 +1,22 @@
+{
+  "version": "v103",
+  "site_missing_images": [],
+  "line_missing_images": [],
+  "forbidden_hits": [],
+  "node_check": "returncode=0, stderr=",
+  "site_fixes": [
+    "移除 recommend.html 與選單連結",
+    "移除 data.json 的 Date.now/no-store 強制重抓",
+    "先載入選單再載入資料，避免資料慢時選單卡住",
+    "取消 reveal 隱藏效果，修正手機長截圖與瀏覽時大量空白",
+    "新增 TikTok 影片與章無忌中醫師頻道入口",
+    "CSS/JS 版本統一 v103.0"
+  ],
+  "line_fixes": [
+    "清掉舊 products.json、flex_*.json、舊 README",
+    "package.json 改 @line/bot-sdk 10.8.0、Node 22.x",
+    "產品圖與網站同步",
+    "商品按鈕使用 Postback，客人不會看到 #產品ID",
+    "Google Sheet 使用訂單總表、匯款對帳、出貨管理、客戶資料進階版"
+  ]
+}

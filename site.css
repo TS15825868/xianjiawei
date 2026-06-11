@@ -404,15 +404,8 @@ p{margin:0 0 12px}
 .modal-section + .modal-section{margin-top:18px}
 .modal-actions{margin-top:22px}
 
-.reveal{
-  opacity:0;
-  transform:translateY(18px);
-  transition:opacity .55s ease, transform .55s ease;
-}
-.reveal.show{
-  opacity:1;
-  transform:none;
-}
+.reveal{opacity:1;transform:none;transition:none;}
+.reveal.show{opacity:1;transform:none;}
 
 @media (max-width: 960px){
   .grid-2,
@@ -859,5 +852,29 @@ p{margin:0 0 12px}
   .menu-group a{
     font-size:17px;
     padding:12px 13px;
+  }
+}
+
+
+/* v103 stability: avoid hidden full-page blanks on mobile */
+.reveal,
+.reveal.show{
+  opacity:1 !important;
+  transform:none !important;
+}
+.section{
+  overflow:visible;
+}
+.product-card,
+.card,
+.panel{
+  min-height:auto !important;
+}
+@media(max-width:640px){
+  .section{padding-bottom:30px !important;}
+  .product-card__img img,
+  .card img{
+    max-height:260px;
+    object-fit:contain;
   }
 }
