@@ -11,7 +11,7 @@ const MENU_GROUPS = [
   { title: '🍵 使用與內容', links: [
     { href: 'guide.html', label: '怎麼使用' },
     { href: 'recipes.html', label: '料理搭配' },
-    { href: 'videos.html', label: '觀點影片' },
+    { href: 'video.html', label: '觀點影片' },
     { href: 'knowledge.html', label: '龜鹿知識' }
   ] },
   { title: '🏛 品牌與服務', links: [
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=102.0', { cache: 'default' });
+  const res = await fetch('data.json?v=111.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -220,7 +220,7 @@ function renderPage() {
   if (page === 'guide') renderGuidePage();
   if (page === 'recipes') renderRecipesPage();
   if (page === 'knowledge') renderKnowledgePage();
-  if (page === 'videos') renderVideosPage();
+  if (page === 'videos' || page === 'video') renderVideosPage();
   if (page === 'faq') renderFaqPage();
   if (page === 'recommend') renderRecommendPage();
   if (page === 'brand') renderBrandPage();
@@ -370,23 +370,37 @@ function renderKnowledgePage() {
 function renderVideosPage() {
   const count = document.getElementById('video-count');
   const grid = document.getElementById('video-grid');
-  if (count) count.textContent = SITE_DATA.videos.length;
+  const videos = SITE_DATA.videos || [];
+  if (count) count.textContent = videos.length;
+
   if (grid) {
-    grid.innerHTML = SITE_DATA.videos.map((v, i) => `
-      <article class="card video-card reveal">
-        <p class="eyebrow">第 ${i + 1} 支</p>
-        <h3>${v.title}</h3>
-        <p>整理自公開平台，不自動播放，點擊後開啟原影片。</p>
-        <a class="btn btn-outline" href="${v.url}" target="_blank" rel="noopener">開啟原影片</a>
+    const channelUrl = SITE_DATA.tiktokChannel || 'https://www.tiktok.com/@changwuchi2023';
+    const channelCard = `
+      <article class="card video-card reveal grid-span-2">
+        <p class="eyebrow">合作中醫師</p>
+        <h3>章無忌中醫師 TikTok 頻道</h3>
+        <p>想看更多龜鹿、養生與日常保養相關影片，可前往章無忌中醫師 TikTok 頻道。</p>
+        <a class="btn btn-line" href="${channelUrl}" target="_blank" rel="noopener">觀看 TikTok 頻道</a>
       </article>
-    `).join('') + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你現在比較在意什麼，我們幫你整理。', '我看完影片了，想請你幫我看適合哪一種。');
+    `;
+
+    const cards = videos.map((v, i) => `
+      <article class="card video-card reveal">
+        <p class="eyebrow">${v.category || `第 ${i + 1} 支`}</p>
+        <h3>${v.title}</h3>
+        <p>整理自公開平台，不自動播放，點擊後開啟原影片或頻道。</p>
+        <a class="btn btn-outline" href="${v.url}" target="_blank" rel="noopener">開啟影片</a>
+      </article>
+    `).join('');
+
+    grid.innerHTML = channelCard + cards + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你現在比較在意什麼，我們幫你整理。', '我看完影片了，想請你幫我看適合哪一種。');
   }
 }
 
 function renderFaqPage() {
   const el = document.getElementById('faq-grid');
   if (!el) return;
-  el.innerHTML = SITE_DATA.faqs.map(f => `
+  el.innerHTML = (SITE_DATA.faq || SITE_DATA.faqs || []).map(f => `
     <details class="faq-item reveal">
       <summary>${f.q}</summary>
       <div class="faq-item__body">
