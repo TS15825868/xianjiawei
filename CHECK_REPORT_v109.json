@@ -1,0 +1,44 @@
+{
+  "version": "v109",
+  "site": {
+    "missing_images": [],
+    "public_price_hits": [],
+    "notes": [
+      "網站維持不公開價格",
+      "快取版本 v109.0",
+      "選單穩定修正保留"
+    ]
+  },
+  "line": {
+    "missing_images": [],
+    "node_check": "passed",
+    "apps_script": "google_apps_script_v109.js",
+    "features": [
+      "訂單主表：一筆訂單一列",
+      "訂單明細：一個商品一列",
+      "出貨管理：一個商品一列",
+      "匯款對帳：一筆訂單一列",
+      "客戶資料：累積次數、累積金額、客戶等級",
+      "客戶等級：一般會員 / VIP會員 / 金牌會員 / 經銷合作",
+      "保留階梯優惠與自取流程",
+      "新增訂單查詢/聯絡客服入口"
+    ],
+    "copied_images_from_site": [
+      "images/guilu-block-box.jpg",
+      "images/guilu-block-content-card.jpg",
+      "images/guilu-block-redbox-card.jpg",
+      "images/guilu-block-redbox-content.jpg",
+      "images/guilu-drink-180cc.jpg",
+      "images/guilu-drink-30cc-glass.jpg",
+      "images/guilu-drink-card.jpg",
+      "images/guilu-drink-pour.jpg",
+      "images/guilu-gao-card.jpg",
+      "images/guilu-gao-life.jpg",
+      "images/guilu-gao-side-real.jpg",
+      "images/guilu-jiao.jpg",
+      "images/guilu-tangkuai-open-box.jpg",
+      "images/luerong-fen.jpg",
+      "images/lurong-card.jpg"
+    ]
+  }
+}

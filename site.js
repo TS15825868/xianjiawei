@@ -12,7 +12,7 @@ const MENU_GROUPS = [
     { href: 'guide.html', label: '怎麼使用' },
     { href: 'recipes.html', label: '料理搭配' },
     { href: 'videos.html', label: '觀點影片' },
-    { href: 'knowledge.html', label: '龜鹿知識' },
+    { href: 'knowledge.html', label: '龜鹿知識' }
   ] },
   { title: '🏛 品牌與服務', links: [
     { href: 'brand.html', label: '品牌故事' },
@@ -24,12 +24,12 @@ let lastFocusedCard = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
+    try { await loadData(); } catch (e) { console.warn('data.json 載入失敗，先顯示選單外殼', e); SITE_DATA = SITE_DATA || {brand:'仙加味', lineId:'@762jybnm', products:[], combos:[], offers:{comboOffers:[]}, recommend:[], recipes:[], videos:[], faqs:[]}; }
     buildShell();
-    bindGlobalEvents();
-    await loadData();
     hydrateStaticFields();
     renderPage();
     initReveal();
+    bindGlobalEvents();
   } catch (err) {
     console.error('網站初始化失敗：', err);
   }
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=106.0');
+  const res = await fetch('data.json?v=102.0', { cache: 'default' });
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -88,7 +88,7 @@ function renderHeaderBar() {
   return `
     <div class="header-inner">
       <a class="brand-mark" href="index.html">
-        <img src="images/logo.png" alt="${SITE_DATA?.brand || '仙加味'}">
+        <img src="images/logo.png" alt="${SITE_DATA?.brand || '仙加味'}" decoding="async">
         <span>${SITE_DATA?.brand || '仙加味'}</span>
       </a>
       <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-expanded="false">☰ 選單</button>
@@ -129,7 +129,7 @@ function renderFooter() {
       </div>
       <div class="footer-line-box">
         <div class="footer-line-logo">
-          <img src="images/logo.png" alt="仙加味 LOGO">
+          <img src="images/logo.png" alt="仙加味 LOGO" loading="lazy" decoding="async">
         </div>
         <div class="footer-line-copy">
           <p class="footer-line-title">官方 LINE</p>
@@ -137,7 +137,7 @@ function renderFooter() {
           <p class="muted">想了解搭配方式與方案，歡迎加入 LINE 詢問。</p>
           <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
         </div>
-        <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code">
+        <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code" loading="lazy" decoding="async">
       </div>
     </div>
   `;
@@ -158,37 +158,27 @@ function renderModalShell() {
 }
 
 function bindGlobalEvents() {
-  if (window.__xjwMenuBound) return;
-  window.__xjwMenuBound = true;
-
   document.addEventListener('click', (e) => {
-    const menuButton = e.target.closest('#menu-btn');
     const drawer = document.getElementById('menu-drawer');
+    const btn = document.getElementById('menu-btn');
 
-    if (menuButton) {
-      e.preventDefault();
-      e.stopPropagation();
-      const isOpen = drawer?.classList.contains('open');
-      if (isOpen) closeMenu();
-      else openMenu();
+    if (btn && (btn === e.target || btn.contains(e.target))) {
+      const opening = !drawer?.classList.contains('open');
+      drawer?.classList.toggle('open', opening);
+      drawer?.setAttribute('aria-hidden', String(!opening));
+      btn.setAttribute('aria-expanded', String(opening));
+      document.body.classList.toggle('menu-open', opening);
       return;
     }
 
-    if (e.target.closest('[data-close-menu="1"]') || e.target.closest('#menu-close')) {
-      e.preventDefault();
+    if (e.target.closest('[data-close-menu="1"]') || e.target.closest('.site-menu__panel a') || e.target.closest('#menu-close')) {
       closeMenu();
-      return;
-    }
-
-    if (e.target.closest('.site-menu__panel a')) {
-      closeMenu();
-      return;
     }
 
     if (e.target.closest('[data-close-modal="1"]') || e.target.closest('#product-modal-close')) {
       closeModal();
     }
-  }, true);
+  });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -199,16 +189,16 @@ function bindGlobalEvents() {
 }
 
 function openMenu() {
-  const drawer = document.getElementById('menu-drawer');
-  const btn = document.getElementById('menu-btn');
+  let drawer = document.getElementById('menu-drawer');
+  let btn = document.getElementById('menu-btn');
   if (!drawer) {
     buildShell();
+    drawer = document.getElementById('menu-drawer');
+    btn = document.getElementById('menu-btn');
   }
-  const nextDrawer = document.getElementById('menu-drawer');
-  const nextBtn = document.getElementById('menu-btn');
-  nextDrawer?.classList.add('open');
-  nextDrawer?.setAttribute('aria-hidden', 'false');
-  nextBtn?.setAttribute('aria-expanded', 'true');
+  drawer?.classList.add('open');
+  drawer?.setAttribute('aria-hidden', 'false');
+  btn?.setAttribute('aria-expanded', 'true');
   document.body.classList.add('menu-open');
 }
 
@@ -382,31 +372,14 @@ function renderVideosPage() {
   const grid = document.getElementById('video-grid');
   if (count) count.textContent = SITE_DATA.videos.length;
   if (grid) {
-    const channelUrl = SITE_DATA.tiktokChannel || 'https://www.tiktok.com/@changwuchi2023';
-    const channelCard = `
-      <article class="card video-card reveal grid-span-2">
-        <p class="eyebrow">合作中醫師</p>
-        <h3>章無忌中醫師 TikTok 頻道</h3>
-        <p>想觀看更多龜鹿、養生與日常保養相關影片，可前往章無忌中醫師 TikTok 頻道。</p>
-        <a class="btn btn-line" href="${channelUrl}" target="_blank" rel="noopener">觀看 TikTok 頻道</a>
-      </article>
-    `;
-    grid.innerHTML = channelCard + SITE_DATA.videos.map((v, i) => `
+    grid.innerHTML = SITE_DATA.videos.map((v, i) => `
       <article class="card video-card reveal">
         <p class="eyebrow">第 ${i + 1} 支</p>
         <h3>${v.title}</h3>
         <p>整理自公開平台，不自動播放，點擊後開啟原影片。</p>
         <a class="btn btn-outline" href="${v.url}" target="_blank" rel="noopener">開啟原影片</a>
       </article>
-    `).join('') + `
-      <article class="final-cta reveal grid-span-2">
-        <h3>還想看更多影片？</h3>
-        <p>更多內容請至章無忌中醫師 TikTok 頻道觀看。</p>
-        <div class="final-cta__actions">
-          <a class="btn btn-line" href="${channelUrl}" target="_blank" rel="noopener">更多影片</a>
-        </div>
-      </article>
-    ` + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你現在比較在意什麼，我們幫你整理。', '我看完影片了，想請你幫我看適合哪一種。');
+    `).join('') + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你現在比較在意什麼，我們幫你整理。', '我看完影片了，想請你幫我看適合哪一種。');
   }
 }
 
@@ -556,7 +529,7 @@ function fillProducts(targetId, products) {
     return `
       <article class="product-card reveal" data-product-id="${p.id}" tabindex="0" role="button" aria-label="查看 ${p.displayName || p.name} 詳細介紹">
         <div class="product-card__img">
-          <img src="${thumb}" alt="${p.name}">
+          <img src="${thumb}" alt="${p.name}" loading="lazy" decoding="async">
         </div>
         <div class="product-card__body">
           <p class="eyebrow">${p.series || ''}</p>
@@ -618,7 +591,7 @@ function openProductModal(p, sourceEl) {
       <div class="modal-gallery">
         ${gallery.map((src, idx) => `
           <div class="modal-gallery__item">
-            <img src="${src}" alt="${p.name} 圖片 ${idx + 1}">
+            <img src="${src}" alt="${p.name} 圖片 ${idx + 1}" loading="lazy" decoding="async">
           </div>
         `).join('')}
       </div>
@@ -676,7 +649,6 @@ function initReveal() {
     });
   };
   run();
-  window.addEventListener('scroll', run, { passive: true });
 }
 
 function finalCtaBlock(title, desc, message = '我想看龜鹿怎麼選，幫我整理一個方向。') {

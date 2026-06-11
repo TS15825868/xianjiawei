@@ -404,8 +404,15 @@ p{margin:0 0 12px}
 .modal-section + .modal-section{margin-top:18px}
 .modal-actions{margin-top:22px}
 
-.reveal{opacity:1;transform:none;transition:none;}
-.reveal.show{opacity:1;transform:none;}
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .55s ease, transform .55s ease;
+}
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
 
 @media (max-width: 960px){
   .grid-2,
@@ -855,96 +862,11 @@ p{margin:0 0 12px}
   }
 }
 
-
-/* v103 stability: avoid hidden full-page blanks on mobile */
-.reveal,
-.reveal.show{
-  opacity:1 !important;
-  transform:none !important;
-}
-.section{
-  overflow:visible;
-}
-.product-card,
-.card,
-.panel{
-  min-height:auto !important;
-}
-@media(max-width:640px){
-  .section{padding-bottom:30px !important;}
-  .product-card__img img,
-  .card img{
-    max-height:260px;
-    object-fit:contain;
-  }
-}
-
-
-/* v105 menu stability fix */
-.site-menu{
-  display:block !important;
-  visibility:hidden;
-  opacity:0;
-  pointer-events:none;
-}
-.site-menu.open{
-  visibility:visible;
-  opacity:1;
-  pointer-events:auto;
-}
-.site-menu__panel{
-  transform:translateX(105%);
-  transition:transform .22s ease;
-  will-change:transform;
-}
-.site-menu.open .site-menu__panel{
-  transform:translateX(0);
-}
-.site-menu__backdrop{
-  opacity:0;
-  transition:opacity .22s ease;
-}
-.site-menu.open .site-menu__backdrop{
-  opacity:1;
-}
-.menu-btn{
-  position:relative;
-  z-index:1200;
-}
-body.menu-open .site-header{
-  z-index:1300;
-}
-
-
-/* v106 menu stability */
-.site-menu{
-  display:block !important;
-  visibility:hidden;
-  opacity:0;
-  pointer-events:none;
-}
-.site-menu.open{
-  visibility:visible;
-  opacity:1;
-  pointer-events:auto;
-}
-.site-menu__panel{
-  transform:translateX(105%);
-  transition:transform .22s ease;
-  will-change:transform;
-}
-.site-menu.open .site-menu__panel{
-  transform:translateX(0);
-}
-.site-menu__backdrop{
-  opacity:0;
-  transition:opacity .22s ease;
-}
-.site-menu.open .site-menu__backdrop{
-  opacity:1;
-}
-.reveal,
-.reveal.show{
-  opacity:1 !important;
-  transform:none !important;
-}
+/* v109 menu stability */
+.site-menu{display:block !important;visibility:hidden;opacity:0;pointer-events:none}
+.site-menu.open{visibility:visible;opacity:1;pointer-events:auto}
+.site-menu__panel{transform:translateX(105%);transition:transform .22s ease;will-change:transform}
+.site-menu.open .site-menu__panel{transform:translateX(0)}
+.site-menu__backdrop{opacity:0;transition:opacity .22s ease}
+.site-menu.open .site-menu__backdrop{opacity:1}
+.reveal,.reveal.show{opacity:1 !important;transform:none !important}
