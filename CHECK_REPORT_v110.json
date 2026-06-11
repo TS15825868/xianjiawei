@@ -1,0 +1,33 @@
+{
+  "version": "v110_final_launch",
+  "website": {
+    "no_public_price": true,
+    "price_hits": [],
+    "missing_images": [],
+    "features": [
+      "官網不公開價格",
+      "選單穩定修正",
+      "data.json 快取版本 v110.0",
+      "影片頁保留 TikTok 導流",
+      "產品圖片檢查"
+    ]
+  },
+  "line_oa": {
+    "node_check": "passed",
+    "missing_images": [],
+    "features": [
+      "完整產品 Flex 卡片",
+      "單品優惠與活動優惠 Flex 卡片",
+      "套餐搭配 Flex 卡片",
+      "階梯優惠自動計算",
+      "同商品累積數量重新計價",
+      "購物車修改數量、移除商品、直接結帳",
+      "結帳流程：姓名→電話→付款→配送→依配送方式詢問地址",
+      "門市自取不再要求地址",
+      "7-11賣貨便才詢問門市資訊",
+      "Google Sheet：訂單主表、訂單明細、出貨管理、匯款對帳、客戶資料",
+      "客戶等級：一般會員、VIP會員、金牌會員、經銷合作"
+    ],
+    "apps_script": "google_apps_script_v110.js"
+  }
+}
