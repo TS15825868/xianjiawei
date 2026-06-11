@@ -888,3 +888,6 @@ p{margin:0 0 12px}
 .site-menu__backdrop{opacity:0;transition:opacity .22s ease}
 .site-menu.open .site-menu__backdrop{opacity:1}
 .reveal,.reveal.show{opacity:1 !important;transform:none !important}
+
+/* v120 master */
+.video-card .btn{margin-top:auto}.faq-category{padding:8px 0}.faq-item__body p{line-height:1.8}

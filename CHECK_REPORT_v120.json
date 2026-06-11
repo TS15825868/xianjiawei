@@ -1,0 +1,51 @@
+{
+  "version": "v120_master_official_launch",
+  "website": {
+    "pages": [
+      "404.html",
+      "brand.html",
+      "choose.html",
+      "combo.html",
+      "contact.html",
+      "dm.html",
+      "faq.html",
+      "googlec5c2af289948c263.html",
+      "guide.html",
+      "index.html",
+      "knowledge.html",
+      "products.html",
+      "recipes.html",
+      "video.html",
+      "videos.html"
+    ],
+    "products": 6,
+    "faq_count": 60,
+    "video_count": 25,
+    "missing_local_refs": [],
+    "missing_images": [],
+    "public_price_hits": [],
+    "site_js_syntax": "passed",
+    "features": [
+      "全站正式商用母本",
+      "首頁/產品/套餐/怎麼選/怎麼使用/料理/知識/品牌/FAQ/影片/聯絡資料補齊",
+      "FAQ 60題分類：產品、使用、配送、合作、安全提醒",
+      "TikTok影片25支完整網址",
+      "品牌語氣統一：補養，是一種節奏",
+      "官網不公開價格，只導流LINE"
+    ]
+  },
+  "line_oa": {
+    "node_check": "passed",
+    "products": 6,
+    "faq_count": 60,
+    "video_count": 25,
+    "missing_images": [],
+    "apps_script": "google_apps_script_v120.js",
+    "features": [
+      "產品/FAQ/影片資料同步網站母本",
+      "保留階梯優惠、購物車、結帳、門市自取流程",
+      "Google Sheet母本：訂單主表、訂單明細、出貨管理、匯款對帳、客戶資料",
+      "客戶等級：一般會員、VIP會員、金牌會員、經銷合作"
+    ]
+  }
+}

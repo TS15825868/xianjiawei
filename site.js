@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=111.0');
+  const res = await fetch('data.json?v=120.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -268,17 +268,14 @@ function renderProductsPage() {
 function renderChoosePage() {
   const el = document.getElementById('choose-results');
   if (!el) return;
-  el.innerHTML = SITE_DATA.recommend.map(r => `
+  const items = SITE_DATA.pageContent?.choose || [];
+  el.innerHTML = items.map((item, index) => `
     <article class="card reveal">
-      <p class="eyebrow">${r.keyword}</p>
-      <h3>${r.result}</h3>
-      <p>${r.desc}</p>
-      <div class="final-cta__actions">
-        <a class="btn btn-outline" href="products.html">看產品</a>
-        ${lineButton('LINE 幫我看適合哪個', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
-      </div>
+      <p class="eyebrow">方向 ${index + 1}</p>
+      <h3>${item.title}</h3>
+      <p>${item.desc}</p>
     </article>
-  `).join('') + finalCtaBlock('不確定怎麼挑也沒關係', '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。', '我想看龜鹿怎麼選，幫我整理一個方向。');
+  `).join('') + finalCtaBlock('還是不確定怎麼選', '可以直接告訴我們你想固定補養、方便飲用、料理燉湯或自行搭配。', '我想請你幫我推薦龜鹿產品。');
 }
 
 function renderComboPage() {
@@ -300,69 +297,49 @@ function renderComboPage() {
 }
 
 function renderGuidePage() {
-  const guide = document.querySelector('[data-render="guide"]');
-  const rhythm = document.querySelector('[data-render="rhythm"]');
-
-  if (guide) {
-    guide.innerHTML = `
-      <article class="card reveal">
-        <p class="eyebrow">Step 1</p>
-        <h3>先看型態</h3>
-        <p>膏適合固定節奏，飲適合快速安排，湯塊適合餐桌，粉適合自己搭配。</p>
-      </article>
-      <article class="card reveal">
-        <p class="eyebrow">Step 2</p>
-        <h3>再看作息</h3>
-        <p>把安排放在早上與下午比較好執行，盡量避免接近睡前。</p>
-      </article>
-      <article class="card reveal">
-        <p class="eyebrow">Step 3</p>
-        <h3>最後看規格</h3>
-        <p>先從自己覺得容易開始的份量下手，比一次做太多設定更容易持續。</p>
-      </article>
-    `;
+  const items = SITE_DATA.pageContent?.guide || [];
+  const html = items.map((item, index) => `
+    <article class="card reveal">
+      <p class="eyebrow">方式 ${index + 1}</p>
+      <h3>${item.title}</h3>
+      <p>${item.desc}</p>
+    </article>
+  `).join('');
+  const target = document.getElementById('guide-steps') || document.getElementById('guide-notes');
+  if (target) {
+    target.innerHTML = html;
+    return;
   }
-
-  if (rhythm) {
-    rhythm.innerHTML = `
-      <article class="card reveal">
-        <h3>平日安排</h3>
-        <p>把補養放進每天固定的時間點，比偶爾想到才使用更容易形成節奏。</p>
-      </article>
-      <article class="card reveal">
-        <h3>餐桌搭配</h3>
-        <p>湯塊與熱飲類型，適合用「順手」作為安排原則，不需要每次都做得很複雜。</p>
-      </article>
-    ` + finalCtaBlock('想直接問怎麼安排', '告訴我們你的作息，我們幫你整理比較好執行的方式。', '我想看怎麼安排比較適合我的日常。');
+  const main = document.querySelector('main.page');
+  if (main && !document.getElementById('guide-dynamic-grid')) {
+    main.insertAdjacentHTML('beforeend', `<section class="section"><div class="section-title"><p class="eyebrow">使用整理</p><h2>五種產品使用方式</h2></div><div class="grid cards-4" id="guide-dynamic-grid">${html}</div>${finalCtaBlock('想知道自己適合哪種方式', '直接用 LINE 告訴我們你平常是想熱飲、燉湯或方便即飲。', '我想看適合我的使用方式。')}</section>`);
   }
 }
 
 function renderRecipesPage() {
   const el = document.getElementById('recipe-grid');
   if (!el) return;
-  el.innerHTML = SITE_DATA.recipes.map(r => `
-    <article class="card reveal">
-      <p class="eyebrow">${r.category}</p>
-      <h3>${r.title}</h3>
-      <p>${r.desc}</p>
-      <ol>${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+  const recipes = SITE_DATA.pageContent?.recipes || [];
+  el.innerHTML = recipes.map((item, index) => `
+    <article class="card recipe-card reveal">
+      <p class="eyebrow">搭配 ${index + 1}</p>
+      <h3>${item.title}</h3>
+      <p>${item.desc}</p>
+      <div class="final-cta__actions">
+        ${lineButton('LINE 詢問這個搭配', `我想了解「${item.title}」怎麼搭配。`)}
+      </div>
     </article>
-  `).join('') + finalCtaBlock('想直接問哪一種比較適合你', '如果你比較偏熱飲、燉湯或調飲，也可以直接用 LINE 問我們。', '我想看我比較適合熱飲、燉湯還是調飲。');
+  `).join('') + finalCtaBlock('想看更多料理搭配', '告訴我們你平常會煮雞湯、排骨湯或熱飲，我們幫你整理。', '我想看龜鹿料理搭配。');
 }
 
 function renderKnowledgePage() {
   const el = document.getElementById('knowledge-grid');
   if (!el) return;
-  const items = [
-    ['從食材出發', '官網用語以龜板萃取物、鹿角萃取物為主，回到飲食搭配的理解方式。'],
-    ['從工序出發', '長時間熬製、慢火濃縮，是品牌一路延續下來的做法。'],
-    ['從節奏出發', '比起追求一次看見什麼，更重視能不能穩定、舒服地放進生活。'],
-    ['從餐桌出發', '熱飲、調飲、燉湯、固定小匙，這些都比空泛形容更有幫助。']
-  ];
-  el.innerHTML = items.map(([title, desc]) => `
+  const items = SITE_DATA.pageContent?.knowledge || [];
+  el.innerHTML = items.map(item => `
     <article class="card reveal">
-      <h3>${title}</h3>
-      <p>${desc}</p>
+      <h3>${item.title}</h3>
+      <p>${item.desc}</p>
     </article>
   `).join('') + finalCtaBlock('想從比較適合自己的方式開始', '不用自己慢慢理解，直接 LINE 告訴我們你的情況，我們幫你整理。', '我想看比較適合我的龜鹿方式。');
 }
@@ -372,41 +349,45 @@ function renderVideosPage() {
   const grid = document.getElementById('video-grid');
   const videos = SITE_DATA.videos || [];
   if (count) count.textContent = videos.length;
-
-  if (grid) {
-    const channelUrl = SITE_DATA.tiktokChannel || 'https://www.tiktok.com/@changwuchi2023';
-    const channelCard = `
-      <article class="card video-card reveal grid-span-2">
-        <p class="eyebrow">合作中醫師</p>
-        <h3>章無忌中醫師 TikTok 頻道</h3>
-        <p>想看更多龜鹿、養生與日常保養相關影片，可前往章無忌中醫師 TikTok 頻道。</p>
-        <a class="btn btn-line" href="${channelUrl}" target="_blank" rel="noopener">觀看 TikTok 頻道</a>
-      </article>
-    `;
-
-    const cards = videos.map((v, i) => `
-      <article class="card video-card reveal">
-        <p class="eyebrow">${v.category || `第 ${i + 1} 支`}</p>
-        <h3>${v.title}</h3>
-        <p>整理自公開平台，不自動播放，點擊後開啟原影片或頻道。</p>
-        <a class="btn btn-outline" href="${v.url}" target="_blank" rel="noopener">開啟影片</a>
-      </article>
-    `).join('');
-
-    grid.innerHTML = channelCard + cards + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你現在比較在意什麼，我們幫你整理。', '我看完影片了，想請你幫我看適合哪一種。');
-  }
+  if (!grid) return;
+  const channelUrl = SITE_DATA.tiktokChannel || 'https://www.tiktok.com/@changwuchi2023';
+  const groups = ['龜鹿系列', '鹿茸系列', '中醫師觀點'];
+  const filterBar = `
+    <article class="card video-card reveal grid-span-2">
+      <p class="eyebrow">合作中醫師</p>
+      <h3>章無忌中醫師 TikTok 頻道</h3>
+      <p>本頁整理 25 支公開影片入口，依龜鹿系列、鹿茸系列與中醫師觀點分類。影片不自動播放，點擊後開啟 TikTok。</p>
+      <a class="btn btn-line" href="${channelUrl}" target="_blank" rel="noopener">觀看 TikTok 頻道</a>
+    </article>
+    ${groups.map(g => `<article class="card reveal"><p class="eyebrow">影片分類</p><h3>${g}</h3><p>${videos.filter(v => v.category === g).length} 支影片</p></article>`).join('')}
+  `;
+  const cards = videos.map((v, i) => `
+    <article class="card video-card reveal">
+      <p class="eyebrow">${v.category || '影片'}</p>
+      <h3>${i + 1}. ${v.title}</h3>
+      <p>整理自公開平台，點擊後開啟原影片。</p>
+      <a class="btn btn-outline" href="${v.url}" target="_blank" rel="noopener">開啟影片</a>
+    </article>
+  `).join('');
+  grid.innerHTML = filterBar + cards + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你平常偏好熱飲、燉湯或方便即飲，我們幫你整理。', '我看完影片了，想請你幫我看適合哪一種。');
 }
 
 function renderFaqPage() {
   const el = document.getElementById('faq-grid');
   if (!el) return;
-  el.innerHTML = (SITE_DATA.faq || SITE_DATA.faqs || []).map(f => `
-    <details class="faq-item reveal">
-      <summary>${f.q}</summary>
-      <div class="faq-item__body">
-        <p>${f.a}</p>
-      </div>
-    </details>
+  const faqs = SITE_DATA.faq || SITE_DATA.faqs || [];
+  const groups = [...new Set(faqs.map(f => f.category || '常見問題'))];
+  el.innerHTML = groups.map(group => `
+    <div class="grid-span-2 faq-category reveal">
+      <p class="eyebrow">FAQ</p>
+      <h2>${group}</h2>
+    </div>
+    ${faqs.filter(f => (f.category || '常見問題') === group).map(f => `
+      <details class="faq-item reveal">
+        <summary>${f.q}</summary>
+        <div class="faq-item__body"><p>${f.a}</p></div>
+      </details>
+    `).join('')}
   `).join('') + finalCtaBlock('還是不確定怎麼選？', '可以直接跟我們說你的生活方式，我們幫你整理比較適合的方式。', '我想看龜鹿怎麼選，幫我整理一個方向。');
 }
 
@@ -427,111 +408,35 @@ function renderRecommendPage() {
 }
 
 function renderBrandPage() {
-  const el = document.getElementById('brand-story');
+  const story = document.getElementById('brand-story');
   const timeline = document.getElementById('brand-timeline');
   const store = document.getElementById('brand-store');
-  const b = SITE_DATA.brandStory || {};
-  const s = SITE_DATA.store || {};
-
-  if (el) {
-    el.innerHTML = `
-      <article class="card reveal">
-        <p class="eyebrow">品牌由來</p>
-        <h2>${b.originTitle || '仙加味的由來'}</h2>
-        <p>${b.origin || '仙加味把補養加回日常，讓龜鹿產品更容易理解、安排與持續。'}</p>
-      </article>
-
-      <article class="card reveal">
-        <p class="eyebrow">萬華起點</p>
-        <h2>${b.storyTitle || '從萬華開始'}</h2>
-        <p>${b.story || '從萬華老店出發，延續對原料、火候與工序的重視。'}</p>
-      </article>
-
-      <article class="card reveal">
-        <p class="eyebrow">創始人的選擇</p>
-        <h2>${b.founderTitle || '創辦人的想法'}</h2>
-        <p>${b.founder || '把補養放回餐桌、熱飲與每天可執行的生活節奏。'}</p>
-      </article>
-
-      <article class="card reveal">
-        <p class="eyebrow">工序傳承</p>
-        <h2>${b.craftTitle || '四代鹿角工序'}</h2>
-        <p>${b.craft || '真正重要的是時間與細節，不誇大、不急躁，穩穩地放進生活。'}</p>
-      </article>
-    `;
-  }
-
+  if (story) story.innerHTML = `
+    <article class="card reveal"><h3>品牌理念</h3><p>補養，是一種節奏。仙加味重視的是把產品內容、使用方式與生活情境說清楚，讓每個人依照自己的日常安排。</p></article>
+    <article class="card reveal"><h3>產品理念</h3><p>膏、飲、湯塊、膠與粉，不是複雜分類，而是讓不同生活方式都能找到適合自己的使用方式。</p></article>
+    <article class="card reveal"><h3>服務理念</h3><p>官網負責清楚介紹，LINE 負責價格、活動、配送、下單與合作洽談。</p></article>
+  `;
   if (timeline) {
-    const items = b.timeline || [];
-    timeline.innerHTML = items.map((item, idx) => `
-      <article class="card timeline-card reveal">
-        <p class="eyebrow">${String(idx + 1).padStart(2, '0')}</p>
-        <h3>${item.title}</h3>
-        <p>${item.desc}</p>
-      </article>
-    `).join('');
+    const items = SITE_DATA.pageContent?.brand || [];
+    timeline.innerHTML = items.map(item => `<article class="card reveal"><p class="eyebrow">${item.year}</p><h3>${item.title}</h3><p>${item.desc}</p></article>`).join('');
   }
-
-  if (store) {
-    store.innerHTML = `
-      <p class="eyebrow">回到萬華</p>
-      <h3>${s.name || '萬華門市'}｜${s.address || '台北市萬華區西昌街52號'}</h3>
-      <p>${s.heritage || '萬華老店・四代鹿角工序傳承'}</p>
-      <p>如果你在萬華附近，可以先查看門市位置；若想了解產品型態與搭配方式，建議用 LINE 讓我們先幫你整理。</p>
-      <div class="final-cta__actions">
-        <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟地圖</a>
-        ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，幫我整理一個方向。')}
-      </div>
-    `;
-  }
+  if (store) store.innerHTML = finalCtaBlock('想進一步了解仙加味', '可以從產品型態、使用方式或合作洽詢開始，我們會透過 LINE 協助整理。', '我想了解仙加味龜鹿系列。');
 }
 
 function renderContactPage() {
-  const paymentEl = document.getElementById('contact-payments');
-  const shippingEl = document.getElementById('contact-shipping');
-  const notesEl = document.getElementById('contact-notes');
   const askList = document.getElementById('contact-ask-list');
+  const payments = document.getElementById('contact-payments');
+  const shipping = document.getElementById('contact-shipping');
+  const notes = document.getElementById('contact-notes');
+  const storeInfo = document.getElementById('store-info');
   const storeCard = document.getElementById('store-card');
-  const s = SITE_DATA.store || {};
-
-  if (storeCard) {
-    storeCard.innerHTML = `
-      <article class="card reveal">
-        <p class="eyebrow">${s.area || '台北萬華'}</p>
-        <h3>${s.name || '萬華門市'}</h3>
-        <p><strong>${s.address || '台北市萬華區西昌街52號'}</strong></p>
-        <p>${s.heritage || '萬華老店・四代鹿角工序傳承'}</p>
-        <p class="muted">${s.note || '建議先透過 LINE 幫我看適合哪個，確認現場與安排時間。'}</p>
-        <div class="final-cta__actions">
-          <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟 Google 地圖</a>
-          ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，幫我整理一個方向。')}
-        </div>
-      </article>
-      <article class="card reveal map-card">
-        <h3>門市與到店說明</h3>
-        <p>門市地址：${s.address || '台北市萬華區西昌街52號'}</p>
-        <p>到店可先查看地圖；若想先了解產品型態、料理搭配或適合哪一種，透過 LINE 會整理得更清楚。</p>
-      </article>
-    `;
-  }
-  if (paymentEl) {
-    paymentEl.innerHTML = (SITE_DATA.payments || []).map(item => `<li>${item}</li>`).join('');
-  }
-  if (shippingEl) {
-    shippingEl.innerHTML = (SITE_DATA.shipping || []).map(item => `<li>${item}</li>`).join('');
-  }
-  if (notesEl) {
-    notesEl.innerHTML = Object.entries(SITE_DATA.shippingNotes || {}).map(([k, v]) => `<li><strong>${k}</strong>：${v}</li>`).join('');
-  }
-  if (askList) {
-    askList.innerHTML = [
-      '適合哪一種型態',
-      '怎麼安排日常使用',
-      '搭配組合怎麼選',
-      '付款與配送方式',
-      '萬華門市地址與到店安排'
-    ].map(item => `<li>${item}</li>`).join('');
-  }
+  const askItems = ['想知道適合哪一種龜鹿產品', '想了解價格與活動方案', '想詢問配送、門市自取或雙北親送', '想洽談中藥店、診所或通路合作'];
+  if (askList) askList.innerHTML = askItems.map(x => `<li>${x}</li>`).join('');
+  if (payments) payments.innerHTML = (SITE_DATA.payments || ['匯款','貨到付款']).map(x => `<li>${x}</li>`).join('');
+  if (shipping) shipping.innerHTML = (SITE_DATA.shipping || ['宅配','7-11賣貨便','門市自取','雙北親送']).map(x => `<li>${x}</li>`).join('');
+  if (notes) notes.innerHTML = (SITE_DATA.pageContent?.contactNotes || []).map(x => `<li>${x}</li>`).join('');
+  if (storeInfo) storeInfo.innerHTML = `<p>官方 LINE：${SITE_DATA.lineId || '@762jybnm'}</p><p>建議先透過 LINE 詢問產品、價格、配送與自取安排。</p>`;
+  if (storeCard) storeCard.innerHTML = finalCtaBlock('直接透過 LINE 詢問', '把你想問的產品、數量或使用方式傳給我們，我們會協助整理。', '我想詢問仙加味龜鹿產品。');
 }
 
 function fillProducts(targetId, products) {
