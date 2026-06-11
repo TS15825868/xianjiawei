@@ -1,0 +1,10 @@
+{
+  "version": "v105",
+  "fixes": [
+    "選單改為 openMenu/closeMenu 明確控制",
+    "移除 scroll 自動關閉選單，避免手機一點選單就被捲動事件關掉",
+    "選單 CSS 改 visibility/opacity/pointer-events，不再 display none 切換造成偶發顯示失敗",
+    "事件綁定加一次性鎖定，避免重複綁定",
+    "site.css/site.js 版本更新為 v105.0"
+  ]
+}

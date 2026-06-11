@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=103.0');
+  const res = await fetch('data.json?v=105.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -158,27 +158,40 @@ function renderModalShell() {
 }
 
 function bindGlobalEvents() {
-  document.addEventListener('click', (e) => {
-    const drawer = document.getElementById('menu-drawer');
-    const btn = document.getElementById('menu-btn');
+  if (window.__xjwMenuBound) return;
+  window.__xjwMenuBound = true;
 
-    if (btn && (btn === e.target || btn.contains(e.target))) {
-      const opening = !drawer?.classList.contains('open');
-      drawer?.classList.toggle('open', opening);
-      drawer?.setAttribute('aria-hidden', String(!opening));
-      btn.setAttribute('aria-expanded', String(opening));
-      document.body.classList.toggle('menu-open', opening);
+  document.addEventListener('click', (e) => {
+    const menuButton = e.target.closest('#menu-btn');
+    const drawer = document.getElementById('menu-drawer');
+
+    if (menuButton) {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = drawer?.classList.contains('open');
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
       return;
     }
 
-    if (e.target.closest('[data-close-menu="1"]') || e.target.closest('.site-menu__panel a') || e.target.closest('#menu-close')) {
+    if (e.target.closest('[data-close-menu="1"]') || e.target.closest('#menu-close')) {
+      e.preventDefault();
       closeMenu();
+      return;
+    }
+
+    if (e.target.closest('.site-menu__panel a')) {
+      closeMenu();
+      return;
     }
 
     if (e.target.closest('[data-close-modal="1"]') || e.target.closest('#product-modal-close')) {
       closeModal();
     }
-  });
+  }, true);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -186,10 +199,20 @@ function bindGlobalEvents() {
       closeModal();
     }
   });
+}
 
-  window.addEventListener('scroll', () => {
-    closeMenu();
-  }, { passive: true });
+function openMenu() {
+  const drawer = document.getElementById('menu-drawer');
+  const btn = document.getElementById('menu-btn');
+  if (!drawer) {
+    buildShell();
+  }
+  const nextDrawer = document.getElementById('menu-drawer');
+  const nextBtn = document.getElementById('menu-btn');
+  nextDrawer?.classList.add('open');
+  nextDrawer?.setAttribute('aria-hidden', 'false');
+  nextBtn?.setAttribute('aria-expanded', 'true');
+  document.body.classList.add('menu-open');
 }
 
 function closeMenu() {
