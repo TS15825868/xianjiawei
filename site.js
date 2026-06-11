@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=120.0');
+  const res = await fetch('data.json?v=121.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -299,20 +299,20 @@ function renderComboPage() {
 function renderGuidePage() {
   const items = SITE_DATA.pageContent?.guide || [];
   const html = items.map((item, index) => `
-    <article class="card reveal">
-      <p class="eyebrow">方式 ${index + 1}</p>
+    <article class="card guide-card reveal">
+      <p class="eyebrow">使用 ${index + 1}</p>
       <h3>${item.title}</h3>
-      <p>${item.desc}</p>
+      <p class="preline">${item.desc}</p>
     </article>
   `).join('');
-  const target = document.getElementById('guide-steps') || document.getElementById('guide-notes');
+  const target = document.getElementById('guide-steps') || document.getElementById('guide-notes') || document.getElementById('guide-grid');
   if (target) {
-    target.innerHTML = html;
+    target.innerHTML = html + finalCtaBlock('想知道自己適合哪種方式', '直接用 LINE 告訴我們你平常是想熱飲、燉湯或方便即飲。', '我想看適合我的使用方式。');
     return;
   }
   const main = document.querySelector('main.page');
   if (main && !document.getElementById('guide-dynamic-grid')) {
-    main.insertAdjacentHTML('beforeend', `<section class="section"><div class="section-title"><p class="eyebrow">使用整理</p><h2>五種產品使用方式</h2></div><div class="grid cards-4" id="guide-dynamic-grid">${html}</div>${finalCtaBlock('想知道自己適合哪種方式', '直接用 LINE 告訴我們你平常是想熱飲、燉湯或方便即飲。', '我想看適合我的使用方式。')}</section>`);
+    main.insertAdjacentHTML('beforeend', `<section class="section"><div class="section-title"><p class="eyebrow">使用整理</p><h2>五種產品使用方式</h2></div><div class="grid cards-2" id="guide-dynamic-grid">${html}</div>${finalCtaBlock('想知道自己適合哪種方式', '直接用 LINE 告訴我們你平常是想熱飲、燉湯或方便即飲。', '我想看適合我的使用方式。')}</section>`);
   }
 }
 
