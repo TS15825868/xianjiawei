@@ -1,0 +1,38 @@
+{
+  "version": "v122_twqr_cash_official_master",
+  "website": {
+    "payments": [
+      "現金付款",
+      "匯款",
+      "貨到付款",
+      "TWQR（建置中）"
+    ],
+    "twqr_reserved": true,
+    "missing_local_refs": [],
+    "missing_images": [],
+    "public_price_hits": [],
+    "site_js_syntax": "passed",
+    "cache_version": "122.0"
+  },
+  "line_oa": {
+    "payments": [
+      "現金付款",
+      "匯款",
+      "貨到付款",
+      "TWQR（建置中）"
+    ],
+    "twqr_flex_message": true,
+    "twqr_status": "建置中",
+    "node_check": "passed",
+    "missing_images": [],
+    "apps_script": "google_apps_script_v122.js",
+    "package_version": "1.2.2",
+    "fixes": [
+      "付款方式新增現金付款",
+      "付款方式新增TWQR建置中按鈕",
+      "點擊TWQR會顯示建置中提示並提供返回付款方式/聯絡客服",
+      "Google Sheet匯款對帳支援現金付款與TWQR待建置狀態",
+      "data.json同步新增payments與twqr預留欄位"
+    ]
+  }
+}
