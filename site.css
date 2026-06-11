@@ -914,3 +914,37 @@ p{margin:0 0 12px}
 body.menu-open .site-header{
   z-index:1300;
 }
+
+
+/* v106 menu stability */
+.site-menu{
+  display:block !important;
+  visibility:hidden;
+  opacity:0;
+  pointer-events:none;
+}
+.site-menu.open{
+  visibility:visible;
+  opacity:1;
+  pointer-events:auto;
+}
+.site-menu__panel{
+  transform:translateX(105%);
+  transition:transform .22s ease;
+  will-change:transform;
+}
+.site-menu.open .site-menu__panel{
+  transform:translateX(0);
+}
+.site-menu__backdrop{
+  opacity:0;
+  transition:opacity .22s ease;
+}
+.site-menu.open .site-menu__backdrop{
+  opacity:1;
+}
+.reveal,
+.reveal.show{
+  opacity:1 !important;
+  transform:none !important;
+}

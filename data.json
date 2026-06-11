@@ -21,12 +21,13 @@
   "offers": {
     "comboOffers": [
       {
-        "name": "日常節奏組",
+        "name": "新客體驗組",
         "items": [
           "龜鹿膏",
-          "龜鹿飲"
+          "龜鹿飲30cc×12"
         ],
-        "desc": "適合想建立固定補養節奏，又希望平常有方便飲用選擇的人。"
+        "desc": "適合第一次了解仙加味龜鹿系列，先從日常節奏與方便飲用開始。",
+        "priceNote": "價格與搭配方案請透過官方 LINE 詢問。"
       },
       {
         "name": "養生燉湯組",
@@ -34,17 +35,19 @@
           "龜鹿湯塊",
           "鹿茸粉"
         ],
-        "desc": "適合喜歡料理、燉湯與熱飲搭配的人。"
+        "desc": "適合喜歡料理、燉湯與熱飲搭配的人。",
+        "priceNote": "價格與搭配方案請透過官方 LINE 詢問。"
       },
       {
         "name": "完整體驗組",
         "items": [
           "龜鹿膏",
-          "龜鹿飲",
+          "龜鹿飲30cc×12",
           "龜鹿湯塊",
           "鹿茸粉"
         ],
-        "desc": "一次了解仙加味龜鹿系列不同型態，適合第一次完整比較。"
+        "desc": "一次了解仙加味龜鹿系列不同型態，適合第一次完整比較。",
+        "priceNote": "價格與搭配方案請透過官方 LINE 詢問。"
       },
       {
         "name": "專業補養組",
@@ -52,7 +55,8 @@
           "龜鹿膠",
           "龜鹿湯塊"
         ],
-        "desc": "適合熟悉龜鹿產品、固定使用者與通路合作洽詢。"
+        "desc": "適合熟悉龜鹿產品、固定使用者與通路合作洽詢。",
+        "priceNote": "價格與搭配方案請透過官方 LINE 詢問。"
       }
     ]
   },
@@ -109,7 +113,7 @@
         "膏",
         "龜鹿膏100g"
       ],
-      "priceNote": "價格與搭配方案請洽官方 LINE",
+      "priceNote": "價格與搭配方案請透過官方 LINE 詢問。",
       "gallery": [
         "images/guilu-gao-card.jpg"
       ]
@@ -171,7 +175,7 @@
           ]
         }
       ],
-      "priceNote": "價格與搭配方案請洽官方 LINE"
+      "priceNote": "價格與搭配方案請透過官方 LINE 詢問。"
     },
     {
       "id": "guilu-tangkuai",
@@ -205,7 +209,7 @@
         "75g",
         "龜鹿湯"
       ],
-      "priceNote": "價格與搭配方案請洽官方 LINE",
+      "priceNote": "價格與搭配方案請透過官方 LINE 詢問。",
       "gallery": [
         "images/guilu-tangkuai-open-box.jpg"
       ]
@@ -243,7 +247,7 @@
         "一斤裝",
         "龜鹿膠一斤裝"
       ],
-      "priceNote": "價格與搭配方案請洽官方 LINE",
+      "priceNote": "價格與搭配方案請透過官方 LINE 詢問。",
       "gallery": [
         "images/guilu-block-redbox.jpg"
       ]
@@ -279,7 +283,7 @@
         "鹿茸",
         "鹿茸粉75g"
       ],
-      "priceNote": "價格與搭配方案請洽官方 LINE",
+      "priceNote": "價格與搭配方案請透過官方 LINE 詢問。",
       "gallery": [
         "images/lurong-card.jpg"
       ]

@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=105.0');
+  const res = await fetch('data.json?v=106.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -169,11 +169,8 @@ function bindGlobalEvents() {
       e.preventDefault();
       e.stopPropagation();
       const isOpen = drawer?.classList.contains('open');
-      if (isOpen) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
+      if (isOpen) closeMenu();
+      else openMenu();
       return;
     }
 
