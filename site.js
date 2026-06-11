@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=122.0');
+  const res = await fetch('data.json?v=123.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -435,7 +435,15 @@ function renderContactPage() {
   if (payments) payments.innerHTML = (SITE_DATA.payments || ['匯款','貨到付款']).map(x => `<li>${x}</li>`).join('');
   if (shipping) shipping.innerHTML = (SITE_DATA.shipping || ['宅配','7-11賣貨便','門市自取','雙北親送']).map(x => `<li>${x}</li>`).join('');
   if (notes) notes.innerHTML = (SITE_DATA.pageContent?.contactNotes || []).map(x => `<li>${x}</li>`).join('');
-  if (storeInfo) storeInfo.innerHTML = `<p>官方 LINE：${SITE_DATA.lineId || '@762jybnm'}</p><p>建議先透過 LINE 詢問產品、價格、配送與自取安排。</p>`;
+  if (storeInfo) {
+    const store = SITE_DATA.store || {};
+    storeInfo.innerHTML = `
+      <p><strong>門市地址：</strong>${store.address || '台北市萬華區西昌街52號'}</p>
+      <p><strong>官方 LINE：</strong>${SITE_DATA.lineId || '@762jybnm'}</p>
+      <p>${store.pickupNote || '門市自取請先透過官方 LINE 確認取貨時間。'}</p>
+      <p><a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.address || '台北市萬華區西昌街52號')}" target="_blank" rel="noopener">開啟 Google 地圖</a></p>
+    `;
+  }
   if (storeCard) storeCard.innerHTML = finalCtaBlock('直接透過 LINE 詢問', '把你想問的產品、數量或使用方式傳給我們，我們會協助整理。', '我想詢問仙加味龜鹿產品。');
 }
 
