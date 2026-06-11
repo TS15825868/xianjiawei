@@ -1,0 +1,86 @@
+{
+  "version": "v102",
+  "fixes": [
+    "網站 data.json 不再使用 Date.now() + no-store，改固定版本 v102.0，避免每次重抓造成慢",
+    "site.js 選單移除 recommend.html 舊連結",
+    "產品圖路徑檢查：網站與 LINE OA 均無缺圖引用",
+    "壓縮首頁與產品主要圖片，降低載入時間",
+    "LINE OA data.json 與網站 data.json 同步",
+    "LINE OA server.js 語法檢查通過",
+    "LINE OA 產品按鈕維持 Postback 版本"
+  ],
+  "optimized_images": [
+    {
+      "file": "images/brand-story-guilu-boxes.jpg",
+      "before": 454473,
+      "after": 358349
+    },
+    {
+      "file": "images/guilu-drink-180cc.jpg",
+      "before": 641435,
+      "after": 177977
+    },
+    {
+      "file": "images/guilu-drink-30cc-glass.jpg",
+      "before": 206200,
+      "after": 97466
+    },
+    {
+      "file": "images/guilu-gao.jpg",
+      "before": 229827,
+      "after": 232101
+    },
+    {
+      "file": "images/guilu-jiao.jpg",
+      "before": 474276,
+      "after": 144688
+    },
+    {
+      "file": "images/guilu-tangkuai-open-box.jpg",
+      "before": 285505,
+      "after": 224156
+    },
+    {
+      "file": "images/hero.jpg",
+      "before": 196891,
+      "after": 120920
+    },
+    {
+      "file": "images/line-qr.jpg",
+      "before": 38109,
+      "after": 19028
+    },
+    {
+      "file": "images/logo.png",
+      "before": 221104,
+      "after": 152692
+    },
+    {
+      "file": "images/luerong-fen.jpg",
+      "before": 129782,
+      "after": 78476
+    }
+  ],
+  "missing_site_image_refs": [],
+  "missing_line_image_refs": [],
+  "site_js_cache_bust_removed": true,
+  "delete_suggestions": {
+    "site_optional_delete": [
+      "marketing/（若 GitHub 只放官網，不需要 DM 圖可刪；不影響網頁速度，只影響倉庫大小）"
+    ],
+    "line_keep": [
+      "server.js",
+      "data.json",
+      "package.json",
+      "Code.gs 或 google_apps_script_v101.js 二選一",
+      "images/ 可留可刪；LINE 圖片實際使用 GitHub Pages 網址"
+    ],
+    "line_delete": [
+      "products.json",
+      "flex_combo.json",
+      "flex_lifestyle.json",
+      "flex_main.json",
+      "舊版 README/NOTE/CHECK_REPORT"
+    ]
+  }
+}

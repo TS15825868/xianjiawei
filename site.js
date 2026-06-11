@@ -12,8 +12,7 @@ const MENU_GROUPS = [
     { href: 'guide.html', label: '怎麼使用' },
     { href: 'recipes.html', label: '料理搭配' },
     { href: 'videos.html', label: '觀點影片' },
-    { href: 'knowledge.html', label: '龜鹿知識' },
-    { href: 'recommend.html', label: '推薦整理' }
+    { href: 'knowledge.html', label: '龜鹿知識' }
   ] },
   { title: '🏛 品牌與服務', links: [
     { href: 'brand.html', label: '品牌故事' },
@@ -39,9 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch(`data.json?v=${Date.now()}`, {
-    cache: 'no-store'
-  });
+  const res = await fetch('data.json?v=102.0', { cache: 'default' });
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -91,7 +88,7 @@ function renderHeaderBar() {
   return `
     <div class="header-inner">
       <a class="brand-mark" href="index.html">
-        <img src="images/logo.png" alt="${SITE_DATA?.brand || '仙加味'}">
+        <img src="images/logo.png" alt="${SITE_DATA?.brand || '仙加味'}" decoding="async">
         <span>${SITE_DATA?.brand || '仙加味'}</span>
       </a>
       <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-expanded="false">☰ 選單</button>
@@ -132,7 +129,7 @@ function renderFooter() {
       </div>
       <div class="footer-line-box">
         <div class="footer-line-logo">
-          <img src="images/logo.png" alt="仙加味 LOGO">
+          <img src="images/logo.png" alt="仙加味 LOGO" loading="lazy" decoding="async">
         </div>
         <div class="footer-line-copy">
           <p class="footer-line-title">官方 LINE</p>
@@ -140,7 +137,7 @@ function renderFooter() {
           <p class="muted">想了解搭配方式與方案，歡迎加入 LINE 詢問。</p>
           <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
         </div>
-        <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code">
+        <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code" loading="lazy" decoding="async">
       </div>
     </div>
   `;
@@ -518,7 +515,7 @@ function fillProducts(targetId, products) {
     return `
       <article class="product-card reveal" data-product-id="${p.id}" tabindex="0" role="button" aria-label="查看 ${p.displayName || p.name} 詳細介紹">
         <div class="product-card__img">
-          <img src="${thumb}" alt="${p.name}">
+          <img src="${thumb}" alt="${p.name}" loading="lazy" decoding="async">
         </div>
         <div class="product-card__body">
           <p class="eyebrow">${p.series || ''}</p>
@@ -580,7 +577,7 @@ function openProductModal(p, sourceEl) {
       <div class="modal-gallery">
         ${gallery.map((src, idx) => `
           <div class="modal-gallery__item">
-            <img src="${src}" alt="${p.name} 圖片 ${idx + 1}">
+            <img src="${src}" alt="${p.name} 圖片 ${idx + 1}" loading="lazy" decoding="async">
           </div>
         `).join('')}
       </div>
