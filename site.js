@@ -11,8 +11,9 @@ const MENU_GROUPS = [
   { title: '🍵 使用與內容', links: [
     { href: 'guide.html', label: '怎麼使用' },
     { href: 'recipes.html', label: '料理搭配' },
-    { href: 'video.html', label: '觀點影片' },
-    { href: 'knowledge.html', label: '龜鹿知識' }
+    { href: 'videos.html', label: '觀點影片' },
+    { href: 'knowledge.html', label: '龜鹿知識' },
+    { href: 'recommend.html', label: '推薦整理' }
   ] },
   { title: '🏛 品牌與服務', links: [
     { href: 'brand.html', label: '品牌故事' },
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=126.0');
+  const res = await fetch('data.json?v=127.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -58,11 +59,10 @@ function buildLineAutoLink(message = '我想看龜鹿怎麼選，幫我整理一
   return `https://line.me/R/oaMessage/${lineId}/?${text}`;
 }
 
-function lineButton(label = '怎麼選龜鹿？', text = '我想詢問仙加味龜鹿產品。') {
+function lineButton(label = '怎麼選龜鹿？', text = '我想知道哪一種龜鹿比較適合我。') {
   const url = `https://line.me/R/oaMessage/${encodeURIComponent(SITE_DATA.lineId || '@762jybnm')}/?${encodeURIComponent(text)}`;
   return `<a class="btn btn-line" href="${url}" target="_blank" rel="noopener">${label}</a>`;
 }
-
 function sourceLineText(page = '') {
   const map = {
     home: '我想知道哪一種龜鹿比較適合我。',
@@ -80,15 +80,7 @@ function sourceLineText(page = '') {
   };
   return map[page] || '我想知道哪一種龜鹿比較適合我。';
 }
-
-function pageLineButton(label = '怎麼選龜鹿？') {
-  return lineButton(label, sourceLineText(document.body?.dataset?.page || 'home'));
-}
-
-function productFitText(productName = '') {
-  return `我想了解${productName}適不適合我。`;
-}
-
+function productFitText(productName = '') { return `我想了解${productName}適不適合我。`; }
 
 
 function buildShell() {
@@ -117,7 +109,7 @@ function renderHeaderBar() {
   return `
     <div class="header-inner">
       <a class="brand-mark" href="index.html">
-        <img src="images/logo.png" alt="${SITE_DATA?.brand || '仙加味'}" decoding="async">
+        <img src="images/logo.png" alt="${SITE_DATA?.brand || '仙加味'}">
         <span>${SITE_DATA?.brand || '仙加味'}</span>
       </a>
       <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-expanded="false">☰ 選單</button>
@@ -140,7 +132,7 @@ function renderMenuDrawer() {
         <div class="menu-line-cta">
           <p class="menu-line-cta__title">官方 LINE 客服</p>
           <p class="menu-line-cta__id">LINE ID：<strong>${getLineId()}</strong></p>
-          ${lineButton('這個適合我嗎？', '我想看龜鹿怎麼選，幫我整理一個方向。')}
+          ${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}
         </div>
       </aside>
     </nav>
@@ -158,15 +150,15 @@ function renderFooter() {
       </div>
       <div class="footer-line-box">
         <div class="footer-line-logo">
-          <img src="images/logo.png" alt="仙加味 LOGO" loading="lazy" decoding="async">
+          <img src="images/logo.png" alt="仙加味 LOGO">
         </div>
         <div class="footer-line-copy">
           <p class="footer-line-title">官方 LINE</p>
           <p class="footer-line-id">LINE ID：<strong>${getLineId()}</strong></p>
-          <p class="muted">想了解搭配方式與方案，歡迎加入 怎麼選龜鹿？。</p>
-          <p>${lineButton('這個適合我嗎？', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
+          <p class="muted">想了解搭配方式與方案，歡迎加入 LINE 詢問。</p>
+          <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
         </div>
-        <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code" loading="lazy" decoding="async">
+        <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code">
       </div>
     </div>
   `;
@@ -217,20 +209,6 @@ function bindGlobalEvents() {
   });
 }
 
-function openMenu() {
-  let drawer = document.getElementById('menu-drawer');
-  let btn = document.getElementById('menu-btn');
-  if (!drawer) {
-    buildShell();
-    drawer = document.getElementById('menu-drawer');
-    btn = document.getElementById('menu-btn');
-  }
-  drawer?.classList.add('open');
-  drawer?.setAttribute('aria-hidden', 'false');
-  btn?.setAttribute('aria-expanded', 'true');
-  document.body.classList.add('menu-open');
-}
-
 function closeMenu() {
   const drawer = document.getElementById('menu-drawer');
   const btn = document.getElementById('menu-btn');
@@ -249,7 +227,7 @@ function renderPage() {
   if (page === 'guide') renderGuidePage();
   if (page === 'recipes') renderRecipesPage();
   if (page === 'knowledge') renderKnowledgePage();
-  if (page === 'videos' || page === 'video') renderVideosPage();
+  if (page === 'videos') renderVideosPage();
   if (page === 'faq') renderFaqPage();
   if (page === 'recommend') renderRecommendPage();
   if (page === 'brand') renderBrandPage();
@@ -287,7 +265,7 @@ function renderProductsPage() {
         <h3>${p.displayName || p.name}</h3>
         <p>${p.description}</p>
         <div class="final-cta__actions">
-          ${lineButton('這個適合我嗎？', productFitText((typeof p !== 'undefined' ? (p.displayName || p.name) : (product.displayName || product.name))))}
+          ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
         </div>
       </article>
     `).join('');
@@ -304,7 +282,7 @@ function renderChoosePage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        ${lineButton('這個適合我嗎？', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
+        ${lineButton('LINE 幫我看適合哪個', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
       </div>
     </article>
   `).join('') + finalCtaBlock('不確定怎麼挑也沒關係', '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。', '我想看龜鹿怎麼選，幫我整理一個方向。');
@@ -329,22 +307,40 @@ function renderComboPage() {
 }
 
 function renderGuidePage() {
-  const items = SITE_DATA.pageContent?.guide || [];
-  const html = items.map((item, index) => `
-    <article class="card guide-card reveal">
-      <p class="eyebrow">使用 ${index + 1}</p>
-      <h3>${item.title}</h3>
-      <p class="preline">${item.desc}</p>
-    </article>
-  `).join('');
-  const target = document.getElementById('guide-steps') || document.getElementById('guide-notes') || document.getElementById('guide-grid');
-  if (target) {
-    target.innerHTML = html + finalCtaBlock('想知道自己適合哪種方式', '直接用 LINE 告訴我們你平常是想熱飲、燉湯或方便即飲。', sourceLineText('guide'));
-    return;
+  const guide = document.querySelector('[data-render="guide"]');
+  const rhythm = document.querySelector('[data-render="rhythm"]');
+
+  if (guide) {
+    guide.innerHTML = `
+      <article class="card reveal">
+        <p class="eyebrow">Step 1</p>
+        <h3>先看型態</h3>
+        <p>膏適合固定節奏，飲適合快速安排，湯塊適合餐桌，粉適合自己搭配。</p>
+      </article>
+      <article class="card reveal">
+        <p class="eyebrow">Step 2</p>
+        <h3>再看作息</h3>
+        <p>把安排放在早上與下午比較好執行，盡量避免接近睡前。</p>
+      </article>
+      <article class="card reveal">
+        <p class="eyebrow">Step 3</p>
+        <h3>最後看規格</h3>
+        <p>先從自己覺得容易開始的份量下手，比一次做太多設定更容易持續。</p>
+      </article>
+    `;
   }
-  const main = document.querySelector('main.page');
-  if (main && !document.getElementById('guide-dynamic-grid')) {
-    main.insertAdjacentHTML('beforeend', `<section class="section"><div class="section-title"><p class="eyebrow">使用整理</p><h2>五種產品使用方式</h2></div><div class="grid cards-2" id="guide-dynamic-grid">${html}</div>${finalCtaBlock('想知道自己適合哪種方式', '直接用 LINE 告訴我們你平常是想熱飲、燉湯或方便即飲。', sourceLineText('guide'))}</section>`);
+
+  if (rhythm) {
+    rhythm.innerHTML = `
+      <article class="card reveal">
+        <h3>平日安排</h3>
+        <p>把補養放進每天固定的時間點，比偶爾想到才使用更容易形成節奏。</p>
+      </article>
+      <article class="card reveal">
+        <h3>餐桌搭配</h3>
+        <p>湯塊與熱飲類型，適合用「順手」作為安排原則，不需要每次都做得很複雜。</p>
+      </article>
+    ` + finalCtaBlock('想直接問怎麼安排', '告訴我們你的作息，我們幫你整理比較好執行的方式。', '我想看怎麼安排比較適合我的日常。');
   }
 }
 
@@ -381,48 +377,30 @@ function renderKnowledgePage() {
 function renderVideosPage() {
   const count = document.getElementById('video-count');
   const grid = document.getElementById('video-grid');
-  const videos = SITE_DATA.videos || [];
-  if (count) count.textContent = videos.length;
-  if (!grid) return;
-  const channelUrl = SITE_DATA.tiktokChannel || 'https://www.tiktok.com/@changwuchi2023';
-  const groups = ['龜鹿系列', '鹿茸系列', '中醫師觀點'];
-  const top = `
-    <article class="card video-card reveal grid-span-2">
-      <p class="eyebrow">合作中醫師</p>
-      <h3>章無忌中醫師 TikTok 頻道</h3>
-      <p>本頁整理 25 支公開影片入口，依龜鹿系列、鹿茸系列與中醫師觀點分類。影片不自動播放，點擊後開啟 TikTok。</p>
-      <a class="btn btn-line" href="${channelUrl}" target="_blank" rel="noopener">觀看 TikTok 頻道</a>
-    </article>
-    ${groups.map(g => `<article class="card reveal"><p class="eyebrow">影片分類</p><h3>${g}</h3><p>${videos.filter(v => v.category === g).length} 支影片</p></article>`).join('')}
-  `;
-  const cards = videos.map((v, i) => `
-    <article class="card video-card reveal">
-      <p class="eyebrow">${v.category || '影片'}</p>
-      <h3>${i + 1}. ${v.title}</h3>
-      <p>整理自公開平台，點擊後開啟原影片。</p>
-      <a class="btn btn-outline" href="${v.url}" target="_blank" rel="noopener">開啟影片</a>
-    </article>
-  `).join('');
-  grid.innerHTML = top + cards + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你平常偏好熱飲、燉湯或方便即飲，我們幫你整理。', sourceLineText('video'));
+  if (count) count.textContent = SITE_DATA.videos.length;
+  if (grid) {
+    grid.innerHTML = SITE_DATA.videos.map((v, i) => `
+      <article class="card video-card reveal">
+        <p class="eyebrow">第 ${i + 1} 支</p>
+        <h3>${v.title}</h3>
+        <p>整理自公開平台，不自動播放，點擊後開啟原影片。</p>
+        <a class="btn btn-outline" href="${v.url}" target="_blank" rel="noopener">開啟原影片</a>
+      </article>
+    `).join('') + finalCtaBlock('看完還是不確定怎麼選', '直接用 LINE 跟我們說你現在比較在意什麼，我們幫你整理。', '我看完影片了，想請你幫我看適合哪一種。');
+  }
 }
 
 function renderFaqPage() {
   const el = document.getElementById('faq-grid');
   if (!el) return;
-  const faqs = SITE_DATA.faq || SITE_DATA.faqs || [];
-  const groups = [...new Set(faqs.map(f => f.category || '常見問題'))];
-  el.innerHTML = groups.map(group => `
-    <div class="grid-span-2 faq-category reveal">
-      <p class="eyebrow">FAQ</p>
-      <h2>${group}</h2>
-    </div>
-    ${faqs.filter(f => (f.category || '常見問題') === group).map(f => `
-      <details class="faq-item reveal">
-        <summary>${f.q}</summary>
-        <div class="faq-item__body"><p>${f.a}</p></div>
-      </details>
-    `).join('')}
-  `).join('') + finalCtaBlock('還是不確定怎麼選？', '可以直接跟我們說你的生活方式，我們幫你整理比較適合的方式。', sourceLineText('faq'));
+  el.innerHTML = SITE_DATA.faqs.map(f => `
+    <details class="faq-item reveal">
+      <summary>${f.q}</summary>
+      <div class="faq-item__body">
+        <p>${f.a}</p>
+      </div>
+    </details>
+  `).join('') + finalCtaBlock('還是不確定怎麼選？', '可以直接跟我們說你的生活方式，我們幫你整理比較適合的方式。', '我想看龜鹿怎麼選，幫我整理一個方向。');
 }
 
 function renderRecommendPage() {
@@ -435,7 +413,7 @@ function renderRecommendPage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        ${lineButton('這個適合我嗎？', `我目前是「${r.keyword}」，想請你幫我看適合哪一種。`)}
+        ${lineButton('LINE 幫我看適合哪個', `我目前是「${r.keyword}」，想請你幫我看適合哪一種。`)}
       </div>
     </article>
   `).join('');
@@ -495,34 +473,58 @@ function renderBrandPage() {
       <p>如果你在萬華附近，可以先查看門市位置；若想了解產品型態與搭配方式，建議用 LINE 讓我們先幫你整理。</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟地圖</a>
-        ${lineButton('這個適合我嗎？', '我想了解萬華門市與龜鹿產品，幫我整理一個方向。')}
+        ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，幫我整理一個方向。')}
       </div>
     `;
   }
 }
 
 function renderContactPage() {
+  const paymentEl = document.getElementById('contact-payments');
+  const shippingEl = document.getElementById('contact-shipping');
+  const notesEl = document.getElementById('contact-notes');
   const askList = document.getElementById('contact-ask-list');
-  const payments = document.getElementById('contact-payments');
-  const shipping = document.getElementById('contact-shipping');
-  const notes = document.getElementById('contact-notes');
-  const storeInfo = document.getElementById('store-info');
   const storeCard = document.getElementById('store-card');
-  const askItems = ['想知道適合哪一種龜鹿產品', '想了解價格與活動方案', '想詢問配送、門市自取或雙北親送', '想洽談中藥店、診所或通路合作'];
-  if (askList) askList.innerHTML = askItems.map(x => `<li>${x}</li>`).join('');
-  if (payments) payments.innerHTML = (SITE_DATA.payments || ['現金付款','匯款','貨到付款','TWQR（建置中）']).map(x => `<li>${x}</li>`).join('');
-  if (shipping) shipping.innerHTML = (SITE_DATA.shipping || ['宅配','7-11賣貨便','門市自取','雙北親送']).map(x => `<li>${x}</li>`).join('');
-  if (notes) notes.innerHTML = (SITE_DATA.pageContent?.contactNotes || []).map(x => `<li>${x}</li>`).join('');
-  if (storeInfo) {
-    const store = SITE_DATA.store || {};
-    storeInfo.innerHTML = `
-      <p><strong>門市地址：</strong>${store.address || '台北市萬華區西昌街52號'}</p>
-      <p><strong>官方 LINE：</strong>${SITE_DATA.lineId || '@762jybnm'}</p>
-      <p>${store.pickupNote || '門市自取請先透過官方 LINE 確認取貨時間。'}</p>
-      <p><a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.address || '台北市萬華區西昌街52號')}" target="_blank" rel="noopener">開啟 Google 地圖</a></p>
+  const s = SITE_DATA.store || {};
+
+  if (storeCard) {
+    storeCard.innerHTML = `
+      <article class="card reveal">
+        <p class="eyebrow">${s.area || '台北萬華'}</p>
+        <h3>${s.name || '萬華門市'}</h3>
+        <p><strong>${s.address || '台北市萬華區西昌街52號'}</strong></p>
+        <p>${s.heritage || '萬華老店・四代鹿角工序傳承'}</p>
+        <p class="muted">${s.note || '建議先透過 LINE 幫我看適合哪個，確認現場與安排時間。'}</p>
+        <div class="final-cta__actions">
+          <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟 Google 地圖</a>
+          ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，幫我整理一個方向。')}
+        </div>
+      </article>
+      <article class="card reveal map-card">
+        <h3>門市與到店說明</h3>
+        <p>門市地址：${s.address || '台北市萬華區西昌街52號'}</p>
+        <p>到店可先查看地圖；若想先了解產品型態、料理搭配或適合哪一種，透過 LINE 會整理得更清楚。</p>
+      </article>
     `;
   }
-  if (storeCard) storeCard.innerHTML = finalCtaBlock('直接透過 怎麼選龜鹿？', '把你想問的產品、數量或使用方式傳給我們，我們會協助整理。', sourceLineText('contact'));
+  if (paymentEl) {
+    paymentEl.innerHTML = (SITE_DATA.payments || []).map(item => `<li>${item}</li>`).join('');
+  }
+  if (shippingEl) {
+    shippingEl.innerHTML = (SITE_DATA.shipping || []).map(item => `<li>${item}</li>`).join('');
+  }
+  if (notesEl) {
+    notesEl.innerHTML = Object.entries(SITE_DATA.shippingNotes || {}).map(([k, v]) => `<li><strong>${k}</strong>：${v}</li>`).join('');
+  }
+  if (askList) {
+    askList.innerHTML = [
+      '適合哪一種型態',
+      '怎麼安排日常使用',
+      '搭配組合怎麼選',
+      '付款與配送方式',
+      '萬華門市地址與到店安排'
+    ].map(item => `<li>${item}</li>`).join('');
+  }
 }
 
 function fillProducts(targetId, products) {
@@ -534,7 +536,7 @@ function fillProducts(targetId, products) {
     return `
       <article class="product-card reveal" data-product-id="${p.id}" tabindex="0" role="button" aria-label="查看 ${p.displayName || p.name} 詳細介紹">
         <div class="product-card__img">
-          <img src="${thumb}" alt="${p.name}" loading="lazy" decoding="async">
+          <img src="${thumb}" alt="${p.name}">
         </div>
         <div class="product-card__body">
           <p class="eyebrow">${p.series || ''}</p>
@@ -544,7 +546,7 @@ function fillProducts(targetId, products) {
           <p class="muted">規格：${p.size}</p>
           <div class="product-card__actions">
             <button class="btn btn-outline" type="button">查看詳情</button>
-            ${lineButton('這個適合我嗎？', productFitText((typeof p !== 'undefined' ? (p.displayName || p.name) : (product.displayName || product.name))))}
+            ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
           </div>
         </div>
       </article>
@@ -596,7 +598,7 @@ function openProductModal(p, sourceEl) {
       <div class="modal-gallery">
         ${gallery.map((src, idx) => `
           <div class="modal-gallery__item">
-            <img src="${src}" alt="${p.name} 圖片 ${idx + 1}" loading="lazy" decoding="async">
+            <img src="${src}" alt="${p.name} 圖片 ${idx + 1}">
           </div>
         `).join('')}
       </div>
@@ -621,7 +623,7 @@ function openProductModal(p, sourceEl) {
           <h3>想知道這一種適不適合你？</h3>
           <p>直接用 LINE 告訴我們你的生活方式，我們幫你整理。</p>
           <div class="final-cta__actions">
-            ${lineButton('這個適合我嗎？', productFitText((typeof p !== 'undefined' ? (p.displayName || p.name) : (product.displayName || product.name))))}
+            ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
           </div>
         </div>
       </div>
@@ -662,7 +664,7 @@ function finalCtaBlock(title, desc, message = '我想看龜鹿怎麼選，幫我
       <h3>${title}</h3>
       <p>${desc}</p>
       <div class="final-cta__actions">
-        ${lineButton('這個適合我嗎？', message)}
+        ${lineButton('LINE 幫我看適合哪個', message)}
       </div>
     </section>
   `;

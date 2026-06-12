@@ -1,0 +1,56 @@
+{
+  "version": "v127_final_official_master",
+  "website": {
+    "products": 6,
+    "faq_count": 60,
+    "video_count": 25,
+    "store_address": "台北市萬華區西昌街52號",
+    "source_tracking": true,
+    "cache_version": "127.0",
+    "missing_local_refs": [],
+    "missing_images": [],
+    "public_price_hits": [],
+    "site_js_syntax": "passed",
+    "features": [
+      "全站來源追蹤",
+      "LINE深度連結",
+      "產品適合度按鈕",
+      "FAQ/影片/知識/品牌來源辨識",
+      "官網不公開價格"
+    ]
+  },
+  "line_oa": {
+    "node_check": "passed",
+    "package_version": "1.2.7",
+    "missing_images": [],
+    "features": [
+      "保留既有購物車、優惠、數量、付款、出貨流程",
+      "新客推薦流程",
+      "不知道怎麼選不卡住",
+      "產品適合度Flex卡",
+      "商品搭配與價格導流",
+      "真人客服切換",
+      "現金付款、匯款、貨到付款、TWQR建置中"
+    ]
+  },
+  "google_sheet_crm": {
+    "apps_script": "google_apps_script_v127.js / Code.gs",
+    "sheets": [
+      "訂單主表",
+      "訂單明細",
+      "出貨管理",
+      "匯款對帳",
+      "客戶資料",
+      "CRM儀表板"
+    ],
+    "features": [
+      "訂單來源",
+      "客戶來源",
+      "主購商品",
+      "回購天數",
+      "客戶等級自動計算",
+      "出貨狀態下拉",
+      "CRM儀表板"
+    ]
+  }
+}
