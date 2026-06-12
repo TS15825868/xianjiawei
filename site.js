@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       await loadData();
     } catch (e) {
       console.warn('data.json 載入失敗，先顯示選單外殼', e);
-      SITE_DATA = SITE_DATA || {
+      SITE_DATA = {
         brand: '仙加味',
         lineId: '@762jybnm',
         products: [],
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=129.0');
+  const res = await fetch('data.json?v=129.2');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -76,7 +76,7 @@ function buildLineAutoLink(message = '我想看龜鹿怎麼選，幫我整理一
 }
 
 function lineButton(label = '怎麼選龜鹿？', text = '我想詢問仙加味產品。') {
-  const url = `https://line.me/R/oaMessage/${encodeURIComponent(SITE_DATA.lineId || '@762jybnm')}/?${encodeURIComponent(text)}`;
+  const url = `https://line.me/R/oaMessage/${encodeURIComponent(SITE_DATA?.lineId || '@762jybnm')}/?${encodeURIComponent(text)}`;
   return `<a class="btn btn-line" href="${url}" target="_blank" rel="noopener">${label}</a>`;
 }
 
@@ -313,7 +313,7 @@ function renderPage() {
 }
 
 function renderHome() {
-  fillProducts('home-products', SITE_DATA.products);
+  fillProducts('home-products', SITE_DATA.products || []);
 
   const comboWrap = document.getElementById('home-combo-list');
 
@@ -324,7 +324,7 @@ function renderHome() {
         <p class="eyebrow">首頁精選搭配</p>
         <h3>${combo.name}</h3>
         <p>${combo.desc}</p>
-        <p class="muted">內容：${combo.items.join('＋')}</p>
+        <p class="muted">內容：${Array.isArray(combo.items) ? combo.items.join('＋') : ''}</p>
         ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
         <div class="final-cta__actions">
           ${lineButton('這組適合我嗎？', `我想看「${combo.name}」這組適不適合我。`)}
@@ -336,18 +336,18 @@ function renderHome() {
 }
 
 function renderProductsPage() {
-  fillProducts('product-list', SITE_DATA.products);
+  fillProducts('product-list', SITE_DATA.products || []);
 
   const compare = document.getElementById('compare-grid');
 
   if (compare) {
-    compare.innerHTML = SITE_DATA.products.map(p => `
+    compare.innerHTML = (SITE_DATA.products || []).map(p => `
       <article class="card reveal">
-        <p class="eyebrow">${p.size}</p>
-        <h3>${p.displayName || p.name}</h3>
-        <p>${p.description}</p>
+        <p class="eyebrow">${p.size || ''}</p>
+        <h3>${p.displayName || p.name || ''}</h3>
+        <p>${p.description || ''}</p>
         <div class="final-cta__actions">
-          ${lineButton('這個適合我嗎？', productFitText(p.displayName || p.name))}
+          ${lineButton('這個適合我嗎？', productFitText(p.displayName || p.name || ''))}
         </div>
       </article>
     `).join('');
@@ -358,14 +358,16 @@ function renderChoosePage() {
   const el = document.getElementById('choose-results');
   if (!el) return;
 
-  el.innerHTML = SITE_DATA.recommend.map(r => `
+  const recommend = Array.isArray(SITE_DATA.recommend) ? SITE_DATA.recommend : [];
+
+  el.innerHTML = recommend.map(r => `
     <article class="card reveal">
-      <p class="eyebrow">${r.keyword}</p>
-      <h3>${r.result}</h3>
-      <p>${r.desc}</p>
+      <p class="eyebrow">${r.keyword || ''}</p>
+      <h3>${r.result || ''}</h3>
+      <p>${r.desc || ''}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        ${lineButton('這個適合我嗎？', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
+        ${lineButton('這個適合我嗎？', `我目前是「${r.keyword || '不確定'}」，想看哪一種比較適合我。`)}
       </div>
     </article>
   `).join('') + finalCtaBlock(
@@ -384,12 +386,12 @@ function renderComboPage() {
   el.innerHTML = combos.map((combo, index) => `
     <article class="card combo-card--featured reveal">
       ${index === 0 ? `<div class="combo-badge">最常先看這組</div>` : `<div class="combo-badge">搭配方案</div>`}
-      <h3>${combo.name}</h3>
-      <p>${combo.desc}</p>
-      <p class="muted">內容：${combo.items.join('＋')}</p>
+      <h3>${combo.name || ''}</h3>
+      <p>${combo.desc || ''}</p>
+      <p class="muted">內容：${Array.isArray(combo.items) ? combo.items.join('＋') : ''}</p>
       ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
       <div class="final-cta__actions">
-        ${lineButton('這組適合我嗎？', `我想看「${combo.name}」這組適不適合我。`)}
+        ${lineButton('這組適合我嗎？', `我想看「${combo.name || '套餐搭配'}」這組適不適合我。`)}
       </div>
     </article>
   `).join('') + finalCtaBlock(
@@ -400,13 +402,15 @@ function renderComboPage() {
 }
 
 function renderGuidePage() {
-  const items = SITE_DATA.pageContent?.guide || [];
+  const items = Array.isArray(SITE_DATA.pageContent?.guide)
+    ? SITE_DATA.pageContent.guide
+    : [];
 
   const html = items.map((item, index) => `
     <article class="card guide-card reveal">
       <p class="eyebrow">使用 ${index + 1}</p>
-      <h3>${item.title}</h3>
-      <p class="preline">${item.desc}</p>
+      <h3>${item.title || ''}</h3>
+      <p class="preline">${item.desc || ''}</p>
     </article>
   `).join('');
 
@@ -449,14 +453,44 @@ function renderRecipesPage() {
   const el = document.getElementById('recipe-grid');
   if (!el) return;
 
-  el.innerHTML = SITE_DATA.recipes.map(r => `
-    <article class="card reveal">
-      <p class="eyebrow">${r.category}</p>
-      <h3>${r.title}</h3>
-      <p>${r.desc}</p>
-      <ol>${r.steps.map(s => `<li>${s}</li>`).join('')}</ol>
-    </article>
-  `).join('') + finalCtaBlock(
+  const recipes = Array.isArray(SITE_DATA.recipes)
+    ? SITE_DATA.recipes
+    : (Array.isArray(SITE_DATA.pageContent?.recipes) ? SITE_DATA.pageContent.recipes : []);
+
+  if (!recipes.length) {
+    el.innerHTML = `
+      <article class="card reveal">
+        <p class="eyebrow">料理搭配</p>
+        <h3>料理內容整理中</h3>
+        <p>目前料理搭配內容正在整理，若想了解龜鹿膏、龜鹿湯塊、龜鹿膠或鹿茸粉怎麼搭配，可以先透過官方 LINE 詢問。</p>
+      </article>
+    ` + finalCtaBlock(
+      '想直接問哪一種比較適合你',
+      '如果你比較偏熱飲、燉湯或調飲，也可以直接用 LINE 問我們。',
+      '我想看我比較適合熱飲、燉湯還是調飲。'
+    );
+    return;
+  }
+
+  el.innerHTML = recipes.map(r => {
+    const title = r.title || '料理搭配';
+    const desc = r.desc || r.description || '';
+    const category = r.category || '日常搭配';
+    const steps = Array.isArray(r.steps) ? r.steps : [];
+
+    return `
+      <article class="card reveal">
+        <p class="eyebrow">${category}</p>
+        <h3>${title}</h3>
+        <p>${desc}</p>
+        ${
+          steps.length
+            ? `<ol>${steps.map(s => `<li>${s}</li>`).join('')}</ol>`
+            : ''
+        }
+      </article>
+    `;
+  }).join('') + finalCtaBlock(
     '想直接問哪一種比較適合你',
     '如果你比較偏熱飲、燉湯或調飲，也可以直接用 LINE 問我們。',
     '我想看我比較適合熱飲、燉湯還是調飲。'
@@ -489,7 +523,7 @@ function renderKnowledgePage() {
 function renderVideosPage() {
   const count = document.getElementById('video-count');
   const grid = document.getElementById('video-grid');
-  const videos = SITE_DATA.videos || [];
+  const videos = Array.isArray(SITE_DATA.videos) ? SITE_DATA.videos : [];
 
   if (count) count.textContent = videos.length;
   if (!grid) return;
@@ -501,7 +535,7 @@ function renderVideosPage() {
     <article class="card video-card reveal grid-span-2">
       <p class="eyebrow">合作中醫師</p>
       <h3>章無忌中醫師 TikTok 頻道</h3>
-      <p>本頁整理 25 支公開影片入口，依龜鹿系列、鹿茸系列與中醫師觀點分類。影片不自動播放，點擊後開啟 TikTok。</p>
+      <p>本頁整理 ${videos.length} 支公開影片入口，依龜鹿系列、鹿茸系列與中醫師觀點分類。影片不自動播放，點擊後開啟 TikTok。</p>
       <a class="btn btn-line" href="${channelUrl}" target="_blank" rel="noopener">觀看 TikTok 頻道</a>
     </article>
 
@@ -517,9 +551,9 @@ function renderVideosPage() {
   const cards = videos.map((v, i) => `
     <article class="card video-card reveal">
       <p class="eyebrow">${v.category || '影片'}</p>
-      <h3>${i + 1}. ${v.title}</h3>
+      <h3>${i + 1}. ${v.title || '影片'}</h3>
       <p>整理自公開平台，點擊後開啟原影片。</p>
-      <a class="btn btn-outline" href="${v.url}" target="_blank" rel="noopener">開啟影片</a>
+      <a class="btn btn-outline" href="${v.url || '#'}" target="_blank" rel="noopener">開啟影片</a>
     </article>
   `).join('');
 
@@ -534,7 +568,10 @@ function renderFaqPage() {
   const el = document.getElementById('faq-grid');
   if (!el) return;
 
-  const faqs = SITE_DATA.faq || SITE_DATA.faqs || [];
+  const faqs = Array.isArray(SITE_DATA.faq)
+    ? SITE_DATA.faq
+    : (Array.isArray(SITE_DATA.faqs) ? SITE_DATA.faqs : []);
+
   const groups = [...new Set(faqs.map(f => f.category || '常見問題'))];
 
   el.innerHTML = groups.map(group => `
@@ -545,9 +582,9 @@ function renderFaqPage() {
 
     ${faqs.filter(f => (f.category || '常見問題') === group).map(f => `
       <details class="faq-item reveal">
-        <summary>${f.q}</summary>
+        <summary>${f.q || ''}</summary>
         <div class="faq-item__body">
-          <p>${f.a}</p>
+          <p>${f.a || ''}</p>
         </div>
       </details>
     `).join('')}
@@ -562,14 +599,16 @@ function renderRecommendPage() {
   const el = document.getElementById('recommend-grid');
   if (!el) return;
 
-  el.innerHTML = SITE_DATA.recommend.map(r => `
+  const recommend = Array.isArray(SITE_DATA.recommend) ? SITE_DATA.recommend : [];
+
+  el.innerHTML = recommend.map(r => `
     <article class="card reveal">
-      <p class="eyebrow">${r.keyword}</p>
-      <h3>${r.result}</h3>
-      <p>${r.desc}</p>
+      <p class="eyebrow">${r.keyword || ''}</p>
+      <h3>${r.result || ''}</h3>
+      <p>${r.desc || ''}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        ${lineButton('這個適合我嗎？', `我目前是「${r.keyword}」，想請你幫我看適合哪一種。`)}
+        ${lineButton('這個適合我嗎？', `我目前是「${r.keyword || '不確定'}」，想請你幫我看適合哪一種。`)}
       </div>
     </article>
   `).join('');
@@ -611,13 +650,13 @@ function renderBrandPage() {
   }
 
   if (timeline) {
-    const items = b.timeline || [];
+    const items = Array.isArray(b.timeline) ? b.timeline : [];
 
     timeline.innerHTML = items.map((item, idx) => `
       <article class="card timeline-card reveal">
         <p class="eyebrow">${String(idx + 1).padStart(2, '0')}</p>
-        <h3>${item.title}</h3>
-        <p>${item.desc}</p>
+        <h3>${item.title || ''}</h3>
+        <p>${item.desc || ''}</p>
       </article>
     `).join('');
   }
@@ -675,7 +714,11 @@ function renderContactPage() {
   }
 
   if (notes) {
-    notes.innerHTML = (SITE_DATA.pageContent?.contactNotes || []).map(x => `<li>${x}</li>`).join('');
+    const contactNotes = Array.isArray(SITE_DATA.pageContent?.contactNotes)
+      ? SITE_DATA.pageContent.contactNotes
+      : [];
+
+    notes.innerHTML = contactNotes.map(x => `<li>${x}</li>`).join('');
   }
 
   if (storeInfo) {
@@ -711,25 +754,27 @@ function fillProducts(targetId, products) {
   const list = document.getElementById(targetId);
   if (!list) return;
 
-  list.innerHTML = products.map(p => {
-    const thumb = p.image || (p.gallery && p.gallery[0]);
+  const safeProducts = Array.isArray(products) ? products : [];
+
+  list.innerHTML = safeProducts.map(p => {
+    const thumb = p.image || (Array.isArray(p.gallery) && p.gallery[0]) || 'images/logo.png';
 
     return `
-      <article class="product-card reveal" data-product-id="${p.id}" tabindex="0" role="button" aria-label="查看 ${p.displayName || p.name} 詳細介紹">
+      <article class="product-card reveal" data-product-id="${p.id || ''}" tabindex="0" role="button" aria-label="查看 ${p.displayName || p.name || '產品'} 詳細介紹">
         <div class="product-card__img">
-          <img src="${thumb}" alt="${p.name}" loading="lazy" decoding="async">
+          <img src="${thumb}" alt="${p.name || '仙加味產品'}" loading="lazy" decoding="async">
         </div>
 
         <div class="product-card__body">
           <p class="eyebrow">${p.series || ''}</p>
-          <h3>${p.displayName || p.name}</h3>
-          <p>${p.description}</p>
+          <h3>${p.displayName || p.name || ''}</h3>
+          <p>${p.description || ''}</p>
           <p class="product-hint">第一次了解，可先從生活方式選，不一定要一次看完全部。</p>
-          <p class="muted">規格：${p.size}</p>
+          <p class="muted">規格：${p.size || ''}</p>
 
           <div class="product-card__actions">
             <button class="btn btn-outline" type="button">查看詳情</button>
-            ${lineButton('這個適合我嗎？', productFitText(p.displayName || p.name))}
+            ${lineButton('這個適合我嗎？', productFitText(p.displayName || p.name || ''))}
           </div>
         </div>
       </article>
@@ -740,7 +785,7 @@ function fillProducts(targetId, products) {
     const handler = (e) => {
       if (e && e.target.closest('a')) return;
 
-      const p = products.find(x => x.id === card.dataset.productId);
+      const p = safeProducts.find(x => x.id === card.dataset.productId);
       if (p) openProductModal(p, card);
     };
 
@@ -750,7 +795,7 @@ function fillProducts(targetId, products) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
 
-        const p = products.find(x => x.id === card.dataset.productId);
+        const p = safeProducts.find(x => x.id === card.dataset.productId);
         if (p) openProductModal(p, card);
       }
     });
@@ -758,15 +803,15 @@ function fillProducts(targetId, products) {
 }
 
 function renderSpecOptions(p) {
-  if (!p.specOptions || !p.specOptions.length) return '';
+  if (!Array.isArray(p.specOptions) || !p.specOptions.length) return '';
 
   return `
     <div class="modal-section spec-options">
       <h3>規格選擇</h3>
       ${p.specOptions.map(opt => `
         <div class="spec-option-card">
-          <strong>${opt.title}</strong>
-          <ul>${(opt.lines || []).map(line => `<li>${line}</li>`).join('')}</ul>
+          <strong>${opt.title || ''}</strong>
+          <ul>${(Array.isArray(opt.lines) ? opt.lines : []).map(line => `<li>${line}</li>`).join('')}</ul>
         </div>
       `).join('')}
     </div>
@@ -782,7 +827,7 @@ function openProductModal(p, sourceEl) {
   lastFocusedCard = sourceEl || document.activeElement;
 
   const gallery = Array.from(
-    new Set(((p.gallery && p.gallery.length) ? p.gallery : [p.image]).filter(Boolean))
+    new Set(((Array.isArray(p.gallery) && p.gallery.length) ? p.gallery : [p.image || 'images/logo.png']).filter(Boolean))
   );
 
   body.innerHTML = `
@@ -790,34 +835,34 @@ function openProductModal(p, sourceEl) {
       <div class="modal-gallery">
         ${gallery.map((src, idx) => `
           <div class="modal-gallery__item">
-            <img src="${src}" alt="${p.name} 圖片 ${idx + 1}" loading="lazy" decoding="async">
+            <img src="${src}" alt="${p.name || '產品'} 圖片 ${idx + 1}" loading="lazy" decoding="async">
           </div>
         `).join('')}
       </div>
 
       <div class="modal-copy">
         <p class="eyebrow">${p.series || '仙加味'}</p>
-        <h2>${p.displayName || p.name}</h2>
-        <p>${p.description}</p>
-        <p class="muted">規格：${p.size}</p>
+        <h2>${p.displayName || p.name || ''}</h2>
+        <p>${p.description || ''}</p>
+        <p class="muted">規格：${p.size || ''}</p>
 
         ${renderSpecOptions(p)}
 
         <div class="modal-section">
           <h3>成分</h3>
-          <p>${(p.ingredients || []).join('、')}</p>
+          <p>${(Array.isArray(p.ingredients) ? p.ingredients : []).join('、')}</p>
         </div>
 
         <div class="modal-section">
           <h3>使用方式</h3>
-          <ul>${(p.usage || []).map(i => `<li>${i}</li>`).join('')}</ul>
+          <ul>${(Array.isArray(p.usage) ? p.usage : []).map(i => `<li>${i}</li>`).join('')}</ul>
         </div>
 
         <div class="final-cta">
           <h3>想知道這一種適不適合你？</h3>
           <p>直接用 LINE 告訴我們你的生活方式，我們幫你整理。</p>
           <div class="final-cta__actions">
-            ${lineButton('這個適合我嗎？', productFitText(p.displayName || p.name))}
+            ${lineButton('這個適合我嗎？', productFitText(p.displayName || p.name || ''))}
           </div>
         </div>
       </div>
