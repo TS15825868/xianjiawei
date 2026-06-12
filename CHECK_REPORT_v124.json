@@ -1,0 +1,51 @@
+{
+  "version": "v124_professional_official_master",
+  "website": {
+    "products": 6,
+    "faq_count": 60,
+    "video_count": 25,
+    "store_address": "台北市萬華區西昌街52號",
+    "source_tracking": true,
+    "payments": [
+      "現金付款",
+      "匯款",
+      "貨到付款",
+      "TWQR（建置中）"
+    ],
+    "missing_local_refs": [],
+    "missing_images": [],
+    "public_price_hits": [],
+    "site_js_syntax": "passed",
+    "cache_version": "124.0",
+    "features": [
+      "全站LINE按鈕來源追蹤文字",
+      "官網不公開價格",
+      "門市地址統一",
+      "Guide頁專業化",
+      "FAQ 60題",
+      "影片25支",
+      "產品資料最新成分順序與食用方式"
+    ]
+  },
+  "line_oa": {
+    "products": 6,
+    "faq_count": 60,
+    "video_count": 25,
+    "node_check": "passed",
+    "missing_images": [],
+    "apps_script": "google_apps_script_v124.js",
+    "package_version": "1.2.4",
+    "features": [
+      "怎麼選龜鹿新版引導式推薦",
+      "我不知道怎麼選",
+      "固定補養→龜鹿膏",
+      "方便飲用→龜鹿飲",
+      "料理燉湯→龜鹿湯塊",
+      "大包裝固定使用→龜鹿膠",
+      "自行搭配熱飲→鹿茸粉",
+      "官網來源辨識自動回覆",
+      "Google Sheet訂單來源欄位",
+      "現金付款與TWQR建置中"
+    ]
+  }
+}

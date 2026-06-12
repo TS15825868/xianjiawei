@@ -889,7 +889,7 @@ p{margin:0 0 12px}
 .site-menu.open .site-menu__backdrop{opacity:1}
 .reveal,.reveal.show{opacity:1 !important;transform:none !important}
 
-/* v120 master */
-.video-card .btn{margin-top:auto}.faq-category{padding:8px 0}.faq-item__body p{line-height:1.8}
-
 .preline{white-space:pre-line;line-height:1.85}.guide-card h3{margin-bottom:10px}
+
+/* v124 source tracking */
+.video-card .btn{margin-top:auto}.faq-category{padding:8px 0}.faq-item__body p{line-height:1.8}
