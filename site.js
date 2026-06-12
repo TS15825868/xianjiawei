@@ -151,7 +151,7 @@ function renderFooter() {
   return `
     <div class="footer-card card">
       <div class="footer-brand-block">
-        <strong>${SITE_DATA?.brand || '仙加味'}・龜鹿</strong>
+        <strong>${SITE_DATA?.brand || '仙加味'}</strong>
         <p>補養，是一種節奏。</p>
         <p>把龜鹿放回日常飲食與生活安排裡。</p>
         <p>${SITE_DATA?.heritage?.footer || `SINCE 1978｜仙加味品牌 Founded 2008`}</p>
