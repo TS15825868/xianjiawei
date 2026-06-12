@@ -12,7 +12,7 @@ const MENU_GROUPS = [
     { href: 'guide.html', label: '怎麼使用' },
     { href: 'recipes.html', label: '料理搭配' },
     { href: 'video.html', label: '觀點影片' },
-    { href: 'knowledge.html', label: '龜鹿知識' }
+    { href: 'knowledge.html', label: '知識' }
   ] },
   { title: '🏛 品牌與服務', links: [
     { href: 'brand.html', label: '品牌故事' },
@@ -151,10 +151,10 @@ function renderFooter() {
   return `
     <div class="footer-card card">
       <div class="footer-brand-block">
-        <strong>${SITE_DATA?.brand || '仙加味'}・龜鹿</strong>
+        <strong>${SITE_DATA?.brand || '仙加味'}</strong>
         <p>補養，是一種節奏。</p>
         <p>把龜鹿放回日常飲食與生活安排裡。</p>
-        <p>${SITE_DATA?.heritage?.footer || `SINCE 1978｜仙加味品牌 Founded 2008`}</p>
+        <p>${SITE_DATA?.heritage?.footer || `補養，是一種節奏。`}</p>
       </div>
       <div class="footer-line-box">
         <div class="footer-line-logo">
@@ -269,7 +269,7 @@ function renderHome() {
         <p class="muted">內容：${combo.items.join('＋')}</p>
         ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
         <div class="final-cta__actions">
-          ${lineButton('LINE 幫我看這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
+          ${lineButton('這組適合我嗎？', `我想看「${combo.name}」這組適不適合我。`)}
           <a class="btn btn-outline" href="combo.html">看完整搭配</a>
         </div>
       </article>
@@ -322,7 +322,7 @@ function renderComboPage() {
       <p class="muted">內容：${combo.items.join('＋')}</p>
       ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
       <div class="final-cta__actions">
-        ${lineButton('LINE 幫我看這組適不適合', `我想看「${combo.name}」這組適不適合我。`)}
+        ${lineButton('這組適合我嗎？', `我想看「${combo.name}」這組適不適合我。`)}
       </div>
     </article>
   `).join('') + finalCtaBlock('想直接由我們幫你搭配', '不用自己慢慢比，直接用 LINE 告訴我們你的生活方式，我們幫你整理。', '我想看適合我的龜鹿搭配，請幫我整理。');
