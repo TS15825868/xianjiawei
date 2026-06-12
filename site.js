@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=128.0');
+  const res = await fetch('data.json?v=129.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -58,7 +58,7 @@ function buildLineAutoLink(message = '我想看龜鹿怎麼選，幫我整理一
   return `https://line.me/R/oaMessage/${lineId}/?${text}`;
 }
 
-function lineButton(label = '怎麼選龜鹿？', text = '我想詢問仙加味龜鹿產品。') {
+function lineButton(label = '怎麼選龜鹿？', text = '我想詢問仙加味產品。') {
   const url = `https://line.me/R/oaMessage/${encodeURIComponent(SITE_DATA.lineId || '@762jybnm')}/?${encodeURIComponent(text)}`;
   return `<a class="btn btn-line" href="${url}" target="_blank" rel="noopener">${label}</a>`;
 }
@@ -601,7 +601,7 @@ function openProductModal(p, sourceEl) {
         `).join('')}
       </div>
       <div class="modal-copy">
-        <p class="eyebrow">${p.series || '仙加味・龜鹿'}</p>
+        <p class="eyebrow">${p.series || '仙加味'}</p>
         <h2>${p.displayName || p.name}</h2>
         <p>${p.description}</p>
         <p class="muted">規格：${p.size}</p>
