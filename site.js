@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=125.0');
+  const res = await fetch('data.json?v=126.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
