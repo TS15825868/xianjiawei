@@ -1,31 +1,16 @@
 
 let SITE_DATA = null;
 const MENU_GROUPS = [
-  { title: '🏠 首頁', links: [{ href: 'index.html', label: '首頁' }] },
-  { title: '📦 產品與挑選', links: [
-    { href: 'products.html', label: '龜鹿系列' },
-    { href: 'choose.html', label: '怎麼選龜鹿' },
-    { href: 'combo.html', label: '套餐搭配' },
-    { href: 'dm.html', label: '產品整理' }
-  ] },
-  { title: '🍵 使用與內容', links: [
-    { href: 'guide.html', label: '怎麼使用' },
-    { href: 'recipes.html', label: '料理搭配' },
-    { href: 'videos.html', label: '觀點影片' },
-    { href: 'knowledge.html', label: '龜鹿知識' },
-    { href: 'recommend.html', label: '推薦整理' }
-  ] },
-  { title: '🏛 品牌與服務', links: [
-    { href: 'brand.html', label: '品牌故事' },
-    { href: 'faq.html', label: '常見問題 FAQ' },
-    { href: 'contact.html', label: '聯絡我們' }
-  ] }
+  { title: '首頁', links: [{ href: 'index.html', label: '首頁' }] },
+  { title: '產品與挑選', links: [{ href: 'products.html', label: '龜鹿系列' }, { href: 'choose.html', label: '怎麼選' }, { href: 'combo.html', label: '套餐搭配' }, { href: 'dm.html', label: '產品整理' }] },
+  { title: '使用與內容', links: [{ href: 'guide.html', label: '怎麼使用' }, { href: 'recipes.html', label: '料理搭配' }, { href: 'videos.html', label: '觀點影片' }, { href: 'knowledge.html', label: '食材與日常觀點' }, { href: 'recommend.html', label: '推薦整理' }] },
+  { title: '品牌與服務', links: [{ href: 'brand.html', label: '品牌故事' }, { href: 'faq.html', label: 'FAQ' }, { href: 'contact.html', label: '聯絡我們' }, { href: 'line-order.html', label: '訂購與對帳' }] }
 ];
 let lastFocusedCard = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    try { await loadData(); } catch (e) { console.warn('data.json 載入失敗，先顯示選單外殼', e); SITE_DATA = SITE_DATA || {brand:'仙加味', lineId:'@762jybnm', products:[], combos:[], offers:{comboOffers:[]}, recommend:[], recipes:[], videos:[], faqs:[]}; }
+    await loadData();
     buildShell();
     hydrateStaticFields();
     renderPage();
@@ -59,29 +44,9 @@ function buildLineAutoLink(message = '我想看龜鹿怎麼選，幫我整理一
   return `https://line.me/R/oaMessage/${lineId}/?${text}`;
 }
 
-function lineButton(label = '怎麼選龜鹿？', text = '我想知道哪一種龜鹿比較適合我。') {
-  const url = `https://line.me/R/oaMessage/${encodeURIComponent(SITE_DATA.lineId || '@762jybnm')}/?${encodeURIComponent(text)}`;
-  return `<a class="btn btn-line" href="${url}" target="_blank" rel="noopener">${label}</a>`;
+function lineButton(label = 'LINE 幫我看適合哪個', message = '我想看龜鹿怎麼選，幫我整理一個方向。') {
+  return `<a class="btn btn-line" href="${buildLineAutoLink(message)}" target="_blank" rel="noopener">${label}</a>`;
 }
-function sourceLineText(page = '') {
-  const map = {
-    home: '我想知道哪一種龜鹿比較適合我。',
-    products: '我從官網產品頁進來，想了解產品。',
-    combo: '我從官網套餐頁進來，想了解套餐搭配。',
-    choose: '我想知道哪一種龜鹿比較適合我。',
-    guide: '我從官網怎麼使用頁面進來，想了解產品使用方式。',
-    recipes: '我從官網料理頁進來，想了解龜鹿料理搭配。',
-    video: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
-    videos: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
-    knowledge: '我從官網知識頁進來，想了解龜鹿知識。',
-    brand: '我從官網品牌頁進來，想了解仙加味。',
-    faq: '我從官網FAQ頁面進來，有幾個問題想詢問。',
-    contact: '我從官網聯絡頁進來，想詢問產品資訊。'
-  };
-  return map[page] || '我想知道哪一種龜鹿比較適合我。';
-}
-function productFitText(productName = '') { return `我想了解${productName}適不適合我。`; }
-
 
 function buildShell() {
   const header = document.getElementById('site-header');
@@ -129,11 +94,6 @@ function renderMenuDrawer() {
             ${group.links.map(link => `<a href="${link.href}">${link.label}</a>`).join('')}
           </div>
         `).join('')}
-        <div class="menu-line-cta">
-          <p class="menu-line-cta__title">官方 LINE 客服</p>
-          <p class="menu-line-cta__id">LINE ID：<strong>${getLineId()}</strong></p>
-          ${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}
-        </div>
       </aside>
     </nav>
   `;
@@ -207,6 +167,10 @@ function bindGlobalEvents() {
       closeModal();
     }
   });
+
+  window.addEventListener('scroll', () => {
+    closeMenu();
+  }, { passive: true });
 }
 
 function closeMenu() {
@@ -656,6 +620,7 @@ function initReveal() {
     });
   };
   run();
+  window.addEventListener('scroll', run, { passive: true });
 }
 
 function finalCtaBlock(title, desc, message = '我想看龜鹿怎麼選，幫我整理一個方向。') {
