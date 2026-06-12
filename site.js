@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=124.0');
+  const res = await fetch('data.json?v=125.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -58,17 +58,17 @@ function buildLineAutoLink(message = '我想看龜鹿怎麼選，幫我整理一
   return `https://line.me/R/oaMessage/${lineId}/?${text}`;
 }
 
-function lineButton(label = 'LINE 詢問', text = '我想詢問仙加味龜鹿產品。') {
+function lineButton(label = '怎麼選龜鹿？', text = '我想詢問仙加味龜鹿產品。') {
   const url = `https://line.me/R/oaMessage/${encodeURIComponent(SITE_DATA.lineId || '@762jybnm')}/?${encodeURIComponent(text)}`;
   return `<a class="btn btn-line" href="${url}" target="_blank" rel="noopener">${label}</a>`;
 }
 
 function sourceLineText(page = '') {
   const map = {
-    home: '我從官網首頁進來，想了解龜鹿系列。',
+    home: '我想知道哪一種龜鹿比較適合我。',
     products: '我從官網產品頁進來，想了解產品。',
     combo: '我從官網套餐頁進來，想了解套餐搭配。',
-    choose: '我從官網怎麼選龜鹿頁面進來，想請你推薦適合我的產品。',
+    choose: '我想知道哪一種龜鹿比較適合我。',
     guide: '我從官網怎麼使用頁面進來，想了解產品使用方式。',
     recipes: '我從官網料理頁進來，想了解龜鹿料理搭配。',
     video: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
@@ -78,12 +78,17 @@ function sourceLineText(page = '') {
     faq: '我從官網FAQ頁面進來，有幾個問題想詢問。',
     contact: '我從官網聯絡頁進來，想詢問產品資訊。'
   };
-  return map[page] || '我從官網進來，想了解仙加味龜鹿系列。';
+  return map[page] || '我想知道哪一種龜鹿比較適合我。';
 }
 
-function pageLineButton(label = 'LINE 諮詢') {
+function pageLineButton(label = '怎麼選龜鹿？') {
   return lineButton(label, sourceLineText(document.body?.dataset?.page || 'home'));
 }
+
+function productFitText(productName = '') {
+  return `我想了解${productName}適不適合我。`;
+}
+
 
 
 function buildShell() {
@@ -135,7 +140,7 @@ function renderMenuDrawer() {
         <div class="menu-line-cta">
           <p class="menu-line-cta__title">官方 LINE 客服</p>
           <p class="menu-line-cta__id">LINE ID：<strong>${getLineId()}</strong></p>
-          ${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}
+          ${lineButton('這個適合我嗎？', '我想看龜鹿怎麼選，幫我整理一個方向。')}
         </div>
       </aside>
     </nav>
@@ -158,8 +163,8 @@ function renderFooter() {
         <div class="footer-line-copy">
           <p class="footer-line-title">官方 LINE</p>
           <p class="footer-line-id">LINE ID：<strong>${getLineId()}</strong></p>
-          <p class="muted">想了解搭配方式與方案，歡迎加入 LINE 詢問。</p>
-          <p>${lineButton('LINE 幫我看適合哪個', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
+          <p class="muted">想了解搭配方式與方案，歡迎加入 怎麼選龜鹿？。</p>
+          <p>${lineButton('這個適合我嗎？', '我想看龜鹿怎麼選，幫我整理一個方向。')}</p>
         </div>
         <img class="line-qr-small" src="images/line-qr.jpg" alt="仙加味官方 LINE QR Code" loading="lazy" decoding="async">
       </div>
@@ -282,7 +287,7 @@ function renderProductsPage() {
         <h3>${p.displayName || p.name}</h3>
         <p>${p.description}</p>
         <div class="final-cta__actions">
-          ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
+          ${lineButton('這個適合我嗎？', productFitText((typeof p !== 'undefined' ? (p.displayName || p.name) : (product.displayName || product.name))))}
         </div>
       </article>
     `).join('');
@@ -299,7 +304,7 @@ function renderChoosePage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        ${lineButton('LINE 幫我看適合哪個', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
+        ${lineButton('這個適合我嗎？', `我目前是「${r.keyword}」，想看哪一種比較適合我。`)}
       </div>
     </article>
   `).join('') + finalCtaBlock('不確定怎麼挑也沒關係', '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。', '我想看龜鹿怎麼選，幫我整理一個方向。');
@@ -430,7 +435,7 @@ function renderRecommendPage() {
       <p>${r.desc}</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="products.html">看產品</a>
-        ${lineButton('LINE 幫我看適合哪個', `我目前是「${r.keyword}」，想請你幫我看適合哪一種。`)}
+        ${lineButton('這個適合我嗎？', `我目前是「${r.keyword}」，想請你幫我看適合哪一種。`)}
       </div>
     </article>
   `).join('');
@@ -490,7 +495,7 @@ function renderBrandPage() {
       <p>如果你在萬華附近，可以先查看門市位置；若想了解產品型態與搭配方式，建議用 LINE 讓我們先幫你整理。</p>
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟地圖</a>
-        ${lineButton('LINE 幫我看適合哪個', '我想了解萬華門市與龜鹿產品，幫我整理一個方向。')}
+        ${lineButton('這個適合我嗎？', '我想了解萬華門市與龜鹿產品，幫我整理一個方向。')}
       </div>
     `;
   }
@@ -517,7 +522,7 @@ function renderContactPage() {
       <p><a class="btn btn-outline" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(store.address || '台北市萬華區西昌街52號')}" target="_blank" rel="noopener">開啟 Google 地圖</a></p>
     `;
   }
-  if (storeCard) storeCard.innerHTML = finalCtaBlock('直接透過 LINE 詢問', '把你想問的產品、數量或使用方式傳給我們，我們會協助整理。', sourceLineText('contact'));
+  if (storeCard) storeCard.innerHTML = finalCtaBlock('直接透過 怎麼選龜鹿？', '把你想問的產品、數量或使用方式傳給我們，我們會協助整理。', sourceLineText('contact'));
 }
 
 function fillProducts(targetId, products) {
@@ -539,7 +544,7 @@ function fillProducts(targetId, products) {
           <p class="muted">規格：${p.size}</p>
           <div class="product-card__actions">
             <button class="btn btn-outline" type="button">查看詳情</button>
-            ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
+            ${lineButton('這個適合我嗎？', productFitText((typeof p !== 'undefined' ? (p.displayName || p.name) : (product.displayName || product.name))))}
           </div>
         </div>
       </article>
@@ -616,7 +621,7 @@ function openProductModal(p, sourceEl) {
           <h3>想知道這一種適不適合你？</h3>
           <p>直接用 LINE 告訴我們你的生活方式，我們幫你整理。</p>
           <div class="final-cta__actions">
-            ${lineButton('LINE 幫我看適合哪個', `我想看「${p.name}」適不適合我。`)}
+            ${lineButton('這個適合我嗎？', productFitText((typeof p !== 'undefined' ? (p.displayName || p.name) : (product.displayName || product.name))))}
           </div>
         </div>
       </div>
@@ -657,7 +662,7 @@ function finalCtaBlock(title, desc, message = '我想看龜鹿怎麼選，幫我
       <h3>${title}</h3>
       <p>${desc}</p>
       <div class="final-cta__actions">
-        ${lineButton('LINE 幫我看適合哪個', message)}
+        ${lineButton('這個適合我嗎？', message)}
       </div>
     </section>
   `;
