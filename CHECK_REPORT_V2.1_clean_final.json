@@ -1,0 +1,24 @@
+{
+  "version": "V2.1_clean_final",
+  "website": {
+    "source": "仙加味網站_V2.0_可直接部署母本.zip",
+    "social_html_removed": true,
+    "social_assets_removed": true,
+    "official_dm_images": 6,
+    "missing_local_refs": [],
+    "missing_images": []
+  },
+  "line_oa": {
+    "source": "仙加味_LINEOA_V2.0_可部署母本.zip",
+    "official_dm_images": 6,
+    "social_assets_removed": true
+  },
+  "dm_pack": {
+    "official_dm": 6,
+    "reference_cards": 12
+  },
+  "social_pack": {
+    "generated_day_cards": 20,
+    "reference_originals": 12
+  }
+}

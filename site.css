@@ -893,3 +893,17 @@ p{margin:0 0 12px}
 
 /* v124 source tracking */
 .video-card .btn{margin-top:auto}.faq-category{padding:8px 0}.faq-item__body p{line-height:1.8}
+
+
+/* V2.0 final deployment additions */
+.dm-card-v2, .social-card-v2 { overflow: hidden; }
+.dm-image-v2 { width: 100%; max-height: 720px; object-fit: contain; background:#F7F4ED; border-radius: 20px; border:1px solid rgba(180,130,55,.28); }
+.social-image-v2 { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 20px; border:1px solid rgba(180,130,55,.28); background:#F7F4ED; }
+.dm-card-v2__body { padding-top: 18px; }
+.hero-actions { flex-wrap: wrap; }
+
+
+/* V2.1 clean final: official DM only, no website social cards */
+.dm-card-v2 { overflow: hidden; }
+.dm-image-v2 { width: 100%; max-height: 780px; object-fit: contain; background:#F7F4ED; border-radius: 20px; border:1px solid rgba(180,130,55,.28); }
+.dm-card-v2__body { padding-top: 18px; }

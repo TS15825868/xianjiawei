@@ -6,7 +6,7 @@ const MENU_GROUPS = [
     { href: 'products.html', label: '龜鹿系列' },
     { href: 'choose.html', label: '怎麼選龜鹿' },
     { href: 'combo.html', label: '套餐搭配' },
-    { href: 'dm.html', label: '產品整理' }
+    { href: 'dm.html', label: '產品DM' }
   ] },
   { title: '🍵 使用與內容', links: [
     { href: 'guide.html', label: '怎麼使用' },
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=129.2');
+  const res = await fetch('data.json?v=210.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);

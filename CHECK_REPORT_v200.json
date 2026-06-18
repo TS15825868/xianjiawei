@@ -1,0 +1,56 @@
+{
+  "brand": "仙加味",
+  "version": "V2.0 可直接部署母本",
+  "website": {
+    "version": "v200_final_deploy",
+    "source_zip": "xianjiawei-main 7.zip",
+    "products": [
+      "龜鹿膏",
+      "龜鹿飲30cc",
+      "龜鹿飲180cc",
+      "鹿茸粉",
+      "龜鹿湯塊",
+      "龜鹿膠"
+    ],
+    "product_images": 7,
+    "dm_images": 6,
+    "social_cards": 20,
+    "pages_added": [
+      "dm.html",
+      "social.html"
+    ],
+    "site_js_syntax": "passed",
+    "missing_local_refs": [],
+    "missing_image_refs": []
+  },
+  "line_oa": {
+    "version": "v200_final_deploy",
+    "source_zip": "TS-LINE-main 4.zip",
+    "products": [
+      "龜鹿膏",
+      "龜鹿飲30cc",
+      "龜鹿飲180cc",
+      "鹿茸粉",
+      "龜鹿湯塊",
+      "龜鹿膠"
+    ],
+    "product_images": 7,
+    "dm_images": 6,
+    "social_cards": 20,
+    "server_js_syntax": "passed",
+    "missing_image_refs": []
+  },
+  "notes": [
+    "已保留龜鹿飲180cc。",
+    "已加入六產品正式資料。",
+    "已加入產品實拍圖、DM圖、Day01-Day20社群圖卡。",
+    "網站新增dm.html與social.html。",
+    "LINE OA資料檔與FAQ已同步六產品。"
+  ],
+  "removed_old_files": [
+    "/mnt/data/xianjiawei_v200_final_deploy/site/xianjiawei-main/CHECK_REPORT_v128.json",
+    "/mnt/data/xianjiawei_v200_final_deploy/site/xianjiawei-main/CHECK_REPORT_v129.json",
+    "/mnt/data/xianjiawei_v200_final_deploy/line/TS-LINE-main/CHECK_REPORT_v128.json",
+    "/mnt/data/xianjiawei_v200_final_deploy/line/TS-LINE-main/CHECK_REPORT_v129.json"
+  ]
+}
