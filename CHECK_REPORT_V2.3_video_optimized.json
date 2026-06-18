@@ -1,0 +1,13 @@
+{
+  "version": "V2.3_video_optimized",
+  "video_count": 25,
+  "categories": {
+    "中醫師觀點": 7,
+    "鹿茸系列": 10,
+    "龜鹿系列": 8
+  },
+  "missing_local_refs": [],
+  "missing_images": [],
+  "site_js_syntax": "passed",
+  "social_cards_in_website": false
+}

@@ -963,3 +963,25 @@ p{margin:0 0 12px}
   .dm-lightbox__panel { width: 100%; height: calc(100vh - 20px); margin-top: 8px; padding: 8px; border-radius: 16px; }
   .dm-lightbox__close { width: 48px; height: 48px; font-size: 34px; line-height: 44px; }
 }
+
+
+/* V2.3 video page optimized */
+.video-page-v23 .section { margin-top: 40px; }
+.video-hero-v23 { background: radial-gradient(circle at 92% 18%, rgba(180,130,55,.16), transparent 28%), linear-gradient(135deg, #fffaf2 0%, #f7f1e6 56%, #efe5d5 100%); border: 1px solid rgba(180,130,55,.22); }
+.video-intro-grid-v23 { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 24px; }
+.video-feature-v23 h2 { margin-top: 8px; }
+.video-note-v23 { background: #fff8ef; border-color: rgba(123,30,30,.18); }
+.video-category-grid-v23 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+.video-category-card { background: #fff; border: 1px solid rgba(11,31,59,.08); border-radius: 24px; padding: 24px; box-shadow: 0 12px 30px rgba(15,23,42,.06); }
+.video-category-card h3 { margin: 8px 0; color: #0B1F3B; }
+.video-list-v23 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+.video-card-v23 { display: grid; grid-template-columns: 64px minmax(0,1fr); gap: 18px; background: #fff; border: 1px solid rgba(11,31,59,.08); border-radius: 24px; padding: 22px; box-shadow: 0 12px 30px rgba(15,23,42,.06); }
+.video-card-v23__num { width: 52px; height: 52px; border-radius: 50%; background: #7B1E1E; color: #fff; display:flex; align-items:center; justify-content:center; font-weight: 800; letter-spacing: .02em; }
+.video-card-v23 h3 { margin: 8px 0 8px; font-size: clamp(20px, 2.2vw, 26px); }
+.video-card-v23 p { margin-bottom: 14px; }
+.video-badge { display: inline-flex; align-items: center; min-height: 38px; padding: 0 16px; border-radius: 999px; background: #F7F4ED; color: #7B1E1E; font-weight: 800; border: 1px solid rgba(123,30,30,.18); }
+@media (max-width: 860px) {
+  .video-intro-grid-v23, .video-category-grid-v23, .video-list-v23 { grid-template-columns: 1fr; }
+  .video-card-v23 { grid-template-columns: 52px minmax(0,1fr); padding: 18px; }
+  .video-card-v23__num { width: 44px; height: 44px; }
+}

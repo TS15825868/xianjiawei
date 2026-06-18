@@ -773,7 +773,7 @@
       "家庭使用"
     ]
   },
-  "version": "v220_dm_lightbox",
+  "version": "v230_video_optimized",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,
@@ -886,5 +886,6 @@
     }
   ],
   "note_v210": "官網上線包不含社群圖卡；DM圖與社群圖卡已分離成獨立素材包。",
-  "note_v220": "dm.html 開啟DM圖改為站內彈窗，支援右上角 X、點背景、ESC 關閉。"
+  "note_v220": "dm.html 開啟DM圖改為站內彈窗，支援右上角 X、點背景、ESC 關閉。",
+  "note_v230": "video.html / videos.html 已改為正式觀點影片頁。"
 }
