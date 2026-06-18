@@ -48,7 +48,8 @@
         "或保存於5°C以下冷藏",
         "開封後建議冷藏保存"
       ],
-      "fit": "想固定安排、喜歡小匙或熱水化開飲用的人"
+      "fit": "想固定安排、喜歡小匙或熱水化開飲用的人",
+      "imageUpdated": "2026-06-18 product box update"
     },
     {
       "id": "guilu-drink-30",
@@ -169,7 +170,8 @@
         "常溫置於陰涼處",
         "或保存於5°C以下冷藏"
       ],
-      "fit": "想小包裝、低單價、方便沖泡或燉湯的人"
+      "fit": "想小包裝、低單價、方便沖泡或燉湯的人",
+      "imageUpdated": "2026-06-18 product box update"
     },
     {
       "id": "guilu-jiao",
@@ -198,7 +200,8 @@
         "常溫置於陰涼處",
         "或保存於5°C以下冷藏"
       ],
-      "fit": "想長期使用、家庭固定安排或大包裝的人"
+      "fit": "想長期使用、家庭固定安排或大包裝的人",
+      "imageUpdated": "2026-06-18 product box update"
     }
   ],
   "combos": [
@@ -773,7 +776,7 @@
       "家庭使用"
     ]
   },
-  "version": "v240_customer_clean",
+  "version": "v251_product_box_update",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,

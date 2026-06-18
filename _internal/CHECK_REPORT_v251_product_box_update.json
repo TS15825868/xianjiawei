@@ -1,0 +1,22 @@
+{
+  "version": "v251_from_user_uploaded_packages",
+  "website_source": "xianjiawei-main 8.zip",
+  "line_source": "TS-LINE-main 5.zip",
+  "dimension_policy": "既有圖片覆蓋時維持原本目標尺寸；新增貼文圖固定 1080x1080。",
+  "generated_16x9_asset_used": false,
+  "new_photo_sources": {
+    "guilu_tangkuai_front": "BA4BF2A0-1D83-473F-A27E-543662DEA1E5.jpeg",
+    "guilu_tangkuai_open": "2EC43261-F77C-4C32-9047-C4228CFE3DAA.jpeg",
+    "guilu_jiao_front": "6E7EB369-DCC1-49CF-BE1E-609062F6936E.jpeg",
+    "guilu_jiao_open": "CC8CADB7-8ACF-4407-B21B-CDA3F33FAB41.jpeg",
+    "guilu_gao_box_jar": "132ED734-7C97-4F5D-8DC0-0E66A4A89C69.jpeg"
+  },
+  "updated_web_count": 23,
+  "updated_line_count": 25,
+  "updated_dm_count": 7,
+  "updated_social_count": 12,
+  "website_missing_refs": [],
+  "site_js_check": "passed",
+  "line_server_check": "passed",
+  "created_at": "2026-06-18 13:23:35"
+}
