@@ -895,7 +895,7 @@ p{margin:0 0 12px}
 .video-card .btn{margin-top:auto}.faq-category{padding:8px 0}.faq-item__body p{line-height:1.8}
 
 
-/* V2.0 final deployment additions */
+
 .dm-card-v2, .social-card-v2 { overflow: hidden; }
 .dm-image-v2 { width: 100%; max-height: 720px; object-fit: contain; background:#F7F4ED; border-radius: 20px; border:1px solid rgba(180,130,55,.28); }
 .social-image-v2 { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 20px; border:1px solid rgba(180,130,55,.28); background:#F7F4ED; }
@@ -903,13 +903,13 @@ p{margin:0 0 12px}
 .hero-actions { flex-wrap: wrap; }
 
 
-/* V2.1 clean final: official DM only, no website social cards */
+
 .dm-card-v2 { overflow: hidden; }
 .dm-image-v2 { width: 100%; max-height: 780px; object-fit: contain; background:#F7F4ED; border-radius: 20px; border:1px solid rgba(180,130,55,.28); }
 .dm-card-v2__body { padding-top: 18px; }
 
 
-/* V2.2 DM lightbox: open DM inside website with X close */
+
 .dm-lightbox {
   position: fixed;
   inset: 0;
@@ -965,7 +965,7 @@ p{margin:0 0 12px}
 }
 
 
-/* V2.3 video page optimized */
+
 .video-page-v23 .section { margin-top: 40px; }
 .video-hero-v23 { background: radial-gradient(circle at 92% 18%, rgba(180,130,55,.16), transparent 28%), linear-gradient(135deg, #fffaf2 0%, #f7f1e6 56%, #efe5d5 100%); border: 1px solid rgba(180,130,55,.22); }
 .video-intro-grid-v23 { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 24px; }

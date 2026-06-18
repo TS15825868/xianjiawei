@@ -773,7 +773,7 @@
       "家庭使用"
     ]
   },
-  "version": "v230_video_optimized",
+  "version": "v240_customer_clean",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,
@@ -812,7 +812,7 @@
     "note": "品牌名稱統一使用仙加味，龜鹿作為產品系列名稱。"
   },
   "productLineFinal": {
-    "version": "V2.0",
+    "version": "",
     "products": [
       "龜鹿膏",
       "龜鹿飲30cc",
@@ -821,7 +821,7 @@
       "龜鹿湯塊",
       "龜鹿膠"
     ],
-    "note": "龜鹿飲180cc保留販售，網站與LINE OA皆以六產品為正式母本。"
+    "note": "龜鹿飲180cc保留販售，網站與LINE OA皆以六產品為正式版。"
   },
   "faqs": [
     {
@@ -884,8 +884,5 @@
       "q": "有健康狀況或正在看診可以詢問嗎？",
       "a": "若有特殊健康狀況、正在看診、用藥、孕期或其他疑慮，建議先詢問專業醫師或由我們協助轉介合作中醫師。"
     }
-  ],
-  "note_v210": "官網上線包不含社群圖卡；DM圖與社群圖卡已分離成獨立素材包。",
-  "note_v220": "dm.html 開啟DM圖改為站內彈窗，支援右上角 X、點背景、ESC 關閉。",
-  "note_v230": "video.html / videos.html 已改為正式觀點影片頁。"
+  ]
 }
