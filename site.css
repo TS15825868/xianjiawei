@@ -1044,3 +1044,48 @@ p{margin:0 0 12px}
   border-radius: 22px;
   background: #F7F4ED;
 }
+
+
+/* v256｜品牌故事內容加強 */
+.timeline-card p {
+  line-height: 1.9;
+}
+
+body[data-page="brand"] .card p {
+  line-height: 1.9;
+}
+
+body[data-page="brand"] .hero__content p {
+  max-width: 760px;
+}
+
+
+/* v257｜全站內容豐富版 */
+.card ul {
+  padding-left: 1.25rem;
+  line-height: 1.9;
+}
+
+.faq-list {
+  display: grid;
+  gap: 14px;
+}
+
+.faq-item {
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(12,31,59,.08);
+  border-radius: 20px;
+  padding: 18px 20px;
+  box-shadow: 0 12px 28px rgba(11,31,59,.06);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: #0B1F3B;
+}
+
+.faq-item p {
+  margin-top: 12px;
+  line-height: 1.9;
+}

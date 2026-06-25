@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=253.0');
+  const res = await fetch('data.json?v=257.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -917,3 +917,117 @@ function finalCtaBlock(title, desc, message = '我想看龜鹿怎麼選，幫我
 }
 
 window.closeModal = closeModal;
+
+
+function makeInfoCard(title, desc) {
+  return `<article class="card reveal"><h3>${title}</h3><p>${desc}</p></article>`;
+}
+
+function renderRichProducts(data) {
+  const mount = document.querySelector('[data-rich-products]');
+  if (!mount || !data.productGuide) return;
+  mount.innerHTML = `
+    <section class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">產品整理</p>
+        <h2>${data.productGuide.title}</h2>
+        <p>${data.productGuide.intro}</p>
+      </div>
+      <div class="grid grid-3">
+        ${data.productGuide.cards.map(i => makeInfoCard(`${i.name}｜${i.type}`, i.desc)).join('')}
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">快速比較</p>
+        <h2>常見產品差異</h2>
+        <p>先看差異，再決定要從哪一款開始詢問。</p>
+      </div>
+      <div class="grid grid-2">
+        ${data.productGuide.compare.map(i => makeInfoCard(i.title, i.desc)).join('')}
+      </div>
+    </section>`;
+}
+
+function renderRichGuide(data) {
+  const mount = document.querySelector('[data-rich-guide]');
+  if (!mount || !data.usageGuide) return;
+  mount.innerHTML = `
+    <section class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">日常安排</p>
+        <h2>${data.usageGuide.title}</h2>
+        <p>${data.usageGuide.intro}</p>
+      </div>
+      <div class="grid grid-2">
+        ${data.usageGuide.daily.map(i => makeInfoCard(i.title, i.desc)).join('')}
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">各產品使用方式</p>
+        <h2>買回去怎麼用</h2>
+        <p>每一種產品的使用方式整理如下。</p>
+      </div>
+      <div class="grid grid-3">
+        ${data.usageGuide.products.map(i => `<article class="card reveal"><h3>${i.name}</h3><ul>${i.steps.map(s => `<li>${s}</li>`).join('')}</ul></article>`).join('')}
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">保存方式</p>
+        <h2>保存也要清楚</h2>
+      </div>
+      <div class="card reveal"><ul>${data.usageGuide.storage.map(s => `<li>${s}</li>`).join('')}</ul></div>
+    </section>`;
+}
+
+function renderRichRecipes(data) {
+  const mount = document.querySelector('[data-rich-recipes]');
+  if (!mount || !data.recipeGuide) return;
+  mount.innerHTML = `
+    <section class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">料理搭配</p>
+        <h2>${data.recipeGuide.title}</h2>
+        <p>${data.recipeGuide.intro}</p>
+      </div>
+      <div class="grid grid-2">
+        ${data.recipeGuide.recipes.map(r => `
+          <article class="card reveal">
+            <h3>${r.name}</h3>
+            <p><strong>準備：</strong>${r.items.join('、')}</p>
+            <ul>${r.steps.map(s => `<li>${s}</li>`).join('')}</ul>
+          </article>
+        `).join('')}
+      </div>
+      <div class="card reveal"><h3>料理提醒</h3><ul>${data.recipeGuide.notes.map(s => `<li>${s}</li>`).join('')}</ul></div>
+    </section>`;
+}
+
+function renderRichFaq(data) {
+  const mount = document.querySelector('[data-rich-faq]');
+  if (!mount || !Array.isArray(data.faqRich)) return;
+  mount.innerHTML = `
+    <section class="section">
+      <div class="section-heading reveal">
+        <p class="eyebrow">FAQ</p>
+        <h2>購買前常見問題</h2>
+        <p>先看常見問題，仍不確定可以直接加入 LINE 詢問。</p>
+      </div>
+      <div class="faq-list">
+        ${data.faqRich.map(i => `<details class="faq-item reveal"><summary>${i.q}</summary><p>${i.a}</p></details>`).join('')}
+      </div>
+    </section>`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    if (typeof DATA !== 'undefined') {
+      renderRichProducts(DATA);
+      renderRichGuide(DATA);
+      renderRichRecipes(DATA);
+      renderRichFaq(DATA);
+    }
+  }, 500);
+});
