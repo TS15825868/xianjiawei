@@ -22,9 +22,7 @@
       "displayName": "龜鹿膏",
       "size": "100g／罐",
       "image": "images/products-v2/guilu-gao.jpeg",
-      "gallery": [
-        "images/dm-final/01_龜鹿膏_100g_DM.jpg"
-      ],
+      "gallery": [],
       "dmImage": "images/dm-final/01_龜鹿膏_100g_DM.jpg",
       "description": "適合想建立固定補養節奏的人，可直接食用，也可加入熱水化開後飲用。",
       "ingredients": [
@@ -47,7 +45,10 @@
         "或保存於5°C以下冷藏",
         "開封後建議冷藏保存"
       ],
-      "fit": "想固定安排、喜歡小匙或熱水化開飲用的人"
+      "fit": "想固定安排、喜歡小匙或熱水化開飲用的人",
+      "detailImages": [
+        "images/dm-final/01_龜鹿膏_100g_DM.jpg"
+      ]
     },
     {
       "id": "guilu-drink-30",
@@ -56,9 +57,7 @@
       "displayName": "龜鹿飲30cc",
       "size": "30cc／瓶",
       "image": "images/products-v2/guilu-drink-30.jpeg",
-      "gallery": [
-        "images/dm-final/02_龜鹿飲30cc_DM.jpg"
-      ],
+      "gallery": [],
       "dmImage": "images/dm-final/02_龜鹿飲30cc_DM.jpg",
       "description": "小瓶即飲，適合外出、工作空檔、下午時段或想要方便安排的人。",
       "ingredients": [
@@ -78,7 +77,10 @@
         "常溫置於陰涼處",
         "開瓶後請儘速飲用完畢"
       ],
-      "fit": "想方便即飲、外出攜帶、工作空檔飲用的人"
+      "fit": "想方便即飲、外出攜帶、工作空檔飲用的人",
+      "detailImages": [
+        "images/dm-final/02_龜鹿飲30cc_DM.jpg"
+      ]
     },
     {
       "id": "guilu-drink-180",
@@ -87,9 +89,7 @@
       "displayName": "龜鹿飲180cc",
       "size": "180cc／包",
       "image": "images/products-v2/guilu-drink-180.jpeg",
-      "gallery": [
-        "images/dm-final/03_龜鹿飲180cc_DM.jpg"
-      ],
+      "gallery": [],
       "dmImage": "images/dm-final/03_龜鹿飲180cc_DM.jpg",
       "description": "鋁袋包裝容量較大，適合家庭分享、固定回購與日常飲用安排。",
       "ingredients": [
@@ -111,7 +111,10 @@
         "或保存於5°C以下冷藏",
         "開封後請儘速飲用完畢"
       ],
-      "fit": "想一次喝一包、家庭分享或固定安排的人"
+      "fit": "想一次喝一包、家庭分享或固定安排的人",
+      "detailImages": [
+        "images/dm-final/03_龜鹿飲180cc_DM.jpg"
+      ]
     },
     {
       "id": "luerong-fen",
@@ -120,9 +123,7 @@
       "displayName": "鹿茸粉",
       "size": "75g／罐",
       "image": "images/products-v2/luerong-fen.jpeg",
-      "gallery": [
-        "images/dm-final/04_鹿茸粉75g_DM.jpg"
-      ],
+      "gallery": [],
       "dmImage": "images/dm-final/04_鹿茸粉75g_DM.jpg",
       "description": "粉狀型態，適合想自行搭配溫開水、牛奶、豆漿或其他飲品的人。",
       "ingredients": [
@@ -136,7 +137,10 @@
         "開封後請密封保存",
         "並儘早食用完畢"
       ],
-      "fit": "想自由搭配飲品、調整飲用方式的人"
+      "fit": "想自由搭配飲品、調整飲用方式的人",
+      "detailImages": [
+        "images/dm-final/04_鹿茸粉75g_DM.jpg"
+      ]
     },
     {
       "id": "guilu-tangkuai",
@@ -145,9 +149,7 @@
       "displayName": "龜鹿湯塊",
       "size": "75g／盒｜8塊裝｜每塊9.375g",
       "image": "images/products-v2/guilu-tangkuai.jpeg",
-      "gallery": [
-        "images/dm-final/05_龜鹿湯塊75g_DM.jpg"
-      ],
+      "gallery": [],
       "dmImage": "images/dm-final/05_龜鹿湯塊75g_DM.jpg",
       "description": "小包裝，方便攜帶、熱水沖泡、保溫壺悶泡，也適合雞湯或排骨湯燉煮。",
       "ingredients": [
@@ -163,7 +165,10 @@
         "常溫置於陰涼處",
         "或保存於5°C以下冷藏"
       ],
-      "fit": "想小包裝、低單價、方便沖泡或燉湯的人"
+      "fit": "想小包裝、低單價、方便沖泡或燉湯的人",
+      "detailImages": [
+        "images/dm-final/05_龜鹿湯塊75g_DM.jpg"
+      ]
     },
     {
       "id": "guilu-jiao",
@@ -172,9 +177,7 @@
       "displayName": "龜鹿膠",
       "size": "600g／盒（1斤）｜32塊裝｜每塊18.75g",
       "image": "images/products-v2/guilu-jiao.jpeg",
-      "gallery": [
-        "images/dm-final/06_龜鹿膠600g_DM.jpg"
-      ],
+      "gallery": [],
       "dmImage": "images/dm-final/06_龜鹿膠600g_DM.jpg",
       "description": "大包裝、一次購買、長期使用、經濟實惠，適合固定使用者與家庭安排。",
       "ingredients": [
@@ -191,7 +194,10 @@
         "常溫置於陰涼處",
         "或保存於5°C以下冷藏"
       ],
-      "fit": "想長期使用、家庭固定安排或大包裝的人"
+      "fit": "想長期使用、家庭固定安排或大包裝的人",
+      "detailImages": [
+        "images/dm-final/06_龜鹿膠600g_DM.jpg"
+      ]
     }
   ],
   "combos": [
@@ -766,7 +772,7 @@
       "家庭使用"
     ]
   },
-  "version": "v252_product_card_actual_packaging_detail_dm",
+  "version": "v253_force_product_card_actual_packaging_modal_dm_only",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,

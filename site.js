@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=252.0');
+  const res = await fetch('data.json?v=253.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -826,13 +826,19 @@ function openProductModal(p, sourceEl) {
 
   lastFocusedCard = sourceEl || document.activeElement;
 
-  // 產品卡顯示實際外包裝；產品詳情只放 1 張 DM 圖。
-  const detailImage = p.dmImage || (Array.isArray(p.gallery) && p.gallery[0]) || p.image || 'images/logo.png';
+  // v253 強制規則：
+  // 產品卡片只用 p.image（實際外包裝）。
+  // 產品詳情彈窗只用 p.dmImage / p.detailImages[0]（一張 DM）。
+  // 不再讀取 gallery，不再顯示產品照。
+  const detailImage =
+    p.dmImage ||
+    (Array.isArray(p.detailImages) && p.detailImages[0]) ||
+    'images/logo.png';
 
   body.innerHTML = `
-    <div class="modal-top">
-      <div class="modal-gallery modal-gallery--single">
-        <div class="modal-gallery__item modal-gallery__item--dm">
+    <div class="modal-top modal-top--dm-only">
+      <div class="modal-gallery modal-gallery--single modal-gallery--dm-only">
+        <div class="modal-gallery__item modal-gallery__item--dm-only">
           <img src="${detailImage}" alt="${p.name || '產品'} 產品DM" loading="lazy" decoding="async">
         </div>
       </div>

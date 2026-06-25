@@ -998,3 +998,27 @@ p{margin:0 0 12px}
   object-fit: contain;
   background: #F7F4ED;
 }
+
+
+/* v253｜產品詳情強制只顯示一張 DM 圖 */
+.modal-gallery--dm-only {
+  display: block !important;
+}
+
+.modal-gallery__item--dm-only {
+  width: 100% !important;
+  background: #F7F4ED;
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.modal-gallery__item--dm-only img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block;
+}
+
+.modal-top--dm-only .modal-gallery img {
+  object-fit: contain !important;
+}

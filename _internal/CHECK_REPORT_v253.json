@@ -1,0 +1,13 @@
+{
+  "version": "v253_force_modal_dm_only",
+  "changes": [
+    "首頁 HERO 圖區移除",
+    "首頁品牌故事卡片圖片改龜鹿膏DM",
+    "所有產品卡使用實際外包裝 product.image",
+    "所有產品詳情彈窗強制只顯示 1 張 DM 圖 p.dmImage",
+    "清空 data.json gallery，避免舊多圖被讀取",
+    "HTML cache 版本更新到 253.0"
+  ],
+  "site_js_check": "passed",
+  "created_at": "2026-06-25 11:02:32"
+}
