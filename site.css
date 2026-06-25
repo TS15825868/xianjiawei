@@ -1033,3 +1033,14 @@ p{margin:0 0 12px}
   border-radius: 22px;
   background: #F7F4ED;
 }
+
+
+/* v255｜首頁品牌故事卡片使用龜鹿系列橫式品牌圖 */
+.brand-proof-card .story-photo {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 22px;
+  background: #F7F4ED;
+}
