@@ -148,11 +148,11 @@
       "name": "龜鹿湯塊",
       "displayName": "龜鹿湯塊",
       "size": "75g／盒｜8塊裝｜每塊9.375g",
-      "image": "images/products-v2/guilu-tangkuai.jpeg",
+      "image": "images/products-v2/guilu-tangkuai-open-new.jpg",
       "gallery": [
-        "images/products-v2/guilu-tangkuai.jpeg",
-        "images/products-v2/guilu-tangkuai-pieces.jpeg",
-        "images/dm-final/05_龜鹿湯塊75g_DM.jpg"
+        "images/products-v2/guilu-tangkuai-box-new.jpg",
+        "images/products-v2/guilu-tangkuai-open-new.jpg",
+        "images/products-v2/guilu-tangkuai-pieces-new.jpg"
       ],
       "dmImage": "images/dm-final/05_龜鹿湯塊75g_DM.jpg",
       "description": "小包裝，方便攜帶、熱水沖泡、保溫壺悶泡，也適合雞湯或排骨湯燉煮。",
@@ -169,7 +169,8 @@
         "常溫置於陰涼處",
         "或保存於5°C以下冷藏"
       ],
-      "fit": "想小包裝、低單價、方便沖泡或燉湯的人"
+      "fit": "想小包裝、低單價、方便沖泡或燉湯的人",
+      "galleryNote": "外盒、打開盒、內容物三張產品圖。"
     },
     {
       "id": "guilu-jiao",
@@ -177,9 +178,10 @@
       "name": "龜鹿膠",
       "displayName": "龜鹿膠",
       "size": "600g／盒（1斤）｜32塊裝｜每塊18.75g",
-      "image": "images/products-v2/guilu-jiao.jpeg",
+      "image": "images/products-v2/guilu-jiao-box-jar-new.jpg",
       "gallery": [
-        "images/products-v2/guilu-jiao.jpeg",
+        "images/products-v2/guilu-jiao-box-jar-new.jpg",
+        "images/products-v2/guilu-jiao-open-new.jpg",
         "images/dm-final/06_龜鹿膠600g_DM.jpg"
       ],
       "dmImage": "images/dm-final/06_龜鹿膠600g_DM.jpg",
@@ -198,7 +200,8 @@
         "常溫置於陰涼處",
         "或保存於5°C以下冷藏"
       ],
-      "fit": "想長期使用、家庭固定安排或大包裝的人"
+      "fit": "想長期使用、家庭固定安排或大包裝的人",
+      "galleryNote": "盒罐、打開盒、正式DM三張。"
     }
   ],
   "combos": [
@@ -773,7 +776,7 @@
       "家庭使用"
     ]
   },
-  "version": "v240_customer_clean",
+  "version": "v252_hero_gallery_update",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,

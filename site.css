@@ -985,3 +985,31 @@ p{margin:0 0 12px}
   .video-card-v23 { grid-template-columns: 52px minmax(0,1fr); padding: 18px; }
   .video-card-v23__num { width: 44px; height: 44px; }
 }
+
+
+/* v252 首頁 Hero 圖片配置 */
+.hero--with-media{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(280px,420px);
+  gap:28px;
+  align-items:center;
+}
+.hero__media{
+  border:1px solid rgba(180,130,55,.28);
+  border-radius:28px;
+  overflow:hidden;
+  background:#fffaf2;
+  box-shadow:0 18px 48px rgba(47,35,23,.12);
+}
+.hero__media img{
+  width:100%;
+  display:block;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  object-position:top center;
+}
+@media (max-width: 820px){
+  .hero--with-media{grid-template-columns:1fr;}
+  .hero__media{border-radius:22px;}
+  .hero__media img{aspect-ratio:1/1; object-fit:cover;}
+}
