@@ -1022,3 +1022,14 @@ p{margin:0 0 12px}
 .modal-top--dm-only .modal-gallery img {
   object-fit: contain !important;
 }
+
+
+/* v254｜首頁品牌故事卡片圖修正：使用橫式 DM 預覽圖，避免直式 DM 被裁切 */
+.brand-proof-card .story-photo {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 22px;
+  background: #F7F4ED;
+}

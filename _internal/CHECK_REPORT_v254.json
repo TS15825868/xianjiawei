@@ -1,0 +1,14 @@
+{
+  "version": "v254_homepage_dm_preview_fix",
+  "issue": "首頁品牌故事卡直接使用直式龜鹿膏DM，造成手機版只顯示中間裁切區，看起來怪。",
+  "fix": [
+    "新增橫式龜鹿膏DM重點預覽圖 images/hero/guilu-gao-dm-card-preview.jpg",
+    "首頁品牌故事卡片改用橫式預覽圖，不再直接放直式DM",
+    "產品詳情仍保留單張完整DM圖",
+    "cache版本更新為254.0"
+  ],
+  "preview_image": "images/hero/guilu-gao-dm-card-preview.jpg",
+  "full_preview_backup": "images/hero/guilu-gao-dm-card-full-preview.jpg",
+  "site_js_check": "passed",
+  "created_at": "2026-06-25 11:28:13"
+}
