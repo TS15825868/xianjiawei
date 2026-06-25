@@ -1,0 +1,12 @@
+{
+  "version": "v252_product_cards_actual_packaging_detail_dm",
+  "changes": [
+    "index.html hero__media removed",
+    "index.html brand-proof-card image replaced with 龜鹿膏 DM",
+    "product cards use actual packaging via data.json product.image",
+    "product modal details show exactly one DM image via p.dmImage",
+    "product.gallery reduced to one DM image"
+  ],
+  "site_js_check": "passed",
+  "created_at": "2026-06-25 10:31:47"
+}

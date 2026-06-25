@@ -826,18 +826,15 @@ function openProductModal(p, sourceEl) {
 
   lastFocusedCard = sourceEl || document.activeElement;
 
-  const gallery = Array.from(
-    new Set(((Array.isArray(p.gallery) && p.gallery.length) ? p.gallery : [p.image || 'images/logo.png']).filter(Boolean))
-  );
+  // 產品卡顯示實際外包裝；產品詳情只放 1 張 DM 圖。
+  const detailImage = p.dmImage || (Array.isArray(p.gallery) && p.gallery[0]) || p.image || 'images/logo.png';
 
   body.innerHTML = `
     <div class="modal-top">
-      <div class="modal-gallery">
-        ${gallery.map((src, idx) => `
-          <div class="modal-gallery__item">
-            <img src="${src}" alt="${p.name || '產品'} 圖片 ${idx + 1}" loading="lazy" decoding="async">
-          </div>
-        `).join('')}
+      <div class="modal-gallery modal-gallery--single">
+        <div class="modal-gallery__item modal-gallery__item--dm">
+          <img src="${detailImage}" alt="${p.name || '產品'} 產品DM" loading="lazy" decoding="async">
+        </div>
       </div>
 
       <div class="modal-copy">
