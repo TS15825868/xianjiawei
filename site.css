@@ -1089,3 +1089,63 @@ body[data-page="brand"] .hero__content p {
   margin-top: 12px;
   line-height: 1.9;
 }
+
+
+/* v259｜產品圖片尺寸調整：產品卡片更精簡，避免手機版圖片佔太多版面 */
+.product-card__img {
+  aspect-ratio: 4 / 3 !important;
+  padding: 12px !important;
+}
+
+.product-card__img img {
+  width: 88% !important;
+  height: 88% !important;
+  max-width: 260px;
+  max-height: 220px;
+  margin: auto;
+  object-fit: contain !important;
+}
+
+/* 首頁/產品總覽的產品卡在手機版再壓低一點 */
+@media (max-width: 700px) {
+  .product-card__img {
+    aspect-ratio: 1.08 / 1 !important;
+    padding: 10px !important;
+  }
+
+  .product-card__img img {
+    width: 84% !important;
+    height: 84% !important;
+    max-height: 150px;
+  }
+
+  .product-card__body {
+    padding: 14px !important;
+  }
+}
+
+/* 產品詳情 DM 圖維持清楚，但桌機不要過度放大 */
+.modal-gallery--dm-only,
+.modal-gallery--single {
+  max-width: 880px;
+  margin-inline: auto;
+}
+
+.modal-gallery__item--dm-only img,
+.modal-gallery__item--dm img {
+  max-height: 82vh;
+  object-fit: contain !important;
+}
+
+@media (max-width: 700px) {
+  .modal-gallery__item--dm-only,
+  .modal-gallery__item--dm {
+    padding: 10px !important;
+    border-radius: 18px !important;
+  }
+
+  .modal-gallery__item--dm-only img,
+  .modal-gallery__item--dm img {
+    max-height: none;
+  }
+}
