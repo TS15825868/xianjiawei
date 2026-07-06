@@ -1,0 +1,67 @@
+{
+  "updated": "2026-07-06",
+  "scope": [
+    "網站全站配置統一",
+    "新增頁面改用原本 header/footer/page/section/card 配置",
+    "移除不使用的舊規格內容",
+    "刪除偵錯報告與未引用圖片"
+  ],
+  "final_products": [
+    "龜鹿膏",
+    "龜鹿飲",
+    "龜鹿湯塊",
+    "龜鹿膠",
+    "鹿茸粉"
+  ],
+  "ingredient_order": {
+    "龜鹿膏": "鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘",
+    "龜鹿飲": "水、鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘",
+    "龜鹿湯塊": "鹿角萃取物、龜板萃取物",
+    "龜鹿膠": "鹿角萃取物、龜板萃取物",
+    "鹿茸粉": "鹿茸"
+  },
+  "missing_links": [],
+  "removed_images_count": 42,
+  "missing_html_links": [],
+  "missing_image_refs": [],
+  "remaining_old_terms_excluding_report": [],
+  "root_files": [
+    "404.html",
+    "article.html",
+    "brand.html",
+    "choose.html",
+    "combo.html",
+    "contact.html",
+    "data.json",
+    "dm.html",
+    "faq.html",
+    "googlec5c2af289948c263.html",
+    "guide.html",
+    "hanfang-baike.html",
+    "hanfang-knowledge.html",
+    "index.html",
+    "knowledge.html",
+    "line-order.html",
+    "nourishment-daily.html",
+    "product-academy.html",
+    "products.html",
+    "recipes.html",
+    "recommend.html",
+    "robots.txt",
+    "site.css",
+    "site.js",
+    "sitemap.xml",
+    "video.html",
+    "videos.html",
+    "上線檢查報告_統一配色配置.json"
+  ],
+  "checked_files_count": 43,
+  "removed_extra_dirs": [
+    "_internal",
+    "marketing",
+    "images/brand3-social",
+    "images/brand3",
+    "images/dm-v2",
+    "images/products_updated_20260618"
+  ]
+}
