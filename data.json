@@ -62,7 +62,7 @@
       "image": "images/products-v2/guilu-drink-30.jpeg",
       "gallery": [],
       "dmImage": "images/dm-final/02_guilu-drink-30cc-dm.jpg",
-      "description": "即飲型龜鹿飲，適合外出、工作空檔或想降低準備步驟的人。30cc玻璃瓶方便體驗與攜帶；180cc鋁袋適合一次飲用量較完整的安排。",
+      "description": "即飲型龜鹿飲，分為30cc玻璃瓶與180cc鋁袋。30cc適合體驗、外出與工作空檔；180cc適合想一次安排一份龜鹿飲的人。",
       "ingredients": [
         "水",
         "鹿角萃取物",
@@ -88,14 +88,14 @@
         "images/dm-final/02_guilu-drink-30cc-dm.jpg"
       ],
       "suggestedPrice": 50,
-      "suggestedPriceText": "建議售價 50元／瓶",
+      "suggestedPriceText": "建議售價：30cc玻璃瓶 50元／瓶；180cc鋁袋 200元／袋",
       "priceNote": "最新售價、活動方案與配送安排，請透過官方 LINE 確認。",
       "specOptions": [
         {
           "title": "30cc玻璃瓶",
           "lines": [
             "建議售價 50元／瓶",
-            "小瓶即飲，適合體驗、外出與工作空檔。"
+            "體積小，適合體驗、外出與工作空檔。"
           ]
         },
         {
@@ -582,7 +582,7 @@
       },
       {
         "title": "龜鹿飲｜食用方式",
-        "desc": "開封即可飲用，建議溫熱後飲用；建議早上或白天安排，避免冰飲。30cc小瓶適合體驗與外出攜帶，適合家庭分享與固定回購。"
+        "desc": "開封即可飲用，建議溫熱後飲用；建議早上或白天安排，避免冰飲。30cc玻璃瓶適合體驗與外出攜帶，180cc鋁袋適合想一次安排一份龜鹿飲的人。"
       },
       {
         "title": "鹿茸粉｜食用方式",
