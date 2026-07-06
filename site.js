@@ -3,20 +3,17 @@ let SITE_DATA = null;
 const MENU_GROUPS = [
   { title: '🏠 首頁', links: [{ href: 'index.html', label: '首頁' }] },
   { title: '📦 產品與挑選', links: [
-    { href: 'products.html', label: '龜鹿系列' },
+    { href: 'products.html', label: '龜鹿系列／產品學堂' },
     { href: 'choose.html', label: '怎麼選龜鹿' },
     { href: 'combo.html', label: '套餐搭配' },
     { href: 'dm.html', label: '產品DM' }
   ] },
   { title: '🍵 使用與內容', links: [
-    { href: 'guide.html', label: '怎麼使用' },
+    { href: 'guide.html', label: '怎麼使用／補養日常' },
     { href: 'recipes.html', label: '料理搭配' },
     { href: 'video.html', label: '觀點影片' },
-    { href: 'knowledge.html', label: '龜鹿知識' },
-    { href: 'hanfang-knowledge.html', label: '漢方知識館' },
-    { href: 'product-academy.html', label: '產品學堂' },
-    { href: 'hanfang-baike.html', label: '漢方百科' },
-    { href: 'nourishment-daily.html', label: '補養日常' }
+    { href: 'knowledge.html', label: '漢方知識館' },
+    { href: 'hanfang-baike.html', label: '漢方百科' }
   ] },
   { title: '🏛 品牌與服務', links: [
     { href: 'brand.html', label: '品牌故事' },
@@ -93,12 +90,8 @@ function sourceLineText(page = '') {
     guide: '我從官網怎麼使用頁面進來，想了解產品使用方式。',
     recipes: '我從官網料理頁進來，想了解龜鹿料理搭配。',
     video: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
-    videos: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
-    knowledge: '我從官網知識頁進來，想了解龜鹿知識。',
-    'hanfang-knowledge': '我從官網漢方知識館進來，想了解產品與日常安排。',
-    'product-academy': '我從官網產品學堂進來，想了解產品差異。',
+    knowledge: '我從官網漢方知識館進來，想了解產品、成分與日常安排。',
     'hanfang-baike': '我從官網漢方百科進來，想了解食材與成分。',
-    'nourishment-daily': '我從官網補養日常進來，想了解怎麼安排。',
     brand: '我從官網品牌頁進來，想了解仙加味。',
     faq: '我從官網FAQ頁面進來，有幾個問題想詢問。',
     contact: '我從官網聯絡頁進來，想詢問產品資訊。'
@@ -313,13 +306,9 @@ function renderPage() {
   if (page === 'guide') renderGuidePage();
   if (page === 'recipes') renderRecipesPage();
   if (page === 'knowledge') renderKnowledgePage();
-  if (page === 'hanfang-knowledge') renderBrand3Knowledge();
-  if (page === 'product-academy') renderProductAcademy();
-  if (page === 'hanfang-baike') renderHanfangBaike();
-  if (page === 'nourishment-daily') renderNourishmentDaily();
+    if (page === 'hanfang-baike') renderHanfangBaike();
   if (page === 'videos' || page === 'video') renderVideosPage();
   if (page === 'faq') renderFaqPage();
-  if (page === 'recommend') renderRecommendPage();
   if (page === 'brand') renderBrandPage();
   if (page === 'contact') renderContactPage();
 }
@@ -1045,7 +1034,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function renderBrand3Knowledge(){const el=document.getElementById('brand3-knowledge-grid');if(!el)return;const items=[['產品學堂','從產品型態了解日常使用方式','龜鹿膏、龜鹿飲、龜鹿湯塊、龜鹿膠與鹿茸粉，各自放在不同生活情境裡理解。','product-academy.html'],['漢方百科','從食材與文化背景開始','鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘與鹿茸，以飲食文化和成分理解為主。','hanfang-baike.html'],['補養日常','從每天做得到的方式開始','熱水化開、保溫瓶、燉湯、保存與送禮等，都整理成容易理解的日常方式。','nourishment-daily.html'],['品牌故事','從萬華西昌街出發','把好的東西說清楚、讓客人問得到、看得懂。','brand.html']];el.innerHTML=items.map(i=>`<article class="card knowledge-card reveal"><span class="knowledge-card__tag">仙加味知識館</span><h3>${i[0]}</h3><p>${i[1]}</p><p>${i[2]}</p><a class="btn btn-outline" href="${i[3]}">閱讀更多</a></article>`).join('');}
+function renderBrand3Knowledge(){const el=document.getElementById('brand3-knowledge-grid');if(!el)return;const items=[['產品學堂','從產品型態了解日常使用方式','龜鹿膏、龜鹿飲、龜鹿湯塊、龜鹿膠與鹿茸粉，各自放在不同生活情境裡理解。','products.html#product-academy'],['漢方百科','從食材與文化背景開始','鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘與鹿茸，以飲食文化和成分理解為主。','hanfang-baike.html'],['補養日常','從每天做得到的方式開始','熱水化開、保溫瓶、燉湯、保存與送禮等，都整理成容易理解的日常方式。','guide.html#nourishment-daily'],['品牌故事','從萬華西昌街出發','把好的東西說清楚、讓客人問得到、看得懂。','brand.html']];el.innerHTML=items.map(i=>`<article class="card knowledge-card reveal"><span class="knowledge-card__tag">仙加味知識館</span><h3>${i[0]}</h3><p>${i[1]}</p><p>${i[2]}</p><a class="btn btn-outline" href="${i[3]}">閱讀更多</a></article>`).join('');}
 function renderProductAcademy(){const el=document.getElementById('product-academy-grid');if(!el)return;}
 function renderHanfangBaike(){const el=document.getElementById('hanfang-baike-grid');if(!el)return;}
 function renderNourishmentDaily(){const el=document.getElementById('daily-grid');if(!el)return;}
