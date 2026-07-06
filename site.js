@@ -105,7 +105,7 @@ function pageLineButton(label = '怎麼選龜鹿？') {
 }
 
 function productFitText(productName = '') {
-  return `我想了解${productName}適不適合我。`;
+  return `我想了解${productName}的規格、使用方式與價格方案。`;
 }
 
 function buildShell() {
@@ -1023,13 +1023,14 @@ function renderRichFaq(data) {
 
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => {
-    if (typeof DATA !== 'undefined') {
-      renderRichProducts(DATA);
-      renderRichGuide(DATA);
-      renderRichRecipes(DATA);
-      renderRichFaq(DATA);
+    if (SITE_DATA) {
+      renderRichProducts(SITE_DATA);
+      renderRichGuide(SITE_DATA);
+      renderRichRecipes(SITE_DATA);
+      renderRichFaq(SITE_DATA);
+      initReveal();
     }
-  }, 500);
+  }, 600);
 });
 
 
