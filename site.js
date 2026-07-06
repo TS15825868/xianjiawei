@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=259.0');
+  const res = await fetch('data.json?v=261.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -466,7 +466,7 @@ function renderRecipesPage() {
         <p>目前料理搭配內容正在整理，若想了解龜鹿膏、龜鹿湯塊、龜鹿膠或鹿茸粉怎麼搭配，可以先透過官方 LINE 詢問。</p>
       </article>
     ` + finalCtaBlock(
-      '想直接問哪一種比較適合你',
+      '想直接問哪一種比較適合',
       '如果你比較偏熱飲、燉湯或調飲，也可以直接用 LINE 問我們。',
       '我想看我比較適合熱飲、燉湯還是調飲。'
     );
@@ -492,7 +492,7 @@ function renderRecipesPage() {
       </article>
     `;
   }).join('') + finalCtaBlock(
-    '想直接問哪一種比較適合你',
+    '想直接問哪一種比較適合',
     '如果你比較偏熱飲、燉湯或調飲，也可以直接用 LINE 問我們。',
     '我想看我比較適合熱飲、燉湯還是調飲。'
   );
@@ -667,7 +667,7 @@ function renderBrandPage() {
       <p class="eyebrow">回到萬華</p>
       <h3>${s.name || '萬華門市'}｜${s.address || '台北市萬華區西昌街52號'}</h3>
       <p>${s.heritage || '萬華老店・四代鹿角工序傳承'}</p>
-      <p>如果你在萬華附近，可以先查看門市位置；若想了解產品型態與搭配方式，建議用 LINE 讓我們先幫你整理。</p>
+      <p>如果你在萬華附近，可以先查看門市位置；若想了解產品型態與搭配方式，也可以先用官方 LINE 詢問。</p>
 
       <div class="final-cta__actions">
         <a class="btn btn-outline" href="${s.mapUrl || 'https://www.google.com/maps?q=台北市萬華區西昌街52號'}" target="_blank" rel="noopener">開啟地圖</a>
@@ -701,7 +701,6 @@ function renderContactPage() {
       '現金付款',
       '匯款',
       '貨到付款',
-      'TWQR（建置中）'
     ]).map(x => `<li>${x}</li>`).join('');
   }
 
