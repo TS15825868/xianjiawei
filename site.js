@@ -12,7 +12,11 @@ const MENU_GROUPS = [
     { href: 'guide.html', label: '怎麼使用' },
     { href: 'recipes.html', label: '料理搭配' },
     { href: 'video.html', label: '觀點影片' },
-    { href: 'knowledge.html', label: '龜鹿知識' }
+    { href: 'knowledge.html', label: '龜鹿知識' },
+    { href: 'hanfang-knowledge.html', label: '漢方知識館' },
+    { href: 'product-academy.html', label: '產品學堂' },
+    { href: 'hanfang-baike.html', label: '漢方百科' },
+    { href: 'nourishment-daily.html', label: '補養日常' }
   ] },
   { title: '🏛 品牌與服務', links: [
     { href: 'brand.html', label: '品牌故事' },
@@ -91,6 +95,10 @@ function sourceLineText(page = '') {
     video: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
     videos: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
     knowledge: '我從官網知識頁進來，想了解龜鹿知識。',
+    'hanfang-knowledge': '我從官網漢方知識館進來，想了解產品與日常安排。',
+    'product-academy': '我從官網產品學堂進來，想了解產品差異。',
+    'hanfang-baike': '我從官網漢方百科進來，想了解食材與成分。',
+    'nourishment-daily': '我從官網補養日常進來，想了解怎麼安排。',
     brand: '我從官網品牌頁進來，想了解仙加味。',
     faq: '我從官網FAQ頁面進來，有幾個問題想詢問。',
     contact: '我從官網聯絡頁進來，想詢問產品資訊。'
@@ -305,6 +313,10 @@ function renderPage() {
   if (page === 'guide') renderGuidePage();
   if (page === 'recipes') renderRecipesPage();
   if (page === 'knowledge') renderKnowledgePage();
+  if (page === 'hanfang-knowledge') renderBrand3Knowledge();
+  if (page === 'product-academy') renderProductAcademy();
+  if (page === 'hanfang-baike') renderHanfangBaike();
+  if (page === 'nourishment-daily') renderNourishmentDaily();
   if (page === 'videos' || page === 'video') renderVideosPage();
   if (page === 'faq') renderFaqPage();
   if (page === 'recommend') renderRecommendPage();
@@ -502,7 +514,7 @@ function renderKnowledgePage() {
   if (!el) return;
 
   const items = [
-    ['從食材出發', '官網用語以龜板萃取物、鹿角萃取物為主，回到飲食搭配的理解方式。'],
+    ['從食材出發', '官網用語以鹿角萃取物、龜板萃取物為主，回到飲食搭配的理解方式。'],
     ['從工序出發', '長時間熬製、慢火濃縮，是品牌一路延續下來的做法。'],
     ['從節奏出發', '比起追求一次看見什麼，更重視能不能穩定、舒服地放進生活。'],
     ['從餐桌出發', '熱飲、調飲、燉湯、固定小匙，這些都比空泛形容更有幫助。']
@@ -1031,3 +1043,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 500);
 });
+
+
+function renderBrand3Knowledge(){const el=document.getElementById('brand3-knowledge-grid');if(!el)return;const items=[['產品學堂','從產品型態了解日常使用方式','龜鹿膏、龜鹿飲、龜鹿湯塊、龜鹿膠與鹿茸粉，各自放在不同生活情境裡理解。','product-academy.html'],['漢方百科','從食材與文化背景開始','龜板、鹿角、粉光蔘、枸杞、紅棗、黃耆等，以飲食文化和成分理解為主。','hanfang-baike.html'],['補養日常','從每天做得到的方式開始','熱水化開、保溫瓶、燉湯、保存與送禮等，都整理成容易理解的日常方式。','nourishment-daily.html'],['品牌故事','從萬華西昌街出發','老店精神不是複雜，而是把好的東西說清楚、讓客人問得到、看得懂。','brand.html']];el.innerHTML=items.map(i=>`<article class="card knowledge-card reveal"><span class="knowledge-card__tag">仙加味知識館</span><h3>${i[0]}</h3><p>${i[1]}</p><p>${i[2]}</p><a class="btn btn-outline" href="${i[3]}">閱讀更多</a></article>`).join('')+finalCtaBlock('想直接了解適合自己的方式','也可以直接告訴我們你的生活情境，我們幫你整理方向。','我從漢方知識館進來，想了解適合我的使用方式。');}
+function renderProductAcademy(){const el=document.getElementById('product-academy-grid');if(!el)return;const items=[['龜鹿膏','100g／罐','可直接食用，也可用熱水化開後調到適口溫度。適合想建立固定日常安排的人。'],['龜鹿飲30cc','30cc／小瓶','即飲型態，建議溫熱後飲用。適合外出、忙碌或希望步驟更簡單的人。'],['龜鹿湯塊','75g／盒，8片裝','適合燉雞湯、排骨湯，也可以搭配熱水沖泡。'],['龜鹿膠','一斤裝','適合熟悉龜鹿使用方式、希望自行分切與長期安排的人。'],['鹿茸粉','75g／罐','可加入溫開水、牛奶、豆漿或其他飲品中攪拌。']];el.innerHTML=items.map(i=>`<article class="card knowledge-card reveal"><span class="knowledge-card__tag">產品學堂</span><h3>${i[0]}</h3><p class="muted">${i[1]}</p><p>${i[2]}</p>${lineButton('詢問這項產品','我想了解「'+i[0]+'」的使用方式與產品資訊。')}</article>`).join('');}
+function renderHanfangBaike(){const el=document.getElementById('hanfang-baike-grid');if(!el)return;const items=[['龜板','龜鹿系列常見基底之一，官網以「龜板萃取物」呈現，回到成分與飲食文化理解。'],['鹿角','龜鹿系列常見基底之一，以「鹿角萃取物」呈現，與龜板共同構成龜鹿基底。'],['粉光蔘','常見於漢方飲食與燉補文化，仙加味龜鹿膏成分之一。'],['枸杞','日常料理與熱飲中常見的食材，適合用飲食文化角度介紹。'],['紅棗','常見於湯品、茶飲與家常料理，帶有熟悉的日常感。'],['黃耆','常見於燉湯文化與傳統食材搭配中，仙加味以清楚標示呈現。']];el.innerHTML=items.map((i,idx)=>`<article class="card knowledge-card reveal"><span class="knowledge-card__tag">漢方百科 No.${String(idx+1).padStart(3,'0')}</span><h3>${i[0]}</h3><p>${i[1]}</p><a class="btn btn-outline" href="article.html#baike-${idx+1}">看延伸閱讀</a></article>`).join('');}
+function renderNourishmentDaily(){const el=document.getElementById('daily-grid');if(!el)return;const items=[['熱水化開','龜鹿膏可先用熱水化開，攪拌均勻後再調整到適合入口的溫度。'],['早上與下午','若要固定安排，可先從早上或下午開始，避免接近睡前。'],['保溫瓶沖泡','湯塊可搭配熱水放入保溫瓶，作為外出或辦公室的簡單安排。'],['燉湯入餐桌','湯塊適合搭配雞湯、排骨湯等家常湯品，放回餐桌裡。'],['開封保存','開封後請密封保存，並依產品標示盡早食用完畢。'],['送禮選擇','送家人時可先看規格、使用方式與保存方式，讓對方收到後更容易使用。']];el.innerHTML=items.map(i=>`<article class="card knowledge-card reveal"><span class="knowledge-card__tag">補養日常</span><h3>${i[0]}</h3><p>${i[1]}</p></article>`).join('')+finalCtaBlock('還是不確定怎麼安排','直接跟我們說你平常的作息與使用習慣，我們協助整理。','我想了解龜鹿產品在日常中怎麼安排。');}
