@@ -48,7 +48,10 @@
       "fit": "想固定安排、喜歡小匙或熱水化開飲用的人",
       "detailImages": [
         "images/dm-final/01_guilu-gao-100g-dm.jpg"
-      ]
+      ],
+      "suggestedPrice": 1800,
+      "suggestedPriceText": "建議售價 1,800元／罐",
+      "priceNote": "官網不公開固定價格，實際售價與搭配方案請透過官方 LINE 確認。"
     },
     {
       "id": "guilu-drink-30",
@@ -80,7 +83,10 @@
       "fit": "想方便即飲、外出攜帶、工作空檔飲用的人",
       "detailImages": [
         "images/dm-final/02_guilu-drink-30cc-dm.jpg"
-      ]
+      ],
+      "suggestedPrice": 50,
+      "suggestedPriceText": "建議售價 50元／瓶",
+      "priceNote": "官網不公開固定價格，實際售價與搭配方案請透過官方 LINE 確認。"
     },
     {
       "id": "guilu-tangkuai",
@@ -108,7 +114,10 @@
       "fit": "想小包裝、低單價、方便沖泡或燉湯的人",
       "detailImages": [
         "images/dm-final/05_guilu-tangkuai-75g-dm.jpg"
-      ]
+      ],
+      "suggestedPrice": 1600,
+      "suggestedPriceText": "建議售價 1,600元／盒",
+      "priceNote": "官網不公開固定價格，實際售價與搭配方案請透過官方 LINE 確認。"
     },
     {
       "id": "guilu-jiao",
@@ -137,7 +146,10 @@
       "fit": "想長期使用、家庭固定安排或大包裝的人",
       "detailImages": [
         "images/dm-final/06_guilu-jiao-600g-dm.jpg"
-      ]
+      ],
+      "suggestedPrice": 12000,
+      "suggestedPriceText": "建議售價 12,000元／盒",
+      "priceNote": "官網不公開固定價格，實際售價與搭配方案請透過官方 LINE 確認。"
     },
     {
       "id": "luerong-fen",
@@ -163,7 +175,10 @@
       "fit": "想自由搭配飲品、調整飲用方式的人",
       "detailImages": [
         "images/dm-final/04_luerong-fen-75g-dm.jpg"
-      ]
+      ],
+      "suggestedPrice": 2000,
+      "suggestedPriceText": "建議售價 2,000元／罐",
+      "priceNote": "官網不公開固定價格，實際售價與搭配方案請透過官方 LINE 確認。"
     }
   ],
   "combos": [
