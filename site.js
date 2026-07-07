@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     buildShell();
+    renderFloatingLineCta();
     hydrateStaticFields();
     renderPage();
     initReveal();
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=282.0');
+  const res = await fetch('data.json?v=284.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -118,6 +119,19 @@ function buildShell() {
   if (menuRoot) menuRoot.innerHTML = renderMenuDrawer();
   if (footer) footer.innerHTML = renderFooter();
   if (modal) modal.innerHTML = renderModalShell();
+}
+
+function renderFloatingLineCta() {
+  if (document.getElementById('floating-line-cta')) return;
+  const link = document.createElement('a');
+  link.id = 'floating-line-cta';
+  link.className = 'floating-line-cta';
+  link.href = buildLineAutoLink(sourceLineText(document.body?.dataset?.page || 'home'));
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.setAttribute('aria-label', '加入仙加味官方 LINE 詢問');
+  link.innerHTML = '<span class="floating-line-cta__dot" aria-hidden="true">LINE</span><span>官方 LINE 詢問</span>';
+  document.body.appendChild(link);
 }
 
 function hydrateStaticFields() {
