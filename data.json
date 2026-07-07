@@ -49,7 +49,7 @@
       "detailImages": [
         "images/dm-final/01_guilu-gao-100g-dm.jpg"
       ],
-      "priceNote": "購買方式、活動與配送安排，請透過官方 LINE 確認。"
+      "priceNote": "價格與優惠請透過官方 LINE 詢問。"
     },
     {
       "id": "guilu-drink-30",
@@ -59,7 +59,7 @@
       "size": "30cc玻璃瓶／180cc鋁袋",
       "image": "images/products-v2/guilu-drink-30.jpeg",
       "gallery": [],
-      "dmImage": "images/dm-final/02_guilu-drink-30cc-dm.jpg",
+      "dmImage": "images/dm-final/02_03_guilu-drink-combined-dm.jpg",
       "description": "即飲型龜鹿飲，分為30cc裸罐小玻璃瓶與180cc鋁袋。30cc適合體驗、外出與工作空檔；180cc適合想一次完整安排一份的人。",
       "ingredients": [
         "水",
@@ -83,22 +83,24 @@
       ],
       "fit": "想方便即飲、外出攜帶、工作空檔或第一次了解龜鹿飲的人",
       "detailImages": [
-        "images/dm-final/02_guilu-drink-30cc-dm.jpg"
+        "images/dm-final/02_03_guilu-drink-combined-dm.jpg",
+        "images/dm-final/02_guilu-drink-30cc-dm.jpg",
+        "images/dm-final/03_guilu-drink-180cc-dm.jpg"
       ],
-      "priceNote": "購買方式、活動與配送安排，請透過官方 LINE 確認。",
+      "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "specOptions": [
         {
-          "title": "30cc裸罐小玻璃瓶",
+          "title": "30cc玻璃瓶",
           "lines": [
             "小瓶即飲，適合體驗、外出與工作空檔。",
-            "不做貼紙，產品圖以裸罐實拍為準。"
+            "價格與優惠請透過官方 LINE 確認。"
           ]
         },
         {
           "title": "180cc鋁袋",
           "lines": [
             "容量較完整，適合想一次安排一份龜鹿飲的人。",
-            "開封後請儘速飲用完畢。"
+            "價格與優惠請透過官方 LINE 確認。"
           ]
         }
       ]
@@ -135,7 +137,7 @@
       "detailImages": [
         "images/dm-final/05_guilu-tangkuai-75g-dm.jpg"
       ],
-      "priceNote": "購買方式、活動與配送安排，請透過官方 LINE 確認。"
+      "priceNote": "價格與優惠請透過官方 LINE 詢問。"
     },
     {
       "id": "guilu-jiao",
@@ -165,7 +167,7 @@
       "detailImages": [
         "images/dm-final/06_guilu-jiao-600g-dm.jpg"
       ],
-      "priceNote": "購買方式、活動與配送安排，請透過官方 LINE 確認。"
+      "priceNote": "價格與優惠請透過官方 LINE 詢問。"
     },
     {
       "id": "luerong-fen",
@@ -194,7 +196,7 @@
       "detailImages": [
         "images/dm-final/04_luerong-fen-75g-dm.jpg"
       ],
-      "priceNote": "購買方式、活動與配送安排，請透過官方 LINE 確認。"
+      "priceNote": "價格與優惠請透過官方 LINE 詢問。"
     }
   ],
   "combos": [
@@ -336,7 +338,7 @@
       "a": "兩者成分皆為鹿角萃取物、龜板萃取物。龜鹿湯塊是75g小盒裝，8塊，每塊約9.375g；龜鹿膠是一斤裝，32塊，每塊約18.75g。差異主要在規格、份量與使用安排。"
     },
     {
-      "category": "規格與價格",
+      "category": "規格與詢問",
       "q": "龜鹿飲有哪幾種規格？",
       "a": "龜鹿飲目前可詢問30cc玻璃瓶與180cc鋁袋。30cc玻璃瓶適合體驗、外出與工作空檔；180cc鋁袋適合一次完整安排。"
     },
