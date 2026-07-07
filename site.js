@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=261.0');
+  const res = await fetch('data.json?v=280.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -105,7 +105,7 @@ function pageLineButton(label = '怎麼選龜鹿？') {
 }
 
 function productFitText(productName = '') {
-  return `我想了解${productName}的規格、使用方式與價格方案。`;
+  return `我想了解${productName}的規格、使用方式與購買方式。`;
 }
 
 function buildShell() {
