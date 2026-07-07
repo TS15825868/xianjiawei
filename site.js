@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=280.0');
+  const res = await fetch('data.json?v=282.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -1039,3 +1039,72 @@ function renderProductAcademy(){const el=document.getElementById('product-academ
 function renderHanfangBaike(){const el=document.getElementById('hanfang-baike-grid');if(!el)return;}
 function renderNourishmentDaily(){const el=document.getElementById('daily-grid');if(!el)return;}
 
+
+
+// v282：DM 大圖燈箱。修正「開啟 DM 後沒有 X 可關閉」問題。
+function initDMLightboxV282() {
+  const links = Array.from(document.querySelectorAll('.dm-lightbox-link'));
+  if (!links.length) return;
+
+  let lightbox = document.getElementById('dm-lightbox');
+  if (!lightbox) {
+    lightbox = document.createElement('div');
+    lightbox.id = 'dm-lightbox';
+    lightbox.className = 'dm-lightbox';
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightbox.setAttribute('role', 'dialog');
+    lightbox.setAttribute('aria-label', '產品DM大圖');
+    lightbox.innerHTML = `
+      <button class="dm-lightbox__close" type="button" aria-label="關閉DM大圖" data-close-dm-lightbox="1">×</button>
+      <div class="dm-lightbox__panel" role="document">
+        <img class="dm-lightbox__img" alt="產品DM大圖" src="" loading="eager" decoding="async">
+      </div>
+    `;
+    document.body.appendChild(lightbox);
+  }
+
+  const img = lightbox.querySelector('.dm-lightbox__img');
+  const closeBtn = lightbox.querySelector('.dm-lightbox__close');
+
+  const open = (src, alt) => {
+    if (!img || !src) return;
+    img.src = src;
+    img.alt = alt || '產品DM大圖';
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('dm-lightbox-open');
+    closeBtn?.focus();
+  };
+
+  const close = () => {
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('dm-lightbox-open');
+    if (img) img.src = '';
+  };
+
+  links.forEach(link => {
+    if (link.dataset.lightboxBound === '1') return;
+    link.dataset.lightboxBound = '1';
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const src = link.getAttribute('data-dm-src') || link.getAttribute('href');
+      const title = link.closest('article')?.querySelector('h3')?.textContent || link.textContent || '產品DM';
+      open(src, title + '產品DM大圖');
+    });
+  });
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target.closest('[data-close-dm-lightbox="1"]')) {
+      close();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') {
+      close();
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(initDMLightboxV282, 300);
+});
