@@ -1,0 +1,72 @@
+name: v293 sitewide normalize
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Normalize all public pages
+        shell: python
+        run: |
+          from pathlib import Path
+
+          replacements = {
+              'site.js?v=292.0': 'site.js?v=293.0',
+              '>這個適合我嗎？<': '>LINE 詢問產品<',
+              '>怎麼選龜鹿？<': '>LINE 幫我比較產品<',
+              '>LINE 幫我選用途方向<': '>LINE 幫我比較產品<',
+              '>LINE 幫我看這組適不適合<': '>LINE 詢問搭配方式<',
+              '長期使用': '家庭大規格',
+              '六大產品 DM': '五大產品型態・六項產品規格 DM',
+              '六大產品': '五大產品型態・六項產品規格',
+          }
+
+          for path in Path('.').glob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              new = text
+              for old, replacement in replacements.items():
+                  new = new.replace(old, replacement)
+              if new != text:
+                  path.write_text(new, encoding='utf-8')
+
+          core = Path('site-v287-core.js')
+          text = core.read_text(encoding='utf-8')
+          text = text.replace("data.json?v=292.0", "data.json?v=293.0")
+          text = text.replace("function lineButton(label = '怎麼選龜鹿？'", "function lineButton(label = 'LINE 詢問產品'")
+          text = text.replace("function pageLineButton(label = '怎麼選龜鹿？')", "function pageLineButton(label = 'LINE 幫我比較產品')")
+          text = text.replace("'這個適合我嗎？'", "'LINE 詢問產品'")
+          core.write_text(text, encoding='utf-8')
+
+          data = Path('data.json')
+          text = data.read_text(encoding='utf-8')
+          text = text.replace('"version": "292.0"', '"version": "293.0"')
+          text = text.replace('"globalCta": "怎麼選龜鹿？"', '"globalCta": "LINE 幫我比較產品"')
+          text = text.replace('"productCta": "這個適合我嗎？"', '"productCta": "LINE 詢問產品"')
+          text = text.replace('"這個適合我嗎？"', '"LINE 詢問產品"')
+          text = text.replace('"怎麼選龜鹿？"', '"LINE 幫我比較產品"')
+          data.write_text(text, encoding='utf-8')
+
+      - name: Commit normalized files
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html' site-v287-core.js data.json
+          git commit -m "v293: normalize full-site versions and public wording"
+          git push origin main
