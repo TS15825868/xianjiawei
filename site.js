@@ -13,7 +13,8 @@ const MENU_GROUPS = [
     { href: 'recipes.html', label: '料理搭配' },
     { href: 'video.html', label: '觀點影片' },
     { href: 'knowledge.html', label: '漢方知識館' },
-    { href: 'hanfang-baike.html', label: '漢方百科' }
+    { href: 'hanfang-baike.html', label: '漢方百科' },
+    { href: 'sources.html', label: '資料來源與引用原則' }
   ] },
   { title: '🏛 品牌與服務', links: [
     { href: 'brand.html', label: '品牌故事' },
@@ -57,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=285.0');
+  const res = await fetch('data.json?v=286.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -93,6 +94,7 @@ function sourceLineText(page = '') {
     video: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
     knowledge: '我從官網漢方知識館進來，想了解產品、成分與日常安排。',
     'hanfang-baike': '我從官網漢方百科進來，想了解食材與成分。',
+    sources: '我從官網資料來源頁進來，想了解成分與產品對應。',
     brand: '我從官網品牌頁進來，想了解仙加味。',
     faq: '我從官網FAQ頁面進來，有幾個問題想詢問。',
     contact: '我從官網聯絡頁進來，想詢問產品資訊。'
@@ -581,7 +583,7 @@ function renderVideosPage() {
 
 function renderFaqPage() {
   const el = document.getElementById('faq-grid');
-  if (!el) return;
+  if (!el || el.dataset.staticContent === 'true') return;
 
   const faqs = Array.isArray(SITE_DATA.faq)
     ? SITE_DATA.faq
@@ -787,7 +789,8 @@ function fillProducts(targetId, products) {
           <p class="muted">規格：${p.size || ''}</p>
 
           <div class="product-card__actions">
-            <button class="btn btn-outline" type="button">查看詳情</button>
+            <a class="btn btn-outline" href="${p.detailPage || 'products.html'}">完整介紹</a>
+            <button class="btn btn-outline" type="button" data-quick-view="1">快速查看</button>
             ${lineButton('這個適合我嗎？', productFitText(p.displayName || p.name || ''))}
           </div>
         </div>
@@ -798,6 +801,7 @@ function fillProducts(targetId, products) {
   list.querySelectorAll('[data-product-id]').forEach(card => {
     const handler = (e) => {
       if (e && e.target.closest('a')) return;
+      if (e && e.target.closest('button') && !e.target.closest('[data-quick-view]')) return;
 
       const p = safeProducts.find(x => x.id === card.dataset.productId);
       if (p) openProductModal(p, card);
