@@ -20,9 +20,9 @@
       "name": "龜鹿膏",
       "displayName": "龜鹿膏",
       "size": "100g／罐",
-      "image": "images/products-v2/guilu-gao.jpeg",
+      "image": "images/products-v3/guilu-gao.jpg",
       "gallery": [],
-      "dmImage": "images/dm-final/01_guilu-gao-100g-dm.jpg",
+      "dmImage": "images/dm-v3/guilu-gao.jpg",
       "description": "100g小罐設計，將鹿角、龜板與枸杞、紅棗、黃耆、粉光蔘整理成方便取用的膏狀型態。用途方向以固定日常食補為主，可直接取用，也可用熱水化開。",
       "ingredients": [
         "鹿角萃取物",
@@ -47,7 +47,7 @@
       ],
       "fit": "想固定安排、喜歡小匙取用或熱水化開的人",
       "detailImages": [
-        "images/dm-final/01_guilu-gao-100g-dm.jpg"
+        "images/dm-v3/guilu-gao.jpg"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-gao.html",
@@ -60,9 +60,9 @@
       "name": "龜鹿飲",
       "displayName": "龜鹿飲",
       "size": "30cc玻璃瓶／180cc鋁袋",
-      "image": "images/products-v2/guilu-drink-30.jpeg",
+      "image": "images/products-v3/guilu-drink-30.jpg",
       "gallery": [],
-      "dmImage": "images/dm-final/02_03_guilu-drink-combined-dm.jpg",
+      "dmImage": "images/dm-v3/guilu-drink-30.jpg",
       "description": "30cc玻璃小瓶，把龜鹿膏的成分方向整理成方便即飲的液態型態。用途方向以輕巧即飲食補為主，適合體驗、外出與工作空檔。",
       "ingredients": [
         "水",
@@ -86,9 +86,8 @@
       ],
       "fit": "想方便即飲、外出攜帶、工作空檔或第一次了解龜鹿飲的人",
       "detailImages": [
-        "images/dm-final/02_03_guilu-drink-combined-dm.jpg",
-        "images/dm-final/02_guilu-drink-30cc-dm.jpg",
-        "images/dm-final/03_guilu-drink-180cc-dm.jpg"
+        "images/dm-v3/guilu-drink-30.jpg",
+        "images/dm-v3/guilu-drink-180.jpg"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "specOptions": [
@@ -127,12 +126,12 @@
       "name": "龜鹿湯塊",
       "displayName": "龜鹿湯塊",
       "size": "75g／盒｜8塊裝｜每塊約9.375g",
-      "image": "images/products-v2/guilu-tangkuai.jpeg",
+      "image": "images/products-v3/guilu-tangkuai.jpg",
       "gallery": [
         "images/products-v2/guilu-tangkuai.jpeg",
         "images/products-v2/guilu-tangkuai-pieces-new.jpg"
       ],
-      "dmImage": "images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
+      "dmImage": "images/dm-v3/guilu-tangkuai.jpg",
       "description": "75g盒裝、8塊設計，每塊約9.375g。用途方向以沖泡與燉湯食補為主，可用熱水、保溫壺或家常湯品安排。",
       "ingredients": [
         "鹿角萃取物",
@@ -151,7 +150,7 @@
       ],
       "fit": "想小盒裝、方便沖泡、保溫壺或燉湯料理的人",
       "detailImages": [
-        "images/dm-final/05_guilu-tangkuai-75g-dm.jpg"
+        "images/dm-v3/guilu-tangkuai.jpg"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-tangkuai.html",
@@ -164,9 +163,9 @@
       "name": "龜鹿膠",
       "displayName": "龜鹿膠",
       "size": "600g／盒（1斤）｜32塊裝｜每塊約18.75g",
-      "image": "images/products-v2/guilu-jiao.jpeg",
+      "image": "images/products-v3/guilu-jiao.jpg",
       "gallery": [],
-      "dmImage": "images/dm-final/06_guilu-jiao-600g-dm.jpg",
+      "dmImage": "images/dm-v3/guilu-jiao.jpg",
       "description": "600g一斤裝、32塊設計，每塊約18.75g。用途方向以傳統大規格食補為主，適合固定備用、家庭安排、熱水化開或燉湯。",
       "ingredients": [
         "鹿角萃取物",
@@ -184,7 +183,7 @@
       ],
       "fit": "想大包裝、固定安排、家庭共用或長期備用的人",
       "detailImages": [
-        "images/dm-final/06_guilu-jiao-600g-dm.jpg"
+        "images/dm-v3/guilu-jiao.jpg"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-jiao.html",
@@ -197,9 +196,9 @@
       "name": "鹿茸粉",
       "displayName": "鹿茸粉",
       "size": "75g／罐",
-      "image": "images/products-v2/luerong-fen.jpeg",
+      "image": "images/products-v3/luerong-fen.jpg",
       "gallery": [],
-      "dmImage": "images/dm-final/04_luerong-fen-75g-dm.jpg",
+      "dmImage": "images/dm-v3/luerong-fen.jpg",
       "description": "75g單方鹿茸粉，粉狀型態方便自行調整。用途方向以自行搭配食補為主，可加入溫開水、牛奶、豆漿或其他飲品。",
       "ingredients": [
         "鹿茸"
@@ -216,7 +215,7 @@
       ],
       "fit": "想自行搭配飲品、喜歡粉狀型態或想調整份量的人",
       "detailImages": [
-        "images/dm-final/04_luerong-fen-75g-dm.jpg"
+        "images/dm-v3/luerong-fen.jpg"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-luerong-fen.html",
@@ -820,7 +819,7 @@
       "家庭使用"
     ]
   },
-  "version": "293.0",
+  "version": "294.0",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,
