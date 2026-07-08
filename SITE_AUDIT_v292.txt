@@ -1,0 +1,80 @@
+仙加味官網全站一致性稽核 v292
+======================================
+HTML 頁面數：22
+
+CSS 版本：292.0
+JS 版本：292.0
+
+必要欄位檢查：
+- 404.html: 缺少 canonical
+- 404.html: 缺少 og:title
+- 404.html: 缺少 og:description
+- googlec5c2af289948c263.html: 缺少 title
+- googlec5c2af289948c263.html: 缺少 description
+- googlec5c2af289948c263.html: 缺少 canonical
+- googlec5c2af289948c263.html: 缺少 og:title
+- googlec5c2af289948c263.html: 缺少 og:description
+- googlec5c2af289948c263.html: 缺少 site header
+- googlec5c2af289948c263.html: 缺少 site footer
+- googlec5c2af289948c263.html: 缺少 site script
+- video.html: 缺少 og:title
+- video.html: 缺少 og:description
+
+站內連結與圖片檔案檢查：
+- 通過
+
+不應公開或已淘汰內容：
+- 通過
+
+產品資料中心：
+- 產品型態數：5
+- 龜鹿膏: 100g／罐
+- 龜鹿飲: 30cc玻璃瓶／180cc鋁袋
+- 龜鹿湯塊: 75g／盒｜8塊裝｜每塊約9.375g
+- 龜鹿膠: 600g／盒（1斤）｜32塊裝｜每塊約18.75g
+- 鹿茸粉: 75g／罐
+
+LINE ID 檢查：
+- contact.html: @context
+- faq.html: @context
+- hanfang-baike.html: @context
+- index.html: @context
+- product-guilu-drink-180cc.html: @context
+- product-guilu-drink-30cc.html: @context
+- product-guilu-gao.html: @context
+- product-guilu-jiao.html: @context
+- product-guilu-tangkuai.html: @context
+- product-luerong-fen.html: @context
+- products.html: @context
+- sources.html: @context
+- site-v287-core.js: @changwuchi2023
+- data.json: @changwuchi2023
+
+本次自動修正：
+- 統一版本與共用設定：404.html
+- 統一版本與共用設定：brand.html
+- 統一版本與共用設定：choose.html
+- 統一版本與共用設定：combo.html
+- 統一版本與共用設定：contact.html
+- 統一版本與共用設定：dm.html
+- 統一版本與共用設定：faq.html
+- 使用方式頁補齊龜鹿飲兩項規格
+- 統一版本與共用設定：guide.html
+- 統一版本與共用設定：hanfang-baike.html
+- 首頁產品整理文字補齊六項規格
+- 統一版本與共用設定：index.html
+- 統一版本與共用設定：knowledge.html
+- 統一版本與共用設定：product-guilu-drink-180cc.html
+- 統一版本與共用設定：product-guilu-drink-30cc.html
+- 統一版本與共用設定：product-guilu-gao.html
+- 統一版本與共用設定：product-guilu-jiao.html
+- 統一版本與共用設定：product-guilu-tangkuai.html
+- 統一版本與共用設定：product-luerong-fen.html
+- 產品總覽移除臨時下單公告 SEO 文字
+- 產品總覽移除臨時到貨 OG 文字
+- 統一版本與共用設定：products.html
+- 統一版本與共用設定：recipes.html
+- 統一版本與共用設定：sources.html
+- 統一版本與共用設定：video.html
+
+說明：價格不於官網公開；官網統一介紹產品用途方向、規格、成分、使用方式與保存方式，購買資訊導向官方 LINE。
