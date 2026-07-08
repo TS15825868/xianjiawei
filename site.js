@@ -2,13 +2,13 @@ let SITE_DATA = null;
 
 const MENU_GROUPS = [
   { title: '🏠 首頁', links: [{ href: 'index.html', label: '首頁' }] },
-  { title: '📦 產品與挑選', links: [
+  { title: '📦 產品用途與挑選', links: [
     { href: 'products.html', label: '龜鹿系列／產品學堂' },
     { href: 'choose.html', label: '怎麼選龜鹿' },
     { href: 'combo.html', label: '套餐搭配' },
     { href: 'dm.html', label: '產品DM' }
   ] },
-  { title: '🍵 使用與內容', links: [
+  { title: '🍵 食補使用與內容', links: [
     { href: 'guide.html', label: '怎麼使用／補養日常' },
     { href: 'recipes.html', label: '料理搭配' },
     { href: 'video.html', label: '觀點影片' },
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=286.0');
+  const res = await fetch('data.json?v=287.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -108,7 +108,7 @@ function pageLineButton(label = '怎麼選龜鹿？') {
 }
 
 function productFitText(productName = '') {
-  return `我想了解${productName}的規格、使用方式與購買方式。`;
+  return `我想了解${productName}的用途方向、規格、使用方式與購買方式。`;
 }
 
 function buildShell() {
@@ -196,8 +196,8 @@ function renderFooter() {
     <div class="footer-card card">
       <div class="footer-brand-block">
         <strong>${SITE_DATA?.brand || '仙加味'}</strong>
-        <p>補養，是一種節奏。</p>
-        <p>把龜鹿放回日常飲食與生活安排裡。</p>
+        <p>傳統龜鹿食補・現代日常使用。</p>
+        <p>先認識用途方向，再選擇做得到的方式。</p>
         <p>${SITE_DATA?.heritage?.footer || '從萬華出發・傳承工藝・回歸日常'}</p>
       </div>
 
@@ -212,7 +212,7 @@ function renderFooter() {
             LINE ID：<strong>${getLineId()}</strong>
           </p>
 
-          <p class="muted">想了解產品型態、使用方式與搭配方向，歡迎透過官方 LINE 詢問。</p>
+          <p class="muted">想了解產品用途方向、使用方式與搭配方向，歡迎透過官方 LINE 詢問。</p>
 
           <p>
             ${lineButton(
@@ -362,6 +362,7 @@ function renderProductsPage() {
       <article class="card reveal">
         <p class="eyebrow">${p.size || ''}</p>
         <h3>${p.displayName || p.name || ''}</h3>
+        ${p.purpose ? `<p class="product-purpose">用途方向：${p.purpose}</p>` : ''}
         <p>${p.description || ''}</p>
         <div class="final-cta__actions">
           ${lineButton('這個適合我嗎？', productFitText(p.displayName || p.name || ''))}
@@ -519,10 +520,10 @@ function renderKnowledgePage() {
   if (!el) return;
 
   const items = [
-    ['從食材出發', '官網用語以鹿角萃取物、龜板萃取物為主，回到飲食搭配的理解方式。'],
-    ['從工序出發', '長時間熬製、慢火濃縮，是品牌一路延續下來的做法。'],
-    ['從節奏出發', '比起追求一次看見什麼，更重視能不能穩定、舒服地放進生活。'],
-    ['從餐桌出發', '熱飲、調飲、燉湯、固定小匙，這些都比空泛形容更有幫助。']
+    ['從食補用途出發', '先了解固定取用、即飲便利、沖泡燉湯、大規格與自行調飲，再比較產品。'],
+    ['從食材與工序出發', '鹿角、龜板與日常食材經過整理，形成膏、飲、湯塊、膠與粉等型態。'],
+    ['從使用方式出發', '小匙取用、開瓶即飲、熱水沖泡、保溫壺與家常燉湯，都是實際用途方向。'],
+    ['從食補文化出發', '古籍用於理解傳統名稱與文化；產品選擇仍以現行成分標示、規格與使用方式為準。']
   ];
 
   el.innerHTML = items.map(([title, desc]) => `
@@ -532,7 +533,7 @@ function renderKnowledgePage() {
     </article>
   `).join('') + finalCtaBlock(
     '想從比較適合自己的方式開始',
-    '不用自己慢慢理解，直接 LINE 告訴我們你的情況，我們幫你整理。',
+    '不用自己慢慢比較，直接 LINE 告訴我們偏好的食補方式，我們幫你整理。',
     '我想看比較適合我的龜鹿方式。'
   );
 }
@@ -784,8 +785,9 @@ function fillProducts(targetId, products) {
         <div class="product-card__body">
           <p class="eyebrow">${p.series || ''}</p>
           <h3>${p.displayName || p.name || ''}</h3>
+          ${p.purpose ? `<p class="product-purpose">用途方向：${p.purpose}</p>` : ''}
           <p>${p.description || ''}</p>
-          <p class="product-hint">第一次了解，可先從生活方式選，不一定要一次看完全部。</p>
+          <p class="product-hint">第一次了解，可先從食補用途方向選，不一定要一次看完全部。</p>
           <p class="muted">規格：${p.size || ''}</p>
 
           <div class="product-card__actions">
@@ -864,6 +866,7 @@ function openProductModal(p, sourceEl) {
       <div class="modal-copy">
         <p class="eyebrow">${p.series || '仙加味'}</p>
         <h2>${p.displayName || p.name || ''}</h2>
+        ${p.purpose ? `<p class="product-purpose">用途方向：${p.purpose}</p>` : ''}
         <p>${p.description || ''}</p>
         <p class="muted">規格：${p.size || ''}</p>
 
@@ -880,8 +883,8 @@ function openProductModal(p, sourceEl) {
         </div>
 
         <div class="final-cta">
-          <h3>想知道這一種適不適合你？</h3>
-          <p>直接用 LINE 告訴我們你的生活方式，我們幫你整理。</p>
+          <h3>想確認這個食補用途是否符合你的習慣？</h3>
+          <p>直接用 LINE 告訴我們偏好固定、即飲、沖泡、燉湯或自行搭配，我們幫你整理。</p>
           <div class="final-cta__actions">
             ${lineButton('這個適合我嗎？', productFitText(p.displayName || p.name || ''))}
           </div>

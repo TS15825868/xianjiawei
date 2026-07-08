@@ -1258,7 +1258,7 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
 }
 
 
-/* ===== v286｜首頁重構、古籍藥典、SEO/GEO/AIO 內容頁 ===== */
+/* ===== v287｜首頁重構、古籍藥典、SEO/GEO/AIO 內容頁 ===== */
 .home-local-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.85fr);gap:22px;align-items:stretch}
 .home-story-main{padding:0;overflow:hidden;display:flex;flex-direction:column}
 .home-story-main .story-photo{width:100%;height:330px;max-height:none;object-fit:cover;border-radius:0;background:#f7f4ed}
@@ -1318,3 +1318,36 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
  .answer-lead{font-size:16px}
  .product-card__actions .btn{flex:1 1 100%}
 }
+
+
+/* v287｜傳統食補用途方向 */
+.product-purpose{
+  display:inline-flex;
+  align-items:center;
+  width:fit-content;
+  margin:2px 0 12px;
+  padding:6px 11px;
+  border-radius:999px;
+  background:#f5ebe3;
+  color:#7b1e1e;
+  font-size:14px;
+  font-weight:900;
+  line-height:1.35;
+}
+.product-purpose-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:16px;
+}
+.product-purpose-card{height:100%;}
+.product-purpose-card h3{font-size:clamp(18px,2.4vw,23px);}
+.product-purpose-card .btn{margin-top:8px;}
+.purpose-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.purpose-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:20px;overflow:hidden;}
+.purpose-table th,.purpose-table td{padding:15px 16px;text-align:left;border-bottom:1px solid rgba(0,0,0,.07);vertical-align:top;}
+.purpose-table th{background:#f8f4ee;color:#0b1f3b;font-weight:900;}
+.purpose-table tr:last-child td{border-bottom:0;}
+.product-card__body{display:flex;flex-direction:column;flex:1;}
+.product-card__actions{margin-top:auto;padding-top:12px;}
+@media(max-width:1050px){.product-purpose-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:720px){.product-purpose-grid{grid-template-columns:1fr}.purpose-table th,.purpose-table td{min-width:150px;padding:12px}}
