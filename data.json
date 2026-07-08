@@ -820,7 +820,7 @@
       "家庭使用"
     ]
   },
-  "version": "287.0",
+  "version": "292.0",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,
