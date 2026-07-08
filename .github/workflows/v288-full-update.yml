@@ -1,0 +1,102 @@
+name: Xianjiawei v288 full launch update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - RUN_V288_FULL_UPDATE
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply v288 site-wide launch update
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          root = Path('.')
+          banner = '''<section class="site-launch-bar" data-live-launch="v288" aria-label="全系列開放下單通知">
+          <div class="site-launch-bar__inner">
+          <strong>全系列已開放詢問與下單</strong>
+          <span>產品盒裝到貨後，將依訂單順序確認並安排出貨。</span>
+          <a href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener" data-line-message="我想詢問仙加味全系列產品與下單方式。">LINE 詢問與下單</a>
+          </div>
+          </section>'''
+
+          for p in root.glob('*.html'):
+              text = p.read_text(encoding='utf-8')
+              text = text.replace('v=287.0', 'v=288.0')
+              if 'data-live-launch="v288"' not in text:
+                  m = re.search(r'<main\b[^>]*>', text)
+                  if m:
+                      text = text[:m.end()] + '\n' + banner + text[m.end():]
+                  else:
+                      m = re.search(r'<body\b[^>]*>', text)
+                      if m:
+                          text = text[:m.end()] + '\n' + banner + text[m.end():]
+              p.write_text(text, encoding='utf-8')
+
+          css = root / 'site.css'
+          css_text = css.read_text(encoding='utf-8')
+          if '/* v288 site launch bar */' not in css_text:
+              css_text += '''
+
+/* v288 site launch bar */
+.site-launch-bar{position:relative;z-index:20;background:linear-gradient(135deg,#7b1e1e,#9b2b26);color:#fff;border-bottom:1px solid rgba(255,255,255,.18)}
+.site-launch-bar__inner{max-width:1180px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;text-align:center;font-size:14px;line-height:1.55}
+.site-launch-bar__inner strong{font-size:15px;letter-spacing:.02em}
+.site-launch-bar__inner span{color:rgba(255,255,255,.92)}
+.site-launch-bar__inner a{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:6px 14px;border-radius:999px;background:#fff;color:#7b1e1e;font-weight:800;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.site-launch-bar__inner a:hover{transform:translateY(-1px)}
+@media(max-width:720px){.site-launch-bar__inner{padding:10px 14px;gap:6px}.site-launch-bar__inner strong,.site-launch-bar__inner span{width:100%}.site-launch-bar__inner a{margin-top:3px}}
+'''
+          css.write_text(css_text, encoding='utf-8')
+
+          js = root / 'site.js'
+          js_text = js.read_text(encoding='utf-8')
+          js_text = js_text.replace('v287', 'v288').replace('287.0', '288.0')
+          js.write_text(js_text, encoding='utf-8')
+
+          data_path = root / 'data.json'
+          data = json.loads(data_path.read_text(encoding='utf-8'))
+          data['version'] = 'v288'
+          data['launchStatus'] = {
+              'orderOpen': True,
+              'statusLabel': '全系列已開放詢問與下單',
+              'shippingNotice': '產品盒裝到貨後，將依訂單順序確認並安排出貨。',
+              'lineMessage': '我想詢問仙加味全系列產品與下單方式。'
+          }
+          for product in data.get('products', []):
+              product['orderStatus'] = '開放詢問與下單'
+              product['shippingNotice'] = '盒裝到貨後依訂單順序確認並安排出貨。'
+              product['priceNote'] = '價格、優惠、到貨與配送請透過官方 LINE 確認。'
+          data_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          report = root / '仙加味_網站_v288全站上架更新報告.md'
+          report.write_text('''# 仙加味網站 v288 全站上架更新
+
+- 更新日期：2026-07-08
+- 全站頁面統一加入「全系列已開放詢問與下單」通知
+- 出貨說明：產品盒裝到貨後，依訂單順序確認並安排出貨
+- 全站 CSS／JS 快取版本統一為 v288
+- data.json 新增 launchStatus、產品下單狀態與出貨提醒
+- 官網仍不公開售價，價格與優惠導向 LINE OA
+- 六項規格：龜鹿膏100g、龜鹿飲30cc、龜鹿飲180cc、龜鹿湯塊75g、龜鹿膠600g、鹿茸粉75g
+''', encoding='utf-8')
+          PY
+
+          rm -f RUN_V288_FULL_UPDATE .github/workflows/v288-full-update.yml
+          git config user.name "xianjiawei-update-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          git commit -m "全站同步開放詢問與下單（v288）"
+          git push
