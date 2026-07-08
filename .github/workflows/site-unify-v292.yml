@@ -1,27 +1,27 @@
-name: Unify site v292
+name: Verify and unify site v292
 
 on:
-  push:
-    branches:
-      - site-unify-v292
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
 
 jobs:
   normalize-and-audit:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'site-unify-v292'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch
+      - name: Checkout source branch
         uses: actions/checkout@v4
         with:
-          ref: site-unify-v292
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
 
       - name: Normalize and audit
         run: python tools/unify_site_v292.py
 
-      - name: Commit normalized site
+      - name: Commit normalized site to source branch
         shell: bash
         run: |
           set -euo pipefail
@@ -32,5 +32,5 @@ jobs:
             echo "No site changes to commit."
           else
             git commit -m "v292: unify full site content, versions and public information"
-            git push origin HEAD:site-unify-v292
+            git push origin HEAD:${{ github.head_ref }}
           fi
