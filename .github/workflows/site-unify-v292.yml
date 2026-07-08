@@ -1,36 +1,36 @@
-name: Finalize site v292
+name: Verify and unify site v292
 
 on:
-  push:
-    branches:
-      - site-unify-v292
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
 
 jobs:
-  finalize:
+  normalize-and-audit:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'site-unify-v292'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch
+      - name: Checkout source branch
         uses: actions/checkout@v4
         with:
-          ref: site-unify-v292
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
 
-      - name: Synchronize internal versions and audit
-        run: python tools/finalize_internal_versions_v292.py
+      - name: Normalize and audit
+        run: python tools/unify_site_v292.py
 
-      - name: Commit finalized site
+      - name: Commit normalized site to source branch
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site.js site-v287-core.js data.json '*.html' SITE_AUDIT_v292.txt
+          git add '*.html' SITE_AUDIT_v292.txt
           if git diff --cached --quiet; then
-            echo "No final changes to commit."
+            echo "No site changes to commit."
           else
-            git commit -m "v292: synchronize internal data and cache versions"
-            git push origin HEAD:site-unify-v292
+            git commit -m "v292: unify full site content, versions and public information"
+            git push origin HEAD:${{ github.head_ref }}
           fi
