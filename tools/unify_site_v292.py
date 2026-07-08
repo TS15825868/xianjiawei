@@ -7,7 +7,10 @@ from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = "292.0"
-HTML_FILES = sorted(ROOT.glob("*.html"))
+HTML_FILES = sorted(
+    path for path in ROOT.glob("*.html")
+    if not path.name.lower().startswith("google")
+)
 
 
 def replace_once(text: str, old: str, new: str, label: str, notes: list[str]) -> str:
@@ -99,7 +102,7 @@ def audit(notes: list[str]) -> str:
     lines: list[str] = []
     lines.append("仙加味官網全站一致性稽核 v292")
     lines.append("=" * 38)
-    lines.append(f"HTML 頁面數：{len(HTML_FILES)}")
+    lines.append(f"正式 HTML 頁面數：{len(HTML_FILES)}")
     lines.append("")
 
     required = {
@@ -174,7 +177,7 @@ def audit(notes: list[str]) -> str:
         data = json.loads((ROOT / "data.json").read_text(encoding="utf-8"))
         products = data.get("products", [])
         lines.append("產品資料中心：")
-        lines.append(f"- 產品型態數：{len(products)}")
+        lines.append(f"- 產品型態數：{len(products)}（龜鹿飲含兩項規格，共六項產品規格）")
         for product in products:
             lines.append(f"- {product.get('displayName') or product.get('name')}: {product.get('size', '')}")
     except Exception as exc:  # noqa: BLE001
@@ -182,13 +185,16 @@ def audit(notes: list[str]) -> str:
     lines.append("")
 
     wrong_line_ids: list[str] = []
-    for path in list(HTML_FILES) + [ROOT / "site.js", ROOT / "site-v287-core.js", ROOT / "data.json"]:
+    scan_files = list(HTML_FILES) + [ROOT / "site.js", ROOT / "site-v287-core.js", ROOT / "data.json"]
+    for path in scan_files:
         if not path.exists():
             continue
         text = path.read_text(encoding="utf-8")
-        for line_id in sorted(set(re.findall(r"@[0-9A-Za-z_-]{6,}", text))):
-            if line_id != "@762jybnm":
-                wrong_line_ids.append(f"{path.name}: {line_id}")
+        ids = set(re.findall(r"line\.me/R/oaMessage/(?:%40|@)([0-9A-Za-z_-]+)", text, flags=re.I))
+        ids.update(re.findall(r"LINE ID[^@]*@([0-9A-Za-z_-]+)", text, flags=re.I))
+        for line_id in sorted(ids):
+            if line_id.lower() != "762jybnm":
+                wrong_line_ids.append(f"{path.name}: @{line_id}")
     lines.append("LINE ID 檢查：")
     lines.extend([f"- {item}" for item in wrong_line_ids] or ["- 通過（@762jybnm）"])
     lines.append("")
