@@ -1,0 +1,36 @@
+name: Package website v289
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build website ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p export/xianjiawei-v289
+          rsync -a \
+            --exclude='.git' \
+            --exclude='export' \
+            --exclude='.github/workflows/package-export.yml' \
+            ./ export/xianjiawei-v289/
+          cd export
+          zip -r xianjiawei-v289.zip xianjiawei-v289
+
+      - name: Upload website ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-v289-package
+          path: export/xianjiawei-v289.zip
+          retention-days: 1
+          if-no-files-found: error
