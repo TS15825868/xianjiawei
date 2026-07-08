@@ -794,8 +794,8 @@
     }
   },
   "buttonTextPolicy": {
-    "globalCta": "怎麼選龜鹿？",
-    "productCta": "這個適合我嗎？",
+    "globalCta": "LINE 幫我比較產品",
+    "productCta": "LINE 詢問產品",
     "secondary": [
       "看看使用方式",
       "了解購買方式",
@@ -803,8 +803,8 @@
       "看看其他產品"
     ],
     "avoid": [
-      "這個適合我嗎？",
-      "怎麼選龜鹿？",
+      "LINE 詢問產品",
+      "LINE 幫我比較產品",
       "立即購買",
       "專人服務"
     ]
@@ -820,7 +820,7 @@
       "家庭使用"
     ]
   },
-  "version": "292.0",
+  "version": "293.0",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,
@@ -844,8 +844,8 @@
     ]
   },
   "lineButtonPolicy": {
-    "globalCta": "怎麼選龜鹿？",
-    "productCta": "這個適合我嗎？",
+    "globalCta": "LINE 幫我比較產品",
+    "productCta": "LINE 詢問產品",
     "sourceTracking": true
   },
   "series": [
