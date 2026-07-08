@@ -1,0 +1,50 @@
+name: v294 product image layout
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update-layout:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Fit approved 4:5 product cards
+        shell: python
+        run: |
+          from pathlib import Path
+
+          css = Path('site.css')
+          text = css.read_text(encoding='utf-8')
+          text = text.replace('aspect-ratio:1 / 1;\n  background:#f8f6f1;', 'aspect-ratio:4 / 5;\n  background:#f8f6f1;')
+          text = text.replace('aspect-ratio:1 / 1.15;', 'aspect-ratio:4 / 5;')
+          css.write_text(text, encoding='utf-8')
+
+          for path in Path('.').glob('*.html'):
+              html = path.read_text(encoding='utf-8')
+              updated = html.replace('site.css?v=292.0', 'site.css?v=294.1')
+              updated = updated.replace('site.css?v=293.0', 'site.css?v=294.1')
+              updated = updated.replace('site.css?v=294.0', 'site.css?v=294.1')
+              if updated != html:
+                  path.write_text(updated, encoding='utf-8')
+
+      - name: Commit layout update
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site.css '*.html'
+          git commit -m "v294: display approved product cards at full 4:5 ratio"
+          git push origin main
