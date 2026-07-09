@@ -1,0 +1,93 @@
+name: v296 homepage responsive image
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Fix homepage image responsiveness
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          css = Path('site.css')
+          text = css.read_text(encoding='utf-8')
+          marker = '/* v296｜首頁品牌圖：桌機、分割畫面、平板與手機完整顯示 */'
+          block = r'''
+
+/* v296｜首頁品牌圖：桌機、分割畫面、平板與手機完整顯示 */
+.home-story-main .story-photo{
+  display:block;
+  width:100%;
+  height:auto !important;
+  max-height:none !important;
+  aspect-ratio:auto !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  margin:0 !important;
+  border-radius:0 !important;
+  background:#f7f4ed;
+}
+
+/* 窄桌面與分割畫面提早改為單欄，避免內容被壓縮 */
+@media (max-width:1100px){
+  .home-local-grid{
+    grid-template-columns:1fr !important;
+  }
+  .home-side-stack{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-rows:auto;
+  }
+}
+
+@media (max-width:760px){
+  .home-side-stack{
+    grid-template-columns:1fr;
+  }
+  .home-story-main .story-photo{
+    height:auto !important;
+    min-height:0 !important;
+  }
+}
+'''
+          if marker not in text:
+              text += block
+          css.write_text(text, encoding='utf-8')
+
+          for html in Path('.').glob('*.html'):
+              source = html.read_text(encoding='utf-8')
+              source = re.sub(r'site\.css\?v=[^\"\']+', 'site.css?v=296.0', source)
+              html.write_text(source, encoding='utf-8')
+
+          Path('LIVE_STATUS_v296.json').write_text('''{
+  "version": "v296",
+  "updatedAt": "2026-07-09",
+  "homepageBrandImage": {
+    "display": "full image",
+    "objectFit": "contain",
+    "fixedHeightRemoved": true,
+    "splitScreenBreakpoint": "1100px",
+    "mobileStackBreakpoint": "760px"
+  }
+}\n''', encoding='utf-8')
+
+      - name: Commit responsive fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site.css '*.html' LIVE_STATUS_v296.json
+          git commit -m "v296: show full homepage brand image across all widths"
+          git push origin main
