@@ -1,0 +1,63 @@
+/* 仙加味頁首品牌語｜v298.8 */
+.brand-mark{
+  min-width:0;
+}
+
+.brand-mark__copy{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-width:0;
+  line-height:1.15;
+}
+
+.brand-mark__name{
+  display:block;
+  color:var(--brand);
+  font-size:18px;
+  font-weight:900;
+  white-space:nowrap;
+  letter-spacing:.02em;
+}
+
+.brand-mark__tagline{
+  display:block;
+  margin-top:4px;
+  color:#6b6259;
+  font-size:12px;
+  font-weight:650;
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+
+@media (max-width:560px){
+  .header-inner{
+    padding:12px 14px;
+    gap:10px;
+  }
+  .brand-mark{
+    gap:9px;
+  }
+  .brand-mark img{
+    width:42px;
+    height:42px;
+  }
+  .brand-mark__name{
+    font-size:17px;
+  }
+  .brand-mark__tagline{
+    margin-top:3px;
+    font-size:10.5px;
+    letter-spacing:.04em;
+  }
+  .menu-btn{
+    flex:0 0 auto;
+    padding:9px 13px;
+  }
+}
+
+@media (max-width:390px){
+  .brand-mark__tagline{
+    display:none;
+  }
+}
