@@ -1,1 +1,1 @@
-Run website consolidation and smoke tests through merged pull request.
+Run the corrected website consolidation workflow and smoke tests.
