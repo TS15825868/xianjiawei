@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /.github/
+Disallow: /data.json
+Disallow: /LIVE_STATUS_
+Disallow: /UPLOAD_MAPPING_
+Disallow: /UPLOAD_MANIFEST_
 
 Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml
