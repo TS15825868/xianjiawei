@@ -1,5 +1,5 @@
 (() => {
-  const VERSION = '298.5';
+  const VERSION = '298.6';
   const originalFetch = window.fetch.bind(window);
 
   function normalizeProducts(data) {
@@ -41,15 +41,15 @@
       name: '龜鹿飲',
       displayName: '龜鹿飲180cc',
       size: '180cc／包（鋁袋）',
-      image: `images/products-v3/guilu-drink-180.webp?v=${VERSION}`,
+      image: `images/products-v3/guilu-drink-180.jpg?v=${VERSION}`,
       gallery: [],
-      dmImage: `images/dm-v3/guilu-drink-180.webp?v=${VERSION}`,
+      dmImage: `images/dm-final/03_guilu-drink-180cc-dm.jpg?v=${VERSION}`,
       description: '180cc鋁袋包裝，把龜鹿膏的成分方向整理成較大容量的即飲型態。開封即可飲用，也可依個人習慣溫熱後飲用。',
       ingredients,
       usage: ['打開即可飲用', '可隔水加熱後飲用', '亦可倒入杯中後加熱飲用', '開封後請儘速飲用完畢'],
       storage: ['常溫置於陰涼處', '或保存於5°C以下冷藏', '開封後請儘速飲用完畢'],
       fit: '偏好較大容量即飲、居家安排或溫熱後飲用的人',
-      detailImages: [`images/dm-v3/guilu-drink-180.webp?v=${VERSION}`],
+      detailImages: [`images/dm-final/03_guilu-drink-180cc-dm.jpg?v=${VERSION}`],
       priceNote: '價格與優惠請透過官方 LINE 詢問。',
       detailPage: 'product-guilu-drink-180cc.html',
       purpose: '較大容量即飲食補',
