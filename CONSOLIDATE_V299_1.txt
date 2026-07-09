@@ -1,1 +1,1 @@
-Consolidate website JavaScript and CSS, remove obsolete files, and run smoke tests.
+Run website consolidation and smoke tests through merged pull request.
