@@ -1351,3 +1351,9 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
 .product-card__actions{margin-top:auto;padding-top:12px;}
 @media(max-width:1050px){.product-purpose-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
 @media(max-width:720px){.product-purpose-grid{grid-template-columns:1fr}.purpose-table th,.purpose-table td{min-width:150px;padding:12px}}
+
+
+/* v297.1｜首頁品牌圖完整顯示 */
+.home-story-main .story-photo{display:block;width:100%;height:auto!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center center!important;margin:0!important;border-radius:0!important;background:#f7f4ed}
+@media(max-width:1100px){.home-local-grid{grid-template-columns:1fr!important}.home-side-stack{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto}}
+@media(max-width:760px){.home-side-stack{grid-template-columns:1fr}.home-story-main .story-photo{height:auto!important;min-height:0!important}}

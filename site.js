@@ -1,5 +1,5 @@
 (() => {
-  const CORE_SRC = 'site-v287-core.js?v=295.1';
+  const CORE_SRC = 'site-v287-core.js?v=297.1';
 
   function loadCore() {
     if (document.readyState === 'loading') {
@@ -46,9 +46,9 @@
 
   function normalizeButtons() {
     const directMap = new Map([
-      ['這個適合我嗎？', 'LINE 詢問產品'],
-      ['怎麼選龜鹿？', 'LINE 幫我比較產品'],
-      ['LINE 幫我選用途方向', 'LINE 幫我比較產品'],
+      ['LINE 諮詢產品', 'LINE 詢問產品'],
+      ['LINE 比較產品', 'LINE 比較產品'],
+      ['LINE 幫我選用途方向', 'LINE 比較產品'],
       ['LINE 幫我看這組適不適合', 'LINE 詢問搭配方式']
     ]);
 

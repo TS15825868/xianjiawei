@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=295.1');
+  const res = await fetch('data.json?v=297.1');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -72,7 +72,7 @@ function getLineId() {
   return SITE_DATA?.lineId || '@762jybnm';
 }
 
-function buildLineAutoLink(message = '我想看龜鹿怎麼選，幫我整理一個方向。') {
+function buildLineAutoLink(message = '我想了解仙加味產品差異、規格與使用方式。') {
   const lineId = encodeURIComponent(getLineId());
   const text = encodeURIComponent(message);
   return `https://line.me/R/oaMessage/${lineId}/?${text}`;
@@ -85,10 +85,10 @@ function lineButton(label = 'LINE 詢問產品', text = '我想詢問仙加味�
 
 function sourceLineText(page = '') {
   const map = {
-    home: '我想知道哪一種龜鹿比較適合我。',
+    home: '我想依使用方式與規格比較仙加味產品。',
     products: '我從官網產品頁進來，想了解產品。',
     combo: '我從官網套餐頁進來，想了解套餐搭配。',
-    choose: '我想知道哪一種龜鹿比較適合我。',
+    choose: '我想依使用方式與規格比較仙加味產品。',
     guide: '我從官網怎麼使用頁面進來，想了解產品使用方式。',
     recipes: '我從官網料理頁進來，想了解龜鹿料理搭配。',
     video: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
@@ -100,10 +100,10 @@ function sourceLineText(page = '') {
     contact: '我從官網聯絡頁進來，想詢問產品資訊。'
   };
 
-  return map[page] || '我想知道哪一種龜鹿比較適合我。';
+  return map[page] || '我想依使用方式與規格比較仙加味產品。';
 }
 
-function pageLineButton(label = 'LINE 幫我比較產品') {
+function pageLineButton(label = 'LINE 比較產品') {
   return lineButton(label, sourceLineText(document.body?.dataset?.page || 'home'));
 }
 
@@ -138,7 +138,7 @@ function renderFloatingLineCta() {
 
 function hydrateStaticFields() {
   document.querySelectorAll('[data-line-url]').forEach(el => {
-    const msg = el.dataset.lineMessage || '我想看龜鹿怎麼選，幫我整理一個方向。';
+    const msg = el.dataset.lineMessage || '我想了解仙加味產品差異、規格與使用方式。';
     el.setAttribute('href', buildLineAutoLink(msg));
   });
 
@@ -184,7 +184,7 @@ function renderMenuDrawer() {
         <div class="menu-line-cta">
           <p class="menu-line-cta__title">官方 LINE 客服</p>
           <p class="menu-line-cta__id">LINE ID：<strong>${getLineId()}</strong></p>
-          ${lineButton('LINE 詢問產品', '我想看龜鹿怎麼選，幫我整理一個方向。')}
+          ${lineButton('LINE 詢問產品', '我想了解仙加味產品差異、規格與使用方式。')}
         </div>
       </aside>
     </nav>
@@ -197,7 +197,7 @@ function renderFooter() {
       <div class="footer-brand-block">
         <strong>${SITE_DATA?.brand || '仙加味'}</strong>
         <p>傳統龜鹿食補・現代日常使用。</p>
-        <p>先認識用途方向，再選擇做得到的方式。</p>
+        <p>清楚認識產品型態、規格與使用方式。</p>
         <p>${SITE_DATA?.heritage?.footer || '從萬華出發・傳承工藝・回歸日常'}</p>
       </div>
 
@@ -212,12 +212,12 @@ function renderFooter() {
             LINE ID：<strong>${getLineId()}</strong>
           </p>
 
-          <p class="muted">想了解產品用途方向、使用方式與搭配方向，歡迎透過官方 LINE 詢問。</p>
+          <p class="muted">想了解產品規格、成分、使用方式與購買資訊，歡迎透過官方 LINE 詢問。</p>
 
           <p>
             ${lineButton(
               'LINE 詢問產品',
-              '我想看龜鹿怎麼選，幫我整理一個方向。'
+              '我想了解仙加味產品差異、規格與使用方式。'
             )}
           </p>
         </div>
@@ -391,7 +391,7 @@ function renderChoosePage() {
   `).join('') + finalCtaBlock(
     '不確定怎麼挑也沒關係',
     '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。',
-    '我想看龜鹿怎麼選，幫我整理一個方向。'
+    '我想了解仙加味產品差異、規格與使用方式。'
   );
 }
 
@@ -608,7 +608,7 @@ function renderFaqPage() {
     `).join('')}
   `).join('') + finalCtaBlock(
     '還是不確定怎麼選？',
-    '可以直接跟我們說你的生活方式，我們幫你整理比較適合的方式。',
+    '可以提供偏好的使用情境、規格與數量，我們協助整理產品差異與購買資訊。',
     sourceLineText('faq')
   );
 }
@@ -787,7 +787,7 @@ function fillProducts(targetId, products) {
           <h3>${p.displayName || p.name || ''}</h3>
           ${p.purpose ? `<p class="product-purpose">用途方向：${p.purpose}</p>` : ''}
           <p>${p.description || ''}</p>
-          <p class="product-hint">第一次了解，可先從食補用途方向選，不一定要一次看完全部。</p>
+          <p class="product-hint">可依使用情境、產品型態與規格比較，選擇符合日常安排的品項。</p>
           <p class="muted">規格：${p.size || ''}</p>
 
           <div class="product-card__actions">
@@ -925,7 +925,7 @@ function initReveal() {
   run();
 }
 
-function finalCtaBlock(title, desc, message = '我想看龜鹿怎麼選，幫我整理一個方向。') {
+function finalCtaBlock(title, desc, message = '我想了解仙加味產品差異、規格與使用方式。') {
   return `
     <section class="final-cta reveal">
       <h3>${title}</h3>
