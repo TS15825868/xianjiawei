@@ -1,1 +1,1 @@
-Run website consolidation and smoke tests on this branch.
+Run the corrected website consolidation script and smoke tests.
