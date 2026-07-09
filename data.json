@@ -98,9 +98,9 @@
       "name": "龜鹿飲180cc",
       "displayName": "龜鹿飲180cc",
       "size": "180cc／包（鋁袋）",
-      "image": "images/products-v3/guilu-drink-180.webp?v=298.5",
+      "image": "images/products-v3/guilu-drink-180.jpg?v=298.6",
       "gallery": [],
-      "dmImage": "images/dm-v3/guilu-drink-180.webp?v=298.5",
+      "dmImage": "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=298.6",
       "description": "180cc鋁袋包裝，把龜鹿膏的成分方向整理成較大容量的即飲型態。開封即可飲用，也可依個人習慣溫熱後飲用。",
       "ingredients": [
         "水",
@@ -124,7 +124,7 @@
       ],
       "fit": "偏好較大容量即飲、居家安排或溫熱後飲用的人",
       "detailImages": [
-        "images/dm-v3/guilu-drink-180.webp?v=298.5"
+        "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=298.6"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-drink-180cc.html",
@@ -830,7 +830,7 @@
       "家庭使用"
     ]
   },
-  "version": "298.5",
+  "version": "298.6",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,
