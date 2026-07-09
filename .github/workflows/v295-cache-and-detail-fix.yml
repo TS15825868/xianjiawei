@@ -1,0 +1,89 @@
+name: v295.1 cache and detail fix
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Force new uploaded images and DM detail pages
+        shell: python
+        run: |
+          from pathlib import Path
+          import json, re
+
+          VERSION = '295.1'
+          root = Path('.')
+
+          data_path = root / 'data.json'
+          data = json.loads(data_path.read_text(encoding='utf-8'))
+          data['version'] = VERSION
+          for p in data.get('products', []):
+              for key in ('image', 'dmImage'):
+                  value = p.get(key)
+                  if value:
+                      value = re.sub(r'\?v=[^&\s]+$', '', value)
+                      p[key] = f'{value}?v={VERSION}'
+              if isinstance(p.get('detailImages'), list):
+                  fixed = []
+                  for value in p['detailImages']:
+                      value = re.sub(r'\?v=[^&\s]+$', '', value)
+                      fixed.append(f'{value}?v={VERSION}')
+                  p['detailImages'] = fixed
+          data_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          # 六個完整介紹頁：主視覺改用相對應的產品 DM，而不是產品卡圖。
+          for path in root.glob('product-*.html'):
+              text = path.read_text(encoding='utf-8')
+              text = text.replace('images/products-v3/', 'images/dm-v3/')
+              text = re.sub(r'(images/dm-v3/[A-Za-z0-9-]+\.jpg)(?:\?v=[^\"\'\s<]+)?', rf'\1?v={VERSION}', text)
+              text = re.sub(r'site\.js\?v=[^\"\']+', f'site.js?v={VERSION}', text)
+              path.write_text(text, encoding='utf-8')
+
+          # 全站載入新版本，避免 data.json 與圖片被瀏覽器沿用舊快取。
+          for path in root.glob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              text = re.sub(r'site\.js\?v=[^\"\']+', f'site.js?v={VERSION}', text)
+              path.write_text(text, encoding='utf-8')
+
+          core = root / 'site-v287-core.js'
+          text = core.read_text(encoding='utf-8')
+          text = re.sub(r"data\.json\?v=[^'\"]+", f'data.json?v={VERSION}', text)
+          core.write_text(text, encoding='utf-8')
+
+          site = root / 'site.js'
+          text = site.read_text(encoding='utf-8')
+          text = re.sub(r"site-v287-core\.js\?v=[^'\"]+", f'site-v287-core.js?v={VERSION}', text)
+          site.write_text(text, encoding='utf-8')
+
+          status = {
+              'version': 'v295.1',
+              'productCards': 'uploaded products-v3 images with cache-busting query',
+              'detailPages': 'uploaded dm-v3 images',
+              'quickView': 'uploaded dm-v3 images',
+              'reason': 'force browsers and GitHub Pages CDN to stop using previous image cache'
+          }
+          (root / 'LIVE_STATUS_v295_1.json').write_text(json.dumps(status, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json site.js site-v287-core.js '*.html' LIVE_STATUS_v295_1.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "v295.1: use uploaded product images and DM detail pages"
+          git push origin main
