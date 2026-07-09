@@ -12,6 +12,7 @@ for (const token of [
   "'品牌故事': '品牌故事'",
   "'人工客服': '人工客服'",
   "el.textContent = visibleLabel",
+  "link.innerHTML = `<span class=\"floating-line-cta__dot\"",
   "官方 LINE｜",
 ]) assert.ok(source.includes(token), "missing: " + token);
 assert.ok(source.indexOf("門市|取貨|自取") < source.indexOf("品牌|四代|鹿角伯"));
