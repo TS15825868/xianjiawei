@@ -1,0 +1,48 @@
+name: Apply website LINE intent integration v300.1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - WEBSITE_LINE_INTENT_TRIGGER.txt
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Apply canonical LINE intents
+        run: node tools/apply_line_intent_integration_v300_1.js
+      - name: Verify website
+        run: |
+          node --check site.js
+          node tools/check_line_intents.js
+          python3 tools/site_maintenance.py
+          python3 -m http.server 8080 >/tmp/site.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          sleep 2
+          curl --fail --silent http://127.0.0.1:8080/index.html >/dev/null
+          curl --fail --silent http://127.0.0.1:8080/products.html >/dev/null
+          curl --fail --silent http://127.0.0.1:8080/choose.html >/dev/null
+          curl --fail --silent http://127.0.0.1:8080/combo.html >/dev/null
+          curl --fail --silent http://127.0.0.1:8080/guide.html >/dev/null
+      - name: Commit verified update
+        run: |
+          rm -f WEBSITE_LINE_INTENT_TRIGGER.txt
+          rm -f tools/apply_line_intent_integration_v300_1.js
+          rm -f .github/workflows/apply-line-intent-integration-v300-1.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "v300.1: align every website LINE button with bot intents"
+          git push origin main
