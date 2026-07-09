@@ -1,0 +1,68 @@
+name: Verify website and shared catalog
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply integration cleanup on this PR
+        if: github.event_name == 'pull_request' && github.head_ref == 'site-line-integration-v300'
+        run: python3 tools/site_maintenance.py --fix
+
+      - name: Commit generated website files
+        if: github.event_name == 'pull_request' && github.head_ref == 'site-line-integration-v300'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+          else
+            git commit -m "v300: unify website catalog, cleanup and reveal behavior"
+            git push origin HEAD:${{ github.head_ref }}
+          fi
+
+      - name: Static audit
+        run: python3 tools/site_maintenance.py
+
+      - name: JavaScript syntax
+        run: node --check site.js
+
+      - name: HTTP smoke tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8080 >/tmp/xianjiawei-http.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          sleep 2
+          for path in \
+            index.html products.html choose.html combo.html guide.html recipes.html \
+            video.html knowledge.html hanfang-baike.html sources.html dm.html brand.html \
+            faq.html contact.html data.json catalog-public.json site.js site.css \
+            product-guilu-gao.html product-guilu-drink-30cc.html \
+            product-guilu-drink-180cc.html product-guilu-tangkuai.html \
+            product-guilu-jiao.html product-luerong-fen.html; do
+            curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
+          done
