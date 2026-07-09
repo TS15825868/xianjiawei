@@ -1,5 +1,5 @@
 (() => {
-  const CORE_SRC = 'site-v287-core.js?v=297.1';
+  const CORE_SRC = 'site-v287-core.js?v=297.2';
 
   function loadCore() {
     if (document.readyState === 'loading') {
