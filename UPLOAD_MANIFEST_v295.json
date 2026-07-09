@@ -1,0 +1,21 @@
+{
+  "version": "v295",
+  "rule": "產品卡與 LINE OA 商品卡使用 images/products-v3；產品快速查看、完整介紹與 DM 使用 images/dm-v3。",
+  "productImages": {
+    "1.png": "guilu-gao.jpg",
+    "2.png": "luerong-fen.jpg",
+    "3.png": "guilu-drink-180.jpg",
+    "4.png": "guilu-drink-30.jpg",
+    "5.png": "guilu-tangkuai.jpg",
+    "6.png": "guilu-jiao.jpg"
+  },
+  "detailDMImages": {
+    "1.png": "guilu-gao.jpg",
+    "2.png": "luerong-fen.jpg",
+    "3.png": "guilu-jiao.jpg",
+    "4.png": "guilu-tangkuai.jpg",
+    "5.png": "guilu-drink-180.jpg",
+    "6.png": "guilu-drink-30.jpg"
+  },
+  "note": "目錄與檔名已對應官網及 LINE OA 現行程式。"
+}
