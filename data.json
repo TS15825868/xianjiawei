@@ -836,7 +836,7 @@
       "家庭使用"
     ]
   },
-  "version": "299.1",
+  "version": "300.0",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,
@@ -1337,5 +1337,7 @@
     }
   ],
   "websiteChat": "disabled_tidio_removed_use_line_oa",
-  "complianceNote": "網站以傳統食補文化、產品用途方向、規格、成分與一般使用方式為主；涉及疾病、症狀、孕哺、兒童或用藥，請洽醫師、中醫師或藥師。"
+  "complianceNote": "網站以傳統食補文化、產品用途方向、規格、成分與一般使用方式為主；涉及疾病、症狀、孕哺、兒童或用藥，請洽醫師、中醫師或藥師。",
+  "catalogVersion": "300.0",
+  "catalogFile": "catalog-public.json"
 }

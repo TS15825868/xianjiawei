@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=299.1');
+  const res = await fetch('data.json?v=300.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -918,15 +918,23 @@ function closeModal() {
 }
 
 function initReveal() {
-  const run = () => {
-    document.querySelectorAll('.reveal').forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 60) {
-        el.classList.add('show');
-      }
-    });
-  };
+  const items = Array.from(document.querySelectorAll('.reveal'));
+  if (!items.length) return;
 
-  run();
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(el => el.classList.add('show'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, currentObserver) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('show');
+      currentObserver.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -60px 0px', threshold: 0.05 });
+
+  items.forEach(el => observer.observe(el));
 }
 
 function finalCtaBlock(title, desc, message = '我想了解仙加味產品差異、規格與使用方式。') {
