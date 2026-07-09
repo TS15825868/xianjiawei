@@ -1,0 +1,83 @@
+name: v298.11 website repository cleanup
+
+on:
+  push:
+    paths:
+      - CLEANUP_V298_11.txt
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Remove obsolete files and refresh cache versions
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          remove_paths = [
+              'site-v298-5-products.js',
+              'images/products-v3/guilu-drink-180.webp',
+              'images/dm-v3/guilu-drink-180.webp',
+              'UPLOAD_180_PRODUCT_PLACEHOLDER.txt',
+              'UPLOAD_NOTE.txt',
+              'UPDATE_NOTES.txt',
+              'line-order.html',
+              'recommend.html',
+              'videos.html',
+              'hanfang-knowledge.html',
+              'product-academy.html',
+              'nourishment-daily.html',
+              'article.html',
+          ]
+          for name in remove_paths:
+              path = Path(name)
+              if path.is_file():
+                  path.unlink()
+
+          for path in Path('.').glob('TRIGGER_*.txt'):
+              path.unlink()
+          for path in Path('.').glob('CLEANUP_*.txt'):
+              path.unlink()
+
+          workflows = Path('.github/workflows')
+          if workflows.exists():
+              for path in workflows.glob('v*.yml'):
+                  path.unlink()
+              for path in workflows.glob('v*.yaml'):
+                  path.unlink()
+
+          for html in Path('.').glob('*.html'):
+              text = html.read_text(encoding='utf-8')
+              text = re.sub(r'site\.js\?v=[^"\']+', 'site.js?v=298.11', text)
+              html.write_text(text, encoding='utf-8')
+
+          sitemap = Path('sitemap.xml')
+          if sitemap.exists():
+              text = sitemap.read_text(encoding='utf-8')
+              text = re.sub(r'<lastmod>[^<]+</lastmod>', '<lastmod>2026-07-09</lastmod>', text)
+              sitemap.write_text(text, encoding='utf-8')
+
+          for directory in sorted(Path('.').rglob('*'), reverse=True):
+              if directory.is_dir() and directory.name != '.git':
+                  try:
+                      directory.rmdir()
+                  except OSError:
+                      pass
+
+      - name: Commit cleanup and remove temporary workflow
+        run: |
+          rm -f .github/workflows/cleanup-v298-11.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "v298.11: remove obsolete website files and simplify runtime assets"
+          git push origin main
