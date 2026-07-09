@@ -1,20 +1,27 @@
 (() => {
-  const CORE_SRC = 'site-v287-core.js?v=297.2';
+  const PATCH_SRC = 'site-v298-5-products.js?v=298.5';
+  const CORE_SRC = 'site-v287-core.js?v=298.5';
 
   function loadCore() {
     if (document.readyState === 'loading') {
+      document.write('<script src="' + PATCH_SRC + '"><\/script>');
       document.write('<script src="' + CORE_SRC + '"><\/script>');
       return;
     }
 
-    const script = document.createElement('script');
-    script.src = CORE_SRC;
-    document.head.appendChild(script);
+    const patch = document.createElement('script');
+    patch.src = PATCH_SRC;
+    patch.onload = () => {
+      const core = document.createElement('script');
+      core.src = CORE_SRC;
+      document.head.appendChild(core);
+    };
+    document.head.appendChild(patch);
   }
 
   function normalizeMenu() {
     const panel = document.querySelector('.site-menu__panel');
-    if (!panel || panel.dataset.navVersion === '293') return;
+    if (!panel || panel.dataset.navVersion === '2985') return;
 
     panel.querySelectorAll('.menu-group').forEach(group => group.remove());
     const lineBlock = panel.querySelector('.menu-line-cta');
@@ -41,7 +48,7 @@
       </div>`;
 
     if (lineBlock) lineBlock.insertAdjacentHTML('beforebegin', menuHtml);
-    panel.dataset.navVersion = '293';
+    panel.dataset.navVersion = '2985';
   }
 
   function normalizeButtons() {
