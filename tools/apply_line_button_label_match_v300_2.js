@@ -19,83 +19,96 @@ source = source.replace(
 );
 
 if (!source.includes("function lineIntentButtonLabel")) {
-  source = source.replace(
-    "function buildLineAutoLink(message = '看產品') {",
-    `function lineIntentButtonLabel(message = '', fallbackLabel = '看產品') {
-  const intent = normalizeLineIntent(message);
-  const labels = {
-    '看產品': '看產品',
-    '直接下單': '直接下單',
-    '幫我推薦': '幫我推薦',
-    '搭配組合': '搭配組合',
-    '怎麼使用': '怎麼使用',
-    '價格方案': '價格方案',
-    '品牌故事': '品牌故事',
-    '人工客服': '人工客服',
-    '料理搭配': '搭配組合'
-  };
+  const helper = [
+    "function lineIntentButtonLabel(message = '', fallbackLabel = '看產品') {",
+    "  const intent = normalizeLineIntent(message);",
+    "  const labels = {",
+    "    '看產品': '看產品',",
+    "    '直接下單': '直接下單',",
+    "    '幫我推薦': '幫我推薦',",
+    "    '搭配組合': '搭配組合',",
+    "    '怎麼使用': '怎麼使用',",
+    "    '價格方案': '價格方案',",
+    "    '品牌故事': '品牌故事',",
+    "    '人工客服': '人工客服',",
+    "    '料理搭配': '搭配組合'",
+    "  };",
+    "",
+    "  if (labels[intent]) return labels[intent];",
+    "",
+    "  const parts = intent.split('｜');",
+    "  const action = parts[0] || '';",
+    "  const productId = parts[1] || '';",
+    "  const product = (SITE_DATA?.products || []).find(item => item.id === productId);",
+    "  const productName = product?.displayName || product?.name || '產品';",
+    "",
+    "  if (action === '產品詳情') return `看${productName}`;",
+    "  if (action === '使用方式') return `${productName}使用方式`;",
+    "  if (action === '選擇數量') return '選擇數量';",
+    "  if (action === '加入購物車') return '加入購物車';",
+    "  if (action === '搭配方案') return '搭配組合';",
+    "",
+    "  const cleaned = String(fallbackLabel || '').replace(/^LINE\\s*/i, '').trim();",
+    "  return cleaned || '看產品';",
+    "}",
+    "",
+    "function buildLineAutoLink(message = '看產品') {"
+  ].join("\n");
 
-  if (labels[intent]) return labels[intent];
-
-  const parts = intent.split('｜');
-  const action = parts[0] || '';
-  const productId = parts[1] || '';
-  const product = (SITE_DATA?.products || []).find(item => item.id === productId);
-  const productName = product?.displayName || product?.name || '產品';
-
-  if (action === '產品詳情') return `看\${productName}`;
-  if (action === '使用方式') return `\${productName}使用方式`;
-  if (action === '選擇數量') return '選擇數量';
-  if (action === '加入購物車') return '加入購物車';
-  if (action === '搭配方案') return '搭配組合';
-
-  const cleaned = String(fallbackLabel || '').replace(/^LINE\\s*/i, '').trim();
-  return cleaned || '看產品';
+  source = source.replace("function buildLineAutoLink(message = '看產品') {", helper);
 }
 
-function buildLineAutoLink(message = '看產品') {`
-  );
-}
+const lineButtonReplacement = [
+  "function lineButton(label = '看產品', text = '看產品') {",
+  "  const intent = normalizeLineIntent(text);",
+  "  const url = buildLineAutoLink(intent);",
+  "  const visibleLabel = lineIntentButtonLabel(intent, label);",
+  "  return `<a class=\"btn btn-line\" href=\"${url}\" target=\"_blank\" rel=\"noopener\" aria-label=\"官方 LINE｜${visibleLabel}\">${visibleLabel}</a>`;",
+  "}"
+].join("\n");
 
 replaceRequired(
   /function lineButton\(label = 'LINE 詢問產品', text = '看產品'\) \{[\s\S]*?\n\}/,
-  `function lineButton(label = '看產品', text = '看產品') {
-  const intent = normalizeLineIntent(text);
-  const url = buildLineAutoLink(intent);
-  const visibleLabel = lineIntentButtonLabel(intent, label);
-  return `<a class="btn btn-line" href="\${url}" target="_blank" rel="noopener" aria-label="官方 LINE｜\${visibleLabel}">\${visibleLabel}</a>`;
-}`,
+  lineButtonReplacement,
   "lineButton"
 );
 
+const floatingReplacement = [
+  "function renderFloatingLineCta() {",
+  "  if (document.getElementById('floating-line-cta')) return;",
+  "  const intent = sourceLineText(document.body?.dataset?.page || 'home');",
+  "  const visibleLabel = lineIntentButtonLabel(intent, '看產品');",
+  "  const link = document.createElement('a');",
+  "  link.id = 'floating-line-cta';",
+  "  link.className = 'floating-line-cta';",
+  "  link.href = buildLineAutoLink(intent);",
+  "  link.target = '_blank';",
+  "  link.rel = 'noopener';",
+  "  link.setAttribute('aria-label', `官方 LINE｜${visibleLabel}`);",
+  "  link.innerHTML = `<span class=\"floating-line-cta__dot\" aria-hidden=\"true\">LINE</span><span>${visibleLabel}</span>`;",
+  "  document.body.appendChild(link);",
+  "}"
+].join("\n");
+
 replaceRequired(
   /function renderFloatingLineCta\(\) \{[\s\S]*?\n\}/,
-  `function renderFloatingLineCta() {
-  if (document.getElementById('floating-line-cta')) return;
-  const intent = sourceLineText(document.body?.dataset?.page || 'home');
-  const visibleLabel = lineIntentButtonLabel(intent, '看產品');
-  const link = document.createElement('a');
-  link.id = 'floating-line-cta';
-  link.className = 'floating-line-cta';
-  link.href = buildLineAutoLink(intent);
-  link.target = '_blank';
-  link.rel = 'noopener';
-  link.setAttribute('aria-label', `官方 LINE｜\${visibleLabel}`);
-  link.innerHTML = `<span class="floating-line-cta__dot" aria-hidden="true">LINE</span><span>\${visibleLabel}</span>`;
-  document.body.appendChild(link);
-}`,
+  floatingReplacement,
   "renderFloatingLineCta"
 );
 
+const hydrateReplacement = [
+  "document.querySelectorAll('[data-line-url]').forEach(el => {",
+  "    const msg = normalizeLineIntent(el.dataset.lineMessage || sourceLineText(document.body?.dataset?.page || 'home'));",
+  "    const visibleLabel = lineIntentButtonLabel(msg, el.textContent || '看產品');",
+  "    el.setAttribute('href', buildLineAutoLink(msg));",
+  "    el.textContent = visibleLabel;",
+  "    el.setAttribute('aria-label', `官方 LINE｜${visibleLabel}`);",
+  "  });"
+].join("\n");
+
 replaceRequired(
   /document\.querySelectorAll\('\[data-line-url\]'\)\.forEach\(el => \{[\s\S]*?\n  \}\);/,
-  `document.querySelectorAll('[data-line-url]').forEach(el => {
-    const msg = normalizeLineIntent(el.dataset.lineMessage || sourceLineText(document.body?.dataset?.page || 'home'));
-    const visibleLabel = lineIntentButtonLabel(msg, el.textContent || '看產品');
-    el.setAttribute('href', buildLineAutoLink(msg));
-    el.textContent = visibleLabel;
-    el.setAttribute('aria-label', `官方 LINE｜\${visibleLabel}`);
-  });`,
+  hydrateReplacement,
   "data-line-url hydrate"
 );
 
