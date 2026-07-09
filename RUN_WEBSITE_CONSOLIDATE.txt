@@ -1,1 +1,0 @@
-Run the corrected website consolidation script and smoke tests.

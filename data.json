@@ -52,7 +52,8 @@
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-gao.html",
       "purpose": "固定日常食補",
-      "purposeDirection": "適合希望在早上或下午建立固定食補安排的人，可直接取用，也可用熱水化開飲用。"
+      "purposeDirection": "適合希望在早上或下午建立固定食補安排的人，可直接取用，也可用熱水化開飲用。",
+      "page": "product-guilu-gao.html"
     },
     {
       "id": "guilu-drink-30",
@@ -90,7 +91,8 @@
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-drink-30cc.html",
       "purpose": "輕巧即飲食補",
-      "purposeDirection": "適合外出攜帶、工作空檔或偏好小瓶即飲的人。"
+      "purposeDirection": "適合外出攜帶、工作空檔或偏好小瓶即飲的人。",
+      "page": "product-guilu-drink-30cc.html"
     },
     {
       "id": "guilu-drink-180",
@@ -129,7 +131,8 @@
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-drink-180cc.html",
       "purpose": "較大容量即飲食補",
-      "purposeDirection": "適合偏好較大容量即飲、居家安排或溫熱後飲用的人。"
+      "purposeDirection": "適合偏好較大容量即飲、居家安排或溫熱後飲用的人。",
+      "page": "product-guilu-drink-180cc.html"
     },
     {
       "id": "guilu-tangkuai",
@@ -166,7 +169,8 @@
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-tangkuai.html",
       "purpose": "沖泡與燉湯食補",
-      "purposeDirection": "適合想用熱水沖泡、保溫壺悶泡，或加入雞湯、排骨湯等家常料理的人。"
+      "purposeDirection": "適合想用熱水沖泡、保溫壺悶泡，或加入雞湯、排骨湯等家常料理的人。",
+      "page": "product-guilu-tangkuai.html"
     },
     {
       "id": "guilu-jiao",
@@ -199,7 +203,8 @@
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-jiao.html",
       "purpose": "傳統大規格食補",
-      "purposeDirection": "適合熟悉龜鹿產品、偏好一斤大規格、家庭安排或搭配湯品的人。"
+      "purposeDirection": "適合熟悉龜鹿產品、偏好一斤大規格、家庭安排或搭配湯品的人。",
+      "page": "product-guilu-jiao.html"
     },
     {
       "id": "luerong-fen",
@@ -231,7 +236,8 @@
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-luerong-fen.html",
       "purpose": "自行搭配食補",
-      "purposeDirection": "適合喜歡粉狀型態、想自行調整份量，並搭配溫開水、牛奶、豆漿或其他飲品的人。"
+      "purposeDirection": "適合喜歡粉狀型態、想自行調整份量，並搭配溫開水、牛奶、豆漿或其他飲品的人。",
+      "page": "product-luerong-fen.html"
     }
   ],
   "combos": [
@@ -830,7 +836,7 @@
       "家庭使用"
     ]
   },
-  "version": "298.6",
+  "version": "299.1",
   "lineOaFixNote": "網站按鈕文字已精準對應LINE OA產品適合度卡片；舊fallback改成不卡住的選擇卡。",
   "crmTracking": {
     "enabled": true,
