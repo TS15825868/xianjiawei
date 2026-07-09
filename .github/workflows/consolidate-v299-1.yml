@@ -1,0 +1,207 @@
+name: v299.1 consolidate website
+
+on:
+  push:
+    paths:
+      - CONSOLIDATE_V299_1.txt
+
+permissions:
+  contents: write
+
+jobs:
+  consolidate-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Consolidate JavaScript and CSS
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          version = '299.1'
+          core = Path('site-v287-core.js')
+          wrapper = Path('site.js')
+          if not core.exists():
+              raise SystemExit('site-v287-core.js not found')
+
+          js = core.read_text(encoding='utf-8')
+          js = re.sub(r"fetch\('data\.json\?v=[^']+'\)", f"fetch('data.json?v={version}')", js)
+
+          old_header = '''function renderHeaderBar() {
+            return `
+              <div class="header-inner">
+                <a class="brand-mark" href="index.html">
+                  <img src="images/logo.png" alt="${SITE_DATA?.brand || '仙加味'}" decoding="async">
+                  <span>${SITE_DATA?.brand || '仙加味'}</span>
+                </a>
+                <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-expanded="false">☰ 選單</button>
+              </div>
+            `;
+          }'''
+          new_header = '''function renderHeaderBar() {
+            const brand = SITE_DATA?.brand || '仙加味';
+            return `
+              <div class="header-inner">
+                <a class="brand-mark" href="index.html" aria-label="${brand}｜補養，是一種節奏。">
+                  <img src="images/logo.png" alt="${brand}" decoding="async">
+                  <span class="brand-mark__copy">
+                    <span class="brand-mark__name">${brand}</span>
+                    <span class="brand-mark__tagline">補養，是一種節奏。</span>
+                  </span>
+                </a>
+                <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-expanded="false">☰ 選單</button>
+              </div>
+            `;
+          }'''
+          if old_header not in js:
+              raise SystemExit('renderHeaderBar source block not found')
+          js = js.replace(old_header, new_header)
+
+          replacements = {
+              '官方 LINE 客服': '官方 LINE 詢問',
+              "lineButton('LINE 諮詢產品'": "lineButton('LINE 詢問產品'",
+              "lineButton('這組適合我嗎？', `我想看「${combo.name}」這組適不適合我。`)": "lineButton('LINE 詢問搭配方式', `我想了解「${combo.name}」搭配組合的內容與購買方式。`)",
+              "lineButton('這組適合我嗎？', `我想看「${combo.name || '套餐搭配'}」這組適不適合我。`)": "lineButton('LINE 詢問搭配方式', `我想了解「${combo.name || '套餐搭配'}」搭配組合的內容與購買方式。`)",
+              '傳統龜鹿食補・現代日常使用。': '補養，是一種節奏。',
+          }
+          for old, new in replacements.items():
+              js = js.replace(old, new)
+
+          # 修正不再存在的 data-page 別名與排版縮排。
+          js = js.replace("    if (page === 'hanfang-baike') renderHanfangBaike();", "  if (page === 'hanfang-baike') renderHanfangBaike();")
+          js = js.replace("if (page === 'videos' || page === 'video')", "if (page === 'video')")
+
+          wrapper.write_text(js, encoding='utf-8')
+
+          css = Path('site.css')
+          css_text = css.read_text(encoding='utf-8')
+          header_css = Path('site-header-brand-v298-8.css')
+          if header_css.exists() and '仙加味頁首品牌語｜整合版' not in css_text:
+              extra = header_css.read_text(encoding='utf-8').replace('仙加味頁首品牌語｜v298.8', '仙加味頁首品牌語｜整合版')
+              css_text = css_text.rstrip() + '\n\n' + extra.strip() + '\n'
+          css.write_text(css_text, encoding='utf-8')
+
+          for html in Path('.').glob('*.html'):
+              text = html.read_text(encoding='utf-8')
+              text = re.sub(r'site\.css\?v=[^"\']+', f'site.css?v={version}', text)
+              text = re.sub(r'site\.js\?v=[^"\']+', f'site.js?v={version}', text)
+              text = re.sub(r'\s*<link[^>]+site-header-brand-v298-8\.css[^>]*>', '', text)
+              html.write_text(text, encoding='utf-8')
+
+          # 移除已整合或確定為臨時用途的檔案。
+          for target in [
+              'site-v287-core.js',
+              'site-header-brand-v298-8.css',
+              'UPLOAD_180_PRODUCT_PLACEHOLDER.txt',
+              'UPLOAD_NOTE.txt',
+              'UPDATE_NOTES.txt',
+          ]:
+              p = Path(target)
+              if p.exists():
+                  p.unlink()
+
+          for pattern in ['TRIGGER_*.txt', 'CLEANUP_*.txt', 'CONSOLIDATE_*.txt']:
+              for p in Path('.').glob(pattern):
+                  p.unlink()
+
+          workflows = Path('.github/workflows')
+          if workflows.exists():
+              for p in workflows.glob('v*.yml'):
+                  p.unlink()
+              for p in workflows.glob('v*.yaml'):
+                  p.unlink()
+
+      - name: Static smoke tests
+        shell: python
+        run: |
+          from pathlib import Path
+          from urllib.parse import urlsplit
+          import json, re, sys
+
+          errors = []
+          required_pages = [
+              'index.html','products.html','choose.html','combo.html','guide.html',
+              'recipes.html','video.html','knowledge.html','hanfang-baike.html',
+              'sources.html','brand.html','faq.html','contact.html',
+              'product-guilu-gao.html','product-guilu-drink-30cc.html',
+              'product-guilu-drink-180cc.html','product-guilu-tangkuai.html',
+              'product-guilu-jiao.html','product-luerong-fen.html'
+          ]
+          for page in required_pages:
+              if not Path(page).exists(): errors.append(f'missing page: {page}')
+
+          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
+          ids = [p.get('id') for p in data.get('products', [])]
+          expected_ids = ['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+          if ids != expected_ids:
+              errors.append(f'product ids/order mismatch: {ids}')
+
+          for product in data.get('products', []):
+              for key in ['id','displayName','size','description','ingredients','usage','image','dmImage','page']:
+                  if not product.get(key): errors.append(f"{product.get('id')} missing {key}")
+              for key in ['image','dmImage']:
+                  path = str(product.get(key, '')).split('?',1)[0]
+                  if path and not Path(path).exists(): errors.append(f'missing product asset: {path}')
+              page = str(product.get('page','')).split('?',1)[0]
+              if page and not Path(page).exists(): errors.append(f'missing product page: {page}')
+
+          local_attr = re.compile(r'''(?:href|src)=["']([^"']+)["']''', re.I)
+          for html in Path('.').glob('*.html'):
+              text = html.read_text(encoding='utf-8')
+              if 'site.js?v=299.1' not in text:
+                  errors.append(f'{html}: old/missing site.js version')
+              for value in local_attr.findall(text):
+                  if value.startswith(('#','mailto:','tel:','javascript:','data:')): continue
+                  parsed = urlsplit(value)
+                  if parsed.scheme or parsed.netloc: continue
+                  target = parsed.path.lstrip('/')
+                  if not target: continue
+                  if not Path(target).exists(): errors.append(f'{html}: missing local reference {target}')
+
+          js = Path('site.js').read_text(encoding='utf-8')
+          checks = [
+              '補養，是一種節奏。',
+              "fetch('data.json?v=299.1')",
+              'function renderHeaderBar()',
+              'function renderProductsPage()',
+              'function renderComboPage()',
+              'function renderGuidePage()',
+              'function renderVideosPage()',
+              'function renderFaqPage()',
+          ]
+          for check in checks:
+              if check not in js: errors.append(f'site.js missing: {check}')
+          for obsolete in ['site-v287-core.js','site-header-brand-v298-8.css','site-v298-5-products.js']:
+              if Path(obsolete).exists(): errors.append(f'obsolete file remains: {obsolete}')
+
+          if errors:
+              print('\n'.join(errors))
+              sys.exit(1)
+          print(f'Website smoke tests passed: {len(required_pages)} pages, {len(ids)} products')
+
+      - name: JavaScript syntax check
+        run: node --check site.js
+
+      - name: Local HTTP smoke test
+        run: |
+          python3 -m http.server 8080 >/tmp/xjw-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          sleep 2
+          for path in index.html products.html product-guilu-drink-180cc.html data.json site.js site.css images/products-v3/guilu-drink-180.jpg images/dm-final/03_guilu-drink-180cc-dm.jpg; do
+            curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
+          done
+
+      - name: Commit consolidated website
+        run: |
+          rm -f .github/workflows/consolidate-v299-1.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "v299.1: consolidate website assets and pass smoke tests"
+          git push origin main
