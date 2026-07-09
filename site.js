@@ -1,10 +1,9 @@
 (() => {
-  const PATCH_SRC = 'site-v298-5-products.js?v=298.8';
-  const CORE_SRC = 'site-v287-core.js?v=298.8';
-  const HEADER_STYLE_SRC = 'site-header-brand-v298-8.css?v=298.8';
+  const CORE_SRC = 'site-v287-core.js?v=298.11';
+  const HEADER_STYLE_SRC = 'site-header-brand-v298-8.css?v=298.11';
 
   function loadHeaderStyle() {
-    if (document.querySelector(`link[href*="site-header-brand-v298-8.css"]`)) return;
+    if (document.querySelector('link[href*="site-header-brand-v298-8.css"]')) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = HEADER_STYLE_SRC;
@@ -15,24 +14,18 @@
     loadHeaderStyle();
 
     if (document.readyState === 'loading') {
-      document.write('<script src="' + PATCH_SRC + '"><\/script>');
       document.write('<script src="' + CORE_SRC + '"><\/script>');
       return;
     }
 
-    const patch = document.createElement('script');
-    patch.src = PATCH_SRC;
-    patch.onload = () => {
-      const core = document.createElement('script');
-      core.src = CORE_SRC;
-      document.head.appendChild(core);
-    };
-    document.head.appendChild(patch);
+    const core = document.createElement('script');
+    core.src = CORE_SRC;
+    document.head.appendChild(core);
   }
 
   function normalizeMenu() {
     const panel = document.querySelector('.site-menu__panel');
-    if (!panel || panel.dataset.navVersion === '2988') return;
+    if (!panel || panel.dataset.navVersion === '29811') return;
 
     panel.querySelectorAll('.menu-group').forEach(group => group.remove());
     const lineBlock = panel.querySelector('.menu-line-cta');
@@ -59,12 +52,12 @@
       </div>`;
 
     if (lineBlock) lineBlock.insertAdjacentHTML('beforebegin', menuHtml);
-    panel.dataset.navVersion = '2988';
+    panel.dataset.navVersion = '29811';
   }
 
   function normalizeBrandHeader() {
     const brand = document.querySelector('.site-header .brand-mark');
-    if (!brand || brand.dataset.brandVersion === '2988') return;
+    if (!brand || brand.dataset.brandVersion === '29811') return;
 
     const image = brand.querySelector('img');
     const name = brand.textContent.trim() || '仙加味';
@@ -79,7 +72,7 @@
       <span class="brand-mark__tagline">補養，是一種節奏。</span>
     `;
     brand.appendChild(copy);
-    brand.dataset.brandVersion = '2988';
+    brand.dataset.brandVersion = '29811';
     brand.setAttribute('aria-label', `${name}｜補養，是一種節奏。`);
   }
 
