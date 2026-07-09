@@ -1,6 +1,6 @@
 (() => {
-  const PATCH_SRC = 'site-v298-5-products.js?v=298.5';
-  const CORE_SRC = 'site-v287-core.js?v=298.5';
+  const PATCH_SRC = 'site-v298-5-products.js?v=298.6';
+  const CORE_SRC = 'site-v287-core.js?v=298.6';
 
   function loadCore() {
     if (document.readyState === 'loading') {
@@ -21,7 +21,7 @@
 
   function normalizeMenu() {
     const panel = document.querySelector('.site-menu__panel');
-    if (!panel || panel.dataset.navVersion === '2985') return;
+    if (!panel || panel.dataset.navVersion === '2986') return;
 
     panel.querySelectorAll('.menu-group').forEach(group => group.remove());
     const lineBlock = panel.querySelector('.menu-line-cta');
@@ -48,7 +48,7 @@
       </div>`;
 
     if (lineBlock) lineBlock.insertAdjacentHTML('beforebegin', menuHtml);
-    panel.dataset.navVersion = '2985';
+    panel.dataset.navVersion = '2986';
   }
 
   function normalizeButtons() {
