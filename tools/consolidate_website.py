@@ -67,6 +67,14 @@ function renderMenuDrawer()'''
     )
     site.write_text(js, encoding="utf-8")
 
+    data_path = ROOT / "data.json"
+    data = json.loads(data_path.read_text(encoding="utf-8"))
+    data["version"] = VERSION
+    for product in data.get("products", []):
+        if not product.get("page") and product.get("detailPage"):
+            product["page"] = product["detailPage"]
+    data_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
     css_path = ROOT / "site.css"
     css = css_path.read_text(encoding="utf-8")
     header_css_path = ROOT / "site-header-brand-v298-8.css"
@@ -136,7 +144,8 @@ def smoke_test():
     attr_re = re.compile(r'''(?:href|src)=["']([^"']+)["']''', re.I)
     for html in ROOT.glob("*.html"):
         text = html.read_text(encoding="utf-8")
-        if f"site.js?v={VERSION}" not in text:
+        is_verification = html.name.startswith("google") and html.name.endswith(".html")
+        if not is_verification and f"site.js?v={VERSION}" not in text:
             errors.append(f"{html.name}: wrong site.js version")
         for value in attr_re.findall(text):
             if value.startswith(("#", "mailto:", "tel:", "javascript:", "data:")):
