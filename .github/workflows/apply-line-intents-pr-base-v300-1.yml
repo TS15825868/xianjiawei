@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   apply:
-    if: github.head_ref == 'website-line-intents-final-v300-1'
+    if: startsWith(github.head_ref, 'website-line-intents-final')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
