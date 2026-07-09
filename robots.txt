@@ -1,4 +1,4 @@
-# Public site crawl policy v297.1
+# Public site crawl policy v297.2
 User-agent: *
 Allow: /
 Disallow: /.github/
