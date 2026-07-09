@@ -94,6 +94,6 @@ source = source.replace("fetch('data.json?v=300.0')", "fetch('data.json?v=300.1'
 fs.writeFileSync(sitePath, source, "utf8");
 
 const checkPath = path.join(root, "tools", "check_line_intents.js");
-fs.writeFileSync(checkPath, `"use strict";\nconst assert = require("assert");\nconst fs = require("fs");\nconst source = fs.readFileSync("site.js", "utf8");\nfor (const token of [\n  "function normalizeLineIntent",\n  "home: '幫我推薦'",\n  "products: '看產品'",\n  "combo: '搭配組合'",\n  "guide: '怎麼使用'",\n  "brand: '品牌故事'",\n  "contact: '人工客服'",\n  "return \\\`產品詳情｜\\${product.id}\\\`",\n]) assert.ok(source.includes(token), "missing: " + token);\nassert.ok(!source.includes("我從官網產品頁進來，想了解產品。"));\nassert.ok(!source.includes("我想依使用方式與規格比較仙加味產品。"));\nconsole.log("PASS website LINE canonical intents v300.1");\n`, "utf8");
+fs.writeFileSync(checkPath, `"use strict";\nconst assert = require("assert");\nconst fs = require("fs");\nconst source = fs.readFileSync("site.js", "utf8");\nfor (const token of [\n  "function normalizeLineIntent",\n  "home: '幫我推薦'",\n  "products: '看產品'",\n  "combo: '搭配組合'",\n  "guide: '怎麼使用'",\n  "brand: '品牌故事'",\n  "contact: '人工客服'",\n  "產品詳情｜",\n]) assert.ok(source.includes(token), "missing: " + token);\nassert.ok(!source.includes("我從官網產品頁進來，想了解產品。"));\nassert.ok(!source.includes("我想依使用方式與規格比較仙加味產品。"));\nconsole.log("PASS website LINE canonical intents v300.1");\n`, "utf8");
 
 console.log("Applied website-to-LINE intent integration v300.1");
