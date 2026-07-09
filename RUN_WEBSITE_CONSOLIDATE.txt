@@ -1,1 +1,1 @@
-Run website consolidation and smoke tests on this branch.
+Run website consolidation with diagnostics after workflow update.
