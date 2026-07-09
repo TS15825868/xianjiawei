@@ -1,0 +1,7 @@
+{
+  "version": "v295.1",
+  "productCards": "uploaded products-v3 images with cache-busting query",
+  "detailPages": "uploaded dm-v3 images",
+  "quickView": "uploaded dm-v3 images",
+  "reason": "force browsers and GitHub Pages CDN to stop using previous image cache"
+}
