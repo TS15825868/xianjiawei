@@ -1,0 +1,42 @@
+name: PR consolidate website v299.1
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - RUN_WEBSITE_CONSOLIDATE.txt
+
+permissions:
+  contents: write
+
+jobs:
+  consolidate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Consolidate and test
+        run: python tools/consolidate_website.py
+      - name: HTTP smoke test
+        run: |
+          python3 -m http.server 8080 >/tmp/xjw-http.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          sleep 2
+          for p in index.html products.html product-guilu-drink-180cc.html data.json site.js site.css images/products-v3/guilu-drink-180.jpg images/dm-final/03_guilu-drink-180cc-dm.jpg; do
+            curl --fail --silent --show-error "http://127.0.0.1:8080/$p" >/dev/null
+          done
+      - name: Commit tested files to PR branch
+        run: |
+          rm -f tools/consolidate_website.py RUN_WEBSITE_CONSOLIDATE.txt
+          rm -f .github/workflows/consolidate-v299-1.yml .github/workflows/pr-consolidate-v299-1.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "v299.1: consolidate website assets and pass smoke tests"
+          git push origin HEAD:${{ github.head_ref }}
