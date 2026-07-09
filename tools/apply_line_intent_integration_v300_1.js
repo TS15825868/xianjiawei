@@ -89,7 +89,6 @@ source = source.replace(/productFitText\(p\.displayName \|\| p\.name \|\| ''\)/g
 source = source.replace(/'我想了解仙加味產品差異、規格與使用方式。'/g, "'看產品'");
 source = source.replace(/'我想詢問仙加味產品。'/g, "'看產品'");
 source = source.replace("const msg = el.dataset.lineMessage || '看產品';", "const msg = normalizeLineIntent(el.dataset.lineMessage || sourceLineText(document.body?.dataset?.page || 'home'));" );
-source = source.replace("fetch('data.json?v=300.0')", "fetch('data.json?v=300.1')");
 
 fs.writeFileSync(sitePath, source, "utf8");
 
