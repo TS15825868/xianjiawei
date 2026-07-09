@@ -1,0 +1,1 @@
+Refresh every page to load the responsive header brand tagline.
