@@ -72,43 +72,71 @@ function getLineId() {
   return SITE_DATA?.lineId || '@762jybnm';
 }
 
-function buildLineAutoLink(message = '我想了解仙加味產品差異、規格與使用方式。') {
+function normalizeLineIntent(message = '') {
+  const text = String(message || '').trim();
+  if (!text) return '看產品';
+  if (/^(產品詳情|使用方式|選擇數量|加入購物車|搭配方案)｜/.test(text)) return text;
+  if (/^(看產品|直接下單|幫我推薦|搭配組合|怎麼使用|價格方案|品牌故事|人工客服|料理搭配)$/.test(text)) return text;
+
+  const product = (SITE_DATA?.products || []).find(item => {
+    const names = [item.id, item.name, item.displayName, ...(item.aliases || [])].filter(Boolean);
+    return names.some(name => text.includes(String(name)));
+  });
+  if (product) {
+    if (/怎麼用|使用方式|食用方式|成分/.test(text)) return `使用方式｜${product.id}`;
+    return `產品詳情｜${product.id}`;
+  }
+
+  if (/價格|售價|價錢|多少錢|活動|優惠/.test(text)) return '價格方案';
+  if (/套餐|搭配組合|搭配方式|料理搭配|燉湯|熱飲.*調飲/.test(text)) return '搭配組合';
+  if (/怎麼使用|使用方式|食用方式|怎麼用/.test(text)) return '怎麼使用';
+  if (/品牌|四代|鹿角伯|萬華門市|了解仙加味/.test(text)) return '品牌故事';
+  if (/FAQ|聯絡|客服|問題想詢問|配送|付款|通路合作|診所|中藥店/.test(text)) return '人工客服';
+  if (/推薦|比較|差異|怎麼選|適合|產品整理|規格比較/.test(text)) return '幫我推薦';
+  return '看產品';
+}
+
+function buildLineAutoLink(message = '看產品') {
   const lineId = encodeURIComponent(getLineId());
-  const text = encodeURIComponent(message);
+  const text = encodeURIComponent(normalizeLineIntent(message));
   return `https://line.me/R/oaMessage/${lineId}/?${text}`;
 }
 
-function lineButton(label = 'LINE 詢問產品', text = '我想詢問仙加味產品。') {
-  const url = `https://line.me/R/oaMessage/${encodeURIComponent(SITE_DATA?.lineId || '@762jybnm')}/?${encodeURIComponent(text)}`;
+function lineButton(label = 'LINE 詢問產品', text = '看產品') {
+  const url = buildLineAutoLink(text);
   return `<a class="btn btn-line" href="${url}" target="_blank" rel="noopener">${label}</a>`;
 }
 
 function sourceLineText(page = '') {
   const map = {
-    home: '我想依使用方式與規格比較仙加味產品。',
-    products: '我從官網產品頁進來，想了解產品。',
-    combo: '我從官網套餐頁進來，想了解套餐搭配。',
-    choose: '我想依使用方式與規格比較仙加味產品。',
-    guide: '我從官網怎麼使用頁面進來，想了解產品使用方式。',
-    recipes: '我從官網料理頁進來，想了解龜鹿料理搭配。',
-    video: '我從官網影片頁進來，想看龜鹿系列影片與產品。',
-    knowledge: '我從官網漢方知識館進來，想了解產品、成分與日常安排。',
-    'hanfang-baike': '我從官網漢方百科進來，想了解食材與成分。',
-    sources: '我從官網資料來源頁進來，想了解成分與產品對應。',
-    brand: '我從官網品牌頁進來，想了解仙加味。',
-    faq: '我從官網FAQ頁面進來，有幾個問題想詢問。',
-    contact: '我從官網聯絡頁進來，想詢問產品資訊。'
+    home: '幫我推薦',
+    products: '看產品',
+    combo: '搭配組合',
+    choose: '幫我推薦',
+    guide: '怎麼使用',
+    recipes: '料理搭配',
+    video: '看產品',
+    knowledge: '幫我推薦',
+    'hanfang-baike': '看產品',
+    sources: '看產品',
+    brand: '品牌故事',
+    faq: '人工客服',
+    contact: '人工客服'
   };
-
-  return map[page] || '我想依使用方式與規格比較仙加味產品。';
+  return map[page] || '看產品';
 }
 
 function pageLineButton(label = 'LINE 比較產品') {
   return lineButton(label, sourceLineText(document.body?.dataset?.page || 'home'));
 }
 
-function productFitText(productName = '') {
-  return `我想了解${productName}的用途方向、規格、使用方式與購買方式。`;
+function productFitText(product = '') {
+  if (product && typeof product === 'object' && product.id) return `產品詳情｜${product.id}`;
+  const name = String(product || '').trim();
+  const matched = (SITE_DATA?.products || []).find(item =>
+    [item.name, item.displayName, ...(item.aliases || [])].filter(Boolean).some(value => name.includes(String(value)))
+  );
+  return matched?.id ? `產品詳情｜${matched.id}` : '看產品';
 }
 
 function buildShell() {
@@ -138,7 +166,7 @@ function renderFloatingLineCta() {
 
 function hydrateStaticFields() {
   document.querySelectorAll('[data-line-url]').forEach(el => {
-    const msg = el.dataset.lineMessage || '我想了解仙加味產品差異、規格與使用方式。';
+    const msg = normalizeLineIntent(el.dataset.lineMessage || sourceLineText(document.body?.dataset?.page || 'home'));
     el.setAttribute('href', buildLineAutoLink(msg));
   });
 
@@ -188,7 +216,7 @@ function renderMenuDrawer() {
         <div class="menu-line-cta">
           <p class="menu-line-cta__title">官方 LINE 詢問</p>
           <p class="menu-line-cta__id">LINE ID：<strong>${getLineId()}</strong></p>
-          ${lineButton('LINE 詢問產品', '我想了解仙加味產品差異、規格與使用方式。')}
+          ${lineButton('LINE 詢問產品', '看產品')}
         </div>
       </aside>
     </nav>
@@ -221,7 +249,7 @@ function renderFooter() {
           <p>
             ${lineButton(
               'LINE 詢問產品',
-              '我想了解仙加味產品差異、規格與使用方式。'
+              '看產品'
             )}
           </p>
         </div>
@@ -369,7 +397,7 @@ function renderProductsPage() {
         ${p.purpose ? `<p class="product-purpose">用途方向：${p.purpose}</p>` : ''}
         <p>${p.description || ''}</p>
         <div class="final-cta__actions">
-          ${lineButton('LINE 詢問產品', productFitText(p.displayName || p.name || ''))}
+          ${lineButton('LINE 詢問產品', productFitText(p))}
         </div>
       </article>
     `).join('');
@@ -395,7 +423,7 @@ function renderChoosePage() {
   `).join('') + finalCtaBlock(
     '不確定怎麼挑也沒關係',
     '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。',
-    '我想了解仙加味產品差異、規格與使用方式。'
+    '看產品'
   );
 }
 
@@ -797,7 +825,7 @@ function fillProducts(targetId, products) {
           <div class="product-card__actions">
             <a class="btn btn-outline" href="${p.detailPage || 'products.html'}">完整介紹</a>
             <button class="btn btn-outline" type="button" data-quick-view="1">快速查看</button>
-            ${lineButton('LINE 詢問產品', productFitText(p.displayName || p.name || ''))}
+            ${lineButton('LINE 詢問產品', productFitText(p))}
           </div>
         </div>
       </article>
@@ -890,7 +918,7 @@ function openProductModal(p, sourceEl) {
           <h3>想確認這個食補用途是否符合你的習慣？</h3>
           <p>直接用 LINE 告訴我們偏好固定、即飲、沖泡、燉湯或自行搭配，我們幫你整理。</p>
           <div class="final-cta__actions">
-            ${lineButton('LINE 詢問產品', productFitText(p.displayName || p.name || ''))}
+            ${lineButton('LINE 詢問產品', productFitText(p))}
           </div>
         </div>
       </div>
@@ -937,7 +965,7 @@ function initReveal() {
   items.forEach(el => observer.observe(el));
 }
 
-function finalCtaBlock(title, desc, message = '我想了解仙加味產品差異、規格與使用方式。') {
+function finalCtaBlock(title, desc, message = '看產品') {
   return `
     <section class="final-cta reveal">
       <h3>${title}</h3>
