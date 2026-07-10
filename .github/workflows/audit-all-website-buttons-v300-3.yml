@@ -1,0 +1,71 @@
+name: Audit all website buttons v300.3
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  audit-and-fix:
+    if: startsWith(github.head_ref, 'audit-buttons-v300-3')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply button routing fixes
+        run: |
+          if grep -F 'p.page || p.detailPage' site.js >/dev/null && grep -F '搭配組數｜${index}' site.js >/dev/null; then
+            echo 'Button routing fixes already applied.'
+          else
+            node tools/apply_all_button_routing_fix_v300_3.js
+          fi
+          node --check site.js
+
+      - name: Download LINE OA command router
+        run: |
+          curl --fail --silent --show-error \
+            https://raw.githubusercontent.com/TS15825868/TS-LINE/main/server.js \
+            -o .tmp-line-server.js
+
+      - name: Static website and button audit
+        run: |
+          python3 tools/site_maintenance.py
+          python3 tools/audit_all_buttons.py
+          node tools/check_line_intents.js
+          node tools/check_line_button_labels.js
+
+      - name: Install Chromium for interaction tests
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Browser interaction and destination tests
+        run: |
+          python3 -m http.server 8080 >/tmp/xianjiawei-http.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          sleep 2
+          SITE_BASE_URL=http://127.0.0.1:8080/ node tools/audit_all_buttons.mjs
+
+      - name: Commit verified fixes and reports
+        run: |
+          rm -f .tmp-line-server.js
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add site.js BUTTON_AUDIT_REPORT.md BUTTON_BROWSER_REPORT.md
+          if git diff --cached --quiet; then
+            echo 'No additional changes to commit.'
+          else
+            git commit -m 'v300.3: verify and fix all website button destinations'
+            git push origin HEAD:${{ github.head_ref }}
+          fi
