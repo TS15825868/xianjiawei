@@ -50,6 +50,27 @@ jobs:
             exit $status
           fi
 
+      - name: Final public copy and artifact cleanup
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          replacements = {
+              '五大產品型態・六項產品規格': '五大產品型態',
+              '六項產品規格': '五項產品規格',
+              '五大產品・六種規格': '五大產品',
+              '看六大產品': '看五大產品',
+          }
+          for path in Path('.').glob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              for old, new in replacements.items():
+                  text = text.replace(old, new)
+              path.write_text(text, encoding='utf-8')
+          for pattern in ('BUTTON_*', 'CHECK_REPORT*', 'LATEST_ASSET_REPORT*', '*圖片清理清單*', 'V302_RUN.log'):
+              for path in Path('.').glob(pattern):
+                  if path.is_file():
+                      path.unlink()
+          PY
+
       - name: Validate public files
         run: |
           node --check site.js
@@ -61,7 +82,7 @@ jobs:
                   json.loads(Path(name).read_text(encoding='utf-8'))
           print('public files validated')
           PY
-          ! grep -RniE 'guilu-drink-180|product-guilu-drink-180cc|180cc' --include='*.html' --include='*.json' --include='site.js' --include='sitemap.xml' .
+          ! grep -RniE 'guilu-drink-180|product-guilu-drink-180cc|180cc|六項產品規格|六種規格|看六大產品' --include='*.html' --include='*.json' --include='site.js' --include='sitemap.xml' .
 
       - name: Remove trigger and debug files
         run: |
@@ -72,5 +93,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "v302：小老闆情境整合、移除舊規格與公開雜項" || exit 0
+          git commit -m "v302.1：修正產品數量文案並移除公開報告檔" || exit 0
           git push origin HEAD:${{ github.head_ref }}
