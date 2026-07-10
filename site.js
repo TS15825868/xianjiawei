@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=300.0');
+  const res = await fetch('data.json?v=300.4');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -853,7 +853,7 @@ function fillProducts(targetId, products) {
     const thumb = p.image || (Array.isArray(p.gallery) && p.gallery[0]) || 'images/logo.png';
 
     return `
-      <article class="product-card reveal" data-product-id="${p.id || ''}" tabindex="0" role="button" aria-label="查看 ${p.displayName || p.name || '產品'} 詳細介紹">
+      <article id="${p.id === 'guilu-drink-30' ? 'guilu-drink' : (p.id || '')}" class="product-card reveal" data-product-id="${p.id || ''}" tabindex="0" role="button" aria-label="查看 ${p.displayName || p.name || '產品'} 詳細介紹">
         <div class="product-card__img">
           <img src="${thumb}" alt="${p.name || '仙加味產品'}" loading="lazy" decoding="async">
         </div>
