@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/runner/work/xianjiawei/xianjiawei/tools/site_v302_cleanup.py", line 420, in <module>
+    clean_html()
+  File "/home/runner/work/xianjiawei/xianjiawei/tools/site_v302_cleanup.py", line 357, in clean_html
+    if REMOVED_PAGE in tag.get("href", "") or REMOVED_ID in tag.get("href", ""):
+                       ^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/bs4/element.py", line 2449, in get
+    return self.attrs.get(key, default)
+           ^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
