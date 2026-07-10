@@ -8,7 +8,6 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-EXCLUDED = {"google-site-verification.html"}
 CANONICAL_COMMANDS = {
     "看產品", "直接下單", "幫我推薦", "搭配組合", "怎麼使用",
     "價格方案", "品牌故事", "人工客服", "料理搭配",
@@ -107,7 +106,7 @@ def main() -> None:
     warnings: list[str] = []
     report_rows: list[str] = []
 
-    html_paths = sorted(p for p in ROOT.glob("*.html") if p.name not in EXCLUDED)
+    html_paths = sorted(p for p in ROOT.glob("*.html") if not p.name.startswith("google"))
     parsers: dict[str, PageParser] = {}
     for path in html_paths:
         parser = PageParser(path)
