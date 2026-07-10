@@ -39,10 +39,17 @@ jobs:
 
       - name: Static website and button audit
         run: |
+          set +e
           python3 tools/site_maintenance.py
+          S1=$?
           python3 tools/audit_all_buttons.py
+          S2=$?
           node tools/check_line_intents.js
+          S3=$?
           node tools/check_line_button_labels.js
+          S4=$?
+          echo $((S1 || S2 || S3 || S4)) > /tmp/static-status
+          exit 0
 
       - name: Install Chromium for interaction tests
         run: |
@@ -51,13 +58,16 @@ jobs:
 
       - name: Browser interaction and destination tests
         run: |
+          set +e
           python3 -m http.server 8080 >/tmp/xianjiawei-http.log 2>&1 &
           PID=$!
           trap 'kill $PID' EXIT
           sleep 2
           SITE_BASE_URL=http://127.0.0.1:8080/ node tools/audit_all_buttons.mjs
+          echo $? > /tmp/browser-status
+          exit 0
 
-      - name: Commit verified fixes and reports
+      - name: Commit fixes and reports
         run: |
           rm -f .tmp-line-server.js
           git config user.name 'github-actions[bot]'
@@ -69,3 +79,11 @@ jobs:
             git commit -m 'v300.3: verify and fix all website button destinations'
             git push origin HEAD:${{ github.head_ref }}
           fi
+
+      - name: Fail if any audit failed
+        run: |
+          STATIC=$(cat /tmp/static-status 2>/dev/null || echo 1)
+          BROWSER=$(cat /tmp/browser-status 2>/dev/null || echo 1)
+          echo "static=$STATIC browser=$BROWSER"
+          test "$STATIC" = "0"
+          test "$BROWSER" = "0"
