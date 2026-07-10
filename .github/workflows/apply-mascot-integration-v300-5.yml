@@ -25,8 +25,8 @@ jobs:
       - name: Assemble mascot asset
         run: |
           mkdir -p .asset-stage
-          cat .asset-stage/mascot.part* > .asset-stage/mascot.b64
-          test -s .asset-stage/mascot.b64
+          cat .asset-stage/mascot.hex.part* > .asset-stage/mascot.hex
+          test -s .asset-stage/mascot.hex
 
       - name: Apply mascot integration
         run: |
