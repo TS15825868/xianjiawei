@@ -97,11 +97,13 @@ jobs:
 
       - name: Commit verified update
         run: |
-          rm -f LATEST_ASSETS_TRIGGER.txt LATEST_ASSETS_TRIGGER_2.txt LATEST_ASSETS_PR_NOTE.txt
+          rm -rf node_modules package.json package-lock.json
+          rm -f LATEST_ASSETS_TRIGGER*.txt LATEST_ASSETS_PR_NOTE.txt
           rm -f tools/apply_latest_assets_and_drink_link_v300_4.js
           rm -f .github/workflows/apply-latest-assets-v300-4.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
+          git add data.json catalog-public.json site.js index.html dm.html product-*.html tools/site_maintenance.py LATEST_ASSET_REPORT.txt BUTTON_AUDIT_REPORT.md
+          git add -u
           git commit -m 'v300.4: fix 龜鹿飲 destinations and publish latest product images and DMs'
           git push origin HEAD:${{ github.head_ref }}
