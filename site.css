@@ -1421,3 +1421,42 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
     display:none;
   }
 }
+
+
+/* v300.5 仙加味小老闆 */
+.mascot-guide-section{padding-top:0}
+.mascot-guide-card{
+  display:grid;
+  grid-template-columns:minmax(210px,320px) minmax(0,1fr);
+  align-items:center;
+  gap:28px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fffaf2 0%,#f4ead8 100%);
+  border:1px solid rgba(123,30,30,.14);
+  border-radius:28px;
+  box-shadow:var(--shadow-strong);
+  padding:24px 30px;
+}
+.mascot-guide-card__media{align-self:end;display:flex;justify-content:center}
+.mascot-guide-card__media img{
+  width:min(100%,280px);
+  max-height:350px;
+  object-fit:contain;
+  object-position:center bottom;
+  background:transparent;
+  border-radius:22px;
+}
+.mascot-guide-card__copy{min-width:0}
+.mascot-guide-card__copy h2{color:var(--brand);max-width:760px}
+.mascot-guide-card__copy p:not(.eyebrow){max-width:760px;color:#4b5563}
+@media(max-width:760px){
+  .mascot-guide-card{grid-template-columns:112px minmax(0,1fr);gap:16px;padding:18px 16px;border-radius:20px}
+  .mascot-guide-card__media img{width:112px;max-height:170px;border-radius:16px}
+  .mascot-guide-card__copy h2{font-size:22px}
+  .mascot-guide-card__copy .hero-actions{gap:8px}
+}
+@media(max-width:480px){
+  .mascot-guide-card{grid-template-columns:1fr;text-align:center}
+  .mascot-guide-card__media img{width:150px;max-height:188px}
+  .mascot-guide-card__copy .hero-actions{justify-content:center}
+}

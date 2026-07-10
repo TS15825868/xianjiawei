@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderFloatingLineCta();
     hydrateStaticFields();
     renderPage();
+    renderMascotGuide();
     initReveal();
     bindGlobalEvents();
   } catch (err) {
@@ -58,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=300.4');
+  const res = await fetch('data.json?v=300.5');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -403,6 +404,61 @@ function renderPage() {
   if (page === 'faq') renderFaqPage();
   if (page === 'brand') renderBrandPage();
   if (page === 'contact') renderContactPage();
+}
+
+
+const MASCOT_IMAGE = 'images/brand/xianjiawei-mascot.jpg?v=300.5';
+
+function renderMascotGuide() {
+  const page = document.body?.dataset?.page || '';
+  const config = {
+    home: {
+      eyebrow: '仙加味小老闆',
+      title: '帶你認識產品，也陪你找到日常使用方式',
+      text: '先依固定安排、方便即飲、沖泡燉湯、家庭規格或自行調飲來比較；產品規格與價格仍以正式產品資料為準。',
+      actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">看產品</a>`
+    },
+    choose: {
+      eyebrow: '小老闆帶你選',
+      title: '先從平常想怎麼使用開始',
+      text: '想固定安排、方便即飲、沖泡燉湯或自行搭配飲品，都可以從使用習慣開始比較。',
+      actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">看全部產品</a>`
+    },
+    combo: {
+      eyebrow: '小老闆搭配導覽',
+      title: '依生活節奏查看搭配組合',
+      text: '搭配卡會保留原有產品內容、每組價格、組數選擇與加入購物車功能，小老闆只負責導覽，不改動產品規格。',
+      actions: `${lineButton('搭配組合', '搭配組合')}<a class="btn btn-outline" href="products.html">先看產品</a>`
+    },
+    brand: {
+      eyebrow: '品牌導覽角色',
+      title: '仙加味小老闆｜親切、專業、傳承與安心',
+      text: '角色延續米白中式上衣、深橄欖綠圍裙、仙加味紅印章，以及分開的小鹿與小烏龜圖案，用於網站與 LINE 的品牌導覽。',
+      actions: `${lineButton('看產品', '看產品')}<a class="btn btn-outline" href="contact.html">聯絡我們</a>`
+    }
+  }[page];
+
+  if (!config || document.getElementById('mascot-guide')) return;
+  const hero = document.querySelector('main .hero');
+  if (!hero) return;
+
+  const section = document.createElement('section');
+  section.id = 'mascot-guide';
+  section.className = 'section mascot-guide-section';
+  section.innerHTML = `
+    <article class="mascot-guide-card reveal">
+      <div class="mascot-guide-card__media">
+        <img src="${MASCOT_IMAGE}" alt="仙加味小老闆，穿米白中式上衣與深橄欖綠圍裙" width="360" height="450" loading="eager" decoding="async">
+      </div>
+      <div class="mascot-guide-card__copy">
+        <p class="eyebrow">${config.eyebrow}</p>
+        <h2>${config.title}</h2>
+        <p>${config.text}</p>
+        <div class="hero-actions">${config.actions}</div>
+      </div>
+    </article>
+  `;
+  hero.insertAdjacentElement('afterend', section);
 }
 
 function renderHome() {

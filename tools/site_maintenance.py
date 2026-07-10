@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "300.4"
+VERSION = "300.5"
 UPDATED_DATE = "2026-07-10"
 EXPECTED_PRODUCT_IDS = [
     "guilu-gao",
