@@ -7,7 +7,7 @@ const file = path.join(root, "site.js");
 let source = fs.readFileSync(file, "utf8");
 
 function replaceRequired(search, replacement, label) {
-  const next = typeof search === "string" ? source.replace(search, replacement) : source.replace(search, replacement);
+  const next = source.replace(search, replacement);
   if (next === source) throw new Error(`找不到更新位置：${label}`);
   source = next;
 }
@@ -22,6 +22,12 @@ replaceRequired(
   "  if (action === '搭配方案') return '搭配組合';",
   "  if (action === '搭配方案') return '搭配組合';\n  if (action === '搭配組數') return '選擇組數';\n  if (action === '加入組合') return '加入購物車';",
   "LINE 按鈕名稱"
+);
+
+replaceRequired(
+  "    home: '幫我推薦',",
+  "    home: '幫我推薦',\n    '404': '看產品',\n    dm: '看產品',\n    'product-detail': '看產品',",
+  "特殊頁面 LINE 功能"
 );
 
 replaceRequired(
