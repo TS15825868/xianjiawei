@@ -1446,3 +1446,10 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
 .mascot-guide-card{background:linear-gradient(135deg,#fffaf2,#f4ead8)!important}
 @media(max-width:760px){.mascot-guide-card__media{height:auto!important;min-height:0!important;aspect-ratio:auto!important}.mascot-guide-card__media img{height:auto!important;aspect-ratio:auto!important}.mascot-guide-card__copy{margin-top:0!important}}
 
+
+
+/* v306｜仙加味小老闆完整圖片顯示 */
+.mascot-guide-card__media{background:#f5ede0!important;overflow:hidden!important}
+.mascot-guide-card__media::after{display:none!important;content:none!important}
+.mascot-guide-card__media img{width:100%!important;height:auto!important;min-height:0!important;object-fit:contain!important;object-position:center!important;opacity:1!important;filter:none!important;mix-blend-mode:normal!important}
+@media(max-width:760px){.mascot-guide-card__media{height:auto!important;min-height:0!important}.mascot-guide-card__media img{height:auto!important;aspect-ratio:auto!important}.mascot-guide-card__copy{margin-top:0!important}}
