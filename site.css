@@ -1437,3 +1437,12 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
 .mascot-guide-card--service .mascot-guide-card__media img{object-position:center 43%}
 @media(max-width:760px){.mascot-guide-card{grid-template-columns:1fr;min-height:0;border-radius:22px}.mascot-guide-card__media{min-height:0;height:250px}.mascot-guide-card__media::after{background:linear-gradient(180deg,transparent 52%,rgba(248,241,228,.94) 100%)}.mascot-guide-card__media img{min-height:0;height:250px;object-position:center 38%}.mascot-guide-card__copy{padding:22px 20px 26px;margin-top:-18px}.mascot-guide-card__copy h2{font-size:clamp(22px,7vw,30px)}}
 
+
+
+/* v305｜小老闆完整獨立情境圖 */
+.mascot-guide-card__media{background:#f5ede0!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important}
+.mascot-guide-card__media::after{display:none!important;content:none!important}
+.mascot-guide-card__media img{display:block!important;width:100%!important;height:auto!important;min-height:0!important;max-height:none!important;object-fit:contain!important;object-position:center!important;opacity:1!important;filter:none!important;mix-blend-mode:normal!important}
+.mascot-guide-card{background:linear-gradient(135deg,#fffaf2,#f4ead8)!important}
+@media(max-width:760px){.mascot-guide-card__media{height:auto!important;min-height:0!important;aspect-ratio:auto!important}.mascot-guide-card__media img{height:auto!important;aspect-ratio:auto!important}.mascot-guide-card__copy{margin-top:0!important}}
+
