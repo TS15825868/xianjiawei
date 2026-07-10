@@ -1,10 +1,10 @@
 name: Website v307 visual fix
 
 on:
-  push:
+  pull_request:
     branches: [main]
     paths:
-      - V307_VISUAL_TRIGGER.txt
+      - V307_VISUAL_PR_TRIGGER.txt
 
 permissions:
   contents: write
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.head_ref }}
           fetch-depth: 0
 
       - uses: actions/setup-python@v5
@@ -38,7 +38,6 @@ jobs:
           from pathlib import Path
           from PIL import Image
           import json
-
           expected = [
               'images/brand/xianjiawei-scene-welcome.jpg',
               'images/brand/xianjiawei-scene-products.jpg',
@@ -58,14 +57,14 @@ jobs:
 
       - name: Remove one-time files
         run: |
-          rm -f V307_VISUAL_TRIGGER.txt
+          rm -f V307_VISUAL_TRIGGER.txt V307_VISUAL_PR_TRIGGER.txt
           rm -f tools/v307_visual_fix.py
           rm -f .github/workflows/v307-visual-fix.yml
 
-      - name: Commit website v307
+      - name: Commit website v307 to PR branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "網站 v307：提升小老闆清晰度並更新大字 Rich Menu" || exit 0
-          git push origin HEAD:main
+          git push origin HEAD:${{ github.head_ref }}
