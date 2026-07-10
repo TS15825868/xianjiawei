@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=305.0');
+  const res = await fetch('data.json?v=306.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -408,11 +408,11 @@ function renderPage() {
 
 
 const MASCOT_IMAGES = {
-  welcome: 'images/brand/xianjiawei-scene-welcome.jpg?v=305.0',
-  products: 'images/brand/xianjiawei-scene-products.jpg?v=305.0',
-  guide: 'images/brand/xianjiawei-scene-guide.jpg?v=305.0',
-  service: 'images/brand/xianjiawei-scene-service.jpg?v=305.0',
-  usage: 'images/brand/xianjiawei-scene-usage.jpg?v=305.0'
+  welcome: 'images/brand/xianjiawei-scene-welcome.jpg?v=306.0',
+  products: 'images/brand/xianjiawei-scene-products.jpg?v=306.0',
+  guide: 'images/brand/xianjiawei-scene-guide.jpg?v=306.0',
+  service: 'images/brand/xianjiawei-scene-service.jpg?v=306.0',
+  usage: 'images/brand/xianjiawei-scene-usage.jpg?v=306.0'
 };
 
 function renderMascotGuide() {
@@ -435,6 +435,12 @@ function renderMascotGuide() {
       title: '依使用情境比較，比只看品名更清楚',
       text: '想固定取用、方便即飲、沖泡燉湯、家庭使用或自行調飲，都能找到相對應的產品型態。',
       actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">看全部產品</a>`
+    },
+    combo: {
+      image: 'products', scene: 'products', eyebrow: '搭配組合',
+      title: '依生活節奏查看適合的產品搭配',
+      text: '先看產品型態、使用方式與份量，再依實際需求選擇組合；價格與活動以正式方案為準。',
+      actions: `${lineButton('搭配組合', '搭配組合')}<a class="btn btn-outline" href="products.html">先看產品</a>`
     },
     guide: {
       image: 'usage', scene: 'usage', eyebrow: '使用方式',
@@ -477,7 +483,7 @@ function renderMascotGuide() {
   section.innerHTML = `
     <article class="mascot-guide-card mascot-guide-card--${config.scene} reveal">
       <div class="mascot-guide-card__media">
-        <img src="${MASCOT_IMAGES[config.image]}" alt="仙加味小老闆情境導覽" width="960" height="1200" loading="${page === 'home' ? 'eager' : 'lazy'}" decoding="async">
+        <img src="${MASCOT_IMAGES[config.image]}" alt="仙加味小老闆情境導覽" width="640" height="480" loading="${page === 'home' ? 'eager' : 'lazy'}" decoding="async">
       </div>
       <div class="mascot-guide-card__copy">
         <p class="eyebrow">${config.eyebrow}</p>
