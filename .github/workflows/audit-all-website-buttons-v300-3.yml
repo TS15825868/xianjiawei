@@ -1,6 +1,9 @@
 name: Audit all website buttons v300.3
 
 on:
+  push:
+    branches:
+      - 'audit-buttons-v300-3*'
   pull_request:
     branches: [main]
 
@@ -9,13 +12,15 @@ permissions:
 
 jobs:
   audit-and-fix:
-    if: startsWith(github.head_ref, 'audit-buttons-v300-3')
+    if: github.event_name == 'push' || startsWith(github.head_ref, 'audit-buttons-v300-3')
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ env.TARGET_BRANCH }}
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
@@ -77,7 +82,7 @@ jobs:
             echo 'No additional changes to commit.'
           else
             git commit -m 'v300.3: verify and fix all website button destinations'
-            git push origin HEAD:${{ github.head_ref }}
+            git push origin HEAD:${TARGET_BRANCH}
           fi
 
       - name: Fail if any audit failed
