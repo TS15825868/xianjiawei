@@ -354,7 +354,10 @@ def clean_html():
     for path in ROOT.glob("*.html"):
         soup = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
         for tag in list(soup.find_all(href=True)):
-            if REMOVED_PAGE in tag.get("href", "") or REMOVED_ID in tag.get("href", ""):
+            if not getattr(tag, "attrs", None):
+                continue
+            href = tag.attrs.get("href", "")
+            if REMOVED_PAGE in href or REMOVED_ID in href:
                 parent = tag.find_parent(["article", "li"])
                 (parent or tag).decompose()
         for tag in list(soup.find_all(attrs={"data-product-id": REMOVED_ID})):
