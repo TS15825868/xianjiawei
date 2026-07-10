@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: main
           fetch-depth: 0
 
       - uses: actions/setup-node@v4
@@ -64,13 +64,15 @@ jobs:
           })().catch(error => { console.error(error); process.exit(1); });
           NODE
 
-      - name: Commit verified website update
+      - name: Commit verified website update to main
         run: |
           rm -rf node_modules package.json package-lock.json .asset-stage
           rm -f tools/apply_mascot_integration_v300_5.js
+          rm -f .github/workflows/apply-mascot-integration-v300-5.yml
+          rm -f .github/workflows/apply-mascot-main-v300-5.yml
+          rm -f MASCOT_APPLY_MAIN.txt MASCOT_INTEGRATION_TRIGGER.txt
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add site.js site.css *.html images/brand/xianjiawei-mascot.jpg BUTTON_AUDIT_REPORT.md
-          git add -u
-          git commit -m 'v300.5: add 仙加味小老闆 website guide'
-          git push origin HEAD:${{ github.head_ref }}
+          git add -A
+          git commit -m 'v300.5: publish 仙加味小老闆 website guide'
+          git push origin main
