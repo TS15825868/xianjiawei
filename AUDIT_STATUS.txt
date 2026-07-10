@@ -1,0 +1,2 @@
+static=0
+browser=0

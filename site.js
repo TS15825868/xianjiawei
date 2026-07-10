@@ -75,7 +75,7 @@ function getLineId() {
 function normalizeLineIntent(message = '') {
   const text = String(message || '').trim();
   if (!text) return '看產品';
-  if (/^(產品詳情|使用方式|選擇數量|加入購物車|搭配方案)｜/.test(text)) return text;
+  if (/^(產品詳情|使用方式|選擇數量|加入購物車|搭配方案|搭配組數|加入組合)｜/.test(text)) return text;
   if (/^(看產品|直接下單|幫我推薦|搭配組合|怎麼使用|價格方案|品牌故事|人工客服|料理搭配)$/.test(text)) return text;
 
   const product = (SITE_DATA?.products || []).find(item => {
@@ -123,6 +123,8 @@ function lineIntentButtonLabel(message = '', fallbackLabel = '看產品') {
   if (action === '選擇數量') return '選擇數量';
   if (action === '加入購物車') return '加入購物車';
   if (action === '搭配方案') return '搭配組合';
+  if (action === '搭配組數') return '選擇組數';
+  if (action === '加入組合') return '加入購物車';
 
   const cleaned = String(fallbackLabel || '').replace(/^LINE\s*/i, '').trim();
   return cleaned || '看產品';
@@ -144,12 +146,15 @@ function lineButton(label = '看產品', text = '看產品') {
 function sourceLineText(page = '') {
   const map = {
     home: '幫我推薦',
+    '404': '看產品',
+    dm: '看產品',
+    'product-detail': '看產品',
     products: '看產品',
     combo: '搭配組合',
     choose: '幫我推薦',
     guide: '怎麼使用',
     recipes: '料理搭配',
-    video: '看產品',
+    video: '幫我推薦',
     knowledge: '幫我推薦',
     'hanfang-baike': '看產品',
     sources: '看產品',
@@ -415,7 +420,7 @@ function renderHome() {
         <p class="muted">內容：${Array.isArray(combo.items) ? combo.items.join('＋') : ''}</p>
         ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
         <div class="final-cta__actions">
-          ${lineButton('LINE 詢問搭配方式', `我想了解「${combo.name}」搭配組合的內容與購買方式。`)}
+          ${lineButton('選擇組數', `搭配組數｜${index}`)}
           <a class="btn btn-outline" href="combo.html">看完整搭配</a>
         </div>
       </article>
@@ -462,7 +467,7 @@ function renderChoosePage() {
   `).join('') + finalCtaBlock(
     '不確定怎麼挑也沒關係',
     '直接跟我們說你的生活方式，我們幫你整理比較適合的方向。',
-    '看產品'
+    sourceLineText('choose')
   );
 }
 
@@ -480,7 +485,7 @@ function renderComboPage() {
       <p class="muted">內容：${Array.isArray(combo.items) ? combo.items.join('＋') : ''}</p>
       ${combo.gift ? `<p class="accent">附贈：${combo.gift}</p>` : ''}
       <div class="final-cta__actions">
-        ${lineButton('LINE 詢問搭配方式', `我想了解「${combo.name || '套餐搭配'}」搭配組合的內容與購買方式。`)}
+        ${lineButton('選擇組數', `搭配組數｜${index}`)}
       </div>
     </article>
   `).join('') + finalCtaBlock(
@@ -862,7 +867,7 @@ function fillProducts(targetId, products) {
           <p class="muted">規格：${p.size || ''}</p>
 
           <div class="product-card__actions">
-            <a class="btn btn-outline" href="${p.detailPage || 'products.html'}">完整介紹</a>
+            <a class="btn btn-outline" href="${p.page || p.detailPage || 'products.html'}">完整介紹</a>
             <button class="btn btn-outline" type="button" data-quick-view="1">快速查看</button>
             ${lineButton('LINE 詢問產品', productFitText(p))}
           </div>
