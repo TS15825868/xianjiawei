@@ -22,12 +22,6 @@ jobs:
         with:
           node-version: 22
 
-      - name: Assemble mascot asset
-        run: |
-          mkdir -p .asset-stage
-          cat .asset-stage/mascot.hex.part* > .asset-stage/mascot.hex
-          test -s .asset-stage/mascot.hex
-
       - name: Apply mascot integration
         run: |
           node --check tools/apply_mascot_integration_v300_5.js
