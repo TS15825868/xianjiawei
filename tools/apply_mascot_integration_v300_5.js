@@ -6,7 +6,7 @@ const path = require("path");
 const root = path.resolve(__dirname, "..");
 const siteJsPath = path.join(root, "site.js");
 const cssPath = path.join(root, "site.css");
-const assetStage = path.join(root, ".asset-stage", "mascot.b64");
+const assetStage = path.join(root, ".asset-stage", "mascot.hex");
 const assetDir = path.join(root, "images", "brand");
 const assetPath = path.join(assetDir, "xianjiawei-mascot.jpg");
 
@@ -18,8 +18,8 @@ function replaceRequired(source, search, replacement, label) {
 
 if (!fs.existsSync(assetStage)) throw new Error("缺少小老闆圖片資料");
 fs.mkdirSync(assetDir, { recursive: true });
-fs.writeFileSync(assetPath, Buffer.from(fs.readFileSync(assetStage, "utf8").trim(), "base64"));
-if (fs.statSync(assetPath).size < 10000) throw new Error("小老闆圖片檔案異常");
+fs.writeFileSync(assetPath, Buffer.from(fs.readFileSync(assetStage, "utf8").trim(), "hex"));
+if (fs.statSync(assetPath).size < 8000) throw new Error("小老闆圖片檔案異常");
 
 let site = fs.readFileSync(siteJsPath, "utf8");
 if (!site.includes("renderMascotGuide();")) {
