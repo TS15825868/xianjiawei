@@ -1,0 +1,83 @@
+{
+  "size": {
+    "width": 2500,
+    "height": 1686
+  },
+  "selected": true,
+  "name": "仙加味服務 v307",
+  "chatBarText": "仙加味服務",
+  "areas": [
+    {
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 834,
+        "height": 843
+      },
+      "action": {
+        "type": "message",
+        "text": "看產品"
+      }
+    },
+    {
+      "bounds": {
+        "x": 834,
+        "y": 0,
+        "width": 833,
+        "height": 843
+      },
+      "action": {
+        "type": "message",
+        "text": "購物車"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1667,
+        "y": 0,
+        "width": 833,
+        "height": 843
+      },
+      "action": {
+        "type": "message",
+        "text": "幫我推薦"
+      }
+    },
+    {
+      "bounds": {
+        "x": 0,
+        "y": 843,
+        "width": 834,
+        "height": 843
+      },
+      "action": {
+        "type": "message",
+        "text": "搭配組合"
+      }
+    },
+    {
+      "bounds": {
+        "x": 834,
+        "y": 843,
+        "width": 833,
+        "height": 843
+      },
+      "action": {
+        "type": "message",
+        "text": "怎麼使用"
+      }
+    },
+    {
+      "bounds": {
+        "x": 1667,
+        "y": 843,
+        "width": 833,
+        "height": 843
+      },
+      "action": {
+        "type": "message",
+        "text": "直接下單"
+      }
+    }
+  ]
+}

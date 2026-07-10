@@ -1453,3 +1453,9 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
 .mascot-guide-card__media::after{display:none!important;content:none!important}
 .mascot-guide-card__media img{width:100%!important;height:auto!important;min-height:0!important;object-fit:contain!important;object-position:center!important;opacity:1!important;filter:none!important;mix-blend-mode:normal!important}
 @media(max-width:760px){.mascot-guide-card__media{height:auto!important;min-height:0!important}.mascot-guide-card__media img{height:auto!important;aspect-ratio:auto!important}.mascot-guide-card__copy{margin-top:0!important}}
+
+/* v307 image clarity */
+.mascot-guide-card__media{background:#efe4d2!important;overflow:hidden!important}
+.mascot-guide-card__media::after{display:none!important}
+.mascot-guide-card__media img{width:100%!important;height:auto!important;min-height:0!important;object-fit:contain!important;object-position:center!important;image-rendering:auto!important;filter:none!important;opacity:1!important;transform:none!important;backface-visibility:visible!important}
+@media(max-width:760px){.mascot-guide-card__media{height:auto!important}.mascot-guide-card__media img{height:auto!important}}

@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=306.0');
+  const res = await fetch('data.json?v=307.1');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -408,11 +408,11 @@ function renderPage() {
 
 
 const MASCOT_IMAGES = {
-  welcome: 'images/brand/xianjiawei-scene-welcome.jpg?v=306.0',
-  products: 'images/brand/xianjiawei-scene-products.jpg?v=306.0',
-  guide: 'images/brand/xianjiawei-scene-guide.jpg?v=306.0',
-  service: 'images/brand/xianjiawei-scene-service.jpg?v=306.0',
-  usage: 'images/brand/xianjiawei-scene-usage.jpg?v=306.0'
+  welcome: 'images/brand/xianjiawei-scene-welcome.jpg?v=307.1',
+  products: 'images/brand/xianjiawei-scene-products.jpg?v=307.1',
+  guide: 'images/brand/xianjiawei-scene-guide.jpg?v=307.1',
+  service: 'images/brand/xianjiawei-scene-service.jpg?v=307.1',
+  usage: 'images/brand/xianjiawei-scene-usage.jpg?v=307.1'
 };
 
 function renderMascotGuide() {
