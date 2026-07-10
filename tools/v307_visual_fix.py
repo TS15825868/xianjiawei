@@ -1,9 +1,13 @@
 from pathlib import Path
-from PIL import Image, ImageOps, ImageDraw, ImageFont, ImageFilter
-import json, re
+from PIL import Image, ImageOps, ImageDraw, ImageFont, ImageFilter, ImageFile
+import json
+import re
+import shutil
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "307.0"
+VERSION = "307.1"
 
 SCENES = {
     "welcome": ROOT / "images/brand/xianjiawei-scene-welcome.jpg",
@@ -17,22 +21,26 @@ SCENES = {
 def improve_scene(path: Path):
     if not path.exists():
         raise FileNotFoundError(path)
-    image = Image.open(path).convert("RGB")
-    image = ImageOps.fit(image, (1920, 1440), Image.Resampling.LANCZOS, centering=(0.5, 0.5))
-    image = image.filter(ImageFilter.UnsharpMask(radius=1.1, percent=125, threshold=2))
-    image.save(path, "JPEG", quality=94, subsampling=0, optimize=True, progressive=True)
+    with Image.open(path) as source:
+        source.load()
+        image = source.convert("RGB").copy()
+    image = image.resize((1920, 1440), Image.Resampling.LANCZOS)
+    image = image.filter(ImageFilter.UnsharpMask(radius=0.9, percent=105, threshold=3))
+    temp = path.with_suffix(".tmp.jpg")
+    image.save(temp, "JPEG", quality=95, subsampling=0, optimize=True, progressive=True)
+    temp.replace(path)
 
 
 def font(size: int):
     candidates = [
         "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
-        "/usr/share/fonts/opentype/noto/NotoSerifCJK-Bold.ttc",
+        "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
     ]
     for item in candidates:
         if Path(item).exists():
             return ImageFont.truetype(item, size)
-    return ImageFont.load_default()
+    raise RuntimeError("找不到可用的中文字型")
 
 
 def build_rich_menu():
@@ -40,25 +48,25 @@ def build_rich_menu():
     col_widths = [834, 833, 833]
     x_positions = [0, 834, 1667]
     row_height = 843
-    navy = (10, 36, 66)
-    gold = (214, 175, 67)
-    cream = (247, 244, 237)
-    white = (255, 255, 255)
+    navy = (9, 43, 72)
+    gold = (211, 162, 68)
+    cream = (255, 248, 230)
 
-    title_font = font(96)
+    title_font = font(112)
     subtitle_font = font(40)
+    number_font = font(38)
     items = [
-        ("products", "看產品", "查看產品規格"),
-        ("products", "購物車", "查看購買清單"),
+        ("products", "看產品", "完整產品規格"),
+        ("products", "購物車", "目前購買清單"),
         ("guide", "幫我推薦", "依需求快速比較"),
-        ("products", "搭配組合", "查看日常方案"),
+        ("products", "搭配組合", "日常搭配方案"),
         ("usage", "怎麼使用", "即飲・沖泡・燉湯"),
-        ("service", "直接下單", "由客服協助確認"),
+        ("service", "直接下單", "客服協助確認"),
     ]
 
     canvas = Image.new("RGB", (width, height), navy)
     draw = ImageDraw.Draw(canvas)
-    label_h = 250
+    label_h = 280
     image_h = row_height - label_h
 
     for index, (scene, label, subtitle) in enumerate(items):
@@ -68,19 +76,27 @@ def build_rich_menu():
         y = row * row_height
         cell_w = col_widths[col]
 
-        source = Image.open(SCENES[scene]).convert("RGB")
-        fitted = ImageOps.fit(source, (cell_w, image_h), Image.Resampling.LANCZOS, centering=(0.5, 0.48))
+        with Image.open(SCENES[scene]) as source:
+            source.load()
+            source = source.convert("RGB")
+            fitted = ImageOps.fit(source, (cell_w, image_h), Image.Resampling.LANCZOS, centering=(0.5, 0.48))
         canvas.paste(fitted, (x, y))
-        draw.rectangle((x, y + image_h, x + cell_w, y + row_height), fill=navy)
-        draw.line((x, y + image_h, x + cell_w, y + image_h), fill=gold, width=9)
+        band_y = y + image_h
+        draw.rectangle((x, band_y, x + cell_w, y + row_height), fill=navy)
+        draw.line((x, band_y, x + cell_w, band_y), fill=gold, width=9)
+
+        draw.ellipse((x + 24, band_y + 20, x + 92, band_y + 88), fill=(176, 31, 37), outline=cream, width=4)
+        num = str(index + 1)
+        nbox = draw.textbbox((0, 0), num, font=number_font)
+        draw.text((x + 58 - (nbox[2] - nbox[0]) / 2, band_y + 54 - (nbox[3] - nbox[1]) / 2 - 4), num, font=number_font, fill="white")
 
         box = draw.textbbox((0, 0), label, font=title_font)
         tx = x + (cell_w - (box[2] - box[0])) // 2
-        draw.text((tx, y + image_h + 24), label, font=title_font, fill=white)
+        draw.text((tx, band_y + 25), label, font=title_font, fill=cream, stroke_width=2, stroke_fill=(4, 20, 35))
 
         sbox = draw.textbbox((0, 0), subtitle, font=subtitle_font)
         sx = x + (cell_w - (sbox[2] - sbox[0])) // 2
-        draw.text((sx, y + image_h + 154), subtitle, font=subtitle_font, fill=cream)
+        draw.text((sx, band_y + 180), subtitle, font=subtitle_font, fill=(226, 205, 154))
 
     for x in (834, 1667):
         draw.line((x, 0, x, height), fill=gold, width=9)
@@ -89,7 +105,7 @@ def build_rich_menu():
 
     out = ROOT / "images/line/xianjiawei-rich-menu-2500x1686-v307.jpg"
     out.parent.mkdir(parents=True, exist_ok=True)
-    canvas.save(out, "JPEG", quality=93, subsampling=0, optimize=True, progressive=True)
+    canvas.save(out, "JPEG", quality=94, subsampling=0, optimize=True, progressive=True)
 
     actions = {
         "size": {"width": 2500, "height": 1686},
@@ -113,16 +129,14 @@ def bump_versions():
         if not path.exists():
             continue
         text = path.read_text(encoding="utf-8")
-        text = re.sub(r"(?<=\?v=)306\.0", VERSION, text)
-        text = re.sub(r"(?<=\?v=)305\.0", VERSION, text)
+        text = re.sub(r"(?<=\?v=)(?:305|306|307)\.\d+", VERSION, text)
         path.write_text(text, encoding="utf-8")
 
     css = ROOT / "site.css"
     text = css.read_text(encoding="utf-8")
-    marker = "/* v307 image clarity */"
-    if marker not in text:
-        text += "\n\n/* v307 image clarity */\n.mascot-guide-card__media img{image-rendering:auto!important;filter:none!important;opacity:1!important;transform:translateZ(0);backface-visibility:hidden}\n"
-        css.write_text(text, encoding="utf-8")
+    text = re.sub(r"/\* v307 image clarity \*/.*?(?=\n/\*|\Z)", "", text, flags=re.S).rstrip()
+    text += "\n\n/* v307 image clarity */\n.mascot-guide-card__media{background:#efe4d2!important;overflow:hidden!important}\n.mascot-guide-card__media::after{display:none!important}\n.mascot-guide-card__media img{width:100%!important;height:auto!important;min-height:0!important;object-fit:contain!important;object-position:center!important;image-rendering:auto!important;filter:none!important;opacity:1!important;transform:none!important;backface-visibility:visible!important}\n@media(max-width:760px){.mascot-guide-card__media{height:auto!important}.mascot-guide-card__media img{height:auto!important}}\n"
+    css.write_text(text, encoding="utf-8")
 
 
 def clean_stale_files():
@@ -131,8 +145,9 @@ def clean_stale_files():
         ROOT / ".asset-stage",
         ROOT / "final_mascot_v306_sheet.jpg",
         ROOT / "latest_generated_sheet.jpg",
+        ROOT / "V307_VISUAL_TRIGGER.txt",
+        ROOT / "V307_VISUAL_PR_TRIGGER.txt",
     ]
-    import shutil
     for path in stale:
         if path.is_dir():
             shutil.rmtree(path, ignore_errors=True)
@@ -151,4 +166,4 @@ for scene in SCENES.values():
         assert im.size == (1920, 1440), (scene, im.size)
 with Image.open(ROOT / "images/line/xianjiawei-rich-menu-2500x1686-v307.jpg") as im:
     assert im.size == (2500, 1686)
-print("website visual v307 ready")
+print("website visual v307.1 ready")
