@@ -1,0 +1,95 @@
+name: Apply latest website assets v300.4
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    if: startsWith(github.head_ref, 'latest-assets-v300-4')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply latest assets and drink link
+        run: |
+          node --check tools/apply_latest_assets_and_drink_link_v300_4.js
+          node tools/apply_latest_assets_and_drink_link_v300_4.js
+          python3 tools/site_maintenance.py --fix
+
+      - name: Verify static website
+        run: |
+          node --check site.js
+          python3 tools/site_maintenance.py
+          python3 tools/audit_all_buttons.py
+          node tools/check_line_intents.js
+          node tools/check_line_button_labels.js
+          grep -F "p.id === 'guilu-drink-30' ? 'guilu-drink'" site.js >/dev/null
+          grep -F 'href="products.html#guilu-drink"' index.html >/dev/null
+          grep -F 'images/dm-final/01_guilu-gao-100g-dm.jpg?v=300.4' data.json >/dev/null
+          grep -F 'images/dm-final/02_guilu-drink-30cc-dm.jpg?v=300.4' data.json >/dev/null
+          grep -F 'images/dm-final/03_guilu-drink-180cc-dm.jpg?v=300.4' data.json >/dev/null
+          grep -F 'images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=300.4' data.json >/dev/null
+          grep -F 'images/dm-final/06_guilu-jiao-600g-dm.jpg?v=300.4' data.json >/dev/null
+          grep -F 'images/dm-final/04_luerong-fen-75g-dm.jpg?v=300.4' data.json >/dev/null
+
+      - name: Install browser test
+        run: |
+          npm install --no-save --package-lock=false playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Verify 龜鹿飲 destination and all controls
+        run: |
+          python3 -m http.server 8080 >/tmp/xianjiawei-assets.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          sleep 2
+          SITE_BASE_URL=http://127.0.0.1:8080/ node tools/audit_all_buttons.mjs
+          node - <<'NODE'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+            await page.goto('http://127.0.0.1:8080/index.html', { waitUntil: 'networkidle' });
+            await page.locator('a', { hasText: '看龜鹿飲' }).click();
+            await page.waitForLoadState('networkidle');
+            if (!page.url().endsWith('products.html#guilu-drink')) throw new Error('看龜鹿飲未進入正確網址：' + page.url());
+            const target = page.locator('#guilu-drink');
+            if (await target.count() !== 1) throw new Error('products.html 缺少 #guilu-drink 定位點');
+            const title = await target.locator('h3').textContent();
+            if (!String(title).includes('龜鹿飲30cc')) throw new Error('龜鹿飲定位點不是30cc卡片：' + title);
+            for (const product of ['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']) {
+              const card = page.locator(`[data-product-id="${product}"]`);
+              if (await card.count() !== 1) throw new Error('缺少產品卡：' + product);
+              const img = await card.locator('img').getAttribute('src');
+              if (!img || !img.includes('images/products-v3/')) throw new Error(product + ' 未使用最新產品圖：' + img);
+            }
+            await browser.close();
+          })().catch(error => { console.error(error); process.exit(1); });
+          NODE
+
+      - name: Verify public image files
+        run: |
+          while IFS=: read -r id field asset size; do
+            test -s "$asset"
+            echo "$id $field $asset $size"
+          done < LATEST_ASSET_REPORT.txt
+
+      - name: Commit verified update
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data.json catalog-public.json site.js index.html dm.html product-*.html tools/site_maintenance.py LATEST_ASSET_REPORT.txt BUTTON_AUDIT_REPORT.md BUTTON_BROWSER_REPORT.md
+          git commit -m 'v300.4: fix 龜鹿飲 destination and publish latest product images and DMs'
+          git push origin HEAD:${{ github.head_ref }}
