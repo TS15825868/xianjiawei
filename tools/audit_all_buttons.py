@@ -73,18 +73,10 @@ def extract_source_line_map(site_js: str) -> dict[str, str]:
     if not match:
         return {}
     result: dict[str, str] = {}
-    for key, value in re.findall(r"(?:'([^']+)'|([A-Za-z0-9_-]+))\s*:\s*'([^']+)'", match.group(1)):
-        result[key or value] = value if not key else ""
-    # The compact regex above is awkward for mixed quoted/unquoted keys; parse again safely.
-    result = {}
-    for raw_key, command in re.findall(r"^\s*(?:'([^']+)'|([A-Za-z0-9_-]+))\s*:\s*'([^']+)'", match.group(1), flags=re.M):
-        result[raw_key or command] = command if raw_key else ""
-    # Correct the unquoted-key capture using a direct line parser.
-    result = {}
     for line in match.group(1).splitlines():
-        m = re.search(r"^\s*(?:'([^']+)'|([A-Za-z0-9_-]+))\s*:\s*'([^']+)'", line)
-        if m:
-            result[m.group(1) or m.group(2)] = m.group(3)
+        parsed = re.search(r"^\s*(?:'([^']+)'|([A-Za-z0-9_-]+))\s*:\s*'([^']+)'", line)
+        if parsed:
+            result[parsed.group(1) or parsed.group(2)] = parsed.group(3)
     return result
 
 
@@ -198,7 +190,6 @@ def main() -> None:
                 warnings.append(f"{page_name}:{line_no} 按鈕「{text}」未指定 type")
             report_rows.append(f"| {page_name} | {text or '未命名按鈕'} | JavaScript 功能 | 通過 |")
 
-    # Product page and asset destinations from data.json.
     for product in data.get("products", []):
         page = str(product.get("page") or product.get("detailPage") or "").split("?", 1)[0]
         if not page or not (ROOT / page).exists():
@@ -208,7 +199,6 @@ def main() -> None:
             if asset and not (ROOT / asset).exists():
                 errors.append(f"產品 {product.get('id')} 的 {field} 不存在：{asset}")
 
-    # Every page-level LINE intent must be understood by LINE OA.
     line_server_path = ROOT / ".tmp-line-server.js"
     if line_server_path.exists():
         line_server = line_server_path.read_text(encoding="utf-8")
