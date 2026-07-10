@@ -29,6 +29,18 @@ jobs:
           node --check site.js
           test -s images/brand/xianjiawei-mascot.jpg
 
+      - name: Synchronize website version and catalog
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('tools/site_maintenance.py')
+          text = p.read_text(encoding='utf-8')
+          text = text.replace('VERSION = "300.4"', 'VERSION = "300.5"')
+          text = text.replace('UPDATED_DATE = "2026-07-10"', 'UPDATED_DATE = "2026-07-10"')
+          p.write_text(text, encoding='utf-8')
+          PY
+          python3 tools/site_maintenance.py --fix
+
       - name: Verify website routing and assets
         run: |
           python3 tools/site_maintenance.py
@@ -70,7 +82,7 @@ jobs:
           rm -f tools/apply_mascot_integration_v300_5.js
           rm -f .github/workflows/apply-mascot-integration-v300-5.yml
           rm -f .github/workflows/apply-mascot-main-v300-5.yml
-          rm -f MASCOT_APPLY_MAIN.txt MASCOT_INTEGRATION_TRIGGER.txt
+          rm -f MASCOT_APPLY_MAIN.txt MASCOT_INTEGRATION_TRIGGER.txt MASCOT_RUN_FINAL.txt
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
