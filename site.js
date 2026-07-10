@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=303.0');
+  const res = await fetch('data.json?v=305.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -408,11 +408,11 @@ function renderPage() {
 
 
 const MASCOT_IMAGES = {
-  welcome: 'images/brand/xianjiawei-scene-welcome.jpg?v=303.0',
-  products: 'images/brand/xianjiawei-scene-products.jpg?v=303.0',
-  guide: 'images/brand/xianjiawei-scene-guide.jpg?v=303.0',
-  service: 'images/brand/xianjiawei-scene-service.jpg?v=303.0',
-  usage: 'images/brand/xianjiawei-scene-usage.jpg?v=303.0'
+  welcome: 'images/brand/xianjiawei-scene-welcome.jpg?v=305.0',
+  products: 'images/brand/xianjiawei-scene-products.jpg?v=305.0',
+  guide: 'images/brand/xianjiawei-scene-guide.jpg?v=305.0',
+  service: 'images/brand/xianjiawei-scene-service.jpg?v=305.0',
+  usage: 'images/brand/xianjiawei-scene-usage.jpg?v=305.0'
 };
 
 function renderMascotGuide() {
@@ -427,7 +427,7 @@ function renderMascotGuide() {
     products: {
       image: 'products', scene: 'products', eyebrow: '產品導覽',
       title: '先看產品型態，再比較規格與使用方式',
-      text: '龜鹿膏、龜鹿飲30cc、龜鹿湯塊、龜鹿膠與鹿茸粉，各有不同的日常使用情境。',
+      text: '龜鹿膏、龜鹿飲30cc、龜鹿飲180cc鋁袋、龜鹿湯塊、龜鹿膠與鹿茸粉，各有不同的日常使用情境。',
       actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="choose.html">怎麼選</a>`
     },
     choose: {
@@ -905,6 +905,8 @@ function renderContactPage() {
     storeInfo.innerHTML = `
       <p><strong>門市地址：</strong>${store.address || '台北市萬華區西昌街52號'}</p>
       <p><strong>官方 LINE：</strong>${SITE_DATA.lineId || '@762jybnm'}</p>
+      <p><strong>營業時間：</strong>${store.hours || '週一至週六 09:30–18:30'}</p>
+      <p>${store.holidayNote || '假日如未外出，可提前透過官方 LINE 預約。'}</p>
       <p>${store.pickupNote || '門市自取請先透過官方 LINE 確認取貨時間。'}</p>
       <p>
         <a
