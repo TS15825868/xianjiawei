@@ -1,10 +1,10 @@
-name: Website v307 visual fix
+name: Website v307.1 visual fix
 
 on:
   pull_request:
     branches: [main]
     paths:
-      - V307_VISUAL_PR_TRIGGER.txt
+      - V307_VISUAL_PR_TRIGGER_2.txt
 
 permissions:
   contents: write
@@ -28,7 +28,7 @@ jobs:
           sudo apt-get install -y fonts-noto-cjk
           python -m pip install --quiet pillow
 
-      - name: Improve mascot images and build Rich Menu
+      - name: Improve mascot images and build large-text Rich Menu
         run: python tools/v307_visual_fix.py
 
       - name: Validate website files
@@ -51,20 +51,21 @@ jobs:
           with Image.open('images/line/xianjiawei-rich-menu-2500x1686-v307.jpg') as im:
               assert im.size == (2500, 1686), im.size
           json.loads(Path('rich-menu-actions-v307.json').read_text(encoding='utf-8'))
-          assert '?v=307.0' in Path('site.js').read_text(encoding='utf-8')
-          print('website v307 validated')
+          assert '?v=307.1' in Path('site.js').read_text(encoding='utf-8')
+          assert 'object-fit:contain' in Path('site.css').read_text(encoding='utf-8')
+          print('website v307.1 validated')
           PY
 
       - name: Remove one-time files
         run: |
-          rm -f V307_VISUAL_TRIGGER.txt V307_VISUAL_PR_TRIGGER.txt
+          rm -f V307_VISUAL_PR_TRIGGER_2.txt
           rm -f tools/v307_visual_fix.py
           rm -f .github/workflows/v307-visual-fix.yml
 
-      - name: Commit website v307 to PR branch
+      - name: Commit website v307.1 to PR branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "網站 v307：提升小老闆清晰度並更新大字 Rich Menu" || exit 0
+          git commit -m "網站 v307.1：修正小老闆清晰度並更新大字 Rich Menu" || exit 0
           git push origin HEAD:${{ github.head_ref }}
