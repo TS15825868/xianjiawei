@@ -1,7 +1,7 @@
 # 全站按鈕與連結稽核報告
 
 - HTML 頁面：21
-- 檢查連結與按鈕：138
+- 檢查連結與按鈕：145
 - 錯誤：0
 - 警告：0
 
@@ -36,17 +36,17 @@
 | contact.html | LINE 詢問產品 | LINE 動態意圖 | 通過 |
 | dm.html | 直接詢問 | LINE 動態意圖 | 通過 |
 | dm.html | 看產品 | products.html | 通過 |
-| dm.html | 開啟DM圖 | images/dm-final/01_guilu-gao-100g-dm.jpg | 通過 |
+| dm.html | 開啟DM圖 | images/dm-final/01_guilu-gao-100g-dm.jpg?v=300.4 | 通過 |
 | dm.html | 我要詢問 | LINE 動態意圖 | 通過 |
-| dm.html | 開啟合併DM | images/dm-final/02_03_guilu-drink-combined-dm.jpg | 通過 |
-| dm.html | 30cc DM | images/dm-final/02_guilu-drink-30cc-dm.jpg | 通過 |
-| dm.html | 180cc DM | images/dm-final/03_guilu-drink-180cc-dm.jpg | 通過 |
+| dm.html | 開啟合併DM | images/dm-final/02_03_guilu-drink-combined-dm.jpg?v=300.4 | 通過 |
+| dm.html | 30cc DM | images/dm-final/02_guilu-drink-30cc-dm.jpg?v=300.4 | 通過 |
+| dm.html | 180cc DM | images/dm-final/03_guilu-drink-180cc-dm.jpg?v=300.4 | 通過 |
 | dm.html | 我要詢問 | LINE 動態意圖 | 通過 |
-| dm.html | 開啟DM圖 | images/dm-final/05_guilu-tangkuai-75g-dm.jpg | 通過 |
+| dm.html | 開啟DM圖 | images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=300.4 | 通過 |
 | dm.html | 我要詢問 | LINE 動態意圖 | 通過 |
-| dm.html | 開啟DM圖 | images/dm-final/06_guilu-jiao-600g-dm.jpg | 通過 |
+| dm.html | 開啟DM圖 | images/dm-final/06_guilu-jiao-600g-dm.jpg?v=300.4 | 通過 |
 | dm.html | 我要詢問 | LINE 動態意圖 | 通過 |
-| dm.html | 開啟DM圖 | images/dm-final/04_luerong-fen-75g-dm.jpg | 通過 |
+| dm.html | 開啟DM圖 | images/dm-final/04_luerong-fen-75g-dm.jpg?v=300.4 | 通過 |
 | dm.html | 我要詢問 | LINE 動態意圖 | 通過 |
 | faq.html | 首頁 | index.html | 通過 |
 | faq.html | 官方 LINE 詢問 | LINE 動態意圖 | 通過 |
@@ -67,7 +67,8 @@
 | index.html | LINE 詢問門市 | LINE 動態意圖 | 通過 |
 | index.html | LINE 比較產品 | LINE 動態意圖 | 通過 |
 | index.html | 看龜鹿膏 | product-guilu-gao.html | 通過 |
-| index.html | 看龜鹿飲 | products.html#guilu-drink | 通過 |
+| index.html | 看龜鹿飲30cc | product-guilu-drink-30cc.html | 通過 |
+| index.html | 看龜鹿飲180cc | product-guilu-drink-180cc.html | 通過 |
 | index.html | 看龜鹿湯塊 | product-guilu-tangkuai.html | 通過 |
 | index.html | 看龜鹿膠 | product-guilu-jiao.html | 通過 |
 | index.html | 看鹿茸粉 | product-luerong-fen.html | 通過 |
@@ -85,36 +86,42 @@
 | product-guilu-drink-180cc.html | 首頁 | index.html | 通過 |
 | product-guilu-drink-180cc.html | 產品總覽 | products.html | 通過 |
 | product-guilu-drink-180cc.html | LINE 詢問這款 | LINE 動態意圖 | 通過 |
+| product-guilu-drink-180cc.html | 查看產品DM | images/dm-final/03_guilu-drink-180cc-dm.jpg?v=300.4 | 通過 |
 | product-guilu-drink-180cc.html | 回產品總覽 | products.html | 通過 |
 | product-guilu-drink-180cc.html | 官方 LINE 詢問 | LINE 動態意圖 | 通過 |
 | product-guilu-drink-180cc.html | 查看產品總覽 | products.html | 通過 |
 | product-guilu-drink-30cc.html | 首頁 | index.html | 通過 |
 | product-guilu-drink-30cc.html | 產品總覽 | products.html | 通過 |
 | product-guilu-drink-30cc.html | LINE 詢問這款 | LINE 動態意圖 | 通過 |
+| product-guilu-drink-30cc.html | 查看產品DM | images/dm-final/02_guilu-drink-30cc-dm.jpg?v=300.4 | 通過 |
 | product-guilu-drink-30cc.html | 回產品總覽 | products.html | 通過 |
 | product-guilu-drink-30cc.html | 官方 LINE 詢問 | LINE 動態意圖 | 通過 |
 | product-guilu-drink-30cc.html | 先看怎麼選 | choose.html | 通過 |
 | product-guilu-gao.html | 首頁 | index.html | 通過 |
 | product-guilu-gao.html | 產品總覽 | products.html | 通過 |
 | product-guilu-gao.html | LINE 詢問這款 | LINE 動態意圖 | 通過 |
+| product-guilu-gao.html | 查看產品DM | images/dm-final/01_guilu-gao-100g-dm.jpg?v=300.4 | 通過 |
 | product-guilu-gao.html | 回產品總覽 | products.html | 通過 |
 | product-guilu-gao.html | 官方 LINE 詢問 | LINE 動態意圖 | 通過 |
 | product-guilu-gao.html | 先看怎麼選 | choose.html | 通過 |
 | product-guilu-jiao.html | 首頁 | index.html | 通過 |
 | product-guilu-jiao.html | 產品總覽 | products.html | 通過 |
 | product-guilu-jiao.html | LINE 詢問這款 | LINE 動態意圖 | 通過 |
+| product-guilu-jiao.html | 查看產品DM | images/dm-final/06_guilu-jiao-600g-dm.jpg?v=300.4 | 通過 |
 | product-guilu-jiao.html | 回產品總覽 | products.html | 通過 |
 | product-guilu-jiao.html | 官方 LINE 詢問 | LINE 動態意圖 | 通過 |
 | product-guilu-jiao.html | 先看怎麼選 | choose.html | 通過 |
 | product-guilu-tangkuai.html | 首頁 | index.html | 通過 |
 | product-guilu-tangkuai.html | 產品總覽 | products.html | 通過 |
 | product-guilu-tangkuai.html | LINE 詢問這款 | LINE 動態意圖 | 通過 |
+| product-guilu-tangkuai.html | 查看產品DM | images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=300.4 | 通過 |
 | product-guilu-tangkuai.html | 回產品總覽 | products.html | 通過 |
 | product-guilu-tangkuai.html | 官方 LINE 詢問 | LINE 動態意圖 | 通過 |
 | product-guilu-tangkuai.html | 先看怎麼選 | choose.html | 通過 |
 | product-luerong-fen.html | 首頁 | index.html | 通過 |
 | product-luerong-fen.html | 產品總覽 | products.html | 通過 |
 | product-luerong-fen.html | LINE 詢問這款 | LINE 動態意圖 | 通過 |
+| product-luerong-fen.html | 查看產品DM | images/dm-final/04_luerong-fen-75g-dm.jpg?v=300.4 | 通過 |
 | product-luerong-fen.html | 回產品總覽 | products.html | 通過 |
 | product-luerong-fen.html | 官方 LINE 詢問 | LINE 動態意圖 | 通過 |
 | product-luerong-fen.html | 先看怎麼選 | choose.html | 通過 |
