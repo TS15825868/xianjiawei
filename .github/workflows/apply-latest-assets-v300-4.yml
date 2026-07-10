@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Apply latest assets and drink link
+      - name: Apply latest assets and drink links
         run: |
           node --check tools/apply_latest_assets_and_drink_link_v300_4.js
           node tools/apply_latest_assets_and_drink_link_v300_4.js
@@ -35,8 +35,8 @@ jobs:
           python3 tools/audit_all_buttons.py
           node tools/check_line_intents.js
           node tools/check_line_button_labels.js
-          grep -F "p.id === 'guilu-drink-30' ? 'guilu-drink'" site.js >/dev/null
-          grep -F 'href="products.html#guilu-drink"' index.html >/dev/null
+          grep -F 'href="product-guilu-drink-30cc.html">看龜鹿飲30cc</a>' index.html >/dev/null
+          grep -F 'href="product-guilu-drink-180cc.html">看龜鹿飲180cc</a>' index.html >/dev/null
           grep -F 'images/dm-final/01_guilu-gao-100g-dm.jpg?v=300.4' data.json >/dev/null
           grep -F 'images/dm-final/02_guilu-drink-30cc-dm.jpg?v=300.4' data.json >/dev/null
           grep -F 'images/dm-final/03_guilu-drink-180cc-dm.jpg?v=300.4' data.json >/dev/null
@@ -49,7 +49,7 @@ jobs:
           npm install --no-save --package-lock=false playwright@1.55.0
           npx playwright install --with-deps chromium
 
-      - name: Verify 龜鹿飲 destination and latest product images
+      - name: Verify 龜鹿飲 destinations and latest product images
         run: |
           python3 -m http.server 8080 >/tmp/xianjiawei-assets.log 2>&1 &
           PID=$!
@@ -61,15 +61,23 @@ jobs:
             const browser = await chromium.launch({ headless: true });
             const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
             await page.goto('http://127.0.0.1:8080/index.html', { waitUntil: 'networkidle' });
-            const drinkLink = page.locator('#purpose-directions a', { hasText: '看龜鹿飲' });
-            if (await drinkLink.count() !== 1) throw new Error('首頁找不到唯一的看龜鹿飲按鈕');
-            await drinkLink.click();
+
+            const link30 = page.locator('#purpose-directions a', { hasText: '看龜鹿飲30cc' });
+            const link180 = page.locator('#purpose-directions a', { hasText: '看龜鹿飲180cc' });
+            if (await link30.count() !== 1) throw new Error('首頁缺少龜鹿飲30cc直接入口');
+            if (await link180.count() !== 1) throw new Error('首頁缺少龜鹿飲180cc直接入口');
+            if ((await link30.getAttribute('href')) !== 'product-guilu-drink-30cc.html') throw new Error('30cc入口錯誤');
+            if ((await link180.getAttribute('href')) !== 'product-guilu-drink-180cc.html') throw new Error('180cc入口錯誤');
+
+            await link30.click();
             await page.waitForLoadState('networkidle');
-            if (!page.url().endsWith('products.html#guilu-drink')) throw new Error('看龜鹿飲未進入正確網址：' + page.url());
-            const target = page.locator('#guilu-drink');
-            await target.waitFor({ state: 'visible' });
-            const title = await target.locator('h3').textContent();
-            if (!String(title).includes('龜鹿飲30cc')) throw new Error('龜鹿飲定位點不是30cc卡片：' + title);
+            if (!page.url().endsWith('product-guilu-drink-30cc.html')) throw new Error('30cc按鈕未進入30cc產品頁：' + page.url());
+            await page.goBack({ waitUntil: 'networkidle' });
+            await page.locator('#purpose-directions a', { hasText: '看龜鹿飲180cc' }).click();
+            await page.waitForLoadState('networkidle');
+            if (!page.url().endsWith('product-guilu-drink-180cc.html')) throw new Error('180cc按鈕未進入180cc產品頁：' + page.url());
+
+            await page.goto('http://127.0.0.1:8080/products.html', { waitUntil: 'networkidle' });
             for (const product of ['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']) {
               const card = page.locator(`[data-product-id="${product}"]`);
               if (await card.count() !== 1) throw new Error('缺少產品卡：' + product);
@@ -89,11 +97,11 @@ jobs:
 
       - name: Commit verified update
         run: |
-          rm -f LATEST_ASSETS_TRIGGER.txt LATEST_ASSETS_PR_NOTE.txt
+          rm -f LATEST_ASSETS_TRIGGER.txt LATEST_ASSETS_TRIGGER_2.txt LATEST_ASSETS_PR_NOTE.txt
           rm -f tools/apply_latest_assets_and_drink_link_v300_4.js
           rm -f .github/workflows/apply-latest-assets-v300-4.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m 'v300.4: fix 龜鹿飲 destination and publish latest product images and DMs'
+          git commit -m 'v300.4: fix 龜鹿飲 destinations and publish latest product images and DMs'
           git push origin HEAD:${{ github.head_ref }}
