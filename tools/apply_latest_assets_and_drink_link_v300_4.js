@@ -110,7 +110,16 @@ dmPage = dmPage.replace(
 write("dm.html", dmPage);
 
 let index = read("index.html");
-index = index.replace(/href="products\.html#guilu-drink"/g, 'href="products.html#guilu-drink"');
+index = index.replace(
+  '<a class="btn btn-outline" href="products.html#guilu-drink">看龜鹿飲</a>',
+  '<div class="final-cta__actions"><a class="btn btn-outline" href="product-guilu-drink-30cc.html">看龜鹿飲30cc</a><a class="btn btn-outline" href="product-guilu-drink-180cc.html">看龜鹿飲180cc</a></div>'
+);
+if (!index.includes('href="product-guilu-drink-30cc.html">看龜鹿飲30cc</a>')) {
+  throw new Error("首頁未加入龜鹿飲30cc正確入口");
+}
+if (!index.includes('href="product-guilu-drink-180cc.html">看龜鹿飲180cc</a>')) {
+  throw new Error("首頁未加入龜鹿飲180cc正確入口");
+}
 write("index.html", index);
 
 const checks = [];
@@ -125,4 +134,4 @@ for (const [id, assets] of Object.entries(productAssets)) {
 }
 write("LATEST_ASSET_REPORT.txt", checks.join("\n") + "\n");
 
-console.log("Applied latest product images, final DMs and 龜鹿飲 anchor v300.4");
+console.log("Applied latest product images, final DMs and direct 龜鹿飲 links v300.4");
