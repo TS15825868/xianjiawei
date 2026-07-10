@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=302.0');
+  const res = await fetch('data.json?v=303.0');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -408,105 +408,63 @@ function renderPage() {
 
 
 const MASCOT_IMAGES = {
-  welcome: 'images/brand/xianjiawei-scene-welcome.jpg?v=302.0',
-  products: 'images/brand/xianjiawei-scene-products.jpg?v=302.0',
-  guide: 'images/brand/xianjiawei-scene-guide.jpg?v=302.0',
-  service: 'images/brand/xianjiawei-scene-service.jpg?v=302.0',
-  usage: 'images/brand/xianjiawei-scene-usage.jpg?v=302.0'
+  welcome: 'images/brand/xianjiawei-scene-welcome.jpg?v=303.0',
+  products: 'images/brand/xianjiawei-scene-products.jpg?v=303.0',
+  guide: 'images/brand/xianjiawei-scene-guide.jpg?v=303.0',
+  service: 'images/brand/xianjiawei-scene-service.jpg?v=303.0',
+  usage: 'images/brand/xianjiawei-scene-usage.jpg?v=303.0'
 };
 
 function renderMascotGuide() {
   const page = document.body?.dataset?.page || '';
   const config = {
     home: {
-      image: 'welcome', eyebrow: '歡迎認識仙加味',
-      title: '先從你平常想怎麼使用開始',
-      text: '依固定安排、方便即飲、沖泡燉湯、家庭規格或自行調飲來比較，找到適合日常節奏的產品型態。',
-      actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">看產品</a>`
+      image: 'welcome', scene: 'welcome', eyebrow: '歡迎認識仙加味',
+      title: '先從平常想怎麼使用開始',
+      text: '固定安排、方便即飲、沖泡燉湯、家庭規格或自行調飲，都可以從日常習慣開始比較。',
+      actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">認識產品</a>`
     },
     products: {
-      image: 'products', eyebrow: '小老闆帶你看產品',
-      title: '不同型態，使用方式也不一樣',
-      text: '從龜鹿膏、龜鹿飲30cc、龜鹿湯塊、龜鹿膠到鹿茸粉，依規格、成分與生活情境逐一比較。',
+      image: 'products', scene: 'products', eyebrow: '產品導覽',
+      title: '先看產品型態，再比較規格與使用方式',
+      text: '龜鹿膏、龜鹿飲30cc、龜鹿湯塊、龜鹿膠與鹿茸粉，各有不同的日常使用情境。',
       actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="choose.html">怎麼選</a>`
     },
     choose: {
-      image: 'guide', eyebrow: '不知道怎麼選？',
-      title: '先看使用情境，再決定產品型態',
-      text: '固定安排、方便即飲、沖泡燉湯、家庭使用或自行搭配飲品，都可以從平常習慣開始比較。',
+      image: 'guide', scene: 'guide', eyebrow: '怎麼選',
+      title: '依使用情境比較，比只看品名更清楚',
+      text: '想固定取用、方便即飲、沖泡燉湯、家庭使用或自行調飲，都能找到相對應的產品型態。',
       actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">看全部產品</a>`
     },
-    combo: {
-      image: 'products', eyebrow: '日常搭配導覽',
-      title: '依生活節奏查看搭配組合',
-      text: '每組內容、價格、可選組數與活動，都會在正式方案卡中清楚列出。',
-      actions: `${lineButton('搭配組合', '搭配組合')}<a class="btn btn-outline" href="products.html">先看產品</a>`
-    },
     guide: {
-      image: 'usage', eyebrow: '使用方式清楚整理',
-      title: '沖泡、即飲與燉湯，都有適合的安排',
-      text: '依產品型態查看取用方式、建議時段、搭配方式與保存資訊，讓日常使用更順手。',
-      actions: `${lineButton('怎麼使用', '怎麼使用')}<a class="btn btn-outline" href="faq.html">看常見問題</a>`
+      image: 'usage', scene: 'usage', eyebrow: '使用方式',
+      title: '沖泡、即飲與燉湯方式一次整理',
+      text: '依產品型態查看取用方式、使用時段、搭配方式與保存資訊。',
+      actions: `${lineButton('怎麼使用', '怎麼使用')}<a class="btn btn-outline" href="faq.html">常見問題</a>`
     },
     recipes: {
-      image: 'usage', eyebrow: '料理與熱飲搭配',
-      title: '從原本熟悉的飲食方式開始',
-      text: '用沖泡、調飲或燉湯的方式，把產品自然放進每天的飲食節奏。',
-      actions: `${lineButton('料理搭配', '料理搭配')}<a class="btn btn-outline" href="guide.html">看使用方式</a>`
-    },
-    video: {
-      image: 'guide', eyebrow: '一起看原料與工序',
-      title: '用影片認識傳統食補文化',
-      text: '從原料、處理方式與日常觀點開始理解；產品資訊仍以仙加味正式頁面為準。',
-      actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="knowledge.html">看知識內容</a>`
-    },
-    knowledge: {
-      image: 'guide', eyebrow: '食材與日常觀點',
-      title: '把傳統資料整理成容易理解的內容',
-      text: '內容以食材文化、原料與日常使用觀點為主，不代替醫療診斷或個人體質判斷。',
-      actions: `${lineButton('看產品', '看產品')}<a class="btn btn-outline" href="sources.html">查看資料來源</a>`
-    },
-    'hanfang-baike': {
-      image: 'guide', eyebrow: '漢方資料導覽',
-      title: '先了解資料出處，再認識食材文化',
-      text: '古籍與藥典內容會標示來源與引用原則，並與產品資訊清楚區分。',
-      actions: `${lineButton('看產品', '看產品')}<a class="btn btn-outline" href="sources.html">資料來源</a>`
-    },
-    sources: {
-      image: 'guide', eyebrow: '資料來源與引用原則',
-      title: '來源清楚，內容才看得安心',
-      text: '引用古籍、藥典與公開資料時，保留出處、年代與適用範圍，不延伸為產品療效宣稱。',
-      actions: `${lineButton('人工客服', '人工客服')}<a class="btn btn-outline" href="knowledge.html">回知識館</a>`
+      image: 'usage', scene: 'usage', eyebrow: '料理搭配',
+      title: '讓產品自然放進熟悉的飲食節奏',
+      text: '從熱飲、調飲到家常燉湯，依產品型態查看適合的料理與搭配方式。',
+      actions: `${lineButton('料理搭配', '料理搭配')}<a class="btn btn-outline" href="guide.html">使用方式</a>`
     },
     brand: {
-      image: 'welcome', eyebrow: '從萬華出發',
-      title: '延續四代對原料、工序與信用的重視',
-      text: '仙加味把多年累積的經驗整理成清楚的產品資訊與日常使用方式，讓傳統更容易被今天的人理解。',
+      image: 'welcome', scene: 'welcome', eyebrow: '品牌故事',
+      title: '從萬華出發，延續四代對工序與信用的重視',
+      text: '把多年累積的原料與龜鹿工序經驗，整理成今天容易理解的產品資訊。',
       actions: `${lineButton('看產品', '看產品')}<a class="btn btn-outline" href="contact.html">聯絡我們</a>`
     },
     faq: {
-      image: 'service', eyebrow: '常見問題一次整理',
-      title: '產品差異、使用方式與購買流程',
-      text: '先查看常見問題；需要確認規格、數量、配送或付款方式時，再由官方 LINE 協助。',
+      image: 'service', scene: 'service', eyebrow: '常見問題',
+      title: '產品差異、使用方式與購買流程一次整理',
+      text: '需要確認規格、數量、配送或付款方式時，可再由官方 LINE 協助。',
       actions: `${lineButton('人工客服', '人工客服')}<a class="btn btn-outline" href="products.html">看產品</a>`
     },
     contact: {
-      image: 'service', eyebrow: '官方 LINE 與門市服務',
-      title: '歡迎留下想了解的產品與需求',
-      text: '提供產品名稱、規格、數量或取貨方式，我們會依實際庫存與安排協助確認。',
-      actions: `${lineButton('人工客服', '人工客服')}<a class="btn btn-outline" href="products.html">先看產品</a>`
-    },
-    dm: {
-      image: 'products', eyebrow: '產品快速整理',
-      title: '先掌握產品型態、規格與使用方向',
-      text: '快速比較各產品差異，再進入產品頁查看完整成分、使用與保存資訊。',
-      actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">完整產品頁</a>`
-    },
-    'product-detail': {
-      image: 'products', eyebrow: '產品資訊',
-      title: '先看規格、成分與使用方式',
-      text: '產品頁以正式標示為準；需要確認價格、數量、活動或出貨時間，可透過官方 LINE 詢問。',
-      actions: `${lineButton('看產品', '看產品')}<a class="btn btn-outline" href="products.html">比較其他產品</a>`
+      image: 'service', scene: 'service', eyebrow: '門市與官方 LINE',
+      title: '留下想了解的產品、規格或取貨方式',
+      text: '我們會依實際庫存、配送與門市安排協助確認。',
+      actions: `${lineButton('人工客服', '人工客服')}<a class="btn btn-outline" href="#store-info">門市資訊</a>`
     }
   }[page];
 
@@ -517,9 +475,9 @@ function renderMascotGuide() {
   section.id = 'mascot-guide';
   section.className = 'section mascot-guide-section';
   section.innerHTML = `
-    <article class="mascot-guide-card reveal">
+    <article class="mascot-guide-card mascot-guide-card--${config.scene} reveal">
       <div class="mascot-guide-card__media">
-        <img src="${MASCOT_IMAGES[config.image] || MASCOT_IMAGES.welcome}" alt="仙加味小老闆情境導覽" width="960" height="1200" loading="eager" decoding="async">
+        <img src="${MASCOT_IMAGES[config.image]}" alt="仙加味小老闆情境導覽" width="960" height="1200" loading="${page === 'home' ? 'eager' : 'lazy'}" decoding="async">
       </div>
       <div class="mascot-guide-card__copy">
         <p class="eyebrow">${config.eyebrow}</p>
