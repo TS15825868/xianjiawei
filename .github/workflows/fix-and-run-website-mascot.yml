@@ -1,0 +1,37 @@
+name: Fix and run website mascot finalization
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  fix-and-run:
+    if: github.event.issue.title == 'FIX AND RUN WEBSITE MASCOT 400.1'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Fix gdown command
+        run: |
+          sed -i 's/gdown --id 1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL/gdown 1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL/' .github/workflows/trigger-website-mascot-finalize.yml
+          rm -f .github/workflows/bootstrap-website-mascot.yml
+          rm -f .github/workflows/fix-and-run-website-mascot.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '修正網站小老闆安裝流程'
+          git push origin main
+      - name: Re-trigger corrected finalization
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue close 57 --repo ${{ github.repository }} --comment '下載指令已修正，改由新的觸發單重新執行。' || true
+          gh issue create --repo ${{ github.repository }} --title 'RUN WEBSITE MASCOT FINALIZE 400.1' --body '修正下載指令後重新執行網站小老闆正式安裝。'
+          gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }} --comment '已修正並重新觸發網站正式安裝。'
