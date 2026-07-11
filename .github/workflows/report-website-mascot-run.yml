@@ -17,7 +17,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          result=$(gh api "repos/${{ github.repository }}/actions/workflows/trigger-website-mascot-finalize.yml/runs?per_page=1" --jq '.workflow_runs[0] | {id,status,conclusion,html_url,head_sha,created_at,updated_at}')
+          result=$(gh api "repos/${{ github.repository }}/actions/workflows/trigger-website-mascot-finalize.yml/runs?per_page=20" --jq '[.workflow_runs[] | select(.display_title == "RUN WEBSITE MASCOT FINALIZE 400.2")][0] | {id,status,conclusion,html_url,head_sha,created_at,updated_at,display_title}')
           printf '```json\n%s\n```\n' "$result" > /tmp/report.md
           gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body-file /tmp/report.md
           gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }}
