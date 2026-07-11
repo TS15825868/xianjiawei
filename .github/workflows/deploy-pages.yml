@@ -25,24 +25,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate shared files
+      - name: Validate shared files and catalog
         run: |
           node --check site.js
           node --check site-core.js
           node --check site-fix-v317.js
           python3 -m json.tool data.json >/dev/null
           test -s site-v321.css
-          test -s images/brand/xianjiawei-scene-welcome.jpg
-          test -s images/brand/xianjiawei-scene-products.jpg
-          test -s images/brand/xianjiawei-scene-guide.jpg
-          test -s images/brand/xianjiawei-scene-combo.jpg
-          test -s images/brand/xianjiawei-scene-usage.jpg
-          test -s images/brand/xianjiawei-scene-service.jpg
-          test -s images/brand/xianjiawei-scene-brand.jpg
-          grep -q 'guilu-drink-30' data.json
-          grep -q 'guilu-drink-180' data.json
+          for name in welcome products guide combo usage service brand; do
+            test -s "images/brand/xianjiawei-scene-${name}.jpg"
+          done
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
 
-      - name: Prepare public site
+          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
+          ids = {item.get('id') for item in data.get('products', [])}
+          expected = {
+              'guilu-gao', 'guilu-drink-30', 'guilu-drink-180',
+              'guilu-tangkuai', 'guilu-jiao', 'luerong-fen'
+          }
+          if ids != expected:
+              raise SystemExit(f'產品資料不完整：{sorted(ids)}')
+          for item in data.get('products', []):
+              for key in ('image', 'dmImage', 'detailPage'):
+                  value = str(item.get(key, '')).split('?')[0]
+                  if value and not Path(value).exists():
+                      raise SystemExit(f"{item.get('id')} 缺少 {key}: {value}")
+          print('產品資料驗證完成：保留五大型態、六項規格與龜鹿飲雙規格。')
+          PY
+
+      - name: Prepare and audit public site
         run: |
           mkdir -p _site
           rsync -a ./ _site/ \
@@ -60,6 +73,61 @@ jobs:
             --exclude='RUN_*' \
             --exclude='FIX_*'
           touch _site/.nojekyll
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          from urllib.parse import urlsplit, unquote
+          import re
+
+          root = Path('_site')
+          pages = sorted(root.glob('*.html'))
+          required = {
+              'index.html','products.html','choose.html','combo.html','guide.html',
+              'recipes.html','video.html','knowledge.html','hanfang-baike.html',
+              'sources.html','brand.html','faq.html','contact.html','dm.html',
+              'product-guilu-gao.html','product-guilu-drink-30cc.html',
+              'product-guilu-drink-180cc.html','product-guilu-tangkuai.html',
+              'product-guilu-jiao.html','product-luerong-fen.html'
+          }
+          missing_pages = sorted(required - {p.name for p in pages})
+          if missing_pages:
+              raise SystemExit('缺少頁面：' + ', '.join(missing_pages))
+
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.refs=[]; self.ids=[]
+              def handle_starttag(self, tag, attrs):
+                  a = dict(attrs)
+                  if a.get('id'): self.ids.append(a['id'])
+                  for key in ('href','src'):
+                      if a.get(key): self.refs.append((key, a[key]))
+
+          warnings=[]
+          for page in pages:
+              text = page.read_text(encoding='utf-8')
+              text = re.sub(r'site\.css\?v=[^"\']+', 'site.css?v=321.0', text)
+              text = re.sub(r'site\.js\?v=[^"\']+', 'site.js?v=321.0', text)
+              if 'site-v321.css' not in text:
+                  text = text.replace('</head>', '<link rel="stylesheet" href="site-v321.css?v=321.0"/>\n</head>')
+              page.write_text(text, encoding='utf-8')
+
+              parser=Parser(); parser.feed(text)
+              duplicates={value for value in parser.ids if parser.ids.count(value)>1}
+              if duplicates: warnings.append(f'{page.name}: 重複 ID {sorted(duplicates)}')
+              for kind, ref in parser.refs:
+                  if ref.startswith(('http://','https://','mailto:','tel:','javascript:','#','data:')):
+                      continue
+                  local = unquote(urlsplit(ref).path)
+                  if not local or local.startswith('/'):
+                      continue
+                  target = (page.parent / local)
+                  if not target.exists(): warnings.append(f'{page.name}: 找不到 {kind} {ref}')
+
+          if warnings:
+              print('網站稽核提醒：')
+              print('\n'.join('- ' + item for item in warnings))
+          print(f'完成 {len(pages)} 個 HTML 頁面、共用程式、圖片與本地連結檢查。')
+          PY
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
