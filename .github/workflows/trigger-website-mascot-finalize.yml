@@ -23,7 +23,7 @@ jobs:
       - name: Install approved website mascot images
         run: |
           python3 -m pip install --quiet gdown pillow
-          gdown --id 1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL -O /tmp/xianjiawei-mascot-v400.zip
+          gdown 1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL -O /tmp/xianjiawei-mascot-v400.zip
           test $(wc -c < /tmp/xianjiawei-mascot-v400.zip) -gt 10000000
           rm -rf /tmp/xianjiawei-mascot-v400
           mkdir -p /tmp/xianjiawei-mascot-v400
@@ -110,6 +110,7 @@ jobs:
           rm -f tools/generate-mascot-v400.py tools/apply-mascot-v400.py
           rm -f .github/workflows/apply-mascot-v400.yml .github/workflows/apply-mascot-v400-pr.yml
           rm -f .github/workflows/bootstrap-website-mascot.yml
+          rm -f .github/workflows/fix-and-run-website-mascot.yml
 
       - name: Validate and publish main
         env:
