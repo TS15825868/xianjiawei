@@ -1,0 +1,75 @@
+name: Apply website v324
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - RUN_APPLY_SITE_V324.txt
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Update every website page to v324
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          version = '324.0'
+          count = 0
+          for page in Path('.').glob('*.html'):
+              text = page.read_text(encoding='utf-8')
+              original = text
+              text = re.sub(r'site\.css(?:\?v=[^"\']+)?', f'site.css?v={version}', text)
+              text = re.sub(r'site-v321\.css(?:\?v=[^"\']+)?', f'site-v321.css?v={version}', text)
+              text = re.sub(r'site\.js(?:\?v=[^"\']+)?', f'site.js?v={version}', text)
+              text = re.sub(
+                  r'資料更新：\d{4}-\d{2}-\d{2}｜內容版本 v[\d.]+',
+                  f'資料更新：2026-07-11｜內容版本 v{version}',
+                  text,
+              )
+              if 'site-v321.css' not in text:
+                  text = text.replace(
+                      '</head>',
+                      f'<link rel="stylesheet" href="site-v321.css?v={version}"/>\n</head>',
+                  )
+              if text != original:
+                  page.write_text(text, encoding='utf-8')
+                  count += 1
+          print(f'Updated {count} HTML files to v{version}')
+          if count == 0:
+              raise SystemExit('No HTML files were updated')
+          PY
+
+      - name: Validate website
+        run: |
+          node --check site.js
+          node --check site-core.js
+          node --check site-fix-v317.js
+          python3 -m json.tool data.json >/dev/null
+          test -s images/brand/xianjiawei-web-scenes-v324.webp
+          grep -q 'guilu-drink-30' data.json
+          grep -q 'guilu-drink-180' data.json
+          grep -q 'site.js?v=324.0' index.html
+
+      - name: Commit final website
+        run: |
+          rm -f RUN_APPLY_SITE_V324.txt
+          rm -f .github/workflows/apply-site-v324.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '全站套用清晰小老闆情境圖與快取版本 v324'
+          git pull --rebase origin main
+          git push origin main
