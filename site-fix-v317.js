@@ -1,26 +1,46 @@
 "use strict";
 
 (() => {
-  // 先以已確認可正常顯示的網站專用小老闆圖統一套用，
-  // 避免部分情境圖檔損壞時在 iPhone Safari 顯示黑色區塊。
-  const STABLE_SCENE = "images/brand/xianjiawei-scene-guide.jpg?v=318.0";
+  const VERSION = "321.0";
+  const SCENES = {
+    home: `images/brand/xianjiawei-scene-welcome.jpg?v=${VERSION}`,
+    products: `images/brand/xianjiawei-scene-products.jpg?v=${VERSION}`,
+    choose: `images/brand/xianjiawei-scene-guide.jpg?v=${VERSION}`,
+    combo: `images/brand/xianjiawei-scene-combo.jpg?v=${VERSION}`,
+    guide: `images/brand/xianjiawei-scene-usage.jpg?v=${VERSION}`,
+    recipes: `images/brand/xianjiawei-scene-usage.jpg?v=${VERSION}`,
+    faq: `images/brand/xianjiawei-scene-service.jpg?v=${VERSION}`,
+    contact: `images/brand/xianjiawei-scene-service.jpg?v=${VERSION}`,
+    brand: `images/brand/xianjiawei-scene-brand.jpg?v=${VERSION}`
+  };
 
-  function makeImage(page) {
-    const image = document.createElement("img");
-    image.src = STABLE_SCENE;
+  const FALLBACK_SCENE = `images/brand/xianjiawei-scene-guide.jpg?v=${VERSION}`;
+
+  function ensureStylesheet() {
+    if (document.querySelector('link[data-site-v321="1"]')) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = `site-v321.css?v=${VERSION}`;
+    link.dataset.siteV321 = "1";
+    document.head.appendChild(link);
+  }
+
+  function configureImage(image, page) {
+    const expected = SCENES[page] || SCENES.home;
+    image.className = "mascot-guide-card__image";
+    image.src = expected;
     image.alt = "仙加味小老闆情境導覽";
-    image.width = 1000;
-    image.height = 750;
+    image.width = 1600;
+    image.height = 1200;
     image.loading = page === "home" ? "eager" : "lazy";
     image.decoding = "async";
-    image.referrerPolicy = "no-referrer";
-    Object.assign(image.style, {
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-      display: "block",
-      background: "#efe4d2"
-    });
+    image.fetchPriority = page === "home" ? "high" : "auto";
+    image.removeAttribute("style");
+    image.onerror = () => {
+      if (image.dataset.fallbackApplied === "1") return;
+      image.dataset.fallbackApplied = "1";
+      image.src = FALLBACK_SCENE;
+    };
     return image;
   }
 
@@ -29,68 +49,32 @@
     const media = document.querySelector("#mascot-guide .mascot-guide-card__media");
     if (!media) return false;
 
-    const currentImage = media.querySelector("img");
-    const currentSrc = currentImage?.getAttribute("src") || "";
-    const hasBrokenSprite = Boolean(media.querySelector(".mascot-guide-card__scene"));
-
-    if (hasBrokenSprite || !currentImage || !currentSrc.includes("xianjiawei-scene-guide.jpg")) {
-      media.replaceChildren(makeImage(page));
-    } else {
-      currentImage.src = STABLE_SCENE;
-      Object.assign(currentImage.style, {
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-        display: "block",
-        background: "#efe4d2"
-      });
+    let image = media.querySelector("img");
+    if (!image) {
+      image = document.createElement("img");
+      media.replaceChildren(image);
     }
 
-    media.style.background = "#efe4d2";
-    media.style.minHeight = "240px";
-    media.dataset.mascotFixed = "1";
+    configureImage(image, page);
+    media.querySelectorAll(".mascot-guide-card__scene").forEach(node => node.remove());
+    media.dataset.mascotVersion = VERSION;
     return true;
   }
 
-  function installStyles() {
-    if (document.getElementById("site-fix-v318-style")) return;
-    const style = document.createElement("style");
-    style.id = "site-fix-v318-style";
-    style.textContent = `
-      .mascot-guide-card__media {
-        overflow: hidden;
-        background: #efe4d2 !important;
-        min-height: 240px;
-      }
-      .mascot-guide-card__media img {
-        width: 100% !important;
-        height: 100% !important;
-        min-height: 240px;
-        object-fit: cover !important;
-        display: block !important;
-        background: #efe4d2 !important;
-      }
-      @media (max-width: 760px) {
-        .mascot-guide-card__copy { padding-bottom: 5.5rem; }
-        .floating-line-cta {
-          right: 0.85rem;
-          bottom: calc(0.85rem + env(safe-area-inset-bottom));
-          transform: scale(.92);
-          transform-origin: right bottom;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
   function start() {
-    installStyles();
+    ensureStylesheet();
+
     if (applyMascotFix()) return;
 
     const observer = new MutationObserver(() => {
       if (applyMascotFix()) observer.disconnect();
     });
-    observer.observe(document.documentElement, { childList: true, subtree: true });
+
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true
+    });
+
     window.setTimeout(() => {
       applyMascotFix();
       observer.disconnect();
