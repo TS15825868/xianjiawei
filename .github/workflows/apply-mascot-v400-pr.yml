@@ -1,0 +1,76 @@
+name: Apply mascot v400 by PR
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - APPLY_MASCOT_V400_PR.txt
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  apply:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Download approved high-resolution mascot package
+        run: |
+          python3 -m pip install --quiet gdown pillow
+          gdown --id 1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL -O /tmp/xianjiawei-mascot-v400.zip
+          test $(wc -c < /tmp/xianjiawei-mascot-v400.zip) -gt 10000000
+          unzip -t /tmp/xianjiawei-mascot-v400.zip
+
+      - name: Install separate website and LINE OA sets
+        run: |
+          unzip -o /tmp/xianjiawei-mascot-v400.zip -d .
+          python3 tools/apply-mascot-v400.py
+
+      - name: Verify resolution and source separation
+        run: |
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          website = ['home','products','choose','combo','guide','recipes','faq','contact','brand']
+          line = ['welcome','products','recommend','combo','usage','faq','service','brand','cart']
+          seen = set()
+          for name in website:
+              p = Path(f'images/brand/website-mascot-{name}.jpg')
+              with Image.open(p) as im:
+                  assert im.width >= 1200 and im.height >= 900, (p, im.size)
+              assert p.stat().st_size > 500000, (p, p.stat().st_size)
+              seen.add(p.read_bytes())
+          assert len(seen) >= 8, '網站圖片重複過多'
+          seen = set()
+          for name in line:
+              p = Path(f'images/line-mascot/xianjiawei-mascot-line-{name}.jpg')
+              with Image.open(p) as im:
+                  assert im.width >= 1200 and im.height >= 900, (p, im.size)
+              assert p.stat().st_size > 500000, (p, p.stat().st_size)
+              seen.add(p.read_bytes())
+          assert len(seen) >= 8, 'LINE OA 圖片重複過多'
+          PY
+          node --check site-core.js
+          node --check site-fix-v317.js
+          node --check site.js
+          grep -q 'website-mascot-home.jpg' site-fix-v317.js
+          ! grep -q 'images/line-mascot' site-fix-v317.js
+
+      - name: Commit generated release to PR branch
+        run: |
+          rm -f APPLY_MASCOT_V400.txt APPLY_MASCOT_V400_PR.txt
+          rm -f .github/workflows/apply-mascot-v400.yml
+          rm -f .github/workflows/apply-mascot-v400-pr.yml
+          rm -f tools/apply-mascot-v400.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '正式上線網站與 LINE OA 兩套高解析小老闆 v400'
+          git push origin HEAD:${{ github.head_ref }}
