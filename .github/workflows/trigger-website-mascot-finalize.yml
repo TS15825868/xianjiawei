@@ -1,0 +1,131 @@
+name: Finalize website mascot on issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  finalize:
+    if: github.event.issue.title == 'RUN WEBSITE MASCOT FINALIZE 400.1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install approved website mascot images
+        run: |
+          python3 -m pip install --quiet gdown pillow
+          gdown --id 1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL -O /tmp/xianjiawei-mascot-v400.zip
+          test $(wc -c < /tmp/xianjiawei-mascot-v400.zip) -gt 10000000
+          rm -rf /tmp/xianjiawei-mascot-v400
+          mkdir -p /tmp/xianjiawei-mascot-v400
+          unzip -q /tmp/xianjiawei-mascot-v400.zip -d /tmp/xianjiawei-mascot-v400
+          mkdir -p images/brand
+          for name in home products choose combo guide recipes faq contact brand; do
+            src="/tmp/xianjiawei-mascot-v400/images/brand/website-mascot-${name}.jpg"
+            test -s "$src"
+            cp "$src" "images/brand/website-mascot-${name}.jpg"
+          done
+          rm -f images/brand/website-mascot-*.svg
+
+          python3 - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          from PIL import Image
+          import json
+
+          names = ['home','products','choose','combo','guide','recipes','faq','contact','brand']
+          manifest = {'version': '400.1', 'scope': 'xianjiawei/main website only', 'images': {}}
+          hashes = set()
+          for name in names:
+              path = Path('images/brand') / f'website-mascot-{name}.jpg'
+              if path.stat().st_size < 500000:
+                  raise SystemExit(f'圖片檔案過小：{path}')
+              with Image.open(path) as image:
+                  image.verify()
+              with Image.open(path) as image:
+                  width, height = image.size
+              if width < 1200 or height < 900:
+                  raise SystemExit(f'解析度不足：{path} {width}x{height}')
+              digest = sha256(path.read_bytes()).hexdigest()
+              hashes.add(digest)
+              manifest['images'][name] = {
+                  'file': f'images/brand/website-mascot-{name}.jpg',
+                  'width': width,
+                  'height': height,
+                  'bytes': path.stat().st_size,
+                  'sha256': digest,
+              }
+          if len(hashes) != len(names):
+              raise SystemExit('網站小老闆圖片有重複內容')
+          Path('images/brand/website-mascot-manifest.json').write_text(
+              json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8'
+          )
+          PY
+
+      - name: Fix cache versions and unsafe generation path
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          import re
+
+          version = '400.1'
+          for filename in ['site.js', 'site-fix-v317.js', 'site-core.js']:
+              path = Path(filename)
+              text = path.read_text(encoding='utf-8')
+              if filename == 'site-fix-v317.js':
+                  text = re.sub(r'const VERSION = "[^"]+";', f'const VERSION = "{version}";', text, count=1)
+              text = re.sub(r'(website-mascot-[a-z-]+\.jpg)\?v=\d+(?:\.\d+)*', rf'\1?v={version}', text)
+              if filename == 'site.js':
+                  text = re.sub(r'v=\d+(?:\.\d+)*', f'v={version}', text)
+              path.write_text(text, encoding='utf-8')
+
+          deploy_path = Path('.github/workflows/deploy-pages.yml')
+          deploy_text = deploy_path.read_text(encoding='utf-8')
+          deploy_text = deploy_text.replace("version = '325.0'", f"version = '{version}'")
+          deploy_text = deploy_text.replace('內容版本 v325.0', f'內容版本 v{version}')
+          deploy_path.write_text(deploy_text, encoding='utf-8')
+
+          deploy = {
+              'version': version,
+              'updated': '2026-07-12',
+              'mascot': 'website-dedicated-approved-high-resolution-assets',
+              'websiteMascotScenes': ['home','products','choose','combo','guide','recipes','faq','contact','brand'],
+              'resolutionMinimum': '1200x900',
+              'lineOaAssetsRepository': 'TS15825868/TS-LINE main public/mascot',
+              'audit': 'approved-master-assets-no-repeat-jpeg-generation-cache-busting'
+          }
+          Path('deploy-version.json').write_text(json.dumps(deploy, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+          rm -f tools/generate-mascot-v400.py tools/apply-mascot-v400.py
+          rm -f .github/workflows/apply-mascot-v400.yml .github/workflows/apply-mascot-v400-pr.yml
+          rm -f .github/workflows/bootstrap-website-mascot.yml
+
+      - name: Validate and publish main
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --check site.js
+          node --check site-core.js
+          node --check site-fix-v317.js
+          python3 -m json.tool deploy-version.json >/dev/null
+          python3 -m json.tool images/brand/website-mascot-manifest.json >/dev/null
+          grep -q '400.1' site.js
+          grep -q '400.1' site-fix-v317.js
+          rm -f .github/workflows/trigger-website-mascot-finalize.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "完成網站專用高解析小老闆正式版"
+          git push origin main
+          gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }} --comment '網站小老闆正式版已完成並提交 main。'
