@@ -1,1 +1,1 @@
-Generate only the separate website and LINE OA high-resolution mascot image sets.
+Generate separate website and LINE OA mascot sets from the existing approved original images.
