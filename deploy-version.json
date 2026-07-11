@@ -1,9 +1,11 @@
 {
-  "version": "325.0",
+  "version": "400.0",
   "updated": "2026-07-11",
-  "mascot": "eight-distinct-original-images",
-  "mascotPages": ["home", "products", "choose", "combo", "guide", "recipes", "faq", "contact"],
+  "mascot": "separate-high-resolution-website-and-line-oa-sets",
+  "websiteMascotScenes": ["home", "products", "choose", "combo", "guide", "recipes", "faq", "contact", "brand"],
+  "lineMascotScenes": ["welcome", "products", "recommend", "combo", "usage", "faq", "service", "brand", "cart"],
+  "resolution": "1448x1086",
   "catalog": "five-types-six-specifications",
   "guiluDrinkSizes": ["30cc-glass", "180cc-pouch"],
-  "audit": "distinct-image-hash-check-high-resolution-fallback-and-pages-deployment"
+  "audit": "distinct-website-and-line-assets-resolution-check-cache-busting-and-fallback"
 }
