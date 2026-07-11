@@ -1,1 +1,1 @@
-Generate separate high-resolution website and LINE OA mascot sets from the approved in-repository master sprite. Retry after crop/paste fix.
+Run separated generation, mapping, image validation, and script validation for mascot v400.
