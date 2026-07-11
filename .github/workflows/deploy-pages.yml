@@ -32,8 +32,27 @@ jobs:
           node --check site-fix-v317.js
           python3 -m json.tool data.json >/dev/null
           test -s images/brand/xianjiawei-web-scenes-v324.webp
+          test -s images/brand/xianjiawei-scene-guide.jpg
+          test -s images/line-mascot/xianjiawei-mascot-line-welcome.jpg
+          test -s images/line-mascot/xianjiawei-mascot-line-products.jpg
+          test -s images/line-mascot/xianjiawei-mascot-line-recommend.jpg
+          test -s images/line-mascot/xianjiawei-mascot-line-combo.jpg
+          test -s images/line-mascot/xianjiawei-mascot-line-usage.jpg
+          test -s images/line-mascot/xianjiawei-mascot-line-faq.jpg
+          test -s images/line-mascot/xianjiawei-mascot-line-service.jpg
+          test -s images/line-mascot/xianjiawei-mascot-line-brand.jpg
           grep -q 'guilu-drink-30' data.json
           grep -q 'guilu-drink-180' data.json
+          python3 - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+
+          files = sorted(Path('images/line-mascot').glob('xianjiawei-mascot-line-*.jpg'))
+          hashes = {sha256(path.read_bytes()).hexdigest() for path in files}
+          if len(files) < 8 or len(hashes) < 8:
+              raise SystemExit('LINE OA 小老闆圖片仍有缺少或重複')
+          print(f'小老闆圖片確認：{len(files)} 張、{len(hashes)} 種不同內容')
+          PY
 
       - name: Prepare public website
         run: |
@@ -62,7 +81,7 @@ jobs:
           from pathlib import Path
           import re
 
-          version = '324.0'
+          version = '325.0'
           root = Path('_site')
           pages = list(root.glob('*.html'))
           for page in pages:
@@ -99,12 +118,20 @@ jobs:
               'site.js','site-core.js','site-fix-v317.js','site.css','site-v321.css',
               'data.json','catalog-public.json',
               'images/brand/xianjiawei-web-scenes-v324.webp',
+              'images/line-mascot/xianjiawei-mascot-line-welcome.jpg',
+              'images/line-mascot/xianjiawei-mascot-line-products.jpg',
+              'images/line-mascot/xianjiawei-mascot-line-recommend.jpg',
+              'images/line-mascot/xianjiawei-mascot-line-combo.jpg',
+              'images/line-mascot/xianjiawei-mascot-line-usage.jpg',
+              'images/line-mascot/xianjiawei-mascot-line-faq.jpg',
+              'images/line-mascot/xianjiawei-mascot-line-service.jpg',
+              'images/line-mascot/xianjiawei-mascot-line-brand.jpg',
           ):
               target = root / required_file
               if not target.exists() or target.stat().st_size == 0:
                   raise SystemExit('缺少發布檔案：' + required_file)
 
-          print(f'準備完成：{len(pages)} 個頁面，v{version} 八種小老闆情境與龜鹿飲雙規格。')
+          print(f'準備完成：{len(pages)} 個頁面，v{version} 八種不同小老闆情境與龜鹿飲雙規格。')
           PY
 
       - name: Configure Pages
