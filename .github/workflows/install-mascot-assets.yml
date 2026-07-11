@@ -1,0 +1,64 @@
+name: Install website mascot assets once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".asset-install-trigger"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-website-mascot-assets
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Download and install website mascot assets
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 4 --retry-delay 3 \
+            "https://drive.usercontent.google.com/download?id=127VcDRWt8gsq_ILGghomJigCLU4x7sLw&export=download&confirm=t" \
+            -o /tmp/xianjiawei-mascot-payload.zip
+          unzip -t /tmp/xianjiawei-mascot-payload.zip
+          unzip -o /tmp/xianjiawei-mascot-payload.zip -d .
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          path = Path("site-fix-v317.js")
+          text = path.read_text(encoding="utf-8")
+          text = re.sub(r'const VERSION = "[^"]+";', 'const VERSION = "400.3";', text, count=1)
+          path.write_text(text, encoding="utf-8")
+          PY
+          rm -f .asset-install-trigger
+          rm -f .github/workflows/install-mascot-assets.yml
+      - name: Verify installed images
+        run: |
+          set -euo pipefail
+          test "$(find images/brand -maxdepth 1 -name 'website-mascot-*.jpg' | wc -l)" -eq 9
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          files = sorted(Path('images/brand').glob('website-mascot-*.jpg'))
+          assert len(files) == 9
+          for f in files:
+              with Image.open(f) as im:
+                  assert im.width >= 1200 and im.height >= 900, (f, im.size)
+                  im.verify()
+          print('verified', len(files), 'website mascot images')
+          PY
+      - name: Commit final website assets to main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "更新官網專用仙加味小老闆九張高清圖"
+          git push origin main
