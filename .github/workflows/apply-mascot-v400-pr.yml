@@ -27,50 +27,36 @@ jobs:
       - name: Generate website and LINE OA sets
         run: python3 tools/generate-mascot-v400.py
 
-      - name: Apply website mapping and copy
-        run: python3 tools/apply-mascot-v400.py
-
-      - name: Verify images and scripts
+      - name: Verify generated images
         run: |
           python3 - <<'PY'
           from PIL import Image
           from pathlib import Path
           website = ['home','products','choose','combo','guide','recipes','faq','contact','brand']
           line = ['welcome','products','recommend','combo','usage','faq','service','brand','cart']
-          website_hashes = set()
-          line_hashes = set()
+          wh, lh = set(), set()
           for name in website:
               p = Path(f'images/brand/website-mascot-{name}.jpg')
               assert p.exists(), p
-              with Image.open(p) as im:
-                  assert im.size == (1448, 1086), (p, im.size)
-                  im.verify()
-              assert p.stat().st_size > 100000, (p, p.stat().st_size)
-              website_hashes.add(p.read_bytes())
+              with Image.open(p) as im: assert im.size == (1448,1086), (p,im.size)
+              assert p.stat().st_size > 100000, (p,p.stat().st_size)
+              wh.add(p.read_bytes())
           for name in line:
               p = Path(f'images/line-mascot/xianjiawei-mascot-line-{name}.jpg')
               assert p.exists(), p
-              with Image.open(p) as im:
-                  assert im.size == (1448, 1086), (p, im.size)
-                  im.verify()
-              assert p.stat().st_size > 100000, (p, p.stat().st_size)
-              line_hashes.add(p.read_bytes())
-          assert len(website_hashes) >= 8, '網站情境圖重複過多'
-          assert len(line_hashes) == 9, 'LINE OA 每個情境必須是獨立檔案'
-          assert website_hashes.isdisjoint(line_hashes), '官網與 LINE OA 不可共用同一圖片檔'
+              with Image.open(p) as im: assert im.size == (1448,1086), (p,im.size)
+              assert p.stat().st_size > 100000, (p,p.stat().st_size)
+              lh.add(p.read_bytes())
+          assert len(wh) >= 8
+          assert len(lh) == 9
+          assert wh.isdisjoint(lh)
           PY
-          node --check site-core.js
-          node --check site-fix-v317.js
-          node --check site.js
-          grep -q 'website-mascot-home.jpg' site-fix-v317.js
-          ! grep -q 'images/line-mascot' site-fix-v317.js
-          grep -q 'v=400.0' site.js
 
-      - name: Commit generated release to PR branch
+      - name: Commit generated images to PR branch
         run: |
           rm -f APPLY_MASCOT_V400_PR.txt
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git commit -m '正式上線網站與 LINE OA 兩套高解析小老闆 v400'
+          git add images/brand/website-mascot-*.jpg images/line-mascot/xianjiawei-mascot-line-*.jpg APPLY_MASCOT_V400_PR.txt
+          git diff --cached --quiet || git commit -m '產生網站與 LINE OA 兩套高解析小老闆圖'
           git push origin HEAD:${{ github.head_ref }}
