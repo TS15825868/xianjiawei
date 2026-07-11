@@ -1,9 +1,9 @@
 {
-  "version": "324.1",
+  "version": "325.0",
   "updated": "2026-07-11",
-  "mascot": "website-dedicated-page-assets-with-fallback",
+  "mascot": "eight-distinct-original-images",
   "mascotPages": ["home", "products", "choose", "combo", "guide", "recipes", "faq", "contact"],
   "catalog": "five-types-six-specifications",
   "guiluDrinkSizes": ["30cc-glass", "180cc-pouch"],
-  "audit": "page-specific-assets-cache-busting-line-routing-and-broken-image-fallback"
+  "audit": "distinct-image-hash-check-high-resolution-fallback-and-pages-deployment"
 }
