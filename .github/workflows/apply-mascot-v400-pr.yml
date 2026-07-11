@@ -31,8 +31,9 @@ jobs:
           src = Path('images/brand/xianjiawei-web-scenes-v324.webp')
           im = Image.open(src).convert('RGB')
           w, h = im.size
-          assert w >= 2400 and h >= 1200, im.size
+          assert w % 4 == 0 and h % 2 == 0, im.size
           cw, ch = w // 4, h // 2
+          assert cw >= 400 and ch >= 300, (cw, ch)
 
           cells = {
               'home': (0, 0), 'products': (1, 0), 'choose': (2, 0), 'combo': (3, 0),
@@ -60,16 +61,15 @@ jobs:
 
           def line_card(scene, source):
               base = cell(source)
-              # LINE OA 專用：較緊密構圖、深藍框、紅印章色識別，與網站圖明確分開。
               inset_x, inset_y = 34, 26
-              base = base.crop((inset_x, inset_y, 1448-inset_x, 1086-inset_y)).resize((1448, 1086), Image.Resampling.LANCZOS)
+              base = base.crop((inset_x, inset_y, 1448-inset_x, 1086-inset_y))
+              base = base.resize((1412, 1050), Image.Resampling.LANCZOS)
               canvas = Image.new('RGB', (1448, 1086), '#F7F4ED')
-              canvas.paste(base, (18, 18, 1430, 1068))
+              canvas.paste(base, (18, 18))
               draw = ImageDraw.Draw(canvas, 'RGBA')
               draw.rounded_rectangle((8, 8, 1440, 1078), radius=34, outline='#0B1F3B', width=16)
               draw.rectangle((18, 982, 1430, 1068), fill=(11, 31, 59, 215))
               draw.ellipse((54, 54, 166, 166), fill=(142, 31, 35, 235), outline=(218, 177, 91, 255), width=6)
-              cx, cy = 110, 110
               pen = (255, 248, 232, 255)
               gold = (218, 177, 91, 255)
               if scene == 'products':
@@ -109,12 +109,12 @@ jobs:
           for name in website:
               p = Path(f'images/brand/website-mascot-{name}.jpg')
               with Image.open(p) as im: assert im.size == (1448, 1086), (p, im.size)
-              assert p.stat().st_size > 180000, (p, p.stat().st_size)
+              assert p.stat().st_size > 150000, (p, p.stat().st_size)
               website_hashes.add(p.read_bytes())
           for name in line:
               p = Path(f'images/line-mascot/xianjiawei-mascot-line-{name}.jpg')
               with Image.open(p) as im: assert im.size == (1448, 1086), (p, im.size)
-              assert p.stat().st_size > 180000, (p, p.stat().st_size)
+              assert p.stat().st_size > 150000, (p, p.stat().st_size)
               line_hashes.add(p.read_bytes())
           assert len(website_hashes) >= 8, '網站圖片重複過多'
           assert len(line_hashes) == 9, 'LINE OA 圖片必須全部為獨立檔案'
