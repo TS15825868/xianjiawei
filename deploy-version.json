@@ -1,11 +1,19 @@
 {
-  "version": "400.0",
-  "updated": "2026-07-11",
-  "mascot": "separate-high-resolution-website-and-line-oa-sets",
-  "websiteMascotScenes": ["home", "products", "choose", "combo", "guide", "recipes", "faq", "contact", "brand"],
-  "lineMascotScenes": ["welcome", "products", "recommend", "combo", "usage", "faq", "service", "brand", "cart"],
-  "resolution": "1448x1086",
-  "catalog": "five-types-six-specifications",
-  "guiluDrinkSizes": ["30cc-glass", "180cc-pouch"],
-  "audit": "distinct-website-and-line-assets-resolution-check-cache-busting-and-fallback"
+  "version": "400.2",
+  "updated": "2026-07-12",
+  "mascot": "website-dedicated-high-resolution-assets",
+  "websiteMascotScenes": [
+    "home",
+    "products",
+    "choose",
+    "combo",
+    "guide",
+    "recipes",
+    "faq",
+    "contact",
+    "brand"
+  ],
+  "resolutionMinimum": "1200x900",
+  "lineOaAssetsRepository": "TS15825868/TS-LINE main public/mascot",
+  "audit": "separate-local-assets-no-runtime-cross-project-no-repeat-jpeg-generation-cache-busting-and-sharpness-check"
 }

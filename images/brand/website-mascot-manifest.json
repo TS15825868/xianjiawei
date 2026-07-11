@@ -1,0 +1,78 @@
+{
+  "version": "400.2",
+  "scope": "xianjiawei/main website assets only",
+  "images": {
+    "home": {
+      "file": "images/brand/website-mascot-home.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 242583,
+      "edgeMean": 5.666,
+      "sha256": "820c33fb28d1ba4fa7f3625a0c16b2bf0d2f403860fc4c88ed353186b1178644"
+    },
+    "products": {
+      "file": "images/brand/website-mascot-products.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 238804,
+      "edgeMean": 5.752,
+      "sha256": "5a591b909fe5618a8b70d4cba3ea10fe8d640281de2105bd2d912918a91464d3"
+    },
+    "choose": {
+      "file": "images/brand/website-mascot-choose.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 189559,
+      "edgeMean": 4.292,
+      "sha256": "36f54ca95fb39d033ffbe0c51c29bfc15fb88e9b66b986cae98f74fa9c320e06"
+    },
+    "combo": {
+      "file": "images/brand/website-mascot-combo.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 178808,
+      "edgeMean": 4.236,
+      "sha256": "e6db90313210fa2331ac2f526935ad316f43c94544e84aaed488c7671d83b107"
+    },
+    "guide": {
+      "file": "images/brand/website-mascot-guide.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 175147,
+      "edgeMean": 4.181,
+      "sha256": "ee13a9166f8def1a8be0662c49be8664f3f20daa13cb35882b759005705696f0"
+    },
+    "recipes": {
+      "file": "images/brand/website-mascot-recipes.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 153237,
+      "edgeMean": 3.891,
+      "sha256": "c1cb8d95db011d1efde85747c482a1735ef74dece84f2c7aa752c0c6391592e1"
+    },
+    "faq": {
+      "file": "images/brand/website-mascot-faq.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 182497,
+      "edgeMean": 4.373,
+      "sha256": "b03cfd9bf08bfefc7752ca7d60299be37bb9be4be6491304604f7e8da6abfb75"
+    },
+    "contact": {
+      "file": "images/brand/website-mascot-contact.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 175719,
+      "edgeMean": 4.129,
+      "sha256": "d5bf9c8da1caf162b6a4197b182ba6e941ba02543025cb355679fdc5047be18d"
+    },
+    "brand": {
+      "file": "images/brand/website-mascot-brand.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 234130,
+      "edgeMean": 5.408,
+      "sha256": "4eff7637b243e72d9c0d7e96e053ceca5742df789dd40add9320b8a8cf1fdab3"
+    }
+  }
+}

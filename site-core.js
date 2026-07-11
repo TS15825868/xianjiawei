@@ -408,11 +408,15 @@ function renderPage() {
 
 
 const MASCOT_IMAGES = {
-  welcome: 'images/brand/xianjiawei-scene-welcome.jpg?v=307.1',
-  products: 'images/brand/xianjiawei-scene-products.jpg?v=307.1',
-  guide: 'images/brand/xianjiawei-scene-guide.jpg?v=307.1',
-  service: 'images/brand/xianjiawei-scene-service.jpg?v=307.1',
-  usage: 'images/brand/xianjiawei-scene-usage.jpg?v=307.1'
+  welcome: 'images/brand/website-mascot-home.jpg?v=400.2',
+  products: 'images/brand/website-mascot-products.jpg?v=400.2',
+  guide: 'images/brand/website-mascot-choose.jpg?v=400.2',
+  combo: 'images/brand/website-mascot-combo.jpg?v=400.2',
+  usage: 'images/brand/website-mascot-guide.jpg?v=400.2',
+  recipes: 'images/brand/website-mascot-recipes.jpg?v=400.2',
+  faq: 'images/brand/website-mascot-faq.jpg?v=400.2',
+  service: 'images/brand/website-mascot-contact.jpg?v=400.2',
+  brand: 'images/brand/website-mascot-brand.jpg?v=400.2'
 };
 
 function renderMascotGuide() {
@@ -437,7 +441,7 @@ function renderMascotGuide() {
       actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">看全部產品</a>`
     },
     combo: {
-      image: 'products', scene: 'products', eyebrow: '搭配組合',
+      image: 'combo', scene: 'combo', eyebrow: '搭配組合',
       title: '依生活節奏查看適合的產品搭配',
       text: '先看產品型態、使用方式與份量，再依實際需求選擇組合；價格與活動以正式方案為準。',
       actions: `${lineButton('搭配組合', '搭配組合')}<a class="btn btn-outline" href="products.html">先看產品</a>`
@@ -449,19 +453,19 @@ function renderMascotGuide() {
       actions: `${lineButton('怎麼使用', '怎麼使用')}<a class="btn btn-outline" href="faq.html">常見問題</a>`
     },
     recipes: {
-      image: 'usage', scene: 'usage', eyebrow: '料理搭配',
+      image: 'recipes', scene: 'recipes', eyebrow: '料理搭配',
       title: '讓產品自然放進熟悉的飲食節奏',
       text: '從熱飲、調飲到家常燉湯，依產品型態查看適合的料理與搭配方式。',
       actions: `${lineButton('料理搭配', '料理搭配')}<a class="btn btn-outline" href="guide.html">使用方式</a>`
     },
     brand: {
-      image: 'welcome', scene: 'welcome', eyebrow: '品牌故事',
+      image: 'brand', scene: 'brand', eyebrow: '品牌故事',
       title: '從萬華出發，延續四代對工序與信用的重視',
       text: '把多年累積的原料與龜鹿工序經驗，整理成今天容易理解的產品資訊。',
       actions: `${lineButton('看產品', '看產品')}<a class="btn btn-outline" href="contact.html">聯絡我們</a>`
     },
     faq: {
-      image: 'service', scene: 'service', eyebrow: '常見問題',
+      image: 'faq', scene: 'faq', eyebrow: '常見問題',
       title: '產品差異、使用方式與購買流程一次整理',
       text: '需要確認規格、數量、配送或付款方式時，可再由官方 LINE 協助。',
       actions: `${lineButton('人工客服', '人工客服')}<a class="btn btn-outline" href="products.html">看產品</a>`

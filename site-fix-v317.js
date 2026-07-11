@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const VERSION = "400.0";
+  const VERSION = "400.2";
   const SCENES = {
     home: {
       src: "images/brand/website-mascot-home.jpg",
