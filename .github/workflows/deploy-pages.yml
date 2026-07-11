@@ -24,59 +24,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install approved high-resolution mascot images
+      - name: Verify website and shared catalog
         run: |
-          python3 -m pip install --quiet gdown pillow
-          gdown --id 1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL -O /tmp/website-mascots.zip
-          unzip -t /tmp/website-mascots.zip
-          rm -rf /tmp/website-mascots
-          mkdir -p /tmp/website-mascots images/brand
-          unzip -o /tmp/website-mascots.zip -d /tmp/website-mascots
-          find /tmp/website-mascots -type f -name 'xianjiawei-scene-*.jpg' -exec cp {} images/brand/ \;
-          python3 - <<'PY'
-          from pathlib import Path
-          from PIL import Image
-          names = ['welcome','products','guide','combo','usage','service','brand']
-          for name in names:
-              p = Path(f'images/brand/xianjiawei-scene-{name}.jpg')
-              if not p.exists() or p.stat().st_size < 200000:
-                  raise SystemExit(f'高畫質圖片缺少或檔案過小：{p}')
-              with Image.open(p) as im:
-                  if im.size != (1600, 1200):
-                      raise SystemExit(f'圖片尺寸不正確：{p} {im.size}')
-                  im.verify()
-          print('七張網站專用小老闆圖皆為 1600×1200。')
-          PY
-
-      - name: Validate shared files and catalog
-        run: |
+          python3 tools/site_maintenance.py
           node --check site.js
           node --check site-core.js
           node --check site-fix-v317.js
           python3 -m json.tool data.json >/dev/null
-          test -s site-v321.css
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
 
-          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
-          ids = {item.get('id') for item in data.get('products', [])}
-          expected = {
-              'guilu-gao', 'guilu-drink-30', 'guilu-drink-180',
-              'guilu-tangkuai', 'guilu-jiao', 'luerong-fen'
-          }
-          if ids != expected:
-              raise SystemExit(f'產品資料不完整：{sorted(ids)}')
-          for item in data.get('products', []):
-              for key in ('image', 'dmImage', 'detailPage'):
-                  value = str(item.get(key, '')).split('?')[0]
-                  if value and not Path(value).exists():
-                      raise SystemExit(f"{item.get('id')} 缺少 {key}: {value}")
-          print('產品資料驗證完成：保留五大型態、六項規格與龜鹿飲雙規格。')
-          PY
-
-      - name: Prepare and audit public site
+      - name: Prepare public website
         run: |
+          rm -rf _site
           mkdir -p _site
           rsync -a ./ _site/ \
             --exclude='.git/' \
@@ -84,6 +42,8 @@ jobs:
             --exclude='_site/' \
             --exclude='tools/' \
             --exclude='node_modules/' \
+            --exclude='.website-*' \
+            --exclude='assets/' \
             --exclude='*.zip' \
             --exclude='*.tar' \
             --exclude='*.tar.gz' \
@@ -91,63 +51,56 @@ jobs:
             --exclude='*.md' \
             --exclude='APPLY_*' \
             --exclude='RUN_*' \
+            --exclude='INSTALL_*' \
             --exclude='FIX_*'
           touch _site/.nojekyll
+
           python3 - <<'PY'
           from pathlib import Path
-          from html.parser import HTMLParser
-          from urllib.parse import urlsplit, unquote
           import re
 
           root = Path('_site')
-          pages = sorted(root.glob('*.html'))
+          pages = list(root.glob('*.html'))
+          for page in pages:
+              text = page.read_text(encoding='utf-8')
+              text = re.sub(r'site\.css\?v=[^"\']+', 'site.css?v=322.0', text)
+              text = re.sub(r'site\.js\?v=[^"\']+', 'site.js?v=322.0', text)
+              text = re.sub(
+                  r'資料更新：\d{4}-\d{2}-\d{2}｜內容版本 v[\d.]+',
+                  '資料更新：2026-07-11｜內容版本 v322.0',
+                  text,
+              )
+              if 'site-v321.css' not in text:
+                  text = text.replace(
+                      '</head>',
+                      '<link rel="stylesheet" href="site-v321.css?v=322.0"/>\n</head>',
+                  )
+              else:
+                  text = re.sub(r'site-v321\.css\?v=[^"\']+', 'site-v321.css?v=322.0', text)
+              page.write_text(text, encoding='utf-8')
+
           required = {
               'index.html','products.html','choose.html','combo.html','guide.html',
               'recipes.html','video.html','knowledge.html','hanfang-baike.html',
-              'sources.html','brand.html','faq.html','contact.html','dm.html',
+              'sources.html','dm.html','brand.html','faq.html','contact.html',
               'product-guilu-gao.html','product-guilu-drink-30cc.html',
               'product-guilu-drink-180cc.html','product-guilu-tangkuai.html',
-              'product-guilu-jiao.html','product-luerong-fen.html'
+              'product-guilu-jiao.html','product-luerong-fen.html',
           }
-          missing_pages = sorted(required - {p.name for p in pages})
-          if missing_pages:
-              raise SystemExit('缺少頁面：' + ', '.join(missing_pages))
+          missing = sorted(required - {page.name for page in pages})
+          if missing:
+              raise SystemExit('缺少網站頁面：' + ', '.join(missing))
 
-          class Parser(HTMLParser):
-              def __init__(self):
-                  super().__init__(); self.refs=[]; self.ids=[]
-              def handle_starttag(self, tag, attrs):
-                  a = dict(attrs)
-                  if a.get('id'): self.ids.append(a['id'])
-                  for key in ('href','src'):
-                      if a.get(key): self.refs.append((key, a[key]))
+          for required_file in (
+              'site.js','site-core.js','site-fix-v317.js','site.css','site-v321.css',
+              'data.json','catalog-public.json',
+              'images/brand/xianjiawei-scene-guide.jpg',
+          ):
+              target = root / required_file
+              if not target.exists() or target.stat().st_size == 0:
+                  raise SystemExit('缺少發布檔案：' + required_file)
 
-          warnings=[]
-          for page in pages:
-              text = page.read_text(encoding='utf-8')
-              text = re.sub(r'site\.css\?v=[^"\']+', 'site.css?v=321.0', text)
-              text = re.sub(r'site\.js\?v=[^"\']+', 'site.js?v=321.0', text)
-              text = re.sub(r'資料更新：\d{4}-\d{2}-\d{2}｜內容版本 v[\d.]+', '資料更新：2026-07-11｜內容版本 v321.0', text)
-              if 'site-v321.css' not in text:
-                  text = text.replace('</head>', '<link rel="stylesheet" href="site-v321.css?v=321.0"/>\n</head>')
-              page.write_text(text, encoding='utf-8')
-
-              parser=Parser(); parser.feed(text)
-              duplicates={value for value in parser.ids if parser.ids.count(value)>1}
-              if duplicates: warnings.append(f'{page.name}: 重複 ID {sorted(duplicates)}')
-              for kind, ref in parser.refs:
-                  if ref.startswith(('http://','https://','mailto:','tel:','javascript:','#','data:')):
-                      continue
-                  local = unquote(urlsplit(ref).path)
-                  if not local or local.startswith('/'):
-                      continue
-                  target = page.parent / local
-                  if not target.exists(): warnings.append(f'{page.name}: 找不到 {kind} {ref}')
-
-          if warnings:
-              print('網站稽核提醒：')
-              print('\n'.join('- ' + item for item in warnings))
-          print(f'完成 {len(pages)} 個 HTML 頁面、共用程式、圖片與本地連結檢查。')
+          print(f'準備完成：{len(pages)} 個頁面，v322.0 高畫質小老闆與雙規格產品資料。')
           PY
 
       - name: Configure Pages
