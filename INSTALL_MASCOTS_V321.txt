@@ -1,1 +1,1 @@
-install approved 1600x1200 website mascot images v321
+install approved 1600x1200 website mascot images v321 via merged pull request
