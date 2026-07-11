@@ -63,20 +63,20 @@ jobs:
           pages = list(root.glob('*.html'))
           for page in pages:
               text = page.read_text(encoding='utf-8')
-              text = re.sub(r'site\.css\?v=[^"\']+', 'site.css?v=322.0', text)
-              text = re.sub(r'site\.js\?v=[^"\']+', 'site.js?v=322.0', text)
+              text = re.sub(r'site\.css\?v=[^"\']+', 'site.css?v=322.1', text)
+              text = re.sub(r'site\.js\?v=[^"\']+', 'site.js?v=322.1', text)
               text = re.sub(
                   r'資料更新：\d{4}-\d{2}-\d{2}｜內容版本 v[\d.]+',
-                  '資料更新：2026-07-11｜內容版本 v322.0',
+                  '資料更新：2026-07-11｜內容版本 v322.1',
                   text,
               )
               if 'site-v321.css' not in text:
                   text = text.replace(
                       '</head>',
-                      '<link rel="stylesheet" href="site-v321.css?v=322.0"/>\n</head>',
+                      '<link rel="stylesheet" href="site-v321.css?v=322.1"/>\n</head>',
                   )
               else:
-                  text = re.sub(r'site-v321\.css\?v=[^"\']+', 'site-v321.css?v=322.0', text)
+                  text = re.sub(r'site-v321\.css\?v=[^"\']+', 'site-v321.css?v=322.1', text)
               page.write_text(text, encoding='utf-8')
 
           required = {
@@ -100,7 +100,7 @@ jobs:
               if not target.exists() or target.stat().st_size == 0:
                   raise SystemExit('缺少發布檔案：' + required_file)
 
-          print(f'準備完成：{len(pages)} 個頁面，v322.0 高畫質小老闆與雙規格產品資料。')
+          print(f'準備完成：{len(pages)} 個頁面，v322.1 高畫質小老闆與雙規格產品資料。')
           PY
 
       - name: Configure Pages
