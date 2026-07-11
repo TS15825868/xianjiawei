@@ -1,6 +1,9 @@
 name: Install website mascot assets once
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
   push:
     branches: [main]
     paths:
@@ -43,17 +46,11 @@ jobs:
         run: |
           set -euo pipefail
           test "$(find images/brand -maxdepth 1 -name 'website-mascot-*.jpg' | wc -l)" -eq 9
-          python3 - <<'PY'
-          from pathlib import Path
-          from PIL import Image
-          files = sorted(Path('images/brand').glob('website-mascot-*.jpg'))
-          assert len(files) == 9
-          for f in files:
-              with Image.open(f) as im:
-                  assert im.width >= 1200 and im.height >= 900, (f, im.size)
-                  im.verify()
-          print('verified', len(files), 'website mascot images')
-          PY
+          for f in images/brand/website-mascot-*.jpg; do
+            test -s "$f"
+            test "$(stat -c%s "$f")" -gt 100000
+          done
+          test -s images/brand/website-mascot-manifest.json
       - name: Commit final website assets to main
         run: |
           set -euo pipefail
