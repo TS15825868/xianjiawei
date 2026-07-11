@@ -1,37 +1,25 @@
 "use strict";
 
 (() => {
-  const SCENES = {
-    home: "images/brand/xianjiawei-scene-welcome.jpg?v=317.2",
-    products: "images/brand/xianjiawei-scene-products.jpg?v=317.2",
-    choose: "images/brand/xianjiawei-scene-guide.jpg?v=317.2",
-    combo: "images/brand/xianjiawei-scene-combo.jpg?v=317.2",
-    guide: "images/brand/xianjiawei-scene-usage.jpg?v=317.2",
-    recipes: "images/brand/xianjiawei-scene-usage.jpg?v=317.2",
-    faq: "images/brand/xianjiawei-scene-service.jpg?v=317.2",
-    contact: "images/brand/xianjiawei-scene-service.jpg?v=317.2",
-    brand: "images/brand/xianjiawei-scene-brand.jpg?v=317.2"
-  };
+  // 先以已確認可正常顯示的網站專用小老闆圖統一套用，
+  // 避免部分情境圖檔損壞時在 iPhone Safari 顯示黑色區塊。
+  const STABLE_SCENE = "images/brand/xianjiawei-scene-guide.jpg?v=318.0";
 
   function makeImage(page) {
     const image = document.createElement("img");
-    image.src = SCENES[page] || SCENES.home;
+    image.src = STABLE_SCENE;
     image.alt = "仙加味小老闆情境導覽";
     image.width = 1000;
     image.height = 750;
     image.loading = page === "home" ? "eager" : "lazy";
     image.decoding = "async";
+    image.referrerPolicy = "no-referrer";
     Object.assign(image.style, {
       width: "100%",
       height: "100%",
       objectFit: "cover",
-      display: "block"
-    });
-    image.addEventListener("error", () => {
-      if (!image.dataset.fallback) {
-        image.dataset.fallback = "1";
-        image.src = "images/brand/xianjiawei-scene-guide.jpg?v=317.2";
-      }
+      display: "block",
+      background: "#efe4d2"
     });
     return image;
   }
@@ -41,44 +29,64 @@
     const media = document.querySelector("#mascot-guide .mascot-guide-card__media");
     if (!media) return false;
 
-    let image = media.querySelector("img");
-    const spriteScene = media.querySelector(".mascot-guide-card__scene");
-    if (spriteScene || !image) {
+    const currentImage = media.querySelector("img");
+    const currentSrc = currentImage?.getAttribute("src") || "";
+    const hasBrokenSprite = Boolean(media.querySelector(".mascot-guide-card__scene"));
+
+    if (hasBrokenSprite || !currentImage || !currentSrc.includes("xianjiawei-scene-guide.jpg")) {
       media.replaceChildren(makeImage(page));
-      image = media.querySelector("img");
     } else {
-      const expected = SCENES[page] || SCENES.home;
-      if (!image.getAttribute("src")?.includes(expected.split("?")[0])) image.src = expected;
-      Object.assign(image.style, {
+      currentImage.src = STABLE_SCENE;
+      Object.assign(currentImage.style, {
         width: "100%",
         height: "100%",
         objectFit: "cover",
-        display: "block"
+        display: "block",
+        background: "#efe4d2"
       });
     }
 
     media.style.background = "#efe4d2";
+    media.style.minHeight = "240px";
+    media.dataset.mascotFixed = "1";
     return true;
   }
 
-  function installMobileSpacing() {
-    if (document.getElementById("site-fix-v317-style")) return;
+  function installStyles() {
+    if (document.getElementById("site-fix-v318-style")) return;
     const style = document.createElement("style");
-    style.id = "site-fix-v317-style";
+    style.id = "site-fix-v318-style";
     style.textContent = `
-      .mascot-guide-card__media { overflow: hidden; background: #efe4d2; }
-      .mascot-guide-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .mascot-guide-card__media {
+        overflow: hidden;
+        background: #efe4d2 !important;
+        min-height: 240px;
+      }
+      .mascot-guide-card__media img {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 240px;
+        object-fit: cover !important;
+        display: block !important;
+        background: #efe4d2 !important;
+      }
       @media (max-width: 760px) {
         .mascot-guide-card__copy { padding-bottom: 5.5rem; }
-        .floating-line-cta { right: 0.85rem; bottom: calc(0.85rem + env(safe-area-inset-bottom)); transform: scale(.92); transform-origin: right bottom; }
+        .floating-line-cta {
+          right: 0.85rem;
+          bottom: calc(0.85rem + env(safe-area-inset-bottom));
+          transform: scale(.92);
+          transform-origin: right bottom;
+        }
       }
     `;
     document.head.appendChild(style);
   }
 
   function start() {
-    installMobileSpacing();
+    installStyles();
     if (applyMascotFix()) return;
+
     const observer = new MutationObserver(() => {
       if (applyMascotFix()) observer.disconnect();
     });
