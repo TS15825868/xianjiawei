@@ -21,37 +21,54 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v4
 
-      - name: Verify website and shared catalog
+      - name: Verify website and dedicated mascot images
         run: |
+          python3 -m pip install --quiet pillow
           python3 tools/site_maintenance.py
           node --check site.js
           node --check site-core.js
           node --check site-fix-v317.js
           python3 -m json.tool data.json >/dev/null
-          test -s images/brand/xianjiawei-web-scenes-v324.webp
-          test -s images/brand/xianjiawei-scene-guide.jpg
-          test -s images/line-mascot/xianjiawei-mascot-line-welcome.jpg
-          test -s images/line-mascot/xianjiawei-mascot-line-products.jpg
-          test -s images/line-mascot/xianjiawei-mascot-line-recommend.jpg
-          test -s images/line-mascot/xianjiawei-mascot-line-combo.jpg
-          test -s images/line-mascot/xianjiawei-mascot-line-usage.jpg
-          test -s images/line-mascot/xianjiawei-mascot-line-faq.jpg
-          test -s images/line-mascot/xianjiawei-mascot-line-service.jpg
-          test -s images/line-mascot/xianjiawei-mascot-line-brand.jpg
+          python3 -m json.tool catalog-public.json >/dev/null
+          python3 -m json.tool deploy-version.json >/dev/null
+          python3 -m json.tool images/brand/website-mascot-manifest.json >/dev/null
           grep -q 'guilu-drink-30' data.json
           grep -q 'guilu-drink-180' data.json
+          grep -q '400.2' site.js
+          grep -q '400.2' site-fix-v317.js
+          grep -q 'website-mascot-brand.jpg?v=400.2' site-core.js
+          test ! -d images/line-mascot
           python3 - <<'PY'
           from hashlib import sha256
           from pathlib import Path
+          from PIL import Image, ImageFilter, ImageStat
+          import json
 
-          files = sorted(Path('images/line-mascot').glob('xianjiawei-mascot-line-*.jpg'))
-          hashes = {sha256(path.read_bytes()).hexdigest() for path in files}
-          if len(files) < 8 or len(hashes) < 8:
-              raise SystemExit('LINE OA 小老闆圖片仍有缺少或重複')
-          print(f'小老闆圖片確認：{len(files)} 張、{len(hashes)} 種不同內容')
+          manifest = json.loads(Path('images/brand/website-mascot-manifest.json').read_text(encoding='utf-8'))
+          names = ['home','products','choose','combo','guide','recipes','faq','contact','brand']
+          if manifest.get('version') != '400.2' or sorted(manifest.get('images', {})) != sorted(names):
+              raise SystemExit('網站小老闆 manifest 錯誤')
+          hashes = set()
+          for name in names:
+              item = manifest['images'][name]
+              path = Path(item['file'])
+              if not path.exists() or path.stat().st_size < 100000:
+                  raise SystemExit(f'圖片缺少或檔案異常：{path}')
+              with Image.open(path) as image:
+                  image.verify()
+              with Image.open(path) as image:
+                  width, height = image.size
+                  edge_mean = ImageStat.Stat(image.convert('L').filter(ImageFilter.FIND_EDGES)).mean[0]
+              digest = sha256(path.read_bytes()).hexdigest()
+              if (width, height) != (1448, 1086) or edge_mean < 2.0 or digest != item['sha256']:
+                  raise SystemExit(f'圖片品質或完整性錯誤：{path}')
+              hashes.add(digest)
+          if len(hashes) != 9:
+              raise SystemExit('網站小老闆圖片有重複內容')
+          print('網站九張專用小老闆圖片品質檢查通過')
           PY
 
       - name: Prepare public website
@@ -64,7 +81,6 @@ jobs:
             --exclude='_site/' \
             --exclude='tools/' \
             --exclude='node_modules/' \
-            --exclude='.website-*' \
             --exclude='assets/' \
             --exclude='*.zip' \
             --exclude='*.tar' \
@@ -76,72 +92,48 @@ jobs:
             --exclude='INSTALL_*' \
             --exclude='FIX_*'
           touch _site/.nojekyll
-
           python3 - <<'PY'
           from pathlib import Path
           import re
-
-          version = '325.0'
+          version = '400.2'
           root = Path('_site')
           pages = list(root.glob('*.html'))
           for page in pages:
               text = page.read_text(encoding='utf-8')
               text = re.sub(r'site\.css\?v=[^"\']+', f'site.css?v={version}', text)
               text = re.sub(r'site\.js\?v=[^"\']+', f'site.js?v={version}', text)
-              text = re.sub(
-                  r'資料更新：\d{4}-\d{2}-\d{2}｜內容版本 v[\d.]+',
-                  f'資料更新：2026-07-11｜內容版本 v{version}',
-                  text,
-              )
+              text = re.sub(r'site-v321\.css\?v=[^"\']+', f'site-v321.css?v={version}', text)
+              text = re.sub(r'資料更新：\d{4}-\d{2}-\d{2}｜內容版本 v[\d.]+', f'資料更新：2026-07-12｜內容版本 v{version}', text)
               if 'site-v321.css' not in text:
-                  text = text.replace(
-                      '</head>',
-                      f'<link rel="stylesheet" href="site-v321.css?v={version}"/>\n</head>',
-                  )
-              else:
-                  text = re.sub(r'site-v321\.css\?v=[^"\']+', f'site-v321.css?v={version}', text)
+                  text = text.replace('</head>', f'<link rel="stylesheet" href="site-v321.css?v={version}"/>\n</head>')
               page.write_text(text, encoding='utf-8')
-
-          required = {
-              'index.html','products.html','choose.html','combo.html','guide.html',
-              'recipes.html','video.html','knowledge.html','hanfang-baike.html',
-              'sources.html','dm.html','brand.html','faq.html','contact.html',
-              'product-guilu-gao.html','product-guilu-drink-30cc.html',
-              'product-guilu-drink-180cc.html','product-guilu-tangkuai.html',
-              'product-guilu-jiao.html','product-luerong-fen.html',
+          required_pages = {
+              'index.html','products.html','choose.html','combo.html','guide.html','recipes.html',
+              'video.html','knowledge.html','hanfang-baike.html','sources.html','dm.html',
+              'brand.html','faq.html','contact.html','product-guilu-gao.html',
+              'product-guilu-drink-30cc.html','product-guilu-drink-180cc.html',
+              'product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html'
           }
-          missing = sorted(required - {page.name for page in pages})
+          missing = sorted(required_pages - {page.name for page in pages})
           if missing:
               raise SystemExit('缺少網站頁面：' + ', '.join(missing))
-
-          for required_file in (
+          required_files = [
               'site.js','site-core.js','site-fix-v317.js','site.css','site-v321.css',
-              'data.json','catalog-public.json',
-              'images/brand/xianjiawei-web-scenes-v324.webp',
-              'images/line-mascot/xianjiawei-mascot-line-welcome.jpg',
-              'images/line-mascot/xianjiawei-mascot-line-products.jpg',
-              'images/line-mascot/xianjiawei-mascot-line-recommend.jpg',
-              'images/line-mascot/xianjiawei-mascot-line-combo.jpg',
-              'images/line-mascot/xianjiawei-mascot-line-usage.jpg',
-              'images/line-mascot/xianjiawei-mascot-line-faq.jpg',
-              'images/line-mascot/xianjiawei-mascot-line-service.jpg',
-              'images/line-mascot/xianjiawei-mascot-line-brand.jpg',
-          ):
-              target = root / required_file
+              'data.json','catalog-public.json','deploy-version.json','images/brand/website-mascot-manifest.json'
+          ] + [f'images/brand/website-mascot-{name}.jpg' for name in ('home','products','choose','combo','guide','recipes','faq','contact','brand')]
+          for filename in required_files:
+              target = root / filename
               if not target.exists() or target.stat().st_size == 0:
-                  raise SystemExit('缺少發布檔案：' + required_file)
-
-          print(f'準備完成：{len(pages)} 個頁面，v{version} 八種不同小老闆情境與龜鹿飲雙規格。')
+                  raise SystemExit('缺少發布檔案：' + filename)
+          print(f'準備完成：{len(pages)} 個頁面，v{version} 網站專用九種高解析小老闆。')
           PY
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
