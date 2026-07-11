@@ -1,10 +1,10 @@
 "use strict";
 
 (() => {
-  const VERSION = "325.0";
+  const VERSION = "400.0";
   const SCENES = {
     home: {
-      src: "images/line-mascot/xianjiawei-mascot-line-welcome.jpg",
+      src: "images/brand/website-mascot-home.jpg",
       alt: "仙加味小老闆揮手歡迎",
       eyebrow: "歡迎認識仙加味",
       title: "先從平常想怎麼使用開始",
@@ -13,7 +13,7 @@
       secondary: ["怎麼選", "choose.html"]
     },
     products: {
-      src: "images/line-mascot/xianjiawei-mascot-line-products.jpg",
+      src: "images/brand/website-mascot-products.jpg",
       alt: "仙加味小老闆展示全系列產品",
       eyebrow: "產品導覽",
       title: "先看產品型態，再比較規格與使用方式",
@@ -22,8 +22,8 @@
       secondary: ["使用方式", "guide.html"]
     },
     choose: {
-      src: "images/line-mascot/xianjiawei-mascot-line-recommend.jpg",
-      alt: "仙加味小老闆指引產品選擇",
+      src: "images/brand/website-mascot-choose.jpg",
+      alt: "仙加味小老闆指向選擇看板",
       eyebrow: "怎麼選",
       title: "依使用情境比較會更清楚",
       text: "先從固定取用、方便即飲、沖泡燉湯、家庭使用或自行調飲開始選擇。",
@@ -31,7 +31,7 @@
       secondary: ["搭配組合", "combo.html"]
     },
     combo: {
-      src: "images/line-mascot/xianjiawei-mascot-line-combo.jpg",
+      src: "images/brand/website-mascot-combo.jpg",
       alt: "仙加味小老闆比讚介紹搭配組合",
       eyebrow: "搭配組合",
       title: "依生活節奏查看產品搭配",
@@ -40,8 +40,8 @@
       secondary: ["怎麼使用", "guide.html"]
     },
     guide: {
-      src: "images/line-mascot/xianjiawei-mascot-line-usage.jpg",
-      alt: "仙加味小老闆示範日常使用方式",
+      src: "images/brand/website-mascot-guide.jpg",
+      alt: "仙加味小老闆示範倒入熱飲",
       eyebrow: "使用方式",
       title: "沖泡、即飲與燉湯方式一次整理",
       text: "依產品型態查看取用方式、使用時段、搭配方式與保存資訊。",
@@ -49,8 +49,8 @@
       secondary: ["常見問題", "faq.html"]
     },
     recipes: {
-      src: "images/line-mascot/xianjiawei-mascot-line-brand.jpg",
-      alt: "仙加味小老闆介紹料理搭配",
+      src: "images/brand/website-mascot-recipes.jpg",
+      alt: "仙加味小老闆示範料理搭配",
       eyebrow: "料理搭配",
       title: "把產品放進熟悉的飲食節奏",
       text: "從熱飲、調飲到家常燉湯，依產品型態查看適合的料理與搭配方式。",
@@ -58,7 +58,7 @@
       secondary: ["看產品", "products.html"]
     },
     faq: {
-      src: "images/line-mascot/xianjiawei-mascot-line-faq.jpg",
+      src: "images/brand/website-mascot-faq.jpg",
       alt: "仙加味小老闆思考常見問題",
       eyebrow: "常見問題",
       title: "產品、使用與購買問題一次整理",
@@ -67,8 +67,8 @@
       secondary: ["聯絡我們", "contact.html"]
     },
     contact: {
-      src: "images/line-mascot/xianjiawei-mascot-line-service.jpg",
-      alt: "仙加味小老闆提供人工客服",
+      src: "images/brand/website-mascot-contact.jpg",
+      alt: "仙加味小老闆戴耳機提供人工客服",
       eyebrow: "官方 LINE 與門市",
       title: "需要協助時，直接留下訊息",
       text: "留下想了解的產品、規格、數量、配送或取貨方式，我們會再協助確認。",
@@ -76,7 +76,7 @@
       secondary: ["門市資訊", "#store-info"]
     },
     brand: {
-      src: "images/line-mascot/xianjiawei-mascot-line-welcome.jpg",
+      src: "images/brand/website-mascot-brand.jpg",
       alt: "仙加味小老闆介紹品牌故事",
       eyebrow: "品牌故事",
       title: "從萬華出發，延續四代工序",
@@ -141,15 +141,15 @@
     image.className = "mascot-guide-card__image";
     image.src = `${config.src}?v=${VERSION}`;
     image.alt = config.alt;
-    image.width = 1200;
-    image.height = 900;
+    image.width = 1448;
+    image.height = 1086;
     image.loading = page === "home" ? "eager" : "lazy";
     image.decoding = "async";
-    if (page === "home") image.fetchPriority = "high";
+    image.fetchPriority = page === "home" ? "high" : "auto";
     image.onerror = () => {
       if (image.dataset.fallbackApplied === "1") return;
       image.dataset.fallbackApplied = "1";
-      image.src = `images/brand/xianjiawei-scene-guide.jpg?v=${VERSION}`;
+      image.src = `images/brand/website-mascot-home.jpg?v=${VERSION}`;
     };
 
     media.dataset.mascotVersion = VERSION;
