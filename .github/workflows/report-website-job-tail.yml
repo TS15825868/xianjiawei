@@ -1,0 +1,28 @@
+name: Report website workflow job tail
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  actions: read
+  issues: write
+
+jobs:
+  report:
+    if: github.event.issue.title == 'REPORT WEBSITE JOB 86564324770'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download and report log tail
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api "repos/${{ github.repository }}/actions/jobs/86564324770/logs" > /tmp/job.log
+          tail -n 65 /tmp/job.log > /tmp/tail.log
+          {
+            echo '```text'
+            cat /tmp/tail.log
+            echo '```'
+          } > /tmp/report.md
+          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body-file /tmp/report.md
+          gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }}
