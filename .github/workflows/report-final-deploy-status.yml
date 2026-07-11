@@ -1,0 +1,31 @@
+name: Report final website deployment
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  actions: read
+  issues: write
+
+jobs:
+  report:
+    if: github.event.issue.title == 'FINAL WEBSITE DEPLOY STATUS'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Wait for latest website deployment and report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 40); do
+            status=$(gh api "repos/${{ github.repository }}/actions/workflows/deploy-pages.yml/runs?branch=main&per_page=1" --jq '.workflow_runs[0].status')
+            if [ "$status" = "completed" ]; then
+              break
+            fi
+            sleep 10
+          done
+          result=$(gh api "repos/${{ github.repository }}/actions/workflows/deploy-pages.yml/runs?branch=main&per_page=1" --jq '.workflow_runs[0] | {id,status,conclusion,html_url,head_sha,created_at,updated_at}')
+          printf '```json\n%s\n```\n' "$result" > /tmp/report.md
+          gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body-file /tmp/report.md
+          gh issue close ${{ github.event.issue.number }} --repo ${{ github.repository }} --comment '網站正式部署狀態檢查完成。'
