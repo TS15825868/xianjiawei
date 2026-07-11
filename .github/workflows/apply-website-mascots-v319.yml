@@ -2,7 +2,9 @@ name: Apply website mascots v319
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - mascot-v319-fix
     paths:
       - APPLY_WEBSITE_MASCOTS_V319.txt
 
@@ -16,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.ref_name }}
           fetch-depth: 0
 
       - name: Download high-resolution website mascot package
@@ -167,5 +169,5 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           git commit -m '修復網站小老闆模糊並恢復高解析度獨立情境圖 v319'
-          git pull --rebase origin main
-          git push origin main
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "${GITHUB_REF_NAME}"
