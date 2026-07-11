@@ -1,8 +1,9 @@
 {
-  "version": "322.0",
+  "version": "323.0",
   "updated": "2026-07-11",
-  "mascot": "verified-sharp-site-image",
+  "mascot": "page-specific-original-images-with-safe-fallback",
+  "mascotPages": ["home", "products", "choose", "combo", "guide", "recipes", "faq", "contact"],
   "catalog": "five-types-six-specifications",
   "guiluDrinkSizes": ["30cc-glass", "180cc-pouch"],
-  "audit": "full-site-pages-assets-javascript-line-links"
+  "audit": "mascot-page-mapping-cache-and-broken-image-fallback"
 }
