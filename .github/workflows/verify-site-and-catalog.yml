@@ -21,11 +21,14 @@ jobs:
         with:
           node-version: 22
 
-      - name: Static audit
+      - name: Full static audit
         run: python3 tools/site_maintenance.py
 
       - name: JavaScript syntax
-        run: node --check site.js
+        run: |
+          node --check site.js
+          node --check site-core.js
+          node --check site-fix-v317.js
 
       - name: HTTP smoke tests
         shell: bash
@@ -38,9 +41,17 @@ jobs:
           for path in \
             index.html products.html choose.html combo.html guide.html recipes.html \
             video.html knowledge.html hanfang-baike.html sources.html dm.html brand.html \
-            faq.html contact.html data.json catalog-public.json site.js site.css \
+            faq.html contact.html data.json catalog-public.json \
+            site.js site-core.js site-fix-v317.js site.css site-v321.css \
+            images/brand/xianjiawei-scene-guide.jpg \
             product-guilu-gao.html product-guilu-drink-30cc.html \
             product-guilu-drink-180cc.html product-guilu-tangkuai.html \
             product-guilu-jiao.html product-luerong-fen.html; do
             curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
           done
+
+      - name: Confirm catalog requirements
+        run: |
+          grep -q '"id": "guilu-drink-30"' data.json
+          grep -q '"id": "guilu-drink-180"' data.json
+          grep -q '@762jybnm' data.json
