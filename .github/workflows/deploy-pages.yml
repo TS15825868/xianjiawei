@@ -31,6 +31,9 @@ jobs:
           node --check site-core.js
           node --check site-fix-v317.js
           python3 -m json.tool data.json >/dev/null
+          test -s images/brand/xianjiawei-web-scenes-v324.webp
+          grep -q 'guilu-drink-30' data.json
+          grep -q 'guilu-drink-180' data.json
 
       - name: Prepare public website
         run: |
@@ -59,24 +62,25 @@ jobs:
           from pathlib import Path
           import re
 
+          version = '324.0'
           root = Path('_site')
           pages = list(root.glob('*.html'))
           for page in pages:
               text = page.read_text(encoding='utf-8')
-              text = re.sub(r'site\.css\?v=[^"\']+', 'site.css?v=322.1', text)
-              text = re.sub(r'site\.js\?v=[^"\']+', 'site.js?v=322.1', text)
+              text = re.sub(r'site\.css\?v=[^"\']+', f'site.css?v={version}', text)
+              text = re.sub(r'site\.js\?v=[^"\']+', f'site.js?v={version}', text)
               text = re.sub(
                   r'資料更新：\d{4}-\d{2}-\d{2}｜內容版本 v[\d.]+',
-                  '資料更新：2026-07-11｜內容版本 v322.1',
+                  f'資料更新：2026-07-11｜內容版本 v{version}',
                   text,
               )
               if 'site-v321.css' not in text:
                   text = text.replace(
                       '</head>',
-                      '<link rel="stylesheet" href="site-v321.css?v=322.1"/>\n</head>',
+                      f'<link rel="stylesheet" href="site-v321.css?v={version}"/>\n</head>',
                   )
               else:
-                  text = re.sub(r'site-v321\.css\?v=[^"\']+', 'site-v321.css?v=322.1', text)
+                  text = re.sub(r'site-v321\.css\?v=[^"\']+', f'site-v321.css?v={version}', text)
               page.write_text(text, encoding='utf-8')
 
           required = {
@@ -94,13 +98,13 @@ jobs:
           for required_file in (
               'site.js','site-core.js','site-fix-v317.js','site.css','site-v321.css',
               'data.json','catalog-public.json',
-              'images/brand/xianjiawei-scene-guide.jpg',
+              'images/brand/xianjiawei-web-scenes-v324.webp',
           ):
               target = root / required_file
               if not target.exists() or target.stat().st_size == 0:
                   raise SystemExit('缺少發布檔案：' + required_file)
 
-          print(f'準備完成：{len(pages)} 個頁面，v322.1 高畫質小老闆與雙規格產品資料。')
+          print(f'準備完成：{len(pages)} 個頁面，v{version} 八種小老闆情境與龜鹿飲雙規格。')
           PY
 
       - name: Configure Pages
