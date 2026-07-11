@@ -1,1 +1,1 @@
-apply high-resolution website mascots v319 on repair branch
+apply high-resolution website mascots v319 on main after workflow merge
