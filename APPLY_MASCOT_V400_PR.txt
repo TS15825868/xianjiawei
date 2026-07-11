@@ -1,1 +1,1 @@
-Apply approved high-resolution website and LINE OA mascot sets v400. Retry with direct download.
+Generate separate high-resolution website and LINE OA mascot sets from the approved in-repository master sprite.
