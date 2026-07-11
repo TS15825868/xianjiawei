@@ -1,0 +1,86 @@
+name: Apply website mascot sprite v315
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - APPLY_WEBSITE_SPRITE_V315.txt
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Build website mascot sprite
+        run: |
+          mkdir -p images/brand
+          cat .website-sprite8/part01 .website-sprite8/part02 | base64 -d > images/brand/xianjiawei-web-scenes-sprite.jpg
+          test $(wc -c < images/brand/xianjiawei-web-scenes-sprite.jpg) -gt 80000
+          file images/brand/xianjiawei-web-scenes-sprite.jpg | grep -q 'JPEG image data'
+
+      - name: Update website scene mapping
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('site.js')
+          s = p.read_text(encoding='utf-8')
+
+          start = s.index('const MASCOT_IMAGES = {')
+          end = s.index('};', start) + 2
+          block = """const MASCOT_SPRITE = 'images/brand/xianjiawei-web-scenes-sprite.jpg?v=315.0';
+          const MASCOT_POSITIONS = {
+            welcome: '0% 0%',
+            products: '33.333% 0%',
+            guide: '66.666% 0%',
+            combo: '100% 0%',
+            usage: '0% 100%',
+            recipes: '33.333% 100%',
+            faq: '66.666% 100%',
+            service: '100% 100%',
+            brand: '0% 0%'
+          };"""
+          s = s[:start] + block + s[end:]
+
+          s = s.replace("image: 'products', scene: 'products', eyebrow: '搭配組合'", "image: 'combo', scene: 'combo', eyebrow: '搭配組合'")
+          s = s.replace("image: 'usage', scene: 'usage', eyebrow: '料理搭配'", "image: 'recipes', scene: 'recipes', eyebrow: '料理搭配'")
+          s = s.replace("image: 'welcome', scene: 'welcome', eyebrow: '品牌故事'", "image: 'brand', scene: 'brand', eyebrow: '品牌故事'")
+          s = s.replace("image: 'service', scene: 'service', eyebrow: '常見問題'", "image: 'faq', scene: 'faq', eyebrow: '常見問題'")
+
+          old = '''        <img src="${MASCOT_IMAGES[config.image]}" alt="仙加味小老闆情境導覽" width="640" height="480" loading="${page === 'home' ? 'eager' : 'lazy'}" decoding="async">'''
+          new = '''        <div
+                  class="mascot-guide-card__scene"
+                  role="img"
+                  aria-label="仙加味小老闆情境導覽"
+                  style="width:100%;aspect-ratio:4/3;background-image:url('${MASCOT_SPRITE}');background-size:400% 200%;background-position:${MASCOT_POSITIONS[config.image] || '0% 0%'};background-repeat:no-repeat;"
+                ></div>'''
+          if old not in s:
+            raise SystemExit('Mascot image markup not found')
+          s = s.replace(old, new)
+          p.write_text(s, encoding='utf-8')
+          PY
+
+          node --check site.js
+          grep -q 'xianjiawei-web-scenes-sprite.jpg?v=315.0' site.js
+          grep -q "image: 'combo', scene: 'combo'" site.js
+          grep -q "image: 'faq', scene: 'faq'" site.js
+
+      - name: Commit website update
+        run: |
+          rm -rf .website-sprite8 .website-sprite-q20 .website-sprite-q40 .website-upload .website-upload20
+          rm -f APPLY_WEBSITE_SPRITE_V315.txt APPLY_WEBSITE_MASCOTS_V314.txt
+          rm -f .github/workflows/apply-website-sprite-v315.yml
+          rm -f .github/workflows/apply-website-mascots-v314.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '更新網站專用仙加味小老闆情境圖 v315'
+          git pull --rebase origin main
+          git push origin main
