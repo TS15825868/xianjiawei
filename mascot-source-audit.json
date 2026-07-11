@@ -1,0 +1,118 @@
+[
+  {
+    "file": "images/brand/website-mascot-brand.jpg",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 234130,
+    "edgeMean": 5.408,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/website-mascot-choose.jpg",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 189559,
+    "edgeMean": 4.292,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/website-mascot-combo.jpg",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 178808,
+    "edgeMean": 4.236,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/website-mascot-contact.jpg",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 175719,
+    "edgeMean": 4.129,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/website-mascot-faq.jpg",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 182497,
+    "edgeMean": 4.373,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/website-mascot-guide.jpg",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 175147,
+    "edgeMean": 4.181,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/website-mascot-home.jpg",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 242583,
+    "edgeMean": 5.666,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/website-mascot-products.jpg",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 238804,
+    "edgeMean": 5.752,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/website-mascot-recipes.jpg",
+    "width": 1448,
+    "height": 1086,
+    "bytes": 153237,
+    "edgeMean": 3.891,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/xianjiawei-scene-guide.jpg",
+    "width": 1920,
+    "height": 1440,
+    "bytes": 467799,
+    "edgeMean": 1.786,
+    "nativeEnough": true
+  },
+  {
+    "file": "images/brand/xianjiawei-scene-products.jpg",
+    "width": 320,
+    "height": 240,
+    "bytes": 9697,
+    "edgeMean": 32.107,
+    "nativeEnough": false
+  },
+  {
+    "file": "images/brand/xianjiawei-scene-service.jpg",
+    "width": 120,
+    "height": 90,
+    "bytes": 2485,
+    "edgeMean": 44.631,
+    "nativeEnough": false
+  },
+  {
+    "file": "images/brand/xianjiawei-scene-usage.jpg",
+    "width": 120,
+    "height": 90,
+    "bytes": 2457,
+    "edgeMean": 45.083,
+    "nativeEnough": false
+  },
+  {
+    "file": "images/brand/xianjiawei-scene-welcome.jpg",
+    "width": 320,
+    "height": 240,
+    "bytes": 9315,
+    "edgeMean": 29.237,
+    "nativeEnough": false
+  },
+  {
+    "file": "images/brand/xianjiawei-web-scenes-v324.webp",
+    "error": "could not create decoder object"
+  }
+]
