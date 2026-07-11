@@ -1,7 +1,8 @@
 {
-  "version": "321.0",
+  "version": "322.0",
   "updated": "2026-07-11",
-  "mascot": "page-specific-high-resolution",
+  "mascot": "verified-sharp-site-image",
   "catalog": "five-types-six-specifications",
-  "guiluDrinkSizes": ["30cc-glass", "180cc-pouch"]
+  "guiluDrinkSizes": ["30cc-glass", "180cc-pouch"],
+  "audit": "full-site-pages-assets-javascript-line-links"
 }
