@@ -1,1 +1,1 @@
-Run separated generation, mapping, image validation, and script validation for mascot v400.
+Generate only the separate website and LINE OA high-resolution mascot image sets.
