@@ -23,8 +23,8 @@ jobs:
 
       - name: Download approved high-resolution mascot package
         run: |
-          python3 -m pip install --quiet gdown pillow
-          gdown --id 1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL -O /tmp/xianjiawei-mascot-v400.zip
+          python3 -m pip install --quiet pillow
+          curl -L --fail --retry 3 --retry-delay 2 "https://drive.usercontent.google.com/download?id=1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL&export=download&confirm=t" -o /tmp/xianjiawei-mascot-v400.zip
           test $(wc -c < /tmp/xianjiawei-mascot-v400.zip) -gt 10000000
           unzip -t /tmp/xianjiawei-mascot-v400.zip
 
