@@ -14,13 +14,12 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
-environment:
-  name: github-pages
-  url: ${{ steps.deployment.outputs.page_url }}
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -120,7 +119,7 @@ jobs:
                   local = unquote(urlsplit(ref).path)
                   if not local or local.startswith('/'):
                       continue
-                  target = (page.parent / local)
+                  target = page.parent / local
                   if not target.exists(): warnings.append(f'{page.name}: 找不到 {kind} {ref}')
 
           if warnings:
