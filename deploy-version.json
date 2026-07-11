@@ -1,9 +1,8 @@
 {
-  "version": "323.0",
+  "version": "324.0",
   "updated": "2026-07-11",
-  "mascot": "page-specific-original-images-with-safe-fallback",
-  "mascotPages": ["home", "products", "choose", "combo", "guide", "recipes", "faq", "contact"],
+  "mascot": "static-webp-sprite-eight-scenes",
   "catalog": "five-types-six-specifications",
   "guiluDrinkSizes": ["30cc-glass", "180cc-pouch"],
-  "audit": "mascot-page-mapping-cache-and-broken-image-fallback"
+  "audit": "page-specific-mascot-no-runtime-blob"
 }
