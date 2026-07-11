@@ -24,6 +24,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install approved high-resolution mascot images
+        run: |
+          python3 -m pip install --quiet gdown pillow
+          gdown --id 1Fo0MhGFyUhnQd14COzo3ZjkzPsl2JDOL -O /tmp/website-mascots.zip
+          unzip -t /tmp/website-mascots.zip
+          rm -rf /tmp/website-mascots
+          mkdir -p /tmp/website-mascots images/brand
+          unzip -o /tmp/website-mascots.zip -d /tmp/website-mascots
+          find /tmp/website-mascots -type f -name 'xianjiawei-scene-*.jpg' -exec cp {} images/brand/ \;
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          names = ['welcome','products','guide','combo','usage','service','brand']
+          for name in names:
+              p = Path(f'images/brand/xianjiawei-scene-{name}.jpg')
+              if not p.exists() or p.stat().st_size < 200000:
+                  raise SystemExit(f'高畫質圖片缺少或檔案過小：{p}')
+              with Image.open(p) as im:
+                  if im.size != (1600, 1200):
+                      raise SystemExit(f'圖片尺寸不正確：{p} {im.size}')
+                  im.verify()
+          print('七張網站專用小老闆圖皆為 1600×1200。')
+          PY
+
       - name: Validate shared files and catalog
         run: |
           node --check site.js
@@ -31,9 +55,6 @@ jobs:
           node --check site-fix-v317.js
           python3 -m json.tool data.json >/dev/null
           test -s site-v321.css
-          for name in welcome products guide combo usage service brand; do
-            test -s "images/brand/xianjiawei-scene-${name}.jpg"
-          done
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -106,6 +127,7 @@ jobs:
               text = page.read_text(encoding='utf-8')
               text = re.sub(r'site\.css\?v=[^"\']+', 'site.css?v=321.0', text)
               text = re.sub(r'site\.js\?v=[^"\']+', 'site.js?v=321.0', text)
+              text = re.sub(r'資料更新：\d{4}-\d{2}-\d{2}｜內容版本 v[\d.]+', '資料更新：2026-07-11｜內容版本 v321.0', text)
               if 'site-v321.css' not in text:
                   text = text.replace('</head>', '<link rel="stylesheet" href="site-v321.css?v=321.0"/>\n</head>')
               page.write_text(text, encoding='utf-8')
