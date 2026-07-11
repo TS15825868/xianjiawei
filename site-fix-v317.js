@@ -1,19 +1,17 @@
 "use strict";
 
 (() => {
-  const VERSION = "324.0";
-  const SPRITE = `images/brand/xianjiawei-web-scenes-v324.webp?v=${VERSION}`;
-
+  const VERSION = "324.1";
   const SCENES = {
-    home: { position: "0% 0%", alt: "仙加味小老闆揮手歡迎" },
-    products: { position: "33.333% 0%", alt: "仙加味小老闆展示全系列產品" },
-    choose: { position: "66.667% 0%", alt: "仙加味小老闆指引產品選擇" },
-    combo: { position: "100% 0%", alt: "仙加味小老闆比讚介紹搭配組合" },
-    guide: { position: "0% 100%", alt: "仙加味小老闆示範倒入熱飲" },
-    recipes: { position: "33.333% 100%", alt: "仙加味小老闆示範家常燉湯" },
-    faq: { position: "66.667% 100%", alt: "仙加味小老闆思考常見問題" },
-    contact: { position: "100% 100%", alt: "仙加味小老闆戴耳機提供人工客服" },
-    brand: { position: "0% 0%", alt: "仙加味小老闆介紹品牌故事" }
+    home: { src: "images/brand/website-mascot-home.svg", alt: "仙加味小老闆揮手歡迎" },
+    products: { src: "images/brand/website-mascot-products.svg", alt: "仙加味小老闆展示全系列產品" },
+    choose: { src: "images/brand/website-mascot-choose.svg", alt: "仙加味小老闆指引產品選擇" },
+    combo: { src: "images/brand/website-mascot-combo.svg", alt: "仙加味小老闆介紹搭配組合" },
+    guide: { src: "images/brand/website-mascot-guide.svg", alt: "仙加味小老闆介紹使用方式" },
+    recipes: { src: "images/brand/website-mascot-recipes.svg", alt: "仙加味小老闆介紹料理搭配" },
+    faq: { src: "images/brand/website-mascot-faq.svg", alt: "仙加味小老闆整理常見問題" },
+    contact: { src: "images/brand/website-mascot-contact.svg", alt: "仙加味小老闆提供人工客服" },
+    brand: { src: "images/brand/website-mascot-home.svg", alt: "仙加味小老闆介紹品牌故事" }
   };
 
   function applyScene() {
@@ -22,70 +20,38 @@
     if (!media) return false;
 
     const config = SCENES[page] || SCENES.home;
-    let scene = media.querySelector(".mascot-guide-card__scene");
-
-    if (!scene) {
-      scene = document.createElement("div");
-      media.replaceChildren(scene);
+    let image = media.querySelector("img");
+    if (!image) {
+      image = document.createElement("img");
+      media.replaceChildren(image);
     }
 
-    scene.className = "mascot-guide-card__scene";
-    scene.setAttribute("role", "img");
-    scene.setAttribute("aria-label", config.alt);
-    Object.assign(scene.style, {
-      display: "block",
-      width: "100%",
-      height: "100%",
-      minHeight: "0",
-      aspectRatio: "4 / 3",
-      backgroundImage: `url("${SPRITE}")`,
-      backgroundSize: "400% 200%",
-      backgroundPosition: config.position,
-      backgroundRepeat: "no-repeat",
-      backgroundColor: "#efe4d2",
-      imageRendering: "auto"
-    });
+    image.className = "mascot-guide-card__image";
+    image.src = `${config.src}?v=${VERSION}`;
+    image.alt = config.alt;
+    image.width = 1200;
+    image.height = 900;
+    image.loading = page === "home" ? "eager" : "lazy";
+    image.decoding = "async";
+    image.fetchPriority = page === "home" ? "high" : "auto";
+    image.removeAttribute("style");
+    image.onerror = () => {
+      if (image.dataset.fallbackApplied === "1") return;
+      image.dataset.fallbackApplied = "1";
+      image.src = `images/brand/xianjiawei-scene-guide.jpg?v=${VERSION}`;
+    };
 
-    media.style.background = "#efe4d2";
+    media.querySelectorAll(".mascot-guide-card__scene").forEach((node) => node.remove());
     media.dataset.mascotVersion = VERSION;
     media.dataset.mascotPage = page;
     return true;
   }
 
-  function installStyles() {
-    if (document.getElementById("mascot-static-sprite-v324")) return;
-    const style = document.createElement("style");
-    style.id = "mascot-static-sprite-v324";
-    style.textContent = `
-      .mascot-guide-card__media {
-        position: relative !important;
-        width: 100% !important;
-        aspect-ratio: 4 / 3 !important;
-        min-height: 0 !important;
-        overflow: hidden !important;
-        background: #efe4d2 !important;
-      }
-      .mascot-guide-card__scene {
-        display: block !important;
-        width: 100% !important;
-        height: 100% !important;
-        aspect-ratio: 4 / 3 !important;
-        filter: none !important;
-        opacity: 1 !important;
-        transform: none !important;
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
   function start() {
-    installStyles();
     if (applyScene()) return;
-
     const observer = new MutationObserver(() => {
       if (applyScene()) observer.disconnect();
     });
-
     observer.observe(document.documentElement, { childList: true, subtree: true });
     window.setTimeout(() => {
       applyScene();
