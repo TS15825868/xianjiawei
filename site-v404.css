@@ -1,4 +1,4 @@
-/* v404.1：每頁一張小老闆情境，裁切避開錯誤產品包裝；產品以 products-v3 真實原圖為準。 */
+/* v404.2：每頁一張小老闆情境，裁切避開錯誤產品包裝；產品以 products-v3 真實原圖為準。 */
 .mascot-guide-v404 .mascot-guide-card__media {
   position: relative;
   overflow: hidden;
@@ -37,4 +37,16 @@
   .mascot-guide-card--recipes .mascot-guide-card__image,
   .mascot-guide-card--brand .mascot-guide-card__image,
   .mascot-guide-card--faq .mascot-guide-card__image { transform: scale(1.05); }
+}
+
+/* 首頁主視覺就是首頁唯一小老闆圖，不再重複插入第二張。 */
+body[data-page="home"] main .hero { overflow: hidden; }
+body[data-page="home"] main .hero .mascot-v404-home-hero {
+  object-fit: cover;
+  object-position: 18% 18%;
+  transform: scale(1.72);
+  transform-origin: 18% 18%;
+}
+@media (max-width: 760px) {
+  body[data-page="home"] main .hero .mascot-v404-home-hero { transform: scale(1.5); }
 }
