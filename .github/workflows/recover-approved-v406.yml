@@ -18,11 +18,11 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event.issue.title == 'INSTALL_APPROVED_V406'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout full main history
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Restore approved assets
         id: restore
@@ -31,7 +31,8 @@ jobs:
           set +e
           {
             python3 -m pip install --quiet pillow
-            git show 5538b096585130dc1b9fdf7604252a17fd4717df:assets/approved-v405-assets.zip > /tmp/approved-v405-partial.zip
+            git fetch --no-tags origin 5538b096585130dc1b9fdf7604252a17fd4717df --depth=1
+            git show FETCH_HEAD:assets/approved-v405-assets.zip > /tmp/approved-v405-partial.zip
             wc -c /tmp/approved-v405-partial.zip
             python3 - <<'PY'
             from pathlib import Path
