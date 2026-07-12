@@ -1,0 +1,254 @@
+name: Install approved website mascot v405.1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/install-approved-v405.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-approved-v405
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Download the 15 approved originals
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          import json, shutil, struct
+
+          sources = {
+            "home-brand": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUegCUK1cbpS702xfuBUWliHDF4Dy8XJnIeBEM9JTF79QKYjjqJSnBH5F01cAn1pMiygYfW0ubUPkzh8vJhiWI9pB8rOVapd09Mg1BZXL5rBR96F-0x-dhwCP0YPtuM0mQa6f0RTYkd6ziNZQCNJkfi6AobwFZT3L6Kutmir4O0Tc-PrAK4YHg=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "products-all": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUegkhOuuYTEQSgRJ5mFPPoQSZoouSMFDFoHgHoPMYSbdUVkqUS2JUUrvvXOYRTdDhd-FTWpgiLrFaWPPS6DgNR3Xz3zRncD_XIKy0UvlcejxDDvBpKEp-aGdRUDr0jnOtRoaNicFOels6ompKGZuUOrPV5ywHfJsCrent01w42BPBl7eVkFEg=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "choose": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUdt7W34Cx1NJemaFQj2PKoELjiM2GoCZFCQObv4HQOmkUFlh07zSZ9GzvRtaZqqU-jM9Ir-kAoaJJi3VYz24LUWlZ4q7m5v17eDgrsslWVbon16Lp_Nc7bV1aI3lhNdV7g3l6ji_2GHC600sLsqgSfxmODtTOT-kVTozLbsMe89amvhUMk8aw=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "combo": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUfbjvMD9fyADRkxBQZXmCPC2P2QBKY8YZC-HSF2TmK5lSIp7Uo1NkTYQ1sI5i2c2ko28_xlqpzRab3_j4P0-OgEfcx6kEpfqOtNANWRRlr6s2E1Dz5m7lJ0BWZYXWwASIy3YHNWuLg2Gdp9C4l9gmyV6MHygwCJOwgv1A_mZmUeCBpCFkrzYw=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "guide-how-to-use": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUceW-WJLzwcOLfBCqlq9CuMvi1b0hfkMczWDiov-PqMjGCfq5JwzmpvSZnOxk0NHeOhRE_sy_Ktlki6auS5i3CrPnHZNpDuT1_lIhq2gdvK9zleFsCZiKnH8RwhYDqRe6eN5cEUnsGzzD-ONTcr2A4oPR2mhljg_YNptNrBYuMO94t4yT8BEw=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "recipes": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUfLLSSY-cTg5usLI85llSENo52odCE1Mb3araShopXLYzPcH7zkNzG4sXqCrXkA7NipAzs7pOYXlpARzmQRvkFBvrIX2jTcu_QKVQfhk0fTB9bVHNDkqmikqzr7PF6Hof9r78jGbbD_mZVdysUNZnoAiyEwPJGIk3vLoI-8VPbWwl3GUpIkCg=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "brand-story": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUcQ3E_i5AArMKJu6Ky9fQGsO6bdwuhIu81OhID5VnbobZbyIvuGt2wpKsjoG_QJmfBVvA5B8lHImi3MQdGzkyGAPDbwOf8Ms6AvlwsWXEhuKSrQcgA4_QVNVRoJ4RIi1J6N-3LB5Mf5dW9lbjeyxKqSQGtJeIt0P3B9jB_rSyZ0yXnXwjwTxA=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "faq": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUdu1qJGrdRYKHY_LOnMz4Sp9o1ffggqjIH9FPnlKg_eaHcgnK0EH6swe6dPt95A6PUadqDqU2W8YU-qFlwKFBZtCRiZHY0EphabE-gw9Sf30kHfqJTpUckDeSNpPD0ZIbG1GP1MuLWveQZE80vSvkxU4ncRb6g5WkfWt3BcaY-WdVIOa6M=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "contact-line": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUeVSEw3_MmvDaZYgZypgI96yaEqlJSyOr4Or1HGfdqgzpI6RyLt_ympo6TUdWXCO14kZRhgUj7CDRMnKQL5K2z1S5ULLHb21uwTzrRlzukEi1z6H_L5BjipCy3g1hzBv_x9YI60FNYF7w23Ey8Wjcu2fwnFKeoX8AyyUP9arY8Yr18EgJnvng=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "product-guilu-gao-100g": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUdf9JHCrKfA70hnU_cpnePaoJX2xfJHQ-64poH4ev9HJ8GpBGqvN9lhMpnoSi34ZTsNjPfPdd5GiU4U6h7e5MUHspOG5ED8elAkdTTta56lN8lPbQDOg_GfATrng58Lh808fsfVean0UGlvvb7gPGnniwsn6WFEIMnHbkDBT1A9FaneGaY=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "product-guilu-drink-30cc": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUeHaGZydtRdnWpaJViW2b8oPOAhN3Ov18bPQqaF_3engd4vMyepjYO_5PrGqdt_3mfftZLAGgKf9iRYjeWLmq8VExYCJX2P7BsH8edacrCcsLNRS1MRgRNnM-eOJ7FEr2IVVACkHnbU4CWQM7tp4qG4wEGeDLK8Gv_DACpvC7KcrLE1K317gA=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "product-guilu-drink-180cc": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUf5DTVbokOEAuNEw5NrIZiqFHLg83z7CO2OpDwLQnoKeDUTUbC5kNMHzHc6_qSWmjS6rwXkUi_Ic_7bm47gR4W3GTbplH0XI63caAjYL3Ws1wGHhR-UjwepsWpgfZnWq3evB-Us67qHHuWuT6XfqUd6Sz-MythZFVsPeegwBsOFg7nwgU7jpQ=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "product-guilu-tangkuai-75g": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUeufv8-_c_SjCVLpc40beEsTrTichTOr2Q-84totX29SNa5Mnefjr7IzI8YIE9O90My66iD06fqlWVm1BGg-kqZl7I7c8DCKG8vVWCPRVQcbGh4sRROLZJHoleVYVfbnB_RXjELbHLtcj0vl22qrdLxF8BlZWvE57GtJ0S6tH_69P3VpaDqmg=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "product-guilu-jiao-600g": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUf4AxEHtsjBMNMU58pAS5JYnvKEb4reC4z_n7e_CRStGJPKGzNJ6CG6Ud5cqzcSyF8PDWaZ6X8MwpCwIYoJaT9ePg9b4DA30_6y4u9gUoo2SV-s-Wtv9iik1AoQo5bqkf5qZrjrNDxzoaZkJYqZQFscM-0CnA4VWPaUGL1fZkx1dgB0qkc=s2048?key=EsIaudVxdAhK_xaH2h4ysw",
+            "product-luerong-fen-75g": "https://lh7-rt.googleusercontent.com/slidesz/AGV_vUcuvC4NI9OGoPyy1T1KfO3tQpOfZexfKfj9QLspuD8qGvgQSDSejg2w1Bf3gLtN5X_5_C2KwRZzVL9SPGb2n5BPOByxXvryNMCB2-SEYbJLXw8Jka_E5OMS1qglDQnZ384XGfd4mbwu_ivXN5rg9koqg0YBWcMrNAGc89fjfMttvawiR3M=s2048?key=EsIaudVxdAhK_xaH2h4ysw"
+          }
+
+          def dimensions(data):
+              if data.startswith(b'\x89PNG\r\n\x1a\n'):
+                  return 'png', struct.unpack('>II', data[16:24])
+              if data[:2] == b'\xff\xd8':
+                  i = 2
+                  while i + 9 < len(data):
+                      if data[i] != 0xff:
+                          i += 1; continue
+                      marker = data[i+1]
+                      i += 2
+                      if marker in (0xd8, 0xd9): continue
+                      if i + 2 > len(data): break
+                      length = int.from_bytes(data[i:i+2], 'big')
+                      if marker in list(range(0xc0,0xc4)) + list(range(0xc5,0xc8)) + list(range(0xc9,0xcc)) + list(range(0xcd,0xd0)):
+                          h = int.from_bytes(data[i+3:i+5], 'big')
+                          w = int.from_bytes(data[i+5:i+7], 'big')
+                          return 'jpg', (w, h)
+                      i += length
+              raise ValueError('unsupported or damaged image')
+
+          out = Path('images/brand/approved-v405')
+          shutil.rmtree(out, ignore_errors=True)
+          out.mkdir(parents=True)
+          asset_map = {}
+          for name, url in sources.items():
+              req = Request(url, headers={'User-Agent':'Mozilla/5.0'})
+              with urlopen(req, timeout=180) as response:
+                  data = response.read()
+              ext, (w, h) = dimensions(data)
+              if w < 1400 or h < 1000:
+                  raise SystemExit(f'{name}: resolution too small {w}x{h}')
+              filename = f'{name}.{ext}'
+              (out / filename).write_bytes(data)
+              asset_map[name] = {'file':filename,'width':w,'height':h,'bytes':len(data)}
+              print(name, filename, w, h, len(data))
+          Path('approved-v405-assets.json').write_text(json.dumps(asset_map, ensure_ascii=False, indent=2), encoding='utf-8')
+          PY
+
+      - name: Configure each page and clean old assets
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re
+          version='405.1'
+          assets=json.loads(Path('approved-v405-assets.json').read_text(encoding='utf-8'))
+          f=lambda key: assets[key]['file']
+
+          core={
+            'home':f('home-brand'),'products':f('products-all'),'choose':f('choose'),'combo':f('combo'),
+            'guide':f('guide-how-to-use'),'recipes':f('recipes'),'brand':f('brand-story'),
+            'faq':f('faq'),'contact':f('contact-line')}
+          products={
+            'product-guilu-gao.html':f('product-guilu-gao-100g'),
+            'product-guilu-drink-30cc.html':f('product-guilu-drink-30cc'),
+            'product-guilu-drink-180cc.html':f('product-guilu-drink-180cc'),
+            'product-guilu-tangkuai.html':f('product-guilu-tangkuai-75g'),
+            'product-guilu-jiao.html':f('product-guilu-jiao-600g'),
+            'product-luerong-fen.html':f('product-luerong-fen-75g')}
+
+          js='''"use strict";\n(() => {\n  const VERSION = "405.1";\n  const ROOT = "images/brand/approved-v405/";\n  const CORE_SCENES = __CORE__;\n  const PRODUCT_SCENES = __PRODUCTS__;\n  function buildScene(file, alt, extraClass = "") {\n    const section = document.createElement("section");\n    section.id = "approved-mascot-scene";\n    section.className = `section approved-mascot-scene ${extraClass}`.trim();\n    section.setAttribute("aria-label", alt);\n    section.innerHTML = `<figure class="approved-mascot-card reveal"><img src="${ROOT}${file}?v=${VERSION}" alt="${alt}" width="1448" height="1086" loading="lazy" decoding="async"></figure>`;\n    return section;\n  }\n  function renderApprovedMascot() {\n    document.querySelectorAll("#mascot-guide, #approved-mascot-scene").forEach(node => node.remove());\n    const page = document.body?.dataset?.page || "";\n    if (page === "home") {\n      const [file, alt] = CORE_SCENES.home;\n      const image = document.querySelector(".home-story-main .story-photo");\n      if (!image) return;\n      image.src = `${ROOT}${file}?v=${VERSION}`; image.alt = alt; image.width = 1448; image.height = 1086;\n      image.classList.remove("mascot-v404-home-story"); image.classList.add("approved-home-mascot"); return;\n    }\n    if (CORE_SCENES[page]) {\n      const [file, alt] = CORE_SCENES[page]; const hero = document.querySelector("main .hero");\n      if (hero) hero.insertAdjacentElement("afterend", buildScene(file, alt, `approved-mascot--${page}`)); return;\n    }\n    const filename = location.pathname.split("/").pop() || "";\n    if (PRODUCT_SCENES[filename]) {\n      const [file, alt] = PRODUCT_SCENES[filename]; const hero = document.querySelector(".product-detail-hero");\n      if (hero) hero.insertAdjacentElement("afterend", buildScene(file, alt, "approved-mascot--product"));\n    }\n  }\n  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", renderApprovedMascot, {once:true}); else renderApprovedMascot();\n})();\n'''
+          core_js={
+            'home':[core['home'],'仙加味小老闆首頁品牌主視覺'],'products':[core['products'],'仙加味龜鹿系列全系列比較'],
+            'choose':[core['choose'],'怎麼選：依使用方式選擇產品型態'],'combo':[core['combo'],'仙加味套餐搭配與料理組合'],
+            'guide':[core['guide'],'仙加味產品怎麼使用'],'recipes':[core['recipes'],'仙加味料理搭配'],
+            'brand':[core['brand'],'仙加味品牌故事'],'faq':[core['faq'],'仙加味常見問題'],
+            'contact':[core['contact'],'聯絡仙加味與加入官方 LINE']}
+          product_js={k:[v,{
+            'product-guilu-gao.html':'龜鹿膏100g小老闆產品情境','product-guilu-drink-30cc.html':'龜鹿飲30cc小老闆產品情境',
+            'product-guilu-drink-180cc.html':'龜鹿飲180cc鋁袋小老闆產品情境','product-guilu-tangkuai.html':'龜鹿湯塊75g小老闆產品情境',
+            'product-guilu-jiao.html':'龜鹿膠600g小老闆產品情境','product-luerong-fen.html':'鹿茸粉75g小老闆產品情境'}[k]] for k,v in products.items()}
+          js=js.replace('__CORE__',json.dumps(core_js,ensure_ascii=False)).replace('__PRODUCTS__',json.dumps(product_js,ensure_ascii=False))
+          Path('approved-mascot-v405.js').write_text(js,encoding='utf-8')
+
+          manifest={'version':version,'resolution':'at least 1400x1000','rules':['15張依頁面功能獨立配置','完整顯示、不裁切、不拉伸、不重畫產品包裝','產品卡與主要產品圖維持真實產品原圖'],
+            'corePages':core,'productPages':products,'assets':assets}
+          Path('images/brand/approved-v405-manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
+
+          site=Path('site.js').read_text(encoding='utf-8').replace('405.0','405.1')
+          Path('site.js').write_text(site,encoding='utf-8')
+
+          choose=Path('choose.html').read_text(encoding='utf-8')
+          choose=choose.replace('<tr><td>完整容量即飲食補</td><td></td><td>開封即飲、居家安排</td></tr>',
+            '<tr><td>完整容量即飲食補</td><td><a href="product-guilu-drink-180cc.html">龜鹿飲180cc</a></td><td>開封即飲、居家安排</td></tr>')
+          Path('choose.html').write_text(choose,encoding='utf-8')
+
+          index=Path('index.html').read_text(encoding='utf-8')
+          index=re.sub(r'images/brand/(?:approved-v405/[^"?]+|mascot-v404/home\.jpg|scene-brand-all\.svg)(?:\?v=[^"\']+)?',
+            f'images/brand/approved-v405/{core["home"]}?v={version}',index)
+          Path('index.html').write_text(index,encoding='utf-8')
+
+          deploy={'version':version,'updated':'2026-07-13','mascot':'15-approved-distinct-website-scenes','resolution':'1448x1086 source, high-resolution website delivery','catalog':'five-types-six-specifications'}
+          Path('deploy-version.json').write_text(json.dumps(deploy,ensure_ascii=False,indent=2),encoding='utf-8')
+          PY
+
+          rm -f temp-test.txt __DO_NOT_COMMIT_TEST__ approved-v405-assets.json
+          rm -f mascot-v404.js site-v404.css images/brand/website-mascot-manifest.json
+          rm -f images/brand/website-mascot-*.jpg
+          rm -rf images/brand/mascot-v404 tmp-v405-bundle tmp-v405-chunks tmp-v405-chunks16 tmp-v405q15chunks
+          rm -f .github/workflows/v405-force-deploy.yml .github/workflows/v405-zip-check.yml
+
+      - name: Replace broken Pages deployment
+        run: |
+          cat > .github/workflows/deploy-pages.yml <<'YAML'
+          name: Deploy 仙加味網站
+
+          on:
+            push:
+              branches: [main]
+            workflow_dispatch:
+
+          permissions:
+            contents: read
+            pages: write
+            id-token: write
+
+          concurrency:
+            group: pages
+            cancel-in-progress: true
+
+          jobs:
+            deploy:
+              runs-on: ubuntu-latest
+              environment:
+                name: github-pages
+                url: ${{ steps.deployment.outputs.page_url }}
+              steps:
+                - uses: actions/checkout@v4
+                  with:
+                    ref: main
+                - name: Verify website and 15 approved images
+                  run: |
+                    set -euo pipefail
+                    node --check site.js
+                    node --check site-core.js
+                    node --check approved-mascot-v405.js
+                    python3 - <<'PY'
+                    import json
+                    from pathlib import Path
+                    m=json.loads(Path('images/brand/approved-v405-manifest.json').read_text(encoding='utf-8'))
+                    files=set(m['corePages'].values())|set(m['productPages'].values())
+                    assert len(files)==15, files
+                    for name in files:
+                      p=Path('images/brand/approved-v405')/name
+                      assert p.is_file() and p.stat().st_size>20000, p
+                    PY
+                - name: Prepare static website
+                  run: |
+                    set -euo pipefail
+                    rm -rf _site
+                    mkdir -p _site
+                    rsync -a ./ _site/ \
+                      --exclude='.git/' --exclude='.github/' --exclude='_site/' --exclude='tools/' \
+                      --exclude='node_modules/' --exclude='assets/' --exclude='*.zip' --exclude='*.tar' \
+                      --exclude='*.tar.gz' --exclude='*.b64' --exclude='*.md' --exclude='APPLY_*' \
+                      --exclude='RUN_*' --exclude='INSTALL_*' --exclude='FIX_*'
+                    python3 - <<'PY'
+                    from pathlib import Path
+                    import json,re
+                    version='405.1'
+                    m=json.loads(Path('_site/images/brand/approved-v405-manifest.json').read_text(encoding='utf-8'))
+                    home=m['corePages']['home']
+                    for page in Path('_site').glob('*.html'):
+                      text=page.read_text(encoding='utf-8')
+                      text=re.sub(r'site\.css\?v=[^"\']+',f'site.css?v={version}',text)
+                      text=re.sub(r'site-v321\.css\?v=[^"\']+',f'site-v321.css?v={version}',text)
+                      text=re.sub(r'site\.js\?v=[^"\']+',f'site.js?v={version}',text)
+                      if page.name=='index.html':
+                        text=re.sub(r'images/brand/approved-v405/[^"?]+(?:\?v=[^"\']+)?',f'images/brand/approved-v405/{home}?v={version}',text)
+                      page.write_text(text,encoding='utf-8')
+                    PY
+                    touch _site/.nojekyll
+                    test -s _site/index.html
+                - uses: actions/configure-pages@v5
+                - uses: actions/upload-pages-artifact@v3
+                  with:
+                    path: _site
+                - name: Deploy Pages
+                  id: deployment
+                  uses: actions/deploy-pages@v4
+          YAML
+
+      - name: Validate final repository state
+        run: |
+          set -euo pipefail
+          node --check approved-mascot-v405.js
+          test "$(find images/brand/approved-v405 -maxdepth 1 -type f | wc -l)" -eq 15
+          grep -q '405.1' site.js
+          grep -q 'product-guilu-drink-180cc.html' choose.html
+          ! test -e mascot-v404.js
+          ! test -e images/brand/mascot-v404
+
+      - name: Commit directly to main
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/install-approved-v405.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "正式安裝15張核准官網小老闆圖並清理舊素材 v405.1"
+          git pull --rebase origin main
+          git push origin HEAD:main
