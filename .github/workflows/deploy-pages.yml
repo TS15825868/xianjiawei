@@ -24,9 +24,38 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v4
 
-      - name: Prepare static website
+      - name: Prepare and verify static website
         run: |
           set -euo pipefail
+          VERSION="$(python3 -c 'import json; print(json.load(open("deploy-version.json", encoding="utf-8"))["version"])')"
+          test "$VERSION" = "403.1"
+          node --check site.js
+          node --check site-core.js
+          node --check site-fix-v317.js
+          python3 -m json.tool deploy-version.json >/dev/null
+          python3 -m json.tool mascot-source-audit.json >/dev/null
+          python3 -m json.tool images/brand/website-mascot-manifest.json >/dev/null
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          manifest = json.loads(Path('images/brand/website-mascot-manifest.json').read_text(encoding='utf-8'))
+          page_map = manifest['pageMap']
+          expected_pages = {'home','products','choose','combo','guide','recipes','brand','faq','contact'}
+          if set(page_map) != expected_pages:
+              raise SystemExit(f'小老闆頁面配置錯誤：{sorted(page_map)}')
+          if len(set(page_map.values())) != len(page_map):
+              raise SystemExit('小老闆場景仍有重複')
+          for filename in page_map.values():
+              path = Path('images/brand') / filename
+              if not path.exists() or path.stat().st_size < 100000:
+                  raise SystemExit(f'場景檔案缺少或異常：{path}')
+          if manifest.get('contentOnlyPages') != ['dm','video','knowledge','hanfang-baike','sources']:
+              raise SystemExit('純內容頁配置錯誤')
+          print('九個核心頁面各一張不重複場景，五個內容頁不放大型小老闆圖')
+          PY
+
           rm -rf _site
           mkdir -p _site
           rsync -a ./ _site/ \
@@ -46,14 +75,30 @@ jobs:
             --exclude='INSTALL_*' \
             --exclude='FIX_*'
           touch _site/.nojekyll
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          version = json.loads(Path('deploy-version.json').read_text(encoding='utf-8'))['version']
+          root = Path('_site')
+          for page in root.glob('*.html'):
+              text = page.read_text(encoding='utf-8')
+              text = re.sub(r'site\.css\?v=[^"\']+', f'site.css?v={version}', text)
+              text = re.sub(r'site-v321\.css\?v=[^"\']+', f'site-v321.css?v={version}', text)
+              text = re.sub(r'site\.js\?v=[^"\']+', f'site.js?v={version}', text)
+              if page.name == 'index.html':
+                  text = re.sub(r'images/(?:hero/home-brand-guilu-series\.jpg|brand/scene-brand-all\.svg)(?:\?v=[^"\']+)?', f'images/brand/scene-brand-all.svg?v={version}', text)
+              page.write_text(text, encoding='utf-8')
+          PY
+
           test -s _site/index.html
           test -s _site/site.js
           test -s _site/site-fix-v317.js
-          test -s _site/images/hero/home-brand-guilu-series.jpg
-          test -s _site/images/brand/website-mascot-home.jpg
-          grep -q '402.0' _site/site.js
-          grep -q '402.0' _site/site-fix-v317.js
-          grep -q '"version": "402.0"' _site/deploy-version.json
+          test -s _site/images/brand/scene-brand-all.svg
+          grep -q '403.1' _site/site.js
+          grep -q '403.1' _site/site-fix-v317.js
+          grep -q 'scene-brand-all.svg?v=403.1' _site/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
