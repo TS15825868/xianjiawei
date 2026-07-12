@@ -1,12 +1,17 @@
 {
-  "version": "404.3",
+  "version": "405.0",
   "updated": "2026-07-12",
   "deploymentTrigger": "main-direct-update",
-  "mascot": "unique-user-approved-page-scenes",
+  "mascot": "approved-14-original-scenes-plus-one-missing-choose-scene",
+  "approvedOriginalCount": 14,
+  "newMissingSceneCount": 1,
   "websiteMascotScenes": ["home", "products", "choose", "combo", "guide", "recipes", "brand", "faq", "contact"],
+  "productMascotScenes": ["guilu-gao-100g", "guilu-drink-30cc", "guilu-drink-180cc", "guilu-tangkuai-75g", "guilu-jiao-600g", "luerong-fen-75g"],
   "largeMascotExcludedPages": ["dm", "video", "knowledge", "hanfang-baike", "sources"],
   "productSource": "images/products-v3",
   "productTransform": "none",
   "homeMascotCount": 1,
-  "audit": "no-duplicate-mascot-no-generated-product-packaging-visible"
+  "assetPackage": "assets/approved-v405-assets.zip",
+  "assetPackageSha256": "f37e456acd939119677fbfcaea89d82e66c67306b206e90981233c29153fdfb8",
+  "audit": "approved-scenes-no-crop-no-stretch-no-duplicate-real-product-images-remain-primary"
 }
