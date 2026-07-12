@@ -32,6 +32,34 @@ jobs:
           {
             python3 -m pip install --quiet pillow
             git show 5538b096585130dc1b9fdf7604252a17fd4717df:assets/approved-v405-assets.zip > /tmp/approved-v405-partial.zip
+            wc -c /tmp/approved-v405-partial.zip
+            python3 - <<'PY'
+            from pathlib import Path
+            import struct, zlib
+            data = Path('/tmp/approved-v405-partial.zip').read_bytes()
+            print('FIRST16', data[:16].hex())
+            pos = 0
+            entries = []
+            while True:
+                idx = data.find(b'PK\x03\x04', pos)
+                if idx < 0 or idx + 30 > len(data): break
+                (_, _, _, method, _, _, _, csize, _, nlen, xlen) = struct.unpack_from('<IHHHHHIIIHH', data, idx)
+                ns = idx + 30; ne = ns + nlen; ds = ne + xlen
+                name = data[ns:ne].decode('utf-8', 'replace')
+                if method == 0:
+                    pos = max(ds + csize, idx + 4)
+                    continue
+                if method != 8:
+                    pos = idx + 4
+                    continue
+                d = zlib.decompressobj(-15)
+                raw = d.decompress(data[ds:]) + d.flush()
+                entries.append((Path(name).name, len(raw), d.eof, raw[:12].hex()))
+                if not d.eof: break
+                consumed = (len(data)-ds)-len(d.unused_data)
+                pos = ds + consumed
+            print('ENTRIES', entries)
+            PY
             python3 tools/recover-approved-v406.py
           } > /tmp/recover-v406.log 2>&1
           code=$?
@@ -66,5 +94,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `V406_RESTORE_${process.env.RESTORE_OUTCOME.toUpperCase()} / PUBLISH_${process.env.PUBLISH_OUTCOME.toUpperCase()}\n\n\`\`\`\n${log.slice(-5000)}\n\`\`\``
+              body: `V406_RESTORE_${process.env.RESTORE_OUTCOME.toUpperCase()} / PUBLISH_${process.env.PUBLISH_OUTCOME.toUpperCase()}\n\n\`\`\`\n${log.slice(-10000)}\n\`\`\``
             });
