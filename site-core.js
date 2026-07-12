@@ -408,26 +408,19 @@ function renderPage() {
 
 
 const MASCOT_IMAGES = {
-  welcome: 'images/brand/website-mascot-home.jpg?v=403.0',
-  products: 'images/brand/website-mascot-products.jpg?v=403.0',
-  guide: 'images/brand/website-mascot-choose.jpg?v=403.0',
-  combo: 'images/brand/website-mascot-combo.jpg?v=403.0',
-  usage: 'images/brand/website-mascot-guide.jpg?v=403.0',
-  recipes: 'images/brand/website-mascot-recipes.jpg?v=403.0',
-  faq: 'images/brand/website-mascot-faq.jpg?v=403.0',
-  service: 'images/brand/website-mascot-contact.jpg?v=403.0',
-  brand: 'images/brand/website-mascot-brand.jpg?v=403.0'
+  products: 'images/brand/scene-products-all.svg?v=403.1',
+  guide: 'images/brand/scene-choose-forms.svg?v=403.1',
+  combo: 'images/brand/scene-guilu-gao-100g.svg?v=403.1',
+  usage: 'images/brand/scene-guilu-drink-180cc.svg?v=403.1',
+  recipes: 'images/brand/scene-guilu-tangkuai-75g.svg?v=403.1',
+  faq: 'images/brand/scene-luerong-fen-75g.svg?v=403.1',
+  service: 'images/brand/scene-guilu-drink-30cc.svg?v=403.1',
+  brand: 'images/brand/scene-guilu-jiao-600g.svg?v=403.1'
 };
 
 function renderMascotGuide() {
   const page = document.body?.dataset?.page || '';
   const config = {
-    home: {
-      image: 'welcome', scene: 'welcome', eyebrow: '歡迎認識仙加味',
-      title: '先從平常想怎麼使用開始',
-      text: '固定安排、方便即飲、沖泡燉湯、家庭規格或自行調飲，都可以從日常習慣開始比較。',
-      actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">認識產品</a>`
-    },
     products: {
       image: 'products', scene: 'products', eyebrow: '產品導覽',
       title: '先看產品型態，再比較規格與使用方式',
