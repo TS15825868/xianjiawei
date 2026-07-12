@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const VERSION = "404.2";
+  const VERSION = "404.3";
   const PAGES = {
     home: {
       image: "images/brand/mascot-v404/home.jpg",
@@ -93,28 +93,26 @@
     document.querySelectorAll("#mascot-guide").forEach((node) => node.remove());
     if (!config) return;
 
-    const hero = document.querySelector("main .hero");
-    if (!hero) return;
-
     if (page === "home") {
-      const heroImage = hero.querySelector("img");
-      if (heroImage) {
-        heroImage.src = `${config.image}?v=${VERSION}`;
-        heroImage.alt = "仙加味小老闆品牌入口情境";
-        heroImage.classList.add("mascot-v404-home-hero");
-        heroImage.width = 1448;
-        heroImage.height = 1086;
-      }
+      const homeImage = document.querySelector(".home-story-main .story-photo");
+      if (!homeImage) return;
+      homeImage.src = `${config.image}?v=${VERSION}`;
+      homeImage.alt = "仙加味小老闆品牌入口情境";
+      homeImage.classList.add("mascot-v404-home-story");
+      homeImage.width = 1448;
+      homeImage.height = 1086;
       return;
     }
 
+    const hero = document.querySelector("main .hero");
+    if (!hero) return;
     const section = document.createElement("section");
     section.id = "mascot-guide";
     section.className = "section mascot-guide-section mascot-guide-v404";
     section.innerHTML = `
       <article class="mascot-guide-card mascot-guide-card--${page} reveal">
         <div class="mascot-guide-card__media mascot-v404-crop mascot-v404-crop--${config.position}">
-          <img class="mascot-guide-card__image" src="${config.image}?v=${VERSION}" alt="仙加味小老闆${config.eyebrow}情境" width="1448" height="1086" loading="${page === "home" ? "eager" : "lazy"}" decoding="async">
+          <img class="mascot-guide-card__image" src="${config.image}?v=${VERSION}" alt="仙加味小老闆${config.eyebrow}情境" width="1448" height="1086" loading="lazy" decoding="async">
         </div>
         <div class="mascot-guide-card__copy">
           <p class="eyebrow">${config.eyebrow}</p>
