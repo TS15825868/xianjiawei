@@ -3,10 +3,12 @@ name: Deploy仙加味網站
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "PAGES_BUILD_STATUS.json"
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -23,6 +25,9 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
       - name: Verify website v405.0
         run: |
@@ -113,3 +118,18 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Record successful deployment
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          printf '{\n  "version": "405.0",\n  "status": "deployed",\n  "sourceSha": "%s",\n  "pageUrl": "%s",\n  "completedAt": "%s"\n}\n' \
+            "$SOURCE_SHA" "$PAGE_URL" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > PAGES_BUILD_STATUS.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add PAGES_BUILD_STATUS.json
+          git diff --cached --quiet || git commit -m "記錄官網 v405.0 成功發布"
+          git pull --rebase origin main
+          git push origin HEAD:main
