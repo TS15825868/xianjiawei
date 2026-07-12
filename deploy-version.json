@@ -1,7 +1,7 @@
 {
-  "version": "402.0",
+  "version": "403.0",
   "updated": "2026-07-12",
-  "mascot": "website-approved-original-scenes",
+  "mascot": "website-approved-original-product-scenes",
   "websiteMascotScenes": [
     "home",
     "products",
@@ -18,7 +18,7 @@
     "hanfang-baike",
     "sources"
   ],
-  "resolutionMinimum": "1200x900",
-  "lineOaAssetsRepository": "TS15825868/TS-LINE main public/mascot",
-  "audit": "approved-original-product-scenes-no-redraw-no-shape-change-no-collage-panels-home-hero-corrected"
+  "resolution": "1440x1080",
+  "productTransform": "none",
+  "audit": "corrected-file-content-mapping-no-product-redraw-no-shape-change-no-collage"
 }

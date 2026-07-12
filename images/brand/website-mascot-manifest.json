@@ -1,128 +1,96 @@
 {
-  "version": "402.0",
-  "scope": "xianjiawei/main website assets only",
-  "images": {
-    "brand": {
-      "file": "images/brand/website-mascot-brand.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 345658,
-      "edgeMean": 13.378,
-      "sha256": "2e65af7cabc256f67377b62fba8c1bffdf2957953e9c12ce5c2e9c31a531d241"
+  "version": "403.0",
+  "scope": "xianjiawei/main website mascot scenes",
+  "productTransform": "none",
+  "source": "user-approved originals",
+  "files": {
+    "scene-brand-all.svg": {
+      "file": "images/brand/scene-brand-all.svg",
+      "bytes": 490025,
+      "sha256": "2151ec85f4cb4a8fc7bc7e0b4d1116018ff0ae448cf2260ff5b66377ed499775",
+      "embeddedImage": "JPEG 1440x1080",
+      "redraw": false,
+      "shapeChange": false
     },
-    "choose": {
-      "file": "images/brand/website-mascot-choose.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 342373,
-      "edgeMean": 13.208,
-      "sha256": "dc956ddc033642084a67fc92e06b81636990ce05d4e35c5b6826babd9232e234"
+    "scene-choose-forms.svg": {
+      "file": "images/brand/scene-choose-forms.svg",
+      "bytes": 463923,
+      "sha256": "47828c2a9ad5ca0fb73ba5b98fa5e48ce9dcd0265be3dd0f03b2d68a199c51b9",
+      "embeddedImage": "JPEG 1440x1080",
+      "redraw": false,
+      "shapeChange": false
     },
-    "combo": {
-      "file": "images/brand/website-mascot-combo.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 328471,
-      "edgeMean": 12.37,
-      "sha256": "e62c9097ba65ee8ebbb795bb48e36e420b3df4f97cebf78c4d5b09b18a03c0c9"
+    "scene-guilu-drink-180cc.svg": {
+      "file": "images/brand/scene-guilu-drink-180cc.svg",
+      "bytes": 446689,
+      "sha256": "3921f90f0969d6463c0cf3d12f3b642ca4e2d109800e86de1f12c9eadcd13eb8",
+      "embeddedImage": "JPEG 1440x1080",
+      "redraw": false,
+      "shapeChange": false
     },
-    "contact": {
-      "file": "images/brand/website-mascot-contact.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 326915,
-      "edgeMean": 11.94,
-      "sha256": "65c2e433640d16d12fd198d0685af51f6f5a993af19502de4cf754ae1af5a5c3"
+    "scene-guilu-drink-30cc.svg": {
+      "file": "images/brand/scene-guilu-drink-30cc.svg",
+      "bytes": 427631,
+      "sha256": "8991402ee5d8c6ac03c91dbeb447b896627a19a70234c1a050aae5d60a1c25e4",
+      "embeddedImage": "JPEG 1440x1080",
+      "redraw": false,
+      "shapeChange": false
     },
-    "faq": {
-      "file": "images/brand/website-mascot-faq.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 355636,
-      "edgeMean": 13.94,
-      "sha256": "c8e5ec222bd853e0ed81eb0b2752b6156c0ee154b679029793952863d124e8b7"
+    "scene-guilu-gao-100g.svg": {
+      "file": "images/brand/scene-guilu-gao-100g.svg",
+      "bytes": 444795,
+      "sha256": "d45c13909d2d487e140ca916354edd175b9534c6e58a72bf46207713e68c6c38",
+      "embeddedImage": "JPEG 1440x1080",
+      "redraw": false,
+      "shapeChange": false
     },
-    "guide": {
-      "file": "images/brand/website-mascot-guide.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 313718,
-      "edgeMean": 10.213,
-      "sha256": "c6b093d173da2112da6d102c7df2f89162e1eea997265e166934e2cc45417134"
+    "scene-guilu-jiao-600g.svg": {
+      "file": "images/brand/scene-guilu-jiao-600g.svg",
+      "bytes": 469021,
+      "sha256": "b818bb96155608a7c63443af35b779a7717fa9c803bb6d7c4f568310be894cd7",
+      "embeddedImage": "JPEG 1440x1080",
+      "redraw": false,
+      "shapeChange": false
     },
-    "home": {
-      "file": "images/brand/website-mascot-home.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 361119,
-      "edgeMean": 15.732,
-      "sha256": "265992b819e30ed370ff64df7a0cec2fd4709c12d489e64f5eaca41ec81a8c40"
+    "scene-guilu-tangkuai-75g.svg": {
+      "file": "images/brand/scene-guilu-tangkuai-75g.svg",
+      "bytes": 441315,
+      "sha256": "d5f95c41105f73855c0adcbe4ca7793bdbc87c64cc82bdcf9c4e715a8e459118",
+      "embeddedImage": "JPEG 1440x1080",
+      "redraw": false,
+      "shapeChange": false
     },
-    "products": {
-      "file": "images/brand/website-mascot-products.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 364751,
-      "edgeMean": 15.58,
-      "sha256": "329c3965f4e5ca257a424016caf79bca7c95193d07737c1f15e53b565f50e9b1"
+    "scene-luerong-fen-75g.svg": {
+      "file": "images/brand/scene-luerong-fen-75g.svg",
+      "bytes": 484493,
+      "sha256": "eb5eecec370575da5541d4efa679d7279bb7e4d10de016099495814ba131b038",
+      "embeddedImage": "JPEG 1440x1080",
+      "redraw": false,
+      "shapeChange": false
     },
-    "recipes": {
-      "file": "images/brand/website-mascot-recipes.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 324512,
-      "edgeMean": 11.269,
-      "sha256": "640c69f70dbc8e7da5b67dc895e5e1b0aa39ff49291179f03479d527de87c412"
-    },
-    "dm": {
-      "file": "images/brand/website-mascot-dm.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 364751,
-      "edgeMean": 15.58,
-      "sha256": "329c3965f4e5ca257a424016caf79bca7c95193d07737c1f15e53b565f50e9b1",
-      "design": "approved-original-scene-reuse",
-      "productTransform": "none"
-    },
-    "video": {
-      "file": "images/brand/website-mascot-video.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 361119,
-      "edgeMean": 15.732,
-      "sha256": "265992b819e30ed370ff64df7a0cec2fd4709c12d489e64f5eaca41ec81a8c40",
-      "design": "approved-original-scene-reuse",
-      "productTransform": "none"
-    },
-    "knowledge": {
-      "file": "images/brand/website-mascot-knowledge.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 355636,
-      "edgeMean": 13.94,
-      "sha256": "c8e5ec222bd853e0ed81eb0b2752b6156c0ee154b679029793952863d124e8b7",
-      "design": "approved-original-scene-reuse",
-      "productTransform": "none"
-    },
-    "hanfang-baike": {
-      "file": "images/brand/website-mascot-hanfang-baike.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 342373,
-      "edgeMean": 13.208,
-      "sha256": "dc956ddc033642084a67fc92e06b81636990ce05d4e35c5b6826babd9232e234",
-      "design": "approved-original-scene-reuse",
-      "productTransform": "none"
-    },
-    "sources": {
-      "file": "images/brand/website-mascot-sources.jpg",
-      "width": 1448,
-      "height": 1086,
-      "bytes": 345658,
-      "edgeMean": 13.378,
-      "sha256": "2e65af7cabc256f67377b62fba8c1bffdf2957953e9c12ce5c2e9c31a531d241",
-      "design": "approved-original-scene-reuse",
-      "productTransform": "none"
+    "scene-products-all.svg": {
+      "file": "images/brand/scene-products-all.svg",
+      "bytes": 496667,
+      "sha256": "d5f16098649467d47e70372313e664eed9a10f6c3d881dad334b3790066eaf41",
+      "embeddedImage": "JPEG 1440x1080",
+      "redraw": false,
+      "shapeChange": false
     }
+  },
+  "pageMap": {
+    "home": "scene-brand-all.svg",
+    "products": "scene-products-all.svg",
+    "choose": "scene-choose-forms.svg",
+    "combo": "scene-guilu-jiao-600g.svg",
+    "guide": "scene-guilu-gao-100g.svg",
+    "recipes": "scene-guilu-tangkuai-75g.svg",
+    "faq": "scene-products-all.svg",
+    "contact": "scene-guilu-drink-180cc.svg",
+    "brand": "scene-brand-all.svg",
+    "dm": "scene-products-all.svg",
+    "video": "scene-guilu-drink-30cc.svg",
+    "knowledge": "scene-luerong-fen-75g.svg",
+    "hanfang-baike": "scene-choose-forms.svg",
+    "sources": "scene-brand-all.svg"
   }
 }

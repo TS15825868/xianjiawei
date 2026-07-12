@@ -408,15 +408,15 @@ function renderPage() {
 
 
 const MASCOT_IMAGES = {
-  welcome: 'images/brand/website-mascot-home.jpg?v=400.2',
-  products: 'images/brand/website-mascot-products.jpg?v=400.2',
-  guide: 'images/brand/website-mascot-choose.jpg?v=400.2',
-  combo: 'images/brand/website-mascot-combo.jpg?v=400.2',
-  usage: 'images/brand/website-mascot-guide.jpg?v=400.2',
-  recipes: 'images/brand/website-mascot-recipes.jpg?v=400.2',
-  faq: 'images/brand/website-mascot-faq.jpg?v=400.2',
-  service: 'images/brand/website-mascot-contact.jpg?v=400.2',
-  brand: 'images/brand/website-mascot-brand.jpg?v=400.2'
+  welcome: 'images/brand/website-mascot-home.jpg?v=403.0',
+  products: 'images/brand/website-mascot-products.jpg?v=403.0',
+  guide: 'images/brand/website-mascot-choose.jpg?v=403.0',
+  combo: 'images/brand/website-mascot-combo.jpg?v=403.0',
+  usage: 'images/brand/website-mascot-guide.jpg?v=403.0',
+  recipes: 'images/brand/website-mascot-recipes.jpg?v=403.0',
+  faq: 'images/brand/website-mascot-faq.jpg?v=403.0',
+  service: 'images/brand/website-mascot-contact.jpg?v=403.0',
+  brand: 'images/brand/website-mascot-brand.jpg?v=403.0'
 };
 
 function renderMascotGuide() {
