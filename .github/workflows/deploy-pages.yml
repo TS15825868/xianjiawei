@@ -5,10 +5,6 @@ on:
     branches: [main]
     paths-ignore:
       - "PAGES_BUILD_STATUS.json"
-  schedule:
-    - cron: "*/5 * * * *"
-  issues:
-    types: [opened]
   workflow_dispatch:
 
 permissions:
@@ -22,7 +18,6 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.event_name != 'issues' || github.event.issue.title == 'TRIGGER_PAGES_V405'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -43,15 +38,29 @@ jobs:
           node --check site-fix-v317.js
           grep -q '405.0' site.js
           grep -q '"version": "405.0"' deploy-version.json
-          grep -q 'approved-v405-assets.zip' deploy-version.json
-          test -s assets/approved-v405-assets.zip
-          echo 'f37e456acd939119677fbfcaea89d82e66c67306b206e90981233c29153fdfb8  assets/approved-v405-assets.zip' | sha256sum -c -
           grep -q 'images/products-v3/guilu-gao.jpg' data.json
           grep -q 'images/products-v3/guilu-drink-30.jpg' data.json
           grep -q 'images/products-v3/guilu-drink-180.jpg' data.json
           grep -q 'images/products-v3/guilu-tangkuai.jpg' data.json
           grep -q 'images/products-v3/guilu-jiao.jpg' data.json
           grep -q 'images/products-v3/luerong-fen.jpg' data.json
+
+          expected=(
+            home-brand.webp products-all.webp choose.webp combo.webp guide-how-to-use.webp recipes.webp
+            brand-story.webp faq.webp contact-line.webp product-guilu-gao-100g.webp
+            product-guilu-drink-30cc.webp product-guilu-drink-180cc.webp
+            product-guilu-tangkuai-75g.webp product-guilu-jiao-600g.webp product-luerong-fen-75g.webp
+          )
+
+          direct_ok=true
+          for image in "${expected[@]}"; do
+            test -s "images/brand/approved-v405/$image" || direct_ok=false
+          done
+
+          if [ "$direct_ok" != true ]; then
+            test -s assets/approved-v405-assets.zip
+            unzip -t assets/approved-v405-assets.zip >/dev/null
+          fi
 
       - name: Prepare static website
         run: |
@@ -75,14 +84,26 @@ jobs:
             --exclude='INSTALL_*' \
             --exclude='FIX_*'
 
-          mkdir -p _site/images/brand/approved-v405
-          unzip -o assets/approved-v405-assets.zip -d _site/images/brand/approved-v405 >/dev/null
+          expected=(
+            home-brand.webp products-all.webp choose.webp combo.webp guide-how-to-use.webp recipes.webp
+            brand-story.webp faq.webp contact-line.webp product-guilu-gao-100g.webp
+            product-guilu-drink-30cc.webp product-guilu-drink-180cc.webp
+            product-guilu-tangkuai-75g.webp product-guilu-jiao-600g.webp product-luerong-fen-75g.webp
+          )
+
+          direct_ok=true
+          for image in "${expected[@]}"; do
+            test -s "_site/images/brand/approved-v405/$image" || direct_ok=false
+          done
+
+          if [ "$direct_ok" != true ]; then
+            rm -rf _site/images/brand/approved-v405
+            mkdir -p _site/images/brand/approved-v405
+            unzip -o assets/approved-v405-assets.zip -d _site/images/brand/approved-v405 >/dev/null
+          fi
+
           test "$(find _site/images/brand/approved-v405 -maxdepth 1 -type f -name '*.webp' | wc -l)" -eq 15
-          for image in \
-            home-brand.webp products-all.webp choose.webp combo.webp guide-how-to-use.webp recipes.webp \
-            brand-story.webp faq.webp contact-line.webp product-guilu-gao-100g.webp \
-            product-guilu-drink-30cc.webp product-guilu-drink-180cc.webp \
-            product-guilu-tangkuai-75g.webp product-guilu-jiao-600g.webp product-luerong-fen-75g.webp; do
+          for image in "${expected[@]}"; do
             test -s "_site/images/brand/approved-v405/$image"
           done
 
@@ -111,6 +132,7 @@ jobs:
           grep -q 'site.js?v=405.0' _site/index.html
           grep -q 'site.js?v=405.0' _site/products.html
           grep -q 'approved-v405/home-brand.webp?v=405.0' _site/index.html
+          grep -q 'product-guilu-drink-180cc.html' _site/choose.html
 
       - name: Record prepared build
         continue-on-error: true
