@@ -1,9 +1,10 @@
 {
-  "version": "404.1",
+  "version": "404.3",
   "scope": "xianjiawei/main",
-  "mascotImages": "user-approved historical website mascot assets",
+  "mascotImages": "user-approved website mascot scenes",
   "productSource": "images/products-v3",
   "productTransform": "none",
   "generatedProductPackagingVisible": false,
-  "duplicateMascotPages": false
+  "duplicateMascotPages": false,
+  "homepageDuplicateMascot": false
 }
