@@ -1,5 +1,5 @@
 {
-  "version": "401.2",
+  "version": "402.0",
   "scope": "xianjiawei/main website assets only",
   "images": {
     "brand": {
@@ -78,41 +78,51 @@
       "file": "images/brand/website-mascot-dm.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 415508,
-      "sha256": "31de8ceb0438488789b33ae469d0945973e22e720a59ccb23ca9ad09ddfc235b",
-      "design": "integrated-scene"
+      "bytes": 364751,
+      "edgeMean": 15.58,
+      "sha256": "329c3965f4e5ca257a424016caf79bca7c95193d07737c1f15e53b565f50e9b1",
+      "design": "approved-original-scene-reuse",
+      "productTransform": "none"
     },
     "video": {
       "file": "images/brand/website-mascot-video.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 391776,
-      "sha256": "5e7f36f1b65c9b3de75feede9a982c4462300d7d6e5267cf892a7b1bc9c9846a",
-      "design": "integrated-scene"
+      "bytes": 361119,
+      "edgeMean": 15.732,
+      "sha256": "265992b819e30ed370ff64df7a0cec2fd4709c12d489e64f5eaca41ec81a8c40",
+      "design": "approved-original-scene-reuse",
+      "productTransform": "none"
     },
     "knowledge": {
       "file": "images/brand/website-mascot-knowledge.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 365826,
-      "sha256": "f4155534485273dd0bc5318fd6e5ecfa0dd859403612ca4de0ff7f65e34d9588",
-      "design": "integrated-scene"
+      "bytes": 355636,
+      "edgeMean": 13.94,
+      "sha256": "c8e5ec222bd853e0ed81eb0b2752b6156c0ee154b679029793952863d124e8b7",
+      "design": "approved-original-scene-reuse",
+      "productTransform": "none"
     },
     "hanfang-baike": {
       "file": "images/brand/website-mascot-hanfang-baike.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 412557,
-      "sha256": "4e29a226ac387dec48316a323843871c06f2f978fa3112077ef85056d74263f5",
-      "design": "integrated-scene"
+      "bytes": 342373,
+      "edgeMean": 13.208,
+      "sha256": "dc956ddc033642084a67fc92e06b81636990ce05d4e35c5b6826babd9232e234",
+      "design": "approved-original-scene-reuse",
+      "productTransform": "none"
     },
     "sources": {
       "file": "images/brand/website-mascot-sources.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 456412,
-      "sha256": "d87523e2e648ad1615ca5c5d4229d9f4ba378dcbcb19826ff298846847a59841",
-      "design": "integrated-scene"
+      "bytes": 345658,
+      "edgeMean": 13.378,
+      "sha256": "2e65af7cabc256f67377b62fba8c1bffdf2957953e9c12ce5c2e9c31a531d241",
+      "design": "approved-original-scene-reuse",
+      "productTransform": "none"
     }
   }
 }
