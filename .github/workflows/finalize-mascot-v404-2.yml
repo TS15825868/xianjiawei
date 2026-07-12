@@ -1,0 +1,178 @@
+name: Finalize mascot and product images v404.2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "RUN_FINALIZE_MASCOT_404_2.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: finalize-mascot-v404-2
+  cancel-in-progress: false
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Consolidate website to v404.2
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re, hashlib
+
+          VERSION = '404.2'
+
+          # 全頁快取版本統一，首頁移除舊的重複／錯誤產品情境圖。
+          for page in Path('.').glob('*.html'):
+              text = page.read_text(encoding='utf-8')
+              text = re.sub(r'site\.css\?v=[^"\']+', f'site.css?v={VERSION}', text)
+              text = re.sub(r'site-v321\.css\?v=[^"\']+', f'site-v321.css?v={VERSION}', text)
+              text = re.sub(r'site\.js\?v=[^"\']+', f'site.js?v={VERSION}', text)
+              text = re.sub(r'資料更新：[^<]+｜內容版本 v[^<]+', f'資料更新：2026-07-12｜內容版本 v{VERSION}', text)
+              if page.name == 'index.html':
+                  text = re.sub(r'\s*<img[^>]*class="story-photo"[^>]*>\s*', '\n', text, count=1)
+                  text = text.replace('https://ts15825868.github.io/xianjiawei/images/brand/scene-brand-all.svg?v=403.1', 'https://ts15825868.github.io/xianjiawei/images/logo.png')
+                  text = text.replace('images/brand/scene-brand-all.svg?v=403.1', 'images/logo.png')
+              page.write_text(text, encoding='utf-8')
+
+          # 載入器與專用小老闆程式版本統一。
+          site = Path('site.js').read_text(encoding='utf-8')
+          site = site.replace('404.1', VERSION).replace('403.1', VERSION)
+          Path('site.js').write_text(site, encoding='utf-8')
+
+          mascot = Path('mascot-v404.js').read_text(encoding='utf-8')
+          mascot = mascot.replace('404.1', VERSION)
+          Path('mascot-v404.js').write_text(mascot, encoding='utf-8')
+
+          css = Path('site-v404.css').read_text(encoding='utf-8')
+          css = css.replace('v404.1', 'v404.2')
+          css = re.sub(r'\n\.mascot-guide-card--recipes \.mascot-guide-card__image,.*?\n\}', '', css, count=1, flags=re.S)
+          css = re.sub(r'\n\s*\.mascot-guide-card--recipes \.mascot-guide-card__image,.*?\n\s*\}', '', css, count=1, flags=re.S)
+          Path('site-v404.css').write_text(css, encoding='utf-8')
+
+          # 九張小老闆圖必須各不相同；產品卡與產品頁只使用真實產品圖。
+          page_map = {
+              'home':'images/brand/mascot-v404/home.jpg',
+              'products':'images/brand/mascot-v404/products.jpg',
+              'choose':'images/brand/mascot-v404/choose.jpg',
+              'combo':'images/brand/mascot-v404/combo.jpg',
+              'guide':'images/brand/mascot-v404/guide.jpg',
+              'recipes':'images/brand/mascot-v404/recipes.jpg',
+              'brand':'images/brand/mascot-v404/brand.jpg',
+              'faq':'images/brand/mascot-v404/faq.jpg',
+              'contact':'images/brand/mascot-v404/contact.jpg'
+          }
+          hashes = {}
+          for name, rel in page_map.items():
+              p = Path(rel)
+              if not p.exists() or p.stat().st_size < 100000:
+                  raise SystemExit(f'小老闆圖缺少或異常：{rel}')
+              hashes[name] = hashlib.sha256(p.read_bytes()).hexdigest()
+          if len(set(hashes.values())) != 9:
+              raise SystemExit('九個核心頁面仍有重複小老闆圖')
+
+          product_map = {
+              '龜鹿膏100g':'images/products-v3/guilu-gao.jpg',
+              '龜鹿飲30cc':'images/products-v3/guilu-drink-30.jpg',
+              '龜鹿飲180cc':'images/products-v3/guilu-drink-180.jpg',
+              '龜鹿湯塊75g':'images/products-v3/guilu-tangkuai.jpg',
+              '龜鹿膠600g':'images/products-v3/guilu-jiao.jpg',
+              '鹿茸粉75g':'images/products-v3/luerong-fen.jpg'
+          }
+          for label, rel in product_map.items():
+              p = Path(rel)
+              if not p.exists() or p.stat().st_size < 30000:
+                  raise SystemExit(f'真實產品圖缺少：{label} → {rel}')
+
+          manifest = {
+              'version': VERSION,
+              'source': 'user-approved website mascot scenes',
+              'rules': [
+                  '核心九頁各使用一張不同小老闆圖',
+                  '小老闆情境圖聚焦角色，不顯示錯誤或AI重畫產品包裝',
+                  '產品卡及產品頁只使用 images/products-v3 真實產品原圖',
+                  'DM、影片、知識、漢方百科、資料來源不插入大型重複小老闆圖',
+                  '首頁移除第二張重複品牌情境圖'
+              ],
+              'pageMap': page_map,
+              'productMap': product_map,
+              'sha256': hashes
+          }
+          Path('images/brand/mascot-v404/manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          Path('images/brand/website-mascot-manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          Path('mascot-source-audit.json').write_text(json.dumps({
+              'version': VERSION,
+              'scope': 'xianjiawei/main',
+              'mascotImages': 'user-approved website mascot scenes',
+              'productSource': 'images/products-v3',
+              'productTransform': 'none',
+              'generatedProductPackagingVisible': False,
+              'duplicateMascotPages': False,
+              'homepageDuplicateMascot': False
+          }, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          Path('deploy-version.json').write_text(json.dumps({
+              'version': VERSION,
+              'updated': '2026-07-12',
+              'mascot': 'unique-user-approved-page-scenes',
+              'websiteMascotScenes': list(page_map),
+              'largeMascotExcludedPages': ['dm','video','knowledge','hanfang-baike','sources'],
+              'productSource': 'images/products-v3',
+              'productTransform': 'none',
+              'audit': 'no-duplicate-mascot-no-generated-product-packaging-visible'
+          }, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+
+          # 舊版錯誤／重複場景檔已不再使用，直接清除。
+          for old in Path('images/brand').glob('scene-*.svg'):
+              old.unlink()
+          for old in Path('images/brand').glob('website-mascot-*.jpg'):
+              old.unlink()
+
+          # 發布與驗證流程同步版本。
+          for workflow in [Path('.github/workflows/deploy-pages.yml'), Path('.github/workflows/verify-site-and-catalog.yml')]:
+              if workflow.exists():
+                  w = workflow.read_text(encoding='utf-8')
+                  w = w.replace('404.1', VERSION).replace('403.1', VERSION).replace('402.0', VERSION)
+                  workflow.write_text(w, encoding='utf-8')
+          PY
+
+      - name: Full verification
+        run: |
+          set -euo pipefail
+          node --check site.js
+          node --check site-core.js
+          node --check mascot-v404.js
+          node --check site-fix-v317.js
+          python3 -m json.tool deploy-version.json >/dev/null
+          python3 -m json.tool mascot-source-audit.json >/dev/null
+          python3 -m json.tool images/brand/mascot-v404/manifest.json >/dev/null
+          python3 tools/site_maintenance.py
+          grep -q 'site.js?v=404.2' index.html
+          grep -q '404.2' site.js
+          grep -q '404.2' mascot-v404.js
+          ! grep -q 'class="story-photo"' index.html
+          ! grep -R 'images/brand/scene-' --include='*.html' --include='*.js' .
+          test "$(find images/brand/mascot-v404 -maxdepth 1 -name '*.jpg' | wc -l | tr -d ' ')" -eq 9
+
+      - name: Commit to main and self-clean
+        run: |
+          set -euo pipefail
+          rm -f RUN_FINALIZE_MASCOT_404_2.txt
+          rm -f .github/workflows/finalize-mascot-v404-2.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "官網小老闆與真實產品圖最終整理完成 v404.2"
+          git push origin main
