@@ -1,4 +1,4 @@
-name: Apply DM originals and clear LINE buttons v406
+name: Clear LINE buttons site-wide v406.1
 
 on:
   issues:
@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   apply:
-    if: github.event.issue.title == 'APPLY_DM_AND_LINE_BUTTONS_V406'
+    if: github.event.issue.title == 'APPLY_LINE_BUTTONS_V406_1'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,33 +19,9 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Download user-provided original DM zip
-        id: download
+      - name: Update every LINE CTA and audit all buttons
         run: |
           set -euxo pipefail
-          python -m pip install --quiet gdown
-          FILE_ID='18rIWSZ4GcU-GNb8zQd8DBoA-BLpb0-yN'
-          gdown "https://drive.google.com/uc?id=${FILE_ID}" -O /tmp/dm-six-original.zip || true
-          if ! unzip -t /tmp/dm-six-original.zip >/tmp/unzip-test.log 2>&1; then
-            curl -L --retry 3 --fail "https://drive.usercontent.google.com/download?id=${FILE_ID}&export=download&confirm=t" -o /tmp/dm-six-original.zip || true
-          fi
-          unzip -t /tmp/dm-six-original.zip
-          stat -c 'DM_ZIP_BYTES=%s' /tmp/dm-six-original.zip
-
-      - name: Replace six DM originals and improve all LINE buttons
-        run: |
-          set -euxo pipefail
-          rm -rf /tmp/dm-six && mkdir -p /tmp/dm-six
-          unzip -o /tmp/dm-six-original.zip -d /tmp/dm-six
-          mkdir -p images/dm-final
-
-          cp '/tmp/dm-six/F1856479-4385-40DA-85CF-CC81A3E98FFA.jpeg' 'images/dm-final/01_guilu-gao-100g-dm.jpg'
-          cp '/tmp/dm-six/B34E1B60-A158-4ABD-94B6-CC7164094F06.jpeg' 'images/dm-final/02_guilu-drink-30cc-dm.jpg'
-          cp '/tmp/dm-six/C7982D9B-85DC-41CF-B36B-4620767592C8.jpeg' 'images/dm-final/03_guilu-drink-180cc-dm.jpg'
-          cp '/tmp/dm-six/64BAB105-BA77-49A9-9EBD-71C81EB96B60.jpeg' 'images/dm-final/04_luerong-fen-75g-dm.jpg'
-          cp '/tmp/dm-six/338673E2-C410-4986-8344-0A6ACDD2A52C.jpeg' 'images/dm-final/05_guilu-tangkuai-75g-dm.jpg'
-          cp '/tmp/dm-six/A3C1F9C0-619E-4A32-910D-5B336AD9A0CE.jpeg' 'images/dm-final/06_guilu-jiao-600g-dm.jpg'
-
           python - <<'PY'
           from pathlib import Path
           import re
@@ -53,95 +29,87 @@ jobs:
           core = Path('site-core.js')
           s = core.read_text(encoding='utf-8')
           replacements = {
-              "'看產品': 'LINE 詢問產品'": "'看產品': '前往 LINE 詢問產品'",
-              "'直接下單': 'LINE 下單'": "'直接下單': '前往 LINE 下單'",
-              "'幫我推薦': 'LINE 幫我推薦'": "'幫我推薦': '前往 LINE 請我推薦'",
-              "'搭配組合': 'LINE 詢問搭配'": "'搭配組合': '前往 LINE 詢問搭配'",
-              "'怎麼使用': 'LINE 詢問用法'": "'怎麼使用': '前往 LINE 詢問用法'",
-              "'價格方案': 'LINE 詢問價格'": "'價格方案': '前往 LINE 詢問價格'",
-              "'品牌故事': 'LINE 詢問品牌'": "'品牌故事': '前往 LINE 詢問品牌'",
-              "'人工客服': 'LINE 聯絡客服'": "'人工客服': '前往 LINE 聯絡客服'",
-              "'料理搭配': 'LINE 詢問搭配'": "'料理搭配': '前往 LINE 詢問料理搭配'",
-              "return `LINE 詢問${productName}`;": "return `前往 LINE 詢問${productName}`;",
-              "return `LINE 詢問${productName}用法`;": "return `前往 LINE 詢問${productName}用法`;",
-              "return 'LINE 選擇數量';": "return '前往 LINE 選擇數量';",
-              "return 'LINE 加入購物車';": "return '前往 LINE 加入購物車';",
-              "return 'LINE 詢問搭配';": "return '前往 LINE 詢問搭配';",
-              "return 'LINE 選擇組數';": "return '前往 LINE 選擇組數';",
-              "return 'LINE 加入組合';": "return '前往 LINE 加入組合';",
-              "`LINE ${cleaned}`": "`前往 LINE ${cleaned}`",
-              "'LINE 詢問產品';": "'前往 LINE 詢問產品';",
-              "aria-label=\"官方 LINE｜${visibleLabel}\"": "aria-label=\"將開啟官方 LINE｜${visibleLabel}\" title=\"將開啟官方 LINE\"",
-              "link.setAttribute('aria-label', `官方 LINE｜${visibleLabel}`);": "link.setAttribute('aria-label', `將開啟官方 LINE｜${visibleLabel}`);\n  link.setAttribute('title', '將開啟官方 LINE');",
-              "el.setAttribute('aria-label', `官方 LINE｜${visibleLabel}`);": "el.setAttribute('aria-label', `將開啟官方 LINE｜${visibleLabel}`);\n    el.setAttribute('title', '將開啟官方 LINE');",
+            "'看產品': 'LINE 詢問產品'": "'看產品': '前往 LINE 詢問產品'",
+            "'直接下單': 'LINE 下單'": "'直接下單': '前往 LINE 下單'",
+            "'幫我推薦': 'LINE 幫我推薦'": "'幫我推薦': '前往 LINE 請我推薦'",
+            "'搭配組合': 'LINE 詢問搭配'": "'搭配組合': '前往 LINE 詢問搭配'",
+            "'怎麼使用': 'LINE 詢問用法'": "'怎麼使用': '前往 LINE 詢問用法'",
+            "'價格方案': 'LINE 詢問價格'": "'價格方案': '前往 LINE 詢問價格'",
+            "'品牌故事': 'LINE 詢問品牌'": "'品牌故事': '前往 LINE 詢問品牌'",
+            "'人工客服': 'LINE 聯絡客服'": "'人工客服': '前往 LINE 聯絡客服'",
+            "'料理搭配': 'LINE 詢問搭配'": "'料理搭配': '前往 LINE 詢問料理搭配'",
+            "return `LINE 詢問${productName}`;": "return `前往 LINE 詢問${productName}`;",
+            "return `LINE 詢問${productName}用法`;": "return `前往 LINE 詢問${productName}用法`;",
+            "return 'LINE 選擇數量';": "return '前往 LINE 選擇數量';",
+            "return 'LINE 加入購物車';": "return '前往 LINE 加入購物車';",
+            "return 'LINE 詢問搭配';": "return '前往 LINE 詢問搭配';",
+            "return 'LINE 選擇組數';": "return '前往 LINE 選擇組數';",
+            "return 'LINE 加入組合';": "return '前往 LINE 加入組合';",
+            "`LINE ${cleaned}`": "`前往 LINE ${cleaned}`",
+            ": 'LINE 詢問產品';": ": '前往 LINE 詢問產品';",
+            "aria-label=\"官方 LINE｜${visibleLabel}\"": "aria-label=\"將開啟官方 LINE｜${visibleLabel}\" title=\"將開啟官方 LINE\"",
+            "link.setAttribute('aria-label', `官方 LINE｜${visibleLabel}`);": "link.setAttribute('aria-label', `將開啟官方 LINE｜${visibleLabel}`);\n  link.setAttribute('title', '將開啟官方 LINE');",
+            "el.setAttribute('aria-label', `官方 LINE｜${visibleLabel}`);": "el.setAttribute('aria-label', `將開啟官方 LINE｜${visibleLabel}`);\n    el.setAttribute('title', '將開啟官方 LINE');",
+            "visibleLabel.replace(/^LINE\\s*/, '')": "visibleLabel.replace(/^前往\\s+LINE\\s*/, '')"
           }
           for old, new in replacements.items():
-              s = s.replace(old, new)
+            s = s.replace(old, new)
           core.write_text(s, encoding='utf-8')
 
           css = Path('site.css')
           s = css.read_text(encoding='utf-8')
           s = re.sub(r'--linegreen:\s*#[0-9A-Fa-f]{6};', '--linegreen:#06C755;', s)
-          s = s.replace('box-shadow:none;\n}', 'box-shadow:0 8px 20px rgba(6,199,85,.20);\n}', 1)
+          if 'rgba(6,199,85' not in s:
+            s = s.replace('box-shadow:none;\n}', 'box-shadow:0 8px 20px rgba(6,199,85,.22);\n}', 1)
           css.write_text(s, encoding='utf-8')
 
-          # All DM references use a new cache version so phones do not keep the old images.
+          # Make the pre-JavaScript fallback wording explicit on every static LINE link.
           for p in Path('.').glob('*.html'):
-              text = p.read_text(encoding='utf-8')
-              text = re.sub(r'(images/dm-final/[0-9]{2}_[^\"\']+?\.jpg)\?v=[0-9.]+', r'\1?v=406.0', text)
-              p.write_text(text, encoding='utf-8')
-
-          dm = Path('dm.html')
-          text = dm.read_text(encoding='utf-8')
-          if '03_guilu-drink-180cc-dm.jpg' not in text:
-              marker = '<article class="card reveal"><img alt="龜鹿湯塊產品用途與DM"'
-              card = '''<article class="card reveal"><img alt="龜鹿飲180cc鋁袋產品用途與DM" class="dm-image-v2" decoding="async" loading="lazy" src="images/dm-final/03_guilu-drink-180cc-dm.jpg?v=406.0"/><p class="eyebrow">龜鹿飲</p><h3>龜鹿飲180cc</h3><p class="muted">規格：180cc／鋁袋</p><p>鋁袋包裝，開封即可飲用，也可依個人習慣溫熱後飲用。</p><div class="final-cta__actions"><a class="btn btn-outline dm-lightbox-link" data-dm-src="images/dm-final/03_guilu-drink-180cc-dm.jpg?v=406.0" href="images/dm-final/03_guilu-drink-180cc-dm.jpg?v=406.0">開啟DM圖</a><a class="btn btn-line" data-line-message="我要詢問【龜鹿飲180cc】" data-line-url="" href="https://lin.ee/sHZW7NkR" rel="noopener" target="_blank">前往 LINE 詢問龜鹿飲180cc</a></div></article>\n'''
-              text = text.replace(marker, card + marker)
-          dm.write_text(text, encoding='utf-8')
-
-          # Static fallback labels are also explicit before JavaScript finishes loading.
-          for p in Path('.').glob('*.html'):
-              text = p.read_text(encoding='utf-8')
-              def repl(m):
-                  attrs, label = m.group(1), m.group(2).strip()
-                  if 'data-line-url' not in attrs and 'line.me/' not in attrs and 'lin.ee/' not in attrs:
-                      return m.group(0)
-                  if 'LINE' in label:
-                      if label.startswith('前往 LINE'):
-                          new = label
-                      else:
-                          new = '前往 ' + label
-                  elif label in {'直接詢問','我要詢問','詢問客服','詢問產品'}:
-                      new = '前往 LINE 詢問'
-                  elif label:
-                      new = '前往 LINE｜' + label
-                  else:
-                      new = '前往 LINE 詢問'
-                  return '<a' + attrs + '>' + new + '</a>'
-              text = re.sub(r'<a([^>]*(?:data-line-url|line\.me/|lin\.ee/)[^>]*)>([^<]*)</a>', repl, text)
-              p.write_text(text, encoding='utf-8')
+            text = p.read_text(encoding='utf-8')
+            def repl(m):
+              attrs, label = m.group(1), m.group(2).strip()
+              if 'data-line-url' not in attrs and 'line.me/' not in attrs and 'lin.ee/' not in attrs:
+                return m.group(0)
+              if label.startswith('前往 LINE'):
+                new = label
+              elif 'LINE' in label:
+                new = '前往 ' + label
+              elif label in {'直接詢問','我要詢問','詢問客服','詢問產品','聯絡客服'}:
+                new = '前往 LINE 詢問'
+              elif label:
+                new = '前往 LINE｜' + label
+              else:
+                new = '前往 LINE 詢問'
+              if 'title=' not in attrs:
+                attrs += ' title="將開啟官方 LINE"'
+              return '<a' + attrs + '>' + new + '</a>'
+            text = re.sub(r'<a([^>]*(?:data-line-url|line\.me/|lin\.ee/)[^>]*)>([^<]*)</a>', repl, text)
+            p.write_text(text, encoding='utf-8')
           PY
 
           python - <<'PY'
-          from PIL import Image
           from pathlib import Path
-          expected = {
-            '01_guilu-gao-100g-dm.jpg': (1122,1402),
-            '02_guilu-drink-30cc-dm.jpg': (1122,1402),
-            '03_guilu-drink-180cc-dm.jpg': (1122,1402),
-            '04_luerong-fen-75g-dm.jpg': (1122,1402),
-            '05_guilu-tangkuai-75g-dm.jpg': (1122,1402),
-            '06_guilu-jiao-600g-dm.jpg': (1122,1402),
-          }
-          for name, size in expected.items():
-              p=Path('images/dm-final')/name
-              im=Image.open(p)
-              assert im.size == size, (name, im.size)
-          text=Path('dm.html').read_text(encoding='utf-8')
-          assert all(name in text for name in expected)
-          assert '--linegreen:#06C755;' in Path('site.css').read_text(encoding='utf-8')
-          assert '前往 LINE 詢問產品' in Path('site-core.js').read_text(encoding='utf-8')
-          print('VALIDATION_OK: 6 DM originals + clear LINE buttons')
+          import re, sys
+          core = Path('site-core.js').read_text(encoding='utf-8')
+          css = Path('site.css').read_text(encoding='utf-8')
+          assert '--linegreen:#06C755;' in css
+          assert '前往 LINE 詢問產品' in core
+          assert '前往 LINE 下單' in core
+          assert '前往 LINE 請我推薦' in core
+          bad=[]
+          total=0
+          for p in Path('.').glob('*.html'):
+            text=p.read_text(encoding='utf-8')
+            for m in re.finditer(r'<a([^>]*(?:data-line-url|line\.me/|lin\.ee/)[^>]*)>([^<]*)</a>', text):
+              total += 1
+              label=m.group(2).strip()
+              if 'LINE' not in label:
+                bad.append(f'{p}:{label}')
+          print(f'LINE_LINKS_AUDITED={total}')
+          if bad:
+            print('\n'.join(bad))
+            sys.exit('LINE link label audit failed')
+          print('LINE_BUTTON_AUDIT_OK')
           PY
 
       - name: Commit directly to main
@@ -151,7 +119,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git commit -m '更新六項產品DM原圖並明確標示全站LINE按鈕 v406.0'
+          git commit -m '全站LINE按鈕改為明確文字與LINE綠色 v406.1'
           git push origin HEAD:main
 
       - name: Trigger Pages deployment
@@ -161,32 +129,16 @@ jobs:
           sleep 3
           gh workflow run deploy-pages.yml --ref main
 
-      - name: Report success and close issue
+      - name: Report and close
         uses: actions/github-script@v7
         with:
           script: |
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: 'APPLY_DM_AND_LINE_BUTTONS_SUCCESS｜六張使用者原始DM已替換；DM總覽補回180cc；全站LINE按鈕改為LINE綠色並明確顯示「前往 LINE」。已觸發正式部署。'
-            });
-            await github.rest.issues.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              state: 'closed',
-              state_reason: 'completed'
-            });
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'LINE_BUTTONS_SUCCESS｜全站導向 LINE 的按鈕已改為 LINE 綠色，文字明確顯示「前往 LINE 詢問／下單／請我推薦」，並完成全站連結文字驗收與部署觸發。'});
+            await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,state:'closed',state_reason:'completed'});
 
       - name: Report failure
         if: failure()
         uses: actions/github-script@v7
         with:
           script: |
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: 'APPLY_DM_AND_LINE_BUTTONS_FAILURE｜更新流程失敗，請查看 Actions 紀錄；未回報完成。'
-            });
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'LINE_BUTTONS_FAILURE｜未完成，請查看本次 Actions 紀錄。'});
