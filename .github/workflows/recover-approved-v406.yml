@@ -1,10 +1,8 @@
 name: Recover approved website images v406
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/recover-approved-v406.yml"
+  issues:
+    types: [opened]
   workflow_dispatch:
 
 permissions:
@@ -16,6 +14,7 @@ concurrency:
 
 jobs:
   recover:
+    if: github.event_name == 'workflow_dispatch' || github.event.issue.title == 'INSTALL_APPROVED_V406'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout full main history
