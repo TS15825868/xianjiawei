@@ -1,0 +1,88 @@
+name: Final deploy and verify v405.1
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  actions: write
+  issues: write
+  contents: read
+
+jobs:
+  deploy:
+    if: github.event.issue.title == 'FINAL_DEPLOY_CLEAN_V405_1'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch Pages deployment and verify public website
+        id: verify
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          api="https://api.github.com/repos/${GITHUB_REPOSITORY}"
+          auth=(-H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GH_TOKEN}" -H "X-GitHub-Api-Version: 2022-11-28")
+          started="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          curl --fail-with-body -sS -X POST "${auth[@]}" "${api}/actions/workflows/deploy-pages.yml/dispatches" -d '{"ref":"main"}'
+
+          run_id=''
+          for attempt in $(seq 1 60); do
+            sleep 3
+            runs="$(curl --fail-with-body -sS "${auth[@]}" "${api}/actions/workflows/deploy-pages.yml/runs?event=workflow_dispatch&per_page=10")"
+            run_id="$(RUNS="$runs" STARTED="$started" python3 - <<'PY'
+          import json,os
+          for run in json.loads(os.environ['RUNS']).get('workflow_runs',[]):
+              if run.get('created_at','') >= os.environ['STARTED']:
+                  print(run['id']); break
+          PY
+          )"
+            [ -n "$run_id" ] && break
+          done
+          [ -n "$run_id" ]
+
+          for attempt in $(seq 1 120); do
+            run="$(curl --fail-with-body -sS "${auth[@]}" "${api}/actions/runs/${run_id}")"
+            status="$(RUN="$run" python3 -c 'import json,os; print(json.loads(os.environ["RUN"])["status"])')"
+            conclusion="$(RUN="$run" python3 -c 'import json,os; print(json.loads(os.environ["RUN"]).get("conclusion") or "")')"
+            [ "$status" = completed ] && break
+            sleep 5
+          done
+          [ "$conclusion" = success ]
+
+          base='https://ts15825868.github.io/xianjiawei'
+          stamp="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          files=(home-brand.png products-all.png choose.jpg combo.png guide-how-to-use.png recipes.png brand-story.png faq.png contact-line.png product-guilu-gao-100g.png product-guilu-drink-30cc.png product-guilu-drink-180cc.png product-guilu-tangkuai-75g.png product-guilu-jiao-600g.png product-luerong-fen-75g.png)
+          public_ok=0
+          for attempt in $(seq 1 30); do
+            curl -fsSL "${base}/index.html?final=${stamp}-${attempt}" -o /tmp/index.html || true
+            curl -fsSL "${base}/choose.html?final=${stamp}-${attempt}" -o /tmp/choose.html || true
+            curl -fsSL "${base}/site-core.js?final=${stamp}-${attempt}" -o /tmp/site-core.js || true
+            if grep -q 'site.js?v=405.1' /tmp/index.html \
+              && grep -q 'approved-v405/home-brand.png?v=405.1' /tmp/index.html \
+              && grep -q '龜鹿食補怎麼選？先看你想怎麼使用' /tmp/choose.html \
+              && grep -q 'site.js?v=405.1' /tmp/choose.html \
+              && ! grep -q 'renderMascotGuide' /tmp/site-core.js \
+              && ! grep -q 'MASCOT_IMAGES' /tmp/site-core.js; then
+              checked=0
+              for file in "${files[@]}"; do
+                curl -fsSL "${base}/images/brand/approved-v405/${file}?final=${stamp}-${attempt}" -o "/tmp/image-${checked}"
+                [ "$(wc -c < "/tmp/image-${checked}")" -gt 20000 ]
+                checked=$((checked+1))
+              done
+              [ "$checked" -eq 15 ] && public_ok=1 && break
+            fi
+            sleep 10
+          done
+          [ "$public_ok" -eq 1 ]
+          echo "FINAL_DEPLOY_PUBLIC_SUCCESS run_id=${run_id} images=15/15"
+
+      - name: Report and close issue
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          OUTCOME: ${{ steps.verify.outcome }}
+        with:
+          script: |
+            const success=process.env.OUTCOME==='success';
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:success?'FINAL_DEPLOY_PUBLIC_SUCCESS｜清理後公開官網、site-core與15張圖片全部驗收成功。':'FINAL_DEPLOY_PUBLIC_FAILURE｜請查看本次 Actions 執行紀錄。'});
+            if(success) await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,state:'closed',state_reason:'completed'});
