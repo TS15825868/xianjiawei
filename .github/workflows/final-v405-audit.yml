@@ -1,0 +1,106 @@
+name: Final v405.1 public audit
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    if: github.event.issue.title == 'FINAL_AUDIT_V405_1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Wait for deployment and verify public files
+        id: audit
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          exec > >(tee /tmp/final-audit.log) 2>&1
+          api="https://api.github.com/repos/${GITHUB_REPOSITORY}"
+          auth=(-H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${GH_TOKEN}" -H "X-GitHub-Api-Version: 2022-11-28")
+
+          echo '=== Latest Pages workflow ==='
+          run_id=''
+          for attempt in $(seq 1 40); do
+            runs="$(curl --fail-with-body -sS "${auth[@]}" "${api}/actions/workflows/deploy-pages.yml/runs?branch=main&per_page=5")" || break
+            run_id="$(RUNS="$runs" python3 - <<'PY'
+          import json, os
+          items=json.loads(os.environ['RUNS']).get('workflow_runs', [])
+          print(items[0]['id'] if items else '')
+          PY
+          )"
+            if [ -n "$run_id" ]; then
+              run="$(curl --fail-with-body -sS "${auth[@]}" "${api}/actions/runs/${run_id}")" || break
+              status="$(RUN="$run" python3 -c 'import json,os; print(json.loads(os.environ["RUN"])["status"])')"
+              conclusion="$(RUN="$run" python3 -c 'import json,os; print(json.loads(os.environ["RUN"]).get("conclusion") or "")')"
+              echo "run_id=$run_id status=$status conclusion=${conclusion:-pending}"
+              [ "$status" = completed ] && break
+            fi
+            sleep 8
+          done
+          [ -n "$run_id" ] || { echo 'ERROR: no deploy run'; exit 1; }
+          [ "${status:-}" = completed ] && [ "${conclusion:-}" = success ] || { echo 'ERROR: deploy not successful'; exit 1; }
+
+          python3 -m pip install --quiet pillow
+          base='https://ts15825868.github.io/xianjiawei'
+          stamp="$(date +%s)"
+          echo '=== Public HTML ==='
+          for attempt in $(seq 1 30); do
+            curl -fsSL "${base}/choose.html?audit=${stamp}-${attempt}" -o /tmp/choose.html || true
+            if grep -q '龜鹿食補怎麼選' /tmp/choose.html 2>/dev/null; then break; fi
+            sleep 8
+          done
+          grep -q '龜鹿食補怎麼選' /tmp/choose.html || { echo 'ERROR: public choose page is stale'; exit 1; }
+          curl -fsSL "${base}/index.html?audit=${stamp}" -o /tmp/index.html
+          grep -q '補養，是一種節奏' /tmp/index.html
+
+          echo '=== Public 15 images ==='
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path('images/brand/approved-v405-manifest.json').read_text(encoding='utf-8'))
+          names=list(data['corePages'].values())+list(data['productPages'].values())
+          assert len(names)==15 and len(set(names))==15
+          Path('/tmp/public-images.txt').write_text('\n'.join(names)+'\n')
+          PY
+          mkdir -p /tmp/public-images
+          while IFS= read -r name; do
+            curl -fsSL "${base}/images/brand/approved-v405/${name}?audit=${stamp}" -o "/tmp/public-images/${name}"
+          done < /tmp/public-images.txt
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          names=Path('/tmp/public-images.txt').read_text().splitlines()
+          for name in names:
+              path=Path('/tmp/public-images')/name
+              with Image.open(path) as image:
+                  assert image.size==(1448,1086), (name,image.size)
+              print(f'OK {name} 1448x1086 {path.stat().st_size} bytes')
+          print('PUBLIC_AUDIT_SUCCESS: 15/15 images and HTML verified')
+          PY
+
+      - name: Report audit
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          OUTCOME: ${{ steps.audit.outcome }}
+        with:
+          script: |
+            const fs = require('fs');
+            const log = fs.existsSync('/tmp/final-audit.log') ? fs.readFileSync('/tmp/final-audit.log','utf8') : 'No audit log.';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `FINAL_PUBLIC_AUDIT_${process.env.OUTCOME.toUpperCase()}\n\n\`\`\`\n${log.slice(-20000)}\n\`\`\``
+            });
