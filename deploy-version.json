@@ -1,5 +1,5 @@
 {
-  "version": "404.1",
+  "version": "404.2",
   "updated": "2026-07-12",
   "deploymentTrigger": "main-direct-update",
   "mascot": "unique-page-scenes-cropped-away-from-generated-products",
@@ -7,5 +7,6 @@
   "largeMascotExcludedPages": ["dm", "video", "knowledge", "hanfang-baike", "sources"],
   "productSource": "images/products-v3",
   "productTransform": "none",
+  "homeMascotCount": 1,
   "audit": "no-duplicate-mascot-no-generated-product-packaging-visible"
 }
