@@ -1,148 +1,57 @@
-name: Install additional website mascot scenes once
+name: Install corrected additional website mascot scenes
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "*/5 * * * *"
-  issues:
-    types: [opened]
   push:
     branches: [main]
     paths:
-      - ".additional-mascot-install-trigger"
+      - ".github/workflows/install-additional-mascot-scenes.yml"
 
 permissions:
   contents: write
 
 concurrency:
-  group: install-additional-website-mascot-scenes
+  group: install-corrected-additional-website-mascot-scenes
   cancel-in-progress: false
 
 jobs:
   install:
-    if: github.event_name != 'issues' || github.event.issue.title == 'install additional website mascot scenes v401.0'
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
-      - name: Download and install five additional mascot scenes
+
+      - name: Download corrected scene package
         run: |
           set -euo pipefail
-          curl -L --fail --retry 4 --retry-delay 3 \
-            "https://drive.usercontent.google.com/download?id=1Um4qfNjP3AF_-44_pGzJJLHkMMrIJfb8&export=download&confirm=t" \
-            -o /tmp/xianjiawei-additional-mascot-v401.zip
-          mkdir -p images/brand
-          unzip -j -o /tmp/xianjiawei-additional-mascot-v401.zip 'website-mascot-*.jpg' -d images/brand
-          python3 - <<'PY'
-          from pathlib import Path
-          import json, hashlib, re
+          curl -L --fail --retry 5 --retry-delay 3 \
+            "https://drive.google.com/uc?export=download&id=18d3HUeCNaxwvjAwdsWJUYQPBVsccX-Yi&confirm=t" \
+            -o /tmp/xjw-additional-scenes-v401.1.zip
+          unzip -t /tmp/xjw-additional-scenes-v401.1.zip
 
-          version = '401.0'
-          script = Path('site-fix-v317.js')
-          text = script.read_text(encoding='utf-8')
-          text = re.sub(r'const VERSION = "[^"]+";', f'const VERSION = "{version}";', text, count=1)
-
-          if 'website-mascot-dm.jpg' not in text:
-              insert = '''    dm: {
-              src: "images/brand/website-mascot-dm.jpg",
-              alt: "仙加味小老闆介紹產品用途與DM",
-              eyebrow: "產品用途與DM",
-              title: "每款產品都有獨立介紹圖",
-              text: "可依產品查看規格、使用方式與介紹圖，需要進一步確認時再透過官方 LINE 詢問。",
-              primary: ["看產品", "products.html"],
-              secondary: ["聯絡我們", "contact.html"]
-            },
-            video: {
-              src: "images/brand/website-mascot-video.jpg",
-              alt: "仙加味小老闆介紹觀點影片",
-              eyebrow: "觀點影片",
-              title: "依內容分類查看公開影片",
-              text: "影片不自動播放，點擊後開啟原平台；產品規格與使用方式仍以官網產品頁為準。",
-              primary: ["看產品", "products.html"],
-              secondary: ["使用方式", "guide.html"]
-            },
-            knowledge: {
-              src: "images/brand/website-mascot-knowledge.jpg",
-              alt: "仙加味小老闆介紹漢方知識館",
-              eyebrow: "漢方知識館",
-              title: "先看產品型態，再讀成分與使用方式",
-              text: "從產品學堂、漢方百科到使用方式，依問題方向進入對應內容。",
-              primary: ["漢方百科", "hanfang-baike.html"],
-              secondary: ["怎麼使用", "guide.html"]
-            },
-            "hanfang-baike": {
-              src: "images/brand/website-mascot-hanfang-baike.jpg",
-              alt: "仙加味小老闆介紹漢方百科",
-              eyebrow: "漢方百科",
-              title: "食材名稱、本草文化與品質規格分層閱讀",
-              text: "古籍文化、藥典規格與產品標示各自回答不同問題，閱讀時分開理解更清楚。",
-              primary: ["資料來源", "sources.html"],
-              secondary: ["看產品", "products.html"]
-            },
-            sources: {
-              src: "images/brand/website-mascot-sources.jpg",
-              alt: "仙加味小老闆介紹資料來源與引用原則",
-              eyebrow: "資料來源",
-              title: "古籍文化與現代藥典分開閱讀",
-              text: "資料來源用於理解文化脈絡、正式名稱與品質規格；產品資訊仍以實際標示為準。",
-              primary: ["漢方百科", "hanfang-baike.html"],
-              secondary: ["品牌故事", "brand.html"]
-            },
-          '''
-              text = text.replace('    brand: {', insert + '    brand: {', 1)
-          script.write_text(text, encoding='utf-8')
-
-          deploy_path = Path('deploy-version.json')
-          deploy = json.loads(deploy_path.read_text(encoding='utf-8'))
-          deploy['version'] = version
-          deploy['updated'] = '2026-07-12'
-          deploy['mascot'] = 'website-dedicated-high-resolution-assets-plus-content-pages'
-          deploy['websiteMascotScenes'] = [
-              'home','products','choose','combo','guide','recipes','faq','contact','brand',
-              'dm','video','knowledge','hanfang-baike','sources'
-          ]
-          deploy_path.write_text(json.dumps(deploy, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-
-          manifest_path = Path('images/brand/website-mascot-manifest.json')
-          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-          manifest['version'] = version
-          mapping = {
-              'dm':'website-mascot-dm.jpg',
-              'video':'website-mascot-video.jpg',
-              'knowledge':'website-mascot-knowledge.jpg',
-              'hanfang-baike':'website-mascot-hanfang-baike.jpg',
-              'sources':'website-mascot-sources.jpg',
-          }
-          for key, filename in mapping.items():
-              p = Path('images/brand') / filename
-              data = p.read_bytes()
-              manifest['images'][key] = {
-                  'file': str(p).replace('\\','/'),
-                  'width': 1448,
-                  'height': 1086,
-                  'bytes': len(data),
-                  'sha256': hashlib.sha256(data).hexdigest(),
-              }
-          manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-          PY
-          rm -f .additional-mascot-install-trigger
-          rm -f .github/workflows/install-additional-mascot-scenes.yml
-      - name: Verify additional images
+      - name: Install files directly into main working tree
         run: |
           set -euo pipefail
+          unzip -o /tmp/xjw-additional-scenes-v401.1.zip -d .
           for f in dm video knowledge hanfang-baike sources; do
             test -s "images/brand/website-mascot-${f}.jpg"
-            test "$(stat -c%s "images/brand/website-mascot-${f}.jpg")" -gt 100000
+            test "$(stat -c%s "images/brand/website-mascot-${f}.jpg")" -gt 250000
+            file "images/brand/website-mascot-${f}.jpg" | grep -q 'JPEG image data'
           done
-          grep -q 'const VERSION = "401.0"' site-fix-v317.js
+          grep -q 'const VERSION = "401.1"' site-fix-v317.js
           grep -q 'website-mascot-sources.jpg' site-fix-v317.js
-      - name: Commit final additional scenes to main
+          grep -q '"version": "401.1"' deploy-version.json
+          grep -q '"version": "401.1"' images/brand/website-mascot-manifest.json
+          rm -f .additional-mascot-install-trigger
+          rm -f .github/workflows/install-additional-mascot-scenes.yml
+
+      - name: Commit corrected files to main
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "補齊官網其他頁面仙加味小老闆情境圖"
+          git commit -m "補齊官網其他頁面小老闆圖並移除失敗觸發檔"
           git push origin main
