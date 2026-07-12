@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   issues:
     types: [opened]
+  push:
+    branches: [main]
+    paths:
+      - ".additional-mascot-install-trigger"
 
 permissions:
   contents: write
@@ -121,6 +125,7 @@ jobs:
               }
           manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
           PY
+          rm -f .additional-mascot-install-trigger
           rm -f .github/workflows/install-additional-mascot-scenes.yml
       - name: Verify additional images
         run: |
