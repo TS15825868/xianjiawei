@@ -1,17 +1,19 @@
 {
-  "version": "403.0",
+  "version": "403.1",
   "updated": "2026-07-12",
-  "mascot": "website-approved-original-product-scenes",
-  "websiteMascotScenes": [
+  "mascot": "website-approved-original-scenes-unique-page-map",
+  "visibleMascotPages": [
     "home",
     "products",
     "choose",
     "combo",
     "guide",
     "recipes",
-    "faq",
-    "contact",
     "brand",
+    "faq",
+    "contact"
+  ],
+  "contentOnlyPages": [
     "dm",
     "video",
     "knowledge",
@@ -20,5 +22,6 @@
   ],
   "resolution": "1440x1080",
   "productTransform": "none",
-  "audit": "corrected-file-content-mapping-no-product-redraw-no-shape-change-no-collage"
+  "duplicateVisibleScene": false,
+  "audit": "one-visible-mascot-scene-per-core-page-no-large-mascot-on-content-pages-no-product-redraw-no-shape-change"
 }
