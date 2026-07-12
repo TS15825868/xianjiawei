@@ -1,0 +1,353 @@
+name: Install approved 14 website mascot scenes v405
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "RUN_APPROVED_14_V405.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-approved-14-v405
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Download exact approved source archive
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet gdown pillow
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk >/dev/null
+          gdown --id 1FtMZhegJS2tkio_4OZgjtPBP9GixGidd -O /tmp/approved-website-mascot.zip
+          unzip -t /tmp/approved-website-mascot.zip
+          rm -rf /tmp/approved-website-mascot
+          mkdir -p /tmp/approved-website-mascot
+          unzip -o /tmp/approved-website-mascot.zip -d /tmp/approved-website-mascot >/dev/null
+          find /tmp/approved-website-mascot -type f -iname '*.png' -print | sort
+
+      - name: Install all 14 approved originals without crop or redraw
+        run: |
+          set -euo pipefail
+          SRC="$(dirname "$(find /tmp/approved-website-mascot -type f -name 'CCCF7C46-1FB1-47D3-8CC5-4FC209DED7C3.PNG' | head -n1)")"
+          test -n "$SRC"
+          OUT="images/brand/approved-v405"
+          rm -rf "$OUT"
+          mkdir -p "$OUT"
+
+          cp "$SRC/CCCF7C46-1FB1-47D3-8CC5-4FC209DED7C3.PNG" "$OUT/home-brand.png"
+          cp "$SRC/7D2D344F-15E6-4734-A496-06A51CA88E64.PNG" "$OUT/products-all.png"
+          cp "$SRC/0B096D87-8251-40D9-8986-F534D69900CD.PNG" "$OUT/guide-how-to-use.png"
+          cp "$SRC/1DB73ACE-5051-4E6D-9B60-8914A77BE4EF.PNG" "$OUT/recipes.png"
+          cp "$SRC/DCF43E0D-88CF-40C3-8C7D-726A7C252C29.PNG" "$OUT/combo.png"
+          cp "$SRC/6FB7E7F6-81D1-45DB-AF35-29B418F22B61.PNG" "$OUT/brand-story.png"
+          cp "$SRC/220827BE-A699-4CEE-8E03-93B00460BFC6.PNG" "$OUT/faq.png"
+          cp "$SRC/2992D44D-8912-4F3E-A44E-5F19C79CD4A8.PNG" "$OUT/contact-line.png"
+          cp "$SRC/F44656F6-DE44-4994-8D86-F0F65B32DBAE.PNG" "$OUT/product-guilu-gao-100g.png"
+          cp "$SRC/310D322F-7C23-465A-9B30-721C92739B1A.PNG" "$OUT/product-guilu-drink-30cc.png"
+          cp "$SRC/C62F7F09-7C89-4483-BABB-9D1FD2CEEAD6.PNG" "$OUT/product-guilu-drink-180cc.png"
+          cp "$SRC/58A23A88-E70D-42E3-AE4D-A8328D868778.PNG" "$OUT/product-guilu-tangkuai-75g.png"
+          cp "$SRC/73E8E13D-A347-4DCA-AC1F-5CC855F6C5B9.PNG" "$OUT/product-guilu-jiao-600g.png"
+          cp "$SRC/6C25417A-4CE0-4B14-B602-47F553F0EC01.PNG" "$OUT/product-luerong-fen-75g.png"
+
+          for f in "$OUT"/*.png; do
+            test "$(identify -format '%wx%h' "$f")" = "1448x1086"
+          done
+
+      - name: Build only the missing choose page scene
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageFont, ImageFilter
+
+          out = Path('images/brand/approved-v405')
+          source = Image.open(out / 'products-all.png').convert('RGB')
+          W, H = 1448, 1086
+          canvas = Image.new('RGB', (W, H), '#f5ead7')
+          draw = ImageDraw.Draw(canvas)
+
+          # warm subtle background
+          for y in range(H):
+              t = y / max(1, H - 1)
+              c1 = (248, 240, 224)
+              c2 = (229, 208, 174)
+              c = tuple(round(c1[i]*(1-t)+c2[i]*t) for i in range(3))
+              draw.line((0, y, W, y), fill=c)
+
+          # use only the approved mascot crop; no product package is included
+          mascot = source.crop((980, 70, 1448, 1086))
+          mascot = mascot.resize((455, 985), Image.Resampling.LANCZOS)
+          mask = Image.new('L', mascot.size, 0)
+          md = ImageDraw.Draw(mask)
+          md.rounded_rectangle((0, 0, mascot.width-1, mascot.height-1), 48, fill=255)
+          shadow = Image.new('RGBA', (510, 1030), (0,0,0,0))
+          sd = ImageDraw.Draw(shadow)
+          sd.rounded_rectangle((24, 24, 490, 1010), 52, fill=(70,45,25,75))
+          shadow = shadow.filter(ImageFilter.GaussianBlur(18))
+          canvas.paste(shadow.convert('RGB'), (914, 28))
+          canvas.paste(mascot, (938, 48), mask)
+
+          font_candidates = [
+              '/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc',
+              '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc',
+          ]
+          def font(size, bold=False):
+              path = font_candidates[0 if bold else 1]
+              return ImageFont.truetype(path, size)
+
+          navy = '#0b1f3b'
+          red = '#8b2e24'
+          brown = '#5f402a'
+          draw.rounded_rectangle((72, 58, 870, 188), 28, fill='#fffaf0', outline='#c79e62', width=3)
+          draw.text((110, 73), '怎麼選', font=font(72, True), fill=navy)
+          draw.text((110, 151), '依日常使用方式，選擇適合的產品型態', font=font(27), fill=brown)
+
+          cards = [
+              ('固定日常取用', '龜鹿膏', '小匙取用或熱水化開'),
+              ('方便即飲', '龜鹿飲', '30cc玻璃瓶或180cc鋁袋'),
+              ('沖泡或燉湯', '龜鹿湯塊・龜鹿膠', '熱水、保溫壺或家常湯品'),
+              ('自行搭配調飲', '鹿茸粉', '溫開水、牛奶或豆漿'),
+          ]
+          y = 235
+          for idx, (title, product, desc) in enumerate(cards, 1):
+              draw.rounded_rectangle((72, y, 870, y+166), 26, fill='#fffdf8', outline='#d6b47d', width=3)
+              draw.ellipse((98, y+38, 178, y+118), fill=red)
+              n = str(idx)
+              nb = draw.textbbox((0,0), n, font=font(36, True))
+              draw.text((138-(nb[2]-nb[0])/2, y+78-(nb[3]-nb[1])/2), n, font=font(36, True), fill='white')
+              draw.text((205, y+26), title, font=font(36, True), fill=navy)
+              draw.text((205, y+77), product, font=font(30, True), fill=red)
+              draw.text((205, y+120), desc, font=font(23), fill=brown)
+              y += 184
+
+          draw.rounded_rectangle((72, 985, 870, 1050), 20, fill=navy)
+          footer = '產品包裝、規格與外觀，請以官網真實產品原圖為準'
+          fb = draw.textbbox((0,0), footer, font=font(24, True))
+          draw.text(((72+870-(fb[2]-fb[0]))/2, 999), footer, font=font(24, True), fill='white')
+
+          canvas.save(out / 'choose.png', 'PNG', optimize=True)
+          PY
+          test "$(identify -format '%wx%h' images/brand/approved-v405/choose.png)" = "1448x1086"
+
+      - name: Install unique page mapping and product-page scenes
+        run: |
+          set -euo pipefail
+          cat > approved-mascot-v405.js <<'JS'
+          "use strict";
+          (() => {
+            const VERSION = "405.0";
+            const ROOT = "images/brand/approved-v405/";
+            const CORE = {
+              home: ["home-brand.png", "首頁品牌主視覺", "品牌入口與全系列陪伴"],
+              products: ["products-all.png", "產品總覽", "全系列產品與規格比較"],
+              choose: ["choose.png", "怎麼選", "依使用方式選擇產品型態"],
+              combo: ["combo.png", "套餐搭配", "依需求搭配料理與日常使用"],
+              guide: ["guide-how-to-use.png", "怎麼使用", "五種使用方式一次整理"],
+              recipes: ["recipes.png", "料理搭配", "燉湯、熱飲與日常料理"],
+              brand: ["brand-story.png", "品牌故事", "從萬華開始的四代工序"],
+              faq: ["faq.png", "常見問題", "產品、使用、購買與配送整理"],
+              contact: ["contact-line.png", "聯絡我們", "加入官方 LINE 與門市服務"]
+            };
+            const PRODUCTS = {
+              "product-guilu-gao.html": ["product-guilu-gao-100g.png", "龜鹿膏100g情境介紹"],
+              "product-guilu-drink-30cc.html": ["product-guilu-drink-30cc.png", "龜鹿飲30cc情境介紹"],
+              "product-guilu-drink-180cc.html": ["product-guilu-drink-180cc.png", "龜鹿飲180cc鋁袋情境介紹"],
+              "product-guilu-tangkuai.html": ["product-guilu-tangkuai-75g.png", "龜鹿湯塊75g情境介紹"],
+              "product-guilu-jiao.html": ["product-guilu-jiao-600g.png", "龜鹿膠600g情境介紹"],
+              "product-luerong-fen.html": ["product-luerong-fen-75g.png", "鹿茸粉75g情境介紹"]
+            };
+
+            function scene(file, eyebrow, title, extraClass="") {
+              const section = document.createElement("section");
+              section.id = "approved-mascot-scene";
+              section.className = `section approved-mascot-scene ${extraClass}`;
+              section.innerHTML = `<article class="card approved-mascot-card reveal">
+                <img src="${ROOT}${file}?v=${VERSION}" alt="${title}" width="1448" height="1086" loading="lazy" decoding="async">
+                <div class="approved-mascot-copy"><p class="eyebrow">${eyebrow}</p><h2>${title}</h2></div>
+              </article>`;
+              return section;
+            }
+
+            function render() {
+              document.querySelectorAll("#mascot-guide,#approved-mascot-scene").forEach(n => n.remove());
+              const page = document.body?.dataset?.page || "";
+              if (page === "home") {
+                const cfg = CORE.home;
+                const img = document.querySelector(".home-story-main .story-photo");
+                if (img) {
+                  img.src = `${ROOT}${cfg[0]}?v=${VERSION}`;
+                  img.alt = cfg[1];
+                  img.width = 1448;
+                  img.height = 1086;
+                  img.classList.add("approved-home-mascot");
+                }
+                return;
+              }
+              if (CORE[page]) {
+                const cfg = CORE[page];
+                const hero = document.querySelector("main .hero");
+                if (hero) hero.insertAdjacentElement("afterend", scene(cfg[0], cfg[1], cfg[2], `approved-mascot--${page}`));
+                return;
+              }
+              const filename = location.pathname.split("/").pop() || "";
+              if (PRODUCTS[filename]) {
+                const cfg = PRODUCTS[filename];
+                const hero = document.querySelector(".product-detail-hero");
+                if (hero) hero.insertAdjacentElement("afterend", scene(cfg[0], "仙加味小老闆產品情境", cfg[1], "approved-mascot--product"));
+              }
+            }
+
+            if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", render, {once:true});
+            else render();
+          })();
+          JS
+
+          cat > site-v405.css <<'CSS'
+          /* v405.0：核准原圖完整呈現，不裁切、不變形；產品原圖仍由 products-v3 提供。 */
+          #mascot-guide { display: none !important; }
+          .approved-mascot-card { overflow: hidden; padding: 0; }
+          .approved-mascot-card > img {
+            width: 100%; height: auto; aspect-ratio: 1448 / 1086;
+            object-fit: contain; display: block; background: #efe2cc;
+          }
+          .approved-mascot-copy { padding: 22px 26px 26px; }
+          .approved-mascot-copy h2 { margin: 4px 0 0; }
+          .home-story-main .approved-home-mascot {
+            width: 100%; height: auto; aspect-ratio: 1448 / 1086;
+            object-fit: contain; object-position: center; transform: none !important; display: block;
+          }
+          .approved-mascot--product { padding-top: 24px; }
+          @media (max-width: 760px) {
+            .approved-mascot-copy { padding: 18px; }
+            .approved-mascot-card > img,
+            .home-story-main .approved-home-mascot { transform: none !important; }
+          }
+          CSS
+
+          cat > site.js <<'JS'
+          "use strict";
+          // v405.0：只載入一套官網核心與一套核准小老闆素材，避免重複。
+          document.write('<link rel="stylesheet" href="site-v321.css?v=405.0" data-site-version="405.0">');
+          document.write('<link rel="stylesheet" href="site-v405.css?v=405.0" data-approved-mascot-version="405.0">');
+          document.write('<script src="site-core.js?v=405.0"><\/script>');
+          document.write('<script src="approved-mascot-v405.js?v=405.0"><\/script>');
+          JS
+          printf '%s\n' '"use strict";' '// v405.0：舊版小老闆自動插入停用。' > site-fix-v317.js
+
+      - name: Update all page cache references and home image
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, json
+          version = '405.0'
+          for page in Path('.').glob('*.html'):
+              text = page.read_text(encoding='utf-8')
+              text = re.sub(r'(site\.css\?v=)[^"\']+', rf'\g<1>{version}', text)
+              text = re.sub(r'(site-v321\.css\?v=)[^"\']+', rf'\g<1>{version}', text)
+              text = re.sub(r'(site\.js\?v=)[^"\']+', rf'\g<1>{version}', text)
+              if page.name == 'index.html':
+                  text = re.sub(r'src="images/brand/[^"?]+(?:\?v=[^"]+)?"(?= class="story-photo)',
+                                f'src="images/brand/approved-v405/home-brand.png?v={version}"', text)
+                  text = text.replace('https://ts15825868.github.io/xianjiawei/images/brand/scene-brand-all.svg?v=403.1',
+                                      'https://ts15825868.github.io/xianjiawei/images/logo.png')
+              page.write_text(text, encoding='utf-8')
+
+          manifest = {
+            'version': version,
+            'source': '網站專用小老闆圖(1).zip approved originals',
+            'imagePolicy': '14 approved originals shown in full; no crop, redraw or shape change',
+            'productPhotoSource': 'images/products-v3',
+            'corePageMap': {
+              'home':'home-brand.png','products':'products-all.png','choose':'choose.png','combo':'combo.png',
+              'guide':'guide-how-to-use.png','recipes':'recipes.png','brand':'brand-story.png','faq':'faq.png','contact':'contact-line.png'
+            },
+            'productPageMap': {
+              'product-guilu-gao.html':'product-guilu-gao-100g.png',
+              'product-guilu-drink-30cc.html':'product-guilu-drink-30cc.png',
+              'product-guilu-drink-180cc.html':'product-guilu-drink-180cc.png',
+              'product-guilu-tangkuai.html':'product-guilu-tangkuai-75g.png',
+              'product-guilu-jiao.html':'product-guilu-jiao-600g.png',
+              'product-luerong-fen.html':'product-luerong-fen-75g.png'
+            },
+            'contentOnlyPages':['dm','video','knowledge','hanfang-baike','sources']
+          }
+          Path('images/brand/approved-v405/manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          Path('deploy-version.json').write_text(json.dumps({
+            'version':version,'updated':'2026-07-12','mascot':'approved-14-originals-plus-dedicated-choose',
+            'productSource':'images/products-v3','productTransform':'none','duplicateVisibleScene':False
+          }, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+          PY
+
+      - name: Remove superseded cropped mascot package
+        run: |
+          set -euo pipefail
+          rm -rf images/brand/mascot-v404
+          rm -f mascot-v404.js site-v404.css
+
+      - name: Update Pages verification
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('.github/workflows/deploy-pages.yml')
+          text = p.read_text(encoding='utf-8')
+          start = text.index('      - name: Verify website')
+          end = text.index('      - name: Prepare static website', start)
+          block = '''      - name: Verify website v405.0
+        run: |
+          set -euo pipefail
+          node --check site.js
+          node --check site-core.js
+          node --check approved-mascot-v405.js
+          node --check site-fix-v317.js
+          grep -q '405.0' site.js
+          grep -q 'site.js?v=405.0' index.html
+          grep -q 'approved-v405/home-brand.png?v=405.0' index.html
+          grep -q '"version": "405.0"' deploy-version.json
+          test "$(find images/brand/approved-v405 -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 15
+          for f in images/brand/approved-v405/*.png; do
+            test "$(identify -format '%wx%h' "$f")" = "1448x1086"
+          done
+          grep -q 'images/products-v3/guilu-gao.jpg' data.json
+          grep -q 'images/products-v3/guilu-drink-30.jpg' data.json
+          grep -q 'images/products-v3/guilu-drink-180.jpg' data.json
+          grep -q 'images/products-v3/guilu-tangkuai.jpg' data.json
+          grep -q 'images/products-v3/guilu-jiao.jpg' data.json
+          grep -q 'images/products-v3/luerong-fen.jpg' data.json
+
+'''
+          text = text[:start] + block + text[end:]
+          text = text.replace('test -s _site/mascot-v404.js', 'test -s _site/approved-mascot-v405.js')
+          text = text.replace('test -s _site/images/brand/mascot-v404/home.jpg', 'test -s _site/images/brand/approved-v405/home-brand.png')
+          p.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Final audit and commit directly to main
+        run: |
+          set -euo pipefail
+          node --check site.js
+          node --check site-core.js
+          node --check approved-mascot-v405.js
+          python3 -m json.tool deploy-version.json >/dev/null
+          python3 -m json.tool images/brand/approved-v405/manifest.json >/dev/null
+          test "$(find images/brand/approved-v405 -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 15
+          test "$(grep -Rho 'approved-v405/[A-Za-z0-9._-]*\.png' approved-mascot-v405.js index.html | sort -u | wc -l)" -eq 15
+          rm -f RUN_APPROVED_14_V405.txt .github/workflows/install-approved-14-v405.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "完整套用14張核准官網小老闆原圖 v405.0"
+          git push origin main
