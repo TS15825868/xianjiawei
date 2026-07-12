@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderFloatingLineCta();
     hydrateStaticFields();
     renderPage();
-    renderMascotGuide();
     initReveal();
     bindGlobalEvents();
   } catch (err) {
@@ -407,91 +406,7 @@ function renderPage() {
 }
 
 
-const MASCOT_IMAGES = {
-  products: 'images/brand/scene-products-all.svg?v=403.1',
-  guide: 'images/brand/scene-choose-forms.svg?v=403.1',
-  combo: 'images/brand/scene-guilu-gao-100g.svg?v=403.1',
-  usage: 'images/brand/scene-guilu-drink-180cc.svg?v=403.1',
-  recipes: 'images/brand/scene-guilu-tangkuai-75g.svg?v=403.1',
-  faq: 'images/brand/scene-luerong-fen-75g.svg?v=403.1',
-  service: 'images/brand/scene-guilu-drink-30cc.svg?v=403.1',
-  brand: 'images/brand/scene-guilu-jiao-600g.svg?v=403.1'
-};
-
-function renderMascotGuide() {
-  const page = document.body?.dataset?.page || '';
-  const config = {
-    products: {
-      image: 'products', scene: 'products', eyebrow: '產品導覽',
-      title: '先看產品型態，再比較規格與使用方式',
-      text: '龜鹿膏、龜鹿飲30cc、龜鹿飲180cc鋁袋、龜鹿湯塊、龜鹿膠與鹿茸粉，各有不同的日常使用情境。',
-      actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="choose.html">怎麼選</a>`
-    },
-    choose: {
-      image: 'guide', scene: 'guide', eyebrow: '怎麼選',
-      title: '依使用情境比較，比只看品名更清楚',
-      text: '想固定取用、方便即飲、沖泡燉湯、家庭使用或自行調飲，都能找到相對應的產品型態。',
-      actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">看全部產品</a>`
-    },
-    combo: {
-      image: 'combo', scene: 'combo', eyebrow: '搭配組合',
-      title: '依生活節奏查看適合的產品搭配',
-      text: '先看產品型態、使用方式與份量，再依實際需求選擇組合；價格與活動以正式方案為準。',
-      actions: `${lineButton('搭配組合', '搭配組合')}<a class="btn btn-outline" href="products.html">先看產品</a>`
-    },
-    guide: {
-      image: 'usage', scene: 'usage', eyebrow: '使用方式',
-      title: '沖泡、即飲與燉湯方式一次整理',
-      text: '依產品型態查看取用方式、使用時段、搭配方式與保存資訊。',
-      actions: `${lineButton('怎麼使用', '怎麼使用')}<a class="btn btn-outline" href="faq.html">常見問題</a>`
-    },
-    recipes: {
-      image: 'recipes', scene: 'recipes', eyebrow: '料理搭配',
-      title: '讓產品自然放進熟悉的飲食節奏',
-      text: '從熱飲、調飲到家常燉湯，依產品型態查看適合的料理與搭配方式。',
-      actions: `${lineButton('料理搭配', '料理搭配')}<a class="btn btn-outline" href="guide.html">使用方式</a>`
-    },
-    brand: {
-      image: 'brand', scene: 'brand', eyebrow: '品牌故事',
-      title: '從萬華出發，延續四代對工序與信用的重視',
-      text: '把多年累積的原料與龜鹿工序經驗，整理成今天容易理解的產品資訊。',
-      actions: `${lineButton('看產品', '看產品')}<a class="btn btn-outline" href="contact.html">聯絡我們</a>`
-    },
-    faq: {
-      image: 'faq', scene: 'faq', eyebrow: '常見問題',
-      title: '產品差異、使用方式與購買流程一次整理',
-      text: '需要確認規格、數量、配送或付款方式時，可再由官方 LINE 協助。',
-      actions: `${lineButton('人工客服', '人工客服')}<a class="btn btn-outline" href="products.html">看產品</a>`
-    },
-    contact: {
-      image: 'service', scene: 'service', eyebrow: '門市與官方 LINE',
-      title: '留下想了解的產品、規格或取貨方式',
-      text: '我們會依實際庫存、配送與門市安排協助確認。',
-      actions: `${lineButton('人工客服', '人工客服')}<a class="btn btn-outline" href="#store-info">門市資訊</a>`
-    }
-  }[page];
-
-  if (!config || document.getElementById('mascot-guide')) return;
-  const hero = document.querySelector('main .hero');
-  if (!hero) return;
-  const section = document.createElement('section');
-  section.id = 'mascot-guide';
-  section.className = 'section mascot-guide-section';
-  section.innerHTML = `
-    <article class="mascot-guide-card mascot-guide-card--${config.scene} reveal">
-      <div class="mascot-guide-card__media">
-        <img src="${MASCOT_IMAGES[config.image]}" alt="仙加味小老闆情境導覽" width="640" height="480" loading="${page === 'home' ? 'eager' : 'lazy'}" decoding="async">
-      </div>
-      <div class="mascot-guide-card__copy">
-        <p class="eyebrow">${config.eyebrow}</p>
-        <h2>${config.title}</h2>
-        <p>${config.text}</p>
-        <div class="hero-actions">${config.actions}</div>
-      </div>
-    </article>
-  `;
-  hero.insertAdjacentElement('afterend', section);
-}
+// v405.1：頁面小老闆情境統一由 approved-mascot-v405.js 管理。
 
 function renderHome() {
   fillProducts('home-products', SITE_DATA.products || []);
