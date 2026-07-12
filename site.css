@@ -7,7 +7,7 @@
   --brand:#0b1f3b;
   --brand-2:#1f4e79;
   --accent:#ff7a00;
-  --linegreen:#7B1E1E;
+  --linegreen:#06C755;
   --shadow:0 10px 30px rgba(0,0,0,.08);
   --shadow-strong:0 16px 38px rgba(0,0,0,.12);
   --shadow-line:none;
@@ -232,7 +232,7 @@ p{margin:0 0 12px}
   border-color:var(--linegreen);
   color:#fff;
   font-weight:900;
-  box-shadow:none;
+  box-shadow:0 8px 20px rgba(6,199,85,.22);
 }
 .btn-line:hover{
   transform:translateY(-2px);

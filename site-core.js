@@ -99,15 +99,15 @@ function normalizeLineIntent(message = '') {
 function lineIntentButtonLabel(message = '', fallbackLabel = '看產品') {
   const intent = normalizeLineIntent(message);
   const labels = {
-    '看產品': 'LINE 詢問產品',
-    '直接下單': 'LINE 下單',
-    '幫我推薦': 'LINE 幫我推薦',
-    '搭配組合': 'LINE 詢問搭配',
-    '怎麼使用': 'LINE 詢問用法',
-    '價格方案': 'LINE 詢問價格',
-    '品牌故事': 'LINE 詢問品牌',
-    '人工客服': 'LINE 聯絡客服',
-    '料理搭配': 'LINE 詢問搭配'
+    '看產品': '前往 LINE 詢問產品',
+    '直接下單': '前往 LINE 下單',
+    '幫我推薦': '前往 LINE 請我推薦',
+    '搭配組合': '前往 LINE 詢問搭配',
+    '怎麼使用': '前往 LINE 詢問用法',
+    '價格方案': '前往 LINE 詢問價格',
+    '品牌故事': '前往 LINE 詢問品牌',
+    '人工客服': '前往 LINE 聯絡客服',
+    '料理搭配': '前往 LINE 詢問料理搭配'
   };
 
   if (labels[intent]) return labels[intent];
@@ -118,16 +118,16 @@ function lineIntentButtonLabel(message = '', fallbackLabel = '看產品') {
   const product = (SITE_DATA?.products || []).find(item => item.id === productId);
   const productName = product?.displayName || product?.name || '產品';
 
-  if (action === '產品詳情') return `LINE 詢問${productName}`;
-  if (action === '使用方式') return `LINE 詢問${productName}用法`;
-  if (action === '選擇數量') return 'LINE 選擇數量';
-  if (action === '加入購物車') return 'LINE 加入購物車';
-  if (action === '搭配方案') return 'LINE 詢問搭配';
-  if (action === '搭配組數') return 'LINE 選擇組數';
-  if (action === '加入組合') return 'LINE 加入組合';
+  if (action === '產品詳情') return `前往 LINE 詢問${productName}`;
+  if (action === '使用方式') return `前往 LINE 詢問${productName}用法`;
+  if (action === '選擇數量') return '前往 LINE 選擇數量';
+  if (action === '加入購物車') return '前往 LINE 加入購物車';
+  if (action === '搭配方案') return '前往 LINE 詢問搭配';
+  if (action === '搭配組數') return '前往 LINE 選擇組數';
+  if (action === '加入組合') return '前往 LINE 加入組合';
 
   const cleaned = String(fallbackLabel || '').replace(/^LINE\s*/i, '').trim();
-  return cleaned ? (cleaned.startsWith('LINE') ? cleaned : `LINE ${cleaned}`) : 'LINE 詢問產品';
+  return cleaned ? (cleaned.startsWith('LINE') ? cleaned : `前往 LINE ${cleaned}`) : '前往 LINE 詢問產品';
 }
 
 function buildLineAutoLink(message = '看產品') {
@@ -140,7 +140,7 @@ function lineButton(label = '看產品', text = '看產品') {
   const intent = normalizeLineIntent(text);
   const url = buildLineAutoLink(intent);
   const visibleLabel = lineIntentButtonLabel(intent, label);
-  return `<a class="btn btn-line" href="${url}" target="_blank" rel="noopener" aria-label="官方 LINE｜${visibleLabel}">${visibleLabel}</a>`;
+  return `<a class="btn btn-line" href="${url}" target="_blank" rel="noopener" aria-label="將開啟官方 LINE｜${visibleLabel}" title="將開啟官方 LINE">${visibleLabel}</a>`;
 }
 
 function sourceLineText(page = '') {
@@ -200,8 +200,9 @@ function renderFloatingLineCta() {
   link.href = buildLineAutoLink(intent);
   link.target = '_blank';
   link.rel = 'noopener';
-  link.setAttribute('aria-label', `官方 LINE｜${visibleLabel}`);
-  link.innerHTML = `<span class="floating-line-cta__dot" aria-hidden="true">LINE</span><span>${visibleLabel.replace(/^LINE\s*/, '')}</span>`;
+  link.setAttribute('aria-label', `將開啟官方 LINE｜${visibleLabel}`);
+  link.setAttribute('title', '將開啟官方 LINE');
+  link.innerHTML = `<span class="floating-line-cta__dot" aria-hidden="true">LINE</span><span>${visibleLabel.replace(/^前往\s+LINE\s*/, '')}</span>`;
   document.body.appendChild(link);
 }
 
@@ -211,7 +212,8 @@ function hydrateStaticFields() {
     const visibleLabel = lineIntentButtonLabel(msg, el.textContent || '看產品');
     el.setAttribute('href', buildLineAutoLink(msg));
     el.textContent = visibleLabel;
-    el.setAttribute('aria-label', `官方 LINE｜${visibleLabel}`);
+    el.setAttribute('aria-label', `將開啟官方 LINE｜${visibleLabel}`);
+    el.setAttribute('title', '將開啟官方 LINE');
   });
 
   document.querySelectorAll('[data-line-id]').forEach(el => {
