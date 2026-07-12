@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "RUN_MASCOT_V404_APPROVED.txt"
+  schedule:
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
