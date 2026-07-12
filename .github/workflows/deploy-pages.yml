@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -23,50 +23,21 @@ jobs:
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
 
-      - name: Automatically install approved 14-image package when needed
-        shell: bash
-        run: |
-          set -euo pipefail
-          CURRENT="$(python3 -c 'import json; print(json.load(open("deploy-version.json", encoding="utf-8")).get("version", ""))')"
-          if [ "$CURRENT" != "405.0" ]; then
-            python3 -m pip install --quiet gdown pillow
-            sudo apt-get update -qq
-            sudo apt-get install -y -qq fonts-noto-cjk >/dev/null
-            gdown --id 1FtMZhegJS2tkio_4OZgjtPBP9GixGidd -O /tmp/approved-website-mascot.zip
-            unzip -t /tmp/approved-website-mascot.zip
-            python3 tools/install_approved_mascot_v405.py
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -A
-            git commit -m "完整套用14張核准官網小老闆原圖 v405.0"
-            git push origin main
-          fi
-
-      - name: Verify website v405.0
+      - name: Verify website v404.3
         run: |
           set -euo pipefail
           node --check site.js
           node --check site-core.js
-          node --check approved-mascot-v405.js
+          node --check mascot-v404.js
           node --check site-fix-v317.js
-          grep -q '405.0' site.js
-          grep -q 'site.js?v=405.0' index.html
-          grep -q 'approved-v405/home-brand.png?v=405.0' index.html
-          grep -q '"version": "405.0"' deploy-version.json
-          test "$(find images/brand/approved-v405 -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 15
-          python3 - <<'PY'
-          from pathlib import Path
-          from PIL import Image
-          files=list(Path('images/brand/approved-v405').glob('*.png'))
-          assert len(files)==15, len(files)
-          for f in files:
-              with Image.open(f) as im:
-                  assert im.size==(1448,1086), (f,im.size)
-          PY
+          grep -q '404.3' site.js
+          grep -q 'site.js?v=404.3' index.html
+          grep -q 'images/brand/mascot-v404/home.jpg?v=404.3' index.html
+          grep -q '"version": "404.3"' deploy-version.json
+          for page in home products choose combo guide recipes brand faq contact; do
+            test -s "images/brand/mascot-v404/${page}.jpg"
+          done
           grep -q 'images/products-v3/guilu-gao.jpg' data.json
           grep -q 'images/products-v3/guilu-drink-30.jpg' data.json
           grep -q 'images/products-v3/guilu-drink-180.jpg' data.json
@@ -95,13 +66,29 @@ jobs:
             --exclude='RUN_*' \
             --exclude='INSTALL_*' \
             --exclude='FIX_*'
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          version='404.3'
+          for page in Path('_site').glob('*.html'):
+              text=page.read_text(encoding='utf-8')
+              text=re.sub(r'site\.css\?v=[^"\']+',f'site.css?v={version}',text)
+              text=re.sub(r'site-v321\.css\?v=[^"\']+',f'site-v321.css?v={version}',text)
+              text=re.sub(r'site\.js\?v=[^"\']+',f'site.js?v={version}',text)
+              if page.name=='index.html':
+                  text=text.replace('images/brand/scene-brand-all.svg?v=403.1','images/brand/mascot-v404/home.jpg?v=404.3')
+                  text=text.replace('images/brand/scene-brand-all.svg?v=404.2','images/brand/mascot-v404/home.jpg?v=404.3')
+              page.write_text(text,encoding='utf-8')
+          PY
+
           touch _site/.nojekyll
           test -s _site/index.html
           test -s _site/site.js
-          test -s _site/approved-mascot-v405.js
-          test -s _site/images/brand/approved-v405/home-brand.png
-          grep -q 'site.js?v=405.0' _site/index.html
-          grep -q 'site.js?v=405.0' _site/products.html
+          test -s _site/mascot-v404.js
+          test -s _site/images/brand/mascot-v404/home.jpg
+          grep -q 'site.js?v=404.3' _site/index.html
+          grep -q 'site.js?v=404.3' _site/products.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
