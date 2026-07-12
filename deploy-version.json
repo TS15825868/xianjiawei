@@ -1,6 +1,7 @@
 {
   "version": "404.1",
   "updated": "2026-07-12",
+  "deploymentTrigger": "main-direct-update",
   "mascot": "unique-page-scenes-cropped-away-from-generated-products",
   "websiteMascotScenes": ["home", "products", "choose", "combo", "guide", "recipes", "brand", "faq", "contact"],
   "largeMascotExcludedPages": ["dm", "video", "knowledge", "hanfang-baike", "sources"],
