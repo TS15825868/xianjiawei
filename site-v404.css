@@ -1,4 +1,7 @@
 /* v404.3：每頁一張小老闆情境，聚焦角色；產品只使用 products-v3 真實原圖。 */
+#mascot-guide:not(.mascot-guide-v404) {
+  display: none !important;
+}
 .mascot-guide-v404 .mascot-guide-card__media {
   position: relative;
   overflow: hidden;
