@@ -1,0 +1,304 @@
+name: Install mascot standard v404
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "RUN_MASCOT_V404.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-mascot-v404
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Download user approved source ZIP
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet gdown pillow
+          gdown --id 1FtMZhegJS2tkio_4OZgjtPBP9GixGidd -O /tmp/mascot-v404.zip
+          unzip -t /tmp/mascot-v404.zip
+          rm -rf /tmp/mascot-v404
+          mkdir -p /tmp/mascot-v404
+          unzip -o /tmp/mascot-v404.zip -d /tmp/mascot-v404 >/dev/null
+          find /tmp/mascot-v404 -type f -name '*.PNG' | sort
+
+      - name: Build unique page scenes without incorrect product packages
+        run: |
+          set -euo pipefail
+          mkdir -p images/brand/mascot-v404
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageFilter
+
+          src_root = Path('/tmp/mascot-v404/網站專用小老闆圖')
+          out_root = Path('images/brand/mascot-v404')
+          out_root.mkdir(parents=True, exist_ok=True)
+
+          jobs = {
+              'home.jpg': ('CCCF7C46-1FB1-47D3-8CC5-4FC209DED7C3.PNG', (0, 0, 1448, 680)),
+              'products.jpg': ('7D2D344F-15E6-4734-A496-06A51CA88E64.PNG', (0, 0, 1448, 560)),
+              'choose.jpg': ('0B096D87-8251-40D9-8986-F534D69900CD.PNG', None),
+              'combo.jpg': ('F44656F6-DE44-4994-8D86-F0F65B32DBAE.PNG', (760, 0, 1448, 1086)),
+              'guide.jpg': ('310D322F-7C23-465A-9B30-721C92739B1A.PNG', (760, 0, 1448, 1086)),
+              'recipes.jpg': ('1DB73ACE-5051-4E6D-9B60-8914A77BE4EF.PNG', None),
+              'brand.jpg': ('6FB7E7F6-81D1-45DB-AF35-29B418F22B61.PNG', None),
+              'faq.jpg': ('220827BE-A699-4CEE-8E03-93B00460BFC6.PNG', None),
+              'contact.jpg': ('2992D44D-8912-4F3E-A44E-5F19C79CD4A8.PNG', (760, 0, 1448, 800)),
+          }
+
+          def fit(im, size):
+              w, h = size
+              scale = max(w / im.width, h / im.height)
+              resized = im.resize((round(im.width * scale), round(im.height * scale)), Image.Resampling.LANCZOS)
+              left = (resized.width - w) // 2
+              top = (resized.height - h) // 2
+              return resized.crop((left, top, left + w, top + h))
+
+          def framed(im, size=(1440,1080)):
+              bg = fit(im, size).filter(ImageFilter.GaussianBlur(28))
+              bg = Image.blend(bg, Image.new('RGB', size, (36, 24, 16)), 0.20)
+              maxw, maxh = 1380, 1000
+              scale = min(maxw / im.width, maxh / im.height)
+              fg = im.resize((round(im.width * scale), round(im.height * scale)), Image.Resampling.LANCZOS)
+              x = (size[0] - fg.width) // 2
+              y = (size[1] - fg.height) // 2
+              bg.paste(fg, (x, y))
+              return bg
+
+          for out_name, (src_name, crop) in jobs.items():
+              src = src_root / src_name
+              if not src.exists():
+                  raise SystemExit(f'missing source: {src}')
+              im = Image.open(src).convert('RGB')
+              if crop:
+                  im = im.crop(crop)
+                  out = framed(im)
+              else:
+                  out = fit(im, (1440,1080))
+              out.save(out_root / out_name, 'JPEG', quality=92, optimize=True, progressive=True)
+          PY
+
+      - name: Replace duplicate and incorrect mascot wiring
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          version = '404.0'
+          core = Path('site-core.js')
+          text = core.read_text(encoding='utf-8')
+
+          block = r'''const MASCOT_IMAGES = {
+            home: 'images/brand/mascot-v404/home.jpg?v=404.0',
+            products: 'images/brand/mascot-v404/products.jpg?v=404.0',
+            choose: 'images/brand/mascot-v404/choose.jpg?v=404.0',
+            combo: 'images/brand/mascot-v404/combo.jpg?v=404.0',
+            guide: 'images/brand/mascot-v404/guide.jpg?v=404.0',
+            recipes: 'images/brand/mascot-v404/recipes.jpg?v=404.0',
+            brand: 'images/brand/mascot-v404/brand.jpg?v=404.0',
+            faq: 'images/brand/mascot-v404/faq.jpg?v=404.0',
+            contact: 'images/brand/mascot-v404/contact.jpg?v=404.0'
+          };
+
+          function renderMascotGuide() {
+            const page = document.body?.dataset?.page || '';
+            const config = {
+              home: {
+                image: 'home', scene: 'home', eyebrow: '歡迎認識仙加味',
+                title: '從日常使用方式開始認識龜鹿系列',
+                text: '小老闆負責品牌導覽；所有產品外觀與規格，統一使用下方真實產品原圖呈現。',
+                actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">認識產品</a>`
+              },
+              products: {
+                image: 'products', scene: 'products', eyebrow: '產品總覽',
+                title: '小老闆負責導覽，產品以真實原圖為準',
+                text: '龜鹿膏、龜鹿飲30cc、龜鹿飲180cc鋁袋、龜鹿湯塊、龜鹿膠與鹿茸粉，請直接查看下方產品卡。',
+                actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="choose.html">怎麼選</a>`
+              },
+              choose: {
+                image: 'choose', scene: 'choose', eyebrow: '怎麼選',
+                title: '先看使用方式，再選產品型態',
+                text: '固定取用、方便即飲、沖泡燉湯、家庭規格或自行調飲，可依生活習慣比較。',
+                actions: `${lineButton('幫我推薦', '幫我推薦')}<a class="btn btn-outline" href="products.html">看全部產品</a>`
+              },
+              combo: {
+                image: 'combo', scene: 'combo', eyebrow: '搭配組合',
+                title: '搭配依生活節奏整理，不用錯誤產品示意圖',
+                text: '組合內的每一項產品，均以產品卡與正式產品原圖為準。',
+                actions: `${lineButton('搭配組合', '搭配組合')}<a class="btn btn-outline" href="products.html">先看產品</a>`
+              },
+              guide: {
+                image: 'guide', scene: 'guide', eyebrow: '使用方式',
+                title: '沖泡、即飲與燉湯方式一次整理',
+                text: '小老闆呈現使用情境，不代替產品原圖；實際包裝請以產品頁為準。',
+                actions: `${lineButton('怎麼使用', '怎麼使用')}<a class="btn btn-outline" href="faq.html">常見問題</a>`
+              },
+              recipes: {
+                image: 'recipes', scene: 'recipes', eyebrow: '料理搭配',
+                title: '把龜鹿產品放回熟悉的餐桌情境',
+                text: '料理圖負責呈現燉湯與熱飲方向，產品外觀仍以正式產品原圖呈現。',
+                actions: `${lineButton('料理搭配', '料理搭配')}<a class="btn btn-outline" href="guide.html">使用方式</a>`
+              },
+              brand: {
+                image: 'brand', scene: 'brand', eyebrow: '品牌故事',
+                title: '從萬華出發，延續四代工序與信用',
+                text: '品牌頁專注講仙加味的來處、工序與日常定位，不重複產品展示。',
+                actions: `${lineButton('看產品', '看產品')}<a class="btn btn-outline" href="contact.html">聯絡我們</a>`
+              },
+              faq: {
+                image: 'faq', scene: 'faq', eyebrow: '常見問題',
+                title: '產品、使用、購買與配送問題一次整理',
+                text: 'FAQ專注回答問題，不重複產品主視覺。',
+                actions: `${lineButton('人工客服', '人工客服')}<a class="btn btn-outline" href="products.html">看產品</a>`
+              },
+              contact: {
+                image: 'contact', scene: 'contact', eyebrow: '官方 LINE 與門市',
+                title: '需要協助時，直接留下訊息',
+                text: '聯絡頁專注LINE、門市、配送與取貨，不使用錯誤產品示意。',
+                actions: `${lineButton('人工客服', '人工客服')}<a class="btn btn-outline" href="#store-info">門市資訊</a>`
+              }
+            }[page];
+
+            if (!config || document.getElementById('mascot-guide')) return;
+            const hero = document.querySelector('main .hero');
+            if (!hero) return;
+            const section = document.createElement('section');
+            section.id = 'mascot-guide';
+            section.className = 'section mascot-guide-section';
+            section.innerHTML = `
+              <article class="mascot-guide-card mascot-guide-card--${config.scene} reveal">
+                <div class="mascot-guide-card__media">
+                  <img src="${MASCOT_IMAGES[config.image]}" alt="仙加味小老闆情境導覽" width="1440" height="1080" loading="${page === 'home' ? 'eager' : 'lazy'}" decoding="async">
+                </div>
+                <div class="mascot-guide-card__copy">
+                  <p class="eyebrow">${config.eyebrow}</p>
+                  <h2>${config.title}</h2>
+                  <p>${config.text}</p>
+                  <div class="hero-actions">${config.actions}</div>
+                </div>
+              </article>
+            `;
+            hero.insertAdjacentElement('afterend', section);
+          }
+          '''
+
+          text, count = re.subn(
+              r'const MASCOT_IMAGES = \{.*?\n\}\;\n\nfunction renderMascotGuide\(\) \{.*?\n\}\n\nfunction renderHome\(\)',
+              block + '\nfunction renderHome()',
+              text,
+              count=1,
+              flags=re.S,
+          )
+          if count != 1:
+              raise SystemExit('無法替換 site-core.js 小老闆區塊')
+          text = text.replace('?v=403.0', '?v=404.0').replace('?v=403.1', '?v=404.0')
+          core.write_text(text, encoding='utf-8')
+
+          Path('site-fix-v317.js').write_text('"use strict";\n// v404.0：停用舊版自動插入場景，避免重複小老闆與錯誤產品。\n', encoding='utf-8')
+
+          Path('site.js').write_text('''"use strict";\n\n// v404.0：只載入單一網站核心，避免舊版小老闆重複插入。\ndocument.write('<link rel="stylesheet" href="site-v321.css?v=404.0" data-site-version="404.0">');\ndocument.write('<script src="site-core.js?v=404.0"><\\/script>');\n\ndocument.addEventListener('DOMContentLoaded', () => {\n  document.querySelectorAll('img[src^="images/hero/home-brand-guilu-series.jpg"], img[src*="scene-brand-all"], img[src*="website-mascot-home"]').forEach((image) => {\n    image.src = 'images/brand/mascot-v404/home.jpg?v=404.0';\n    image.width = 1440;\n    image.height = 1080;\n  });\n});\n''', encoding='utf-8')
+
+          for page in Path('.').glob('*.html'):
+              html = page.read_text(encoding='utf-8')
+              html = re.sub(r'site\.css\?v=[^"\']+', 'site.css?v=404.0', html)
+              html = re.sub(r'site-v321\.css\?v=[^"\']+', 'site-v321.css?v=404.0', html)
+              html = re.sub(r'site\.js\?v=[^"\']+', 'site.js?v=404.0', html)
+              if page.name == 'index.html':
+                  html = re.sub(r'images/(?:hero/home-brand-guilu-series\.jpg|brand/scene-brand-all\.svg|brand/website-mascot-home\.jpg)(?:\?v=[^"\']+)?', 'images/brand/mascot-v404/home.jpg?v=404.0', html)
+              page.write_text(html, encoding='utf-8')
+
+          manifest = {
+              'version': version,
+              'source': 'user-uploaded website mascot standards',
+              'rules': [
+                  '小老闆場景每個核心頁面只使用一次，不重複',
+                  '小老闆情境圖不再承擔產品包裝展示',
+                  '所有產品外觀統一使用 images/products-v3 真實產品原圖',
+                  '錯誤或AI重畫產品包裝不得出現在正式頁面',
+                  'DM、影片、知識、漢方百科、資料來源不再強制插入大型小老闆圖'
+              ],
+              'pageMap': {k: f'images/brand/mascot-v404/{k}.jpg' for k in ['home','products','choose','combo','guide','recipes','brand','faq','contact']},
+              'productSource': 'images/products-v3',
+              'productTransform': 'none'
+          }
+          Path('images/brand/mascot-v404/manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          Path('deploy-version.json').write_text(json.dumps({
+              'version': version,
+              'updated': '2026-07-12',
+              'mascot': 'unique-page-scenes-without-generated-product-packages',
+              'websiteMascotScenes': ['home','products','choose','combo','guide','recipes','brand','faq','contact'],
+              'productSource': 'images/products-v3',
+              'productTransform': 'none',
+              'audit': 'no-duplicate-mascot-no-generated-product-packaging'
+          }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Remove obsolete incorrect mascot assets
+        run: |
+          set -euo pipefail
+          rm -f images/brand/scene-*.svg
+          rm -f images/brand/website-mascot-*.jpg
+          rm -f images/brand/website-mascot-manifest.json
+
+      - name: Update Pages verification
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('.github/workflows/deploy-pages.yml')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('403.0', '404.0').replace('403.1', '404.0').replace('402.0', '404.0')
+          s = s.replace('test -s _site/images/hero/home-brand-guilu-series.jpg', 'test -s _site/images/brand/mascot-v404/home.jpg')
+          s = s.replace("test -s _site/images/brand/website-mascot-home.jpg", "test -s _site/images/brand/mascot-v404/products.jpg")
+          s = s.replace("grep -q '402.0' _site/site-fix-v317.js", "grep -q 'v404.0' _site/site-fix-v317.js")
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Verify user standard and product fidelity
+        run: |
+          set -euo pipefail
+          node --check site.js
+          node --check site-core.js
+          node --check site-fix-v317.js
+          for page in home products choose combo guide recipes brand faq contact; do
+            test -s "images/brand/mascot-v404/${page}.jpg"
+          done
+          test "$(sha256sum images/brand/mascot-v404/*.jpg | awk '{print $1}' | sort -u | wc -l | tr -d ' ')" -eq 9
+          grep -q "images/brand/mascot-v404/home.jpg?v=404.0" site-core.js
+          grep -q "images/brand/mascot-v404/contact.jpg?v=404.0" site-core.js
+          ! grep -R "scene-\|website-mascot-" --include='*.js' --include='*.html' .
+          ! grep -q "site-fix-v317.js" site.js
+          grep -q 'site.js?v=404.0' index.html
+          grep -q '"version": "404.0"' deploy-version.json
+          grep -q 'images/products-v3/guilu-gao.jpg' data.json
+          grep -q 'images/products-v3/guilu-drink-30.jpg' data.json
+          grep -q 'images/products-v3/guilu-drink-180.jpg' data.json
+          grep -q 'images/products-v3/guilu-tangkuai.jpg' data.json
+          grep -q 'images/products-v3/guilu-jiao.jpg' data.json
+          grep -q 'images/products-v3/luerong-fen.jpg' data.json
+          git diff --quiet HEAD -- images/products-v3 || { echo '真實產品原圖不得被修改'; exit 1; }
+
+      - name: Commit directly to main and clean temporary files
+        run: |
+          set -euo pipefail
+          rm -f RUN_MASCOT_V404.txt
+          rm -f .github/workflows/install-mascot-v404.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "依使用者標準重整官網小老闆與真實產品圖 v404.0"
+          git push origin main
