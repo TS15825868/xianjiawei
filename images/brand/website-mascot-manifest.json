@@ -1,5 +1,5 @@
 {
-  "version": "401.1",
+  "version": "401.2",
   "scope": "xianjiawei/main website assets only",
   "images": {
     "brand": {
@@ -78,36 +78,41 @@
       "file": "images/brand/website-mascot-dm.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 315886,
-      "sha256": "3f47fa65368792ecd1a637f8486b7c0bfe2c1c179b8730e89ee9ee2c2e1ef238"
+      "bytes": 415508,
+      "sha256": "31de8ceb0438488789b33ae469d0945973e22e720a59ccb23ca9ad09ddfc235b",
+      "design": "integrated-scene"
     },
     "video": {
       "file": "images/brand/website-mascot-video.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 312785,
-      "sha256": "f6405c31b9a540dcd2935788ad3de25db6d15f95e397df0fd1ec12e7ca17c7dc"
+      "bytes": 391776,
+      "sha256": "5e7f36f1b65c9b3de75feede9a982c4462300d7d6e5267cf892a7b1bc9c9846a",
+      "design": "integrated-scene"
     },
     "knowledge": {
       "file": "images/brand/website-mascot-knowledge.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 344343,
-      "sha256": "4010efe80d286ed7c6b905144d47188863e11f953e2c34e5708fa58e303a5351"
+      "bytes": 365826,
+      "sha256": "f4155534485273dd0bc5318fd6e5ecfa0dd859403612ca4de0ff7f65e34d9588",
+      "design": "integrated-scene"
     },
     "hanfang-baike": {
       "file": "images/brand/website-mascot-hanfang-baike.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 310715,
-      "sha256": "67741571082cd6b9e29cf80440ba7759e7a6cceed4209a59db2c874dac00e43f"
+      "bytes": 412557,
+      "sha256": "4e29a226ac387dec48316a323843871c06f2f978fa3112077ef85056d74263f5",
+      "design": "integrated-scene"
     },
     "sources": {
       "file": "images/brand/website-mascot-sources.jpg",
       "width": 1448,
       "height": 1086,
-      "bytes": 339127,
-      "sha256": "1bdb14b5e88b6f4f9c4c63a974b83b71dd9673b6b769161f361a2e1e9239a0ff"
+      "bytes": 456412,
+      "sha256": "d87523e2e648ad1615ca5c5d4229d9f4ba378dcbcb19826ff298846847a59841",
+      "design": "integrated-scene"
     }
   }
 }
