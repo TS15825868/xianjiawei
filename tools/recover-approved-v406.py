@@ -204,6 +204,7 @@ def cleanup() -> None:
         "site-v404.css",
         "images/brand/website-mascot-manifest.json",
         "temp-test.txt",
+        "temp-trigger-v406.txt",
         "PAGES_BUILD_STATUS.json",
         ".github/workflows/recover-approved-v406.yml",
         "tools/recover-approved-v406.py",
