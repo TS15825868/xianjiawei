@@ -2,8 +2,10 @@ name: Install approved original website scenes v402.0
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
 permissions:
   contents: write
@@ -15,7 +17,7 @@ concurrency:
 
 jobs:
   install:
-    if: github.event_name == 'workflow_dispatch' || github.event.issue.title == 'install approved original website scenes v402.0'
+    if: github.event_name != 'issues' || github.event.issue.title == 'install approved original website scenes v402.0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
