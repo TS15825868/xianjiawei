@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths-ignore:
       - "PAGES_BUILD_STATUS.json"
+  schedule:
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 permissions:
