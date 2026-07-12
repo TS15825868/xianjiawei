@@ -1,33 +1,120 @@
 {
-  "version": "405.0",
-  "sourceArchive": "網站專用小老闆圖(1).zip",
-  "displayFormat": "WebP quality 92",
-  "resolution": "1448x1086",
+  "version": "405.1",
+  "resolution": "at least 1400x1000",
   "rules": [
-    "優先使用使用者核准的14張官網專用小老闆原圖",
-    "完整顯示，不裁切、不拉伸、不改產品、不重畫包裝",
-    "核心頁面與產品頁各自使用對應圖，不重複配置",
-    "只有怎麼選頁缺少對應圖，因此另外製作一張無虛構產品包裝的指引圖",
-    "產品卡與產品頁主要產品圖只使用 images/products-v3 真實產品原圖"
+    "15張依頁面功能獨立配置",
+    "完整顯示、不裁切、不拉伸、不重畫產品包裝",
+    "產品卡與主要產品圖維持真實產品原圖"
   ],
   "corePages": {
-    "home": "home-brand.webp",
-    "products": "products-all.webp",
-    "choose": "choose.webp",
-    "combo": "combo.webp",
-    "guide": "guide-how-to-use.webp",
-    "recipes": "recipes.webp",
-    "brand": "brand-story.webp",
-    "faq": "faq.webp",
-    "contact": "contact-line.webp"
+    "home": "home-brand.png",
+    "products": "products-all.png",
+    "choose": "choose.jpg",
+    "combo": "combo.png",
+    "guide": "guide-how-to-use.png",
+    "recipes": "recipes.png",
+    "brand": "brand-story.png",
+    "faq": "faq.png",
+    "contact": "contact-line.png"
   },
   "productPages": {
-    "product-guilu-gao.html": "product-guilu-gao-100g.webp",
-    "product-guilu-drink-30cc.html": "product-guilu-drink-30cc.webp",
-    "product-guilu-drink-180cc.html": "product-guilu-drink-180cc.webp",
-    "product-guilu-tangkuai.html": "product-guilu-tangkuai-75g.webp",
-    "product-guilu-jiao.html": "product-guilu-jiao-600g.webp",
-    "product-luerong-fen.html": "product-luerong-fen-75g.webp"
+    "product-guilu-gao.html": "product-guilu-gao-100g.png",
+    "product-guilu-drink-30cc.html": "product-guilu-drink-30cc.png",
+    "product-guilu-drink-180cc.html": "product-guilu-drink-180cc.png",
+    "product-guilu-tangkuai.html": "product-guilu-tangkuai-75g.png",
+    "product-guilu-jiao.html": "product-guilu-jiao-600g.png",
+    "product-luerong-fen.html": "product-luerong-fen-75g.png"
   },
-  "contentOnlyPages": ["dm", "video", "knowledge", "hanfang-baike", "sources"]
+  "assets": {
+    "home-brand": {
+      "file": "home-brand.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3460977
+    },
+    "products-all": {
+      "file": "products-all.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3394372
+    },
+    "choose": {
+      "file": "choose.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 606820
+    },
+    "combo": {
+      "file": "combo.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3889743
+    },
+    "guide-how-to-use": {
+      "file": "guide-how-to-use.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2544767
+    },
+    "recipes": {
+      "file": "recipes.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3631629
+    },
+    "brand-story": {
+      "file": "brand-story.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3688584
+    },
+    "faq": {
+      "file": "faq.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3667905
+    },
+    "contact-line": {
+      "file": "contact-line.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3604121
+    },
+    "product-guilu-gao-100g": {
+      "file": "product-guilu-gao-100g.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 2245629
+    },
+    "product-guilu-drink-30cc": {
+      "file": "product-guilu-drink-30cc.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3324928
+    },
+    "product-guilu-drink-180cc": {
+      "file": "product-guilu-drink-180cc.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3558427
+    },
+    "product-guilu-tangkuai-75g": {
+      "file": "product-guilu-tangkuai-75g.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3275897
+    },
+    "product-guilu-jiao-600g": {
+      "file": "product-guilu-jiao-600g.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3383320
+    },
+    "product-luerong-fen-75g": {
+      "file": "product-luerong-fen-75g.png",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 3322097
+    }
+  }
 }
