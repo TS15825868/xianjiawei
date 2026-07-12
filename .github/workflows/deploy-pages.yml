@@ -24,15 +24,17 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v4
 
-      - name: Verify website v404.2
+      - name: Verify website v404.3
         run: |
           set -euo pipefail
           node --check site.js
           node --check site-core.js
           node --check mascot-v404.js
           node --check site-fix-v317.js
-          grep -q '404.2' site.js
-          grep -q '"version": "404.2"' deploy-version.json
+          grep -q '404.3' site.js
+          grep -q 'site.js?v=404.3' index.html
+          grep -q 'images/brand/mascot-v404/home.jpg?v=404.3' index.html
+          grep -q '"version": "404.3"' deploy-version.json
           for page in home products choose combo guide recipes brand faq contact; do
             test -s "images/brand/mascot-v404/${page}.jpg"
           done
