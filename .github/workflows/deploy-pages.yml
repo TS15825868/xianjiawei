@@ -3,12 +3,10 @@ name: Deploy仙加味網站
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - "PAGES_BUILD_STATUS.json"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -21,46 +19,36 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 0
 
-      - name: Verify website v405.0
+      - name: Verify website v406.0
         run: |
           set -euo pipefail
           node --check site.js
           node --check site-core.js
           node --check approved-mascot-v405.js
           node --check site-fix-v317.js
-          grep -q '405.0' site.js
-          grep -q '"version": "405.0"' deploy-version.json
-          grep -q 'images/products-v3/guilu-gao.jpg' data.json
-          grep -q 'images/products-v3/guilu-drink-30.jpg' data.json
-          grep -q 'images/products-v3/guilu-drink-180.jpg' data.json
-          grep -q 'images/products-v3/guilu-tangkuai.jpg' data.json
-          grep -q 'images/products-v3/guilu-jiao.jpg' data.json
-          grep -q 'images/products-v3/luerong-fen.jpg' data.json
-
+          grep -q '406.0' site.js
+          grep -q '"version": "406.0"' deploy-version.json
           expected=(
             home-brand.webp products-all.webp choose.webp combo.webp guide-how-to-use.webp recipes.webp
             brand-story.webp faq.webp contact-line.webp product-guilu-gao-100g.webp
             product-guilu-drink-30cc.webp product-guilu-drink-180cc.webp
             product-guilu-tangkuai-75g.webp product-guilu-jiao-600g.webp product-luerong-fen-75g.webp
           )
-
-          direct_ok=true
+          test "$(find images/brand/approved-v405 -maxdepth 1 -type f -name '*.webp' | wc -l)" -eq 15
           for image in "${expected[@]}"; do
-            test -s "images/brand/approved-v405/$image" || direct_ok=false
+            test -s "images/brand/approved-v405/$image"
           done
-
-          if [ "$direct_ok" != true ]; then
-            test -s assets/approved-v405-assets.zip
-            unzip -t assets/approved-v405-assets.zip >/dev/null
-          fi
+          test ! -e assets/approved-v405-assets.zip
+          test ! -e images/brand/mascot-v404
+          test ! -e mascot-v404.js
+          test ! -e site-v404.css
+          grep -q 'product-guilu-drink-180cc.html' choose.html
 
       - name: Prepare static website
         run: |
@@ -83,99 +71,14 @@ jobs:
             --exclude='RUN_*' \
             --exclude='INSTALL_*' \
             --exclude='FIX_*'
-
-          expected=(
-            home-brand.webp products-all.webp choose.webp combo.webp guide-how-to-use.webp recipes.webp
-            brand-story.webp faq.webp contact-line.webp product-guilu-gao-100g.webp
-            product-guilu-drink-30cc.webp product-guilu-drink-180cc.webp
-            product-guilu-tangkuai-75g.webp product-guilu-jiao-600g.webp product-luerong-fen-75g.webp
-          )
-
-          direct_ok=true
-          for image in "${expected[@]}"; do
-            test -s "_site/images/brand/approved-v405/$image" || direct_ok=false
-          done
-
-          if [ "$direct_ok" != true ]; then
-            rm -rf _site/images/brand/approved-v405
-            mkdir -p _site/images/brand/approved-v405
-            unzip -o assets/approved-v405-assets.zip -d _site/images/brand/approved-v405 >/dev/null
-          fi
-
-          test "$(find _site/images/brand/approved-v405 -maxdepth 1 -type f -name '*.webp' | wc -l)" -eq 15
-          for image in "${expected[@]}"; do
-            test -s "_site/images/brand/approved-v405/$image"
-          done
-
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-          version='405.0'
-          for page in Path('_site').glob('*.html'):
-              text=page.read_text(encoding='utf-8')
-              text=re.sub(r'site\.css\?v=[^"\']+',f'site.css?v={version}',text)
-              text=re.sub(r'site-v321\.css\?v=[^"\']+',f'site-v321.css?v={version}',text)
-              text=re.sub(r'site\.js\?v=[^"\']+',f'site.js?v={version}',text)
-              if page.name=='index.html':
-                  text=re.sub(r'images/brand/(?:scene-brand-all\.svg|mascot-v404/home\.jpg)(?:\?v=[^"\']+)?',
-                              f'images/brand/approved-v405/home-brand.webp?v={version}', text)
-                  text=text.replace('mascot-v404-home-story','approved-home-mascot')
-                  text=text.replace('仙加味小老闆品牌入口情境','仙加味小老闆首頁品牌主視覺')
-              page.write_text(text,encoding='utf-8')
-          PY
-
           touch _site/.nojekyll
           test -s _site/index.html
           test -s _site/site.js
           test -s _site/approved-mascot-v405.js
           test -s _site/site-v405.css
-          grep -q 'site.js?v=405.0' _site/index.html
-          grep -q 'site.js?v=405.0' _site/products.html
-          grep -q 'approved-v405/home-brand.webp?v=405.0' _site/index.html
-          grep -q 'product-guilu-drink-180cc.html' _site/choose.html
-
-      - name: Record prepared build
-        continue-on-error: true
-        env:
-          SOURCE_SHA: ${{ github.sha }}
-        run: |
-          set -euo pipefail
-          printf '{\n  "version": "405.0",\n  "status": "prepared",\n  "sourceSha": "%s",\n  "completedAt": "%s"\n}\n' \
-            "$SOURCE_SHA" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > PAGES_BUILD_STATUS.json
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add PAGES_BUILD_STATUS.json
-          git diff --cached --quiet || git commit -m "記錄官網 v405.0 建置完成"
-          git pull --rebase origin main
-          git push origin HEAD:main
-
-      - name: Ensure Pages uses GitHub Actions
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          api="https://api.github.com/repos/${GITHUB_REPOSITORY}/pages"
-          current="$(curl -sS -o /tmp/pages-current.json -w '%{http_code}' \
-            -H 'Accept: application/vnd.github+json' \
-            -H "Authorization: Bearer ${GH_TOKEN}" \
-            -H 'X-GitHub-Api-Version: 2022-11-28' \
-            "$api")"
-          if [ "$current" = "404" ]; then
-            result="$(curl -sS -o /tmp/pages-update.json -w '%{http_code}' -X POST \
-              -H 'Accept: application/vnd.github+json' \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H 'X-GitHub-Api-Version: 2022-11-28' \
-              "$api" -d '{"build_type":"workflow"}')"
-          else
-            result="$(curl -sS -o /tmp/pages-update.json -w '%{http_code}' -X PUT \
-              -H 'Accept: application/vnd.github+json' \
-              -H "Authorization: Bearer ${GH_TOKEN}" \
-              -H 'X-GitHub-Api-Version: 2022-11-28' \
-              "$api" -d '{"build_type":"workflow"}')"
-          fi
-          echo "Pages API status: $result"
-          cat /tmp/pages-update.json || true
+          grep -q 'site.js?v=406.0' _site/index.html
+          grep -q 'site.js?v=406.0' _site/products.html
+          grep -q 'approved-v405/home-brand.webp?v=406.0' _site/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -186,21 +89,4 @@ jobs:
           path: _site
 
       - name: Deploy Pages
-        id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Record successful deployment
-        continue-on-error: true
-        env:
-          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
-          SOURCE_SHA: ${{ github.sha }}
-        run: |
-          set -euo pipefail
-          printf '{\n  "version": "405.0",\n  "status": "deployed",\n  "sourceSha": "%s",\n  "pageUrl": "%s",\n  "completedAt": "%s"\n}\n' \
-            "$SOURCE_SHA" "$PAGE_URL" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > PAGES_BUILD_STATUS.json
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add PAGES_BUILD_STATUS.json
-          git diff --cached --quiet || git commit -m "記錄官網 v405.0 成功發布"
-          git pull --rebase origin main
-          git push origin HEAD:main

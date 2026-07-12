@@ -1,0 +1,44 @@
+name: Recover approved website images v406
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/recover-approved-v406.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: recover-approved-v406
+  cancel-in-progress: false
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout full main history
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Restore approved assets
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet pillow
+          git show 5538b096585130dc1b9fdf7604252a17fd4717df:assets/approved-v405-assets.zip > /tmp/approved-v405-partial.zip
+          python3 tools/recover-approved-v406.py
+
+      - name: Commit final website to main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "完成15張核准小老闆素材配置與清理"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          git push origin --delete tmp-do-not-use || true
