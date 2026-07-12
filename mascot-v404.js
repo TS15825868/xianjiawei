@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const VERSION = "404.1";
+  const VERSION = "404.2";
   const PAGES = {
     home: {
       image: "images/brand/mascot-v404/home.jpg",
@@ -95,6 +95,18 @@
 
     const hero = document.querySelector("main .hero");
     if (!hero) return;
+
+    if (page === "home") {
+      const heroImage = hero.querySelector("img");
+      if (heroImage) {
+        heroImage.src = `${config.image}?v=${VERSION}`;
+        heroImage.alt = "仙加味小老闆品牌入口情境";
+        heroImage.classList.add("mascot-v404-home-hero");
+        heroImage.width = 1448;
+        heroImage.height = 1086;
+      }
+      return;
+    }
 
     const section = document.createElement("section");
     section.id = "mascot-guide";
