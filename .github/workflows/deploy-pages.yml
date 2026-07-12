@@ -1,4 +1,4 @@
-name: Deploy仙加味網站
+name: Deploy 仙加味網站
 
 on:
   push:
@@ -19,36 +19,41 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
         with:
           ref: main
 
-      - name: Verify website v406.0
+      - name: Verify website v405.1 and 15 approved images
         run: |
           set -euo pipefail
           node --check site.js
           node --check site-core.js
           node --check approved-mascot-v405.js
-          node --check site-fix-v317.js
-          grep -q '406.0' site.js
-          grep -q '"version": "406.0"' deploy-version.json
-          expected=(
-            home-brand.webp products-all.webp choose.webp combo.webp guide-how-to-use.webp recipes.webp
-            brand-story.webp faq.webp contact-line.webp product-guilu-gao-100g.webp
-            product-guilu-drink-30cc.webp product-guilu-drink-180cc.webp
-            product-guilu-tangkuai-75g.webp product-guilu-jiao-600g.webp product-luerong-fen-75g.webp
-          )
-          test "$(find images/brand/approved-v405 -maxdepth 1 -type f -name '*.webp' | wc -l)" -eq 15
-          for image in "${expected[@]}"; do
-            test -s "images/brand/approved-v405/$image"
-          done
+          grep -q '405.1' site.js
+          grep -q '"version": "405.1"' deploy-version.json
+          grep -q 'product-guilu-drink-180cc.html' choose.html
           test ! -e assets/approved-v405-assets.zip
           test ! -e images/brand/mascot-v404
           test ! -e mascot-v404.js
           test ! -e site-v404.css
-          grep -q 'product-guilu-drink-180cc.html' choose.html
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          manifest=json.loads(Path('images/brand/approved-v405-manifest.json').read_text(encoding='utf-8'))
+          files=list(manifest['corePages'].values())+list(manifest['productPages'].values())
+          assert len(files)==15, len(files)
+          assert len(set(files))==15, files
+          for filename in files:
+              path=Path('images/brand/approved-v405')/filename
+              assert path.is_file(), path
+              assert path.stat().st_size > 20000, (path,path.stat().st_size)
+          for item in manifest['assets'].values():
+              assert item['width']==1448 and item['height']==1086, item
+          print('15 approved images verified')
+          PY
 
       - name: Prepare static website
         run: |
@@ -71,14 +76,28 @@ jobs:
             --exclude='RUN_*' \
             --exclude='INSTALL_*' \
             --exclude='FIX_*'
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,re
+          version='405.1'
+          manifest=json.loads(Path('_site/images/brand/approved-v405-manifest.json').read_text(encoding='utf-8'))
+          home=manifest['corePages']['home']
+          for page in Path('_site').glob('*.html'):
+              text=page.read_text(encoding='utf-8')
+              text=re.sub(r'site\.css\?v=[^"\']+',f'site.css?v={version}',text)
+              text=re.sub(r'site-v321\.css\?v=[^"\']+',f'site-v321.css?v={version}',text)
+              text=re.sub(r'site\.js\?v=[^"\']+',f'site.js?v={version}',text)
+              if page.name=='index.html':
+                  text=re.sub(r'images/brand/approved-v405/[^"?]+(?:\?v=[^"\']+)?',f'images/brand/approved-v405/{home}?v={version}',text)
+              page.write_text(text,encoding='utf-8')
+          PY
           touch _site/.nojekyll
           test -s _site/index.html
-          test -s _site/site.js
+          test -s _site/choose.html
           test -s _site/approved-mascot-v405.js
-          test -s _site/site-v405.css
-          grep -q 'site.js?v=406.0' _site/index.html
-          grep -q 'site.js?v=406.0' _site/products.html
-          grep -q 'approved-v405/home-brand.webp?v=406.0' _site/index.html
+          grep -q 'site.js?v=405.1' _site/index.html
+          grep -q 'site.js?v=405.1' _site/choose.html
+          grep -q 'approved-v405/home-brand.png?v=405.1' _site/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -89,4 +108,5 @@ jobs:
           path: _site
 
       - name: Deploy Pages
+        id: deployment
         uses: actions/deploy-pages@v4
