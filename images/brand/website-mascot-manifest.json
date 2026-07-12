@@ -1,5 +1,5 @@
 {
-  "version": "403.0",
+  "version": "403.1",
   "scope": "xianjiawei/main website mascot scenes",
   "productTransform": "none",
   "source": "user-approved originals",
@@ -81,16 +81,18 @@
     "home": "scene-brand-all.svg",
     "products": "scene-products-all.svg",
     "choose": "scene-choose-forms.svg",
-    "combo": "scene-guilu-jiao-600g.svg",
-    "guide": "scene-guilu-gao-100g.svg",
+    "combo": "scene-guilu-gao-100g.svg",
+    "guide": "scene-guilu-drink-180cc.svg",
     "recipes": "scene-guilu-tangkuai-75g.svg",
-    "faq": "scene-products-all.svg",
-    "contact": "scene-guilu-drink-180cc.svg",
-    "brand": "scene-brand-all.svg",
-    "dm": "scene-products-all.svg",
-    "video": "scene-guilu-drink-30cc.svg",
-    "knowledge": "scene-luerong-fen-75g.svg",
-    "hanfang-baike": "scene-choose-forms.svg",
-    "sources": "scene-brand-all.svg"
-  }
+    "brand": "scene-guilu-jiao-600g.svg",
+    "faq": "scene-luerong-fen-75g.svg",
+    "contact": "scene-guilu-drink-30cc.svg"
+  },
+  "contentOnlyPages": [
+    "dm",
+    "video",
+    "knowledge",
+    "hanfang-baike",
+    "sources"
+  ]
 }
