@@ -1,3 +1,0 @@
-install exact user-approved mascot scenes v404.0
-source: 網站專用小老闆圖.zip
-rules: no crop, no redraw, no duplicate mascot scenes
