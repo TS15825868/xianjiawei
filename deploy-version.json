@@ -1,7 +1,7 @@
 {
-  "version": "401.1",
+  "version": "401.2",
   "updated": "2026-07-12",
-  "mascot": "website-dedicated-high-resolution-assets-plus-content-pages",
+  "mascot": "website-integrated-content-scenes",
   "websiteMascotScenes": [
     "home",
     "products",
@@ -20,5 +20,5 @@
   ],
   "resolutionMinimum": "1200x900",
   "lineOaAssetsRepository": "TS15825868/TS-LINE main public/mascot",
-  "audit": "direct-main-upload-no-issues-no-temporary-trigger-no-product-redraw-in-content-page-scenes"
+  "audit": "main-direct-upload-integrated-scene-layout-no-floating-cards-no-product-redraw"
 }
