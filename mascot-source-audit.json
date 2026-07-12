@@ -1,29 +1,9 @@
 {
-  "version": "403.1",
-  "rules": [
-    "使用者核准的九張小老闆產品場景為唯一產品場景來源",
-    "九個核心頁面各使用一張不同場景，不重複顯示",
-    "首頁只保留既有品牌主圖，不再額外插入第二張小老闆圖",
-    "DM、影片、知識、漢方百科與資料來源頁以內容本身為主，不放大型小老闆主圖",
-    "產品包裝、比例、方向、盒型、瓶型、袋型與標籤不得變更",
-    "SVG僅封裝原始JPEG位元資料，不重繪產品"
-  ],
-  "pageMap": {
-    "home": "scene-brand-all.svg",
-    "products": "scene-products-all.svg",
-    "choose": "scene-choose-forms.svg",
-    "combo": "scene-guilu-gao-100g.svg",
-    "guide": "scene-guilu-drink-180cc.svg",
-    "recipes": "scene-guilu-tangkuai-75g.svg",
-    "brand": "scene-guilu-jiao-600g.svg",
-    "faq": "scene-luerong-fen-75g.svg",
-    "contact": "scene-guilu-drink-30cc.svg"
-  },
-  "contentOnlyPages": [
-    "dm",
-    "video",
-    "knowledge",
-    "hanfang-baike",
-    "sources"
-  ]
+  "version": "404.1",
+  "scope": "xianjiawei/main",
+  "mascotImages": "user-approved historical website mascot assets",
+  "productSource": "images/products-v3",
+  "productTransform": "none",
+  "generatedProductPackagingVisible": false,
+  "duplicateMascotPages": false
 }

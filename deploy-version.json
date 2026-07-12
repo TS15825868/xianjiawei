@@ -1,27 +1,10 @@
 {
-  "version": "403.1",
+  "version": "404.1",
   "updated": "2026-07-12",
-  "mascot": "website-approved-original-scenes-unique-page-map",
-  "visibleMascotPages": [
-    "home",
-    "products",
-    "choose",
-    "combo",
-    "guide",
-    "recipes",
-    "brand",
-    "faq",
-    "contact"
-  ],
-  "contentOnlyPages": [
-    "dm",
-    "video",
-    "knowledge",
-    "hanfang-baike",
-    "sources"
-  ],
-  "resolution": "1440x1080",
+  "mascot": "unique-page-scenes-cropped-away-from-generated-products",
+  "websiteMascotScenes": ["home", "products", "choose", "combo", "guide", "recipes", "brand", "faq", "contact"],
+  "largeMascotExcludedPages": ["dm", "video", "knowledge", "hanfang-baike", "sources"],
+  "productSource": "images/products-v3",
   "productTransform": "none",
-  "duplicateVisibleScene": false,
-  "audit": "one-visible-mascot-scene-per-core-page-no-large-mascot-on-content-pages-no-product-redraw-no-shape-change"
+  "audit": "no-duplicate-mascot-no-generated-product-packaging-visible"
 }
