@@ -7,6 +7,8 @@ on:
       - "PAGES_BUILD_STATUS.json"
   schedule:
     - cron: "*/5 * * * *"
+  issues:
+    types: [opened]
   workflow_dispatch:
 
 permissions:
@@ -20,6 +22,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'issues' || github.event.issue.title == 'TRIGGER_PAGES_V405'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
