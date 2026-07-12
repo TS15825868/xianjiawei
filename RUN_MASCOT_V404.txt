@@ -1,1 +1,1 @@
-run mascot standard v404.0
+run mascot standard v404.0 attempt 2
