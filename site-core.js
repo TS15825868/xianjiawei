@@ -99,15 +99,15 @@ function normalizeLineIntent(message = '') {
 function lineIntentButtonLabel(message = '', fallbackLabel = '看產品') {
   const intent = normalizeLineIntent(message);
   const labels = {
-    '看產品': '看產品',
-    '直接下單': '直接下單',
-    '幫我推薦': '幫我推薦',
-    '搭配組合': '搭配組合',
-    '怎麼使用': '怎麼使用',
-    '價格方案': '價格方案',
-    '品牌故事': '品牌故事',
-    '人工客服': '人工客服',
-    '料理搭配': '搭配組合'
+    '看產品': 'LINE 詢問產品',
+    '直接下單': 'LINE 下單',
+    '幫我推薦': 'LINE 幫我推薦',
+    '搭配組合': 'LINE 詢問搭配',
+    '怎麼使用': 'LINE 詢問用法',
+    '價格方案': 'LINE 詢問價格',
+    '品牌故事': 'LINE 詢問品牌',
+    '人工客服': 'LINE 聯絡客服',
+    '料理搭配': 'LINE 詢問搭配'
   };
 
   if (labels[intent]) return labels[intent];
@@ -118,16 +118,16 @@ function lineIntentButtonLabel(message = '', fallbackLabel = '看產品') {
   const product = (SITE_DATA?.products || []).find(item => item.id === productId);
   const productName = product?.displayName || product?.name || '產品';
 
-  if (action === '產品詳情') return `看${productName}`;
-  if (action === '使用方式') return `${productName}使用方式`;
-  if (action === '選擇數量') return '選擇數量';
-  if (action === '加入購物車') return '加入購物車';
-  if (action === '搭配方案') return '搭配組合';
-  if (action === '搭配組數') return '選擇組數';
-  if (action === '加入組合') return '加入購物車';
+  if (action === '產品詳情') return `LINE 詢問${productName}`;
+  if (action === '使用方式') return `LINE 詢問${productName}用法`;
+  if (action === '選擇數量') return 'LINE 選擇數量';
+  if (action === '加入購物車') return 'LINE 加入購物車';
+  if (action === '搭配方案') return 'LINE 詢問搭配';
+  if (action === '搭配組數') return 'LINE 選擇組數';
+  if (action === '加入組合') return 'LINE 加入組合';
 
   const cleaned = String(fallbackLabel || '').replace(/^LINE\s*/i, '').trim();
-  return cleaned || '看產品';
+  return cleaned ? (cleaned.startsWith('LINE') ? cleaned : `LINE ${cleaned}`) : 'LINE 詢問產品';
 }
 
 function buildLineAutoLink(message = '看產品') {
@@ -201,7 +201,7 @@ function renderFloatingLineCta() {
   link.target = '_blank';
   link.rel = 'noopener';
   link.setAttribute('aria-label', `官方 LINE｜${visibleLabel}`);
-  link.innerHTML = `<span class="floating-line-cta__dot" aria-hidden="true">LINE</span><span>${visibleLabel}</span>`;
+  link.innerHTML = `<span class="floating-line-cta__dot" aria-hidden="true">LINE</span><span>${visibleLabel.replace(/^LINE\s*/, '')}</span>`;
   document.body.appendChild(link);
 }
 
