@@ -1,7 +1,7 @@
 {
-  "version": "400.3",
+  "version": "401.1",
   "updated": "2026-07-12",
-  "mascot": "website-dedicated-high-resolution-assets",
+  "mascot": "website-dedicated-high-resolution-assets-plus-content-pages",
   "websiteMascotScenes": [
     "home",
     "products",
@@ -11,9 +11,14 @@
     "recipes",
     "faq",
     "contact",
-    "brand"
+    "brand",
+    "dm",
+    "video",
+    "knowledge",
+    "hanfang-baike",
+    "sources"
   ],
   "resolutionMinimum": "1200x900",
   "lineOaAssetsRepository": "TS15825868/TS-LINE main public/mascot",
-  "audit": "separate-local-assets-no-runtime-cross-project-no-repeat-jpeg-generation-cache-busting-and-sharpness-check"
+  "audit": "direct-main-upload-no-issues-no-temporary-trigger-no-product-redraw-in-content-page-scenes"
 }

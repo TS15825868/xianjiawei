@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const VERSION = "400.3";
+  const VERSION = "401.1";
   const SCENES = {
     home: {
       src: "images/brand/website-mascot-home.jpg",
@@ -68,12 +68,57 @@
     },
     contact: {
       src: "images/brand/website-mascot-contact.jpg",
-      alt: "仙加味小老闆戴耳機提供人工客服",
+      alt: "仙加味小老闆提供聯絡資訊",
       eyebrow: "官方 LINE 與門市",
       title: "需要協助時，直接留下訊息",
       text: "留下想了解的產品、規格、數量、配送或取貨方式，我們會再協助確認。",
       primary: ["查看產品", "products.html"],
       secondary: ["門市資訊", "#store-info"]
+    },
+    dm: {
+      src: "images/brand/website-mascot-dm.jpg",
+      alt: "仙加味小老闆介紹產品規格與使用方式",
+      eyebrow: "產品介紹圖",
+      title: "各產品規格與使用方式逐項查看",
+      text: "依產品頁內容查看規格、成分、食用方式與保存資訊，需要進一步確認時再透過官方 LINE 詢問。",
+      primary: ["看產品", "products.html"],
+      secondary: ["聯絡我們", "contact.html"]
+    },
+    video: {
+      src: "images/brand/website-mascot-video.jpg",
+      alt: "仙加味小老闆介紹觀點影片",
+      eyebrow: "觀點影片",
+      title: "依內容分類查看公開影片",
+      text: "影片不自動播放，點擊後開啟原平台；產品規格與使用方式仍以官網產品頁為準。",
+      primary: ["看產品", "products.html"],
+      secondary: ["使用方式", "guide.html"]
+    },
+    knowledge: {
+      src: "images/brand/website-mascot-knowledge.jpg",
+      alt: "仙加味小老闆介紹食材與日常觀點",
+      eyebrow: "食材與日常觀點",
+      title: "先認識食材，再理解產品型態與日常安排",
+      text: "從食材名稱、產品型態到使用方式，依問題方向進入對應內容。",
+      primary: ["漢方百科", "hanfang-baike.html"],
+      secondary: ["怎麼使用", "guide.html"]
+    },
+    "hanfang-baike": {
+      src: "images/brand/website-mascot-hanfang-baike.jpg",
+      alt: "仙加味小老闆介紹漢方百科",
+      eyebrow: "漢方百科",
+      title: "古籍文化與現代品質規格分開閱讀",
+      text: "食材名稱、本草文化、現代品質規格與產品標示各自回答不同問題。",
+      primary: ["資料來源", "sources.html"],
+      secondary: ["看產品", "products.html"]
+    },
+    sources: {
+      src: "images/brand/website-mascot-sources.jpg",
+      alt: "仙加味小老闆介紹資料來源與引用原則",
+      eyebrow: "資料來源",
+      title: "文化記載與現代標示各有用途",
+      text: "資料來源用於理解文化脈絡、正式名稱與品質規格；產品資訊仍以實際標示為準。",
+      primary: ["漢方百科", "hanfang-baike.html"],
+      secondary: ["品牌故事", "brand.html"]
     },
     brand: {
       src: "images/brand/website-mascot-brand.jpg",

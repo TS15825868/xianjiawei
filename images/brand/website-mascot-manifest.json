@@ -1,5 +1,5 @@
 {
-  "version": "400.3",
+  "version": "401.1",
   "scope": "xianjiawei/main website assets only",
   "images": {
     "brand": {
@@ -73,6 +73,41 @@
       "bytes": 324512,
       "edgeMean": 11.269,
       "sha256": "640c69f70dbc8e7da5b67dc895e5e1b0aa39ff49291179f03479d527de87c412"
+    },
+    "dm": {
+      "file": "images/brand/website-mascot-dm.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 315886,
+      "sha256": "3f47fa65368792ecd1a637f8486b7c0bfe2c1c179b8730e89ee9ee2c2e1ef238"
+    },
+    "video": {
+      "file": "images/brand/website-mascot-video.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 312785,
+      "sha256": "f6405c31b9a540dcd2935788ad3de25db6d15f95e397df0fd1ec12e7ca17c7dc"
+    },
+    "knowledge": {
+      "file": "images/brand/website-mascot-knowledge.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 344343,
+      "sha256": "4010efe80d286ed7c6b905144d47188863e11f953e2c34e5708fa58e303a5351"
+    },
+    "hanfang-baike": {
+      "file": "images/brand/website-mascot-hanfang-baike.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 310715,
+      "sha256": "67741571082cd6b9e29cf80440ba7759e7a6cceed4209a59db2c874dac00e43f"
+    },
+    "sources": {
+      "file": "images/brand/website-mascot-sources.jpg",
+      "width": 1448,
+      "height": 1086,
+      "bytes": 339127,
+      "sha256": "1bdb14b5e88b6f4f9c4c63a974b83b71dd9673b6b769161f361a2e1e9239a0ff"
     }
   }
 }
