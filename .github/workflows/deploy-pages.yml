@@ -24,8 +24,9 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v4
 
-      - name: Verify website and dedicated mascot images
+      - name: Verify website files and approved original scenes
         run: |
+          set -euo pipefail
           python3 -m pip install --quiet pillow
           python3 tools/site_maintenance.py
           node --check site.js
@@ -37,21 +38,24 @@ jobs:
           python3 -m json.tool images/brand/website-mascot-manifest.json >/dev/null
           grep -q 'guilu-drink-30' data.json
           grep -q 'guilu-drink-180' data.json
-          grep -q '400.2' site.js
-          grep -q '400.2' site-fix-v317.js
-          grep -q 'website-mascot-brand.jpg?v=400.2' site-core.js
-          test ! -d images/line-mascot
+          grep -q 'const VERSION = "402.0"' site-fix-v317.js
           python3 - <<'PY'
           from hashlib import sha256
           from pathlib import Path
           from PIL import Image, ImageFilter, ImageStat
           import json
 
-          manifest = json.loads(Path('images/brand/website-mascot-manifest.json').read_text(encoding='utf-8'))
-          names = ['home','products','choose','combo','guide','recipes','faq','contact','brand']
-          if manifest.get('version') != '400.2' or sorted(manifest.get('images', {})) != sorted(names):
-              raise SystemExit('網站小老闆 manifest 錯誤')
-          hashes = set()
+          manifest_path = Path('images/brand/website-mascot-manifest.json')
+          manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+          names = [
+              'home','products','choose','combo','guide','recipes','faq','contact','brand',
+              'dm','video','knowledge','hanfang-baike','sources'
+          ]
+          if manifest.get('version') != '402.0':
+              raise SystemExit('網站小老闆 manifest 版本錯誤')
+          if sorted(manifest.get('images', {})) != sorted(names):
+              raise SystemExit('網站小老闆場景清單不完整')
+
           for name in names:
               item = manifest['images'][name]
               path = Path(item['file'])
@@ -63,16 +67,22 @@ jobs:
                   width, height = image.size
                   edge_mean = ImageStat.Stat(image.convert('L').filter(ImageFilter.FIND_EDGES)).mean[0]
               digest = sha256(path.read_bytes()).hexdigest()
-              if (width, height) != (1448, 1086) or edge_mean < 2.0 or digest != item['sha256']:
+              if (width, height) != (1448, 1086):
+                  raise SystemExit(f'圖片尺寸錯誤：{path} {width}x{height}')
+              if edge_mean < 2.0 or digest != item['sha256'] or path.stat().st_size != item['bytes']:
                   raise SystemExit(f'圖片品質或完整性錯誤：{path}')
-              hashes.add(digest)
-          if len(hashes) != 9:
-              raise SystemExit('網站小老闆圖片有重複內容')
-          print('網站九張專用小老闆圖片品質檢查通過')
+
+          hero = Path('images/hero/home-brand-guilu-series.jpg')
+          if not hero.exists() or hero.stat().st_size < 100000:
+              raise SystemExit('首頁品牌主圖缺少或檔案異常')
+          with Image.open(hero) as image:
+              image.verify()
+          print('十四個官網場景與首頁品牌主圖檢查通過')
           PY
 
       - name: Prepare public website
         run: |
+          set -euo pipefail
           rm -rf _site
           mkdir -p _site
           rsync -a ./ _site/ \
@@ -95,7 +105,8 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import re
-          version = '400.2'
+
+          version = '402.0'
           root = Path('_site')
           pages = list(root.glob('*.html'))
           for page in pages:
@@ -107,6 +118,7 @@ jobs:
               if 'site-v321.css' not in text:
                   text = text.replace('</head>', f'<link rel="stylesheet" href="site-v321.css?v={version}"/>\n</head>')
               page.write_text(text, encoding='utf-8')
+
           required_pages = {
               'index.html','products.html','choose.html','combo.html','guide.html','recipes.html',
               'video.html','knowledge.html','hanfang-baike.html','sources.html','dm.html',
@@ -117,23 +129,31 @@ jobs:
           missing = sorted(required_pages - {page.name for page in pages})
           if missing:
               raise SystemExit('缺少網站頁面：' + ', '.join(missing))
+
+          scene_names = [
+              'home','products','choose','combo','guide','recipes','faq','contact','brand',
+              'dm','video','knowledge','hanfang-baike','sources'
+          ]
           required_files = [
               'site.js','site-core.js','site-fix-v317.js','site.css','site-v321.css',
-              'data.json','catalog-public.json','deploy-version.json','images/brand/website-mascot-manifest.json'
-          ] + [f'images/brand/website-mascot-{name}.jpg' for name in ('home','products','choose','combo','guide','recipes','faq','contact','brand')]
+              'data.json','catalog-public.json','deploy-version.json',
+              'images/brand/website-mascot-manifest.json','images/hero/home-brand-guilu-series.jpg'
+          ] + [f'images/brand/website-mascot-{name}.jpg' for name in scene_names]
           for filename in required_files:
               target = root / filename
               if not target.exists() or target.stat().st_size == 0:
                   raise SystemExit('缺少發布檔案：' + filename)
-          print(f'準備完成：{len(pages)} 個頁面，v{version} 網站專用九種高解析小老闆。')
+          print(f'準備完成：{len(pages)} 個頁面，v{version} 十四個核准原圖場景。')
           PY
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
