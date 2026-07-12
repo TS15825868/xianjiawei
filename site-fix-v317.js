@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const VERSION = "401.2";
+  const VERSION = "402.0";
   const SCENES = {
     home: {
       src: "images/brand/website-mascot-home.jpg",
@@ -134,10 +134,8 @@
   function ensureSection(config) {
     let section = document.getElementById("mascot-guide");
     if (section) return section;
-
     const hero = document.querySelector("main .hero");
     if (!hero) return null;
-
     section = document.createElement("section");
     section.id = "mascot-guide";
     section.className = "section mascot-guide-section";
@@ -162,11 +160,9 @@
     const page = document.body?.dataset?.page || "home";
     const config = SCENES[page];
     if (!config) return true;
-
     const section = ensureSection(config);
     const media = section?.querySelector(".mascot-guide-card__media");
     if (!media) return false;
-
     const copy = section.querySelector(".mascot-guide-card__copy");
     if (copy) {
       const eyebrow = copy.querySelector(".eyebrow");
@@ -176,13 +172,11 @@
       if (title) title.textContent = config.title;
       if (paragraph) paragraph.textContent = config.text;
     }
-
     let image = media.querySelector("img");
     if (!image) {
       image = document.createElement("img");
       media.replaceChildren(image);
     }
-
     image.className = "mascot-guide-card__image";
     image.src = `${config.src}?v=${VERSION}`;
     image.alt = config.alt;
@@ -196,7 +190,6 @@
       image.dataset.fallbackApplied = "1";
       image.src = `images/brand/website-mascot-home.jpg?v=${VERSION}`;
     };
-
     media.dataset.mascotVersion = VERSION;
     media.dataset.mascotPage = page;
     return true;
