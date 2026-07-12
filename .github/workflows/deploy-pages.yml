@@ -24,20 +24,18 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v4
 
-      - name: Verify website v404.3
+      - name: Verify website v405.0
         run: |
           set -euo pipefail
           node --check site.js
           node --check site-core.js
-          node --check mascot-v404.js
+          node --check approved-mascot-v405.js
           node --check site-fix-v317.js
-          grep -q '404.3' site.js
-          grep -q 'site.js?v=404.3' index.html
-          grep -q 'images/brand/mascot-v404/home.jpg?v=404.3' index.html
-          grep -q '"version": "404.3"' deploy-version.json
-          for page in home products choose combo guide recipes brand faq contact; do
-            test -s "images/brand/mascot-v404/${page}.jpg"
-          done
+          grep -q '405.0' site.js
+          grep -q '"version": "405.0"' deploy-version.json
+          grep -q 'approved-v405-assets.zip' deploy-version.json
+          test -s assets/approved-v405-assets.zip
+          echo 'f37e456acd939119677fbfcaea89d82e66c67306b206e90981233c29153fdfb8  assets/approved-v405-assets.zip' | sha256sum -c -
           grep -q 'images/products-v3/guilu-gao.jpg' data.json
           grep -q 'images/products-v3/guilu-drink-30.jpg' data.json
           grep -q 'images/products-v3/guilu-drink-180.jpg' data.json
@@ -67,28 +65,42 @@ jobs:
             --exclude='INSTALL_*' \
             --exclude='FIX_*'
 
+          mkdir -p _site/images/brand/approved-v405
+          unzip -o assets/approved-v405-assets.zip -d _site/images/brand/approved-v405 >/dev/null
+          test "$(find _site/images/brand/approved-v405 -maxdepth 1 -type f -name '*.webp' | wc -l)" -eq 15
+          for image in \
+            home-brand.webp products-all.webp choose.webp combo.webp guide-how-to-use.webp recipes.webp \
+            brand-story.webp faq.webp contact-line.webp product-guilu-gao-100g.webp \
+            product-guilu-drink-30cc.webp product-guilu-drink-180cc.webp \
+            product-guilu-tangkuai-75g.webp product-guilu-jiao-600g.webp product-luerong-fen-75g.webp; do
+            test -s "_site/images/brand/approved-v405/$image"
+          done
+
           python3 - <<'PY'
           from pathlib import Path
           import re
-          version='404.3'
+          version='405.0'
           for page in Path('_site').glob('*.html'):
               text=page.read_text(encoding='utf-8')
               text=re.sub(r'site\.css\?v=[^"\']+',f'site.css?v={version}',text)
               text=re.sub(r'site-v321\.css\?v=[^"\']+',f'site-v321.css?v={version}',text)
               text=re.sub(r'site\.js\?v=[^"\']+',f'site.js?v={version}',text)
               if page.name=='index.html':
-                  text=text.replace('images/brand/scene-brand-all.svg?v=403.1','images/brand/mascot-v404/home.jpg?v=404.3')
-                  text=text.replace('images/brand/scene-brand-all.svg?v=404.2','images/brand/mascot-v404/home.jpg?v=404.3')
+                  text=re.sub(r'images/brand/(?:scene-brand-all\.svg|mascot-v404/home\.jpg)(?:\?v=[^"\']+)?',
+                              f'images/brand/approved-v405/home-brand.webp?v={version}', text)
+                  text=text.replace('mascot-v404-home-story','approved-home-mascot')
+                  text=text.replace('仙加味小老闆品牌入口情境','仙加味小老闆首頁品牌主視覺')
               page.write_text(text,encoding='utf-8')
           PY
 
           touch _site/.nojekyll
           test -s _site/index.html
           test -s _site/site.js
-          test -s _site/mascot-v404.js
-          test -s _site/images/brand/mascot-v404/home.jpg
-          grep -q 'site.js?v=404.3' _site/index.html
-          grep -q 'site.js?v=404.3' _site/products.html
+          test -s _site/approved-mascot-v405.js
+          test -s _site/site-v405.css
+          grep -q 'site.js?v=405.0' _site/index.html
+          grep -q 'site.js?v=405.0' _site/products.html
+          grep -q 'approved-v405/home-brand.webp?v=405.0' _site/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
