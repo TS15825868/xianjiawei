@@ -2,6 +2,8 @@ name: Install additional website mascot scenes once
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
   issues:
     types: [opened]
   push:
