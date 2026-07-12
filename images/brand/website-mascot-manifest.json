@@ -1,98 +1,25 @@
 {
-  "version": "403.1",
+  "version": "404.3",
   "scope": "xianjiawei/main website mascot scenes",
+  "source": "user-approved website mascot scenes",
+  "productSource": "images/products-v3",
   "productTransform": "none",
-  "source": "user-approved originals",
-  "files": {
-    "scene-brand-all.svg": {
-      "file": "images/brand/scene-brand-all.svg",
-      "bytes": 490025,
-      "sha256": "2151ec85f4cb4a8fc7bc7e0b4d1116018ff0ae448cf2260ff5b66377ed499775",
-      "embeddedImage": "JPEG 1440x1080",
-      "redraw": false,
-      "shapeChange": false
-    },
-    "scene-choose-forms.svg": {
-      "file": "images/brand/scene-choose-forms.svg",
-      "bytes": 463923,
-      "sha256": "47828c2a9ad5ca0fb73ba5b98fa5e48ce9dcd0265be3dd0f03b2d68a199c51b9",
-      "embeddedImage": "JPEG 1440x1080",
-      "redraw": false,
-      "shapeChange": false
-    },
-    "scene-guilu-drink-180cc.svg": {
-      "file": "images/brand/scene-guilu-drink-180cc.svg",
-      "bytes": 446689,
-      "sha256": "3921f90f0969d6463c0cf3d12f3b642ca4e2d109800e86de1f12c9eadcd13eb8",
-      "embeddedImage": "JPEG 1440x1080",
-      "redraw": false,
-      "shapeChange": false
-    },
-    "scene-guilu-drink-30cc.svg": {
-      "file": "images/brand/scene-guilu-drink-30cc.svg",
-      "bytes": 427631,
-      "sha256": "8991402ee5d8c6ac03c91dbeb447b896627a19a70234c1a050aae5d60a1c25e4",
-      "embeddedImage": "JPEG 1440x1080",
-      "redraw": false,
-      "shapeChange": false
-    },
-    "scene-guilu-gao-100g.svg": {
-      "file": "images/brand/scene-guilu-gao-100g.svg",
-      "bytes": 444795,
-      "sha256": "d45c13909d2d487e140ca916354edd175b9534c6e58a72bf46207713e68c6c38",
-      "embeddedImage": "JPEG 1440x1080",
-      "redraw": false,
-      "shapeChange": false
-    },
-    "scene-guilu-jiao-600g.svg": {
-      "file": "images/brand/scene-guilu-jiao-600g.svg",
-      "bytes": 469021,
-      "sha256": "b818bb96155608a7c63443af35b779a7717fa9c803bb6d7c4f568310be894cd7",
-      "embeddedImage": "JPEG 1440x1080",
-      "redraw": false,
-      "shapeChange": false
-    },
-    "scene-guilu-tangkuai-75g.svg": {
-      "file": "images/brand/scene-guilu-tangkuai-75g.svg",
-      "bytes": 441315,
-      "sha256": "d5f95c41105f73855c0adcbe4ca7793bdbc87c64cc82bdcf9c4e715a8e459118",
-      "embeddedImage": "JPEG 1440x1080",
-      "redraw": false,
-      "shapeChange": false
-    },
-    "scene-luerong-fen-75g.svg": {
-      "file": "images/brand/scene-luerong-fen-75g.svg",
-      "bytes": 484493,
-      "sha256": "eb5eecec370575da5541d4efa679d7279bb7e4d10de016099495814ba131b038",
-      "embeddedImage": "JPEG 1440x1080",
-      "redraw": false,
-      "shapeChange": false
-    },
-    "scene-products-all.svg": {
-      "file": "images/brand/scene-products-all.svg",
-      "bytes": 496667,
-      "sha256": "d5f16098649467d47e70372313e664eed9a10f6c3d881dad334b3790066eaf41",
-      "embeddedImage": "JPEG 1440x1080",
-      "redraw": false,
-      "shapeChange": false
-    }
-  },
+  "rules": [
+    "核心九頁各使用一張不同小老闆圖",
+    "首頁只保留一張小老闆主視覺",
+    "小老闆情境圖聚焦角色，不露出錯誤產品包裝",
+    "產品卡與產品頁只使用真實產品原圖",
+    "DM、影片、知識、漢方百科、資料來源不插入大型重複小老闆圖"
+  ],
   "pageMap": {
-    "home": "scene-brand-all.svg",
-    "products": "scene-products-all.svg",
-    "choose": "scene-choose-forms.svg",
-    "combo": "scene-guilu-gao-100g.svg",
-    "guide": "scene-guilu-drink-180cc.svg",
-    "recipes": "scene-guilu-tangkuai-75g.svg",
-    "brand": "scene-guilu-jiao-600g.svg",
-    "faq": "scene-luerong-fen-75g.svg",
-    "contact": "scene-guilu-drink-30cc.svg"
-  },
-  "contentOnlyPages": [
-    "dm",
-    "video",
-    "knowledge",
-    "hanfang-baike",
-    "sources"
-  ]
+    "home": "images/brand/mascot-v404/home.jpg",
+    "products": "images/brand/mascot-v404/products.jpg",
+    "choose": "images/brand/mascot-v404/choose.jpg",
+    "combo": "images/brand/mascot-v404/combo.jpg",
+    "guide": "images/brand/mascot-v404/guide.jpg",
+    "recipes": "images/brand/mascot-v404/recipes.jpg",
+    "brand": "images/brand/mascot-v404/brand.jpg",
+    "faq": "images/brand/mascot-v404/faq.jpg",
+    "contact": "images/brand/mascot-v404/contact.jpg"
+  }
 }
