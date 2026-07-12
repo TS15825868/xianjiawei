@@ -1,0 +1,39 @@
+name: v405 Zip Check
+
+on:
+  issues:
+    types: [reopened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    if: github.event.issue.title == 'TRIGGER_PAGES_V405'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - id: zip
+        continue-on-error: true
+        run: |
+          set +e
+          unzip -t assets/approved-v405-assets.zip > zip-check.log 2>&1
+          code=$?
+          cat zip-check.log
+          exit $code
+      - uses: actions/github-script@v7
+        env:
+          OUTCOME: ${{ steps.zip.outcome }}
+        with:
+          script: |
+            const fs = require('fs');
+            const log = fs.existsSync('zip-check.log') ? fs.readFileSync('zip-check.log','utf8') : 'no log';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `V405_ZIP_${process.env.OUTCOME.toUpperCase()}\n\n\`\`\`\n${log.slice(-5000)}\n\`\`\``
+            });
