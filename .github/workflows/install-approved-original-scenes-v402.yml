@@ -1,0 +1,58 @@
+name: Install approved original website scenes v402.0
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/install-approved-original-scenes-v402.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-approved-original-scenes-v402
+  cancel-in-progress: false
+
+jobs:
+  install:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Download approved original scene package
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 5 --retry-delay 3 \
+            "https://drive.google.com/uc?export=download&id=1Z3K1c6uMMIFTYcmR2uu21BQbaujVKC_i&confirm=t" \
+            -o /tmp/xianjiawei-approved-scenes-v402.zip
+          unzip -t /tmp/xianjiawei-approved-scenes-v402.zip
+
+      - name: Install and verify approved images
+        run: |
+          set -euo pipefail
+          unzip -o /tmp/xianjiawei-approved-scenes-v402.zip -d .
+          for f in home products choose combo guide recipes faq contact brand dm video knowledge hanfang-baike sources; do
+            test -s "images/brand/website-mascot-${f}.png"
+            test "$(stat -c%s "images/brand/website-mascot-${f}.png")" -gt 1000000
+            file "images/brand/website-mascot-${f}.png" | grep -q 'PNG image data'
+          done
+          test -s images/hero/home-brand-guilu-series.jpg
+          file images/hero/home-brand-guilu-series.jpg | grep -q 'JPEG image data'
+          grep -q 'const VERSION = "402.0"' site-fix-v317.js
+          grep -q 'website-mascot-home.png' site-fix-v317.js
+          grep -q '"version": "402.0"' deploy-version.json
+          grep -q 'approved-original-scene' images/brand/website-mascot-manifest.json
+          rm -f .github/workflows/install-approved-original-scenes-v402.yml
+
+      - name: Commit approved original scenes directly to main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "官網全站改用核准原圖場景 v402.0"
+          git push origin main
