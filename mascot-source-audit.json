@@ -1,20 +1,29 @@
 {
-  "version": "403.0",
+  "version": "403.1",
   "rules": [
     "使用者核准的九張小老闆產品場景為唯一產品場景來源",
+    "九個核心頁面各使用一張不同場景，不重複顯示",
+    "首頁只保留既有品牌主圖，不再額外插入第二張小老闆圖",
+    "DM、影片、知識、漢方百科與資料來源頁以內容本身為主，不放大型小老闆主圖",
     "產品包裝、比例、方向、盒型、瓶型、袋型與標籤不得變更",
-    "SVG僅封裝原始JPEG位元資料，不重繪產品",
-    "所有頁面以明確內容檔名對應，避免檔名與產品錯位"
+    "SVG僅封裝原始JPEG位元資料，不重繪產品"
   ],
-  "correctedSources": {
-    "scene-guilu-jiao-600g.svg": "原檔01，實際內容為紫色龜鹿膠600g掀蓋盒",
-    "scene-guilu-drink-180cc.svg": "原檔02，實際內容為180cc銀色鋁袋",
-    "scene-guilu-gao-100g.svg": "原檔03，實際內容為龜鹿膏盒與罐",
-    "scene-luerong-fen-75g.svg": "原檔04",
-    "scene-products-all.svg": "原檔05",
-    "scene-choose-forms.svg": "原檔06",
-    "scene-guilu-tangkuai-75g.svg": "原檔07",
-    "scene-brand-all.svg": "原檔08",
-    "scene-guilu-drink-30cc.svg": "原檔09"
-  }
+  "pageMap": {
+    "home": "scene-brand-all.svg",
+    "products": "scene-products-all.svg",
+    "choose": "scene-choose-forms.svg",
+    "combo": "scene-guilu-gao-100g.svg",
+    "guide": "scene-guilu-drink-180cc.svg",
+    "recipes": "scene-guilu-tangkuai-75g.svg",
+    "brand": "scene-guilu-jiao-600g.svg",
+    "faq": "scene-luerong-fen-75g.svg",
+    "contact": "scene-guilu-drink-30cc.svg"
+  },
+  "contentOnlyPages": [
+    "dm",
+    "video",
+    "knowledge",
+    "hanfang-baike",
+    "sources"
+  ]
 }
