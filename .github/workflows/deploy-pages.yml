@@ -66,11 +66,29 @@ jobs:
             --exclude='RUN_*' \
             --exclude='INSTALL_*' \
             --exclude='FIX_*'
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          version='404.3'
+          for page in Path('_site').glob('*.html'):
+              text=page.read_text(encoding='utf-8')
+              text=re.sub(r'site\.css\?v=[^"\']+',f'site.css?v={version}',text)
+              text=re.sub(r'site-v321\.css\?v=[^"\']+',f'site-v321.css?v={version}',text)
+              text=re.sub(r'site\.js\?v=[^"\']+',f'site.js?v={version}',text)
+              if page.name=='index.html':
+                  text=text.replace('images/brand/scene-brand-all.svg?v=403.1','images/brand/mascot-v404/home.jpg?v=404.3')
+                  text=text.replace('images/brand/scene-brand-all.svg?v=404.2','images/brand/mascot-v404/home.jpg?v=404.3')
+              page.write_text(text,encoding='utf-8')
+          PY
+
           touch _site/.nojekyll
           test -s _site/index.html
           test -s _site/site.js
           test -s _site/mascot-v404.js
           test -s _site/images/brand/mascot-v404/home.jpg
+          grep -q 'site.js?v=404.3' _site/index.html
+          grep -q 'site.js?v=404.3' _site/products.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
