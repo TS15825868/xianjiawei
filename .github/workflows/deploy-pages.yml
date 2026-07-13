@@ -25,16 +25,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 1
 
-      - name: 驗收正式網站 v408.2
+      - name: 驗收正式網站 v408.3
         run: |
           set -euo pipefail
           node --check site.js
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
-          grep -q '"version": "408.2"' deploy-version.json
+          grep -q '"version": "408.3"' deploy-version.json
           grep -q '"status": "production-ready"' deploy-version.json
-          grep -q '仙加味網站核心｜整合正式版 v408.2' site.js
+          grep -q '仙加味網站核心｜整合正式版 v408.3' site.js
           grep -q 'BEGIN CONSOLIDATED FRONTEND' site.css
           test ! -e site-core.js
           test ! -e approved-mascot-v405.js
@@ -62,33 +63,30 @@ jobs:
               'images/products-v3/guilu-jiao.jpg',
               'images/products-v3/luerong-fen.jpg',
           ]
-          dm_files=[
-              'images/dm-final/01_guilu-gao-100g-dm.jpg',
-              'images/dm-final/02_guilu-drink-30cc-dm.jpg',
-              'images/dm-final/03_guilu-drink-180cc-dm.jpg',
-              'images/dm-final/04_luerong-fen-75g-dm.jpg',
-              'images/dm-final/05_guilu-tangkuai-75g-dm.jpg',
-              'images/dm-final/06_guilu-jiao-600g-dm.jpg',
-          ]
           for filename in product_files:
               path=Path(filename)
               assert path.is_file(), path
               assert path.stat().st_size > 10000, (path,path.stat().st_size)
-          for filename in dm_files:
-              path=Path(filename)
-              assert path.is_file(), path
-              assert path.stat().st_size > 100000, (path,path.stat().st_size)
 
           data=json.loads(Path('data.json').read_text(encoding='utf-8'))
           assert len(data['products'])==6, len(data['products'])
           for product in data['products']:
-              assert product['image'].endswith('.jpg?v=408.2'), product['image']
-              assert product['dmImage'].endswith('.jpg?v=408.2'), product['dmImage']
+              assert product['image'].startswith('images/products-v3/'), product
+              assert product['image'].endswith('.jpg?v=408.3'), product['image']
+              assert product['dmImage'] == product['image'], product
+              assert product.get('detailImages') == [product['image']], product
+
+          active='\n'.join(
+              p.read_text(encoding='utf-8')
+              for p in [*Path('.').glob('*.html'), Path('site.js'), Path('data.json')]
+              if p.exists()
+          )
+          assert 'images/dm-final/' not in active
 
           dm=Path('dm.html').read_text(encoding='utf-8')
           assert dm.count('class="dm-image-v2"')==6
-          assert '<h1>六項產品 DM</h1>' in dm
-          print('正式驗收完成：15張小老闆、6張產品主圖、6張DM、單一JS/CSS')
+          assert '六項產品圖文整理' in dm
+          print('正式驗收完成：15張小老闆、6張真實產品主圖、快速查看與圖文頁均使用真實產品圖')
           PY
 
       - name: Prepare static website
@@ -104,6 +102,7 @@ jobs:
             --exclude='node_modules/' \
             --exclude='assets/' \
             --exclude='_upload/' \
+            --exclude='_trigger/' \
             --exclude='tmp-test*.txt' \
             --exclude='*.zip' \
             --exclude='*.tar' \
@@ -118,7 +117,7 @@ jobs:
           from pathlib import Path
           import re
 
-          version='408.2'
+          version='408.3'
           pattern=re.compile(r'(\.(?:css|js|jpg|jpeg|png|webp|avif))\?v=[^"\']+')
           for page in Path('_site').glob('*.html'):
               text=page.read_text(encoding='utf-8')
@@ -131,8 +130,8 @@ jobs:
           test -s _site/dm.html
           test -s _site/site.js
           test -s _site/site.css
-          grep -q 'site.js?v=408.2' _site/index.html
-          grep -q 'site.css?v=408.2' _site/index.html
+          grep -q 'site.js?v=408.3' _site/index.html
+          grep -q 'site.css?v=408.3' _site/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
