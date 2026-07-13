@@ -1,4 +1,4 @@
-name: Report v408.7 exact failure
+name: Report v408.7 retry failure
 
 on:
   issues:
@@ -10,19 +10,29 @@ permissions:
 
 jobs:
   report:
-    if: github.event.issue.title == 'REPORT_V4087_EXACT_FAILURE'
+    if: github.event.issue.title == 'REPORT_V4087_RETRY_FAILURE'
     runs-on: ubuntu-latest
     steps:
-      - name: Collect exact failed run
+      - name: Collect latest retry failure
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set +e
-          gh run view 29244015680 --repo "${{ github.repository }}" --log-failed > /tmp/failed.log 2>&1
+          gh run list --repo "${{ github.repository }}" --workflow apply-site-v4087-retry.yml --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json
+          run_id=$(python3 - <<'PY'
+          import json
+          runs=json.load(open('/tmp/runs.json'))
+          print(runs[0]['databaseId'] if runs else '')
+          PY
+          )
+          gh run view "$run_id" --repo "${{ github.repository }}" --log-failed > /tmp/failed.log 2>&1
           {
-            echo 'V4087_EXACT_FAILURE_REPORT'
+            echo 'V4087_RETRY_FAILURE_REPORT'
+            echo '```json'
+            cat /tmp/runs.json
+            echo '```'
             echo '```text'
-            tail -180 /tmp/failed.log
+            tail -220 /tmp/failed.log
             echo '```'
           } > /tmp/comment.txt
           gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
