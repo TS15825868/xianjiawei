@@ -27,15 +27,15 @@ jobs:
           ref: main
           fetch-depth: 1
 
-      - name: 驗收正式網站 v408.4
+      - name: 驗收正式網站 v408.6
         run: |
           set -euo pipefail
           node --check site.js
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
-          grep -q '"version": "408.4"' deploy-version.json
+          grep -q '"version": "408.6"' deploy-version.json
           grep -q '"status": "production-ready"' deploy-version.json
-          grep -q '仙加味網站核心｜整合正式版 v408.4' site.js
+          grep -q '仙加味網站核心｜整合正式版 v408.6' site.js
           grep -q "const detailImage = p.image" site.js
           grep -q 'BEGIN CONSOLIDATED FRONTEND' site.css
           test ! -e site-core.js
@@ -82,15 +82,15 @@ jobs:
           assert len(data['products'])==6, len(data['products'])
           for product in data['products']:
               assert product['image'].startswith('images/products-v3/'), product
-              assert product['image'].endswith('.jpg?v=408.4'), product['image']
+              assert product['image'].endswith('.jpg?v=408.6'), product['image']
               assert product['dmImage'].startswith('images/dm-final/'), product
-              assert product['dmImage'].endswith('.jpg?v=408.4'), product['dmImage']
+              assert product['dmImage'].endswith('.jpg?v=408.6'), product['dmImage']
               assert product.get('detailImages') == [product['dmImage']], product
 
           dm=Path('dm.html').read_text(encoding='utf-8')
           assert dm.count('class="dm-image-v2"')==6
           for filename in dm_files:
-              assert filename + '?v=408.4' in dm, filename
+              assert filename + '?v=408.6' in dm, filename
 
           detail_pages=list(Path('.').glob('product-*.html'))
           assert len(detail_pages) >= 6
@@ -138,7 +138,7 @@ jobs:
           from pathlib import Path
           import re
 
-          version='408.4'
+          version='408.6'
           pattern=re.compile(r'(\.(?:css|js|jpg|jpeg|png|webp|avif))\?v=[^"\']+')
           for page in Path('_site').glob('*.html'):
               text=page.read_text(encoding='utf-8')
@@ -151,8 +151,8 @@ jobs:
           test -s _site/dm.html
           test -s _site/site.js
           test -s _site/site.css
-          grep -q 'site.js?v=408.4' _site/index.html
-          grep -q 'site.css?v=408.4' _site/index.html
+          grep -q 'site.js?v=408.6' _site/index.html
+          grep -q 'site.css?v=408.6' _site/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
