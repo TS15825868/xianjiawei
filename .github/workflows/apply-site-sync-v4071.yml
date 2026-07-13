@@ -1,0 +1,116 @@
+name: Apply site sync v407.1
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+jobs:
+  apply:
+    if: github.event.issue.title == 'APPLY_SITE_SYNC_V407_1'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Sync DM page, versions and cleanup
+        run: |
+          set -euxo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,re
+
+          version='407.1'
+
+          # 補回 dm.html 的龜鹿飲180cc，並修正頁面標題。
+          p=Path('dm.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('<h1>五大產品 DM</h1>','<h1>六項產品 DM</h1>')
+          s=s.replace('仙加味產品用途與DM，整理龜鹿膏、龜鹿飲30cc玻璃瓶、龜鹿湯塊、龜鹿膠與鹿茸粉。','仙加味六項產品用途與DM，整理龜鹿膏、龜鹿飲30cc玻璃瓶、龜鹿飲180cc鋁袋、龜鹿湯塊、龜鹿膠與鹿茸粉。')
+          card180='''<article class="card reveal"><img alt="龜鹿飲180cc鋁袋產品用途與DM" class="dm-image-v2" decoding="async" loading="lazy" src="images/dm-final/03_guilu-drink-180cc-dm.jpg?v=407.1"/><p class="eyebrow">龜鹿飲</p><h3>龜鹿飲180cc</h3><p class="muted">規格：180cc／包（鋁袋）</p><p>鋁袋包裝，開封即可飲用，也可依個人習慣溫熱後飲用。</p><div class="final-cta__actions"><a class="btn btn-outline dm-lightbox-link" data-dm-src="images/dm-final/03_guilu-drink-180cc-dm.jpg?v=407.1" href="images/dm-final/03_guilu-drink-180cc-dm.jpg?v=407.1">開啟DM圖</a><a aria-label="前往 LINE 官方帳號｜詢問產品" class="btn btn-line" data-line-message="我要詢問【龜鹿飲180cc】" data-line-url="" href="https://lin.ee/sHZW7NkR" rel="noopener noreferrer" target="_blank" title="將開啟官方 LINE">前往 LINE 詢問產品</a></div></article>'''
+          if '03_guilu-drink-180cc-dm.jpg' not in s:
+              marker='<article class="card reveal"><img alt="龜鹿湯塊產品用途與DM"'
+              if marker not in s:
+                  raise SystemExit('找不到龜鹿湯塊卡片插入點')
+              s=s.replace(marker,card180+'\n'+marker,1)
+          p.write_text(s,encoding='utf-8')
+
+          # 全站本機靜態資源快取版本統一。
+          files=list(Path('.').glob('*.html'))+[Path('data.json'),Path('approved-mascot-v405.js')]
+          pat=re.compile(r'(\.(?:css|js|jpg|jpeg|png|webp))\?v=[0-9.]+')
+          for f in files:
+              if not f.exists(): continue
+              text=f.read_text(encoding='utf-8')
+              text=pat.sub(lambda m:m.group(1)+f'?v={version}',text)
+              f.write_text(text,encoding='utf-8')
+
+          Path('deploy-version.json').write_text(json.dumps({
+              'version':version,
+              'updatedAt':'2026-07-13',
+              'summary':'六項產品DM、全站LINE按鈕、15張官網小老闆圖與部署版本統一'
+          },ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # 永久 Pages 部署流程不再把新版降回405.1。
+          wf=Path('.github/workflows/deploy-pages.yml')
+          t=wf.read_text(encoding='utf-8')
+          t=t.replace('Verify website v405.1 and 15 approved images','Verify website v407.1, six DM files and 15 approved images')
+          t=t.replace("grep -q '405.1' site.js","grep -q '407.1' site.js")
+          t=t.replace("grep -q '\"version\": \"405.1\"' deploy-version.json","grep -q '\"version\": \"407.1\"' deploy-version.json")
+          t=t.replace("version='405.1'","version='407.1'")
+          t=t.replace("site.js?v=405.1","site.js?v=407.1")
+          t=t.replace("approved-v405/home-brand.png?v=405.1","approved-v405/home-brand.png?v=407.1")
+          verify='''\n          python3 - <<'PY2'\n          from pathlib import Path\n          expected=[\n            'images/dm-final/01_guilu-gao-100g-dm.jpg',\n            'images/dm-final/02_guilu-drink-30cc-dm.jpg',\n            'images/dm-final/03_guilu-drink-180cc-dm.jpg',\n            'images/dm-final/04_luerong-fen-75g-dm.jpg',\n            'images/dm-final/05_guilu-tangkuai-75g-dm.jpg',\n            'images/dm-final/06_guilu-jiao-600g-dm.jpg']\n          for f in expected:\n              p=Path(f); assert p.is_file() and p.stat().st_size>100000,(f,p.stat().st_size if p.exists() else 0)\n          dm=Path('dm.html').read_text(encoding='utf-8')\n          assert dm.count('class=\"dm-image-v2\"')==6\n          assert '03_guilu-drink-180cc-dm.jpg' in dm\n          PY2\n'''
+          if "assert dm.count('class=\"dm-image-v2\"')==6" not in t:
+              t=t.replace('      - name: Prepare static website',verify+'\n      - name: Prepare static website')
+          wf.write_text(t,encoding='utf-8')
+          PY
+
+          # 移除本次誤建的測試檔與一次性流程本身。
+          rm -f tmp-test*.txt
+          rm -f .github/workflows/apply-site-sync-v4071.yml
+
+          node --check site.js
+          node --check site-core.js
+          python3 -m json.tool data.json >/dev/null
+          python3 -m json.tool deploy-version.json >/dev/null
+          test "$(grep -o 'class="dm-image-v2"' dm.html | wc -l)" -eq 6
+          grep -q '03_guilu-drink-180cc-dm.jpg?v=407.1' dm.html
+          grep -q '前往 LINE' index.html
+          grep -q '407.1' deploy-version.json
+          grep -q "version='407.1'" .github/workflows/deploy-pages.yml
+
+      - name: Commit directly to main
+        run: |
+          set -euxo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '補齊六項DM頁並統一全站部署版本 v407.1'
+          git push origin HEAD:main
+
+      - name: Trigger Pages deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 3
+          gh workflow run deploy-pages.yml --ref main
+
+      - name: Report success
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'SITE_SYNC_SUCCESS｜dm.html 已補齊龜鹿飲180cc，共六項；全站資源與部署版本統一為407.1；誤建測試檔已清除；已觸發Pages部署。'});
+            await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,state:'closed',state_reason:'completed'});
+
+      - name: Report failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'SITE_SYNC_FAILURE｜同步未完成，請查看本次Actions紀錄。'});
