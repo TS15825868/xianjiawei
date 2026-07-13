@@ -1655,3 +1655,36 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
 @media(max-width:860px){.product-dm-compact__grid{grid-template-columns:1fr;padding:20px}.product-dm-thumb{justify-self:center;max-width:300px}.product-dm-thumb img{height:320px}}
 @media(max-width:700px){.product-summary-strip .grid-4{grid-template-columns:1fr 1fr}.compare-table th,.compare-table td{padding:13px 14px}.product-dm-compact__grid{border-radius:20px}}
 @media(max-width:480px){.product-summary-strip .grid-4{grid-template-columns:1fr}.product-dm-thumb img{height:280px}}
+
+
+/* ===== v408.7｜整站資訊層級、產品頁、效能與轉換正式版 ===== */
+:root{--content-wide:1180px;--content-narrow:840px}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:22px;border:1px solid rgba(11,31,59,.09);background:#fff;box-shadow:0 12px 30px rgba(15,23,42,.05)}
+.compare-table{width:100%;border-collapse:collapse;min-width:760px}
+.compare-table th,.compare-table td{padding:16px 18px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(11,31,59,.08);line-height:1.65}
+.compare-table thead th{background:#0B1F3B;color:#fff;font-size:14px;letter-spacing:.04em}
+.compare-table tbody th{color:#7B1E1E;white-space:nowrap}
+.compare-table tbody tr:last-child th,.compare-table tbody tr:last-child td{border-bottom:0}
+.compare-table a{color:inherit;text-decoration:none}
+.section-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+.product-detail-v4087 .product-detail-hero{margin-bottom:10px}
+.product-summary-strip{padding-top:16px;padding-bottom:10px}
+.product-summary-strip .card{padding:20px}
+.product-summary-strip h2{font-size:15px;color:#7B1E1E;margin-bottom:8px}
+.product-summary-strip p{margin:0;line-height:1.65}
+.product-complete-grid{align-items:stretch}
+.product-complete-grid .card{height:100%}
+.product-compare-note{margin-top:18px;display:grid;gap:10px}
+.product-dm-compact{padding-top:12px}
+.product-dm-compact__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,360px);gap:28px;align-items:center;background:#fff;border:1px solid rgba(11,31,59,.08);border-radius:26px;padding:28px;box-shadow:0 12px 30px rgba(15,23,42,.06)}
+.product-dm-thumb{display:block;max-width:330px;justify-self:end}
+.product-dm-thumb img{display:block;width:100%;height:360px;object-fit:contain;border-radius:18px;border:1px solid rgba(180,130,55,.28);background:#F7F4ED}
+.approved-mascot--product{padding-top:12px;padding-bottom:12px}
+.approved-mascot--product .approved-mascot-card{max-width:760px;margin-inline:auto}
+.approved-mascot--product img{width:100%;height:auto;display:block;border-radius:24px}
+.home-v4087 .home-story-main .story-photo{height:auto;aspect-ratio:4/3;object-fit:cover}
+.products-v4087 .product-grid,.home-v4087 .product-grid{margin-top:8px}
+.page-updated{text-align:center;color:#64748b;font-size:13px;margin:12px auto 32px}
+@media(max-width:860px){.product-dm-compact__grid{grid-template-columns:1fr;padding:20px}.product-dm-thumb{justify-self:center;max-width:300px}.product-dm-thumb img{height:320px}}
+@media(max-width:700px){.product-summary-strip .grid-4{grid-template-columns:1fr 1fr}.compare-table th,.compare-table td{padding:13px 14px}.product-dm-compact__grid{border-radius:20px}}
+@media(max-width:480px){.product-summary-strip .grid-4{grid-template-columns:1fr}.product-dm-thumb img{height:280px}}

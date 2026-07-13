@@ -1,1 +1,0 @@
-The v408.7 visibility workflow is ready and will be triggered by a GitHub issue. This temporary note will be removed by the workflow.
