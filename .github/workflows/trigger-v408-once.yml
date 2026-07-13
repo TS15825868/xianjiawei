@@ -1,0 +1,23 @@
+name: Trigger v408 once
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  issues: write
+
+jobs:
+  trigger:
+    if: github.event.head_commit.message == 'RUN_PRODUCT_ASSETS_V408'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'APPLY_PRODUCT_ASSETS_V408',
+              body: '自動觸發：套用最新六張產品主圖、六張產品DM，並整合前端JS與CSS。'
+            });
