@@ -1,5 +1,5 @@
 {
-  "version": "408.3",
+  "version": "408.4",
   "updated": "2026-07-13",
   "status": "production-ready",
   "catalog": "five-types-six-specifications",
@@ -7,11 +7,11 @@
     "productCards": "verified-original-product-image",
     "quickViewModal": "verified-original-product-image",
     "detailHero": "verified-original-product-image",
-    "detailGallery": "verified-original-product-image",
+    "detailDM": "six-approved-final-dm-images",
     "detailMascot": "approved-page-specific-mascot",
-    "dmPage": "verified-original-product-image-with-live-text"
+    "dmPage": "six-approved-final-dm-images"
   },
   "frontend": "single-site-js-and-single-site-css",
   "automation": "main-only-auto-deploy-and-trusted-pr-auto-merge",
-  "safety": "no-redrawn-product-packaging-in-active-display"
+  "safety": "no-redrawn-product-packaging-in-product-card-or-quick-view"
 }

@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味網站核心｜整合正式版 v408.3 */
+/* 仙加味網站核心｜整合正式版 v408.4 */
 let SITE_DATA = null;
 
 const MENU_GROUPS = [
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=408.3');
+  const res = await fetch('data.json?v=408.4');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -931,21 +931,14 @@ function openProductModal(p, sourceEl) {
   if (!modal || !body) return;
 
   lastFocusedCard = sourceEl || document.activeElement;
-
-  // v253 強制規則：
-  // 產品卡片只用 p.image（實際外包裝）。
-  // 產品詳情彈窗只用 p.dmImage / p.detailImages[0]（一張 DM）。
-  // 不再讀取 gallery，不再顯示產品照。
-  const detailImage =
-    p.dmImage ||
-    (Array.isArray(p.detailImages) && p.detailImages[0]) ||
-    'images/logo.png';
+  // v408.4：快速查看固定使用真實產品原圖；正式DM只放DM頁與產品詳細頁。
+  const detailImage = p.image || 'images/logo.png';
 
   body.innerHTML = `
     <div class="modal-top modal-top--dm-only">
       <div class="modal-gallery modal-gallery--single modal-gallery--dm-only">
         <div class="modal-gallery__item modal-gallery__item--dm-only">
-          <img src="${detailImage}" alt="${p.name || '產品'} 產品圖文整理" loading="lazy" decoding="async">
+          <img src="${detailImage}" alt="${p.name || '產品'} 實際產品與包裝" loading="lazy" decoding="async">
         </div>
       </div>
 
