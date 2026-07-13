@@ -1,4 +1,4 @@
-name: Report deploy v408.6
+name: Report deploy v408.6 log
 
 on:
   issues:
@@ -10,34 +10,24 @@ permissions:
 
 jobs:
   report:
-    if: github.event.issue.title == 'REPORT_DEPLOY_V4086'
+    if: github.event.issue.title == 'REPORT_DEPLOY_V4086_LOG'
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for target Pages deployment
+      - name: Report exact failed log
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          set -euo pipefail
-          target='f2c8b71990630591897fad12f86e749e195dce8d'
-          echo '[]' > /tmp/runs.json
-          for i in $(seq 1 18); do
-            gh run list --repo "${{ github.repository }}" --workflow deploy-pages.yml --commit "$target" --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json || true
-            status=$(python3 - <<'PY'
-          import json
-          try:
-              x=json.load(open('/tmp/runs.json'))
-              print(x[0].get('status','') if x else '')
-          except Exception:
-              print('')
-          PY
-            )
-            if [ "$status" = 'completed' ]; then break; fi
-            sleep 10
-          done
+          set +e
+          run_id=29241558021
+          gh run view "$run_id" --repo "${{ github.repository }}" --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/run.json 2>&1
+          gh run view "$run_id" --repo "${{ github.repository }}" --log-failed > /tmp/failed.log 2>&1
           {
-            echo 'DEPLOY_V4086_REPORT'
+            echo 'DEPLOY_V4086_FAILED_LOG'
             echo '```json'
-            cat /tmp/runs.json
+            cat /tmp/run.json
+            echo '```'
+            echo '```text'
+            tail -220 /tmp/failed.log
             echo '```'
           } > /tmp/comment.txt
           gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
