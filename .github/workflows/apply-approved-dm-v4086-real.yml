@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 -m pip install --quiet gdown pillow
-          gdown --id '1EBfcN1O4d4ffD9g5MEjYlnj9Z5ELNUOS' --output /tmp/approved-dm-v4086.zip
+          gdown '1EBfcN1O4d4ffD9g5MEjYlnj9Z5ELNUOS' -O /tmp/approved-dm-v4086.zip
           echo '635c15232d2057cd1aa2622d0bbcba0a233e20b74e87f960963394803b076e99  /tmp/approved-dm-v4086.zip' | sha256sum -c -
           rm -rf /tmp/approved-dm-v4086
           mkdir -p /tmp/approved-dm-v4086
@@ -73,7 +73,7 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          import json, datetime
+          import json
 
           for pattern in ('*.html', '*.js', '*.css', '*.json'):
               for p in Path('.').glob(pattern):
@@ -143,10 +143,11 @@ jobs:
           print('Final validation passed.')
           PY
 
-      - name: Remove temporary test workflows
+      - name: Remove temporary test workflows and notes
         run: |
           set -euo pipefail
           rm -f .github/workflows/apply-approved-dm-v4086-real.yml
+          rm -f .github/workflows/report-dm-v4086-failure.yml
           rm -f .github/workflows/drive-inspect-on-push.yml
           rm -f .github/workflows/test-drive-public-v2.yml
           rm -f .github/workflows/test-drive-download-v408.yml
@@ -157,6 +158,7 @@ jobs:
           rm -f .github/workflows/report-approved-dm-v4085.yml
           rm -f .github/workflows/report-approved-dm-failure.yml
           rm -f .github/workflows/report-approved-dm-failure-2.yml
+          rm -f tools/v4086-source-note.txt tools/v4086-trigger-ready.txt
 
       - name: Commit directly to main
         run: |
