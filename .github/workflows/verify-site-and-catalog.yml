@@ -21,37 +21,55 @@ jobs:
         with:
           node-version: 22
 
-      - name: Full static audit
-        run: python3 tools/site_maintenance.py
-
-      - name: JavaScript syntax
-        run: |
-          node --check site.js
-          node --check site-core.js
-          node --check site-fix-v317.js
-
-      - name: HTTP smoke tests
-        shell: bash
+      - name: Verify public website v408.7
         run: |
           set -euo pipefail
-          python3 -m http.server 8080 >/tmp/xianjiawei-http.log 2>&1 &
-          PID=$!
-          trap 'kill $PID' EXIT
-          sleep 2
-          for path in \
-            index.html products.html choose.html combo.html guide.html recipes.html \
-            video.html knowledge.html hanfang-baike.html sources.html dm.html brand.html \
-            faq.html contact.html data.json catalog-public.json \
-            site.js site-core.js site-fix-v317.js site.css site-v321.css \
-            images/brand/xianjiawei-scene-guide.jpg \
-            product-guilu-gao.html product-guilu-drink-30cc.html \
-            product-guilu-drink-180cc.html product-guilu-tangkuai.html \
-            product-guilu-jiao.html product-luerong-fen.html; do
-            curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
-          done
-
-      - name: Confirm catalog requirements
-        run: |
+          python3 -m pip install --quiet beautifulsoup4
+          node --check site.js
+          python3 -m json.tool data.json >/dev/null
+          python3 -m json.tool catalog-public.json >/dev/null
+          python3 -m json.tool deploy-version.json >/dev/null
+          python3 - <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import json
+          assert json.loads(Path('deploy-version.json').read_text())['version']=='408.7'
+          assert Path('sitemap.xml').read_text().count('<url>')==20
+          assert '五大產品型態、六項規格' in Path('products.html').read_text(encoding='utf-8')
+          product_pages=['product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']
+          for name in product_pages:
+              text=Path(name).read_text(encoding='utf-8')
+              assert text.count('<h1')==1, name
+              assert '完整產品資料' in text, name
+              assert 'product-dm-compact' in text, name
+              assert 'product-mascot-anchor' in text, name
+          for page in Path('.').glob('*.html'):
+              soup=BeautifulSoup(page.read_text(encoding='utf-8'),'html.parser')
+              if page.name!='googlec5c2af289948c263.html':
+                  assert soup.find('meta',attrs={'name':'robots'}), page
+              for tag,attr in [('a','href'),('img','src'),('script','src'),('link','href')]:
+                  for el in soup.find_all(tag):
+                      value=el.get(attr)
+                      if not value or value.startswith(('http://','https://','mailto:','tel:','data:','#','javascript:')): continue
+                      target=value.split('#')[0].split('?')[0]
+                      if target: assert (page.parent/target).exists(), (page,target)
+          assert len(list(Path('images/brand/approved-v405').glob('*.webp')))==15
+          print('website validation passed')
+          PY
+          grep -q 'OAI-SearchBot' robots.txt
+          grep -q 'Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml' robots.txt
+          grep -q 'catalog-public.json' llms.txt
           grep -q '"id": "guilu-drink-30"' data.json
           grep -q '"id": "guilu-drink-180"' data.json
           grep -q '@762jybnm' data.json
+
+      - name: HTTP smoke tests
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8080 >/tmp/site-http.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          sleep 2
+          for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html; do
+            curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
+          done
