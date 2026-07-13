@@ -10,9 +10,13 @@ permissions:
 
 jobs:
   apply:
-    if: github.event.issue.title == 'PING_V408_3_FIX'
+    if: github.event.issue.title == 'PING_V408_3_FIX_START'
     runs-on: ubuntu-latest
     steps:
+      - name: Started
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.3_FIX_STARTED'
       - uses: actions/checkout@v4
         with:
           ref: main
