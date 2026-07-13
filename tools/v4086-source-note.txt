@@ -1,0 +1,3 @@
+Source file: Google Drive public inherited-permission copy 1EBfcN1O4d4ffD9g5MEjYlnj9Z5ELNUOS
+Archive SHA-256: 635c15232d2057cd1aa2622d0bbcba0a233e20b74e87f960963394803b076e99
+This note is temporary and may be removed after verified deployment.
