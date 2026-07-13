@@ -1,0 +1,50 @@
+name: Debug v408
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  debug:
+    if: github.event.issue.title == 'DEBUG_V408'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Diagnose staged files and transformation
+        id: diag
+        continue-on-error: true
+        run: |
+          set +e
+          exec > >(tee /tmp/v408-debug.log) 2>&1
+          echo '=== STAGED FILES ==='
+          ls -lah _upload || true
+          wc -c _upload/products-v408.zip.b64 _upload/dm-v408.zip.b64 || true
+          echo '=== BASE64 DECODE ==='
+          base64 -d _upload/products-v408.zip.b64 > /tmp/p.zip; echo "product decode=$? size=$(stat -c%s /tmp/p.zip 2>/dev/null)"
+          base64 -d _upload/dm-v408.zip.b64 > /tmp/d.zip; echo "dm decode=$? size=$(stat -c%s /tmp/d.zip 2>/dev/null)"
+          echo '=== ZIP TEST ==='
+          unzip -t /tmp/p.zip; echo "product zip=$?"
+          unzip -t /tmp/d.zip; echo "dm zip=$?"
+          echo '=== ZIP LIST ==='
+          unzip -l /tmp/p.zip || true
+          unzip -l /tmp/d.zip || true
+          echo '=== REQUIRED SOURCE FILES ==='
+          for f in site-core.js approved-mascot-v405.js site-v321.css site-v405.css site.css data.json; do ls -l "$f"; done
+          echo '=== CURRENT REFERENCES ==='
+          grep -n 'products-v3/guilu-gao' data.json | head
+          grep -n 'dm-final/03_guilu-drink' dm.html | head
+      - name: Publish diagnosis
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs');
+            const log=fs.existsSync('/tmp/v408-debug.log')?fs.readFileSync('/tmp/v408-debug.log','utf8'):'no log';
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:`V408_DEBUG\n\n\`\`\`\n${log.slice(-30000)}\n\`\`\``});
