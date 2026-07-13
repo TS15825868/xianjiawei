@@ -1,0 +1,18 @@
+name: Test v408.3 event
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  test:
+    if: github.event.issue.title == 'PING_V408_3'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reply
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'PONG_V408_3'
