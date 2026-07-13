@@ -1,0 +1,40 @@
+name: Report latest v408.7 deployment
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  actions: read
+  issues: write
+
+jobs:
+  report:
+    if: github.event.issue.title == 'REPORT_LATEST_V4087_DEPLOYMENT'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait and report latest Pages run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          echo '[]' > /tmp/runs.json
+          for i in $(seq 1 24); do
+            gh run list --repo "${{ github.repository }}" --workflow deploy-pages.yml --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json || true
+            status=$(python3 - <<'PY'
+          import json
+          runs=json.load(open('/tmp/runs.json'))
+          print(runs[0].get('status','') if runs else '')
+          PY
+            )
+            [ "$status" = 'completed' ] && break
+            sleep 10
+          done
+          {
+            echo 'LATEST_V4087_DEPLOYMENT'
+            echo '```json'
+            cat /tmp/runs.json
+            echo '```'
+          } > /tmp/comment.txt
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
+          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
