@@ -10,29 +10,24 @@ permissions:
 
 jobs:
   report:
-    if: github.event.issue.title == 'REPORT_DM_V4086_FAILURE'
+    if: github.event.issue.title == 'REPORT_DM_V4086_FAILURE_2'
     runs-on: ubuntu-latest
     steps:
-      - name: Collect failure log
+      - name: Collect exact failure log
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set +e
-          gh run list --repo "${{ github.repository }}" --workflow apply-approved-dm-v4086-real.yml --limit 5 --json databaseId,status,conclusion,createdAt,headSha,displayTitle > /tmp/runs.json
-          run_id=$(python3 - <<'PY'
-          import json
-          x=json.load(open('/tmp/runs.json'))
-          print(x[0]['databaseId'] if x else '')
-          PY
-          )
+          run_id=29241228721
           gh run view "$run_id" --repo "${{ github.repository }}" --log-failed > /tmp/failed.log 2>&1
+          gh run view "$run_id" --repo "${{ github.repository }}" --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/run.json 2>&1
           {
-            echo 'DM_V4086_FAILURE_REPORT'
+            echo 'DM_V4086_FAILURE_REPORT_2'
             echo '```json'
-            cat /tmp/runs.json
+            cat /tmp/run.json
             echo '```'
             echo '```text'
-            tail -160 /tmp/failed.log
+            tail -200 /tmp/failed.log
             echo '```'
           } > /tmp/comment.txt
           gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
