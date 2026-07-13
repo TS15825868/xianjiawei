@@ -3,6 +3,10 @@ name: Fix product image display v408.3
 on:
   issues:
     types: [opened]
+  push:
+    branches: [main]
+    paths:
+      - '_trigger/fix-product-images-v4083.txt'
 
 permissions:
   contents: write
@@ -14,7 +18,7 @@ concurrency:
 
 jobs:
   fix:
-    if: github.event.issue.title == 'FIX_PRODUCT_IMAGES_V408_3'
+    if: github.event_name == 'push' || github.event.issue.title == 'FIX_PRODUCT_IMAGES_V408_3'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
@@ -140,6 +144,7 @@ jobs:
       - name: Commit to main and remove temporary fixer
         run: |
           set -euo pipefail
+          rm -rf _trigger
           rm -f .github/workflows/fix-product-images-v4083.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -148,6 +153,7 @@ jobs:
           git push origin HEAD:main
 
       - name: Report completion
+        if: success() && github.event_name == 'issues'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
