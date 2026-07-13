@@ -1,0 +1,39 @@
+name: Report DM v408.6 failure
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  actions: read
+  issues: write
+
+jobs:
+  report:
+    if: github.event.issue.title == 'REPORT_DM_V4086_FAILURE'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Collect failure log
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          gh run list --repo "${{ github.repository }}" --workflow apply-approved-dm-v4086-real.yml --limit 5 --json databaseId,status,conclusion,createdAt,headSha,displayTitle > /tmp/runs.json
+          run_id=$(python3 - <<'PY'
+          import json
+          x=json.load(open('/tmp/runs.json'))
+          print(x[0]['databaseId'] if x else '')
+          PY
+          )
+          gh run view "$run_id" --repo "${{ github.repository }}" --log-failed > /tmp/failed.log 2>&1
+          {
+            echo 'DM_V4086_FAILURE_REPORT'
+            echo '```json'
+            cat /tmp/runs.json
+            echo '```'
+            echo '```text'
+            tail -160 /tmp/failed.log
+            echo '```'
+          } > /tmp/comment.txt
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
+          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
