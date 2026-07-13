@@ -1,4 +1,4 @@
-name: Apply site v408.7 retry
+name: Apply site v408.7 final
 
 on:
   issues:
@@ -10,12 +10,12 @@ permissions:
   actions: read
 
 concurrency:
-  group: apply-site-v4087-retry
+  group: apply-site-v4087-final
   cancel-in-progress: false
 
 jobs:
   apply:
-    if: github.event.issue.title == 'APPLY_SITE_V4087_RETRY'
+    if: github.event.issue.title == 'APPLY_SITE_V4087_FINAL'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout latest main
@@ -24,29 +24,17 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Download verified scripts
+      - name: Download verified update script
         run: |
           set -euo pipefail
           python3 -m pip install --quiet gdown beautifulsoup4 pillow
           gdown '1JFafCAXXmcpCpf15nKTqi-dmC9-dtZk4' -O /tmp/apply_v4087.py
-          gdown '1EUK87BwJdKK-oXZ03TVdMBQgGWQeK16S' -O /tmp/deploy-pages-v4087.yml
           echo '3d1736577a3ff8a75141e0d2316af7a266ea97391b871c01520963bb739a1fef  /tmp/apply_v4087.py' | sha256sum -c -
-          echo 'd99bbd29f89ac0e8f083086d6ab8f9fac15c193f6f403ca2051dbf4b8f449193  /tmp/deploy-pages-v4087.yml' | sha256sum -c -
 
-      - name: Apply v408.7 and install deploy workflow
+      - name: Apply v408.7 website update
         run: |
           set -euo pipefail
           python3 /tmp/apply_v4087.py
-          cp /tmp/deploy-pages-v4087.yml .github/workflows/deploy-pages.yml
-          rm -f .github/workflows/apply-site-v4087-full.yml
-          rm -f .github/workflows/apply-site-v4087-retry.yml
-          rm -f .github/workflows/report-v4087-failure.yml
-          rm -f .github/workflows/report-deploy-v4086.yml
-          rm -f .github/workflows/report-deploy-v4086-log.yml
-          rm -f .github/workflows/report-deploy-v4086-error.yml
-          rm -f .github/workflows/confirm-deploy-v4086-success.yml
-          rm -f .github/workflows/confirm-latest-deploy-v4086.yml
-          rm -f .github/workflows/report-dm-v4086-failure.yml
 
       - name: Commit, rebase and push main
         id: commit
@@ -108,4 +96,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'SITE_V4087_RETRY_FAILURE｜重試流程未完成，不宣稱上線；請查看失敗步驟。'
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'SITE_V4087_FINAL_FAILURE｜最終流程未完成，不宣稱上線；請查看失敗步驟。'
