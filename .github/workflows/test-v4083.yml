@@ -1,18 +1,38 @@
-name: Test v408.3 event
+name: Apply product image fix v408.3
 
 on:
   issues:
     types: [opened]
 
 permissions:
+  contents: write
   issues: write
 
 jobs:
-  test:
-    if: github.event.issue.title == 'PING_V408_3'
+  apply:
+    if: github.event.issue.title == 'PING_V408_3_FIX'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Apply fix
+        run: python3 tools/fix_product_images_v4083.py
+      - name: Commit
+        run: |
+          rm -rf _trigger
+          rm -f tools/fix_product_images_v4083.py
+          rm -f .github/workflows/fix-product-images-v4083.yml
+          rm -f .github/workflows/test-v4083.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '修正全站產品圖片為真實原圖 v408.3'
+          git push origin HEAD:main
       - name: Reply
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'PONG_V408_3'
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.3_PRODUCT_IMAGE_FIX_SUCCESS'
+          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
