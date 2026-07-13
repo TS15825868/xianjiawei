@@ -1,4 +1,4 @@
-name: Confirm deploy v408.6 success
+name: Confirm latest deploy v408.6
 
 on:
   issues:
@@ -10,32 +10,38 @@ permissions:
 
 jobs:
   report:
-    if: github.event.issue.title == 'CONFIRM_DEPLOY_V4086_SUCCESS'
+    if: github.event.issue.title == 'CONFIRM_LATEST_DEPLOY_V4086'
     runs-on: ubuntu-latest
     steps:
-      - name: Wait and report target deployment
+      - name: Wait and report latest Pages deployment
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          target='c79e41a2062ea939c324b2c2559972331a61f56e'
           echo '[]' > /tmp/runs.json
-          for i in $(seq 1 24); do
-            gh run list --repo "${{ github.repository }}" --workflow deploy-pages.yml --commit "$target" --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json || true
+          for i in $(seq 1 30); do
+            gh run list --repo "${{ github.repository }}" --workflow deploy-pages.yml --limit 8 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/all.json || true
+            python3 - <<'PY'
+          import json
+          runs=json.load(open('/tmp/all.json')) if open('/tmp/all.json').read().strip() else []
+          chosen=[]
+          for r in runs:
+              if r.get('conclusion') != 'cancelled':
+                  chosen=[r]
+                  break
+          json.dump(chosen,open('/tmp/runs.json','w'))
+          PY
             status=$(python3 - <<'PY'
           import json
-          try:
-              runs=json.load(open('/tmp/runs.json'))
-              print(runs[0].get('status','') if runs else '')
-          except Exception:
-              print('')
+          runs=json.load(open('/tmp/runs.json'))
+          print(runs[0].get('status','') if runs else '')
           PY
             )
             if [ "$status" = 'completed' ]; then break; fi
             sleep 10
           done
           {
-            echo 'DEPLOY_V4086_FINAL_REPORT'
+            echo 'LATEST_DEPLOY_V4086_REPORT'
             echo '```json'
             cat /tmp/runs.json
             echo '```'
