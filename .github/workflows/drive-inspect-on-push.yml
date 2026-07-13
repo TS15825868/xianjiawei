@@ -1,0 +1,42 @@
+name: Inspect approved DM source
+
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/drive-inspect-on-push.yml']
+
+permissions:
+  issues: write
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download and inspect
+        run: |
+          set +e
+          curl -L --fail --max-time 120 -o /tmp/dm-source 'https://drive.usercontent.google.com/download?id=11rBLrjxeDX8W_jcKRAfIj4B9Z8q9aQql&export=download&confirm=t'
+          {
+            echo "curl_exit=$?"
+            stat -c 'size=%s' /tmp/dm-source 2>/dev/null
+            file /tmp/dm-source 2>/dev/null
+            echo '--- zip test ---'
+            unzip -t /tmp/dm-source 2>&1 | tail -20
+            echo '--- zip list ---'
+            unzip -l /tmp/dm-source 2>&1 | head -80
+            echo '--- first bytes ---'
+            xxd -l 64 /tmp/dm-source 2>/dev/null
+          } > /tmp/report.txt
+          cat /tmp/report.txt
+      - name: Report to issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo 'DRIVE_DM_SOURCE_INSPECTION'
+            echo '```text'
+            cat /tmp/report.txt 2>/dev/null || true
+            echo '```'
+          } > /tmp/comment.txt
+          gh issue comment 128 --repo "${{ github.repository }}" --body-file /tmp/comment.txt
