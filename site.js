@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味網站核心｜整合正式版 v408.2 */
+/* 仙加味網站核心｜整合正式版 v408.3 */
 let SITE_DATA = null;
 
 const MENU_GROUPS = [
@@ -9,7 +9,7 @@ const MENU_GROUPS = [
     { href: 'products.html', label: '龜鹿系列／產品學堂' },
     { href: 'choose.html', label: '怎麼選龜鹿' },
     { href: 'combo.html', label: '套餐搭配' },
-    { href: 'dm.html', label: '產品DM' }
+    { href: 'dm.html', label: '產品圖文整理' }
   ] },
   { title: '🍵 食補使用與內容', links: [
     { href: 'guide.html', label: '怎麼使用／補養日常' },
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=408.2');
+  const res = await fetch('data.json?v=408.3');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
@@ -945,7 +945,7 @@ function openProductModal(p, sourceEl) {
     <div class="modal-top modal-top--dm-only">
       <div class="modal-gallery modal-gallery--single modal-gallery--dm-only">
         <div class="modal-gallery__item modal-gallery__item--dm-only">
-          <img src="${detailImage}" alt="${p.name || '產品'} 產品DM" loading="lazy" decoding="async">
+          <img src="${detailImage}" alt="${p.name || '產品'} 產品圖文整理" loading="lazy" decoding="async">
         </div>
       </div>
 
@@ -1168,11 +1168,11 @@ function initDMLightboxV282() {
     lightbox.className = 'dm-lightbox';
     lightbox.setAttribute('aria-hidden', 'true');
     lightbox.setAttribute('role', 'dialog');
-    lightbox.setAttribute('aria-label', '產品DM大圖');
+    lightbox.setAttribute('aria-label', '產品圖文整理大圖');
     lightbox.innerHTML = `
       <button class="dm-lightbox__close" type="button" aria-label="關閉DM大圖" data-close-dm-lightbox="1">×</button>
       <div class="dm-lightbox__panel" role="document">
-        <img class="dm-lightbox__img" alt="產品DM大圖" src="" loading="eager" decoding="async">
+        <img class="dm-lightbox__img" alt="產品圖文整理大圖" src="" loading="eager" decoding="async">
       </div>
     `;
     document.body.appendChild(lightbox);
@@ -1184,7 +1184,7 @@ function initDMLightboxV282() {
   const open = (src, alt) => {
     if (!img || !src) return;
     img.src = src;
-    img.alt = alt || '產品DM大圖';
+    img.alt = alt || '產品圖文整理大圖';
     lightbox.setAttribute('aria-hidden', 'false');
     document.body.classList.add('dm-lightbox-open');
     closeBtn?.focus();
@@ -1202,8 +1202,8 @@ function initDMLightboxV282() {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const src = link.getAttribute('data-dm-src') || link.getAttribute('href');
-      const title = link.closest('article')?.querySelector('h3')?.textContent || link.textContent || '產品DM';
-      open(src, title + '產品DM大圖');
+      const title = link.closest('article')?.querySelector('h3')?.textContent || link.textContent || '產品圖文整理';
+      open(src, title + '產品圖文整理大圖');
     });
   });
 
