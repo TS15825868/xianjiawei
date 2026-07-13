@@ -1,0 +1,38 @@
+name: Diagnose v408 q32 payload
+on:
+  issues:
+    types: [opened]
+permissions:
+  contents: read
+  issues: write
+jobs:
+  diagnose:
+    if: github.event.issue.title == 'DIAGNOSE_V408_Q32_PAYLOAD'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Diagnose payload
+        id: diag
+        continue-on-error: true
+        run: |
+          set +e
+          exec > >(tee /tmp/diag.log) 2>&1
+          echo 'FILES:'
+          find _upload/v408-q32-parts -maxdepth 1 -type f -printf '%f %s\n' | sort
+          echo 'COUNT:'
+          find _upload/v408-q32-parts -maxdepth 1 -type f | wc -l
+          cat _upload/v408-q32-parts/part-*.txt | base64 -d > /tmp/assets.zip
+          echo "DECODE=$? SIZE=$(stat -c%s /tmp/assets.zip 2>/dev/null)"
+          unzip -t /tmp/assets.zip
+          echo "UNZIP=$?"
+      - name: Report
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs');
+            const log=fs.existsSync('/tmp/diag.log')?fs.readFileSync('/tmp/diag.log','utf8'):'no log';
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:`V408_Q32_DIAG\n\n\`\`\`\n${log.slice(-50000)}\n\`\`\``});
