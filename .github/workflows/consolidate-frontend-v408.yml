@@ -1,0 +1,172 @@
+name: Consolidate frontend v408
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  consolidate:
+    if: github.event.issue.title == 'CONSOLIDATE_FRONTEND_V408'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Consolidate JavaScript and CSS
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,re
+
+          version='408.0'
+          core=Path('site-core.js').read_text(encoding='utf-8')
+          mascot=Path('approved-mascot-v405.js').read_text(encoding='utf-8')
+          mascot=re.sub(r'^"use strict";\s*','',mascot)
+          core=re.sub(r'data\.json\?v=[0-9.]+',f'data.json?v={version}',core)
+          mascot=re.sub(r'const VERSION = "[0-9.]+";',f'const VERSION = "{version}";',mascot)
+          merged_js='"use strict";\n\n/* 仙加味網站核心｜整合版 v408.0 */\n'+core.strip()+'\n\n/* 15張官網核准小老闆素材配置 */\n'+mascot.strip()+'\n'
+          Path('site.js').write_text(merged_js,encoding='utf-8')
+
+          base=Path('site.css').read_text(encoding='utf-8')
+          mobile=Path('site-v321.css').read_text(encoding='utf-8')
+          mascot_css=Path('site-v405.css').read_text(encoding='utf-8')
+          base=re.sub(r'/\* BEGIN CONSOLIDATED V408 \*/.*?/\* END CONSOLIDATED V408 \*/\s*','',base,flags=re.S)
+          merged_css=(base.rstrip()+'\n\n/* BEGIN CONSOLIDATED V408 */\n'
+                      +'/* 手機版、清晰度與互動修正 */\n'+mobile.strip()+'\n\n'
+                      +'/* 15張核准小老闆圖片樣式 */\n'+mascot_css.strip()+'\n'
+                      +'/* END CONSOLIDATED V408 */\n')
+          Path('site.css').write_text(merged_css,encoding='utf-8')
+
+          for path in Path('.').glob('*.html'):
+              text=path.read_text(encoding='utf-8')
+              text=re.sub(r'\s*<link[^>]+href="site-v(?:321|405)\.css[^>]*>\s*','\n',text)
+              text=re.sub(r'\s*<script[^>]+src="(?:site-core|approved-mascot-v405)\.js[^>]*></script>\s*','\n',text)
+              text=re.sub(r'site\.css\?v=[0-9.]+',f'site.css?v={version}',text)
+              text=re.sub(r'site\.js\?v=[0-9.]+',f'site.js?v={version}',text)
+              path.write_text(text,encoding='utf-8')
+
+          deploy=Path('deploy-version.json')
+          try: info=json.loads(deploy.read_text(encoding='utf-8'))
+          except Exception: info={}
+          info.update({'version':version,'updated':'2026-07-13','frontend':'single-site-js-and-single-site-css','catalog':'five-types-six-specifications','mascot':'15-approved-distinct-website-scenes'})
+          deploy.write_text(json.dumps(info,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+          rm -f site-core.js approved-mascot-v405.js site-v321.css site-v405.css
+          rm -f images/test-binary.webp
+          rm -rf _upload _payload
+          rm -f .github/workflows/apply-product-assets-v408.yml
+          rm -f .github/workflows/run-v408-now.yml
+          rm -f .github/workflows/trigger-v408-once.yml
+          rm -f .github/workflows/apply-v408-simple.yml
+          rm -f .github/workflows/debug-v408.yml
+          rm -f .github/workflows/test-drive-download-v408.yml
+          rm -f .github/workflows/apply-v408-safe.yml
+          rm -f .github/workflows/consolidate-frontend-v408.yml
+
+          node --check site.js
+          python3 -m json.tool data.json >/dev/null
+          python3 -m json.tool deploy-version.json >/dev/null
+          for p in *.html; do
+            ! grep -qE 'site-v321\.css|site-v405\.css|site-core\.js|approved-mascot-v405\.js' "$p"
+          done
+          grep -q 'data.json?v=408.0' site.js
+          grep -q '15張官網核准小老闆素材配置' site.js
+          grep -q 'BEGIN CONSOLIDATED V408' site.css
+
+      - name: Update durable Pages workflow
+        run: |
+          cat > .github/workflows/deploy-pages.yml <<'YAML'
+          name: Deploy 仙加味網站
+
+          on:
+            push:
+              branches: [main]
+            workflow_dispatch:
+
+          permissions:
+            contents: read
+            pages: write
+            id-token: write
+
+          concurrency:
+            group: pages
+            cancel-in-progress: true
+
+          jobs:
+            deploy:
+              runs-on: ubuntu-latest
+              environment:
+                name: github-pages
+                url: ${{ steps.deployment.outputs.page_url }}
+              steps:
+                - uses: actions/checkout@v4
+                  with:
+                    ref: main
+                - name: Verify production website
+                  run: |
+                    set -euo pipefail
+                    node --check site.js
+                    python3 -m json.tool data.json >/dev/null
+                    python3 -m json.tool deploy-version.json >/dev/null
+                    grep -q '"version": "408.0"' deploy-version.json
+                    test ! -e site-core.js
+                    test ! -e approved-mascot-v405.js
+                    test ! -e site-v321.css
+                    test ! -e site-v405.css
+                    test ! -d _upload
+                    test ! -d _payload
+                    test "$(grep -o 'class="dm-image-v2"' dm.html | wc -l)" -eq 6
+                    grep -q 'product-guilu-drink-180cc.html' choose.html
+                    grep -q '15張官網核准小老闆素材配置' site.js
+                    grep -q 'BEGIN CONSOLIDATED V408' site.css
+                - name: Prepare static website
+                  run: |
+                    rm -rf _site
+                    mkdir -p _site
+                    rsync -a ./ _site/ \
+                      --exclude='.git/' --exclude='.github/' --exclude='_site/' \
+                      --exclude='tools/' --exclude='node_modules/' \
+                      --exclude='*.zip' --exclude='*.b64' --exclude='*.md'
+                    touch _site/.nojekyll
+                    test -s _site/index.html
+                    test -s _site/products.html
+                    test -s _site/dm.html
+                - uses: actions/configure-pages@v5
+                - uses: actions/upload-pages-artifact@v3
+                  with:
+                    path: _site
+                - id: deployment
+                  uses: actions/deploy-pages@v4
+          YAML
+          sed -i 's/^          //' .github/workflows/deploy-pages.yml
+
+      - name: Commit directly to main
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '整合網站JavaScript與CSS並清理暫存檔 v408.0'
+          git push origin HEAD:main
+
+      - name: Report success
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'FRONTEND_CONSOLIDATION_SUCCESS｜site.js與site.css已安全整合；data.json與部署紀錄保留獨立；暫存素材與失敗工作流程已清除；已推送main並重新部署。'});
+            await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,state:'closed',state_reason:'completed'});
+
+      - name: Report failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'FRONTEND_CONSOLIDATION_FAILURE｜未提交半成品，請查看Actions失敗步驟。'});
