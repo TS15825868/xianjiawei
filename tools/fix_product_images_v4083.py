@@ -82,31 +82,6 @@ def update_deploy_manifest() -> None:
     )
 
 
-def update_deploy_workflow() -> None:
-    path = Path(".github/workflows/deploy-pages.yml")
-    text = path.read_text(encoding="utf-8").replace("408.2", VERSION)
-
-    text = re.sub(
-        r"\n\s*dm_files=\[.*?\n\s*\]\n",
-        "\n          dm_files=[]\n",
-        text,
-        count=1,
-        flags=re.S,
-    )
-
-    old_assert = "assert product['dmImage'].endswith('.jpg?v=408.3'), product['dmImage']"
-    new_assert = (
-        "assert product['dmImage'] == product['image'], product\n"
-        "              assert product.get('detailImages') == [product['image']], product"
-    )
-    text = text.replace(old_assert, new_assert)
-    text = text.replace(
-        "正式驗收完成：15張小老闆、6張產品主圖、6張DM、單一JS/CSS",
-        "正式驗收完成：15張小老闆、6張真實產品主圖、快速查看及圖文頁均使用真實產品圖、單一JS/CSS",
-    )
-    path.write_text(text, encoding="utf-8")
-
-
 def remove_wrong_dm_files() -> None:
     for path in DM_TO_PRODUCT:
         Path(path).unlink(missing_ok=True)
@@ -135,7 +110,6 @@ if __name__ == "__main__":
     update_data()
     update_active_text_files()
     update_deploy_manifest()
-    update_deploy_workflow()
     remove_wrong_dm_files()
     validate()
     print("PASS: active product displays use verified original product images")
