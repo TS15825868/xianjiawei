@@ -26,14 +26,15 @@ jobs:
         with:
           ref: main
 
-      - name: Verify website v405.1 and 15 approved images
+      - name: Verify website v407.1
         run: |
           set -euo pipefail
           node --check site.js
           node --check site-core.js
           node --check approved-mascot-v405.js
-          grep -q '405.1' site.js
-          grep -q '"version": "405.1"' deploy-version.json
+          python3 -m json.tool data.json >/dev/null
+          python3 -m json.tool deploy-version.json >/dev/null
+          grep -q '"version": "407.1"' deploy-version.json
           grep -q 'product-guilu-drink-180cc.html' choose.html
           test ! -e assets/approved-v405-assets.zip
           test ! -e images/brand/mascot-v404
@@ -42,17 +43,36 @@ jobs:
           python3 - <<'PY'
           import json
           from pathlib import Path
+
           manifest=json.loads(Path('images/brand/approved-v405-manifest.json').read_text(encoding='utf-8'))
-          files=list(manifest['corePages'].values())+list(manifest['productPages'].values())
-          assert len(files)==15, len(files)
-          assert len(set(files))==15, files
-          for filename in files:
+          mascot_files=list(manifest['corePages'].values())+list(manifest['productPages'].values())
+          assert len(mascot_files)==15, len(mascot_files)
+          assert len(set(mascot_files))==15, mascot_files
+          for filename in mascot_files:
               path=Path('images/brand/approved-v405')/filename
               assert path.is_file(), path
               assert path.stat().st_size > 20000, (path,path.stat().st_size)
           for item in manifest['assets'].values():
               assert item['width']==1448 and item['height']==1086, item
-          print('15 approved images verified')
+
+          dm_files=[
+              'images/dm-final/01_guilu-gao-100g-dm.jpg',
+              'images/dm-final/02_guilu-drink-30cc-dm.jpg',
+              'images/dm-final/03_guilu-drink-180cc-dm.jpg',
+              'images/dm-final/04_luerong-fen-75g-dm.jpg',
+              'images/dm-final/05_guilu-tangkuai-75g-dm.jpg',
+              'images/dm-final/06_guilu-jiao-600g-dm.jpg',
+          ]
+          for filename in dm_files:
+              path=Path(filename)
+              assert path.is_file(), path
+              assert path.stat().st_size > 100000, (path,path.stat().st_size)
+
+          dm=Path('dm.html').read_text(encoding='utf-8')
+          assert dm.count('class="dm-image-v2"')==6
+          assert '03_guilu-drink-180cc-dm.jpg' in dm
+          assert '<h1>六項產品 DM</h1>' in dm
+          print('15 mascot images and six DM entries verified')
           PY
 
       - name: Prepare static website
@@ -67,6 +87,7 @@ jobs:
             --exclude='tools/' \
             --exclude='node_modules/' \
             --exclude='assets/' \
+            --exclude='tmp-test*.txt' \
             --exclude='*.zip' \
             --exclude='*.tar' \
             --exclude='*.tar.gz' \
@@ -78,26 +99,24 @@ jobs:
             --exclude='FIX_*'
           python3 - <<'PY'
           from pathlib import Path
-          import json,re
-          version='405.1'
-          manifest=json.loads(Path('_site/images/brand/approved-v405-manifest.json').read_text(encoding='utf-8'))
-          home=manifest['corePages']['home']
+          import re
+
+          version='407.1'
+          pattern=re.compile(r'(\.(?:css|js|jpg|jpeg|png|webp))\?v=[^"\']+')
           for page in Path('_site').glob('*.html'):
               text=page.read_text(encoding='utf-8')
-              text=re.sub(r'site\.css\?v=[^"\']+',f'site.css?v={version}',text)
-              text=re.sub(r'site-v321\.css\?v=[^"\']+',f'site-v321.css?v={version}',text)
-              text=re.sub(r'site\.js\?v=[^"\']+',f'site.js?v={version}',text)
-              if page.name=='index.html':
-                  text=re.sub(r'images/brand/approved-v405/[^"?]+(?:\?v=[^"\']+)?',f'images/brand/approved-v405/{home}?v={version}',text)
+              text=pattern.sub(lambda m:m.group(1)+f'?v={version}',text)
               page.write_text(text,encoding='utf-8')
           PY
           touch _site/.nojekyll
           test -s _site/index.html
           test -s _site/choose.html
+          test -s _site/dm.html
           test -s _site/approved-mascot-v405.js
-          grep -q 'site.js?v=405.1' _site/index.html
-          grep -q 'site.js?v=405.1' _site/choose.html
-          grep -q 'approved-v405/home-brand.png?v=405.1' _site/index.html
+          grep -q 'site.js?v=407.1' _site/index.html
+          grep -q 'site.js?v=407.1' _site/choose.html
+          grep -q '<h1>六項產品 DM</h1>' _site/dm.html
+          test "$(grep -o 'class="dm-image-v2"' _site/dm.html | wc -l)" -eq 6
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
