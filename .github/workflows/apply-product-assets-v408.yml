@@ -1,0 +1,269 @@
+name: Apply product assets and consolidate v408
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  apply:
+    if: github.event.issue.title == 'APPLY_PRODUCT_ASSETS_V408'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install validation tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq imagemagick
+
+      - name: Decode and install latest product assets
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/xjw-products /tmp/xjw-dm images/products-v3 images/dm-final
+          base64 -d _upload/products-v408.zip.b64 > /tmp/products-v408.zip
+          base64 -d _upload/dm-v408.zip.b64 > /tmp/dm-v408.zip
+          unzip -q /tmp/products-v408.zip -d /tmp/xjw-products
+          unzip -q /tmp/dm-v408.zip -d /tmp/xjw-dm
+          cp -f /tmp/xjw-products/products-v3/*.webp images/products-v3/
+          cp -f /tmp/xjw-dm/dm-final/*.webp images/dm-final/
+
+      - name: Update references and consolidate frontend files
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          version = '408.0'
+          mappings = {
+            'images/products-v3/guilu-gao.jpg': 'images/products-v3/guilu-gao.webp',
+            'images/products-v3/guilu-drink-30.jpg': 'images/products-v3/guilu-drink-30.webp',
+            'images/products-v3/guilu-drink-180.jpg': 'images/products-v3/guilu-drink-180.webp',
+            'images/products-v3/guilu-tangkuai.jpg': 'images/products-v3/guilu-tangkuai.webp',
+            'images/products-v3/guilu-jiao.jpg': 'images/products-v3/guilu-jiao.webp',
+            'images/products-v3/luerong-fen.jpg': 'images/products-v3/luerong-fen.webp',
+            'images/dm-final/01_guilu-gao-100g-dm.jpg': 'images/dm-final/01_guilu-gao-100g-dm.webp',
+            'images/dm-final/02_guilu-drink-30cc-dm.jpg': 'images/dm-final/02_guilu-drink-30cc-dm.webp',
+            'images/dm-final/03_guilu-drink-180cc-dm.jpg': 'images/dm-final/03_guilu-drink-180cc-dm.webp',
+            'images/dm-final/04_luerong-fen-75g-dm.jpg': 'images/dm-final/04_luerong-fen-75g-dm.webp',
+            'images/dm-final/05_guilu-tangkuai-75g-dm.jpg': 'images/dm-final/05_guilu-tangkuai-75g-dm.webp',
+            'images/dm-final/06_guilu-jiao-600g-dm.jpg': 'images/dm-final/06_guilu-jiao-600g-dm.webp',
+          }
+
+          text_files = list(Path('.').glob('*.html')) + list(Path('.').glob('*.js')) + list(Path('.').glob('*.json'))
+          version_pattern = re.compile(r'(\.(?:css|js|json|jpg|jpeg|png|webp))\?v=[0-9.]+')
+          for path in text_files:
+            text = path.read_text(encoding='utf-8')
+            for old, new in mappings.items():
+              text = text.replace(old, new)
+            text = version_pattern.sub(lambda m: m.group(1) + f'?v={version}', text)
+            path.write_text(text, encoding='utf-8')
+
+          # 合併 JavaScript：核心功能 + 15張核准小老闆配置。
+          core = Path('site-core.js').read_text(encoding='utf-8')
+          mascot = Path('approved-mascot-v405.js').read_text(encoding='utf-8')
+          core = re.sub(r"data\.json\?v=[0-9.]+", f'data.json?v={version}', core)
+          mascot = re.sub(r'const VERSION = "[0-9.]+";', f'const VERSION = "{version}";', mascot)
+          mascot = re.sub(r'^"use strict";\s*', '', mascot)
+          merged_js = (
+            '"use strict";\n\n'
+            '/* 仙加味網站核心｜整合版 v408.0 */\n'
+            + core.strip() + '\n\n'
+            '/* 15張官網核准小老闆素材配置 */\n'
+            + mascot.strip() + '\n'
+          )
+          Path('site.js').write_text(merged_js, encoding='utf-8')
+
+          # 合併 CSS：原主樣式 + 手機修正 + 核准小老闆樣式。
+          base = Path('site.css').read_text(encoding='utf-8')
+          mobile = Path('site-v321.css').read_text(encoding='utf-8')
+          mascot_css = Path('site-v405.css').read_text(encoding='utf-8')
+          base = re.sub(r'/\* BEGIN MERGED V321 \*/.*?/\* END MERGED V405 \*/\s*', '', base, flags=re.S)
+          merged_css = (
+            base.rstrip() + '\n\n'
+            '/* BEGIN MERGED V321 */\n' + mobile.strip() + '\n'
+            '/* END MERGED V321 */\n\n'
+            '/* BEGIN MERGED V405 */\n' + mascot_css.strip() + '\n'
+            '/* END MERGED V405 */\n'
+          )
+          Path('site.css').write_text(merged_css, encoding='utf-8')
+
+          # HTML只載入一份CSS與一份JS。
+          for path in Path('.').glob('*.html'):
+            text = path.read_text(encoding='utf-8')
+            text = re.sub(r'\s*<link[^>]+href="site-v321\.css[^>]*>\s*', '\n', text)
+            text = re.sub(r'\s*<link[^>]+href="site-v405\.css[^>]*>\s*', '\n', text)
+            text = re.sub(r'\s*<script[^>]+src="site-core\.js[^>]*></script>\s*', '\n', text)
+            text = re.sub(r'\s*<script[^>]+src="approved-mascot-v405\.js[^>]*></script>\s*', '\n', text)
+            text = re.sub(r'site\.css\?v=[0-9.]+', f'site.css?v={version}', text)
+            text = re.sub(r'site\.js\?v=[0-9.]+', f'site.js?v={version}', text)
+            path.write_text(text, encoding='utf-8')
+
+          deploy = {
+            'version': version,
+            'updated': '2026-07-13',
+            'catalog': 'five-types-six-specifications',
+            'productAssets': 'six-latest-product-images-1122x1402-webp',
+            'dmAssets': 'six-latest-dm-images-1122x1402-webp',
+            'frontend': 'single-site-js-and-single-site-css',
+            'mascot': '15-approved-distinct-website-scenes'
+          }
+          Path('deploy-version.json').write_text(json.dumps(deploy, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Replace durable Pages workflow
+        run: |
+          cat > .github/workflows/deploy-pages.yml <<'YAML'
+          name: Deploy 仙加味網站
+
+          on:
+            push:
+              branches: [main]
+            workflow_dispatch:
+
+          permissions:
+            contents: read
+            pages: write
+            id-token: write
+
+          concurrency:
+            group: pages
+            cancel-in-progress: true
+
+          jobs:
+            deploy:
+              runs-on: ubuntu-latest
+              environment:
+                name: github-pages
+                url: ${{ steps.deployment.outputs.page_url }}
+              steps:
+                - uses: actions/checkout@v4
+                  with:
+                    ref: main
+                - name: Verify production website v408.0
+                  run: |
+                    set -euo pipefail
+                    node --check site.js
+                    python3 -m json.tool data.json >/dev/null
+                    python3 -m json.tool deploy-version.json >/dev/null
+                    grep -q '"version": "408.0"' deploy-version.json
+                    test ! -e site-core.js
+                    test ! -e approved-mascot-v405.js
+                    test ! -e site-v321.css
+                    test ! -e site-v405.css
+                    test ! -d _upload
+                    python3 - <<'PY'
+                    from pathlib import Path
+                    import json, re
+                    products = [
+                      'guilu-gao.webp','guilu-drink-30.webp','guilu-drink-180.webp',
+                      'guilu-tangkuai.webp','guilu-jiao.webp','luerong-fen.webp'
+                    ]
+                    dms = [
+                      '01_guilu-gao-100g-dm.webp','02_guilu-drink-30cc-dm.webp',
+                      '03_guilu-drink-180cc-dm.webp','04_luerong-fen-75g-dm.webp',
+                      '05_guilu-tangkuai-75g-dm.webp','06_guilu-jiao-600g-dm.webp'
+                    ]
+                    for name in products:
+                      p=Path('images/products-v3')/name
+                      assert p.is_file() and p.stat().st_size > 50000, (p, p.stat().st_size if p.exists() else 0)
+                    for name in dms:
+                      p=Path('images/dm-final')/name
+                      assert p.is_file() and p.stat().st_size > 50000, (p, p.stat().st_size if p.exists() else 0)
+                    data=json.loads(Path('data.json').read_text(encoding='utf-8'))
+                    assert len(data['products']) == 6
+                    for item in data['products']:
+                      assert item['image'].split('?')[0].endswith('.webp'), item['image']
+                      assert item['dmImage'].split('?')[0].endswith('.webp'), item['dmImage']
+                    dm=Path('dm.html').read_text(encoding='utf-8')
+                    assert dm.count('class="dm-image-v2"') == 6
+                    for path in Path('.').glob('*.html'):
+                      text=path.read_text(encoding='utf-8')
+                      assert 'site-v321.css' not in text
+                      assert 'site-v405.css' not in text
+                      assert 'site-core.js' not in text
+                      assert 'approved-mascot-v405.js' not in text
+                    PY
+                - name: Prepare static website
+                  run: |
+                    rm -rf _site
+                    mkdir -p _site
+                    rsync -a ./ _site/ \
+                      --exclude='.git/' --exclude='.github/' --exclude='_site/' \
+                      --exclude='tools/' --exclude='node_modules/' --exclude='*.zip' \
+                      --exclude='*.b64' --exclude='*.md'
+                    touch _site/.nojekyll
+                    test -s _site/index.html
+                    test -s _site/products.html
+                    test -s _site/dm.html
+                - uses: actions/configure-pages@v5
+                - uses: actions/upload-pages-artifact@v3
+                  with:
+                    path: _site
+                - id: deployment
+                  uses: actions/deploy-pages@v4
+          YAML
+          sed -i 's/^          //' .github/workflows/deploy-pages.yml
+
+      - name: Remove superseded files after reference migration
+        run: |
+          set -euo pipefail
+          grep -R -nE 'images/(products-v3|dm-final)/[^"'"'"' ]+\.jpg' --include='*.html' --include='*.js' --include='*.json' . && exit 1 || true
+          rm -f site-core.js approved-mascot-v405.js site-v321.css site-v405.css
+          rm -f images/products-v3/guilu-gao.jpg images/products-v3/guilu-drink-30.jpg images/products-v3/guilu-drink-180.jpg
+          rm -f images/products-v3/guilu-tangkuai.jpg images/products-v3/guilu-jiao.jpg images/products-v3/luerong-fen.jpg
+          rm -f images/dm-final/01_guilu-gao-100g-dm.jpg images/dm-final/02_guilu-drink-30cc-dm.jpg
+          rm -f images/dm-final/03_guilu-drink-180cc-dm.jpg images/dm-final/04_luerong-fen-75g-dm.jpg
+          rm -f images/dm-final/05_guilu-tangkuai-75g-dm.jpg images/dm-final/06_guilu-jiao-600g-dm.jpg
+          rm -f images/test-binary.webp
+          rm -rf _upload
+          rm -f .github/workflows/apply-product-assets-v408.yml
+
+      - name: Final validation
+        run: |
+          set -euo pipefail
+          node --check site.js
+          python3 -m json.tool data.json >/dev/null
+          python3 -m json.tool deploy-version.json >/dev/null
+          test "$(find images/products-v3 -maxdepth 1 -name '*.webp' | wc -l)" -ge 6
+          test "$(find images/dm-final -maxdepth 1 -name '*.webp' | wc -l)" -eq 6
+          for f in images/products-v3/*.webp images/dm-final/*.webp; do
+            identify -format '%w %h' "$f" | grep -qx '1122 1402'
+          done
+          grep -q 'images/products-v3/guilu-gao.webp?v=408.0' data.json
+          grep -q 'images/dm-final/06_guilu-jiao-600g-dm.webp?v=408.0' data.json
+          grep -q 'images/dm-final/03_guilu-drink-180cc-dm.webp?v=408.0' dm.html
+          for page in product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html; do
+            grep -q 'images/products-v3/.*\.webp?v=408.0' "$page"
+            grep -q 'images/dm-final/.*\.webp?v=408.0' "$page"
+          done
+
+      - name: Commit directly to main
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '更新六項產品圖與DM並整合前端檔案 v408.0'
+          git push origin HEAD:main
+
+      - name: Report success
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'V408_SUCCESS｜六張產品主圖與六張DM已更新；產品卡、快速查看、六個完整介紹頁及DM頁已統一；JavaScript與CSS已安全整合；已推送main並觸發Pages部署。'});
+            await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,state:'closed',state_reason:'completed'});
+
+      - name: Report failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'V408_FAILURE｜更新未全部完成，未回報正式上線；請查看本次Actions失敗步驟。'});
