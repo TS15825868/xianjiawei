@@ -41,6 +41,7 @@ jobs:
           test "$(grep -o '<url>' sitemap.xml | wc -l)" -eq 20
           grep -q 'catalog-public.json' llms.txt
           grep -q 'Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml' robots.txt
+          test -s a2f6d4e8c9b14750a831d7624f90bc15.txt
           echo 'ab92c43f68c2d11f33b036e99e9bc31dde3c199c187ead2032fd72bccfdac58b  images/dm-final/01_guilu-gao-100g-dm.jpg' | sha256sum -c -
           echo 'e46b71ca2265adf544087ba3badbf430821896961c0deb4d1dbde13478d39f49  images/dm-final/02_guilu-drink-30cc-dm.jpg' | sha256sum -c -
           echo '81f10bb54c66bb273ddbb040f3e634db3239ac4a85931916ce234f099228e5f1  images/dm-final/03_guilu-drink-180cc-dm.jpg' | sha256sum -c -
@@ -80,3 +81,32 @@ jobs:
       - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notify IndexNow
+        if: success()
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json, urllib.request
+          from xml.etree import ElementTree as ET
+          namespace={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          root=ET.parse('sitemap.xml').getroot()
+          urls=[node.text for node in root.findall('s:url/s:loc',namespace)]
+          payload=json.dumps({
+              'host':'ts15825868.github.io',
+              'key':'a2f6d4e8c9b14750a831d7624f90bc15',
+              'keyLocation':'https://ts15825868.github.io/xianjiawei/a2f6d4e8c9b14750a831d7624f90bc15.txt',
+              'urlList':urls
+          }).encode('utf-8')
+          request=urllib.request.Request(
+              'https://api.indexnow.org/indexnow',
+              data=payload,
+              headers={'Content-Type':'application/json; charset=utf-8'},
+              method='POST'
+          )
+          try:
+              with urllib.request.urlopen(request,timeout=20) as response:
+                  print('IndexNow status:',response.status)
+          except Exception as error:
+              print('IndexNow notification did not block deployment:',error)
+          PY
