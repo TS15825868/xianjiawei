@@ -20,9 +20,9 @@
       "name": "龜鹿膏",
       "displayName": "龜鹿膏",
       "size": "100g／罐",
-      "image": "images/products-v3/guilu-gao.jpg?v=408.4",
+      "image": "images/products-v3/guilu-gao.jpg?v=408.6",
       "gallery": [],
-      "dmImage": "images/dm-final/01_guilu-gao-100g-dm.jpg?v=408.4",
+      "dmImage": "images/dm-final/01_guilu-gao-100g-dm.jpg?v=408.6",
       "description": "100g小罐設計，將鹿角、龜板與枸杞、紅棗、黃耆、粉光蔘整理成方便取用的膏狀型態。用途方向以固定日常食補為主，可直接取用，也可用熱水化開。",
       "ingredients": [
         "鹿角萃取物",
@@ -47,7 +47,7 @@
       ],
       "fit": "想固定安排、喜歡小匙取用或熱水化開的人",
       "detailImages": [
-        "images/dm-final/01_guilu-gao-100g-dm.jpg?v=408.4"
+        "images/dm-final/01_guilu-gao-100g-dm.jpg?v=408.6"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-gao.html",
@@ -61,9 +61,9 @@
       "name": "龜鹿飲30cc",
       "displayName": "龜鹿飲30cc",
       "size": "30cc／瓶（玻璃瓶）",
-      "image": "images/products-v3/guilu-drink-30.jpg?v=408.4",
+      "image": "images/products-v3/guilu-drink-30.jpg?v=408.6",
       "gallery": [],
-      "dmImage": "images/dm-final/02_guilu-drink-30cc-dm.jpg?v=408.4",
+      "dmImage": "images/dm-final/02_guilu-drink-30cc-dm.jpg?v=408.6",
       "description": "30cc玻璃小瓶，把龜鹿膏的成分方向整理成方便即飲的液態型態。適合輕巧即飲、外出攜帶與工作空檔安排。",
       "ingredients": [
         "水",
@@ -86,7 +86,7 @@
       ],
       "fit": "想方便即飲、外出攜帶或在工作空檔飲用的人",
       "detailImages": [
-        "images/dm-final/02_guilu-drink-30cc-dm.jpg?v=408.4"
+        "images/dm-final/02_guilu-drink-30cc-dm.jpg?v=408.6"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-drink-30cc.html",
@@ -100,9 +100,9 @@
       "name": "龜鹿飲180cc鋁袋",
       "displayName": "龜鹿飲180cc鋁袋",
       "size": "180cc／包（鋁袋）",
-      "image": "images/products-v3/guilu-drink-180.jpg?v=408.4",
+      "image": "images/products-v3/guilu-drink-180.jpg?v=408.6",
       "gallery": [],
-      "dmImage": "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=408.4",
+      "dmImage": "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=408.6",
       "description": "180cc鋁袋包裝，把龜鹿膏的成分方向整理成方便即飲的液態型態。適合居家、工作空檔或偏好一次安排較完整份量的人。",
       "ingredients": [
         "水",
@@ -125,7 +125,7 @@
       ],
       "fit": "想要較完整即飲份量、居家安排或工作空檔飲用的人",
       "detailImages": [
-        "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=408.4"
+        "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=408.6"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-drink-180cc.html",
@@ -139,9 +139,9 @@
       "name": "龜鹿湯塊",
       "displayName": "龜鹿湯塊",
       "size": "75g／盒｜8塊裝｜每塊約9.375g",
-      "image": "images/products-v3/guilu-tangkuai.jpg?v=408.4",
+      "image": "images/products-v3/guilu-tangkuai.jpg?v=408.6",
       "gallery": [],
-      "dmImage": "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=408.4",
+      "dmImage": "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=408.6",
       "description": "75g盒裝、8塊設計，每塊約9.375g。用途方向以沖泡與燉湯食補為主，可用熱水、保溫壺或家常湯品安排。",
       "ingredients": [
         "鹿角萃取物",
@@ -160,7 +160,7 @@
       ],
       "fit": "想小盒裝、方便沖泡、保溫壺或燉湯料理的人",
       "detailImages": [
-        "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=408.4"
+        "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=408.6"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-tangkuai.html",
@@ -174,9 +174,9 @@
       "name": "龜鹿膠",
       "displayName": "龜鹿膠",
       "size": "600g／盒（1斤）｜32塊裝｜每塊約18.75g",
-      "image": "images/products-v3/guilu-jiao.jpg?v=408.4",
+      "image": "images/products-v3/guilu-jiao.jpg?v=408.6",
       "gallery": [],
-      "dmImage": "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=408.4",
+      "dmImage": "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=408.6",
       "description": "600g一斤裝、32塊設計，每塊約18.75g。用途方向以傳統大規格食補為主，適合固定備用、家庭安排、熱水化開或燉湯。",
       "ingredients": [
         "鹿角萃取物",
@@ -194,7 +194,7 @@
       ],
       "fit": "想選擇家庭大規格、固定安排或家庭共用的人",
       "detailImages": [
-        "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=408.4"
+        "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=408.6"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-jiao.html",
@@ -208,9 +208,9 @@
       "name": "鹿茸粉",
       "displayName": "鹿茸粉",
       "size": "75g／罐",
-      "image": "images/products-v3/luerong-fen.jpg?v=408.4",
+      "image": "images/products-v3/luerong-fen.jpg?v=408.6",
       "gallery": [],
-      "dmImage": "images/dm-final/04_luerong-fen-75g-dm.jpg?v=408.4",
+      "dmImage": "images/dm-final/04_luerong-fen-75g-dm.jpg?v=408.6",
       "description": "75g單方鹿茸粉，粉狀型態方便自行調整。用途方向以自行搭配食補為主，可加入溫開水、牛奶、豆漿或其他飲品。",
       "ingredients": [
         "鹿茸"
@@ -227,7 +227,7 @@
       ],
       "fit": "想自行搭配飲品、喜歡粉狀型態或想調整份量的人",
       "detailImages": [
-        "images/dm-final/04_luerong-fen-75g-dm.jpg?v=408.4"
+        "images/dm-final/04_luerong-fen-75g-dm.jpg?v=408.6"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-luerong-fen.html",

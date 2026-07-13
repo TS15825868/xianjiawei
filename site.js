@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味網站核心｜整合正式版 v408.4 */
+/* 仙加味網站核心｜整合正式版 v408.6 */
 let SITE_DATA = null;
 
 const MENU_GROUPS = [
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
 
-  const res = await fetch('data.json?v=408.4');
+  const res = await fetch('data.json?v=408.6');
 
   if (!res.ok) {
     throw new Error(`data.json 載入失敗：${res.status}`);
