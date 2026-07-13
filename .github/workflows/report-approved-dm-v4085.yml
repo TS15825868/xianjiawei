@@ -10,18 +10,18 @@ permissions:
 
 jobs:
   report:
-    if: github.event.issue.title == 'REPORT_APPROVED_DM_V408_5'
+    if: github.event.issue.title == 'REPORT_APPROVED_DM_FAILURE_2'
     runs-on: ubuntu-latest
     steps:
-      - name: Report workflow runs
+      - name: Report failed log
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh run list --repo "${{ github.repository }}" --workflow apply-approved-dm-binary-v4085.yml --limit 10 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json || true
+          gh run view 29235830284 --repo "${{ github.repository }}" --log-failed > /tmp/failed.log 2>&1 || true
           {
-            echo 'APPROVED_DM_V408_5_RUNS'
-            echo '```json'
-            cat /tmp/runs.json
+            echo 'APPROVED_DM_FAILURE_LOG_2'
+            echo '```text'
+            tail -120 /tmp/failed.log
             echo '```'
           } > /tmp/comment.txt
           gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
