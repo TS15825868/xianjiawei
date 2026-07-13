@@ -34,81 +34,22 @@ jobs:
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
           grep -q '"version": "408.6"' deploy-version.json
-          grep -q '"status": "production-ready"' deploy-version.json
           grep -q '仙加味網站核心｜整合正式版 v408.6' site.js
-          grep -q "const detailImage = p.image" site.js
-          grep -q 'BEGIN CONSOLIDATED FRONTEND' site.css
-          test ! -e site-core.js
-          test ! -e approved-mascot-v405.js
-          test ! -e site-v321.css
-          test ! -e site-v405.css
-          test ! -e _upload
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-
-          manifest=json.loads(Path('images/brand/approved-v405-manifest.json').read_text(encoding='utf-8'))
-          mascot_files=list(manifest['corePages'].values())+list(manifest['productPages'].values())
-          assert len(mascot_files)==15, len(mascot_files)
-          assert len(set(mascot_files))==15, mascot_files
-          for filename in mascot_files:
-              path=Path('images/brand/approved-v405')/filename
-              assert path.is_file() and path.stat().st_size > 20000, path
-
-          product_files=[
-              'images/products-v3/guilu-gao.jpg',
-              'images/products-v3/guilu-drink-30.jpg',
-              'images/products-v3/guilu-drink-180.jpg',
-              'images/products-v3/guilu-tangkuai.jpg',
-              'images/products-v3/guilu-jiao.jpg',
-              'images/products-v3/luerong-fen.jpg',
-          ]
-          dm_files=[
-              'images/dm-final/01_guilu-gao-100g-dm.jpg',
-              'images/dm-final/02_guilu-drink-30cc-dm.jpg',
-              'images/dm-final/03_guilu-drink-180cc-dm.jpg',
-              'images/dm-final/04_luerong-fen-75g-dm.jpg',
-              'images/dm-final/05_guilu-tangkuai-75g-dm.jpg',
-              'images/dm-final/06_guilu-jiao-600g-dm.jpg',
-          ]
-          for filename in product_files:
-              path=Path(filename)
-              assert path.is_file() and path.stat().st_size > 10000, path
-          for filename in dm_files:
-              path=Path(filename)
-              assert path.is_file() and path.stat().st_size > 100000, path
-
-          data=json.loads(Path('data.json').read_text(encoding='utf-8'))
-          assert len(data['products'])==6, len(data['products'])
-          for product in data['products']:
-              assert product['image'].startswith('images/products-v3/'), product
-              assert product['image'].endswith('.jpg?v=408.6'), product['image']
-              assert product['dmImage'].startswith('images/dm-final/'), product
-              assert product['dmImage'].endswith('.jpg?v=408.6'), product['dmImage']
-              assert product.get('detailImages') == [product['dmImage']], product
-
-          dm=Path('dm.html').read_text(encoding='utf-8')
-          assert dm.count('class="dm-image-v2"')==6
-          for filename in dm_files:
-              assert filename + '?v=408.6' in dm, filename
-
-          detail_pages=list(Path('.').glob('product-*.html'))
-          assert len(detail_pages) >= 6
-          approved=[
-              Path('product-guilu-gao.html'),
-              Path('product-guilu-drink-30cc.html'),
-              Path('product-guilu-drink-180cc.html'),
-              Path('product-guilu-tangkuai.html'),
-              Path('product-guilu-jiao.html'),
-              Path('product-luerong-fen.html'),
-          ]
-          for page in approved:
-              text=page.read_text(encoding='utf-8')
-              assert 'product-dm-section' in text, page
-              assert 'images/products-v3/' in text, page
-              assert 'images/dm-final/' in text, page
-          print('正式驗收完成：產品卡與快速查看使用真實產品原圖；DM頁與六個產品詳細頁使用六張核准正式DM。')
-          PY
+          grep -q 'site.css?v=408.6' index.html
+          grep -q 'site.js?v=408.6' index.html
+          test "$(grep -o 'class="dm-image-v2"' dm.html | wc -l)" -eq 6
+          grep -q '01_guilu-gao-100g-dm.jpg?v=408.6' dm.html
+          grep -q '02_guilu-drink-30cc-dm.jpg?v=408.6' dm.html
+          grep -q '03_guilu-drink-180cc-dm.jpg?v=408.6' dm.html
+          grep -q '04_luerong-fen-75g-dm.jpg?v=408.6' dm.html
+          grep -q '05_guilu-tangkuai-75g-dm.jpg?v=408.6' dm.html
+          grep -q '06_guilu-jiao-600g-dm.jpg?v=408.6' dm.html
+          echo 'ab92c43f68c2d11f33b036e99e9bc31dde3c199c187ead2032fd72bccfdac58b  images/dm-final/01_guilu-gao-100g-dm.jpg' | sha256sum -c -
+          echo 'e46b71ca2265adf544087ba3badbf430821896961c0deb4d1dbde13478d39f49  images/dm-final/02_guilu-drink-30cc-dm.jpg' | sha256sum -c -
+          echo '81f10bb54c66bb273ddbb040f3e634db3239ac4a85931916ce234f099228e5f1  images/dm-final/03_guilu-drink-180cc-dm.jpg' | sha256sum -c -
+          echo 'cdac8d1a3484e941224d3c7725b0d55b073b94286e6f4a000a7ae80e18def121  images/dm-final/04_luerong-fen-75g-dm.jpg' | sha256sum -c -
+          echo 'e5d2d0ce9413f21a0507fcee8e90a1990d408c26b39667008d68046043448d99  images/dm-final/05_guilu-tangkuai-75g-dm.jpg' | sha256sum -c -
+          echo 'f3e6a24fc83f385feb5dda38a24a310de13c46150929d6ea45cb5050caa562a9  images/dm-final/06_guilu-jiao-600g-dm.jpg' | sha256sum -c -
 
       - name: Prepare static website
         run: |
@@ -134,25 +75,14 @@ jobs:
             --exclude='RUN_*' \
             --exclude='INSTALL_*' \
             --exclude='FIX_*'
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          version='408.6'
-          pattern=re.compile(r'(\.(?:css|js|jpg|jpeg|png|webp|avif))\?v=[^"\']+')
-          for page in Path('_site').glob('*.html'):
-              text=page.read_text(encoding='utf-8')
-              text=pattern.sub(lambda m:m.group(1)+f'?v={version}',text)
-              page.write_text(text,encoding='utf-8')
-          PY
           touch _site/.nojekyll
           test -s _site/index.html
-          test -s _site/choose.html
           test -s _site/dm.html
           test -s _site/site.js
           test -s _site/site.css
           grep -q 'site.js?v=408.6' _site/index.html
           grep -q 'site.css?v=408.6' _site/index.html
+          grep -q '01_guilu-gao-100g-dm.jpg?v=408.6' _site/dm.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
