@@ -10,24 +10,24 @@ permissions:
 
 jobs:
   report:
-    if: github.event.issue.title == 'REPORT_SITE_V4087_FAILURE'
+    if: github.event.issue.title == 'REPORT_V4087_FAILURE'
     runs-on: ubuntu-latest
     steps:
-      - name: Report latest failed apply run
+      - name: Collect latest failed run
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set +e
-          gh run list --repo "${{ github.repository }}" --workflow apply-site-v4087-full.yml --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json
+          gh run list --repo "${{ github.repository }}" --workflow apply-v4087-visibility.yml --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json
           run_id=$(python3 - <<'PY'
           import json
-          runs=json.load(open('/tmp/runs.json'))
-          print(runs[0]['databaseId'] if runs else '')
+          x=json.load(open('/tmp/runs.json'))
+          print(x[0]['databaseId'] if x else '')
           PY
           )
           gh run view "$run_id" --repo "${{ github.repository }}" --log-failed > /tmp/failed.log 2>&1
           {
-            echo 'SITE_V4087_FAILURE_REPORT'
+            echo 'V4087_FAILURE_REPORT'
             echo '```json'
             cat /tmp/runs.json
             echo '```'
