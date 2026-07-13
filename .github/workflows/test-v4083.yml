@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   apply:
-    if: github.event.issue.title == 'PING_V408_3_FIX_FAST'
+    if: github.event.issue.title == 'PING_V408_3_FIX_CONTENT'
     runs-on: ubuntu-latest
     steps:
       - name: Started
@@ -21,10 +21,6 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
-      - name: Checkout complete
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.3_CHECKOUT_COMPLETE'
       - name: Apply fix
         env:
           GH_TOKEN: ${{ github.token }}
@@ -43,20 +39,35 @@ jobs:
             exit "$code"
           fi
           gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.3_SCRIPT_COMPLETE'
-      - name: Commit
+      - name: Commit website content
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          rm -rf _trigger
-          rm -f tools/fix_product_images_v4083.py
-          rm -f .github/workflows/fix-product-images-v4083.yml
-          rm -f .github/workflows/test-v4083.yml
+          set +e
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git commit -m '修正全站產品圖片為真實原圖 v408.3'
-          git push origin HEAD:main
+          git add data.json deploy-version.json site.js site.css '*.html' images/dm-final
+          git commit -m '修正全站產品圖片為真實原圖 v408.3' > /tmp/commit.log 2>&1
+          code=$?
+          if [ "$code" -ne 0 ]; then
+            cat /tmp/commit.log
+            exit "$code"
+          fi
+          git push origin HEAD:main >> /tmp/commit.log 2>&1
+          code=$?
+          if [ "$code" -ne 0 ]; then
+            {
+              echo 'V408.3_PUSH_FAILED'
+              echo '```'
+              tail -c 12000 /tmp/commit.log
+              echo '```'
+            } > /tmp/comment.txt
+            gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
+            exit "$code"
+          fi
       - name: Reply
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.3_PRODUCT_IMAGE_FIX_SUCCESS'
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.3_PRODUCT_IMAGE_FIX_SUCCESS｜全站產品卡、快速查看、詳細頁、詳細圖及產品圖文整理頁已統一使用六張真實產品原圖。'
           gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
