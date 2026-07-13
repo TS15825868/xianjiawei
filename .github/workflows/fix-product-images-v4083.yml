@@ -1,24 +1,16 @@
-name: Fix product image display v408.3
+name: Fix product images v408.3
 
 on:
   issues:
     types: [opened]
-  push:
-    branches: [main]
-    paths:
-      - '_trigger/fix-product-images-v4083.txt'
 
 permissions:
   contents: write
   issues: write
 
-concurrency:
-  group: fix-product-images-v4083
-  cancel-in-progress: false
-
 jobs:
   fix:
-    if: github.event_name == 'push' || github.event.issue.title == 'FIX_PRODUCT_IMAGES_V408_3'
+    if: github.event.issue.title == 'FIX_PRODUCT_IMAGES_V408_3_RUN'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
@@ -27,125 +19,21 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Replace all displayed product artwork with verified real product images
+      - name: Apply verified real product images
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          import json, re
-
-          version = '408.3'
-          dm_to_product = {
-            'images/dm-final/01_guilu-gao-100g-dm.jpg': 'images/products-v3/guilu-gao.jpg',
-            'images/dm-final/02_guilu-drink-30cc-dm.jpg': 'images/products-v3/guilu-drink-30.jpg',
-            'images/dm-final/03_guilu-drink-180cc-dm.jpg': 'images/products-v3/guilu-drink-180.jpg',
-            'images/dm-final/04_luerong-fen-75g-dm.jpg': 'images/products-v3/luerong-fen.jpg',
-            'images/dm-final/05_guilu-tangkuai-75g-dm.jpg': 'images/products-v3/guilu-tangkuai.jpg',
-            'images/dm-final/06_guilu-jiao-600g-dm.jpg': 'images/products-v3/guilu-jiao.jpg',
-          }
-
-          data_path = Path('data.json')
-          data = json.loads(data_path.read_text(encoding='utf-8'))
-          assert len(data.get('products', [])) == 6
-          for product in data['products']:
-              base = product['image'].split('?')[0]
-              assert base.startswith('images/products-v3/'), (product.get('id'), base)
-              assert Path(base).is_file(), base
-              verified = f'{base}?v={version}'
-              product['image'] = verified
-              product['dmImage'] = verified
-              product['detailImages'] = [verified]
-          data_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-
-          targets = list(Path('.').glob('*.html')) + [Path('site.js'), Path('site.css')]
-          asset_version = re.compile(r'(\.(?:css|js|json|jpg|jpeg|png|webp|avif))\?v=[0-9.]+')
-          for path in targets:
-              if not path.exists():
-                  continue
-              text = path.read_text(encoding='utf-8')
-              for old, new in dm_to_product.items():
-                  text = text.replace(old, new)
-              text = asset_version.sub(lambda m: m.group(1) + f'?v={version}', text)
-              text = text.replace('產品DM', '產品圖文整理')
-              text = text.replace('六項產品 DM', '六項產品圖文整理')
-              text = text.replace('整合正式版 v408.2', '整合正式版 v408.3')
-              path.write_text(text, encoding='utf-8')
-
-          deploy = {
-            'version': version,
-            'updated': '2026-07-13',
-            'status': 'production-ready',
-            'catalog': 'five-types-six-specifications',
-            'imagePolicy': {
-              'productCards': 'verified-original-product-image',
-              'quickViewModal': 'verified-original-product-image',
-              'detailHero': 'verified-original-product-image',
-              'detailGallery': 'verified-original-product-image',
-              'detailMascot': 'approved-page-specific-mascot',
-              'dmPage': 'verified-original-product-image-with-live-text'
-            },
-            'frontend': 'single-site-js-and-single-site-css',
-            'automation': 'main-only-auto-deploy-and-trusted-pr-auto-merge',
-            'safety': 'no-redrawn-product-packaging-in-active-display'
-          }
-          Path('deploy-version.json').write_text(json.dumps(deploy, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-
-          workflow = Path('.github/workflows/deploy-pages.yml')
-          text = workflow.read_text(encoding='utf-8')
-          text = text.replace('408.2', version)
-          text = re.sub(r"\n\s*dm_files=\[.*?\n\s*\]\n", "\n          dm_files=[]\n", text, count=1, flags=re.S)
-          text = text.replace(
-              "assert product['dmImage'].endswith('.jpg?v=408.3'), product['dmImage']",
-              "assert product['dmImage'] == product['image'], product\n              assert product.get('detailImages') == [product['image']], product"
-          )
-          text = text.replace(
-              "正式驗收完成：15張小老闆、6張產品主圖、6張DM、單一JS/CSS",
-              "正式驗收完成：15張小老闆、6張真實產品主圖、快速查看及圖文頁均使用真實產品圖、單一JS/CSS"
-          )
-          workflow.write_text(text, encoding='utf-8')
-          PY
-
-          rm -f \
-            images/dm-final/01_guilu-gao-100g-dm.jpg \
-            images/dm-final/02_guilu-drink-30cc-dm.jpg \
-            images/dm-final/03_guilu-drink-180cc-dm.jpg \
-            images/dm-final/04_luerong-fen-75g-dm.jpg \
-            images/dm-final/05_guilu-tangkuai-75g-dm.jpg \
-            images/dm-final/06_guilu-jiao-600g-dm.jpg
-
-      - name: Validate real-product-image policy
-        run: |
-          set -euo pipefail
+          python3 tools/fix_product_images_v4083.py
           node --check site.js
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
-          python3 - <<'PY'
-          from pathlib import Path
-          import json
-          data=json.loads(Path('data.json').read_text(encoding='utf-8'))
-          assert len(data['products']) == 6
-          for product in data['products']:
-              assert product['image'].startswith('images/products-v3/')
-              assert product['image'].endswith('?v=408.3')
-              assert product['dmImage'] == product['image']
-              assert product['detailImages'] == [product['image']]
-              path=Path(product['image'].split('?')[0])
-              assert path.is_file() and path.stat().st_size > 10000, path
-          active='\n'.join(
-              p.read_text(encoding='utf-8')
-              for p in [*Path('.').glob('*.html'), Path('site.js'), Path('data.json')]
-              if p.exists()
-          )
-          assert 'images/dm-final/' not in active
-          assert '整合正式版 v408.3' in Path('site.js').read_text(encoding='utf-8')
-          print('PASS: all active product displays use verified original product images')
-          PY
 
-      - name: Commit to main and remove temporary fixer
+      - name: Commit and push main
         run: |
           set -euo pipefail
           rm -rf _trigger
+          rm -f tools/fix_product_images_v4083.py
           rm -f .github/workflows/fix-product-images-v4083.yml
+          rm -f .github/workflows/test-v4083.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
@@ -153,9 +41,8 @@ jobs:
           git push origin HEAD:main
 
       - name: Report completion
-        if: success() && github.event_name == 'issues'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.3_PRODUCT_IMAGE_FIX_SUCCESS｜產品卡、快速查看、詳細頁、詳細圖與產品圖文整理頁已統一使用六張真實產品原圖；錯誤重畫DM已移除，不再顯示被改造的瓶罐、盒型、袋型或標籤。GitHub Pages 已由 main 自動重新部署。'
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.3_PRODUCT_IMAGE_FIX_SUCCESS｜產品卡、快速查看、詳細頁、詳細圖與產品圖文整理頁已統一使用六張真實產品原圖；錯誤重畫DM已移除，不再顯示被改造的瓶罐、盒型、袋型或標籤。main 已更新並由 GitHub Pages 自動重新部署。'
           gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
