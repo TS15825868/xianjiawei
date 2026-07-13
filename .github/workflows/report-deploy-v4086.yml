@@ -1,4 +1,4 @@
-name: Report deploy v408.6 log
+name: Report deploy v408.6 error
 
 on:
   issues:
@@ -10,24 +10,22 @@ permissions:
 
 jobs:
   report:
-    if: github.event.issue.title == 'REPORT_DEPLOY_V4086_LOG'
+    if: github.event.issue.title == 'REPORT_DEPLOY_V4086_ERROR'
     runs-on: ubuntu-latest
     steps:
-      - name: Report exact failed log
+      - name: Extract exact error
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set +e
           run_id=29241558021
-          gh run view "$run_id" --repo "${{ github.repository }}" --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/run.json 2>&1
           gh run view "$run_id" --repo "${{ github.repository }}" --log-failed > /tmp/failed.log 2>&1
           {
-            echo 'DEPLOY_V4086_FAILED_LOG'
-            echo '```json'
-            cat /tmp/run.json
-            echo '```'
+            echo 'DEPLOY_V4086_EXACT_ERROR'
             echo '```text'
-            tail -220 /tmp/failed.log
+            grep -E -B 8 -A 12 'Traceback|AssertionError|FileNotFoundError|Error:|##\[error\]|assertion|No such file|SyntaxError' /tmp/failed.log | tail -160
+            echo '--- final 60 lines ---'
+            tail -60 /tmp/failed.log
             echo '```'
           } > /tmp/comment.txt
           gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
