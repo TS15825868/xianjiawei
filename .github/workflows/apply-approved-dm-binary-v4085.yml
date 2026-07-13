@@ -33,7 +33,16 @@ jobs:
           set -euo pipefail
           rm -rf /tmp/xjw-approved-dm
           mkdir -p /tmp/xjw-approved-dm images/dm-final
-          base64 -d _upload/dm-v408.zip.b64 > /tmp/dm-v408.zip
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          import string
+          raw=Path('_upload/dm-v408.zip.b64').read_text(encoding='utf-8',errors='ignore')
+          allowed=set(string.ascii_letters+string.digits+'+/=')
+          clean=''.join(ch for ch in raw if ch in allowed)
+          clean += '=' * ((4-len(clean)%4)%4)
+          Path('/tmp/dm-v408.zip').write_bytes(base64.b64decode(clean,validate=False))
+          PY
           unzip -q /tmp/dm-v408.zip -d /tmp/xjw-approved-dm
           test "$(find /tmp/xjw-approved-dm/dm-final -maxdepth 1 -name '*.webp' | wc -l)" -eq 6
           for f in /tmp/xjw-approved-dm/dm-final/*.webp; do
@@ -136,6 +145,7 @@ jobs:
           rm -f images/dm-final/06_guilu-jiao-600g-dm.jpg
           rm -rf _upload
           rm -f .github/workflows/test-drive-download.yml
+          rm -f .github/workflows/report-approved-dm-v4085.yml
           rm -f .github/workflows/apply-approved-dm-binary-v4085.yml
 
       - name: Final validation
