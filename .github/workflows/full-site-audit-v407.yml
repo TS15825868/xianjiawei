@@ -1,0 +1,349 @@
+name: Full site audit v407
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  audit:
+    if: github.event.issue.title == 'FULL_SITE_AUDIT_V407_20260713'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install audit dependencies
+        run: |
+          python -m pip install --quiet pillow
+          npm install --no-save --silent puppeteer-core@24
+
+      - name: Audit repository and public website
+        id: audit
+        continue-on-error: true
+        env:
+          SITE_BASE: https://ts15825868.github.io/xianjiawei
+        run: |
+          set +e
+          python - <<'PY' > /tmp/static-audit.md 2>&1
+          from pathlib import Path
+          from PIL import Image
+          from html.parser import HTMLParser
+          from urllib.parse import urlsplit, unquote
+          from urllib.request import Request, urlopen
+          import hashlib, json, re, time, os
+
+          ROOT=Path('.')
+          BASE=os.environ['SITE_BASE'].rstrip('/')
+          stamp=str(int(time.time()))
+          issues=[]; warnings=[]; passed=[]
+
+          def sha256(path):
+              h=hashlib.sha256()
+              with open(path,'rb') as f:
+                  for chunk in iter(lambda:f.read(1024*1024),b''): h.update(chunk)
+              return h.hexdigest()
+
+          def local_path(raw, basefile=None):
+              if not raw: return None
+              raw=raw.strip()
+              if raw.startswith(('http://','https://','mailto:','tel:','javascript:','data:','#','//')): return None
+              p=unquote(urlsplit(raw).path)
+              if not p: return None
+              if p.startswith('/xianjiawei/'): p=p[len('/xianjiawei/'):]
+              elif p.startswith('/'): p=p[1:]
+              base=(basefile.parent if basefile else ROOT)
+              return (base/p).resolve()
+
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.refs=[]; self.line_links=[]
+              def handle_starttag(self, tag, attrs):
+                  d=dict(attrs)
+                  for a in ('src','href','data-dm-src'):
+                      if a in d: self.refs.append((tag,a,d[a]))
+                  if tag=='a' and ('data-line-url' in d or 'line.me/' in d.get('href','') or 'lin.ee/' in d.get('href','')):
+                      self.line_links.append(d)
+
+          html_files=sorted(ROOT.glob('*.html'))
+          all_local_refs=[]
+          line_labels_bad=[]
+          versions={'site.css':set(),'site-v321.css':set(),'site.js':set()}
+          for f in html_files:
+              text=f.read_text(encoding='utf-8')
+              p=Parser(); p.feed(text)
+              for tag,a,raw in p.refs:
+                  lp=local_path(raw,f)
+                  if lp:
+                      all_local_refs.append((f.name,raw,lp))
+                      if not lp.exists(): issues.append(f'缺少檔案：`{f.name}` → `{raw}`')
+              for m in re.finditer(r'<a([^>]*(?:data-line-url|line\.me/|lin\.ee/)[^>]*)>(.*?)</a>',text,re.S|re.I):
+                  label=re.sub('<[^>]+>','',m.group(2)).strip()
+                  if 'LINE' not in label: line_labels_bad.append(f'{f.name}: {label}')
+              for asset in versions:
+                  for m in re.finditer(re.escape(asset)+r'\?v=([^"\']+)',text): versions[asset].add(m.group(1))
+
+          if line_labels_bad: issues.append('導向 LINE 的按鈕仍有未明示 LINE：'+', '.join(line_labels_bad[:20]))
+          else: passed.append(f'全站 {len(html_files)} 個 HTML 的 LINE 連結文字皆明示 LINE')
+
+          missing=[x for x in all_local_refs if not x[2].exists()]
+          if not missing: passed.append(f'HTML 內部連結與圖片引用未發現缺檔（掃描 {len(all_local_refs)} 個本機引用）')
+
+          # JS syntax
+          for js in ['site.js','site-core.js','approved-mascot-v405.js']:
+              if not Path(js).exists(): issues.append(f'缺少核心程式 `{js}`')
+          
+          # Product data truth set
+          data=json.loads(Path('data.json').read_text(encoding='utf-8'))
+          products={p['id']:p for p in data.get('products',[])}
+          expected={
+            'guilu-gao': {'size':'100g／罐','dm':'images/dm-final/01_guilu-gao-100g-dm.jpg','page':'product-guilu-gao.html','ingredients':['鹿角萃取物','龜板萃取物','枸杞','紅棗','黃耆','粉光蔘']},
+            'guilu-drink-30': {'size':'30cc／瓶（玻璃瓶）','dm':'images/dm-final/02_guilu-drink-30cc-dm.jpg','page':'product-guilu-drink-30cc.html','ingredients':['水','鹿角萃取物','龜板萃取物','枸杞','紅棗','黃耆','粉光蔘']},
+            'guilu-drink-180': {'size':'180cc／包（鋁袋）','dm':'images/dm-final/03_guilu-drink-180cc-dm.jpg','page':'product-guilu-drink-180cc.html','ingredients':['水','鹿角萃取物','龜板萃取物','枸杞','紅棗','黃耆','粉光蔘']},
+            'guilu-tangkuai': {'size':'75g／盒｜8塊裝｜每塊約9.375g','dm':'images/dm-final/05_guilu-tangkuai-75g-dm.jpg','page':'product-guilu-tangkuai.html','ingredients':['鹿角萃取物','龜板萃取物']},
+            'guilu-jiao': {'size':'600g／盒（1斤）｜32塊裝｜每塊約18.75g','dm':'images/dm-final/06_guilu-jiao-600g-dm.jpg','page':'product-guilu-jiao.html','ingredients':['鹿角萃取物','龜板萃取物']},
+            'luerong-fen': {'size':'75g／罐','dm':'images/dm-final/04_luerong-fen-75g-dm.jpg','page':'product-luerong-fen.html','ingredients':['鹿茸']},
+          }
+          if set(products)!=set(expected): issues.append(f'產品 ID 不一致：目前 {sorted(products)}，應為 {sorted(expected)}')
+          for pid,e in expected.items():
+              p=products.get(pid)
+              if not p: continue
+              if p.get('size')!=e['size']: issues.append(f'{pid} 規格不一致：`{p.get("size")}`')
+              if [x.split('?')[0] for x in [p.get('dmImage','')]][0]!=e['dm']: issues.append(f'{pid} dmImage 不一致：`{p.get("dmImage")}`')
+              if p.get('page')!=e['page'] and p.get('detailPage')!=e['page']: issues.append(f'{pid} 產品頁不一致')
+              if p.get('ingredients')!=e['ingredients']: issues.append(f'{pid} 成分順序或內容不一致：{p.get("ingredients")}')
+              page=Path(e['page'])
+              if not page.exists(): issues.append(f'缺少產品頁 `{e["page"]}`')
+              else:
+                  t=page.read_text(encoding='utf-8')
+                  if e['dm'] not in t: issues.append(f'產品頁 `{e["page"]}` 未連到正確 DM')
+                  if e['size'].split('｜')[0].replace('（玻璃瓶）','').replace('（鋁袋）','') not in t: warnings.append(f'產品頁 `{e["page"]}` 規格文字需人工確認')
+          if not [x for x in issues if any(pid in x for pid in expected)]: passed.append('data.json 六項產品、規格、成分、產品頁與 DM 路徑一致')
+
+          # Required usage/storage wording
+          checks=[
+            ('guilu-gao','早上或下午'),('guilu-gao','100～300mL'),
+            ('guilu-drink-30','開瓶後請儘速飲用完畢'),('guilu-drink-180','開封後請儘速飲用完畢'),
+            ('guilu-tangkuai','300～500mL'),('guilu-tangkuai','保溫壺'),
+            ('guilu-jiao','300～500mL'),('luerong-fen','牛奶'),('luerong-fen','豆漿')]
+          for pid,term in checks:
+              blob=json.dumps(products.get(pid,{}),ensure_ascii=False)
+              if term not in blob: issues.append(f'{pid} 缺少最新使用／保存文字：`{term}`')
+          alltext='\n'.join(p.read_text(encoding='utf-8',errors='ignore') for p in list(ROOT.glob('*.html'))+[Path('data.json'),Path('site-core.js')])
+          for stale in ['300g／','早晚各','早晚']:
+              if stale in alltext: warnings.append(f'全站仍找到可能過時字樣：`{stale}`')
+          public_price_patterns=[r'\$\s*(?:50|100|1500|1600|1800|2000|9600|12000)',r'(?:售價|優惠價)\s*[：:]?\s*(?:50|100|1500|1600|1800|2000|9600|12000)']
+          for pat in public_price_patterns:
+              if re.search(pat,alltext): issues.append('官網原始碼仍出現公開售價數字')
+
+          # DM exact user-approved hashes
+          expected_hashes={
+            'images/dm-final/01_guilu-gao-100g-dm.jpg':'4749ca453c1c3a90f2bae4ca0df0b5628634b136b8c67d4b33a47a9c5f3a05bd',
+            'images/dm-final/02_guilu-drink-30cc-dm.jpg':'004800c35c49c4b484b608d6e9a55812f227dfc386ad780c16e372c7ce333a1a',
+            'images/dm-final/03_guilu-drink-180cc-dm.jpg':'8f2c76b7decc52d2f8c47571ba5ed0e44c8ee751212085febb87b4d617946852',
+            'images/dm-final/05_guilu-tangkuai-75g-dm.jpg':'89272b37ac3450a1f3d7264ef8caba977f560d5dee444a8ff4b2256bbad3fb10',
+            'images/dm-final/06_guilu-jiao-600g-dm.jpg':'5a13f74c64f12c3978fdb648d9599a94c3005ed1c608b172fb5b26903bc14f96',
+            'images/dm-final/04_luerong-fen-75g-dm.jpg':'4db74887c3b887dd10d33abdf928ed1c9924d8fe3f0091dcea6fa40b4a3bc6a9',
+          }
+          dm_rows=[]
+          for path,exp in expected_hashes.items():
+              p=Path(path)
+              if not p.exists():
+                  dm_rows.append((path,'缺檔','—')); issues.append(f'DM 缺檔：`{path}`'); continue
+              got=sha256(p); ok=got==exp
+              dm_rows.append((path,'✅ 相同' if ok else '❌ 不同',got[:12]))
+              if not ok: issues.append(f'尚未換成使用者核准原圖：`{path}`')
+          dmhtml=Path('dm.html').read_text(encoding='utf-8')
+          for path in expected_hashes:
+              if path not in dmhtml: issues.append(f'`dm.html` 漏掉 `{path}`')
+          if all('✅' in r[1] for r in dm_rows): passed.append('六張 DM 與使用者提供原圖逐位元完全一致')
+
+          # Approved mascot assets and image readability
+          manifest_path=Path('images/brand/approved-v405-manifest.json')
+          if not manifest_path.exists(): issues.append('缺少 15 張官網小老闆 manifest')
+          else:
+              m=json.loads(manifest_path.read_text(encoding='utf-8'))
+              files=list(m.get('corePages',{}).values())+list(m.get('productPages',{}).values())
+              if len(files)!=15 or len(set(files))!=15: issues.append(f'小老闆素材不是 15 張獨立圖：{len(files)}／{len(set(files))}')
+              for name in files:
+                  p=Path('images/brand/approved-v405')/name
+                  if not p.exists(): issues.append(f'小老闆圖缺檔：`{p}`')
+                  else:
+                      try:
+                          with Image.open(p) as im:
+                              if im.size!=(1448,1086): issues.append(f'小老闆圖尺寸錯誤：`{p}` {im.size}')
+                      except Exception as e: issues.append(f'小老闆圖損毀：`{p}` {e}')
+              if not [x for x in issues if '小老闆' in x]: passed.append('15 張官網小老闆圖獨立、存在且皆為 1448×1086')
+
+          broken_images=[]; small_important=[]
+          important_prefix=('images/dm-final/','images/products-v3/','images/brand/approved-v405/')
+          for p in ROOT.joinpath('images').rglob('*'):
+              if not p.is_file() or p.suffix.lower() not in {'.jpg','.jpeg','.png','.webp','.gif'}: continue
+              try:
+                  with Image.open(p) as im:
+                      im.verify()
+                  with Image.open(p) as im:
+                      w,h=im.size
+                  rel=p.as_posix()
+                  if rel.startswith(important_prefix) and (w<700 or h<500 or p.stat().st_size<20000): small_important.append(f'{rel} {w}×{h} {p.stat().st_size}B')
+              except Exception as e: broken_images.append(f'{p}: {e}')
+          if broken_images: issues.extend('圖片損毀：'+x for x in broken_images)
+          else: passed.append('images 目錄內可識別圖片皆可正常解碼')
+          if small_important: warnings.append('重要圖片解析度或檔案大小偏低：'+'；'.join(small_important[:20]))
+
+          # duplicates and old assets
+          hmap={}
+          for p in ROOT.joinpath('images').rglob('*'):
+              if p.is_file() and p.suffix.lower() in {'.jpg','.jpeg','.png','.webp'}:
+                  hmap.setdefault(sha256(p),[]).append(p.as_posix())
+          dup=[v for v in hmap.values() if len(v)>1]
+          if dup: warnings.append(f'找到 {len(dup)} 組內容完全相同的重複圖片，需判斷是否可清理')
+          old=[p.as_posix() for p in [Path('assets/approved-v405-assets.zip'),Path('images/brand/mascot-v404'),Path('mascot-v404.js'),Path('site-v404.css')] if p.exists()]
+          if old: issues.append('仍存在已淘汰資產：'+', '.join(old))
+          else: passed.append('未發現已指定清除的 v404／損毀 ZIP 資產')
+
+          # version/deploy consistency
+          dv={}
+          if Path('deploy-version.json').exists(): dv=json.loads(Path('deploy-version.json').read_text(encoding='utf-8'))
+          wf=Path('.github/workflows/deploy-pages.yml').read_text(encoding='utf-8') if Path('.github/workflows/deploy-pages.yml').exists() else ''
+          htmlvers=sorted(set().union(*versions.values()))
+          hard=re.findall(r"version=['\"]([^'\"]+)",wf)
+          if len(htmlvers)>1: warnings.append(f'HTML 資源版本不一致：{htmlvers}')
+          if hard and htmlvers and hard[0] not in htmlvers: issues.append(f'部署流程硬改版本 `{hard[0]}`，但 main HTML 使用 {htmlvers}')
+          if dv.get('version') and htmlvers and dv.get('version') not in htmlvers: issues.append(f'deploy-version.json 為 `{dv.get("version")}`，但 main HTML 使用 {htmlvers}')
+
+          # live static sync and image HTTP
+          def fetch(url,binary=False):
+              req=Request(url,headers={'User-Agent':'XianjiaweiAudit/1.0','Cache-Control':'no-cache'})
+              with urlopen(req,timeout=25) as r: return r.status,r.read()
+          def norm_html(b):
+              s=b.decode('utf-8','replace')
+              s=re.sub(r'\?v=[^"\'&<> ]+','',s)
+              s=re.sub(r'\s+',' ',s).strip()
+              return s
+          live_diff=[]; live_fail=[]
+          for f in html_files:
+              try:
+                  status,b=fetch(f'{BASE}/{f.name}?audit={stamp}')
+                  if status!=200: live_fail.append(f'{f.name}:{status}'); continue
+                  if norm_html(b)!=norm_html(f.read_bytes()): live_diff.append(f.name)
+              except Exception as e: live_fail.append(f'{f.name}:{e}')
+          if live_fail: issues.append('公開頁面無法讀取：'+'；'.join(live_fail[:20]))
+          if live_diff: issues.append(f'公開站與 main 不同步（忽略 v 參數後仍不同）：{", ".join(live_diff)}')
+          else: passed.append(f'公開站 {len(html_files)} 個 HTML 與 main 同步（忽略快取版本參數）')
+
+          public_dm=[]
+          for path,exp in expected_hashes.items():
+              try:
+                  status,b=fetch(f'{BASE}/{path}?audit={stamp}')
+                  got=hashlib.sha256(b).hexdigest()
+                  ok=status==200 and got==exp
+                  public_dm.append((path,'✅ 相同' if ok else '❌ 不同／未更新',got[:12]))
+                  if not ok: issues.append(f'公開站 DM 尚未是核准原圖：`{path}`')
+              except Exception as e:
+                  public_dm.append((path,'❌ 讀取失敗',str(e)[:30])); issues.append(f'公開站 DM 讀取失敗：`{path}`')
+
+          # Report
+          print('# 仙加味官網全站驗收報告')
+          print(f'\n- main commit：`{os.popen("git rev-parse HEAD").read().strip()}`')
+          print(f'- HTML 頁數：{len(html_files)}')
+          print(f'- 內部引用數：{len(all_local_refs)}')
+          print(f'- 產品數：{len(products)}')
+          print(f'- 資源版本：{htmlvers}；deploy-version：`{dv.get("version","無")}`；部署硬改：{hard or "無"}')
+          print('\n## 六張 DM：main 與核准原圖')
+          print('|檔案|結果|目前 SHA256 前12碼|\n|---|---|---|')
+          for r in dm_rows: print(f'|`{r[0]}`|{r[1]}|`{r[2]}`|')
+          print('\n## 六張 DM：公開官網與核准原圖')
+          print('|檔案|結果|公開 SHA256 前12碼|\n|---|---|---|')
+          for r in public_dm: print(f'|`{r[0]}`|{r[1]}|`{r[2]}`|')
+          print('\n## 通過項目')
+          for x in passed: print(f'- ✅ {x}')
+          print('\n## 必須修正')
+          if issues:
+              for x in dict.fromkeys(issues): print(f'- ❌ {x}')
+          else: print('- ✅ 未發現必須修正項目')
+          print('\n## 提醒／可清理項目')
+          if warnings:
+              for x in dict.fromkeys(warnings): print(f'- ⚠️ {x}')
+          else: print('- 無')
+          print(f'\nAUDIT_FATAL_COUNT={len(set(issues))}')
+          PY
+
+          node --check site.js >> /tmp/static-audit.md 2>&1 || true
+          node --check site-core.js >> /tmp/static-audit.md 2>&1 || true
+          node --check approved-mascot-v405.js >> /tmp/static-audit.md 2>&1 || true
+
+          cat > /tmp/browser-audit.js <<'JS'
+          const puppeteer = require('puppeteer-core');
+          const fs=require('fs');
+          const base=process.env.SITE_BASE;
+          const executable=['/usr/bin/google-chrome','/usr/bin/google-chrome-stable','/usr/bin/chromium','/usr/bin/chromium-browser'].find(fs.existsSync);
+          (async()=>{
+            let out=[]; let bad=[];
+            if(!executable){ console.log('\n## 瀏覽器互動驗收\n- ⚠️ Runner 無 Chrome，未執行互動測試'); return; }
+            const browser=await puppeteer.launch({executablePath:executable,headless:true,args:['--no-sandbox','--disable-setuid-sandbox']});
+            const page=await browser.newPage();
+            await page.setViewport({width:390,height:844,deviceScaleFactor:1});
+            await page.goto(base+'/index.html?audit='+Date.now(),{waitUntil:'networkidle2',timeout:60000});
+            const cards=await page.$$('.product-card[data-product-id]');
+            out.push(`- 首頁產品卡：${cards.length} 張`);
+            if(cards.length!==6) bad.push(`首頁應有 6 張產品卡，目前 ${cards.length}`);
+            const expected={
+              'guilu-gao':'01_guilu-gao-100g-dm.jpg',
+              'guilu-drink-30':'02_guilu-drink-30cc-dm.jpg',
+              'guilu-drink-180':'03_guilu-drink-180cc-dm.jpg',
+              'guilu-tangkuai':'05_guilu-tangkuai-75g-dm.jpg',
+              'guilu-jiao':'06_guilu-jiao-600g-dm.jpg',
+              'luerong-fen':'04_luerong-fen-75g-dm.jpg'};
+            for(const [id,dm] of Object.entries(expected)){
+              const card=await page.$(`.product-card[data-product-id="${id}"]`);
+              if(!card){bad.push(`${id} 缺少產品卡`);continue;}
+              const labels=await card.$$eval('.product-card__actions a,.product-card__actions button',els=>els.map(x=>x.textContent.trim()));
+              const fullHref=await card.$eval('a.btn-outline',a=>a.getAttribute('href'));
+              await card.click();
+              await page.waitForSelector('#product-modal[aria-hidden="false"] img',{timeout:10000});
+              const cardModal=await page.$eval('#product-modal-body img',img=>img.getAttribute('src'));
+              if(!cardModal.includes(dm)) bad.push(`${id} 點產品卡顯示錯圖：${cardModal}`);
+              await page.click('#product-modal-close');
+              await page.waitForFunction(()=>document.querySelector('#product-modal')?.getAttribute('aria-hidden')==='true');
+              await card.$eval('[data-quick-view]',b=>b.click());
+              await page.waitForSelector('#product-modal[aria-hidden="false"] img',{timeout:10000});
+              const quickModal=await page.$eval('#product-modal-body img',img=>img.getAttribute('src'));
+              if(!quickModal.includes(dm)) bad.push(`${id} 快速查看顯示錯圖：${quickModal}`);
+              await page.click('#product-modal-close');
+              out.push(`- ${id}：按鈕「${labels.join('／')}」；點圖與快速查看均連到 ${dm}`);
+              const p2=await browser.newPage();
+              await p2.goto(base+'/'+fullHref+'?audit='+Date.now(),{waitUntil:'networkidle2',timeout:60000});
+              const dmHref=await p2.$eval('.dm-lightbox-link',a=>a.getAttribute('href')).catch(()=>null);
+              if(!dmHref || !dmHref.includes(dm)) bad.push(`${id} 完整介紹頁的查看產品DM錯誤：${dmHref}`);
+              await p2.close();
+            }
+            await page.goto(base+'/dm.html?audit='+Date.now(),{waitUntil:'networkidle2',timeout:60000});
+            const dmImgs=await page.$$eval('.dm-image-v2',els=>els.map(x=>x.getAttribute('src')));
+            out.push(`- dm.html 顯示 ${dmImgs.length} 張 DM`);
+            if(dmImgs.length!==6) bad.push(`dm.html 應有 6 張 DM，目前 ${dmImgs.length}`);
+            for(const dm of Object.values(expected)) if(!dmImgs.some(x=>x.includes(dm))) bad.push(`dm.html 缺少 ${dm}`);
+            console.log('\n## 瀏覽器互動驗收'); out.forEach(x=>console.log(x));
+            if(bad.length){console.log('\n### 互動驗收問題'); bad.forEach(x=>console.log('- ❌ '+x));}
+            else console.log('- ✅ 六項產品的點圖、快速查看、完整介紹與 dm.html 路徑皆正確');
+            await browser.close();
+          })().catch(e=>{console.log('\n## 瀏覽器互動驗收\n- ❌ '+e.stack);process.exitCode=0;});
+          JS
+          node /tmp/browser-audit.js >> /tmp/static-audit.md 2>&1 || true
+          cat /tmp/static-audit.md
+
+      - name: Publish audit report
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs=require('fs');
+            let body=fs.existsSync('/tmp/static-audit.md')?fs.readFileSync('/tmp/static-audit.md','utf8'):'驗收未產生報告';
+            if(body.length>60000) body=body.slice(0,60000)+'\n\n（報告已截斷）';
+            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body});
+            await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,state:'closed',state_reason:'completed'});
