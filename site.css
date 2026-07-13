@@ -1459,3 +1459,171 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
 .mascot-guide-card__media::after{display:none!important}
 .mascot-guide-card__media img{width:100%!important;height:auto!important;min-height:0!important;object-fit:contain!important;object-position:center!important;image-rendering:auto!important;filter:none!important;opacity:1!important;transform:none!important;backface-visibility:visible!important}
 @media(max-width:760px){.mascot-guide-card__media{height:auto!important}.mascot-guide-card__media img{height:auto!important}}
+
+/* BEGIN CONSOLIDATED FRONTEND */
+/* 手機版與高畫質顯示修正 */
+/* 仙加味網站 v321｜高畫質小老闆與手機版顯示修正 */
+.mascot-guide-section{
+  padding-top:0;
+}
+
+.mascot-guide-card{
+  position:relative;
+  display:grid!important;
+  grid-template-columns:minmax(320px,46%) minmax(0,1fr)!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  padding:0!important;
+  background:linear-gradient(135deg,#fffaf2 0%,#f4ead8 100%)!important;
+  border:1px solid rgba(123,30,30,.14)!important;
+  border-radius:28px!important;
+  box-shadow:0 18px 44px rgba(55,38,22,.12)!important;
+}
+
+.mascot-guide-card__media{
+  position:relative!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  aspect-ratio:4 / 3!important;
+  display:block!important;
+  overflow:hidden!important;
+  background:#efe4d2!important;
+}
+
+.mascot-guide-card__media::after{
+  display:none!important;
+  content:none!important;
+}
+
+.mascot-guide-card__image,
+.mascot-guide-card__media img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  max-height:none!important;
+  aspect-ratio:4 / 3!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+  image-rendering:auto!important;
+  filter:none!important;
+  opacity:1!important;
+  transform:none!important;
+  backface-visibility:visible!important;
+  mix-blend-mode:normal!important;
+  background:#efe4d2!important;
+}
+
+.mascot-guide-card__copy{
+  position:relative;
+  z-index:1;
+  align-self:center;
+  padding:clamp(28px,4vw,58px)!important;
+  margin:0!important;
+}
+
+.mascot-guide-card__copy h2{
+  max-width:15em;
+  color:var(--brand);
+}
+
+.mascot-guide-card__copy p:not(.eyebrow){
+  max-width:680px;
+  color:#4b5563;
+}
+
+/* 避免浮動 LINE 按鈕遮住卡片操作區 */
+@media(max-width:760px){
+  .page{padding-bottom:92px}
+  .mascot-guide-card{
+    grid-template-columns:1fr!important;
+    border-radius:22px!important;
+  }
+  .mascot-guide-card__media{
+    width:100%!important;
+    aspect-ratio:4 / 3!important;
+  }
+  .mascot-guide-card__copy{
+    padding:22px 20px 28px!important;
+    margin:0!important;
+  }
+  .mascot-guide-card__copy h2{
+    font-size:clamp(24px,7vw,32px);
+  }
+  .floating-line-cta{
+    right:12px!important;
+    bottom:calc(12px + env(safe-area-inset-bottom))!important;
+    max-width:calc(100vw - 24px)!important;
+    transform:none!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .reveal{
+    opacity:1!important;
+    transform:none!important;
+    transition:none!important;
+  }
+}
+
+/* 15張核准小老闆圖片樣式 */
+/* v405.1：完整使用15張核准小老闆原圖；不裁切、不拉伸、不重複。 */
+
+.approved-mascot-scene {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.approved-mascot-card {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #2c2118;
+  box-shadow: 0 16px 38px rgba(44, 33, 24, 0.14);
+}
+
+.approved-mascot-card img,
+.home-story-main .approved-home-mascot {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1448 / 1086;
+  object-fit: contain;
+  object-position: center;
+  transform: none !important;
+  filter: none !important;
+  image-rendering: auto;
+  background: #2c2118;
+}
+
+.home-story-main {
+  overflow: hidden;
+}
+
+.home-story-main .approved-home-mascot {
+  max-height: none;
+}
+
+@media (max-width: 760px) {
+  .approved-mascot-scene {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .approved-mascot-card {
+    border-radius: 18px;
+  }
+
+  .approved-mascot-card img,
+  .home-story-main .approved-home-mascot {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform: none !important;
+  }
+}
+/* END CONSOLIDATED FRONTEND */

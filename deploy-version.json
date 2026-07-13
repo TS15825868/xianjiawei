@@ -1,7 +1,15 @@
 {
-  "version": "408.1",
+  "version": "408.2",
   "updated": "2026-07-13",
-  "status": "product-and-dm-assets-uploading",
+  "status": "production-ready",
   "catalog": "five-types-six-specifications",
-  "frontend": "pending-safe-consolidation-after-image-deploy"
+  "imagePolicy": {
+    "productCards": "original-product-image",
+    "quickViewModal": "original-dm-image",
+    "detailHero": "original-product-image",
+    "detailMascot": "approved-page-specific-mascot",
+    "dmPage": "original-dm-image"
+  },
+  "frontend": "single-site-js-and-single-site-css",
+  "automation": "main-only-auto-deploy-and-trusted-pr-auto-merge"
 }
