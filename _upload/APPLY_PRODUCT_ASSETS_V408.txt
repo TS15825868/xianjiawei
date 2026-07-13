@@ -1,0 +1,1 @@
+trigger by issue title APPLY_PRODUCT_ASSETS_V408
