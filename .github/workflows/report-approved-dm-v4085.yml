@@ -1,0 +1,29 @@
+name: Report approved DM v408.5
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  actions: read
+  issues: write
+
+jobs:
+  report:
+    if: github.event.issue.title == 'REPORT_APPROVED_DM_V408_5'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report workflow runs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sleep 5
+          gh run list --repo "${{ github.repository }}" --workflow apply-approved-dm-binary-v4085.yml --limit 10 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json || true
+          {
+            echo 'APPROVED_DM_V408_5_RUNS'
+            echo '```json'
+            cat /tmp/runs.json
+            echo '```'
+          } > /tmp/comment.txt
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
+          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
