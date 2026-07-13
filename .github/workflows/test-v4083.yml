@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   apply:
-    if: github.event.issue.title == 'PING_V408_3_FIX_START'
+    if: github.event.issue.title == 'PING_V408_3_FIX_DIAG'
     runs-on: ubuntu-latest
     steps:
       - name: Started
@@ -22,7 +22,23 @@ jobs:
           ref: main
           fetch-depth: 0
       - name: Apply fix
-        run: python3 tools/fix_product_images_v4083.py
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          python3 tools/fix_product_images_v4083.py > /tmp/fix.log 2>&1
+          code=$?
+          if [ "$code" -ne 0 ]; then
+            {
+              echo 'V408.3_FIX_FAILED'
+              echo '```'
+              tail -c 12000 /tmp/fix.log
+              echo '```'
+            } > /tmp/comment.txt
+            gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
+            exit "$code"
+          fi
+          cat /tmp/fix.log
       - name: Commit
         run: |
           rm -rf _trigger
