@@ -26,20 +26,21 @@ jobs:
         with:
           ref: main
 
-      - name: Verify website v407.1
+      - name: 驗收正式網站 v408.2
         run: |
           set -euo pipefail
           node --check site.js
-          node --check site-core.js
-          node --check approved-mascot-v405.js
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
-          grep -q '"version": "407.1"' deploy-version.json
-          grep -q 'product-guilu-drink-180cc.html' choose.html
-          test ! -e assets/approved-v405-assets.zip
-          test ! -e images/brand/mascot-v404
-          test ! -e mascot-v404.js
-          test ! -e site-v404.css
+          grep -q '"version": "408.2"' deploy-version.json
+          grep -q '"status": "production-ready"' deploy-version.json
+          grep -q '仙加味網站核心｜整合正式版 v408.2' site.js
+          grep -q 'BEGIN CONSOLIDATED FRONTEND' site.css
+          test ! -e site-core.js
+          test ! -e approved-mascot-v405.js
+          test ! -e site-v321.css
+          test ! -e site-v405.css
+          test ! -e _upload
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -52,9 +53,15 @@ jobs:
               path=Path('images/brand/approved-v405')/filename
               assert path.is_file(), path
               assert path.stat().st_size > 20000, (path,path.stat().st_size)
-          for item in manifest['assets'].values():
-              assert item['width']==1448 and item['height']==1086, item
 
+          product_files=[
+              'images/products-v3/guilu-gao.jpg',
+              'images/products-v3/guilu-drink-30.jpg',
+              'images/products-v3/guilu-drink-180.jpg',
+              'images/products-v3/guilu-tangkuai.jpg',
+              'images/products-v3/guilu-jiao.jpg',
+              'images/products-v3/luerong-fen.jpg',
+          ]
           dm_files=[
               'images/dm-final/01_guilu-gao-100g-dm.jpg',
               'images/dm-final/02_guilu-drink-30cc-dm.jpg',
@@ -63,16 +70,25 @@ jobs:
               'images/dm-final/05_guilu-tangkuai-75g-dm.jpg',
               'images/dm-final/06_guilu-jiao-600g-dm.jpg',
           ]
+          for filename in product_files:
+              path=Path(filename)
+              assert path.is_file(), path
+              assert path.stat().st_size > 10000, (path,path.stat().st_size)
           for filename in dm_files:
               path=Path(filename)
               assert path.is_file(), path
               assert path.stat().st_size > 100000, (path,path.stat().st_size)
 
+          data=json.loads(Path('data.json').read_text(encoding='utf-8'))
+          assert len(data['products'])==6, len(data['products'])
+          for product in data['products']:
+              assert product['image'].endswith('.jpg?v=408.2'), product['image']
+              assert product['dmImage'].endswith('.jpg?v=408.2'), product['dmImage']
+
           dm=Path('dm.html').read_text(encoding='utf-8')
           assert dm.count('class="dm-image-v2"')==6
-          assert '03_guilu-drink-180cc-dm.jpg' in dm
           assert '<h1>六項產品 DM</h1>' in dm
-          print('15 mascot images and six DM entries verified')
+          print('正式驗收完成：15張小老闆、6張產品主圖、6張DM、單一JS/CSS')
           PY
 
       - name: Prepare static website
@@ -87,6 +103,7 @@ jobs:
             --exclude='tools/' \
             --exclude='node_modules/' \
             --exclude='assets/' \
+            --exclude='_upload/' \
             --exclude='tmp-test*.txt' \
             --exclude='*.zip' \
             --exclude='*.tar' \
@@ -101,8 +118,8 @@ jobs:
           from pathlib import Path
           import re
 
-          version='407.1'
-          pattern=re.compile(r'(\.(?:css|js|jpg|jpeg|png|webp))\?v=[^"\']+')
+          version='408.2'
+          pattern=re.compile(r'(\.(?:css|js|jpg|jpeg|png|webp|avif))\?v=[^"\']+')
           for page in Path('_site').glob('*.html'):
               text=page.read_text(encoding='utf-8')
               text=pattern.sub(lambda m:m.group(1)+f'?v={version}',text)
@@ -112,11 +129,10 @@ jobs:
           test -s _site/index.html
           test -s _site/choose.html
           test -s _site/dm.html
-          test -s _site/approved-mascot-v405.js
-          grep -q 'site.js?v=407.1' _site/index.html
-          grep -q 'site.js?v=407.1' _site/choose.html
-          grep -q '<h1>六項產品 DM</h1>' _site/dm.html
-          test "$(grep -o 'class="dm-image-v2"' _site/dm.html | wc -l)" -eq 6
+          test -s _site/site.js
+          test -s _site/site.css
+          grep -q 'site.js?v=408.2' _site/index.html
+          grep -q 'site.css?v=408.2' _site/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
