@@ -1,4 +1,4 @@
-name: Report deploy v408.6 error
+name: Confirm deploy v408.6 success
 
 on:
   issues:
@@ -10,22 +10,34 @@ permissions:
 
 jobs:
   report:
-    if: github.event.issue.title == 'REPORT_DEPLOY_V4086_ERROR'
+    if: github.event.issue.title == 'CONFIRM_DEPLOY_V4086_SUCCESS'
     runs-on: ubuntu-latest
     steps:
-      - name: Extract exact error
+      - name: Wait and report target deployment
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          set +e
-          run_id=29241558021
-          gh run view "$run_id" --repo "${{ github.repository }}" --log-failed > /tmp/failed.log 2>&1
+          set -euo pipefail
+          target='c79e41a2062ea939c324b2c2559972331a61f56e'
+          echo '[]' > /tmp/runs.json
+          for i in $(seq 1 24); do
+            gh run list --repo "${{ github.repository }}" --workflow deploy-pages.yml --commit "$target" --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json || true
+            status=$(python3 - <<'PY'
+          import json
+          try:
+              runs=json.load(open('/tmp/runs.json'))
+              print(runs[0].get('status','') if runs else '')
+          except Exception:
+              print('')
+          PY
+            )
+            if [ "$status" = 'completed' ]; then break; fi
+            sleep 10
+          done
           {
-            echo 'DEPLOY_V4086_EXACT_ERROR'
-            echo '```text'
-            grep -E -B 8 -A 12 'Traceback|AssertionError|FileNotFoundError|Error:|##\[error\]|assertion|No such file|SyntaxError' /tmp/failed.log | tail -160
-            echo '--- final 60 lines ---'
-            tail -60 /tmp/failed.log
+            echo 'DEPLOY_V4086_FINAL_REPORT'
+            echo '```json'
+            cat /tmp/runs.json
             echo '```'
           } > /tmp/comment.txt
           gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
