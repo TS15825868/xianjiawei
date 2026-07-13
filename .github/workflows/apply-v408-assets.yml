@@ -1,0 +1,265 @@
+name: Apply v408 product assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_upload/v408-ready.txt'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: v408-assets
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Rebuild and verify asset archive
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/v408
+          cat _upload/v408-parts/part-*.txt | base64 -d > /tmp/v408/assets.zip
+          unzip -t /tmp/v408/assets.zip
+          unzip -q /tmp/v408/assets.zip -d /tmp/v408/unpacked
+          python3 -m pip install --quiet pillow
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+
+          root=Path('/tmp/v408/unpacked')
+          expected=[
+            'products-v3/guilu-gao.webp',
+            'products-v3/guilu-drink-30.webp',
+            'products-v3/guilu-drink-180.webp',
+            'products-v3/guilu-tangkuai.webp',
+            'products-v3/guilu-jiao.webp',
+            'products-v3/luerong-fen.webp',
+            'dm-final/01_guilu-gao-100g-dm.webp',
+            'dm-final/02_guilu-drink-30cc-dm.webp',
+            'dm-final/03_guilu-drink-180cc-dm.webp',
+            'dm-final/04_luerong-fen-75g-dm.webp',
+            'dm-final/05_guilu-tangkuai-75g-dm.webp',
+            'dm-final/06_guilu-jiao-600g-dm.webp',
+          ]
+          for rel in expected:
+              p=root/rel
+              assert p.is_file() and p.stat().st_size > 40000, (rel, p.stat().st_size if p.exists() else 0)
+              with Image.open(p) as im:
+                  assert im.width >= 850 and im.height >= 1100, (rel, im.size)
+          print('verified', len(expected), 'images')
+          PY
+
+      - name: Install latest six product images and six DM images
+        run: |
+          set -euo pipefail
+          cp -f /tmp/v408/unpacked/products-v3/*.webp images/products-v3/
+          cp -f /tmp/v408/unpacked/dm-final/*.webp images/dm-final/
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,re
+
+          version='408.1'
+          mapping={
+            'images/products-v3/guilu-gao.jpg':'images/products-v3/guilu-gao.webp',
+            'images/products-v3/guilu-drink-30.jpg':'images/products-v3/guilu-drink-30.webp',
+            'images/products-v3/guilu-drink-180.jpg':'images/products-v3/guilu-drink-180.webp',
+            'images/products-v3/guilu-tangkuai.jpg':'images/products-v3/guilu-tangkuai.webp',
+            'images/products-v3/guilu-jiao.jpg':'images/products-v3/guilu-jiao.webp',
+            'images/products-v3/luerong-fen.jpg':'images/products-v3/luerong-fen.webp',
+            'images/dm-final/01_guilu-gao-100g-dm.jpg':'images/dm-final/01_guilu-gao-100g-dm.webp',
+            'images/dm-final/02_guilu-drink-30cc-dm.jpg':'images/dm-final/02_guilu-drink-30cc-dm.webp',
+            'images/dm-final/03_guilu-drink-180cc-dm.jpg':'images/dm-final/03_guilu-drink-180cc-dm.webp',
+            'images/dm-final/04_luerong-fen-75g-dm.jpg':'images/dm-final/04_luerong-fen-75g-dm.webp',
+            'images/dm-final/05_guilu-tangkuai-75g-dm.jpg':'images/dm-final/05_guilu-tangkuai-75g-dm.webp',
+            'images/dm-final/06_guilu-jiao-600g-dm.jpg':'images/dm-final/06_guilu-jiao-600g-dm.webp',
+          }
+          targets=list(Path('.').glob('*.html'))+[Path('data.json'),Path('site-core.js'),Path('approved-mascot-v405.js')]
+          for p in targets:
+              if not p.exists(): continue
+              s=p.read_text(encoding='utf-8')
+              for old,new in mapping.items(): s=s.replace(old,new)
+              s=re.sub(r'(?<=\.webp)\?v=[0-9.]+',f'?v={version}',s)
+              s=re.sub(r'(site(?:-v\d+)?\.(?:css|js))\?v=[0-9.]+',lambda m:m.group(1)+f'?v={version}',s)
+              p.write_text(s,encoding='utf-8')
+
+          info={
+            'version':version,
+            'updated':'2026-07-13',
+            'status':'six-product-images-and-six-dm-images-installed',
+            'catalog':'five-types-six-specifications',
+            'imagePolicy':{
+              'productCards':'product-image',
+              'quickViewModal':'dm-image',
+              'detailHero':'product-image',
+              'detailMascot':'product-specific-mascot',
+              'dmPage':'dm-image'
+            },
+            'frontend':'consolidation-next'
+          }
+          Path('deploy-version.json').write_text(json.dumps(info,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+          node --check site-core.js
+          python3 -m json.tool data.json >/dev/null
+          test "$(grep -o 'class=\"dm-image-v2\"' dm.html | wc -l)" -eq 6
+          grep -q 'guilu-gao.webp?v=408.1' data.json
+          grep -q '01_guilu-gao-100g-dm.webp?v=408.1' data.json
+
+      - name: Commit product and DM assets
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/products-v3 images/dm-final '*.html' data.json site-core.js approved-mascot-v405.js deploy-version.json
+          git commit -m '更新六項產品主圖與六張DM圖 v408.1'
+          git push origin HEAD:main
+
+      - name: Safely consolidate JavaScript and CSS
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json,re
+
+          version='408.1'
+          core=Path('site-core.js').read_text(encoding='utf-8').strip()
+          mascot=Path('approved-mascot-v405.js').read_text(encoding='utf-8').strip()
+          core=re.sub(r'^\s*[\"\']use strict[\"\'];?\s*','',core)
+          mascot=re.sub(r'^\s*[\"\']use strict[\"\'];?\s*','',mascot)
+          core=re.sub(r'data\.json\?v=[0-9.]+',f'data.json?v={version}',core)
+          mascot=re.sub(r'const VERSION = [\"\'][0-9.]+[\"\'];',f'const VERSION = "{version}";',mascot)
+          merged='"use strict";\n\n/* 仙加味網站核心｜整合正式版 v408.1 */\n'+core+'\n\n/* 15張核准小老闆頁面配置 */\n'+mascot+'\n'
+          Path('site.js').write_text(merged,encoding='utf-8')
+
+          base=Path('site.css').read_text(encoding='utf-8')
+          mobile=Path('site-v321.css').read_text(encoding='utf-8')
+          mascot_css=Path('site-v405.css').read_text(encoding='utf-8')
+          base=re.sub(r'/\* BEGIN CONSOLIDATED FRONTEND \*/.*?/\* END CONSOLIDATED FRONTEND \*/\s*','',base,flags=re.S)
+          Path('site.css').write_text(
+            base.rstrip()+'\n\n/* BEGIN CONSOLIDATED FRONTEND */\n'+
+            '/* 手機版與互動修正 */\n'+mobile.strip()+'\n\n'+
+            '/* 核准小老闆圖片樣式 */\n'+mascot_css.strip()+'\n'+
+            '/* END CONSOLIDATED FRONTEND */\n',encoding='utf-8')
+
+          for p in Path('.').glob('*.html'):
+              s=p.read_text(encoding='utf-8')
+              s=re.sub(r'\s*<link[^>]+href="site-v(?:321|405)\.css[^>]*>\s*','\n',s)
+              s=re.sub(r'\s*<script[^>]+src="(?:site-core|approved-mascot-v405)\.js[^>]*></script>\s*','\n',s)
+              s=re.sub(r'site\.css\?v=[0-9.]+',f'site.css?v={version}',s)
+              s=re.sub(r'site\.js\?v=[0-9.]+',f'site.js?v={version}',s)
+              p.write_text(s,encoding='utf-8')
+
+          info=json.loads(Path('deploy-version.json').read_text(encoding='utf-8'))
+          info['frontend']='single-site-js-and-single-site-css'
+          info['status']='production-ready-pending-public-verification'
+          Path('deploy-version.json').write_text(json.dumps(info,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+          rm -f site-core.js approved-mascot-v405.js site-v321.css site-v405.css
+          node --check site.js
+          grep -q '仙加味網站核心｜整合正式版 v408.1' site.js
+          grep -q 'BEGIN CONSOLIDATED FRONTEND' site.css
+          for p in *.html; do ! grep -qE 'site-v321\.css|site-v405\.css|site-core\.js|approved-mascot-v405\.js' "$p"; done
+
+      - name: Install durable production deployment workflow
+        run: |
+          cat > .github/workflows/deploy-pages.yml <<'YAML'
+          name: Deploy 仙加味網站
+
+          on:
+            push:
+              branches: [main]
+            workflow_dispatch:
+
+          permissions:
+            contents: read
+            pages: write
+            id-token: write
+
+          concurrency:
+            group: pages
+            cancel-in-progress: true
+
+          jobs:
+            deploy:
+              runs-on: ubuntu-latest
+              environment:
+                name: github-pages
+                url: ${{ steps.deployment.outputs.page_url }}
+              steps:
+                - uses: actions/checkout@v4
+                  with:
+                    ref: main
+                - name: Verify production website
+                  run: |
+                    set -euo pipefail
+                    node --check site.js
+                    python3 -m json.tool data.json >/dev/null
+                    python3 -m json.tool deploy-version.json >/dev/null
+                    grep -q '"version": "408.1"' deploy-version.json
+                    test ! -e site-core.js
+                    test ! -e approved-mascot-v405.js
+                    test ! -e site-v321.css
+                    test ! -e site-v405.css
+                    test "$(grep -o 'class=\"dm-image-v2\"' dm.html | wc -l)" -eq 6
+                    grep -q 'guilu-gao.webp?v=408.1' data.json
+                    grep -q '01_guilu-gao-100g-dm.webp?v=408.1' data.json
+                    grep -q '仙加味網站核心｜整合正式版 v408.1' site.js
+                    grep -q 'BEGIN CONSOLIDATED FRONTEND' site.css
+                    for f in \
+                      images/products-v3/guilu-gao.webp \
+                      images/products-v3/guilu-drink-30.webp \
+                      images/products-v3/guilu-drink-180.webp \
+                      images/products-v3/guilu-tangkuai.webp \
+                      images/products-v3/guilu-jiao.webp \
+                      images/products-v3/luerong-fen.webp \
+                      images/dm-final/01_guilu-gao-100g-dm.webp \
+                      images/dm-final/02_guilu-drink-30cc-dm.webp \
+                      images/dm-final/03_guilu-drink-180cc-dm.webp \
+                      images/dm-final/04_luerong-fen-75g-dm.webp \
+                      images/dm-final/05_guilu-tangkuai-75g-dm.webp \
+                      images/dm-final/06_guilu-jiao-600g-dm.webp; do test -s "$f"; done
+                - name: Prepare static website
+                  run: |
+                    rm -rf _site
+                    mkdir -p _site
+                    rsync -a ./ _site/ \
+                      --exclude='.git/' --exclude='.github/' --exclude='_site/' \
+                      --exclude='_upload/' --exclude='tools/' --exclude='node_modules/' \
+                      --exclude='*.zip' --exclude='*.b64' --exclude='*.md'
+                    touch _site/.nojekyll
+                    test -s _site/index.html
+                    test -s _site/products.html
+                    test -s _site/dm.html
+                - uses: actions/configure-pages@v5
+                - uses: actions/upload-pages-artifact@v3
+                  with:
+                    path: _site
+                - id: deployment
+                  uses: actions/deploy-pages@v4
+          YAML
+          sed -i 's/^          //' .github/workflows/deploy-pages.yml
+
+      - name: Commit frontend consolidation
+        run: |
+          set -euo pipefail
+          git add -A
+          git commit -m '整合網站JS與CSS並建立自動部署驗收 v408.1'
+          git push origin HEAD:main
+
+      - name: Clean upload payload and one-time workflow
+        run: |
+          set -euo pipefail
+          rm -rf _upload
+          rm -f .github/workflows/apply-v408-assets.yml
+          git add -A
+          git commit -m '清理v408上傳暫存與一次性流程'
+          git push origin HEAD:main
