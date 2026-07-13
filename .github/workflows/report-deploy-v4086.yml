@@ -1,0 +1,44 @@
+name: Report deploy v408.6
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  actions: read
+  issues: write
+
+jobs:
+  report:
+    if: github.event.issue.title == 'REPORT_DEPLOY_V4086'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for target Pages deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          target='f2c8b71990630591897fad12f86e749e195dce8d'
+          echo '[]' > /tmp/runs.json
+          for i in $(seq 1 18); do
+            gh run list --repo "${{ github.repository }}" --workflow deploy-pages.yml --commit "$target" --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/runs.json || true
+            status=$(python3 - <<'PY'
+          import json
+          try:
+              x=json.load(open('/tmp/runs.json'))
+              print(x[0].get('status','') if x else '')
+          except Exception:
+              print('')
+          PY
+            )
+            if [ "$status" = 'completed' ]; then break; fi
+            sleep 10
+          done
+          {
+            echo 'DEPLOY_V4086_REPORT'
+            echo '```json'
+            cat /tmp/runs.json
+            echo '```'
+          } > /tmp/comment.txt
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
+          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
