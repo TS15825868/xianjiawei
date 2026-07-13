@@ -1,5 +1,5 @@
 {
-  "version": "408.6",
+  "version": "408.7",
   "updated": "2026-07-13",
   "status": "production-ready",
   "catalog": "five-types-six-specifications",
@@ -8,12 +8,31 @@
     "quickViewModal": "verified-original-product-image",
     "detailHero": "verified-original-product-image",
     "detailDM": "six-approved-final-dm-images",
-    "detailMascot": "approved-page-specific-mascot",
+    "detailMascot": "approved-page-specific-mascot-webp",
     "dmPage": "six-approved-final-dm-images"
   },
   "frontend": "single-site-js-and-single-site-css",
-  "automation": "main-only-auto-deploy-and-trusted-pr-auto-merge",
-  "safety": "no-redrawn-product-packaging-in-product-card-or-quick-view",
-  "dmAssets": "six-user-approved-1122x1402-jpg-files-sha256-verified",
-  "cacheVersion": "408.6"
+  "seo": [
+    "complete-sitemap",
+    "robots",
+    "canonical",
+    "hreflang",
+    "open-graph",
+    "twitter-card",
+    "webpage-breadcrumb-faq-itemlist-jsonld",
+    "llms-txt",
+    "machine-readable-catalog"
+  ],
+  "performance": [
+    "optimized-mascot-webp",
+    "referenced-assets-only-deployment",
+    "explicit-image-dimensions",
+    "lazy-load-below-fold"
+  ],
+  "conversion": [
+    "clear-product-hierarchy",
+    "six-product-comparison",
+    "line-intent-cta"
+  ],
+  "safety": "no-redrawn-product-packaging-in-product-card-or-quick-view"
 }

@@ -1,0 +1,25 @@
+# 仙加味
+
+> 台北萬華四代龜鹿工序品牌。官網提供產品規格、成分、使用方式、保存方式、產品差異、門市與聯絡資訊。
+
+## 官方資訊
+- 官網：https://ts15825868.github.io/xianjiawei/
+- 產品總覽：https://ts15825868.github.io/xianjiawei/products.html
+- 正式產品DM：https://ts15825868.github.io/xianjiawei/dm.html
+- 品牌故事：https://ts15825868.github.io/xianjiawei/brand.html
+- 常見問題：https://ts15825868.github.io/xianjiawei/faq.html
+- 聯絡與門市：https://ts15825868.github.io/xianjiawei/contact.html
+- 公開機器可讀產品資料：https://ts15825868.github.io/xianjiawei/catalog-public.json
+
+## 六項產品
+- 龜鹿膏100g：https://ts15825868.github.io/xianjiawei/product-guilu-gao.html
+- 龜鹿飲30cc玻璃瓶：https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html
+- 龜鹿飲180cc鋁袋：https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html
+- 龜鹿湯塊75g：https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html
+- 龜鹿膠600g：https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html
+- 鹿茸粉75g：https://ts15825868.github.io/xianjiawei/product-luerong-fen.html
+
+## 使用原則
+- 產品圖片以實際產品外觀與原包裝為準。
+- 本站提供日常食補、產品型態與使用方式資訊，不提供疾病診斷、治療或療效保證。
+- 價格、活動、付款與配送以官方 LINE 最新回覆為準。

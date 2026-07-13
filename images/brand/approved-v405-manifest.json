@@ -1,5 +1,5 @@
 {
-  "version": "405.1",
+  "version": "408.7",
   "resolution": "at least 1400x1000",
   "rules": [
     "15張依頁面功能獨立配置",
@@ -7,23 +7,23 @@
     "產品卡與主要產品圖維持真實產品原圖"
   ],
   "corePages": {
-    "home": "home-brand.png",
-    "products": "products-all.png",
-    "choose": "choose.jpg",
-    "combo": "combo.png",
-    "guide": "guide-how-to-use.png",
-    "recipes": "recipes.png",
-    "brand": "brand-story.png",
-    "faq": "faq.png",
-    "contact": "contact-line.png"
+    "home": "home-brand.webp",
+    "products": "products-all.webp",
+    "choose": "choose.webp",
+    "combo": "combo.webp",
+    "guide": "guide-how-to-use.webp",
+    "recipes": "recipes.webp",
+    "brand": "brand-story.webp",
+    "faq": "faq.webp",
+    "contact": "contact-line.webp"
   },
   "productPages": {
-    "product-guilu-gao.html": "product-guilu-gao-100g.png",
-    "product-guilu-drink-30cc.html": "product-guilu-drink-30cc.png",
-    "product-guilu-drink-180cc.html": "product-guilu-drink-180cc.png",
-    "product-guilu-tangkuai.html": "product-guilu-tangkuai-75g.png",
-    "product-guilu-jiao.html": "product-guilu-jiao-600g.png",
-    "product-luerong-fen.html": "product-luerong-fen-75g.png"
+    "product-guilu-gao.html": "product-guilu-gao-100g.webp",
+    "product-guilu-drink-30cc.html": "product-guilu-drink-30cc.webp",
+    "product-guilu-drink-180cc.html": "product-guilu-drink-180cc.webp",
+    "product-guilu-tangkuai.html": "product-guilu-tangkuai-75g.webp",
+    "product-guilu-jiao.html": "product-guilu-jiao-600g.webp",
+    "product-luerong-fen.html": "product-luerong-fen-75g.webp"
   },
   "assets": {
     "home-brand": {
@@ -116,5 +116,6 @@
       "height": 1086,
       "bytes": 3322097
     }
-  }
+  },
+  "format": "webp-quality-90"
 }
