@@ -1,0 +1,238 @@
+name: Apply website visibility v408.7 fixed
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: apply-v4087-fixed
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    if: github.event.issue.title == 'APPLY_VISIBILITY_V408_7_FIXED'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Apply website improvements
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet beautifulsoup4
+          python3 tools/apply_v4087_visibility.py
+
+      - name: Install permanent verification workflow
+        run: |
+          cat > .github/workflows/verify-site-and-catalog.yml <<'YML'
+          name: Verify website and shared catalog
+          on:
+            pull_request:
+              branches: [main]
+            push:
+              branches: [main]
+          permissions:
+            contents: read
+          jobs:
+            verify:
+              runs-on: ubuntu-latest
+              steps:
+                - name: Checkout
+                  uses: actions/checkout@v4
+                - name: Set up Node.js
+                  uses: actions/setup-node@v4
+                  with:
+                    node-version: 22
+                - name: Verify public website
+                  run: |
+                    set -euo pipefail
+                    python3 -m pip install --quiet beautifulsoup4
+                    node --check site.js
+                    python3 -m json.tool data.json >/dev/null
+                    python3 -m json.tool catalog-public.json >/dev/null
+                    python3 -m json.tool deploy-version.json >/dev/null
+                    python3 - <<'PY'
+                    from pathlib import Path
+                    from bs4 import BeautifulSoup
+                    import json
+                    assert json.loads(Path('deploy-version.json').read_text())['version']=='408.7'
+                    assert Path('sitemap.xml').read_text().count('<url>')==20
+                    assert Path('products.html').read_text().count('product-link-card')==6
+                    product_pages=['product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']
+                    for name in product_pages:
+                        text=Path(name).read_text(encoding='utf-8')
+                        assert '內容版本 v408.7' in text, name
+                        assert 'product-facts-grid' in text, name
+                        assert 'product-media-section' in text, name
+                    for page in Path('.').glob('*.html'):
+                        soup=BeautifulSoup(page.read_text(encoding='utf-8'),'html.parser')
+                        if page.name!='googlec5c2af289948c263.html': assert soup.find('meta',attrs={'name':'robots'}), page
+                        for tag,attr in [('a','href'),('img','src'),('script','src'),('link','href')]:
+                            for el in soup.find_all(tag):
+                                value=el.get(attr)
+                                if not value or value.startswith(('http://','https://','mailto:','tel:','data:','#','javascript:')): continue
+                                target=value.split('#')[0].split('?')[0]
+                                if target: assert (page.parent/target).exists(), (page,target)
+                    print('website validation passed')
+                    PY
+                    grep -q 'OAI-SearchBot' robots.txt
+                    grep -q 'Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml' robots.txt
+                    grep -q '# 仙加味' llms.txt
+                    grep -q '"id": "guilu-drink-30"' data.json
+                    grep -q '"id": "guilu-drink-180"' data.json
+                    grep -q '@762jybnm' data.json
+                - name: HTTP smoke tests
+                  run: |
+                    set -euo pipefail
+                    python3 -m http.server 8080 >/tmp/site-http.log 2>&1 &
+                    PID=$!
+                    trap 'kill $PID' EXIT
+                    sleep 2
+                    for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html; do curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null; done
+          YML
+
+      - name: Install permanent Pages deployment workflow
+        run: |
+          cat > .github/workflows/deploy-pages.yml <<'YML'
+          name: Deploy 仙加味網站
+          on:
+            push:
+              branches: [main]
+            workflow_dispatch:
+          permissions:
+            contents: read
+            pages: write
+            id-token: write
+          concurrency:
+            group: pages
+            cancel-in-progress: true
+          jobs:
+            deploy:
+              runs-on: ubuntu-latest
+              environment:
+                name: github-pages
+              steps:
+                - name: Checkout main
+                  uses: actions/checkout@v4
+                  with:
+                    ref: main
+                    fetch-depth: 1
+                - name: Validate production website v408.7
+                  run: |
+                    set -euo pipefail
+                    node --check site.js
+                    python3 -m json.tool data.json >/dev/null
+                    python3 -m json.tool catalog-public.json >/dev/null
+                    python3 -m json.tool deploy-version.json >/dev/null
+                    python3 - <<'PY'
+                    from pathlib import Path
+                    import json, hashlib
+                    assert json.loads(Path('deploy-version.json').read_text())['version']=='408.7'
+                    assert Path('sitemap.xml').read_text().count('<url>')==20
+                    assert Path('products.html').read_text().count('product-link-card')==6
+                    assert 'site.css?v=408.7' in Path('index.html').read_text()
+                    assert 'site.js?v=408.7' in Path('index.html').read_text()
+                    expected={'01_guilu-gao-100g-dm.jpg':'ab92c43f68c2d11f33b036e99e9bc31dde3c199c187ead2032fd72bccfdac58b','02_guilu-drink-30cc-dm.jpg':'e46b71ca2265adf544087ba3badbf430821896961c0deb4d1dbde13478d39f49','03_guilu-drink-180cc-dm.jpg':'81f10bb54c66bb273ddbb040f3e634db3239ac4a85931916ce234f099228e5f1','04_luerong-fen-75g-dm.jpg':'cdac8d1a3484e941224d3c7725b0d55b073b94286e6f4a000a7ae80e18def121','05_guilu-tangkuai-75g-dm.jpg':'e5d2d0ce9413f21a0507fcee8e90a1990d408c26b39667008d68046043448d99','06_guilu-jiao-600g-dm.jpg':'f3e6a24fc83f385feb5dda38a24a310de13c46150929d6ea45cb5050caa562a9'}
+                    for name,digest in expected.items(): assert hashlib.sha256((Path('images/dm-final')/name).read_bytes()).hexdigest()==digest, name
+                    print('production validation passed')
+                    PY
+                - name: Prepare static website
+                  run: |
+                    set -euo pipefail
+                    rm -rf _site
+                    mkdir -p _site
+                    rsync -a ./ _site/ --exclude='.git/' --exclude='.github/' --exclude='_site/' --exclude='tools/' --exclude='node_modules/' --exclude='assets/' --exclude='_upload/' --exclude='_trigger/' --exclude='.website-*/' --exclude='tmp-*' --exclude='*.zip' --exclude='*.tar' --exclude='*.tar.gz' --exclude='*.b64' --exclude='*.md' --exclude='APPLY_*' --exclude='RUN_*' --exclude='INSTALL_*' --exclude='FIX_*' --exclude='AUDIT_*' --exclude='BUTTON_AUDIT_REPORT.json' --exclude='WEBSITE_LINE_*' --exclude='rich-menu-actions-v307.json' --exclude='site-fix-v317.js'
+                    touch _site/.nojekyll
+                    test -s _site/index.html
+                    test -s _site/products.html
+                    test -s _site/dm.html
+                    test -s _site/sitemap.xml
+                    test -s _site/robots.txt
+                    test -s _site/llms.txt
+                - name: Configure Pages
+                  uses: actions/configure-pages@v5
+                - name: Upload Pages artifact
+                  uses: actions/upload-pages-artifact@v3
+                  with:
+                    path: _site
+                - name: Deploy Pages
+                  id: deployment
+                  uses: actions/deploy-pages@v4
+                - name: Notify IndexNow
+                  if: success()
+                  continue-on-error: true
+                  run: |
+                    python3 - <<'PY'
+                    import json, urllib.request
+                    from xml.etree import ElementTree as ET
+                    ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
+                    urls=[n.text for n in ET.parse('sitemap.xml').getroot().findall('s:url/s:loc',ns)]
+                    payload=json.dumps({'host':'ts15825868.github.io','key':'a2f6d4e8c9b14750a831d7624f90bc15','keyLocation':'https://ts15825868.github.io/xianjiawei/a2f6d4e8c9b14750a831d7624f90bc15.txt','urlList':urls}).encode()
+                    req=urllib.request.Request('https://api.indexnow.org/indexnow',data=payload,headers={'Content-Type':'application/json; charset=utf-8'},method='POST')
+                    try:
+                        with urllib.request.urlopen(req,timeout=20) as response: print('IndexNow',response.status)
+                    except Exception as exc: print('IndexNow notice did not block deployment:',exc)
+                    PY
+          YML
+
+      - name: Remove obsolete files and temporary workflows
+        run: |
+          rm -rf .website-sprite8 .website-upload .website-upload20
+          rm -f tmp-v4087-trigger-note.txt AUDIT_ALL_BUTTONS_TRIGGER.txt AUDIT_ALL_BUTTONS_TRIGGER_B.txt AUDIT_STATUS.txt BUTTON_AUDIT_REPORT.json README_上傳說明.txt _upload-test.txt
+          rm -f WEBSITE_LINE_INTENT_FINAL2_TRIGGER.txt WEBSITE_LINE_INTENT_FINAL3_TRIGGER.txt WEBSITE_LINE_INTENT_FINAL_TRIGGER.txt WEBSITE_LINE_INTENT_TRIGGER.txt WEBSITE_LINE_LABELS_TRIGGER.txt WEBSITE_LINE_LABELS_TRIGGER_2.txt
+          rm -f rich-menu-actions-v307.json site-fix-v317.js
+          rm -f .github/workflows/site-v303-push.yml .github/workflows/apply-v408-simple.yml .github/workflows/trigger-v408-once.yml .github/workflows/site-v302-publish.yml
+          rm -f .github/workflows/report-deploy-v4086.yml .github/workflows/diagnose-q32-all-commits.yml .github/workflows/install-approved-dm-from-drive.yml
+          rm -f .github/workflows/audit-all-website-buttons-v300-3.yml .github/workflows/apply-line-button-label-match-v300-2.yml .github/workflows/test-drive-download.yml .github/workflows/test-issue-trigger-v408.yml
+          rm -f .github/workflows/report-deploy-v4086-error.yml .github/workflows/confirm-deploy-v4086-success.yml .github/workflows/report-v4087-failure.yml
+          rm -f .github/workflows/apply-v4087-visibility.yml .github/workflows/apply-v4087-fix.yml tools/apply_v4087_visibility.py
+
+      - name: Final validation
+        run: |
+          set -euo pipefail
+          node --check site.js
+          python3 -m json.tool data.json >/dev/null
+          python3 -m json.tool catalog-public.json >/dev/null
+          python3 -m json.tool deploy-version.json >/dev/null
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          assert json.loads(Path('deploy-version.json').read_text())['version']=='408.7'
+          assert Path('sitemap.xml').read_text().count('<url>')==20
+          assert Path('products.html').read_text().count('product-link-card')==6
+          approved=[p for p in Path('.').glob('product-*.html') if '內容版本 v408.7' in p.read_text(encoding='utf-8')]
+          assert len(approved)==6, [p.name for p in approved]
+          assert Path('llms.txt').stat().st_size>100
+          assert Path('a2f6d4e8c9b14750a831d7624f90bc15.txt').is_file()
+          print('final validation passed')
+          PY
+
+      - name: Commit directly to main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m '整站搜尋可見性與產品介紹精簡正式版 v408.7'
+          git push origin HEAD:main
+
+      - name: Report success
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.7_SUCCESS｜已統一五大型態六項規格、精簡六個產品完整介紹頁、補齊搜尋與 AI 讀取資料、加入 IndexNow、自動驗收並推送 main。'
+          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
+
+      - name: Report failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body 'V408.7_FIXED_FAILURE｜本次未宣稱完成，請查看失敗步驟。'
