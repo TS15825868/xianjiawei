@@ -1,0 +1,80 @@
+{
+  "version": "1.0.0",
+  "brand": "仙加味",
+  "series": "小老闆知識卡",
+  "canvas": { "width": 1080, "height": 1350 },
+  "cards": [
+    {
+      "id": "01-compare-basis",
+      "title": "看到比較表，先看比較基準",
+      "bullets": ["是不是同一種產品型態", "規格與每份量是否相同", "成分與資料來源有沒有寫清楚"],
+      "asset": "choose.webp"
+    },
+    {
+      "id": "02-weight-serving-package",
+      "title": "淨重、每份與包裝大小要分開看",
+      "bullets": ["外盒大不代表內容量較多", "先確認 g、cc 與每份標示", "比較時使用同一個單位"],
+      "asset": "products-all.webp"
+    },
+    {
+      "id": "03-audience-label",
+      "title": "適合族群，不只看年齡標籤",
+      "bullets": ["先看產品標示與使用方式", "再看自己的生活情境", "有特殊狀況先詢問專業人員"],
+      "asset": "faq.webp"
+    },
+    {
+      "id": "04-personal-experience",
+      "title": "個人心得，不等於每個人都一樣",
+      "bullets": ["口感與使用習慣因人而異", "心得不能取代產品標示", "選擇前仍要看實際內容"],
+      "asset": "brand-story.webp"
+    },
+    {
+      "id": "05-room-temperature",
+      "title": "常溫保存，不等於高溫曝曬",
+      "bullets": ["避免陽光直射與高溫車內", "依包裝標示選擇保存位置", "開封前後的方式可能不同"],
+      "asset": "guide-how-to-use.webp"
+    },
+    {
+      "id": "06-three-photos",
+      "title": "詢問產品，先拍這三張照片",
+      "bullets": ["產品正面與完整包裝", "背面成分與使用標示", "批號、日期與異常位置"],
+      "asset": "contact-line.webp"
+    },
+    {
+      "id": "07-name-vs-ingredients",
+      "title": "產品名稱，不是完整成分答案",
+      "bullets": ["名稱只能幫助辨識產品", "實際內容要看成分標示", "同名產品也可能有不同配方"],
+      "asset": "product-guilu-gao-100g.webp"
+    },
+    {
+      "id": "08-more-is-not-better",
+      "title": "配料多，不一定就比較適合",
+      "bullets": ["先確認自己想要的使用方式", "單純配方不代表內容較少", "重點是成分與規格是否清楚"],
+      "asset": "product-luerong-fen-75g.webp"
+    },
+    {
+      "id": "09-season-claim",
+      "title": "燥熱或不燥熱，不是一句話能決定",
+      "bullets": ["不能只靠產品型態判斷", "還要看原料、配料與份量", "個人飲食習慣也要一起考量"],
+      "asset": "faq.webp"
+    },
+    {
+      "id": "10-food-water",
+      "title": "日常產品，不能代替正餐與飲水",
+      "bullets": ["正常吃飯與補水仍是基本", "產品依標示與習慣安排", "不要因使用產品忽略日常飲食"],
+      "asset": "recipes.webp"
+    },
+    {
+      "id": "11-keep-packaging",
+      "title": "開箱有疑問，先保留外盒與包材",
+      "bullets": ["先拍照記錄收到時的狀況", "保留批號、日期與物流資訊", "不要急著丟掉可核對的包裝"],
+      "asset": "contact-line.webp"
+    },
+    {
+      "id": "12-brand-position",
+      "title": "仙加味不靠貶低別人來賣產品",
+      "bullets": ["清楚說明自己的原料與規格", "不把其他型態說成一定不好", "讓消費者依需求自行選擇"],
+      "asset": "home-brand.webp"
+    }
+  ]
+}
