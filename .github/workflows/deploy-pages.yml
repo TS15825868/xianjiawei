@@ -66,6 +66,7 @@ jobs:
           assert len(list(Path('images/brand/approved-v405').glob('*.webp'))) == 15
           print('v408.7 validation passed')
           PY
+          python3 tools/verify_approved_mascot_assets.py
 
       - name: Build lean static website
         run: python3 tools/build_static_v4087.py
