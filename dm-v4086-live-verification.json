@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "verifiedAt": "2026-07-24T06:01:55.204888+00:00",
+  "commit": "b5158c2e4c79caae99748c598b07d2560e91c297",
+  "manifestVersion": "408.6",
+  "pageAssetVersion": "408.7",
+  "dimensions": [
+    1122,
+    1402
+  ],
+  "fileCount": 6,
+  "livePage": "https://ts15825868.github.io/xianjiawei/dm.html",
+  "files": [
+    {
+      "name": "01_guilu-gao-100g-dm.jpg",
+      "bytes": 432165,
+      "sha256": "ab92c43f68c2d11f33b036e99e9bc31dde3c199c187ead2032fd72bccfdac58b"
+    },
+    {
+      "name": "02_guilu-drink-30cc-dm.jpg",
+      "bytes": 404963,
+      "sha256": "e46b71ca2265adf544087ba3badbf430821896961c0deb4d1dbde13478d39f49"
+    },
+    {
+      "name": "03_guilu-drink-180cc-dm.jpg",
+      "bytes": 417526,
+      "sha256": "81f10bb54c66bb273ddbb040f3e634db3239ac4a85931916ce234f099228e5f1"
+    },
+    {
+      "name": "04_luerong-fen-75g-dm.jpg",
+      "bytes": 406096,
+      "sha256": "cdac8d1a3484e941224d3c7725b0d55b073b94286e6f4a000a7ae80e18def121"
+    },
+    {
+      "name": "05_guilu-tangkuai-75g-dm.jpg",
+      "bytes": 452803,
+      "sha256": "e5d2d0ce9413f21a0507fcee8e90a1990d408c26b39667008d68046043448d99"
+    },
+    {
+      "name": "06_guilu-jiao-600g-dm.jpg",
+      "bytes": 439985,
+      "sha256": "f3e6a24fc83f385feb5dda38a24a310de13c46150929d6ea45cb5050caa562a9"
+    }
+  ]
+}
