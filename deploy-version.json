@@ -1,7 +1,7 @@
 {
-  "version": "408.7",
-  "updated": "2026-07-13",
-  "status": "production-ready",
+  "version": "408.8",
+  "updated": "2026-07-25",
+  "status": "production-ready-audited",
   "catalog": "five-types-six-specifications",
   "imagePolicy": {
     "productCards": "verified-original-product-image",
@@ -34,5 +34,12 @@
     "six-product-comparison",
     "line-intent-cta"
   ],
-  "safety": "no-redrawn-product-packaging-in-product-card-or-quick-view"
+  "safety": "no-redrawn-product-packaging-in-product-card-or-quick-view",
+  "integrityChecks": [
+    "all-local-links-and-anchors-valid",
+    "173-static-controls-audited",
+    "data-json-valid",
+    "30cc-and-180cc-content-corrected",
+    "brand-timeline-2008-registration-preserved"
+  ]
 }
