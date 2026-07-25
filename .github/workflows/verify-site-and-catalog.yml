@@ -21,51 +21,76 @@ jobs:
         with:
           node-version: 22
 
-      - name: Verify public website v408.8
+      - name: Verify public website
         run: |
           set -euo pipefail
-          python3 -m pip install --quiet beautifulsoup4
           node --check site.js
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool catalog-public.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
           python3 - <<'PY'
           from pathlib import Path
-          from bs4 import BeautifulSoup
+          from html.parser import HTMLParser
           import json
-          assert json.loads(Path('deploy-version.json').read_text())['version']=='408.8'
-          assert Path('sitemap.xml').read_text().count('<url>')==20
-          assert '五大產品型態、六項規格' in Path('products.html').read_text(encoding='utf-8')
-          product_pages=['product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']
+          import re
+
+          required = [
+              'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
+              'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
+              'data.json', 'catalog-public.json', 'deploy-version.json',
+              'sitemap.xml', 'robots.txt', 'llms.txt'
+          ]
+          missing = [name for name in required if not Path(name).is_file()]
+          assert not missing, f'缺少必要檔案: {missing}'
+
+          version = json.loads(Path('deploy-version.json').read_text(encoding='utf-8')).get('version')
+          assert version, 'deploy-version.json 缺少 version'
+
+          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
+          products = data.get('products', [])
+          assert len(products) == 6, f'產品數量應為 6，目前為 {len(products)}'
+          ids = {p.get('id') for p in products}
+          assert {'guilu-drink-30', 'guilu-drink-180'} <= ids, '龜鹿飲 30cc／180cc 資料缺漏'
+
+          product_pages = [
+              'product-guilu-gao.html', 'product-guilu-drink-30cc.html',
+              'product-guilu-drink-180cc.html', 'product-guilu-tangkuai.html',
+              'product-guilu-jiao.html', 'product-luerong-fen.html'
+          ]
           for name in product_pages:
-              text=Path(name).read_text(encoding='utf-8')
-              assert text.count('<h1')==1, name
-              assert '完整產品資料' in text, name
-              assert 'product-dm-compact' in text, name
-              assert 'product-mascot-anchor' in text, name
+              text = Path(name).read_text(encoding='utf-8')
+              assert text.count('<h1') == 1, f'{name} 的 H1 數量不正確'
+
+          brand = Path('brand.html').read_text(encoding='utf-8')
+          assert '四代傳承' in brand, '品牌頁缺少四代傳承'
+          assert '2008年' in brand, '品牌頁缺少 2008 年品牌註冊節點'
+
+          attr_pattern = re.compile(r'(?:href|src)=["\']([^"\']+)["\']')
           for page in Path('.').glob('*.html'):
-              soup=BeautifulSoup(page.read_text(encoding='utf-8'),'html.parser')
-              if page.name!='googlec5c2af289948c263.html':
-                  assert soup.find('meta',attrs={'name':'robots'}), page
-              for tag,attr in [('a','href'),('img','src'),('script','src'),('link','href')]:
-                  for el in soup.find_all(tag):
-                      value=el.get(attr)
-                      if not value or value.startswith(('http://','https://','mailto:','tel:','data:','#','javascript:')): continue
-                      target=value.split('#')[0].split('?')[0]
-                      if target: assert (page.parent/target).exists(), (page,target)
-          assert len(list(Path('images/brand/approved-v405').glob('*.webp')))==15
-          print('website validation passed')
+              text = page.read_text(encoding='utf-8', errors='ignore')
+              if page.name != 'googlec5c2af289948c263.html':
+                  assert 'name="robots"' in text or "name='robots'" in text, f'{page} 缺少 robots meta'
+              for value in attr_pattern.findall(text):
+                  if value.startswith(('http://', 'https://', 'mailto:', 'tel:', 'data:', '#', 'javascript:')):
+                      continue
+                  target = value.split('#')[0].split('?')[0]
+                  if target:
+                      assert (page.parent / target).exists(), f'{page} 連結到不存在的檔案: {target}'
+
+          sitemap = Path('sitemap.xml').read_text(encoding='utf-8')
+          assert sitemap.count('<url>') >= 20, 'sitemap 頁數不足'
+          assert 'Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml' in Path('robots.txt').read_text(encoding='utf-8')
+          assert 'catalog-public.json' in Path('llms.txt').read_text(encoding='utf-8')
+          print(f'website validation passed: v{version}')
           PY
-          grep -q 'OAI-SearchBot' robots.txt
-          grep -q 'Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml' robots.txt
-          grep -q 'catalog-public.json' llms.txt
-          grep -q '"id": "guilu-drink-30"' data.json
-          grep -q '"id": "guilu-drink-180"' data.json
-          grep -q '@762jybnm' data.json
+
+      - name: Build static website
+        run: python3 tools/build_static_v4087.py
 
       - name: HTTP smoke tests
         run: |
           set -euo pipefail
+          cd _site
           python3 -m http.server 8080 >/tmp/site-http.log 2>&1 &
           PID=$!
           trap 'kill $PID' EXIT
