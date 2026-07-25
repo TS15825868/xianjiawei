@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "tools/apply_v4089_product_policy.py"
+      - "tools/apply_v4089_text_cleanup.py"
       - ".github/workflows/apply-v4089-product-policy.yml"
   workflow_dispatch:
 
@@ -31,7 +32,9 @@ jobs:
           node-version: 22
 
       - name: Apply approved product, combo and brand policy
-        run: python3 tools/apply_v4089_product_policy.py
+        run: |
+          python3 tools/apply_v4089_product_policy.py
+          python3 tools/apply_v4089_text_cleanup.py
 
       - name: Validate JSON, JavaScript and structured content
         run: |
@@ -40,7 +43,7 @@ jobs:
           python3 -m json.tool catalog-public.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
           node --check site.js
-          ! grep -R --include='*.html' --include='*.json' -n '1～2小匙\|1～2次\|仙加味品牌創立於2008\|仙加味品牌正式成立\|仙加味品牌 Founded 2008' .
+          ! grep -R --include='*.html' --include='*.json' -n '1～2小匙\|1～2次\|早上或下午\|約100～300mL\|仙加味品牌創立於2008\|仙加味品牌正式成立\|仙加味品牌 Founded 2008' .
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -103,10 +106,16 @@ jobs:
           assert '品牌完成註冊' in brand.get('story', '')
           assert data.get('heritage', {}).get('headline') == '自1978延續至今｜仙加味品牌於2008年完成註冊'
 
+          product_page = Path('product-guilu-gao.html').read_text(encoding='utf-8')
+          guide_page = Path('guide.html').read_text(encoding='utf-8')
+          assert '早上或下午' not in product_page + guide_page
+          assert '約100～300mL' not in product_page + guide_page
+          assert '避免睡前食用' in product_page + guide_page
+
           assert catalog['catalogVersion'] == '408.9'
           assert deploy['version'] == '408.9'
           assert deploy['brandPolicy']['registration'] == '2008年「仙加味」品牌完成註冊'
-          print('v408.9 structured product, combo and brand policy passed')
+          print('v408.9 structured product, combo, page copy and brand policy passed')
           PY
 
       - name: Build and smoke test static website
@@ -133,7 +142,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "v408.9 已同步"
           else
-            git commit -m "正式同步官網 v408.9 產品套餐與品牌規則"
+            git commit -m "正式同步官網 v408.9 產品套餐頁面與品牌規則"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
