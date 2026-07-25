@@ -43,7 +43,10 @@ jobs:
           python3 -m json.tool catalog-public.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
           node --check site.js
-          ! grep -R --include='*.html' --include='*.json' -n '1～2小匙\|1～2次\|早上或下午\|約100～300mL\|仙加味品牌創立於2008\|仙加味品牌正式成立\|仙加味品牌 Founded 2008' .
+          if find . -maxdepth 1 -type f \( -name '*.html' -o -name '*.json' \) -print0 | xargs -0 grep -nE '1～2小匙|1～2次|早上或下午|約100～300mL|仙加味品牌創立於2008|仙加味品牌正式成立|仙加味品牌 Founded 2008'; then
+            echo "公開頁面仍有舊版文字" >&2
+            exit 1
+          fi
           python3 - <<'PY'
           import json
           from pathlib import Path
