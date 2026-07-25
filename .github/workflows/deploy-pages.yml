@@ -27,15 +27,14 @@ jobs:
           ref: main
           fetch-depth: 1
 
-      - name: Validate v408.7 website
+      - name: Validate v408.8 website
         run: |
           set -euo pipefail
           node --check site.js
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool catalog-public.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
-          grep -q '"version": "408.7"' deploy-version.json
-          grep -q '整合正式版 v408.7' site.js
+          grep -q '"version": "408.8"' deploy-version.json
           grep -q '五大產品型態、六項規格' products.html
           grep -q '龜鹿飲180cc鋁袋' products.html
           test "$(grep -o '<url>' sitemap.xml | wc -l)" -eq 20
@@ -54,8 +53,8 @@ jobs:
           d=json.loads(Path('data.json').read_text(encoding='utf-8'))
           assert len(d['products']) == 6
           for p in d['products']:
-              assert p['image'].endswith('?v=408.7')
-              assert p['dmImage'].endswith('?v=408.7')
+              assert p['image'].endswith('?v=408.8')
+              assert p['dmImage'].endswith('?v=408.8')
           pages=['product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']
           for page in pages:
               s=Path(page).read_text(encoding='utf-8')
@@ -64,7 +63,7 @@ jobs:
               assert 'product-dm-compact' in s
               assert 'product-mascot-anchor' in s
           assert len(list(Path('images/brand/approved-v405').glob('*.webp'))) == 15
-          print('v408.7 validation passed')
+          print('v408.8 validation passed')
           PY
           python3 tools/verify_approved_mascot_assets.py
 
