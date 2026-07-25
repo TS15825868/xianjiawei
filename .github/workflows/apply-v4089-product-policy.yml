@@ -1,4 +1,4 @@
-name: 套用仙加味官網 v408.9 正式產品規則
+name: 套用仙加味官網 v408.9 正式產品與品牌規則
 
 on:
   push:
@@ -30,22 +30,70 @@ jobs:
         with:
           node-version: 22
 
-      - name: Apply approved product policy
+      - name: Apply approved product and brand policy
         run: python3 tools/apply_v4089_product_policy.py
 
-      - name: Validate JSON and JavaScript
+      - name: Validate JSON, JavaScript and structured content
         run: |
           set -euo pipefail
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool catalog-public.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
           node --check site.js
-          ! grep -R --include='*.html' --include='*.json' -n '1～2小匙\|1～2次' .
-          grep -q '每天一次，每次一小匙' data.json
-          grep -q '避免睡前食用' data.json
-          grep -q '可隔水加熱或溫熱後飲用' data.json
-          grep -q '"catalogVersion": "408.9"' catalog-public.json
-          grep -q '"version": "408.9"' deploy-version.json
+          ! grep -R --include='*.html' --include='*.json' -n '1～2小匙\|1～2次\|仙加味品牌創立於2008\|仙加味品牌正式成立\|仙加味品牌 Founded 2008' .
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
+          catalog = json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
+          deploy = json.loads(Path('deploy-version.json').read_text(encoding='utf-8'))
+
+          products = {item['id']: item for item in data['products']}
+          assert products['guilu-gao']['usage'] == [
+              '每天一次，每次一小匙',
+              '初次食用可先從半匙開始',
+              '可直接食用',
+              '或加入熱水化開',
+              '調至適合溫度後飲用',
+              '可安排於早上或空腹前後',
+              '避免睡前食用',
+          ]
+          assert products['guilu-drink-30']['usage'][0] == '每日一瓶'
+          assert products['guilu-drink-180']['usage'][0] == '每日一包'
+          assert '避免冰飲' in products['guilu-drink-30']['usage']
+          assert '避免冰飲' in products['guilu-drink-180']['usage']
+
+          recommend = {item['keyword']: item for item in data.get('recommend', [])}
+          assert recommend['完整容量即飲食補']['result'] == '龜鹿飲180cc'
+          assert '180cc鋁袋' in recommend['完整容量即飲食補']['desc']
+          assert '早上或空腹前後' in recommend['固定日常食補']['desc']
+          assert '避免睡前' in recommend['固定日常食補']['desc']
+
+          faq = {item['q']: item['a'] for item in data.get('faq', [])}
+          assert '每日一瓶' in faq['龜鹿飲怎麼喝？']
+          assert '每日一包' in faq['龜鹿飲怎麼喝？']
+          assert '避免冰飲' in faq['龜鹿飲怎麼喝？']
+          assert '早上或空腹前後' in faq['龜鹿食補什麼時間安排比較適合？']
+          assert '避免睡前' in faq['龜鹿食補什麼時間安排比較適合？']
+
+          guide = {item['title']: item['desc'] for item in data.get('pageContent', {}).get('guide', [])}
+          assert '每天一次，每次一小匙' in guide['龜鹿膏｜食用方式']
+          assert '初次可先從半匙開始' in guide['龜鹿膏｜食用方式']
+          assert '避免睡前' in guide['龜鹿膏｜食用方式']
+          assert '每日一瓶' in guide['龜鹿飲｜食用方式']
+          assert '每日一包' in guide['龜鹿飲｜食用方式']
+
+          brand = data.get('brandStory', {})
+          assert brand.get('storyTitle') == '仙加味品牌於2008年完成註冊'
+          assert '品牌完成註冊' in brand.get('story', '')
+          assert data.get('heritage', {}).get('headline') == '自1978延續至今｜仙加味品牌於2008年完成註冊'
+
+          assert catalog['catalogVersion'] == '408.9'
+          assert deploy['version'] == '408.9'
+          assert deploy['brandPolicy']['registration'] == '2008年「仙加味」品牌完成註冊'
+          print('v408.9 structured product and brand policy passed')
+          PY
 
       - name: Build and smoke test static website
         run: |
@@ -56,7 +104,7 @@ jobs:
           PID=$!
           trap 'kill $PID' EXIT
           sleep 2
-          for path in index.html products.html product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html faq.html recipes.html data.json catalog-public.json deploy-version.json; do
+          for path in index.html products.html product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html faq.html recipes.html guide.html brand.html data.json catalog-public.json deploy-version.json; do
             curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
           done
 
@@ -71,7 +119,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "v408.9 已同步"
           else
-            git commit -m "正式同步官網 v408.9 產品使用規則"
+            git commit -m "正式同步官網 v408.9 產品與品牌規則"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
