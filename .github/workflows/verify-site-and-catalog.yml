@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Verify public website v408.7
+      - name: Verify public website v408.8
         run: |
           set -euo pipefail
           python3 -m pip install --quiet beautifulsoup4
@@ -33,7 +33,7 @@ jobs:
           from pathlib import Path
           from bs4 import BeautifulSoup
           import json
-          assert json.loads(Path('deploy-version.json').read_text())['version']=='408.7'
+          assert json.loads(Path('deploy-version.json').read_text())['version']=='408.8'
           assert Path('sitemap.xml').read_text().count('<url>')==20
           assert '五大產品型態、六項規格' in Path('products.html').read_text(encoding='utf-8')
           product_pages=['product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']
