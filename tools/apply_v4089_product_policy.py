@@ -39,7 +39,8 @@ def replace_recursive(value):
     if isinstance(value, list):
         return [replace_recursive(item) for item in value]
     if isinstance(value, str):
-        return EXACT_REPLACEMENTS.get(value, value)
+        value = EXACT_REPLACEMENTS.get(value, value)
+        return value.replace("408.7", VERSION).replace("408.8", VERSION)
     return value
 
 
@@ -127,7 +128,6 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    # Fails loudly if an outdated dosage remains in public files.
     forbidden = ("1～2小匙", "1～2次")
     offenders = []
     for path in ROOT.iterdir():
