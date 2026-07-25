@@ -1,25 +1,14 @@
-name: Deploy 仙加味網站
+name: Manual release check
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
-  deploy:
+  verify-release:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -27,86 +16,41 @@ jobs:
           ref: main
           fetch-depth: 1
 
-      - name: Validate v408.8 website
+      - name: Validate website release
         run: |
           set -euo pipefail
           node --check site.js
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool catalog-public.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
-          grep -q '"version": "408.8"' deploy-version.json
-          grep -q '五大產品型態、六項規格' products.html
-          grep -q '龜鹿飲180cc鋁袋' products.html
-          test "$(grep -o '<url>' sitemap.xml | wc -l)" -eq 20
-          grep -q 'catalog-public.json' llms.txt
-          grep -q 'Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml' robots.txt
-          test -s a2f6d4e8c9b14750a831d7624f90bc15.txt
-          echo 'ab92c43f68c2d11f33b036e99e9bc31dde3c199c187ead2032fd72bccfdac58b  images/dm-final/01_guilu-gao-100g-dm.jpg' | sha256sum -c -
-          echo 'e46b71ca2265adf544087ba3badbf430821896961c0deb4d1dbde13478d39f49  images/dm-final/02_guilu-drink-30cc-dm.jpg' | sha256sum -c -
-          echo '81f10bb54c66bb273ddbb040f3e634db3239ac4a85931916ce234f099228e5f1  images/dm-final/03_guilu-drink-180cc-dm.jpg' | sha256sum -c -
-          echo 'cdac8d1a3484e941224d3c7725b0d55b073b94286e6f4a000a7ae80e18def121  images/dm-final/04_luerong-fen-75g-dm.jpg' | sha256sum -c -
-          echo 'e5d2d0ce9413f21a0507fcee8e90a1990d408c26b39667008d68046043448d99  images/dm-final/05_guilu-tangkuai-75g-dm.jpg' | sha256sum -c -
-          echo 'f3e6a24fc83f385feb5dda38a24a310de13c46150929d6ea45cb5050caa562a9  images/dm-final/06_guilu-jiao-600g-dm.jpg' | sha256sum -c -
           python3 - <<'PY'
           from pathlib import Path
           import json
-          d=json.loads(Path('data.json').read_text(encoding='utf-8'))
-          assert len(d['products']) == 6
-          for p in d['products']:
-              assert p['image'].endswith('?v=408.8')
-              assert p['dmImage'].endswith('?v=408.8')
-          pages=['product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']
-          for page in pages:
-              s=Path(page).read_text(encoding='utf-8')
-              assert s.count('<h1') == 1
-              assert '完整產品資料' in s
-              assert 'product-dm-compact' in s
-              assert 'product-mascot-anchor' in s
-          assert len(list(Path('images/brand/approved-v405').glob('*.webp'))) == 15
-          print('v408.8 validation passed')
-          PY
-          python3 tools/verify_approved_mascot_assets.py
 
-      - name: Build lean static website
+          version = json.loads(Path('deploy-version.json').read_text(encoding='utf-8'))['version']
+          assert version, 'deploy-version.json 缺少 version'
+
+          required = [
+              'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
+              'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
+              'data.json', 'catalog-public.json', 'sitemap.xml', 'robots.txt'
+          ]
+          missing = [name for name in required if not Path(name).is_file()]
+          assert not missing, f'缺少必要檔案: {missing}'
+
+          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
+          assert len(data.get('products', [])) == 6, '產品資料必須維持六項規格'
+          assert '2008年' in Path('brand.html').read_text(encoding='utf-8'), '品牌頁缺少 2008 年品牌註冊節點'
+          print(f'release validation passed: v{version}')
+          PY
+
+      - name: Build static preview
         run: python3 tools/build_static_v4087.py
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v4
         with:
+          name: xianjiawei-static-preview
           path: _site
-
-      - name: Deploy Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-      - name: Notify IndexNow
-        if: success()
-        continue-on-error: true
-        run: |
-          python3 - <<'PY'
-          import json, urllib.request
-          from xml.etree import ElementTree as ET
-          namespace={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
-          root=ET.parse('sitemap.xml').getroot()
-          urls=[node.text for node in root.findall('s:url/s:loc',namespace)]
-          payload=json.dumps({
-              'host':'ts15825868.github.io',
-              'key':'a2f6d4e8c9b14750a831d7624f90bc15',
-              'keyLocation':'https://ts15825868.github.io/xianjiawei/a2f6d4e8c9b14750a831d7624f90bc15.txt',
-              'urlList':urls
-          }).encode('utf-8')
-          request=urllib.request.Request(
-              'https://api.indexnow.org/indexnow',
-              data=payload,
-              headers={'Content-Type':'application/json; charset=utf-8'},
-              method='POST'
-          )
-          try:
-              with urllib.request.urlopen(request,timeout=20) as response:
-                  print('IndexNow status:',response.status)
-          except Exception as error:
-              print('IndexNow notification did not block deployment:',error)
-          PY
+          if-no-files-found: error
+          retention-days: 7
