@@ -49,6 +49,32 @@ def replace_recursive(value):
     return value
 
 
+def official_combos() -> list[dict]:
+    return [
+        {
+            "id": "daily-rhythm",
+            "name": "日常節奏組",
+            "items": ["龜鹿膏", "龜鹿飲"],
+            "desc": "適合想建立固定日常節奏，也想保留方便即飲選擇的人。",
+            "priceNote": "購買方式、活動與配送安排，請透過官方 LINE 確認。",
+        },
+        {
+            "id": "table-pairing",
+            "name": "料理搭配組",
+            "items": ["龜鹿湯塊", "鹿茸粉"],
+            "desc": "適合想從料理、燉湯與溫熱飲品一起安排的人。",
+            "priceNote": "購買方式、活動與配送安排，請透過官方 LINE 確認。",
+        },
+        {
+            "id": "full-experience",
+            "name": "完整體驗組",
+            "items": ["龜鹿膏", "龜鹿飲", "龜鹿湯塊", "鹿茸粉"],
+            "desc": "適合想一次了解固定、即飲、料理與自行搭配等不同型態的人。",
+            "priceNote": "購買方式、活動與配送安排，請透過官方 LINE 確認。",
+        },
+    ]
+
+
 def update_product(product: dict) -> None:
     product_id = product.get("id")
     if product_id == "guilu-gao":
@@ -80,7 +106,25 @@ def update_product(product: dict) -> None:
         ]
 
 
+def normalize_faq(items: list[dict]) -> None:
+    for faq in items:
+        question = faq.get("q")
+        if question == "龜鹿食補什麼時間安排比較適合？":
+            faq["a"] = "可依日常作息與飲食習慣安排。龜鹿膏可安排於早上或空腹前後，避免睡前食用；其他產品依正式使用方式與個人習慣調整。"
+        elif question == "龜鹿飲怎麼喝？":
+            faq["a"] = "30cc玻璃瓶每日一瓶；180cc鋁袋每日一包。可開封即飲，也可隔水加熱或溫熱後飲用，避免冰飲；開封後請儘速飲用完畢。"
+
+
 def normalize_structured_content(data: dict) -> None:
+    combos = official_combos()
+    if "combos" in data:
+        data["combos"] = combos
+    if isinstance(data.get("offers"), dict):
+        data["offers"]["comboOffers"] = [
+            {key: value for key, value in combo.items() if key != "id"}
+            for combo in combos
+        ]
+
     for item in data.get("recommend", []):
         keyword = item.get("keyword")
         if keyword == "完整容量即飲食補":
@@ -90,18 +134,21 @@ def normalize_structured_content(data: dict) -> None:
             item["result"] = "龜鹿膏"
             item["desc"] = "每天一次，每次一小匙；初次可先從半匙開始。可安排於早上或空腹前後，避免睡前食用；可直接食用或加入熱水化開。"
 
-    for faq in data.get("faq", []):
-        question = faq.get("q")
-        if question == "龜鹿食補什麼時間安排比較適合？":
-            faq["a"] = "可依日常作息與飲食習慣安排。龜鹿膏可安排於早上或空腹前後，避免睡前食用；其他產品依正式使用方式與個人習慣調整。"
-        elif question == "龜鹿飲怎麼喝？":
-            faq["a"] = "30cc玻璃瓶每日一瓶；180cc鋁袋每日一包。可開封即飲，也可隔水加熱或溫熱後飲用，避免冰飲；開封後請儘速飲用完畢。"
+    normalize_faq(data.get("faq", []))
+    normalize_faq(data.get("faqs", []))
 
     for item in data.get("pageContent", {}).get("guide", []):
         if item.get("title") == "龜鹿膏｜食用方式":
             item["desc"] = "【直接食用】\n每天一次，每次一小匙；初次可先從半匙開始。\n\n【熱飲】\n可加入熱水化開，調至適合溫度後飲用。\n\n【時間】\n可安排於早上或空腹前後，避免睡前食用。"
         elif item.get("title") == "龜鹿飲｜食用方式":
             item["desc"] = "30cc玻璃瓶每日一瓶；180cc鋁袋每日一包。開封即可飲用，也可隔水加熱或溫熱後飲用，避免冰飲；開封後請儘速飲用完畢。"
+
+    advisor = data.get("advisorFlows", {})
+    if isinstance(advisor, dict):
+        if isinstance(advisor.get("guilu-gao"), dict):
+            advisor["guilu-gao"]["summary"] = "用途方向：固定日常食補。每天一次，每次一小匙；初次可先從半匙開始。可直接食用或加入熱水化開，建議安排於早上或空腹前後，避免睡前食用。"
+        if isinstance(advisor.get("guilu-drink-30"), dict):
+            advisor["guilu-drink-30"]["summary"] = "龜鹿飲30cc適合外出攜帶、工作忙碌或希望方便飲用的人。每日一瓶，可開瓶即飲，也可隔水加熱或溫熱後飲用，避免冰飲。"
 
     brand = data.get("brandStory")
     if isinstance(brand, dict):
@@ -180,9 +227,10 @@ def main() -> None:
         "- 龜鹿膏使用方式統一為每天一次、每次一小匙；初次可先從半匙開始。\n"
         "- 龜鹿膏可安排於早上或空腹前後，並避免睡前食用。\n"
         "- 龜鹿飲統一為每日一份，可隔水加熱或溫熱飲用，避免冰飲。\n"
-        "- 修正180cc推薦、FAQ與使用導覽的結構化資料。\n"
+        "- 修正180cc推薦、FAQ、使用導覽與適合度資料。\n"
+        "- 官網套餐統一為日常節奏組、料理搭配組與完整體驗組。\n"
         "- 2008年統一表述為「仙加味」品牌完成註冊。\n"
-        "- 官網、FAQ、食譜、產品頁與機器可讀產品目錄同步。\n"
+        "- 官網、產品頁與機器可讀產品目錄同步。\n"
         "- 產品圖片維持真實原圖，不重畫、不改包裝文字與規格。\n",
         encoding="utf-8",
     )
@@ -203,7 +251,7 @@ def main() -> None:
     if offenders:
         raise SystemExit(f"仍有舊版文字：{', '.join(sorted(offenders))}")
 
-    print("仙加味官網 v408.9 產品與品牌規則同步完成")
+    print("仙加味官網 v408.9 產品、套餐與品牌規則同步完成")
 
 
 if __name__ == "__main__":
