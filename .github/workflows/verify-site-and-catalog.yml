@@ -28,9 +28,9 @@ jobs:
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool catalog-public.json >/dev/null
           python3 -m json.tool deploy-version.json >/dev/null
+          python3 -m json.tool brand-character-spec.json >/dev/null
           python3 - <<'PY'
           from pathlib import Path
-          from html.parser import HTMLParser
           import json
           import re
 
@@ -38,6 +38,7 @@ jobs:
               'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
               'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
               'data.json', 'catalog-public.json', 'deploy-version.json',
+              'brand-character-spec.json', 'MASCOT_CHARACTER_SPEC.md',
               'sitemap.xml', 'robots.txt', 'llms.txt'
           ]
           missing = [name for name in required if not Path(name).is_file()]
@@ -51,6 +52,18 @@ jobs:
           assert len(products) == 6, f'產品數量應為 6，目前為 {len(products)}'
           ids = {p.get('id') for p in products}
           assert {'guilu-drink-30', 'guilu-drink-180'} <= ids, '龜鹿飲 30cc／180cc 資料缺漏'
+
+          character = json.loads(Path('brand-character-spec.json').read_text(encoding='utf-8'))
+          assert character.get('status') == 'locked', '角色母版尚未鎖定'
+          assert character.get('mascot', {}).get('name') == '仙加味小老闆', '小老闆名稱不正確'
+          partners = set(character.get('partners', []))
+          assert {'小鹿娃娃', '小烏龜娃娃'} <= partners, '小老闆固定夥伴缺漏'
+          rules = character.get('rules', {})
+          assert rules.get('realProductImagesOnly') is True, '產品未固定為真實原圖'
+          assert rules.get('noProductRedraw') is True, '產品重畫禁止規則缺漏'
+          assert rules.get('newImagesRequireReview') is True, '新圖待審規則缺漏'
+          approved_assets = list(Path('images/brand/approved-v405').glob('*.webp'))
+          assert len(approved_assets) == 15, f'官網核准小老闆素材應為 15 張，目前 {len(approved_assets)}'
 
           product_pages = [
               'product-guilu-gao.html', 'product-guilu-drink-30cc.html',
@@ -81,7 +94,7 @@ jobs:
           assert sitemap.count('<url>') >= 20, 'sitemap 頁數不足'
           assert 'Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml' in Path('robots.txt').read_text(encoding='utf-8')
           assert 'catalog-public.json' in Path('llms.txt').read_text(encoding='utf-8')
-          print(f'website validation passed: v{version}')
+          print(f'website validation passed: v{version}, mascot assets={len(approved_assets)}')
           PY
 
       - name: Build static website
@@ -95,6 +108,6 @@ jobs:
           PID=$!
           trap 'kill $PID' EXIT
           sleep 2
-          for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html; do
+          for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json brand-character-spec.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html; do
             curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
           done
