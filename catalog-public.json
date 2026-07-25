@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "catalogVersion": "408.7",
-  "updatedAt": "2026-07-13",
+  "catalogVersion": "408.9",
+  "updatedAt": "2026-07-25",
   "source": {
     "repository": "TS15825868/xianjiawei",
     "branch": "main",
@@ -49,12 +49,13 @@
         "粉光蔘"
       ],
       "usage": [
-        "每日可依個人習慣安排1～2次",
-        "每次取1～2小匙",
+        "每天一次，每次一小匙",
+        "初次食用可先從半匙開始",
         "可直接食用",
-        "或加入約100～300mL熱水化開",
+        "或加入熱水化開",
         "調至適合溫度後飲用",
-        "可依日常作息安排於早上或下午"
+        "可安排於早上或空腹前後",
+        "避免睡前食用"
       ],
       "storage": [
         "未開封置於陰涼乾燥處",
@@ -63,7 +64,7 @@
       ],
       "fit": "想固定安排、喜歡小匙取用或熱水化開的人",
       "purpose": "固定日常食補",
-      "purposeDirection": "適合希望在早上或下午建立固定食補安排的人，可直接取用，也可用熱水化開飲用。",
+      "purposeDirection": "適合希望建立固定日常節奏的人；可直接食用或以熱水化開，建議安排於早上或空腹前後，避免睡前食用。",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html",
       "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg",
       "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg"
@@ -85,8 +86,10 @@
         "粉光蔘"
       ],
       "usage": [
+        "每日一瓶",
         "開瓶即可飲用",
-        "可依個人習慣溫熱後飲用",
+        "可隔水加熱或溫熱後飲用",
+        "避免冰飲",
         "開瓶後請儘速飲用完畢"
       ],
       "storage": [
@@ -118,8 +121,10 @@
         "粉光蔘"
       ],
       "usage": [
+        "每日一包",
         "撕開包裝即可飲用",
-        "可依個人習慣溫熱後飲用",
+        "可隔水加熱或溫熱後飲用",
+        "避免冰飲",
         "開封後請儘速飲用完畢"
       ],
       "storage": [

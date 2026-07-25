@@ -1624,7 +1624,7 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
 /* END CONSOLIDATED FRONTEND */
 
 
-/* ===== v408.7｜整站資訊層級、產品頁、效能與轉換正式版 ===== */
+/* ===== v408.9｜整站資訊層級、產品頁、效能與轉換正式版 ===== */
 :root{--content-wide:1180px;--content-narrow:840px}
 .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:22px;border:1px solid rgba(11,31,59,.09);background:#fff;box-shadow:0 12px 30px rgba(15,23,42,.05)}
 .compare-table{width:100%;border-collapse:collapse;min-width:760px}
@@ -1657,7 +1657,7 @@ body[data-page="dm"] .final-cta__actions{margin-top:auto;padding-top:12px;}
 @media(max-width:480px){.product-summary-strip .grid-4{grid-template-columns:1fr}.product-dm-thumb img{height:280px}}
 
 
-/* ===== v408.7｜整站資訊層級、產品頁、效能與轉換正式版 ===== */
+/* ===== v408.9｜整站資訊層級、產品頁、效能與轉換正式版 ===== */
 :root{--content-wide:1180px;--content-narrow:840px}
 .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:22px;border:1px solid rgba(11,31,59,.09);background:#fff;box-shadow:0 12px 30px rgba(15,23,42,.05)}
 .compare-table{width:100%;border-collapse:collapse;min-width:760px}

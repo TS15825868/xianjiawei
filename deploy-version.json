@@ -1,5 +1,5 @@
 {
-  "version": "408.8",
+  "version": "408.9",
   "updated": "2026-07-25",
   "status": "production-ready-audited",
   "catalog": "five-types-six-specifications",
@@ -41,5 +41,10 @@
     "data-json-valid",
     "30cc-and-180cc-content-corrected",
     "brand-timeline-2008-registration-preserved"
-  ]
+  ],
+  "productPolicy": {
+    "guiluGao": "每天一次一小匙；初次半匙；早上或空腹前後；避免睡前",
+    "guiluDrink": "每日一份；可隔水加熱或溫熱飲用；避免冰飲",
+    "images": "真實產品原圖，不重畫、不改包裝與規格"
+  }
 }

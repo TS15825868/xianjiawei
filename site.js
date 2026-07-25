@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味網站核心｜整合正式版 v408.7 */
+/* 仙加味網站核心｜整合正式版 v408.9 */
 let SITE_DATA = null;
 
 const MENU_GROUPS = [
@@ -1219,7 +1219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* 15張核准小老闆頁面配置 */
 (() => {
-  const VERSION = "408.7";
+  const VERSION = "408.9";
   const ROOT = "images/brand/approved-v405/";
   const CORE_SCENES = {"home": ["home-brand.webp", "仙加味小老闆首頁品牌主視覺"], "products": ["products-all.webp", "仙加味龜鹿系列全系列比較"], "choose": ["choose.webp", "怎麼選：依使用方式選擇產品型態"], "combo": ["combo.webp", "仙加味套餐搭配與料理組合"], "guide": ["guide-how-to-use.webp", "仙加味產品怎麼使用"], "recipes": ["recipes.webp", "仙加味料理搭配"], "brand": ["brand-story.webp", "仙加味品牌故事"], "faq": ["faq.webp", "仙加味常見問題"], "contact": ["contact-line.webp", "聯絡仙加味與加入官方 LINE"]};
   const PRODUCT_SCENES = {"product-guilu-gao.html": ["product-guilu-gao-100g.webp", "龜鹿膏100g小老闆產品情境"], "product-guilu-drink-30cc.html": ["product-guilu-drink-30cc.webp", "龜鹿飲30cc小老闆產品情境"], "product-guilu-drink-180cc.html": ["product-guilu-drink-180cc.webp", "龜鹿飲180cc鋁袋小老闆產品情境"], "product-guilu-tangkuai.html": ["product-guilu-tangkuai-75g.webp", "龜鹿湯塊75g小老闆產品情境"], "product-guilu-jiao.html": ["product-guilu-jiao-600g.webp", "龜鹿膠600g小老闆產品情境"], "product-luerong-fen.html": ["product-luerong-fen-75g.webp", "鹿茸粉75g小老闆產品情境"]};
