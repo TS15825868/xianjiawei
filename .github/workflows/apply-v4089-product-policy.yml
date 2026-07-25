@@ -1,0 +1,77 @@
+name: 套用仙加味官網 v408.9 正式產品規則
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/apply_v4089_product_policy.py"
+      - ".github/workflows/apply-v4089-product-policy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xianjiawei-v4089-product-policy
+  cancel-in-progress: true
+
+jobs:
+  apply-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply approved product policy
+        run: python3 tools/apply_v4089_product_policy.py
+
+      - name: Validate JSON and JavaScript
+        run: |
+          set -euo pipefail
+          python3 -m json.tool data.json >/dev/null
+          python3 -m json.tool catalog-public.json >/dev/null
+          python3 -m json.tool deploy-version.json >/dev/null
+          node --check site.js
+          ! grep -R --include='*.html' --include='*.json' -n '1～2小匙\|1～2次' .
+          grep -q '每天一次，每次一小匙' data.json
+          grep -q '避免睡前食用' data.json
+          grep -q '可隔水加熱或溫熱後飲用' data.json
+          grep -q '"catalogVersion": "408.9"' catalog-public.json
+          grep -q '"version": "408.9"' deploy-version.json
+
+      - name: Build and smoke test static website
+        run: |
+          set -euo pipefail
+          python3 tools/build_static_v4087.py
+          cd _site
+          python3 -m http.server 8080 >/tmp/xjw-v4089-http.log 2>&1 &
+          PID=$!
+          trap 'kill $PID' EXIT
+          sleep 2
+          for path in index.html products.html product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html faq.html recipes.html data.json catalog-public.json deploy-version.json; do
+            curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
+          done
+
+      - name: Commit synchronized public files
+        if: github.actor != 'github-actions[bot]'
+        run: |
+          set -euo pipefail
+          rm -rf _site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "v408.9 已同步"
+          else
+            git commit -m "正式同步官網 v408.9 產品使用規則"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
