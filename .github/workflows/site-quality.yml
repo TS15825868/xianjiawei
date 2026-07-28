@@ -1,0 +1,57 @@
+name: 仙加味官網品質守門員
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 2 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xianjiawei-site-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    name: 全站結構、SEO、圖片與互動檢查
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run full website audit
+        run: node tools/audit-site.mjs
+
+      - name: Verify GitHub Pages entry files
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s index.html
+          test -s 404.html
+          test -s site.js
+          test -s site.css
+          test -s data.json
+          echo 'PASS GitHub Pages 核心入口檔案完整。'
+
+      - name: Check public Pages response
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location --max-time 30 \
+            --retry 3 --retry-delay 5 \
+            'https://ts15825868.github.io/xianjiawei/' > /tmp/home.html
+          grep -q '仙加味' /tmp/home.html
+          echo 'PASS GitHub Pages 公開首頁可正常回應。'
