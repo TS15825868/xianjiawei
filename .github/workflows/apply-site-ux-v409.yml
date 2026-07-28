@@ -1,82 +1,60 @@
-name: 套用全站 UX v409
+name: 驗證全站 UX v410
 
 on:
   push:
     branches: [main]
+    paths:
+      - 'site.js'
+      - 'site-ux-v410.css'
+      - 'site-ux-v409.js'
+      - '*.html'
+      - '.github/workflows/apply-site-ux-v409.yml'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: apply-site-ux-v409
+  group: verify-site-ux-v410
   cancel-in-progress: true
 
 jobs:
-  apply:
-    if: github.actor != 'github-actions[bot]'
+  verify:
     runs-on: ubuntu-latest
     steps:
       - name: 取得網站程式碼
         uses: actions/checkout@v4
 
-      - name: 全站加入 UX 樣式與功能
+      - name: 檢查全站共用核心
         shell: bash
         run: |
+          set -euo pipefail
+          test -f site.js
+          test -f site-ux-v410.css
+          grep -q '__XJW_V410__' site.js
+          grep -q 'site-ux-v410.css' site.js
+
           python3 - <<'PY'
           from pathlib import Path
-          import re
 
-          css_tag = '<link href="site-ux-v409.css?v=409.0" rel="stylesheet"/>'
-          js_tag = '<script src="site-ux-v409.js?v=409.0"></script>'
-          changed = []
+          pages = sorted(Path('.').glob('*.html'))
+          missing_core = []
+          duplicate_headers = []
 
-          for path in sorted(Path('.').glob('*.html')):
+          for path in pages:
               text = path.read_text(encoding='utf-8')
-              original = text
+              if 'site.js' not in text:
+                  missing_core.append(str(path))
+              if text.count('id="site-header"') > 1 or text.count("id='site-header'") > 1:
+                  duplicate_headers.append(str(path))
 
-              if 'site-ux-v409.css' not in text:
-                  pattern = r'(<link\s+href="site\.css[^\"]*"\s+rel="stylesheet"\s*/?>)'
-                  if re.search(pattern, text):
-                      text = re.sub(pattern, r'\1\n' + css_tag, text, count=1)
-                  else:
-                      text = text.replace('</head>', css_tag + '\n</head>', 1)
+          if missing_core:
+              raise SystemExit('以下頁面未載入全站共用 site.js：' + ', '.join(missing_core))
+          if duplicate_headers:
+              raise SystemExit('以下頁面存在重複頁首容器：' + ', '.join(duplicate_headers))
 
-              if 'site-ux-v409.js' not in text:
-                  text = text.replace('</body>', js_tag + '\n</body>', 1)
-
-              if text != original:
-                  path.write_text(text, encoding='utf-8')
-                  changed.append(str(path))
-
-          print('已更新頁面：', ', '.join(changed) if changed else '無')
+          print(f'已確認 {len(pages)} 個根目錄 HTML 頁面共用 site.js v410。')
           PY
 
-      - name: 檢查變更
-        shell: bash
-        run: |
-          git diff --check
-          python3 - <<'PY'
-          from pathlib import Path
-          missing = []
-          for path in Path('.').glob('*.html'):
-              text = path.read_text(encoding='utf-8')
-              if 'site-ux-v409.css' not in text or 'site-ux-v409.js' not in text:
-                  missing.append(str(path))
-          if missing:
-              raise SystemExit('以下頁面尚未載入 UX v409：' + ', '.join(missing))
-          print('所有根目錄 HTML 已載入 UX v409。')
-          PY
-
-      - name: 提交全站套用結果
-        shell: bash
-        run: |
-          if git diff --quiet; then
-            echo '沒有需要提交的變更。'
-            exit 0
-          fi
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- '*.html'
-          git commit -m 'chore: 全站載入網站 UX v409 [skip ci]'
-          git push
+      - name: 檢查 JavaScript 語法
+        run: node --check site.js && node --check site-ux-v409.js
