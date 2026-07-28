@@ -1,0 +1,239 @@
+/* 仙加味｜聯絡頁穩定版 v411.0 */
+body[data-page="contact"]{
+  background:#f7f4ed!important;
+  color:#111827;
+}
+
+body[data-page="contact"]::before,
+body[data-page="contact"]::after,
+body[data-page="contact"] .page::before,
+body[data-page="contact"] .page::after,
+body[data-page="contact"] .section::before,
+body[data-page="contact"] .section::after{
+  content:none!important;
+  display:none!important;
+}
+
+body[data-page="contact"] .page,
+body[data-page="contact"] .site-footer{
+  background:#f7f4ed!important;
+}
+
+body[data-page="contact"] .contact-page-v411{
+  min-height:auto;
+  overflow:visible;
+}
+
+body[data-page="contact"] .contact-hero{
+  padding-top:42px;
+  padding-bottom:22px;
+}
+
+body[data-page="contact"] .contact-hero .hero__content{
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fffdf8 0%,#f6efe2 100%)!important;
+  border:1px solid rgba(123,30,30,.12);
+  box-shadow:0 16px 42px rgba(11,31,59,.09);
+}
+
+body[data-page="contact"] .contact-hero .hero__content::after{
+  content:"";
+  position:absolute;
+  right:-95px;
+  bottom:-120px;
+  width:310px;
+  height:310px;
+  border-radius:50%;
+  background:rgba(180,130,55,.10);
+  pointer-events:none;
+}
+
+body[data-page="contact"] .contact-hero .hero__content > *{
+  position:relative;
+  z-index:1;
+}
+
+body[data-page="contact"] .section{
+  max-width:1100px;
+  padding-top:18px;
+  padding-bottom:34px;
+  background:transparent!important;
+}
+
+body[data-page="contact"] .contact-section-heading{
+  max-width:760px;
+  margin-bottom:18px;
+}
+
+body[data-page="contact"] .contact-store-card,
+body[data-page="contact"] .contact-info-card,
+body[data-page="contact"] .contact-line-card,
+body[data-page="contact"] .contact-note-card{
+  background:#fff!important;
+  border:1px solid rgba(11,31,59,.08)!important;
+  box-shadow:0 12px 30px rgba(11,31,59,.07)!important;
+  transform:none!important;
+}
+
+body[data-page="contact"] .contact-store-card{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:24px;
+  align-items:center;
+}
+
+body[data-page="contact"] .contact-store-meta{
+  display:grid;
+  gap:8px;
+  margin:14px 0 0;
+  color:#374151;
+}
+
+body[data-page="contact"] .contact-store-meta strong{
+  color:#0b1f3b;
+}
+
+body[data-page="contact"] .contact-store-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:flex-end;
+}
+
+body[data-page="contact"] .contact-info-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+  align-items:start;
+}
+
+body[data-page="contact"] .contact-line-card,
+body[data-page="contact"] .contact-note-card{
+  grid-column:1 / -1;
+}
+
+body[data-page="contact"] .contact-info-card h2,
+body[data-page="contact"] .contact-line-card h2,
+body[data-page="contact"] .contact-note-card h2{
+  font-size:clamp(22px,3vw,30px);
+  color:#0b1f3b;
+}
+
+body[data-page="contact"] .contact-info-card .list,
+body[data-page="contact"] .contact-note-card .list{
+  margin-top:10px;
+}
+
+body[data-page="contact"] .contact-info-card .list li,
+body[data-page="contact"] .contact-note-card .list li{
+  margin-top:8px;
+}
+
+body[data-page="contact"] .contact-line-layout{
+  display:grid!important;
+  grid-template-columns:72px minmax(0,1fr) 190px!important;
+  gap:18px!important;
+  align-items:center!important;
+  width:100%!important;
+  max-width:none!important;
+  padding:18px!important;
+  background:#fbf8f0!important;
+  border:1px solid rgba(123,30,30,.13)!important;
+  border-radius:18px!important;
+}
+
+body[data-page="contact"] .contact-line-layout .footer-line-logo{
+  width:72px!important;
+  height:90px!important;
+  padding:8px!important;
+  overflow:hidden!important;
+  background:#fff!important;
+}
+
+body[data-page="contact"] .contact-line-layout .footer-line-logo img{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+}
+
+body[data-page="contact"] .line-qr-card{
+  width:190px!important;
+  height:190px!important;
+  max-width:100%!important;
+  max-height:none!important;
+  justify-self:end;
+  object-fit:contain!important;
+  background:#fff!important;
+  border:1px solid rgba(123,30,30,.16)!important;
+  border-radius:16px!important;
+  padding:8px!important;
+}
+
+body[data-page="contact"] .contact-line-copy p{
+  margin-bottom:8px;
+}
+
+body[data-page="contact"] .contact-page-v411 .btn{
+  white-space:normal;
+  text-align:center;
+}
+
+body[data-page="contact"] .site-footer{
+  padding-top:28px;
+}
+
+@media(max-width:760px){
+  body[data-page="contact"] .contact-hero{
+    padding-top:28px;
+  }
+
+  body[data-page="contact"] .contact-store-card,
+  body[data-page="contact"] .contact-info-grid{
+    grid-template-columns:1fr;
+  }
+
+  body[data-page="contact"] .contact-store-actions{
+    justify-content:flex-start;
+  }
+
+  body[data-page="contact"] .contact-line-card,
+  body[data-page="contact"] .contact-note-card{
+    grid-column:auto;
+  }
+
+  body[data-page="contact"] .contact-line-layout{
+    grid-template-columns:60px minmax(0,1fr)!important;
+    padding:14px!important;
+  }
+
+  body[data-page="contact"] .contact-line-layout .footer-line-logo{
+    width:60px!important;
+    height:74px!important;
+  }
+
+  body[data-page="contact"] .line-qr-card{
+    grid-column:1 / -1!important;
+    width:min(100%,260px)!important;
+    height:auto!important;
+    aspect-ratio:1 / 1;
+    justify-self:center!important;
+  }
+}
+
+@media(max-width:460px){
+  body[data-page="contact"] .contact-line-layout{
+    grid-template-columns:1fr!important;
+  }
+
+  body[data-page="contact"] .contact-line-layout .footer-line-logo{
+    justify-self:start;
+  }
+
+  body[data-page="contact"] .contact-store-actions .btn,
+  body[data-page="contact"] .contact-line-copy .btn{
+    width:100%;
+  }
+}
