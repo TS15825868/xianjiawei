@@ -163,3 +163,5 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+
+# workflow trigger: 2026-07-28 official naming refresh
