@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "tools/apply_v4091_official_packaging.py"
+      - "tools/apply_v4091_official_packaging_v2.py"
       - ".github/workflows/apply-v4091-official-packaging.yml"
   workflow_dispatch:
 
@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
 
       - name: Apply official packaging and specification policy
-        run: python3 tools/apply_v4091_official_packaging.py
+        run: python3 tools/apply_v4091_official_packaging_v2.py
 
       - name: Validate official public catalog
         run: |
@@ -38,9 +38,8 @@ jobs:
           import re
           from pathlib import Path
 
-          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
-          catalog = json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
-          for source in (data, catalog):
+          for filename in ('data.json', 'catalog-public.json'):
+              source = json.loads(Path(filename).read_text(encoding='utf-8'))
               products = {item['id']: item for item in source['products']}
               drink = products['guilu-drink-30']
               soup = products['guilu-tangkuai']
