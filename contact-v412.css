@@ -1,0 +1,146 @@
+/* 仙加味｜聯絡頁手機完整顯示修正 v412.0 */
+html,
+body[data-page="contact"],
+body[data-page="contact"] .page,
+body[data-page="contact"] main,
+body[data-page="contact"] .section,
+body[data-page="contact"] .site-footer{
+  background:#f7f4ed!important;
+  color:#111827!important;
+}
+
+body[data-page="contact"]::before,
+body[data-page="contact"]::after,
+body[data-page="contact"] .page::before,
+body[data-page="contact"] .page::after,
+body[data-page="contact"] main::before,
+body[data-page="contact"] main::after,
+body[data-page="contact"] .section::before,
+body[data-page="contact"] .section::after{
+  content:none!important;
+  display:none!important;
+}
+
+body[data-page="contact"] .contact-page-v411{
+  min-height:0!important;
+  overflow:visible!important;
+}
+
+body[data-page="contact"] .contact-store-card{
+  display:grid!important;
+  height:auto!important;
+  min-height:0!important;
+  overflow:visible!important;
+}
+
+body[data-page="contact"] .contact-info-grid{
+  display:grid!important;
+  height:auto!important;
+  overflow:visible!important;
+}
+
+body[data-page="contact"] .contact-info-card,
+body[data-page="contact"] .contact-line-card,
+body[data-page="contact"] .contact-note-card{
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+  background:#fff!important;
+  color:#111827!important;
+}
+
+body[data-page="contact"] .contact-info-card > *,
+body[data-page="contact"] .contact-note-card > *,
+body[data-page="contact"] .contact-store-card > *{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  max-height:none!important;
+}
+
+body[data-page="contact"] .contact-info-card .list,
+body[data-page="contact"] .contact-note-card .list,
+body[data-page="contact"] .contact-store-meta{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  max-height:none!important;
+  overflow:visible!important;
+  color:#374151!important;
+}
+
+body[data-page="contact"] .contact-info-card .list li,
+body[data-page="contact"] .contact-note-card .list li{
+  display:list-item!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+
+body[data-page="contact"] .footer-card{
+  background:#fff!important;
+  color:#111827!important;
+}
+
+body[data-page="contact"] .contact-line-layout,
+body[data-page="contact"] .footer-contact{
+  overflow:visible!important;
+}
+
+@media(max-width:760px){
+  body[data-page="contact"] .contact-hero{
+    padding-top:20px!important;
+    padding-bottom:14px!important;
+  }
+
+  body[data-page="contact"] .section{
+    padding-top:22px!important;
+    padding-bottom:34px!important;
+  }
+
+  body[data-page="contact"] .contact-store-card,
+  body[data-page="contact"] .contact-info-grid{
+    grid-template-columns:1fr!important;
+  }
+
+  body[data-page="contact"] .contact-store-card,
+  body[data-page="contact"] .contact-info-card,
+  body[data-page="contact"] .contact-line-card,
+  body[data-page="contact"] .contact-note-card{
+    padding:20px!important;
+    border-radius:22px!important;
+  }
+
+  body[data-page="contact"] .contact-store-actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    width:100%!important;
+    margin-top:16px!important;
+  }
+
+  body[data-page="contact"] .contact-store-actions .btn,
+  body[data-page="contact"] .contact-line-copy .btn{
+    width:100%!important;
+  }
+
+  body[data-page="contact"] .contact-line-layout{
+    grid-template-columns:1fr!important;
+    gap:14px!important;
+  }
+
+  body[data-page="contact"] .contact-line-layout .footer-line-logo{
+    justify-self:start!important;
+  }
+
+  body[data-page="contact"] .line-qr-card{
+    grid-column:auto!important;
+    justify-self:center!important;
+    width:min(100%,260px)!important;
+    height:auto!important;
+    aspect-ratio:1/1!important;
+  }
+
+  body[data-page="contact"] .site-footer{
+    padding-top:8px!important;
+  }
+}
