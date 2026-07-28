@@ -67,7 +67,7 @@
 | index.html | LINE詢問 | https://lin.ee/sHZW7NkR | 通過 |
 | index.html | 看怎麼選 | choose.html | 通過 |
 | index.html | 龜鹿膏100g | product-guilu-gao.html | 通過 |
-| index.html | 龜鹿飲30cc玻璃瓶 | product-guilu-drink-30cc.html | 通過 |
+| index.html | 龜鹿飲30cc玻璃罐 | product-guilu-drink-30cc.html | 通過 |
 | index.html | 龜鹿飲180cc鋁袋 | product-guilu-drink-180cc.html | 通過 |
 | index.html | 龜鹿湯塊75g | product-guilu-tangkuai.html | 通過 |
 | index.html | 龜鹿膠600g | product-guilu-jiao.html | 通過 |
@@ -102,7 +102,7 @@
 | product-guilu-drink-30cc.html | 查看完整挑選方式 | choose.html | 通過 |
 | product-guilu-drink-30cc.html | 開啟完整DM | images/dm-final/02_guilu-drink-30cc-dm.jpg?v=408.8 | 通過 |
 | product-guilu-drink-30cc.html | 查看全部產品DM | dm.html | 通過 |
-| product-guilu-drink-30cc.html | 開啟龜鹿飲30cc玻璃瓶正式DM大圖 | images/dm-final/02_guilu-drink-30cc-dm.jpg?v=408.8 | 通過 |
+| product-guilu-drink-30cc.html | 開啟龜鹿飲30cc玻璃罐正式DM大圖 | images/dm-final/02_guilu-drink-30cc-dm.jpg?v=408.8 | 通過 |
 | product-guilu-drink-30cc.html | 前往 LINE 幫我整理 | https://lin.ee/sHZW7NkR | 通過 |
 | product-guilu-drink-30cc.html | 回產品總覽 | products.html | 通過 |
 | product-guilu-gao.html | 首頁 | index.html | 通過 |
@@ -152,7 +152,7 @@
 | products.html | 不知道怎麼選 | choose.html | 通過 |
 | products.html | LINE幫我比較 | https://lin.ee/sHZW7NkR | 通過 |
 | products.html | 龜鹿膏100g | product-guilu-gao.html | 通過 |
-| products.html | 龜鹿飲30cc玻璃瓶 | product-guilu-drink-30cc.html | 通過 |
+| products.html | 龜鹿飲30cc玻璃罐 | product-guilu-drink-30cc.html | 通過 |
 | products.html | 龜鹿飲180cc鋁袋 | product-guilu-drink-180cc.html | 通過 |
 | products.html | 龜鹿湯塊75g | product-guilu-tangkuai.html | 通過 |
 | products.html | 龜鹿膠600g | product-guilu-jiao.html | 通過 |

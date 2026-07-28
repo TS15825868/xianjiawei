@@ -1,6 +1,6 @@
 {
-  "version": "408.9",
-  "updated": "2026-07-25",
+  "version": "410.2",
+  "updated": "2026-07-28",
   "status": "production-ready-audited",
   "catalog": "five-types-six-specifications",
   "imagePolicy": {
@@ -9,7 +9,10 @@
     "detailHero": "verified-original-product-image",
     "detailDM": "six-approved-final-dm-images",
     "detailMascot": "approved-page-specific-mascot-webp",
-    "dmPage": "six-approved-final-dm-images"
+    "dmPage": "six-approved-final-dm-images",
+    "allWebsiteImages": "proportional-contain-no-crop",
+    "brandTimeline": "single-column-no-blue-intro-card",
+    "guiluDrink30cc": "龜鹿飲30cc玻璃罐｜30cc／罐（小玻璃罐）"
   },
   "frontend": "single-site-js-and-single-site-css",
   "seo": [
@@ -40,7 +43,11 @@
     "173-static-controls-audited",
     "data-json-valid",
     "30cc-and-180cc-content-corrected",
-    "brand-timeline-2008-registration-preserved"
+    "brand-timeline-2008-registration-preserved",
+    "all-shell-pages-load-v4102-image-policy",
+    "all-images-proportional-contain-no-crop",
+    "brand-timeline-full-width-without-blue-intro-card",
+    "guilu-drink-30cc-glass-jar-wording-locked"
   ],
   "productPolicy": {
     "guiluGao": "每天一次一小匙；初次半匙；早上或空腹前後；避免睡前",
