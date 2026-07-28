@@ -1,0 +1,78 @@
+name: 套用全站 UX v409
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-site-ux-v409.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取得網站程式碼
+        uses: actions/checkout@v4
+
+      - name: 全站加入 UX 樣式與功能
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          css_tag = '<link href="site-ux-v409.css?v=409.0" rel="stylesheet"/>'
+          js_tag = '<script src="site-ux-v409.js?v=409.0"></script>'
+          changed = []
+
+          for path in sorted(Path('.').glob('*.html')):
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              if 'site-ux-v409.css' not in text:
+                  pattern = r'(<link\s+href="site\.css[^\"]*"\s+rel="stylesheet"\s*/?>)'
+                  if re.search(pattern, text):
+                      text = re.sub(pattern, r'\1\n' + css_tag, text, count=1)
+                  else:
+                      text = text.replace('</head>', css_tag + '\n</head>', 1)
+
+              if 'site-ux-v409.js' not in text:
+                  text = text.replace('</body>', js_tag + '\n</body>', 1)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path))
+
+          print('已更新頁面：', ', '.join(changed) if changed else '無')
+          PY
+
+      - name: 檢查變更
+        shell: bash
+        run: |
+          git diff --check
+          python3 - <<'PY'
+          from pathlib import Path
+          missing = []
+          for path in Path('.').glob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              if 'site-ux-v409.css' not in text or 'site-ux-v409.js' not in text:
+                  missing.append(str(path))
+          if missing:
+              raise SystemExit('以下頁面尚未載入 UX v409：' + ', '.join(missing))
+          print('所有根目錄 HTML 已載入 UX v409。')
+          PY
+
+      - name: 提交全站套用結果
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo '沒有需要提交的變更。'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- '*.html'
+          git commit -m 'chore: 全站載入網站 UX v409 [skip ci]'
+          git push
