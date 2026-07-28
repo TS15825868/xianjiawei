@@ -75,8 +75,11 @@ jobs:
               assert text.count('<h1') == 1, f'{name} 的 H1 數量不正確'
 
           brand = Path('brand.html').read_text(encoding='utf-8')
-          assert '四代傳承' in brand, '品牌頁缺少四代傳承'
-          assert '2008年' in brand, '品牌頁缺少 2008 年品牌註冊節點'
+          brand_compact = re.sub(r'\s+', '', brand)
+          assert '四代' in brand and ('傳承' in brand or '累積' in brand), '品牌頁缺少四代傳承敘事'
+          assert '品牌故事時間軸' in brand, '品牌頁缺少品牌故事時間軸'
+          assert '2008年' in brand_compact, '品牌頁缺少 2008 年品牌註冊節點'
+          assert brand.count('brand-generation__year') >= 9, '品牌頁年份時間軸節點不足'
 
           attr_pattern = re.compile(r'(?:href|src)=["\']([^"\']+)["\']')
           for page in Path('.').glob('*.html'):
