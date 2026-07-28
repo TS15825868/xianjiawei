@@ -5,6 +5,7 @@ const root = process.cwd();
 const htmlFiles = fs.readdirSync(root).filter((name) => name.endsWith('.html')).sort();
 const errors = [];
 const warnings = [];
+const GUILU_JIAO_SPEC = '600g／盒（1斤）｜32塊裝｜每塊約18.75g';
 
 function fail(file, message) {
   errors.push(`${file}: ${message}`);
@@ -76,7 +77,7 @@ for (const file of htmlFiles) {
   if (duplicateStyles.length) warn(file, `重複載入樣式：${[...new Set(duplicateStyles)].join('、')}`);
 }
 
-const requiredFiles = ['site.js', 'site.css', 'data.json', 'brand.html', 'products.html', 'contact.html', 'faq.html', 'images/logo.png'];
+const requiredFiles = ['site.js', 'site.css', 'contact-v411.css', 'data.json', 'brand.html', 'products.html', 'contact.html', 'faq.html', 'images/logo.png'];
 for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) fail('全站', `缺少核心檔案 ${file}`);
 
 if (fs.existsSync(path.join(root, 'data.json'))) {
@@ -87,7 +88,7 @@ if (fs.existsSync(path.join(root, 'data.json'))) {
     ['guilu-drink-30', ['龜鹿飲30cc玻璃罐', '30cc／罐（小玻璃罐）']],
     ['guilu-drink-180', ['龜鹿飲180cc鋁袋', '180cc／包（鋁袋）']],
     ['guilu-tangkuai', ['龜鹿湯塊', '75g／盒｜8塊裝｜每塊約9.375g']],
-    ['guilu-jiao', ['龜鹿膠', '600g／盒（1斤）｜32塊裝｜每塊約18.75g']],
+    ['guilu-jiao', ['龜鹿膠', GUILU_JIAO_SPEC]],
     ['luerong-fen', ['鹿茸粉', '75g／罐']]
   ]);
   for (const [id, [name, size]] of requiredProducts) {
@@ -108,6 +109,30 @@ if (fs.existsSync(path.join(root, 'data.json'))) {
   }
 }
 
+if (fs.existsSync(path.join(root, 'catalog-public.json'))) {
+  const catalog = JSON.parse(fs.readFileSync(path.join(root, 'catalog-public.json'), 'utf8'));
+  const item = (catalog.products || []).find((product) => product.id === 'guilu-jiao');
+  if (!item) fail('catalog-public.json', '缺少龜鹿膠公開產品資料');
+  else if (item.size !== GUILU_JIAO_SPEC) fail('catalog-public.json', `龜鹿膠規格應為「${GUILU_JIAO_SPEC}」`);
+}
+
+for (const file of ['products.html', 'product-guilu-jiao.html']) {
+  if (!fs.existsSync(path.join(root, file))) continue;
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  if (!html.includes(GUILU_JIAO_SPEC)) fail(file, `缺少龜鹿膠正式規格「${GUILU_JIAO_SPEC}」`);
+}
+
+if (fs.existsSync(path.join(root, 'contact.html'))) {
+  const contact = fs.readFileSync(path.join(root, 'contact.html'), 'utf8');
+  for (const text of ['台北市萬華區西昌街52號', '週一至週六 09:30－18:30', '可詢問的服務項目', '付款方式', '配送方式', '服務說明', 'images/line-qr.jpg', 'contact-v411.css']) {
+    if (!contact.includes(text)) fail('contact.html', `聯絡頁缺少必要內容：${text}`);
+  }
+  for (const id of ['contact-ask-list', 'contact-payments', 'contact-shipping', 'contact-notes']) {
+    const emptyPattern = new RegExp(`<ul[^>]*id=["']${id}["'][^>]*>\\s*<\\/ul>`, 'i');
+    if (emptyPattern.test(contact)) fail('contact.html', `${id} 不得是空白容器`);
+  }
+}
+
 if (fs.existsSync(path.join(root, 'brand.html'))) {
   const brand = fs.readFileSync(path.join(root, 'brand.html'), 'utf8');
   const years = [...new Set(brand.match(/(?:19|20)\d{2}/g) || [])];
@@ -122,7 +147,7 @@ if (fs.existsSync(path.join(root, 'site.js'))) {
 }
 
 const cssText = fs.readdirSync(root)
-  .filter((name) => /^site.*\.css$/i.test(name))
+  .filter((name) => /^(?:site.*|contact.*)\.css$/i.test(name))
   .map((name) => fs.readFileSync(path.join(root, name), 'utf8'))
   .join('\n');
 if (!/object-fit\s*:\s*contain/i.test(cssText)) fail('全站 CSS', '缺少圖片等比例完整顯示 object-fit: contain');
@@ -135,4 +160,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`PASS 全站檢查：${htmlFiles.length} 個 HTML；連結、素材、SEO、圖片 alt、產品規格、時間軸與互動契約均通過。`);
+console.log(`PASS 全站檢查：${htmlFiles.length} 個 HTML；連結、素材、SEO、圖片 alt、聯絡頁、產品規格、時間軸與互動契約均通過。`);
