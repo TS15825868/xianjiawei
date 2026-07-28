@@ -1,0 +1,738 @@
+/* 仙加味網站 UX 優化層｜v409.0
+ * 用途：統一全站留白、圖片比例、產品卡片、精簡選單、知識分頁與影音資料庫。
+ */
+
+:root{
+  --ux-surface:#ffffff;
+  --ux-soft:#f4f1ea;
+  --ux-soft-blue:#eef3f8;
+  --ux-border:rgba(11,31,59,.10);
+  --ux-shadow:0 14px 36px rgba(11,31,59,.08);
+  --ux-shadow-hover:0 20px 44px rgba(11,31,59,.13);
+}
+
+body{
+  background:linear-gradient(180deg,#eeeae2 0%,#f7f4ed 24%,#f7f4ed 100%);
+}
+
+.page{
+  overflow:hidden;
+}
+
+.section{
+  padding-top:34px;
+  padding-bottom:88px;
+}
+
+.section-heading{
+  max-width:760px;
+  margin-bottom:28px;
+}
+
+.section-heading > p:last-child{
+  color:var(--muted);
+  font-size:17px;
+}
+
+.card,
+.panel,
+.product-card,
+.final-cta{
+  border-color:var(--ux-border);
+  box-shadow:var(--ux-shadow);
+}
+
+.card:hover,
+.panel:hover,
+.product-card:hover{
+  box-shadow:var(--ux-shadow-hover);
+}
+
+/* ---------- 頁首與選單 ---------- */
+.site-menu__panel{
+  width:min(92vw,400px);
+  padding:24px 24px 32px;
+}
+
+.site-menu__panel .menu-close{
+  margin-left:auto;
+  display:flex;
+}
+
+.menu-quick-actions{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  margin:22px 0 26px;
+}
+
+.menu-quick-actions .btn{
+  min-height:42px;
+  padding:0 12px;
+  font-size:14px;
+}
+
+.menu-group{
+  padding:0 2px;
+}
+
+.menu-group + .menu-group{
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid rgba(11,31,59,.08);
+}
+
+.menu-group h4{
+  color:#8b3f34;
+  font-size:13px;
+  letter-spacing:.08em;
+  margin-bottom:6px;
+}
+
+.menu-group a{
+  padding:12px 2px;
+  border-bottom:0;
+  border-radius:10px;
+  font-weight:750;
+}
+
+.menu-group a:hover,
+.menu-group a:focus-visible{
+  background:var(--ux-soft);
+  padding-left:10px;
+}
+
+.menu-contact-card{
+  margin-top:26px;
+  padding:18px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#fff,#f8f4ec);
+  border:1px solid var(--ux-border);
+}
+
+.menu-contact-card p{
+  margin-bottom:6px;
+}
+
+.menu-contact-card .btn{
+  width:100%;
+  margin-top:10px;
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding-top:54px;
+  padding-bottom:46px;
+}
+
+.hero__content{
+  border:1px solid var(--ux-border);
+  box-shadow:var(--ux-shadow);
+}
+
+.home-v409 .hero__content{
+  min-height:500px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:clamp(42px,7vw,82px);
+  background:
+    radial-gradient(circle at 90% 12%,rgba(255,122,0,.10),transparent 32%),
+    linear-gradient(135deg,#fff 0%,#f7f4ed 100%);
+}
+
+.home-v409 .hero__content > p:not(.eyebrow){
+  max-width:720px;
+  color:#4b5563;
+  font-size:clamp(17px,2vw,20px);
+}
+
+.home-v409 .hero__content h1{
+  max-width:900px;
+}
+
+.hero-actions .btn{
+  min-width:150px;
+}
+
+/* ---------- 首頁 ---------- */
+.home-brand-card{
+  display:grid;
+  grid-template-columns:minmax(0,1.45fr) minmax(300px,.75fr);
+  gap:0;
+  overflow:hidden;
+  padding:0;
+}
+
+.home-brand-card__media{
+  aspect-ratio:16 / 9;
+  min-height:100%;
+  background:#ece7dc;
+}
+
+.home-brand-card__media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.home-brand-card__body{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:clamp(28px,4vw,52px);
+}
+
+.home-choice-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:16px;
+}
+
+.choice-card{
+  position:relative;
+  min-height:190px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.choice-card .choice-card__index{
+  font-size:13px;
+  font-weight:900;
+  color:#8b3f34;
+  letter-spacing:.08em;
+}
+
+.choice-card h3{
+  margin-top:18px;
+}
+
+.choice-card .text-link{
+  margin-top:auto;
+  color:var(--brand);
+  font-weight:850;
+}
+
+.home-knowledge-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:18px;
+}
+
+.home-knowledge-grid .card{
+  min-height:250px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.home-knowledge-grid .btn{
+  margin-top:auto;
+}
+
+/* ---------- 產品卡片比例與資訊層級 ---------- */
+.product-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+}
+
+.product-card{
+  min-width:0;
+  border-radius:24px;
+}
+
+.product-card__img{
+  aspect-ratio:1 / 1;
+  padding:24px;
+  background:linear-gradient(145deg,#f8f6f1,#eee9df);
+}
+
+.product-card__img img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  transform:scale(.92);
+}
+
+.product-card__body{
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  padding:20px;
+}
+
+.product-card__body h3{
+  min-height:1.25em;
+}
+
+.product-card__body .muted{
+  font-size:14px;
+  line-height:1.5;
+}
+
+.product-card__actions{
+  margin-top:auto;
+  padding-top:12px;
+}
+
+body[data-page="home"] .product-card .product-purpose,
+body[data-page="home"] .product-card .product-hint,
+body[data-page="home"] .product-card__body > p:not(.eyebrow):not(.muted){
+  display:none;
+}
+
+body[data-page="home"] .product-card__actions > :not(:first-child){
+  display:none;
+}
+
+body[data-page="home"] .product-card__actions .btn{
+  width:100%;
+}
+
+/* ---------- 比較表：桌面表格／手機卡片 ---------- */
+.compare-table{
+  border-collapse:separate;
+  border-spacing:0;
+  overflow:hidden;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:var(--ux-shadow);
+}
+
+.compare-table th,
+.compare-table td{
+  padding:17px 18px;
+}
+
+.compare-table thead th{
+  background:var(--brand);
+  color:#fff;
+}
+
+.mobile-compare-cards{
+  display:none;
+}
+
+.mobile-compare-card{
+  background:#fff;
+  border:1px solid var(--ux-border);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:var(--ux-shadow);
+}
+
+.mobile-compare-card + .mobile-compare-card{
+  margin-top:12px;
+}
+
+.mobile-compare-card dl{
+  display:grid;
+  grid-template-columns:68px 1fr;
+  gap:7px 12px;
+  margin:12px 0 0;
+  font-size:14px;
+}
+
+.mobile-compare-card dt{
+  color:var(--muted);
+  font-weight:800;
+}
+
+.mobile-compare-card dd{
+  margin:0;
+}
+
+/* ---------- 知識專區 ---------- */
+.knowledge-tabs{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:4px 2px 14px;
+  margin-bottom:26px;
+  scrollbar-width:none;
+}
+
+.knowledge-tabs::-webkit-scrollbar{
+  display:none;
+}
+
+.knowledge-tab{
+  flex:0 0 auto;
+  min-height:42px;
+  padding:0 18px;
+  border-radius:999px;
+  border:1px solid var(--ux-border);
+  background:#fff;
+  color:var(--brand);
+  font-weight:850;
+  cursor:pointer;
+}
+
+.knowledge-tab.is-active{
+  background:var(--brand);
+  color:#fff;
+  border-color:var(--brand);
+}
+
+.knowledge-panel[hidden]{
+  display:none !important;
+}
+
+.knowledge-panel{
+  animation:uxFade .22s ease;
+}
+
+.knowledge-card-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+}
+
+.knowledge-card-grid--2{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+
+.knowledge-card-grid .card{
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.knowledge-card-grid .card .btn,
+.knowledge-card-grid .card .text-link{
+  margin-top:auto;
+}
+
+.source-note{
+  padding:22px;
+  border-left:4px solid #8b3f34;
+  border-radius:0 18px 18px 0;
+  background:#fff;
+  box-shadow:var(--ux-shadow);
+}
+
+/* ---------- 影音資料庫 ---------- */
+.video-page-v409 .hero__content{
+  max-width:960px;
+}
+
+.video-library__toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+}
+
+.video-filter-group{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.video-filter{
+  min-height:40px;
+  padding:0 16px;
+  border:1px solid var(--ux-border);
+  border-radius:999px;
+  background:#fff;
+  color:var(--brand);
+  font-weight:850;
+  cursor:pointer;
+}
+
+.video-filter.is-active{
+  color:#fff;
+  background:var(--brand);
+  border-color:var(--brand);
+}
+
+.video-search{
+  min-height:44px;
+  width:min(100%,320px);
+  border:1px solid var(--ux-border);
+  border-radius:999px;
+  background:#fff;
+  padding:0 18px;
+  outline:none;
+}
+
+.video-search:focus{
+  border-color:var(--brand-2);
+  box-shadow:0 0 0 4px rgba(31,78,121,.10);
+}
+
+.video-featured{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
+  overflow:hidden;
+  padding:0;
+  margin-bottom:28px;
+}
+
+.video-featured__cover,
+.video-card-v409__cover{
+  position:relative;
+  aspect-ratio:16 / 9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 28% 28%,rgba(255,255,255,.16),transparent 28%),
+    linear-gradient(135deg,#0b1f3b,#1f4e79 62%,#8b3f34);
+  color:#fff;
+}
+
+.video-featured__cover::after,
+.video-card-v409__cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.24));
+}
+
+.video-featured__body{
+  padding:clamp(26px,4vw,48px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+}
+
+.video-play{
+  position:relative;
+  z-index:1;
+  width:68px;
+  height:68px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.94);
+  color:var(--brand);
+  font-size:28px;
+  box-shadow:0 12px 34px rgba(0,0,0,.22);
+}
+
+.video-cover-label{
+  position:absolute;
+  z-index:1;
+  left:18px;
+  bottom:16px;
+  font-size:13px;
+  font-weight:850;
+  letter-spacing:.06em;
+}
+
+.video-library-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px;
+}
+
+.video-card-v409{
+  overflow:hidden;
+  padding:0;
+}
+
+.video-card-v409__body{
+  padding:20px;
+}
+
+.video-card-v409__body h3{
+  display:-webkit-box;
+  min-height:2.45em;
+  overflow:hidden;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}
+
+.video-card-v409__body .btn{
+  width:100%;
+  margin-top:8px;
+}
+
+.video-empty{
+  padding:34px;
+  text-align:center;
+  border-radius:20px;
+  background:#fff;
+  border:1px solid var(--ux-border);
+}
+
+/* ---------- Footer ---------- */
+.footer-card{
+  align-items:flex-start;
+}
+
+.footer-policy-links{
+  width:100%;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  padding-top:18px;
+  margin-top:8px;
+  border-top:1px solid var(--ux-border);
+  font-size:14px;
+  color:var(--muted);
+}
+
+.footer-policy-links a:hover{
+  color:var(--brand);
+}
+
+@keyframes uxFade{
+  from{opacity:.2;transform:translateY(4px)}
+  to{opacity:1;transform:none}
+}
+
+@media (max-width:960px){
+  .home-brand-card,
+  .video-featured,
+  .home-knowledge-grid{
+    grid-template-columns:1fr;
+  }
+
+  .home-brand-card__media{
+    min-height:auto;
+  }
+
+  .home-choice-grid,
+  .knowledge-card-grid,
+  .video-library-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (max-width:720px){
+  .section{
+    padding-top:18px;
+    padding-bottom:62px;
+  }
+
+  .hero{
+    padding-top:28px;
+    padding-bottom:34px;
+  }
+
+  .home-v409 .hero__content{
+    min-height:430px;
+    padding:38px 24px;
+  }
+
+  .home-v409 .hero__content h1{
+    font-size:clamp(32px,10vw,42px);
+  }
+
+  .hero-actions{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+
+  .hero-actions .btn{
+    width:100%;
+  }
+
+  .home-choice-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .choice-card{
+    min-height:170px;
+    padding:18px;
+  }
+
+  .product-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .product-card{
+    border-radius:18px;
+  }
+
+  .product-card__img{
+    padding:12px;
+  }
+
+  .product-card__body{
+    padding:14px;
+  }
+
+  .product-card__body .eyebrow{
+    display:none;
+  }
+
+  .product-card__body h3{
+    font-size:16px;
+    margin-bottom:8px;
+  }
+
+  .product-card__body .muted{
+    font-size:12px;
+  }
+
+  .product-card__actions{
+    gap:7px;
+  }
+
+  .product-card__actions .btn{
+    min-height:38px;
+    padding:0 10px;
+    font-size:13px;
+  }
+
+  .table-scroll{
+    display:none;
+  }
+
+  .mobile-compare-cards{
+    display:block;
+  }
+
+  .knowledge-card-grid,
+  .knowledge-card-grid--2,
+  .video-library-grid{
+    grid-template-columns:1fr;
+  }
+
+  .video-library__toolbar{
+    align-items:stretch;
+  }
+
+  .video-filter-group{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    padding-bottom:5px;
+  }
+
+  .video-filter{
+    flex:0 0 auto;
+  }
+
+  .video-search{
+    width:100%;
+  }
+
+  .video-featured__body{
+    padding:24px;
+  }
+
+  .menu-quick-actions{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media (max-width:390px){
+  .home-choice-grid{
+    grid-template-columns:1fr;
+  }
+
+  .choice-card{
+    min-height:150px;
+  }
+}
