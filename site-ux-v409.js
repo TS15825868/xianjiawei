@@ -1,10 +1,11 @@
 "use strict";
 
-/* 仙加味網站 UX 優化層｜v409.0 */
+/* 仙加味網站 UX 優化層｜v409.1 */
 (function(){
-  const VERSION = '409.0';
+  const VERSION = '409.1';
 
   ensureStyleSheet();
+  ensureAccessibilityStyles();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => waitForBaseShell());
@@ -18,6 +19,16 @@
     link.rel = 'stylesheet';
     link.href = `site-ux-v409.css?v=${VERSION}`;
     document.head.appendChild(link);
+  }
+
+  function ensureAccessibilityStyles(){
+    if (document.getElementById('ux-v409-inline-fixes')) return;
+    const style = document.createElement('style');
+    style.id = 'ux-v409-inline-fixes';
+    style.textContent = `
+      .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+    `;
+    document.head.appendChild(style);
   }
 
   function waitForBaseShell(attempt = 0){
@@ -121,10 +132,21 @@
   }
 
   function renderMobileCompareCards(){
-    const target = document.getElementById('mobile-compare-cards');
+    const table = document.querySelector('.compare-table');
+    if (!table) return;
+
+    let target = document.getElementById('mobile-compare-cards');
+    if (!target) {
+      target = document.createElement('div');
+      target.id = 'mobile-compare-cards';
+      target.className = 'mobile-compare-cards';
+      const tableWrap = table.closest('.table-scroll');
+      if (tableWrap) tableWrap.insertAdjacentElement('afterend', target);
+    }
+
     if (!target || target.dataset.ux409 === 'true') return;
 
-    const rows = Array.from(document.querySelectorAll('.compare-table tbody tr'));
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
     if (!rows.length) return;
 
     target.dataset.ux409 = 'true';
