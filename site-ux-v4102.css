@@ -1,0 +1,149 @@
+/* 仙加味｜全站圖片完整顯示與品牌時間軸單欄版 v410.2 */
+
+/* 品牌故事：取消左側藍色導讀框，改為上方一般導讀，時間軸全寬。 */
+body.ux-v410 .brand-story-panel{
+  display:block!important;
+  width:100%!important;
+}
+body.ux-v410 .brand-story-intro{
+  position:static!important;
+  top:auto!important;
+  width:100%!important;
+  max-width:860px!important;
+  margin:0 0 30px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:var(--xjw-ink)!important;
+  box-shadow:none!important;
+}
+body.ux-v410 .brand-story-intro h2{
+  color:var(--xjw-navy)!important;
+}
+body.ux-v410 .brand-story-intro .eyebrow{
+  color:var(--xjw-red)!important;
+}
+body.ux-v410 .brand-story-intro p{
+  max-width:800px!important;
+  color:var(--xjw-muted)!important;
+}
+body.ux-v410 .brand-story-intro__button{
+  margin-top:16px!important;
+  border-color:var(--xjw-navy)!important;
+  background:#fff!important;
+  color:var(--xjw-navy)!important;
+}
+body.ux-v410 .brand-story-intro__button:hover,
+body.ux-v410 .brand-story-intro__button:focus-visible{
+  background:var(--xjw-navy)!important;
+  color:#fff!important;
+}
+body.ux-v410 .brand-timeline{
+  width:100%!important;
+  max-width:none!important;
+}
+
+/* 全站圖片政策：完整顯示、等比例縮放、不裁切、不拉伸。 */
+body.ux-v410 img{
+  max-width:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+}
+body.ux-v410 .hero img,
+body.ux-v410 [class*="hero__media"] img,
+body.ux-v410 [class*="hero-media"] img,
+body.ux-v410 [class*="brand-"] img,
+body.ux-v410 [class*="product-"] img,
+body.ux-v410 [class*="dm-"] img,
+body.ux-v410 [class*="recipe-"] img,
+body.ux-v410 [class*="knowledge-"] img,
+body.ux-v410 [class*="article-"] img,
+body.ux-v410 .card > img,
+body.ux-v410 .card picture img,
+body.ux-v410 figure img,
+body.ux-v410 .story-photo{
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+}
+
+/* 有固定比例的圖片框保留框型，但圖片本身完整置中。 */
+body.ux-v410 .home-brand-card__media,
+body.ux-v410 .brand-hero-v410__media,
+body.ux-v410 .product-card__img,
+body.ux-v410 .product-detail-hero__media,
+body.ux-v410 .modal-gallery__item,
+body.ux-v410 .product-dm-thumb,
+body.ux-v410 .dm-card-v2,
+body.ux-v410 [class*="dm-card"],
+body.ux-v410 [class*="image-wrap"],
+body.ux-v410 [class*="media-wrap"]{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:0!important;
+}
+body.ux-v410 .home-brand-card__media img,
+body.ux-v410 .brand-hero-v410__media img,
+body.ux-v410 .product-card__img img,
+body.ux-v410 .product-detail-hero__media img,
+body.ux-v410 .modal-gallery__item img,
+body.ux-v410 .product-dm-thumb img,
+body.ux-v410 .dm-card-v2 img,
+body.ux-v410 [class*="dm-card"] img{
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+}
+
+/* 避免文字、按鈕與圖片互相覆蓋。 */
+body.ux-v410 .card,
+body.ux-v410 .panel,
+body.ux-v410 .product-card,
+body.ux-v410 .brand-generation,
+body.ux-v410 .final-cta{
+  min-width:0!important;
+  height:auto!important;
+}
+body.ux-v410 .card p,
+body.ux-v410 .card h2,
+body.ux-v410 .card h3,
+body.ux-v410 .product-card p,
+body.ux-v410 .product-card h3{
+  overflow-wrap:anywhere!important;
+}
+body.ux-v410 .hero-actions,
+body.ux-v410 .hero__actions,
+body.ux-v410 .product-card__actions,
+body.ux-v410 .final-cta__actions{
+  flex-wrap:wrap!important;
+}
+
+@media(max-width:980px){
+  body.ux-v410 .brand-story-intro{
+    margin-bottom:24px!important;
+  }
+}
+
+@media(max-width:760px){
+  body.ux-v410 .brand-story-intro{
+    margin-bottom:20px!important;
+  }
+  body.ux-v410 .brand-timeline{
+    padding-left:18px!important;
+  }
+  body.ux-v410 .hero img,
+  body.ux-v410 [class*="hero__media"] img,
+  body.ux-v410 [class*="product-"] img,
+  body.ux-v410 [class*="dm-"] img{
+    width:100%!important;
+    height:auto!important;
+  }
+}
