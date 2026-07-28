@@ -30,8 +30,18 @@ function localPath(fromFile, value) {
   return path.resolve(root, path.dirname(fromFile), clean);
 }
 
+function isOwnershipVerificationFile(file, html) {
+  return /^(?:google|bing|baidu|yandex|pinterest)[a-z0-9_-]*\.html$/i.test(file)
+    && !/<html\b/i.test(html);
+}
+
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(root, file), 'utf8');
+  if (isOwnershipVerificationFile(file, html)) {
+    console.log(`SKIP 搜尋引擎驗證檔：${file}`);
+    continue;
+  }
+
   const isUtility = /^(?:404|post-image-)/.test(file);
 
   if (!/<html\b[^>]*\blang=["']zh-Hant-TW["']/i.test(html)) fail(file, '缺少正確的繁體中文 lang');
@@ -44,7 +54,7 @@ for (const file of htmlFiles) {
       fail(file, '缺少 meta description');
     }
     if (!/<link\b[^>]*rel=["']canonical["'][^>]*href=["']https:\/\/ts15825868\.github\.io\/xianjiawei\//i.test(html)
-      && !/<link\b[^>]*href=["']https:\/\/ts15825868\.github\.io\/xianjiawei\/[^"]*["'][^>]*rel=["']canonical["']/i.test(html)) {
+      && !/<link\b[^>]*href=["']https:\/\/ts15825868\.github\.io\/xianjiawei\/[^"']*["'][^>]*rel=["']canonical["']/i.test(html)) {
       fail(file, '缺少正式 canonical');
     }
   }
