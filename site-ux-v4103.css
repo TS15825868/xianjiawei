@@ -1,0 +1,151 @@
+/* 仙加味｜修正 Logo 放大、圖片比例與手機 FAQ 間距 v410.3 */
+
+/* v410.2 的全站圖片規則過度套用到頁首與選單 Logo；先恢復通用圖片為自然尺寸。 */
+body.ux-v410 img{
+  width:auto!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+}
+
+/* 頁首 Logo：固定尺寸，不隨頁面或品牌區塊放大。 */
+body.ux-v410 .brand-mark img{
+  width:50px!important;
+  height:50px!important;
+  min-width:50px!important;
+  max-width:50px!important;
+  min-height:50px!important;
+  max-height:50px!important;
+  flex:0 0 50px!important;
+  object-fit:contain!important;
+}
+
+/* 側邊選單 Logo：固定 40px，避免佔滿整個抽屜。 */
+body.ux-v410 .menu-brand-mini img{
+  width:40px!important;
+  height:40px!important;
+  min-width:40px!important;
+  max-width:40px!important;
+  min-height:40px!important;
+  max-height:40px!important;
+  flex:0 0 40px!important;
+  object-fit:contain!important;
+}
+body.ux-v410 .menu-brand-mini{
+  min-width:0!important;
+  flex:1 1 auto!important;
+}
+
+/* 頁尾與聯絡區 Logo／QR Code 保留合理尺寸。 */
+body.ux-v410 .footer-contact img{
+  width:96px!important;
+  height:96px!important;
+  max-width:96px!important;
+  max-height:96px!important;
+  object-fit:contain!important;
+}
+body.ux-v410 .line-qr-card,
+body.ux-v410 .line-qr-small{
+  width:auto!important;
+  height:auto!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+}
+
+/* 真正需要填滿圖片框的圖，才使用 100% × 100% 並完整 contain。 */
+body.ux-v410 .home-brand-card__media img,
+body.ux-v410 .brand-hero-v410__media img,
+body.ux-v410 .product-card__img img,
+body.ux-v410 .product-detail-hero__media img,
+body.ux-v410 .modal-gallery__item img{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+}
+
+/* 品牌主視覺維持框內完整顯示，不再把頁首 Logo 誤判為品牌大圖。 */
+body.ux-v410 .brand-hero-v410__media,
+body.ux-v410 .home-brand-card__media{
+  overflow:hidden!important;
+}
+body.ux-v410 .brand-hero-v410__media{
+  aspect-ratio:4/3!important;
+  min-height:0!important;
+}
+body.ux-v410 .home-brand-card__media{
+  aspect-ratio:4/3!important;
+  min-height:0!important;
+}
+
+/* 文章、料理、知識與 DM 圖：寬度隨容器縮放，高度依原始比例。 */
+body.ux-v410 .article-body img,
+body.ux-v410 .recipe-card img,
+body.ux-v410 .knowledge-card img,
+body.ux-v410 .product-dm-thumb img,
+body.ux-v410 .dm-card-v2 img,
+body.ux-v410 [class*="dm-card"] img,
+body.ux-v410 figure img,
+body.ux-v410 .story-photo{
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+}
+
+/* 手機 FAQ 收合卡片減少不必要的大面積空白。 */
+body.ux-v410 .faq-item{
+  height:auto!important;
+  min-height:0!important;
+}
+body.ux-v410 .faq-item summary{
+  min-height:0!important;
+  padding:20px 22px!important;
+}
+body.ux-v410 .faq-item__body{
+  padding:0 22px 22px!important;
+}
+
+@media(max-width:760px){
+  body.ux-v410 .brand-mark img{
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+    max-width:44px!important;
+    min-height:44px!important;
+    max-height:44px!important;
+    flex-basis:44px!important;
+  }
+  body.ux-v410 .menu-brand-mini img{
+    width:36px!important;
+    height:36px!important;
+    min-width:36px!important;
+    max-width:36px!important;
+    min-height:36px!important;
+    max-height:36px!important;
+    flex-basis:36px!important;
+  }
+  body.ux-v410 .footer-contact img{
+    width:88px!important;
+    height:88px!important;
+    max-width:88px!important;
+    max-height:88px!important;
+  }
+  body.ux-v410 .faq-item summary{
+    padding:18px!important;
+    font-size:16px!important;
+    line-height:1.55!important;
+  }
+  body.ux-v410 .faq-item__body{
+    padding:0 18px 18px!important;
+  }
+}
