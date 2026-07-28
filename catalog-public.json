@@ -72,10 +72,10 @@
     {
       "id": "guilu-drink-30",
       "series": "仙加味・龜鹿",
-      "name": "龜鹿飲30cc",
-      "displayName": "龜鹿飲30cc",
-      "size": "30cc／瓶（玻璃瓶）",
-      "description": "30cc玻璃小瓶，把龜鹿膏的成分方向整理成方便即飲的液態型態。適合輕巧即飲、外出攜帶與工作空檔安排。",
+      "name": "龜鹿飲30cc玻璃罐",
+      "displayName": "龜鹿飲30cc玻璃罐",
+      "size": "30cc／罐（小玻璃罐）",
+      "description": "30cc小玻璃罐，把龜鹿膏的成分方向整理成方便即飲的液態型態。適合輕巧即飲、外出攜帶與工作空檔安排。",
       "ingredients": [
         "水",
         "鹿角萃取物",
@@ -86,20 +86,20 @@
         "粉光蔘"
       ],
       "usage": [
-        "每日一瓶",
-        "開瓶即可飲用",
+        "每日一罐",
+        "開罐即可飲用",
         "可隔水加熱或溫熱後飲用",
         "避免冰飲",
-        "開瓶後請儘速飲用完畢"
+        "開罐後請儘速飲用完畢"
       ],
       "storage": [
         "未開封置於陰涼乾燥處",
         "避免高溫與日光直射",
-        "開瓶後請儘速飲用完畢"
+        "開罐後請儘速飲用完畢"
       ],
       "fit": "想方便即飲、外出攜帶或在工作空檔飲用的人",
       "purpose": "輕巧即飲食補",
-      "purposeDirection": "適合外出攜帶、工作空檔或偏好小瓶即飲的人。",
+      "purposeDirection": "適合外出攜帶、工作空檔或偏好小玻璃罐即飲的人。",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
       "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg",
       "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm.jpg"
