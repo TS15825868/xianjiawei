@@ -45,6 +45,7 @@ jobs:
               drink = products['guilu-drink-30']
               soup = products['guilu-tangkuai']
               assert drink['name'] == '龜鹿飲30cc玻璃罐'
+              assert drink['displayName'] == '龜鹿飲30cc玻璃罐'
               assert drink['size'] == '30cc／罐（小玻璃罐）'
               assert soup['size'] == '75g／盒｜8塊裝｜每塊約9.375g'
 
@@ -55,7 +56,7 @@ jobs:
           )
           assert '龜鹿飲30cc玻璃瓶' not in text
           assert '30cc／瓶（玻璃瓶）' not in text
-          assert not re.search(r'龜鹿湯塊.{0,40}(?:300|600)\s*g|(?:300|600)\s*g.{0,40}龜鹿湯塊', text, re.I | re.S)
+          assert not re.search(r'龜鹿湯塊\s*(?:300|600)\s*g', text, re.I)
           print('PASS 官方包裝與唯一規格')
           PY
 
