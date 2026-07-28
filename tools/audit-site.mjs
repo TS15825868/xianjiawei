@@ -77,7 +77,7 @@ for (const file of htmlFiles) {
   if (duplicateStyles.length) warn(file, `重複載入樣式：${[...new Set(duplicateStyles)].join('、')}`);
 }
 
-const requiredFiles = ['site.js', 'site.css', 'contact-v411.css', 'data.json', 'brand.html', 'products.html', 'contact.html', 'faq.html', 'images/logo.png'];
+const requiredFiles = ['site.js', 'site.css', 'contact-v411.css', 'contact-v412.css', 'data.json', 'brand.html', 'products.html', 'contact.html', 'faq.html', 'images/logo.png'];
 for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) fail('全站', `缺少核心檔案 ${file}`);
 
 if (fs.existsSync(path.join(root, 'data.json'))) {
@@ -124,12 +124,18 @@ for (const file of ['products.html', 'product-guilu-jiao.html']) {
 
 if (fs.existsSync(path.join(root, 'contact.html'))) {
   const contact = fs.readFileSync(path.join(root, 'contact.html'), 'utf8');
-  for (const text of ['台北市萬華區西昌街52號', '週一至週六 09:30－18:30', '可詢問的服務項目', '付款方式', '配送方式', '服務說明', 'images/line-qr.jpg', 'contact-v411.css']) {
+  for (const text of ['台北市萬華區西昌街52號', '週一至週六 09:30－18:30', '可詢問的服務項目', '付款方式', '配送方式', '服務說明', 'images/line-qr.jpg', 'contact-v411.css', 'contact-v412.css']) {
     if (!contact.includes(text)) fail('contact.html', `聯絡頁缺少必要內容：${text}`);
   }
   for (const id of ['contact-ask-list', 'contact-payments', 'contact-shipping', 'contact-notes']) {
     const emptyPattern = new RegExp(`<ul[^>]*id=["']${id}["'][^>]*>\\s*<\\/ul>`, 'i');
     if (emptyPattern.test(contact)) fail('contact.html', `${id} 不得是空白容器`);
+  }
+  const baseStyleIndex = contact.indexOf('site-ux-v410.css');
+  const contactStyleIndex = contact.indexOf('contact-v411.css');
+  const mobileFixIndex = contact.indexOf('contact-v412.css');
+  if (baseStyleIndex < 0 || contactStyleIndex < 0 || mobileFixIndex < 0 || !(baseStyleIndex < contactStyleIndex && contactStyleIndex < mobileFixIndex)) {
+    fail('contact.html', '聯絡頁樣式載入順序應為全站基礎樣式 → contact-v411.css → contact-v412.css');
   }
 }
 
