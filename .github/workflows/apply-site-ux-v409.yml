@@ -2,15 +2,19 @@ name: 套用全站 UX v409
 
 on:
   push:
-    paths:
-      - '.github/workflows/apply-site-ux-v409.yml'
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: apply-site-ux-v409
+  cancel-in-progress: true
+
 jobs:
   apply:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: 取得網站程式碼
