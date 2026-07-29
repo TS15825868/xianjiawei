@@ -36,6 +36,17 @@ function isOwnershipVerificationFile(file, html) {
     && !/<html\b/i.test(html);
 }
 
+function duplicateValues(values) {
+  const seen = new Set();
+  const duplicates = new Set();
+  for (const value of values) {
+    if (!value) continue;
+    if (seen.has(value)) duplicates.add(value);
+    else seen.add(value);
+  }
+  return [...duplicates].sort();
+}
+
 for (const file of htmlFiles) {
   const html = fs.readFileSync(path.join(root, file), 'utf8');
   if (isOwnershipVerificationFile(file, html)) {
@@ -83,6 +94,9 @@ for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) fai
 if (fs.existsSync(path.join(root, 'data.json'))) {
   const data = JSON.parse(fs.readFileSync(path.join(root, 'data.json'), 'utf8'));
   const products = Array.isArray(data.products) ? data.products : [];
+  const duplicateProductIds = duplicateValues(products.map((product) => product?.id));
+  if (duplicateProductIds.length) fail('data.json', `產品 id 不可重複：${duplicateProductIds.join('、')}`);
+
   const requiredProducts = new Map([
     ['guilu-gao', ['龜鹿膏', '100g／罐']],
     ['guilu-drink-30', ['龜鹿飲30cc玻璃罐', '30cc／罐（小玻璃罐）']],
@@ -111,7 +125,11 @@ if (fs.existsSync(path.join(root, 'data.json'))) {
 
 if (fs.existsSync(path.join(root, 'catalog-public.json'))) {
   const catalog = JSON.parse(fs.readFileSync(path.join(root, 'catalog-public.json'), 'utf8'));
-  const item = (catalog.products || []).find((product) => product.id === 'guilu-jiao');
+  const products = Array.isArray(catalog.products) ? catalog.products : [];
+  const duplicateProductIds = duplicateValues(products.map((product) => product?.id));
+  if (duplicateProductIds.length) fail('catalog-public.json', `產品 id 不可重複：${duplicateProductIds.join('、')}`);
+
+  const item = products.find((product) => product.id === 'guilu-jiao');
   if (!item) fail('catalog-public.json', '缺少龜鹿膠公開產品資料');
   else if (item.size !== GUILU_JIAO_SPEC) fail('catalog-public.json', `龜鹿膠規格應為「${GUILU_JIAO_SPEC}」`);
 }
@@ -166,4 +184,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`PASS 全站檢查：${htmlFiles.length} 個 HTML；連結、素材、SEO、圖片 alt、聯絡頁、產品規格、時間軸與互動契約均通過。`);
+console.log(`PASS 全站檢查：${htmlFiles.length} 個 HTML；連結、素材、SEO、圖片 alt、聯絡頁、產品規格、產品 id 唯一性、時間軸與互動契約均通過。`);
