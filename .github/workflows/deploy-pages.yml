@@ -39,9 +39,16 @@ jobs:
           assert not missing, f'缺少必要檔案: {missing}'
 
           data = json.loads(Path('data.json').read_text(encoding='utf-8'))
-          assert len(data.get('products', [])) == 6, '產品資料必須維持六項規格'
+          products = data.get('products', [])
+          required_product_ids = {
+              'guilu-gao', 'guilu-drink-30', 'guilu-drink-180',
+              'guilu-tangkuai', 'guilu-jiao', 'luerong-fen'
+          }
+          active_ids = {item.get('id') for item in products if isinstance(item, dict)}
+          missing_product_ids = sorted(required_product_ids - active_ids)
+          assert not missing_product_ids, f'缺少正式產品規格: {missing_product_ids}'
           assert '2008年' in Path('brand.html').read_text(encoding='utf-8'), '品牌頁缺少 2008 年品牌註冊節點'
-          print(f'release validation passed: v{version}')
+          print(f'release validation passed: v{version}; official products present: {len(required_product_ids)}; catalog rows: {len(products)}')
           PY
 
       - name: Build static preview
