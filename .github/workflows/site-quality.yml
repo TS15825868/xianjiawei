@@ -46,7 +46,6 @@ jobs:
 
       - name: Check public Pages response
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
