@@ -1,0 +1,39 @@
+name: 驗證主推商品與貼文審核策略
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/marketing-priority.json'
+      - 'index.html'
+      - '.github/workflows/verify-marketing-priority.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: 驗證正式主推策略
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const p = JSON.parse(fs.readFileSync('data/marketing-priority.json', 'utf8'));
+          const html = fs.readFileSync('index.html', 'utf8');
+          const assert = (ok, msg) => { if (!ok) throw new Error(msg); };
+          assert(p.primary_product?.id === 'PROD-GAO-100', '主推商品必須為龜鹿膏 100g');
+          assert(p.primary_product?.homepage_priority === 1, '龜鹿膏首頁優先序必須為 1');
+          assert(p.website_rules?.show_prices === false, '官網不得顯示售價');
+          assert(p.website_rules?.medical_claims_forbidden === true, '官網必須禁止療效文案');
+          assert(p.post_rules?.approval_required === true, '貼文必須人工審核');
+          assert(p.post_rules?.publish_before_approval === false, '未核准不得發布');
+          assert(html.includes('product-guilu-gao.html'), '首頁必須保留龜鹿膏入口');
+          assert(html.includes('龜鹿膏'), '首頁必須明確出現龜鹿膏');
+          console.log('官網主推商品、價格政策與人工審核策略驗證通過。');
+          NODE
