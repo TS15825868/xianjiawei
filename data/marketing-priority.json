@@ -1,10 +1,10 @@
 {
-  "version": "2026-07-30-v1",
+  "version": "2026-07-30-v2",
   "brand": "仙加味",
   "primary_product": {
     "id": "PROD-GAO-100",
     "name": "仙加味・龜鹿膏",
-    "specification": "100 g／罐",
+    "specification": "100g／罐",
     "role": "品牌核心主推",
     "homepage_priority": 1,
     "message": "固定節奏，慢慢養成。"
@@ -13,14 +13,14 @@
     {
       "id": "PROD-DRINK-30",
       "name": "仙加味・龜鹿飲30cc玻璃罐",
-      "specification": "30 cc／罐（小玻璃罐）",
+      "specification": "30cc／罐（小玻璃罐）",
       "role": "輕巧即飲入口",
       "priority": 2
     },
     {
       "id": "PROD-DRINK-180",
-      "name": "仙加味・龜鹿飲",
-      "specification": "180 cc／鋁袋",
+      "name": "仙加味・龜鹿飲180cc鋁袋",
+      "specification": "180cc／包（鋁袋）",
       "role": "完整份量即飲",
       "priority": 3
     }
