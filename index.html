@@ -6,11 +6,14 @@
 <title>仙加味｜龜鹿膏、龜鹿飲、龜鹿湯塊、龜鹿膠與鹿茸粉</title>
 <meta content="仙加味承接萬華四代龜鹿工序，整理龜鹿膏100g、龜鹿飲30cc與180cc、龜鹿湯塊75g、龜鹿膠600g及鹿茸粉75g的規格與日常使用方式。" name="description"/>
 <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
+<meta content="仙加味" name="author"/>
 <link href="site.css?v=408.9" rel="stylesheet"/>
 <link href="site-ux-v409.css?v=409.0" rel="stylesheet"/>
 <link href="https://ts15825868.github.io/xianjiawei/index.html" rel="canonical"/>
 <link href="https://ts15825868.github.io/xianjiawei/index.html" hreflang="zh-Hant-TW" rel="alternate"/>
 <link href="https://ts15825868.github.io/xianjiawei/index.html" hreflang="x-default" rel="alternate"/>
+<link href="https://ts15825868.github.io/xianjiawei/llms.txt" rel="alternate" type="text/plain" title="仙加味 AI 可讀網站索引"/>
+<link href="https://ts15825868.github.io/xianjiawei/geo-data.json" rel="alternate" type="application/ld+json" title="仙加味機器可讀品牌與產品資料"/>
 <link href="manifest.webmanifest?v=408.9" rel="manifest"/>
 <link href="images/logo.png?v=408.9" rel="icon" type="image/png"/>
 <meta content="zh_TW" property="og:locale"/>
@@ -32,7 +35,11 @@
       "url":"https://ts15825868.github.io/xianjiawei/",
       "name":"仙加味",
       "inLanguage":"zh-Hant-TW",
-      "publisher":{"@id":"https://ts15825868.github.io/xianjiawei/#organization"}
+      "publisher":{"@id":"https://ts15825868.github.io/xianjiawei/#organization"},
+      "hasPart":[
+        {"@id":"https://ts15825868.github.io/xianjiawei/brand-facts.html#page"},
+        {"@id":"https://ts15825868.github.io/xianjiawei/geo-data.json#dataset"}
+      ]
     },
     {
       "@type":"Organization",
@@ -42,12 +49,16 @@
       "logo":"https://ts15825868.github.io/xianjiawei/images/logo.png",
       "image":"https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp",
       "description":"從萬華出發的四代龜鹿工序品牌，整理龜鹿膏、龜鹿飲、龜鹿湯塊、龜鹿膠與鹿茸粉等產品資訊。",
+      "foundingLocation":{"@type":"Place","name":"台北萬華"},
+      "areaServed":"TW",
+      "knowsAbout":["龜鹿膏","龜鹿飲","龜鹿湯塊","龜鹿膠","鹿茸粉","日常食補","龜鹿工序"],
       "contactPoint":{
         "@type":"ContactPoint",
         "contactType":"customer service",
         "availableLanguage":["zh-Hant"],
         "url":"https://lin.ee/sHZW7NkR"
-      }
+      },
+      "subjectOf":{"@id":"https://ts15825868.github.io/xianjiawei/brand-facts.html#page"}
     }
   ]
 }
@@ -56,12 +67,14 @@
 {
   "@context":"https://schema.org",
   "@type":"WebPage",
+  "@id":"https://ts15825868.github.io/xianjiawei/index.html#page",
   "name":"仙加味｜龜鹿日常食補",
   "description":"四代龜鹿工序，整理成今天更好理解、也更容易安排的日常食補。",
   "url":"https://ts15825868.github.io/xianjiawei/index.html",
   "inLanguage":"zh-Hant-TW",
-  "dateModified":"2026-07-28",
-  "isPartOf":{"@type":"WebSite","name":"仙加味","url":"https://ts15825868.github.io/xianjiawei/"},
+  "dateModified":"2026-07-31",
+  "isPartOf":{"@id":"https://ts15825868.github.io/xianjiawei/#website"},
+  "about":{"@id":"https://ts15825868.github.io/xianjiawei/#organization"},
   "primaryImageOfPage":{"@type":"ImageObject","url":"https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp"}
 }
 </script>
@@ -203,8 +216,8 @@
   <section class="section">
     <div class="section-heading">
       <p class="eyebrow">延伸了解</p>
-      <h2>知識與影音，整合成同一個入口</h2>
-      <p>原本分散的漢方知識、食材百科、公開影片與資料來源，改由知識專區統一整理。</p>
+      <h2>知識、影音與官方資料，整合成清楚入口</h2>
+      <p>知識專區負責延伸閱讀；官方資料中心則提供品牌事實、正式規格與機器可讀資料。</p>
     </div>
     <div class="home-knowledge-grid">
       <article class="card reveal">
@@ -218,6 +231,12 @@
         <h3>依分類搜尋公開影片</h3>
         <p>以精選大卡、分類篩選與手機單欄重新整理，頁面不自動播放。</p>
         <a class="btn btn-outline" href="video.html">觀看知識影音</a>
+      </article>
+      <article class="card reveal">
+        <p class="eyebrow">官方資料</p>
+        <h3>品牌事實、六項規格與引用原則</h3>
+        <p>提供一頁式官方答案，以及 catalog、JSON-LD 與 AI 可讀文字資料。</p>
+        <a class="btn btn-outline" href="brand-facts.html">查看官方資料中心</a>
       </article>
     </div>
   </section>
