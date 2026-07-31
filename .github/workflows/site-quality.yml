@@ -80,8 +80,9 @@ jobs:
           grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' /tmp/guilu-jiao.html
           grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' /tmp/data.json
 
-          if grep -Eq '售價|優惠價|\$[0-9]' /tmp/products.html /tmp/guilu-jiao.html; then
-            echo '公開產品頁不得出現售價或優惠價。' >&2
+          # 「價格／優惠請洽 LINE」屬正常導引文字；只拒絕實際公開的金額數字。
+          if grep -Eq '(\$|NT\$)[[:space:]]*[0-9]|(售價|優惠價)[[:space:]]*[：:]?[[:space:]]*[0-9]' /tmp/products.html /tmp/guilu-jiao.html; then
+            echo '公開產品頁不得出現實際售價或優惠金額。' >&2
             exit 1
           fi
 
