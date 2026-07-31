@@ -42,15 +42,47 @@ jobs:
           test -s site.js
           test -s site.css
           test -s data.json
+          test -s products.html
+          test -s contact.html
+          test -s brand.html
+          test -s brand-facts.html
           echo 'PASS GitHub Pages 核心入口檔案完整。'
 
-      - name: Check public Pages response
+      - name: Check public Pages responses and official facts
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         shell: bash
         run: |
           set -euo pipefail
-          curl --fail --silent --show-error --location --max-time 30 \
-            --retry 3 --retry-delay 5 \
-            'https://ts15825868.github.io/xianjiawei/' > /tmp/home.html
+          base='https://ts15825868.github.io/xianjiawei'
+
+          fetch_page() {
+            local path="$1"
+            local output="$2"
+            curl --fail --silent --show-error --location --max-time 30 \
+              --retry 3 --retry-delay 5 \
+              "$base/$path" > "$output"
+            test -s "$output"
+          }
+
+          fetch_page '' /tmp/home.html
+          fetch_page 'products.html' /tmp/products.html
+          fetch_page 'contact.html' /tmp/contact.html
+          fetch_page 'brand.html' /tmp/brand.html
+          fetch_page 'brand-facts.html' /tmp/brand-facts.html
+          fetch_page 'product-guilu-jiao.html' /tmp/guilu-jiao.html
+          fetch_page 'data.json' /tmp/data.json
+
           grep -q '仙加味' /tmp/home.html
-          echo 'PASS GitHub Pages 公開首頁可正常回應。'
+          grep -q '六項正式產品規格' /tmp/products.html
+          grep -q '仙加味官方 LINE' /tmp/contact.html
+          grep -q '四代' /tmp/brand.html
+          grep -q '官方事實資料中心' /tmp/brand-facts.html
+          grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' /tmp/guilu-jiao.html
+          grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' /tmp/data.json
+
+          if grep -Eq '售價|優惠價|\$[0-9]' /tmp/products.html /tmp/guilu-jiao.html; then
+            echo '公開產品頁不得出現售價或優惠價。' >&2
+            exit 1
+          fi
+
+          echo 'PASS GitHub Pages 首頁、產品、聯絡、品牌、GEO 與龜鹿膠正式規格均可正常公開讀取。'
