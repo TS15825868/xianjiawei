@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  download-verify-commit:
+  decode-verify-commit:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
@@ -25,15 +25,18 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: 下載正式 WebP
+      - name: 從儲存庫安全傳輸檔還原正式 WebP
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p images/posts/generated
-          curl --fail --silent --show-error --location \
-            --retry 4 --retry-delay 2 \
-            'https://temp.sh/xjw-03d268a22a12.webp' \
-            --output images/posts/generated/post-ingredient-principle.webp
+          shopt -s nullglob
+          parts=(artifacts/uploads/post-ingredient-principle.safe.part-*)
+          if (( ${#parts[@]} == 0 )); then
+            echo '找不到用料原則圖片安全傳輸檔' >&2
+            exit 1
+          fi
+          printf '%s\n' "${parts[@]}" | sort -V | xargs cat | tr -d '\r\n ' | base64 --decode > images/posts/generated/post-ingredient-principle.webp
 
       - name: 驗證 SHA、大小與 WebP 格式
         shell: bash
@@ -51,7 +54,7 @@ jobs:
           print('PASS 1254x1254 用料原則正式貼文圖二進位驗證')
           PY
 
-      - name: 清除一次性傳輸檔
+      - name: 清除一次性傳輸檔與工作流程
         shell: bash
         run: |
           rm -f artifacts/uploads/post-ingredient-principle.webp.b64.part-* \
