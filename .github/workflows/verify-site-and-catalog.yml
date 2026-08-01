@@ -29,6 +29,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Install image tooling
+        run: python3 -m pip install --quiet 'Pillow>=10,<13'
+
       - name: Run complete website validation and capture diagnostics
         id: validation
         shell: bash
@@ -40,12 +43,16 @@ jobs:
             echo '=== 用料原則正式圖片 ==='
             python3 tools/materialize_ingredient_principle.py
 
+            echo '=== LINE OA 正式 JPEG ==='
+            python3 tools/build_line_oa_mascot_jpegs.py
+
             echo '=== JavaScript 與 JSON ==='
             node --check site.js
             python3 -m json.tool data.json >/dev/null
             python3 -m json.tool catalog-public.json >/dev/null
             python3 -m json.tool deploy-version.json >/dev/null
             python3 -m json.tool brand-character-spec.json >/dev/null
+            python3 -m json.tool images/brand/line-oa/manifest.json >/dev/null
 
             echo '=== 官網內容與連結 ==='
             python3 tools/verify_public_site.py
@@ -55,6 +62,10 @@ jobs:
             test -d _site
             test -f _site/index.html
             test -f _site/images/posts/generated/post-ingredient-principle.webp
+            test -f _site/images/brand/line-oa/recommend.jpg
+            test -f _site/images/brand/line-oa/combo.jpg
+            test -f _site/images/brand/line-oa/usage.jpg
+            test -f _site/images/brand/line-oa/faq.jpg
 
             echo '=== HTTP smoke tests ==='
             cd _site
@@ -62,17 +73,17 @@ jobs:
             server_pid=$!
             trap 'kill "$server_pid" 2>/dev/null || true' EXIT
             sleep 2
-            for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json brand-character-spec.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html images/posts/generated/post-ingredient-principle.webp; do
+            for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json brand-character-spec.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html images/posts/generated/post-ingredient-principle.webp images/brand/line-oa/welcome.jpg images/brand/line-oa/products.jpg images/brand/line-oa/recommend.jpg images/brand/line-oa/combo.jpg images/brand/line-oa/usage.jpg images/brand/line-oa/faq.jpg images/brand/line-oa/service.jpg images/brand/line-oa/brand.jpg images/brand/line-oa/manifest.json; do
               curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
             done
-            echo 'PASS 官網完整驗證、建置與 HTTP smoke tests'
+            echo 'PASS 官網完整驗證、LINE JPEG、建置與 HTTP smoke tests'
           ) > artifacts/site-validation.log 2>&1
           status=$?
           tail -n 260 artifacts/site-validation.log
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
           exit 0
 
-      - name: Persist verified ingredient image and remove temporary files
+      - name: Persist verified public assets
         id: persist
         if: steps.validation.outputs.exit_code == '0'
         env:
@@ -97,23 +108,24 @@ jobs:
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git add images/posts/generated/post-ingredient-principle.webp
+            git add images/brand/line-oa
             git add -u -- .github/workflows artifacts/uploads .trigger-verified-ingredient-image-20260801 || true
             if git diff --cached --quiet; then
               echo '正式圖片與清理狀態已一致'
               exit 0
             fi
-            git commit -m 'assets(site): install verified ingredient principle post image'
+            git commit -m 'assets(site): publish verified LINE OA mascot JPEGs'
 
             for attempt in 1 2 3; do
               if git push origin HEAD:main; then
-                echo "PASS 已提交正式圖片（第 ${attempt} 次）"
+                echo "PASS 已提交正式素材（第 ${attempt} 次）"
                 exit 0
               fi
               git fetch origin main
               git rebase origin/main
               sleep $((attempt * 3))
             done
-            echo '三次重試後仍無法提交正式圖片' >&2
+            echo '三次重試後仍無法提交正式素材' >&2
             exit 1
           ) > artifacts/site-persist.log 2>&1
           status=$?
@@ -177,14 +189,15 @@ jobs:
               echo
               echo "- 提交：\`${SOURCE_SHA}\`"
               echo '- 用料原則正式 WebP：位元驗證通過'
+              echo '- LINE OA 正式 JPEG：8 張通過'
               echo '- 官網資料與連結：通過'
               echo '- 靜態建置：通過'
               echo '- HTTP smoke tests：通過'
-              echo '- 正式圖片主分支寫回：通過或已一致'
+              echo '- 正式素材主分支寫回：通過或已一致'
               echo "- 時間：$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
             } > artifacts/site-ci-success.md
             gh issue edit "$number" --repo "$GITHUB_REPOSITORY" --body-file artifacts/site-ci-success.md
-            gh issue close "$number" --repo "$GITHUB_REPOSITORY" --comment '最新官網完整驗證已通過。' >/dev/null 2>&1 || true
+            gh issue close "$number" --repo "$GITHUB_REPOSITORY" --comment '最新官網與 LINE OA 共用素材驗證已通過。' >/dev/null 2>&1 || true
           fi
 
       - name: Enforce result
