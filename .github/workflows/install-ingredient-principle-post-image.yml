@@ -42,7 +42,8 @@ jobs:
 
           actual_parts=$(find artifacts/uploads -maxdepth 1 -type f -name 'post-ingredient-principle.webp.b64.part-*' | wc -l | tr -d ' ')
           missing=''
-          for index in $(seq -w 0 7); do
+          for number in $(seq 0 7); do
+            index=$(printf '%02d' "$number")
             part="artifacts/uploads/post-ingredient-principle.webp.b64.part-${index}"
             if [ ! -s "$part" ]; then
               missing="${missing}${index},"
