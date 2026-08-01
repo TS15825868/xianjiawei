@@ -25,14 +25,14 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: 確認 4 個分片完整
+      - name: 確認 8 個分片完整
         shell: bash
         run: |
           set -euo pipefail
-          expected=4
+          expected=8
           actual=$(find artifacts/uploads -maxdepth 1 -type f -name 'post-ingredient-principle.webp.b64.part-*' | wc -l)
           test "$actual" -eq "$expected" || { echo "分片數錯誤：預期 $expected，實際 $actual"; exit 1; }
-          for index in $(seq -w 0 3); do
+          for index in $(seq -w 0 7); do
             test -s "artifacts/uploads/post-ingredient-principle.webp.b64.part-${index}" || { echo "缺少分片 ${index}"; exit 1; }
           done
 
