@@ -29,10 +29,8 @@ jobs:
 
       - name: Materialize and verify ingredient principle image
         env:
-          GH_TOKEN: ${{ github.token }}
-          BLOB_SHA: 2b05a4285229c3252341e17c66cf4ef11d291256
-          EXPECTED_SIZE: '94822'
-          EXPECTED_SHA256: 25ab42a8b028608743b3c6dda3934aa27071e30f920b3c671353d7eb9570f0b4
+          EXPECTED_SIZE: '35886'
+          EXPECTED_SHA256: b44b5b1d62f0efc770fd077b6dac541abc192046cc1b52743d0e797e4405b1c3
         shell: bash
         run: |
           set -euo pipefail
@@ -40,9 +38,36 @@ jobs:
           mkdir -p "$(dirname "$output")"
 
           if [ ! -f "$output" ]; then
-            gh api "repos/${GITHUB_REPOSITORY}/git/blobs/${BLOB_SHA}" --jq '.content' \
-              | tr -d '\n\r' \
-              | base64 --decode > "$output"
+            python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          import re
+
+          root = Path('artifacts/uploads')
+          parts = sorted(root.glob('ingredient-q3.part-*.b64'))
+          expected_names = [f'ingredient-q3.part-{index:02d}.b64' for index in range(8)]
+          actual_names = [part.name for part in parts]
+          if actual_names != expected_names:
+              raise SystemExit(f'安全分片不完整：{actual_names}')
+
+          expected_lengths = [6000, 6000, 6000, 6000, 6000, 6000, 6000, 5848]
+          encoded_parts = []
+          for part, expected_length in zip(parts, expected_lengths):
+              text = ''.join(part.read_text(encoding='utf-8').split())
+              if len(text) != expected_length:
+                  raise SystemExit(f'{part.name} 長度錯誤：{len(text)}，預期 {expected_length}')
+              if not re.fullmatch(r'[A-Za-z0-9+/=]+', text):
+                  raise SystemExit(f'{part.name} 含非 Base64 字元')
+              encoded_parts.append(text)
+
+          encoded = ''.join(encoded_parts)
+          if len(encoded) != 47848:
+              raise SystemExit(f'合併後 Base64 長度錯誤：{len(encoded)}')
+
+          data = base64.b64decode(encoded, validate=True)
+          Path('images/posts/generated/post-ingredient-principle.webp').write_bytes(data)
+          print(f'PASS 合併 8 個安全分片：{len(data)} bytes')
+          PY
           fi
 
           actual_size=$(stat -c '%s' "$output")
@@ -79,8 +104,8 @@ jobs:
           assert not missing, f'缺少必要檔案: {missing}'
 
           ingredient = Path('images/posts/generated/post-ingredient-principle.webp').read_bytes()
-          assert len(ingredient) == 94822, f'用料原則圖片大小錯誤: {len(ingredient)}'
-          assert hashlib.sha256(ingredient).hexdigest() == '25ab42a8b028608743b3c6dda3934aa27071e30f920b3c671353d7eb9570f0b4', '用料原則圖片 SHA256 錯誤'
+          assert len(ingredient) == 35886, f'用料原則圖片大小錯誤: {len(ingredient)}'
+          assert hashlib.sha256(ingredient).hexdigest() == 'b44b5b1d62f0efc770fd077b6dac541abc192046cc1b52743d0e797e4405b1c3', '用料原則圖片 SHA256 錯誤'
           assert ingredient[:4] == b'RIFF' and ingredient[8:12] == b'WEBP', '用料原則圖片不是有效 WebP'
 
           version = json.loads(Path('deploy-version.json').read_text(encoding='utf-8')).get('version')
@@ -154,18 +179,20 @@ jobs:
             curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
           done
 
-      - name: Persist verified ingredient image and remove temporary installers
+      - name: Persist verified ingredient image and remove temporary transfer files
         if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
         shell: bash
         run: |
           set -euo pipefail
           rm -f .github/workflows/install-ingredient-principle-from-blob.yml
           rm -f artifacts/uploads/chunk-transport-test.txt
+          rm -f artifacts/uploads/ingredient-q3.part-*.b64
+          rm -f .trigger-verified-ingredient-image-20260801
 
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add images/posts/generated/post-ingredient-principle.webp
-          git add -u .github/workflows artifacts/uploads || true
+          git add -u -- .github/workflows artifacts/uploads .trigger-verified-ingredient-image-20260801 || true
           git diff --cached --quiet && { echo '正式圖片與清理狀態已一致'; exit 0; }
           git commit -m 'assets(site): install verified ingredient principle post image'
 
