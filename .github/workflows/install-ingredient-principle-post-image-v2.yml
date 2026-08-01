@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/install-ingredient-principle-post-image-v2.yml"
+      - "artifacts/uploads/post-ingredient-principle.safe.part-*"
   workflow_dispatch:
 
 permissions:
@@ -30,33 +31,46 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p images/posts/generated
-          shopt -s nullglob
-          parts=(artifacts/uploads/post-ingredient-principle.safe.part-*)
-          if (( ${#parts[@]} == 0 )); then
-            echo '找不到用料原則圖片安全傳輸檔' >&2
-            exit 1
-          fi
-          printf '%s\n' "${parts[@]}" | sort -V | xargs cat | tr -d '\r\n ' | base64 --decode > images/posts/generated/post-ingredient-principle.webp
-
-      - name: 驗證 SHA、大小與 WebP 格式
-        shell: bash
-        run: |
-          set -euo pipefail
-          image='images/posts/generated/post-ingredient-principle.webp'
-          echo '03d268a22a121c4695045cd0919fb7e3d03ee3430b1723586772f7560a59d7f8  images/posts/generated/post-ingredient-principle.webp' | sha256sum --check
-          test "$(wc -c < "$image" | tr -d ' ')" = '100932'
-          python3 - "$image" <<'PY'
+          python3 <<'PY'
           from pathlib import Path
-          import sys
-          data = Path(sys.argv[1]).read_bytes()
+          import base64
+          import hashlib
+
+          parts = sorted(
+              Path('artifacts/uploads').glob('post-ingredient-principle.safe.part-*'),
+              key=lambda p: tuple(int(x) if x.isdigit() else x for x in p.name.replace('-', ' ').replace('.', ' ').split()),
+          )
+          if not parts:
+              raise SystemExit('找不到用料原則圖片安全傳輸檔')
+
+          encoded = ''.join(part.read_text(encoding='utf-8') for part in parts)
+          encoded = ''.join(encoded.split())
+          if len(encoded) % 4:
+              raise SystemExit(f'Base64 長度不完整：{len(encoded)}')
+
+          try:
+              data = base64.b64decode(encoded, validate=True)
+          except Exception as exc:
+              raise SystemExit(f'Base64 解碼失敗：{exc}') from exc
+
+          expected_size = 100932
+          expected_sha = '03d268a22a121c4695045cd0919fb7e3d03ee3430b1723586772f7560a59d7f8'
+          actual_sha = hashlib.sha256(data).hexdigest()
+          if len(data) != expected_size:
+              raise SystemExit(f'圖片大小不符：{len(data)}，預期 {expected_size}')
+          if actual_sha != expected_sha:
+              raise SystemExit(f'圖片 SHA-256 不符：{actual_sha}')
           if not data.startswith(b'RIFF') or data[8:12] != b'WEBP':
               raise SystemExit('不是有效的 WebP RIFF 檔案')
+
+          Path('images/posts/generated/post-ingredient-principle.webp').write_bytes(data)
           print('PASS 1254x1254 用料原則正式貼文圖二進位驗證')
           PY
 
       - name: 清除一次性傳輸檔與工作流程
         shell: bash
         run: |
+          set -euo pipefail
           rm -f artifacts/uploads/post-ingredient-principle.webp.b64.part-* \
                 artifacts/uploads/post-ingredient-principle.safe.part-* \
                 artifacts/uploads/post-ingredient-principle.complete \
@@ -73,6 +87,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
+          git diff --cached --quiet && { echo '沒有需要提交的變更'; exit 0; }
           git commit -m 'assets(site): add verified ingredient principle post image'
           git pull --rebase origin main
           git push origin HEAD:main
