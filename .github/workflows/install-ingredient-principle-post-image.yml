@@ -1,0 +1,79 @@
+name: 安裝用料原則正式貼文圖
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "artifacts/uploads/post-ingredient-principle.complete"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-ingredient-principle-post-image
+  cancel-in-progress: false
+
+jobs:
+  decode-verify-commit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取得 main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 確認 11 個分片完整
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected=11
+          actual=$(find artifacts/uploads -maxdepth 1 -type f -name 'post-ingredient-principle.webp.b64.part-*' | wc -l)
+          test "$actual" -eq "$expected" || { echo "分片數錯誤：預期 $expected，實際 $actual"; exit 1; }
+          for index in $(seq -w 0 10); do
+            test -s "artifacts/uploads/post-ingredient-principle.webp.b64.part-${index}" || { echo "缺少分片 ${index}"; exit 1; }
+          done
+
+      - name: 解碼正式 WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p images/posts/generated
+          cat artifacts/uploads/post-ingredient-principle.webp.b64.part-* \
+            | base64 --decode \
+            > images/posts/generated/post-ingredient-principle.webp
+
+      - name: 驗證檔案雜湊與格式
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo 'bee05bf544603d397b9731247ac8f107a343442dea7dd9edf5c9c60674188f5f  images/posts/generated/post-ingredient-principle.webp' | sha256sum --check
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('images/posts/generated/post-ingredient-principle.webp')
+          data = p.read_bytes()
+          if len(data) != 308919:
+              raise SystemExit(f'檔案大小錯誤：{len(data)}')
+          if not data.startswith(b'RIFF') or data[8:12] != b'WEBP':
+              raise SystemExit('不是有效的 WebP RIFF 檔案')
+          print('PASS 1254x1254 用料原則正式貼文圖二進位驗證')
+          PY
+
+      - name: 刪除傳輸分片
+        shell: bash
+        run: |
+          rm -f artifacts/uploads/post-ingredient-principle.webp.b64.part-* \
+                artifacts/uploads/post-ingredient-principle.complete
+
+      - name: 提交正式圖片到 main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A images/posts/generated/post-ingredient-principle.webp artifacts/uploads
+          git commit -m 'assets(site): add verified ingredient principle post image'
+          git pull --rebase origin main
+          git push origin HEAD:main
