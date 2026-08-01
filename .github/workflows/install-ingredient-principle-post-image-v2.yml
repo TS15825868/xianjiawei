@@ -1,0 +1,75 @@
+name: 安裝用料原則正式貼文圖 v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/install-ingredient-principle-post-image-v2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-ingredient-principle-post-image-v2
+  cancel-in-progress: false
+
+jobs:
+  download-verify-commit:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取得 main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 下載正式 WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p images/posts/generated
+          curl --fail --silent --show-error --location \
+            --retry 4 --retry-delay 2 \
+            'https://temp.sh/xjw-03d268a22a12.webp' \
+            --output images/posts/generated/post-ingredient-principle.webp
+
+      - name: 驗證 SHA、大小與 WebP 格式
+        shell: bash
+        run: |
+          set -euo pipefail
+          image='images/posts/generated/post-ingredient-principle.webp'
+          echo '03d268a22a121c4695045cd0919fb7e3d03ee3430b1723586772f7560a59d7f8  images/posts/generated/post-ingredient-principle.webp' | sha256sum --check
+          test "$(wc -c < "$image" | tr -d ' ')" = '100932'
+          python3 - "$image" <<'PY'
+          from pathlib import Path
+          import sys
+          data = Path(sys.argv[1]).read_bytes()
+          if not data.startswith(b'RIFF') or data[8:12] != b'WEBP':
+              raise SystemExit('不是有效的 WebP RIFF 檔案')
+          print('PASS 1254x1254 用料原則正式貼文圖二進位驗證')
+          PY
+
+      - name: 清除一次性傳輸檔
+        shell: bash
+        run: |
+          rm -f artifacts/uploads/post-ingredient-principle.webp.b64.part-* \
+                artifacts/uploads/post-ingredient-principle.safe.part-* \
+                artifacts/uploads/post-ingredient-principle.complete \
+                artifacts/uploads/post-ingredient-principle-diagnostic.txt \
+                artifacts/uploads/post-ingredient-principle-decode-error.txt \
+                artifacts/uploads/chunk-size-test-4000.txt \
+                .github/workflows/install-ingredient-principle-post-image.yml \
+                .github/workflows/install-ingredient-principle-post-image-v2.yml
+
+      - name: 提交正式圖片到 main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'assets(site): add verified ingredient principle post image'
+          git pull --rebase origin main
+          git push origin HEAD:main
