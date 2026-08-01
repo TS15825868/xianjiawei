@@ -17,6 +17,10 @@ text='\n'.join(p.read_text('utf-8',errors='ignore') for p in root_files if p.suf
 assets=set(re.findall(r'images/[A-Za-z0-9_./#\-\u4e00-\u9fff]+\.(?:png|jpe?g|webp|avif)',text))
 # Dynamic mascot filenames are combined at runtime; include all optimized WebP files.
 assets.update(str(p) for p in Path('images/brand/approved-v405').glob('*.webp'))
+# The ingredient-principle visual is an ERP/social approved candidate that must be
+# shipped even before a public HTML page starts referencing it. Its bytes and SHA
+# are verified by tools/materialize_ingredient_principle.py and verify_public_site.py.
+assets.add('images/posts/generated/post-ingredient-principle.webp')
 for rel in sorted(assets):
     src=Path(rel)
     if not src.is_file(): raise SystemExit(f'Missing referenced asset: {rel}')
