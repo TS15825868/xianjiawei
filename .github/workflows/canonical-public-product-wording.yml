@@ -1,0 +1,53 @@
+name: 官網公開產品名稱與規格守門員
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*.html"
+      - "data.json"
+      - "catalog-public.json"
+      - "geo-data.json"
+      - "llms.txt"
+      - "tools/enforce_canonical_public_product_wording.py"
+      - ".github/workflows/canonical-public-product-wording.yml"
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: canonical-public-product-wording-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-and-normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
+
+      - name: Normalize canonical public wording
+        run: python3 tools/enforce_canonical_public_product_wording.py --write
+
+      - name: Verify canonical public wording and official specifications
+        run: python3 tools/enforce_canonical_public_product_wording.py
+
+      - name: Commit normalized public wording
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "No normalization changes required"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.html' data.json catalog-public.json geo-data.json llms.txt
+          git commit -m "fix(site): normalize public 30cc glass jar wording"
+          git push
