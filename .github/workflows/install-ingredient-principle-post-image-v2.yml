@@ -6,6 +6,8 @@ on:
     paths:
       - ".github/workflows/install-ingredient-principle-post-image-v2.yml"
       - "artifacts/uploads/**"
+  schedule:
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -17,7 +19,6 @@ concurrency:
 
 jobs:
   decode-verify-commit:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: 取得 main
@@ -51,7 +52,9 @@ jobs:
               raise SystemExit('找不到用料原則圖片安全傳輸檔')
 
           numbers = [part_number(part) for part in parts]
-          expected_numbers = list(range(numbers[0], numbers[-1] + 1))
+          if numbers[0] != 0:
+              raise SystemExit(f'傳輸分片必須由 000 開始：{numbers}')
+          expected_numbers = list(range(0, numbers[-1] + 1))
           if numbers != expected_numbers:
               raise SystemExit(f'傳輸分片不連續：{numbers}')
 
