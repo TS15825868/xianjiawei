@@ -1,0 +1,9 @@
+expected_parts=8
+actual_parts=8
+missing_parts=0,1,2,3,4,5,6,7,
+decode_ok=false
+expected_sha256=03d268a22a121c4695045cd0919fb7e3d03ee3430b1723586772f7560a59d7f8
+actual_sha256=missing
+expected_bytes=100932
+actual_bytes=0
+riff_webp=false
