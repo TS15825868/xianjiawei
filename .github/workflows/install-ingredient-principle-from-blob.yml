@@ -1,5 +1,6 @@
 name: 安裝用料原則正式貼文圖（Git Blob）
 
+# trigger-revision: 2026-08-01-01
 on:
   push:
     branches: [main]
