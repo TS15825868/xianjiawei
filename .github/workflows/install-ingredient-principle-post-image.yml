@@ -25,14 +25,14 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: 確認 23 個分片完整
+      - name: 確認 14 個分片完整
         shell: bash
         run: |
           set -euo pipefail
-          expected=23
+          expected=14
           actual=$(find artifacts/uploads -maxdepth 1 -type f -name 'post-ingredient-principle.webp.b64.part-*' | wc -l)
           test "$actual" -eq "$expected" || { echo "分片數錯誤：預期 $expected，實際 $actual"; exit 1; }
-          for index in $(seq -w 0 22); do
+          for index in $(seq -w 0 13); do
             test -s "artifacts/uploads/post-ingredient-principle.webp.b64.part-${index}" || { echo "缺少分片 ${index}"; exit 1; }
           done
 
@@ -49,12 +49,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          echo 'bee05bf544603d397b9731247ac8f107a343442dea7dd9edf5c9c60674188f5f  images/posts/generated/post-ingredient-principle.webp' | sha256sum --check
+          echo '579c25e3456bdc4749df008ded6120a8dfde534a82860fe0089bda75fa5ebe2f  images/posts/generated/post-ingredient-principle.webp' | sha256sum --check
           python3 - <<'PY'
           from pathlib import Path
           p = Path('images/posts/generated/post-ingredient-principle.webp')
           data = p.read_bytes()
-          if len(data) != 308918:
+          if len(data) != 185302:
               raise SystemExit(f'檔案大小錯誤：{len(data)}')
           if not data.startswith(b'RIFF') or data[8:12] != b'WEBP':
               raise SystemExit('不是有效的 WebP RIFF 檔案')
