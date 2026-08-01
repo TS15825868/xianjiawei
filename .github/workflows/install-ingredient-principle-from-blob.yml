@@ -1,0 +1,82 @@
+name: 安裝用料原則正式貼文圖（Git Blob）
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/install-ingredient-principle-from-blob.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: install-ingredient-principle-from-blob
+  cancel-in-progress: true
+
+jobs:
+  install-verify-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: 取得最新 main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 從 Git Blob 還原並驗證正式 WebP
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BLOB_SHA: 2b05a4285229c3252341e17c66cf4ef11d291256
+          EXPECTED_SIZE: '94822'
+          EXPECTED_SHA256: 25ab42a8b028608743b3c6dda3934aa27071e30f920b3c671353d7eb9570f0b4
+        shell: bash
+        run: |
+          set -euo pipefail
+          output='images/posts/generated/post-ingredient-principle.webp'
+          mkdir -p "$(dirname "$output")"
+
+          gh api "repos/${GITHUB_REPOSITORY}/git/blobs/${BLOB_SHA}" --jq '.content' \
+            | tr -d '\n\r' \
+            | base64 --decode > "$output"
+
+          actual_size=$(stat -c '%s' "$output")
+          test "$actual_size" = "$EXPECTED_SIZE" || {
+            echo "圖片大小不符：${actual_size}，預期 ${EXPECTED_SIZE}" >&2
+            exit 1
+          }
+
+          echo "${EXPECTED_SHA256}  ${output}" | sha256sum --check --strict
+
+          python3 -c "from pathlib import Path; p=Path('$output'); b=p.read_bytes(); assert b[:4]==b'RIFF' and b[8:12]==b'WEBP', '不是有效 WebP'; print(f'PASS {p}: {len(b)} bytes')"
+
+      - name: 清除一次性安裝器與傳輸測試檔
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/install-ingredient-principle-from-blob.yml
+          rm -f artifacts/uploads/chunk-transport-test.txt
+
+      - name: 提交正式圖片至 main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git diff --cached --quiet && { echo '沒有需要提交的變更'; exit 0; }
+          git commit -m 'assets(site): install verified ingredient principle post image'
+
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "PASS 已提交正式圖片（第 ${attempt} 次）"
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main
+            sleep $((attempt * 3))
+          done
+
+          echo '三次重試後仍無法提交正式圖片' >&2
+          exit 1
