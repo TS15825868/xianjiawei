@@ -6,8 +6,6 @@ on:
     paths:
       - ".github/workflows/install-ingredient-principle-post-image-v2.yml"
       - "artifacts/uploads/**"
-  schedule:
-    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -38,6 +36,17 @@ jobs:
           import hashlib
           import re
 
+          output = Path('images/posts/generated/post-ingredient-principle.webp')
+          expected_size = 100932
+          expected_sha = '03d268a22a121c4695045cd0919fb7e3d03ee3430b1723586772f7560a59d7f8'
+
+          if output.exists():
+              existing = output.read_bytes()
+              existing_sha = hashlib.sha256(existing).hexdigest()
+              if len(existing) == expected_size and existing_sha == expected_sha and existing.startswith(b'RIFF') and existing[8:12] == b'WEBP':
+                  print(f'PASS 已存在正式圖片：{output}')
+                  raise SystemExit(0)
+
           def part_number(path: Path) -> int:
               match = re.search(r'part-(\d+)$', path.name)
               if not match:
@@ -49,7 +58,7 @@ jobs:
               key=part_number,
           )
           if not parts:
-              raise SystemExit('找不到用料原則圖片安全傳輸檔')
+              raise SystemExit('找不到用料原則圖片安全傳輸檔，且正式圖片尚未存在')
 
           numbers = [part_number(part) for part in parts]
           if numbers[0] != 0:
@@ -68,8 +77,6 @@ jobs:
           except Exception as exc:
               raise SystemExit(f'Base64 解碼失敗：{exc}') from exc
 
-          expected_size = 100932
-          expected_sha = '03d268a22a121c4695045cd0919fb7e3d03ee3430b1723586772f7560a59d7f8'
           actual_sha = hashlib.sha256(data).hexdigest()
           if len(data) != expected_size:
               raise SystemExit(f'圖片大小不符：{len(data)}，預期 {expected_size}')
@@ -78,12 +85,11 @@ jobs:
           if not data.startswith(b'RIFF') or data[8:12] != b'WEBP':
               raise SystemExit('不是有效的 WebP RIFF 檔案')
 
-          output = Path('images/posts/generated/post-ingredient-principle.webp')
           output.write_bytes(data)
           print(f'PASS {output}：{len(data)} bytes，SHA-256 {actual_sha}')
           PY
 
-      - name: 清除一次性傳輸檔與工作流程
+      - name: 清除一次性傳輸檔
         shell: bash
         run: |
           set -euo pipefail
@@ -93,8 +99,7 @@ jobs:
                 artifacts/uploads/post-ingredient-principle-diagnostic.txt \
                 artifacts/uploads/post-ingredient-principle-decode-error.txt \
                 artifacts/uploads/chunk-size-test-4000.txt \
-                .github/workflows/install-ingredient-principle-post-image.yml \
-                .github/workflows/install-ingredient-principle-post-image-v2.yml
+                .github/workflows/install-ingredient-principle-post-image.yml
 
       - name: 提交正式圖片到 main
         shell: bash
