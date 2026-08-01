@@ -7,7 +7,11 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: verify-site-and-catalog-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   verify:
@@ -15,11 +19,39 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      - name: Materialize and verify ingredient principle image
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BLOB_SHA: 2b05a4285229c3252341e17c66cf4ef11d291256
+          EXPECTED_SIZE: '94822'
+          EXPECTED_SHA256: 25ab42a8b028608743b3c6dda3934aa27071e30f920b3c671353d7eb9570f0b4
+        shell: bash
+        run: |
+          set -euo pipefail
+          output='images/posts/generated/post-ingredient-principle.webp'
+          mkdir -p "$(dirname "$output")"
+
+          if [ ! -f "$output" ]; then
+            gh api "repos/${GITHUB_REPOSITORY}/git/blobs/${BLOB_SHA}" --jq '.content' \
+              | tr -d '\n\r' \
+              | base64 --decode > "$output"
+          fi
+
+          actual_size=$(stat -c '%s' "$output")
+          test "$actual_size" = "$EXPECTED_SIZE" || {
+            echo "圖片大小不符：${actual_size}，預期 ${EXPECTED_SIZE}" >&2
+            exit 1
+          }
+          echo "${EXPECTED_SHA256}  ${output}" | sha256sum --check --strict
+          python3 -c "from pathlib import Path; p=Path('$output'); b=p.read_bytes(); assert b[:4]==b'RIFF' and b[8:12]==b'WEBP', '不是有效 WebP'; print(f'PASS {p}: {len(b)} bytes')"
 
       - name: Verify public website
         run: |
@@ -31,6 +63,7 @@ jobs:
           python3 -m json.tool brand-character-spec.json >/dev/null
           python3 - <<'PY'
           from pathlib import Path
+          import hashlib
           import json
           import re
 
@@ -39,10 +72,16 @@ jobs:
               'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
               'data.json', 'catalog-public.json', 'deploy-version.json',
               'brand-character-spec.json', 'MASCOT_CHARACTER_SPEC.md',
-              'sitemap.xml', 'robots.txt', 'llms.txt'
+              'sitemap.xml', 'robots.txt', 'llms.txt',
+              'images/posts/generated/post-ingredient-principle.webp'
           ]
           missing = [name for name in required if not Path(name).is_file()]
           assert not missing, f'缺少必要檔案: {missing}'
+
+          ingredient = Path('images/posts/generated/post-ingredient-principle.webp').read_bytes()
+          assert len(ingredient) == 94822, f'用料原則圖片大小錯誤: {len(ingredient)}'
+          assert hashlib.sha256(ingredient).hexdigest() == '25ab42a8b028608743b3c6dda3934aa27071e30f920b3c671353d7eb9570f0b4', '用料原則圖片 SHA256 錯誤'
+          assert ingredient[:4] == b'RIFF' and ingredient[8:12] == b'WEBP', '用料原則圖片不是有效 WebP'
 
           version = json.loads(Path('deploy-version.json').read_text(encoding='utf-8')).get('version')
           assert version, 'deploy-version.json 缺少 version'
@@ -111,6 +150,33 @@ jobs:
           PID=$!
           trap 'kill $PID' EXIT
           sleep 2
-          for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json brand-character-spec.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html; do
+          for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json brand-character-spec.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html images/posts/generated/post-ingredient-principle.webp; do
             curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
           done
+
+      - name: Persist verified ingredient image and remove temporary installers
+        if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/install-ingredient-principle-from-blob.yml
+          rm -f artifacts/uploads/chunk-transport-test.txt
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/posts/generated/post-ingredient-principle.webp
+          git add -u .github/workflows artifacts/uploads || true
+          git diff --cached --quiet && { echo '正式圖片與清理狀態已一致'; exit 0; }
+          git commit -m 'assets(site): install verified ingredient principle post image'
+
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              echo "PASS 已提交正式圖片（第 ${attempt} 次）"
+              exit 0
+            fi
+            git fetch origin main
+            git rebase origin/main
+            sleep $((attempt * 3))
+          done
+          echo '三次重試後仍無法提交正式圖片' >&2
+          exit 1
