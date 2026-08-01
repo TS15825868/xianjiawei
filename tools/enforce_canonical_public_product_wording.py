@@ -24,6 +24,9 @@ REPLACEMENTS = {
     "30cc小玻璃瓶": "30cc小玻璃罐",
     "小玻璃瓶裝": "小玻璃罐裝",
     "矮胖的小玻璃瓶裝": "小玻璃罐裝",
+    "180cc／鋁袋": "180cc／包（鋁袋）",
+    "75g／8塊": "75g／盒｜8塊裝｜每塊約9.375g",
+    "600g／32塊": "600g／盒（1斤）｜32塊裝｜每塊約18.75g",
 }
 
 EXPECTED = {
@@ -91,7 +94,7 @@ def validate_public_text() -> list[str]:
         relative = path.relative_to(ROOT).as_posix()
         for phrase in forbidden:
             if phrase in text:
-                errors.append(f"{relative} 仍含公開舊稱：{phrase}")
+                errors.append(f"{relative} 仍含公開舊稱或縮寫規格：{phrase}")
         for pattern in old_soup_patterns:
             match = pattern.search(text)
             if match:
