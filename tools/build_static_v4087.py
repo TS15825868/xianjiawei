@@ -17,6 +17,11 @@ text='\n'.join(p.read_text('utf-8',errors='ignore') for p in root_files if p.suf
 assets=set(re.findall(r'images/[A-Za-z0-9_./#\-\u4e00-\u9fff]+\.(?:png|jpe?g|webp|avif)',text))
 # Dynamic mascot filenames are combined at runtime; include all optimized WebP files.
 assets.update(str(p) for p in Path('images/brand/approved-v405').glob('*.webp'))
+# LINE Messaging API only accepts JPEG/PNG. Publish deterministic JPEG copies
+# derived from the same approved website scenes; no crop or redraw is permitted.
+assets.update(str(p) for p in Path('images/brand/line-oa').glob('*.jpg'))
+line_manifest=Path('images/brand/line-oa/manifest.json')
+if line_manifest.is_file(): assets.add(str(line_manifest))
 # The ingredient-principle visual is an ERP/social approved candidate that must be
 # shipped even before a public HTML page starts referencing it. Its bytes and SHA
 # are verified by tools/materialize_ingredient_principle.py and verify_public_site.py.
