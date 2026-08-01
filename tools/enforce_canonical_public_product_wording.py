@@ -79,9 +79,11 @@ def validate_catalog() -> list[str]:
 
 def validate_public_text() -> list[str]:
     errors: list[str] = []
+    # Only reject obsolete specifications directly attached to 龜鹿湯塊.
+    # Do not treat valid comparison prose such as「龜鹿湯塊與龜鹿膠600g」as a soup-block error.
     old_soup_patterns = [
-        re.compile(r"龜鹿湯塊[^\n<]{0,30}(?:150\s*g|300\s*g|600\s*g)", re.I),
-        re.compile(r"龜鹿湯塊[^\n<]{0,30}(?:16\s*塊|32\s*塊)"),
+        re.compile(r"龜鹿湯塊\s*(?:規格\s*[：:]?\s*|[：:]\s*|為\s*|有\s*)?(?:150\s*g|300\s*g|600\s*g)", re.I),
+        re.compile(r"龜鹿湯塊\s*(?:規格\s*[：:]?\s*|[：:]\s*|為\s*|有\s*)?(?:16\s*塊|32\s*塊)"),
     ]
     forbidden = tuple(REPLACEMENTS)
     for path in existing_public_files():
