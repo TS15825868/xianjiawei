@@ -26,10 +26,8 @@ jobs:
   verify-and-normalize:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
+      - name: Checkout current revision
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref_name }}
 
       - name: Normalize canonical public wording
         run: python3 tools/enforce_canonical_public_product_wording.py --write
