@@ -1,0 +1,87 @@
+{
+  "version": "2026-08-01-v1",
+  "format": "JPEG",
+  "purpose": "LINE Messaging API Flex Message hero images",
+  "source": "images/brand/approved-v405",
+  "rules": {
+    "complete_scene": true,
+    "aspect_ratio_preserved": true,
+    "cropping": false,
+    "product_redraw": false,
+    "manual_source_approval_required": true
+  },
+  "files": [
+    {
+      "file": "welcome.jpg",
+      "source": "home-brand.webp",
+      "width": 1024,
+      "height": 768,
+      "bytes": 149440,
+      "sha256": "ebedc44fe358457d6f59b2956d2a378f9d466a0efce54f5d8768861c7893ed66",
+      "policy": "approved_complete_scene_no_crop_no_redraw"
+    },
+    {
+      "file": "products.jpg",
+      "source": "products-all.webp",
+      "width": 1024,
+      "height": 768,
+      "bytes": 146768,
+      "sha256": "6335b725329ddaca3b1becbc7d3e376c0efc082efd6fc9deb92bb84cbae4754b",
+      "policy": "approved_complete_scene_no_crop_no_redraw"
+    },
+    {
+      "file": "recommend.jpg",
+      "source": "choose.webp",
+      "width": 1024,
+      "height": 768,
+      "bytes": 151633,
+      "sha256": "8d8b9e9505684fc6f40f2ebc199bf821213823ff30e3fb3ea1df71a7d430d158",
+      "policy": "approved_complete_scene_no_crop_no_redraw"
+    },
+    {
+      "file": "combo.jpg",
+      "source": "combo.webp",
+      "width": 1024,
+      "height": 768,
+      "bytes": 186297,
+      "sha256": "2bb420ba807027e7cb478687b1fd89dead40897f520716106402f6e64c09f4e6",
+      "policy": "approved_complete_scene_no_crop_no_redraw"
+    },
+    {
+      "file": "usage.jpg",
+      "source": "guide-how-to-use.webp",
+      "width": 1024,
+      "height": 768,
+      "bytes": 162440,
+      "sha256": "61be4fb1def349db0b1871ade849691e45819b91ccc1f551fad59a57c327921e",
+      "policy": "approved_complete_scene_no_crop_no_redraw"
+    },
+    {
+      "file": "faq.jpg",
+      "source": "faq.webp",
+      "width": 1024,
+      "height": 768,
+      "bytes": 178794,
+      "sha256": "a51657ee098514ea5d7ef0b2ca0423bcc7d3d1b4e365b4d7adf520b7d782279c",
+      "policy": "approved_complete_scene_no_crop_no_redraw"
+    },
+    {
+      "file": "service.jpg",
+      "source": "contact-line.webp",
+      "width": 1024,
+      "height": 768,
+      "bytes": 158887,
+      "sha256": "b0febab40c91236945dc65a2a103f62f03a00b466bd2dd0c6dea1ea0ec1de9e5",
+      "policy": "approved_complete_scene_no_crop_no_redraw"
+    },
+    {
+      "file": "brand.jpg",
+      "source": "brand-story.webp",
+      "width": 1024,
+      "height": 768,
+      "bytes": 158851,
+      "sha256": "40c83699dd6bf0824f902ff936a4eacb0030b14b0f3eee040aa55b18292a5896",
+      "policy": "approved_complete_scene_no_crop_no_redraw"
+    }
+  ]
+}
