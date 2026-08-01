@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/install-ingredient-principle-post-image-v2.yml"
-      - "artifacts/uploads/post-ingredient-principle.safe.part-*"
+      - "artifacts/uploads/**"
   workflow_dispatch:
 
 permissions:
@@ -35,13 +35,25 @@ jobs:
           from pathlib import Path
           import base64
           import hashlib
+          import re
+
+          def part_number(path: Path) -> int:
+              match = re.search(r'part-(\d+)$', path.name)
+              if not match:
+                  raise SystemExit(f'傳輸檔名稱不正確：{path}')
+              return int(match.group(1))
 
           parts = sorted(
               Path('artifacts/uploads').glob('post-ingredient-principle.safe.part-*'),
-              key=lambda p: tuple(int(x) if x.isdigit() else x for x in p.name.replace('-', ' ').replace('.', ' ').split()),
+              key=part_number,
           )
           if not parts:
               raise SystemExit('找不到用料原則圖片安全傳輸檔')
+
+          numbers = [part_number(part) for part in parts]
+          expected_numbers = list(range(numbers[0], numbers[-1] + 1))
+          if numbers != expected_numbers:
+              raise SystemExit(f'傳輸分片不連續：{numbers}')
 
           encoded = ''.join(part.read_text(encoding='utf-8') for part in parts)
           encoded = ''.join(encoded.split())
@@ -63,8 +75,9 @@ jobs:
           if not data.startswith(b'RIFF') or data[8:12] != b'WEBP':
               raise SystemExit('不是有效的 WebP RIFF 檔案')
 
-          Path('images/posts/generated/post-ingredient-principle.webp').write_bytes(data)
-          print('PASS 1254x1254 用料原則正式貼文圖二進位驗證')
+          output = Path('images/posts/generated/post-ingredient-principle.webp')
+          output.write_bytes(data)
+          print(f'PASS {output}：{len(data)} bytes，SHA-256 {actual_sha}')
           PY
 
       - name: 清除一次性傳輸檔與工作流程
