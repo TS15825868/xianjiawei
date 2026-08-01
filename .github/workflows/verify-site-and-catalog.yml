@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: verify-site-and-catalog-${{ github.ref }}
@@ -16,6 +17,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,183 +29,166 @@ jobs:
         with:
           node-version: 22
 
-      - name: Materialize and verify ingredient principle image
+      - name: Run complete website validation and capture diagnostics
+        id: validation
+        shell: bash
+        run: |
+          set +e
+          mkdir -p artifacts
+          (
+            set -euo pipefail
+            echo '=== 用料原則正式圖片 ==='
+            python3 tools/materialize_ingredient_principle.py
+
+            echo '=== JavaScript 與 JSON ==='
+            node --check site.js
+            python3 -m json.tool data.json >/dev/null
+            python3 -m json.tool catalog-public.json >/dev/null
+            python3 -m json.tool deploy-version.json >/dev/null
+            python3 -m json.tool brand-character-spec.json >/dev/null
+
+            echo '=== 官網內容與連結 ==='
+            python3 tools/verify_public_site.py
+
+            echo '=== 靜態網站建置 ==='
+            python3 tools/build_static_v4087.py
+            test -d _site
+            test -f _site/index.html
+            test -f _site/images/posts/generated/post-ingredient-principle.webp
+
+            echo '=== HTTP smoke tests ==='
+            cd _site
+            python3 -m http.server 8080 >/tmp/site-http.log 2>&1 &
+            server_pid=$!
+            trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+            sleep 2
+            for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json brand-character-spec.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html images/posts/generated/post-ingredient-principle.webp; do
+              curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
+            done
+            echo 'PASS 官網完整驗證、建置與 HTTP smoke tests'
+          ) > artifacts/site-validation.log 2>&1
+          status=$?
+          tail -n 260 artifacts/site-validation.log
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Persist verified ingredient image and remove temporary files
+        id: persist
+        if: steps.validation.outputs.exit_code == '0'
         env:
-          EXPECTED_SIZE: '35886'
-          EXPECTED_SHA256: b44b5b1d62f0efc770fd077b6dac541abc192046cc1b52743d0e797e4405b1c3
+          EVENT_NAME: ${{ github.event_name }}
+          ACTOR: ${{ github.actor }}
         shell: bash
         run: |
-          set -euo pipefail
-          output='images/posts/generated/post-ingredient-principle.webp'
-          mkdir -p "$(dirname "$output")"
-
-          if [ ! -f "$output" ]; then
-            python3 - <<'PY'
-          from pathlib import Path
-          import base64
-          import re
-
-          root = Path('artifacts/uploads')
-          parts = sorted(root.glob('ingredient-q3.part-*.b64'))
-          expected_names = [f'ingredient-q3.part-{index:02d}.b64' for index in range(8)]
-          actual_names = [part.name for part in parts]
-          if actual_names != expected_names:
-              raise SystemExit(f'安全分片不完整：{actual_names}')
-
-          expected_lengths = [6000, 6000, 6000, 6000, 6000, 6000, 6000, 5848]
-          encoded_parts = []
-          for part, expected_length in zip(parts, expected_lengths):
-              text = ''.join(part.read_text(encoding='utf-8').split())
-              if len(text) != expected_length:
-                  raise SystemExit(f'{part.name} 長度錯誤：{len(text)}，預期 {expected_length}')
-              if not re.fullmatch(r'[A-Za-z0-9+/=]+', text):
-                  raise SystemExit(f'{part.name} 含非 Base64 字元')
-              encoded_parts.append(text)
-
-          encoded = ''.join(encoded_parts)
-          if len(encoded) != 47848:
-              raise SystemExit(f'合併後 Base64 長度錯誤：{len(encoded)}')
-
-          data = base64.b64decode(encoded, validate=True)
-          Path('images/posts/generated/post-ingredient-principle.webp').write_bytes(data)
-          print(f'PASS 合併 8 個安全分片：{len(data)} bytes')
-          PY
-          fi
-
-          actual_size=$(stat -c '%s' "$output")
-          test "$actual_size" = "$EXPECTED_SIZE" || {
-            echo "圖片大小不符：${actual_size}，預期 ${EXPECTED_SIZE}" >&2
-            exit 1
-          }
-          echo "${EXPECTED_SHA256}  ${output}" | sha256sum --check --strict
-          python3 -c "from pathlib import Path; p=Path('$output'); b=p.read_bytes(); assert b[:4]==b'RIFF' and b[8:12]==b'WEBP', '不是有效 WebP'; print(f'PASS {p}: {len(b)} bytes')"
-
-      - name: Verify public website
-        run: |
-          set -euo pipefail
-          node --check site.js
-          python3 -m json.tool data.json >/dev/null
-          python3 -m json.tool catalog-public.json >/dev/null
-          python3 -m json.tool deploy-version.json >/dev/null
-          python3 -m json.tool brand-character-spec.json >/dev/null
-          python3 - <<'PY'
-          from pathlib import Path
-          import hashlib
-          import json
-          import re
-
-          required = [
-              'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
-              'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
-              'data.json', 'catalog-public.json', 'deploy-version.json',
-              'brand-character-spec.json', 'MASCOT_CHARACTER_SPEC.md',
-              'sitemap.xml', 'robots.txt', 'llms.txt',
-              'images/posts/generated/post-ingredient-principle.webp'
-          ]
-          missing = [name for name in required if not Path(name).is_file()]
-          assert not missing, f'缺少必要檔案: {missing}'
-
-          ingredient = Path('images/posts/generated/post-ingredient-principle.webp').read_bytes()
-          assert len(ingredient) == 35886, f'用料原則圖片大小錯誤: {len(ingredient)}'
-          assert hashlib.sha256(ingredient).hexdigest() == 'b44b5b1d62f0efc770fd077b6dac541abc192046cc1b52743d0e797e4405b1c3', '用料原則圖片 SHA256 錯誤'
-          assert ingredient[:4] == b'RIFF' and ingredient[8:12] == b'WEBP', '用料原則圖片不是有效 WebP'
-
-          version = json.loads(Path('deploy-version.json').read_text(encoding='utf-8')).get('version')
-          assert version, 'deploy-version.json 缺少 version'
-
-          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
-          products = data.get('products', [])
-          assert len(products) == 6, f'產品數量應為 6，目前為 {len(products)}'
-          ids = {p.get('id') for p in products}
-          assert {'guilu-drink-30', 'guilu-drink-180'} <= ids, '龜鹿飲 30cc／180cc 資料缺漏'
-
-          character = json.loads(Path('brand-character-spec.json').read_text(encoding='utf-8'))
-          assert character.get('status') == 'locked', '角色母版尚未鎖定'
-          assert character.get('mascot', {}).get('name') == '仙加味小老闆', '小老闆名稱不正確'
-          partners = set(character.get('partners', []))
-          assert {'小鹿娃娃', '小烏龜娃娃'} <= partners, '小老闆固定夥伴缺漏'
-          rules = character.get('rules', {})
-          assert rules.get('realProductImagesOnly') is True, '產品未固定為真實原圖'
-          assert rules.get('noProductRedraw') is True, '產品重畫禁止規則缺漏'
-          assert rules.get('newImagesRequireReview') is True, '新圖待審規則缺漏'
-          approved_assets = list(Path('images/brand/approved-v405').glob('*.webp'))
-          assert len(approved_assets) == 15, f'官網核准小老闆素材應為 15 張，目前 {len(approved_assets)}'
-
-          product_pages = [
-              'product-guilu-gao.html', 'product-guilu-drink-30cc.html',
-              'product-guilu-drink-180cc.html', 'product-guilu-tangkuai.html',
-              'product-guilu-jiao.html', 'product-luerong-fen.html'
-          ]
-          for name in product_pages:
-              text = Path(name).read_text(encoding='utf-8')
-              assert text.count('<h1') == 1, f'{name} 的 H1 數量不正確'
-
-          brand = Path('brand.html').read_text(encoding='utf-8')
-          brand_compact = re.sub(r'\s+', '', brand)
-          assert '四代' in brand and ('傳承' in brand or '累積' in brand), '品牌頁缺少四代傳承敘事'
-          assert '品牌故事時間軸' in brand, '品牌頁缺少品牌故事時間軸'
-          assert '2008年' in brand_compact, '品牌頁缺少 2008 年品牌註冊節點'
-          assert brand.count('brand-generation__year') >= 9, '品牌頁年份時間軸節點不足'
-
-          attr_pattern = re.compile(r'(?:href|src)=["\']([^"\']+)["\']')
-          for page in Path('.').glob('*.html'):
-              text = page.read_text(encoding='utf-8', errors='ignore')
-              if page.name != 'googlec5c2af289948c263.html':
-                  assert 'name="robots"' in text or "name='robots'" in text, f'{page} 缺少 robots meta'
-              for value in attr_pattern.findall(text):
-                  if value.startswith(('http://', 'https://', 'mailto:', 'tel:', 'data:', '#', 'javascript:')):
-                      continue
-                  target = value.split('#')[0].split('?')[0]
-                  if target:
-                      assert (page.parent / target).exists(), f'{page} 連結到不存在的檔案: {target}'
-
-          sitemap = Path('sitemap.xml').read_text(encoding='utf-8')
-          assert sitemap.count('<url>') >= 20, 'sitemap 頁數不足'
-          assert 'Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml' in Path('robots.txt').read_text(encoding='utf-8')
-          assert 'catalog-public.json' in Path('llms.txt').read_text(encoding='utf-8')
-          print(f'website validation passed: v{version}, mascot assets={len(approved_assets)}')
-          PY
-
-      - name: Build static website
-        run: python3 tools/build_static_v4087.py
-
-      - name: HTTP smoke tests
-        run: |
-          set -euo pipefail
-          cd _site
-          python3 -m http.server 8080 >/tmp/site-http.log 2>&1 &
-          PID=$!
-          trap 'kill $PID' EXIT
-          sleep 2
-          for path in index.html products.html choose.html dm.html guide.html brand.html faq.html contact.html sitemap.xml robots.txt llms.txt data.json catalog-public.json brand-character-spec.json site.js site.css product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html images/posts/generated/post-ingredient-principle.webp; do
-            curl --fail --silent --show-error "http://127.0.0.1:8080/$path" >/dev/null
-          done
-
-      - name: Persist verified ingredient image and remove temporary transfer files
-        if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -f .github/workflows/install-ingredient-principle-from-blob.yml
-          rm -f artifacts/uploads/chunk-transport-test.txt
-          rm -f artifacts/uploads/ingredient-q3.part-*.b64
-          rm -f .trigger-verified-ingredient-image-20260801
-
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add images/posts/generated/post-ingredient-principle.webp
-          git add -u -- .github/workflows artifacts/uploads .trigger-verified-ingredient-image-20260801 || true
-          git diff --cached --quiet && { echo '正式圖片與清理狀態已一致'; exit 0; }
-          git commit -m 'assets(site): install verified ingredient principle post image'
-
-          for attempt in 1 2 3; do
-            if git push origin HEAD:main; then
-              echo "PASS 已提交正式圖片（第 ${attempt} 次）"
+          set +e
+          mkdir -p artifacts
+          (
+            set -euo pipefail
+            if [ "$EVENT_NAME" != 'push' ] || [ "$ACTOR" = 'github-actions[bot]' ]; then
+              echo '非人工 main push，不執行資料寫回'
               exit 0
             fi
-            git fetch origin main
-            git rebase origin/main
-            sleep $((attempt * 3))
-          done
-          echo '三次重試後仍無法提交正式圖片' >&2
-          exit 1
+
+            rm -f .github/workflows/install-ingredient-principle-from-blob.yml
+            rm -f artifacts/uploads/chunk-transport-test.txt
+            rm -f artifacts/uploads/ingredient-q3.part-*.b64
+            rm -f .trigger-verified-ingredient-image-20260801
+
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add images/posts/generated/post-ingredient-principle.webp
+            git add -u -- .github/workflows artifacts/uploads .trigger-verified-ingredient-image-20260801 || true
+            if git diff --cached --quiet; then
+              echo '正式圖片與清理狀態已一致'
+              exit 0
+            fi
+            git commit -m 'assets(site): install verified ingredient principle post image'
+
+            for attempt in 1 2 3; do
+              if git push origin HEAD:main; then
+                echo "PASS 已提交正式圖片（第 ${attempt} 次）"
+                exit 0
+              fi
+              git fetch origin main
+              git rebase origin/main
+              sleep $((attempt * 3))
+            done
+            echo '三次重試後仍無法提交正式圖片' >&2
+            exit 1
+          ) > artifacts/site-persist.log 2>&1
+          status=$?
+          cat artifacts/site-persist.log
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Publish exact failure diagnostics
+        if: steps.validation.outputs.exit_code != '0' || steps.persist.outputs.exit_code != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.sha }}
+          VALIDATION_EXIT: ${{ steps.validation.outputs.exit_code }}
+          PERSIST_EXIT: ${{ steps.persist.outputs.exit_code }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='[CI 診斷] 仙加味官網完整驗證失敗'
+          {
+            echo '## 仙加味官網完整驗證失敗'
+            echo
+            echo "- 提交：\`${SOURCE_SHA}\`"
+            echo "- 驗證 Exit code：\`${VALIDATION_EXIT:-未執行}\`"
+            echo "- 寫回 Exit code：\`${PERSIST_EXIT:-未執行}\`"
+            echo "- 時間：$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            echo
+            echo '### 驗證日誌'
+            echo '```text'
+            test -f artifacts/site-validation.log && tail -c 18000 artifacts/site-validation.log || true
+            echo
+            echo '```'
+            echo
+            echo '### 寫回日誌'
+            echo '```text'
+            test -f artifacts/site-persist.log && tail -c 8000 artifacts/site-persist.log || true
+            echo
+            echo '```'
+          } > artifacts/site-ci-diagnostic.md
+
+          number=$(gh issue list --repo "$GITHUB_REPOSITORY" --state all --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            gh issue reopen "$number" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1 || true
+            gh issue edit "$number" --repo "$GITHUB_REPOSITORY" --body-file artifacts/site-ci-diagnostic.md
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file artifacts/site-ci-diagnostic.md
+          fi
+
+      - name: Close resolved diagnostic issue
+        if: steps.validation.outputs.exit_code == '0' && steps.persist.outputs.exit_code == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          title='[CI 診斷] 仙加味官網完整驗證失敗'
+          number=$(gh issue list --repo "$GITHUB_REPOSITORY" --state all --search "$title in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            {
+              echo '## 仙加味官網完整驗證已通過'
+              echo
+              echo "- 提交：\`${SOURCE_SHA}\`"
+              echo '- 用料原則正式 WebP：位元驗證通過'
+              echo '- 官網資料與連結：通過'
+              echo '- 靜態建置：通過'
+              echo '- HTTP smoke tests：通過'
+              echo '- 正式圖片主分支寫回：通過或已一致'
+              echo "- 時間：$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            } > artifacts/site-ci-success.md
+            gh issue edit "$number" --repo "$GITHUB_REPOSITORY" --body-file artifacts/site-ci-success.md
+            gh issue close "$number" --repo "$GITHUB_REPOSITORY" --comment '最新官網完整驗證已通過。' >/dev/null 2>&1 || true
+          fi
+
+      - name: Enforce result
+        shell: bash
+        run: |
+          test "${{ steps.validation.outputs.exit_code }}" = '0'
+          test "${{ steps.persist.outputs.exit_code }}" = '0'
