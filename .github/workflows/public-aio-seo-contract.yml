@@ -1,0 +1,49 @@
+name: 官網 AIO SEO GEO 正式合約
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'sitemap.xml'
+      - 'robots.txt'
+      - 'llms.txt'
+      - 'llms-full.txt'
+      - 'catalog-public.json'
+      - 'geo-data.json'
+      - 'tools/validate_public_aio_seo.py'
+      - '.github/workflows/public-aio-seo-contract.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-aio-seo-contract-main
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate public AIO SEO GEO output
+        run: python tools/validate_public_aio_seo.py
+
+      - name: Verify deployed machine-readable endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://ts15825868.github.io/xianjiawei'
+          for path in index.html robots.txt sitemap.xml llms.txt llms-full.txt catalog-public.json geo-data.json; do
+            curl --fail --location --silent --show-error --retry 5 --retry-delay 3 "${base}/${path}" --output "/tmp/${path//\//_}"
+            test -s "/tmp/${path//\//_}"
+          done
