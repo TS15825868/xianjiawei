@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   group: xianjiawei-site-quality-${{ github.ref }}
@@ -32,9 +33,16 @@ jobs:
           node-version: 22
 
       - name: Run full website audit
-        run: node tools/audit-site.mjs
+        id: audit
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          node tools/audit-site.mjs 2>&1 | tee /tmp/site-audit.log
 
       - name: Verify GitHub Pages entry files
+        id: entries
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -50,21 +58,19 @@ jobs:
           echo 'PASS GitHub Pages 核心入口檔案完整。'
 
       - name: Check public Pages responses and official facts
+        id: public
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'page_build'
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
           base='https://ts15825868.github.io/xianjiawei'
-
           fetch_page() {
             local path="$1"
             local output="$2"
-            curl --fail --silent --show-error --location --max-time 30 \
-              --retry 3 --retry-delay 5 \
-              "$base/$path" > "$output"
+            curl --fail --silent --show-error --location --max-time 30 --retry 3 --retry-delay 5 "$base/$path" > "$output"
             test -s "$output"
           }
-
           fetch_page '' /tmp/home.html
           fetch_page 'products.html' /tmp/products.html
           fetch_page 'contact.html' /tmp/contact.html
@@ -72,7 +78,6 @@ jobs:
           fetch_page 'brand-facts.html' /tmp/brand-facts.html
           fetch_page 'product-guilu-jiao.html' /tmp/guilu-jiao.html
           fetch_page 'data.json' /tmp/data.json
-
           grep -q '仙加味' /tmp/home.html
           grep -q '六項正式產品規格' /tmp/products.html
           grep -q '仙加味官方 LINE' /tmp/contact.html
@@ -80,11 +85,45 @@ jobs:
           grep -q '官方事實資料中心' /tmp/brand-facts.html
           grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' /tmp/guilu-jiao.html
           grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' /tmp/data.json
-
-          # 「價格／優惠請洽 LINE」屬正常導引文字；只拒絕實際公開的金額數字。
           if grep -Eq '(\$|NT\$)[[:space:]]*[0-9]|(售價|優惠價)[[:space:]]*[：:]?[[:space:]]*[0-9]' /tmp/products.html /tmp/guilu-jiao.html; then
             echo '公開產品頁不得出現實際售價或優惠金額。' >&2
             exit 1
           fi
-
           echo 'PASS GitHub Pages 首頁、產品、聯絡、品牌、GEO 與龜鹿膠正式規格均可正常公開讀取。'
+
+      - name: Report site quality result
+        if: always() && github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AUDIT: ${{ steps.audit.outcome }}
+          ENTRIES: ${{ steps.entries.outcome }}
+          PUBLIC: ${{ steps.public.outcome }}
+        shell: bash
+        run: |
+          details=''
+          if [ -s /tmp/site-audit.log ]; then details=$(tail -n 160 /tmp/site-audit.log); fi
+          body=$(cat <<EOF
+          官網全站品質自動驗證結果：
+
+          - 全站結構、SEO、圖片與互動：${AUDIT}
+          - GitHub Pages 核心入口：${ENTRIES}
+          - 已部署公開頁面：${PUBLIC}
+          - 提交：${GITHUB_SHA}
+
+          錯誤或驗證明細：
+          \`\`\`
+          ${details}
+          \`\`\`
+          EOF
+          )
+          gh issue comment 156 --repo TS15825868/xianjiawei --body "$body"
+
+      - name: Fail when required checks failed
+        if: always()
+        env:
+          AUDIT: ${{ steps.audit.outcome }}
+          ENTRIES: ${{ steps.entries.outcome }}
+        shell: bash
+        run: |
+          test "$AUDIT" = success
+          test "$ENTRIES" = success
