@@ -12,10 +12,12 @@
   "convenience_entry": [
     {
       "id": "PROD-DRINK-30",
-      "name": "仙加味・龜鹿飲30cc玻璃罐",
-      "specification": "30cc／罐（小玻璃罐）",
+      "name": "龜鹿飲30cc玻璃瓶",
+      "specification": "30cc／瓶（小玻璃瓶）",
       "role": "輕巧即飲入口",
-      "priority": 2
+      "priority": 2,
+      "displayName": "龜鹿飲30cc玻璃瓶",
+      "size": "30cc／瓶（小玻璃瓶）"
     },
     {
       "id": "PROD-DRINK-180",
