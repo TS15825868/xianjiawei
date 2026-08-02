@@ -16,14 +16,16 @@ PUBLIC_TEXT_FILES = [
     ROOT / "catalog-public.json",
     ROOT / "geo-data.json",
     ROOT / "llms.txt",
+    ROOT / "llms-full.txt",
 ]
 
 REPLACEMENTS = {
-    "30cc／玻璃瓶": "30cc／罐（小玻璃罐）",
-    "30cc玻璃瓶": "30cc玻璃罐",
-    "30cc小玻璃瓶": "30cc小玻璃罐",
-    "小玻璃瓶裝": "小玻璃罐裝",
-    "矮胖的小玻璃瓶裝": "小玻璃罐裝",
+    "30cc／罐（小玻璃罐）": "30cc／瓶（小玻璃瓶）",
+    "30cc／玻璃罐": "30cc／瓶（小玻璃瓶）",
+    "30cc玻璃罐": "30cc玻璃瓶",
+    "30cc小玻璃罐": "30cc小玻璃瓶",
+    "小玻璃罐裝": "小玻璃瓶裝",
+    "矮胖的小玻璃罐裝": "小玻璃瓶裝",
     "180cc／鋁袋": "180cc／包（鋁袋）",
     "75g／8塊": "75g／盒｜8塊裝｜每塊約9.375g",
     "600g／32塊": "600g／盒（1斤）｜32塊裝｜每塊約18.75g",
@@ -31,12 +33,20 @@ REPLACEMENTS = {
 
 EXPECTED = {
     "guilu-gao": ("龜鹿膏", "100g／罐"),
-    "guilu-drink-30": ("龜鹿飲30cc玻璃罐", "30cc／罐（小玻璃罐）"),
+    "guilu-drink-30": ("龜鹿飲30cc玻璃瓶", "30cc／瓶（小玻璃瓶）"),
     "guilu-drink-180": ("龜鹿飲180cc鋁袋", "180cc／包（鋁袋）"),
     "guilu-tangkuai": ("龜鹿湯塊", "75g／盒｜8塊裝｜每塊約9.375g"),
     "guilu-jiao": ("龜鹿膠", "600g／盒（1斤）｜32塊裝｜每塊約18.75g"),
     "luerong-fen": ("鹿茸粉", "75g／罐"),
 }
+
+OBSOLETE_30CC = (
+    "30cc／罐（小玻璃罐）",
+    "30cc／玻璃罐",
+    "30cc玻璃罐",
+    "30cc小玻璃罐",
+    "小玻璃罐裝",
+)
 
 
 def existing_public_files() -> list[Path]:
@@ -82,19 +92,16 @@ def validate_catalog() -> list[str]:
 
 def validate_public_text() -> list[str]:
     errors: list[str] = []
-    # Only reject obsolete specifications directly attached to 龜鹿湯塊.
-    # Do not treat valid comparison prose such as「龜鹿湯塊與龜鹿膠600g」as a soup-block error.
     old_soup_patterns = [
         re.compile(r"龜鹿湯塊\s*(?:規格\s*[：:]?\s*|[：:]\s*|為\s*|有\s*)?(?:150\s*g|300\s*g|600\s*g)", re.I),
         re.compile(r"龜鹿湯塊\s*(?:規格\s*[：:]?\s*|[：:]\s*|為\s*|有\s*)?(?:16\s*塊|32\s*塊)"),
     ]
-    forbidden = tuple(REPLACEMENTS)
     for path in existing_public_files():
         text = path.read_text(encoding="utf-8")
         relative = path.relative_to(ROOT).as_posix()
-        for phrase in forbidden:
+        for phrase in OBSOLETE_30CC:
             if phrase in text:
-                errors.append(f"{relative} 仍含公開舊稱或縮寫規格：{phrase}")
+                errors.append(f"{relative} 仍含龜鹿飲30cc舊稱：{phrase}")
         for pattern in old_soup_patterns:
             match = pattern.search(text)
             if match:
@@ -117,7 +124,7 @@ def main() -> None:
 
     if changed:
         print("已正規化：" + ", ".join(changed))
-    print("PASS 官網公開產品名稱與六項正式規格")
+    print("PASS 官網公開產品名稱、AIO/SEO來源與六項正式規格")
 
 
 if __name__ == "__main__":
