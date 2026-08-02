@@ -47,3 +47,5 @@ jobs:
             curl --fail --location --silent --show-error --retry 5 --retry-delay 3 "${base}/${path}" --output "/tmp/${path//\//_}"
             test -s "/tmp/${path//\//_}"
           done
+
+# retrigger: 2026-08-02T20:05+08:00
