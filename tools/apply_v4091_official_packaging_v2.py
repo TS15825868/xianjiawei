@@ -1,23 +1,28 @@
 #!/usr/bin/env python3
-"""同步正式包裝名稱：30cc 小玻璃罐；湯塊只保留 75g（8入）。"""
+"""將公開內容統一為龜鹿飲 30cc 小玻璃瓶；不得刪除既有正式產品規格。"""
 from __future__ import annotations
 
 import json
-import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SUFFIXES = {'.html', '.json', '.js', '.txt', '.xml', '.webmanifest'}
 
 REPLACE = (
-    ('龜鹿飲30cc玻璃瓶', '龜鹿飲30cc玻璃罐'),
-    ('龜鹿飲 30cc 玻璃瓶', '龜鹿飲 30cc 玻璃罐'),
-    ('30cc／瓶（玻璃瓶）', '30cc／罐（小玻璃罐）'),
-    ('30cc / 瓶（玻璃瓶）', '30cc／罐（小玻璃罐）'),
-    ('30cc / 瓶 (玻璃瓶)', '30cc／罐（小玻璃罐）'),
-    ('30cc玻璃小瓶', '30cc小玻璃罐'),
-    ('玻璃小瓶較輕巧', '小玻璃罐較輕巧'),
-    ('偏好小瓶即飲', '偏好小玻璃罐即飲'),
+    ('龜鹿飲30cc玻璃罐', '龜鹿飲30cc玻璃瓶'),
+    ('龜鹿飲 30cc 玻璃罐', '龜鹿飲 30cc 小玻璃瓶'),
+    ('30cc／罐（小玻璃罐）', '30cc／瓶（小玻璃瓶）'),
+    ('30cc / 罐（小玻璃罐）', '30cc／瓶（小玻璃瓶）'),
+    ('30cc / 罐 (小玻璃罐)', '30cc／瓶（小玻璃瓶）'),
+    ('30cc玻璃小罐', '30cc小玻璃瓶'),
+    ('30cc玻璃罐', '30cc玻璃瓶'),
+    ('30cc小玻璃罐', '30cc小玻璃瓶'),
+    ('30cc 小玻璃罐', '30cc 小玻璃瓶'),
+    ('小玻璃罐較輕巧', '小玻璃瓶較輕巧'),
+    ('偏好小玻璃罐即飲', '偏好小玻璃瓶即飲'),
+    ('每日一罐', '每日一瓶'),
+    ('開罐即可飲用', '開瓶即可飲用'),
+    ('開罐後請儘速飲用完畢', '開瓶後請儘速飲用完畢'),
 )
 
 
@@ -32,15 +37,10 @@ def files():
 
 
 def replace_text(text: str) -> str:
+    result = text
     for old, new in REPLACE:
-        text = text.replace(old, new)
-    text = text.replace('30cc玻璃瓶', '30cc玻璃罐')
-    if '龜鹿飲30cc玻璃罐' in text or '30cc／罐（小玻璃罐）' in text:
-        text = text.replace('30cc每日一瓶', '30cc每日一罐')
-        text = text.replace('每日一瓶；180cc', '每日一罐；180cc')
-        text = text.replace('開瓶即可飲用', '開罐即可飲用')
-        text = text.replace('開瓶後請儘速飲用完畢', '開罐後請儘速飲用完畢')
-    return text
+        result = result.replace(old, new)
+    return result
 
 
 def normalize(value):
@@ -55,22 +55,15 @@ def normalize(value):
     product_id = str(value.get('id', ''))
     name = str(value.get('name', ''))
     if product_id == 'guilu-drink-30' or ('龜鹿飲' in name and '30cc' in name):
-        value['name'] = '龜鹿飲30cc玻璃罐'
-        value['displayName'] = '龜鹿飲30cc玻璃罐'
-        value['size'] = '30cc／罐（小玻璃罐）'
-        if isinstance(value.get('usage'), list):
-            value['usage'] = ['每日一罐' if item == '每日一瓶' else str(item).replace('開瓶', '開罐') for item in value['usage']]
-        if isinstance(value.get('storage'), list):
-            value['storage'] = [str(item).replace('開瓶', '開罐') for item in value['storage']]
-        if 'purposeDirection' in value:
-            value['purposeDirection'] = str(value['purposeDirection']).replace('小瓶', '小玻璃罐')
-
-    if product_id == 'guilu-tangkuai' or name == '龜鹿湯塊':
-        value['size'] = '75g／盒｜8塊裝｜每塊約9.375g'
-        for field in ('sizes', 'variants', 'specifications'):
-            if isinstance(value.get(field), list):
-                kept = [item for item in value[field] if not re.search(r'\b(?:300|600)\s*g\b', json.dumps(item, ensure_ascii=False), re.I)]
-                value[field] = kept or ['75g（8入）']
+        value['name'] = '龜鹿飲30cc玻璃瓶'
+        value['displayName'] = '龜鹿飲30cc玻璃瓶'
+        value['size'] = '30cc／瓶（小玻璃瓶）'
+        if 'specification' in value:
+            value['specification'] = '30cc／瓶（小玻璃瓶）'
+        if 'spec' in value:
+            value['spec'] = '30cc／瓶（小玻璃瓶）'
+        if 'unit' in value:
+            value['unit'] = '瓶'
     return value
 
 
@@ -91,12 +84,12 @@ def main():
             changed.append(str(path.relative_to(ROOT)))
 
     text = '\n'.join(path.read_text(encoding='utf-8', errors='ignore') for path in active)
-    if '龜鹿飲30cc玻璃瓶' in text or '30cc／瓶（玻璃瓶）' in text:
-        raise SystemExit('仍有龜鹿飲30cc玻璃瓶舊稱')
-    if re.search(r'龜鹿湯塊\s*(?:300|600)\s*g', text, re.I):
-        raise SystemExit('仍有龜鹿湯塊300g／600g舊規格')
+    forbidden = ('龜鹿飲30cc玻璃罐', '30cc／罐（小玻璃罐）', '30cc小玻璃罐')
+    remaining = [term for term in forbidden if term in text]
+    if remaining:
+        raise SystemExit('仍有龜鹿飲30cc舊稱：' + '、'.join(remaining))
 
-    print(f'同步完成：{len(changed)} 個檔案')
+    print(f'正式名稱同步完成：{len(changed)} 個檔案；既有產品規格完整保留。')
     for item in changed:
         print('-', item)
 
