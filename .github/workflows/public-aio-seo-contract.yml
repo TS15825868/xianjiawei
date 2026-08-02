@@ -17,6 +17,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   group: public-aio-seo-contract-main
@@ -36,9 +37,16 @@ jobs:
           python-version: '3.12'
 
       - name: Validate public AIO SEO GEO output
-        run: python tools/validate_public_aio_seo.py
+        id: contract
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          python tools/validate_public_aio_seo.py 2>&1 | tee /tmp/aio-seo-geo.log
 
       - name: Verify deployed machine-readable endpoints
+        id: deployed
+        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -48,4 +56,39 @@ jobs:
             test -s "/tmp/${path//\//_}"
           done
 
-# retrigger: 2026-08-02T20:05+08:00
+      - name: Report AIO SEO GEO result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CONTRACT: ${{ steps.contract.outcome }}
+          DEPLOYED: ${{ steps.deployed.outcome }}
+        shell: bash
+        run: |
+          details=''
+          if [ -s /tmp/aio-seo-geo.log ]; then
+            details=$(tail -n 120 /tmp/aio-seo-geo.log)
+          fi
+          body=$(cat <<EOF
+          官網 AIO／SEO／GEO 自動驗證結果：
+
+          - 本機正式合約：${CONTRACT}
+          - 已部署機器可讀端點：${DEPLOYED}
+          - 提交：${GITHUB_SHA}
+
+          錯誤或驗證明細：
+          \`\`\`
+          ${details}
+          \`\`\`
+          EOF
+          )
+          gh issue comment 156 --repo TS15825868/xianjiawei --body "$body"
+
+      - name: Fail when validation failed
+        if: always()
+        env:
+          CONTRACT: ${{ steps.contract.outcome }}
+          DEPLOYED: ${{ steps.deployed.outcome }}
+        shell: bash
+        run: |
+          test "$CONTRACT" = success
+          test "$DEPLOYED" = success
