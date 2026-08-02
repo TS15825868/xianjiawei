@@ -1,4 +1,4 @@
-name: 同步龜鹿飲30cc玻璃罐與龜鹿湯塊唯一規格
+name: 同步龜鹿飲30cc小玻璃瓶正式名稱
 
 on:
   push:
@@ -25,38 +25,36 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Apply official packaging and specification policy
+      - name: Normalize official 30cc glass bottle wording
         run: python3 tools/apply_v4091_official_packaging_v2.py
 
-      - name: Validate official public catalog
+      - name: Validate official public catalog without deleting product sizes
         run: |
           set -euo pipefail
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool catalog-public.json >/dev/null
           python3 - <<'PY'
           import json
-          import re
           from pathlib import Path
 
           for filename in ('data.json', 'catalog-public.json'):
               source = json.loads(Path(filename).read_text(encoding='utf-8'))
               products = {item['id']: item for item in source['products']}
               drink = products['guilu-drink-30']
-              soup = products['guilu-tangkuai']
-              assert drink['name'] == '龜鹿飲30cc玻璃罐'
-              assert drink['displayName'] == '龜鹿飲30cc玻璃罐'
-              assert drink['size'] == '30cc／罐（小玻璃罐）'
-              assert soup['size'] == '75g／盒｜8塊裝｜每塊約9.375g'
+              assert drink['name'] == '龜鹿飲30cc玻璃瓶'
+              assert drink['displayName'] == '龜鹿飲30cc玻璃瓶'
+              assert drink['size'] == '30cc／瓶（小玻璃瓶）'
+              if 'unit' in drink:
+                  assert drink['unit'] == '瓶'
 
           text = '\n'.join(
               path.read_text(encoding='utf-8', errors='ignore')
               for path in Path('.').iterdir()
               if path.is_file() and path.suffix in {'.html', '.json', '.txt'}
           )
-          assert '龜鹿飲30cc玻璃瓶' not in text
-          assert '30cc／瓶（玻璃瓶）' not in text
-          assert not re.search(r'龜鹿湯塊\s*(?:300|600)\s*g', text, re.I)
-          print('PASS 官方包裝與唯一規格')
+          for forbidden in ('龜鹿飲30cc玻璃罐', '30cc／罐（小玻璃罐）', '30cc小玻璃罐'):
+              assert forbidden not in text, f'仍含舊稱：{forbidden}'
+          print('PASS 30cc小玻璃瓶正式名稱；既有產品規格未被刪除')
           PY
 
       - name: Commit synchronized files
@@ -66,9 +64,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "官方規格已同步"
+            echo "正式名稱已同步"
           else
-            git commit -m "正式同步龜鹿飲30cc玻璃罐與龜鹿湯塊75g唯一規格"
+            git commit -m "fix(site): synchronize 30cc glass bottle wording [skip ci]"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
