@@ -100,16 +100,16 @@
           "item": {
             "@type": "Product",
             "@id": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html#product",
-            "name": "仙加味・龜鹿飲30cc玻璃罐",
+            "name": "仙加味・龜鹿飲30cc玻璃瓶",
             "alternateName": ["龜鹿飲30cc", "龜鹿飲小玻璃罐"],
             "sku": "guilu-drink-30",
             "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg",
-            "description": "30cc小玻璃罐即飲型態，可直接飲用，也可隔水加熱或溫熱後飲用。",
+            "description": "30cc小玻璃瓶即飲型態，可直接飲用，也可隔水加熱或溫熱後飲用。",
             "category": "食品／日常食補",
             "additionalProperty": [
-              {"@type": "PropertyValue", "name": "正式規格", "value": "30cc／罐（小玻璃罐）"},
+              {"@type": "PropertyValue", "name": "正式規格", "value": "30cc／瓶（小玻璃瓶）"},
               {"@type": "PropertyValue", "name": "成分", "value": "水、鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘"},
               {"@type": "PropertyValue", "name": "用途方向", "value": "輕巧即飲與外出攜帶"},
               {"@type": "PropertyValue", "name": "保存", "value": "未開封置於陰涼乾燥處；開罐後儘速飲用"}
