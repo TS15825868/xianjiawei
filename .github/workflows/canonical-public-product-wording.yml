@@ -1,4 +1,4 @@
-name: 官網公開產品名稱與規格守門員
+name: 官網公開產品名稱、AIO 與 SEO 守門員
 
 on:
   push:
@@ -9,6 +9,7 @@ on:
       - "catalog-public.json"
       - "geo-data.json"
       - "llms.txt"
+      - "llms-full.txt"
       - "tools/enforce_canonical_public_product_wording.py"
       - ".github/workflows/canonical-public-product-wording.yml"
   pull_request:
@@ -36,7 +37,7 @@ jobs:
       - name: Normalize canonical public wording
         run: python3 tools/enforce_canonical_public_product_wording.py --write
 
-      - name: Verify canonical public wording and official specifications
+      - name: Verify canonical wording, AIO sources and official specifications
         run: |
           set -euo pipefail
           python3 tools/enforce_canonical_public_product_wording.py
@@ -51,9 +52,9 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           if git diff --cached --quiet; then
-            echo 'Public product wording is already canonical.'
+            echo 'Public product wording and AIO/SEO sources are already canonical.'
           else
-            git commit -m 'fix(site): normalize public 30cc glass jar wording'
+            git commit -m 'fix(site): normalize public 30cc glass bottle wording'
             git pull --rebase origin main
             git push origin HEAD:main
           fi
