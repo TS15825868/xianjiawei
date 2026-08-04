@@ -132,8 +132,8 @@ def main() -> int:
             fail(errors, f"{filename} robots 未允許索引")
         if parser.h1_count != 1:
             fail(errors, f"{filename} H1 數量應為 1，目前 {parser.h1_count}")
-        if "小玻璃罐" in source or re.search(r"30\s*cc.{0,16}玻璃罐", source, re.I | re.S):
-            fail(errors, f"{filename} 仍含 30cc 舊玻璃罐稱呼")
+        if "小玻璃瓶" in source or re.search(r"30\s*cc.{0,16}玻璃瓶", source, re.I | re.S):
+            fail(errors, f"{filename} 仍含 30cc 舊玻璃瓶稱呼")
 
         if filename in key_pages:
             for label, value in [
@@ -165,7 +165,7 @@ def main() -> int:
 
     llms = (ROOT / "llms.txt").read_text("utf-8")
     for marker in [
-        "龜鹿膏100g", "龜鹿飲30cc玻璃瓶", "龜鹿飲180cc鋁袋",
+        "龜鹿膏100g", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋",
         "龜鹿湯塊75g", "龜鹿膠600g", "鹿茸粉75g",
         "catalog-public.json", "geo-data.json", "llms-full.txt",
     ]:
