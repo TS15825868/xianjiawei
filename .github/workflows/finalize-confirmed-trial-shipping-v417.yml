@@ -1,0 +1,59 @@
+name: 官網正式試喝與出貨規則自動收尾 v417
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tools/finalize-confirmed-trial-shipping-v417.mjs"
+      - "index.html"
+      - "trial.html"
+      - "tools/apply-trial-site-entry.mjs"
+      - ".github/workflows/finalize-confirmed-trial-shipping-v417.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-confirmed-trial-shipping-v417
+  cancel-in-progress: false
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Apply confirmed trial text without editing poster
+        run: node tools/finalize-confirmed-trial-shipping-v417.mjs
+      - name: Run full website audit
+        run: node tools/audit-site.mjs
+      - name: Verify original approved poster remains bound
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s images/posts/approved-v412/guilu-drink-trial-evergreen.jpg
+          grep -q 'images/posts/approved-v412/guilu-drink-trial-evergreen.jpg' trial.html
+          grep -q '約5～7個工作天出貨' index.html
+          grep -q '約5～7個工作天出貨' trial.html
+          ! grep -q '製作加工約需5～7個工作天' index.html
+          ! grep -q '製作加工約需5～7個工作天' trial.html
+          git diff --check
+      - name: Commit final public website state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html trial.html tools/apply-trial-site-entry.mjs tools/finalize-confirmed-trial-shipping-v417.mjs diagnostics/trial-shipping-v417.json
+          git add -u
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'fix(site): persist confirmed trial shipping rules v417'
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
