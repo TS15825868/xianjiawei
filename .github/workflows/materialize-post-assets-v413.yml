@@ -1,0 +1,62 @@
+name: 官網 22 張正式貼文圖上線 v413
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - staging/post-assets-v413/READY
+
+permissions:
+  contents: write
+
+jobs:
+  materialize-assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install approved post images
+        shell: bash
+        run: |
+          set -euo pipefail
+          ZIP='staging/post-assets-v412/assets.zip'
+          OUT='images/posts/approved-v413'
+          test -f "$ZIP"
+          rm -rf "$OUT"
+          mkdir -p "$OUT"
+          unzip -q "$ZIP" -d "$OUT"
+          COUNT="$(find "$OUT" -maxdepth 1 -type f -name '*.jpg' | wc -l | tr -d ' ')"
+          test "$COUNT" = '22'
+          test -f "$OUT/manifest.json"
+          test -f "$OUT/00-trial-evergreen.jpg"
+          test -f "$OUT/21-rain-home-c.jpg"
+          mkdir -p diagnostics
+          node - <<'NODE'
+          const fs=require('fs');
+          const dir='images/posts/approved-v413';
+          const images=fs.readdirSync(dir).filter(name=>name.endsWith('.jpg')).sort();
+          const report={status:'success',checked_at:new Date().toISOString(),directory:dir,image_count:images.length,images,manifest:'manifest.json'};
+          fs.writeFileSync('diagnostics/post-assets-v413.json',JSON.stringify(report,null,2)+'\n');
+          NODE
+
+      - name: Commit approved images
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/posts/approved-v413 diagnostics/post-assets-v413.json
+          git rm -r --ignore-unmatch staging/post-assets-v413
+          if git diff --cached --quiet; then
+            echo 'No image changes.'
+          else
+            git commit -m 'assets(site): publish 22 approved social post images v413'
+            git push origin HEAD:main
+          fi
