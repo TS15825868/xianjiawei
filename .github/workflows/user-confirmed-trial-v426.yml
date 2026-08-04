@@ -1,61 +1,16 @@
 name: 官網使用者確認試喝規則守門 v426
-run-name: 官網 v426｜30cc玻璃罐・買10送1・約5至7個工作天出貨
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'index.html'
-      - 'trial.html'
-      - 'data.json'
-      - 'catalog-public.json'
-      - 'tools/apply-trial-site-entry.mjs'
-      - 'tools/lock-user-confirmed-trial-v426.mjs'
-      - '.github/workflows/user-confirmed-trial-v426.yml'
-  schedule:
-    - cron: '19 */6 * * *'
 
 permissions:
-  contents: write
-
-concurrency:
-  group: website-user-confirmed-trial-v426
-  cancel-in-progress: true
+  contents: read
 
 jobs:
-  normalize-and-check:
+  delegated:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Apply user-confirmed rules
-        run: node tools/lock-user-confirmed-trial-v426.mjs
-      - name: Run complete website validation
-        shell: bash
-        run: |
-          set -euo pipefail
-          node tools/audit-site.mjs
-          python3 tools/validate_public_aio_seo.py
-          node tools/lock-user-confirmed-trial-v426.mjs
-          git diff --check
-      - name: Persist final website state
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'chore(site): persist user-confirmed trial rules v426'
-          for attempt in 1 2 3 4; do
-            git pull --rebase --autostash origin main && git push origin HEAD:main && break
-            if [ "$attempt" -eq 4 ]; then exit 1; fi
-            sleep $((attempt * 5))
-          done
+      - run: |
+          echo 'v426 已由 v427 三端統一規則取代。'
+          echo '正式規則：製作加工約需5～7個工作天；完成後才安排出貨，物流配送時間另計。'
+          echo '停止排程與自動寫回，避免再次覆蓋官網、LINE OA 與 ERP 的共同基準。'
