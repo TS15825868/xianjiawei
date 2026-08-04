@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'staging/post-assets-v412/assets.zip'
+      - 'staging/post-assets-v412/RELEASE'
   workflow_dispatch:
 
 permissions:
