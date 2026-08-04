@@ -99,7 +99,7 @@ if (fs.existsSync(path.join(root, 'data.json'))) {
 
   const requiredProducts = new Map([
     ['guilu-gao', ['龜鹿膏', '100g／罐']],
-    ['guilu-drink-30', ['龜鹿飲30cc玻璃瓶', '30cc／瓶（小玻璃瓶）']],
+    ['guilu-drink-30', ['龜鹿飲30cc玻璃罐', '30cc／罐（小玻璃罐）']],
     ['guilu-drink-180', ['龜鹿飲180cc鋁袋', '180cc／包（鋁袋）']],
     ['guilu-tangkuai', ['龜鹿湯塊', '75g／盒｜8塊裝｜每塊約9.375g']],
     ['guilu-jiao', ['龜鹿膠', GUILU_JIAO_SPEC]],
