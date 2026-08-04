@@ -1,4 +1,5 @@
-run website post assets v414 2026-08-05T01:58:00+08:00
+run website post assets v414 2026-08-05T02:15:00+08:00
 source=staging/post-assets-v412/assets.zip
 count=22
 policy=buy10get1-owner-review
+persist_latest_failure=true
