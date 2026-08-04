@@ -1,20 +1,23 @@
-name: 官網 22 張正式貼文圖上線 v413
+name: 官網 22 張正式貼文圖上線 v414
 
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - staging/post-assets-v413/READY
 
 permissions:
   contents: write
 
+concurrency:
+  group: materialize-post-assets-v414
+  cancel-in-progress: false
+
 jobs:
   materialize-assets:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -22,41 +25,73 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Install approved post images
+      - name: Install and verify approved post images
+        id: install
+        continue-on-error: true
         shell: bash
         run: |
-          set -euo pipefail
-          ZIP='staging/post-assets-v412/assets.zip'
-          OUT='images/posts/approved-v413'
-          test -f "$ZIP"
-          rm -rf "$OUT"
-          mkdir -p "$OUT"
-          unzip -q "$ZIP" -d "$OUT"
-          COUNT="$(find "$OUT" -maxdepth 1 -type f -name '*.jpg' | wc -l | tr -d ' ')"
-          test "$COUNT" = '22'
-          test -f "$OUT/manifest.json"
-          test -f "$OUT/00-trial-evergreen.jpg"
-          test -f "$OUT/21-rain-home-c.jpg"
-          mkdir -p diagnostics
-          node - <<'NODE'
-          const fs=require('fs');
-          const dir='images/posts/approved-v413';
-          const images=fs.readdirSync(dir).filter(name=>name.endsWith('.jpg')).sort();
-          const report={status:'success',checked_at:new Date().toISOString(),directory:dir,image_count:images.length,images,manifest:'manifest.json'};
-          fs.writeFileSync('diagnostics/post-assets-v413.json',JSON.stringify(report,null,2)+'\n');
-          NODE
+          set -o pipefail
+          {
+            ZIP='staging/post-assets-v412/assets.zip'
+            OUT='images/posts/approved-v413'
+            test -f "$ZIP"
+            rm -rf "$OUT"
+            mkdir -p "$OUT"
+            unzip -q "$ZIP" -d "$OUT"
+            COUNT="$(find "$OUT" -maxdepth 1 -type f -name '*.jpg' | wc -l | tr -d ' ')"
+            test "$COUNT" = '22'
+            test -f "$OUT/manifest.json"
+            test -f "$OUT/00-trial-evergreen.jpg"
+            test -f "$OUT/01-work-rest.jpg"
+            test -f "$OUT/21-rain-home-c.jpg"
+            node - <<'NODE'
+            const fs=require('fs');
+            const dir='images/posts/approved-v413';
+            const images=fs.readdirSync(dir).filter(name=>name.endsWith('.jpg')).sort();
+            const report={status:'success',checked_at:new Date().toISOString(),commit:process.env.GITHUB_SHA||'',directory:dir,image_count:images.length,images,manifest:'manifest.json',owner_review_required:true};
+            fs.mkdirSync('diagnostics',{recursive:true});
+            fs.writeFileSync('diagnostics/post-assets-v413.json',JSON.stringify(report,null,2)+'\n');
+            NODE
+          } 2>&1 | tee /tmp/post-assets.log
 
-      - name: Commit approved images
+      - name: Persist images or latest failure
+        if: always()
         shell: bash
+        env:
+          INSTALL_RESULT: ${{ steps.install.outcome }}
         run: |
           set -euo pipefail
+          mkdir -p diagnostics
+          if [ "$INSTALL_RESULT" != success ]; then
+            node - <<'NODE'
+            const fs=require('fs');
+            const log=fs.existsSync('/tmp/post-assets.log')?fs.readFileSync('/tmp/post-assets.log','utf8').split(/\r?\n/).slice(-160).join('\n'):'';
+            fs.writeFileSync('diagnostics/post-assets-v413.json',JSON.stringify({status:'failure',checked_at:new Date().toISOString(),commit:process.env.GITHUB_SHA||'',last_error:log},null,2)+'\n');
+            NODE
+          fi
+
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add images/posts/approved-v413 diagnostics/post-assets-v413.json
-          git rm -r --ignore-unmatch staging/post-assets-v413
-          if git diff --cached --quiet; then
-            echo 'No image changes.'
-          else
-            git commit -m 'assets(site): publish 22 approved social post images v413'
-            git push origin HEAD:main
+          git add diagnostics/post-assets-v413.json
+          if [ "$INSTALL_RESULT" = success ]; then
+            git add images/posts/approved-v413
+            git rm -r --ignore-unmatch staging/post-assets-v413
           fi
+          if ! git diff --cached --quiet; then
+            if [ "$INSTALL_RESULT" = success ]; then
+              git commit -m 'assets(site): publish 22 approved social post images v414'
+            else
+              git commit -m 'chore(site): record 22-image materialization failure v414'
+            fi
+            for attempt in 1 2 3 4; do
+              git pull --rebase origin main && git push origin HEAD:main && break
+              if [ "$attempt" -eq 4 ]; then exit 1; fi
+              sleep $((attempt * 5))
+            done
+          fi
+
+      - name: Fail after diagnostic is persisted
+        if: always()
+        env:
+          INSTALL_RESULT: ${{ steps.install.outcome }}
+        run: test "$INSTALL_RESULT" = success
