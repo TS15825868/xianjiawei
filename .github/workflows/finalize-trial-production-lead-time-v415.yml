@@ -1,0 +1,60 @@
+name: 仙加味官網試喝製作天數正式同步
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tools/finalize-trial-production-lead-time-v415.mjs"
+      - ".github/workflows/finalize-trial-production-lead-time-v415.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-trial-production-lead-time-v415
+  cancel-in-progress: false
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply final wording
+        run: node tools/finalize-trial-production-lead-time-v415.mjs
+
+      - name: Verify website source
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q '製作加工約需5～7個工作天' trial.html
+          grep -q '製作加工約需5～7個工作天' index.html
+          ! grep -q '約5～7個工作天出貨' trial.html
+          ! grep -q '約5～7個工作天出貨' index.html
+          git diff --check
+
+      - name: Commit finalized website copy
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html trial.html docs/trial-site-entry-trigger.md tools/apply-trial-site-entry.mjs
+          if git diff --cached --quiet; then
+            echo 'Website wording is already final.'
+          else
+            git commit -m 'fix(site): state production takes 5–7 business days before shipping'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
