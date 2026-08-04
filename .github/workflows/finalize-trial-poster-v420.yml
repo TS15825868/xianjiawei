@@ -1,5 +1,5 @@
-name: 官網試喝海報正式定稿 v420
-run-name: 官網試喝海報｜製作加工5至7工作天・完成後出貨
+name: 官網試喝海報正式定稿 v425
+run-name: 官網試喝海報｜恢復有效原圖・製作加工5至7工作天・完成後出貨
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: site-trial-poster-v420
+  group: site-trial-poster-v425
   cancel-in-progress: true
 
 jobs:
@@ -27,6 +27,16 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
+
+      - name: Restore valid approved poster source from repository history
+        shell: bash
+        run: |
+          set -euo pipefail
+          poster='images/posts/approved-v412/guilu-drink-trial-evergreen.jpg'
+          mkdir -p "$(dirname "$poster")"
+          git show 87837ff03687e34b79c7e6ae34b34d370ef1e818:"$poster" > "$poster"
+          test -s "$poster"
+          file "$poster" | grep -qi 'JPEG image data'
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -67,6 +77,8 @@ jobs:
           if report.get('after_sha256') != digest:
               raise SystemExit('poster digest does not match diagnostic')
           with Image.open(image_path) as image:
+              image.verify()
+          with Image.open(image_path) as image:
               if image.width != image.height or image.width < 1000:
                   raise SystemExit(f'unexpected poster size: {image.size}')
           print(report)
@@ -77,14 +89,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          rm -f diagnostics/trial-poster-v425-error.txt
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add images/posts/approved-v412/guilu-drink-trial-evergreen.jpg diagnostics/trial-poster-v420.json
+          git add -u diagnostics/trial-poster-v425-error.txt
           git rm -r --ignore-unmatch staging/trial-poster-v420
           if git diff --cached --quiet; then
             echo 'Poster is already final.'
           else
-            git commit -m 'fix(site): finalize bright trial poster production wording v420'
+            git commit -m 'fix(site): restore and finalize valid bright trial poster v425'
             git pull --rebase --autostash origin main
             git push origin HEAD:main
           fi
