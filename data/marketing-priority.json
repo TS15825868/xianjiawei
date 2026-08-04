@@ -1,32 +1,40 @@
 {
-  "version": "2026-07-30-v2",
+  "version": "2026-08-04-v3",
   "brand": "仙加味",
   "primary_product": {
-    "id": "PROD-GAO-100",
-    "name": "仙加味・龜鹿膏",
-    "specification": "100g／罐",
-    "role": "品牌核心主推",
+    "id": "PROD-DRINK-30",
+    "name": "仙加味・龜鹿飲30cc玻璃罐",
+    "specification": "30cc／罐（小玻璃罐）",
+    "role": "方便即飲主打入口",
     "homepage_priority": 1,
-    "message": "固定節奏，慢慢養成。"
+    "message": "不用挖取、不用沖泡，開罐即可飲用；也可依習慣溫熱後飲用。"
   },
   "convenience_entry": [
     {
       "id": "PROD-DRINK-30",
-      "name": "龜鹿飲30cc玻璃瓶",
-      "specification": "30cc／瓶（小玻璃瓶）",
-      "role": "輕巧即飲入口",
-      "priority": 2,
-      "displayName": "龜鹿飲30cc玻璃瓶",
-      "size": "30cc／瓶（小玻璃瓶）"
+      "name": "仙加味・龜鹿飲30cc玻璃罐",
+      "specification": "30cc／罐（小玻璃罐）",
+      "role": "第一次接觸與隨身即飲入口",
+      "priority": 1,
+      "displayName": "龜鹿飲30cc玻璃罐",
+      "size": "30cc／罐（小玻璃罐）"
     },
     {
       "id": "PROD-DRINK-180",
       "name": "仙加味・龜鹿飲180cc鋁袋",
       "specification": "180cc／包（鋁袋）",
-      "role": "完整份量即飲",
-      "priority": 3
+      "role": "居家與持續回購即飲",
+      "priority": 2
     }
   ],
+  "brand_anchor": {
+    "id": "PROD-GAO-100",
+    "name": "仙加味・龜鹿膏",
+    "specification": "100g／罐",
+    "role": "品牌深度與固定節奏",
+    "homepage_priority": 3,
+    "message": "適合已了解產品、希望建立固定取用節奏的人。"
+  },
   "supporting_products": [
     "PROD-SOUP-75",
     "PROD-JIAO-600",
@@ -34,9 +42,10 @@
   ],
   "website_rules": {
     "show_prices": false,
-    "primary_cta": "查看龜鹿膏",
-    "secondary_cta": "查看方便即飲",
-    "medical_claims_forbidden": true
+    "primary_cta": "查看方便即飲龜鹿飲",
+    "secondary_cta": "認識龜鹿膏與其他型態",
+    "medical_claims_forbidden": true,
+    "primary_product_must_not_hide_other_products": true
   },
   "post_rules": {
     "approval_required": true,
