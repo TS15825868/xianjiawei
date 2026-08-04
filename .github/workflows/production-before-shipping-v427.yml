@@ -1,70 +1,15 @@
-name: 官網使用者確認試喝與出貨規則 v426
-run-name: 官網 v426｜30cc玻璃罐・買10送1・約5至7個工作天出貨
+name: 官網試喝與出貨舊規則入口
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'staging/production-before-shipping-v427/READY'
-      - 'tools/lock-production-before-shipping-v427.mjs'
-      - 'tools/lock-user-confirmed-trial-v426.mjs'
-      - '.github/workflows/production-before-shipping-v427.yml'
 
 permissions:
-  contents: write
-
-concurrency:
-  group: website-user-confirmed-trial-v426
-  cancel-in-progress: true
+  contents: read
 
 jobs:
-  normalize-and-persist:
+  delegated:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Apply user-confirmed trial rules
-        run: node tools/lock-user-confirmed-trial-v426.mjs
-
-      - name: Verify website files and JavaScript
-        shell: bash
-        run: |
-          set -euo pipefail
-          node --check site.js
-          node --check tools/apply-trial-site-entry.mjs
-          node --check tools/lock-user-confirmed-trial-v426.mjs
-          node tools/audit-site.mjs
-          python3 tools/validate_public_aio_seo.py
-          node tools/lock-user-confirmed-trial-v426.mjs
-          test -f diagnostics/user-confirmed-trial-v426.json
-          node -e "const r=require('./diagnostics/user-confirmed-trial-v426.json');if(r.status!=='success')process.exit(1)"
-          ! grep -R -n -E '買10送2|共12罐500元|共12包2,000元|30cc／瓶（小玻璃瓶）|製作加工約需5～7個工作天|完成後才安排出貨' index.html trial.html data.json catalog-public.json tools/apply-trial-site-entry.mjs
-          grep -q '約5～7個工作天出貨' trial.html
-          grep -q '買10送1，共11罐500元' trial.html
-          grep -q '買10送1，共11包2,000元' trial.html
-          git diff --check
-
-      - name: Persist final website state
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git rm -r --ignore-unmatch staging/production-before-shipping-v427
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'chore(site): persist user-confirmed trial rules v426'
-          for attempt in 1 2 3 4; do
-            git pull --rebase --autostash origin main && git push origin HEAD:main && break
-            if [ "$attempt" -eq 4 ]; then exit 1; fi
-            sleep $((attempt * 5))
-          done
+      - run: |
+          echo '此入口已停用自動寫回。'
+          echo '官網、LINE OA、ERP 的正式資料只由單一三端母本更新，避免5～7工作天文字反覆互相覆蓋。'
