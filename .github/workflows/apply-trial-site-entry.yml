@@ -34,22 +34,26 @@ jobs:
           import { readFileSync, existsSync } from 'node:fs';
           const home = readFileSync('index.html', 'utf8');
           const trial = readFileSync('trial.html', 'utf8');
+          const site = readFileSync('site.js', 'utf8');
           const required = ['30cc小玻璃罐×3罐','運費60元','運費100元','5～7個工作天','12罐500元','https://lin.ee/sHZW7NkR'];
           for (const value of required) {
             if (!home.includes(value) && !trial.includes(value)) throw new Error(`缺少試喝規則：${value}`);
           }
           if (!existsSync('trial.html')) throw new Error('缺少trial.html');
+          if (!site.includes('{ href: "trial.html", label: "申請試喝"')) throw new Error('全站選單缺少申請試喝');
+          if (!site.includes('<a href="trial.html">申請試喝</a>')) throw new Error('頁尾缺少申請試喝');
+          if (!site.includes('trial: "我想申請龜鹿飲30cc試喝組。"')) throw new Error('試喝頁LINE預填訊息缺失');
           if (/30cc玻璃瓶|小玻璃瓶|30cc／瓶/.test(home + trial)) throw new Error('試喝頁仍殘留玻璃瓶舊稱');
-          console.log('PASS：網站長期試喝入口、價格、運費、交期與LINE OA導流一致。');
+          console.log('PASS：網站首頁、選單、頁尾、價格、運費、交期與LINE OA導流一致。');
           NODE
       - name: Commit website result
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html trial.html
+          git add index.html trial.html site.js
           if git diff --cached --quiet; then
             echo 'No website changes.'
           else
-            git commit -m 'feat(site): publish evergreen guilu drink trial entry'
+            git commit -m 'feat(site): expose evergreen trial across website navigation'
             git push origin HEAD:main
           fi
