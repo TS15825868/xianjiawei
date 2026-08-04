@@ -1,4 +1,5 @@
 name: 官網試喝海報正式定稿 v420
+run-name: 官網試喝海報｜製作加工5至7工作天・完成後出貨
 
 on:
   workflow_dispatch:
@@ -7,13 +8,14 @@ on:
     paths:
       - "tools/finalize-trial-poster-v420.py"
       - ".github/workflows/finalize-trial-poster-v420.yml"
+      - "staging/trial-poster-v420/READY"
 
 permissions:
   contents: write
 
 concurrency:
   group: site-trial-poster-v420
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   finalize-poster:
@@ -78,6 +80,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add images/posts/approved-v412/guilu-drink-trial-evergreen.jpg diagnostics/trial-poster-v420.json
+          git rm -r --ignore-unmatch staging/trial-poster-v420
           if git diff --cached --quiet; then
             echo 'Poster is already final.'
           else
