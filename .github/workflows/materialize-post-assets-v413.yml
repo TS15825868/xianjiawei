@@ -1,7 +1,11 @@
-name: 官網 22 張正式貼文圖上線 v415
+name: 官網 22 張正式貼文圖上線 v416
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["仙加味官網品質守門員"]
+    types: [completed]
+    branches: [main]
   page_build:
   push:
     branches: [main]
@@ -13,12 +17,14 @@ permissions:
   contents: write
 
 concurrency:
-  group: materialize-post-assets-v415
+  group: materialize-post-assets-v416
   cancel-in-progress: false
 
 jobs:
   materialize-assets:
-    if: github.event_name != 'page_build' || github.event.build.status == 'built'
+    if: >-
+      (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') &&
+      (github.event_name != 'page_build' || github.event.build.status == 'built')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -100,9 +106,9 @@ jobs:
           fi
           if ! git diff --cached --quiet; then
             if [ "$INSTALL_RESULT" = success ]; then
-              git commit -m 'assets(site): publish 22 approved social post images v415'
+              git commit -m 'assets(site): publish 22 approved social post images v416'
             else
-              git commit -m 'chore(site): record 22-image materialization failure v415'
+              git commit -m 'chore(site): record 22-image materialization failure v416'
             fi
             for attempt in 1 2 3 4; do
               git pull --rebase origin main && git push origin HEAD:main && break
