@@ -43,4 +43,32 @@ if (!html.includes('id="guilu-drink-trial"')) {
 html = html.replace(/<meta[^>]+name="description"[^>]*>/, '<meta content="仙加味承接萬華四代龜鹿工序；龜鹿飲30cc小玻璃罐提供3罐長期試喝方案，試喝品免費、運費自付，申請與下單統一由LINE OA協助。" name="description"/>');
 html = html.replace(/"dateModified":"[^"]+"/, '"dateModified":"2026-08-04"');
 writeFileSync(path, html);
-console.log('PASS：首頁已加入長期龜鹿飲試喝入口，所有申請導向LINE OA。');
+
+const sitePath = 'site.js';
+let site = readFileSync(sitePath, 'utf8');
+if (!site.includes('{ href: "trial.html", label: "申請試喝"')) {
+  site = site.replace(
+    '{ href: "contact.html", label: "聯絡我們", keys: ["contact"] }',
+    '{ href: "trial.html", label: "申請試喝", keys: ["trial"] },\n      { href: "contact.html", label: "聯絡我們", keys: ["contact"] }',
+  );
+}
+if (!site.includes('trial: "我想申請龜鹿飲30cc試喝組。"')) {
+  site = site.replace(
+    '    contact: "我想聯絡仙加味。",',
+    '    trial: "我想申請龜鹿飲30cc試喝組。",\n    contact: "我想聯絡仙加味。",',
+  );
+}
+if (!site.includes('<a href="trial.html">申請試喝</a>')) {
+  site = site.replace(
+    '<a href="contact.html">聯絡我們</a>',
+    '<a href="trial.html">申請試喝</a>\n          <a href="contact.html">聯絡我們</a>',
+  );
+}
+if (!site.includes('href="trial.html">試喝')) {
+  site = site.replace(
+    '<a class="btn btn-outline" href="products.html">查看產品</a>',
+    '<a class="btn btn-line" href="trial.html">試喝</a>\n          <a class="btn btn-outline" href="products.html">查看產品</a>',
+  );
+}
+writeFileSync(sitePath, site);
+console.log('PASS：首頁、全站選單、頁尾與LINE預填訊息已加入長期試喝入口。');
