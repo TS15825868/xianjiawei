@@ -5,7 +5,11 @@ import json
 from pathlib import Path
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageEnhance, ImageFont
+from PIL import Image, ImageDraw, ImageEnhance, ImageFile, ImageFont
+
+# The previously committed JPEG contains a truncated stream. Pillow can safely
+# recover the decoded pixels and the script immediately rewrites a complete JPEG.
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGE_PATH = ROOT / "images/posts/approved-v412/guilu-drink-trial-evergreen.jpg"
@@ -66,7 +70,6 @@ def main() -> None:
     line2_y = round(545 * scale_y)
 
     pixels = np.asarray(image).copy()
-    region_height = y1 - y0
     left = np.array([255, 249, 226], dtype=float)
     right = np.array([255, 246, 218], dtype=float)
     for x in range(x0, x1):
@@ -101,6 +104,7 @@ def main() -> None:
                 "line_2": LINE_2,
                 "meaning": "5～7個工作天只計製作加工；製作完成後才安排出貨，物流配送時間另計",
                 "brightness_adjustment": "slightly_brighter_without_layout_or_product_changes",
+                "recovered_from_truncated_stream": True,
                 "before_sha256": before_sha,
                 "after_sha256": after_sha,
             },
