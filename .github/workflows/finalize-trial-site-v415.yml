@@ -1,0 +1,109 @@
+name: 官網試喝、規格與品質守門正式收尾 v415
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - staging/finalize-trial-site-v415/READY
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: finalize-trial-site-v415
+  cancel-in-progress: false
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Normalize official trial wording and validators
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+              'tools/audit-site.mjs': [
+                  ('龜鹿飲30cc玻璃瓶', '龜鹿飲30cc玻璃罐'),
+                  ('30cc／瓶（小玻璃瓶）', '30cc／罐（小玻璃罐）'),
+              ],
+              'tools/apply-trial-site-entry.mjs': [
+                  ('正式售價50元／罐；買10送2，共12罐500元。', '正式售價50元／罐；買10送1，共11罐500元。另有販售180cc鋁袋，單包200元；買10送1，共11包2,000元。'),
+              ],
+              'index.html': [
+                  ('<p><strong>正式售價50元／罐；買10送2，共12罐500元。</strong></p>', '<p><strong>正式售價50元／罐；買10送1，共11罐500元。</strong></p>\n      <p><strong>另有販售180cc鋁袋：單包200元；買10送1，共11包2,000元。</strong></p>'),
+              ],
+          }
+
+          for filename, pairs in replacements.items():
+              path = Path(filename)
+              text = path.read_text(encoding='utf-8')
+              original = text
+              for old, new in pairs:
+                  text = text.replace(old, new)
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+
+          index = Path('index.html').read_text(encoding='utf-8')
+          required = [
+              '龜鹿飲30cc小玻璃罐試喝組',
+              '30cc小玻璃罐×3罐',
+              '買10送1，共11罐500元',
+              '買10送1，共11包2,000元',
+              '約5～7個工作天出貨',
+              '加入LINE申請試喝',
+          ]
+          missing = [text for text in required if text not in index]
+          if missing:
+              raise SystemExit(f'首頁缺少正式試喝內容：{missing}')
+
+          audit = Path('tools/audit-site.mjs').read_text(encoding='utf-8')
+          if "['guilu-drink-30', ['龜鹿飲30cc玻璃罐', '30cc／罐（小玻璃罐）']]" not in audit:
+              raise SystemExit('品質守門員仍未鎖定30cc小玻璃罐正式規格')
+          PY
+
+      - name: Run website audit
+        run: node tools/audit-site.mjs
+
+      - name: Verify final public trial policy
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs = require('fs');
+          const publicFiles = ['index.html', 'trial.html', 'data.json', 'catalog-public.json', 'geo-data.json', 'llms.txt'];
+          const text = publicFiles.filter(fs.existsSync).map((file) => fs.readFileSync(file, 'utf8')).join('\n');
+          for (const oldText of ['買10送2', '共12罐500元', '共12包2,000元', '龜鹿飲30cc玻璃瓶', '30cc／瓶（小玻璃瓶）']) {
+            if (text.includes(oldText)) throw new Error(`公開資料仍含舊內容：${oldText}`);
+          }
+          for (const required of ['買10送1，共11罐500元', '買10送1，共11包2,000元', '龜鹿飲30cc玻璃罐', '30cc／罐（小玻璃罐）']) {
+            if (!text.includes(required)) throw new Error(`公開資料缺少正式內容：${required}`);
+          }
+          console.log('PASS：官網公開資料、首頁試喝導流與正式買10送1政策一致。');
+          NODE
+
+      - name: Commit final website state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html tools/audit-site.mjs tools/apply-trial-site-entry.mjs
+          git rm -r --ignore-unmatch staging/finalize-trial-site-v415
+          git rm --ignore-unmatch .github/workflows/finalize-trial-site-v415.yml
+          if git diff --cached --quiet; then
+            echo 'No website changes.'
+          else
+            git commit -m 'fix(site): finalize trial buy10get1 and quality guard v415'
+            git push origin HEAD:main
+          fi
