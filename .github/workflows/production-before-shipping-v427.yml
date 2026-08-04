@@ -1,0 +1,67 @@
+name: 官網三端統一製作與出貨規則 v427
+run-name: 官網 v427｜製作5至7工作天・完成後出貨・買10送1
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'staging/production-before-shipping-v427/READY'
+      - 'tools/lock-production-before-shipping-v427.mjs'
+      - '.github/workflows/production-before-shipping-v427.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: website-production-before-shipping-v427
+  cancel-in-progress: true
+
+jobs:
+  normalize-and-persist:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply authoritative three-system rule
+        run: node tools/lock-production-before-shipping-v427.mjs
+
+      - name: Verify website files and JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check site.js
+          node --check tools/apply-trial-site-entry.mjs
+          node --check tools/lock-production-before-shipping-v427.mjs
+          node tools/lock-production-before-shipping-v427.mjs
+          test -f diagnostics/production-before-shipping-v427.json
+          node -e "const r=require('./diagnostics/production-before-shipping-v427.json');if(r.status!=='success')process.exit(1)"
+          ! grep -R -n -E '買10送2|共12罐500元|共12包2,000元|30cc／瓶（小玻璃瓶）|約5～7個工作天出貨' index.html trial.html data.json catalog-public.json tools/apply-trial-site-entry.mjs
+          grep -q '製作加工約需5～7個工作天' trial.html
+          grep -q '完成後才安排出貨' trial.html
+          git diff --check
+
+      - name: Persist final website state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html trial.html data.json catalog-public.json geo-data.json llms.txt tools/apply-trial-site-entry.mjs tools/finalize-trial-and-post-assets-v411.mjs diagnostics/production-before-shipping-v427.json 2>/dev/null || true
+          git rm -r --ignore-unmatch staging/production-before-shipping-v427
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'chore(site): persist three-system production-before-shipping rules v427'
+          for attempt in 1 2 3 4; do
+            git pull --rebase --autostash origin main && git push origin HEAD:main && break
+            if [ "$attempt" -eq 4 ]; then exit 1; fi
+            sleep $((attempt * 5))
+          done
