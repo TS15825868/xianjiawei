@@ -1,3 +1,0 @@
-run v427 2026-08-05T03:35:00+08:00
-rule=production_5_to_7_business_days_then_shipping
-systems=website,line_oa,erp
