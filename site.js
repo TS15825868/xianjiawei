@@ -29,6 +29,7 @@ const MENU_GROUPS = [
   {
     title: "服務",
     links: [
+      { href: "trial.html", label: "申請試喝", keys: ["trial"] },
       { href: "contact.html", label: "聯絡我們", keys: ["contact"] }
     ]
   }
@@ -134,6 +135,7 @@ function pageLineMessage(page = currentPageKey()) {
     video: "我看了知識影音，想進一步了解產品。",
     brand: "我從品牌故事頁進來，想認識仙加味與產品。",
     faq: "我看了常見問題，還有問題想詢問。",
+    trial: "我想申請龜鹿飲30cc試喝組。",
     contact: "我想聯絡仙加味。",
     dm: "我看了產品圖文整理，想確認規格與購買方式。"
   };
@@ -193,6 +195,7 @@ function renderMenu() {
         </div>
 
         <div class="menu-quick-actions" aria-label="快速入口">
+          <a class="btn btn-line" href="trial.html">試喝</a>
           <a class="btn btn-outline" href="products.html">查看產品</a>
           <a class="btn btn-outline" href="choose.html">幫我挑選</a>
           <a class="btn btn-outline" href="guide.html">怎麼使用</a>
@@ -231,6 +234,7 @@ function renderFooter() {
           <a href="knowledge.html">知識專區</a>
           <a href="brand.html">品牌故事</a>
           <a href="faq.html">常見問題</a>
+          <a href="trial.html">申請試喝</a>
           <a href="contact.html">聯絡我們</a>
           <a href="sources.html">資料來源</a>
         </div>
