@@ -54,9 +54,9 @@ jobs:
           if git diff --cached --quiet; then
             echo 'Public product wording and AIO/SEO sources are already canonical.'
           else
-            git commit -m 'fix(site): normalize public 30cc glass bottle wording'
+            git commit -m 'fix(site): normalize public 30cc glass jar wording'
             git pull --rebase origin main
             git push origin HEAD:main
           fi
 
-# retrigger: 2026-08-02T20:28+08:00
+# retrigger: 2026-08-04T18:30+08:00
