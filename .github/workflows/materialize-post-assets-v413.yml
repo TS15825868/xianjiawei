@@ -2,6 +2,7 @@ name: 官網 22 張正式貼文圖上線 v414
 
 on:
   workflow_dispatch:
+  page_build:
   push:
     branches: [main]
     paths:
@@ -16,6 +17,7 @@ concurrency:
 
 jobs:
   materialize-assets:
+    if: github.event_name != 'page_build' || github.event.build.status == 'built'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -25,8 +27,20 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Skip after successful materialization
+        id: gate
+        shell: bash
+        run: |
+          if [ ! -f staging/post-assets-v413/READY ]; then
+            echo 'run=false' >> "$GITHUB_OUTPUT"
+            echo '22 張圖片已上線，沒有待執行觸發檔。'
+          else
+            echo 'run=true' >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install and verify approved post images
         id: install
+        if: steps.gate.outputs.run == 'true'
         continue-on-error: true
         shell: bash
         run: |
@@ -55,7 +69,7 @@ jobs:
           } 2>&1 | tee /tmp/post-assets.log
 
       - name: Persist images or latest failure
-        if: always()
+        if: always() && steps.gate.outputs.run == 'true'
         shell: bash
         env:
           INSTALL_RESULT: ${{ steps.install.outcome }}
@@ -91,7 +105,7 @@ jobs:
           fi
 
       - name: Fail after diagnostic is persisted
-        if: always()
+        if: always() && steps.gate.outputs.run == 'true'
         env:
           INSTALL_RESULT: ${{ steps.install.outcome }}
         run: test "$INSTALL_RESULT" = success
