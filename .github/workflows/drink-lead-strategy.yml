@@ -55,3 +55,5 @@ jobs:
             git pull --rebase origin main
             git push origin HEAD:main
           fi
+
+# retrigger: 2026-08-04T18:33+08:00
