@@ -1,10 +1,10 @@
 "use strict";
 
-/* 30cc正式原圖相容層：舊SVG、舊瓶字樣圖與錯誤DM一律導向裸小玻璃罐正式原圖。 */
+/* 30cc正式原圖相容層：舊SVG、舊瓶字樣圖、舊DM與舊路徑一律導向官網正式產品原圖。 */
 (function(){
-  const VERSION = "412.2";
-  const OFFICIAL_IMAGE = `images/guilu-drink-30cc-glass.jpg?v=${VERSION}`;
-  const LEGACY = /(?:images\/products-v3\/guilu-drink-30\.jpg|images\/dm-final\/02_guilu-drink-30cc-dm\.jpg|guilu-drink-30-clean\.svg|30cc[^/]*bottle|30cc[^/]*瓶)/i;
+  const VERSION = "20260805";
+  const OFFICIAL_IMAGE = `images/products-v3/guilu-drink-30.jpg?v=${VERSION}`;
+  const LEGACY = /(?:images\/guilu-drink-30cc-glass\.jpg|images\/dm-final\/02_guilu-drink-30cc-dm\.jpg|guilu-drink-30-clean\.svg|30cc[^/]*bottle|30cc[^/]*瓶)/i;
 
   function repair(root){
     const scope = root?.querySelectorAll ? root : document;
@@ -15,7 +15,7 @@
       if (!LEGACY.test(value)) return;
       node.setAttribute(attr, OFFICIAL_IMAGE);
       if (node.tagName !== 'SOURCE') {
-        node.alt = '龜鹿飲30cc小玻璃裸罐正式原圖';
+        node.alt = '龜鹿飲30cc小玻璃裸罐正式產品原圖';
         node.style.objectFit = 'contain';
         node.style.objectPosition = 'center';
       }
