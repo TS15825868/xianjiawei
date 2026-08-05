@@ -1,88 +1,13 @@
-name: Diagnose all 32 historical DM parts
+name: 【暫停】舊版DM歷史診斷
 
 on:
-  issues:
-    types: [opened]
+  workflow_dispatch:
 
 permissions:
   contents: read
-  issues: write
 
 jobs:
-  diagnose:
-    if: github.event.issue.title == 'DIAGNOSE_ALL_32_DM_PARTS'
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 1
-
-      - name: Find all 32 historical commits and rebuild archive
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        run: |
-          set -euo pipefail
-          gh api --method GET /search/commits \
-            -H 'Accept: application/vnd.github+json' \
-            -f q="repo:${REPO} 上傳v408.1素材分段" \
-            -f per_page=100 > /tmp/search.json
-          mkdir -p /tmp/parts
-          python3 - <<'PY' > /tmp/map.tsv
-          import json,re
-          data=json.load(open('/tmp/search.json'))
-          found={}
-          for item in data.get('items',[]):
-              msg=(item.get('commit') or {}).get('message','').splitlines()[0]
-              m=re.fullmatch(r'上傳v408\.1素材分段\s+(\d+)/32',msg)
-              if m:
-                  found[int(m.group(1))]=item['sha']
-          missing=[i for i in range(1,33) if i not in found]
-          if missing:
-              raise SystemExit(f'missing commit numbers: {missing}; found={sorted(found)}')
-          for n in range(1,33):
-              print(f'{n}\t{found[n]}')
-          PY
-          while IFS=$'\t' read -r n sha; do
-            idx=$(printf '%02d' $((n-1)))
-            gh api "repos/${REPO}/contents/_upload/v408-q32-parts/part-${idx}.txt?ref=${sha}" \
-              -H 'Accept: application/vnd.github+json' \
-              --jq .content | tr -d '\n' | base64 -d > "/tmp/parts/part-${idx}.txt"
-          done < /tmp/map.tsv
-          cat /tmp/parts/part-*.txt | tr -d '\r\n\t ' > /tmp/assets.b64
-          base64 -d /tmp/assets.b64 > /tmp/assets.zip
-          unzip -t /tmp/assets.zip > /tmp/unzip-test.txt
-          sha256sum /tmp/assets.zip > /tmp/sha.txt
-          unzip -l /tmp/assets.zip > /tmp/list.txt
-
-      - name: Report diagnostics
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        run: |
-          {
-            echo 'Q32_ALL_COMMITS_DIAGNOSTIC'
-            echo '```text'
-            echo 'SEARCH_TOTAL:'
-            python3 - <<'PY'
-          import json
-          from pathlib import Path
-          p=Path('/tmp/search.json')
-          print(json.loads(p.read_text()).get('total_count') if p.exists() else 'no-search-file')
-          PY
-            echo 'MAP:'
-            cat /tmp/map.tsv 2>/dev/null || true
-            echo 'ARCHIVE:'
-            cat /tmp/sha.txt 2>/dev/null || true
-            file /tmp/assets.zip 2>/dev/null || true
-            echo 'ZIP TEST:'
-            tail -20 /tmp/unzip-test.txt 2>/dev/null || true
-            echo 'ZIP LIST:'
-            head -80 /tmp/list.txt 2>/dev/null || true
-            echo '```'
-          } > /tmp/comment.txt
-          gh issue comment "${{ github.event.issue.number }}" --repo "$REPO" --body-file /tmp/comment.txt
-          gh issue close "${{ github.event.issue.number }}" --repo "$REPO" --reason completed
+      - run: echo '舊版DM歷史診斷已暫停。'
