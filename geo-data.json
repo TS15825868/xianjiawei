@@ -8,29 +8,15 @@
       "url": "https://ts15825868.github.io/xianjiawei/",
       "logo": "https://ts15825868.github.io/xianjiawei/images/logo.png",
       "image": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp",
-      "description": "從台北萬華出發的四代龜鹿工序品牌，將龜鹿膏、龜鹿飲、龜鹿湯塊、龜鹿膠與鹿茸粉整理成清楚的產品規格、使用方式與保存資訊。",
-      "foundingLocation": {
-        "@type": "Place",
-        "name": "台北萬華"
-      },
+      "description": "從台北萬華出發的四代龜鹿工序品牌，整理六項正式產品的規格、一般使用方式與保存資訊。",
+      "foundingLocation": {"@type": "Place", "name": "台北萬華"},
       "areaServed": "TW",
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "customer service",
-        "availableLanguage": [
-          "zh-Hant"
-        ],
+        "availableLanguage": ["zh-Hant"],
         "url": "https://lin.ee/sHZW7NkR"
-      },
-      "knowsAbout": [
-        "龜鹿膏",
-        "龜鹿飲",
-        "龜鹿湯塊",
-        "龜鹿膠",
-        "鹿茸粉",
-        "日常食補",
-        "龜鹿工序"
-      ]
+      }
     },
     {
       "@type": "WebSite",
@@ -38,33 +24,20 @@
       "url": "https://ts15825868.github.io/xianjiawei/",
       "name": "仙加味",
       "inLanguage": "zh-Hant-TW",
-      "publisher": {
-        "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-      }
+      "publisher": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"}
     },
     {
       "@type": "Dataset",
       "@id": "https://ts15825868.github.io/xianjiawei/geo-data.json#dataset",
-      "name": "仙加味官方品牌與產品資料",
-      "description": "供搜尋引擎、生成式搜尋與網站服務引用的仙加味官方品牌與產品事實資料；不含售價與療效宣稱。",
+      "name": "仙加味官方六項產品資料",
+      "description": "供搜尋引擎與生成式搜尋引用的仙加味官方品牌與產品事實；不含售價、完整地址、電話或療效宣稱。",
       "url": "https://ts15825868.github.io/xianjiawei/geo-data.json",
-      "dateModified": "2026-07-31",
+      "dateModified": "2026-08-05",
       "inLanguage": "zh-Hant-TW",
-      "creator": {
-        "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-      },
-      "license": "https://ts15825868.github.io/xianjiawei/sources.html",
+      "creator": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
       "distribution": [
-        {
-          "@type": "DataDownload",
-          "encodingFormat": "application/json",
-          "contentUrl": "https://ts15825868.github.io/xianjiawei/catalog-public.json"
-        },
-        {
-          "@type": "DataDownload",
-          "encodingFormat": "text/plain",
-          "contentUrl": "https://ts15825868.github.io/xianjiawei/llms.txt"
-        }
+        {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://ts15825868.github.io/xianjiawei/catalog-public.json"},
+        {"@type": "DataDownload", "encodingFormat": "text/plain", "contentUrl": "https://ts15825868.github.io/xianjiawei/llms.txt"}
       ]
     },
     {
@@ -72,7 +45,6 @@
       "@id": "https://ts15825868.github.io/xianjiawei/brand-facts.html#products",
       "name": "仙加味六項正式產品",
       "numberOfItems": 6,
-      "itemListOrder": "https://schema.org/ItemListOrderAscending",
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -81,39 +53,13 @@
             "@type": "Product",
             "@id": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html#product",
             "name": "仙加味・龜鹿膏",
-            "alternateName": [
-              "龜鹿膏100g",
-              "龜鹿膏"
-            ],
             "sku": "guilu-gao",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg",
-            "description": "100g膏狀型態，可直接取用，也可用熱水化開後調至適合入口的溫度飲用。",
-            "category": "食品／日常食補",
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "100g／罐"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "成分",
-                "value": "鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "用途方向",
-                "value": "固定日常安排"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "保存",
-                "value": "未開封置於陰涼乾燥處；開封後密封冷藏"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "100g／罐"},
+              {"@type": "PropertyValue", "name": "出貨方式", "value": "預先製作備貨，依現貨狀況安排出貨"}
             ]
           }
         },
@@ -124,42 +70,15 @@
             "@type": "Product",
             "@id": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html#product",
             "name": "龜鹿飲30cc玻璃罐",
-            "alternateName": [
-              "龜鹿飲30cc",
-              "龜鹿飲小玻璃罐"
-            ],
             "sku": "guilu-drink-30",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
-            "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30-clean.svg?v=411.0",
-            "description": "30cc小玻璃罐即飲型態，可直接飲用，也可隔水加熱或溫熱後飲用。",
-            "category": "食品／日常食補",
+            "image": "https://ts15825868.github.io/xianjiawei/images/guilu-drink-30cc-glass.jpg?v=412.1",
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "30cc／罐（小玻璃罐）"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "成分",
-                "value": "水、鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "用途方向",
-                "value": "輕巧即飲與外出攜帶"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "保存",
-                "value": "未開封置於陰涼乾燥處；開罐後儘速飲用"
-              }
-            ],
-            "displayName": "龜鹿飲30cc玻璃罐",
-            "size": "30cc／罐（小玻璃罐）"
+              {"@type": "PropertyValue", "name": "正式規格", "value": "30cc／罐（小玻璃罐）"},
+              {"@type": "PropertyValue", "name": "正式包裝", "value": "小玻璃裸罐、無貼紙"},
+              {"@type": "PropertyValue", "name": "出貨方式", "value": "接單製作，製作加工約需5～7個工作天，完成後安排出貨"}
+            ]
           }
         },
         {
@@ -169,39 +88,13 @@
             "@type": "Product",
             "@id": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html#product",
             "name": "仙加味・龜鹿飲180cc鋁袋",
-            "alternateName": [
-              "龜鹿飲180cc",
-              "龜鹿飲鋁袋"
-            ],
             "sku": "guilu-drink-180",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg",
-            "description": "180cc鋁袋即飲型態，可直接飲用，也可隔水加熱或溫熱後飲用。",
-            "category": "食品／日常食補",
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "180cc／包（鋁袋）"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "成分",
-                "value": "水、鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "用途方向",
-                "value": "完整份量即飲"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "保存",
-                "value": "未開封置於陰涼乾燥處；開封後儘速飲用"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "180cc／包（鋁袋）"},
+              {"@type": "PropertyValue", "name": "出貨方式", "value": "接單製作，製作加工約需5～7個工作天，完成後安排出貨"}
             ]
           }
         },
@@ -212,39 +105,13 @@
             "@type": "Product",
             "@id": "https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html#product",
             "name": "仙加味・龜鹿湯塊",
-            "alternateName": [
-              "龜鹿湯塊75g",
-              "龜鹿湯塊"
-            ],
             "sku": "guilu-tangkuai",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg",
-            "description": "75g盒裝、8塊設計，每塊約9.375g，可搭配熱水、保溫壺或家常湯品。",
-            "category": "食品／日常食補",
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "75g／盒｜8塊裝｜每塊約9.375g"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "成分",
-                "value": "鹿角萃取物、龜板萃取物"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "用途方向",
-                "value": "熱水沖泡、保溫壺與燉湯"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "保存",
-                "value": "常溫置於陰涼處，或保存於5°C以下冷藏"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "75g／盒｜8塊裝｜每塊約9.375g"},
+              {"@type": "PropertyValue", "name": "出貨方式", "value": "預先製作備貨，依現貨狀況安排出貨"}
             ]
           }
         },
@@ -255,39 +122,13 @@
             "@type": "Product",
             "@id": "https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html#product",
             "name": "仙加味・龜鹿膠",
-            "alternateName": [
-              "龜鹿膠600g",
-              "龜鹿膠一斤裝"
-            ],
             "sku": "guilu-jiao",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg",
-            "description": "600g一斤裝、32塊設計，每塊約18.75g，可用熱水化開或搭配家常湯品。",
-            "category": "食品／日常食補",
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "600g／盒（1斤）｜32塊裝｜每塊約18.75g"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "成分",
-                "value": "鹿角萃取物、龜板萃取物"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "用途方向",
-                "value": "家庭大規格與燉湯"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "保存",
-                "value": "常溫置於陰涼處，或保存於5°C以下冷藏"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "600g（1斤）／盒｜32塊裝｜每塊約18.75g"},
+              {"@type": "PropertyValue", "name": "出貨方式", "value": "預先製作備貨，依現貨狀況安排出貨"}
             ]
           }
         },
@@ -298,54 +139,17 @@
             "@type": "Product",
             "@id": "https://ts15825868.github.io/xianjiawei/product-luerong-fen.html#product",
             "name": "仙加味・鹿茸粉",
-            "alternateName": [
-              "鹿茸粉75g",
-              "鹿茸粉"
-            ],
             "sku": "luerong-fen",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
             "url": "https://ts15825868.github.io/xianjiawei/product-luerong-fen.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg",
-            "description": "75g單方鹿茸粉，可加入溫開水、牛奶、豆漿或其他日常飲品。",
-            "category": "食品／日常食補",
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "75g／罐"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "成分",
-                "value": "鹿茸"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "用途方向",
-                "value": "粉狀型態自行搭配"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "保存",
-                "value": "開封後密封保存，並儘早食用完畢"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "75g／罐"},
+              {"@type": "PropertyValue", "name": "出貨方式", "value": "預先製作備貨，依現貨狀況安排出貨"}
             ]
           }
         }
       ]
     }
-  ],
-  "xianjiaweiPolicy": {
-    "language": "zh-Hant-TW",
-    "canonicalSource": "https://ts15825868.github.io/xianjiawei/catalog-public.json",
-    "factsPage": "https://ts15825868.github.io/xianjiawei/brand-facts.html",
-    "sourcePolicy": "https://ts15825868.github.io/xianjiawei/sources.html",
-    "contentScope": "品牌、產品規格、成分、一般使用方式、保存方式、料理搭配與傳統食補文化",
-    "websitePricePolicy": "官網不刊載售價；購買資訊以官方 LINE 最新回覆為準",
-    "healthContentPolicy": "內容不作疾病診斷、治療或效果保證；特殊健康狀況請諮詢合格專業人員",
-    "productImagePolicy": "產品圖片僅使用官方正式產品原圖，不重畫、不修改標籤與包裝規格",
-    "lastReviewed": "2026-07-31"
-  }
+  ]
 }
