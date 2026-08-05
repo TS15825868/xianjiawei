@@ -1,54 +1,20 @@
-name: 官網 AIO 摘要與結構化資料守門員
+name: 【暫停自動】官網 AIO 摘要與結構化資料守門員
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "*.html"
-      - "tools/enforce_aio_page_summaries.py"
-      - ".github/workflows/aio-page-summary.yml"
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: aio-page-summary-${{ github.ref }}
+  group: aio-page-summary-manual
   cancel-in-progress: true
 
 jobs:
-  normalize-and-verify:
+  verify-manually:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - name: Normalize AI-readable page summaries
-        run: python3 tools/enforce_aio_page_summaries.py --write
-
-      - name: Verify AIO summaries and structured freshness
-        run: |
-          set -euo pipefail
-          python3 tools/enforce_aio_page_summaries.py
-          git diff --check
-
-      - name: Commit normalized AIO metadata
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- '*.html'
-          if git diff --cached --quiet; then
-            echo 'AIO page summaries are already current.'
-          else
-            git commit -m 'feat(site): synchronize AI-readable page summaries [skip ci]'
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+        uses: actions/checkout@v5
+      - name: Verify AIO summaries manually
+        run: python3 tools/enforce_aio_page_summaries.py
