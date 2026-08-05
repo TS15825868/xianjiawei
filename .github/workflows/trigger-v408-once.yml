@@ -1,23 +1,13 @@
-name: Trigger v408 once
+name: 【暫停】舊版v408單次觸發
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  issues: write
+  contents: read
 
 jobs:
-  trigger:
-    if: github.event.head_commit.message == 'RUN_PRODUCT_ASSETS_V408'
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: 'APPLY_PRODUCT_ASSETS_V408',
-              body: '自動觸發：套用最新六張產品主圖、六張產品DM，並整合前端JS與CSS。'
-            });
+      - run: echo '舊版v408單次觸發已暫停。'
