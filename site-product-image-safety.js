@@ -4,29 +4,39 @@
 (function(){
   const VERSION = "20260805";
   const OFFICIAL_IMAGE = `images/products-v3/guilu-drink-30.jpg?v=${VERSION}`;
-  const LEGACY = /(?:images\/guilu-drink-30cc-glass\.jpg|images\/dm-final\/02_guilu-drink-30cc-dm\.jpg|guilu-drink-30-clean\.svg|30cc[^/]*bottle|30cc[^/]*瓶)/i;
+  const LEGACY_PATHS = Object.freeze([
+    "images/guilu-drink-30cc-glass.jpg",
+    "images/dm-final/02_guilu-drink-30cc-dm.jpg",
+    "guilu-drink-30-clean.svg"
+  ]);
+  const LEGACY_NAMING = /30cc[^/]*(?:bottle|瓶)/i;
+
+  function isLegacy(value){
+    const text = String(value || "");
+    return LEGACY_PATHS.some((path) => text.includes(path)) || LEGACY_NAMING.test(text);
+  }
 
   function repair(root){
     const scope = root?.querySelectorAll ? root : document;
 
-    scope.querySelectorAll('img[src], source[srcset]').forEach((node) => {
-      const attr = node.tagName === 'SOURCE' ? 'srcset' : 'src';
-      const value = node.getAttribute(attr) || '';
-      if (!LEGACY.test(value)) return;
+    scope.querySelectorAll("img[src], source[srcset]").forEach((node) => {
+      const attr = node.tagName === "SOURCE" ? "srcset" : "src";
+      const value = node.getAttribute(attr) || "";
+      if (!isLegacy(value)) return;
       node.setAttribute(attr, OFFICIAL_IMAGE);
-      if (node.tagName !== 'SOURCE') {
-        node.alt = '龜鹿飲30cc小玻璃裸罐正式產品原圖';
-        node.style.objectFit = 'contain';
-        node.style.objectPosition = 'center';
+      if (node.tagName !== "SOURCE") {
+        node.alt = "龜鹿飲30cc小玻璃裸罐正式產品原圖";
+        node.style.objectFit = "contain";
+        node.style.objectPosition = "center";
       }
       node.dataset.xjwOfficial30cc = VERSION;
     });
 
-    scope.querySelectorAll('a[href], [data-dm-src]').forEach((node) => {
-      const href = node.getAttribute('href') || '';
-      const dm = node.getAttribute('data-dm-src') || '';
-      if (LEGACY.test(href)) node.setAttribute('href', OFFICIAL_IMAGE);
-      if (LEGACY.test(dm)) node.setAttribute('data-dm-src', OFFICIAL_IMAGE);
+    scope.querySelectorAll("a[href], [data-dm-src]").forEach((node) => {
+      const href = node.getAttribute("href") || "";
+      const dm = node.getAttribute("data-dm-src") || "";
+      if (isLegacy(href)) node.setAttribute("href", OFFICIAL_IMAGE);
+      if (isLegacy(dm)) node.setAttribute("data-dm-src", OFFICIAL_IMAGE);
     });
   }
 
@@ -36,13 +46,21 @@
       records.forEach((record) => record.addedNodes.forEach((node) => {
         if (node.nodeType !== 1) return;
         repair(node);
-        if (node.matches?.('img[src], source[srcset], a[href], [data-dm-src]')) repair(node.parentElement || document);
+        if (node.matches?.("img[src], source[srcset], a[href], [data-dm-src]")) {
+          repair(node.parentElement || document);
+        }
       }));
     });
     observer.observe(document.documentElement, { childList: true, subtree: true });
   }
 
-  window.XJWProductImageSafety = Object.freeze({ version: VERSION, officialImage: OFFICIAL_IMAGE, repair });
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+  window.XJWProductImageSafety = Object.freeze({
+    version: VERSION,
+    officialImage: OFFICIAL_IMAGE,
+    legacyPaths: LEGACY_PATHS,
+    isLegacy,
+    repair
+  });
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
   else start();
 })();
