@@ -1,0 +1,146 @@
+name: 官網單次最終完整驗收
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  audit:
+    if: github.event.issue.title == 'ONE_TIME_SITE_FINAL_AUDIT_20260806'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 執行正式官網完整驗收
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          {
+            node --check site.js
+            node --check site-core-v410.js
+            node --check site-product-image-safety.js
+            python3 -m json.tool data.json >/dev/null
+            python3 -m json.tool catalog-public.json >/dev/null
+            python3 -m json.tool geo-data.json >/dev/null
+            python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          official_30 = 'images/products-v3/guilu-drink-30.jpg'
+          expected = {
+              'guilu-gao': '100g／罐',
+              'guilu-drink-30': '30cc／罐（小玻璃罐）',
+              'guilu-drink-180': '180cc／包（鋁袋）',
+              'guilu-tangkuai': '75g／盒｜8塊裝｜每塊約9.375g',
+              'guilu-jiao': '600g（1斤）／盒｜32塊裝｜每塊約18.75g',
+              'luerong-fen': '75g／罐',
+          }
+          required = [
+              'index.html','products.html','choose.html','dm.html','guide.html','brand.html',
+              'faq.html','contact.html','site.css','site.js','site-core-v410.js',
+              'site-product-image-safety.js','data.json','catalog-public.json','geo-data.json',
+              'sitemap.xml','robots.txt',official_30
+          ]
+          missing = [p for p in required if not Path(p).is_file()]
+          assert not missing, f'缺少必要檔案：{missing}'
+          assert not Path('site-product-authority.js').exists(), '仍保留舊字串執行期改寫器'
+
+          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
+          products = {p.get('id'): p for p in data.get('products', []) if isinstance(p, dict)}
+          assert set(products) == set(expected), f'產品必須剛好六項：{sorted(products)}'
+          for pid, spec in expected.items():
+              assert products[pid].get('size') == spec, f'{pid}規格錯誤'
+          expected_combos = ['日常節奏組','料理搭配組','完整體驗組']
+          assert [x.get('name') for x in data.get('combos', [])] == expected_combos, '三組搭配錯誤'
+          assert [x.get('name') for x in data.get('offers',{}).get('comboOffers',[])] == expected_combos, '搭配鏡像錯誤'
+
+          p30 = products['guilu-drink-30']
+          assert p30.get('image','').startswith(official_30), '30cc主圖錯誤'
+          assert p30.get('dmImage','').startswith(official_30), '30cc DM圖錯誤'
+          assert all(str(x).startswith(official_30) for x in p30.get('detailImages',[])), '30cc詳圖仍含舊來源'
+
+          for pid in ('guilu-drink-30','guilu-drink-180'):
+              assert products[pid].get('fulfillmentType') == 'made-to-order-drink'
+              assert '5～7個工作天' in products[pid].get('fulfillmentNotice','')
+          for pid in ('guilu-gao','guilu-tangkuai','guilu-jiao','luerong-fen'):
+              assert products[pid].get('fulfillmentType') == 'ready-stock'
+              assert '5～7個工作天' not in products[pid].get('fulfillmentNotice','')
+
+          public_files = [p for p in Path('.').iterdir() if p.is_file() and p.suffix.lower() in {'.html','.json','.txt'}]
+          public_text = '\n'.join(p.read_text(encoding='utf-8',errors='ignore') for p in public_files)
+          forbidden = [
+              '龜鹿飲30cc玻璃瓶','30cc／瓶（小玻璃瓶）','小玻璃瓶',
+              '龜鹿湯塊150g','龜鹿湯塊300g','龜鹿湯塊600g',
+              '600g／盒（1斤）｜32塊裝｜每塊約18.75g',
+              '台北市萬華區西昌街52號','台北市萬華區西昌街 52 號',
+              '門市自取','guilu-drink-30-clean.svg','images/guilu-drink-30cc-glass.jpg',
+              'images/dm-final/02_guilu-drink-30cc-dm.jpg'
+          ]
+          for value in forbidden:
+              assert value not in public_text, f'公開資料仍含舊資料：{value}'
+
+          catalog = json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
+          geo = json.loads(Path('geo-data.json').read_text(encoding='utf-8'))
+          assert len(catalog.get('products',[])) == 6, '公開目錄不是六項'
+          assert official_30 in json.dumps(catalog,ensure_ascii=False), '公開目錄30cc圖錯誤'
+          assert official_30 in json.dumps(geo,ensure_ascii=False), 'GEO 30cc圖錯誤'
+          contact = Path('contact.html').read_text(encoding='utf-8',errors='ignore')
+          assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方LINE'
+          assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁仍含地圖'
+          print('PASS 官網最終完整驗收：六項產品、三組搭配、GEO、正式圖片、出貨政策與公開資料全部通過。')
+          PY
+          } > /tmp/site-audit.log 2>&1
+          result=$?
+          set -e
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+          tail -n 180 /tmp/site-audit.log > /tmp/site-audit-tail.log
+
+      - name: 移除本單次流程
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/one-time-final-site-audit.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'ci(site): remove completed one-time final audit'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: 回寫驗收結果
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+          RESULT: ${{ steps.audit.outputs.result }}
+        shell: bash
+        run: |
+          if [ "${RESULT:-1}" = '0' ]; then status='全部通過'; else status='仍有項目需修正'; fi
+          {
+            echo "## 官網最終完整驗收：${status}"
+            echo
+            echo "- 驗收代碼：\`${RESULT:-unknown}\`"
+            echo "- 一般push自動流程：0"
+            echo "- 社群核准／排程／發布：未執行"
+            echo
+            echo '<details><summary>驗收輸出</summary>'
+            echo
+            echo '```text'
+            cat /tmp/site-audit-tail.log 2>/dev/null || true
+            echo '```'
+            echo '</details>'
+          } > /tmp/site-result.md
+          gh issue comment "$NUMBER" --body-file /tmp/site-result.md || true
+          gh issue close "$NUMBER" --reason completed || true
