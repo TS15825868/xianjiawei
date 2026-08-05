@@ -1,28 +1,13 @@
-name: Test Drive DM download
+name: 【暫停】舊版Drive下載測試
 
 on:
-  issues:
-    types: [opened]
+  workflow_dispatch:
 
 permissions:
-  issues: write
+  contents: read
 
 jobs:
-  test:
-    if: github.event.issue.title == 'TEST_DRIVE_DM_DOWNLOAD'
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - name: Download and inspect
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set +e
-          url='https://drive.usercontent.google.com/download?id=11rBLrjxeDX8W_jcKRAfIj4B9Z8q9aQql&export=download&confirm=t'
-          code=$(curl -L -sS -w '%{http_code}' -o /tmp/dm.zip "$url")
-          size=$(wc -c </tmp/dm.zip 2>/dev/null || echo 0)
-          kind=$(file -b /tmp/dm.zip 2>/dev/null || true)
-          unzip -t /tmp/dm.zip >/tmp/unzip.txt 2>&1
-          ok=$?
-          { echo "HTTP=$code"; echo "SIZE=$size"; echo "TYPE=$kind"; echo "UNZIP=$ok"; tail -5 /tmp/unzip.txt; } >/tmp/report.txt
-          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/report.txt
-          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
+      - run: echo '舊版Drive下載測試已暫停。'
