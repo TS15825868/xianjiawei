@@ -1,0 +1,81 @@
+name: 官網龜鹿膠正式規格一次修復 v431
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-official-jiao-spec-v431.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: site-jiao-spec-v431
+  cancel-in-progress: true
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Restore the user-confirmed official specification everywhere
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          root = Path('.')
+          wrong_full = '600g（1斤）／盒｜32塊裝｜每塊約18.75g'
+          right_full = '600g／盒（1斤）｜32塊裝｜每塊約18.75g'
+          wrong_short = '600g（1斤）／盒'
+          right_short = '600g／盒（1斤）'
+          changed = []
+
+          for path in root.rglob('*'):
+              if not path.is_file() or '.git' in path.parts:
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except (UnicodeDecodeError, OSError):
+                  continue
+              updated = text.replace(wrong_full, right_full).replace(wrong_short, right_short)
+              if updated != text:
+                  path.write_text(updated, encoding='utf-8')
+                  changed.append(str(path))
+
+          if not changed:
+              raise SystemExit('找不到需要修復的龜鹿膠錯誤規格')
+          print('\n'.join(changed))
+          PY
+
+      - name: Verify official website contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RIn --exclude-dir=.git '600g（1斤）／盒' .; then
+            echo '仍含錯誤的龜鹿膠規格。' >&2
+            exit 1
+          fi
+          grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' assets/data/official-products.json
+          grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' data.json
+          grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' product-guilu-jiao.html
+          node tools/audit-site.mjs
+
+      - name: Persist repair and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/fix-official-jiao-spec-v431.yml
+          git add -A
+          git commit -m 'fix(site): restore official guilu-jiao 600g box specification'
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
