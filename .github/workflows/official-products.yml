@@ -1,0 +1,37 @@
+name: 六項正式產品驗證
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/data/official-products.json'
+      - 'config/official-products.json'
+      - 'data.json'
+      - 'catalog-public.json'
+      - 'geo-data.json'
+      - 'index.html'
+      - 'products.html'
+      - 'dm.html'
+      - 'product-guilu-*.html'
+      - 'tools/validate-official-products.mjs'
+      - '.github/workflows/official-products.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: official-products-site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: 驗證六項正式產品
+        run: node tools/validate-official-products.mjs
