@@ -1,18 +1,19 @@
 {
-  "version": "410.3",
-  "updated": "2026-07-28",
-  "status": "production-ready-audited",
-  "catalog": "five-types-six-specifications",
+  "version": "2026-08-06-canonical-v4",
+  "updated": "2026-08-06",
+  "status": "source-audited-pending-live-readback",
+  "catalog": "six-official-products",
   "imagePolicy": {
     "productCards": "verified-original-product-image",
     "quickViewModal": "verified-original-product-image",
     "detailHero": "verified-original-product-image",
-    "detailDM": "six-approved-final-dm-images",
+    "detailDM": "verified-original-product-image",
     "detailMascot": "approved-page-specific-mascot-webp",
-    "dmPage": "six-approved-final-dm-images",
+    "dmPage": "official-original-product-images",
     "allWebsiteImages": "proportional-contain-no-crop",
     "brandTimeline": "single-column-no-blue-intro-card",
-    "guiluDrink30cc": "龜鹿飲30cc玻璃瓶｜30cc／瓶（小玻璃瓶）",
+    "guiluDrink30cc": "龜鹿飲30cc玻璃罐｜30cc／罐（小玻璃罐）｜裸罐無貼紙",
+    "guiluDrink30ccImage": "images/products-v3/guilu-drink-30.jpg?v=20260805",
     "logoSizing": "header-50px-mobile-44px-menu-40px-mobile-36px",
     "imageScaling": "natural-size-with-explicit-media-contain"
   },
@@ -26,7 +27,8 @@
     "twitter-card",
     "webpage-breadcrumb-faq-itemlist-jsonld",
     "llms-txt",
-    "machine-readable-catalog"
+    "machine-readable-six-product-catalog",
+    "geo-six-product-graph"
   ],
   "performance": [
     "optimized-mascot-webp",
@@ -39,29 +41,34 @@
     "six-product-comparison",
     "line-intent-cta"
   ],
-  "safety": "no-redrawn-product-packaging-in-product-card-or-quick-view",
+  "safety": "no-redrawn-product-packaging-no-public-address-no-store-pickup",
   "integrityChecks": [
     "all-local-links-and-anchors-valid",
-    "173-static-controls-audited",
     "data-json-valid",
-    "30cc-and-180cc-content-corrected",
+    "catalog-public-json-valid",
+    "geo-data-json-valid",
+    "six-official-products-only",
+    "three-official-combos-only",
+    "30cc-and-180cc-content-separated",
+    "30cc-canonical-product-image-only",
+    "guilu-jiao-exact-specification",
+    "drink-only-made-to-order-fulfillment",
     "brand-timeline-2008-registration-preserved",
-    "all-shell-pages-load-v4102-image-policy",
     "all-images-proportional-contain-no-crop",
-    "brand-timeline-full-width-without-blue-intro-card",
     "guilu-drink-30cc-glass-jar-wording-locked",
     "header-logo-fixed-size",
     "menu-logo-fixed-size",
-    "brand-media-contained-without-crop",
     "mobile-faq-spacing-compacted"
   ],
   "productPolicy": {
     "guiluGao": "每天一次一小匙；初次半匙；早上或空腹前後；避免睡前",
     "guiluDrink": "每日一份；可隔水加熱或溫熱飲用；避免冰飲",
+    "fulfillment": "只有龜鹿飲30cc與180cc接單製作加工約需5～7個工作天；其他四項為預先備貨",
     "images": "真實產品原圖，不重畫、不改包裝與規格"
   },
   "brandPolicy": {
     "registration": "2008年「仙加味」品牌完成註冊",
-    "heritage": "四代傳承，以已確認時間軸為準"
+    "heritage": "四代傳承，以已確認時間軸為準",
+    "publicContact": "只導向仙加味官方LINE"
   }
 }
