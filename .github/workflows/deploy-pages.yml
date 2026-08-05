@@ -34,8 +34,7 @@ jobs:
               'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
               'site-product-authority.js', 'site-product-image-safety.js',
               'data.json', 'catalog-public.json', 'geo-data.json', 'sitemap.xml', 'robots.txt',
-              'images/products-v3/guilu-drink-30.jpg',
-              'images/dm-final/02_guilu-drink-30cc-dm.jpg'
+              'images/guilu-drink-30cc-glass.jpg'
           ]
           missing = [name for name in required if not Path(name).is_file()]
           assert not missing, f'缺少必要檔案: {missing}'
@@ -54,8 +53,9 @@ jobs:
           for product_id, specification in expected.items():
               assert products[product_id].get('size') == specification, f'{product_id} 規格錯誤'
 
-          assert products['guilu-drink-30'].get('image', '').startswith('images/products-v3/guilu-drink-30.jpg'), '30cc未使用正式照片'
-          assert products['guilu-drink-30'].get('dmImage', '').startswith('images/dm-final/02_guilu-drink-30cc-dm.jpg'), '30cc未使用正確DM'
+          official_30 = 'images/guilu-drink-30cc-glass.jpg'
+          assert products['guilu-drink-30'].get('image', '').startswith(official_30), '30cc未使用裸小玻璃罐正式原圖'
+          assert products['guilu-drink-30'].get('dmImage', '').startswith(official_30), '30cc圖文入口未使用正式原圖'
 
           for product_id in ('guilu-drink-30', 'guilu-drink-180'):
               assert products[product_id].get('fulfillmentType') == 'made-to-order-drink', f'{product_id}出貨分類錯誤'
@@ -74,7 +74,9 @@ jobs:
               '龜鹿湯塊150g', '龜鹿湯塊300g', '龜鹿湯塊600g',
               '600g／盒（1斤）｜32塊裝｜每塊約18.75g',
               '台北市萬華區西昌街52號',
-              'guilu-drink-30-clean.svg'
+              'guilu-drink-30-clean.svg',
+              'images/products-v3/guilu-drink-30.jpg',
+              'images/dm-final/02_guilu-drink-30cc-dm.jpg'
           ]
           for value in forbidden:
               assert value not in public_text, f'公開資料仍含舊資料：{value}'
@@ -82,5 +84,5 @@ jobs:
           contact = Path('contact.html').read_text(encoding='utf-8', errors='ignore')
           assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方 LINE'
           assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
-          print('PASS：官網六項產品、正式圖片、出貨政策、公開文案與聯絡頁符合目前規則。')
+          print('PASS：官網六項產品、正式原圖、出貨政策、公開文案與聯絡頁符合目前規則。')
           PY
