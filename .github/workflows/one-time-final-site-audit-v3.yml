@@ -1,0 +1,69 @@
+name: 官網單次最終完整驗收v3
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  audit:
+    if: github.event.issue.title == 'ONE_TIME_SITE_FINAL_AUDIT_V3_20260806'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: 執行正式官網完整驗收
+        id: audit
+        shell: bash
+        run: |
+          set +e
+          { node --check site.js && node --check site-core-v410.js && node --check site-product-image-safety.js && python3 tools/validate-site-release.py; } > /tmp/site-audit.log 2>&1
+          result=$?
+          set -e
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+          tail -n 180 /tmp/site-audit.log > /tmp/site-audit-tail.log
+      - name: 移除本單次流程
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/one-time-final-site-audit-v3.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'ci(site): remove completed one-time final audit v3'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: 回寫驗收結果
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+          RESULT: ${{ steps.audit.outputs.result }}
+        shell: bash
+        run: |
+          if [ "${RESULT:-1}" = '0' ]; then status='全部通過'; else status='仍有項目需修正'; fi
+          {
+            echo "## 官網最終完整驗收v3：${status}"
+            echo
+            echo "- 驗收代碼：\`${RESULT:-unknown}\`"
+            echo "- 一般push自動流程：0"
+            echo "- 社群核准／排程／發布：未執行"
+            echo
+            echo '<details><summary>驗收輸出</summary>'
+            echo
+            echo '```text'
+            cat /tmp/site-audit-tail.log 2>/dev/null || true
+            echo '```'
+            echo '</details>'
+          } > /tmp/site-result.md
+          gh issue comment "$NUMBER" --body-file /tmp/site-result.md || true
+          gh issue close "$NUMBER" --reason completed || true
