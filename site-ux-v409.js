@@ -49,10 +49,10 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startArtworkGuard, { once: true });
   else startArtworkGuard();
 
-  if (window.__XJW_V410__) return;
+  if (window.__XJW_V410__ || window.__XJW_SITE_WRAPPER__) return;
   if (document.querySelector('script[data-xjw-v410-fallback]')) return;
   const script = document.createElement('script');
-  script.src = 'site.js?v=410.1';
+  script.src = 'site.js?v=411.0';
   script.async = false;
   script.dataset.xjwV410Fallback = '1';
   document.head.appendChild(script);
