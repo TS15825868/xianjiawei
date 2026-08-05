@@ -1,4 +1,4 @@
-name: 官網龜鹿膠正式規格一次修復 v431
+name: 官網正式產品規格一次修復 v431
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: site-jiao-spec-v431
+  group: site-official-spec-v431
   cancel-in-progress: true
 
 jobs:
@@ -24,78 +24,21 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Restore the user-confirmed official specification everywhere
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-
-          root = Path('.')
-          validator = Path('tools/enforce_canonical_public_product_wording.py')
-          wrong_full = '600g（1斤）／盒｜32塊裝｜每塊約18.75g'
-          right_full = '600g／盒（1斤）｜32塊裝｜每塊約18.75g'
-          wrong_short = '600g（1斤）／盒'
-          right_short = '600g／盒（1斤）'
-          changed = []
-
-          for path in root.rglob('*'):
-              if not path.is_file() or '.git' in path.parts or path == validator:
-                  continue
-              try:
-                  text = path.read_text(encoding='utf-8')
-              except (UnicodeDecodeError, OSError):
-                  continue
-              updated = text.replace(wrong_full, right_full).replace(wrong_short, right_short)
-              if updated != text:
-                  path.write_text(updated, encoding='utf-8')
-                  changed.append(str(path))
-
-          text = validator.read_text(encoding='utf-8')
-          old_block = '''    "600g／32塊": "600g（1斤）／盒｜32塊裝｜每塊約18.75g",
-    "600g／盒（1斤）｜32塊裝｜每塊約18.75g": "600g（1斤）／盒｜32塊裝｜每塊約18.75g",
-    "600g／盒（1斤）": "600g（1斤）／盒",
-'''
-          new_block = '''    "600g／32塊": "600g／盒（1斤）｜32塊裝｜每塊約18.75g",
-'''
-          text = text.replace(old_block, new_block)
-          text = text.replace(
-              '("龜鹿膠", "600g（1斤）／盒｜32塊裝｜每塊約18.75g")',
-              '("龜鹿膠", "600g／盒（1斤）｜32塊裝｜每塊約18.75g")'
-          )
-          text = text.replace(
-              'if "600g／盒（1斤）" in text:',
-              'if "600g（1斤）／盒" in text:'
-          )
-          text = text.replace(
-              '仍含龜鹿膠舊字序：600g／盒（1斤）',
-              '仍含龜鹿膠錯誤字序：600g（1斤）／盒'
-          )
-          text = text.replace(
-              '龜鹿膠固定600g（1斤）／盒',
-              '龜鹿膠固定600g／盒（1斤）'
-          )
-          validator.write_text(text, encoding='utf-8')
-          changed.append(str(validator))
-
-          if not changed:
-              raise SystemExit('找不到需要修復的龜鹿膠錯誤規格')
-          print('\n'.join(changed))
-          PY
+      - name: Apply the user-confirmed canonical product wording
+        run: python3 tools/enforce_canonical_public_product_wording.py --write
 
       - name: Verify official website contract
         shell: bash
         run: |
           set -euo pipefail
-          if grep -RIn --exclude-dir=.git '600g（1斤）／盒' .; then
-            echo '仍含錯誤的龜鹿膠規格。' >&2
-            exit 1
-          fi
+          python3 tools/enforce_canonical_public_product_wording.py --check
           grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' assets/data/official-products.json
           grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' data.json
           grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' product-guilu-jiao.html
-          grep -q 'if "600g（1斤）／盒" in text:' tools/enforce_canonical_public_product_wording.py
-          python3 tools/enforce_canonical_public_product_wording.py --check
+          if grep -RIn --exclude-dir=.git --exclude='fix-official-jiao-spec-v431.yml' '600g（1斤）／盒' .; then
+            echo '仍含錯誤的龜鹿膠規格。' >&2
+            exit 1
+          fi
           node tools/audit-site.mjs
 
       - name: Persist repair and remove one-time workflow
@@ -106,6 +49,10 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git rm .github/workflows/fix-official-jiao-spec-v431.yml
           git add -A
-          git commit -m 'fix(site): restore official guilu-jiao 600g box specification'
-          git pull --rebase --autostash origin main
-          git push origin HEAD:main
+          if git diff --cached --quiet; then
+            echo '正式規格已完全一致。'
+          else
+            git commit -m 'fix(site): restore official guilu-jiao 600g box specification'
+            git pull --rebase --autostash origin main
+            git push origin HEAD:main
+          fi
