@@ -11,6 +11,8 @@ const textReplacements = [
   ['30cc／瓶（小玻璃瓶）', '30cc／罐（小玻璃罐）'],
   ['30cc／瓶', '30cc／罐'],
   ['小玻璃瓶', '小玻璃罐'],
+  ['輕巧瓶裝，開罐即可飲用', '小玻璃罐輕巧方便，開罐即可飲用'],
+  ['輕巧瓶裝', '小玻璃罐輕巧方便'],
   ['600g／盒（1斤）｜32塊裝｜每塊約18.75g', '600g（1斤）／盒｜32塊裝｜每塊約18.75g'],
   ['600g／盒（1斤）', '600g（1斤）／盒'],
 ];
@@ -40,7 +42,7 @@ for (const file of files) {
 const violations = [];
 for (const file of files) {
   const text = readFileSync(file, 'utf8');
-  if (/龜鹿飲30cc玻璃瓶|30cc／瓶（小玻璃瓶）/.test(text)) violations.push(`${file}: legacy bottle wording`);
+  if (/龜鹿飲30cc玻璃瓶|30cc／瓶（小玻璃瓶）|輕巧瓶裝/.test(text)) violations.push(`${file}: legacy bottle wording`);
   if (/images\/products-v3\/guilu-drink-30\.jpg|images\/dm-final\/02_guilu-drink-30cc-dm\.jpg/.test(text)) {
     violations.push(`${file}: legacy 30cc artwork reference`);
   }
