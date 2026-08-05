@@ -1,26 +1,13 @@
-name: 自動合併可信任更新
+name: 【暫停】自動合併守門
 
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
-  checks: read
+  contents: read
 
 jobs:
-  auto-merge:
-    if: >-
-      github.event.pull_request.base.ref == 'main' &&
-      github.event.pull_request.draft == false &&
-      (github.event.pull_request.user.login == 'TS15825868' ||
-       github.event.pull_request.user.login == 'github-actions[bot]' ||
-       github.event.pull_request.user.login == 'dependabot[bot]')
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - name: 啟用自動合併
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-        run: gh pr merge "$PR_URL" --auto --squash --delete-branch
+      - run: echo '自動合併已暫停，待全部系統完善後再開啟。'
