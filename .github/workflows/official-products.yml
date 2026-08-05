@@ -24,6 +24,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: official-products-site-${{ github.ref }}
@@ -32,7 +33,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
         with:
@@ -71,3 +72,83 @@ jobs:
           git add -- '*.html' data.json catalog-public.json geo-data.json llms.txt llms-full.txt
           git commit -m 'fix(site): normalize all public product wording and artwork [skip ci]'
           git push
+      - name: 等待並驗證 GitHub Pages 正式網站
+        env:
+          BASE_URL: https://ts15825868.github.io/xianjiawei
+        run: |
+          set -euo pipefail
+          success=0
+          for attempt in $(seq 1 60); do
+            echo "GitHub Pages verification attempt ${attempt}/60"
+            query="verify=${GITHUB_RUN_ID}-${attempt}"
+            if curl --connect-timeout 10 --max-time 30 -fsS "$BASE_URL/data.json?$query" -o /tmp/site-data.json \
+              && curl --connect-timeout 10 --max-time 30 -fsS "$BASE_URL/site.js?$query" -o /tmp/site.js \
+              && curl --connect-timeout 10 --max-time 30 -fsS "$BASE_URL/site-core-v410.js?$query" -o /tmp/site-core.js \
+              && curl --connect-timeout 10 --max-time 30 -fsS "$BASE_URL/site-product-image-safety.js?$query" -o /tmp/site-safety.js \
+              && curl --connect-timeout 10 --max-time 30 -fsS "$BASE_URL/images/products-v3/guilu-drink-30-clean.svg?$query" -o /tmp/drink30.svg \
+              && curl --connect-timeout 10 --max-time 30 -fsS "$BASE_URL/dm.html?$query" -o /tmp/dm.html \
+              && curl --connect-timeout 10 --max-time 30 -fsS "$BASE_URL/product-guilu-drink-30cc.html?$query" -o /tmp/product30.html; then
+              if node <<'NODE'
+          const fs = require('node:fs');
+          const data = JSON.parse(fs.readFileSync('/tmp/site-data.json', 'utf8'));
+          const products = data.products || [];
+          const expected = new Map([
+            ['guilu-gao', '100g／罐'],
+            ['guilu-drink-30', '30cc／罐（小玻璃罐）'],
+            ['guilu-drink-180', '180cc／包（鋁袋）'],
+            ['guilu-tangkuai', '75g／盒｜8塊裝｜每塊約9.375g'],
+            ['guilu-jiao', '600g（1斤）／盒｜32塊裝｜每塊約18.75g'],
+            ['luerong-fen', '75g／罐'],
+          ]);
+          if (products.length !== 6) process.exit(1);
+          for (const [id, spec] of expected) {
+            const product = products.find((item) => item.id === id);
+            if (!product || (product.size || product.specification || product.spec) !== spec) process.exit(1);
+          }
+          const drink30 = products.find((item) => item.id === 'guilu-drink-30');
+          if (!String(drink30?.image || '').includes('guilu-drink-30-clean.svg')) process.exit(1);
+          if (!String(drink30?.dmImage || '').includes('guilu-drink-30-clean.svg')) process.exit(1);
+          const files = ['/tmp/site.js', '/tmp/site-core.js', '/tmp/site-safety.js', '/tmp/drink30.svg', '/tmp/dm.html', '/tmp/product30.html'];
+          const combined = files.map((file) => fs.readFileSync(file, 'utf8')).join('\n');
+          if (!fs.readFileSync('/tmp/site.js', 'utf8').includes('site-core-v410.js')) process.exit(1);
+          if (!fs.readFileSync('/tmp/site-safety.js', 'utf8').includes('guilu-drink-30-clean.svg')) process.exit(1);
+          if (!fs.readFileSync('/tmp/drink30.svg', 'utf8').includes('龜鹿飲30cc小玻璃罐')) process.exit(1);
+          if (/龜鹿飲30cc玻璃瓶|30cc／瓶（小玻璃瓶）|輕巧瓶裝|600g／盒（1斤）/.test(combined)) process.exit(1);
+          NODE
+              then
+                success=1
+                break
+              fi
+            fi
+            sleep 10
+          done
+          if [ "$success" -ne 1 ]; then
+            echo 'GitHub Pages did not expose the verified v411 website in time.' >&2
+            exit 1
+          fi
+      - name: 更新官網正式部署診斷 Issue
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title='[官網部署診斷] 最新線上健康結果'
+          checked_at=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          body=$(cat <<EOF
+          ## 仙加味官網正式部署驗證成功
+
+          - 結果：\`success\`
+          - 提交：\`${GITHUB_SHA}\`
+          - 執行網址：https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          - 正式網址：https://ts15825868.github.io/xianjiawei/index.html
+          - 檢查時間：${checked_at}
+
+          六項正式規格、龜鹿膠正確字序、30cc小玻璃罐正式圖、DM、產品頁、v411網站核心與全站圖片守門均已由公開網址讀回驗證；舊版「30cc／瓶」、輕巧瓶裝與湯塊錯誤規格不得出現。
+          EOF
+          )
+          number=$(gh issue list --state all --search "$title in:title" --json number,title --jq "map(select(.title == \"$title\"))[0].number // empty")
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --title "$title" --body "$body"
+            gh issue close "$number" --reason completed || true
+          else
+            gh issue create --title "$title" --body "$body"
+          fi
