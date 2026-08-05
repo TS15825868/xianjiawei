@@ -1,0 +1,179 @@
+name: 三端單次正式環境讀回
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  live-audit:
+    if: github.event.issue.title == 'ONE_TIME_LIVE_ENVIRONMENT_AUDIT_20260806'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 讀回GitHub Pages正式內容
+        id: pages
+        shell: bash
+        run: |
+          set +e
+          mkdir -p /tmp/live-audit
+          base='https://ts15825868.github.io/xianjiawei'
+          stamp="$(date +%s)"
+          curl -fLsS --retry 4 --retry-delay 3 --max-time 45 "$base/?audit=$stamp" -o /tmp/live-audit/index.html
+          r1=$?
+          curl -fLsS --retry 4 --retry-delay 3 --max-time 45 "$base/catalog-public.json?audit=$stamp" -o /tmp/live-audit/catalog-public.json
+          r2=$?
+          curl -fLsS --retry 4 --retry-delay 3 --max-time 45 "$base/geo-data.json?audit=$stamp" -o /tmp/live-audit/geo-data.json
+          r3=$?
+          curl -fLsS --retry 4 --retry-delay 3 --max-time 45 "$base/deploy-version.json?audit=$stamp" -o /tmp/live-audit/deploy-version.json
+          r4=$?
+          curl -fLsS --retry 4 --retry-delay 3 --max-time 45 "$base/product-guilu-jiao.html?audit=$stamp" -o /tmp/live-audit/jiao.html
+          r5=$?
+          curl -fLsS --retry 4 --retry-delay 3 --max-time 45 "$base/product-guilu-drink-30cc.html?audit=$stamp" -o /tmp/live-audit/drink30.html
+          r6=$?
+          result=$((r1|r2|r3|r4|r5|r6))
+          if [ "$result" -eq 0 ]; then
+            python3 - <<'PY' > /tmp/live-audit/pages.log 2>&1
+          from pathlib import Path
+          import json
+          root = Path('/tmp/live-audit')
+          catalog = json.loads((root/'catalog-public.json').read_text(encoding='utf-8'))
+          geo = json.loads((root/'geo-data.json').read_text(encoding='utf-8'))
+          deploy = json.loads((root/'deploy-version.json').read_text(encoding='utf-8'))
+          all_text = '\n'.join((root/name).read_text(encoding='utf-8', errors='ignore') for name in ['index.html','catalog-public.json','geo-data.json','deploy-version.json','jiao.html','drink30.html'])
+          forbidden = ['龜鹿飲30cc玻璃瓶','30cc／瓶（小玻璃瓶）','小玻璃瓶','600g／盒（1斤）｜32塊裝｜每塊約18.75g','台北市萬華區西昌街52號','門市自取','guilu-drink-30-clean.svg','images/guilu-drink-30cc-glass.jpg','images/dm-final/02_guilu-drink-30cc-dm.jpg']
+          for value in forbidden:
+              assert value not in all_text, f'線上仍含舊資料：{value}'
+          assert len(catalog.get('products', [])) == 6, '線上公開目錄不是六項'
+          assert 'images/products-v3/guilu-drink-30.jpg' in json.dumps(catalog, ensure_ascii=False), '線上30cc圖片不是正式原圖'
+          assert 'images/products-v3/guilu-drink-30.jpg' in json.dumps(geo, ensure_ascii=False), '線上GEO的30cc圖片錯誤'
+          assert deploy.get('catalog') == 'six-official-products', '線上部署版本仍是舊版'
+          assert '600g（1斤）／盒｜32塊裝｜每塊約18.75g' in (root/'jiao.html').read_text(encoding='utf-8', errors='ignore'), '線上龜鹿膠規格錯誤'
+          assert '30cc／罐（小玻璃罐）' in (root/'drink30.html').read_text(encoding='utf-8', errors='ignore'), '線上30cc規格錯誤'
+          print('PASS GitHub Pages線上讀回：六項產品、正式圖片、GEO、龜鹿膠與30cc規格全部正確。')
+          PY
+            result=$?
+          else
+            echo 'FAIL GitHub Pages HTTP讀取失敗。' > /tmp/live-audit/pages.log
+          fi
+          set -e
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+
+      - name: 讀回LINE Render正式環境
+        id: render
+        shell: bash
+        run: |
+          set +e
+          mkdir -p /tmp/live-audit
+          base='https://ts-line.onrender.com'
+          app_code=$(curl -LsS --retry 5 --retry-all-errors --retry-delay 8 --max-time 120 -o /tmp/live-audit/render-app.html -w '%{http_code}' "$base/internal/app")
+          health_code='000'
+          health_path=''
+          for path in /healthz /health /api/health; do
+            code=$(curl -LsS --retry 2 --retry-all-errors --retry-delay 5 --max-time 60 -o /tmp/live-audit/render-health.json -w '%{http_code}' "$base$path")
+            if [ "$code" = '200' ]; then health_code="$code"; health_path="$path"; break; fi
+          done
+          result=0
+          if [ "$app_code" != '200' ]; then result=1; fi
+          if [ "$health_code" != '200' ]; then result=1; fi
+          {
+            echo "Render App HTTP：$app_code"
+            echo "Render Health HTTP：$health_code"
+            echo "Render Health Path：${health_path:-none}"
+            if [ "$result" -eq 0 ]; then echo 'PASS LINE Render正式環境可讀。'; else echo 'FAIL LINE Render正式環境未完整通過。'; fi
+          } > /tmp/live-audit/render.log
+          set -e
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+
+      - name: 讀回ERP Cloudflare Worker
+        id: worker
+        shell: bash
+        run: |
+          set +e
+          mkdir -p /tmp/live-audit
+          base='https://xianjiawei-internal.tung314069.workers.dev'
+          code='000'
+          path=''
+          for candidate in /healthz /health /api/health; do
+            current=$(curl -LsS --retry 2 --retry-all-errors --retry-delay 3 --max-time 45 -o /tmp/live-audit/worker-body.txt -w '%{http_code}' "$base$candidate")
+            code="$current"; path="$candidate"
+            if [ "$current" = '200' ] || [ "$current" = '401' ] || [ "$current" = '403' ]; then break; fi
+          done
+          result=0
+          state='unknown'
+          if [ "$code" = '200' ]; then
+            state='public-health-ok'
+          elif [ "$code" = '401' ] || [ "$code" = '403' ]; then
+            state='access-protected-token-required'
+            result=2
+          else
+            state='unreachable-or-route-missing'
+            result=1
+          fi
+          {
+            echo "Worker HTTP：$code"
+            echo "Worker Path：$path"
+            echo "Worker State：$state"
+            head -c 1200 /tmp/live-audit/worker-body.txt 2>/dev/null || true
+            echo
+          } > /tmp/live-audit/worker.log
+          set -e
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+
+      - name: 移除本單次流程
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/one-time-live-environment-audit.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'ci(site): remove completed live environment audit'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: 回寫正式環境結果
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+          PAGES: ${{ steps.pages.outputs.result }}
+          RENDER: ${{ steps.render.outputs.result }}
+          WORKER: ${{ steps.worker.outputs.result }}
+        shell: bash
+        run: |
+          if [ "${PAGES:-1}" = '0' ] && [ "${RENDER:-1}" = '0' ] && [ "${WORKER:-1}" = '0' ]; then overall='全部通過'; elif [ "${PAGES:-1}" = '0' ] && [ "${RENDER:-1}" = '0' ] && [ "${WORKER:-1}" = '2' ]; then overall='官網與LINE通過；ERP需Access短效Token'; else overall='仍有項目需修正'; fi
+          {
+            echo "## 三端正式環境讀回：${overall}"
+            echo
+            echo "- GitHub Pages：\`${PAGES:-unknown}\`"
+            echo "- LINE Render：\`${RENDER:-unknown}\`"
+            echo "- ERP Worker：\`${WORKER:-unknown}\`（2代表Access保護，需短效Token驗證）"
+            echo "- 社群核准／排程／發布：未執行"
+            echo
+            echo '### GitHub Pages'
+            echo '```text'
+            cat /tmp/live-audit/pages.log 2>/dev/null || true
+            echo '```'
+            echo '### LINE Render'
+            echo '```text'
+            cat /tmp/live-audit/render.log 2>/dev/null || true
+            echo '```'
+            echo '### ERP Worker'
+            echo '```text'
+            cat /tmp/live-audit/worker.log 2>/dev/null || true
+            echo '```'
+          } > /tmp/live-result.md
+          gh issue comment "$NUMBER" --body-file /tmp/live-result.md || true
+          gh issue close "$NUMBER" --reason completed || true
