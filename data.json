@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-05-clean-v2",
+  "version": "2026-08-06-canonical-v3",
   "brand": "仙加味",
   "lineId": "@762jybnm",
   "siteUrl": "https://ts15825868.github.io/xianjiawei/",
@@ -11,7 +11,7 @@
       "displayName": "龜鹿飲30cc玻璃罐",
       "size": "30cc／罐（小玻璃罐）",
       "image": "images/products-v3/guilu-drink-30.jpg?v=20260805",
-      "dmImage": "images/dm-final/02_guilu-drink-30cc-dm.jpg?v=20260805",
+      "dmImage": "images/products-v3/guilu-drink-30.jpg?v=20260805",
       "description": "30cc小玻璃罐，裸罐、無貼紙，適合輕巧即飲、外出攜帶與工作空檔安排。",
       "ingredients": [
         "水",
@@ -44,9 +44,9 @@
       "readyStock": false,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v3/guilu-drink-30.jpg?v=20260805",
-        "images/dm-final/02_guilu-drink-30cc-dm.jpg?v=20260805"
-      ]
+        "images/products-v3/guilu-drink-30.jpg?v=20260805"
+      ],
+      "imagePolicy": "official-original-contain-no-crop"
     },
     {
       "id": "guilu-drink-180",
@@ -479,8 +479,8 @@
     "龜鹿系列",
     "鹿茸系列"
   ],
-  "catalogVersion": "2026-08-05-clean-v2",
-  "updatedAt": "2026-08-05",
+  "catalogVersion": "2026-08-06-canonical-v3",
+  "updatedAt": "2026-08-06",
   "fulfillmentPolicy": {
     "version": "2026-08-05-v3",
     "drinkProductIds": [
