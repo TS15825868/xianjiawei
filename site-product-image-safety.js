@@ -1,15 +1,10 @@
 "use strict";
 
-/* 30cc正式原圖相容層：只把舊SVG／舊瓶圖導向裸小玻璃罐原圖與正確DM。 */
+/* 30cc正式原圖相容層：舊SVG、舊瓶字樣圖與錯誤DM一律導向裸小玻璃罐正式原圖。 */
 (function(){
   const VERSION = "412.2";
-  const PRODUCT_IMAGE = `images/products-v3/guilu-drink-30.jpg?v=${VERSION}`;
-  const DM_IMAGE = `images/dm-final/02_guilu-drink-30cc-dm.jpg?v=${VERSION}`;
-  const LEGACY = /(?:guilu-drink-30-clean\.svg|guilu-drink-30cc-glass\.jpg|30cc[^/]*bottle|30cc[^/]*瓶)/i;
-
-  function isDmNode(node){
-    return Boolean(node?.closest?.('.dm-image-v2, .product-dm-compact, .product-dm-thumb, [data-dm-src]'));
-  }
+  const OFFICIAL_IMAGE = `images/guilu-drink-30cc-glass.jpg?v=${VERSION}`;
+  const LEGACY = /(?:images\/products-v3\/guilu-drink-30\.jpg|images\/dm-final\/02_guilu-drink-30cc-dm\.jpg|guilu-drink-30-clean\.svg|30cc[^/]*bottle|30cc[^/]*瓶)/i;
 
   function repair(root){
     const scope = root?.querySelectorAll ? root : document;
@@ -18,12 +13,9 @@
       const attr = node.tagName === 'SOURCE' ? 'srcset' : 'src';
       const value = node.getAttribute(attr) || '';
       if (!LEGACY.test(value)) return;
-      const replacement = isDmNode(node) ? DM_IMAGE : PRODUCT_IMAGE;
-      node.setAttribute(attr, replacement);
+      node.setAttribute(attr, OFFICIAL_IMAGE);
       if (node.tagName !== 'SOURCE') {
-        node.alt = isDmNode(node)
-          ? '龜鹿飲30cc玻璃罐正式產品DM'
-          : '龜鹿飲30cc小玻璃裸罐正式原圖';
+        node.alt = '龜鹿飲30cc小玻璃裸罐正式原圖';
         node.style.objectFit = 'contain';
         node.style.objectPosition = 'center';
       }
@@ -33,8 +25,8 @@
     scope.querySelectorAll('a[href], [data-dm-src]').forEach((node) => {
       const href = node.getAttribute('href') || '';
       const dm = node.getAttribute('data-dm-src') || '';
-      if (LEGACY.test(href)) node.setAttribute('href', DM_IMAGE);
-      if (LEGACY.test(dm)) node.setAttribute('data-dm-src', DM_IMAGE);
+      if (LEGACY.test(href)) node.setAttribute('href', OFFICIAL_IMAGE);
+      if (LEGACY.test(dm)) node.setAttribute('data-dm-src', OFFICIAL_IMAGE);
     });
   }
 
@@ -50,13 +42,7 @@
     observer.observe(document.documentElement, { childList: true, subtree: true });
   }
 
-  window.XJWProductImageSafety = Object.freeze({
-    version: VERSION,
-    productImage: PRODUCT_IMAGE,
-    dmImage: DM_IMAGE,
-    repair,
-  });
-
+  window.XJWProductImageSafety = Object.freeze({ version: VERSION, officialImage: OFFICIAL_IMAGE, repair });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
   else start();
 })();
