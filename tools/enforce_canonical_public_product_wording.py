@@ -27,13 +27,16 @@ REPLACEMENTS = {
     "小玻璃瓶裝": "小玻璃罐裝",
     "矮胖的小玻璃瓶裝": "小玻璃罐裝",
     "小玻璃瓶": "小玻璃罐",
+    "輕巧瓶裝": "小玻璃罐輕巧方便",
     "每日一瓶": "每日一罐",
     "開瓶即可飲用": "開罐即可飲用",
     "開瓶後請儘速飲用完畢": "開罐後請儘速飲用完畢",
     "想開瓶或開袋即飲": "想開罐或開袋即飲",
     "180cc／鋁袋": "180cc／包（鋁袋）",
     "75g／8塊": "75g／盒｜8塊裝｜每塊約9.375g",
-    "600g／32塊": "600g／盒（1斤）｜32塊裝｜每塊約18.75g",
+    "600g／32塊": "600g（1斤）／盒｜32塊裝｜每塊約18.75g",
+    "600g／盒（1斤）｜32塊裝｜每塊約18.75g": "600g（1斤）／盒｜32塊裝｜每塊約18.75g",
+    "600g／盒（1斤）": "600g（1斤）／盒",
 }
 
 EXPECTED = {
@@ -41,7 +44,7 @@ EXPECTED = {
     "guilu-drink-180": ("龜鹿飲180cc鋁袋", "180cc／包（鋁袋）"),
     "guilu-gao": ("龜鹿膏", "100g／罐"),
     "guilu-tangkuai": ("龜鹿湯塊", "75g／盒｜8塊裝｜每塊約9.375g"),
-    "guilu-jiao": ("龜鹿膠", "600g／盒（1斤）｜32塊裝｜每塊約18.75g"),
+    "guilu-jiao": ("龜鹿膠", "600g（1斤）／盒｜32塊裝｜每塊約18.75g"),
     "luerong-fen": ("鹿茸粉", "75g／罐"),
 }
 
@@ -52,6 +55,7 @@ OBSOLETE_30CC = (
     "30cc小玻璃瓶",
     "小玻璃瓶裝",
     "小玻璃瓶",
+    "輕巧瓶裝",
     "每日一瓶",
     "開瓶即可飲用",
     "開瓶後請儘速飲用完畢",
@@ -112,6 +116,8 @@ def validate_public_text() -> list[str]:
         for phrase in OBSOLETE_30CC:
             if phrase in text:
                 errors.append(f"{relative} 仍含龜鹿飲30cc舊稱：{phrase}")
+        if "600g／盒（1斤）" in text:
+            errors.append(f"{relative} 仍含龜鹿膠舊字序：600g／盒（1斤）")
         for pattern in old_soup_patterns:
             match = pattern.search(text)
             if match:
@@ -134,7 +140,7 @@ def main() -> None:
 
     if changed:
         print("已正規化：" + ", ".join(changed))
-    print("PASS 官網公開產品名稱、AIO/SEO來源與六項正式規格：龜鹿飲優先，30cc統一為小玻璃罐")
+    print("PASS 官網公開產品名稱、AIO/SEO來源與六項正式規格：30cc統一小玻璃罐，龜鹿膠固定600g（1斤）／盒")
 
 
 if __name__ == "__main__":
