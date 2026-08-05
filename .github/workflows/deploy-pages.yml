@@ -48,11 +48,17 @@ jobs:
               'guilu-jiao': '600g（1斤）／盒｜32塊裝｜每塊約18.75g',
               'luerong-fen': '75g／罐',
           }
+          expected_combos = ['日常節奏組', '料理搭配組', '完整體驗組']
           data = json.loads(Path('data.json').read_text(encoding='utf-8'))
           products = {item.get('id'): item for item in data.get('products', []) if isinstance(item, dict)}
           assert set(products) == set(expected), f'產品必須剛好六項，目前：{sorted(products)}'
           for product_id, specification in expected.items():
               assert products[product_id].get('size') == specification, f'{product_id} 規格錯誤'
+
+          combos = data.get('combos', [])
+          combo_offers = data.get('offers', {}).get('comboOffers', [])
+          assert [item.get('name') for item in combos] == expected_combos, '官網正式搭配必須剛好三組且順序一致'
+          assert [item.get('name') for item in combo_offers] == expected_combos, '官網搭配鏡像必須剛好三組且順序一致'
 
           official_30 = 'images/guilu-drink-30cc-glass.jpg'
           assert products['guilu-drink-30'].get('image', '').startswith(official_30), '30cc未使用裸小玻璃罐正式原圖'
@@ -87,5 +93,5 @@ jobs:
           contact = Path('contact.html').read_text(encoding='utf-8', errors='ignore')
           assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方 LINE'
           assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
-          print('PASS：官網六項產品、正式原圖、出貨政策、公開文案與聯絡頁符合目前規則。')
+          print('PASS：官網六項產品、三組搭配、正式原圖、出貨政策、公開文案與聯絡頁符合目前規則。')
           PY
