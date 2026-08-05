@@ -1,4 +1,4 @@
-name: Manual release check
+name: 官網手動正式發布檢查
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
           fetch-depth: 1
@@ -27,9 +27,6 @@ jobs:
           from pathlib import Path
           import json
 
-          version = json.loads(Path('deploy-version.json').read_text(encoding='utf-8'))['version']
-          assert version, 'deploy-version.json 缺少 version'
-
           required = [
               'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
               'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
@@ -38,26 +35,35 @@ jobs:
           missing = [name for name in required if not Path(name).is_file()]
           assert not missing, f'缺少必要檔案: {missing}'
 
-          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
-          products = data.get('products', [])
-          required_product_ids = {
-              'guilu-gao', 'guilu-drink-30', 'guilu-drink-180',
-              'guilu-tangkuai', 'guilu-jiao', 'luerong-fen'
+          expected = {
+              'guilu-gao': '100g／罐',
+              'guilu-drink-30': '30cc／罐（小玻璃罐）',
+              'guilu-drink-180': '180cc／包（鋁袋）',
+              'guilu-tangkuai': '75g／盒｜8塊裝｜每塊約9.375g',
+              'guilu-jiao': '600g／盒（1斤）｜32塊裝｜每塊約18.75g',
+              'luerong-fen': '75g／罐',
           }
-          active_ids = {item.get('id') for item in products if isinstance(item, dict)}
-          missing_product_ids = sorted(required_product_ids - active_ids)
-          assert not missing_product_ids, f'缺少正式產品規格: {missing_product_ids}'
-          assert '2008年' in Path('brand.html').read_text(encoding='utf-8'), '品牌頁缺少 2008 年品牌註冊節點'
-          print(f'release validation passed: v{version}; official products present: {len(required_product_ids)}; catalog rows: {len(products)}')
+          data = json.loads(Path('data.json').read_text(encoding='utf-8'))
+          products = {item.get('id'): item for item in data.get('products', []) if isinstance(item, dict)}
+          assert set(products) == set(expected), f'產品必須剛好六項，目前：{sorted(products)}'
+          for product_id, specification in expected.items():
+              assert products[product_id].get('size') == specification, f'{product_id} 規格錯誤'
+
+          public_text = '\n'.join(
+              path.read_text(encoding='utf-8', errors='ignore')
+              for path in Path('.').glob('*')
+              if path.is_file() and path.suffix in {'.html', '.json', '.txt'}
+          )
+          forbidden = [
+              '龜鹿飲30cc玻璃瓶', '30cc／瓶（小玻璃瓶）',
+              '龜鹿湯塊150g', '龜鹿湯塊300g', '龜鹿湯塊600g',
+              '台北市萬華區西昌街52號'
+          ]
+          for value in forbidden:
+              assert value not in public_text, f'公開資料仍含舊資料：{value}'
+
+          contact = Path('contact.html').read_text(encoding='utf-8', errors='ignore')
+          assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方 LINE'
+          assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
+          print('PASS：官網六項產品、公開文案、聯絡頁與語法符合目前正式規則。')
           PY
-
-      - name: Build static preview
-        run: python3 tools/build_static_v4087.py
-
-      - name: Upload preview artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: xianjiawei-static-preview
-          path: _site
-          if-no-files-found: error
-          retention-days: 7
