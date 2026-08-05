@@ -3,16 +3,20 @@ name: 仙加味官網品質守門員
 on:
   push:
     branches: [main]
+    paths:
+      - '*.html'
+      - '*.json'
+      - '*.txt'
+      - 'site.css'
+      - 'site.js'
+      - 'images/**'
+      - 'tools/audit-site.mjs'
   pull_request:
     branches: [main]
-  page_build:
   workflow_dispatch:
-  schedule:
-    - cron: '17 2 * * *'
 
 permissions:
-  contents: write
-  issues: write
+  contents: read
 
 concurrency:
   group: xianjiawei-site-quality-${{ github.ref }}
@@ -22,30 +26,22 @@ jobs:
   audit:
     name: 全站結構、SEO、圖片與互動檢查
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 20
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: main
-          fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 22
 
       - name: Run full website audit
-        id: audit
-        continue-on-error: true
-        shell: bash
-        run: |
-          set -o pipefail
-          node tools/audit-site.mjs 2>&1 | tee /tmp/site-audit.log
+        run: node tools/audit-site.mjs
 
       - name: Verify GitHub Pages entry files
-        id: entries
-        continue-on-error: true
         shell: bash
         run: |
           set -euo pipefail
@@ -58,12 +54,18 @@ jobs:
           test -s contact.html
           test -s brand.html
           test -s brand-facts.html
-          echo 'PASS GitHub Pages 核心入口檔案完整。'
+          grep -q '六項正式產品規格' products.html
+          grep -q '龜鹿飲30cc玻璃罐' data.json
+          grep -q '30cc／罐（小玻璃罐）' data.json
+          grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' data.json
+          if grep -Eq '(\$|NT\$)[[:space:]]*[0-9]|(售價|優惠價)[[:space:]]*[：:]?[[:space:]]*[0-9]' products.html product-guilu-jiao.html; then
+            echo '公開產品頁不得出現實際售價或優惠金額。' >&2
+            exit 1
+          fi
+          echo 'PASS GitHub Pages 核心入口、六項正式規格與公開價格規則。'
 
-      - name: Check public Pages responses and official facts
-        id: public
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'page_build'
-        continue-on-error: true
+      - name: Check deployed public pages
+        if: github.event_name == 'workflow_dispatch'
         shell: bash
         run: |
           set -euo pipefail
@@ -88,126 +90,4 @@ jobs:
           grep -q '官方事實資料中心' /tmp/brand-facts.html
           grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' /tmp/guilu-jiao.html
           grep -q '600g／盒（1斤）｜32塊裝｜每塊約18.75g' /tmp/data.json
-          if grep -Eq '(\$|NT\$)[[:space:]]*[0-9]|(售價|優惠價)[[:space:]]*[：:]?[[:space:]]*[0-9]' /tmp/products.html /tmp/guilu-jiao.html; then
-            echo '公開產品頁不得出現實際售價或優惠金額。' >&2
-            exit 1
-          fi
-          echo 'PASS GitHub Pages 首頁、產品、聯絡、品牌、GEO 與龜鹿膠正式規格均可正常公開讀取。'
-
-      - name: Materialize 22 approved post images after quality checks
-        id: assets
-        if: github.event_name != 'pull_request' && steps.audit.outcome == 'success' && steps.entries.outcome == 'success'
-        continue-on-error: true
-        shell: bash
-        run: |
-          set -o pipefail
-          {
-            if [ ! -f staging/post-assets-v413/READY ]; then
-              echo '22 張正式貼文圖已完成或沒有待執行觸發。'
-              exit 0
-            fi
-            ZIP='staging/post-assets-v412/assets.zip'
-            OUT='images/posts/approved-v413'
-            TRIAL='images/posts/approved-v412/guilu-drink-trial-evergreen.jpg'
-            test -f "$ZIP"
-            test -f "$TRIAL"
-            rm -rf "$OUT"
-            mkdir -p "$OUT"
-            unzip -q "$ZIP" -d "$OUT"
-            cp "$TRIAL" "$OUT/00-trial-evergreen.jpg"
-            COUNT="$(find "$OUT" -maxdepth 1 -type f -name '*.jpg' | wc -l | tr -d ' ')"
-            test "$COUNT" = '22'
-            test -f "$OUT/manifest.json"
-            test -f "$OUT/00-trial-evergreen.jpg"
-            test -f "$OUT/01-work-rest.jpg"
-            test -f "$OUT/21-rain-home-c.jpg"
-            cmp -s "$TRIAL" "$OUT/00-trial-evergreen.jpg"
-            node - <<'NODE'
-            const fs=require('fs');
-            const crypto=require('crypto');
-            const dir='images/posts/approved-v413';
-            const images=fs.readdirSync(dir).filter(name=>name.endsWith('.jpg')).sort();
-            const trial=fs.readFileSync(`${dir}/00-trial-evergreen.jpg`);
-            const report={status:'success',checked_at:new Date().toISOString(),commit:process.env.GITHUB_SHA||'',directory:dir,image_count:images.length,images,manifest:'manifest.json',trial_poster_source:'images/posts/approved-v412/guilu-drink-trial-evergreen.jpg',trial_poster_sha256:crypto.createHash('sha256').update(trial).digest('hex'),owner_review_required:true,publish_posts:false};
-            fs.mkdirSync('diagnostics',{recursive:true});
-            fs.writeFileSync('diagnostics/post-assets-v413.json',JSON.stringify(report,null,2)+'\n');
-            NODE
-          } 2>&1 | tee /tmp/post-assets.log
-
-      - name: Persist approved images or exact image failure
-        if: always() && github.event_name != 'pull_request' && steps.assets.outcome != 'skipped' && hashFiles('staging/post-assets-v413/READY') != ''
-        shell: bash
-        env:
-          ASSETS_RESULT: ${{ steps.assets.outcome }}
-        run: |
-          set -euo pipefail
-          mkdir -p diagnostics
-          if [ "$ASSETS_RESULT" != success ]; then
-            node - <<'NODE'
-            const fs=require('fs');
-            const log=fs.existsSync('/tmp/post-assets.log')?fs.readFileSync('/tmp/post-assets.log','utf8').split(/\r?\n/).slice(-180).join('\n'):'';
-            fs.writeFileSync('diagnostics/post-assets-v413.json',JSON.stringify({status:'failure',checked_at:new Date().toISOString(),commit:process.env.GITHUB_SHA||'',last_error:log},null,2)+'\n');
-            NODE
-          fi
-
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add diagnostics/post-assets-v413.json
-          if [ "$ASSETS_RESULT" = success ]; then
-            git add images/posts/approved-v413
-            git rm -r --ignore-unmatch staging/post-assets-v413
-          fi
-          if ! git diff --cached --quiet; then
-            if [ "$ASSETS_RESULT" = success ]; then
-              git commit -m 'assets(site): publish 22 approved social post images v416'
-            else
-              git commit -m 'chore(site): persist exact 22-image materialization failure v416'
-            fi
-            for attempt in 1 2 3 4; do
-              git pull --rebase --autostash origin main && git push origin HEAD:main && break
-              if [ "$attempt" -eq 4 ]; then exit 1; fi
-              sleep $((attempt * 5))
-            done
-          fi
-
-      - name: Report site quality result
-        if: always() && github.event_name != 'pull_request'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          AUDIT: ${{ steps.audit.outcome }}
-          ENTRIES: ${{ steps.entries.outcome }}
-          PUBLIC: ${{ steps.public.outcome }}
-          ASSETS: ${{ steps.assets.outcome }}
-        shell: bash
-        run: |
-          details=''
-          if [ -s /tmp/site-audit.log ]; then details=$(tail -n 160 /tmp/site-audit.log); fi
-          if [ -s /tmp/post-assets.log ]; then details="${details}\n\n貼文圖庫：\n$(tail -n 80 /tmp/post-assets.log)"; fi
-          body=$(cat <<EOF
-          官網全站品質自動驗證結果：
-
-          - 全站結構、SEO、圖片與互動：${AUDIT}
-          - GitHub Pages 核心入口：${ENTRIES}
-          - 已部署公開頁面：${PUBLIC}
-          - 22 張正式貼文圖：${ASSETS}
-          - 提交：${GITHUB_SHA}
-
-          錯誤或驗證明細：
-          \`\`\`
-          ${details}
-          \`\`\`
-          EOF
-          )
-          gh issue comment 156 --repo TS15825868/xianjiawei --body "$body"
-
-      - name: Fail when required checks failed
-        if: always()
-        env:
-          AUDIT: ${{ steps.audit.outcome }}
-          ENTRIES: ${{ steps.entries.outcome }}
-          ASSETS: ${{ steps.assets.outcome }}
-        shell: bash
-        run: |
-          test "$AUDIT" = success
-          test "$ENTRIES" = success
-          if [ "$ASSETS" != skipped ]; then test "$ASSETS" = success; fi
+          echo 'PASS 已部署公開頁面與正式規格。'
