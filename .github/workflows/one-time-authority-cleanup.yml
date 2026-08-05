@@ -1,3 +1,4 @@
+# trigger: 2026-08-05T19:00+08:00
 name: 單次官網正式資料清理（完成後自刪）
 
 on:
@@ -27,19 +28,16 @@ jobs:
           from pathlib import Path
           import json
 
-          root = Path('.')
           old_long = '600g／盒（1斤）｜32塊裝｜每塊約18.75g'
           new_long = '600g（1斤）／盒｜32塊裝｜每塊約18.75g'
           old_short = '600g／盒（1斤）'
           new_short = '600g（1斤）／盒'
-          text_suffixes = {'.html','.json','.js','.mjs','.cjs','.css','.txt','.md','.xml','.webmanifest','.py','.yml','.yaml'}
-          skip_parts = {'.git','node_modules'}
-
+          suffixes = {'.html','.json','.js','.mjs','.cjs','.css','.txt','.md','.xml','.webmanifest','.py','.yml','.yaml'}
           changed = []
-          for path in root.rglob('*'):
-            if not path.is_file() or path.suffix.lower() not in text_suffixes:
+          for path in Path('.').rglob('*'):
+            if not path.is_file() or path.suffix.lower() not in suffixes:
               continue
-            if any(part in skip_parts for part in path.parts):
+            if '.git' in path.parts or 'node_modules' in path.parts:
               continue
             if path.as_posix() == '.github/workflows/one-time-authority-cleanup.yml':
               continue
@@ -51,37 +49,33 @@ jobs:
 
           for rel in ['config/official-products.json','assets/data/official-products.json']:
             path = Path(rel)
-            if not path.exists():
-              continue
+            if not path.exists(): continue
             data = json.loads(path.read_text(encoding='utf-8'))
             for item in data.get('products', []):
               if item.get('id') == 'guilu-jiao':
-                if 'spec' in item: item['spec'] = new_long
-                if 'specification' in item: item['specification'] = new_long
+                for key in ('spec','specification','size'):
+                  if key in item: item[key] = new_long
             forbidden = [value for value in data.get('forbidden', []) if value not in {new_long,new_short}]
             if old_long not in forbidden: forbidden.append(old_long)
             data['forbidden'] = forbidden
             data['version'] = '2026-08-05-user-authority-v4'
             path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 
-          obsolete = [
+          for rel in [
             'tools/apply-official-product-specs.mjs',
             'tools/enforce_canonical_public_product_wording.py',
             'tools/validate-official-products.mjs',
             'tools/audit-site.mjs',
             'tools/enforce_aio_page_summaries.py',
             'tools/validate_public_aio_seo.py',
-          ]
-          for rel in obsolete:
+          ]:
             path = Path(rel)
-            if path.exists():
-              path.unlink()
+            if path.exists(): path.unlink()
 
           deploy = Path('.github/workflows/deploy-pages.yml')
-          text = deploy.read_text(encoding='utf-8')
-          text = text.replace(old_long, new_long).replace(old_short, new_short)
-          if old_long not in text:
-            marker = "'龜鹿湯塊600g',"
+          text = deploy.read_text(encoding='utf-8').replace(old_long, new_long).replace(old_short, new_short)
+          marker = "'龜鹿湯塊600g',"
+          if old_long not in text and marker in text:
             text = text.replace(marker, marker + "\n              '600g／盒（1斤）｜32塊裝｜每塊約18.75g',")
           deploy.write_text(text, encoding='utf-8')
 
@@ -92,8 +86,11 @@ jobs:
             raise SystemExit(f'官網產品不是唯一六項：{sorted(products)}')
           if products['guilu-jiao'].get('size') != new_long:
             raise SystemExit('龜鹿膠正式規格未改為使用者確認格式')
-          public_files = [p for p in root.rglob('*') if p.is_file() and p.suffix.lower() in {'.html','.json','.txt','.xml'} and '.git' not in p.parts]
-          public = '\n'.join(p.read_text(encoding='utf-8', errors='ignore') for p in public_files)
+
+          public_paths = list(Path('.').glob('*.html')) + [Path(name) for name in [
+            'data.json','catalog-public.json','geo-data.json','llms.txt','llms-full.txt','sitemap.xml'
+          ] if Path(name).exists()]
+          public = '\n'.join(path.read_text(encoding='utf-8', errors='ignore') for path in public_paths)
           if old_long in public or old_short in public:
             raise SystemExit('公開資料仍含龜鹿膠舊字序')
           for legacy in ['龜鹿飲30cc玻璃瓶','30cc／瓶（小玻璃瓶）','龜鹿湯塊300g','龜鹿湯塊600g']:
