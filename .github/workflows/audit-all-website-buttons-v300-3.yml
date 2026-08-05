@@ -1,99 +1,13 @@
-name: Audit all website buttons v300.3
+name: 【暫停】舊版全站按鈕稽核
 
 on:
-  push:
-    branches:
-      - 'audit-buttons-v300-3*'
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  audit-and-fix:
-    if: github.event_name == 'push' || startsWith(github.head_ref, 'audit-buttons-v300-3')
+  paused:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
-    env:
-      TARGET_BRANCH: ${{ github.head_ref || github.ref_name }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ env.TARGET_BRANCH }}
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Apply button routing fixes
-        run: |
-          if grep -F 'p.page || p.detailPage' site.js >/dev/null && grep -F '搭配組數｜${index}' site.js >/dev/null; then
-            echo 'Button routing fixes already applied.'
-          else
-            node tools/apply_all_button_routing_fix_v300_3.js
-          fi
-          node --check site.js
-
-      - name: Download LINE OA command router
-        run: |
-          curl --fail --silent --show-error \
-            https://raw.githubusercontent.com/TS15825868/TS-LINE/main/server.js \
-            -o .tmp-line-server.js
-
-      - name: Static website and button audit
-        run: |
-          set +e
-          python3 tools/site_maintenance.py
-          S1=$?
-          python3 tools/audit_all_buttons.py
-          S2=$?
-          node tools/check_line_intents.js
-          S3=$?
-          node tools/check_line_button_labels.js
-          S4=$?
-          echo $((S1 || S2 || S3 || S4)) > /tmp/static-status
-          exit 0
-
-      - name: Install Chromium for interaction tests
-        run: |
-          npm install --no-save --package-lock=false playwright@1.55.0
-          npx playwright install --with-deps chromium
-
-      - name: Browser interaction and destination tests
-        run: |
-          set +e
-          python3 -m http.server 8080 >/tmp/xianjiawei-http.log 2>&1 &
-          PID=$!
-          trap 'kill $PID' EXIT
-          sleep 2
-          SITE_BASE_URL=http://127.0.0.1:8080/ node tools/audit_all_buttons.mjs
-          echo $? > /tmp/browser-status
-          exit 0
-
-      - name: Commit fixes, reports and status
-        run: |
-          rm -f .tmp-line-server.js
-          STATIC=$(cat /tmp/static-status 2>/dev/null || echo 1)
-          BROWSER=$(cat /tmp/browser-status 2>/dev/null || echo 1)
-          printf 'static=%s\nbrowser=%s\n' "$STATIC" "$BROWSER" > AUDIT_STATUS.txt
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          for FILE in site.js BUTTON_AUDIT_REPORT.md BUTTON_BROWSER_REPORT.md AUDIT_STATUS.txt; do
-            if [ -e "$FILE" ]; then git add "$FILE"; fi
-          done
-          if git diff --cached --quiet; then
-            echo 'No additional changes to commit.'
-          else
-            git commit -m 'v300.3: verify and fix all website button destinations'
-            git push origin HEAD:${TARGET_BRANCH}
-          fi
-
-      - name: Fail if any audit failed
-        run: |
-          STATIC=$(cat /tmp/static-status 2>/dev/null || echo 1)
-          BROWSER=$(cat /tmp/browser-status 2>/dev/null || echo 1)
-          echo "static=$STATIC browser=$BROWSER"
-          test "$STATIC" = "0"
-          test "$BROWSER" = "0"
+      - run: echo '舊版全站按鈕稽核已暫停。'
