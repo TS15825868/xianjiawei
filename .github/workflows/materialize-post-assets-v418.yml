@@ -1,18 +1,14 @@
-name: 官網 22 張正式貼文圖直接上線 v418
-run-name: 官網 v418｜22張正式候選圖解壓與驗證
+name: 【暫停自動】官網22張正式貼文圖手動安裝 v418
+run-name: 官網 v418｜手動解壓與驗證22張正式候選圖
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'staging/post-assets-v418/READY'
 
 permissions:
   contents: write
 
 concurrency:
-  group: website-post-assets-v418
+  group: website-post-assets-v418-manual
   cancel-in-progress: false
 
 jobs:
