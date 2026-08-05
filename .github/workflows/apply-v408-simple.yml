@@ -1,103 +1,13 @@
-name: Apply v408 assets safely
+name: 【暫停】舊版v408套用流程
 
 on:
-  issues:
-    types: [opened]
+  workflow_dispatch:
 
 permissions:
-  contents: write
-  issues: write
+  contents: read
 
 jobs:
-  apply:
-    if: github.event.issue.title == 'APPLY_V408_SAFE'
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - name: Apply latest images and references
-        run: |
-          set -euo pipefail
-          rm -rf /tmp/v408-products /tmp/v408-dm
-          mkdir -p /tmp/v408-products /tmp/v408-dm images/products-v3 images/dm-final
-          base64 -d _upload/products-v408.zip.b64 > /tmp/v408-products.zip
-          base64 -d _upload/dm-v408.zip.b64 > /tmp/v408-dm.zip
-          unzip -q /tmp/v408-products.zip -d /tmp/v408-products
-          unzip -q /tmp/v408-dm.zip -d /tmp/v408-dm
-          cp -f /tmp/v408-products/products-v3/*.webp images/products-v3/
-          cp -f /tmp/v408-dm/dm-final/*.webp images/dm-final/
-
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-          mapping={
-          'images/products-v3/guilu-gao.jpg':'images/products-v3/guilu-gao.webp',
-          'images/products-v3/guilu-drink-30.jpg':'images/products-v3/guilu-drink-30.webp',
-          'images/products-v3/guilu-drink-180.jpg':'images/products-v3/guilu-drink-180.webp',
-          'images/products-v3/guilu-tangkuai.jpg':'images/products-v3/guilu-tangkuai.webp',
-          'images/products-v3/guilu-jiao.jpg':'images/products-v3/guilu-jiao.webp',
-          'images/products-v3/luerong-fen.jpg':'images/products-v3/luerong-fen.webp',
-          'images/dm-final/01_guilu-gao-100g-dm.jpg':'images/dm-final/01_guilu-gao-100g-dm.webp',
-          'images/dm-final/02_guilu-drink-30cc-dm.jpg':'images/dm-final/02_guilu-drink-30cc-dm.webp',
-          'images/dm-final/03_guilu-drink-180cc-dm.jpg':'images/dm-final/03_guilu-drink-180cc-dm.webp',
-          'images/dm-final/04_luerong-fen-75g-dm.jpg':'images/dm-final/04_luerong-fen-75g-dm.webp',
-          'images/dm-final/05_guilu-tangkuai-75g-dm.jpg':'images/dm-final/05_guilu-tangkuai-75g-dm.webp',
-          'images/dm-final/06_guilu-jiao-600g-dm.jpg':'images/dm-final/06_guilu-jiao-600g-dm.webp'}
-          for p in list(Path('.').glob('*.html'))+list(Path('.').glob('*.js'))+list(Path('.').glob('*.json')):
-              s=p.read_text(encoding='utf-8')
-              for old,new in mapping.items(): s=s.replace(old,new)
-              p.write_text(s,encoding='utf-8')
-
-          core=Path('site-core.js').read_text(encoding='utf-8')
-          mascot=Path('approved-mascot-v405.js').read_text(encoding='utf-8')
-          mascot=re.sub(r'^"use strict";\s*','',mascot)
-          Path('site.js').write_text('"use strict";\n\n/* 網站核心整合版 */\n'+core.strip()+'\n\n/* 15張核准小老闆配置 */\n'+mascot.strip()+'\n',encoding='utf-8')
-
-          css=Path('site.css').read_text(encoding='utf-8')
-          if '/* BEGIN V408 CONSOLIDATED */' not in css:
-              css=css.rstrip()+'\n\n/* BEGIN V408 CONSOLIDATED */\n'+Path('site-v321.css').read_text(encoding='utf-8').strip()+'\n\n'+Path('site-v405.css').read_text(encoding='utf-8').strip()+'\n/* END V408 CONSOLIDATED */\n'
-          Path('site.css').write_text(css,encoding='utf-8')
-
-          for p in Path('.').glob('*.html'):
-              s=p.read_text(encoding='utf-8')
-              s=re.sub(r'\s*<link[^>]+href="site-v(?:321|405)\.css[^>]*>\s*','\n',s)
-              s=re.sub(r'\s*<script[^>]+src="(?:site-core|approved-mascot-v405)\.js[^>]*></script>\s*','\n',s)
-              p.write_text(s,encoding='utf-8')
-          PY
-
-          node --check site.js
-          python3 -m json.tool data.json >/dev/null
-          test -s images/products-v3/guilu-gao.webp
-          test -s images/products-v3/guilu-drink-30.webp
-          test -s images/products-v3/guilu-drink-180.webp
-          test -s images/products-v3/guilu-tangkuai.webp
-          test -s images/products-v3/guilu-jiao.webp
-          test -s images/products-v3/luerong-fen.webp
-          test "$(find images/dm-final -maxdepth 1 -name '*.webp' | wc -l)" -eq 6
-          grep -q 'images/products-v3/guilu-gao.webp' data.json
-          grep -q 'images/dm-final/03_guilu-drink-180cc-dm.webp' dm.html
-
-      - name: Commit assets and references
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git commit -m '套用最新六項產品圖與DM v408'
-          git push origin HEAD:main
-
-      - name: Report success
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'V408_ASSETS_SUCCESS｜最新六張產品主圖與六張DM已套用到main；產品卡、快速查看、產品詳細頁與DM頁引用已更新；site.js與site.css已完成整合，等待最後部署清理。'});
-            await github.rest.issues.update({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,state:'closed',state_reason:'completed'});
-
-      - name: Report failure
-        if: failure()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.issues.createComment({owner:context.repo.owner,repo:context.repo.repo,issue_number:context.issue.number,body:'V408_ASSETS_FAILURE｜未提交半成品，請檢查本次Actions步驟。'});
+      - run: echo '舊版v408自動套用流程已暫停。'
