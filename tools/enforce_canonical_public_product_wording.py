@@ -34,9 +34,9 @@ REPLACEMENTS = {
     "想開瓶或開袋即飲": "想開罐或開袋即飲",
     "180cc／鋁袋": "180cc／包（鋁袋）",
     "75g／8塊": "75g／盒｜8塊裝｜每塊約9.375g",
-    "600g／32塊": "600g（1斤）／盒｜32塊裝｜每塊約18.75g",
-    "600g／盒（1斤）｜32塊裝｜每塊約18.75g": "600g（1斤）／盒｜32塊裝｜每塊約18.75g",
-    "600g／盒（1斤）": "600g（1斤）／盒",
+    "600g／32塊": "600g／盒（1斤）｜32塊裝｜每塊約18.75g",
+    "600g（1斤）／盒｜32塊裝｜每塊約18.75g": "600g／盒（1斤）｜32塊裝｜每塊約18.75g",
+    "600g（1斤）／盒": "600g／盒（1斤）",
 }
 
 EXPECTED = {
@@ -44,7 +44,7 @@ EXPECTED = {
     "guilu-drink-180": ("龜鹿飲180cc鋁袋", "180cc／包（鋁袋）"),
     "guilu-gao": ("龜鹿膏", "100g／罐"),
     "guilu-tangkuai": ("龜鹿湯塊", "75g／盒｜8塊裝｜每塊約9.375g"),
-    "guilu-jiao": ("龜鹿膠", "600g（1斤）／盒｜32塊裝｜每塊約18.75g"),
+    "guilu-jiao": ("龜鹿膠", "600g／盒（1斤）｜32塊裝｜每塊約18.75g"),
     "luerong-fen": ("鹿茸粉", "75g／罐"),
 }
 
@@ -116,8 +116,8 @@ def validate_public_text() -> list[str]:
         for phrase in OBSOLETE_30CC:
             if phrase in text:
                 errors.append(f"{relative} 仍含龜鹿飲30cc舊稱：{phrase}")
-        if "600g／盒（1斤）" in text:
-            errors.append(f"{relative} 仍含龜鹿膠舊字序：600g／盒（1斤）")
+        if "600g（1斤）／盒" in text:
+            errors.append(f"{relative} 仍含龜鹿膠錯誤字序：600g（1斤）／盒")
         for pattern in old_soup_patterns:
             match = pattern.search(text)
             if match:
@@ -128,6 +128,7 @@ def validate_public_text() -> list[str]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--write", action="store_true")
+    parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
 
     changed = normalize(args.write)
@@ -140,7 +141,7 @@ def main() -> None:
 
     if changed:
         print("已正規化：" + ", ".join(changed))
-    print("PASS 官網公開產品名稱、AIO/SEO來源與六項正式規格：30cc統一小玻璃罐，龜鹿膠固定600g（1斤）／盒")
+    print("PASS 官網公開產品名稱、AIO/SEO來源與六項正式規格：30cc統一小玻璃罐，龜鹿膠固定600g／盒（1斤）")
 
 
 if __name__ == "__main__":
