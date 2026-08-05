@@ -1,9 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title desc">
   <title id="title">龜鹿飲30cc小玻璃罐</title>
-  <desc id="desc">使用正式產品原圖裁切，只呈現三罐龜鹿飲，不含舊版30cc瓶文字。</desc>
-  <rect width="900" height="900" fill="#efe4d2"/>
-  <defs><clipPath id="frame"><rect x="0" y="0" width="900" height="900" rx="30"/></clipPath></defs>
-  <g clip-path="url(#frame)">
-    <image href="guilu-drink-30.jpg?v=408.9" x="-263" y="-488" width="1417" height="1770" preserveAspectRatio="none"/>
-  </g>
+  <desc id="desc">使用三罐龜鹿飲正式產品原圖，裸小玻璃罐、無貼紙，等比例完整呈現，不含舊版30cc瓶文字。</desc>
+  <rect width="900" height="900" rx="30" fill="#efe4d2"/>
+  <image href="../guilu-drink-30cc-glass.jpg?v=412.0" x="150" y="0" width="600" height="900" preserveAspectRatio="xMidYMid meet"/>
 </svg>
