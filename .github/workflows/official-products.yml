@@ -10,16 +10,14 @@ on:
       - 'data.json'
       - 'catalog-public.json'
       - 'geo-data.json'
-      - 'index.html'
-      - 'products.html'
-      - 'dm.html'
-      - 'product-guilu-*.html'
+      - '*.html'
       - 'images/products-v3/guilu-drink-30-clean.svg'
       - 'site.js'
       - 'site-core-v410.js'
       - 'site-product-image-safety.js'
       - 'site-ux-v409.js'
       - 'tools/apply_v4091_official_packaging_v2.py'
+      - 'tools/enforce_canonical_public_product_wording.py'
       - 'tools/apply-official-product-specs.mjs'
       - 'tools/validate-official-products.mjs'
       - '.github/workflows/official-products.yml'
@@ -48,16 +46,20 @@ jobs:
           node --check site-core-v410.js
           node --check site-product-image-safety.js
           node --check site-ux-v409.js
-          python -m py_compile tools/apply_v4091_official_packaging_v2.py
+          python -m py_compile tools/apply_v4091_official_packaging_v2.py tools/enforce_canonical_public_product_wording.py
       - name: 統一六項正式產品文字與30cc圖片
-        run: node tools/apply-official-product-specs.mjs
-      - name: 驗證六項正式產品
-        run: node tools/validate-official-products.mjs
+        run: |
+          node tools/apply-official-product-specs.mjs
+          python tools/enforce_canonical_public_product_wording.py --write
+      - name: 驗證六項正式產品與公開文案
+        run: |
+          node tools/validate-official-products.mjs
+          python tools/enforce_canonical_public_product_wording.py
       - name: 驗證30cc正確圖片存在
         run: |
           test -s images/products-v3/guilu-drink-30-clean.svg
           grep -q '龜鹿飲30cc小玻璃罐' images/products-v3/guilu-drink-30-clean.svg
-          ! grep -R -E '龜鹿飲30cc玻璃瓶|30cc／瓶（小玻璃瓶）' data.json catalog-public.json geo-data.json index.html products.html dm.html product-guilu-drink-30cc.html
+          ! grep -R -E '龜鹿飲30cc玻璃瓶|30cc／瓶（小玻璃瓶）|輕巧瓶裝|600g／盒（1斤）' -- *.html data.json catalog-public.json geo-data.json llms.txt llms-full.txt
       - name: 寫回安全正規化結果
         run: |
           if git diff --quiet; then
@@ -66,6 +68,6 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data.json catalog-public.json geo-data.json index.html products.html dm.html brand-facts.html llms.txt llms-full.txt product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-guilu-tangkuai.html product-guilu-jiao.html
-          git commit -m 'fix(site): normalize official product specifications and artwork [skip ci]'
+          git add -- '*.html' data.json catalog-public.json geo-data.json llms.txt llms-full.txt
+          git commit -m 'fix(site): normalize all public product wording and artwork [skip ci]'
           git push
