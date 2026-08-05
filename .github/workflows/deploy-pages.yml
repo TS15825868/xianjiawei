@@ -20,7 +20,7 @@ jobs:
         run: |
           set -euo pipefail
           node --check site.js
-          node --check site-product-authority.js
+          node --check site-core-v410.js
           node --check site-product-image-safety.js
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool catalog-public.json >/dev/null
@@ -32,12 +32,13 @@ jobs:
           required = [
               'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
               'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
-              'site-product-authority.js', 'site-product-image-safety.js',
+              'site-core-v410.js', 'site-product-image-safety.js',
               'data.json', 'catalog-public.json', 'geo-data.json', 'sitemap.xml', 'robots.txt',
               'images/guilu-drink-30cc-glass.jpg'
           ]
           missing = [name for name in required if not Path(name).is_file()]
           assert not missing, f'缺少必要檔案: {missing}'
+          assert not Path('site-product-authority.js').exists(), '不得保留舊字串執行期改寫器'
 
           expected = {
               'guilu-gao': '100g／罐',
@@ -64,11 +65,11 @@ jobs:
               assert products[product_id].get('fulfillmentType') == 'ready-stock', f'{product_id}出貨分類錯誤'
               assert '5～7個工作天' not in products[product_id].get('fulfillmentNotice', ''), f'{product_id}被錯套龜鹿飲交期'
 
-          public_text = '\n'.join(
-              path.read_text(encoding='utf-8', errors='ignore')
-              for path in Path('.').glob('*')
-              if path.is_file() and path.suffix in {'.html', '.json', '.txt'}
-          )
+          public_files = [
+              path for path in Path('.').iterdir()
+              if path.is_file() and path.suffix.lower() in {'.html', '.json', '.txt'}
+          ]
+          public_text = '\n'.join(path.read_text(encoding='utf-8', errors='ignore') for path in public_files)
           forbidden = [
               '龜鹿飲30cc玻璃瓶', '30cc／瓶（小玻璃瓶）',
               '龜鹿湯塊150g', '龜鹿湯塊300g', '龜鹿湯塊600g',
@@ -81,6 +82,8 @@ jobs:
           for value in forbidden:
               assert value not in public_text, f'公開資料仍含舊資料：{value}'
 
+          site_entry = Path('site.js').read_text(encoding='utf-8')
+          assert 'site-product-authority.js' not in site_entry, '入口不得載入舊字串執行期改寫器'
           contact = Path('contact.html').read_text(encoding='utf-8', errors='ignore')
           assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方 LINE'
           assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
