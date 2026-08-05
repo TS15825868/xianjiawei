@@ -17,12 +17,17 @@
 
 ## 六項正式產品
 
-- [龜鹿膏100g](https://ts15825868.github.io/xianjiawei/product-guilu-gao.html)：100g／罐；固定日常安排，可直接取用或以熱水化開。
-- [龜鹿飲30cc玻璃罐](https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html)：30cc／罐（小玻璃罐）；輕巧即飲與外出攜帶。
-- [龜鹿飲180cc鋁袋](https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html)：180cc／包（鋁袋）；完整份量即飲。
-- [龜鹿湯塊75g](https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html)：75g／盒｜8塊裝｜每塊約9.375g；熱水沖泡、保溫壺與燉湯。
-- [龜鹿膠600g](https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html)：600g／盒（1斤）｜32塊裝｜每塊約18.75g；家庭大規格、熱水化開或燉湯。
-- [鹿茸粉75g](https://ts15825868.github.io/xianjiawei/product-luerong-fen.html)：75g／罐；粉狀型態，可加入溫開水、牛奶或豆漿。
+- [龜鹿膏](https://ts15825868.github.io/xianjiawei/product-guilu-gao.html)：100g／罐。
+- [龜鹿飲30cc玻璃罐](https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html)：30cc／罐（小玻璃罐）。
+- [龜鹿飲180cc鋁袋](https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html)：180cc／包（鋁袋）。
+- [龜鹿湯塊](https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html)：75g／盒｜8塊裝｜每塊約9.375g。
+- [龜鹿膠](https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html)：600g（1斤）／盒｜32塊裝｜每塊約18.75g。
+- [鹿茸粉](https://ts15825868.github.io/xianjiawei/product-luerong-fen.html)：75g／罐。
+
+## 出貨政策
+
+- 龜鹿飲30cc與180cc為接單後安排製作加工；訂單資料與付款方式確認後，製作加工約需5～7個工作天，完成後才安排出貨，物流配送時間另計。
+- 龜鹿膏、龜鹿湯塊、龜鹿膠與鹿茸粉為預先製作備貨商品；依現貨狀況安排出貨，物流配送時間另計。
 
 ## 機器可讀資料
 
@@ -44,4 +49,4 @@
 - LINE 官方帳號：@762jybnm
 - LINE 入口：https://lin.ee/sHZW7NkR
 
-最後檢視：2026-07-31
+最後檢視：2026-08-05
