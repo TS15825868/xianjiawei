@@ -1,12 +1,12 @@
 "use strict";
 
-/* 全站入口 v411.0：保留完整核心，並在所有頁面套用30cc正式圖片守門。 */
+/* 全站入口 v412.1：保留完整核心，並在所有頁面套用30cc正式原圖守門。 */
 (function(){
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const CORE = "site-core-v410.js?v=411.0";
-  const SAFETY = "site-product-image-safety.js?v=411.0";
+  const CORE = "site-core-v410.js?v=412.1";
+  const SAFETY = "site-product-image-safety.js?v=412.1";
 
   function loadSequentially(){
     const core = document.createElement("script");
