@@ -1,0 +1,160 @@
+name: ERP單次Cloudflare與D1唯讀驗收
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  audit:
+    if: github.event.issue.title == 'ONE_TIME_ERP_READONLY_CLOUDFLARE_AUDIT_20260806'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 確認Cloudflare憑證是否可供此公開倉使用
+        id: credentials
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        shell: bash
+        run: |
+          if [ -n "$CLOUDFLARE_ACCOUNT_ID" ] && [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            echo 'available=true' >> "$GITHUB_OUTPUT"
+            echo 'Cloudflare憑證已掛載；不輸出憑證內容。'
+          else
+            echo 'available=false' >> "$GITHUB_OUTPUT"
+            echo '公開倉未掛載Cloudflare憑證。'
+          fi
+
+      - name: 驗證真正Cloudflare Access健康JSON
+        id: access
+        if: steps.credentials.outputs.available == 'true'
+        continue-on-error: true
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        shell: bash
+        run: |
+          set +e
+          node .github/tmp-erp-audit/verify-access.mjs > /tmp/access.log 2>&1
+          result=$?
+          set -e
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+          tail -n 120 /tmp/access.log > /tmp/access-tail.log
+          exit "$result"
+
+      - name: 唯讀查詢遠端D1正式健康資料
+        id: d1
+        if: steps.credentials.outputs.available == 'true'
+        continue-on-error: true
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        shell: bash
+        run: |
+          set +e
+          cat > /tmp/wrangler.jsonc <<'JSON'
+          {
+            "$schema": "node_modules/wrangler/config-schema.json",
+            "name": "xianjiawei-readonly-audit",
+            "compatibility_date": "2026-07-24",
+            "d1_databases": [
+              {
+                "binding": "DB",
+                "database_name": "xianjiawei-internal-db",
+                "database_id": "5e85d589-9c4f-412e-9ccd-585a5b6ecabe"
+              }
+            ]
+          }
+          JSON
+          npx --yes wrangler@4.0.0 d1 execute xianjiawei-internal-db \
+            --remote \
+            --file .github/tmp-erp-audit/production-health.sql \
+            --json \
+            --config /tmp/wrangler.jsonc > /tmp/remote-d1-health.json 2>/tmp/d1-stderr.log
+          query_result=$?
+          if [ "$query_result" -eq 0 ]; then
+            node .github/tmp-erp-audit/verify-remote-d1.mjs /tmp/remote-d1-health.json > /tmp/d1-verify.log 2>&1
+            result=$?
+          else
+            result=$query_result
+            : > /tmp/d1-verify.log
+          fi
+          {
+            cat /tmp/d1-stderr.log 2>/dev/null || true
+            cat /tmp/d1-verify.log 2>/dev/null || true
+          } > /tmp/d1.log
+          set -e
+          echo "result=$result" >> "$GITHUB_OUTPUT"
+          tail -n 160 /tmp/d1.log > /tmp/d1-tail.log
+          exit "$result"
+
+      - name: 移除本次唯讀驗收流程與臨時檔
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .github/tmp-erp-audit
+          rm -f .github/workflows/one-time-erp-readonly-cloudflare-audit.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m 'ci(site): remove completed ERP read-only Cloudflare audit'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: 回寫ERP唯讀驗收結果
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.issue.number }}
+          AVAILABLE: ${{ steps.credentials.outputs.available }}
+          ACCESS_RESULT: ${{ steps.access.outputs.result }}
+          D1_RESULT: ${{ steps.d1.outputs.result }}
+        shell: bash
+        run: |
+          if [ "$AVAILABLE" != 'true' ]; then
+            overall='公開倉未掛載Cloudflare憑證，未能執行'
+            access_state='not-run'
+            d1_state='not-run'
+          else
+            access_state="${ACCESS_RESULT:-1}"
+            d1_state="${D1_RESULT:-1}"
+            if [ "$access_state" = '0' ] && [ "$d1_state" = '0' ]; then
+              overall='Access與遠端D1全部通過'
+            else
+              overall='已執行但仍有項目需修正'
+            fi
+          fi
+          {
+            echo "## ERP Cloudflare與D1唯讀驗收：${overall}"
+            echo
+            echo "- Cloudflare憑證可用：\`${AVAILABLE:-false}\`"
+            echo "- 真正Access健康JSON：\`${access_state}\`"
+            echo "- 遠端D1正式資料：\`${d1_state}\`"
+            echo "- Worker部署：未執行"
+            echo "- D1寫入／遷移：未執行"
+            echo "- 社群核准／排程／發布：未執行"
+            echo "- 短效Access Policy與Token：驗證後立即清除"
+            echo
+            echo '### Access'
+            echo '```text'
+            cat /tmp/access-tail.log 2>/dev/null || echo '未執行'
+            echo '```'
+            echo '### D1'
+            echo '```text'
+            cat /tmp/d1-tail.log 2>/dev/null || echo '未執行'
+            echo '```'
+          } > /tmp/erp-readonly-result.md
+          gh issue comment "$NUMBER" --body-file /tmp/erp-readonly-result.md || true
+          gh issue close "$NUMBER" --reason completed || true
