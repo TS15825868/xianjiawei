@@ -1,94 +1,26 @@
-name: 官網 AIO SEO GEO 正式合約
+name: 【暫停自動】官網 AIO SEO GEO 正式合約
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '*.html'
-      - 'sitemap.xml'
-      - 'robots.txt'
-      - 'llms.txt'
-      - 'llms-full.txt'
-      - 'catalog-public.json'
-      - 'geo-data.json'
-      - 'tools/validate_public_aio_seo.py'
-      - '.github/workflows/public-aio-seo-contract.yml'
 
 permissions:
   contents: read
   issues: write
 
 concurrency:
-  group: public-aio-seo-contract-main
+  group: public-aio-seo-contract-manual
   cancel-in-progress: true
 
 jobs:
-  validate:
+  validate-manually:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@v5
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Validate public AIO SEO GEO output
-        id: contract
-        continue-on-error: true
-        shell: bash
-        run: |
-          set -o pipefail
-          python tools/validate_public_aio_seo.py 2>&1 | tee /tmp/aio-seo-geo.log
-
-      - name: Verify deployed machine-readable endpoints
-        id: deployed
-        continue-on-error: true
-        shell: bash
-        run: |
-          set -euo pipefail
-          base='https://ts15825868.github.io/xianjiawei'
-          for path in index.html robots.txt sitemap.xml llms.txt llms-full.txt catalog-public.json geo-data.json; do
-            curl --fail --location --silent --show-error --retry 5 --retry-delay 3 "${base}/${path}" --output "/tmp/${path//\//_}"
-            test -s "/tmp/${path//\//_}"
-          done
-
-      - name: Report AIO SEO GEO result
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-          CONTRACT: ${{ steps.contract.outcome }}
-          DEPLOYED: ${{ steps.deployed.outcome }}
-        shell: bash
-        run: |
-          details=''
-          if [ -s /tmp/aio-seo-geo.log ]; then
-            details=$(tail -n 120 /tmp/aio-seo-geo.log)
-          fi
-          body=$(cat <<EOF
-          官網 AIO／SEO／GEO 自動驗證結果：
-
-          - 本機正式合約：${CONTRACT}
-          - 已部署機器可讀端點：${DEPLOYED}
-          - 提交：${GITHUB_SHA}
-
-          錯誤或驗證明細：
-          \`\`\`
-          ${details}
-          \`\`\`
-          EOF
-          )
-          gh issue comment 156 --repo TS15825868/xianjiawei --body "$body"
-
-      - name: Fail when validation failed
-        if: always()
-        env:
-          CONTRACT: ${{ steps.contract.outcome }}
-          DEPLOYED: ${{ steps.deployed.outcome }}
-        shell: bash
-        run: |
-          test "$CONTRACT" = success
-          test "$DEPLOYED" = success
+      - name: Validate public AIO SEO GEO output manually
+        run: python tools/validate_public_aio_seo.py
