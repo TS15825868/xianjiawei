@@ -1,32 +1,13 @@
-name: Apply website v303 push fixes
+name: 【暫停】舊版網站v303修正流程
 
 on:
-  push:
-    branches:
-      - site-v303-fix2
-    paths:
-      - SITE_V303_PUSH.txt
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  fix:
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: site-v303-fix2
-          fetch-depth: 0
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - run: python tools/site_v303_fix.py
-      - run: node --check site.js
-      - run: |
-          rm -f SITE_V303_PUSH.txt
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git commit -m "網站 v303：修正產品文案與小老闆情境配置" || exit 0
-          git push origin HEAD:site-v303-fix2
+      - run: echo '舊版網站v303修正流程已暫停。'
