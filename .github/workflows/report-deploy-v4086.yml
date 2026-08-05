@@ -1,50 +1,13 @@
-name: Confirm latest deploy v408.6
+name: 【暫停】舊版部署回報流程
 
 on:
-  issues:
-    types: [opened]
+  workflow_dispatch:
 
 permissions:
-  actions: read
-  issues: write
+  contents: read
 
 jobs:
-  report:
-    if: github.event.issue.title == 'CONFIRM_LATEST_DEPLOY_V4086'
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - name: Wait and report latest Pages deployment
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          echo '[]' > /tmp/runs.json
-          for i in $(seq 1 30); do
-            gh run list --repo "${{ github.repository }}" --workflow deploy-pages.yml --limit 8 --json databaseId,status,conclusion,headSha,displayTitle,createdAt > /tmp/all.json || true
-            python3 - <<'PY'
-          import json
-          runs=json.load(open('/tmp/all.json')) if open('/tmp/all.json').read().strip() else []
-          chosen=[]
-          for r in runs:
-              if r.get('conclusion') != 'cancelled':
-                  chosen=[r]
-                  break
-          json.dump(chosen,open('/tmp/runs.json','w'))
-          PY
-            status=$(python3 - <<'PY'
-          import json
-          runs=json.load(open('/tmp/runs.json'))
-          print(runs[0].get('status','') if runs else '')
-          PY
-            )
-            if [ "$status" = 'completed' ]; then break; fi
-            sleep 10
-          done
-          {
-            echo 'LATEST_DEPLOY_V4086_REPORT'
-            echo '```json'
-            cat /tmp/runs.json
-            echo '```'
-          } > /tmp/comment.txt
-          gh issue comment "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --body-file /tmp/comment.txt
-          gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
+      - run: echo '舊版部署回報流程已暫停。'
