@@ -20,9 +20,9 @@
       "name": "龜鹿飲30cc玻璃罐",
       "displayName": "龜鹿飲30cc玻璃罐",
       "size": "30cc／罐（小玻璃罐）",
-      "image": "images/products-v3/guilu-drink-30.jpg?v=408.9",
+      "image": "images/products-v3/guilu-drink-30-clean.svg?v=411.0",
       "gallery": [],
-      "dmImage": "images/dm-final/02_guilu-drink-30cc-dm.jpg?v=408.9",
+      "dmImage": "images/products-v3/guilu-drink-30-clean.svg?v=411.0",
       "description": "30cc小玻璃罐，把龜鹿膏的成分方向整理成方便即飲的液態型態。適合輕巧即飲、外出攜帶與工作空檔安排。",
       "ingredients": [
         "水",
@@ -47,7 +47,7 @@
       ],
       "fit": "想方便即飲、外出攜帶或在工作空檔飲用的人",
       "detailImages": [
-        "images/dm-final/02_guilu-drink-30cc-dm.jpg?v=408.9"
+        "images/products-v3/guilu-drink-30-clean.svg?v=411.0"
       ],
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailPage": "product-guilu-drink-30cc.html",
