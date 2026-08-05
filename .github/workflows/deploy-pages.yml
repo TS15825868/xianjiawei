@@ -20,9 +20,11 @@ jobs:
         run: |
           set -euo pipefail
           node --check site.js
+          node --check site-product-authority.js
+          node --check site-product-image-safety.js
           python3 -m json.tool data.json >/dev/null
           python3 -m json.tool catalog-public.json >/dev/null
-          python3 -m json.tool deploy-version.json >/dev/null
+          python3 -m json.tool geo-data.json >/dev/null
           python3 - <<'PY'
           from pathlib import Path
           import json
@@ -30,7 +32,10 @@ jobs:
           required = [
               'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
               'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
-              'data.json', 'catalog-public.json', 'sitemap.xml', 'robots.txt'
+              'site-product-authority.js', 'site-product-image-safety.js',
+              'data.json', 'catalog-public.json', 'geo-data.json', 'sitemap.xml', 'robots.txt',
+              'images/products-v3/guilu-drink-30.jpg',
+              'images/dm-final/02_guilu-drink-30cc-dm.jpg'
           ]
           missing = [name for name in required if not Path(name).is_file()]
           assert not missing, f'缺少必要檔案: {missing}'
@@ -40,7 +45,7 @@ jobs:
               'guilu-drink-30': '30cc／罐（小玻璃罐）',
               'guilu-drink-180': '180cc／包（鋁袋）',
               'guilu-tangkuai': '75g／盒｜8塊裝｜每塊約9.375g',
-              'guilu-jiao': '600g／盒（1斤）｜32塊裝｜每塊約18.75g',
+              'guilu-jiao': '600g（1斤）／盒｜32塊裝｜每塊約18.75g',
               'luerong-fen': '75g／罐',
           }
           data = json.loads(Path('data.json').read_text(encoding='utf-8'))
@@ -48,6 +53,16 @@ jobs:
           assert set(products) == set(expected), f'產品必須剛好六項，目前：{sorted(products)}'
           for product_id, specification in expected.items():
               assert products[product_id].get('size') == specification, f'{product_id} 規格錯誤'
+
+          assert products['guilu-drink-30'].get('image', '').startswith('images/products-v3/guilu-drink-30.jpg'), '30cc未使用正式照片'
+          assert products['guilu-drink-30'].get('dmImage', '').startswith('images/dm-final/02_guilu-drink-30cc-dm.jpg'), '30cc未使用正確DM'
+
+          for product_id in ('guilu-drink-30', 'guilu-drink-180'):
+              assert products[product_id].get('fulfillmentType') == 'made-to-order-drink', f'{product_id}出貨分類錯誤'
+              assert '5～7個工作天' in products[product_id].get('fulfillmentNotice', ''), f'{product_id}缺少製作時間'
+          for product_id in ('guilu-gao', 'guilu-tangkuai', 'guilu-jiao', 'luerong-fen'):
+              assert products[product_id].get('fulfillmentType') == 'ready-stock', f'{product_id}出貨分類錯誤'
+              assert '5～7個工作天' not in products[product_id].get('fulfillmentNotice', ''), f'{product_id}被錯套龜鹿飲交期'
 
           public_text = '\n'.join(
               path.read_text(encoding='utf-8', errors='ignore')
@@ -57,7 +72,9 @@ jobs:
           forbidden = [
               '龜鹿飲30cc玻璃瓶', '30cc／瓶（小玻璃瓶）',
               '龜鹿湯塊150g', '龜鹿湯塊300g', '龜鹿湯塊600g',
-              '台北市萬華區西昌街52號'
+              '600g／盒（1斤）｜32塊裝｜每塊約18.75g',
+              '台北市萬華區西昌街52號',
+              'guilu-drink-30-clean.svg'
           ]
           for value in forbidden:
               assert value not in public_text, f'公開資料仍含舊資料：{value}'
@@ -65,5 +82,5 @@ jobs:
           contact = Path('contact.html').read_text(encoding='utf-8', errors='ignore')
           assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方 LINE'
           assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
-          print('PASS：官網六項產品、公開文案、聯絡頁與語法符合目前正式規則。')
+          print('PASS：官網六項產品、正式圖片、出貨政策、公開文案與聯絡頁符合目前規則。')
           PY
