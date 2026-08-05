@@ -1,30 +1,18 @@
-name: 仙加味官網品質守門員
+name: 【暫停自動】仙加味官網品質檢查
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '*.html'
-      - '*.json'
-      - '*.txt'
-      - 'site.css'
-      - 'site.js'
-      - 'images/**'
-      - 'tools/audit-site.mjs'
-  pull_request:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: xianjiawei-site-quality-${{ github.ref }}
+  group: xianjiawei-site-quality-manual
   cancel-in-progress: true
 
 jobs:
   audit:
-    name: 全站結構、SEO、圖片與互動檢查
+    name: 手動執行全站結構、SEO、圖片與互動檢查
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -65,7 +53,6 @@ jobs:
           echo 'PASS GitHub Pages 核心入口、六項正式規格與公開價格規則。'
 
       - name: Check deployed public pages
-        if: github.event_name == 'workflow_dispatch'
         shell: bash
         run: |
           set -euo pipefail
