@@ -1,37 +1,13 @@
-name: Apply website LINE button labels v300.2
+name: 【暫停】舊版LINE按鈕標籤流程
 
 on:
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  apply:
-    if: startsWith(github.head_ref, 'website-line-labels-v300-2')
+  paused:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Apply matching button labels
-        run: node tools/apply_line_button_label_match_v300_2.js
-      - name: Verify website
-        run: |
-          node --check site.js
-          node tools/check_line_intents.js
-          node tools/check_line_button_labels.js
-          python3 tools/site_maintenance.py
-      - name: Commit result
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site.js tools/check_line_button_labels.js
-          git commit -m "v300.2: match website button names with LINE OA commands"
-          git pull --rebase origin ${{ github.head_ref }}
-          git push origin HEAD:${{ github.head_ref }}
+      - run: echo '舊版LINE按鈕標籤守門已暫停。'
