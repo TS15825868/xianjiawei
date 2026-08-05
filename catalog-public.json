@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
-  "catalogVersion": "2026-08-05-user-authority-v4",
-  "updatedAt": "2026-08-05",
+  "catalogVersion": "2026-08-06-canonical-v3",
+  "updatedAt": "2026-08-06",
   "source": {
     "repository": "TS15825868/xianjiawei",
     "branch": "main",
@@ -45,8 +45,8 @@
       "storage": ["未開封置於陰涼乾燥處", "開罐後請儘速飲用完畢"],
       "fulfillmentType": "made-to-order-drink",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/guilu-drink-30cc-glass.jpg?v=412.1",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/guilu-drink-30cc-glass.jpg?v=412.1",
+      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260805",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260805",
       "imagePolicy": "official-original-contain-no-crop"
     },
     {
