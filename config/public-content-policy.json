@@ -1,0 +1,54 @@
+{
+  "version": "2026-08-06-v1",
+  "authority": "owner-confirmed",
+  "repositoryRole": "公開官網與已核准對外內容",
+  "sourcePrivateRepository": "TS15825868/xianjiawei-internal",
+  "allowedPublicContent": [
+    "已核准或已發布的貼文文案",
+    "已核准或已發布的社群圖片",
+    "公開產品名稱、規格、公開售價與活動",
+    "品牌故事、FAQ、公開聯絡導流與GEO資料",
+    "不含個資、成本、供應商與內部備註的公開JSON"
+  ],
+  "forbiddenPublicContent": [
+    "客戶姓名、電話、地址與訂單資料",
+    "付款、應收款、退款與對帳資料",
+    "供應商、採購、成本、毛利、批發底價與實際庫存數量",
+    "未核准貼文、草稿、未發布排程與內部備註",
+    "未核准圖片、候選圖與內部生成提示",
+    "任何Secret、Token、API Key、Webhook Token或Access憑證",
+    "D1資料庫匯出、Cloudflare內部設定與系統診斷"
+  ],
+  "publicationRules": {
+    "ownerApprovalRequired": true,
+    "publishedContentOnly": true,
+    "draftsForbidden": true,
+    "personalDataForbidden": true,
+    "secretValuesForbidden": true,
+    "publishedPostDuplicateLockRequired": true,
+    "futureReuseRequiresNewPostId": true,
+    "imagesMustBeApproved": true,
+    "productImagesMustRemainOriginal": true,
+    "productFit": "contain-no-crop"
+  },
+  "currentPublishedContent": [
+    {
+      "postId": "POST-BRAND-START",
+      "status": "published-locked",
+      "preventRepublish": true
+    },
+    {
+      "postId": "POST-GUILU-DRINK-TRIAL-EVERGREEN",
+      "status": "published-locked",
+      "copy": "content/social-guilu-drink-trial-v1.json",
+      "poster": "images/posts/approved-v413/guilu-drink-trial-60.svg",
+      "preventRepublish": true
+    }
+  ],
+  "workflowPolicy": {
+    "publicActionsMayValidateAndDeploy": true,
+    "automaticPublishing": false,
+    "lineVoomManualOnly": true,
+    "googleBusinessManualOnly": true
+  }
+}
