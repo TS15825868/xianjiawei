@@ -1,0 +1,67 @@
+{
+  "version": "2026-08-06-public-visual-match-v1",
+  "authority": "TS15825868/xianjiawei",
+  "approval_rule": "all-required-dimensions-and-no-known-mismatch",
+  "required_dimensions": [
+    {
+      "id": "product",
+      "label": "產品／規格／價格",
+      "rule": "文案與圖片中的產品、包裝、容量、重量、價格及優惠必須一致。"
+    },
+    {
+      "id": "season",
+      "label": "季節",
+      "rule": "春夏秋冬、悶熱、換季、雨天等季節與天氣線索必須一致；沒有指定時也不可明顯衝突。"
+    },
+    {
+      "id": "context",
+      "label": "情境",
+      "rule": "料理、工作、休息、品牌、試喝、保存、外出或官方LINE等情境必須符合文案。"
+    },
+    {
+      "id": "temperature",
+      "label": "冷熱",
+      "rule": "溫熱、熱水、燉煮、清爽、冷藏等溫度表現不得與文案相反；龜鹿飲不可誤導為冰飲。"
+    },
+    {
+      "id": "expression",
+      "label": "表情",
+      "rule": "角色表情須符合放鬆、提醒、邀請、料理、品牌介紹等語氣，不誇張推銷或暗示療效。"
+    },
+    {
+      "id": "action",
+      "label": "動作",
+      "rule": "飲用、隔水加熱、燉煮、保存、攜帶、撐傘、穿外套、比較產品或指向LINE等動作須符合文案。"
+    }
+  ],
+  "known_mismatches": {
+    "POST-DAILY-SOUP": {
+      "reason": "日常燉湯文目前使用官方LINE聯絡圖，料理情境與動作不符。",
+      "required_replacement": "家常雞湯或排骨湯烹調場景；備料、燉煮或盛湯；若放產品只使用龜鹿湯塊75g藍盒或龜鹿膠600g紫盒正式原圖。"
+    },
+    "POST-SEASONS-RHYTHM": {
+      "reason": "四季日常節奏文目前使用品牌故事圖，無法呈現春夏秋冬差異。",
+      "required_replacement": "同一張圖清楚呈現春、夏、秋、冬四種生活節奏，色調與冷熱感隨季節變化。"
+    },
+    "POST-WEATHER-HOT": {
+      "reason": "悶熱提醒目前使用一般品牌圖，季節、炎熱情境、補水動作不明確。",
+      "required_replacement": "台灣悶熱外出情境，角色自然補水或攜帶水壺；清爽但不呈現冰飲；發布前確認當日天氣。"
+    },
+    "POST-WEATHER-TEMP": {
+      "reason": "早晚溫差提醒目前使用品牌故事圖，換季、薄外套與溫差動作不符。",
+      "required_replacement": "早晚溫差或換季情境，角色攜帶或穿上薄外套；表情為關心提醒。"
+    },
+    "POST-WEATHER-RAIN": {
+      "reason": "下雨天提醒目前使用一般品牌圖，雨天、室內溫水與整理動作不明確。",
+      "required_replacement": "窗外下雨或撐傘後回到室內，角色喝溫水、收傘或整理手邊事物，表情平靜。"
+    },
+    "POST-CHOOSE-BY-HABIT": {
+      "reason": "依習慣選擇文目前使用一般品牌圖，沒有呈現膏、飲、湯塊、粉的比較選擇。",
+      "required_replacement": "以正式產品原圖呈現固定安排、方便即飲、料理搭配與自行搭配四種選擇。"
+    },
+    "POST-INGREDIENT-PRINCIPLE": {
+      "reason": "用料與資料原則目前使用產品總覽圖，原料、製作資料與清楚標示情境不足。",
+      "required_replacement": "乾淨原料、製作資料、規格標示與整理文件情境；不誇大、不暗示療效。"
+    }
+  }
+}
