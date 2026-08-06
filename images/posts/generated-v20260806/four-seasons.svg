@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="t d">
+<title id="t">仙加味四季日常節奏圖</title><desc id="d">春夏秋冬四格生活節奏，呈現不同季節的環境與冷熱感。</desc>
+<defs><clipPath id="r"><rect x="48" y="160" width="984" height="720" rx="36"/></clipPath><filter id="s"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-opacity=".22"/></filter></defs>
+<rect width="1080" height="1080" fill="#f5ead6"/>
+<text x="54" y="78" font-family="Noto Sans TC,Microsoft JhengHei,sans-serif" font-size="28" font-weight="700" fill="#9b1c1f">仙加味・四季生活</text>
+<text x="54" y="132" font-family="Noto Serif TC,Microsoft JhengHei,sans-serif" font-size="54" font-weight="800" fill="#0b1f3b">四季，都有自己的節奏</text>
+<g clip-path="url(#r)" filter="url(#s)">
+<image href="https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp" x="48" y="160" width="492" height="360" preserveAspectRatio="xMidYMid slice"/><rect x="48" y="160" width="492" height="360" fill="#f7c7d6" opacity=".35"/>
+<image href="https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp" x="540" y="160" width="492" height="360" preserveAspectRatio="xMidYMid slice"/><rect x="540" y="160" width="492" height="360" fill="#f6cf50" opacity=".32"/>
+<image href="https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp" x="48" y="520" width="492" height="360" preserveAspectRatio="xMidYMid slice"/><rect x="48" y="520" width="492" height="360" fill="#c97832" opacity=".35"/>
+<image href="https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp" x="540" y="520" width="492" height="360" preserveAspectRatio="xMidYMid slice"/><rect x="540" y="520" width="492" height="360" fill="#c8d9ec" opacity=".38"/>
+</g>
+<g font-family="Noto Sans TC,Microsoft JhengHei,sans-serif" font-weight="800" fill="#fff" text-anchor="middle"><text x="294" y="210" font-size="42">春｜整理步調</text><text x="786" y="210" font-size="42">夏｜留意清爽</text><text x="294" y="570" font-size="42">秋｜回到規律</text><text x="786" y="570" font-size="42">冬｜安排溫熱</text></g>
+<rect x="70" y="910" width="940" height="112" rx="28" fill="#0b1f3b"/>
+<text x="540" y="978" text-anchor="middle" font-family="Noto Sans TC,Microsoft JhengHei,sans-serif" font-size="31" font-weight="700" fill="#fff">從每天做得到的小事開始</text>
+</svg>
