@@ -20,7 +20,9 @@ EXPECTED_TANGKUAI_VARIANTS = [
 ]
 
 REQUIRED_FILES = [
-    'index.html', 'products.html', 'trial.html', 'data.json', 'deploy-version.json',
+    'index.html', 'products.html', 'product-guilu-tangkuai.html', 'trial.html',
+    'site.js', 'site-core-v410.js', 'site-official-product-variants.js',
+    'data.json', 'deploy-version.json',
     'config/official-products.json',
     'assets/data/official-products.json',
     'content/social-guilu-drink-trial-v1.json',
@@ -81,6 +83,34 @@ def validate_variant_authority(document, spec_key):
     assert deprecated == {'PROD-SOUP-150'}, f'只有150g可列為廢止規格：{sorted(deprecated)}'
 
 
+def validate_post_states(posts):
+    assert posts, '公開貼文不可為空'
+    ids = [str(post.get('id') or '') for post in posts]
+    assert all(ids), '公開貼文缺少ID'
+    assert len(ids) == len(set(ids)), '公開貼文ID重複'
+
+    published = 0
+    pending = 0
+    for post in posts:
+        assert post.get('copy'), f"公開貼文缺少文案：{post.get('id')}"
+        assert local_asset_exists(post.get('image_url')), f"貼文圖片不存在：{post.get('id')}"
+        status = str(post.get('status') or '')
+        if status == 'published':
+            published += 1
+            assert post.get('prevent_republish') is True, f"已發布貼文缺少防重發鎖：{post.get('id')}"
+            assert post.get('publish_allowed') is not True, f"已發布貼文不得再次允許發布：{post.get('id')}"
+            assert post.get('scheduled_at') in (None, ''), f"已發布貼文不得再次排程：{post.get('id')}"
+        else:
+            pending += 1
+            assert status in {'pending_review', 'draft', 'rejected', 'archived'}, f"未知貼文狀態：{post.get('id')}={status}"
+            if status != 'archived':
+                assert post.get('approved') is not True, f"待審貼文不得預先核准：{post.get('id')}"
+                assert post.get('publish_allowed') is not True, f"待審貼文不得允許發布：{post.get('id')}"
+                assert post.get('scheduled_at') in (None, ''), f"待審貼文不得排程：{post.get('id')}"
+    assert published >= 1, '至少需要一篇已發布且鎖定的正式貼文'
+    return published, pending
+
+
 def main():
     missing = [path for path in REQUIRED_FILES if not (ROOT / path).is_file()]
     assert not missing, f'缺少必要檔案：{missing}'
@@ -116,24 +146,14 @@ def main():
 
     posts = posts_doc.get('posts', [])
     assert posts_doc.get('authority') == 'TS15825868/xianjiawei'
-    assert len(posts) == 23, f'公開貼文應為23篇，實際{len(posts)}篇'
-    assert len({post.get('id') for post in posts}) == 23, '公開貼文ID重複'
-    published = [post for post in posts if post.get('status') == 'published']
-    pending = [post for post in posts if post.get('status') == 'pending_review']
-    assert len(published) == 2, '已發布鎖定應為2篇'
-    assert len(pending) == 21, '待人工審核應為21篇'
-    for post in posts:
-        assert post.get('id') and post.get('copy'), '公開貼文缺少ID或文案'
-        assert local_asset_exists(post.get('image_url')), f"貼文圖片不存在：{post.get('id')}"
-        if post.get('status') == 'published':
-            assert post.get('prevent_republish') is True, f"已發布貼文缺少防重發鎖：{post.get('id')}"
+    published_count, pending_count = validate_post_states(posts)
 
     public_keys = set(walk_keys(posts_doc))
     leaked = sorted(public_keys & FORBIDDEN_PUBLIC_KEYS)
     assert not leaked, f'公開貼文資料含私人欄位：{leaked}'
 
     assets = assets_doc.get('assets', [])
-    assert len(assets) >= 20, '公開素材清單不足'
+    assert assets, '公開素材清單不可為空'
     assert len({asset.get('id') for asset in assets}) == len(assets), '公開素材ID重複'
     for asset in assets:
         assert asset.get('id') and local_asset_exists(asset.get('path')), f"素材不存在：{asset.get('id')}"
@@ -146,11 +166,23 @@ def main():
     trial_copy = trial.get('copy', '')
     for value in ['正式售價 60元／罐', '買10送1｜11罐600元', '買10送1｜11包2,000元', '官方LINE']:
         assert value in trial_copy, f'試喝文案缺少：{value}'
+    assert trial.get('poster', {}).get('assetId') == 'post-trial-evergreen-v412'
+    assert trial.get('poster', {}).get('format') == 'JPG'
     assert trial.get('publishingSafety', {}).get('preventRepublish') is True
 
     official_trial_jpg = 'images/posts/approved-v412/guilu-drink-trial-evergreen.jpg'
     trial_html = (ROOT / 'trial.html').read_text(encoding='utf-8')
     assert official_trial_jpg in trial_html, '試喝頁未使用指定正式JPG海報'
+
+    products_html = (ROOT / 'products.html').read_text(encoding='utf-8')
+    soup_page = (ROOT / 'product-guilu-tangkuai.html').read_text(encoding='utf-8')
+    variants_runtime = (ROOT / 'site-official-product-variants.js').read_text(encoding='utf-8')
+    site_entry = (ROOT / 'site.js').read_text(encoding='utf-8')
+    for spec in EXPECTED_TANGKUAI_VARIANTS:
+        assert spec in products_html, f'產品總覽缺少龜鹿湯塊規格：{spec}'
+        assert spec in soup_page, f'龜鹿湯塊產品頁缺少規格：{spec}'
+        assert spec in variants_runtime, f'動態規格顯示層缺少：{spec}'
+    assert 'site-official-product-variants.js' in site_entry, '全站入口未載入正式規格顯示層'
 
     public_text = '\n'.join([
         json.dumps(posts_doc, ensure_ascii=False),
@@ -163,7 +195,12 @@ def main():
     for value in FORBIDDEN_OLD_TEXT:
         assert value not in public_text, f'公開資料仍含舊內容：{value}'
 
-    print('PASS 官網與公開內容母本驗收：六項產品分類、龜鹿湯塊75/300/600g、23篇貼文、指定試喝JPG、Git圖片、防私人資料外洩與防重發鎖全部通過。')
+    print(
+        'PASS 官網與公開內容母本驗收：'
+        f'六個產品分類、龜鹿湯塊75/300/600g、{len(posts)}篇現有貼文'
+        f'（已發布鎖定{published_count}、其餘{pending_count}）、指定試喝JPG、'
+        'Git圖片、防私人資料外洩與防重發鎖全部通過；貼文與素材數量不設人為門檻。'
+    )
 
 
 if __name__ == '__main__':
