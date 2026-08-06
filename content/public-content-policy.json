@@ -1,35 +1,83 @@
 {
-  "version": "2026-08-06-public-content-v1",
+  "version": "2026-08-07-public-content-v2",
   "authority": "TS15825868/xianjiawei",
-  "purpose": "仙加味可公開貼文文案、貼文圖、產品圖、品牌圖與圖片生成指令的唯一公開母本",
+  "purpose": "仙加味不含私人資料的公開安全內容母本；供官網、LINE OA與私人ERP以貼文ID讀取文案、核准素材及發布安全狀態",
   "publicRepository": "TS15825868/xianjiawei",
   "privateRepository": "TS15825868/xianjiawei-internal",
   "publicFiles": {
     "posts": "content/public-post-library.json",
     "assets": "content/public-asset-library.json",
-    "publishedTrial": "content/social-guilu-drink-trial-v1.json"
+    "publishedTrial": "content/social-guilu-drink-trial-v1.json",
+    "productCatalog": "catalog-public.json",
+    "geo": "geo-data.json"
   },
   "publicAllowed": [
     "品牌與產品公開文案",
-    "待審與已發布貼文文案",
-    "圖片網址與圖片生成指令",
-    "產品公開規格與正式售價",
-    "社群平台目標與公開發布狀態",
-    "已發布貼文防重發鎖定"
+    "不含私人資訊的待審文案；必須維持owner_review_required與publish_allowed=false",
+    "已發布貼文文案、核准圖片網址與防重發狀態",
+    "產品公開名稱、正式規格、一般使用與保存資訊",
+    "六個產品分類與龜鹿湯塊75g／300g／600g三種規格",
+    "老闆明確核准公開的龜鹿飲試喝價格與活動",
+    "社群平台目標與不含憑證的公開發布狀態"
   ],
+  "publicConditional": {
+    "pendingReviewCopy": {
+      "allowed": true,
+      "personalDataForbidden": true,
+      "internalNotesForbidden": true,
+      "scheduleForbidden": true,
+      "publishAllowedMustBeFalse": true,
+      "ownerReviewRequiredMustBeTrue": true
+    },
+    "imageGenerationInstructions": {
+      "allowedOnlyWhenPublicSafe": true,
+      "secretValuesForbidden": true,
+      "customerDataForbidden": true,
+      "internalOperationalNotesForbidden": true
+    },
+    "prices": {
+      "generalCatalogPricesPublic": false,
+      "approvedTrialCampaignPricesPublic": true
+    }
+  },
   "privateOnly": [
     "客戶姓名、電話、地址、LINE ID與聯絡紀錄",
     "訂單、付款、成本、毛利與財務資料",
     "即時庫存數量、採購與供應商內部條件",
+    "未核准排程時間、內部備註與營運診斷",
     "Cloudflare、LINE、OpenAI及社群平台憑證",
     "員工帳號、角色、稽核紀錄與內部備註"
   ],
+  "productAuthority": {
+    "familyCount": 6,
+    "sellableSpecificationCount": 8,
+    "soupVariants": [
+      "75g／盒｜8塊裝｜每塊約9.375g",
+      "300g／盒｜16塊裝｜每塊約18.75g",
+      "600g／盒｜32塊裝｜每塊約18.75g"
+    ],
+    "obsoleteSoupSpecifications": ["150g"]
+  },
+  "publishedTrialAuthority": {
+    "postId": "POST-GUILU-DRINK-TRIAL-EVERGREEN",
+    "assetId": "post-trial-evergreen-v412",
+    "poster": "images/posts/approved-v412/guilu-drink-trial-evergreen.jpg?v=20260806",
+    "format": "JPG",
+    "ownerPublicationConfirmed": true,
+    "publishAllowed": false,
+    "preventRepublish": true,
+    "futureReuseRequiresNewPostId": true,
+    "futureReuseOwnerReviewRequired": true,
+    "futureReuseRasterExportRequired": false
+  },
   "erpPolicy": {
     "app": "xianjiawei-internal",
-    "role": "只保存內部營運資料、審核、排程與發布結果",
-    "contentMode": "以公開貼文ID讀取公開文案與圖片；內部資料不得回寫公開倉庫",
+    "role": "保存內部營運資料、審核、排程與發布結果；以公開貼文ID讀取不含私人資訊的內容母本",
+    "contentMode": "公開內容與私人營運欄位分離；內部資料不得回寫公開倉庫",
     "customerDataPublic": false,
-    "secretDataPublic": false
+    "secretDataPublic": false,
+    "inventoryQuantityPublic": false,
+    "internalSchedulePublic": false
   },
   "publishingSafety": {
     "ownerReviewRequiredBeforePublish": true,
