@@ -107,7 +107,7 @@ def main():
     assert content_policy.get('trialCampaignFile') == TRIAL_CONTENT, '部署版本檔試喝文案母本錯誤'
     assert content_policy.get('publicContactLabel') == '官方LINE', '部署版本檔公開聯絡名稱錯誤'
 
-    assert campaign.get('version') == '2026-08-06-trial-campaign-v1', '三平台試喝文案版本錯誤'
+    assert campaign.get('version') == '2026-08-06-trial-campaign-v2-published-lock', '三平台試喝文案與發布鎖定版本錯誤'
     assert campaign.get('title') == '龜鹿飲試喝組｜先試喝，再決定', '三平台試喝標題錯誤'
     campaign_copy = campaign.get('copy', '')
     for value in [
@@ -120,8 +120,15 @@ def main():
     ]:
         assert value in campaign_copy, f'三平台試喝文案缺漏：{value}'
     assert campaign.get('posterPath') == TRIAL_POSTER, '三平台試喝海報路徑錯誤'
-    assert campaign.get('publishingSafety', {}).get('autoPublish') is False, '試喝貼文不得自動發布'
-    assert campaign.get('publishingSafety', {}).get('ownerReviewRequired') is True, '試喝貼文必須人工審核'
+    publication = campaign.get('ownerPublication', {})
+    safety = campaign.get('publishingSafety', {})
+    assert publication.get('confirmed') is True, '試喝貼文缺少老闆已發布確認'
+    assert publication.get('publicationMode') == 'manual', '試喝貼文必須登記為手動發布'
+    assert publication.get('preventRepublish') is True and publication.get('doNotRepublish') is True, '試喝貼文缺少禁止重發鎖定'
+    assert safety.get('approved') is True and safety.get('published') is True and safety.get('manualPublished') is True, '試喝貼文發布狀態錯誤'
+    assert safety.get('publishAllowed') is False, '已發布試喝貼文不得再次發布'
+    assert safety.get('preventRepublish') is True and safety.get('doNotRepublish') is True, '已發布試喝貼文不得重發'
+    assert safety.get('autoApprove') is False and safety.get('autoSchedule') is False and safety.get('autoPublish') is False, '試喝貼文不得自動核准、排程或發布'
 
     public_text = '\n'.join(
         (ROOT / relative_path).read_text(encoding='utf-8', errors='ignore')
@@ -143,17 +150,17 @@ def main():
     assert '買10送1｜11罐600元' in poster, '試喝海報30cc活動錯誤'
     assert 'approved-v412/guilu-drink-trial-evergreen.jpg' in poster, '試喝海報缺少正式底圖'
 
-    safety = (ROOT / 'site-product-image-safety.js').read_text(encoding='utf-8')
-    assert OFFICIAL_30 in safety, '圖片安全層未指向30cc正式原圖'
-    assert 'images/guilu-drink-30cc-glass.jpg' in safety, '圖片安全層缺少舊路徑攔截'
-    assert 'guilu-drink-30-clean.svg' in safety, '圖片安全層缺少舊SVG攔截'
+    safety_source = (ROOT / 'site-product-image-safety.js').read_text(encoding='utf-8')
+    assert OFFICIAL_30 in safety_source, '圖片安全層未指向30cc正式原圖'
+    assert 'images/guilu-drink-30cc-glass.jpg' in safety_source, '圖片安全層缺少舊路徑攔截'
+    assert 'guilu-drink-30-clean.svg' in safety_source, '圖片安全層缺少舊SVG攔截'
     assert 'site-product-authority.js' not in (ROOT / 'site.js').read_text(encoding='utf-8'), '入口不得載入舊字串改寫器'
 
     contact = (ROOT / 'contact.html').read_text(encoding='utf-8', errors='ignore')
     assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方LINE'
     assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
 
-    print('PASS 官網正式發布驗收：六項產品、三組搭配、30cc正式原圖、30cc售價60元與11罐600元、180cc售價200元與11包2,000元、三平台統一試喝文案、正式海報、官方LINE、龜鹿膠規格、出貨政策、GEO與聯絡頁全部通過。')
+    print('PASS 官網正式發布驗收：六項產品、三組搭配、30cc正式原圖、30cc售價60元與11罐600元、180cc售價200元與11包2,000元、三平台統一試喝文案、老闆手動發布鎖定、正式海報、官方LINE、龜鹿膠規格、出貨政策、GEO與聯絡頁全部通過。')
     return 0
 
 
