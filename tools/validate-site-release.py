@@ -5,6 +5,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 OFFICIAL_30 = 'images/products-v3/guilu-drink-30.jpg'
+TRIAL_POSTER = 'images/posts/approved-v413/guilu-drink-trial-60.svg'
 EXPECTED_PRODUCTS = {
     'guilu-gao': '100g／罐',
     'guilu-drink-30': '30cc／罐（小玻璃罐）',
@@ -16,10 +17,10 @@ EXPECTED_PRODUCTS = {
 EXPECTED_COMBOS = ['日常節奏組', '料理搭配組', '完整體驗組']
 REQUIRED_FILES = [
     'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
-    'brand.html', 'faq.html', 'contact.html', 'site.css', 'site.js',
+    'brand.html', 'faq.html', 'contact.html', 'trial.html', 'site.css', 'site.js',
     'site-core-v410.js', 'site-product-image-safety.js', 'data.json',
     'catalog-public.json', 'geo-data.json', 'deploy-version.json',
-    'sitemap.xml', 'robots.txt', OFFICIAL_30,
+    'sitemap.xml', 'robots.txt', OFFICIAL_30, TRIAL_POSTER,
 ]
 PUBLIC_TEXT_FILES = [
     'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
@@ -38,6 +39,8 @@ FORBIDDEN_PUBLIC_VALUES = [
     '門市自取', 'guilu-drink-30-clean.svg',
     'images/guilu-drink-30cc-glass.jpg',
     'images/dm-final/02_guilu-drink-30cc-dm.jpg',
+    '正式售價50元／罐', '售價50元，買10送1',
+    '買10送1｜11罐500元', '買10送1，共11罐500元',
 ]
 
 
@@ -94,6 +97,10 @@ def main():
     assert OFFICIAL_30 in geo_text, 'GEO 30cc圖錯誤'
     assert deploy.get('catalog') == 'six-official-products', '部署版本檔仍不是六項正式產品'
     assert deploy.get('imagePolicy', {}).get('guiluDrink30ccImage', '').startswith(OFFICIAL_30), '部署版本檔30cc圖錯誤'
+    assert deploy.get('imagePolicy', {}).get('trialPosterPreview') == TRIAL_POSTER, '部署版本檔試喝海報錯誤'
+    pricing = deploy.get('pricingPolicy', {})
+    assert pricing.get('guiluDrink30cc') == '正式售價60元／罐｜買10送1｜11罐600元', '部署版本檔30cc價格錯誤'
+    assert pricing.get('guiluDrink180cc') == '單包200元｜買10送1｜11包2,000元', '部署版本檔180cc價格錯誤'
 
     public_text = '\n'.join(
         (ROOT / relative_path).read_text(encoding='utf-8', errors='ignore')
@@ -102,6 +109,18 @@ def main():
     )
     for value in FORBIDDEN_PUBLIC_VALUES:
         assert value not in public_text, f'公開呈現資料仍含舊資料：{value}'
+
+    trial = (ROOT / 'trial.html').read_text(encoding='utf-8', errors='ignore')
+    for value in [
+        '正式售價60元／罐', '買10送1｜11罐600元',
+        '單包售價200元', '買10送1｜11包2,000元', TRIAL_POSTER,
+    ]:
+        assert value in trial, f'試喝頁缺少最新內容：{value}'
+
+    poster = (ROOT / TRIAL_POSTER).read_text(encoding='utf-8', errors='ignore')
+    assert '正式售價 ' in poster and '>60<' in poster and '元／罐' in poster, '試喝海報30cc售價錯誤'
+    assert '買10送1｜11罐600元' in poster, '試喝海報30cc活動錯誤'
+    assert 'approved-v412/guilu-drink-trial-evergreen.jpg' in poster, '試喝海報缺少正式底圖'
 
     safety = (ROOT / 'site-product-image-safety.js').read_text(encoding='utf-8')
     assert OFFICIAL_30 in safety, '圖片安全層未指向30cc正式原圖'
@@ -113,7 +132,7 @@ def main():
     assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方LINE'
     assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
 
-    print('PASS 官網正式發布驗收：六項產品、三組搭配、30cc正式原圖、龜鹿膠規格、出貨政策、GEO、公開資料與聯絡頁全部通過。')
+    print('PASS 官網正式發布驗收：六項產品、三組搭配、30cc正式原圖、30cc售價60元與11罐600元、180cc售價200元與11包2,000元、最新試喝海報、龜鹿膠規格、出貨政策、GEO與聯絡頁全部通過。')
     return 0
 
 
