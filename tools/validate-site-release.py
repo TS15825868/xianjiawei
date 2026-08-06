@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import json
-import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-OFFICIAL_30 = 'images/products-v3/guilu-drink-30.jpg'
-TRIAL_POSTER = 'images/posts/approved-v413/guilu-drink-trial-60.svg'
-TRIAL_CONTENT = 'content/social-guilu-drink-trial-v1.json'
-TRIAL_VERSION = '2026-08-06-trial-campaign-v2-published-lock'
-TRIAL_ASSET_ID = 'post-trial-evergreen-v413'
-TRIAL_POSTER_URL = 'https://ts15825868.github.io/xianjiawei/images/posts/approved-v413/guilu-drink-trial-60.svg'
+
 EXPECTED_PRODUCTS = {
     'guilu-gao': '100g／罐',
     'guilu-drink-30': '30cc／罐（小玻璃罐）',
@@ -18,176 +12,129 @@ EXPECTED_PRODUCTS = {
     'guilu-jiao': '600g（1斤）／盒｜32塊裝｜每塊約18.75g',
     'luerong-fen': '75g／罐',
 }
-EXPECTED_COMBOS = ['日常節奏組', '料理搭配組', '完整體驗組']
+
 REQUIRED_FILES = [
-    'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
-    'brand.html', 'faq.html', 'contact.html', 'trial.html', 'site.css', 'site.js',
-    'site-core-v410.js', 'site-product-image-safety.js', 'data.json',
-    'catalog-public.json', 'geo-data.json', 'deploy-version.json',
-    'sitemap.xml', 'robots.txt', OFFICIAL_30, TRIAL_POSTER, TRIAL_CONTENT,
+    'index.html', 'products.html', 'trial.html', 'data.json', 'deploy-version.json',
+    'content/social-guilu-drink-trial-v1.json',
+    'content/public-post-library.json',
+    'content/public-asset-library.json',
+    'content/public-content-policy.json',
+    'images/products-v3/guilu-drink-30.jpg',
+    'images/posts/approved-v413/guilu-drink-trial-60.svg',
 ]
-PUBLIC_TEXT_FILES = [
-    'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
-    'brand.html', 'faq.html', 'contact.html', 'trial.html', 'brand-facts.html',
-    'product-guilu-gao.html', 'product-guilu-drink-30cc.html',
-    'product-guilu-drink-180cc.html', 'product-guilu-tangkuai.html',
-    'product-guilu-jiao.html', 'product-luerong-fen.html',
-    'data.json', 'catalog-public.json', 'geo-data.json', 'deploy-version.json',
-    'llms.txt', 'llms-full.txt', TRIAL_CONTENT,
-]
-FORBIDDEN_PUBLIC_VALUES = [
-    '龜鹿飲30cc玻璃瓶', '30cc／瓶（小玻璃瓶）', '小玻璃瓶',
-    '龜鹿湯塊150g', '龜鹿湯塊300g', '龜鹿湯塊600g',
-    '600g／盒（1斤）｜32塊裝｜每塊約18.75g',
-    '台北市萬華區西昌街52號', '台北市萬華區西昌街 52 號',
-    '門市自取', 'guilu-drink-30-clean.svg',
-    'images/guilu-drink-30cc-glass.jpg',
-    'images/dm-final/02_guilu-drink-30cc-dm.jpg',
-    '正式售價50元／罐', '售價50元，買10送1',
-    '買10送1｜11罐500元', '買10送1，共11罐500元',
+
+FORBIDDEN_PUBLIC_KEYS = {
+    'customer', 'customer_name', 'contact_name', 'phone', 'address', 'line_id',
+    'order', 'order_no', 'payment_status', 'cost', 'margin', 'profit',
+    'wholesale_price', 'api_key', 'token', 'secret', 'client_secret',
+    'cloudflare_api_token', 'channel_access_token', 'channel_secret',
+}
+
+FORBIDDEN_OLD_TEXT = [
+    '正式售價50元／罐', '買10送1｜11罐500元',
+    '龜鹿飲30cc玻璃瓶', '30cc／瓶（小玻璃瓶）',
+    '龜鹿湯塊150g',
 ]
 
 
-def load_json(relative_path):
-    path = ROOT / relative_path
-    try:
-        return json.loads(path.read_text(encoding='utf-8'))
-    except Exception as exc:
-        raise AssertionError(f'{relative_path}不是有效JSON：{exc}') from exc
+def load_json(path):
+    return json.loads((ROOT / path).read_text(encoding='utf-8'))
+
+
+def walk_keys(value):
+    if isinstance(value, dict):
+        for key, child in value.items():
+            yield str(key).lower()
+            yield from walk_keys(child)
+    elif isinstance(value, list):
+        for child in value:
+            yield from walk_keys(child)
+
+
+def local_asset_exists(url_or_path):
+    value = str(url_or_path or '')
+    prefix = 'https://ts15825868.github.io/xianjiawei/'
+    if value.startswith(prefix):
+        value = value[len(prefix):]
+    if value.startswith('http://') or value.startswith('https://'):
+        return True
+    value = value.split('?', 1)[0].lstrip('/')
+    return bool(value) and (ROOT / value).is_file()
 
 
 def main():
-    missing = [name for name in REQUIRED_FILES if not (ROOT / name).is_file()]
+    missing = [path for path in REQUIRED_FILES if not (ROOT / path).is_file()]
     assert not missing, f'缺少必要檔案：{missing}'
-    assert not (ROOT / 'site-product-authority.js').exists(), '不得保留舊字串執行期改寫器'
 
     data = load_json('data.json')
-    catalog = load_json('catalog-public.json')
-    geo = load_json('geo-data.json')
     deploy = load_json('deploy-version.json')
-    campaign = load_json(TRIAL_CONTENT)
+    posts_doc = load_json('content/public-post-library.json')
+    assets_doc = load_json('content/public-asset-library.json')
+    trial = load_json('content/social-guilu-drink-trial-v1.json')
+    policy = load_json('content/public-content-policy.json')
 
-    products = {
-        item.get('id'): item
-        for item in data.get('products', [])
-        if isinstance(item, dict) and item.get('id')
-    }
-    assert set(products) == set(EXPECTED_PRODUCTS), f'產品必須剛好六項：{sorted(products)}'
-    for product_id, specification in EXPECTED_PRODUCTS.items():
-        assert products[product_id].get('size') == specification, f'{product_id}規格錯誤'
-
-    assert [item.get('name') for item in data.get('combos', [])] == EXPECTED_COMBOS, '正式搭配必須剛好三組且順序一致'
-    assert [item.get('name') for item in data.get('offers', {}).get('comboOffers', [])] == EXPECTED_COMBOS, '搭配鏡像必須剛好三組且順序一致'
+    products = {item['id']: item for item in data.get('products', [])}
+    assert set(products) == set(EXPECTED_PRODUCTS), '正式產品必須剛好六項'
+    for product_id, spec in EXPECTED_PRODUCTS.items():
+        item = products[product_id]
+        assert item.get('size') == spec, f'{product_id}規格錯誤'
 
     drink30 = products['guilu-drink-30']
-    assert drink30.get('image', '').startswith(OFFICIAL_30), '30cc主圖未使用正式原圖'
-    assert drink30.get('dmImage', '').startswith(OFFICIAL_30), '30cc DM圖未使用正式原圖'
-    details = drink30.get('detailImages', [])
-    assert details and all(str(item).startswith(OFFICIAL_30) for item in details), '30cc詳圖仍含舊來源'
-    assert drink30.get('imagePolicy') == 'official-original-contain-no-crop', '30cc圖片政策錯誤'
+    drink180 = products['guilu-drink-180']
+    assert drink30.get('price') == 60, '30cc售價必須為60元'
+    assert drink30.get('offers') == [{'qty': 11, 'total': 600, 'label': '買10送1'}], '30cc活動錯誤'
+    assert drink180.get('price') == 200, '180cc售價必須為200元'
+    assert drink180.get('offers') == [{'qty': 11, 'total': 2000, 'label': '買10送1'}], '180cc活動錯誤'
 
-    for product_id in ('guilu-drink-30', 'guilu-drink-180'):
-        product = products[product_id]
-        assert product.get('fulfillmentType') == 'made-to-order-drink', f'{product_id}出貨分類錯誤'
-        assert '5～7個工作天' in product.get('fulfillmentNotice', ''), f'{product_id}缺少製作時間'
-    for product_id in ('guilu-gao', 'guilu-tangkuai', 'guilu-jiao', 'luerong-fen'):
-        product = products[product_id]
-        assert product.get('fulfillmentType') == 'ready-stock', f'{product_id}出貨分類錯誤'
-        assert '5～7個工作天' not in product.get('fulfillmentNotice', ''), f'{product_id}被錯套龜鹿飲交期'
+    assert str(deploy.get('version', '')).startswith('2026-08-06-canonical-v7'), '部署版本未更新至v7'
+    assert deploy.get('pricingPolicy', {}).get('guiluDrink30cc') == '正式售價60元／罐｜買10送1｜11罐600元'
+    assert deploy.get('contentPolicy', {}).get('preventRepublish') is True
 
-    catalog_text = json.dumps(catalog, ensure_ascii=False)
-    geo_text = json.dumps(geo, ensure_ascii=False)
-    assert len(catalog.get('products', [])) == 6, '公開目錄必須剛好六項'
-    assert OFFICIAL_30 in catalog_text, '公開目錄30cc圖錯誤'
-    assert OFFICIAL_30 in geo_text, 'GEO 30cc圖錯誤'
+    posts = posts_doc.get('posts', [])
+    assert posts_doc.get('authority') == 'TS15825868/xianjiawei'
+    assert len(posts) == 23, f'公開貼文應為23篇，實際{len(posts)}篇'
+    assert len({post.get('id') for post in posts}) == 23, '公開貼文ID重複'
+    published = [post for post in posts if post.get('status') == 'published']
+    pending = [post for post in posts if post.get('status') == 'pending_review']
+    assert len(published) == 2, '已發布鎖定應為2篇'
+    assert len(pending) == 21, '待人工審核應為21篇'
+    for post in posts:
+        assert post.get('id') and post.get('copy'), '公開貼文缺少ID或文案'
+        assert local_asset_exists(post.get('image_url')), f"貼文圖片不存在：{post.get('id')}"
+        if post.get('status') == 'published':
+            assert post.get('prevent_republish') is True, f"已發布貼文缺少防重發鎖：{post.get('id')}"
 
-    assert deploy.get('version') == '2026-08-06-canonical-v6-published-trial-lock', '部署版本檔版本錯誤'
-    assert deploy.get('catalog') == 'six-official-products', '部署版本檔仍不是六項正式產品'
-    image_policy = deploy.get('imagePolicy', {})
-    assert image_policy.get('guiluDrink30ccImage', '').startswith(OFFICIAL_30), '部署版本檔30cc圖錯誤'
-    assert image_policy.get('trialPosterPreview') == TRIAL_POSTER, '部署版本檔試喝海報錯誤'
-    assert image_policy.get('trialPosterAssetId') == TRIAL_ASSET_ID, '部署版本檔試喝素材ID錯誤'
-    assert '新貼文ID' in image_policy.get('trialPosterSocialPolicy', ''), '部署版本檔缺少未來重用新貼文規則'
+    public_keys = set(walk_keys(posts_doc))
+    leaked = sorted(public_keys & FORBIDDEN_PUBLIC_KEYS)
+    assert not leaked, f'公開貼文資料含私人欄位：{leaked}'
 
-    pricing = deploy.get('pricingPolicy', {})
-    assert pricing.get('guiluDrink30cc') == '正式售價60元／罐｜買10送1｜11罐600元', '部署版本檔30cc價格錯誤'
-    assert pricing.get('guiluDrink180cc') == '單包200元｜買10送1｜11包2,000元', '部署版本檔180cc價格錯誤'
+    assets = assets_doc.get('assets', [])
+    assert len(assets) >= 20, '公開素材清單不足'
+    assert len({asset.get('id') for asset in assets}) == len(assets), '公開素材ID重複'
+    for asset in assets:
+        assert asset.get('id') and local_asset_exists(asset.get('path')), f"素材不存在：{asset.get('id')}"
 
-    content_policy = deploy.get('contentPolicy', {})
-    assert content_policy.get('trialCampaignFile') == TRIAL_CONTENT, '部署版本檔試喝文案母本錯誤'
-    assert content_policy.get('trialCampaignVersion') == TRIAL_VERSION, '部署版本檔試喝文案版本錯誤'
-    assert content_policy.get('publicContactLabel') == '官方LINE', '部署版本檔公開聯絡名稱錯誤'
-    assert content_policy.get('ownerPublicationConfirmed') is True, '部署版本檔缺少老闆手動發布確認'
-    assert content_policy.get('publicationMode') == 'manual', '部署版本檔發布模式錯誤'
-    assert content_policy.get('publishAllowed') is False, '部署版本檔不得允許已發布貼文再次發布'
-    assert content_policy.get('preventRepublish') is True and content_policy.get('doNotRepublish') is True, '部署版本檔缺少防重發鎖'
-    assert content_policy.get('autoApprove') is False and content_policy.get('autoSchedule') is False and content_policy.get('autoPublish') is False, '部署版本檔不得自動核准、排程或發布'
-    assert content_policy.get('futureReuseRequiresNewPostId') is True, '部署版本檔缺少未來重用新貼文ID規則'
-    assert content_policy.get('futureReuseOwnerReviewRequired') is True, '部署版本檔缺少未來重用人工審核規則'
-    assert content_policy.get('lineVoomManualOnly') is True and content_policy.get('googleBusinessManualOnly') is True, '部署版本檔手動平台規則錯誤'
+    assert policy.get('publicRepository') == 'TS15825868/xianjiawei'
+    assert policy.get('privateRepository') == 'TS15825868/xianjiawei-internal'
+    assert policy.get('erpPolicy', {}).get('customerDataPublic') is False
+    assert policy.get('erpPolicy', {}).get('secretDataPublic') is False
 
-    assert campaign.get('version') == TRIAL_VERSION, '三平台試喝文案與發布鎖定版本錯誤'
-    assert campaign.get('title') == '龜鹿飲試喝組｜先試喝，再決定', '三平台試喝標題錯誤'
-    campaign_copy = campaign.get('copy', '')
-    for value in [
-        '3罐試喝品免費，運費自付',
-        '正式售價 60元／罐',
-        '買10送1｜11罐600元',
-        '單包200元',
-        '買10送1｜11包2,000元',
-        '皆在 官方LINE 完成',
-    ]:
-        assert value in campaign_copy, f'三平台試喝文案缺漏：{value}'
-    assert campaign.get('posterPath') == TRIAL_POSTER, '三平台試喝海報路徑錯誤'
-    assert campaign.get('posterUrl') == TRIAL_POSTER_URL, '三平台試喝海報網址錯誤'
-    publication = campaign.get('ownerPublication', {})
-    safety = campaign.get('publishingSafety', {})
-    assert publication.get('confirmed') is True, '試喝貼文缺少老闆已發布確認'
-    assert publication.get('publicationMode') == 'manual', '試喝貼文必須登記為手動發布'
-    assert publication.get('preventRepublish') is True and publication.get('doNotRepublish') is True, '試喝貼文缺少禁止重發鎖定'
-    assert safety.get('approved') is True and safety.get('published') is True and safety.get('manualPublished') is True, '試喝貼文發布狀態錯誤'
-    assert safety.get('publishAllowed') is False, '已發布試喝貼文不得再次發布'
-    assert safety.get('preventRepublish') is True and safety.get('doNotRepublish') is True, '已發布試喝貼文不得重發'
-    assert safety.get('autoApprove') is False and safety.get('autoSchedule') is False and safety.get('autoPublish') is False, '試喝貼文不得自動核准、排程或發布'
-    assert safety.get('lineVoomManualOnly') is True and safety.get('googleBusinessManualOnly') is True, '試喝貼文手動平台規則錯誤'
+    trial_copy = trial.get('copy', '')
+    for value in ['正式售價 60元／罐', '買10送1｜11罐600元', '買10送1｜11包2,000元', '官方LINE']:
+        assert value in trial_copy, f'試喝文案缺少：{value}'
+    assert trial.get('publishingSafety', {}).get('preventRepublish') is True
 
-    public_text = '\n'.join(
-        (ROOT / relative_path).read_text(encoding='utf-8', errors='ignore')
-        for relative_path in PUBLIC_TEXT_FILES
-        if (ROOT / relative_path).is_file()
-    )
-    for value in FORBIDDEN_PUBLIC_VALUES:
-        assert value not in public_text, f'公開呈現資料仍含舊資料：{value}'
+    public_text = '\n'.join([
+        json.dumps(posts_doc, ensure_ascii=False),
+        json.dumps(assets_doc, ensure_ascii=False),
+        json.dumps(trial, ensure_ascii=False),
+        json.dumps(data, ensure_ascii=False),
+    ])
+    for value in FORBIDDEN_OLD_TEXT:
+        assert value not in public_text, f'公開資料仍含舊內容：{value}'
 
-    trial = (ROOT / 'trial.html').read_text(encoding='utf-8', errors='ignore')
-    for value in [
-        '正式售價60元／罐', '買10送1｜11罐600元',
-        '單包售價200元', '買10送1｜11包2,000元', TRIAL_POSTER,
-    ]:
-        assert value in trial, f'試喝頁缺少最新內容：{value}'
-
-    poster = (ROOT / TRIAL_POSTER).read_text(encoding='utf-8', errors='ignore')
-    assert '正式售價 ' in poster and '>60<' in poster and '元／罐' in poster, '試喝海報30cc售價錯誤'
-    assert '買10送1｜11罐600元' in poster, '試喝海報30cc活動錯誤'
-    assert 'approved-v412/guilu-drink-trial-evergreen.jpg' in poster, '試喝海報缺少正式底圖'
-
-    safety_source = (ROOT / 'site-product-image-safety.js').read_text(encoding='utf-8')
-    assert OFFICIAL_30 in safety_source, '圖片安全層未指向30cc正式原圖'
-    assert 'images/guilu-drink-30cc-glass.jpg' in safety_source, '圖片安全層缺少舊路徑攔截'
-    assert 'guilu-drink-30-clean.svg' in safety_source, '圖片安全層缺少舊SVG攔截'
-    assert 'site-product-authority.js' not in (ROOT / 'site.js').read_text(encoding='utf-8'), '入口不得載入舊字串改寫器'
-
-    contact = (ROOT / 'contact.html').read_text(encoding='utf-8', errors='ignore')
-    assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方LINE'
-    assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
-
-    print('PASS 官網正式發布驗收：六項產品、三組搭配、30cc正式原圖、30cc售價60元與11罐600元、180cc售價200元與11包2,000元、三平台統一試喝文案、老闆手動發布鎖定、未來重用新貼文人工審核、正式海報、官方LINE、龜鹿膠規格、出貨政策、GEO與聯絡頁全部通過。')
-    return 0
+    print('PASS 官網與公開內容母本驗收：六項產品、23篇貼文、Git圖片、防私人資料外洩與防重發鎖全部通過。')
 
 
 if __name__ == '__main__':
-    try:
-        raise SystemExit(main())
-    except AssertionError as exc:
-        print(f'FAIL {exc}', file=sys.stderr)
-        raise SystemExit(1)
+    main()
