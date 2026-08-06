@@ -1,11 +1,11 @@
 {
-  "schemaVersion": 3,
-  "catalogVersion": "2026-08-06-canonical-v3",
-  "updatedAt": "2026-08-06",
+  "schemaVersion": 4,
+  "catalogVersion": "2026-08-07-canonical-v4",
+  "updatedAt": "2026-08-07",
   "source": {
     "repository": "TS15825868/xianjiawei",
     "branch": "main",
-    "role": "仙加味官網公開六項正式產品資料"
+    "role": "仙加味官網公開六個正式產品分類資料"
   },
   "brand": "仙加味",
   "lineId": "@762jybnm",
@@ -68,14 +68,20 @@
       "series": "仙加味・龜鹿",
       "name": "龜鹿湯塊",
       "size": "75g／盒｜8塊裝｜每塊約9.375g",
+      "variants": [
+        {"id": "guilu-tangkuai-75", "size": "75g／盒｜8塊裝｜每塊約9.375g"},
+        {"id": "guilu-tangkuai-300", "size": "300g／盒｜16塊裝｜每塊約18.75g"},
+        {"id": "guilu-tangkuai-600", "size": "600g／盒｜32塊裝｜每塊約18.75g"}
+      ],
       "form": "塊狀",
       "ingredients": ["龜板萃取物", "鹿角萃取物"],
-      "usage": ["取1塊加入約300～500mL熱水", "可使用保溫壺悶泡", "可加入雞湯或排骨湯燉煮"],
+      "usage": ["75g規格可取1塊加入約300～500mL熱水", "可使用保溫壺悶泡", "可加入雞湯或排骨湯燉煮"],
       "storage": ["常溫置於陰涼處", "亦可保存於5°C以下冷藏"],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html",
       "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg"
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
+      "imagePolicy": "official-original-contain-no-crop"
     },
     {
       "id": "guilu-jiao",
