@@ -14,7 +14,7 @@
 </head>
 <body>
 <header class="topbar">
-  <div><p class="eyebrow">仙加味・公開內容工具</p><h1>貼文發布中心</h1><p class="subtitle">公開Git最新版｜審核通過即排入每週兩篇時段；立即發布不受固定排程限制。</p></div>
+  <div><p class="eyebrow">仙加味・公開內容工具</p><h1>貼文發布中心</h1><p class="subtitle">公開Git正式母本｜審核通過即排入每週兩篇時段；立即發布不受固定排程限制。</p></div>
   <a class="button secondary" href="index.html">回官網</a>
 </header>
 <main class="shell">
@@ -23,13 +23,13 @@
   <section class="automation-note" aria-label="角色與產品說明"><strong>ChatGPT生成按鈕會帶入完整標準。</strong>產品原圖不可重畫、裁切或改包裝；小老闆須使用官網版造型，小鹿與小烏龜為固定主要夥伴，居家陪伴情境可加入灰色小河馬娃娃與米色小鹿安撫巾。</section>
   <section class="metrics" aria-label="貼文統計"><article><small>公開母本</small><strong id="metricTotal">—</strong><span>篇</span></article><article><small>待審核</small><strong id="metricPending">—</strong><span>篇</span></article><article><small>已發布鎖定</small><strong id="metricLocked">—</strong><span>篇</span></article><article><small>本機已發布</small><strong id="metricLocal">—</strong><span>篇</span></article></section>
   <section class="toolbar" aria-label="篩選工具"><label><span>搜尋貼文</span><input id="searchInput" type="search" placeholder="輸入標題、產品、天氣、場合或地點"></label><label><span>顯示狀態</span><select id="statusFilter"><option value="pending">待審核／可處理</option><option value="approved">已核准／已排程</option><option value="published">已發布</option><option value="needs-image">圖片待更換</option><option value="all">全部</option></select></label><div class="toolbar-actions"><button class="button secondary" id="exportButton" type="button">匯出發布與排程紀錄</button><button class="button secondary" id="reloadButton" type="button">重新讀取Git</button></div></section>
-  <section id="loadingState" class="state-card">正在讀取公開Git最新版貼文與圖片…</section>
+  <section id="loadingState" class="state-card">正在讀取公開Git正式母本貼文與圖片…</section>
   <section id="errorState" class="state-card error" hidden><h2>公開貼文資料暫時無法讀取</h2><p id="errorMessage"></p><button class="button primary" id="retryButton" type="button">重新連線</button></section>
   <section id="postList" class="post-grid" aria-live="polite"></section>
 </main>
 <dialog id="postDialog" class="post-dialog"><form method="dialog" class="dialog-shell"><button class="dialog-close" value="close" aria-label="關閉">×</button><div id="dialogContent"></div></form></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <footer><p>正式文案與圖片存放於公開Git；本機審核、排程、換圖預覽與發布紀錄保存在瀏覽器。確認新圖後再同步回Git正式母本。</p></footer>
-<script type="module" src="publishing-center-v2.js?v=20260807-2"></script>
+<script type="module" src="publishing-center-v2.js?v=20260807-4"></script>
 </body>
 </html>
