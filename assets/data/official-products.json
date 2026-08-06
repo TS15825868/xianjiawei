@@ -1,20 +1,28 @@
 {
-  "version": "2026-08-05-v3",
+  "version": "2026-08-07-v4",
   "authority": "user-confirmed",
   "products": [
     {"id":"guilu-gao","name":"龜鹿膏","specification":"100g／罐"},
-    {"id":"guilu-drink-30","name":"龜鹿飲","specification":"30cc／罐（小玻璃罐）"},
-    {"id":"guilu-drink-180","name":"龜鹿飲","specification":"180cc／包（鋁袋）"},
-    {"id":"guilu-tangkuai","name":"龜鹿湯塊","specification":"75g／盒｜8塊裝｜每塊約9.375g"},
+    {"id":"guilu-drink-30","name":"龜鹿飲30cc玻璃罐","specification":"30cc／罐（小玻璃罐）"},
+    {"id":"guilu-drink-180","name":"龜鹿飲180cc鋁袋","specification":"180cc／包（鋁袋）"},
+    {
+      "id":"guilu-tangkuai",
+      "name":"龜鹿湯塊",
+      "specification":"75g／盒｜8塊裝｜每塊約9.375g",
+      "variants":[
+        {"id":"guilu-tangkuai-75","specification":"75g／盒｜8塊裝｜每塊約9.375g"},
+        {"id":"guilu-tangkuai-300","specification":"300g／盒｜16塊裝｜每塊約18.75g"},
+        {"id":"guilu-tangkuai-600","specification":"600g／盒｜32塊裝｜每塊約18.75g"}
+      ]
+    },
     {"id":"guilu-jiao","name":"龜鹿膠","specification":"600g（1斤）／盒｜32塊裝｜每塊約18.75g"},
     {"id":"luerong-fen","name":"鹿茸粉","specification":"75g／罐"}
   ],
+  "deprecated_product_ids": ["PROD-SOUP-150"],
   "forbidden": [
     "龜鹿飲30cc玻璃瓶",
     "30cc／瓶（小玻璃瓶）",
     "龜鹿湯塊150g",
-    "龜鹿湯塊300g",
-    "龜鹿湯塊600g",
     "600g／盒（1斤）｜32塊裝｜每塊約18.75g"
   ]
 }
