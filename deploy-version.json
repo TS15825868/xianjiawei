@@ -1,8 +1,17 @@
 {
-  "version": "2026-08-06-canonical-v7-owner-reconfirmed-trial-lock",
-  "updated": "2026-08-06",
-  "status": "source-updated-actions-billing-independent",
-  "catalog": "six-official-products",
+  "version": "2026-08-07-canonical-v8-soup-variants-trial-jpg",
+  "updated": "2026-08-07",
+  "status": "source-updated-pages-deployment-pending-platform",
+  "catalog": "six-official-product-families-with-three-soup-variants",
+  "productAuthority": {
+    "familyCount": 6,
+    "soupVariants": [
+      "75g／盒｜8塊裝｜每塊約9.375g",
+      "300g／盒｜16塊裝｜每塊約18.75g",
+      "600g／盒｜32塊裝｜每塊約18.75g"
+    ],
+    "removed": ["龜鹿湯塊150g"]
+  },
   "imagePolicy": {
     "productCards": "verified-original-product-image",
     "quickViewModal": "verified-original-product-image",
@@ -11,13 +20,12 @@
     "detailMascot": "approved-page-specific-mascot-webp",
     "dmPage": "official-original-product-images",
     "allWebsiteImages": "proportional-contain-no-crop",
-    "brandTimeline": "single-column-no-blue-intro-card",
     "guiluDrink30cc": "龜鹿飲30cc玻璃罐｜30cc／罐（小玻璃罐）｜裸罐無貼紙",
     "guiluDrink30ccImage": "images/products-v3/guilu-drink-30.jpg?v=20260805",
-    "trialPosterPreview": "images/posts/approved-v413/guilu-drink-trial-60.svg",
-    "trialPosterAssetId": "post-trial-evergreen-v413",
-    "trialPosterSocialPolicy": "老闆已手動發布的本次貼文永久鎖定；未來重用須建立新貼文ID、轉成JPG或PNG並重新人工審核",
-    "logoSizing": "header-50px-mobile-44px-menu-40px-mobile-36px",
+    "trialPosterPreview": "images/posts/approved-v412/guilu-drink-trial-evergreen.jpg?v=20260806",
+    "trialPosterAssetId": "post-trial-evergreen-v412",
+    "trialPosterFormat": "JPG",
+    "trialPosterSocialPolicy": "老闆已手動發布的本次貼文永久鎖定；未來重用須建立新貼文ID並重新人工審核，正式JPG不需再次轉檔",
     "imageScaling": "natural-size-with-explicit-media-contain"
   },
   "pricingPolicy": {
@@ -28,14 +36,9 @@
   },
   "contentPolicy": {
     "trialCampaignFile": "content/social-guilu-drink-trial-v1.json",
-    "trialCampaignVersion": "2026-08-06-trial-campaign-v2-published-lock",
+    "trialCampaignVersion": "2026-08-07-trial-campaign-v3-approved-jpg-lock",
     "publicContactLabel": "官方LINE",
-    "distributionTargets": [
-      "Facebook",
-      "Instagram",
-      "LINE VOOM",
-      "Google 商家最新動態"
-    ],
+    "distributionTargets": ["Facebook", "Instagram", "LINE VOOM", "Google 商家最新動態"],
     "ownerPublicationConfirmed": true,
     "publicationMode": "manual",
     "publishedAt": "2026-08-06T12:54:00+08:00",
@@ -48,10 +51,11 @@
     "autoPublish": false,
     "futureReuseRequiresNewPostId": true,
     "futureReuseOwnerReviewRequired": true,
+    "futureReuseRasterExportRequired": false,
     "lineVoomManualOnly": true,
     "googleBusinessManualOnly": true
   },
-  "frontend": "single-site-js-and-single-site-css",
+  "frontend": "single-site-js-with-product-image-safety-and-official-variant-layer",
   "seo": [
     "complete-sitemap",
     "robots",
@@ -61,18 +65,14 @@
     "twitter-card",
     "webpage-breadcrumb-faq-itemlist-jsonld",
     "llms-txt",
-    "machine-readable-six-product-catalog",
-    "geo-six-product-graph"
-  ],
-  "performance": [
-    "optimized-mascot-webp",
-    "referenced-assets-only-deployment",
-    "explicit-image-dimensions",
-    "lazy-load-below-fold"
+    "llms-full-soup-variants",
+    "machine-readable-six-family-catalog",
+    "geo-six-family-three-soup-variant-graph"
   ],
   "conversion": [
     "clear-product-hierarchy",
-    "six-product-comparison",
+    "six-family-comparison",
+    "soup-75-300-600-comparison",
     "line-intent-cta",
     "trial-page-current-price"
   ],
@@ -82,32 +82,28 @@
     "data-json-valid",
     "catalog-public-json-valid",
     "geo-data-json-valid",
-    "six-official-products-only",
-    "three-official-combos-only",
+    "six-official-product-families-only",
+    "soup-75-300-600-variants",
+    "soup-150-removed",
     "30cc-and-180cc-content-separated",
     "30cc-canonical-product-image-only",
     "30cc-price-60-and-11-jars-600",
     "180cc-price-200-and-11-pouches-2000",
-    "trial-poster-preview-current",
-    "unified-trial-campaign-copy-current",
+    "trial-poster-approved-v412-jpg",
     "owner-manual-publication-confirmed",
-    "owner-publication-reconfirmed",
     "owner-published-trial-prevent-republish",
     "future-trial-reuse-new-post-id-owner-review",
     "official-line-public-wording",
     "guilu-jiao-exact-specification",
     "drink-only-made-to-order-fulfillment",
-    "brand-timeline-2008-registration-preserved",
     "all-images-proportional-contain-no-crop",
-    "guilu-drink-30cc-glass-jar-wording-locked",
-    "header-logo-fixed-size",
-    "menu-logo-fixed-size",
-    "mobile-faq-spacing-compacted"
+    "guilu-drink-30cc-glass-jar-wording-locked"
   ],
   "productPolicy": {
     "guiluGao": "每天一次一小匙；初次半匙；早上或空腹前後；避免睡前",
     "guiluDrink": "每日一份；可隔水加熱或溫熱飲用；避免冰飲",
-    "fulfillment": "只有龜鹿飲30cc與180cc接單製作加工約需5～7個工作天；其他四項為預先備貨",
+    "guiluTangkuai": "75g、300g、600g三種正式規格；150g已移除",
+    "fulfillment": "只有龜鹿飲30cc與180cc接單製作加工約需5～7個工作天；其他四個產品分類為預先備貨",
     "images": "真實產品原圖，不重畫、不改包裝與規格"
   },
   "brandPolicy": {
