@@ -13,14 +13,22 @@ EXPECTED_PRODUCTS = {
     'luerong-fen': '75g／罐',
 }
 
+EXPECTED_TANGKUAI_VARIANTS = [
+    '75g／盒｜8塊裝｜每塊約9.375g',
+    '300g／盒｜16塊裝｜每塊約18.75g',
+    '600g／盒｜32塊裝｜每塊約18.75g',
+]
+
 REQUIRED_FILES = [
     'index.html', 'products.html', 'trial.html', 'data.json', 'deploy-version.json',
+    'config/official-products.json',
+    'assets/data/official-products.json',
     'content/social-guilu-drink-trial-v1.json',
     'content/public-post-library.json',
     'content/public-asset-library.json',
     'content/public-content-policy.json',
     'images/products-v3/guilu-drink-30.jpg',
-    'images/posts/approved-v413/guilu-drink-trial-60.svg',
+    'images/posts/approved-v412/guilu-drink-trial-evergreen.jpg',
 ]
 
 FORBIDDEN_PUBLIC_KEYS = {
@@ -62,22 +70,38 @@ def local_asset_exists(url_or_path):
     return bool(value) and (ROOT / value).is_file()
 
 
+def validate_variant_authority(document, spec_key):
+    products = {item['id']: item for item in document.get('products', [])}
+    assert set(products) == set(EXPECTED_PRODUCTS), '正式產品分類必須剛好六項'
+    tangkuai = products['guilu-tangkuai']
+    variants = tangkuai.get('variants', [])
+    actual_specs = [item.get(spec_key) for item in variants]
+    assert actual_specs == EXPECTED_TANGKUAI_VARIANTS, f'龜鹿湯塊三規格錯誤：{actual_specs}'
+    deprecated = set(document.get('deprecated_product_ids', []))
+    assert deprecated == {'PROD-SOUP-150'}, f'只有150g可列為廢止規格：{sorted(deprecated)}'
+
+
 def main():
     missing = [path for path in REQUIRED_FILES if not (ROOT / path).is_file()]
     assert not missing, f'缺少必要檔案：{missing}'
 
     data = load_json('data.json')
     deploy = load_json('deploy-version.json')
+    official_config = load_json('config/official-products.json')
+    official_assets = load_json('assets/data/official-products.json')
     posts_doc = load_json('content/public-post-library.json')
     assets_doc = load_json('content/public-asset-library.json')
     trial = load_json('content/social-guilu-drink-trial-v1.json')
     policy = load_json('content/public-content-policy.json')
 
     products = {item['id']: item for item in data.get('products', [])}
-    assert set(products) == set(EXPECTED_PRODUCTS), '正式產品必須剛好六項'
+    assert set(products) == set(EXPECTED_PRODUCTS), '正式產品分類必須剛好六項'
     for product_id, spec in EXPECTED_PRODUCTS.items():
         item = products[product_id]
-        assert item.get('size') == spec, f'{product_id}規格錯誤'
+        assert item.get('size') == spec, f'{product_id}主顯示規格錯誤'
+
+    validate_variant_authority(official_config, 'spec')
+    validate_variant_authority(official_assets, 'specification')
 
     drink30 = products['guilu-drink-30']
     drink180 = products['guilu-drink-180']
@@ -124,16 +148,22 @@ def main():
         assert value in trial_copy, f'試喝文案缺少：{value}'
     assert trial.get('publishingSafety', {}).get('preventRepublish') is True
 
+    official_trial_jpg = 'images/posts/approved-v412/guilu-drink-trial-evergreen.jpg'
+    trial_html = (ROOT / 'trial.html').read_text(encoding='utf-8')
+    assert official_trial_jpg in trial_html, '試喝頁未使用指定正式JPG海報'
+
     public_text = '\n'.join([
         json.dumps(posts_doc, ensure_ascii=False),
         json.dumps(assets_doc, ensure_ascii=False),
         json.dumps(trial, ensure_ascii=False),
         json.dumps(data, ensure_ascii=False),
+        json.dumps(official_config, ensure_ascii=False),
+        json.dumps(official_assets, ensure_ascii=False),
     ])
     for value in FORBIDDEN_OLD_TEXT:
         assert value not in public_text, f'公開資料仍含舊內容：{value}'
 
-    print('PASS 官網與公開內容母本驗收：六項產品、23篇貼文、Git圖片、防私人資料外洩與防重發鎖全部通過。')
+    print('PASS 官網與公開內容母本驗收：六項產品分類、龜鹿湯塊75/300/600g、23篇貼文、指定試喝JPG、Git圖片、防私人資料外洩與防重發鎖全部通過。')
 
 
 if __name__ == '__main__':
