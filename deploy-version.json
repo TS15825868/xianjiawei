@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-06-canonical-v5",
+  "version": "2026-08-06-canonical-v6-published-trial-lock",
   "updated": "2026-08-06",
   "status": "source-updated-actions-billing-independent",
   "catalog": "six-official-products",
@@ -15,7 +15,8 @@
     "guiluDrink30cc": "龜鹿飲30cc玻璃罐｜30cc／罐（小玻璃罐）｜裸罐無貼紙",
     "guiluDrink30ccImage": "images/products-v3/guilu-drink-30.jpg?v=20260805",
     "trialPosterPreview": "images/posts/approved-v413/guilu-drink-trial-60.svg",
-    "trialPosterSocialPolicy": "JPG或PNG轉檔後人工審核才可發布",
+    "trialPosterAssetId": "post-trial-evergreen-v413",
+    "trialPosterSocialPolicy": "老闆已手動發布的本次貼文永久鎖定；未來重用須建立新貼文ID、轉成JPG或PNG並重新人工審核",
     "logoSizing": "header-50px-mobile-44px-menu-40px-mobile-36px",
     "imageScaling": "natural-size-with-explicit-media-contain"
   },
@@ -27,7 +28,7 @@
   },
   "contentPolicy": {
     "trialCampaignFile": "content/social-guilu-drink-trial-v1.json",
-    "trialCampaignVersion": "2026-08-06-trial-campaign-v1",
+    "trialCampaignVersion": "2026-08-06-trial-campaign-v2-published-lock",
     "publicContactLabel": "官方LINE",
     "distributionTargets": [
       "Facebook",
@@ -35,8 +36,18 @@
       "LINE VOOM",
       "Google 商家最新動態"
     ],
-    "ownerReviewRequired": true,
-    "autoPublish": false
+    "ownerPublicationConfirmed": true,
+    "publicationMode": "manual",
+    "publishAllowed": false,
+    "preventRepublish": true,
+    "doNotRepublish": true,
+    "autoApprove": false,
+    "autoSchedule": false,
+    "autoPublish": false,
+    "futureReuseRequiresNewPostId": true,
+    "futureReuseOwnerReviewRequired": true,
+    "lineVoomManualOnly": true,
+    "googleBusinessManualOnly": true
   },
   "frontend": "single-site-js-and-single-site-css",
   "seo": [
@@ -63,7 +74,7 @@
     "line-intent-cta",
     "trial-page-current-price"
   ],
-  "safety": "no-redrawn-product-packaging-no-public-address-no-store-pickup",
+  "safety": "no-redrawn-product-packaging-no-public-address-no-store-pickup-no-duplicate-posting",
   "integrityChecks": [
     "all-local-links-and-anchors-valid",
     "data-json-valid",
@@ -77,6 +88,9 @@
     "180cc-price-200-and-11-pouches-2000",
     "trial-poster-preview-current",
     "unified-trial-campaign-copy-current",
+    "owner-manual-publication-confirmed",
+    "owner-published-trial-prevent-republish",
+    "future-trial-reuse-new-post-id-owner-review",
     "official-line-public-wording",
     "guilu-jiao-exact-specification",
     "drink-only-made-to-order-fulfillment",
