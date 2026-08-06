@@ -1,7 +1,7 @@
 {
-  "version": "2026-08-06-canonical-v4",
+  "version": "2026-08-06-canonical-v5",
   "updated": "2026-08-06",
-  "status": "source-audited-pending-live-readback",
+  "status": "source-updated-actions-billing-independent",
   "catalog": "six-official-products",
   "imagePolicy": {
     "productCards": "verified-original-product-image",
@@ -14,8 +14,16 @@
     "brandTimeline": "single-column-no-blue-intro-card",
     "guiluDrink30cc": "龜鹿飲30cc玻璃罐｜30cc／罐（小玻璃罐）｜裸罐無貼紙",
     "guiluDrink30ccImage": "images/products-v3/guilu-drink-30.jpg?v=20260805",
+    "trialPosterPreview": "images/posts/approved-v413/guilu-drink-trial-60.svg",
+    "trialPosterSocialPolicy": "JPG或PNG轉檔後人工審核才可發布",
     "logoSizing": "header-50px-mobile-44px-menu-40px-mobile-36px",
     "imageScaling": "natural-size-with-explicit-media-contain"
+  },
+  "pricingPolicy": {
+    "guiluDrink30cc": "正式售價60元／罐｜買10送1｜11罐600元",
+    "guiluDrink180cc": "單包200元｜買10送1｜11包2,000元",
+    "catalogPages": "一般官網產品目錄不公開全系列價格",
+    "trialPage": "可顯示老闆確認的龜鹿飲正式價格"
   },
   "frontend": "single-site-js-and-single-site-css",
   "seo": [
@@ -39,7 +47,8 @@
   "conversion": [
     "clear-product-hierarchy",
     "six-product-comparison",
-    "line-intent-cta"
+    "line-intent-cta",
+    "trial-page-current-price"
   ],
   "safety": "no-redrawn-product-packaging-no-public-address-no-store-pickup",
   "integrityChecks": [
@@ -51,6 +60,9 @@
     "three-official-combos-only",
     "30cc-and-180cc-content-separated",
     "30cc-canonical-product-image-only",
+    "30cc-price-60-and-11-jars-600",
+    "180cc-price-200-and-11-pouches-2000",
+    "trial-poster-preview-current",
     "guilu-jiao-exact-specification",
     "drink-only-made-to-order-fulfillment",
     "brand-timeline-2008-registration-preserved",
