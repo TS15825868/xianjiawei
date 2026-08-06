@@ -7,6 +7,9 @@ ROOT = Path(__file__).resolve().parents[1]
 OFFICIAL_30 = 'images/products-v3/guilu-drink-30.jpg'
 TRIAL_POSTER = 'images/posts/approved-v413/guilu-drink-trial-60.svg'
 TRIAL_CONTENT = 'content/social-guilu-drink-trial-v1.json'
+TRIAL_VERSION = '2026-08-06-trial-campaign-v2-published-lock'
+TRIAL_ASSET_ID = 'post-trial-evergreen-v413'
+TRIAL_POSTER_URL = 'https://ts15825868.github.io/xianjiawei/images/posts/approved-v413/guilu-drink-trial-60.svg'
 EXPECTED_PRODUCTS = {
     'guilu-gao': '100g／罐',
     'guilu-drink-30': '30cc／罐（小玻璃罐）',
@@ -97,17 +100,33 @@ def main():
     assert len(catalog.get('products', [])) == 6, '公開目錄必須剛好六項'
     assert OFFICIAL_30 in catalog_text, '公開目錄30cc圖錯誤'
     assert OFFICIAL_30 in geo_text, 'GEO 30cc圖錯誤'
+
+    assert deploy.get('version') == '2026-08-06-canonical-v6-published-trial-lock', '部署版本檔版本錯誤'
     assert deploy.get('catalog') == 'six-official-products', '部署版本檔仍不是六項正式產品'
-    assert deploy.get('imagePolicy', {}).get('guiluDrink30ccImage', '').startswith(OFFICIAL_30), '部署版本檔30cc圖錯誤'
-    assert deploy.get('imagePolicy', {}).get('trialPosterPreview') == TRIAL_POSTER, '部署版本檔試喝海報錯誤'
+    image_policy = deploy.get('imagePolicy', {})
+    assert image_policy.get('guiluDrink30ccImage', '').startswith(OFFICIAL_30), '部署版本檔30cc圖錯誤'
+    assert image_policy.get('trialPosterPreview') == TRIAL_POSTER, '部署版本檔試喝海報錯誤'
+    assert image_policy.get('trialPosterAssetId') == TRIAL_ASSET_ID, '部署版本檔試喝素材ID錯誤'
+    assert '新貼文ID' in image_policy.get('trialPosterSocialPolicy', ''), '部署版本檔缺少未來重用新貼文規則'
+
     pricing = deploy.get('pricingPolicy', {})
     assert pricing.get('guiluDrink30cc') == '正式售價60元／罐｜買10送1｜11罐600元', '部署版本檔30cc價格錯誤'
     assert pricing.get('guiluDrink180cc') == '單包200元｜買10送1｜11包2,000元', '部署版本檔180cc價格錯誤'
+
     content_policy = deploy.get('contentPolicy', {})
     assert content_policy.get('trialCampaignFile') == TRIAL_CONTENT, '部署版本檔試喝文案母本錯誤'
+    assert content_policy.get('trialCampaignVersion') == TRIAL_VERSION, '部署版本檔試喝文案版本錯誤'
     assert content_policy.get('publicContactLabel') == '官方LINE', '部署版本檔公開聯絡名稱錯誤'
+    assert content_policy.get('ownerPublicationConfirmed') is True, '部署版本檔缺少老闆手動發布確認'
+    assert content_policy.get('publicationMode') == 'manual', '部署版本檔發布模式錯誤'
+    assert content_policy.get('publishAllowed') is False, '部署版本檔不得允許已發布貼文再次發布'
+    assert content_policy.get('preventRepublish') is True and content_policy.get('doNotRepublish') is True, '部署版本檔缺少防重發鎖'
+    assert content_policy.get('autoApprove') is False and content_policy.get('autoSchedule') is False and content_policy.get('autoPublish') is False, '部署版本檔不得自動核准、排程或發布'
+    assert content_policy.get('futureReuseRequiresNewPostId') is True, '部署版本檔缺少未來重用新貼文ID規則'
+    assert content_policy.get('futureReuseOwnerReviewRequired') is True, '部署版本檔缺少未來重用人工審核規則'
+    assert content_policy.get('lineVoomManualOnly') is True and content_policy.get('googleBusinessManualOnly') is True, '部署版本檔手動平台規則錯誤'
 
-    assert campaign.get('version') == '2026-08-06-trial-campaign-v2-published-lock', '三平台試喝文案與發布鎖定版本錯誤'
+    assert campaign.get('version') == TRIAL_VERSION, '三平台試喝文案與發布鎖定版本錯誤'
     assert campaign.get('title') == '龜鹿飲試喝組｜先試喝，再決定', '三平台試喝標題錯誤'
     campaign_copy = campaign.get('copy', '')
     for value in [
@@ -120,6 +139,7 @@ def main():
     ]:
         assert value in campaign_copy, f'三平台試喝文案缺漏：{value}'
     assert campaign.get('posterPath') == TRIAL_POSTER, '三平台試喝海報路徑錯誤'
+    assert campaign.get('posterUrl') == TRIAL_POSTER_URL, '三平台試喝海報網址錯誤'
     publication = campaign.get('ownerPublication', {})
     safety = campaign.get('publishingSafety', {})
     assert publication.get('confirmed') is True, '試喝貼文缺少老闆已發布確認'
@@ -129,6 +149,7 @@ def main():
     assert safety.get('publishAllowed') is False, '已發布試喝貼文不得再次發布'
     assert safety.get('preventRepublish') is True and safety.get('doNotRepublish') is True, '已發布試喝貼文不得重發'
     assert safety.get('autoApprove') is False and safety.get('autoSchedule') is False and safety.get('autoPublish') is False, '試喝貼文不得自動核准、排程或發布'
+    assert safety.get('lineVoomManualOnly') is True and safety.get('googleBusinessManualOnly') is True, '試喝貼文手動平台規則錯誤'
 
     public_text = '\n'.join(
         (ROOT / relative_path).read_text(encoding='utf-8', errors='ignore')
@@ -160,7 +181,7 @@ def main():
     assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方LINE'
     assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
 
-    print('PASS 官網正式發布驗收：六項產品、三組搭配、30cc正式原圖、30cc售價60元與11罐600元、180cc售價200元與11包2,000元、三平台統一試喝文案、老闆手動發布鎖定、正式海報、官方LINE、龜鹿膠規格、出貨政策、GEO與聯絡頁全部通過。')
+    print('PASS 官網正式發布驗收：六項產品、三組搭配、30cc正式原圖、30cc售價60元與11罐600元、180cc售價200元與11包2,000元、三平台統一試喝文案、老闆手動發布鎖定、未來重用新貼文人工審核、正式海報、官方LINE、龜鹿膠規格、出貨政策、GEO與聯絡頁全部通過。')
     return 0
 
 
