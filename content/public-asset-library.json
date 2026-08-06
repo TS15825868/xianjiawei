@@ -1,0 +1,37 @@
+{
+  "version": "2026-08-06-public-assets-v1",
+  "authority": "TS15825868/xianjiawei",
+  "baseUrl": "https://ts15825868.github.io/xianjiawei/",
+  "policy": {
+    "allFilesStoredInGit": true,
+    "realProductOriginalOnly": true,
+    "noProductRedraw": true,
+    "noPackageOrSpecificationChange": true,
+    "displayMode": "contain-no-crop",
+    "ownerReviewRequiredBeforePublish": true
+  },
+  "assets": [
+    {"id":"post-01","path":"images/brand/approved-v405/brand-story.webp","type":"brand","status":"approved-published"},
+    {"id":"post-02","path":"images/brand/approved-v405/home-brand.webp","type":"brand-scene","status":"candidate"},
+    {"id":"post-03","path":"images/brand/approved-v405/products-all.webp","type":"multi-product","status":"candidate"},
+    {"id":"post-04","path":"images/brand/approved-v405/product-guilu-gao-100g.webp","type":"product-original","status":"candidate"},
+    {"id":"brand-drink30","path":"images/brand/approved-v405/product-guilu-drink-30cc.webp","type":"product-original","status":"candidate"},
+    {"id":"brand-drink180","path":"images/brand/approved-v405/product-guilu-drink-180cc.webp","type":"product-original","status":"candidate"},
+    {"id":"post-06","path":"images/brand/approved-v405/product-guilu-tangkuai-75g.webp","type":"product-original","status":"candidate"},
+    {"id":"post-07","path":"images/brand/approved-v405/product-luerong-fen-75g.webp","type":"product-original","status":"candidate"},
+    {"id":"post-08","path":"images/brand/approved-v405/product-guilu-jiao-600g.webp","type":"product-original","status":"candidate"},
+    {"id":"post-09","path":"images/brand/approved-v405/choose.webp","type":"guide","status":"candidate"},
+    {"id":"post-10","path":"images/brand/approved-v405/faq.webp","type":"guide","status":"candidate"},
+    {"id":"post-11","path":"images/brand/approved-v405/combo.webp","type":"multi-product","status":"candidate"},
+    {"id":"post-12","path":"images/brand/approved-v405/guide-how-to-use.webp","type":"guide","status":"candidate"},
+    {"id":"post-13","path":"images/brand/approved-v405/recipes.webp","type":"recipe","status":"candidate"},
+    {"id":"post-14","path":"images/brand/approved-v405/contact-line.webp","type":"contact","status":"candidate"},
+    {"id":"post-trial-evergreen-v413","path":"images/posts/approved-v413/guilu-drink-trial-60.svg","type":"campaign-poster","status":"approved-published-locked"},
+    {"id":"product-drink30-official","path":"images/products-v3/guilu-drink-30.jpg?v=20260805","type":"product-original","status":"official"},
+    {"id":"product-drink180-official","path":"images/products-v3/guilu-drink-180.jpg?v=20260805","type":"product-original","status":"official"},
+    {"id":"product-gao-official","path":"images/products-v3/guilu-gao.jpg?v=20260805","type":"product-original","status":"official"},
+    {"id":"product-tangkuai-official","path":"images/products-v3/guilu-tangkuai.jpg?v=20260805","type":"product-original","status":"official"},
+    {"id":"product-jiao-official","path":"images/products-v3/guilu-jiao.jpg?v=20260805","type":"product-original","status":"official"},
+    {"id":"product-luerong-official","path":"images/products-v3/luerong-fen.jpg?v=20260805","type":"product-original","status":"official"}
+  ]
+}
