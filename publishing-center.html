@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="theme-color" content="#0b1f3b">
 <title>仙加味｜公開貼文發布中心</title>
-<meta name="description" content="仙加味公開貼文手動發布中心：預覽圖片、複製文案、開啟發布平台及保存手動發布紀錄。">
-<link rel="stylesheet" href="publishing-center.css?v=20260806-1">
+<meta name="description" content="仙加味公開貼文手動發布中心：檢查產品、季節、情境、冷熱、表情與動作，預覽圖片、複製文案及保存手動發布紀錄。">
+<link rel="stylesheet" href="publishing-center.css?v=20260806-2">
 </head>
 <body>
 <header class="topbar">
@@ -22,7 +22,7 @@
 <main class="shell">
   <section class="notice" aria-label="使用說明">
     <strong>這裡不會自動替你發文。</strong>
-    <span>先核准圖文，再複製文案或分享圖片，完成各平台發布後按「標記已發布」。</span>
+    <span>核准前必須確認：產品／規格／價格、季節、情境、冷熱、表情、動作全部符合；完成各平台發布後再按「標記已發布」。</span>
   </section>
 
   <section class="metrics" aria-label="貼文統計">
@@ -72,9 +72,11 @@
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <footer>
-  <p>公開Git只保存可公開的品牌文案、圖片與生成指令。私人ERP資料不會顯示在此頁。</p>
+  <p>公開Git只保存可公開的品牌文案、圖片、圖文匹配規則與生成指令。私人ERP資料不會顯示在此頁。</p>
 </footer>
 
-<script type="module" src="publishing-center.js?v=20260806-1"></script>
+<script src="publishing-known-mismatch-guard.js?v=20260806-1"></script>
+<script src="publishing-visual-match.js?v=20260806-1"></script>
+<script type="module" src="publishing-center.js?v=20260806-2"></script>
 </body>
 </html>
