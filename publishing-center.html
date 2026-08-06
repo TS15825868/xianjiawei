@@ -7,9 +7,9 @@
 <meta name="theme-color" content="#0b1f3b">
 <title>仙加味｜公開貼文發布中心</title>
 <meta name="description" content="仙加味公開貼文手動發布中心：檢查產品、季節、情境、環境、冷熱、表情與動作，預覽圖片、複製文案及保存手動發布紀錄。">
-<link rel="stylesheet" href="publishing-center.css?v=20260806-3">
+<link rel="stylesheet" href="publishing-center.css?v=20260807-1">
 <style>
-.visual-match-box{margin-top:14px;padding:14px;border:1px solid #cfd8e3;border-radius:16px;background:#f8fafc}.visual-match-box h3{margin:0;color:#0b1f3b}.visual-match-intro{color:#667085;font-size:13px}.visual-match-list{display:grid;gap:8px}.visual-match-item{display:grid;grid-template-columns:26px 120px 1fr;gap:8px;align-items:start;padding:9px;border:1px solid #dde3ea;border-radius:12px;background:#fff}.visual-match-item input{width:20px;height:20px;accent-color:#1f5a47}.visual-match-item strong{color:#0b1f3b;font-size:13px}.visual-match-item span{color:#475467;font-size:12px;line-height:1.55}.copy-box{white-space:pre-wrap;background:#f8fafc;border:1px solid #dde3ea;border-radius:14px;padding:14px;max-height:330px;overflow:auto;font-family:inherit}.dialog-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}@media(max-width:560px){.visual-match-item{grid-template-columns:25px 88px 1fr}.visual-match-item span{font-size:11px}}
+.visual-match-box{margin-top:14px;padding:14px;border:1px solid #cfd8e3;border-radius:16px;background:#f8fafc}.visual-match-box h3{margin:0;color:#0b1f3b}.visual-match-intro{color:#667085;font-size:13px}.visual-match-list{display:grid;gap:8px}.visual-match-item{display:grid;grid-template-columns:26px 120px 1fr;gap:8px;align-items:start;padding:9px;border:1px solid #dde3ea;border-radius:12px;background:#fff}.visual-match-item input{width:20px;height:20px;accent-color:#1f5a47}.visual-match-item strong{color:#0b1f3b;font-size:13px}.visual-match-item span{color:#475467;font-size:12px;line-height:1.55}.copy-box{white-space:pre-wrap;background:#f8fafc;border:1px solid #dde3ea;border-radius:14px;padding:14px;max-height:330px;overflow:auto;font-family:inherit}.dialog-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.automation-note{margin-top:10px;padding:12px 14px;border-radius:14px;background:#fff4e5;border:1px solid #f0c889;color:#7a3e00;font-size:13px;line-height:1.65}@media(max-width:560px){.visual-match-item{grid-template-columns:25px 88px 1fr}.visual-match-item span{font-size:11px}}
 </style>
 </head>
 <body>
@@ -18,7 +18,8 @@
   <a class="button secondary" href="index.html">回官網</a>
 </header>
 <main class="shell">
-  <section class="notice" aria-label="使用說明"><strong>新版圖文匹配已啟用。</strong><span>核准前必須逐項確認：產品／規格／價格、季節、情境、環境、冷熱、表情、動作。任一項不符，按「圖不符合｜交給ChatGPT生成」。</span></section>
+  <section class="notice" aria-label="使用說明"><strong>新版圖文匹配與換圖流程已啟用。</strong><span>核准前逐項確認：產品／規格／價格、季節、情境、環境、冷熱、表情、動作。任一項不符，按「圖不符合｜交給ChatGPT生成」，生成後回到本頁選取新圖即可立即預覽替換。</span></section>
+  <section class="automation-note" aria-label="自動生成說明"><strong>按鈕會自動帶入該篇文案、產品規格與仙加味固定角色標準。</strong>產品原圖不可重畫、不可裁切、不可改包裝；小老闆須穿米白中式上衣、深綠圍裙、紅色直式「仙加味」印章，圍裙下方小鹿與小烏龜圖樣不可省略。</section>
   <section class="metrics" aria-label="貼文統計"><article><small>公開母本</small><strong id="metricTotal">—</strong><span>篇</span></article><article><small>待審核</small><strong id="metricPending">—</strong><span>篇</span></article><article><small>已發布鎖定</small><strong id="metricLocked">—</strong><span>篇</span></article><article><small>本機已發布</small><strong id="metricLocal">—</strong><span>篇</span></article></section>
   <section class="toolbar" aria-label="篩選工具"><label><span>搜尋貼文</span><input id="searchInput" type="search" placeholder="輸入標題、產品或文案關鍵字"></label><label><span>顯示狀態</span><select id="statusFilter"><option value="pending">待審核／可處理</option><option value="approved">本機已核准</option><option value="published">已發布</option><option value="needs-image">圖片待更換</option><option value="all">全部</option></select></label><div class="toolbar-actions"><button class="button secondary" id="exportButton" type="button">匯出發布／換圖紀錄</button><button class="button secondary" id="reloadButton" type="button">重新讀取Git</button></div></section>
   <section id="loadingState" class="state-card">正在讀取公開Git最新版貼文與圖片…</section>
@@ -27,7 +28,7 @@
 </main>
 <dialog id="postDialog" class="post-dialog"><form method="dialog" class="dialog-shell"><button class="dialog-close" value="close" aria-label="關閉">×</button><div id="dialogContent"></div></form></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<footer><p>所有正式文案與圖片存放於公開Git；本機核准、換圖預覽與發布紀錄只保存在你的瀏覽器。私人ERP恢復後再匯回。</p></footer>
-<script type="module" src="publishing-center-v2.js?v=20260806-1"></script>
+<footer><p>正式文案與圖片存放於公開Git；本機核准、換圖預覽與發布紀錄保存在瀏覽器。確認新圖後再同步回Git正式母本。</p></footer>
+<script type="module" src="publishing-center-v2.js?v=20260807-1"></script>
 </body>
 </html>
