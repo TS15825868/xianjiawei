@@ -8,7 +8,7 @@
       "url": "https://ts15825868.github.io/xianjiawei/",
       "logo": "https://ts15825868.github.io/xianjiawei/images/logo.png",
       "image": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp",
-      "description": "從台北萬華出發的四代龜鹿工序品牌，整理六項正式產品的規格、一般使用方式與保存資訊。",
+      "description": "從台北萬華出發的四代龜鹿工序品牌，整理六個正式產品分類與龜鹿湯塊75g、300g、600g三種規格的一般使用及保存資訊。",
       "foundingLocation": {"@type": "Place", "name": "台北萬華"},
       "areaServed": "TW",
       "contactPoint": {
@@ -29,10 +29,10 @@
     {
       "@type": "Dataset",
       "@id": "https://ts15825868.github.io/xianjiawei/geo-data.json#dataset",
-      "name": "仙加味官方六項產品資料",
-      "description": "供搜尋引擎與生成式搜尋引用的仙加味官方品牌與產品事實；不含售價、完整地址、電話或療效宣稱。",
+      "name": "仙加味官方六個產品分類資料",
+      "description": "供搜尋引擎與生成式搜尋引用的仙加味官方品牌與產品事實；龜鹿湯塊含75g、300g、600g三種正式規格；不含售價、完整地址、電話或療效宣稱。",
       "url": "https://ts15825868.github.io/xianjiawei/geo-data.json",
-      "dateModified": "2026-08-06",
+      "dateModified": "2026-08-07",
       "inLanguage": "zh-Hant-TW",
       "creator": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
       "distribution": [
@@ -43,7 +43,7 @@
     {
       "@type": "ItemList",
       "@id": "https://ts15825868.github.io/xianjiawei/brand-facts.html#products",
-      "name": "仙加味六項正式產品",
+      "name": "仙加味六個正式產品分類",
       "numberOfItems": 6,
       "itemListElement": [
         {
@@ -110,7 +110,9 @@
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg",
             "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {"@type": "PropertyValue", "name": "正式規格", "value": "75g／盒｜8塊裝｜每塊約9.375g"},
+              {"@type": "PropertyValue", "name": "正式規格75g", "value": "75g／盒｜8塊裝｜每塊約9.375g"},
+              {"@type": "PropertyValue", "name": "正式規格300g", "value": "300g／盒｜16塊裝｜每塊約18.75g"},
+              {"@type": "PropertyValue", "name": "正式規格600g", "value": "600g／盒｜32塊裝｜每塊約18.75g"},
               {"@type": "PropertyValue", "name": "出貨方式", "value": "預先製作備貨，依現貨狀況安排出貨"}
             ]
           }
