@@ -31,6 +31,7 @@
     "confirmed": true,
     "publicationMode": "manual",
     "confirmedAt": "2026-08-06T12:54:00+08:00",
+    "lastOwnerReconfirmedAt": "2026-08-06T15:32:00+08:00",
     "platforms": "owner-confirmed-posted; exact platform list not recorded",
     "preventRepublish": true,
     "doNotRepublish": true
