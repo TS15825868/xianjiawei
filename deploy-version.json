@@ -25,6 +25,19 @@
     "catalogPages": "一般官網產品目錄不公開全系列價格",
     "trialPage": "可顯示老闆確認的龜鹿飲正式價格"
   },
+  "contentPolicy": {
+    "trialCampaignFile": "content/social-guilu-drink-trial-v1.json",
+    "trialCampaignVersion": "2026-08-06-trial-campaign-v1",
+    "publicContactLabel": "官方LINE",
+    "distributionTargets": [
+      "Facebook",
+      "Instagram",
+      "LINE VOOM",
+      "Google 商家最新動態"
+    ],
+    "ownerReviewRequired": true,
+    "autoPublish": false
+  },
   "frontend": "single-site-js-and-single-site-css",
   "seo": [
     "complete-sitemap",
@@ -63,6 +76,8 @@
     "30cc-price-60-and-11-jars-600",
     "180cc-price-200-and-11-pouches-2000",
     "trial-poster-preview-current",
+    "unified-trial-campaign-copy-current",
+    "official-line-public-wording",
     "guilu-jiao-exact-specification",
     "drink-only-made-to-order-fulfillment",
     "brand-timeline-2008-registration-preserved",
