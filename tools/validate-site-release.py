@@ -6,6 +6,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 OFFICIAL_30 = 'images/products-v3/guilu-drink-30.jpg'
 TRIAL_POSTER = 'images/posts/approved-v413/guilu-drink-trial-60.svg'
+TRIAL_CONTENT = 'content/social-guilu-drink-trial-v1.json'
 EXPECTED_PRODUCTS = {
     'guilu-gao': '100g／罐',
     'guilu-drink-30': '30cc／罐（小玻璃罐）',
@@ -20,7 +21,7 @@ REQUIRED_FILES = [
     'brand.html', 'faq.html', 'contact.html', 'trial.html', 'site.css', 'site.js',
     'site-core-v410.js', 'site-product-image-safety.js', 'data.json',
     'catalog-public.json', 'geo-data.json', 'deploy-version.json',
-    'sitemap.xml', 'robots.txt', OFFICIAL_30, TRIAL_POSTER,
+    'sitemap.xml', 'robots.txt', OFFICIAL_30, TRIAL_POSTER, TRIAL_CONTENT,
 ]
 PUBLIC_TEXT_FILES = [
     'index.html', 'products.html', 'choose.html', 'dm.html', 'guide.html',
@@ -29,7 +30,7 @@ PUBLIC_TEXT_FILES = [
     'product-guilu-drink-180cc.html', 'product-guilu-tangkuai.html',
     'product-guilu-jiao.html', 'product-luerong-fen.html',
     'data.json', 'catalog-public.json', 'geo-data.json', 'deploy-version.json',
-    'llms.txt', 'llms-full.txt',
+    'llms.txt', 'llms-full.txt', TRIAL_CONTENT,
 ]
 FORBIDDEN_PUBLIC_VALUES = [
     '龜鹿飲30cc玻璃瓶', '30cc／瓶（小玻璃瓶）', '小玻璃瓶',
@@ -61,6 +62,7 @@ def main():
     catalog = load_json('catalog-public.json')
     geo = load_json('geo-data.json')
     deploy = load_json('deploy-version.json')
+    campaign = load_json(TRIAL_CONTENT)
 
     products = {
         item.get('id'): item
@@ -101,6 +103,25 @@ def main():
     pricing = deploy.get('pricingPolicy', {})
     assert pricing.get('guiluDrink30cc') == '正式售價60元／罐｜買10送1｜11罐600元', '部署版本檔30cc價格錯誤'
     assert pricing.get('guiluDrink180cc') == '單包200元｜買10送1｜11包2,000元', '部署版本檔180cc價格錯誤'
+    content_policy = deploy.get('contentPolicy', {})
+    assert content_policy.get('trialCampaignFile') == TRIAL_CONTENT, '部署版本檔試喝文案母本錯誤'
+    assert content_policy.get('publicContactLabel') == '官方LINE', '部署版本檔公開聯絡名稱錯誤'
+
+    assert campaign.get('version') == '2026-08-06-trial-campaign-v1', '三平台試喝文案版本錯誤'
+    assert campaign.get('title') == '龜鹿飲試喝組｜先試喝，再決定', '三平台試喝標題錯誤'
+    campaign_copy = campaign.get('copy', '')
+    for value in [
+        '3罐試喝品免費，運費自付',
+        '正式售價 60元／罐',
+        '買10送1｜11罐600元',
+        '單包200元',
+        '買10送1｜11包2,000元',
+        '皆在 官方LINE 完成',
+    ]:
+        assert value in campaign_copy, f'三平台試喝文案缺漏：{value}'
+    assert campaign.get('posterPath') == TRIAL_POSTER, '三平台試喝海報路徑錯誤'
+    assert campaign.get('publishingSafety', {}).get('autoPublish') is False, '試喝貼文不得自動發布'
+    assert campaign.get('publishingSafety', {}).get('ownerReviewRequired') is True, '試喝貼文必須人工審核'
 
     public_text = '\n'.join(
         (ROOT / relative_path).read_text(encoding='utf-8', errors='ignore')
@@ -132,7 +153,7 @@ def main():
     assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺少官方LINE'
     assert 'maps.google' not in contact and 'google.com/maps' not in contact, '聯絡頁不得保留地圖'
 
-    print('PASS 官網正式發布驗收：六項產品、三組搭配、30cc正式原圖、30cc售價60元與11罐600元、180cc售價200元與11包2,000元、最新試喝海報、龜鹿膠規格、出貨政策、GEO與聯絡頁全部通過。')
+    print('PASS 官網正式發布驗收：六項產品、三組搭配、30cc正式原圖、30cc售價60元與11罐600元、180cc售價200元與11包2,000元、三平台統一試喝文案、正式海報、官方LINE、龜鹿膠規格、出貨政策、GEO與聯絡頁全部通過。')
     return 0
 
 
