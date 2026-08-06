@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 
 ROOT = Path(__file__).resolve().parents[1]
+BASE = 'https://ts15825868.github.io/xianjiawei/'
 
 EXPECTED_PRODUCTS = {
     'guilu-gao': '100g／罐',
@@ -20,9 +21,11 @@ EXPECTED_TANGKUAI_VARIANTS = [
 ]
 
 REQUIRED_FILES = [
-    'index.html', 'products.html', 'product-guilu-tangkuai.html', 'trial.html',
+    'index.html', 'products.html', 'choose.html', 'guide.html', 'combo.html',
+    'faq.html', 'brand-facts.html', 'product-guilu-tangkuai.html', 'trial.html',
     'site.js', 'site-core-v410.js', 'site-official-product-variants.js',
-    'data.json', 'deploy-version.json',
+    'data.json', 'deploy-version.json', 'catalog-public.json', 'geo-data.json',
+    'llms.txt', 'llms-full.txt',
     'config/official-products.json',
     'assets/data/official-products.json',
     'content/social-guilu-drink-trial-v1.json',
@@ -31,6 +34,10 @@ REQUIRED_FILES = [
     'content/public-content-policy.json',
     'images/products-v3/guilu-drink-30.jpg',
     'images/posts/approved-v412/guilu-drink-trial-evergreen.jpg',
+]
+
+FORBIDDEN_SUPERSEDED_FILES = [
+    'content/public-post-library-v2.json',
 ]
 
 FORBIDDEN_PUBLIC_KEYS = {
@@ -43,7 +50,7 @@ FORBIDDEN_PUBLIC_KEYS = {
 FORBIDDEN_OLD_TEXT = [
     '正式售價50元／罐', '買10送1｜11罐500元',
     '龜鹿飲30cc玻璃瓶', '30cc／瓶（小玻璃瓶）',
-    '龜鹿湯塊150g',
+    '龜鹿湯塊150g', 'approved-v413/guilu-drink-trial-60.svg',
 ]
 
 
@@ -61,59 +68,103 @@ def walk_keys(value):
             yield from walk_keys(child)
 
 
+def normalize_public_path(url_or_path):
+    value = str(url_or_path or '').strip()
+    if value.startswith(BASE):
+        value = value[len(BASE):]
+    return value.split('?', 1)[0].lstrip('/')
+
+
 def local_asset_exists(url_or_path):
-    value = str(url_or_path or '')
-    prefix = 'https://ts15825868.github.io/xianjiawei/'
-    if value.startswith(prefix):
-        value = value[len(prefix):]
+    value = str(url_or_path or '').strip()
     if value.startswith('http://') or value.startswith('https://'):
-        return True
-    value = value.split('?', 1)[0].lstrip('/')
-    return bool(value) and (ROOT / value).is_file()
+        if not value.startswith(BASE):
+            return True
+    path = normalize_public_path(value)
+    return bool(path) and (ROOT / path).is_file()
 
 
 def validate_variant_authority(document, spec_key):
     products = {item['id']: item for item in document.get('products', [])}
     assert set(products) == set(EXPECTED_PRODUCTS), '正式產品分類必須剛好六項'
     tangkuai = products['guilu-tangkuai']
-    variants = tangkuai.get('variants', [])
-    actual_specs = [item.get(spec_key) for item in variants]
+    actual_specs = [item.get(spec_key) for item in tangkuai.get('variants', [])]
     assert actual_specs == EXPECTED_TANGKUAI_VARIANTS, f'龜鹿湯塊三規格錯誤：{actual_specs}'
     deprecated = set(document.get('deprecated_product_ids', []))
     assert deprecated == {'PROD-SOUP-150'}, f'只有150g可列為廢止規格：{sorted(deprecated)}'
 
 
-def validate_post_states(posts):
+def validate_post_states(posts_doc, assets_doc):
+    posts = posts_doc.get('posts', [])
+    defaults = posts_doc.get('publishing_defaults', {})
+    assets = assets_doc.get('assets', [])
+    asset_by_id = {str(asset.get('id') or ''): asset for asset in assets}
+
     assert posts, '公開貼文不可為空'
     ids = [str(post.get('id') or '') for post in posts]
     assert all(ids), '公開貼文缺少ID'
     assert len(ids) == len(set(ids)), '公開貼文ID重複'
+    assert len(asset_by_id) == len(assets), '公開素材ID重複或空白'
 
+    image_urls = []
+    image_asset_ids = []
     published = 0
     pending = 0
+
     for post in posts:
-        assert post.get('copy'), f"公開貼文缺少文案：{post.get('id')}"
-        assert local_asset_exists(post.get('image_url')), f"貼文圖片不存在：{post.get('id')}"
+        effective = {**defaults, **post}
+        post_id = post['id']
+        assert post.get('copy'), f'公開貼文缺少文案：{post_id}'
+        assert post.get('image_asset_id'), f'公開貼文缺少素材綁定：{post_id}'
+        assert local_asset_exists(post.get('image_url')), f'貼文圖片不存在：{post_id}'
+
+        asset_id = str(post['image_asset_id'])
+        asset = asset_by_id.get(asset_id)
+        assert asset, f'貼文引用不存在素材：{post_id} -> {asset_id}'
+        assert normalize_public_path(post.get('image_url')) == normalize_public_path(asset.get('path')), (
+            f'貼文圖片網址與素材路徑不一致：{post_id}'
+        )
+        image_urls.append(normalize_public_path(post.get('image_url')))
+        image_asset_ids.append(asset_id)
+
         status = str(post.get('status') or '')
         if status == 'published':
             published += 1
-            assert post.get('prevent_republish') is True, f"已發布貼文缺少防重發鎖：{post.get('id')}"
-            assert post.get('publish_allowed') is not True, f"已發布貼文不得再次允許發布：{post.get('id')}"
-            assert post.get('scheduled_at') in (None, ''), f"已發布貼文不得再次排程：{post.get('id')}"
+            assert effective.get('prevent_republish') is True, f'已發布貼文缺少防重發鎖：{post_id}'
+            assert effective.get('do_not_republish') is True, f'已發布貼文缺少永久禁止重發：{post_id}'
+            assert effective.get('publish_allowed') is False, f'已發布貼文不得再次允許發布：{post_id}'
+            assert effective.get('schedule_enabled') is False, f'已發布貼文不得開啟排程：{post_id}'
+            assert effective.get('scheduled_at') in (None, ''), f'已發布貼文不得再次排程：{post_id}'
         else:
             pending += 1
-            assert status in {'pending_review', 'draft', 'rejected', 'archived'}, f"未知貼文狀態：{post.get('id')}={status}"
+            assert status in {'pending_review', 'draft', 'rejected', 'archived'}, f'未知貼文狀態：{post_id}={status}'
             if status != 'archived':
-                assert post.get('approved') is not True, f"待審貼文不得預先核准：{post.get('id')}"
-                assert post.get('publish_allowed') is not True, f"待審貼文不得允許發布：{post.get('id')}"
-                assert post.get('scheduled_at') in (None, ''), f"待審貼文不得排程：{post.get('id')}"
+                assert effective.get('owner_review_required') is True, f'待審貼文缺少老闆審核：{post_id}'
+                assert effective.get('approval_required') is True, f'待審貼文缺少核准閘門：{post_id}'
+                assert effective.get('approved') is not True, f'待審貼文不得預先核准：{post_id}'
+                assert effective.get('publish_allowed') is False, f'待審貼文不得允許發布：{post_id}'
+                assert effective.get('schedule_enabled') is False, f'待審貼文不得開啟排程：{post_id}'
+                assert effective.get('scheduled_at') in (None, ''), f'待審貼文不得排程：{post_id}'
+                assert effective.get('auto_approve') is False, f'待審貼文不得自動核准：{post_id}'
+                assert effective.get('auto_schedule') is False, f'待審貼文不得自動排程：{post_id}'
+                assert effective.get('auto_publish') is False, f'待審貼文不得自動發布：{post_id}'
+
     assert published >= 1, '至少需要一篇已發布且鎖定的正式貼文'
-    return published, pending
+    assert len(image_urls) == len(set(image_urls)), '公開貼文主圖片路徑重複'
+    assert len(image_asset_ids) == len(set(image_asset_ids)), '公開貼文主素材ID重複'
+    assert posts_doc.get('counts', {}).get('total') == len(posts), '貼文摘要總數與實際資料不一致'
+    assert posts_doc.get('counts', {}).get('published_locked') == published, '已發布鎖定摘要數錯誤'
+    assert posts_doc.get('counts', {}).get('pending_review') == pending, '待審摘要數錯誤'
+    assert posts_doc.get('counts', {}).get('duplicate_primary_images') == 0, '貼文摘要不得宣稱存在重複圖片'
+    assert posts_doc.get('counts', {}).get('missing_asset_bindings') == 0, '貼文摘要不得宣稱缺少素材綁定'
+    return posts, published, pending
 
 
 def main():
     missing = [path for path in REQUIRED_FILES if not (ROOT / path).is_file()]
     assert not missing, f'缺少必要檔案：{missing}'
+    superseded = [path for path in FORBIDDEN_SUPERSEDED_FILES if (ROOT / path).exists()]
+    assert not superseded, f'仍保留重複或已取代檔案：{superseded}'
 
     data = load_json('data.json')
     deploy = load_json('deploy-version.json')
@@ -127,8 +178,7 @@ def main():
     products = {item['id']: item for item in data.get('products', [])}
     assert set(products) == set(EXPECTED_PRODUCTS), '正式產品分類必須剛好六項'
     for product_id, spec in EXPECTED_PRODUCTS.items():
-        item = products[product_id]
-        assert item.get('size') == spec, f'{product_id}主顯示規格錯誤'
+        assert products[product_id].get('size') == spec, f'{product_id}主顯示規格錯誤'
 
     validate_variant_authority(official_config, 'spec')
     validate_variant_authority(official_assets, 'specification')
@@ -146,9 +196,8 @@ def main():
     assert deploy.get('contentPolicy', {}).get('preventRepublish') is True
     assert deploy.get('imagePolicy', {}).get('trialPosterAssetId') == 'post-trial-evergreen-v412'
 
-    posts = posts_doc.get('posts', [])
     assert posts_doc.get('authority') == 'TS15825868/xianjiawei'
-    published_count, pending_count = validate_post_states(posts)
+    posts, published_count, pending_count = validate_post_states(posts_doc, assets_doc)
 
     public_keys = set(walk_keys(posts_doc))
     leaked = sorted(public_keys & FORBIDDEN_PUBLIC_KEYS)
@@ -156,7 +205,6 @@ def main():
 
     assets = assets_doc.get('assets', [])
     assert assets, '公開素材清單不可為空'
-    assert len({asset.get('id') for asset in assets}) == len(assets), '公開素材ID重複'
     for asset in assets:
         assert asset.get('id') and local_asset_exists(asset.get('path')), f"素材不存在：{asset.get('id')}"
 
@@ -164,6 +212,7 @@ def main():
     assert policy.get('privateRepository') == 'TS15825868/xianjiawei-internal'
     assert policy.get('erpPolicy', {}).get('customerDataPublic') is False
     assert policy.get('erpPolicy', {}).get('secretDataPublic') is False
+    assert policy.get('publishingSafety', {}).get('ownerReviewRequiredBeforePublish') is True
 
     trial_copy = trial.get('copy', '')
     for value in ['正式售價 60元／罐', '買10送1｜11罐600元', '買10送1｜11包2,000元', '官方LINE']:
@@ -173,17 +222,23 @@ def main():
     assert trial.get('publishingSafety', {}).get('preventRepublish') is True
 
     official_trial_jpg = 'images/posts/approved-v412/guilu-drink-trial-evergreen.jpg'
-    trial_html = (ROOT / 'trial.html').read_text(encoding='utf-8')
-    assert official_trial_jpg in trial_html, '試喝頁未使用指定正式JPG海報'
+    assert official_trial_jpg in (ROOT / 'trial.html').read_text(encoding='utf-8'), '試喝頁未使用指定正式JPG海報'
 
-    products_html = (ROOT / 'products.html').read_text(encoding='utf-8')
-    soup_page = (ROOT / 'product-guilu-tangkuai.html').read_text(encoding='utf-8')
     variants_runtime = (ROOT / 'site-official-product-variants.js').read_text(encoding='utf-8')
     site_entry = (ROOT / 'site.js').read_text(encoding='utf-8')
+    variant_pages = {
+        'products.html': (ROOT / 'products.html').read_text(encoding='utf-8'),
+        'choose.html': (ROOT / 'choose.html').read_text(encoding='utf-8'),
+        'guide.html': (ROOT / 'guide.html').read_text(encoding='utf-8'),
+        'combo.html': (ROOT / 'combo.html').read_text(encoding='utf-8'),
+        'faq.html': (ROOT / 'faq.html').read_text(encoding='utf-8'),
+        'brand-facts.html': (ROOT / 'brand-facts.html').read_text(encoding='utf-8'),
+        'product-guilu-tangkuai.html': (ROOT / 'product-guilu-tangkuai.html').read_text(encoding='utf-8'),
+    }
     for spec in EXPECTED_TANGKUAI_VARIANTS:
-        assert spec in products_html, f'產品總覽缺少龜鹿湯塊規格：{spec}'
-        assert spec in soup_page, f'龜鹿湯塊產品頁缺少規格：{spec}'
         assert spec in variants_runtime, f'動態規格顯示層缺少：{spec}'
+        for page, source in variant_pages.items():
+            assert spec in source, f'{page}缺少龜鹿湯塊規格：{spec}'
     assert 'site-official-product-variants.js' in site_entry, '全站入口未載入正式規格顯示層'
 
     public_text = '\n'.join([
@@ -195,13 +250,13 @@ def main():
         json.dumps(official_assets, ensure_ascii=False),
     ])
     for value in FORBIDDEN_OLD_TEXT:
-        assert value not in public_text, f'公開資料仍含舊內容：{value}'
+        assert value not in public_text, f'公開正式資料仍含舊內容：{value}'
 
     print(
         'PASS 官網與公開內容母本驗收：'
-        f'六個產品分類、龜鹿湯塊75/300/600g、{len(posts)}篇現有貼文'
-        f'（已發布鎖定{published_count}、其餘{pending_count}）、指定試喝JPG、'
-        'Git圖片、防私人資料外洩與防重發鎖全部通過；貼文與素材數量不設人為門檻。'
+        f'六個產品分類、八個正式規格、龜鹿湯塊75/300/600g、{len(posts)}篇現有貼文'
+        f'（已發布鎖定{published_count}、其餘{pending_count}）、每篇唯一可追溯圖片、指定試喝JPG、'
+        '防私人資料外洩與防重發鎖全部通過；貼文與素材數量不設人為門檻。'
     )
 
 
