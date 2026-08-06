@@ -1,53 +1,15 @@
 {
-  "version": "2026-08-06-trial-campaign-v2-published-lock",
+  "version": "2026-08-06-trial-campaign-v3-direct-jpg",
   "title": "龜鹿飲試喝組｜先試喝，再決定",
   "copy": "龜鹿飲試喝組｜先試喝，再決定\n\n想先試喝，再決定是否適合自己的日常飲用方式嗎？\n\n仙加味提供 龜鹿飲30cc試喝組：\n\n3罐試喝品免費，運費自付\n\n7-11店到店運費60元，郵局宅配運費100元。每位顧客、電話及地址限申請一次；接單後安排製作，約5～7個工作天出貨。\n\n30cc小玻璃罐\n正式售價 60元／罐\n買10送1｜11罐600元\n\n規格為30cc／罐，採小玻璃罐裸罐裝、無貼紙；開罐即可飲用，也可溫熱後飲用。\n\n另有販售 180cc鋁袋：\n單包200元\n買10送1｜11包2,000元\n\n所有試喝申請與正式下單，皆在 官方LINE 完成。歡迎加入LINE詢問。\n\n仙加味\n補養，是一種節奏。\n\n#仙加味 #龜鹿飲 #龜鹿飲試喝組 #小玻璃罐 #試喝申請 #日常補養",
-  "platforms": [
-    "Facebook",
-    "Instagram",
-    "LINE VOOM",
-    "Google 商家最新動態"
-  ],
-  "posterPath": "images/posts/approved-v413/guilu-drink-trial-60.svg",
-  "posterUrl": "https://ts15825868.github.io/xianjiawei/images/posts/approved-v413/guilu-drink-trial-60.svg",
-  "officialLine": {
-    "label": "官方LINE",
-    "id": "@762jybnm",
-    "url": "https://lin.ee/sHZW7NkR"
-  },
-  "pricing": {
-    "guiluDrink30cc": "正式售價60元／罐｜買10送1｜11罐600元",
-    "guiluDrink180cc": "單包200元｜買10送1｜11包2,000元"
-  },
-  "trial": {
-    "contents": "30cc小玻璃罐×3罐",
-    "productFee": 0,
-    "shipping711": 60,
-    "shippingPost": 100,
-    "leadTime": "5～7個工作天",
-    "limit": "每位顧客、電話及地址限申請一次"
-  },
-  "ownerPublication": {
-    "confirmed": true,
-    "publicationMode": "manual",
-    "confirmedAt": "2026-08-06T12:54:00+08:00",
-    "lastOwnerReconfirmedAt": "2026-08-06T15:32:00+08:00",
-    "platforms": "owner-confirmed-posted; exact platform list not recorded",
-    "preventRepublish": true,
-    "doNotRepublish": true
-  },
-  "publishingSafety": {
-    "ownerReviewRequired": false,
-    "approved": true,
-    "published": true,
-    "manualPublished": true,
-    "publishAllowed": false,
-    "preventRepublish": true,
-    "doNotRepublish": true,
-    "autoApprove": false,
-    "autoSchedule": false,
-    "autoPublish": false,
-    "lineVoomManualOnly": true,
-    "googleBusinessManualOnly": true
-  }
+  "platforms": ["Facebook", "Instagram", "LINE VOOM", "Google 商家最新動態"],
+  "posterPath": "images/posts/approved-v412/guilu-drink-trial-evergreen.jpg",
+  "posterUrl": "https://ts15825868.github.io/xianjiawei/images/posts/approved-v412/guilu-drink-trial-evergreen.jpg?v=20260806",
+  "posterFormat": "JPG",
+  "posterPolicy": "owner-approved-direct-image-no-svg-wrapper",
+  "officialLine": {"label": "官方LINE", "id": "@762jybnm", "url": "https://lin.ee/sHZW7NkR"},
+  "pricing": {"guiluDrink30cc": "正式售價60元／罐｜買10送1｜11罐600元", "guiluDrink180cc": "單包200元｜買10送1｜11包2,000元"},
+  "trial": {"contents": "30cc小玻璃罐×3罐", "productFee": 0, "shipping711": 60, "shippingPost": 100, "leadTime": "5～7個工作天", "limit": "每位顧客、電話及地址限申請一次"},
+  "ownerPublication": {"confirmed": true, "publicationMode": "manual", "confirmedAt": "2026-08-06T12:54:00+08:00", "lastOwnerReconfirmedAt": "2026-08-06T23:48:00+08:00", "platforms": "owner-confirmed-posted; exact platform list not recorded", "preventRepublish": true, "doNotRepublish": true},
+  "publishingSafety": {"ownerReviewRequired": false, "approved": true, "published": true, "manualPublished": true, "publishAllowed": false, "preventRepublish": true, "doNotRepublish": true, "autoApprove": false, "autoSchedule": false, "autoPublish": false, "lineVoomManualOnly": true, "googleBusinessManualOnly": true}
 }
