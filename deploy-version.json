@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-06-canonical-v6-published-trial-lock",
+  "version": "2026-08-06-canonical-v7-owner-reconfirmed-trial-lock",
   "updated": "2026-08-06",
   "status": "source-updated-actions-billing-independent",
   "catalog": "six-official-products",
@@ -38,6 +38,8 @@
     ],
     "ownerPublicationConfirmed": true,
     "publicationMode": "manual",
+    "publishedAt": "2026-08-06T12:54:00+08:00",
+    "lastOwnerReconfirmedAt": "2026-08-06T15:32:00+08:00",
     "publishAllowed": false,
     "preventRepublish": true,
     "doNotRepublish": true,
@@ -89,6 +91,7 @@
     "trial-poster-preview-current",
     "unified-trial-campaign-copy-current",
     "owner-manual-publication-confirmed",
+    "owner-publication-reconfirmed",
     "owner-published-trial-prevent-republish",
     "future-trial-reuse-new-post-id-owner-review",
     "official-line-public-wording",
