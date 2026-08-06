@@ -1,0 +1,162 @@
+name: ONE_TIME_UNIFY_TRIAL_CAMPAIGN_V414
+run-name: 統一龜鹿飲試喝文案與官方LINE用語｜${{ github.sha }}
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-time-unify-trial-campaign-v414.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: one-time-unify-trial-campaign-v414
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 2
+
+      - name: 建立三平台統一文案並更新官網試喝頁
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+
+          root = Path('.')
+          copy = '''龜鹿飲試喝組｜先試喝，再決定
+
+想先試喝，再決定是否適合自己的日常飲用方式嗎？
+
+仙加味提供 龜鹿飲30cc試喝組：
+
+3罐試喝品免費，運費自付
+
+7-11店到店運費60元，郵局宅配運費100元。每位顧客、電話及地址限申請一次；接單後安排製作，約5～7個工作天出貨。
+
+30cc小玻璃罐
+正式售價 60元／罐
+買10送1｜11罐600元
+
+規格為30cc／罐，採小玻璃罐裸罐裝、無貼紙；開罐即可飲用，也可溫熱後飲用。
+
+另有販售 180cc鋁袋：
+單包200元
+買10送1｜11包2,000元
+
+所有試喝申請與正式下單，皆在 官方LINE 完成。歡迎加入LINE詢問。
+
+仙加味
+補養，是一種節奏。
+
+#仙加味 #龜鹿飲 #龜鹿飲試喝組 #小玻璃罐 #試喝申請 #日常補養'''
+
+          payload = {
+            'version': '2026-08-06-trial-campaign-v1',
+            'title': '龜鹿飲試喝組｜先試喝，再決定',
+            'copy': copy,
+            'platforms': ['Facebook', 'Instagram', 'LINE VOOM', 'Google 商家最新動態'],
+            'posterPath': 'images/posts/approved-v413/guilu-drink-trial-60.svg',
+            'posterUrl': 'https://ts15825868.github.io/xianjiawei/images/posts/approved-v413/guilu-drink-trial-60.svg',
+            'officialLine': {'id': '@762jybnm', 'url': 'https://lin.ee/sHZW7NkR'},
+            'pricing': {
+              'guiluDrink30cc': '正式售價60元／罐｜買10送1｜11罐600元',
+              'guiluDrink180cc': '單包200元｜買10送1｜11包2,000元'
+            },
+            'trial': {
+              'contents': '30cc小玻璃罐×3罐',
+              'productFee': 0,
+              'shipping711': 60,
+              'shippingPost': 100,
+              'leadTime': '5～7個工作天',
+              'limit': '每位顧客、電話及地址限申請一次'
+            },
+            'publishingSafety': {
+              'ownerReviewRequired': True,
+              'autoApprove': False,
+              'autoSchedule': False,
+              'autoPublish': False,
+              'lineVoomManualOnly': True
+            }
+          }
+          out = root / 'content/social-guilu-drink-trial-v1.json'
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          trial_path = root / 'trial.html'
+          trial = trial_path.read_text(encoding='utf-8')
+          replacements = {
+            '仙加味LINE官方帳號': '仙加味官方LINE',
+            'LINE官方帳號': '官方LINE',
+            '加入LINE OA': '加入官方LINE',
+            '皆在LINE OA完成': '皆在官方LINE完成',
+            '都集中在LINE OA': '都集中在官方LINE',
+            '所有正式訂單於資料及付款方式確認完成後': '所有正式訂單於官方LINE完成資料及付款方式確認後',
+          }
+          for old, new in replacements.items():
+            trial = trial.replace(old, new)
+          trial_path.write_text(trial, encoding='utf-8')
+
+          deploy_path = root / 'deploy-version.json'
+          deploy = json.loads(deploy_path.read_text(encoding='utf-8'))
+          deploy['version'] = '2026-08-06-canonical-v5'
+          deploy.setdefault('contentPolicy', {})['trialCampaignFile'] = 'content/social-guilu-drink-trial-v1.json'
+          deploy['contentPolicy']['trialCampaignVersion'] = payload['version']
+          deploy['contentPolicy']['publicContactLabel'] = '官方LINE'
+          deploy_path.write_text(json.dumps(deploy, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          validator_path = root / 'tools/validate-site-release.py'
+          validator = validator_path.read_text(encoding='utf-8')
+          if "TRIAL_CONTENT = 'content/social-guilu-drink-trial-v1.json'" not in validator:
+            validator = validator.replace(
+              "TRIAL_POSTER = 'images/posts/approved-v413/guilu-drink-trial-60.svg'\n",
+              "TRIAL_POSTER = 'images/posts/approved-v413/guilu-drink-trial-60.svg'\nTRIAL_CONTENT = 'content/social-guilu-drink-trial-v1.json'\n",
+            )
+          validator = validator.replace(
+            "'sitemap.xml', 'robots.txt', OFFICIAL_30, TRIAL_POSTER,\n",
+            "'sitemap.xml', 'robots.txt', OFFICIAL_30, TRIAL_POSTER, TRIAL_CONTENT,\n",
+          )
+          marker = "    safety = (ROOT / 'site-product-image-safety.js').read_text(encoding='utf-8')\n"
+          block = """    campaign = json.loads((ROOT / TRIAL_CONTENT).read_text(encoding='utf-8'))
+    assert campaign.get('title') == '龜鹿飲試喝組｜先試喝，再決定', '三平台試喝標題錯誤'
+    campaign_copy = campaign.get('copy', '')
+    for value in ['3罐試喝品免費，運費自付', '正式售價 60元／罐', '買10送1｜11罐600元', '單包200元', '買10送1｜11包2,000元', '皆在 官方LINE 完成']:
+        assert value in campaign_copy, f'三平台試喝文案缺漏：{value}'
+    assert campaign.get('posterPath') == TRIAL_POSTER, '三平台試喝海報路徑錯誤'
+    assert campaign.get('publishingSafety', {}).get('autoPublish') is False, '試喝貼文不得自動發布'
+    assert 'LINE OA' not in trial, '試喝頁對外文字仍含LINE OA'
+    assert '官方LINE' in trial, '試喝頁缺少官方LINE文字'
+
+"""
+          if block not in validator:
+            if marker not in validator:
+              raise SystemExit('找不到官網驗證插入點')
+            validator = validator.replace(marker, block + marker)
+          validator_path.write_text(validator, encoding='utf-8')
+          PY
+
+      - name: 執行官網正式驗證
+        run: |
+          set -euo pipefail
+          python3 tools/validate-site-release.py
+          git diff --check
+
+      - name: 提交正式更新並移除單次流程
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm --ignore-unmatch .github/workflows/one-time-unify-trial-campaign-v414.yml
+          git add trial.html deploy-version.json tools/validate-site-release.py content/social-guilu-drink-trial-v1.json
+          git commit -m 'feat(site): unify trial campaign copy and official LINE wording'
+          git push origin HEAD:main
