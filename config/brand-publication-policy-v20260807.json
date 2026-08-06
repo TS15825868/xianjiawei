@@ -1,0 +1,81 @@
+{
+  "version": "2026-08-07",
+  "brand": {
+    "publicName": "仙加味",
+    "publicSeriesName": "仙加味・龜鹿",
+    "tagline": "補養，是一種節奏。",
+    "hideLegalCompanyFromPublicMarketing": true,
+    "legalCompanyDisplay": "only-when-legally-or-commercially-required",
+    "forbiddenPublicFields": [
+      "台興山產有限公司",
+      "統一編號",
+      "公司電話",
+      "公司傳真",
+      "公司英文名稱"
+    ]
+  },
+  "publishing": {
+    "weeklyFrequency": 2,
+    "timezone": "Asia/Taipei",
+    "slots": [
+      {"weekday": "TU", "time": "19:30", "purpose": "品牌、產品、FAQ、試喝與日常"},
+      {"weekday": "SA", "time": "09:30", "purpose": "料理、家庭、場合、地點與假日內容"}
+    ],
+    "approvedMeansAutoQueue": true,
+    "immediatePublishMustBypassSchedule": true,
+    "avoidDuplicateCopy": true,
+    "avoidDuplicateImage": true,
+    "avoidConsecutiveSameTopic": true,
+    "weatherAware": true,
+    "weatherLocation": "台北市萬華區"
+  },
+  "reviewDimensions": [
+    "品牌名稱",
+    "產品",
+    "規格",
+    "價格與活動",
+    "季節",
+    "當日天氣",
+    "場合",
+    "地點",
+    "情境",
+    "環境",
+    "冷熱",
+    "表情",
+    "動作",
+    "角色與夥伴",
+    "圖片清晰度",
+    "文案合規",
+    "平台版本"
+  ],
+  "mascot": {
+    "owner": "官網版Q版小老闆",
+    "clothing": "米白中式上衣、深綠圍裙、紅色直式仙加味印章",
+    "apronRequiredArtwork": ["小鹿", "小烏龜"],
+    "primaryPartners": ["小鹿夥伴", "小烏龜夥伴"],
+    "contextPartners": ["灰色小河馬娃娃", "米色小鹿安撫巾"],
+    "noSubstituteAnimals": true
+  },
+  "productImagePolicy": {
+    "officialOriginalOnly": true,
+    "containNoCrop": true,
+    "noRedraw": true,
+    "noPackageChange": true,
+    "noSpecificationChange": true,
+    "noLabelAddedTo30ccJar": true
+  },
+  "contentPillars": [
+    "產品",
+    "品牌",
+    "天氣關懷",
+    "四季",
+    "節慶",
+    "場合",
+    "地點",
+    "料理",
+    "FAQ",
+    "萬華在地",
+    "小老闆與夥伴",
+    "試喝活動"
+  ]
+}
