@@ -1,0 +1,43 @@
+{
+  "version": "2026-08-06-public-content-v1",
+  "authority": "TS15825868/xianjiawei",
+  "purpose": "仙加味可公開貼文文案、貼文圖、產品圖、品牌圖與圖片生成指令的唯一公開母本",
+  "publicRepository": "TS15825868/xianjiawei",
+  "privateRepository": "TS15825868/xianjiawei-internal",
+  "publicFiles": {
+    "posts": "content/public-post-library.json",
+    "assets": "content/public-asset-library.json",
+    "publishedTrial": "content/social-guilu-drink-trial-v1.json"
+  },
+  "publicAllowed": [
+    "品牌與產品公開文案",
+    "待審與已發布貼文文案",
+    "圖片網址與圖片生成指令",
+    "產品公開規格與正式售價",
+    "社群平台目標與公開發布狀態",
+    "已發布貼文防重發鎖定"
+  ],
+  "privateOnly": [
+    "客戶姓名、電話、地址、LINE ID與聯絡紀錄",
+    "訂單、付款、成本、毛利與財務資料",
+    "即時庫存數量、採購與供應商內部條件",
+    "Cloudflare、LINE、OpenAI及社群平台憑證",
+    "員工帳號、角色、稽核紀錄與內部備註"
+  ],
+  "erpPolicy": {
+    "app": "xianjiawei-internal",
+    "role": "只保存內部營運資料、審核、排程與發布結果",
+    "contentMode": "以公開貼文ID讀取公開文案與圖片；內部資料不得回寫公開倉庫",
+    "customerDataPublic": false,
+    "secretDataPublic": false
+  },
+  "publishingSafety": {
+    "ownerReviewRequiredBeforePublish": true,
+    "autoApprove": false,
+    "autoSchedule": false,
+    "autoPublish": false,
+    "lineVoomManualOnly": true,
+    "googleBusinessManualOnly": true,
+    "publishedPostsPreventRepublish": true
+  }
+}
