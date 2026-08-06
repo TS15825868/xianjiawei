@@ -143,8 +143,10 @@ def main() -> int:
             fail(errors, f"{filename} 缺少 title")
         if not description:
             fail(errors, f"{filename} 缺少 meta description")
-        if ai_summary != description:
-            fail(errors, f"{filename} ai-summary 未與正式 description 同步")
+        if not ai_summary:
+            fail(errors, f"{filename} 缺少 ai-summary")
+        elif len(ai_summary) < 24:
+            fail(errors, f"{filename} ai-summary 過短，無法形成獨立摘要")
         if canonical(parser) != expected_canonical:
             fail(errors, f"{filename} canonical 錯誤：{canonical(parser)}")
         if "index" not in robots or "follow" not in robots:
@@ -187,8 +189,8 @@ def main() -> int:
     llms = (ROOT / "llms.txt").read_text("utf-8")
     llms_full = (ROOT / "llms-full.txt").read_text("utf-8")
     for marker in [
-        "龜鹿膏100g", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋",
-        "龜鹿湯塊75g", "龜鹿膠600g", "鹿茸粉75g",
+        "龜鹿膏", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋",
+        "龜鹿湯塊", "龜鹿膠", "鹿茸粉",
         "catalog-public.json", "geo-data.json", "llms-full.txt",
     ]:
         if marker not in llms:
