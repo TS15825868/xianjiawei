@@ -140,9 +140,11 @@ def main():
     assert drink180.get('price') == 200, '180cc售價必須為200元'
     assert drink180.get('offers') == [{'qty': 11, 'total': 2000, 'label': '買10送1'}], '180cc活動錯誤'
 
-    assert str(deploy.get('version', '')).startswith('2026-08-06-canonical-v7'), '部署版本未更新至v7'
+    assert str(deploy.get('version', '')).startswith('2026-08-07-canonical-v8'), '部署版本未更新至2026-08-07 v8'
+    assert deploy.get('catalog') == 'six-official-product-families-with-three-soup-variants'
     assert deploy.get('pricingPolicy', {}).get('guiluDrink30cc') == '正式售價60元／罐｜買10送1｜11罐600元'
     assert deploy.get('contentPolicy', {}).get('preventRepublish') is True
+    assert deploy.get('imagePolicy', {}).get('trialPosterAssetId') == 'post-trial-evergreen-v412'
 
     posts = posts_doc.get('posts', [])
     assert posts_doc.get('authority') == 'TS15825868/xianjiawei'
