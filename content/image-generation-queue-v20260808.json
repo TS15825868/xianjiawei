@@ -1,0 +1,75 @@
+{
+  "version": "2026-08-08-image-generation-queue-v1",
+  "authority": "TS15825868/xianjiawei",
+  "runtimeContentTotal": 500,
+  "summary": {
+    "publishedFinalLocked": 3,
+    "campaignHold": 11,
+    "generationRequiredActive": 471,
+    "existingCandidateNeeds16PointReview": 15,
+    "total": 500
+  },
+  "publishedFinalLocked": [
+    {"post_id":"POST-BRAND-START","reason":"既有已發布鎖定"},
+    {"post_id":"base-published-lock-2","reason":"既有母本第二筆已發布鎖定；實際ID以public-post-library.json為準"},
+    {"post_id":"XJW-TRIAL-001","asset_id":"guilu-drink-trial-final-20260808","reason":"使用者2026-08-08確認最終版且已發布；不重生成、不重發"}
+  ],
+  "campaignHold": {
+    "ids": ["XJW-TRIAL-002","XJW-TRIAL-003","XJW-TRIAL-004","XJW-TRIAL-005","XJW-TRIAL-006","XJW-TRIAL-007","XJW-TRIAL-008","XJW-TRIAL-009","XJW-TRIAL-010","XJW-TRIAL-011","XJW-TRIAL-012"],
+    "hold_until": "2026-11-06",
+    "reason": "同一試喝主活動已發布最終主圖；依90天主圖與活動去重規則，其他11篇試喝變體暫不生成主圖、不排程、不發布。到期後仍需人工重審。"
+  },
+  "priorityBatches": [
+    {
+      "priority": 1,
+      "name": "修正6張舊產品候選圖",
+      "count": 6,
+      "post_ids": ["POST-PRODUCT-OVERVIEW","POST-GAO-100","POST-DRINK-30","POST-DRINK-180","POST-JIAO-600","POST-COMBO"],
+      "reason": "這6張直接涉及產品包裝、標籤或比例，必須先換成現行正式原圖合成版本。"
+    },
+    {
+      "priority": 2,
+      "name": "近期8月內容",
+      "count": 64,
+      "selection": "從小老闆與夥伴、父親節／家庭、午後雷陣雨、工作空檔、產品FAQ、萬華在地、日常節奏中挑選，不重複試喝主圖。",
+      "rules": "天氣類只建立候選圖，發布前再查當日天氣；所有圖先待審核。"
+    },
+    {
+      "priority": 3,
+      "name": "產品與FAQ常青內容",
+      "count": 96,
+      "selection": "產品、FAQ、保存、使用、怎麼選、資料透明、合作夥伴素材。",
+      "rules": "產品本體只用正式原圖等比例合成。"
+    },
+    {
+      "priority": 4,
+      "name": "四季與日常情境",
+      "count": 128,
+      "selection": "春夏秋冬、場合、地點、工作、家庭、休息、料理。",
+      "rules": "季節、衣著、冷熱、動作、環境全部匹配文案。"
+    },
+    {
+      "priority": 5,
+      "name": "品牌萬華節慶與夥伴",
+      "count": 177,
+      "selection": "品牌、萬華、節慶、門市日常、小老闆、小鹿、小烏龜、河馬娃娃、小鹿安撫巾、合作夥伴等剩餘內容。",
+      "rules": "節慶日期與即時事件發布前再確認；陪伴角色只在合適情境出現。"
+    }
+  ],
+  "existingCandidateNeeds16PointReview": {
+    "count": 15,
+    "rule": "這些既有候選圖沒有已知硬性錯誤，但仍不能直接發布；必須完成16項檢查，任何一項不符就交給ChatGPT重生成。"
+  },
+  "generationRouting": {
+    "mode": "chatgpt_handoff",
+    "paidOpenAIApi": false,
+    "newImageStatus": "pending_review",
+    "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"]
+  },
+  "productLocks": {
+    "guiluDrink30": "30cc裸罐、無貼紙、無外盒、無外袋、金色蓋、約42×51mm比例",
+    "guiluDrink180": "180cc狹長鋁袋、寬高比約0.64，不拉寬、不加高",
+    "guiluGao": "100g六角罐，只使用新版米白標籤，舊紅白直式貼紙禁止",
+    "guiluJiao": "600g淡紫盒等比例，禁止橫向拉長"
+  }
+}
