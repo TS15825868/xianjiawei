@@ -1,0 +1,37 @@
+{
+  "version": "2026-08-08-final-published-assets-v1",
+  "authority": "user-confirmed-final-published",
+  "updated_at_taipei": "2026-08-08T00:28:00+08:00",
+  "assets": [
+    {
+      "asset_id": "guilu-drink-trial-final-20260808",
+      "campaign": "龜鹿飲試喝組",
+      "status": "published_final_locked",
+      "post_id": "XJW-TRIAL-001",
+      "user_confirmed_final": true,
+      "user_confirmed_published": true,
+      "do_not_regenerate": true,
+      "prevent_republish": true,
+      "published_exact_time_known": false,
+      "published_platforms_known": false,
+      "source_filename": "A4909150-DE19-47F9-B5E1-D0E9B14484EF.jpeg",
+      "width_px": 1254,
+      "height_px": 1254,
+      "sha256": "2546dd0c95ef78d6e97a8119ee18633c69f47c9b9e56c78e44aa9df6e15635b7",
+      "creative_lock": {
+        "headline": "龜鹿飲試喝組｜先試喝，再決定",
+        "trial_offer": "3罐試喝品免費；運費自付",
+        "shipping": ["7-11店到店60元", "郵局宅配100元"],
+        "trial_limit": "每位顧客、電話及地址限申請一次",
+        "lead_time": "接單後安排製作，約5～7個工作天出貨",
+        "application": "所有試喝申請與正式下單皆在LINE OA完成",
+        "drink30": "30cc／罐（小玻璃罐）；裸罐、無貼紙、無外盒、無外袋、金色蓋",
+        "drink30_price": "正式售價60元／罐；買10送1｜11罐600元",
+        "drink180": "另有販售180cc鋁袋",
+        "drink180_price": "單包200元；買10送1｜11包2,000元",
+        "mascot": "官網版Q版小老闆＋小鹿＋小烏龜"
+      },
+      "notes": "此圖由使用者於2026-08-08確認為最終版且已發布。任何後續批次不得把它判定為錯圖、待生成或自動重新發布；除非使用者明確要求改版。"
+    }
+  ]
+}
