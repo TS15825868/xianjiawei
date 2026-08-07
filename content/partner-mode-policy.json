@@ -1,0 +1,18 @@
+{
+  "version": "2026-08-07-partner-mode-v1",
+  "audiences": ["中藥店","蔘藥店","中醫診所","合作經銷夥伴"],
+  "goal": "提供可下載、可轉傳的仙加味品牌素材，同時降低合作夥伴對原廠直接搶客的疑慮。",
+  "rules": {
+    "brandName": "仙加味",
+    "companyNameNotProminent": true,
+    "consumerDirectRoutingOptional": true,
+    "partnerVersionMayOmitOfficialLineCTA": true,
+    "partnerMayAddOwnContactBlock": true,
+    "doNotAlterProductFacts": true,
+    "doNotAlterPackaging": true,
+    "doNotAddMedicalClaims": true,
+    "doNotExposeWholesaleTermsOnConsumerMaterial": true
+  },
+  "downloadableSets": ["產品規格圖","產品情境圖","四季素材","FAQ圖卡","料理素材","品牌故事素材","節慶素材"],
+  "watermarkPolicy": "可保留仙加味品牌識別，但不強迫放仙加味官方LINE；合作夥伴可在授權素材外加自己的聯絡資訊。"
+}
