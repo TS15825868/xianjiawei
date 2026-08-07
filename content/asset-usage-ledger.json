@@ -1,0 +1,11 @@
+{
+  "version": "2026-08-07-asset-ledger-v1",
+  "policy": {
+    "samePrimaryImageWithinDays": 90,
+    "sameCopyWithinDays": 180,
+    "recordAfterPublish": true,
+    "publishedAssetCannotBeReusedWithoutReview": true
+  },
+  "fields": ["asset_id","file_url","category","product_refs","post_id","platform","used_at","last_used_at","use_count","notes"],
+  "records": []
+}
