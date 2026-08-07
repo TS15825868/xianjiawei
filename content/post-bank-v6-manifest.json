@@ -1,14 +1,21 @@
 {
-  "version": "2026-08-07-post-bank-v6-323",
+  "version": "2026-08-07-post-bank-v7-500",
   "authority": "TS15825868/xianjiawei",
   "baseLibrary": "content/public-post-library.json",
-  "extension": "publishing-center-data-v6.js",
+  "extensions": ["publishing-center-data-v6.js","publishing-center-data-v7.js"],
   "publishingCenter": "publishing-center.html",
   "visualSpec": "content/visual-production-spec-v20260807.json",
+  "aiBrandControl": "content/ai-brand-control-v20260807.json",
+  "brandGuardian": "content/brand-guardian-rules.json",
+  "annualCalendar": "content/annual-content-calendar-v2026.json",
+  "assetUsageLedger": "content/asset-usage-ledger.json",
+  "contentPerformance": "content/content-performance-schema.json",
+  "partnerMode": "content/partner-mode-policy.json",
   "counts": {
     "base": 23,
-    "generatedCopyQueue": 300,
-    "runtimeTotal": 323,
+    "generatedCopyQueueV6": 300,
+    "generatedCopyQueueV7": 177,
+    "runtimeTotal": 500,
     "publishedLockedInBase": 2,
     "newGeneratedPostsStatus": "pending_review"
   },
@@ -19,13 +26,20 @@
     "天氣關懷": 48,
     "料理": 48,
     "品牌": 24,
-    "FAQ": 24,
-    "試喝活動": 12
+    "FAQ": 48,
+    "試喝活動": 12,
+    "節慶": 24,
+    "地點": 24,
+    "萬華在地": 24,
+    "小老闆與夥伴": 32,
+    "陪伴角色": 16,
+    "合作夥伴素材": 24,
+    "門市日常": 9
   },
   "imageStatus": "needs_generation",
-  "imageWorkflow": "每篇皆含 image_prompt；由發布中心的『圖不符合｜ChatGPT生成』依正式原產品比例生成，生成完成後回到待審核，完成16項檢查後才可核准。",
+  "imageWorkflow": "每篇皆帶有情境與圖片生成規則；發布中心提供圖片重生成、文案重生成、全部重生成。生成完成後一律回到待審核，完成16項檢查後才可核准。",
   "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
-  "liveChecks": ["天氣","颱風","寒冷","空氣品質"],
+  "liveChecks": ["天氣","颱風","寒流","高溫","空氣品質","重大即時事件"],
   "schedule": ["星期二 19:30","星期六 09:30"],
   "rules": {
     "sameImageWithinDays": 90,
@@ -33,6 +47,8 @@
     "sameSceneWithinDays": 45,
     "sameMascotPoseWithinDays": 30,
     "weatherNeverPreAutoPublish": true,
-    "ownerReviewRequired": true
+    "ownerReviewRequired": true,
+    "companyInfoNotPublicByDefault": true,
+    "partnerProtectionMode": true
   }
 }
