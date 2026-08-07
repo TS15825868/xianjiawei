@@ -1,15 +1,26 @@
 {
-  "version": "2026-08-07-v6-visual-locked",
+  "version": "2026-08-08-six-products-single-spec-v1",
   "authority": "user-confirmed",
+  "rule": "全站、LINE OA、ERP、發布中心與貼文只允許以下6項正式規格；不得再建立湯塊300g／600g等延伸規格。",
   "visual_spec": "content/visual-production-spec-v20260807.json",
   "products": [
-    {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","package":"六角玻璃罐","container_dimensions_mm":{"width":51,"height":78},"label_rule":"只用新版標籤；舊紅白直式貼紙禁止","image_rule":"正式原圖等比例"},
-    {"id":"guilu-drink-30","name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","package":"小玻璃罐","container_reference_capacity_ml":35,"container_dimensions_mm":{"diameter":42,"height":51},"presentation":"裸罐、無貼紙、金色蓋","image_rule":"高矮胖瘦照原圖，不得拉高拉胖"},
-    {"id":"guilu-drink-180","name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","package":"鋁袋","aspect_ratio_width_to_height":0.64,"image_rule":"狹長直立、等比例縮小，不得拉寬或加高"},
-    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒｜8塊裝｜每塊約9.375g","variants":[{"id":"guilu-tangkuai-75","spec":"75g／盒｜8塊裝｜每塊約9.375g"},{"id":"guilu-tangkuai-300","spec":"300g／盒｜16塊裝｜每塊約18.75g"},{"id":"guilu-tangkuai-600","spec":"600g／盒｜32塊裝｜每塊約18.75g"}],"image_rule":"正式原盒等比例，不與龜鹿膠紫盒混用"},
-    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g（1斤）／盒｜32塊裝｜每塊約18.75g","package":"淡紫色盒","image_rule":"依原圖比例，紫盒不可橫向拉長"},
+    {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","package":"六角玻璃罐","container_dimensions_mm":{"width":51,"height":78},"label_rule":"只用新版米白標籤；舊紅白直式貼紙禁止","image_rule":"正式原圖等比例"},
+    {"id":"guilu-drink-30","name":"龜鹿飲","spec":"30cc／罐","package":"小玻璃罐","container_reference_capacity_ml":35,"container_dimensions_mm":{"diameter":42,"height":51},"presentation":"裸罐、無貼紙、無外盒、無外袋、金色蓋","image_rule":"高矮胖瘦照原圖，不得拉高拉胖"},
+    {"id":"guilu-drink-180","name":"龜鹿飲","spec":"180cc／包","package":"鋁袋","aspect_ratio_width_to_height":0.64,"image_rule":"狹長直立、等比例縮小，不得拉寬或加高"},
+    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒","package":"深藍正式盒裝","image_rule":"只使用75g正式原盒等比例，不得建立300g或600g湯塊規格"},
+    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g／盒","package":"淡紫色盒","image_rule":"依原圖比例，紫盒不可橫向拉長"},
     {"id":"luerong-fen","name":"鹿茸粉","spec":"75g／罐","package":"白色塑膠罐","image_rule":"正式原圖等比例"}
   ],
-  "deprecated_product_ids": ["PROD-SOUP-150"],
-  "forbidden": ["龜鹿飲30cc玻璃瓶","30cc／瓶","小玻璃瓶","龜鹿湯塊150g","PROD-SOUP-150","龜鹿膏舊紅白直式貼紙","180cc鋁袋橫向拉寬","龜鹿膠紫盒橫向拉長"]
+  "deprecated_or_forbidden_specs": [
+    "龜鹿湯塊150g",
+    "龜鹿湯塊300g",
+    "龜鹿湯塊600g",
+    "300g／盒｜16塊裝｜每塊約18.75g",
+    "600g／盒｜32塊裝｜每塊約18.75g",
+    "龜鹿膠600g（1斤）／盒｜32塊裝｜每塊約18.75g",
+    "龜鹿飲30cc玻璃瓶",
+    "30cc／瓶",
+    "小玻璃瓶"
+  ],
+  "visual_forbidden": ["龜鹿膏舊紅白直式貼紙","180cc鋁袋橫向拉寬","龜鹿膠紫盒橫向拉長","30cc罐加貼紙或外包裝"]
 }
