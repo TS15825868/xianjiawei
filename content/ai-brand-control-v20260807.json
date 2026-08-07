@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-07-ai-brand-control-v2-chatgpt-handoff",
+  "version": "2026-08-08-ai-brand-control-v3-final-published-locks",
   "authority": "user-confirmed",
   "brand": {
     "publicName": "仙加味",
@@ -27,6 +27,20 @@
     "noApiKeyInPublicFrontend": true,
     "noBackgroundPaidGeneration": true
   },
+  "finalPublishedLocks": [
+    {
+      "postId": "XJW-TRIAL-001",
+      "assetId": "guilu-drink-trial-final-20260808",
+      "campaign": "龜鹿飲試喝組",
+      "status": "published_final_locked",
+      "confirmedOn": "2026-08-08",
+      "doNotRegenerate": true,
+      "preventRepublish": true,
+      "cooldownDays": 90,
+      "assetManifest": "content/final-published-assets-v20260808.json",
+      "note": "此試喝主圖已由使用者確認為最終版且已發布；除非使用者明確要求改版，否則不得再判定為待生成或自動重發。"
+    }
+  ],
   "imageRules": {
     "productMethod": "所有產品必須使用正式原產品照片等比例合成；AI只生成背景、角色、道具與情境，不重畫產品包裝",
     "guiluDrink30": "30cc／罐（小玻璃罐）；裸罐、無貼紙、無外盒、無外袋、金色蓋；同型外觀約42mm直徑×51mm高；不得拉高或拉胖",
