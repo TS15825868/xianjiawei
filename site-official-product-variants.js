@@ -1,34 +1,28 @@
 "use strict";
 
-/*
- * 仙加味正式產品規格顯示層 v2
- * 龜鹿湯塊的 75g／300g／600g 都是正式規格，但一般列表只做精簡提示；
- * 完整盒數、塊數與每塊重量只在龜鹿湯塊詳細頁展開，避免首頁／總覽重複堆疊規格。
+/* 仙加味正式產品規格顯示層 v3
+ * 使用者確認：產品只有6項正式規格；龜鹿湯塊只保留75g／盒。
  */
 (function () {
-  if (window.__XJW_OFFICIAL_VARIANTS_V2__) return;
-  window.__XJW_OFFICIAL_VARIANTS_V2__ = true;
+  if (window.__XJW_OFFICIAL_VARIANTS_V3__) return;
+  window.__XJW_OFFICIAL_VARIANTS_V3__ = true;
 
   const SOUP_ID = "guilu-tangkuai";
-  const SOUP_SPECS = ["75g", "300g", "600g"];
-  const SOUP_OVERVIEW_SPEC = "75g／300g／600g（三種正式規格）";
-  const SOUP_DESCRIPTION = "龜鹿湯塊為同一產品分類，提供三種正式規格；完整塊數、單塊重量與使用方式請查看產品詳細頁。";
+  const SOUP_SPEC = "75g／盒";
+  const SOUP_DESCRIPTION = "龜鹿湯塊目前唯一正式規格為75g／盒，可搭配熱水、保溫壺或家常燉湯。";
 
-  function setCompactSpec(element, prefix = "規格：") {
+  function setSpec(element, prefix = "規格：") {
     if (!element) return;
-    const expected = `${prefix}${SOUP_OVERVIEW_SPEC}`;
-    if (element.textContent === expected) return;
-    element.textContent = expected;
+    element.textContent = `${prefix}${SOUP_SPEC}`;
     element.style.whiteSpace = "normal";
-    element.dataset.officialSoupVariants = "compact";
+    element.dataset.officialSoupSpec = "75g-only";
   }
 
   function normalizeProductCards(root = document) {
     root.querySelectorAll?.(`[data-product-id="${SOUP_ID}"]`).forEach((card) => {
-      const name = card.querySelector("h3")?.textContent || "";
-      if (!name.includes("龜鹿湯塊")) return;
+      if (!String(card.querySelector("h3")?.textContent || "").includes("龜鹿湯塊")) return;
       const muted = Array.from(card.querySelectorAll(".muted")).find((item) => item.textContent.includes("規格"));
-      setCompactSpec(muted);
+      setSpec(muted);
       const description = Array.from(card.querySelectorAll(".product-card__body > p"))
         .find((item) => !item.classList.contains("eyebrow") && !item.classList.contains("muted") && !item.classList.contains("product-purpose"));
       if (description) description.textContent = SOUP_DESCRIPTION;
@@ -41,25 +35,44 @@
     const title = modal.querySelector("#product-modal-title")?.textContent || "";
     if (!title.includes("龜鹿湯塊")) return;
     const muted = Array.from(modal.querySelectorAll(".modal-copy .muted")).find((item) => item.textContent.includes("規格"));
-    setCompactSpec(muted);
+    setSpec(muted);
     const description = modal.querySelector(".modal-copy > p:not(.eyebrow):not(.product-purpose):not(.muted)");
     if (description) description.textContent = SOUP_DESCRIPTION;
     const lineLink = modal.querySelector(".modal-actions .btn-line");
     if (lineLink && typeof window.buildLineAutoLink === "function") {
-      lineLink.href = window.buildLineAutoLink("我想了解龜鹿湯塊三種正式規格與購買方式。");
+      lineLink.href = window.buildLineAutoLink("我想了解龜鹿湯塊75g／盒的使用方式與購買方式。");
     }
   }
 
   function normalizeMobileCompare(root = document) {
     root.querySelectorAll?.(".mobile-compare-card").forEach((card) => {
       if (!String(card.querySelector("h3")?.textContent || "").includes("龜鹿湯塊")) return;
-      const terms = Array.from(card.querySelectorAll("dt"));
-      const specTerm = terms.find((item) => item.textContent.trim() === "規格");
+      const specTerm = Array.from(card.querySelectorAll("dt")).find((item) => item.textContent.trim() === "規格");
       const spec = specTerm?.nextElementSibling;
-      if (!spec) return;
-      spec.textContent = SOUP_OVERVIEW_SPEC;
-      spec.style.whiteSpace = "normal";
-      spec.dataset.officialSoupVariants = "compact";
+      if (spec) {
+        spec.textContent = SOUP_SPEC;
+        spec.dataset.officialSoupSpec = "75g-only";
+      }
+    });
+  }
+
+  function normalizeLooseText(root = document) {
+    const replacements = [
+      [/75g\s*／\s*300g\s*／\s*600g(?:（三種正式規格）)?/g, SOUP_SPEC],
+      [/75g、300g、600g三種正式規格/g, SOUP_SPEC + "唯一正式規格"],
+      [/龜鹿湯塊75g／300g／600g/g, "龜鹿湯塊75g／盒"],
+      [/龜鹿湯塊有75g、300g、600g三種規格/g, "龜鹿湯塊目前只有75g／盒一種正式規格"]
+    ];
+    const walker = document.createTreeWalker(root.body || root, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let node;
+    while ((node = walker.nextNode())) nodes.push(node);
+    nodes.forEach((textNode) => {
+      const parent = textNode.parentElement;
+      if (!parent || ["SCRIPT", "STYLE"].includes(parent.tagName)) return;
+      let value = textNode.nodeValue;
+      replacements.forEach(([pattern, replacement]) => { value = value.replace(pattern, replacement); });
+      if (value !== textNode.nodeValue) textNode.nodeValue = value;
     });
   }
 
@@ -69,6 +82,7 @@
     normalizeProductCards();
     normalizeModal();
     normalizeMobileCompare();
+    normalizeLooseText();
   }
 
   function queueNormalize() {
@@ -78,27 +92,18 @@
   }
 
   const observer = new MutationObserver(queueNormalize);
-
   function start() {
     normalizeAll();
-    observer.observe(document.documentElement, {
-      subtree: true,
-      childList: true,
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    observer.observe(document.documentElement, {subtree:true, childList:true, attributes:true, attributeFilter:["class"]});
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start, { once: true });
-  } else {
-    start();
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, {once:true});
+  else start();
 
   window.XJW_OFFICIAL_PRODUCT_VARIANTS = Object.freeze({
     soupProductId: SOUP_ID,
-    soupSpecifications: [...SOUP_SPECS],
-    overviewDisplay: SOUP_OVERVIEW_SPEC,
-    fullSpecificationPage: "product-guilu-tangkuai.html"
+    soupSpecifications: [SOUP_SPEC],
+    overviewDisplay: SOUP_SPEC,
+    deprecatedSoupSpecifications: ["300g／盒", "600g／盒"]
   });
 })();
