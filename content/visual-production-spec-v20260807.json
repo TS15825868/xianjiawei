@@ -1,6 +1,7 @@
 {
-  "version": "2026-08-07-visual-authority-v6",
+  "version": "2026-08-07-visual-authority-v7",
   "authority": "user-confirmed-original-product-photos-and-current-chat",
+  "updated_at_taipei": "2026-08-07T23:19:00+08:00",
   "brand": {
     "public_name": "仙加味",
     "public_series": "仙加味・龜鹿",
@@ -22,8 +23,10 @@
       "spec": "100g／罐",
       "container": "六角玻璃罐，金色蓋",
       "container_dimensions_mm": {"width": 51, "height": 78},
+      "current_label_reference": "以2026-08-07使用者上傳的龜鹿膏實拍為唯一現行標籤外觀：米白／象牙白底，正面中央金色框內為『龜鹿膏』，右上附近有深紅色直式『仙加味』印章，側面為黑色營養／產品標示；不可使用舊版大面積紅白直式貼紙。",
+      "current_outer_box_reference": "現行外盒為米白主體、紅色上蓋，正面有龜鹿膏字樣、鹿與漢方意象；如貼文只需要罐體，不必強制出現外盒。",
       "label": "只使用目前新版龜鹿膏標籤；舊紅白直式貼紙禁止使用",
-      "image_rule": "正式原產品照片等比例合成，不重畫、不拉寬、不拉高、不換蓋、不換貼紙"
+      "image_rule": "龜鹿膏產品本體必須直接使用目前正式實拍原圖等比例合成，不允許AI重畫或重新生成標籤文字；不拉寬、不拉高、不換蓋、不換貼紙。"
     },
     "guilu-drink-30": {
       "name": "龜鹿飲30cc玻璃罐",
@@ -31,8 +34,9 @@
       "container_reference": "金銀蓋果醬瓶同型小玻璃罐；實際內容量30cc",
       "container_reference_capacity_ml": 35,
       "container_dimensions_mm": {"diameter": 42, "height": 51},
-      "presentation": "裸罐、無貼紙、金色蓋；罐型高矮胖瘦固定照原圖",
-      "image_rule": "正式原產品照片等比例合成；不可改成瓶型、不可加標籤、不可把罐身做高或做胖"
+      "presentation": "只呈現裸罐本體、完全無貼紙、無標籤、無紙盒、無外盒、無外袋；金色蓋；罐型高矮胖瘦固定照原圖。",
+      "forbidden_packaging": ["任何貼紙", "任何標籤", "紙盒", "外盒", "外袋", "鋁袋", "瓶套", "30cc玻璃瓶字樣"],
+      "image_rule": "30cc產品只能使用正式裸罐原圖等比例合成；不可改成瓶型、不可加標籤或包裝、不可把罐身做高或做胖；與其他產品同框時仍維持約42mm直徑×51mm高的矮小比例感。"
     },
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
@@ -103,7 +107,7 @@
   },
   "generation": {
     "canvas": ["1:1社群主圖", "4:5 IG／FB直式", "16:9 Google／網站橫式"],
-    "product_method": "產品必須以正式原圖等比例合成；AI只生成背景、角色、道具與情境，不重繪產品包裝",
+    "product_method": "產品必須以正式原圖等比例合成；AI只生成背景、角色、道具與情境，不重繪產品包裝或標籤",
     "text_rule": "繁體中文；短標題優先；長文案放貼文正文，不把大量文字塞進圖片",
     "review_status": "所有新圖一律待審核，通過前不得發布",
     "duplicate_rule": "同一主圖90天內不得重複；同一文案180天內不得重複",
