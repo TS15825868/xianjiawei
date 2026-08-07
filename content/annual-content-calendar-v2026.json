@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-07-calendar-v1",
+  "version": "2026-08-08-calendar-v2",
   "timezone": "Asia/Taipei",
   "defaultWeeklySlots": ["TU 19:30","SA 09:30"],
   "rules": {
@@ -7,7 +7,18 @@
     "weatherAndEventPostsRequireLiveCheck": true,
     "doNotPreScheduleTyphoonAirQualityBreakingNews": true,
     "avoidSameProductConsecutive": true,
-    "avoidSameThemeConsecutive": true
+    "avoidSameThemeConsecutive": true,
+    "publishedTrialCreativeCooldownDays": 90
+  },
+  "activeCampaignState": {
+    "guiluDrinkTrial": {
+      "finalAssetId": "guilu-drink-trial-final-20260808",
+      "status": "published_final_locked",
+      "publishedConfirmedOn": "2026-08-08",
+      "doNotRepeatBeforeReview": true,
+      "cooldownDays": 90,
+      "note": "試喝最終主圖已發布；8月後續固定貼文改輪替其他主題，避免短期重複。"
+    }
   },
   "months": [
     {"month":1,"themes":["冬季溫熱日常","年初節奏整理","料理","產品FAQ","品牌故事"],"season":"冬"},
@@ -17,7 +28,7 @@
     {"month":5,"themes":["母親節送禮情境","家庭陪伴","雨季準備","料理","品牌故事"],"season":"春末初夏"},
     {"month":6,"themes":["端午節情境","梅雨季","悶熱天氣","龜鹿飲便利情境","FAQ"],"season":"夏"},
     {"month":7,"themes":["高溫補水提醒","外勤與通勤","夏日居家","萬華在地","產品介紹"],"season":"夏"},
-    {"month":8,"themes":["父親節家庭情境","午後雷陣雨","工作空檔","龜鹿飲試喝","小老闆日常"],"season":"夏"},
+    {"month":8,"themes":["父親節家庭情境","午後雷陣雨","工作空檔","小老闆日常","產品FAQ","萬華在地"],"season":"夏","notes":["龜鹿飲試喝最終主圖已於2026-08-08確認發布；90天內不重複同一主圖。"]},
     {"month":9,"themes":["中秋節家庭聚餐","秋季轉換","送禮情境","料理","品牌故事"],"season":"秋"},
     {"month":10,"themes":["早晚溫差","秋日料理","戶外與家庭","產品FAQ","萬華在地"],"season":"秋"},
     {"month":11,"themes":["轉涼日常","溫熱料理","家庭晚餐","龜鹿膠與湯塊教育","品牌故事"],"season":"秋末冬初"},
