@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-image-generation-queue-v1",
+  "version": "2026-08-08-image-generation-queue-v2",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "summary": {
@@ -10,8 +10,8 @@
     "total": 500
   },
   "publishedFinalLocked": [
-    {"post_id":"POST-BRAND-START","reason":"既有已發布鎖定"},
-    {"post_id":"base-published-lock-2","reason":"既有母本第二筆已發布鎖定；實際ID以public-post-library.json為準"},
+    {"post_id":"POST-BRAND-START","reason":"既有品牌故事已發布鎖定"},
+    {"post_id":"POST-GUILU-DRINK-TRIAL-EVERGREEN","reason":"2026-08-06既有試喝貼文發布歷史；舊海報已被2026-08-08最終主圖取代，僅保留發布歷史、不再重發舊圖"},
     {"post_id":"XJW-TRIAL-001","asset_id":"guilu-drink-trial-final-20260808","reason":"使用者2026-08-08確認最終版且已發布；不重生成、不重發"}
   ],
   "campaignHold": {
