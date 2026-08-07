@@ -1,0 +1,14 @@
+{
+  "version": "2026-08-07-performance-v1",
+  "purpose": "統一記錄各平台貼文成效，後續只用實際數據調整主題與時段，不改動產品規格或品牌規範。",
+  "dimensions": ["platform","post_id","category","product_refs","season","weather","occasion","location","published_at","scheduled_slot"],
+  "metrics": ["reach","impressions","views","likes","comments","shares","saves","clicks","line_clicks","inquiries","trial_requests","orders"],
+  "derived": ["engagement_rate","click_rate","inquiry_rate","trial_rate","order_rate"],
+  "rules": {
+    "doNotOptimizeIntoMedicalClaims": true,
+    "doNotChangeOfficialProductFacts": true,
+    "useForRotationAndTimingOnly": true,
+    "minimumSampleBeforeConclusion": 4
+  },
+  "records": []
+}
