@@ -1,8 +1,8 @@
 {
-  "version": "2026-08-08-post-bank-v10-500",
+  "version": "2026-08-08-post-bank-v11-500-queue",
   "authority": "TS15825868/xianjiawei",
   "baseLibrary": "content/public-post-library.json",
-  "extensions": ["publishing-center-data-v6.js","publishing-center-data-v7.js","publishing-center-data-v8-fixes.js","publishing-center-data-v10-published-locks.js"],
+  "extensions": ["publishing-center-data-v6.js","publishing-center-data-v7.js","publishing-center-data-v8-fixes.js","publishing-center-data-v10-published-locks.js","publishing-center-data-v11-campaign-holds.js"],
   "publishingCenter": "publishing-center.html",
   "visualSpec": "content/visual-production-spec-v20260807.json",
   "aiBrandControl": "content/ai-brand-control-v20260807.json",
@@ -10,6 +10,7 @@
   "annualCalendar": "content/annual-content-calendar-v2026.json",
   "assetUsageLedger": "content/asset-usage-ledger.json",
   "finalPublishedAssets": "content/final-published-assets-v20260808.json",
+  "imageGenerationQueue": "content/image-generation-queue-v20260808.json",
   "contentPerformance": "content/content-performance-schema.json",
   "partnerMode": "content/partner-mode-policy.json",
   "counts": {
@@ -20,50 +21,29 @@
     "publishedLockedInBase": 2,
     "publishedLockedInGenerated": 1,
     "publishedLockedTotal": 3,
+    "campaignHold": 11,
+    "activeImageGenerationRequired": 471,
+    "existingCandidateNeeds16PointReview": 15,
     "newGeneratedPostsStatus": "pending_review"
   },
   "finalPublishedLocks": [
-    {
-      "post_id": "XJW-TRIAL-001",
-      "asset_id": "guilu-drink-trial-final-20260808",
-      "status": "published_final_locked",
-      "do_not_regenerate": true,
-      "prevent_republish": true,
-      "published_confirmed_on": "2026-08-08"
-    }
+    {"post_id":"XJW-TRIAL-001","asset_id":"guilu-drink-trial-final-20260808","status":"published_final_locked","do_not_regenerate":true,"prevent_republish":true,"published_confirmed_on":"2026-08-08"}
   ],
-  "generatedCopyQueueByPillar": {
-    "產品": 48,
-    "日常節奏": 48,
-    "四季": 48,
-    "天氣關懷": 48,
-    "料理": 48,
-    "品牌": 24,
-    "FAQ": 48,
-    "試喝活動": 12,
-    "節慶": 24,
-    "地點": 24,
-    "萬華在地": 24,
-    "小老闆與夥伴": 32,
-    "陪伴角色": 16,
-    "合作夥伴素材": 24,
-    "門市日常": 9
+  "publishedHistorySuperseded": [
+    {"post_id":"POST-GUILU-DRINK-TRIAL-EVERGREEN","old_asset_id":"post-trial-evergreen-v412","published_at_taipei":"2026-08-06T12:54:00+08:00","current_campaign_asset":"guilu-drink-trial-final-20260808","prevent_republish":true}
+  ],
+  "campaignHolds": {
+    "ids": ["XJW-TRIAL-002","XJW-TRIAL-003","XJW-TRIAL-004","XJW-TRIAL-005","XJW-TRIAL-006","XJW-TRIAL-007","XJW-TRIAL-008","XJW-TRIAL-009","XJW-TRIAL-010","XJW-TRIAL-011","XJW-TRIAL-012"],
+    "hold_until": "2026-11-06"
   },
-  "imageStatus": "needs_generation_except_final_published_locks",
-  "imageWorkflow": "每篇皆帶有情境與圖片生成規則；發布中心提供圖片重生成、文案重生成、全部重生成。生成完成後一律回到待審核，完成16項檢查後才可核准。已發布最終母版不進重生成。",
+  "generatedCopyQueueByPillar": {
+    "產品": 48,"日常節奏": 48,"四季": 48,"天氣關懷": 48,"料理": 48,"品牌": 24,"FAQ": 48,"試喝活動": 12,"節慶": 24,"地點": 24,"萬華在地": 24,"小老闆與夥伴": 32,"陪伴角色": 16,"合作夥伴素材": 24,"門市日常": 9
+  },
+  "imageWorkflow": "圖片依優先佇列處理；不符合者由發布中心／ERP帶完整規格到ChatGPT重做。所有新圖先待審核，完成16項檢查才可核准；已發布最終母版不進重生成；試喝變體暫緩期間不生圖、不排程。",
   "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
   "liveChecks": ["天氣","颱風","寒流","高溫","空氣品質","重大即時事件"],
   "schedule": ["星期二 19:30","星期六 09:30"],
   "rules": {
-    "sameImageWithinDays": 90,
-    "sameCopyWithinDays": 180,
-    "sameSceneWithinDays": 45,
-    "sameMascotPoseWithinDays": 30,
-    "weatherNeverPreAutoPublish": true,
-    "ownerReviewRequired": true,
-    "companyInfoNotPublicByDefault": true,
-    "partnerProtectionMode": true,
-    "paidOpenAIApiDisabled": true,
-    "regenerationMode": "chatgpt_handoff"
+    "sameImageWithinDays": 90,"sameCopyWithinDays": 180,"sameSceneWithinDays": 45,"sameMascotPoseWithinDays": 30,"weatherNeverPreAutoPublish": true,"ownerReviewRequired": true,"companyInfoNotPublicByDefault": true,"partnerProtectionMode": true,"paidOpenAIApiDisabled": true,"regenerationMode": "chatgpt_handoff"
   }
 }
