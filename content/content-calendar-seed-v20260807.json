@@ -1,116 +1,49 @@
 {
-  "version": "2026-08-07",
+  "version": "2026-08-07-v3-323-content-matrix",
   "timezone": "Asia/Taipei",
+  "sourceLibrary": "content/public-post-library.json + publishing-center-data-v6.js",
+  "visualSpec": "content/visual-production-spec-v20260807.json",
   "weeklySlots": [
-    {
-      "weekday": "TU",
-      "time": "19:30",
-      "preferredPillars": ["產品", "品牌", "FAQ", "試喝活動", "天氣關懷"]
-    },
-    {
-      "weekday": "SA",
-      "time": "09:30",
-      "preferredPillars": ["料理", "家庭場合", "地點", "四季", "萬華在地"]
-    }
+    {"weekday":"TU","time":"19:30","preferredPillars":["產品","品牌","FAQ","試喝活動","天氣關懷"]},
+    {"weekday":"SA","time":"09:30","preferredPillars":["料理","日常節奏","四季","萬華在地","家庭場合"]}
   ],
   "rotationRules": {
     "sameProductConsecutive": false,
     "samePillarConsecutive": false,
     "sameImageWithinDays": 90,
     "sameCopyWithinDays": 180,
+    "sameSceneWithinDays": 45,
+    "sameMascotPoseWithinDays": 30,
     "trialCampaignMaxPerMonth": 2,
     "brandStoryMinPerMonth": 1,
     "weatherPostRequiresCurrentWeatherMatch": true,
-    "specialHolidayMayReplaceUpcomingSlot": true
+    "weatherPostsNeverAutoSchedule": true,
+    "specialHolidayMayReplaceUpcomingSlot": true,
+    "allNewContentPendingReview": true,
+    "productArtworkMustUseOriginalPhoto": true
   },
+  "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
   "topicMatrix": {
-    "產品": [
-      "龜鹿膏100g",
-      "龜鹿飲30cc小玻璃罐",
-      "龜鹿飲180cc鋁袋",
-      "龜鹿湯塊75g",
-      "龜鹿湯塊300g",
-      "龜鹿湯塊600g",
-      "龜鹿膠600g",
-      "鹿茸粉75g",
-      "柒玄茶・龜鹿調飲粉"
-    ],
-    "品牌": [
-      "萬華四代故事",
-      "補養是一種節奏",
-      "用料原則",
-      "品牌日常",
-      "小老闆與夥伴",
-      "產品資料清楚透明"
-    ],
-    "天氣關懷": [
-      "大太陽與防曬補水",
-      "午後雷陣雨與雨具",
-      "連日下雨與乾爽衣物",
-      "高溫與避免久曬",
-      "早晚溫差與薄外套",
-      "強風與外出安全",
-      "寒流與溫熱飲食",
-      "颱風與減少外出",
-      "空氣品質提醒"
-    ],
-    "場合": [
-      "早餐",
-      "上班前",
-      "午休",
-      "下午休息",
-      "下班回家",
-      "家庭晚餐",
-      "週末採買",
-      "家庭聚餐",
-      "拜訪長輩",
-      "節慶送禮",
-      "雨天宅家",
-      "出差與外勤"
-    ],
-    "地點": [
-      "居家客廳",
-      "居家廚房",
-      "餐桌",
-      "書房",
-      "辦公室",
-      "車上休息",
-      "公園",
-      "河濱",
-      "萬華街景",
-      "仙加味品牌展示空間",
-      "傳統市場採買",
-      "家庭餐廳"
-    ],
-    "料理": [
-      "山藥雞湯",
-      "香菇雞湯",
-      "紅棗枸杞雞湯",
-      "排骨湯",
-      "蘿蔔排骨湯",
-      "玉米排骨湯",
-      "電鍋燉湯",
-      "保溫壺沖泡",
-      "家庭火鍋",
-      "冬至暖湯"
-    ],
-    "FAQ": [
-      "保存方式",
-      "開封後處理",
-      "隔水加熱",
-      "溫水化開",
-      "配送方式",
-      "試喝流程",
-      "製作時間",
-      "30cc與180cc差異",
-      "產品怎麼選",
-      "官方LINE如何詢問"
-    ]
+    "產品": ["龜鹿膏100g","龜鹿飲30cc小玻璃罐","龜鹿飲180cc鋁袋","龜鹿湯塊75g","龜鹿湯塊300g","龜鹿湯塊600g","龜鹿膠600g","鹿茸粉75g","柒玄茶・龜鹿調飲粉"],
+    "品牌": ["萬華四代故事","補養是一種節奏","用料原則","品牌日常","小老闆與夥伴","產品資料清楚透明"],
+    "四季": ["春季日常","夏季清爽","秋季規律","冬季溫熱"],
+    "天氣關懷": ["晴天","悶熱","下雨","午後雷陣雨","早晚溫差","強風","寒冷","颱風","空氣品質"],
+    "場合": ["早餐前後","上班前","工作空檔","午休","下午休息","下班後","家庭晚餐","週末採買","家庭聚餐","拜訪長輩","節慶送禮","雨天宅家","出差外勤","料理備餐","晚間放鬆"],
+    "地點": ["居家客廳","居家廚房","餐桌","書房","辦公室","車上休息","公園","河濱","萬華街景","仙加味品牌展示空間","傳統市場","家庭餐廳"],
+    "料理": ["山藥雞湯","香菇雞湯","紅棗枸杞雞湯","排骨湯","蘿蔔排骨湯","玉米排骨湯","電鍋燉湯","家庭火鍋","週末雞湯","家常蔬菜湯","紅棗雞湯","保溫壺熱飲"],
+    "FAQ": ["30cc與180cc怎麼選","30cc罐型","180cc鋁袋","隔水加熱","保存方式","試喝流程","製作時間","官方LINE"]
+  },
+  "visualRules": {
+    "30cc": "42mm直徑×51mm高同型小玻璃罐；裸罐無貼紙；不可拉高拉胖",
+    "180cc": "正式原鋁袋狹長比例；寬高比約0.64；畫面縮小自然，不可過寬過高",
+    "guiluGao": "100g六角玻璃罐約51×78mm；只用新版貼紙",
+    "guiluJiao": "600g淡紫盒依原圖等比例；不可橫向拉長",
+    "mascot": "官網版Q版小老闆；米白中式上衣、深綠圍裙、紅色直式仙加味印章；小鹿＋小烏龜必須出現"
   },
   "platforms": {
-    "Facebook": {"enabled": true, "copyStyle": "完整敘述與互動提問"},
-    "Instagram": {"enabled": true, "copyStyle": "精簡段落與視覺優先"},
-    "LINE VOOM": {"enabled": true, "copyStyle": "短文與明確行動", "manualFallback": true},
-    "Google 商家最新動態": {"enabled": true, "copyStyle": "在地、品牌與活動資訊", "manualFallback": true}
+    "Facebook": {"enabled":true,"copyStyle":"完整敘述與互動提問"},
+    "Instagram": {"enabled":true,"copyStyle":"精簡段落與視覺優先"},
+    "LINE VOOM": {"enabled":true,"copyStyle":"短文與明確行動","manualFallback":true},
+    "Google 商家最新動態": {"enabled":true,"copyStyle":"在地、品牌與活動資訊","manualFallback":false}
   }
 }
