@@ -1,0 +1,27 @@
+{
+  "version": "2026-08-07-calendar-v1",
+  "timezone": "Asia/Taipei",
+  "defaultWeeklySlots": ["TU 19:30","SA 09:30"],
+  "rules": {
+    "specialContentMayReplaceUpcomingSlot": true,
+    "weatherAndEventPostsRequireLiveCheck": true,
+    "doNotPreScheduleTyphoonAirQualityBreakingNews": true,
+    "avoidSameProductConsecutive": true,
+    "avoidSameThemeConsecutive": true
+  },
+  "months": [
+    {"month":1,"themes":["冬季溫熱日常","年初節奏整理","料理","產品FAQ","品牌故事"],"season":"冬"},
+    {"month":2,"themes":["春節送禮","家庭聚餐","返鄉日常","品牌故事","產品怎麼選"],"season":"冬末春初"},
+    {"month":3,"themes":["春季換季","雨天準備","萬華散步","小老闆日常","FAQ"],"season":"春"},
+    {"month":4,"themes":["春日料理","清爽日常","家庭餐桌","品牌用料原則","產品介紹"],"season":"春"},
+    {"month":5,"themes":["母親節送禮情境","家庭陪伴","雨季準備","料理","品牌故事"],"season":"春末初夏"},
+    {"month":6,"themes":["端午節情境","梅雨季","悶熱天氣","龜鹿飲便利情境","FAQ"],"season":"夏"},
+    {"month":7,"themes":["高溫補水提醒","外勤與通勤","夏日居家","萬華在地","產品介紹"],"season":"夏"},
+    {"month":8,"themes":["父親節家庭情境","午後雷陣雨","工作空檔","龜鹿飲試喝","小老闆日常"],"season":"夏"},
+    {"month":9,"themes":["中秋節家庭聚餐","秋季轉換","送禮情境","料理","品牌故事"],"season":"秋"},
+    {"month":10,"themes":["早晚溫差","秋日料理","戶外與家庭","產品FAQ","萬華在地"],"season":"秋"},
+    {"month":11,"themes":["轉涼日常","溫熱料理","家庭晚餐","龜鹿膠與湯塊教育","品牌故事"],"season":"秋末冬初"},
+    {"month":12,"themes":["冬至暖湯","年末聚餐","送禮","年度回顧","新年節奏預告"],"season":"冬"}
+  ],
+  "rotationPillars": ["品牌","產品","四季","天氣","場合","地點","節慶","FAQ","料理","萬華在地","小老闆與夥伴"]
+}
