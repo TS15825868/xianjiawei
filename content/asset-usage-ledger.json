@@ -1,11 +1,28 @@
 {
-  "version": "2026-08-07-asset-ledger-v1",
+  "version": "2026-08-08-asset-ledger-v2",
   "policy": {
     "samePrimaryImageWithinDays": 90,
     "sameCopyWithinDays": 180,
     "recordAfterPublish": true,
     "publishedAssetCannotBeReusedWithoutReview": true
   },
-  "fields": ["asset_id","file_url","category","product_refs","post_id","platform","used_at","last_used_at","use_count","notes"],
-  "records": []
+  "fields": ["asset_id","file_url","category","product_refs","post_id","platform","used_at","last_used_at","use_count","notes","sha256","published_confirmed_on","published_exact_time_known","published_platforms_known"],
+  "records": [
+    {
+      "asset_id": "guilu-drink-trial-final-20260808",
+      "file_url": null,
+      "category": "試喝活動",
+      "product_refs": ["guilu-drink-30","guilu-drink-180"],
+      "post_id": "XJW-TRIAL-001",
+      "platform": null,
+      "used_at": null,
+      "last_used_at": null,
+      "use_count": 1,
+      "notes": "使用者已確認此1254×1254試喝主圖為最終版且已發布；確切發布時間與平台未提供，因此不猜測。90天內不得重複使用，除非再次人工審核。",
+      "sha256": "2546dd0c95ef78d6e97a8119ee18633c69f47c9b9e56c78e44aa9df6e15635b7",
+      "published_confirmed_on": "2026-08-08",
+      "published_exact_time_known": false,
+      "published_platforms_known": false
+    }
+  ]
 }
