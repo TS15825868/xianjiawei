@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-final-published-assets-v1",
+  "version": "2026-08-08-final-published-assets-v2",
   "authority": "user-confirmed-final-published",
   "updated_at_taipei": "2026-08-08T00:28:00+08:00",
   "assets": [
@@ -15,9 +15,11 @@
       "published_exact_time_known": false,
       "published_platforms_known": false,
       "source_filename": "A4909150-DE19-47F9-B5E1-D0E9B14484EF.jpeg",
-      "width_px": 1254,
-      "height_px": 1254,
-      "sha256": "2546dd0c95ef78d6e97a8119ee18633c69f47c9b9e56c78e44aa9df6e15635b7",
+      "source_width_px": 1254,
+      "source_height_px": 1254,
+      "source_sha256": "2546dd0c95ef78d6e97a8119ee18633c69f47c9b9e56c78e44aa9df6e15635b7",
+      "git_preview_url": "images/posts/final-published/guilu-drink-trial-final-20260808-preview.svg",
+      "git_preview_purpose": "只供發布中心辨識最終已發布版面，不取代已發布的1254×1254原圖",
       "creative_lock": {
         "headline": "龜鹿飲試喝組｜先試喝，再決定",
         "trial_offer": "3罐試喝品免費；運費自付",
