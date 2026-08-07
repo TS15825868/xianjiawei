@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-08-07T23:23:00+08:00",
+  "version": "2026-08-07-implementation-v1",
+  "brandUnification": {"status":"complete","publicBrand":"仙加味","publicCompanyInfoDefault":"hidden"},
+  "contentLibrary": {"status":"ready-for-review","target":500,"runtimeTotal":500,"copyGenerated":477,"basePosts":23,"newGeneratedStatus":"pending_review"},
+  "imageLibrary": {"status":"generation-queue","note":"500篇均有圖片情境與生成規則；尚未聲稱500張成品圖全部完成。所有新圖生成後必須進待審核。"},
+  "review": {"status":"active","dimensions":16,"automaticTextGuardian":true,"visualHumanReviewRequired":true},
+  "regenerateButtons": {"image":true,"copy":true,"all":true,"mode":"opens ChatGPT with current post and locked brand/product rules"},
+  "schedule": {"weekly":["TU 19:30","SA 09:30"],"immediatePublishBypass":true,"liveWeatherRecheck":true},
+  "platforms": {
+    "Facebook":{"configured":true,"officialApiPreferred":true},
+    "Instagram":{"configured":true,"officialApiPreferred":true},
+    "LINE OA":{"configured":true,"officialApiPreferred":true},
+    "LINE VOOM":{"configured":false,"manualRequired":true},
+    "Google 商家":{"configured":false,"note":"待完成Google伺服器端OAuth／商家帳戶與地點設定"}
+  },
+  "modules": {
+    "annualCalendar":"ready",
+    "assetUsageLedger":"schema-ready; actual records accumulate after publishing",
+    "contentPerformance":"schema-ready; actual metrics require platform results",
+    "partnerMode":"ready",
+    "brandGuardian":"active"
+  },
+  "repositories": {
+    "publicAuthority":"TS15825868/xianjiawei",
+    "erp":"TS15825868/xianjiawei-internal",
+    "line":"TS15825868/TS-LINE",
+    "privateHistory":"TS15825868/xianjiawei-internal-private"
+  }
+}
