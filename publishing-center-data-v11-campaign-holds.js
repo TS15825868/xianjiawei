@@ -11,6 +11,21 @@
     'POST-JIAO-600':'images/posts/generated-v20260808-priority1/guilu-jiao-600g.svg',
     'POST-COMBO':'images/posts/generated-v20260808-priority1/guilu-gao-drink-combo.svg'
   };
+  const REPLACEMENTS={
+    'XJW-WORK-REST-001':'images/posts/generated-v20260808-preflight/work-rest.svg',
+    'POST-STORAGE':'images/posts/generated-v20260808-preflight/storage.svg',
+    'POST-SEASONS-RHYTHM':'images/posts/generated-v20260808-preflight/four-seasons.svg',
+    'POST-INGREDIENT-PRINCIPLE':'images/posts/generated-v20260808-preflight/ingredient-principle.svg',
+    'POST-DAILY-SOUP':'images/posts/generated-v20260808-preflight/daily-soup.svg',
+    'POST-WEATHER-HOT':'images/posts/generated-v20260808-preflight/weather-hot.svg',
+    'POST-WEATHER-TEMP':'images/posts/generated-v20260808-preflight/weather-temp.svg',
+    'POST-WEATHER-RAIN':'images/posts/generated-v20260808-preflight/weather-rain.svg',
+    'POST-GUIDE':'images/posts/generated-v20260808-preflight/guide-use.svg',
+    'POST-STORE':'images/posts/generated-v20260808-preflight/contact-line.svg',
+    'POST-RECIPES':'images/posts/generated-v20260808-preflight/recipes.svg',
+    'POST-CHOOSE':'images/posts/generated-v20260808-preflight/choose-products.svg',
+    'POST-CHOOSE-BY-HABIT':'images/posts/generated-v20260808-preflight/choose-by-habit.svg'
+  };
   const PRECHECK_REJECT={
     'XJW-WORK-REST-001':'原候選使用 home-brand 品牌場景，與「工作空檔、喝溫水、放慢步調」情境不一致。',
     'POST-STORAGE':'原候選使用 FAQ 看板，沒有呈現冰箱、密封、防潮或乾燥收納，與保存主題不一致。',
@@ -34,57 +49,32 @@
       const data=await response.clone().json();
       const posts=(data.posts||[]).map(p=>{
         if(HOLD_IDS.has(p.id))return{
-          ...p,
-          status:'pending_review',
-          image_status:'campaign_hold',
-          campaign_hold:true,
-          campaign_hold_until:HOLD_UNTIL,
-          publish_allowed:false,
-          schedule_enabled:false,
-          scheduled_at:null,
-          owner_review_required:true,
-          approval_required:true,
+          ...p,status:'pending_review',image_status:'campaign_hold',campaign_hold:true,campaign_hold_until:HOLD_UNTIL,
+          publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,
           image_review_reason:'試喝最終主圖已於2026-08-08確認發布。為避免短期重複，這篇試喝變體暫緩至2026-11-06，屆時仍需重新審核後才可生圖或發布。'
         };
         const candidate=PRIORITY1[p.id];
         if(candidate&&p.status!=='published')return{
-          ...p,
-          status:'pending_review',
-          image_url:candidate,
-          image_status:'candidate-review-required',
-          candidate_generated:true,
-          candidate_generation_mode:'exact-official-original-composite',
-          candidate_generated_at:'2026-08-08T15:47:00+08:00',
-          publish_allowed:false,
-          schedule_enabled:false,
-          scheduled_at:null,
-          owner_review_required:true,
-          approval_required:true,
+          ...p,status:'pending_review',image_url:candidate,image_status:'candidate-review-required',candidate_generated:true,
+          candidate_generation_mode:'exact-official-original-composite',candidate_generated_at:'2026-08-08T15:47:00+08:00',
+          publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,
           image_review_reason:'第一優先批次已用官網正式產品原圖等比例合成1254×1254候選圖；產品本體未重畫、未裁切、未改包裝。仍須完成16項檢查後才可核准。'
         };
-        const rejectReason=PRECHECK_REJECT[p.id];
-        if(rejectReason&&p.status!=='published')return{
-          ...p,
-          status:'pending_review',
-          image_status:'needs_generation',
-          image_preflight:'rejected',
-          preflight_rejected:true,
-          publish_allowed:false,
-          schedule_enabled:false,
-          scheduled_at:null,
-          owner_review_required:true,
-          approval_required:true,
-          image_review_reason:`自動預檢退回：${rejectReason}`
+        const replacement=REPLACEMENTS[p.id];
+        if(replacement&&p.status!=='published')return{
+          ...p,status:'pending_review',image_url:replacement,image_status:'candidate-review-required',candidate_generated:true,
+          candidate_generation_mode:'strict-preflight-replacement',candidate_generated_at:'2026-08-08T19:04:00+08:00',
+          image_preflight:'replaced_after_reject',preflight_rejected_history:true,old_candidate_rejected:true,
+          publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,
+          image_review_reason:`舊候選已隔離並重做。原退回原因：${PRECHECK_REJECT[p.id]} 新候選仍須完成16項檢查後才可核准。`
         };
         return p;
       });
-      const merged={...data,version:'2026-08-08-public-posts-v14-strict-preflight',posts};
+      const merged={...data,version:'2026-08-08-public-posts-v15-preflight-replacements',posts};
       merged.counts={
-        ...(data.counts||{}),
-        total:posts.length,
-        campaign_hold:posts.filter(p=>p.campaign_hold).length,
-        priority1_candidate:posts.filter(p=>p.candidate_generated).length,
-        preflight_rejected:posts.filter(p=>p.preflight_rejected).length,
+        ...(data.counts||{}),total:posts.length,campaign_hold:posts.filter(p=>p.campaign_hold).length,
+        priority1_candidate:posts.filter(p=>p.candidate_generation_mode==='exact-official-original-composite').length,
+        preflight_replaced:posts.filter(p=>p.image_preflight==='replaced_after_reject').length,
         pending_review:posts.filter(p=>p.status==='pending_review'&&!p.campaign_hold).length,
         needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length
       };
