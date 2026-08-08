@@ -1,0 +1,36 @@
+name: 仙加味整站正式資料手動驗收
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xianjiawei-manual-canonical-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v5
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Validate formal release authority
+        run: python tools/validate-site-release.py
+
+      - name: Validate canonical product facts and publishing handoff
+        run: python tools/validate-canonical-facts-v20260808.py
+
+      - name: Validate official product originals and legacy-DM isolation
+        run: python tools/validate-official-originals-v20260808.py
+
+      - name: Ensure audit makes no repository changes
+        run: git diff --exit-code
