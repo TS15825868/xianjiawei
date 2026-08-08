@@ -1,1 +1,0 @@
-GitHub binary assets will be committed with create_blob/create_tree/create_commit once base tree resolution is confirmed.
