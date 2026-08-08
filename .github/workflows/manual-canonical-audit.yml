@@ -32,5 +32,14 @@ jobs:
       - name: Validate official product originals and legacy-DM isolation
         run: python tools/validate-official-originals-v20260808.py
 
+      - name: Validate public post image-state separation
+        run: python tools/audit-public-post-images-v20260808.py
+
+      - name: Validate priority1 exact-original candidates
+        run: python tools/audit-priority1-candidates-v20260808.py
+
+      - name: Validate public sitemap boundary
+        run: python tools/validate-public-boundary-v20260808.py
+
       - name: Ensure audit makes no repository changes
         run: git diff --exit-code
