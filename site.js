@@ -1,14 +1,15 @@
 "use strict";
 
-/* 全站入口 2026-08-08：載入核心、六項正式產品原圖安全層與正式規格顯示層。 */
+/* 全站入口 2026-08-08：載入核心、六項正式產品原圖安全層、正式規格顯示層與共用手機比例修正。 */
 (function () {
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260808-18";
+  const VERSION = "20260808-19";
   const CORE = `site-core-v410.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
   const VARIANTS = `site-official-product-variants.js?v=${VERSION}`;
+  const HOTFIX = `site-ux-v4104.css?v=${VERSION}`;
 
   function appendScript(src, onload) {
     const script = document.createElement("script");
@@ -17,14 +18,24 @@
     if (typeof onload === "function") script.onload = onload;
     document.head.appendChild(script);
   }
+  function appendStyle(href) {
+    if (document.querySelector(`link[href*="site-ux-v4104.css"]`)) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    document.head.appendChild(link);
+  }
   function loadSequentially() {
     appendScript(CORE, function () {
-      appendScript(SAFETY, function () { appendScript(VARIANTS); });
+      appendScript(SAFETY, function () {
+        appendScript(VARIANTS, function () { appendStyle(HOTFIX); });
+      });
     });
   }
   if (document.readyState === "loading") {
     document.write('<script src="' + CORE + '"><\/script>');
     document.write('<script src="' + SAFETY + '"><\/script>');
     document.write('<script src="' + VARIANTS + '"><\/script>');
+    document.write('<link rel="stylesheet" href="' + HOTFIX + '">');
   } else loadSequentially();
 })();
