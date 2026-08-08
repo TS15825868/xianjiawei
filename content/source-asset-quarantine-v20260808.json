@@ -1,0 +1,46 @@
+{
+  "version": "2026-08-08-source-asset-quarantine-v1",
+  "authority": "仙加味素材匯入與正式產品原圖隔離規則",
+  "updatedAt": "2026-08-08",
+  "rules": {
+    "exactDuplicateImport": "只保留一份，其餘排除，不建立第二個素材ID",
+    "nearDuplicateImport": "可保留為候選，但在16項檢查的重複圖欄位必須人工確認",
+    "legacyDmImport": "只可作歷史設計參考，不得作現行正式產品圖、dmImage、OG產品圖或社群產品本體",
+    "officialProductBody": "一律使用images/products-v3正式產品原圖等比例合成；AI只生成背景、角色、道具與情境"
+  },
+  "uploadedNewPostImageAudit": {
+    "source": "新貼文的圖(3).zip",
+    "exactDuplicates": [
+      {
+        "keep": "7C74B21C-FFAD-4315-BE75-6C501568B793.png",
+        "exclude": ["7C74B21C-FFAD-4315-BE75-6C501568B793 2.png"],
+        "match": "binary-identical",
+        "perceptualDistance": 0
+      }
+    ],
+    "nearDuplicateReview": [
+      {
+        "files": ["634C3476-6DBC-45CA-B8D4-4B3806CC0DAF.png", "8EC40D1A-C8B5-4871-B66C-9788912950F8.png"],
+        "perceptualDistance": 6,
+        "status": "manual-duplicate-review-required"
+      }
+    ]
+  },
+  "legacyDmQuarantine": [
+    "images/dm-final/01_guilu-gao-100g-dm.jpg",
+    "images/dm-final/02_guilu-drink-30cc-dm.jpg",
+    "images/dm-final/03_guilu-drink-180cc-dm.jpg",
+    "images/dm-final/04_luerong-fen-75g-dm.jpg",
+    "images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
+    "images/dm-final/06_guilu-jiao-600g-dm.jpg"
+  ],
+  "officialProductOriginals": {
+    "guilu-gao": "images/products-v3/guilu-gao.jpg",
+    "guilu-drink-30": "images/products-v3/guilu-drink-30.jpg",
+    "guilu-drink-180": "images/products-v3/guilu-drink-180.jpg",
+    "guilu-tangkuai": "images/products-v3/guilu-tangkuai.jpg",
+    "guilu-jiao": "images/products-v3/guilu-jiao.jpg",
+    "luerong-fen": "images/products-v3/luerong-fen.jpg"
+  },
+  "importStatus": "policy-active; raw ZIP assets are not considered published or approved until bound to a post and passed 16-point review"
+}
