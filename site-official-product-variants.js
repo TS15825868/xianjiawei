@@ -1,15 +1,17 @@
 "use strict";
 
-/* 仙加味正式產品規格顯示層 v4
- * 使用者確認：六個正式產品各只保留目前正式規格；龜鹿湯塊深藍盒只有75g／盒。
+/* 仙加味正式產品規格顯示層 v5
+ * 六個正式產品各只保留目前正式規格；龜鹿湯塊深藍盒只有75g／盒。
+ * 新錄影修正：手機比較卡的製作／出貨資訊不可誤標為「適合」。
  */
 (function () {
-  if (window.__XJW_OFFICIAL_VARIANTS_V4__) return;
-  window.__XJW_OFFICIAL_VARIANTS_V4__ = true;
+  if (window.__XJW_OFFICIAL_VARIANTS_V5__) return;
+  window.__XJW_OFFICIAL_VARIANTS_V5__ = true;
 
   const SOUP_ID = "guilu-tangkuai";
   const SOUP_SPEC = "75g／盒";
   const SOUP_DESCRIPTION = "龜鹿湯塊深藍盒目前唯一正式規格為75g／盒，可搭配熱水、保溫壺或家常燉湯。";
+  const FULFILLMENT_PATTERN = /預先製作備貨|接單製作|工作天|現貨|安排出貨|製作加工/;
 
   function setSpec(element, prefix = "規格：") {
     if (!element) return;
@@ -46,13 +48,22 @@
 
   function normalizeMobileCompare(root = document) {
     root.querySelectorAll?.(".mobile-compare-card").forEach((card) => {
-      if (!String(card.querySelector("h3")?.textContent || "").includes("龜鹿湯塊")) return;
-      const specTerm = Array.from(card.querySelectorAll("dt")).find((item) => item.textContent.trim() === "規格");
-      const spec = specTerm?.nextElementSibling;
-      if (spec) {
-        spec.textContent = SOUP_SPEC;
-        spec.dataset.officialSoupSpec = "75g-only";
+      if (String(card.querySelector("h3")?.textContent || "").includes("龜鹿湯塊")) {
+        const specTerm = Array.from(card.querySelectorAll("dt")).find((item) => item.textContent.trim() === "規格");
+        const spec = specTerm?.nextElementSibling;
+        if (spec) {
+          spec.textContent = SOUP_SPEC;
+          spec.dataset.officialSoupSpec = "75g-only";
+        }
       }
+      card.querySelectorAll("dt").forEach((term) => {
+        const value = term.nextElementSibling;
+        if (!value || value.tagName !== "DD") return;
+        if (FULFILLMENT_PATTERN.test(String(value.textContent || ""))) {
+          term.textContent = "出貨";
+          term.dataset.xjwFulfillmentLabel = "1";
+        }
+      });
     });
   }
 
@@ -83,6 +94,7 @@
     soupProductId: SOUP_ID,
     soupSpecifications: [SOUP_SPEC],
     overviewDisplay: SOUP_SPEC,
-    singleSpecOnly: true
+    singleSpecOnly: true,
+    fulfillmentLabel: "出貨"
   });
 })();
