@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-ai-brand-control-v6-advisory-guardian",
+  "version": "2026-08-08-ai-brand-control-v7-canonical-facts",
   "authority": "user-confirmed",
   "brand": {
     "publicName": "仙加味",
@@ -23,7 +23,16 @@
       "龜鹿膠 600g（1斤）／盒",
       "鹿茸粉 75g／罐"
     ],
+    "canonicalFacts": {
+      "guiluGao": {"ingredients":["鹿角萃取物","龜板萃取物","枸杞","紅棗","黃耆","粉光蔘"],"usagePrimary":"每日早上及下午各一小匙","usageNotes":["初次可先從半匙開始","可直接取用或以約100～300mL熱水化開","避免接近睡前食用"]},
+      "guiluDrink30": {"ingredients":["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],"usagePrimary":"每日一罐"},
+      "guiluDrink180": {"ingredients":["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],"usagePrimary":"每日一包"},
+      "guiluTangkuai": {"ingredients":["龜板萃取物","鹿角萃取物"]},
+      "guiluJiao": {"ingredients":["龜板萃取物","鹿角萃取物"]},
+      "luerongFen": {"ingredients":["鹿茸"]}
+    },
     "rejectUnknownProductSpecs": true,
+    "rejectLegacyProductFacts": true,
     "soupBlockRule": "龜鹿湯塊深藍盒只有75g／盒；不得建立其他容量或把龜鹿膠規格套用到龜鹿湯塊"
   },
   "contentTaxonomy": ["品牌故事","產品介紹","四季","天氣","場合","地點","節慶","FAQ","料理","萬華在地","門市日常","小老闆","小鹿","小烏龜","河馬娃娃","小鹿安撫巾","合作夥伴素材"],
@@ -37,7 +46,7 @@
     "queueSummary": {"publishedLocked":3,"campaignHold":11,"activeGenerationRequired":471,"candidateReviewRequired":15,"total":500},
     "buttonBehavior": {
       "imageMismatch": "複製完整貼文、正式產品規格、情境與錯誤原因後開啟ChatGPT，由ChatGPT重新生成圖片",
-      "copyMismatch": "複製完整貼文資料與品牌規範後開啟ChatGPT，由ChatGPT重新撰寫文案",
+      "copyMismatch": "複製完整貼文資料、正式成分、使用資料與品牌規範後開啟ChatGPT，由ChatGPT重新撰寫文案",
       "regenerateAll": "複製完整資料後開啟ChatGPT，由ChatGPT重做文案與圖片"
     },
     "authorityInjection": ["catalog-public.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
@@ -61,6 +70,7 @@
     "guiluGao": "100g／罐；六角玻璃罐約51×78mm；只使用目前新版米白標籤，中央金框龜鹿膏、深紅直式仙加味印章",
     "guiluTangkuai": "75g／盒；深藍正式盒裝；8塊裝、每塊約9.375g；只使用正式原圖，不得建立其他容量或套用龜鹿膠包裝",
     "guiluJiao": "600g（1斤）／盒｜32塊裝｜每塊約18.75g；淡紫正式盒裝照原圖等比例，紫盒不可橫向拉長",
+    "luerongFen": "75g／罐；白色塑膠罐正式原圖等比例",
     "mascot": "官網版Q版小老闆：米白中式上衣、深綠圍裙、紅色直式仙加味印章，圍裙下方有小鹿與小烏龜圖樣；小老闆出現時小鹿與小烏龜必須一起出現",
     "optionalCompanions": "灰色小河馬娃娃、米色小鹿安撫巾只在居家、休息、陪伴、親子等合適情境出現",
     "text": "繁體中文；圖片短標題優先；長文案放正文；不談療效、不誇張推銷",
@@ -75,7 +85,7 @@
     "assetUsageLedger":{"enabled":true,"purpose":"記錄圖片與素材最後使用日期、平台、貼文ID，避免短期重複"},
     "contentPerformance":{"enabled":true,"purpose":"記錄平台、主題、發布時段、觸及、互動、點擊與轉換，供後續輪替優化"},
     "partnerMode":{"enabled":true,"purpose":"提供中藥店／中醫診所可下載品牌素材；合作夥伴版不強迫導流至仙加味，保護通路關係"},
-    "brandGuardian":{"enabled":false,"blockingBeforeApproval":false,"mode":"advisory-until-full-system-accepted","checks":["公司資訊外洩","錯誤產品","錯誤規格","錯誤包裝","30cc誤稱瓶或加貼紙","180cc鋁袋比例錯誤","龜鹿湯塊不是75g深藍盒","龜鹿膠淡紫盒拉長","小老闆造型錯誤","夥伴缺漏","季節天氣衝突","圖文不符","重複圖"],"note":"系統未全部驗收前維持提示模式；正式產品資料本身仍禁止寫入未確認規格。"}
+    "brandGuardian":{"enabled":false,"blockingBeforeApproval":false,"mode":"advisory-until-full-system-accepted","checks":["公司資訊外洩","錯誤產品","錯誤規格","錯誤成分／舊使用資料","錯誤包裝","30cc誤稱瓶或加貼紙","180cc鋁袋比例錯誤","龜鹿湯塊不是75g深藍盒","龜鹿膠淡紫盒拉長","小老闆造型錯誤","夥伴缺漏","季節天氣衝突","圖文不符","重複圖"],"note":"系統未全部驗收前維持提示模式；正式產品資料本身仍禁止寫入未確認規格或舊版正式事實。"}
   },
   "statusPolicy": {"generatedContent":"pending_review","autoApprove":false,"autoPublishBeforeApproval":false,"publishedContentLockedAgainstDuplicatePublish":true}
 }
