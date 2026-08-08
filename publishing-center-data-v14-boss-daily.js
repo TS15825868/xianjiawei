@@ -1,20 +1,32 @@
 (()=>{
   const PREV_FETCH=window.fetch.bind(window);
   const TARGET='content/public-post-library.json';
-  const PUBLIC='https://ts15825868.github.io/xianjiawei/';
-  const SOURCES=['welcome.jpg','recommend.jpg','faq.jpg','brand.jpg','combo.jpg','usage.jpg','service.jpg','products.jpg'];
-  const svgs=new Map(),urls=new Map();
-  const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const cut=(s='',n=42)=>{const t=String(s).replace(/\s+/g,' ').trim();return t.length>n?t.slice(0,n-1)+'…':t};
-  const hash=(s='')=>[...String(s)].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);
-  function eligible(p){return p&&p.status!=='published'&&!p.campaign_hold&&p.category==='小老闆與夥伴'&&(p.image_status==='needs_generation'||!p.image_url)}
-  function build(p){
-    const seed=hash(p.id),src=PUBLIC+'images/brand/line-oa/'+SOURCES[seed%SOURCES.length],variant=seed%4;
-    const heroX=[635,80,620,110][variant],textX=[80,650,80,650][variant],heroW=520;
-    const clip=`h${variant}`;
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="1254" height="1254" viewBox="0 0 1254 1254"><defs><clipPath id="${clip}"><rect x="${heroX}" y="260" width="${heroW}" height="690" rx="48"/></clipPath></defs><rect width="1254" height="1254" fill="#F7F4ED"/><style>text{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}.n{fill:#0B1F3B}.g{fill:#315A49}.m{fill:#667085}</style><text x="76" y="80" class="g" font-size="30" font-weight="700">仙加味</text><rect x="1000" y="46" width="178" height="54" rx="16" fill="#9B2C2C"/><text x="1089" y="80" fill="#fff" font-size="17" text-anchor="middle" font-weight="700">補養，是一種節奏。</text><line x1="76" y1="126" x2="1178" y2="126" stroke="#D9D1C4" stroke-width="2"/><image href="${src}" x="${heroX-70}" y="260" width="${heroW+180}" height="690" preserveAspectRatio="xMaxYMid slice" clip-path="url(#${clip})"/><rect x="${textX}" y="300" width="500" height="610" rx="42" fill="#FFFDF9" stroke="#DED7CA" stroke-width="2"/><text x="${textX+36}" y="380" class="n" font-size="42" font-weight="800">小老闆日常</text><text x="${textX+36}" y="440" class="g" font-size="27" font-weight="700">${esc(cut(p.occasion||p.title||'',18))}</text><text x="${textX+36}" y="520" class="m" font-size="23">網站正式Q版母型</text><text x="${textX+36}" y="565" class="m" font-size="23">米白中式上衣・深綠圍裙</text><text x="${textX+36}" y="610" class="m" font-size="23">紅色直式「仙加味」識別</text><path d="M${textX+40} 720 C${textX+155} 625 ${textX+285} 800 ${textX+430} 670" fill="none" stroke="#D8C7A8" stroke-width="26" stroke-linecap="round"/><text x="${textX+36}" y="835" class="n" font-size="25" font-weight="700">${esc(cut(p.copy||'',28))}</text><rect x="76" y="1000" width="1102" height="112" rx="28" fill="#F2EFE8"/><text x="102" y="1046" class="m" font-size="21">候選圖 ${esc(p.id)}｜正式網站角色來源｜版型 ${variant+1}</text><text x="102" y="1082" class="m" font-size="20">不強制夥伴・不重畫產品・待16項人工審核</text><line x1="76" y1="1150" x2="1178" y2="1150" stroke="#D9D1C4"/><text x="76" y="1192" class="m" font-size="20">小老闆姿勢可變，臉型、髮型、服裝與畫風固定</text></svg>`;
+  const VERSION='2026-08-09-v14-chatgpt-full-boss-required';
+  function eligible(p){return p&&p.status!=='published'&&!p.campaign_hold&&p.category==='小老闆與夥伴'&&(p.image_status==='needs_generation'||!p.image_url||String(p.candidate_generation_mode||'').includes('website-boss-daily-v14'))}
+  function fix(p){
+    if(!eligible(p))return p;
+    const context=[p.season,p.weather,p.occasion,p.location].filter(Boolean).join('／')||'依文案判斷';
+    const prompt=`依貼文文案重生成一張完整1:1「仙加味小老闆日常」候選圖。情境：${context}。小老闆使用官網 approved-v405 同款柔和立體Q版：圓臉、大而圓的深棕眼睛、短黑髮、米白中式上衣、深橄欖綠圍裙、胸前紅色直式仙加味印章。姿勢依文案自然變化；頭、頭髮、雙手、雙腳與持物必須完整，四周至少保留約8%安全空間。不得直接裁切LINE OA專用圖，不得用cover/slice/clipPath做角色聚焦。季節、環境、冷熱、表情與動作必須匹配文案。沒有必要就不要放產品；需要產品時只合成products-v3正式原圖並遵守實際尺寸比例。`;
+    return{
+      ...p,
+      status:'pending_review',
+      image_url:null,
+      image_asset_id:null,
+      image_status:'needs_generation',
+      candidate_generated:false,
+      candidate_generation_mode:'chatgpt-boss-daily-v14-required',
+      publish_allowed:false,
+      schedule_enabled:false,
+      scheduled_at:null,
+      owner_review_required:true,
+      approval_required:true,
+      image_prompt:prompt,
+      image_review_reason:'舊v14使用LINE OA角色圖並以slice／clipPath裁切，違反官網角色完整顯示與素材分流規則；已退回依文案重新生成。'
+    };
   }
-  function candidate(p){const svg=build(p);svgs.set(p.id,svg);if(urls.has(p.id))URL.revokeObjectURL(urls.get(p.id));const url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));urls.set(p.id,url);return{...p,image_asset_id:`boss-v14-${p.id}`,image_url:url,image_status:'candidate-review-required',candidate_generated:true,candidate_generation_mode:'website-boss-daily-v14',candidate_generated_at:'2026-08-08T21:37:00+08:00',image_preflight:'approved-website-boss-source-pending-human-review',publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,image_review_reason:'使用官網 approved-v405 衍生角色場景，右側聚焦正式Q版小老闆；四種版面輪替。仍須完成16項人工審核。'}}
-  window.fetch=async function(input,init){const url=typeof input==='string'?input:(input?.url||'');const response=await PREV_FETCH(input,init);if(!url.includes(TARGET)||!response.ok)return response;try{const data=await response.clone().json();const posts=(data.posts||[]).map(p=>eligible(p)?candidate(p):p);const merged={...data,version:'2026-08-08-public-posts-v19-boss-daily',posts};merged.counts={...(data.counts||{}),boss_daily_v14:posts.filter(p=>p.candidate_generation_mode==='website-boss-daily-v14').length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length};const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers})}catch{return response}};
-  window.XJWBossCandidateFactory={version:'2026-08-08-v14',getSvg:id=>svgs.get(id)||'',has:id=>svgs.has(id),getStats:()=>({generated:svgs.size})};
+  window.fetch=async function(input,init){
+    const url=typeof input==='string'?input:(input?.url||'');const response=await PREV_FETCH(input,init);if(!url.includes(TARGET)||!response.ok)return response;
+    try{const data=await response.clone().json();const posts=(data.posts||[]).map(fix);const merged={...data,version:'2026-08-09-public-posts-v29-v14-regeneration-required',posts};merged.counts={...(data.counts||{}),v14_needs_generation:posts.filter(p=>p.candidate_generation_mode==='chatgpt-boss-daily-v14-required').length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length};const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers})}catch{return response}
+  };
+  window.XJWBossCandidateFactory={version:VERSION,getSvg:()=>'',has:()=>false,getStats:()=>({generated:0,regenerationRequired:true})};
 })();
