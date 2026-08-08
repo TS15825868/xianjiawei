@@ -1,0 +1,32 @@
+{
+  "version": "2026-08-09-character-b2-prompts-v1",
+  "batch": "CHAR-B2-COMPANIONS",
+  "count": 16,
+  "status": "generation-ready",
+  "sharedRules": {
+    "output": "1:1 candidate-review-required",
+    "mascot": "官網 approved-v405 同款柔和立體Q版小老闆，完整不裁切，約8%安全空間",
+    "companions": "小鹿與小烏龜為與小老闆分開的獨立Q版角色；灰色小河馬必須是娃娃；米色小鹿安撫巾必須是布偶安撫巾道具",
+    "product": "這批原則不放任何產品",
+    "seasonWeather": "文案未指定時保持中性季節與中性天氣",
+    "forbidden": ["LINE OA裁切角色", "簡單向量重畫陪伴角色", "把河馬畫成活體角色", "把安撫巾畫成活鹿", "裁頭裁手裁腳", "自動發布"]
+  },
+  "entries": [
+    {"postId":"XJW-CHARACTER-001","companion":"小鹿","variant":1,"direction":"公園草地邊的小步道，小老闆放慢腳步散步，小鹿在旁邊保持獨立位置一起前進；兩者不重疊、不牽繩，氣氛安靜自然。"},
+    {"postId":"XJW-CHARACTER-004","companion":"小烏龜","variant":1,"direction":"書房木桌旁，小老闆整理一本記事本，小烏龜作為獨立Q版角色在桌邊矮凳上安靜陪伴；不可畫成玩具或貼在圍裙上。"},
+    {"postId":"XJW-CHARACTER-007","companion":"灰色小河馬娃娃","variant":1,"direction":"居家客廳，小老闆坐在地毯邊整理靠枕，灰色小河馬娃娃放在沙發角落作陪伴道具；娃娃材質柔軟、有縫線感，不是活體河馬。"},
+    {"postId":"XJW-CHARACTER-010","companion":"米色小鹿安撫巾","variant":1,"direction":"居家客廳，小老闆坐在矮桌旁閱讀卡片，米色小鹿安撫巾整齊放在旁邊坐墊上；必須明顯是柔軟布巾＋小鹿頭造型的安撫物。"},
+    {"postId":"XJW-CHARACTER-013","companion":"小鹿","variant":2,"direction":"公園樹蔭下，小老闆站著看前方，小鹿在稍後方停下看向小老闆；保持彼此獨立完整，背景不加產品或節慶元素。"},
+    {"postId":"XJW-CHARACTER-016","companion":"小烏龜","variant":2,"direction":"書房矮櫃前，小老闆把資料夾放回櫃子，小烏龜在地面小坐墊旁陪伴；角色分開、不裁切，畫面有安靜整理感。"},
+    {"postId":"XJW-CHARACTER-019","companion":"灰色小河馬娃娃","variant":2,"direction":"居家休息角落，小老闆替椅子鋪好小毯子，灰色小河馬娃娃靠在抱枕旁；娃娃只作道具，比例不要大到像真人角色。"},
+    {"postId":"XJW-CHARACTER-022","companion":"米色小鹿安撫巾","variant":2,"direction":"居家窗邊，小老闆整理一個小收納籃，米色小鹿安撫巾從籃緣自然露出；安撫巾保持布料形態，不畫成獨立鹿角色。"},
+    {"postId":"XJW-CHARACTER-025","companion":"小鹿","variant":3,"direction":"公園長椅旁，小老闆站著伸展一下肩膀，小鹿在長椅另一側安靜站立；兩者完整分離，畫面留足邊界安全空間。"},
+    {"postId":"XJW-CHARACTER-028","companion":"小烏龜","variant":3,"direction":"書房地毯旁，小老闆把散落的筆收進筆筒，小烏龜在矮桌另一側抬頭陪伴；不要放產品，不做卡通貼紙式合成。"},
+    {"postId":"XJW-CHARACTER-031","companion":"灰色小河馬娃娃","variant":3,"direction":"居家沙發旁，小老闆把灰色小河馬娃娃輕放到靠枕中間，再整理一旁小毯子；娃娃保持玩偶尺寸與布偶質感。"},
+    {"postId":"XJW-CHARACTER-034","companion":"米色小鹿安撫巾","variant":3,"direction":"居家閱讀角，小老闆坐在地毯上整理書本，米色小鹿安撫巾平放在旁邊小墊子；色調柔和、明確是布巾道具。"},
+    {"postId":"XJW-CHARACTER-037","companion":"小鹿","variant":4,"direction":"公園小徑入口，小老闆微笑向旁邊的小鹿示意一起往前走，小鹿保持獨立完整Q版造型；不牽手、不疊在角色身上。"},
+    {"postId":"XJW-CHARACTER-040","companion":"小烏龜","variant":4,"direction":"書房窗邊，小老闆整理桌上的小卡片，小烏龜在窗下低矮平台上陪伴；兩個角色視線可以互相呼應，但身體分開完整。"},
+    {"postId":"XJW-CHARACTER-043","companion":"灰色小河馬娃娃","variant":4,"direction":"居家休息場景，小老闆坐在小凳子上喝溫水，灰色小河馬娃娃放在旁邊沙發上；杯中無冰，娃娃不是活體角色。"},
+    {"postId":"XJW-CHARACTER-046","companion":"米色小鹿安撫巾","variant":4,"direction":"居家收納場景，小老闆把米色小鹿安撫巾折好放入開放式小籃，保留小鹿頭造型可辨識；角色全身完整，不放產品。"}
+  ]
+}
