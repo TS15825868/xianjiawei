@@ -47,6 +47,13 @@ def main():
         "POST-CHOOSE": "images/posts/candidates-v20260809/choose.svg",
         "POST-CHOOSE-BY-HABIT": "images/posts/candidates-v20260809/choose-by-habit.svg",
     }
+    mascot_reuse = {
+        "XJW-CHARACTER-006": "images/brand/approved-v405/home-brand.webp",
+        "XJW-CHARACTER-008": "images/brand/approved-v405/choose.webp",
+        "XJW-CHARACTER-011": "images/brand/approved-v405/guide-how-to-use.webp",
+        "XJW-CHARACTER-012": "images/brand/approved-v405/recipes.webp",
+        "XJW-CHARACTER-014": "images/brand/approved-v405/faq.webp",
+    }
 
     canonical = data("data.json")
     catalog = data("catalog-public.json")
@@ -108,6 +115,7 @@ def main():
     policy = data("content/public-content-policy.json")
     queue = data("content/image-generation-queue-v20260808.json")
     asset_overrides = data("content/public-asset-status-overrides-v20260809.json")
+    char_authority = data("content/character-regeneration-authority-v20260809.json")
 
     req("images/products-v2/" not in v8, "v8仍綁 products-v2")
     req("generated-v20260808-priority1/product-overview.svg" not in v8, "v8仍把舊多產品SVG當候選")
@@ -116,12 +124,10 @@ def main():
     req("images/products-v2/" not in v12, "v12仍會生成 products-v2 候選")
     req("if(productIds(p).length>1)return false" in v12, "v12仍可能自動假生成多產品候選")
 
-    character_layers = [
+    for label, source, mode in [
         ("v13", v13, "chatgpt-character-scene-v13-required"),
-        ("v14", v14, "chatgpt-boss-daily-v14-required"),
         ("v15", v15, "chatgpt-companion-v15-required"),
-    ]
-    for label, source, mode in character_layers:
+    ]:
         req(mode in source, f"{label} 未切到正式ChatGPT重生成模式")
         req("image_status:'needs_generation'" in source, f"{label} 未維持needs_generation")
         req("images/brand/line-oa/" not in source, f"{label} 仍混用LINE OA專用角色素材")
@@ -129,6 +135,13 @@ def main():
         req("preserveAspectRatio=" not in source, f"{label} 仍含舊slice／preserveAspectRatio裁切程式")
         req("完整" in source and "不得裁切" in source, f"{label} 缺少角色完整不裁切規則")
     req("簡單SVG" in v15 or "簡單向量" in v15, "v15未明確禁止未核准向量陪伴角色")
+
+    req("SAFE_EXISTING" in v14 and "approved-v405-semantic-reuse-v14" in v14, "v14未建立精準核准官網圖重用")
+    req("chatgpt-boss-daily-v14-required" in v14, "v14剩餘貼文未維持重生成")
+    req("approvedExistingCandidate:5" in v14 and "regenerationRequired:27" in v14, "v14應為5張安全重用＋27篇重生成")
+    req("images/brand/line-oa/" not in v14, "v14仍混用LINE OA專用角色素材")
+    for pid, path in mascot_reuse.items():
+        req(pid in v14 and path in v14, f"v14缺少安全角色重用：{pid}")
 
     req("LEGACY_MULTI_SVG" in v16 and "generated-v20260808" in v16, "v16未攔截內嵌舊產品圖SVG")
     req("SAFE_PREFLIGHT" in v16 and "BATCH5_CANDIDATES" in v16, "v16未套用預檢安全替代／第一批產品候選")
@@ -156,9 +169,14 @@ def main():
     req(queue["knownProductReviewCandidates"]["count"] == 5, "第一批產品候選必須是5篇")
     req(set(queue["knownProductReviewCandidates"]["post_ids"]) == set(batch5_paths), "第一批產品候選ID不一致")
     req(queue["knownSafePreflightReplacement"]["count"] == 10, "安全預檢替代清單必須是10篇")
-    req(queue["knownCharacterSceneRegeneration"]["count"] == 120, "角色場景重生成必須記錄120篇")
-    req(queue["knownCharacterSceneRegeneration"]["breakdown"] == {"v13FestivalLocationWanhua": 72, "v14BossDaily": 32, "v15Companions": 16}, "v13／v14／v15角色重生成分布錯誤")
-    req(queue["summary"]["knownForcedRegenerationMinimum"] == 120, "已知需重生成最低數量應為120篇")
+    req(queue["knownCharacterSafeReuseCandidates"]["count"] == 5, "精準官網角色重用候選必須是5篇")
+    req(set(queue["knownCharacterSafeReuseCandidates"]["bindings"]) == set(mascot_reuse), "角色安全重用ID不一致")
+    req(queue["knownCharacterSceneRegeneration"]["count"] == 115, "角色場景剩餘重生成必須記錄115篇")
+    req(queue["knownCharacterSceneRegeneration"]["breakdown"] == {"v13FestivalLocationWanhua": 72, "v14BossDaily": 27, "v15Companions": 16}, "v13／v14／v15角色剩餘重生成分布錯誤")
+    req(queue["summary"]["knownForcedRegenerationMinimum"] == 115, "已知需重生成最低數量應為115篇")
+
+    req(char_authority["originalInvalidCharacterCandidates"] == 120, "角色原始不合格總數必須保留120")
+    req(char_authority["safeApprovedWebsiteReuse"] == 5 and char_authority["totalKnownRegeneration"] == 115, "角色母本應記錄5張安全重用與115篇剩餘重生成")
 
     deprecated_override_ids = {item["id"] for item in asset_overrides["deprecatedAssets"]}
     req(deprecated_override_ids == {"preflight-guide-use", "preflight-choose-products", "preflight-choose-by-habit"}, "預檢舊products-v2 SVG降級清單錯誤")
@@ -166,7 +184,7 @@ def main():
     req(set(asset_overrides["productReviewCandidateBindings"]) == set(batch5_paths), "素材狀態覆寫的第一批5張產品候選ID錯誤")
     req(asset_overrides["forcedRegenerationPostIds"] == [], "第一批5篇已有候選後，不應仍列強制重生成")
 
-    print("PASS formal v20260809: products-v3, physical scale, trial lock, 5 product review candidates, 10 safe replacements, 120 character regenerations, no cropped LINE mascot candidates")
+    print("PASS formal v20260809: products-v3, physical scale, trial lock, 5 product review candidates, 5 exact mascot reuses, 10 safe replacements, 115 character regenerations")
 
 
 if __name__ == "__main__":
