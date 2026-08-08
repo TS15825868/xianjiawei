@@ -56,11 +56,14 @@
   }
   function cardInfo(button){
     const card=button.closest('.post-card');
+    const rawImage=card?.querySelector('.image-wrap img')?.getAttribute('src')||'';
     return{
       id:button.dataset.now||card?.dataset?.id||'',
       title:card?.querySelector('h2')?.textContent?.trim()||'',
       copy:card?.querySelector('.excerpt')?.textContent?.trim()||'',
-      image:absoluteImage(card?.querySelector('.image-wrap img')?.getAttribute('src')||''),
+      rawImage,
+      image:absoluteImage(rawImage),
+      localImageNotTransferable:/^(?:data|blob):/i.test(String(rawImage||'').trim()),
       platforms:[...card?.querySelectorAll('.platform-chip')||[]].map((node)=>node.textContent.trim()).filter(Boolean)
     };
   }
@@ -72,11 +75,8 @@
       const runtime=await runtimePosts();
       version=runtime.version;
       source=runtime.posts.find((post)=>post.id===card.id)||null;
-    }catch(error){
-      console.warn('runtime post lookup failed',error);
-    }
-    const sourceImage=absoluteImage(card.image||source?.image_url||'');
-    const localImageNotTransferable=Boolean(card.image&&/^data:/i.test(card.image));
+    }catch(error){console.warn('runtime post lookup failed',error);}
+    const sourceImage=card.localImageNotTransferable?'':absoluteImage(card.image||source?.image_url||'');
     const payload={
       schema:'xjw-public-to-erp-v1',
       source_post_id:card.id,
@@ -91,7 +91,7 @@
       image_status:String(source?.image_status||''),
       candidate_generation_mode:String(source?.candidate_generation_mode||''),
       source_page:location.href.split('#')[0],
-      local_image_requires_upload:localImageNotTransferable,
+      local_image_requires_upload:card.localImageNotTransferable,
       imported_as:'draft',
       approval_required:true,
       auto_publish:false
@@ -105,11 +105,12 @@
       `分類：${payload.category}`,
       `平台：${(payload.platforms||[]).join('、')}`,
       `候選圖：${payload.image_url||'尚無可傳遞圖片'}`,
+      payload.local_image_requires_upload?'公開頁目前使用本機替換圖：此圖不塞進網址，請進ERP後用裝置上傳。':'',
       '',
       'ERP會建立「草稿」；不會自動核准、不會自動排程、不會自動發布。',
       '若候選為正式原圖SVG，ERP在審核前會自動轉成1254×1254 JPEG並存入媒體庫。',
       '完成16項檢查並人工核准後，才可排程或立即發布。'
-    ].join('\n');
+    ].filter(Boolean).join('\n');
     await copy(text);
     toast('完整貼文已準備交接，正在開啟 ERP 建立安全草稿');
     window.open(erpUrl,'_blank','noopener');
@@ -123,22 +124,16 @@
     const metric=document.getElementById('metricLocal');
     const label=metric?.parentElement?.querySelector('small');
     if(label)label.textContent='本機補登';
-    document.querySelectorAll('.status').forEach(node=>{
-      if(node.textContent.trim()==='本機已發布')node.textContent='本機補登已發布';
-    });
+    document.querySelectorAll('.status').forEach(node=>{if(node.textContent.trim()==='本機已發布')node.textContent='本機補登已發布';});
   }
 
   migrateLegacyFakePublish();
   document.addEventListener('click',event=>{
     const button=event.target.closest?.('[data-now]');
     if(!button)return;
-    event.preventDefault();
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    handoff(button);
+    event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();handoff(button);
   },true);
-  const observer=new MutationObserver(enhance);
-  observer.observe(document.documentElement,{childList:true,subtree:true});
+  const observer=new MutationObserver(enhance);observer.observe(document.documentElement,{childList:true,subtree:true});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{enhance();if(window.__XJW_PUBLIC_PUBLISH_MIGRATED__)setTimeout(()=>location.reload(),80)},{once:true});
   else{enhance();if(window.__XJW_PUBLIC_PUBLISH_MIGRATED__)setTimeout(()=>location.reload(),80)}
 })();
