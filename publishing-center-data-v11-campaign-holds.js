@@ -11,6 +11,16 @@
     'POST-JIAO-600':'images/posts/generated-v20260808-priority1/guilu-jiao-600g.svg',
     'POST-COMBO':'images/posts/generated-v20260808-priority1/guilu-gao-drink-combo.svg'
   };
+  const PRECHECK_REJECT={
+    'XJW-WORK-REST-001':'原候選使用 home-brand 品牌場景，與「工作空檔、喝溫水、放慢步調」情境不一致。',
+    'POST-STORAGE':'原候選使用 FAQ 看板，沒有呈現冰箱、密封、防潮或乾燥收納，與保存主題不一致。',
+    'POST-SEASONS-RHYTHM':'原四季候選四格重複同一張 home-brand 圖，只靠色塊區分季節，未實際呈現春夏秋冬環境。',
+    'POST-INGREDIENT-PRINCIPLE':'原候選嵌入已標記 deprecated-reference-only 的 products-all 舊全系列圖，即使降低透明度仍不可使用。',
+    'POST-DAILY-SOUP':'原候選直接嵌入 recipes 舊場景；若其中出現產品，不能保證只使用現行75g深藍龜鹿湯塊正式原圖。',
+    'POST-WEATHER-HOT':'原候選把 home-brand 室內品牌圖套上太陽與暖色，未真正呈現悶熱外出／分次補水環境。',
+    'POST-WEATHER-TEMP':'原候選把 home-brand 室內品牌圖套上日夜符號，未真正呈現早晚溫差與攜帶薄外套情境。',
+    'POST-WEATHER-RAIN':'原候選把 home-brand 室內品牌圖套上雨線，未真正呈現窗外雨景、收傘與室內溫水情境。'
+  };
   window.fetch=async function(input,init){
     const url=typeof input==='string'?input:(input?.url||'');
     const response=await PREV_FETCH(input,init);
@@ -47,10 +57,32 @@
           approval_required:true,
           image_review_reason:'第一優先批次已用官網正式產品原圖等比例合成1254×1254候選圖；產品本體未重畫、未裁切、未改包裝。仍須完成16項檢查後才可核准。'
         };
+        const rejectReason=PRECHECK_REJECT[p.id];
+        if(rejectReason&&p.status!=='published')return{
+          ...p,
+          status:'pending_review',
+          image_status:'needs_generation',
+          image_preflight:'rejected',
+          preflight_rejected:true,
+          publish_allowed:false,
+          schedule_enabled:false,
+          scheduled_at:null,
+          owner_review_required:true,
+          approval_required:true,
+          image_review_reason:`自動預檢退回：${rejectReason}`
+        };
         return p;
       });
-      const merged={...data,version:'2026-08-08-public-posts-v12-priority1-candidates',posts};
-      merged.counts={...(data.counts||{}),total:posts.length,campaign_hold:posts.filter(p=>p.campaign_hold).length,priority1_candidate:posts.filter(p=>p.candidate_generated).length,pending_review:posts.filter(p=>p.status==='pending_review'&&!p.campaign_hold).length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length};
+      const merged={...data,version:'2026-08-08-public-posts-v13-preflight-rejects',posts};
+      merged.counts={
+        ...(data.counts||{}),
+        total:posts.length,
+        campaign_hold:posts.filter(p=>p.campaign_hold).length,
+        priority1_candidate:posts.filter(p=>p.candidate_generated).length,
+        preflight_rejected:posts.filter(p=>p.preflight_rejected).length,
+        pending_review:posts.filter(p=>p.status==='pending_review'&&!p.campaign_hold).length,
+        needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length
+      };
       const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');
       return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});
     }catch{return response}
