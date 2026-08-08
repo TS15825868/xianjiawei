@@ -1,1 +1,0 @@
-temporary capability check; safe to delete
