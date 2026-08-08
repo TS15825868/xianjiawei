@@ -3,7 +3,7 @@
   const TARGET='content/public-post-library.json';
   const FINAL_TRIAL_ID='XJW-TRIAL-001';
   const FINAL_ASSET_ID='guilu-drink-trial-final-20260808';
-  const FINAL_PREVIEW='images/posts/final-published/guilu-drink-trial-final-20260808-preview.svg';
+  const FINAL_WEB='images/posts/final-published/guilu-drink-trial-final-20260808-web.svg';
   window.fetch=async function(input,init){
     const url=typeof input==='string'?input:(input?.url||'');
     const response=await PREV_FETCH(input,init);
@@ -14,8 +14,9 @@
         ...p,
         status:'published',
         image_asset_id:FINAL_ASSET_ID,
-        image_url:FINAL_PREVIEW,
+        image_url:FINAL_WEB,
         image_status:'approved-published-final-locked',
+        image_source:'user-confirmed-final-poster-github-web-display',
         owner_review_required:false,
         approval_required:false,
         publish_allowed:false,
@@ -28,9 +29,9 @@
         published_exact_time_known:false,
         published_platforms_known:false,
         final_asset_manifest:'content/final-published-assets-v20260808.json',
-        image_review_reason:'使用者已確認此試喝圖為最終版且已發布；鎖定、不重生成、不重發。發布中心使用縮圖預覽辨識，正式已發布原圖以使用者確認版本為準。'
+        image_review_reason:'使用者已確認此試喝圖為最終版且已發布；發布中心直接顯示GitHub正式Web衍生版。1254×1254來源母本SHA保持鎖定，不重生成、不重發。'
       }:p);
-      const merged={...data,version:'2026-08-08-public-posts-v10-final-trial-locked',posts};
+      const merged={...data,version:'2026-08-09-public-posts-v10-final-trial-web-locked',posts};
       merged.counts={...(data.counts||{}),total:posts.length,published_locked:posts.filter(p=>p.status==='published'||p.prevent_republish===true).length,pending_review:posts.filter(p=>p.status==='pending_review').length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published')).length};
       const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');
       return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});
