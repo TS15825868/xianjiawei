@@ -3,11 +3,12 @@
 /* 仙加味正式產品資料圖片權威層｜2026-08-08
  * 在 site-core 讀取 data.json 前即將所有產品主圖映射到 products-v2 實際產品照片。
  * products-v3 與 dm-final 只保留宣傳版面用途，不再成為產品卡、詳頁、OG 或結構化資料主圖。
+ * 同步清理錄影中仍可見的「五種型態・六項規格」舊說法。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
-  const VERSION='20260808-21-products-v2-source';
+  const VERSION='20260808-22-products-v2-source';
   const OFFICIAL=Object.freeze({
     'guilu-gao':`images/products-v2/guilu-gao.jpeg?v=${VERSION}`,
     'guilu-drink-30':`images/products-v2/guilu-drink-30.jpeg?v=${VERSION}`,
@@ -58,6 +59,21 @@
       try{const value=JSON.parse(script.textContent||'{}');if(value&&value['@type']==='Product'){value.image=absolute;script.textContent=JSON.stringify(value)}}catch{}
     });
   }
+  function normalizeVisibleCopy(root=document){
+    const walker=document.createTreeWalker(root.body||root,NodeFilter.SHOW_TEXT);
+    const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+    for(const node of nodes){
+      const text=String(node.nodeValue||'');
+      if(text.includes('五種型態・六項規格')) node.nodeValue=text.replaceAll('五種型態・六項規格','六個正式產品・六個正式規格');
+      if(text.includes('五種型態、六項規格')) node.nodeValue=String(node.nodeValue||'').replaceAll('五種型態、六項規格','六個正式產品、六個正式規格');
+    }
+  }
+  function startCopyGuard(){
+    normalizeVisibleCopy();
+    const observer=new MutationObserver(()=>normalizeVisibleCopy());
+    observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true});
+  }
   normalizeHead();
-  window.XJWProductDataAuthority=Object.freeze({version:VERSION,official:OFFICIAL,normalizeData,normalizeHead});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startCopyGuard,{once:true});else startCopyGuard();
+  window.XJWProductDataAuthority=Object.freeze({version:VERSION,official:OFFICIAL,normalizeData,normalizeHead,normalizeVisibleCopy});
 })();
