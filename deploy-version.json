@@ -1,8 +1,8 @@
 {
-  "version": "2026-08-08-canonical-v11-brand-content-final-trial-lock",
+  "version": "2026-08-08-canonical-v12-six-single-specs",
   "updated": "2026-08-08",
   "status": "source-updated-deployment-not-yet-verified",
-  "catalog": "six-official-product-families-with-three-soup-variants",
+  "catalog": "six-official-products-six-single-specs",
   "contentAuthority": {
     "publishingCenter": "publishing-center.html",
     "runtimeContentTotal": 500,
@@ -17,12 +17,20 @@
     "partnerMode": "content/partner-mode-policy.json"
   },
   "productAuthority": {
-    "familyCount": 6,
-    "soupVariants": ["75g／盒｜8塊裝｜每塊約9.375g","300g／盒｜16塊裝｜每塊約18.75g","600g／盒｜32塊裝｜每塊約18.75g"],
-    "removed": ["龜鹿湯塊150g"],
-    "guiluDrink30": "30cc／罐（小玻璃罐）；裸罐、無貼紙、無外盒、無外袋、金色蓋；同型約42×51mm；不得拉高拉胖",
+    "productCount": 6,
+    "sellableSpecificationCount": 6,
+    "specifications": [
+      "龜鹿膏 100g／罐",
+      "龜鹿飲30cc玻璃罐 30cc／罐",
+      "龜鹿飲180cc鋁袋 180cc／包",
+      "龜鹿湯塊 75g／盒",
+      "龜鹿膠 600g（1斤）／盒",
+      "鹿茸粉 75g／罐"
+    ],
+    "guiluTangkuai": "75g／盒｜8塊裝｜每塊約9.375g；深藍正式盒裝；不得建立其他龜鹿湯塊容量",
+    "guiluDrink30": "30cc／罐（小玻璃罐）；裸罐、無貼紙、無外盒、無外袋、金色蓋；同型約42×51mm；不得拉高拉胖；不得稱瓶",
     "guiluDrink180": "180cc／包（鋁袋）；狹長直立；寬高比約0.64；不得拉寬或加高",
-    "guiluGao": "100g／罐；六角玻璃罐約51×78mm；只使用現行新版米白標籤；舊紅白直式貼紙禁止",
+    "guiluGao": "100g／罐；六角玻璃罐約51×78mm；只使用現行新版米白標籤",
     "guiluJiao": "600g（1斤）／盒｜32塊裝｜每塊約18.75g；淡紫盒依原圖等比例；不得橫向拉長"
   },
   "imagePolicy": {
@@ -44,8 +52,6 @@
     "userConfirmedFinalAndPublishedOn": "2026-08-08",
     "exactCurrentPublishTimeKnown": false,
     "exactCurrentPublishPlatformsKnown": false,
-    "oldV412Poster": "published-history-superseded",
-    "otherTrialVariantsHoldUntil": "2026-11-06",
     "preventRepublish": true,
     "doNotRegenerate": true
   },
@@ -61,7 +67,10 @@
     "paidOpenAITextApiForRegeneration": false,
     "newContentStatus": "pending_review",
     "autoApprove": false,
-    "autoPublishBeforeApproval": false
+    "autoPublishBeforeApproval": false,
+    "productAuthoritySource": "catalog-public.json",
+    "visualAuthoritySource": "content/visual-production-spec-v20260807.json",
+    "rejectUnknownProductSpecs": true
   },
   "schedule": {
     "timezone": "Asia/Taipei",
@@ -82,5 +91,5 @@
     "companyInfoOnlyWhenRequired": true,
     "partnerProtectionMode": true
   },
-  "safety": "no-redrawn-product-packaging-no-public-company-data-by-default-no-duplicate-posting-no-paid-background-generation"
+  "safety": "six-single-spec-authority-no-redrawn-product-packaging-no-public-company-data-by-default-no-duplicate-posting-no-paid-background-generation"
 }
