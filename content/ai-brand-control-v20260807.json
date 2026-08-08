@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-ai-brand-control-v7-canonical-facts",
+  "version": "2026-08-08-ai-brand-control-v8-website-chibi",
   "authority": "user-confirmed",
   "brand": {
     "publicName": "仙加味",
@@ -43,13 +43,13 @@
     "paidOpenAITextApiEnabledForRegeneration": false,
     "reason": "不增加額外付費API；有問題時直接交由ChatGPT處理",
     "imageGenerationQueue": "content/image-generation-queue-v20260808.json",
-    "queueSummary": {"publishedLocked":3,"campaignHold":11,"activeGenerationRequired":471,"candidateReviewRequired":15,"total":500},
+    "queueSummary": {"publishedLocked":3,"campaignHold":11,"activeGenerationRequired":465,"candidateReviewRequired":21,"total":500},
     "buttonBehavior": {
       "imageMismatch": "複製完整貼文、正式產品規格、情境與錯誤原因後開啟ChatGPT，由ChatGPT重新生成圖片",
       "copyMismatch": "複製完整貼文資料、正式成分、使用資料與品牌規範後開啟ChatGPT，由ChatGPT重新撰寫文案",
       "regenerateAll": "複製完整資料後開啟ChatGPT，由ChatGPT重做文案與圖片"
     },
-    "authorityInjection": ["catalog-public.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
+    "authorityInjection": ["catalog-public.json","brand-character-spec.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
     "returnFlow": "ChatGPT處理完成後，新文案／新圖放回待審核；完成16項檢查後才能核准",
     "noApiKeyInPublicFrontend": true,
     "noBackgroundPaidGeneration": true
@@ -71,12 +71,13 @@
     "guiluTangkuai": "75g／盒；深藍正式盒裝；8塊裝、每塊約9.375g；只使用正式原圖，不得建立其他容量或套用龜鹿膠包裝",
     "guiluJiao": "600g（1斤）／盒｜32塊裝｜每塊約18.75g；淡紫正式盒裝照原圖等比例，紫盒不可橫向拉長",
     "luerongFen": "75g／罐；白色塑膠罐正式原圖等比例",
-    "mascot": "官網版Q版小老闆：米白中式上衣、深綠圍裙、紅色直式仙加味印章，圍裙下方有小鹿與小烏龜圖樣；小老闆出現時小鹿與小烏龜必須一起出現",
+    "mascot": "只使用 images/brand/approved-v405/ 同款網站柔和立體Q版小老闆：圓臉、大眼、短黑髮、米白中式上衣、深綠圍裙、胸前紅色直式仙加味印章。姿勢可自由變化，但臉型、髮型、服裝與畫風不可變。",
+    "mascotCompanions": "小鹿與小烏龜不是每張強制出現；情境需要夥伴時才加入，且必須是分開的獨立角色、同一Q版質感，不可融合。",
     "optionalCompanions": "灰色小河馬娃娃、米色小鹿安撫巾只在居家、休息、陪伴、親子等合適情境出現",
     "text": "繁體中文；圖片短標題優先；長文案放正文；不談療效、不誇張推銷",
     "duplicate": "同一主圖90天內不得重複；同一文案180天內不得重複"
   },
-  "workflow": ["內容庫建立文案與圖片需求","注入正式產品權威資料","依圖片佇列排序","16項圖文檢查提示","不符合則交由ChatGPT重做","使用者審核通過","加入排程","自動發布可用官方API的平台","LINE VOOM人工發布包","發布結果回寫ERP"],
+  "workflow": ["內容庫建立文案與圖片需求","注入正式產品權威資料與網站小老闆母規格","依圖片佇列排序","16項圖文檢查提示","不符合則交由ChatGPT重做","使用者審核通過","加入排程","自動發布可用官方API的平台","LINE VOOM人工發布包","發布結果回寫ERP"],
   "regenerateActions": ["圖不符合 → ChatGPT重新生成","文案不符合 → ChatGPT重新生成","全部重新生成"],
   "schedule": {"timezone":"Asia/Taipei","weekly":["TU 19:30","SA 09:30"],"immediatePublishBypassesSchedule":true,"specialContentMayReplaceUpcomingSlot":true,"liveWeatherRequiresRecheck":true,"liveWeatherTypes":["天氣","颱風","寒流","高溫","空氣品質","重大即時事件"]},
   "rotation": {"avoidSameProductConsecutive":true,"avoidSameCategoryConsecutive":true,"pillars":["品牌","產品","天氣","四季","場合","地點","節慶","FAQ","料理","萬華故事","小老闆與夥伴"],"targetLibrarySize":500},
@@ -85,7 +86,7 @@
     "assetUsageLedger":{"enabled":true,"purpose":"記錄圖片與素材最後使用日期、平台、貼文ID，避免短期重複"},
     "contentPerformance":{"enabled":true,"purpose":"記錄平台、主題、發布時段、觸及、互動、點擊與轉換，供後續輪替優化"},
     "partnerMode":{"enabled":true,"purpose":"提供中藥店／中醫診所可下載品牌素材；合作夥伴版不強迫導流至仙加味，保護通路關係"},
-    "brandGuardian":{"enabled":false,"blockingBeforeApproval":false,"mode":"advisory-until-full-system-accepted","checks":["公司資訊外洩","錯誤產品","錯誤規格","錯誤成分／舊使用資料","錯誤包裝","30cc誤稱瓶或加貼紙","180cc鋁袋比例錯誤","龜鹿湯塊不是75g深藍盒","龜鹿膠淡紫盒拉長","小老闆造型錯誤","夥伴缺漏","季節天氣衝突","圖文不符","重複圖"],"note":"系統未全部驗收前維持提示模式；正式產品資料本身仍禁止寫入未確認規格或舊版正式事實。"}
+    "brandGuardian":{"enabled":false,"blockingBeforeApproval":false,"mode":"advisory-until-full-system-accepted","checks":["公司資訊外洩","錯誤產品","錯誤規格","錯誤成分／舊使用資料","錯誤包裝","30cc誤稱瓶或加貼紙","180cc鋁袋比例錯誤","龜鹿湯塊不是75g深藍盒","龜鹿膠淡紫盒拉長","小老闆畫風或服裝錯誤","夥伴出現時造型錯誤或融合","季節天氣衝突","圖文不符","重複圖"],"note":"系統未全部驗收前維持提示模式；正式產品資料本身仍禁止寫入未確認規格或舊版正式事實。"}
   },
   "statusPolicy": {"generatedContent":"pending_review","autoApprove":false,"autoPublishBeforeApproval":false,"publishedContentLockedAgainstDuplicatePublish":true}
 }
