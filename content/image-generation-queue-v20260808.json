@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-image-generation-queue-v4-priority1-candidates",
+  "version": "2026-08-08-image-generation-queue-v5-current-authority",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "summary": {
@@ -23,7 +23,7 @@
   "priorityBatches": [
     {
       "priority": 1,
-      "name": "修正6張舊產品候選圖",
+      "name": "6張正式原圖候選已生成｜待16項審核",
       "count": 6,
       "status": "generated_pending_16_point_review",
       "generated_at": "2026-08-08T15:47:00+08:00",
@@ -36,19 +36,21 @@
         "POST-JIAO-600": "images/posts/generated-v20260808-priority1/guilu-jiao-600g.svg",
         "POST-COMBO": "images/posts/generated-v20260808-priority1/guilu-gao-drink-combo.svg"
       },
-      "reason": "第一批改用正式產品原圖等比例合成，不讓生成式AI重畫包裝。SVG只作候選審核；ERP在核准、立即發布或手動發布包前會自動轉1254×1254 JPEG並上傳媒體庫。"
+      "reason": "第一批已改用正式產品原圖等比例合成，不讓生成式AI重畫包裝。SVG只作候選審核；ERP在核准、立即發布或手動發布包前會自動轉1254×1254 JPEG並上傳媒體庫。"
     },
     {
       "priority": 2,
       "name": "近期8月內容",
       "count": 64,
-      "selection": "從小老闆與夥伴、父親節／家庭、午後雷陣雨、工作空檔、產品FAQ、萬華在地、日常節奏中挑選，不重複試喝主圖。",
-      "rules": "天氣類只建立候選圖，發布前再查當日天氣；所有圖先待審核。"
+      "status": "generation_required",
+      "selection": "從小老闆、父親節／家庭、午後雷陣雨、工作空檔、產品FAQ、萬華在地、日常節奏中挑選，不重複試喝主圖。",
+      "rules": "小老闆只用網站approved-v405同款Q版，姿勢自由；夥伴依情境加入。天氣類只建立候選圖，發布前再查當日天氣；所有圖先待審核。"
     },
     {
       "priority": 3,
       "name": "產品與FAQ常青內容",
       "count": 96,
+      "status": "generation_required",
       "selection": "產品、FAQ、保存、使用、怎麼選、資料透明、合作夥伴素材。",
       "rules": "產品本體只用正式原圖等比例合成；生成前先讀取六項正式產品權威資料。"
     },
@@ -56,15 +58,17 @@
       "priority": 4,
       "name": "四季與日常情境",
       "count": 128,
+      "status": "generation_required",
       "selection": "春夏秋冬、場合、地點、工作、家庭、休息、料理。",
-      "rules": "季節、衣著、冷熱、動作、環境全部匹配文案。"
+      "rules": "季節、衣著、冷熱、動作、環境全部匹配文案；小老闆可換姿勢但不可換畫風。"
     },
     {
       "priority": 5,
       "name": "品牌萬華節慶與夥伴",
       "count": 177,
+      "status": "generation_required",
       "selection": "品牌、萬華、節慶、門市日常、小老闆、小鹿、小烏龜、河馬娃娃、小鹿安撫巾、合作夥伴等剩餘內容。",
-      "rules": "節慶日期與即時事件發布前再確認；陪伴角色只在合適情境出現。"
+      "rules": "節慶日期與即時事件發布前再確認；小鹿與小烏龜不是每張強制出現，陪伴角色只在合適情境加入。"
     }
   ],
   "existingCandidateNeeds16PointReview": {
@@ -76,7 +80,7 @@
     "mode": "chatgpt_handoff_plus_exact_original_composite",
     "paidOpenAIApi": false,
     "newImageStatus": "pending_review",
-    "authoritySources": ["catalog-public.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
+    "authoritySources": ["catalog-public.json","brand-character-spec.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
     "rejectUnknownProductSpecs": true,
     "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"]
   },
@@ -87,5 +91,11 @@
     "guiluTangkuai": "75g深藍盒；8塊裝、每塊約9.375g；只使用正式原圖，不建立其他容量",
     "guiluJiao": "600g（1斤）淡紫盒、32塊裝、每塊約18.75g；等比例，禁止橫向拉長",
     "luerongFen": "75g白色塑膠罐；正式原圖等比例"
+  },
+  "mascotLock": {
+    "reference": "images/brand/approved-v405/",
+    "style": "網站同款柔和立體Q版小老闆",
+    "pose": "任何符合情境的姿勢皆可",
+    "companions": "小鹿與小烏龜依情境加入，出現時必須分開且維持同一Q版質感"
   }
 }
