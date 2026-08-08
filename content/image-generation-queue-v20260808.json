@@ -1,12 +1,12 @@
 {
-  "version": "2026-08-08-image-generation-queue-v8-preflight-replacements",
+  "version": "2026-08-08-image-generation-queue-v12-complete-candidate-coverage",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "summary": {
     "publishedFinalLocked": 3,
     "campaignHold": 11,
-    "generationRequiredActive": 465,
-    "existingCandidateNeeds16PointReview": 21,
+    "generationRequiredActive": 0,
+    "existingCandidateNeeds16PointReview": 486,
     "priority1GeneratedPendingReview": 6,
     "preflightRejectedNeedsRegeneration": 0,
     "preflightRejectedReplaced": 13,
@@ -14,13 +14,23 @@
   },
   "publishedFinalLocked": [
     {"post_id":"POST-BRAND-START","reason":"既有品牌故事已發布鎖定"},
-    {"post_id":"POST-GUILU-DRINK-TRIAL-EVERGREEN","reason":"既有試喝貼文發布歷史；現行最終主圖已取代舊海報，只保留歷史、不再重發舊圖"},
+    {"post_id":"POST-GUILU-DRINK-TRIAL-EVERGREEN","reason":"既有試喝貼文發布歷史；只保留歷史，不重發舊圖"},
     {"post_id":"XJW-TRIAL-001","asset_id":"guilu-drink-trial-final-20260808","reason":"2026-08-08確認最終版且已發布；不重生成、不重發"}
   ],
   "campaignHold": {
     "ids": ["XJW-TRIAL-002","XJW-TRIAL-003","XJW-TRIAL-004","XJW-TRIAL-005","XJW-TRIAL-006","XJW-TRIAL-007","XJW-TRIAL-008","XJW-TRIAL-009","XJW-TRIAL-010","XJW-TRIAL-011","XJW-TRIAL-012"],
     "hold_until": "2026-11-06",
-    "reason": "同一試喝主活動已發布最終主圖；依90天主圖與活動去重規則，其他試喝變體暫不生成主圖、不排程、不發布。到期後仍需人工重審。"
+    "reason": "同一試喝主活動已發布最終主圖；依90天主圖與活動去重規則，其他試喝變體不排程、不發布。到期後仍需人工重審。"
+  },
+  "runtimeCandidateCoverage": {
+    "existingBeforeRuntimeLayers": 21,
+    "v12SafeNonCharacter": 345,
+    "v13FestivalLocationWanhua": 72,
+    "v14BossDaily": 32,
+    "v15Companions": 16,
+    "candidateReviewTotal": 486,
+    "generationRequired": 0,
+    "rule": "缺圖已清零；486張仍只是候選，未完成16項人工審核前不得發布。"
   },
   "priorityBatches": [
     {
@@ -28,61 +38,31 @@
       "name": "13張嚴格預檢替代候選已重做｜待16項審核",
       "count": 13,
       "status": "generated_pending_16_point_review",
-      "generated_at": "2026-08-08T19:04:00+08:00",
       "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
-      "assets": {
-        "XJW-WORK-REST-001":"images/posts/generated-v20260808-preflight/work-rest.svg",
-        "POST-STORAGE":"images/posts/generated-v20260808-preflight/storage.svg",
-        "POST-SEASONS-RHYTHM":"images/posts/generated-v20260808-preflight/four-seasons.svg",
-        "POST-INGREDIENT-PRINCIPLE":"images/posts/generated-v20260808-preflight/ingredient-principle.svg",
-        "POST-DAILY-SOUP":"images/posts/generated-v20260808-preflight/daily-soup.svg",
-        "POST-WEATHER-HOT":"images/posts/generated-v20260808-preflight/weather-hot.svg",
-        "POST-WEATHER-TEMP":"images/posts/generated-v20260808-preflight/weather-temp.svg",
-        "POST-WEATHER-RAIN":"images/posts/generated-v20260808-preflight/weather-rain.svg",
-        "POST-GUIDE":"images/posts/generated-v20260808-preflight/guide-use.svg",
-        "POST-STORE":"images/posts/generated-v20260808-preflight/contact-line.svg",
-        "POST-RECIPES":"images/posts/generated-v20260808-preflight/recipes.svg",
-        "POST-CHOOSE":"images/posts/generated-v20260808-preflight/choose-products.svg",
-        "POST-CHOOSE-BY-HABIT":"images/posts/generated-v20260808-preflight/choose-by-habit.svg"
-      },
-      "rules": "舊候選已隔離。新生活／天氣／料理圖不畫產品；產品選擇／使用圖只嵌products-v3正式原圖。全部仍需16項人工審核。"
+      "rules": "舊候選已隔離；新生活／天氣／料理圖不畫產品；產品選擇／使用圖只嵌products-v3正式原圖。"
     },
     {
       "priority": 1,
       "name": "6張正式原圖候選已生成｜待16項審核",
       "count": 6,
       "status": "generated_pending_16_point_review",
-      "generated_at": "2026-08-08T15:47:00+08:00",
-      "post_ids": ["POST-PRODUCT-OVERVIEW","POST-GAO-100","POST-DRINK-30","POST-DRINK-180","POST-JIAO-600","POST-COMBO"],
-      "assets": {
-        "POST-PRODUCT-OVERVIEW": "images/posts/generated-v20260808-priority1/product-overview.svg",
-        "POST-GAO-100": "images/posts/generated-v20260808-priority1/guilu-gao-100g.svg",
-        "POST-DRINK-30": "images/posts/generated-v20260808-priority1/guilu-drink-30cc.svg",
-        "POST-DRINK-180": "images/posts/generated-v20260808-priority1/guilu-drink-180cc.svg",
-        "POST-JIAO-600": "images/posts/generated-v20260808-priority1/guilu-jiao-600g.svg",
-        "POST-COMBO": "images/posts/generated-v20260808-priority1/guilu-gao-drink-combo.svg"
-      },
-      "reason": "正式產品原圖等比例合成，不讓生成式AI重畫包裝。"
+      "post_ids": ["POST-PRODUCT-OVERVIEW","POST-GAO-100","POST-DRINK-30","POST-DRINK-180","POST-JIAO-600","POST-COMBO"]
     },
     {
       "priority": 1.5,
       "name": "2張正式單品原圖｜待版面審核",
       "count": 2,
       "status": "official_reference_pending_layout_review",
-      "post_ids": ["POST-SOUP-75","POST-LUERONG"],
-      "rules": "龜鹿湯塊只用75g深藍盒正式原圖；鹿茸粉只用75g白色塑膠罐正式原圖。"
+      "post_ids": ["POST-SOUP-75","POST-LUERONG"]
     },
-    {"priority":2,"name":"近期8月內容","count":64,"status":"generation_required","rules":"小老闆只用網站approved-v405同款Q版；天氣類發布前再查當日資訊。"},
-    {"priority":3,"name":"產品與FAQ常青內容","count":96,"status":"generation_required","rules":"產品本體只用正式原圖等比例合成。"},
-    {"priority":4,"name":"四季與日常情境","count":128,"status":"generation_required","rules":"季節、衣著、冷熱、動作、環境全部匹配文案。"},
-    {"priority":5,"name":"品牌萬華節慶與夥伴","count":177,"status":"generation_required","rules":"節慶與即時事件發布前再確認；夥伴依情境加入。"}
+    {"priority":2,"name":"v12安全非角色候選","count":345,"status":"generated_pending_16_point_review","rules":"產品若出現只引用正式products-v3原圖；其他生活圖不硬塞產品。"},
+    {"priority":3,"name":"v13節慶／地點／萬華角色場景","count":72,"status":"generated_pending_16_point_review","rules":"使用官網approved-v405衍生Q版小老闆來源。"},
+    {"priority":4,"name":"v14小老闆日常","count":32,"status":"generated_pending_16_point_review","rules":"8張網站正式角色場景與4種版面輪替；姿勢情境仍需人工審核。"},
+    {"priority":5,"name":"v15陪伴角色","count":16,"status":"generated_pending_16_point_review","rules":"小鹿、小烏龜、灰色小河馬娃娃、米色小鹿安撫巾各自獨立候選；造型需特別人工確認。"}
   ],
   "existingCandidateNeeds16PointReview": {
-    "count": 21,
-    "preflightReplacementCount": 13,
-    "priority1Count": 6,
-    "officialSingleProductCount": 2,
-    "rule": "舊不合格圖已隔離；新候選仍不能直接發布，必須完成16項檢查。"
+    "count": 486,
+    "rule": "候選不能直接發布；必須完成16項檢查。陪伴角色v15如風格不符，直接用ChatGPT重生成。"
   },
   "preflightHistory": {
     "rejectedOldCount": 13,
@@ -91,7 +71,7 @@
     "rule": "保留舊圖退回原因供稽核，但發布中心只讀新替代候選。"
   },
   "generationRouting": {
-    "mode": "chatgpt_handoff_plus_exact_original_composite",
+    "mode": "runtime_safe_svg_plus_chatgpt_handoff",
     "paidOpenAIApi": false,
     "newImageStatus": "pending_review",
     "authoritySources": ["catalog-public.json","brand-character-spec.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
@@ -106,5 +86,10 @@
     "guiluJiao": "600g（1斤）淡紫盒、32塊裝、每塊約18.75g；等比例，禁止橫向拉長",
     "luerongFen": "75g白色塑膠罐；正式原圖等比例"
   },
-  "mascotLock": {"reference":"images/brand/approved-v405/","style":"網站同款柔和立體Q版小老闆","pose":"任何符合情境的姿勢皆可","companions":"小鹿與小烏龜依情境加入，出現時必須分開且維持同一Q版質感"}
+  "mascotLock": {
+    "reference": "images/brand/approved-v405/",
+    "style": "網站同款柔和立體Q版小老闆",
+    "pose": "任何符合情境的姿勢皆可",
+    "companions": "小鹿與小烏龜依情境加入；灰色小河馬娃娃與米色小鹿安撫巾只在陪伴情境使用；所有陪伴角色候選仍需人工確認。"
+  }
 }
