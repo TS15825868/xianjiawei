@@ -1,8 +1,18 @@
 {
-  "version": "2026-08-08-post-bank-v15-preflight-replacements",
+  "version": "2026-08-08-post-bank-v20-complete-candidate-coverage",
   "authority": "TS15825868/xianjiawei",
   "baseLibrary": "content/public-post-library.json",
-  "extensions": ["publishing-center-data-v6.js","publishing-center-data-v7.js","publishing-center-data-v8-fixes.js","publishing-center-data-v10-published-locks.js","publishing-center-data-v11-campaign-holds.js"],
+  "extensions": [
+    "publishing-center-data-v6.js",
+    "publishing-center-data-v7.js",
+    "publishing-center-data-v8-fixes.js",
+    "publishing-center-data-v10-published-locks.js",
+    "publishing-center-data-v11-campaign-holds.js",
+    "publishing-center-data-v12-auto-candidates.js",
+    "publishing-center-data-v13-character-scenes.js",
+    "publishing-center-data-v14-boss-daily.js",
+    "publishing-center-data-v15-companions.js"
+  ],
   "publishingCenter": "publishing-center.html",
   "visualSpec": "content/visual-production-spec-v20260807.json",
   "aiBrandControl": "content/ai-brand-control-v20260807.json",
@@ -23,11 +33,21 @@
     "publishedLockedInGenerated": 1,
     "publishedLockedTotal": 3,
     "campaignHold": 11,
-    "activeImageGenerationRequired": 465,
-    "existingCandidateNeeds16PointReview": 21,
+    "activeImageGenerationRequired": 0,
+    "existingCandidateNeeds16PointReview": 486,
     "preflightRejectedNeedsRegeneration": 0,
     "preflightRejectedReplaced": 13,
     "newGeneratedPostsStatus": "pending_review"
+  },
+  "runtimeCandidateCoverage": {
+    "v12SafeNonCharacter": 345,
+    "v13FestivalLocationWanhua": 72,
+    "v14BossDaily": 32,
+    "v15Companions": 16,
+    "existingBeforeV12": 21,
+    "candidateReviewTotal": 486,
+    "missingImageTotal": 0,
+    "rule": "候選覆蓋完整不等於人工核准；所有486張仍需16項審核。"
   },
   "generatorAuthority": {
     "v6": "300篇：產品48、日常節奏48、四季48、天氣關懷48、料理48、品牌24、FAQ24、試喝12",
@@ -57,7 +77,7 @@
   "generatedCopyQueueByPillar": {
     "產品": 48,"日常節奏": 48,"四季": 48,"天氣關懷": 48,"料理": 48,"品牌": 24,"FAQ": 48,"試喝活動": 12,"節慶": 24,"地點": 24,"萬華在地": 24,"小老闆與夥伴": 32,"陪伴角色": 16,"合作夥伴素材": 24,"門市日常": 9
   },
-  "imageWorkflow": "自動預檢先隔離確定不合格舊圖；替代候選生成後仍回待審核。產品本體只能用正式原圖等比例合成；生活／天氣／料理候選可不出產品；已發布最終母版不重生成；試喝變體冷卻期間不發布。",
+  "imageWorkflow": "500篇已無缺圖待生成；486張為候選待16項審核。產品本體只能使用正式原圖等比例合成；網站小老闆使用approved-v405衍生來源；陪伴角色候選需特別人工確認造型。已發布最終母版不重生成；試喝變體冷卻期間不發布。",
   "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
   "liveChecks": ["天氣","颱風","寒流","高溫","空氣品質","重大即時事件"],
   "schedule": ["星期二 19:30","星期六 09:30"],
