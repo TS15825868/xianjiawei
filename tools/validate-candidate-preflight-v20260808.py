@@ -18,6 +18,12 @@ REJECTED={
     'POST-CHOOSE',
     'POST-CHOOSE-BY-HABIT',
 }
+QUARANTINED_ASSETS={
+    'post-09','post-12','post-13','post-14',
+    'generated-daily-soup','generated-four-seasons',
+    'generated-weather-hot','generated-weather-temp','generated-weather-rain',
+    'generated-choose-habit','generated-ingredient-principle',
+}
 
 def load(path):
     return json.loads((ROOT/path).read_text(encoding='utf-8'))
@@ -29,6 +35,7 @@ def main():
     queue=load('content/image-generation-queue-v20260808.json')
     manifest=load('content/post-bank-v6-manifest.json')
     deploy=load('deploy-version.json')
+    assets=load('content/public-asset-library.json')
     runtime=text('publishing-center-data-v11-campaign-holds.js')
 
     summary=queue['summary']
@@ -54,6 +61,17 @@ def main():
     assert deploy['candidatePreflight']['rejectedCount']==13
     assert set(deploy['candidatePreflight']['rejectedPostIds'])==REJECTED
 
+    bindings=assets.get('preflightRejectedBindings',[])
+    assert len(bindings)==13
+    assert {item['post_id'] for item in bindings}==REJECTED
+    by_asset={item.get('id'):item for item in assets.get('assets',[])}
+    for asset_id in QUARANTINED_ASSETS:
+        item=by_asset.get(asset_id)
+        assert item is not None,f'素材庫缺少隔離素材：{asset_id}'
+        assert item.get('status') in {'deprecated-reference-only','preflight-rejected-reference-only'},f'{asset_id} 仍可能被當候選：{item.get("status")}'
+    assert by_asset['post-02']['status']=='candidate-review-required','home-brand素材本身仍可使用，只是不可綁工作空檔'
+    assert by_asset['post-10']['status']=='candidate-review-required','FAQ素材本身仍可使用，只是不可綁保存貼文'
+
     for post_id in REJECTED:
         assert f"'{post_id}'" in runtime, f'發布中心未鎖定預檢退回：{post_id}'
     assert "image_status:'needs_generation'" in runtime
@@ -68,7 +86,7 @@ def main():
     for post_id in ['POST-WEATHER-HOT','POST-WEATHER-TEMP','POST-WEATHER-RAIN']:
         assert post_id in runtime and 'home-brand' in runtime
 
-    print('PASS candidate preflight: 13 deterministic mismatches rejected; 478 generation / 8 review / 3 locked / 11 hold = 500.')
+    print('PASS candidate preflight: 13 deterministic mismatches rejected and unsafe assets quarantined; 478 generation / 8 review / 3 locked / 11 hold = 500.')
 
 if __name__=='__main__':
     main()
