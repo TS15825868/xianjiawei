@@ -34,7 +34,7 @@ jobs:
       - name: Validate base 23-post image review state
         run: python tools/validate-base-post-library-v20260809.py
 
-      - name: Validate 120 character-scene regenerations
+      - name: Validate 5 mascot reuses and 115 remaining character generations
         run: python tools/validate-character-regeneration-v20260809.py
 
       - name: Validate publishing center needs-generation UI
@@ -45,6 +45,7 @@ jobs:
           python -m json.tool brand-character-spec.json >/dev/null
           python -m json.tool content/product-physical-scale-authority-v20260809.json >/dev/null
           python -m json.tool content/character-regeneration-authority-v20260809.json >/dev/null
+          python -m json.tool content/character-generation-batches-v20260809.json >/dev/null
           python -m json.tool content/public-content-policy.json >/dev/null
           python -m json.tool content/public-asset-status-overrides-v20260809.json >/dev/null
           python -m json.tool content/image-generation-queue-v20260808.json >/dev/null
