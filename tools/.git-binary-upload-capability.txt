@@ -1,1 +1,0 @@
-temporary capability marker; safe to delete after binary upload pipeline is verified
