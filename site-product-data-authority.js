@@ -1,23 +1,22 @@
 "use strict";
 
-/* 仙加味正式產品資料圖片權威層｜2026-08-08
- * 在 site-core 讀取 data.json 前即將所有產品主圖映射到 products-v2 實際產品照片。
- * products-v3 與 dm-final 只保留宣傳版面用途，不再成為產品卡、詳頁、OG 或結構化資料主圖。
- * 新增 data.json 強制 cache-bust，避免手機 Safari／GitHub Pages 繼續讀到舊母資料。
- * 同步清理錄影中仍可見的「五種型態・六項規格」舊說法。
+/* 仙加味正式產品資料圖片權威層｜2026-08-09
+ * 在 site-core 讀取 data.json 前即將所有產品主圖映射到 products-v3 使用者確認的正式產品原圖。
+ * 舊 products-v2 與 dm-final 只保留歷史／宣傳參考，不再成為產品卡、詳頁、OG 或結構化資料主圖。
+ * 所有產品本體只允許等比例顯示；禁止拉寬、拉高、cover裁切或把不同產品強制等高／等寬。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
-  const VERSION='20260808-24-products-v2-source';
-  const DATA_CACHE_VERSION='20260808-24';
+  const VERSION='20260809-25-products-v3-size-lock';
+  const DATA_CACHE_VERSION='20260809-25';
   const OFFICIAL=Object.freeze({
-    'guilu-gao':`images/products-v2/guilu-gao.jpeg?v=${VERSION}`,
-    'guilu-drink-30':`images/products-v2/guilu-drink-30.jpeg?v=${VERSION}`,
-    'guilu-drink-180':`images/products-v2/guilu-drink-180.jpeg?v=${VERSION}`,
-    'guilu-tangkuai':`images/products-v2/guilu-tangkuai.jpeg?v=${VERSION}`,
-    'guilu-jiao':`images/products-v2/guilu-jiao-open-new.jpg?v=${VERSION}`,
-    'luerong-fen':`images/products-v2/luerong-fen.jpeg?v=${VERSION}`
+    'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${VERSION}`,
+    'guilu-drink-30':`images/products-v3/guilu-drink-30.jpg?v=${VERSION}`,
+    'guilu-drink-180':`images/products-v3/guilu-drink-180.jpg?v=${VERSION}`,
+    'guilu-tangkuai':`images/products-v3/guilu-tangkuai.jpg?v=${VERSION}`,
+    'guilu-jiao':`images/products-v3/guilu-jiao.jpg?v=${VERSION}`,
+    'luerong-fen':`images/products-v3/luerong-fen.jpg?v=${VERSION}`
   });
   const ABS=(path)=>new URL(path,location.href).href;
   function normalizeData(data){
@@ -33,14 +32,16 @@
         dmImage:photo,
         officialOriginalImage:photo,
         detailImages:[photo],
-        imagePolicy:'actual-product-photo-contain-no-crop'
+        imagePolicy:'approved-original-product-photo-uniform-scale-contain-no-crop',
+        physicalScalePolicy:'preserve-original-aspect-and-realistic-relative-scale'
       };
     });
     data.runtime={
       ...(data.runtime||{}),
-      productMainImageSource:'products-v2-actual-photos',
-      dmFallback:'actual-product-photo-until-new-dm-reviewed',
-      productsV3Use:'marketing-layout-reference-only',
+      productMainImageSource:'products-v3-user-approved-originals',
+      dmFallback:'approved-original-photo-until-current-dm-passes-review',
+      productsV2Use:'legacy-reference-only',
+      productScalePolicy:'uniform-only-no-equal-height-equal-width',
       dataCacheVersion:DATA_CACHE_VERSION
     };
     return data;
