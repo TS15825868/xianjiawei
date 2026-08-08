@@ -1,0 +1,51 @@
+{
+  "version": "2026-08-09-public-asset-status-overrides-v1",
+  "authority": "formal-runtime-asset-review",
+  "reason": "避免舊素材庫條目把內嵌products-v2的預檢SVG誤標為可審候選；本檔狀態優先於較舊的public-asset-library條目。",
+  "deprecatedAssets": [
+    {
+      "id": "preflight-guide-use",
+      "path": "images/posts/generated-v20260808-preflight/guide-use.svg",
+      "status": "deprecated-reference-only",
+      "reason": "SVG內嵌舊products-v2產品圖；產品使用方式貼文必須依文案重新生成，產品本體只使用products-v3正式原圖。"
+    },
+    {
+      "id": "preflight-choose-products",
+      "path": "images/posts/generated-v20260808-preflight/choose-products.svg",
+      "status": "deprecated-reference-only",
+      "reason": "SVG內嵌舊products-v2產品圖且多產品尺度不可直接沿用；需重新生成。"
+    },
+    {
+      "id": "preflight-choose-by-habit",
+      "path": "images/posts/generated-v20260808-preflight/choose-by-habit.svg",
+      "status": "deprecated-reference-only",
+      "reason": "SVG內嵌舊products-v2產品圖且多產品尺度不可直接沿用；需重新生成。"
+    }
+  ],
+  "safeCandidateBindings": {
+    "XJW-WORK-REST-001": "images/posts/generated-v20260808-preflight/work-rest.svg",
+    "POST-STORAGE": "images/posts/generated-v20260808-preflight/storage.svg",
+    "POST-SEASONS-RHYTHM": "images/posts/generated-v20260808-preflight/four-seasons.svg",
+    "POST-INGREDIENT-PRINCIPLE": "images/posts/generated-v20260808-preflight/ingredient-principle.svg",
+    "POST-DAILY-SOUP": "images/posts/generated-v20260808-preflight/daily-soup.svg",
+    "POST-WEATHER-HOT": "images/posts/generated-v20260808-preflight/weather-hot.svg",
+    "POST-WEATHER-TEMP": "images/posts/generated-v20260808-preflight/weather-temp.svg",
+    "POST-WEATHER-RAIN": "images/posts/generated-v20260808-preflight/weather-rain.svg",
+    "POST-STORE": "images/posts/generated-v20260808-preflight/contact-line.svg",
+    "POST-RECIPES": "images/posts/generated-v20260808-preflight/recipes.svg"
+  },
+  "forcedRegenerationPostIds": [
+    "POST-PRODUCT-OVERVIEW",
+    "POST-COMBO",
+    "POST-GUIDE",
+    "POST-CHOOSE",
+    "POST-CHOOSE-BY-HABIT"
+  ],
+  "rules": {
+    "safeCandidateStatus": "candidate-review-required",
+    "forcedRegenerationStatus": "needs_generation",
+    "officialProductImageAuthority": "images/products-v3/",
+    "unknownMultiProductRelativeScale": "do-not-guess",
+    "onUnusableImage": "regenerate-to-pending-review"
+  }
+}
