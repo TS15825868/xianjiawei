@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-canonical-v13-six-products-clean-generators",
+  "version": "2026-08-08-canonical-v14-candidate-preflight",
   "updated": "2026-08-08",
   "status": "source-updated-deployment-not-yet-verified",
   "catalog": "six-official-products-six-single-specs",
@@ -8,8 +8,9 @@
     "runtimeContentTotal": 500,
     "publishedLocked": 3,
     "campaignHold": 11,
-    "activeImageGenerationRequired": 465,
-    "existingCandidateNeeds16PointReview": 21,
+    "activeImageGenerationRequired": 473,
+    "existingCandidateNeeds16PointReview": 13,
+    "preflightRejectedNeedsRegeneration": 8,
     "imageQueue": "content/image-generation-queue-v20260808.json",
     "postBankManifest": "content/post-bank-v6-manifest.json",
     "postGeneratorV6": "publishing-center-data-v6.js",
@@ -19,6 +20,11 @@
     "annualCalendar": "content/annual-content-calendar-v2026.json",
     "assetLedger": "content/asset-usage-ledger.json",
     "partnerMode": "content/partner-mode-policy.json"
+  },
+  "candidatePreflight": {
+    "rejectedCount": 8,
+    "rejectedPostIds": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN"],
+    "rule": "可確定的情境錯配、重複背景、deprecated產品來源或錯誤環境直接退回生成；不送人工審核。"
   },
   "productAuthority": {
     "productCount": 6,
