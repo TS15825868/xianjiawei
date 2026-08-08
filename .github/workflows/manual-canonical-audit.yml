@@ -31,6 +31,18 @@ jobs:
       - name: Validate 2026-08-09 formal product, scale, trial and publishing authority
         run: python tools/validate-formal-v20260809.py
 
+      - name: Validate 120 character-scene regenerations
+        run: python tools/validate-character-regeneration-v20260809.py
+
+      - name: Validate formal JSON authorities parse cleanly
+        run: |
+          python -m json.tool brand-character-spec.json >/dev/null
+          python -m json.tool content/product-physical-scale-authority-v20260809.json >/dev/null
+          python -m json.tool content/character-regeneration-authority-v20260809.json >/dev/null
+          python -m json.tool content/public-content-policy.json >/dev/null
+          python -m json.tool content/public-asset-status-overrides-v20260809.json >/dev/null
+          python -m json.tool content/image-generation-queue-v20260808.json >/dev/null
+
       - name: Validate publishing runtime JavaScript syntax
         run: |
           node --check publishing-center-data-v8-fixes.js
