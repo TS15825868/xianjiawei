@@ -1,0 +1,145 @@
+/* 仙加味｜全站手機版、圖片比例與比較卡一致性修正 v410.4 */
+
+/* 全站只限制橫向溢位，不裁掉正常的垂直內容。 */
+body.ux-v410 .page{
+  overflow-x:clip!important;
+  overflow-y:visible!important;
+}
+
+/* 共用容器與卡片避免長規格、長網址撐破手機寬度。 */
+body.ux-v410 .card,
+body.ux-v410 .panel,
+body.ux-v410 .hero__content,
+body.ux-v410 .product-card,
+body.ux-v410 .mobile-compare-card,
+body.ux-v410 .brand-generation,
+body.ux-v410 .final-cta{
+  min-width:0!important;
+  max-width:100%!important;
+}
+body.ux-v410 .card *,
+body.ux-v410 .panel *,
+body.ux-v410 .hero__content *,
+body.ux-v410 .product-card *,
+body.ux-v410 .mobile-compare-card *{
+  overflow-wrap:anywhere;
+}
+
+/* Logo 固定框內 contain，不因不同頁面的舊 CSS 被拉伸。 */
+body.ux-v410 .brand-mark img{
+  width:50px!important;
+  height:50px!important;
+  min-width:50px!important;
+  max-width:50px!important;
+  min-height:50px!important;
+  max-height:50px!important;
+  flex:0 0 50px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+}
+body.ux-v410 .menu-brand-mini img{
+  width:40px!important;
+  height:40px!important;
+  min-width:40px!important;
+  max-width:40px!important;
+  min-height:40px!important;
+  max-height:40px!important;
+  flex:0 0 40px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+
+/* 正式產品與網站小老闆圖一律完整顯示，不裁切、不拉伸。 */
+body.ux-v410 .product-card__img img,
+body.ux-v410 .product-detail-hero__media img,
+body.ux-v410 .modal-gallery__item img,
+body.ux-v410 .brand-hero-v410__media img,
+body.ux-v410 .home-brand-card__media img,
+body.ux-v410 .product-mascot-anchor img,
+body.ux-v410 img[src*="images/products-v3/"],
+body.ux-v410 img[src*="images/brand/approved-v405/"]{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+}
+body.ux-v410 .brand-hero-v410__media,
+body.ux-v410 .home-brand-card__media{
+  aspect-ratio:4/3!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+
+/* 手機比較表直接改用卡片；每個欄位可完整換行，不再出現右側被截掉。 */
+body.ux-v410 .mobile-compare-cards{
+  width:100%!important;
+  min-width:0!important;
+}
+body.ux-v410 .mobile-compare-card{
+  width:100%!important;
+  box-sizing:border-box!important;
+}
+body.ux-v410 .mobile-compare-card dl{
+  grid-template-columns:76px minmax(0,1fr)!important;
+}
+body.ux-v410 .mobile-compare-card dd{
+  min-width:0!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+}
+
+/* 品牌故事年份不被縮掉。 */
+body.ux-v410 .brand-generation__year{
+  display:block!important;
+  margin:0 0 6px!important;
+  color:#7b1e1e!important;
+  font-weight:900!important;
+  letter-spacing:.03em!important;
+}
+
+@media(max-width:760px){
+  body.ux-v410 .brand-mark img{
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+    max-width:44px!important;
+    min-height:44px!important;
+    max-height:44px!important;
+    flex-basis:44px!important;
+  }
+  body.ux-v410 .menu-brand-mini img{
+    width:36px!important;
+    height:36px!important;
+    min-width:36px!important;
+    max-width:36px!important;
+    min-height:36px!important;
+    max-height:36px!important;
+    flex-basis:36px!important;
+  }
+  body.ux-v410 .table-scroll{display:none!important;}
+  body.ux-v410 .mobile-compare-cards{display:block!important;}
+  body.ux-v410 .mobile-compare-card{padding:18px!important;}
+  body.ux-v410 .mobile-compare-card dl{grid-template-columns:68px minmax(0,1fr)!important;gap:8px 10px!important;}
+  body.ux-v410 .brand-generation{grid-template-columns:54px minmax(0,1fr)!important;}
+  body.ux-v410 .product-card__img{overflow:hidden!important;}
+}
+
+@media(max-width:560px){
+  /* 兩欄在窄手機會把產品名稱與規格擠得過小；改成單欄，提高可讀性並保留產品真實比例。 */
+  body.ux-v410 .product-grid{grid-template-columns:1fr!important;gap:14px!important;}
+  body.ux-v410 .product-card__img{aspect-ratio:4/3!important;padding:18px!important;}
+  body.ux-v410 .product-card__body{padding:17px!important;}
+  body.ux-v410 .product-card__body h3{font-size:20px!important;}
+  body.ux-v410 .product-card__body .muted{font-size:14px!important;line-height:1.65!important;}
+  body.ux-v410 .mobile-compare-card dl{grid-template-columns:62px minmax(0,1fr)!important;}
+  body.ux-v410 .hero-actions .btn,
+  body.ux-v410 .hero__actions .btn,
+  body.ux-v410 .final-cta__actions .btn{
+    width:100%!important;
+    justify-content:center!important;
+  }
+}
