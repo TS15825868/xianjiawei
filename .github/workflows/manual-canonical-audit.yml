@@ -43,13 +43,16 @@ jobs:
       - name: Validate priority1 exact-original candidates
         run: python tools/audit-priority1-candidates-v20260808.py
 
-      - name: Validate deterministic candidate preflight rejects
+      - name: Validate deterministic candidate preflight replacements
         run: python tools/validate-candidate-preflight-v20260808.py
 
-      - name: Validate rebuilt 500-post generators and queue counts
+      - name: Validate v12 runtime SVG candidate and ERP handoff contract
+        run: python tools/validate-runtime-auto-candidates-v20260808.py
+
+      - name: Validate rebuilt 500-post generators and queue authority
         run: python tools/validate-post-bank-generators-v20260808.py
 
-      - name: Simulate full publishing-center 500-post runtime chain
+      - name: Simulate full publishing-center 500-post runtime including v12
         run: node tools/validate-post-bank-runtime-v20260808.mjs
 
       - name: Validate public sitemap boundary
