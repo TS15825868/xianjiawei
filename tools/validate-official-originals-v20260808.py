@@ -6,12 +6,20 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://ts15825868.github.io/xianjiawei/"
 
 IMAGES = {
-    "guilu-gao": "images/products-v3/guilu-gao.jpg",
-    "guilu-drink-30": "images/products-v3/guilu-drink-30.jpg",
-    "guilu-drink-180": "images/products-v3/guilu-drink-180.jpg",
-    "guilu-tangkuai": "images/products-v3/guilu-tangkuai.jpg",
-    "guilu-jiao": "images/products-v3/guilu-jiao.jpg",
-    "luerong-fen": "images/products-v3/luerong-fen.jpg",
+    "guilu-gao": "images/products-v2/guilu-gao.jpeg",
+    "guilu-drink-30": "images/products-v2/guilu-drink-30.jpeg",
+    "guilu-drink-180": "images/products-v2/guilu-drink-180.jpeg",
+    "guilu-tangkuai": "images/products-v2/guilu-tangkuai.jpeg",
+    "guilu-jiao": "images/products-v2/guilu-jiao-open-new.jpg",
+    "luerong-fen": "images/products-v2/luerong-fen.jpeg",
+}
+LEGACY_PROMO = {
+    "guilu-gao": "products-v3/guilu-gao.jpg",
+    "guilu-drink-30": "products-v3/guilu-drink-30.jpg",
+    "guilu-drink-180": "products-v3/guilu-drink-180.jpg",
+    "guilu-tangkuai": "products-v3/guilu-tangkuai.jpg",
+    "guilu-jiao": "products-v3/guilu-jiao.jpg",
+    "luerong-fen": "products-v3/luerong-fen.jpg",
 }
 PAGES = [
     "product-guilu-gao.html",
@@ -38,27 +46,29 @@ def main():
 
     for product_id, expected in IMAGES.items():
         item = products[product_id]
-        assert normalize(item.get("image")) == expected, f"{product_id}.image不是正式原圖"
-        assert normalize(item.get("dmImage")) == expected, f"{product_id}.dmImage不是正式原圖回退"
-        assert (ROOT / expected).is_file(), f"缺少正式產品原圖：{expected}"
+        assert normalize(item.get("image")) == expected, f"{product_id}.image不是products-v2實際產品照片"
+        assert normalize(item.get("dmImage")) == expected, f"{product_id}.dmImage未回退到實際產品照片"
+        assert (ROOT / expected).is_file(), f"缺少實際產品照片：{expected}"
 
     for page in PAGES:
         source = (ROOT / page).read_text(encoding="utf-8")
         assert "images/dm-final/" not in source, f"{page} 仍直接引用歷史DM"
         assert "object-fit:cover" not in source, f"{page} 產品圖疑似使用cover裁切"
 
-    dm = (ROOT / "dm.html").read_text(encoding="utf-8")
-    for expected in IMAGES.values():
-        assert expected in dm, f"dm.html缺少正式原圖：{expected}"
-    assert "舊版DM" in dm and "不再作為目前正式產品依據" in dm, "dm.html缺少舊DM隔離說明"
-
     safety = (ROOT / "site-product-image-safety.js").read_text(encoding="utf-8")
     for expected in IMAGES.values():
-        assert expected in safety, f"共用圖片安全層缺少：{expected}"
+        assert expected in safety, f"共用圖片安全層缺少實際照片：{expected}"
+    for old in LEGACY_PROMO.values():
+        assert old in safety, f"共用圖片安全層未攔截宣傳版面：{old}"
     for legacy in ["01_guilu-gao-100g-dm", "03_guilu-drink-180cc-dm", "04_luerong-fen-75g-dm", "05_guilu-tangkuai-75g-dm", "06_guilu-jiao-600g-dm"]:
         assert legacy in safety, f"共用圖片安全層未攔截歷史DM：{legacy}"
+    assert "forceKnownSurfaces" in safety and "product-card[data-product-id]" in safety, "產品卡沒有依產品ID強制實際照片"
+    assert "product-detail-hero__media" in safety, "產品詳頁沒有強制實際照片"
 
-    print("PASS official originals: 六項正式產品與DM回退皆使用products-v3原圖；正式產品頁不直接引用歷史DM。")
+    variants = (ROOT / "site-official-product-variants.js").read_text(encoding="utf-8")
+    assert 'term.textContent = "出貨"' in variants, "手機比較卡仍可能把出貨資訊誤標成適合"
+
+    print("PASS actual product photos: catalog uses products-v2 actual photos; products-v3/DM are blocked; mobile fulfillment label is 出貨.")
 
 
 if __name__ == "__main__":
