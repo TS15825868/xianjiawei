@@ -71,7 +71,13 @@ for (const id of priorityIds) {
   assert.ok(String(post.image_url||'').includes('generated-v20260808-priority1'));
 }
 
-const rejectedIds=['XJW-WORK-REST-001','POST-STORAGE','POST-SEASONS-RHYTHM','POST-INGREDIENT-PRINCIPLE','POST-DAILY-SOUP','POST-WEATHER-HOT','POST-WEATHER-TEMP','POST-WEATHER-RAIN'];
+for (const id of ['POST-SOUP-75','POST-LUERONG']) {
+  const post=byId.get(id);
+  assert.equal(post.image_status,'official-reference-pending-layout-review');
+  assert.ok(String(post.image_url||'').includes('/images/products-v3/'));
+}
+
+const rejectedIds=['XJW-WORK-REST-001','POST-STORAGE','POST-SEASONS-RHYTHM','POST-INGREDIENT-PRINCIPLE','POST-DAILY-SOUP','POST-WEATHER-HOT','POST-WEATHER-TEMP','POST-WEATHER-RAIN','POST-GUIDE','POST-STORE','POST-RECIPES','POST-CHOOSE','POST-CHOOSE-BY-HABIT'];
 for (const id of rejectedIds) {
   const post=byId.get(id);
   assert.ok(post, `缺少預檢貼文 ${id}`);
@@ -88,8 +94,8 @@ const candidates = posts.filter((post)=>post.image_status==='candidate-review-re
 
 assert.equal(locked.length, 3, `已發布鎖定應為3，實際${locked.length}`);
 assert.equal(holds.length, 11, `活動冷卻應為11，實際${holds.length}`);
-assert.equal(needsGeneration.length, 473, `待生成應為473，實際${needsGeneration.length}`);
-assert.equal(candidates.length, 13, `候選待審應為13，實際${candidates.length}`);
+assert.equal(needsGeneration.length, 478, `待生成應為478，實際${needsGeneration.length}`);
+assert.equal(candidates.length, 8, `候選待審應為8，實際${candidates.length}`);
 assert.equal(locked.length+holds.length+needsGeneration.length+candidates.length,500,'500篇狀態分類必須完整且互斥');
 
 const categories = posts.reduce((out, post) => {
