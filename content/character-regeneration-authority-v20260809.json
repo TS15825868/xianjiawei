@@ -1,0 +1,65 @@
+{
+  "version": "2026-08-09-character-regeneration-authority-v1",
+  "authority": "formal-mascot-review",
+  "status": "locked",
+  "totalKnownRegeneration": 120,
+  "breakdown": [
+    {
+      "layer": "v13",
+      "categories": ["節慶", "地點", "萬華在地"],
+      "count": 72,
+      "oldMode": "website-mascot-scene-v13",
+      "newMode": "chatgpt-character-scene-v13-required",
+      "oldIssue": "直接引用LINE OA場景圖並以slice／clipPath裁切角色，違反官網／LINE場景素材分流及小老闆完整不裁切規則。"
+    },
+    {
+      "layer": "v14",
+      "categories": ["小老闆與夥伴"],
+      "count": 32,
+      "oldMode": "website-boss-daily-v14",
+      "newMode": "chatgpt-boss-daily-v14-required",
+      "oldIssue": "直接引用LINE OA場景圖並以slice／clipPath聚焦角色，可能裁頭、裁手、裁腳，也無法確保動作與每篇文案真正一致。"
+    },
+    {
+      "layer": "v15",
+      "categories": ["陪伴角色"],
+      "count": 16,
+      "oldMode": "companion-vector-v15-review",
+      "newMode": "chatgpt-companion-v15-required",
+      "oldIssue": "小老闆來自裁切LINE OA圖，且小鹿、小烏龜、灰色小河馬娃娃、米色小鹿安撫巾以簡單SVG重新繪製，未經正式造型核准。"
+    }
+  ],
+  "regenerationRules": {
+    "preserveCopy": true,
+    "preservePostId": true,
+    "preserveCategoryAndContext": true,
+    "output": "1:1 pending-review candidate",
+    "mascotReference": "brand-character-spec.json / images/brand/approved-v405/",
+    "fullCharacterRequired": true,
+    "safeMargin": "approximately 8%",
+    "websiteLineAssetPoolsSeparate": true,
+    "lineOACropReuseForbidden": true,
+    "coverSliceClipPathForbiddenForMascot": true,
+    "seasonWeatherOccasionLocationTemperatureExpressionActionMustMatchCopy": true,
+    "productOptional": true,
+    "productImageAuthority": "images/products-v3/",
+    "productRedrawForbidden": true,
+    "productPhysicalScaleAuthority": "content/product-physical-scale-authority-v20260809.json",
+    "unknownMultiProductScaleAction": "do-not-guess; keep needs_generation or send human review",
+    "publishAllowedBeforeReview": false
+  },
+  "companions": {
+    "deer": "小鹿必須為獨立Q版角色，與小老闆分開呈現。",
+    "turtle": "小烏龜必須為獨立Q版角色，與小老闆分開呈現。",
+    "hippo": "灰色小河馬娃娃只在適合的居家陪伴情境作道具。",
+    "lovey": "米色小鹿安撫巾只在適合的陪伴／居家情境作道具。",
+    "unapprovedSimpleVectorForbidden": true
+  },
+  "reviewOutcome": {
+    "oldCandidates": "deprecated-as-active-candidate",
+    "currentStatus": "needs_generation",
+    "afterGeneration": "pending_review",
+    "autoApprove": false,
+    "autoPublish": false
+  }
+}
