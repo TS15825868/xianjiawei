@@ -1,13 +1,14 @@
 {
-  "version": "2026-08-08-image-generation-queue-v5-current-authority",
+  "version": "2026-08-08-image-generation-queue-v6-preflight",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "summary": {
     "publishedFinalLocked": 3,
     "campaignHold": 11,
-    "generationRequiredActive": 465,
-    "existingCandidateNeeds16PointReview": 21,
+    "generationRequiredActive": 473,
+    "existingCandidateNeeds16PointReview": 13,
     "priority1GeneratedPendingReview": 6,
+    "preflightRejectedNeedsRegeneration": 8,
     "total": 500
   },
   "publishedFinalLocked": [
@@ -21,6 +22,14 @@
     "reason": "同一試喝主活動已發布最終主圖；依90天主圖與活動去重規則，其他試喝變體暫不生成主圖、不排程、不發布。到期後仍需人工重審。"
   },
   "priorityBatches": [
+    {
+      "priority": 0,
+      "name": "自動預檢退回8張舊候選",
+      "count": 8,
+      "status": "generation_required",
+      "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN"],
+      "rules": "不得再沿用 home-brand、FAQ錯情境、重複四季背景、deprecated products-all 或舊 recipes 產品場景；重做後仍先待16項審核。"
+    },
     {
       "priority": 1,
       "name": "6張正式原圖候選已生成｜待16項審核",
@@ -72,9 +81,15 @@
     }
   ],
   "existingCandidateNeeds16PointReview": {
-    "count": 21,
-    "newPriority1Count": 6,
+    "count": 13,
+    "priority1Count": 6,
+    "otherCurrentCandidates": 7,
     "rule": "候選圖不能直接發布；必須完成16項檢查，任何一項不符就交給ChatGPT重生成或改用正式原圖重新合成。"
+  },
+  "preflightRejected": {
+    "count": 8,
+    "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN"],
+    "rule": "情境、環境、產品來源或重複圖已有確定性錯誤，直接退回生成，不送人工審核。"
   },
   "generationRouting": {
     "mode": "chatgpt_handoff_plus_exact_original_composite",
