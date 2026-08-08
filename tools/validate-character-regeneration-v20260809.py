@@ -24,6 +24,7 @@ def main():
     spec = data("brand-character-spec.json")
     authority = data("content/character-regeneration-authority-v20260809.json")
     queue = data("content/image-generation-queue-v20260808.json")
+    batches = data("content/character-generation-batches-v20260809.json")
     v13 = text("publishing-center-data-v13-character-scenes.js")
     v14 = text("publishing-center-data-v14-boss-daily.js")
     v15 = text("publishing-center-data-v15-companions.js")
@@ -74,7 +75,18 @@ def main():
     req(queue["knownCharacterSceneRegeneration"]["breakdown"] == {"v13FestivalLocationWanhua":72,"v14BossDaily":27,"v15Companions":16}, "生成佇列角色剩餘分布錯誤")
     req(queue["summary"]["knownForcedRegenerationMinimum"] == 115, "生成佇列已知重生成最低數量不是115")
 
-    print("PASS character regeneration v20260809: 5 exact approved-v405 reuses + 72 v13 + 27 v14 + 16 v15 remaining; full-frame website mascot, no LINE crop/vector substitutes")
+    req(batches["totalNeedsGeneration"] == 115, "角色生成批次總數不是115")
+    by_id={item["id"]:item for item in batches["batches"]}
+    req(set(by_id)=={"CHAR-B1-BOSS-DAILY","CHAR-B2-COMPANIONS","CHAR-B3-FESTIVAL-LOCATION-WANHUA"}, "角色生成批次ID不完整")
+    req(by_id["CHAR-B1-BOSS-DAILY"]["count"]==27 and len(by_id["CHAR-B1-BOSS-DAILY"]["postIds"])==27, "B1小老闆日常批次不是27篇")
+    req(len(set(by_id["CHAR-B1-BOSS-DAILY"]["postIds"]))==27, "B1小老闆日常批次有重複ID")
+    req(not (set(by_id["CHAR-B1-BOSS-DAILY"]["postIds"]) & expected_reuse), "已轉待審核的5篇角色又被塞回B1生成批次")
+    req(by_id["CHAR-B2-COMPANIONS"]["count"]==16 and len(by_id["CHAR-B2-COMPANIONS"]["postIds"])==16, "B2陪伴角色批次不是16篇")
+    req(len(set(by_id["CHAR-B2-COMPANIONS"]["postIds"]))==16, "B2陪伴角色批次有重複ID")
+    req(by_id["CHAR-B3-FESTIVAL-LOCATION-WANHUA"]["count"]==72, "B3節慶／地點／萬華批次不是72篇")
+    req(batches["alreadyMovedToReview"]["count"]==5 and set(batches["alreadyMovedToReview"]["postIds"])==expected_reuse, "批次檔未正確排除5篇已回待審核角色")
+
+    print("PASS character regeneration v20260809: 5 exact approved-v405 reuses + executable batches 27 boss / 16 companions / 72 festival-location-wanhua = 115 remaining")
 
 
 if __name__ == "__main__":
