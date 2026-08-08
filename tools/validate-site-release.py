@@ -24,24 +24,36 @@ OFFICIAL_SPECS = [
     "鹿茸粉 75g／罐",
 ]
 
+CANONICAL_INGREDIENTS = {
+    "guilu-gao": ["鹿角萃取物", "龜板萃取物", "枸杞", "紅棗", "黃耆", "粉光蔘"],
+    "guilu-drink-30": ["水", "龜板萃取物", "鹿角萃取物", "粉光蔘", "枸杞", "紅棗", "黃耆"],
+    "guilu-drink-180": ["水", "龜板萃取物", "鹿角萃取物", "粉光蔘", "枸杞", "紅棗", "黃耆"],
+    "guilu-tangkuai": ["龜板萃取物", "鹿角萃取物"],
+    "guilu-jiao": ["龜板萃取物", "鹿角萃取物"],
+    "luerong-fen": ["鹿茸"],
+}
+
 REQUIRED_FILES = [
     "index.html", "products.html", "choose.html", "guide.html", "combo.html", "faq.html",
-    "brand-facts.html", "product-guilu-tangkuai.html", "trial.html", "site.js",
-    "site-official-product-variants.js", "data.json", "deploy-version.json", "catalog-public.json",
-    "geo-data.json", "llms.txt", "llms-full.txt", "config/official-products.json",
-    "assets/data/official-products.json", "content/visual-production-spec-v20260807.json",
-    "content/content-calendar-seed-v20260807.json", "content/public-post-library.json",
-    "content/public-asset-library.json", "content/public-content-policy.json",
+    "brand-facts.html", "product-guilu-gao.html", "product-guilu-drink-30cc.html",
+    "product-guilu-drink-180cc.html", "product-guilu-tangkuai.html", "product-guilu-jiao.html",
+    "product-luerong-fen.html", "trial.html", "site.js", "site-official-product-variants.js",
+    "data.json", "deploy-version.json", "catalog-public.json", "geo-data.json", "llms.txt", "llms-full.txt",
+    "config/official-products.json", "assets/data/official-products.json",
+    "content/visual-production-spec-v20260807.json", "content/content-calendar-seed-v20260807.json",
+    "content/public-post-library.json", "content/public-asset-library.json", "content/public-content-policy.json",
     "content/social-guilu-drink-trial-v1.json", "content/image-generation-queue-v20260808.json",
 ]
 
 AUTHORITY_SCAN_FILES = [
     "index.html", "products.html", "choose.html", "guide.html", "combo.html", "faq.html",
-    "brand-facts.html", "product-guilu-tangkuai.html", "data.json", "deploy-version.json",
-    "catalog-public.json", "geo-data.json", "llms.txt", "llms-full.txt",
-    "config/official-products.json", "assets/data/official-products.json",
-    "content/visual-production-spec-v20260807.json", "content/content-calendar-seed-v20260807.json",
-    "content/public-post-library.json", "content/public-content-policy.json",
+    "brand-facts.html", "product-guilu-gao.html", "product-guilu-drink-30cc.html",
+    "product-guilu-drink-180cc.html", "product-guilu-tangkuai.html", "product-guilu-jiao.html",
+    "product-luerong-fen.html", "data.json", "deploy-version.json", "catalog-public.json",
+    "geo-data.json", "llms.txt", "llms-full.txt", "config/official-products.json",
+    "assets/data/official-products.json", "content/visual-production-spec-v20260807.json",
+    "content/content-calendar-seed-v20260807.json", "content/public-post-library.json",
+    "content/public-content-policy.json",
 ]
 
 FORBIDDEN_PHRASES = [
@@ -90,6 +102,11 @@ def validate_authority_texts():
             assert phrase not in text, f"{path} 仍含舊資料：{phrase}"
         assert_no_unauthorized_soup_weight(text, path)
 
+    for path in ["product-guilu-gao.html", "guide.html", "faq.html"]:
+        text = (ROOT / path).read_text(encoding="utf-8")
+        assert "每日早上及下午各一小匙" in text, f"{path} 龜鹿膏正式使用方式未同步"
+        assert "每天一次，每次一小匙" not in text, f"{path} 仍含舊龜鹿膏使用方式"
+
 
 def validate_products():
     data = load_json("data.json")
@@ -99,7 +116,9 @@ def validate_products():
         item = products[product_id]
         assert item.get("name") == expected["name"], f"{product_id} 正式名稱錯誤"
         assert item.get("size") == expected["size"], f"{product_id} 正式規格錯誤"
+        assert item.get("ingredients") == CANONICAL_INGREDIENTS[product_id], f"{product_id} 成分或順序不同步"
     assert "瓶" not in products["guilu-drink-30"].get("name", ""), "30cc正式名稱不得稱瓶"
+    assert products["guilu-gao"].get("usage", [None])[0] == "每日早上及下午各一小匙", "data.json 龜鹿膏使用方式不同步"
 
     for path, key in [
         ("config/official-products.json", "spec"),
@@ -115,6 +134,9 @@ def validate_products():
     assert catalog.get("officialSpecifications") == OFFICIAL_SPECS, "catalog-public.json 六項正式規格不同步"
     catalog_products = {item.get("id"): item for item in catalog.get("products", [])}
     assert set(catalog_products) == set(EXPECTED_DATA), "catalog-public.json 正式產品必須剛好六項"
+    for product_id, ingredients in CANONICAL_INGREDIENTS.items():
+        assert catalog_products[product_id].get("ingredients") == ingredients, f"catalog-public.json {product_id} 成分或順序不同步"
+    assert catalog_products["guilu-gao"].get("usage", [None])[0] == "每日早上及下午各一小匙"
     assert catalog_products["guilu-tangkuai"].get("size") == "75g／盒"
     assert catalog_products["guilu-tangkuai"].get("package") == "深藍正式盒裝"
     assert catalog_products["guilu-jiao"].get("package") == "淡紫色正式盒裝"
@@ -221,7 +243,7 @@ def main():
     validate_posts_and_assets()
     validate_trial()
     validate_policy()
-    print("PASS 仙加味正式發布檢查：六個產品／六個規格、龜鹿湯塊75g唯一規格、30cc玻璃罐命名、圖片綁定、待審核閘門與已發布防重發均一致。")
+    print("PASS 仙加味正式發布檢查：六個產品／六個規格、龜鹿湯塊75g唯一規格、正式成分順序、龜鹿膏使用方式、30cc玻璃罐命名、圖片綁定、待審核閘門與已發布防重發均一致。")
 
 
 if __name__ == "__main__":
