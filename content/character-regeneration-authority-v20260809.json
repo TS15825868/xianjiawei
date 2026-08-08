@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-09-character-regeneration-authority-v4-b1-b2-exact-prompts",
+  "version": "2026-08-09-character-regeneration-authority-v5-b1-b2-b3-ready",
   "authority": "formal-mascot-review",
   "status": "locked",
   "originalInvalidCharacterCandidates": 120,
@@ -13,7 +13,10 @@
       "safeReuseCount": 0,
       "count": 72,
       "oldMode": "website-mascot-scene-v13",
-      "newMode": "chatgpt-character-scene-v13-required",
+      "newMode": "chatgpt-character-scene-v13-b3-context-required",
+      "promptManifest": "content/character-b3-prompt-manifest-v20260809.json",
+      "contextPromptCount": 72,
+      "compositionVariantCount": 4,
       "oldIssue": "直接引用LINE OA場景圖並以slice／clipPath裁切角色，違反官網／LINE場景素材分流及小老闆完整不裁切規則。"
     },
     {
