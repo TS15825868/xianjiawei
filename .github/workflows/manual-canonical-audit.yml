@@ -41,5 +41,8 @@ jobs:
       - name: Validate public sitemap boundary
         run: python tools/validate-public-boundary-v20260808.py
 
+      - name: Validate mobile UI and approved website mascot runtime
+        run: python tools/validate-mobile-mascot-runtime-v20260808.py
+
       - name: Ensure audit makes no repository changes
         run: git diff --exit-code
