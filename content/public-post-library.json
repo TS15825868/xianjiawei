@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-07-public-posts-v4-traceable-assets",
+  "version": "2026-08-08-public-posts-v5-six-single-specs",
   "authority": "TS15825868/xianjiawei",
   "privacy": "public-safe-marketing-content-only",
   "counts": {
@@ -9,6 +9,12 @@
     "known_image_copy_mismatches": 0,
     "duplicate_primary_images": 0,
     "missing_asset_bindings": 0
+  },
+  "productAuthority": {
+    "source": "catalog-public.json",
+    "sixProductsSixSpecs": true,
+    "soupBlock": "75g／盒｜深藍盒｜8塊裝｜每塊約9.375g",
+    "rejectUnknownSpecs": true
   },
   "publishing_defaults": {
     "owner_review_required": true,
@@ -48,139 +54,141 @@
       "status": "pending_review",
       "image_asset_id": "post-02",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp",
-      "image_status": "matched-candidate",
+      "image_status": "candidate-review-required",
       "image_prompt": "忙碌工作空檔、喝溫水、放慢步調；表情平靜，動作自然。"
     },
     {
       "id": "POST-PRODUCT-OVERVIEW",
       "title": "仙加味・龜鹿系列介紹",
-      "copy": "仙加味共有六個正式產品分類，包含龜鹿膏、龜鹿飲30cc、龜鹿飲180cc、龜鹿湯塊、龜鹿膠與鹿茸粉。龜鹿湯塊另有75g、300g、600g三種正式規格。\n\n固定節奏可參考龜鹿膏；方便快速可選龜鹿飲；料理搭配可選龜鹿湯塊或龜鹿膠；自行搭配可參考鹿茸粉。",
+      "copy": "仙加味目前有六個正式產品：龜鹿膏100g、龜鹿飲30cc玻璃罐、龜鹿飲180cc鋁袋、龜鹿湯塊75g深藍盒、龜鹿膠600g淡紫盒與鹿茸粉75g。每個產品只使用目前確認的正式規格。\n\n固定節奏可參考龜鹿膏；方便快速可選龜鹿飲；料理搭配可選龜鹿湯塊或龜鹿膠；自行搭配可參考鹿茸粉。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "post-03",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/products-all.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "六個正式產品分類使用正式原圖；30cc小玻璃罐與180cc鋁袋不得互換；龜鹿湯塊各規格與龜鹿膠600g紫盒不得混用。"
+      "image_status": "replace-required",
+      "regeneration_mode": "chatgpt_handoff",
+      "image_prompt": "六個正式產品使用各自正式原圖等比例合成；30cc小玻璃罐、180cc狹長鋁袋、75g龜鹿湯塊深藍盒、600g龜鹿膠淡紫盒不得互換或改比例。"
     },
     {
       "id": "POST-GAO-100",
       "title": "龜鹿膏100g",
-      "copy": "龜鹿膏為濃縮膏狀型態，可直接食用，也可用熱水化開後調至適溫飲用。\n\n規格：100g／罐",
+      "copy": "龜鹿膏為100g／罐的膏狀型態，可直接取用，也可用熱水化開後調至適合入口的溫度。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-04",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/product-guilu-gao-100g.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "龜鹿膏100g正式原圖，不重畫、不改包裝。"
+      "image_asset_id": "product-gao-official",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=20260805",
+      "image_status": "official-reference-pending-layout-review",
+      "image_prompt": "龜鹿膏100g正式原圖等比例使用；只使用現行米白標籤，不重畫、不改包裝。"
     },
     {
       "id": "POST-DRINK-30",
-      "title": "龜鹿飲30cc小玻璃罐",
-      "copy": "龜鹿飲30cc採小玻璃罐即飲型態，可隔水加熱或調整至適合入口的溫度後飲用。\n\n規格：30cc／罐（小玻璃罐）",
+      "title": "龜鹿飲30cc玻璃罐",
+      "copy": "龜鹿飲30cc採小玻璃罐即飲型態，裸罐、無貼紙。開罐即可飲用，也可依習慣溫熱後飲用。\n\n規格：30cc／罐（小玻璃罐）",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "brand-drink30",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/product-guilu-drink-30cc.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "30cc小玻璃罐正式原圖；裸罐無貼紙；不得出現180cc鋁袋或玻璃瓶字樣。"
+      "image_asset_id": "product-drink30-official",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260805",
+      "image_status": "official-reference-pending-layout-review",
+      "image_prompt": "30cc小玻璃罐正式原圖；裸罐無貼紙、無外盒、無外袋；維持原有高矮胖瘦。"
     },
     {
       "id": "POST-DRINK-180",
       "title": "龜鹿飲180cc鋁袋",
-      "copy": "龜鹿飲180cc採鋁袋包裝，可將未開封鋁袋隔水加熱後飲用。\n\n規格：180cc／包（鋁袋）",
+      "copy": "龜鹿飲180cc採狹長鋁袋包裝，撕開即可飲用，也可將未開封鋁袋隔水溫熱後飲用。\n\n規格：180cc／包（鋁袋）",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "brand-drink180",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/product-guilu-drink-180cc.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "180cc鋁袋正式原圖；不得出現30cc小玻璃罐。"
+      "image_asset_id": "product-drink180-official",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg?v=20260805",
+      "image_status": "official-reference-pending-layout-review",
+      "image_prompt": "180cc鋁袋正式原圖；維持狹長直立比例，不拉寬、不加高。"
     },
     {
       "id": "POST-SOUP-75",
       "title": "龜鹿湯塊75g",
-      "copy": "龜鹿湯塊可搭配雞湯、排骨湯或日常食材燉煮。\n\n規格：75g／盒｜8塊裝｜每塊約9.375g",
+      "copy": "龜鹿湯塊深藍盒目前只有75g／盒，8塊裝、每塊約9.375g。可搭配熱水、保溫壺，也可加入雞湯、排骨湯或日常食材燉煮。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-06",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/product-guilu-tangkuai-75g.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "龜鹿湯塊75g藍盒正式原圖；8塊裝；本篇只介紹75g，不得將包裝改成300g、600g或龜鹿膠紫盒。"
+      "image_asset_id": "product-tangkuai-official",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg?v=20260805",
+      "image_status": "official-reference-pending-layout-review",
+      "image_prompt": "龜鹿湯塊75g深藍盒正式原圖；8塊裝；不得改盒型、顏色、文字、容量或產品比例。"
     },
     {
       "id": "POST-LUERONG",
       "title": "鹿茸粉75g",
-      "copy": "鹿茸粉可加入溫開水、牛奶、豆漿或其他飲品中攪拌。\n\n規格：75g／罐",
+      "copy": "鹿茸粉75g／罐，可依個人習慣加入溫開水、牛奶、豆漿或其他飲品中攪拌。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-07",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/product-luerong-fen-75g.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "鹿茸粉75g白色塑膠罐正式原圖，不改包裝。"
+      "image_asset_id": "product-luerong-official",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=20260805",
+      "image_status": "official-reference-pending-layout-review",
+      "image_prompt": "鹿茸粉75g白色塑膠罐正式原圖，不改包裝與罐型。"
     },
     {
       "id": "POST-JIAO-600",
       "title": "龜鹿膠600g",
-      "copy": "龜鹿膠可加入熱水、湯品或料理中充分加熱溶解後食用。\n\n規格：600g（1斤）／盒｜32塊裝｜每塊約18.75g",
+      "copy": "龜鹿膠為600g（1斤）／盒、32塊裝、每塊約18.75g，可加入熱水化開，也可依料理方式搭配湯品。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-08",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/product-guilu-jiao-600g.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "龜鹿膠600g紫盒正式原圖；32塊裝；不得出現龜鹿湯塊藍盒。"
+      "image_asset_id": "product-jiao-official",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=20260805",
+      "image_status": "official-reference-pending-layout-review",
+      "image_prompt": "龜鹿膠600g淡紫盒正式原圖；32塊裝；等比例呈現，不得與龜鹿湯塊深藍盒混用。"
     },
     {
       "id": "POST-CHOOSE",
       "title": "怎麼選龜鹿產品",
-      "copy": "想建立固定節奏，可參考龜鹿膏；方便快速可選龜鹿飲；料理搭配可選龜鹿湯塊或龜鹿膠；自行搭配可參考鹿茸粉。龜鹿湯塊可依用量選擇75g、300g或600g。",
+      "copy": "想建立固定節奏，可參考龜鹿膏；方便快速可選龜鹿飲；料理搭配可選龜鹿湯塊75g或龜鹿膠600g；自行搭配可參考鹿茸粉。先看使用方式，再確認正式規格。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "post-09",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/choose.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "六個正式產品分類與簡潔選擇指引；產品不得互換、裁切或重畫。"
+      "image_status": "candidate-review-required",
+      "image_prompt": "六個正式產品與簡潔選擇指引；產品不得互換、裁切、重畫或自行新增規格。"
     },
     {
       "id": "POST-STORAGE",
       "title": "保存方式",
-      "copy": "龜鹿膏開罐後需冷藏；粉類與膠塊請密封置於陰涼乾燥處；即飲產品開封後請儘速飲用。",
+      "copy": "龜鹿膏開罐後需密封冷藏；鹿茸粉請密封防潮；龜鹿飲開罐或開封後請儘速飲用；其他產品保存方式以實際包裝標示為準。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "post-10",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/faq.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "居家保存、冰箱、密封與乾燥收納情境。"
+      "image_status": "candidate-review-required",
+      "image_prompt": "居家保存、冰箱、密封與乾燥收納情境；不作療效暗示。"
     },
     {
       "id": "POST-COMBO",
       "title": "龜鹿膏與龜鹿飲搭配",
-      "copy": "龜鹿膏與龜鹿飲可依生活型態分開安排；需要方便攜帶時選擇龜鹿飲，想維持固定習慣時使用龜鹿膏。",
+      "copy": "龜鹿膏與龜鹿飲可依生活型態分開安排；需要方便攜帶時選擇龜鹿飲，想維持固定習慣時可了解龜鹿膏。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "post-11",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/combo.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "龜鹿膏、30cc小玻璃罐與180cc鋁袋正式原圖，等比例呈現。"
+      "image_status": "replace-required",
+      "regeneration_mode": "chatgpt_handoff",
+      "image_prompt": "使用龜鹿膏100g、30cc小玻璃罐與180cc狹長鋁袋正式原圖等比例合成；不改產品比例與標示。"
     },
     {
       "id": "POST-GUIDE",
       "title": "龜鹿系列使用方式",
-      "copy": "龜鹿膏可直接食用或溫水化開；龜鹿飲可隔水加熱；龜鹿湯塊75g、300g、600g與龜鹿膠可依規格加入湯品或料理；鹿茸粉可搭配溫飲。",
+      "copy": "龜鹿膏可直接取用或熱水化開；龜鹿飲可直接飲用或溫熱；龜鹿湯塊75g可搭配熱水、保溫壺或家常湯品；龜鹿膠600g可熱水化開或搭配燉湯；鹿茸粉可加入溫飲。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "post-12",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/guide-how-to-use.webp",
-      "image_status": "matched-candidate",
-      "image_prompt": "六個正式產品分類與正確使用情境，不改包裝與規格。"
+      "image_status": "candidate-review-required",
+      "image_prompt": "六個正式產品與正確使用情境；不改包裝、規格或產品比例。"
     },
     {
       "id": "POST-RECIPES",
       "title": "日常料理搭配",
-      "copy": "龜鹿湯塊或龜鹿膠可以搭配雞肉、排骨、山藥、紅棗或家常食材燉煮。",
+      "copy": "龜鹿湯塊75g或龜鹿膠可依料理方式搭配雞肉、排骨、山藥、紅棗或其他家常食材燉煮。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "post-13",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/recipes.webp",
-      "image_status": "matched-candidate",
+      "image_status": "candidate-review-required",
       "image_prompt": "家常雞湯或排骨湯場景，溫熱燉煮；產品若出現只能使用對應正式原圖。"
     },
     {
@@ -191,7 +199,7 @@
       "status": "pending_review",
       "image_asset_id": "post-14",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/contact-line.webp",
-      "image_status": "matched-candidate",
+      "image_status": "candidate-review-required",
       "image_prompt": "仙加味品牌與官方LINE導流，不放公開地址與電話。"
     },
     {
@@ -202,7 +210,7 @@
       "status": "pending_review",
       "image_asset_id": "generated-four-seasons",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/four-seasons.svg",
-      "image_status": "generated-matched",
+      "image_status": "candidate-review-required",
       "image_prompt": "四季四格；春夏秋冬環境、色調與冷熱感清楚。"
     },
     {
@@ -213,30 +221,30 @@
       "status": "pending_review",
       "image_asset_id": "generated-ingredient-principle",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/ingredient-principle.svg",
-      "image_status": "generated-matched",
+      "image_status": "candidate-review-required",
       "image_prompt": "乾淨原料、製作資料、規格標示與文件整理；不誇大、不暗示療效。"
     },
     {
       "id": "POST-DAILY-SOUP",
       "title": "日常燉湯",
-      "copy": "準備一鍋雞湯或排骨湯，依料理份量加入適合的食材，慢慢燉煮、溫熱享用。",
+      "copy": "準備一鍋雞湯或排骨湯，依料理份量加入適合的食材，慢慢燉煮、溫熱享用。若搭配龜鹿湯塊，請使用75g深藍盒正式產品。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "generated-daily-soup",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/daily-soup.svg",
-      "image_status": "generated-matched",
-      "image_prompt": "居家廚房、備料、熱氣湯鍋、慢火燉煮、溫熱享用。"
+      "image_status": "candidate-review-required",
+      "image_prompt": "居家廚房、備料、熱氣湯鍋、慢火燉煮、溫熱享用；若出現產品只使用75g龜鹿湯塊深藍盒正式原圖。"
     },
     {
       "id": "POST-CHOOSE-BY-HABIT",
       "title": "依習慣選擇",
-      "copy": "喜歡固定安排，可先了解膏狀形式；重視方便可看看即飲形式；習慣料理可從湯塊開始；想自行搭配可了解粉狀產品。",
+      "copy": "喜歡固定安排，可先了解膏狀形式；重視方便可看看即飲形式；習慣料理可從75g龜鹿湯塊或龜鹿膠開始；想自行搭配可了解粉狀產品。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "generated-choose-habit",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/choose-by-habit.svg",
-      "image_status": "generated-matched",
-      "image_prompt": "固定安排、方便即飲、料理搭配、自行搭配四種選擇。"
+      "image_status": "candidate-review-required",
+      "image_prompt": "固定安排、方便即飲、料理搭配、自行搭配四種選擇；產品規格依正式資料。"
     },
     {
       "id": "POST-WEATHER-HOT",
@@ -244,9 +252,10 @@
       "copy": "天氣悶熱時，外出記得帶水，依活動量分次補充。此類貼文需確認當日天氣後再安排，不自動排程。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
+      "live_check_required": true,
       "image_asset_id": "generated-weather-hot",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/weather-hot.svg",
-      "image_status": "generated-matched",
+      "image_status": "live-check-required",
       "image_prompt": "台灣悶熱外出、攜帶水壺、分次補水；清爽但不呈現冰飲。"
     },
     {
@@ -255,9 +264,10 @@
       "copy": "早晚溫差較明顯時，外出可多帶一件薄外套。此類貼文需確認當日天氣後再安排，不自動排程。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
+      "live_check_required": true,
       "image_asset_id": "generated-weather-temp",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/weather-temp.svg",
-      "image_status": "generated-matched",
+      "image_status": "live-check-required",
       "image_prompt": "早晚溫差、換季、攜帶薄外套，表情為關心提醒。"
     },
     {
@@ -266,15 +276,16 @@
       "copy": "下雨天的步調可以慢一點，喝口溫水、整理手邊的事。此類貼文需確認當日天氣後再安排，不自動排程。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
+      "live_check_required": true,
       "image_asset_id": "generated-weather-rain",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/weather-rain.svg",
-      "image_status": "generated-matched",
+      "image_status": "live-check-required",
       "image_prompt": "窗外下雨、收傘、室內喝溫水、整理手邊事物，表情平靜。"
     },
     {
       "id": "POST-GUILU-DRINK-TRIAL-EVERGREEN",
       "title": "龜鹿飲試喝組｜先試喝，再決定",
-      "copy": "龜鹿飲試喝組｜先試喝，再決定\n\n想先試喝，再決定是否適合自己的日常飲用方式嗎？\n\n仙加味提供 龜鹿飲30cc試喝組：\n\n3罐試喝品免費，運費自付\n\n7-11店到店運費60元，郵局宅配運費100元。每位顧客、電話及地址限申請一次；接單後安排製作，約5～7個工作天出貨。\n\n30cc小玻璃罐\n正式售價 60元／罐\n買10送1｜11罐600元\n\n規格為30cc／罐，採小玻璃罐裸罐裝、無貼紙；開罐即可飲用，也可溫熱後飲用。\n\n另有販售 180cc鋁袋：\n單包200元\n買10送1｜11包2,000元\n\n所有試喝申請與正式下單，皆在 官方LINE 完成。歡迎加入LINE詢問。\n\n仙加味\n補養，是一種節奏。\n\n#仙加味 #龜鹿飲 #龜鹿飲試喝組 #小玻璃罐 #試喝申請 #日常補養",
+      "copy": "龜鹿飲試喝組｜先試喝，再決定\n\n想先試喝，再決定是否適合自己的日常飲用方式嗎？\n\n仙加味提供龜鹿飲30cc試喝組：3罐試喝品免費，運費自付。7-11店到店運費60元，郵局宅配運費100元。每位顧客、電話及地址限申請一次；接單後安排製作，約5～7個工作天出貨。\n\n30cc小玻璃罐，正式售價60元／罐，買10送1｜11罐600元。規格為30cc／罐，採小玻璃罐裸罐裝、無貼紙；開罐即可飲用，也可溫熱後飲用。\n\n另有販售180cc鋁袋：單包200元，買10送1｜11包2,000元。\n\n所有試喝申請與正式下單，皆在官方LINE完成。\n\n仙加味\n補養，是一種節奏。",
       "platforms": ["Facebook", "Instagram", "LINE VOOM", "Google 商家最新動態"],
       "status": "published",
       "owner_review_required": false,
@@ -282,13 +293,15 @@
       "publish_allowed": false,
       "schedule_enabled": false,
       "scheduled_at": null,
-      "image_asset_id": "post-trial-evergreen-v412",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/approved-v412/guilu-drink-trial-evergreen.jpg?v=20260806",
-      "image_status": "approved-published-locked",
+      "image_asset_id": "guilu-drink-trial-final-20260808",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/final-published/guilu-drink-trial-final-20260808-preview.svg",
+      "image_status": "approved-published-final-locked",
+      "source_manifest": "content/final-published-assets-v20260808.json",
       "prevent_republish": true,
       "do_not_republish": true,
-      "published_at_taipei": "2026-08-06T12:54:00+08:00",
-      "image_prompt": "使用老闆已確認發布的正式試喝海報JPG；不得改圖或重新發布。"
+      "do_not_regenerate": true,
+      "published_date_taipei": "2026-08-08",
+      "exact_publish_time_known": false
     }
   ]
 }
