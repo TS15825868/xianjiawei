@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-public-content-six-products-v2",
+  "version": "2026-08-09-public-content-six-products-v3-scale-lock",
   "authority": "TS15825868/xianjiawei",
   "purpose": "仙加味不含私人資料的公開安全內容母本；供官網、LINE OA與ERP以貼文ID讀取文案、核准素材及發布安全狀態",
   "publicRepository": "TS15825868/xianjiawei",
@@ -9,6 +9,7 @@
     "assets": "content/public-asset-library.json",
     "publishedTrial": "content/social-guilu-drink-trial-v1.json",
     "productCatalog": "catalog-public.json",
+    "physicalScaleAuthority": "content/product-physical-scale-authority-v20260809.json",
     "geo": "geo-data.json"
   },
   "publicAllowed": [
@@ -17,12 +18,13 @@
     "已發布貼文文案、核准圖片網址與防重發狀態",
     "產品公開名稱、正式規格、一般使用與保存資訊",
     "六項唯一正式產品規格",
+    "products-v3使用者確認的正式產品原圖及其等比例顯示規則",
     "老闆明確核准公開的龜鹿飲試喝價格與活動",
     "社群平台目標與不含憑證的公開發布狀態"
   ],
   "publicConditional": {
     "pendingReviewCopy": {"allowed":true,"personalDataForbidden":true,"internalNotesForbidden":true,"scheduleForbidden":true,"publishAllowedMustBeFalse":true,"ownerReviewRequiredMustBeTrue":true},
-    "imageGenerationInstructions": {"allowedOnlyWhenPublicSafe":true,"secretValuesForbidden":true,"customerDataForbidden":true,"internalOperationalNotesForbidden":true},
+    "imageGenerationInstructions": {"allowedOnlyWhenPublicSafe":true,"secretValuesForbidden":true,"customerDataForbidden":true,"internalOperationalNotesForbidden":true,"productBodyMustUseApprovedOriginal":true,"productRedrawForbidden":true,"unknownPhysicalScaleGuessingForbidden":true},
     "prices": {"generalCatalogPricesPublic":false,"approvedTrialCampaignPricesPublic":true}
   },
   "privateOnly": [
@@ -36,16 +38,22 @@
   "productAuthority": {
     "productCount": 6,
     "sellableSpecificationCount": 6,
+    "imageAuthority": "images/products-v3/",
+    "legacyProductImagePolicy": "products-v2、舊DM、內嵌舊產品圖的歷史SVG只可供稽核參考，不得作正式產品主圖或新候選圖來源",
+    "imageDisplayPolicy": "產品本體只允許整體等比例縮放；禁止拉寬、拉高、裁切、AI重畫、改包裝或把不同產品強制等高／等寬",
+    "unknownDimensionPolicy": "沒有可信毫米尺寸或相對尺度依據時不得自行猜測；多產品圖需重新生成並由人工審核",
     "specifications": [
       "龜鹿膏 100g／罐",
-      "龜鹿飲30cc玻璃罐 30cc／罐",
-      "龜鹿飲180cc鋁袋 180cc／包",
-      "龜鹿湯塊 75g／盒",
-      "龜鹿膠 600g（1斤）／盒",
+      "龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）",
+      "龜鹿飲180cc鋁袋 180cc／包（鋁袋）",
+      "龜鹿湯塊 75g／盒｜8塊裝｜每塊約9.375g",
+      "龜鹿膠 600g（1斤）／盒｜32塊裝｜每塊約18.75g",
       "鹿茸粉 75g／罐"
     ],
     "soupBlockRule": "龜鹿湯塊深藍盒只允許75g／盒，不得建立其他容量",
-    "drink30Rule": "30cc產品必須稱龜鹿飲30cc玻璃罐，不得稱瓶"
+    "drink30Rule": "30cc產品必須稱龜鹿飲30cc玻璃罐，不得稱瓶；約直徑42mm、高51mm，必須維持小玻璃罐實際小罐感",
+    "guiluGaoScaleRule": "龜鹿膏100g六角罐約寬51mm、高78mm；與30cc同框時不得把30cc放大到接近同高",
+    "drink180Rule": "180cc產品必須使用狹長直立鋁袋；寬高比目標約0.64，不得拉寬或誇張放大"
   },
   "publishedTrialAuthority": {
     "postId": "XJW-TRIAL-001",
@@ -73,6 +81,8 @@
     "regenerationMode": "chatgpt_handoff",
     "paidOpenAIApi": false,
     "lineVoomManualOnly": true,
-    "publishedPostsPreventRepublish": true
+    "publishedPostsPreventRepublish": true,
+    "unusableImageAction": "regenerate-to-pending-review",
+    "multiProductUnknownScaleAction": "keep-needs-generation-until-reviewed"
   }
 }
