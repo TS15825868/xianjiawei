@@ -16,10 +16,15 @@
     'POST-STORAGE':'原候選使用 FAQ 看板，沒有呈現冰箱、密封、防潮或乾燥收納，與保存主題不一致。',
     'POST-SEASONS-RHYTHM':'原四季候選四格重複同一張 home-brand 圖，只靠色塊區分季節，未實際呈現春夏秋冬環境。',
     'POST-INGREDIENT-PRINCIPLE':'原候選嵌入已標記 deprecated-reference-only 的 products-all 舊全系列圖，即使降低透明度仍不可使用。',
-    'POST-DAILY-SOUP':'原候選直接嵌入 recipes 舊場景；若其中出現產品，不能保證只使用現行75g深藍龜鹿湯塊正式原圖。',
+    'POST-DAILY-SOUP':'原候選直接嵌入 recipes 舊場景，且出現非正式原圖的深色產品塊，不符合產品本體只能用正式原圖的規則。',
     'POST-WEATHER-HOT':'原候選把 home-brand 室內品牌圖套上太陽與暖色，未真正呈現悶熱外出／分次補水環境。',
     'POST-WEATHER-TEMP':'原候選把 home-brand 室內品牌圖套上日夜符號，未真正呈現早晚溫差與攜帶薄外套情境。',
-    'POST-WEATHER-RAIN':'原候選把 home-brand 室內品牌圖套上雨線，未真正呈現窗外雨景、收傘與室內溫水情境。'
+    'POST-WEATHER-RAIN':'原候選把 home-brand 室內品牌圖套上雨線，未真正呈現窗外雨景、收傘與室內溫水情境。',
+    'POST-GUIDE':'原「怎麼使用」候選直接畫出 AI 罐、瓶、產品塊與粉體，沒有使用正式產品原圖，也沒有正確區分30cc小玻璃罐與180cc鋁袋。',
+    'POST-STORE':'原 LINE 聯絡候選同框出現多個舊產品包裝與舊龜鹿飲袋型；品牌／聯絡貼文不應帶入錯誤產品視覺。',
+    'POST-RECIPES':'原料理候選把深色產品塊直接畫在料理場景中；若代表龜鹿湯塊或龜鹿膠，就違反產品只能使用正式原圖的規則。',
+    'POST-CHOOSE':'原「怎麼選」候選只用泛用碗、杯、鍋、粉體圖示代表正式產品，無法準確對應六項正式產品與包裝。',
+    'POST-CHOOSE-BY-HABIT':'原候選沿用舊 choose 圖示作為核心產品選擇畫面，沒有使用六項正式產品原圖，需重做。'
   };
   window.fetch=async function(input,init){
     const url=typeof input==='string'?input:(input?.url||'');
@@ -73,7 +78,7 @@
         };
         return p;
       });
-      const merged={...data,version:'2026-08-08-public-posts-v13-preflight-rejects',posts};
+      const merged={...data,version:'2026-08-08-public-posts-v14-strict-preflight',posts};
       merged.counts={
         ...(data.counts||{}),
         total:posts.length,
