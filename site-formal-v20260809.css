@@ -12,11 +12,13 @@
   --xjw-green:#4f5f3b;
 }
 
-/* 任何官網核准小老闆素材：完整顯示，不使用 cover。 */
+/* 任何官網核准小老闆素材：全站完整顯示，不使用 cover、縮放裁切或 clip。 */
 img[src*="images/brand/approved-v405/"],
 img[src*="images/brand/line-oa/"]{
   object-fit:contain !important;
   object-position:center center !important;
+  transform:none !important;
+  clip-path:none !important;
 }
 
 body[data-page="home"] .page{
