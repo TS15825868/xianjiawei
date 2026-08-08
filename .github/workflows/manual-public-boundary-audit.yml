@@ -1,0 +1,21 @@
+name: 仙加味公開頁邊界手動驗收
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Check sitemap public pages only
+        run: python tools/validate-public-boundary-v20260808.py
+      - name: Ensure audit does not modify repository
+        run: git diff --exit-code
