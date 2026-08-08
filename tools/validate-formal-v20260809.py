@@ -92,17 +92,37 @@ def main():
 
     v8 = text("publishing-center-data-v8-fixes.js")
     v12 = text("publishing-center-data-v12-auto-candidates.js")
+    v13 = text("publishing-center-data-v13-character-scenes.js")
+    v14 = text("publishing-center-data-v14-boss-daily.js")
+    v15 = text("publishing-center-data-v15-companions.js")
     v16 = text("publishing-center-data-v16-actual-product-photos.js")
     ai = text("publishing-center-ai-tools.js")
     guardian = text("publishing-center-guardian.js")
     policy = data("content/public-content-policy.json")
     queue = data("content/image-generation-queue-v20260808.json")
+    asset_overrides = data("content/public-asset-status-overrides-v20260809.json")
 
     req("images/products-v2/" not in v8, "v8仍綁 products-v2")
     req("generated-v20260808-priority1/product-overview.svg" not in v8, "v8仍把舊多產品SVG當候選")
     req("MULTI_PRODUCT_HOLD" in v8 and "image_status:'needs_generation'" in v8, "v8未把多產品舊圖退回需重生成")
+
     req("images/products-v2/" not in v12, "v12仍會生成 products-v2 候選")
     req("if(productIds(p).length>1)return false" in v12, "v12仍可能自動假生成多產品候選")
+
+    character_layers = [
+        ("v13", v13, "chatgpt-character-scene-v13-required"),
+        ("v14", v14, "chatgpt-boss-daily-v14-required"),
+        ("v15", v15, "chatgpt-companion-v15-required"),
+    ]
+    for label, source, mode in character_layers:
+        req(mode in source, f"{label} 未切到正式ChatGPT重生成模式")
+        req("image_status:'needs_generation'" in source, f"{label} 未維持needs_generation")
+        req("images/brand/line-oa/" not in source, f"{label} 仍混用LINE OA專用角色素材")
+        req("clipPath" not in source and "clip-path" not in source, f"{label} 仍使用裁切角色clipPath")
+        req("preserveAspectRatio=\"xMaxYMid slice\"" not in source and " slice" not in source, f"{label} 仍使用slice裁切角色")
+        req("完整" in source and "不得裁切" in source, f"{label} 缺少角色完整不裁切規則")
+    req("簡單SVG" in v15 or "簡單向量" in v15, "v15未明確禁止未核准向量陪伴角色")
+
     req("LEGACY_MULTI_SVG" in v16 and "generated-v20260808" in v16, "v16未攔截內嵌舊產品圖SVG")
     req("SAFE_PREFLIGHT" in v16 and "FORCE_REGEN_IDS" in v16, "v16未套用預檢安全替代／強制重生成分流")
     for pid in ["POST-PRODUCT-OVERVIEW", "POST-COMBO", "POST-GUIDE", "POST-CHOOSE", "POST-CHOOSE-BY-HABIT"]:
@@ -118,12 +138,21 @@ def main():
 
     req(policy["productAuthority"]["imageAuthority"] == "images/products-v3/", "公開內容政策未鎖 products-v3")
     req(policy["publishingSafety"]["multiProductUnknownScaleAction"] == "keep-needs-generation-until-reviewed", "公開政策未鎖多產品未知尺度處理")
-    req(queue["summary"]["runtimeCalculated"] is True, "生成佇列仍使用寫死候選數字")
-    req(queue["knownForcedRegeneration"]["minimumKnownCount"] == 5, "強制重生成清單必須是5篇")
-    req(queue["knownSafePreflightReplacement"]["count"] == 10, "安全預檢替代清單必須是10篇")
-    req(set(queue["knownForcedRegeneration"]["post_ids"]) == {"POST-PRODUCT-OVERVIEW", "POST-COMBO", "POST-GUIDE", "POST-CHOOSE", "POST-CHOOSE-BY-HABIT"}, "強制重生成ID不一致")
 
-    print("PASS formal v20260809: products-v3 authority, physical-scale lock, trial lock, 10 safe preflight replacements, 5 forced regenerations")
+    req(queue["summary"]["runtimeCalculated"] is True, "生成佇列仍使用寫死候選數字")
+    req(queue["knownForcedRegeneration"]["minimumKnownCount"] == 5, "基礎強制重生成清單必須是5篇")
+    req(queue["knownSafePreflightReplacement"]["count"] == 10, "安全預檢替代清單必須是10篇")
+    req(queue["knownCharacterSceneRegeneration"]["count"] == 120, "角色場景重生成必須記錄120篇")
+    req(queue["knownCharacterSceneRegeneration"]["breakdown"] == {"v13FestivalLocationWanhua": 72, "v14BossDaily": 32, "v15Companions": 16}, "v13／v14／v15角色重生成分布錯誤")
+    req(queue["summary"]["knownForcedRegenerationMinimum"] == 125, "已知需重生成最低數量應為125篇")
+    req(set(queue["knownForcedRegeneration"]["post_ids"]) == {"POST-PRODUCT-OVERVIEW", "POST-COMBO", "POST-GUIDE", "POST-CHOOSE", "POST-CHOOSE-BY-HABIT"}, "基礎強制重生成ID不一致")
+
+    deprecated_override_ids = {item["id"] for item in asset_overrides["deprecatedAssets"]}
+    req(deprecated_override_ids == {"preflight-guide-use", "preflight-choose-products", "preflight-choose-by-habit"}, "預檢舊products-v2 SVG降級清單錯誤")
+    req(len(asset_overrides["safeCandidateBindings"]) == 10, "素材狀態覆寫必須有10張安全候選")
+    req(set(asset_overrides["forcedRegenerationPostIds"]) == {"POST-PRODUCT-OVERVIEW", "POST-COMBO", "POST-GUIDE", "POST-CHOOSE", "POST-CHOOSE-BY-HABIT"}, "素材狀態覆寫的強制重生成ID錯誤")
+
+    print("PASS formal v20260809: products-v3, physical scale, trial lock, 10 safe replacements, 125+ known regenerations, no cropped LINE mascot candidates")
 
 
 if __name__ == "__main__":
