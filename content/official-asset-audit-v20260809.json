@@ -1,0 +1,60 @@
+{
+  "version": "2026-08-09-official-asset-audit-v1",
+  "policy": {
+    "A": "可直接上線",
+    "B": "待審核/僅補充使用",
+    "C": "需依文案重製",
+    "D": "停用/不可上線",
+    "product_rule": "正式產品本體只使用使用者核准的實際產品素材；不得AI重畫包裝、尺寸、比例或標籤。",
+    "fallback_rule": "無可用素材時，先生成不含產品本體的情境候選圖，再合成正式產品素材；候選圖不得自動發布。"
+  },
+  "official_trial": {
+    "source": "8863494D-6143-451D-BE7F-9C762D80599E.jpeg",
+    "target": "images/official/trial/xjw-trial-guilu-drink-30-official-main-v1.svg",
+    "status": "A",
+    "usage": ["trial.html主視覺","publishing-center試喝主圖","LINE OA試喝導流"]
+  },
+  "dm_batch": {
+    "source_zip": "仙加味產品圖&新DM(10).zip",
+    "items": [
+      {"file":"184FA7F2-FA59-4746-95B6-F9439EEEEB86.PNG","subject":"龜鹿飲180cc鋁袋簡版","status":"A","usage":"正式產品/補充主視覺候選"},
+      {"file":"1FE4F7BA-D14E-4050-8B62-6F82EFD93421.PNG","subject":"龜鹿膏100g簡版","status":"A","usage":"正式產品/補充主視覺候選"},
+      {"file":"227100AA-3CB0-4EB8-BC8A-3E809CC0F868.PNG","subject":"鹿茸粉75g簡版","status":"A","usage":"正式產品/補充主視覺候選"},
+      {"file":"3D530E6F-01A3-4721-A970-5EEDA10A6AB0.PNG","subject":"龜鹿湯塊75g簡版","status":"A","usage":"正式產品/補充主視覺候選"},
+      {"file":"DADF3880-F250-48F6-8F56-B790972CA2EC.PNG","subject":"龜鹿膠600g簡版","status":"A","usage":"正式產品/補充主視覺候選"},
+      {"file":"1CAD07EF-834E-4F6C-8A96-5619B7902874.PNG","subject":"龜鹿飲30cc簡版","status":"D","reason":"文字仍使用「瓶／瓶裝」語意，不符合30cc／罐（小玻璃罐）正式規格"},
+      {"file":"042D25D8-AEDB-4F27-BF6C-F520FCD3892E.PNG","subject":"龜鹿飲180cc詳細版","status":"B","usage":"僅補充，需逐字核對包裝/成分文字"},
+      {"file":"5320FD9E-1DA6-4282-99D0-5CF608E160A0.PNG","subject":"龜鹿膏100g詳細版","status":"B","usage":"僅補充，需逐字核對內文"},
+      {"file":"26F19EE4-A8BE-4C80-946E-8FD87E8FDB77.PNG","subject":"鹿茸粉75g詳細版","status":"B","usage":"僅補充，需逐字核對內文"},
+      {"file":"986EB1E2-53B1-44C5-97D1-A52E42E2BE46.PNG","subject":"龜鹿湯塊75g詳細版","status":"B","usage":"僅補充，需逐字核對內文"},
+      {"file":"260902BA-8F8E-4870-A923-7C39D48ED1C6.PNG","subject":"龜鹿膠600g詳細版","status":"B","usage":"僅補充，需逐字核對內文"},
+      {"file":"6A9560F4-70A3-4B30-B9D9-909D786B04CD.PNG","subject":"龜鹿飲30cc詳細版","status":"D","reason":"30cc文字/規格表述不符合正式「罐」規格"}
+    ]
+  },
+  "website_mascot_batch": {
+    "source_zip": "網站專用小老闆圖(8).zip",
+    "items": [
+      {"file":"0B096D87-8251-40D9-8986-F534D69900CD.PNG","subject":"怎麼使用","status":"A"},
+      {"file":"1DB73ACE-5051-4E6D-9B60-8914A77BE4EF.PNG","subject":"料理搭配","status":"A"},
+      {"file":"220827BE-A699-4CEE-8E03-93B00460BFC6.PNG","subject":"常見問題","status":"A"},
+      {"file":"6FB7E7F6-81D1-45DB-AF35-29B418F22B61.PNG","subject":"品牌故事","status":"A"},
+      {"file":"58A23A88-E70D-42E3-AE4D-A8328D868778.PNG","subject":"龜鹿湯塊75g","status":"A"},
+      {"file":"6C25417A-4CE0-4B14-B602-47F553F0EC01.PNG","subject":"鹿茸粉75g","status":"A"},
+      {"file":"73E8E13D-A347-4DCA-AC1F-5CC855F6C5B9.PNG","subject":"龜鹿膠600g","status":"A"},
+      {"file":"9D5AC48B-ED07-4127-A3E5-6BD85D7F0B1E.PNG","subject":"怎麼選","status":"A"},
+      {"file":"DCF43E0D-88CF-40C3-8C7D-726A7C252C29.PNG","subject":"料理搭配全系列","status":"A"},
+      {"file":"F44656F6-DE44-4994-8D86-F0F65B32DBAE.PNG","subject":"龜鹿膏100g","status":"A"},
+      {"file":"2992D44D-8912-4F3E-A44E-5F19C79CD4A8.PNG","subject":"LINE導流全系列","status":"B","reason":"多產品同框，僅作導流，不當單品主圖"},
+      {"file":"7D2D344F-15E6-4734-A496-06A51CA88E64.PNG","subject":"全系列比較","status":"B","reason":"多產品同框，需與產品權威圖再核對"},
+      {"file":"CCCF7C46-1FB1-47D3-8CC5-4FC209DED7C3.PNG","subject":"龜鹿系列全產品","status":"B","reason":"多產品同框，需與產品權威圖再核對"},
+      {"file":"C62F7F09-7C89-4483-BABB-9D1FD2CEEAD6.PNG","subject":"龜鹿飲180cc","status":"B","reason":"可作情境補充，但包裝標籤文字需避免作為規格權威"},
+      {"file":"310D322F-7C23-465A-9B30-721C92739B1A.PNG","subject":"龜鹿飲30cc","status":"C","reason":"畫面明確寫「玻璃瓶裝」，需依正式「30cc／罐（小玻璃罐）」重製"}
+    ]
+  },
+  "post_batches": {
+    "source_zips": ["111(4).zip","圖(2).zip"],
+    "rule": "按貼文文案逐篇配對，不以整包自動上線；同主題留最佳版本，其餘進待審核/淘汰。",
+    "known_rejects": ["任何出現30cc「玻璃瓶／瓶裝」文字的貼文"],
+    "known_usable_topics": ["龜鹿膏100g","鹿茸粉75g","龜鹿膠600g","龜鹿湯塊75g","工作休息","天氣炎熱補水","雨天","早晚溫差","溫熱飲用","料理搭配","怎麼選"]
+  }
+}
