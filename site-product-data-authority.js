@@ -3,12 +3,14 @@
 /* 仙加味正式產品資料圖片權威層｜2026-08-08
  * 在 site-core 讀取 data.json 前即將所有產品主圖映射到 products-v2 實際產品照片。
  * products-v3 與 dm-final 只保留宣傳版面用途，不再成為產品卡、詳頁、OG 或結構化資料主圖。
+ * 新增 data.json 強制 cache-bust，避免手機 Safari／GitHub Pages 繼續讀到舊母資料。
  * 同步清理錄影中仍可見的「五種型態・六項規格」舊說法。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
-  const VERSION='20260808-22-products-v2-source';
+  const VERSION='20260808-24-products-v2-source';
+  const DATA_CACHE_VERSION='20260808-24';
   const OFFICIAL=Object.freeze({
     'guilu-gao':`images/products-v2/guilu-gao.jpeg?v=${VERSION}`,
     'guilu-drink-30':`images/products-v2/guilu-drink-30.jpeg?v=${VERSION}`,
@@ -23,17 +25,44 @@
     data.products=data.products.map(product=>{
       const photo=OFFICIAL[product?.id];
       if(!photo) return product;
-      return {...product,image:photo,dmImage:photo,detailImages:[photo],imagePolicy:'actual-product-photo-contain-no-crop'};
+      return {
+        ...product,
+        image:photo,
+        imageUrl:photo,
+        image_url:photo,
+        dmImage:photo,
+        officialOriginalImage:photo,
+        detailImages:[photo],
+        imagePolicy:'actual-product-photo-contain-no-crop'
+      };
     });
-    data.runtime={...(data.runtime||{}),productMainImageSource:'products-v2-actual-photos',productsV3Use:'marketing-layout-reference-only'};
+    data.runtime={
+      ...(data.runtime||{}),
+      productMainImageSource:'products-v2-actual-photos',
+      dmFallback:'actual-product-photo-until-new-dm-reviewed',
+      productsV3Use:'marketing-layout-reference-only',
+      dataCacheVersion:DATA_CACHE_VERSION
+    };
     return data;
+  }
+  function isDataUrl(value=''){
+    try{return /(?:^|\/)data\.json(?:[?#]|$)/i.test(new URL(String(value||''),location.href).pathname)}catch{return false}
+  }
+  function cacheBustInput(input){
+    const raw=typeof input==='string'?input:String(input?.url||'');
+    if(!isDataUrl(raw)) return input;
+    const url=new URL(raw,location.href);
+    url.searchParams.set('xjw',DATA_CACHE_VERSION);
+    if(typeof input==='string') return url.href;
+    try{return new Request(url.href,input)}catch{return url.href}
   }
   const nativeFetch=window.fetch.bind(window);
   window.fetch=async function(input,init){
-    const response=await nativeFetch(input,init);
+    const raw=typeof input==='string'?input:String(input?.url||'');
+    const dataRequest=isDataUrl(raw);
+    const response=await nativeFetch(dataRequest?cacheBustInput(input):input,init);
     try{
-      const url=typeof input==='string'?input:String(input?.url||'');
-      if(/(?:^|\/)data\.json(?:[?#]|$)/i.test(url)){
+      if(dataRequest){
         const cloned=response.clone();
         const data=normalizeData(await cloned.json());
         return new Response(JSON.stringify(data),{status:response.status,statusText:response.statusText,headers:response.headers});
@@ -75,5 +104,5 @@
   }
   normalizeHead();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startCopyGuard,{once:true});else startCopyGuard();
-  window.XJWProductDataAuthority=Object.freeze({version:VERSION,official:OFFICIAL,normalizeData,normalizeHead,normalizeVisibleCopy});
+  window.XJWProductDataAuthority=Object.freeze({version:VERSION,dataCacheVersion:DATA_CACHE_VERSION,official:OFFICIAL,normalizeData,normalizeHead,normalizeVisibleCopy,cacheBustInput});
 })();
