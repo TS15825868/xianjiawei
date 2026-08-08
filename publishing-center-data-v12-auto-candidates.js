@@ -5,12 +5,12 @@
   const GENERATED_AT='2026-08-08T21:37:00+08:00';
   const svgs=new Map(),urls=new Map();
   const PRODUCTS={
-    'guilu-gao':{name:'龜鹿膏',spec:'100g／罐',img:'images/products-v3/guilu-gao.jpg'},
-    'guilu-drink-30':{name:'龜鹿飲30cc玻璃罐',spec:'30cc／罐（小玻璃罐）',img:'images/products-v3/guilu-drink-30.jpg'},
-    'guilu-drink-180':{name:'龜鹿飲180cc鋁袋',spec:'180cc／包（鋁袋）',img:'images/products-v3/guilu-drink-180.jpg'},
-    'guilu-tangkuai':{name:'龜鹿湯塊',spec:'75g／盒｜8塊裝｜每塊約9.375g',img:'images/products-v3/guilu-tangkuai.jpg'},
-    'guilu-jiao':{name:'龜鹿膠',spec:'600g（1斤）／盒｜32塊裝｜每塊約18.75g',img:'images/products-v3/guilu-jiao.jpg'},
-    'luerong-fen':{name:'鹿茸粉',spec:'75g／罐',img:'images/products-v3/luerong-fen.jpg'}
+    'guilu-gao':{name:'龜鹿膏',spec:'100g／罐',img:'images/products-v2/guilu-gao.jpeg'},
+    'guilu-drink-30':{name:'龜鹿飲30cc玻璃罐',spec:'30cc／罐（小玻璃罐）',img:'images/products-v2/guilu-drink-30.jpeg'},
+    'guilu-drink-180':{name:'龜鹿飲180cc鋁袋',spec:'180cc／包（鋁袋）',img:'images/products-v2/guilu-drink-180.jpeg'},
+    'guilu-tangkuai':{name:'龜鹿湯塊',spec:'75g／盒｜8塊裝｜每塊約9.375g',img:'images/products-v2/guilu-tangkuai.jpeg'},
+    'guilu-jiao':{name:'龜鹿膠',spec:'600g（1斤）／盒｜32塊裝｜每塊約18.75g',img:'images/products-v2/guilu-jiao-open-new.jpg'},
+    'luerong-fen':{name:'鹿茸粉',spec:'75g／罐',img:'images/products-v2/luerong-fen.jpeg'}
   };
   const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const cut=(s='',n=48)=>{const t=String(s).replace(/\s+/g,' ').trim();return t.length>n?t.slice(0,n-1)+'…':t};
@@ -40,17 +40,17 @@
     }else{
       art=`<circle cx="${a}" cy="${b}" r="160" fill="#DCE7DF"/><circle cx="${a+250}" cy="${b+110}" r="108" fill="#EFE3D0"/><path d="M110 790 C310 635 505 850 700 720 C880 600 1050 760 1140 665" fill="none" stroke="#315A49" stroke-width="26" stroke-linecap="round"/><rect x="118" y="850" width="1018" height="110" rx="30" fill="#FFFDF9" stroke="#DED7CA"/><text x="627" y="918" class="n" font-size="29" text-anchor="middle" font-weight="700">補養，是一種節奏。</text>`;
     }
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="1254" height="1254" viewBox="0 0 1254 1254"><rect width="1254" height="1254" fill="#F7F4ED"/><style>text{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}.n{fill:#0B1F3B}.g{fill:#315A49}.m{fill:#667085}</style><text x="76" y="78" class="g" font-size="29" font-weight="700">仙加味</text><rect x="1000" y="45" width="178" height="54" rx="16" fill="#9B2C2C"/><text x="1089" y="79" fill="#fff" font-size="17" text-anchor="middle" font-weight="700">補養，是一種節奏。</text><line x1="76" y1="124" x2="1178" y2="124" stroke="#D9D1C4" stroke-width="2"/><text x="76" y="196" class="n" font-size="48" font-weight="800">${esc(lines[0])}</text>${lines[1]?`<text x="76" y="250" class="n" font-size="42" font-weight="800">${esc(lines[1])}</text>`:''}${chipSvg}${art}<rect x="76" y="1000" width="1102" height="112" rx="26" fill="#F2EFE8"/><text x="102" y="1044" class="m" font-size="22">${esc(cut(p.copy||'',48))}</text><text x="102" y="1082" class="m" font-size="20">候選圖 ${esc(p.id)}｜產品如出現僅使用正式原圖・待16項人工審核</text><line x1="76" y1="1150" x2="1178" y2="1150" stroke="#D9D1C4"/><text x="76" y="1192" class="m" font-size="20">自動安全候選 v12｜不做療效宣稱｜不自動發布</text></svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="1254" height="1254" viewBox="0 0 1254 1254"><rect width="1254" height="1254" fill="#F7F4ED"/><style>text{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}.n{fill:#0B1F3B}.g{fill:#315A49}.m{fill:#667085}</style><text x="76" y="78" class="g" font-size="29" font-weight="700">仙加味</text><rect x="1000" y="45" width="178" height="54" rx="16" fill="#9B2C2C"/><text x="1089" y="79" fill="#fff" font-size="17" text-anchor="middle" font-weight="700">補養，是一種節奏。</text><line x1="76" y1="124" x2="1178" y2="124" stroke="#D9D1C4" stroke-width="2"/><text x="76" y="196" class="n" font-size="48" font-weight="800">${esc(lines[0])}</text>${lines[1]?`<text x="76" y="250" class="n" font-size="42" font-weight="800">${esc(lines[1])}</text>`:''}${chipSvg}${art}<rect x="76" y="1000" width="1102" height="112" rx="26" fill="#F2EFE8"/><text x="102" y="1044" class="m" font-size="22">${esc(cut(p.copy||'',48))}</text><text x="102" y="1082" class="m" font-size="20">候選圖 ${esc(p.id)}｜產品如出現僅使用實際產品照片・待16項人工審核</text><line x1="76" y1="1150" x2="1178" y2="1150" stroke="#D9D1C4"/><text x="76" y="1192" class="m" font-size="20">自動安全候選 v12｜不做療效宣稱｜不自動發布</text></svg>`;
   }
   function candidate(p){
     const svg=buildSvg(p);svgs.set(p.id,svg);
     if(urls.has(p.id))URL.revokeObjectURL(urls.get(p.id));
     const url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));urls.set(p.id,url);
-    return{...p,image_asset_id:`auto-v12-${p.id}`,image_url:url,image_status:'candidate-review-required',candidate_generated:true,candidate_generation_mode:'runtime-safe-svg-v12',candidate_generated_at:GENERATED_AT,image_preflight:'structural-safe-pending-human-review',publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,image_review_reason:'系統已依貼文資料建立唯一1:1 SVG候選；產品若出現只引用正式 products-v3 原圖。這只是候選，仍須完成16項人工審核。'};
+    return{...p,image_asset_id:`auto-v12-${p.id}`,image_url:url,image_status:'candidate-review-required',candidate_generated:true,candidate_generation_mode:'runtime-safe-svg-v12',candidate_generated_at:GENERATED_AT,image_preflight:'structural-safe-pending-human-review',publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,image_review_reason:'系統已依貼文資料建立唯一1:1 SVG候選；產品若出現只引用 products-v2 實際產品照片。這只是候選，仍須完成16項人工審核。'};
   }
   window.fetch=async function(input,init){
     const url=typeof input==='string'?input:(input?.url||'');const response=await PREV_FETCH(input,init);if(!url.includes(TARGET)||!response.ok)return response;
-    try{const data=await response.clone().json();const posts=(data.posts||[]).map(p=>eligible(p)?candidate(p):p);const merged={...data,version:'2026-08-08-public-posts-v17-auto-safe-candidates',posts};merged.counts={...(data.counts||{}),total:posts.length,campaign_hold:posts.filter(p=>p.campaign_hold).length,auto_candidate_v12:posts.filter(p=>p.candidate_generation_mode==='runtime-safe-svg-v12').length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length};const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});}catch{return response}
+    try{const data=await response.clone().json();const posts=(data.posts||[]).map(p=>eligible(p)?candidate(p):p);const merged={...data,version:'2026-08-08-public-posts-v21-actual-product-photos',posts};merged.counts={...(data.counts||{}),total:posts.length,campaign_hold:posts.filter(p=>p.campaign_hold).length,auto_candidate_v12:posts.filter(p=>p.candidate_generation_mode==='runtime-safe-svg-v12').length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length};const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});}catch{return response}
   };
-  window.XJWRuntimeCandidateFactory={version:'2026-08-08-v12',getSvg:(id)=>svgs.get(id)||'',has:(id)=>svgs.has(id),getStats:()=>({generated:svgs.size})};
+  window.XJWRuntimeCandidateFactory={version:'2026-08-08-v12-products-v2',getSvg:(id)=>svgs.get(id)||'',has:(id)=>svgs.has(id),getStats:()=>({generated:svgs.size})};
 })();
