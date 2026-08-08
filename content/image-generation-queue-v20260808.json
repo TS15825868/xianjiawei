@@ -1,12 +1,13 @@
 {
-  "version": "2026-08-08-image-generation-queue-v3-six-single-specs",
+  "version": "2026-08-08-image-generation-queue-v4-priority1-candidates",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "summary": {
     "publishedFinalLocked": 3,
     "campaignHold": 11,
-    "generationRequiredActive": 471,
-    "existingCandidateNeeds16PointReview": 15,
+    "generationRequiredActive": 465,
+    "existingCandidateNeeds16PointReview": 21,
+    "priority1GeneratedPendingReview": 6,
     "total": 500
   },
   "publishedFinalLocked": [
@@ -24,8 +25,18 @@
       "priority": 1,
       "name": "修正6張舊產品候選圖",
       "count": 6,
+      "status": "generated_pending_16_point_review",
+      "generated_at": "2026-08-08T15:47:00+08:00",
       "post_ids": ["POST-PRODUCT-OVERVIEW","POST-GAO-100","POST-DRINK-30","POST-DRINK-180","POST-JIAO-600","POST-COMBO"],
-      "reason": "這6張直接涉及產品包裝、標籤、尺寸或多產品合成，必須使用現行正式原圖重新合成社群版面；原產品本體不可重畫。"
+      "assets": {
+        "POST-PRODUCT-OVERVIEW": "images/posts/generated-v20260808-priority1/product-overview.svg",
+        "POST-GAO-100": "images/posts/generated-v20260808-priority1/guilu-gao-100g.svg",
+        "POST-DRINK-30": "images/posts/generated-v20260808-priority1/guilu-drink-30cc.svg",
+        "POST-DRINK-180": "images/posts/generated-v20260808-priority1/guilu-drink-180cc.svg",
+        "POST-JIAO-600": "images/posts/generated-v20260808-priority1/guilu-jiao-600g.svg",
+        "POST-COMBO": "images/posts/generated-v20260808-priority1/guilu-gao-drink-combo.svg"
+      },
+      "reason": "第一批改用正式產品原圖等比例合成，不讓生成式AI重畫包裝。SVG只作候選審核；ERP在核准、立即發布或手動發布包前會自動轉1254×1254 JPEG並上傳媒體庫。"
     },
     {
       "priority": 2,
@@ -57,11 +68,12 @@
     }
   ],
   "existingCandidateNeeds16PointReview": {
-    "count": 15,
-    "rule": "這些既有候選圖沒有已知硬性錯誤，但仍不能直接發布；必須完成16項檢查，任何一項不符就交給ChatGPT重生成。"
+    "count": 21,
+    "newPriority1Count": 6,
+    "rule": "候選圖不能直接發布；必須完成16項檢查，任何一項不符就交給ChatGPT重生成或改用正式原圖重新合成。"
   },
   "generationRouting": {
-    "mode": "chatgpt_handoff",
+    "mode": "chatgpt_handoff_plus_exact_original_composite",
     "paidOpenAIApi": false,
     "newImageStatus": "pending_review",
     "authoritySources": ["catalog-public.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
