@@ -40,6 +40,13 @@ def main():
         "guilu-jiao": "600g（1斤）／盒｜32塊裝｜每塊約18.75g",
         "luerong-fen": "75g／罐",
     }
+    batch5_paths = {
+        "POST-PRODUCT-OVERVIEW": "images/posts/candidates-v20260809/product-overview.svg",
+        "POST-COMBO": "images/posts/candidates-v20260809/combo.svg",
+        "POST-GUIDE": "images/posts/candidates-v20260809/guide.svg",
+        "POST-CHOOSE": "images/posts/candidates-v20260809/choose.svg",
+        "POST-CHOOSE-BY-HABIT": "images/posts/candidates-v20260809/choose-by-habit.svg",
+    }
 
     canonical = data("data.json")
     catalog = data("catalog-public.json")
@@ -104,7 +111,7 @@ def main():
 
     req("images/products-v2/" not in v8, "v8仍綁 products-v2")
     req("generated-v20260808-priority1/product-overview.svg" not in v8, "v8仍把舊多產品SVG當候選")
-    req("MULTI_PRODUCT_HOLD" in v8 and "image_status:'needs_generation'" in v8, "v8未把多產品舊圖退回需重生成")
+    req("MULTI_PRODUCT_HOLD" in v8 and "image_status:'needs_generation'" in v8, "v8未保留舊多產品圖的早期隔離")
 
     req("images/products-v2/" not in v12, "v12仍會生成 products-v2 候選")
     req("if(productIds(p).length>1)return false" in v12, "v12仍可能自動假生成多產品候選")
@@ -124,12 +131,17 @@ def main():
     req("簡單SVG" in v15 or "簡單向量" in v15, "v15未明確禁止未核准向量陪伴角色")
 
     req("LEGACY_MULTI_SVG" in v16 and "generated-v20260808" in v16, "v16未攔截內嵌舊產品圖SVG")
-    req("SAFE_PREFLIGHT" in v16 and "FORCE_REGEN_IDS" in v16, "v16未套用預檢安全替代／強制重生成分流")
-    for pid in ["POST-PRODUCT-OVERVIEW", "POST-COMBO", "POST-GUIDE", "POST-CHOOSE", "POST-CHOOSE-BY-HABIT"]:
-        req(pid in v16, f"v16缺少強制重生成：{pid}")
+    req("SAFE_PREFLIGHT" in v16 and "BATCH5_CANDIDATES" in v16, "v16未套用預檢安全替代／第一批產品候選")
+    req("batch5-products-v3-independent-panel-candidate" in v16, "v16未標記第一批產品候選模式")
+    for pid, path in batch5_paths.items():
+        req(pid in v16 and path in v16, f"v16缺少第一批產品候選：{pid}")
+        candidate = text(path)
+        req("images/products-v2/" not in candidate, f"第一批候選仍引用products-v2：{path}")
+        req("preserveAspectRatio=\"xMidYMid meet\"" in candidate, f"第一批候選未使用contain式等比例圖片：{path}")
+        req("clipPath" not in candidate and "slice" not in candidate, f"第一批候選仍含裁切：{path}")
+    req("products-v2" in v16, "v16缺少舊products-v2攔截")
     for pid in ["XJW-WORK-REST-001", "POST-STORAGE", "POST-SEASONS-RHYTHM", "POST-INGREDIENT-PRINCIPLE", "POST-DAILY-SOUP", "POST-WEATHER-HOT", "POST-WEATHER-TEMP", "POST-WEATHER-RAIN", "POST-STORE", "POST-RECIPES"]:
         req(pid in v16, f"v16缺少安全預檢替代：{pid}")
-    req("products-v2" in v16, "v16缺少舊products-v2攔截")
 
     req("products-v3/guilu-drink-30.jpg" in ai and "products-v3/guilu-drink-180.jpg" in ai, "ChatGPT重生成未帶新版正式產品圖")
     for phrase in ["42", "51", "0.64", "不裁切", "多產品"]:
@@ -137,22 +149,24 @@ def main():
     req("products-v2" in guardian and "玻璃瓶" in guardian, "發佈中心守門員缺少舊圖／30cc瓶型偵測")
 
     req(policy["productAuthority"]["imageAuthority"] == "images/products-v3/", "公開內容政策未鎖 products-v3")
-    req(policy["publishingSafety"]["multiProductUnknownScaleAction"] == "keep-needs-generation-until-reviewed", "公開政策未鎖多產品未知尺度處理")
+    req(policy["publishingSafety"]["multiProductUnknownScaleAction"] == "keep-needs-generation-until-reviewed", "公開政策未鎖未知多產品尺度的保守處理")
 
     req(queue["summary"]["runtimeCalculated"] is True, "生成佇列仍使用寫死候選數字")
-    req(queue["knownForcedRegeneration"]["minimumKnownCount"] == 5, "基礎強制重生成清單必須是5篇")
+    req(queue["knownForcedRegeneration"]["minimumKnownCount"] == 0, "第一批5篇已有候選後，基礎強制重生成應為0")
+    req(queue["knownProductReviewCandidates"]["count"] == 5, "第一批產品候選必須是5篇")
+    req(set(queue["knownProductReviewCandidates"]["post_ids"]) == set(batch5_paths), "第一批產品候選ID不一致")
     req(queue["knownSafePreflightReplacement"]["count"] == 10, "安全預檢替代清單必須是10篇")
     req(queue["knownCharacterSceneRegeneration"]["count"] == 120, "角色場景重生成必須記錄120篇")
     req(queue["knownCharacterSceneRegeneration"]["breakdown"] == {"v13FestivalLocationWanhua": 72, "v14BossDaily": 32, "v15Companions": 16}, "v13／v14／v15角色重生成分布錯誤")
-    req(queue["summary"]["knownForcedRegenerationMinimum"] == 125, "已知需重生成最低數量應為125篇")
-    req(set(queue["knownForcedRegeneration"]["post_ids"]) == {"POST-PRODUCT-OVERVIEW", "POST-COMBO", "POST-GUIDE", "POST-CHOOSE", "POST-CHOOSE-BY-HABIT"}, "基礎強制重生成ID不一致")
+    req(queue["summary"]["knownForcedRegenerationMinimum"] == 120, "已知需重生成最低數量應為120篇")
 
     deprecated_override_ids = {item["id"] for item in asset_overrides["deprecatedAssets"]}
     req(deprecated_override_ids == {"preflight-guide-use", "preflight-choose-products", "preflight-choose-by-habit"}, "預檢舊products-v2 SVG降級清單錯誤")
     req(len(asset_overrides["safeCandidateBindings"]) == 10, "素材狀態覆寫必須有10張安全候選")
-    req(set(asset_overrides["forcedRegenerationPostIds"]) == {"POST-PRODUCT-OVERVIEW", "POST-COMBO", "POST-GUIDE", "POST-CHOOSE", "POST-CHOOSE-BY-HABIT"}, "素材狀態覆寫的強制重生成ID錯誤")
+    req(set(asset_overrides["productReviewCandidateBindings"]) == set(batch5_paths), "素材狀態覆寫的第一批5張產品候選ID錯誤")
+    req(asset_overrides["forcedRegenerationPostIds"] == [], "第一批5篇已有候選後，不應仍列強制重生成")
 
-    print("PASS formal v20260809: products-v3, physical scale, trial lock, 10 safe replacements, 125+ known regenerations, no cropped LINE mascot candidates")
+    print("PASS formal v20260809: products-v3, physical scale, trial lock, 5 product review candidates, 10 safe replacements, 120 character regenerations, no cropped LINE mascot candidates")
 
 
 if __name__ == "__main__":
