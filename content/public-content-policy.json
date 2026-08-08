@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-public-content-six-products-v1",
+  "version": "2026-08-08-public-content-six-products-v2",
   "authority": "TS15825868/xianjiawei",
   "purpose": "仙加味不含私人資料的公開安全內容母本；供官網、LINE OA與ERP以貼文ID讀取文案、核准素材及發布安全狀態",
   "publicRepository": "TS15825868/xianjiawei",
@@ -36,8 +36,16 @@
   "productAuthority": {
     "productCount": 6,
     "sellableSpecificationCount": 6,
-    "specifications": ["龜鹿膏 100g／罐","龜鹿飲 30cc／罐","龜鹿飲 180cc／包","龜鹿湯塊 75g／盒","龜鹿膠 600g／盒","鹿茸粉 75g／罐"],
-    "obsoleteOrForbidden": ["龜鹿湯塊150g","龜鹿湯塊300g","龜鹿湯塊600g"]
+    "specifications": [
+      "龜鹿膏 100g／罐",
+      "龜鹿飲30cc玻璃罐 30cc／罐",
+      "龜鹿飲180cc鋁袋 180cc／包",
+      "龜鹿湯塊 75g／盒",
+      "龜鹿膠 600g（1斤）／盒",
+      "鹿茸粉 75g／罐"
+    ],
+    "soupBlockRule": "龜鹿湯塊深藍盒只允許75g／盒，不得建立其他容量",
+    "drink30Rule": "30cc產品必須稱龜鹿飲30cc玻璃罐，不得稱瓶"
   },
   "publishedTrialAuthority": {
     "postId": "XJW-TRIAL-001",
