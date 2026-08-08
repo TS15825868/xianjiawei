@@ -1,7 +1,7 @@
 (()=>{
   const PREV_FETCH=window.fetch.bind(window);
   const TARGET='content/public-post-library.json';
-  const VERSION='2026-08-09-v16-products-v3-size-lock';
+  const VERSION='2026-08-09-v16-products-v3-size-lock-ui-sync';
   const MAP={
     'guilu-gao':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=20260809-25',
     'guilu-drink-30':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260809-25',
@@ -44,6 +44,16 @@
       physical_scale_policy:'preserve-original-aspect-and-realistic-relative-scale'
     };
   }
+  function patchAuthorityNotices(){
+    const nodes=document.querySelectorAll('.published-note,.spec-note,.automation-note');
+    nodes.forEach(node=>{
+      let html=node.innerHTML;
+      html=html.replace('v16再攔截任何漏網 products-v3／舊DM產品主圖','v16再攔截任何漏網 products-v2／舊DM產品主圖');
+      html=html.replace('產品若出現只引用 <strong>products-v2 實際產品照片</strong>，不再把 products-v3 宣傳版面當產品主圖','產品若出現只引用 <strong>products-v3 使用者確認的正式產品原圖</strong>；舊 products-v2 與舊DM不再作產品主圖');
+      html=html.replace('產品主圖只用 products-v2 實際產品照片等比例合成','產品主圖只用 products-v3 使用者確認的正式產品原圖等比例合成');
+      node.innerHTML=html;
+    });
+  }
   window.fetch=async function(input,init){
     const url=typeof input==='string'?input:(input?.url||'');
     const response=await PREV_FETCH(input,init);
@@ -58,5 +68,6 @@
       return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});
     }catch{return response}
   };
-  window.XJWActualProductPhotoAuthority=Object.freeze({version:VERSION,map:MAP,productId,fixPost});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',patchAuthorityNotices,{once:true});else patchAuthorityNotices();
+  window.XJWActualProductPhotoAuthority=Object.freeze({version:VERSION,map:MAP,productId,fixPost,patchAuthorityNotices});
 })();
