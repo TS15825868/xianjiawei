@@ -1,12 +1,16 @@
 {
-  "version": "2026-08-09-character-regeneration-authority-v1",
+  "version": "2026-08-09-character-regeneration-authority-v2-five-safe-reuse",
   "authority": "formal-mascot-review",
   "status": "locked",
-  "totalKnownRegeneration": 120,
+  "originalInvalidCharacterCandidates": 120,
+  "safeApprovedWebsiteReuse": 5,
+  "totalKnownRegeneration": 115,
   "breakdown": [
     {
       "layer": "v13",
       "categories": ["節慶", "地點", "萬華在地"],
+      "originalInvalidCount": 72,
+      "safeReuseCount": 0,
       "count": 72,
       "oldMode": "website-mascot-scene-v13",
       "newMode": "chatgpt-character-scene-v13-required",
@@ -15,20 +19,42 @@
     {
       "layer": "v14",
       "categories": ["小老闆與夥伴"],
-      "count": 32,
+      "originalInvalidCount": 32,
+      "safeReuseCount": 5,
+      "count": 27,
       "oldMode": "website-boss-daily-v14",
       "newMode": "chatgpt-boss-daily-v14-required",
-      "oldIssue": "直接引用LINE OA場景圖並以slice／clipPath聚焦角色，可能裁頭、裁手、裁腳，也無法確保動作與每篇文案真正一致。"
+      "safeReuseMode": "approved-v405-semantic-reuse-v14",
+      "oldIssue": "舊候選直接引用LINE OA場景圖並以slice／clipPath聚焦角色，可能裁頭、裁手、裁腳，也無法確保動作與每篇文案真正一致。",
+      "safeReusePostIds": ["XJW-CHARACTER-006","XJW-CHARACTER-008","XJW-CHARACTER-011","XJW-CHARACTER-012","XJW-CHARACTER-014"]
     },
     {
       "layer": "v15",
       "categories": ["陪伴角色"],
+      "originalInvalidCount": 16,
+      "safeReuseCount": 0,
       "count": 16,
       "oldMode": "companion-vector-v15-review",
       "newMode": "chatgpt-companion-v15-required",
       "oldIssue": "小老闆來自裁切LINE OA圖，且小鹿、小烏龜、灰色小河馬娃娃、米色小鹿安撫巾以簡單SVG重新繪製，未經正式造型核准。"
     }
   ],
+  "safeApprovedWebsiteCandidates": {
+    "XJW-CHARACTER-006": {"action":"招手歡迎","path":"images/brand/approved-v405/home-brand.webp","status":"candidate-review-required"},
+    "XJW-CHARACTER-008": {"action":"指向看板","path":"images/brand/approved-v405/choose.webp","status":"candidate-review-required"},
+    "XJW-CHARACTER-011": {"action":"端溫水","path":"images/brand/approved-v405/guide-how-to-use.webp","status":"candidate-review-required"},
+    "XJW-CHARACTER-012": {"action":"看鍋燉煮","path":"images/brand/approved-v405/recipes.webp","status":"candidate-review-required"},
+    "XJW-CHARACTER-014": {"action":"思考問題","path":"images/brand/approved-v405/faq.webp","status":"candidate-review-required"}
+  },
+  "safeReuseRules": {
+    "exactSemanticMatchRequired": true,
+    "websiteApprovedPoolOnly": true,
+    "fullOriginalImageNoCrop": true,
+    "oneExistingImageReusedForOnlyOneNewCandidateInThisBatch": true,
+    "duplicateCheckStillRequiredBeforeApproval": true,
+    "autoApprove": false,
+    "autoPublish": false
+  },
   "regenerationRules": {
     "preserveCopy": true,
     "preservePostId": true,
@@ -57,7 +83,8 @@
   },
   "reviewOutcome": {
     "oldCandidates": "deprecated-as-active-candidate",
-    "currentStatus": "needs_generation",
+    "safeExactMatches": "candidate-review-required",
+    "remainingStatus": "needs_generation",
     "afterGeneration": "pending_review",
     "autoApprove": false,
     "autoPublish": false
