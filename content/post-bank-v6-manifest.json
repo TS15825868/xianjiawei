@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-post-bank-v12-six-current-products",
+  "version": "2026-08-08-post-bank-v13-preflight",
   "authority": "TS15825868/xianjiawei",
   "baseLibrary": "content/public-post-library.json",
   "extensions": ["publishing-center-data-v6.js","publishing-center-data-v7.js","publishing-center-data-v8-fixes.js","publishing-center-data-v10-published-locks.js","publishing-center-data-v11-campaign-holds.js"],
@@ -23,8 +23,9 @@
     "publishedLockedInGenerated": 1,
     "publishedLockedTotal": 3,
     "campaignHold": 11,
-    "activeImageGenerationRequired": 465,
-    "existingCandidateNeeds16PointReview": 21,
+    "activeImageGenerationRequired": 473,
+    "existingCandidateNeeds16PointReview": 13,
+    "preflightRejectedNeedsRegeneration": 8,
     "newGeneratedPostsStatus": "pending_review"
   },
   "generatorAuthority": {
@@ -45,6 +46,11 @@
     "ids": ["XJW-TRIAL-002","XJW-TRIAL-003","XJW-TRIAL-004","XJW-TRIAL-005","XJW-TRIAL-006","XJW-TRIAL-007","XJW-TRIAL-008","XJW-TRIAL-009","XJW-TRIAL-010","XJW-TRIAL-011","XJW-TRIAL-012"],
     "hold_until": "2026-11-06"
   },
+  "preflightRejected": {
+    "count": 8,
+    "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN"],
+    "reason": "情境、環境、產品來源或重複圖已有確定性錯誤，直接退回生成，不浪費人工16項審核。"
+  },
   "generatedCopyQueueByPillar": {
     "產品": 48,
     "日常節奏": 48,
@@ -62,7 +68,7 @@
     "合作夥伴素材": 24,
     "門市日常": 9
   },
-  "imageWorkflow": "圖片依優先佇列處理；不符合者由發布中心／ERP帶完整規格到ChatGPT重做。所有新圖先待審核，完成16項檢查才可核准；已發布最終母版不進重生成；試喝變體暫緩期間不生圖、不排程。",
+  "imageWorkflow": "圖片依優先佇列處理；自動預檢可確定不合格者直接退回生成；其餘候選仍由人工完成16項檢查。產品本體只能用正式原圖等比例合成；已發布最終母版不進重生成；試喝變體暫緩期間不生圖、不排程。",
   "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
   "liveChecks": ["天氣","颱風","寒流","高溫","空氣品質","重大即時事件"],
   "schedule": ["星期二 19:30","星期六 09:30"],
