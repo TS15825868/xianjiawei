@@ -1,0 +1,34 @@
+{
+  "version": "2026-08-09-character-b3-prompts-v1",
+  "batch": "CHAR-B3-FESTIVAL-LOCATION-WANHUA",
+  "count": 72,
+  "status": "generation-ready",
+  "sourceRanges": {
+    "festival": "XJW-FESTIVAL-001..024",
+    "location": "XJW-LOCATION-001..024",
+    "wanhua": "XJW-WANHUA-001..024"
+  },
+  "sharedRules": {
+    "preserveOriginalImagePrompt": true,
+    "output": "1:1 candidate-review-required",
+    "mascot": "官網 approved-v405 同款柔和立體Q版小老闆，完整不裁切，四周約8%安全空間",
+    "websiteLineSeparate": true,
+    "product": "沒有必要不放產品；若文案明確需要產品，只用products-v3正式實拍等比例合成",
+    "weather": "不得虛構即時天氣；文案未指定時保持中性",
+    "festival": "節慶日期與即時活動發布前另確認；畫面只使用一般可辨識但不誇張的台灣生活節慶元素",
+    "location": "地點必須與原文案一致，不擅自換場景",
+    "wanhua": "萬華場景不得誤用其他城市地標；沒有正式店面實拍依據時，不虛構成真實店面照片",
+    "publish": "生成後只進待審核，不自動核准、不自動排程、不自動發布"
+  },
+  "compositionVariants": {
+    "1": "較近的生活互動畫面；角色仍完整入鏡，背景保留足夠環境線索。",
+    "2": "中景構圖；角色與主要場景物件並列，畫面左右平衡，不裁切人物。",
+    "3": "較寬的環境構圖；讓地點或節慶場景更明確，角色仍完整且不縮成過小。",
+    "4": "動作導向構圖；讓原文案中的主要動作成為視覺焦點，但仍保留完整人物與場景。"
+  },
+  "categoryRules": {
+    "節慶": "保留原貼文節慶名稱與家庭／聚餐／陪伴等原始情境，不自行添加未提及的促銷、價格或產品。",
+    "地點": "直接依原貼文location與原始image_prompt建立場景；車上休息、辦公室、公園、河濱、餐桌等不可互換。",
+    "萬華在地": "保留萬華、西昌街、傳統市場、街區散步、品牌故事等原始主題；如果沒有可驗證實拍，就採插畫式萬華生活氛圍，不偽裝成特定真實店面照片。"
+  }
+}
