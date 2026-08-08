@@ -1,21 +1,33 @@
 (()=>{
   const PREV_FETCH=window.fetch.bind(window);
   const TARGET='content/public-post-library.json';
-  const PUBLIC='https://ts15825868.github.io/xianjiawei/';
   const ALLOWED=new Set(['節慶','地點','萬華在地']);
-  const SOURCES=['images/brand/line-oa/brand.jpg','images/brand/line-oa/faq.jpg','images/brand/line-oa/recommend.jpg'];
-  const svgs=new Map(),urls=new Map();
-  const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const cut=(s='',n=44)=>{const t=String(s).replace(/\s+/g,' ').trim();return t.length>n?t.slice(0,n-1)+'…':t};
-  const hash=(s='')=>[...String(s)].reduce((a,c)=>(a*33+c.charCodeAt(0))>>>0,5381);
-  const lines=(s='')=>{const t=String(s);if(t.length<=17)return[t];const p=Math.min(17,Math.max(7,t.lastIndexOf('｜',17)+1||17));return[t.slice(0,p),t.slice(p,34)]};
-  function eligible(p){return p&&p.status!=='published'&&!p.campaign_hold&&ALLOWED.has(String(p.category||''))&&(p.image_status==='needs_generation'||!p.image_url)}
-  function build(p){
-    const seed=hash(p.id),source=PUBLIC+SOURCES[seed%SOURCES.length],t=lines(p.title||'仙加味日常'),accent=['#315A49','#9B2C2C','#6B5A3F'][seed%3];
-    const context=cut(p.occasion||p.location||p.category||'',16),excerpt=cut(p.copy||'',54);
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="1254" height="1254" viewBox="0 0 1254 1254"><defs><clipPath id="hero"><rect x="690" y="330" width="470" height="620" rx="46"/></clipPath></defs><rect width="1254" height="1254" fill="#F7F4ED"/><style>text{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}.n{fill:#0B1F3B}.g{fill:#315A49}.m{fill:#667085}</style><text x="76" y="82" class="g" font-size="30" font-weight="700">仙加味</text><rect x="1000" y="47" width="178" height="54" rx="16" fill="#9B2C2C"/><text x="1089" y="81" fill="#fff" font-size="17" text-anchor="middle" font-weight="700">補養，是一種節奏。</text><line x1="76" y1="128" x2="1178" y2="128" stroke="#D9D1C4" stroke-width="2"/><text x="76" y="205" class="n" font-size="47" font-weight="800">${esc(t[0])}</text>${t[1]?`<text x="76" y="258" class="n" font-size="40" font-weight="800">${esc(t[1])}</text>`:''}<rect x="76" y="324" width="536" height="628" rx="42" fill="#FFFDF9" stroke="#DED7CA" stroke-width="2"/><rect x="110" y="372" width="210" height="50" rx="25" fill="${accent}"/><text x="215" y="405" fill="#fff" font-size="21" text-anchor="middle" font-weight="700">${esc(context||p.category)}</text><text x="112" y="500" class="n" font-size="31" font-weight="700">網站正式Q版小老闆</text><text x="112" y="550" class="m" font-size="23">姿勢可依情境變化</text><text x="112" y="590" class="m" font-size="23">角色畫風、服裝與識別固定</text><path d="M120 720 C235 620 350 780 510 655" fill="none" stroke="#D9C9AA" stroke-width="28" stroke-linecap="round"/><circle cx="220" cy="784" r="52" fill="#DCE7DF"/><circle cx="430" cy="820" r="82" fill="#EFE3D0"/><image href="${source}" x="635" y="330" width="610" height="620" preserveAspectRatio="xMaxYMid slice" clip-path="url(#hero)"/><rect x="76" y="1000" width="1102" height="110" rx="28" fill="#F2EFE8"/><text x="102" y="1045" class="m" font-size="22">${esc(excerpt)}</text><text x="102" y="1082" class="m" font-size="20">候選圖 ${esc(p.id)}｜網站 approved-v405 衍生角色｜待16項人工審核</text><line x1="76" y1="1150" x2="1178" y2="1150" stroke="#D9D1C4"/><text x="76" y="1192" class="m" font-size="20">不重畫產品・不新增療效宣稱・不自動發布</text></svg>`;
+  const VERSION='2026-08-09-v13-chatgpt-full-character-required';
+  function eligible(p){return p&&p.status!=='published'&&!p.campaign_hold&&ALLOWED.has(String(p.category||''))&&(p.image_status==='needs_generation'||!p.image_url||String(p.candidate_generation_mode||'').includes('website-mascot-scene-v13'))}
+  function fix(p){
+    if(!eligible(p))return p;
+    const context=[p.season,p.weather,p.occasion,p.location].filter(Boolean).join('／')||'依文案判斷';
+    const prompt=`依貼文文案重生成完整1:1情境圖。分類：${p.category||''}；情境資料：${context}。小老闆必須使用官網 approved-v405 同款柔和立體Q版外觀，頭、頭髮、雙手、雙腳與持物完整，四周保留安全空間，不得裁切，不得使用LINE OA專用圖直接裁切拼貼。季節、地點、天氣、表情、動作與文案一致。除非文案明確需要產品，否則不放產品；若需產品，只合成products-v3正式原圖並遵守實際尺寸比例。`;
+    return{
+      ...p,
+      status:'pending_review',
+      image_url:null,
+      image_asset_id:null,
+      image_status:'needs_generation',
+      candidate_generated:false,
+      candidate_generation_mode:'chatgpt-character-scene-v13-required',
+      publish_allowed:false,
+      schedule_enabled:false,
+      scheduled_at:null,
+      owner_review_required:true,
+      approval_required:true,
+      image_prompt:prompt,
+      image_review_reason:'舊v13使用LINE OA角色圖並以slice／clipPath裁切，違反小老闆完整顯示與官網／LINE素材分流規則；已退回依文案重新生成。'
+    };
   }
-  function candidate(p){const svg=build(p);svgs.set(p.id,svg);if(urls.has(p.id))URL.revokeObjectURL(urls.get(p.id));const url=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));urls.set(p.id,url);return{...p,image_asset_id:`character-v13-${p.id}`,image_url:url,image_status:'candidate-review-required',candidate_generated:true,candidate_generation_mode:'website-mascot-scene-v13',candidate_generated_at:'2026-08-08T21:37:00+08:00',image_preflight:'approved-website-mascot-source-pending-human-review',publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,image_review_reason:'使用官網 approved-v405 衍生 LINE OA 角色 JPEG，以右側裁切聚焦小老闆，避免帶入產品區。仍須完成16項人工審核。'}}
-  window.fetch=async function(input,init){const url=typeof input==='string'?input:(input?.url||'');const response=await PREV_FETCH(input,init);if(!url.includes(TARGET)||!response.ok)return response;try{const data=await response.clone().json();const posts=(data.posts||[]).map(p=>eligible(p)?candidate(p):p);const merged={...data,version:'2026-08-08-public-posts-v18-character-scenes',posts};merged.counts={...(data.counts||{}),character_scene_v13:posts.filter(p=>p.candidate_generation_mode==='website-mascot-scene-v13').length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length};const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers})}catch{return response}};
-  window.XJWCharacterCandidateFactory={version:'2026-08-08-v13',getSvg:id=>svgs.get(id)||'',has:id=>svgs.has(id),getStats:()=>({generated:svgs.size})};
+  window.fetch=async function(input,init){
+    const url=typeof input==='string'?input:(input?.url||'');const response=await PREV_FETCH(input,init);if(!url.includes(TARGET)||!response.ok)return response;
+    try{const data=await response.clone().json();const posts=(data.posts||[]).map(fix);const merged={...data,version:'2026-08-09-public-posts-v28-v13-regeneration-required',posts};merged.counts={...(data.counts||{}),v13_needs_generation:posts.filter(p=>p.candidate_generation_mode==='chatgpt-character-scene-v13-required').length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length};const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers})}catch{return response}
+  };
+  window.XJWCharacterCandidateFactory={version:VERSION,getSvg:()=>'',has:()=>false,getStats:()=>({generated:0,regenerationRequired:true})};
 })();
