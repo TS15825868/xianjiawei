@@ -1,12 +1,20 @@
 (()=>{
   const BLOCK=[
     ['公司資訊',['台興山產有限公司','統一編號','公司電話','公司地址']],
-    ['30cc名稱',['龜鹿飲30cc玻璃瓶','30cc／瓶','小玻璃瓶']],
+    ['30cc名稱',['龜鹿飲30cc玻璃瓶','30cc／瓶','小玻璃瓶','30cc瓶裝','30cc 瓶裝','玻璃瓶裝']],
     ['療效宣稱',['治療','治癒','保證改善','療效','藥到病除']]
   ];
   const LIVE=['颱風','寒流','高溫','空氣品質','午後雷陣雨'];
   const GUARD_BLOCKING=false;
   function text(card){return `${card.querySelector('h2')?.textContent||''} ${card.querySelector('.excerpt')?.textContent||''}`}
+  function imageUrls(card){
+    const urls=[];
+    card.querySelectorAll('img[src],source[srcset],a[href]').forEach(node=>{
+      const raw=node.getAttribute('src')||node.getAttribute('srcset')||node.getAttribute('href')||'';
+      if(raw)urls.push(raw);
+    });
+    return urls;
+  }
   function unauthorizedSoupWeights(value=''){
     const source=String(value||''),labels=['龜鹿湯塊','龜鹿膠','龜鹿膏','鹿茸粉'],errors=[];
     const re=/(?<!\d)(\d+(?:\.\d+)?)\s*g/gi;let match;
@@ -18,18 +26,35 @@
     }
     return errors;
   }
+  function imageErrors(card,t=''){
+    const urls=imageUrls(card),errors=[];
+    for(const url of urls){
+      if(/\/images\/products-v2\//i.test(url))errors.push('圖片：仍引用舊 products-v2，產品本體必須切到 products-v3 正式原圖');
+      if(/\/images\/dm-final\//i.test(url)||/legacy/i.test(url))errors.push('圖片：仍引用舊DM／歷史產品圖，不可作正式產品本體');
+    }
+    if(/30\s*cc/i.test(t)){
+      const productImages=urls.filter(url=>/guilu-drink-30|30cc/i.test(url));
+      if(productImages.some(url=>!/\/images\/products-v3\/guilu-drink-30\.jpg/i.test(url)))errors.push('30cc圖片：產品本體必須使用 products-v3/guilu-drink-30.jpg 正式小玻璃罐原圖');
+    }
+    if(/180\s*cc/i.test(t)){
+      const productImages=urls.filter(url=>/guilu-drink-180|180cc/i.test(url));
+      if(productImages.some(url=>!/\/images\/products-v3\/guilu-drink-180\.jpg/i.test(url)))errors.push('180cc圖片：產品本體必須使用 products-v3/guilu-drink-180.jpg 正式鋁袋原圖');
+    }
+    return errors;
+  }
   function scan(card){
     const t=text(card),errors=[],notes=[];
     for(const [label,terms] of BLOCK){const hit=terms.find(x=>t.includes(x));if(hit)errors.push(`${label}：發現「${hit}」`)}
     errors.push(...unauthorizedSoupWeights(t));
+    errors.push(...imageErrors(card,t));
     const imageState=card.querySelector('.image-state')?.textContent?.trim()||'';
     if(/needs|待生成|需重生成|replace-required/i.test(imageState))errors.push('圖片：此篇已列入重新生成／更換清單');
-    if(t.includes('30cc'))notes.push('30cc圖片必須為裸罐、無貼紙、無外盒、無外袋、金色蓋，約42×51mm比例。');
-    if(t.includes('180cc'))notes.push('180cc圖片必須為狹長鋁袋，寬高比約0.64，不可拉寬或加高。');
-    if(t.includes('龜鹿膏'))notes.push('龜鹿膏只使用目前新版米白標籤，舊紅白直式貼紙禁止。');
-    if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊只有75g／盒深藍盒、8塊裝、每塊約9.375g。');
-    if(t.includes('龜鹿膠'))notes.push('龜鹿膠600g淡紫盒需照正式原圖等比例，不可與龜鹿湯塊互換。');
-    if(t.includes('鹿茸粉'))notes.push('鹿茸粉只使用75g白色塑膠罐正式原圖。');
+    if(t.includes('30cc'))notes.push('30cc必須為小玻璃裸罐、無貼紙、金色蓋，約Ø42×H51mm；與100g罐同框時必須明顯更小，不得稱瓶。');
+    if(t.includes('180cc'))notes.push('180cc必須為狹長直立鋁袋，寬高比約0.64，不可拉寬或誇張放大。');
+    if(t.includes('龜鹿膏'))notes.push('龜鹿膏100g罐約51×78mm，只用products-v3正式原圖，標籤與罐型比例固定。');
+    if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊只有75g／盒深藍盒、8塊裝、每塊約9.375g；毫米尺寸未知時不得猜測。');
+    if(t.includes('龜鹿膠'))notes.push('龜鹿膠600g淡紫盒需照products-v3正式原圖等比例，不可與龜鹿湯塊互換；毫米尺寸未知時不得猜測。');
+    if(t.includes('鹿茸粉'))notes.push('鹿茸粉只使用75g白色正式罐products-v3原圖；毫米尺寸未知時不得猜測。');
     if(LIVE.some(x=>t.includes(x)))notes.push('此貼文含即時天氣／事件字詞，發布前必須重新確認當日資訊。');
     return{errors:[...new Set(errors)],notes};
   }
@@ -44,7 +69,7 @@
         if(approve&&GUARD_BLOCKING){approve.disabled=true;approve.title='先完成修正'}
       }else{
         box.className='review-note';
-        box.textContent=`AI規格文字預檢通過。${result.notes.length?' '+result.notes.join(' '):' 圖片仍需完成16項人工檢查。'}`;
+        box.textContent=`AI規格文字／圖源預檢通過。${result.notes.length?' '+result.notes.join(' '):' 圖片仍需完成16項人工檢查。'}`;
       }
     })
   }
