@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-canonical-v12-six-single-specs",
+  "version": "2026-08-08-canonical-v13-six-products-clean-generators",
   "updated": "2026-08-08",
   "status": "source-updated-deployment-not-yet-verified",
   "catalog": "six-official-products-six-single-specs",
@@ -8,10 +8,14 @@
     "runtimeContentTotal": 500,
     "publishedLocked": 3,
     "campaignHold": 11,
-    "activeImageGenerationRequired": 471,
-    "existingCandidateNeeds16PointReview": 15,
+    "activeImageGenerationRequired": 465,
+    "existingCandidateNeeds16PointReview": 21,
     "imageQueue": "content/image-generation-queue-v20260808.json",
+    "postBankManifest": "content/post-bank-v6-manifest.json",
+    "postGeneratorV6": "publishing-center-data-v6.js",
+    "postGeneratorV7": "publishing-center-data-v7.js",
     "aiBrandControl": "content/ai-brand-control-v20260807.json",
+    "brandCharacterSpec": "brand-character-spec.json",
     "annualCalendar": "content/annual-content-calendar-v2026.json",
     "assetLedger": "content/asset-usage-ledger.json",
     "partnerMode": "content/partner-mode-policy.json"
@@ -31,12 +35,14 @@
     "guiluDrink30": "30cc／罐（小玻璃罐）；裸罐、無貼紙、無外盒、無外袋、金色蓋；同型約42×51mm；不得拉高拉胖；不得稱瓶",
     "guiluDrink180": "180cc／包（鋁袋）；狹長直立；寬高比約0.64；不得拉寬或加高",
     "guiluGao": "100g／罐；六角玻璃罐約51×78mm；只使用現行新版米白標籤",
-    "guiluJiao": "600g（1斤）／盒｜32塊裝｜每塊約18.75g；淡紫盒依原圖等比例；不得橫向拉長"
+    "guiluJiao": "600g（1斤）／盒｜32塊裝｜每塊約18.75g；淡紫盒依原圖等比例；不得橫向拉長",
+    "luerongFen": "75g／罐；白色塑膠罐正式原圖"
   },
   "imagePolicy": {
     "productMethod": "正式原產品照片等比例合成；AI只生成背景、角色、道具與情境；不重畫產品包裝或標籤",
     "displayMode": "contain-no-crop",
-    "mascot": "官網Q版小老闆；米白中式上衣、深綠圍裙、紅色直式仙加味印章；出現時小鹿與小烏龜必須一起出現",
+    "mascot": "只使用官網 images/brand/approved-v405/ 同款柔和立體Q版小老闆；圓臉、大眼、短黑髮、米白中式上衣、深綠圍裙、紅色直式仙加味印章；姿勢可自由變化，角色識別與畫風固定",
+    "companions": "小鹿與小烏龜不是每張強制出現；情境需要夥伴時才加入，且必須是分開的獨立角色、同一Q版質感",
     "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
     "samePrimaryImageCooldownDays": 90,
     "sameCopyCooldownDays": 180
@@ -70,7 +76,9 @@
     "autoPublishBeforeApproval": false,
     "productAuthoritySource": "catalog-public.json",
     "visualAuthoritySource": "content/visual-production-spec-v20260807.json",
-    "rejectUnknownProductSpecs": true
+    "brandCharacterSource": "brand-character-spec.json",
+    "rejectUnknownProductSpecs": true,
+    "generatorAuthority": "base23 + v6 current300 + v7 current177 = runtime500"
   },
   "schedule": {
     "timezone": "Asia/Taipei",
@@ -79,11 +87,11 @@
     "liveWeatherRequiresRecheck": true
   },
   "platformPolicy": {
-    "facebook": "official_api_ready_configuration_present",
-    "instagram": "official_api_ready_configuration_present",
-    "lineOA": "official_api_ready_configuration_present",
+    "facebook": "由ERP執行時讀取實際授權狀態；公開Git不宣稱Token已就緒",
+    "instagram": "由ERP執行時讀取實際授權狀態；公開Git不宣稱Token已就緒",
+    "lineOA": "由ERP／LINE OA執行時讀取實際授權狀態；公開Git不宣稱Token已就緒",
     "lineVoom": "manual_only",
-    "googleBusiness": "official_api_supported_but_currently_unconfigured"
+    "googleBusiness": "由ERP執行時讀取實際授權狀態；未授權則轉人工發布包"
   },
   "privacy": {
     "consumerBrand": "仙加味",
@@ -91,5 +99,5 @@
     "companyInfoOnlyWhenRequired": true,
     "partnerProtectionMode": true
   },
-  "safety": "six-single-spec-authority-no-redrawn-product-packaging-no-public-company-data-by-default-no-duplicate-posting-no-paid-background-generation"
+  "safety": "six-single-spec-authority-no-redrawn-product-packaging-approved-website-chibi-no-public-company-data-by-default-no-duplicate-posting-no-paid-background-generation"
 }
