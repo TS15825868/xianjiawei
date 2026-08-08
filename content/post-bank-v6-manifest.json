@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-post-bank-v14-strict-preflight",
+  "version": "2026-08-08-post-bank-v15-preflight-replacements",
   "authority": "TS15825868/xianjiawei",
   "baseLibrary": "content/public-post-library.json",
   "extensions": ["publishing-center-data-v6.js","publishing-center-data-v7.js","publishing-center-data-v8-fixes.js","publishing-center-data-v10-published-locks.js","publishing-center-data-v11-campaign-holds.js"],
@@ -23,9 +23,10 @@
     "publishedLockedInGenerated": 1,
     "publishedLockedTotal": 3,
     "campaignHold": 11,
-    "activeImageGenerationRequired": 478,
-    "existingCandidateNeeds16PointReview": 8,
-    "preflightRejectedNeedsRegeneration": 13,
+    "activeImageGenerationRequired": 465,
+    "existingCandidateNeeds16PointReview": 21,
+    "preflightRejectedNeedsRegeneration": 0,
+    "preflightRejectedReplaced": 13,
     "newGeneratedPostsStatus": "pending_review"
   },
   "generatorAuthority": {
@@ -34,7 +35,7 @@
     "officialProductCount": 6,
     "officialSellableSpecs": 6,
     "soupBlock": "龜鹿湯塊只有75g／盒深藍盒｜8塊裝｜每塊約9.375g",
-    "mascot": "官網 approved-v405 同款柔和立體Q版小老闆；姿勢自由，臉型、髮型、服裝與畫風固定；小鹿與小烏龜依情境加入而非每張強制"
+    "mascot": "官網 approved-v405 同款柔和立體Q版小老闆；姿勢自由，角色識別固定；夥伴依情境加入"
   },
   "finalPublishedLocks": [
     {"post_id":"XJW-TRIAL-001","asset_id":"guilu-drink-trial-final-20260808","status":"published_final_locked","do_not_regenerate":true,"prevent_republish":true,"published_confirmed_on":"2026-08-08"}
@@ -46,42 +47,19 @@
     "ids": ["XJW-TRIAL-002","XJW-TRIAL-003","XJW-TRIAL-004","XJW-TRIAL-005","XJW-TRIAL-006","XJW-TRIAL-007","XJW-TRIAL-008","XJW-TRIAL-009","XJW-TRIAL-010","XJW-TRIAL-011","XJW-TRIAL-012"],
     "hold_until": "2026-11-06"
   },
-  "preflightRejected": {
-    "count": 13,
+  "preflightHistory": {
+    "oldRejectedCount": 13,
+    "replacementGeneratedCount": 13,
+    "activeRejectedNeedsRegeneration": 0,
     "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
-    "reason": "情境錯配、重複背景、deprecated產品來源、AI重畫產品、舊包裝或泛用圖示代替正式產品時，直接退回生成，不浪費人工16項審核。"
+    "reason": "舊圖因情境錯配、重複背景、deprecated產品、AI重畫產品或舊包裝被隔離；已建立13張新候選，仍需16項審核。"
   },
   "generatedCopyQueueByPillar": {
-    "產品": 48,
-    "日常節奏": 48,
-    "四季": 48,
-    "天氣關懷": 48,
-    "料理": 48,
-    "品牌": 24,
-    "FAQ": 48,
-    "試喝活動": 12,
-    "節慶": 24,
-    "地點": 24,
-    "萬華在地": 24,
-    "小老闆與夥伴": 32,
-    "陪伴角色": 16,
-    "合作夥伴素材": 24,
-    "門市日常": 9
+    "產品": 48,"日常節奏": 48,"四季": 48,"天氣關懷": 48,"料理": 48,"品牌": 24,"FAQ": 48,"試喝活動": 12,"節慶": 24,"地點": 24,"萬華在地": 24,"小老闆與夥伴": 32,"陪伴角色": 16,"合作夥伴素材": 24,"門市日常": 9
   },
-  "imageWorkflow": "圖片依優先佇列處理；嚴格預檢可確定不合格者直接退回生成。人工16項審核只看正式產品原圖或正式原圖合成候選。產品本體只能用正式原圖等比例合成；已發布最終母版不進重生成；試喝變體暫緩期間不生圖、不排程。",
+  "imageWorkflow": "自動預檢先隔離確定不合格舊圖；替代候選生成後仍回待審核。產品本體只能用正式原圖等比例合成；生活／天氣／料理候選可不出產品；已發布最終母版不重生成；試喝變體冷卻期間不發布。",
   "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
   "liveChecks": ["天氣","颱風","寒流","高溫","空氣品質","重大即時事件"],
   "schedule": ["星期二 19:30","星期六 09:30"],
-  "rules": {
-    "sameImageWithinDays": 90,
-    "sameCopyWithinDays": 180,
-    "sameSceneWithinDays": 45,
-    "sameMascotPoseWithinDays": 30,
-    "weatherNeverPreAutoPublish": true,
-    "ownerReviewRequired": true,
-    "companyInfoNotPublicByDefault": true,
-    "partnerProtectionMode": true,
-    "paidOpenAIApiDisabled": true,
-    "regenerationMode": "chatgpt_handoff"
-  }
+  "rules": {"sameImageWithinDays":90,"sameCopyWithinDays":180,"sameSceneWithinDays":45,"sameMascotPoseWithinDays":30,"weatherNeverPreAutoPublish":true,"ownerReviewRequired":true,"companyInfoNotPublicByDefault":true,"partnerProtectionMode":true,"paidOpenAIApiDisabled":true,"regenerationMode":"chatgpt_handoff"}
 }
