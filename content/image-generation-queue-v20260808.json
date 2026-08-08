@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-09-image-generation-queue-v15-character-regeneration-truth",
+  "version": "2026-08-09-image-generation-queue-v16-batch5-review-candidates",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "countPolicy": "待審核、需重生成與候選總數一律以發佈中心載入全部runtime安全層後的即時資料為準；本檔只鎖可由來源程式直接確認的最低數量，不再把舊批次486／0等數字寫死為現況。",
@@ -8,9 +8,10 @@
     "campaignHold": 11,
     "generationRequiredActive": null,
     "existingCandidateNeeds16PointReview": null,
-    "knownBaseForcedRegeneration": 5,
+    "knownBaseForcedRegeneration": 0,
+    "knownProductReviewCandidates": 5,
     "knownCharacterSceneRegeneration": 120,
-    "knownForcedRegenerationMinimum": 125,
+    "knownForcedRegenerationMinimum": 120,
     "knownSafePreflightReplacement": 10,
     "runtimeCalculated": true,
     "total": 500
@@ -25,11 +26,26 @@
     "hold_until": "2026-11-06",
     "reason": "同一試喝主活動已發布最終主圖；依90天主圖與活動去重規則，其他試喝變體不排程、不發布。到期後仍需人工重審。"
   },
-  "knownForcedRegeneration": {
-    "minimumKnownCount": 5,
+  "knownProductReviewCandidates": {
+    "count": 5,
     "post_ids": ["POST-PRODUCT-OVERVIEW","POST-COMBO","POST-GUIDE","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
-    "reason": "這五篇需要多產品／產品使用選擇構圖；舊圖、舊priority1 SVG或預檢SVG含舊產品視覺，或缺乏可靠多產品相對尺寸。",
-    "action": "維持needs_generation；使用『圖不符合｜ChatGPT生成』依原文案重做。產品本體只合成products-v3正式原圖；沒有可靠相對尺度就不猜，完成後回待審核。"
+    "paths": {
+      "POST-PRODUCT-OVERVIEW": "images/posts/candidates-v20260809/product-overview.svg",
+      "POST-COMBO": "images/posts/candidates-v20260809/combo.svg",
+      "POST-GUIDE": "images/posts/candidates-v20260809/guide.svg",
+      "POST-CHOOSE": "images/posts/candidates-v20260809/choose.svg",
+      "POST-CHOOSE-BY-HABIT": "images/posts/candidates-v20260809/choose-by-habit.svg"
+    },
+    "status": "candidate-review-required",
+    "mode": "batch5-products-v3-independent-panel-candidate",
+    "rule": "使用products-v3正式原圖，以獨立產品卡／獨立區塊的contain等比例方式呈現；不宣稱卡片之間是實物相對大小，不把不同產品強制等高／等寬，不裁切、不拉伸、不AI重畫產品。",
+    "action": "直接進16項人工審核；不自動核准、不自動排程、不自動發布。若人工認為文案、版面、季節、情境或比例仍不合，再使用ChatGPT重生成。"
+  },
+  "knownForcedRegeneration": {
+    "minimumKnownCount": 0,
+    "post_ids": [],
+    "reason": "原本5篇產品／多產品舊圖已於2026-08-09完成第一批新版候選，不再列入強制重生成。",
+    "action": "目前基礎產品批次先進待審核；只有人工退件才重新進needs_generation。"
   },
   "knownCharacterSceneRegeneration": {
     "count": 120,
@@ -57,19 +73,20 @@
     "sourceLayers": ["publishing-center-data-v8-fixes.js","publishing-center-data-v10-published-locks.js","publishing-center-data-v11-campaign-holds.js","publishing-center-data-v12-auto-candidates.js","publishing-center-data-v13-character-scenes.js","publishing-center-data-v14-boss-daily.js","publishing-center-data-v15-companions.js","publishing-center-data-v16-actual-product-photos.js"],
     "candidateReviewTotal": null,
     "generationRequired": null,
-    "knownGenerationRequiredMinimum": 125,
-    "rule": "只承認最終runtime狀態；舊products-v2、舊DM、內嵌舊產品圖SVG、裁切LINE角色候選、簡單向量陪伴角色，以及多產品相對尺寸無依據者不能算已完成候選。"
+    "knownGenerationRequiredMinimum": 120,
+    "knownProductReviewCandidates": 5,
+    "rule": "只承認最終runtime狀態；舊products-v2、舊DM、內嵌舊產品圖SVG、裁切LINE角色候選、簡單向量陪伴角色不能算已完成候選。第一批5篇產品候選已改用新版products-v3獨立產品卡構圖並回待審核。"
   },
   "priorityBatches": [
     {"priority":0,"name":"已發布鎖定與活動冷卻","status":"protected","rules":"已發布正式母版不重生成、不重發；冷卻活動不自動排程。"},
-    {"priority":1,"name":"第一優先產品貼文校正","status":"mixed-runtime-status","single_product_updated":["POST-GAO-100","POST-DRINK-30","POST-DRINK-180","POST-JIAO-600"],"single_product_rule":"直接使用products-v3正式產品原圖，僅等比例呈現，仍待16項審核。","multi_product_needs_generation":["POST-PRODUCT-OVERVIEW","POST-COMBO"],"multi_product_rule":"舊SVG停用；不得強制等高／等寬。沒有完整可信相對尺寸時維持needs_generation。"},
+    {"priority":1,"name":"第一優先產品貼文校正","status":"candidate-review-required","single_product_updated":["POST-GAO-100","POST-DRINK-30","POST-DRINK-180","POST-JIAO-600"],"product_review_candidates":["POST-PRODUCT-OVERVIEW","POST-COMBO","POST-GUIDE","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],"rules":"單一產品直接使用products-v3；多產品／選擇／使用貼文改用products-v3獨立產品卡候選，不宣稱相對實物大小，全部仍需16項人工審核。"},
     {"priority":1.5,"name":"正式單品原圖待版面審核","status":"official-reference-pending-layout-review","post_ids":["POST-SOUP-75","POST-LUERONG"]},
-    {"priority":2,"name":"嚴格預檢替代候選","status":"mixed-runtime-status","safe_replacements":["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-STORE","POST-RECIPES"],"forced_regeneration":["POST-GUIDE","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],"rules":"純情境替代圖可進待審；涉及多產品與選擇／使用的舊SVG不採用，需重新生成。"},
-    {"priority":3,"name":"v12安全非角色候選","status":"runtime-calculated","rules":"單一明確產品可直接引用products-v3正式原圖；多產品貼文不自動假生成；無產品內容可生成產品留白的情境候選。"},
+    {"priority":2,"name":"嚴格預檢替代候選","status":"candidate-review-required","safe_replacements":["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-STORE","POST-RECIPES"],"rules":"純情境替代圖可進待審；仍需16項人工審核。"},
+    {"priority":3,"name":"v12安全非角色候選","status":"runtime-calculated","rules":"單一明確產品可直接引用products-v3正式原圖；多產品貼文若無核准候選不自動假生成；無產品內容可生成產品留白的情境候選。"},
     {"priority":4,"name":"v13節慶／地點／萬華角色場景","count":72,"status":"needs_generation","rules":"舊裁切LINE角色候選全部停用；依文案用官網正式Q版重生成完整角色圖。"},
     {"priority":5,"name":"v14小老闆日常","count":32,"status":"needs_generation","rules":"舊slice／clipPath角色候選停用；依文案重新生成完整小老闆，不裁頭手腳。"},
     {"priority":6,"name":"v15陪伴角色","count":16,"status":"needs_generation","rules":"舊LINE角色裁切與簡單SVG陪伴角色停用；小鹿、小烏龜須是獨立Q版角色，灰色小河馬娃娃與米色小鹿安撫巾依正式情境重生成。"},
-    {"priority":7,"name":"v16產品圖與預檢最後安全層","status":"active","rules":"攔截products-v2、舊DM、錯誤products-v3路徑、已知內嵌舊產品圖SVG與13個舊綁定；安全情境換候選，不安全多產品圖退回needs_generation。"}
+    {"priority":7,"name":"v16產品圖與預檢最後安全層","status":"active","rules":"攔截products-v2、舊DM、錯誤products-v3路徑與已知舊SVG；第一批5篇產品候選優先升級為candidate-review-required，其餘安全情境換候選，不安全內容維持needs_generation。"}
   ],
   "generationRouting": {
     "mode": "runtime_safe_plus_chatgpt_handoff",
