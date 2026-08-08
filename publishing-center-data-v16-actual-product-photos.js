@@ -1,7 +1,7 @@
 (()=>{
   const PREV_FETCH=window.fetch.bind(window);
   const TARGET='content/public-post-library.json';
-  const VERSION='2026-08-09-v16-products-v3-size-lock-legacy-svg-quarantine';
+  const VERSION='2026-08-09-v16-products-v3-preflight-quarantine';
   const MAP={
     'guilu-gao':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=20260809-25',
     'guilu-drink-30':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260809-25',
@@ -10,6 +10,19 @@
     'guilu-jiao':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=20260809-25',
     'luerong-fen':'https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=20260809-25'
   };
+  const SAFE_PREFLIGHT=Object.freeze({
+    'XJW-WORK-REST-001':'images/posts/generated-v20260808-preflight/work-rest.svg',
+    'POST-STORAGE':'images/posts/generated-v20260808-preflight/storage.svg',
+    'POST-SEASONS-RHYTHM':'images/posts/generated-v20260808-preflight/four-seasons.svg',
+    'POST-INGREDIENT-PRINCIPLE':'images/posts/generated-v20260808-preflight/ingredient-principle.svg',
+    'POST-DAILY-SOUP':'images/posts/generated-v20260808-preflight/daily-soup.svg',
+    'POST-WEATHER-HOT':'images/posts/generated-v20260808-preflight/weather-hot.svg',
+    'POST-WEATHER-TEMP':'images/posts/generated-v20260808-preflight/weather-temp.svg',
+    'POST-WEATHER-RAIN':'images/posts/generated-v20260808-preflight/weather-rain.svg',
+    'POST-STORE':'images/posts/generated-v20260808-preflight/contact-line.svg',
+    'POST-RECIPES':'images/posts/generated-v20260808-preflight/recipes.svg'
+  });
+  const FORCE_REGEN_IDS=new Set(['POST-PRODUCT-OVERVIEW','POST-COMBO','POST-GUIDE','POST-CHOOSE','POST-CHOOSE-BY-HABIT']);
   const LEGACY_SINGLE_SVG=[
     [/generated-v20260808-priority1\/guilu-gao-100g\.svg/i,'guilu-gao'],
     [/generated-v20260808-priority1\/guilu-drink-30cc\.svg/i,'guilu-drink-30'],
@@ -23,7 +36,7 @@
     if(refs.length>1)return'';
     if(refs.length===1)return refs[0];
     const t=`${p?.id||''} ${p?.title||''} ${p?.copy||''}`;
-    if(/POST-PRODUCT-OVERVIEW|POST-COMBO/.test(t))return'';
+    if(FORCE_REGEN_IDS.has(p?.id)||/POST-PRODUCT-OVERVIEW|POST-COMBO/.test(t))return'';
     if(/POST-DRINK-30|龜鹿飲30cc/.test(t))return'guilu-drink-30';
     if(/POST-DRINK-180|龜鹿飲180cc/.test(t))return'guilu-drink-180';
     if(/POST-SOUP-75|龜鹿湯塊/.test(t)&&!/龜鹿膠/.test(t))return'guilu-tangkuai';
@@ -32,7 +45,7 @@
     if(/POST-GAO-100|龜鹿膏/.test(t)&&!/龜鹿飲/.test(t))return'guilu-gao';
     return'';
   }
-  function quarantineMulti(p,reason){
+  function quarantine(p,reason){
     return{
       ...p,
       status:'pending_review',
@@ -40,7 +53,7 @@
       image_asset_id:null,
       image_status:'needs_generation',
       candidate_generated:false,
-      candidate_generation_mode:'multi-product-real-scale-regeneration-required',
+      candidate_generation_mode:'copy-matched-regeneration-required',
       publish_allowed:false,
       schedule_enabled:false,
       scheduled_at:null,
@@ -48,14 +61,34 @@
       approval_required:true,
       image_policy:'products-v3-only-real-scale-no-guessing',
       physical_scale_policy:'multi-product-relative-scale-must-be-evidenced',
-      image_review_reason:`${reason}｜多產品同框不得把產品強制等高／等寬，也不得沿用內嵌products-v2的舊SVG。請依原文案用ChatGPT重生成，產品本體只使用products-v3正式原圖，完成後回待審核。`
+      image_review_reason:`${reason}｜不可硬用舊圖。請用「圖不符合｜ChatGPT生成」依原文案重做；產品本體只合成products-v3正式原圖，尺寸比例有依據才同框，完成後回待審核。`
+    };
+  }
+  function safeReplacement(p,path){
+    return{
+      ...p,
+      status:'pending_review',
+      image_asset_id:`preflight-safe-${p.id}`,
+      image_url:path,
+      image_status:'candidate-review-required',
+      candidate_generated:true,
+      candidate_generation_mode:'preflight-product-free-safe-replacement',
+      publish_allowed:false,
+      schedule_enabled:false,
+      scheduled_at:null,
+      owner_review_required:true,
+      approval_required:true,
+      image_policy:'copy-matched-product-free-candidate',
+      image_review_reason:'舊圖文綁定已隔離，改用不重畫產品的嚴格預檢替代候選；仍須完成16項人工審核，若文案／季節／環境／冷熱／表情／動作不符就再用ChatGPT重生成。'
     };
   }
   function fixPost(p){
     const url=String(p?.image_url||'');
+    if(p.status!=='published'&&FORCE_REGEN_IDS.has(p.id))return quarantine(p,'此篇需要多產品／產品使用選擇構圖，現有舊圖或替代SVG不符合正式產品尺度規則');
+    if(p.status!=='published'&&SAFE_PREFLIGHT[p.id])return safeReplacement(p,SAFE_PREFLIGHT[p.id]);
     const refs=refsOf(p);
-    if(LEGACY_MULTI_SVG.test(url))return quarantineMulti(p,'偵測到內嵌舊產品圖的多產品歷史SVG');
-    if(refs.length>1&&!url&&p.status!=='published')return quarantineMulti(p,'多產品貼文目前沒有可驗證的正式候選圖');
+    if(LEGACY_MULTI_SVG.test(url))return quarantine(p,'偵測到內嵌舊產品圖的多產品歷史SVG');
+    if(refs.length>1&&!url&&p.status!=='published')return quarantine(p,'多產品貼文目前沒有可驗證的正式候選圖');
     const legacySingle=LEGACY_SINGLE_SVG.find(([re])=>re.test(url));
     const id=legacySingle?.[1]||productId(p);
     if(!id||!MAP[id])return p;
@@ -101,8 +134,8 @@
     try{
       const data=await response.clone().json();
       const posts=(data.posts||[]).map(fixPost);
-      const merged={...data,version:'2026-08-09-public-posts-v26-products-v3-legacy-svg-quarantine',posts};
-      merged.counts={...(data.counts||{}),total:posts.length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length};
+      const merged={...data,version:'2026-08-09-public-posts-v27-preflight-and-scale-quarantine',posts};
+      merged.counts={...(data.counts||{}),total:posts.length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,preflight_safe_replacements:posts.filter(p=>p.candidate_generation_mode==='preflight-product-free-safe-replacement').length,forced_regeneration:posts.filter(p=>p.candidate_generation_mode==='copy-matched-regeneration-required').length};
       const headers=new Headers(response.headers);
       headers.set('content-type','application/json; charset=utf-8');
       headers.set('cache-control','no-store');
@@ -110,5 +143,5 @@
     }catch{return response}
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',patchAuthorityNotices,{once:true});else patchAuthorityNotices();
-  window.XJWActualProductPhotoAuthority=Object.freeze({version:VERSION,map:MAP,productId,fixPost,patchAuthorityNotices,legacyMultiSvg:LEGACY_MULTI_SVG});
+  window.XJWActualProductPhotoAuthority=Object.freeze({version:VERSION,map:MAP,productId,fixPost,patchAuthorityNotices,safePreflight:SAFE_PREFLIGHT,forceRegeneration:[...FORCE_REGEN_IDS]});
 })();
