@@ -1,14 +1,15 @@
 {
-  "version": "2026-08-08-image-generation-queue-v7-strict-preflight",
+  "version": "2026-08-08-image-generation-queue-v8-preflight-replacements",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "summary": {
     "publishedFinalLocked": 3,
     "campaignHold": 11,
-    "generationRequiredActive": 478,
-    "existingCandidateNeeds16PointReview": 8,
+    "generationRequiredActive": 465,
+    "existingCandidateNeeds16PointReview": 21,
     "priority1GeneratedPendingReview": 6,
-    "preflightRejectedNeedsRegeneration": 13,
+    "preflightRejectedNeedsRegeneration": 0,
+    "preflightRejectedReplaced": 13,
     "total": 500
   },
   "publishedFinalLocked": [
@@ -24,11 +25,27 @@
   "priorityBatches": [
     {
       "priority": 0,
-      "name": "嚴格預檢退回13張舊候選",
+      "name": "13張嚴格預檢替代候選已重做｜待16項審核",
       "count": 13,
-      "status": "generation_required",
+      "status": "generated_pending_16_point_review",
+      "generated_at": "2026-08-08T19:04:00+08:00",
       "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
-      "rules": "凡情境錯配、重複背景、deprecated產品來源、AI重畫產品、舊產品包裝、泛用圖示代替正式產品，直接退回生成；不送人工審核。"
+      "assets": {
+        "XJW-WORK-REST-001":"images/posts/generated-v20260808-preflight/work-rest.svg",
+        "POST-STORAGE":"images/posts/generated-v20260808-preflight/storage.svg",
+        "POST-SEASONS-RHYTHM":"images/posts/generated-v20260808-preflight/four-seasons.svg",
+        "POST-INGREDIENT-PRINCIPLE":"images/posts/generated-v20260808-preflight/ingredient-principle.svg",
+        "POST-DAILY-SOUP":"images/posts/generated-v20260808-preflight/daily-soup.svg",
+        "POST-WEATHER-HOT":"images/posts/generated-v20260808-preflight/weather-hot.svg",
+        "POST-WEATHER-TEMP":"images/posts/generated-v20260808-preflight/weather-temp.svg",
+        "POST-WEATHER-RAIN":"images/posts/generated-v20260808-preflight/weather-rain.svg",
+        "POST-GUIDE":"images/posts/generated-v20260808-preflight/guide-use.svg",
+        "POST-STORE":"images/posts/generated-v20260808-preflight/contact-line.svg",
+        "POST-RECIPES":"images/posts/generated-v20260808-preflight/recipes.svg",
+        "POST-CHOOSE":"images/posts/generated-v20260808-preflight/choose-products.svg",
+        "POST-CHOOSE-BY-HABIT":"images/posts/generated-v20260808-preflight/choose-by-habit.svg"
+      },
+      "rules": "舊候選已隔離。新生活／天氣／料理圖不畫產品；產品選擇／使用圖只嵌products-v3正式原圖。全部仍需16項人工審核。"
     },
     {
       "priority": 1,
@@ -45,7 +62,7 @@
         "POST-JIAO-600": "images/posts/generated-v20260808-priority1/guilu-jiao-600g.svg",
         "POST-COMBO": "images/posts/generated-v20260808-priority1/guilu-gao-drink-combo.svg"
       },
-      "reason": "第一批已改用正式產品原圖等比例合成，不讓生成式AI重畫包裝。SVG只作候選審核；ERP在核准、立即發布或手動發布包前會自動轉1254×1254 JPEG並上傳媒體庫。"
+      "reason": "正式產品原圖等比例合成，不讓生成式AI重畫包裝。"
     },
     {
       "priority": 1.5,
@@ -53,51 +70,25 @@
       "count": 2,
       "status": "official_reference_pending_layout_review",
       "post_ids": ["POST-SOUP-75","POST-LUERONG"],
-      "rules": "龜鹿湯塊只用75g深藍盒正式原圖；鹿茸粉只用75g白色塑膠罐正式原圖。產品本體不需重生成，只需確認社群版面。"
+      "rules": "龜鹿湯塊只用75g深藍盒正式原圖；鹿茸粉只用75g白色塑膠罐正式原圖。"
     },
-    {
-      "priority": 2,
-      "name": "近期8月內容",
-      "count": 64,
-      "status": "generation_required",
-      "selection": "從小老闆、父親節／家庭、午後雷陣雨、工作空檔、產品FAQ、萬華在地、日常節奏中挑選，不重複試喝主圖。",
-      "rules": "小老闆只用網站approved-v405同款Q版，姿勢自由；夥伴依情境加入。天氣類只建立候選圖，發布前再查當日天氣；所有圖先待審核。"
-    },
-    {
-      "priority": 3,
-      "name": "產品與FAQ常青內容",
-      "count": 96,
-      "status": "generation_required",
-      "selection": "產品、FAQ、保存、使用、怎麼選、資料透明、合作夥伴素材。",
-      "rules": "產品本體只用正式原圖等比例合成；生成前先讀取六項正式產品權威資料。"
-    },
-    {
-      "priority": 4,
-      "name": "四季與日常情境",
-      "count": 128,
-      "status": "generation_required",
-      "selection": "春夏秋冬、場合、地點、工作、家庭、休息、料理。",
-      "rules": "季節、衣著、冷熱、動作、環境全部匹配文案；小老闆可換姿勢但不可換畫風。"
-    },
-    {
-      "priority": 5,
-      "name": "品牌萬華節慶與夥伴",
-      "count": 177,
-      "status": "generation_required",
-      "selection": "品牌、萬華、節慶、門市日常、小老闆、小鹿、小烏龜、河馬娃娃、小鹿安撫巾、合作夥伴等剩餘內容。",
-      "rules": "節慶日期與即時事件發布前再確認；小鹿與小烏龜不是每張強制出現，陪伴角色只在合適情境加入。"
-    }
+    {"priority":2,"name":"近期8月內容","count":64,"status":"generation_required","rules":"小老闆只用網站approved-v405同款Q版；天氣類發布前再查當日資訊。"},
+    {"priority":3,"name":"產品與FAQ常青內容","count":96,"status":"generation_required","rules":"產品本體只用正式原圖等比例合成。"},
+    {"priority":4,"name":"四季與日常情境","count":128,"status":"generation_required","rules":"季節、衣著、冷熱、動作、環境全部匹配文案。"},
+    {"priority":5,"name":"品牌萬華節慶與夥伴","count":177,"status":"generation_required","rules":"節慶與即時事件發布前再確認；夥伴依情境加入。"}
   ],
   "existingCandidateNeeds16PointReview": {
-    "count": 8,
+    "count": 21,
+    "preflightReplacementCount": 13,
     "priority1Count": 6,
     "officialSingleProductCount": 2,
-    "rule": "只保留正式產品原圖或正式原圖合成候選。候選仍不能直接發布，必須完成16項檢查。"
+    "rule": "舊不合格圖已隔離；新候選仍不能直接發布，必須完成16項檢查。"
   },
-  "preflightRejected": {
-    "count": 13,
-    "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
-    "rule": "情境、環境、產品來源、AI重畫產品、舊包裝或重複圖已有確定性錯誤，直接退回生成，不送人工審核。"
+  "preflightHistory": {
+    "rejectedOldCount": 13,
+    "replacementGeneratedCount": 13,
+    "activeRejectedNeedsRegeneration": 0,
+    "rule": "保留舊圖退回原因供稽核，但發布中心只讀新替代候選。"
   },
   "generationRouting": {
     "mode": "chatgpt_handoff_plus_exact_original_composite",
@@ -115,10 +106,5 @@
     "guiluJiao": "600g（1斤）淡紫盒、32塊裝、每塊約18.75g；等比例，禁止橫向拉長",
     "luerongFen": "75g白色塑膠罐；正式原圖等比例"
   },
-  "mascotLock": {
-    "reference": "images/brand/approved-v405/",
-    "style": "網站同款柔和立體Q版小老闆",
-    "pose": "任何符合情境的姿勢皆可",
-    "companions": "小鹿與小烏龜依情境加入，出現時必須分開且維持同一Q版質感"
-  }
+  "mascotLock": {"reference":"images/brand/approved-v405/","style":"網站同款柔和立體Q版小老闆","pose":"任何符合情境的姿勢皆可","companions":"小鹿與小烏龜依情境加入，出現時必須分開且維持同一Q版質感"}
 }
