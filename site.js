@@ -1,11 +1,12 @@
 "use strict";
 
-/* 全站入口 2026-08-08：載入核心、實際產品照片安全層、正式規格顯示層與共用手機比例修正。 */
+/* 全站入口 2026-08-08：先套產品實際照片資料權威，再載入核心、安全層、正式規格與手機比例修正。 */
 (function () {
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260808-20";
+  const VERSION = "20260808-21";
+  const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const CORE = `site-core-v410.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
   const VARIANTS = `site-official-product-variants.js?v=${VERSION}`;
@@ -26,13 +27,16 @@
     document.head.appendChild(link);
   }
   function loadSequentially() {
-    appendScript(CORE, function () {
-      appendScript(SAFETY, function () {
-        appendScript(VARIANTS, function () { appendStyle(HOTFIX); });
+    appendScript(AUTHORITY, function () {
+      appendScript(CORE, function () {
+        appendScript(SAFETY, function () {
+          appendScript(VARIANTS, function () { appendStyle(HOTFIX); });
+        });
       });
     });
   }
   if (document.readyState === "loading") {
+    document.write('<script src="' + AUTHORITY + '"><\/script>');
     document.write('<script src="' + CORE + '"><\/script>');
     document.write('<script src="' + SAFETY + '"><\/script>');
     document.write('<script src="' + VARIANTS + '"><\/script>');
