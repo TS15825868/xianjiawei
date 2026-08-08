@@ -38,6 +38,9 @@ jobs:
       - name: Validate priority1 exact-original candidates
         run: python tools/audit-priority1-candidates-v20260808.py
 
+      - name: Validate rebuilt 500-post generators and queue counts
+        run: python tools/validate-post-bank-generators-v20260808.py
+
       - name: Validate public sitemap boundary
         run: python tools/validate-public-boundary-v20260808.py
 
