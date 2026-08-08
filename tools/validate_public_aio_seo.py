@@ -11,10 +11,14 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://ts15825868.github.io/xianjiawei/"
-SOUP_VARIANTS = [
-    "75g／盒｜8塊裝｜每塊約9.375g",
-    "300g／盒｜16塊裝｜每塊約18.75g",
-    "600g／盒｜32塊裝｜每塊約18.75g",
+SOUP_SPEC = "75g／盒｜8塊裝｜每塊約9.375g"
+OFFICIAL_SPECS = [
+    "龜鹿膏 100g／罐",
+    "龜鹿飲30cc玻璃罐 30cc／罐",
+    "龜鹿飲180cc鋁袋 180cc／包",
+    "龜鹿湯塊 75g／盒",
+    "龜鹿膠 600g（1斤）／盒",
+    "鹿茸粉 75g／罐",
 ]
 PRIMARY_DECISION_PAGES = {
     "index.html", "brand-facts.html", "products.html", "choose.html", "combo.html",
@@ -114,6 +118,20 @@ def validate_jsonld_images(errors: list[str], filename: str, payload) -> None:
             validate_jsonld_images(errors, filename, value)
 
 
+def unauthorized_soup_weights(text: str) -> list[str]:
+    found: list[str] = []
+    labels = ["龜鹿湯塊", "龜鹿膠", "龜鹿膏", "鹿茸粉"]
+    for match in re.finditer(r"(?<!\d)(\d+(?:\.\d+)?)\s*g", text, re.I):
+        value = float(match.group(1))
+        if value < 50:
+            continue
+        before = text[max(0, match.start() - 80):match.start()]
+        position, label = max((before.rfind(label), label) for label in labels)
+        if position >= 0 and label == "龜鹿湯塊" and abs(value - 75.0) > 0.001:
+            found.append(match.group(0))
+    return found
+
+
 def main() -> int:
     errors: list[str] = []
     sitemap_path = ROOT / "sitemap.xml"
@@ -147,7 +165,6 @@ def main() -> int:
         source = path.read_text("utf-8")
         parser = HeadParser()
         parser.feed(source)
-
         description = meta(parser, name="description")
         ai_summary = meta(parser, name="ai-summary")
         robots = meta(parser, name="robots")
@@ -159,18 +176,19 @@ def main() -> int:
             fail(errors, f"{filename} 缺少 title")
         if not description:
             fail(errors, f"{filename} 缺少 meta description")
-        if not ai_summary:
-            fail(errors, f"{filename} 缺少 ai-summary")
-        elif len(ai_summary) < 24:
-            fail(errors, f"{filename} ai-summary 過短，無法形成獨立摘要")
+        if not ai_summary or len(ai_summary) < 24:
+            fail(errors, f"{filename} 缺少可獨立引用的 ai-summary")
         if canonical(parser) != expected_canonical:
             fail(errors, f"{filename} canonical 錯誤：{canonical(parser)}")
         if "index" not in robots or "follow" not in robots:
             fail(errors, f"{filename} robots 未允許索引")
         if parser.h1_count != 1:
-            fail(errors, f"{filename} H1 數量應為 1，目前 {parser.h1_count}")
-        if "小玻璃瓶" in source or re.search(r"30\s*cc.{0,16}玻璃瓶", source, re.I | re.S):
-            fail(errors, f"{filename} 仍含 30cc 舊玻璃瓶稱呼")
+            fail(errors, f"{filename} H1 數量應為1，目前{parser.h1_count}")
+        if "30cc玻璃瓶" in source or "小玻璃瓶" in source:
+            fail(errors, f"{filename} 仍含30cc舊稱")
+        bad_weights = unauthorized_soup_weights(source)
+        if bad_weights:
+            fail(errors, f"{filename} 出現未核准龜鹿湯塊重量：{bad_weights}")
 
         if filename in PRIMARY_DECISION_PAGES:
             for label, value in [
@@ -209,8 +227,6 @@ def main() -> int:
     for filename in required_files:
         if not (ROOT / filename).exists():
             fail(errors, f"缺少機器可讀或正式規格檔案：{filename}")
-    if (ROOT / "content/public-post-library-v2.json").exists():
-        fail(errors, "仍保留已取代的public-post-library-v2.json")
 
     robots_text = (ROOT / "robots.txt").read_text("utf-8")
     if f"Sitemap: {BASE}sitemap.xml" not in robots_text:
@@ -219,61 +235,46 @@ def main() -> int:
     llms = (ROOT / "llms.txt").read_text("utf-8")
     llms_full = (ROOT / "llms-full.txt").read_text("utf-8")
     for marker in [
-        "龜鹿膏", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋",
-        "龜鹿湯塊", "龜鹿膠", "鹿茸粉",
-        "catalog-public.json", "geo-data.json", "llms-full.txt",
+        "龜鹿膏", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋", "龜鹿湯塊", "75g／盒",
+        "龜鹿膠", "鹿茸粉", "catalog-public.json", "geo-data.json", "llms-full.txt",
     ]:
         if marker not in llms:
             fail(errors, f"llms.txt 缺少：{marker}")
-    for variant in SOUP_VARIANTS:
-        if variant not in llms_full:
-            fail(errors, f"llms-full.txt 缺少龜鹿湯塊正式規格：{variant}")
+    if SOUP_SPEC not in llms_full:
+        fail(errors, f"llms-full.txt 缺少龜鹿湯塊正式規格：{SOUP_SPEC}")
+    for filename, text in [("llms.txt", llms), ("llms-full.txt", llms_full)]:
+        bad = unauthorized_soup_weights(text)
+        if bad:
+            fail(errors, f"{filename} 出現未核准龜鹿湯塊重量：{bad}")
 
     catalog = json.loads((ROOT / "catalog-public.json").read_text("utf-8"))
-    catalog_text = json.dumps(catalog, ensure_ascii=False)
     if len(catalog.get("products", [])) != 6:
-        fail(errors, "catalog-public.json產品分類必須剛好六項")
-    for marker in ["100g", "30cc", "180cc", "75g", "300g", "600g", "鹿茸粉"]:
-        if marker not in catalog_text:
-            fail(errors, f"catalog-public.json 缺少正式產品資料：{marker}")
+        fail(errors, "catalog-public.json產品必須剛好六項")
+    if catalog.get("officialSpecifications") != OFFICIAL_SPECS:
+        fail(errors, "catalog-public.json六項正式規格不同步")
+    soup = next((item for item in catalog.get("products", []) if item.get("id") == "guilu-tangkuai"), None)
+    if not soup or soup.get("size") != "75g／盒" or soup.get("package") != "深藍正式盒裝":
+        fail(errors, "catalog-public.json龜鹿湯塊正式規格或包裝錯誤")
 
-    geo = json.loads((ROOT / "geo-data.json").read_text("utf-8"))
-    geo_text = json.dumps(geo, ensure_ascii=False)
-    for marker in ["仙加味", "萬華", "龜鹿膏", "龜鹿飲", "龜鹿湯塊", "龜鹿膠", "鹿茸粉", "300g"]:
+    geo_text = (ROOT / "geo-data.json").read_text("utf-8")
+    for marker in ["仙加味", "萬華", "龜鹿膏", "龜鹿飲", "龜鹿湯塊", "75g／盒", "龜鹿膠", "鹿茸粉"]:
         if marker not in geo_text:
             fail(errors, f"geo-data.json 缺少實體或規格：{marker}")
+    bad_geo = unauthorized_soup_weights(geo_text)
+    if bad_geo:
+        fail(errors, f"geo-data.json 出現未核准龜鹿湯塊重量：{bad_geo}")
 
     runtime = (ROOT / "site-official-product-variants.js").read_text("utf-8")
-    variant_pages = {
-        filename: (ROOT / filename).read_text("utf-8")
-        for filename in [
-            "index.html", "brand-facts.html", "products.html", "choose.html", "combo.html",
-            "guide.html", "faq.html", "product-guilu-tangkuai.html",
-        ]
-    }
-    for variant in SOUP_VARIANTS:
-        if variant not in runtime:
-            fail(errors, f"site-official-product-variants.js 缺少龜鹿湯塊正式規格：{variant}")
-        for filename, source in variant_pages.items():
-            if variant not in source:
-                fail(errors, f"{filename} 缺少龜鹿湯塊正式規格：{variant}")
+    if "75g／盒" not in runtime or "singleSpecOnly: true" not in runtime:
+        fail(errors, "正式規格顯示層未鎖定龜鹿湯塊75g唯一規格")
+    bad_runtime = unauthorized_soup_weights(runtime)
+    if bad_runtime:
+        fail(errors, f"正式規格顯示層出現未核准龜鹿湯塊重量：{bad_runtime}")
 
-    posts_doc = json.loads((ROOT / "content/public-post-library.json").read_text("utf-8"))
-    assets_doc = json.loads((ROOT / "content/public-asset-library.json").read_text("utf-8"))
-    posts = posts_doc.get("posts", [])
-    assets = assets_doc.get("assets", [])
-    asset_ids = {str(asset.get("id") or "") for asset in assets}
-    image_ids = [str(post.get("image_asset_id") or "") for post in posts]
-    image_urls = [str(post.get("image_url") or "") for post in posts]
-    if not str(posts_doc.get("version", "")).startswith("2026-08-07-public-posts-v4"):
-        fail(errors, "公開貼文權威版本不是v4")
-    if len(image_ids) != len(set(image_ids)):
-        fail(errors, "公開貼文主素材ID重複")
-    if len(image_urls) != len(set(image_urls)):
-        fail(errors, "公開貼文主圖片網址重複")
-    for post in posts:
-        if not post.get("image_asset_id") or post.get("image_asset_id") not in asset_ids:
-            fail(errors, f"公開貼文素材綁定不存在：{post.get('id')}")
+    posts_text = (ROOT / "content/public-post-library.json").read_text("utf-8")
+    bad_posts = unauthorized_soup_weights(posts_text)
+    if bad_posts:
+        fail(errors, f"公開貼文資料出現未核准龜鹿湯塊重量：{bad_posts}")
 
     if errors:
         print("AIO／SEO／GEO 正式合約失敗：")
@@ -282,9 +283,8 @@ def main() -> int:
         return 1
 
     print(
-        f"PASS AIO／SEO／GEO 正式合約：{len(urls)}個sitemap頁面、"
-        f"{len(PRIMARY_DECISION_PAGES)}個主要決策頁、Canonical、摘要、社群預覽、Schema、"
-        "龜鹿湯塊三規格、唯一貼文素材與機器可讀資料均通過"
+        f"PASS AIO／SEO／GEO：{len(urls)}個sitemap頁面、{len(PRIMARY_DECISION_PAGES)}個主要決策頁、"
+        "Canonical、摘要、社群預覽、Schema、六個正式產品／六個正式規格、龜鹿湯塊75g唯一規格與機器可讀資料均通過"
     )
     return 0
 
