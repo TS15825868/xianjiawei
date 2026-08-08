@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-canonical-v14-candidate-preflight",
+  "version": "2026-08-08-canonical-v15-strict-preflight",
   "updated": "2026-08-08",
   "status": "source-updated-deployment-not-yet-verified",
   "catalog": "six-official-products-six-single-specs",
@@ -8,9 +8,9 @@
     "runtimeContentTotal": 500,
     "publishedLocked": 3,
     "campaignHold": 11,
-    "activeImageGenerationRequired": 473,
-    "existingCandidateNeeds16PointReview": 13,
-    "preflightRejectedNeedsRegeneration": 8,
+    "activeImageGenerationRequired": 478,
+    "existingCandidateNeeds16PointReview": 8,
+    "preflightRejectedNeedsRegeneration": 13,
     "imageQueue": "content/image-generation-queue-v20260808.json",
     "postBankManifest": "content/post-bank-v6-manifest.json",
     "postGeneratorV6": "publishing-center-data-v6.js",
@@ -22,9 +22,9 @@
     "partnerMode": "content/partner-mode-policy.json"
   },
   "candidatePreflight": {
-    "rejectedCount": 8,
-    "rejectedPostIds": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN"],
-    "rule": "可確定的情境錯配、重複背景、deprecated產品來源或錯誤環境直接退回生成；不送人工審核。"
+    "rejectedCount": 13,
+    "rejectedPostIds": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
+    "rule": "情境錯配、重複背景、deprecated產品來源、AI重畫產品、舊包裝或泛用圖示代替正式產品時直接退回生成；人工審核只保留正式原圖或正式原圖合成候選。"
   },
   "productAuthority": {
     "productCount": 6,
