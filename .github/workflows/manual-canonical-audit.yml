@@ -34,6 +34,9 @@ jobs:
       - name: Validate canonical product facts and publishing handoff
         run: python tools/validate-canonical-facts-v20260808.py
 
+      - name: Validate actual product photos and new-recording website fixes
+        run: python tools/validate-new-recording-public-fixes-v20260808.py
+
       - name: Validate official product originals and legacy-DM isolation
         run: python tools/validate-official-originals-v20260808.py
 
@@ -52,7 +55,7 @@ jobs:
       - name: Validate rebuilt 500-post generators and queue authority
         run: python tools/validate-post-bank-generators-v20260808.py
 
-      - name: Simulate full publishing-center 500-post runtime including v12
+      - name: Simulate full publishing-center 500-post runtime
         run: node tools/validate-post-bank-runtime-v20260808.mjs
 
       - name: Validate public sitemap boundary
