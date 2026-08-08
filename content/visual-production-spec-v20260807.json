@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-visual-authority-six-products-v2",
+  "version": "2026-08-08-visual-authority-six-products-v3-website-chibi",
   "authority": "user-confirmed-original-product-photos-and-current-chat",
   "updated_at_taipei": "2026-08-08",
   "brand": {
@@ -21,10 +21,15 @@
   "mascot": {
     "name": "仙加味官網版Q版小老闆",
     "locked": true,
-    "appearance": "米白中式上衣、深綠圍裙、紅色直式『仙加味』印章；圍裙下方必須有小鹿與小烏龜圖樣",
-    "required_companions_when_boss_appears": ["小鹿", "小烏龜"],
+    "reference": "images/brand/approved-v405/ 既有網站小老闆為唯一風格母本",
+    "style": "柔和立體Q版、圓潤自然、非真人寫實、非扁平2D、非其他動漫角色",
+    "appearance": "圓臉、大而圓的深棕色眼睛、短黑髮、自然微紅臉頰；米白中式上衣、深綠／深橄欖綠圍裙、胸前紅色直式『仙加味』印章；圍裙下方可保留小鹿與小烏龜圖樣",
+    "pose_policy": "任何符合情境的姿勢皆可，不限招手、指向、比讚、介紹、端飲、料理、工作、休息、思考；姿勢可變，角色臉型、髮型、服裝與整體畫風不得變",
+    "companions_required_every_image": false,
+    "companions_when_used": ["小鹿", "小烏龜"],
+    "companion_rule": "需要夥伴的情境才加入；小鹿與小烏龜必須是分開的獨立角色並保持同一Q版質感，不可融合成單一角色",
     "optional_home_rest_companions": ["灰色小河馬娃娃", "米色小鹿安撫巾"],
-    "forbidden": ["換成寫實人物", "換成其他Q版角色", "省略小鹿或小烏龜夥伴", "更換圍裙樣式"]
+    "forbidden": ["換成真人寫實人物", "換成扁平2D人物", "換成陌生動漫Q版角色", "改變短黑髮與圓臉大眼識別", "更換米白中式上衣或深綠圍裙", "把夥伴融合成單一角色"]
   },
   "products": {
     "guilu-gao": {
@@ -99,11 +104,12 @@
     "locations": ["居家客廳", "居家廚房", "餐桌", "書房", "辦公室", "車上休息", "公園", "河濱", "萬華街景", "仙加味品牌展示空間", "傳統市場", "家庭餐廳"],
     "temperature": ["常溫", "溫熱", "熱湯", "清爽環境"],
     "expressions": ["自然微笑", "平靜提醒", "專注料理", "輕鬆陪伴", "精神自然"],
-    "actions": ["端溫水", "整理食材", "看鍋燉煮", "收傘", "穿薄外套", "準備外出", "放下工作休息", "加入LINE詢問", "展示產品", "陪家人用餐"]
+    "actions": ["招手", "指向產品", "比讚", "端溫水", "端溫熱飲", "整理食材", "看鍋燉煮", "收傘", "穿薄外套", "準備外出", "放下工作休息", "加入LINE詢問", "展示產品", "陪家人用餐", "思考"]
   },
   "generation": {
     "canvas": ["1:1社群主圖", "4:5 IG／FB直式", "16:9 Google／網站橫式"],
     "product_method": "產品必須以正式原圖等比例合成；AI只生成背景、角色、道具與情境，不重繪產品包裝或標籤",
+    "mascot_method": "人物只使用網站 approved-v405 同款柔和立體Q版識別；姿勢可自由變化，但不得改臉型、髮型、服裝與畫風",
     "text_rule": "繁體中文；短標題優先；長文案放貼文正文，不把大量文字塞進圖片",
     "review_status": "所有新圖一律待審核，通過前不得發布",
     "duplicate_rule": "同一主圖90天內不得重複；同一文案180天內不得重複",
