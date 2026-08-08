@@ -1,15 +1,15 @@
 "use strict";
 
-/* 仙加味正式產品規格顯示層 v3
- * 使用者確認：產品只有6項正式規格；龜鹿湯塊只保留75g／盒。
+/* 仙加味正式產品規格顯示層 v4
+ * 使用者確認：六個正式產品各只保留目前正式規格；龜鹿湯塊深藍盒只有75g／盒。
  */
 (function () {
-  if (window.__XJW_OFFICIAL_VARIANTS_V3__) return;
-  window.__XJW_OFFICIAL_VARIANTS_V3__ = true;
+  if (window.__XJW_OFFICIAL_VARIANTS_V4__) return;
+  window.__XJW_OFFICIAL_VARIANTS_V4__ = true;
 
   const SOUP_ID = "guilu-tangkuai";
   const SOUP_SPEC = "75g／盒";
-  const SOUP_DESCRIPTION = "龜鹿湯塊目前唯一正式規格為75g／盒，可搭配熱水、保溫壺或家常燉湯。";
+  const SOUP_DESCRIPTION = "龜鹿湯塊深藍盒目前唯一正式規格為75g／盒，可搭配熱水、保溫壺或家常燉湯。";
 
   function setSpec(element, prefix = "規格：") {
     if (!element) return;
@@ -56,33 +56,12 @@
     });
   }
 
-  function normalizeLooseText(root = document) {
-    const replacements = [
-      [/75g\s*／\s*300g\s*／\s*600g(?:（三種正式規格）)?/g, SOUP_SPEC],
-      [/75g、300g、600g三種正式規格/g, SOUP_SPEC + "唯一正式規格"],
-      [/龜鹿湯塊75g／300g／600g/g, "龜鹿湯塊75g／盒"],
-      [/龜鹿湯塊有75g、300g、600g三種規格/g, "龜鹿湯塊目前只有75g／盒一種正式規格"]
-    ];
-    const walker = document.createTreeWalker(root.body || root, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    let node;
-    while ((node = walker.nextNode())) nodes.push(node);
-    nodes.forEach((textNode) => {
-      const parent = textNode.parentElement;
-      if (!parent || ["SCRIPT", "STYLE"].includes(parent.tagName)) return;
-      let value = textNode.nodeValue;
-      replacements.forEach(([pattern, replacement]) => { value = value.replace(pattern, replacement); });
-      if (value !== textNode.nodeValue) textNode.nodeValue = value;
-    });
-  }
-
   let queued = false;
   function normalizeAll() {
     queued = false;
     normalizeProductCards();
     normalizeModal();
     normalizeMobileCompare();
-    normalizeLooseText();
   }
 
   function queueNormalize() {
@@ -104,6 +83,6 @@
     soupProductId: SOUP_ID,
     soupSpecifications: [SOUP_SPEC],
     overviewDisplay: SOUP_SPEC,
-    deprecatedSoupSpecifications: ["300g／盒", "600g／盒"]
+    singleSpecOnly: true
   });
 })();
