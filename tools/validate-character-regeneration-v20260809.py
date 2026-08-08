@@ -34,19 +34,23 @@ def main():
     req(spec["rules"]["unapprovedVectorCompanionsForbidden"] is True, "角色母本未禁止未核准向量陪伴角色")
     req(spec["mascot"]["displayMode"] == "contain-no-crop", "角色顯示模式不是contain-no-crop")
 
-    req(authority["totalKnownRegeneration"] == 120, "角色已知重生成總數不是120")
+    req(authority["originalInvalidCharacterCandidates"] == 120, "原始不合格角色候選總數不是120")
+    req(authority["safeApprovedWebsiteReuse"] == 5, "精準可重用官網核准角色圖不是5張")
+    req(authority["totalKnownRegeneration"] == 115, "角色剩餘已知重生成總數不是115")
     counts = {item["layer"]: item["count"] for item in authority["breakdown"]}
-    req(counts == {"v13": 72, "v14": 32, "v15": 16}, f"角色重生成分布錯誤：{counts}")
+    req(counts == {"v13": 72, "v14": 27, "v15": 16}, f"角色剩餘重生成分布錯誤：{counts}")
+    reuse_ids=set(authority["safeApprovedWebsiteCandidates"])
+    expected_reuse={"XJW-CHARACTER-006","XJW-CHARACTER-008","XJW-CHARACTER-011","XJW-CHARACTER-012","XJW-CHARACTER-014"}
+    req(reuse_ids==expected_reuse, f"官網核准精準重用ID錯誤：{reuse_ids}")
     req(authority["regenerationRules"]["lineOACropReuseForbidden"] is True, "角色稽核未禁止LINE OA裁切重用")
     req(authority["regenerationRules"]["coverSliceClipPathForbiddenForMascot"] is True, "角色稽核未禁止cover/slice/clipPath")
-    req(authority["reviewOutcome"]["currentStatus"] == "needs_generation", "舊角色候選未退回needs_generation")
+    req(authority["reviewOutcome"]["remainingStatus"] == "needs_generation", "剩餘舊角色候選未維持needs_generation")
+    req(authority["reviewOutcome"]["safeExactMatches"] == "candidate-review-required", "精準既有圖未回待審核")
 
-    layers = [
+    for label, source, mode in [
         ("v13", v13, "chatgpt-character-scene-v13-required"),
-        ("v14", v14, "chatgpt-boss-daily-v14-required"),
         ("v15", v15, "chatgpt-companion-v15-required"),
-    ]
-    for label, source, mode in layers:
+    ]:
         req(mode in source, f"{label} 未使用正式重生成模式")
         req("image_status:'needs_generation'" in source, f"{label} 未退回needs_generation")
         req("candidate_generated:false" in source, f"{label} 仍把舊圖標成已生成候選")
@@ -55,10 +59,22 @@ def main():
         req("preserveAspectRatio=" not in source, f"{label} 仍有舊slice裁切程式")
         req("products-v3" in source, f"{label} 若需產品時未指向products-v3")
 
-    req(queue["knownCharacterSceneRegeneration"]["count"] == 120, "生成佇列未記錄120篇角色重生成")
-    req(queue["summary"]["knownForcedRegenerationMinimum"] == 125, "生成佇列已知重生成最低數量不是125")
+    req("SAFE_EXISTING" in v14 and "approved-v405-semantic-reuse-v14" in v14, "v14未建立精準官網核准圖重用")
+    for pid in expected_reuse:
+        req(pid in v14, f"v14缺少精準重用ID：{pid}")
+    for path in ["home-brand.webp","choose.webp","guide-how-to-use.webp","recipes.webp","faq.webp"]:
+        req(path in v14, f"v14缺少核准官網場景：{path}")
+    req("chatgpt-boss-daily-v14-required" in v14, "v14剩餘27篇未維持正式重生成模式")
+    req("approvedExistingCandidate:5" in v14 and "regenerationRequired:27" in v14, "v14統計不是5張重用＋27篇重生成")
+    req("images/brand/line-oa/" not in v14, "v14仍直接引用LINE OA角色圖片")
+    req("<clipPath" not in v14 and "preserveAspectRatio=" not in v14, "v14仍有舊角色裁切程式")
 
-    print("PASS character regeneration v20260809: 72 v13 + 32 v14 + 16 v15; full-frame website mascot, no LINE crop/vector substitutes")
+    req(queue["knownCharacterSafeReuseCandidates"]["count"] == 5, "生成佇列未記錄5篇安全角色重用")
+    req(queue["knownCharacterSceneRegeneration"]["count"] == 115, "生成佇列未記錄115篇角色重生成")
+    req(queue["knownCharacterSceneRegeneration"]["breakdown"] == {"v13FestivalLocationWanhua":72,"v14BossDaily":27,"v15Companions":16}, "生成佇列角色剩餘分布錯誤")
+    req(queue["summary"]["knownForcedRegenerationMinimum"] == 115, "生成佇列已知重生成最低數量不是115")
+
+    print("PASS character regeneration v20260809: 5 exact approved-v405 reuses + 72 v13 + 27 v14 + 16 v15 remaining; full-frame website mascot, no LINE crop/vector substitutes")
 
 
 if __name__ == "__main__":
