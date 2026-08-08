@@ -35,6 +35,9 @@ jobs:
         run: |
           node --check publishing-center-data-v8-fixes.js
           node --check publishing-center-data-v12-auto-candidates.js
+          node --check publishing-center-data-v13-character-scenes.js
+          node --check publishing-center-data-v14-boss-daily.js
+          node --check publishing-center-data-v15-companions.js
           node --check publishing-center-data-v16-actual-product-photos.js
           node --check publishing-center-ai-tools.js
           node --check publishing-center-guardian.js
