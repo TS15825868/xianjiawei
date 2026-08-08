@@ -1,0 +1,6 @@
+.status.needs-image{background:#fff0dc;color:#9a4f00;border:1px solid #f4c37e}
+.post-card[data-image-status="needs-image"]{border-color:#e8a448;box-shadow:0 12px 34px rgba(154,79,0,.13)}
+.post-card[data-image-status="needs-image"] .image-wrap{background:linear-gradient(145deg,#fff8ec,#f7ead5)}
+.post-card[data-image-status="needs-image"] .image-wrap .state-card{height:100%;display:grid;place-items:center;border:0;border-radius:0;background:transparent;box-shadow:none;color:#8a4b08;font-weight:900}
+.post-card[data-image-status="needs-image"] .image-state{background:rgba(154,79,0,.9)}
+.post-card[data-image-status="needs-image"] .review-note.warning{border:1px solid #f0c889}
