@@ -3,90 +3,49 @@ from pathlib import Path
 import json
 
 ROOT=Path(__file__).resolve().parents[1]
-REJECTED={
-    'XJW-WORK-REST-001',
-    'POST-STORAGE',
-    'POST-SEASONS-RHYTHM',
-    'POST-INGREDIENT-PRINCIPLE',
-    'POST-DAILY-SOUP',
-    'POST-WEATHER-HOT',
-    'POST-WEATHER-TEMP',
-    'POST-WEATHER-RAIN',
-    'POST-GUIDE',
-    'POST-STORE',
-    'POST-RECIPES',
-    'POST-CHOOSE',
-    'POST-CHOOSE-BY-HABIT',
+REPLACED={
+    'XJW-WORK-REST-001','POST-STORAGE','POST-SEASONS-RHYTHM','POST-INGREDIENT-PRINCIPLE','POST-DAILY-SOUP',
+    'POST-WEATHER-HOT','POST-WEATHER-TEMP','POST-WEATHER-RAIN','POST-GUIDE','POST-STORE','POST-RECIPES','POST-CHOOSE','POST-CHOOSE-BY-HABIT',
 }
-QUARANTINED_ASSETS={
-    'post-09','post-12','post-13','post-14',
-    'generated-daily-soup','generated-four-seasons',
-    'generated-weather-hot','generated-weather-temp','generated-weather-rain',
-    'generated-choose-habit','generated-ingredient-principle',
-}
+QUARANTINED_ASSETS={'post-09','post-12','post-13','post-14','generated-daily-soup','generated-four-seasons','generated-weather-hot','generated-weather-temp','generated-weather-rain','generated-choose-habit','generated-ingredient-principle'}
 
-def load(path):
-    return json.loads((ROOT/path).read_text(encoding='utf-8'))
-
-def text(path):
-    return (ROOT/path).read_text(encoding='utf-8')
+def load(path): return json.loads((ROOT/path).read_text(encoding='utf-8'))
+def text(path): return (ROOT/path).read_text(encoding='utf-8')
 
 def main():
-    queue=load('content/image-generation-queue-v20260808.json')
-    manifest=load('content/post-bank-v6-manifest.json')
-    deploy=load('deploy-version.json')
-    assets=load('content/public-asset-library.json')
-    runtime=text('publishing-center-data-v11-campaign-holds.js')
-
+    queue=load('content/image-generation-queue-v20260808.json'); manifest=load('content/post-bank-v6-manifest.json'); deploy=load('deploy-version.json'); assets=load('content/public-asset-library.json'); runtime=text('publishing-center-data-v11-campaign-holds.js')
     summary=queue['summary']
-    assert summary['generationRequiredActive']==478, summary
-    assert summary['existingCandidateNeeds16PointReview']==8, summary
-    assert summary['preflightRejectedNeedsRegeneration']==13, summary
-    assert summary['publishedFinalLocked']==3 and summary['campaignHold']==11
-    assert 478+8+3+11==500
-    assert set(queue['preflightRejected']['post_ids'])==REJECTED
+    assert summary['generationRequiredActive']==465 and summary['existingCandidateNeeds16PointReview']==21
+    assert summary['preflightRejectedNeedsRegeneration']==0 and summary['preflightRejectedReplaced']==13
+    assert summary['publishedFinalLocked']==3 and summary['campaignHold']==11 and 465+21+3+11==500
+    counts=manifest['counts']; assert counts['activeImageGenerationRequired']==465 and counts['existingCandidateNeeds16PointReview']==21
+    assert counts['preflightRejectedNeedsRegeneration']==0 and counts['preflightRejectedReplaced']==13 and counts['runtimeTotal']==500
+    public=deploy['contentAuthority']; assert public['activeImageGenerationRequired']==465 and public['existingCandidateNeeds16PointReview']==21
+    assert public['preflightRejectedNeedsRegeneration']==0 and public['preflightRejectedReplaced']==13
+    assert deploy['candidatePreflight']['oldRejectedCount']==13 and deploy['candidatePreflight']['replacementGeneratedCount']==13
+    assert set(deploy['candidatePreflight']['postIds'])==REPLACED
 
-    counts=manifest['counts']
-    assert counts['runtimeTotal']==500
-    assert counts['activeImageGenerationRequired']==478
-    assert counts['existingCandidateNeeds16PointReview']==8
-    assert counts['preflightRejectedNeedsRegeneration']==13
-
-    public=deploy['contentAuthority']
-    assert public['runtimeContentTotal']==500
-    assert public['activeImageGenerationRequired']==478
-    assert public['existingCandidateNeeds16PointReview']==8
-    assert public['preflightRejectedNeedsRegeneration']==13
-
-    assert deploy['candidatePreflight']['rejectedCount']==13
-    assert set(deploy['candidatePreflight']['rejectedPostIds'])==REJECTED
-
-    bindings=assets.get('preflightRejectedBindings',[])
-    assert len(bindings)==13
-    assert {item['post_id'] for item in bindings}==REJECTED
-    by_asset={item.get('id'):item for item in assets.get('assets',[])}
+    bindings=assets.get('preflightRejectedBindings',[]); assert len(bindings)==13 and {x['post_id'] for x in bindings}==REPLACED
+    by_asset={x.get('id'):x for x in assets.get('assets',[])}
     for asset_id in QUARANTINED_ASSETS:
-        item=by_asset.get(asset_id)
-        assert item is not None,f'素材庫缺少隔離素材：{asset_id}'
-        assert item.get('status') in {'deprecated-reference-only','preflight-rejected-reference-only'},f'{asset_id} 仍可能被當候選：{item.get("status")}'
-    assert by_asset['post-02']['status']=='candidate-review-required','home-brand素材本身仍可使用，只是不可綁工作空檔'
-    assert by_asset['post-10']['status']=='candidate-review-required','FAQ素材本身仍可使用，只是不可綁保存貼文'
+        assert by_asset[asset_id].get('status') in {'deprecated-reference-only','preflight-rejected-reference-only'}
 
-    for post_id in REJECTED:
-        assert f"'{post_id}'" in runtime, f'發布中心未鎖定預檢退回：{post_id}'
-    assert "image_status:'needs_generation'" in runtime
-    assert "image_preflight:'rejected'" in runtime
+    replacement_batch=next(x for x in queue['priorityBatches'] if x.get('priority')==0)
+    assert replacement_batch['count']==13 and replacement_batch['status']=='generated_pending_16_point_review'
+    assert set(replacement_batch['post_ids'])==REPLACED
+    for post_id,path in replacement_batch['assets'].items():
+        file=ROOT/path; assert file.is_file(),f'缺少替代候選：{post_id} {path}'
+        svg=file.read_text(encoding='utf-8'); assert '<svg' in svg and '1254' in svg
+        assert path in runtime and post_id in runtime
+    for product_scene in ['guide-use.svg','choose-products.svg','choose-by-habit.svg']:
+        svg=(ROOT/'images/posts/generated-v20260808-preflight'/product_scene).read_text(encoding='utf-8')
+        assert '../../products-v3/' in svg and 'preserveAspectRatio="xMidYMid meet"' in svg
+    for product_free in ['work-rest.svg','storage.svg','four-seasons.svg','ingredient-principle.svg','daily-soup.svg','weather-hot.svg','weather-temp.svg','weather-rain.svg','contact-line.svg','recipes.svg']:
+        svg=(ROOT/'images/posts/generated-v20260808-preflight'/product_free).read_text(encoding='utf-8')
+        assert '../../products-v3/' not in svg
 
-    # 已知的失敗來源不得再被當成通過依據。
-    assert "POST-SEASONS-RHYTHM':'原四季候選四格重複同一張 home-brand 圖" in runtime
-    assert "POST-INGREDIENT-PRINCIPLE':'原候選嵌入已標記 deprecated-reference-only 的 products-all" in runtime
-    assert "POST-GUIDE':'原「怎麼使用」候選直接畫出 AI 罐、瓶、產品塊與粉體" in runtime
-    assert "POST-STORE':'原 LINE 聯絡候選同框出現多個舊產品包裝" in runtime
-    assert "POST-CHOOSE':'原「怎麼選」候選只用泛用碗、杯、鍋、粉體圖示" in runtime
-    for post_id in ['POST-WEATHER-HOT','POST-WEATHER-TEMP','POST-WEATHER-RAIN']:
-        assert post_id in runtime and 'home-brand' in runtime
+    assert "candidate_generation_mode:'strict-preflight-replacement'" in runtime
+    assert "image_preflight:'replaced_after_reject'" in runtime
+    print('PASS preflight replacements: 13 unsafe old visuals quarantined, 13 safe replacements generated; 465 generation / 21 review / 3 locked / 11 hold = 500.')
 
-    print('PASS candidate preflight: 13 deterministic mismatches rejected and unsafe assets quarantined; 478 generation / 8 review / 3 locked / 11 hold = 500.')
-
-if __name__=='__main__':
-    main()
+if __name__=='__main__': main()
