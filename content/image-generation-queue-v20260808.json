@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-image-generation-queue-v2",
+  "version": "2026-08-08-image-generation-queue-v3-six-single-specs",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "summary": {
@@ -11,13 +11,13 @@
   },
   "publishedFinalLocked": [
     {"post_id":"POST-BRAND-START","reason":"既有品牌故事已發布鎖定"},
-    {"post_id":"POST-GUILU-DRINK-TRIAL-EVERGREEN","reason":"2026-08-06既有試喝貼文發布歷史；舊海報已被2026-08-08最終主圖取代，僅保留發布歷史、不再重發舊圖"},
-    {"post_id":"XJW-TRIAL-001","asset_id":"guilu-drink-trial-final-20260808","reason":"使用者2026-08-08確認最終版且已發布；不重生成、不重發"}
+    {"post_id":"POST-GUILU-DRINK-TRIAL-EVERGREEN","reason":"既有試喝貼文發布歷史；現行最終主圖已取代舊海報，只保留歷史、不再重發舊圖"},
+    {"post_id":"XJW-TRIAL-001","asset_id":"guilu-drink-trial-final-20260808","reason":"2026-08-08確認最終版且已發布；不重生成、不重發"}
   ],
   "campaignHold": {
     "ids": ["XJW-TRIAL-002","XJW-TRIAL-003","XJW-TRIAL-004","XJW-TRIAL-005","XJW-TRIAL-006","XJW-TRIAL-007","XJW-TRIAL-008","XJW-TRIAL-009","XJW-TRIAL-010","XJW-TRIAL-011","XJW-TRIAL-012"],
     "hold_until": "2026-11-06",
-    "reason": "同一試喝主活動已發布最終主圖；依90天主圖與活動去重規則，其他11篇試喝變體暫不生成主圖、不排程、不發布。到期後仍需人工重審。"
+    "reason": "同一試喝主活動已發布最終主圖；依90天主圖與活動去重規則，其他試喝變體暫不生成主圖、不排程、不發布。到期後仍需人工重審。"
   },
   "priorityBatches": [
     {
@@ -25,7 +25,7 @@
       "name": "修正6張舊產品候選圖",
       "count": 6,
       "post_ids": ["POST-PRODUCT-OVERVIEW","POST-GAO-100","POST-DRINK-30","POST-DRINK-180","POST-JIAO-600","POST-COMBO"],
-      "reason": "這6張直接涉及產品包裝、標籤或比例，必須先換成現行正式原圖合成版本。"
+      "reason": "這6張直接涉及產品包裝、標籤、尺寸或多產品合成，必須使用現行正式原圖重新合成社群版面；原產品本體不可重畫。"
     },
     {
       "priority": 2,
@@ -39,7 +39,7 @@
       "name": "產品與FAQ常青內容",
       "count": 96,
       "selection": "產品、FAQ、保存、使用、怎麼選、資料透明、合作夥伴素材。",
-      "rules": "產品本體只用正式原圖等比例合成。"
+      "rules": "產品本體只用正式原圖等比例合成；生成前先讀取六項正式產品權威資料。"
     },
     {
       "priority": 4,
@@ -64,12 +64,16 @@
     "mode": "chatgpt_handoff",
     "paidOpenAIApi": false,
     "newImageStatus": "pending_review",
+    "authoritySources": ["catalog-public.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
+    "rejectUnknownProductSpecs": true,
     "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"]
   },
   "productLocks": {
-    "guiluDrink30": "30cc裸罐、無貼紙、無外盒、無外袋、金色蓋、約42×51mm比例",
+    "guiluDrink30": "30cc玻璃罐；裸罐、無貼紙、無外盒、無外袋、金色蓋、約42×51mm比例；不得稱瓶",
     "guiluDrink180": "180cc狹長鋁袋、寬高比約0.64，不拉寬、不加高",
-    "guiluGao": "100g六角罐，只使用新版米白標籤，舊紅白直式貼紙禁止",
-    "guiluJiao": "600g淡紫盒等比例，禁止橫向拉長"
+    "guiluGao": "100g六角罐，只使用新版米白標籤",
+    "guiluTangkuai": "75g深藍盒；8塊裝、每塊約9.375g；只使用正式原圖，不建立其他容量",
+    "guiluJiao": "600g（1斤）淡紫盒、32塊裝、每塊約18.75g；等比例，禁止橫向拉長",
+    "luerongFen": "75g白色塑膠罐；正式原圖等比例"
   }
 }
