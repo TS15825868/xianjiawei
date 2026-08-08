@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-09-character-regeneration-authority-v2-five-safe-reuse",
+  "version": "2026-08-09-character-regeneration-authority-v3-b1-exact-prompts",
   "authority": "formal-mascot-review",
   "status": "locked",
   "originalInvalidCharacterCandidates": 120,
@@ -23,8 +23,10 @@
       "safeReuseCount": 5,
       "count": 27,
       "oldMode": "website-boss-daily-v14",
-      "newMode": "chatgpt-boss-daily-v14-required",
+      "newMode": "chatgpt-boss-daily-v14-b1-exact-required",
       "safeReuseMode": "approved-v405-semantic-reuse-v14",
+      "promptManifest": "content/character-b1-prompt-manifest-v20260809.json",
+      "exactPromptCount": 27,
       "oldIssue": "舊候選直接引用LINE OA場景圖並以slice／clipPath聚焦角色，可能裁頭、裁手、裁腳，也無法確保動作與每篇文案真正一致。",
       "safeReusePostIds": ["XJW-CHARACTER-006","XJW-CHARACTER-008","XJW-CHARACTER-011","XJW-CHARACTER-012","XJW-CHARACTER-014"]
     },
