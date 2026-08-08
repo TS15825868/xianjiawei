@@ -1,0 +1,62 @@
+{
+  "version": "2026-08-09-character-generation-batches-v1",
+  "authority": "content/character-regeneration-authority-v20260809.json",
+  "totalNeedsGeneration": 115,
+  "rules": {
+    "preservePostId": true,
+    "preserveCopyAndContext": true,
+    "output": "1:1 candidate-review-required after generation",
+    "autoApprove": false,
+    "autoPublish": false,
+    "mascot": "approved-v405同款柔和立體Q版；頭、頭髮、雙手、雙腳與持物完整；約8%安全空間",
+    "websiteLineSeparate": true,
+    "productOptional": true,
+    "productImageAuthority": "images/products-v3/",
+    "productRedrawForbidden": true,
+    "productScaleAuthority": "content/product-physical-scale-authority-v20260809.json"
+  },
+  "batches": [
+    {
+      "id": "CHAR-B1-BOSS-DAILY",
+      "priority": 1,
+      "count": 27,
+      "sourceLayer": "v14",
+      "category": "小老闆與夥伴",
+      "reason": "最容易依既有文案動作生成，且不需要強制放產品；先完成可最快降低待生成數量。",
+      "postIds": [
+        "XJW-CHARACTER-002","XJW-CHARACTER-003","XJW-CHARACTER-005","XJW-CHARACTER-009","XJW-CHARACTER-015","XJW-CHARACTER-017","XJW-CHARACTER-018",
+        "XJW-CHARACTER-020","XJW-CHARACTER-021","XJW-CHARACTER-023","XJW-CHARACTER-024","XJW-CHARACTER-026","XJW-CHARACTER-027","XJW-CHARACTER-029","XJW-CHARACTER-030","XJW-CHARACTER-032","XJW-CHARACTER-033","XJW-CHARACTER-035","XJW-CHARACTER-036",
+        "XJW-CHARACTER-038","XJW-CHARACTER-039","XJW-CHARACTER-041","XJW-CHARACTER-042","XJW-CHARACTER-044","XJW-CHARACTER-045","XJW-CHARACTER-047","XJW-CHARACTER-048"
+      ],
+      "actionMap": {
+        "XJW-CHARACTER-002":"整理今天的資訊","XJW-CHARACTER-003":"準備出門","XJW-CHARACTER-005":"整理桌面","XJW-CHARACTER-009":"比讚","XJW-CHARACTER-015":"準備寄件","XJW-CHARACTER-017":"查看產品原圖","XJW-CHARACTER-018":"收好雨傘",
+        "XJW-CHARACTER-020":"整理今天的資訊","XJW-CHARACTER-021":"準備出門","XJW-CHARACTER-023":"整理桌面","XJW-CHARACTER-024":"招手歡迎","XJW-CHARACTER-026":"指向看板","XJW-CHARACTER-027":"比讚","XJW-CHARACTER-029":"端溫水","XJW-CHARACTER-030":"看鍋燉煮","XJW-CHARACTER-032":"思考問題","XJW-CHARACTER-033":"準備寄件","XJW-CHARACTER-035":"查看產品原圖","XJW-CHARACTER-036":"收好雨傘",
+        "XJW-CHARACTER-038":"整理今天的資訊","XJW-CHARACTER-039":"準備出門","XJW-CHARACTER-041":"整理桌面","XJW-CHARACTER-042":"招手歡迎","XJW-CHARACTER-044":"指向看板","XJW-CHARACTER-045":"比讚","XJW-CHARACTER-047":"端溫水","XJW-CHARACTER-048":"看鍋燉煮"
+      }
+    },
+    {
+      "id": "CHAR-B2-COMPANIONS",
+      "priority": 2,
+      "count": 16,
+      "sourceLayer": "v15",
+      "category": "陪伴角色",
+      "postIds": ["XJW-CHARACTER-001","XJW-CHARACTER-004","XJW-CHARACTER-007","XJW-CHARACTER-010","XJW-CHARACTER-013","XJW-CHARACTER-016","XJW-CHARACTER-019","XJW-CHARACTER-022","XJW-CHARACTER-025","XJW-CHARACTER-028","XJW-CHARACTER-031","XJW-CHARACTER-034","XJW-CHARACTER-037","XJW-CHARACTER-040","XJW-CHARACTER-043","XJW-CHARACTER-046"],
+      "companionCycle": ["小鹿","小烏龜","灰色小河馬娃娃","米色小鹿安撫巾"],
+      "rules": ["小鹿與小烏龜是獨立Q版角色，與小老闆分開","河馬是灰色娃娃，不是活體河馬角色","安撫巾為米色小鹿造型布偶道具","不得使用舊簡單向量替代"]
+    },
+    {
+      "id": "CHAR-B3-FESTIVAL-LOCATION-WANHUA",
+      "priority": 3,
+      "count": 72,
+      "sourceLayer": "v13",
+      "categories": ["節慶","地點","萬華在地"],
+      "postIdRanges": ["XJW-FESTIVAL-001..024","XJW-LOCATION-001..024","XJW-WANHUA-001..024"],
+      "rules": ["節慶日期或即時活動發布前另行確認","地點必須與原文案一致","萬華圖不得誤用其他城市地標","店面／街景若沒有正式實拍依據，不虛構成真實店面照片","沒有必要不放產品"]
+    }
+  ],
+  "alreadyMovedToReview": {
+    "count": 5,
+    "postIds": ["XJW-CHARACTER-006","XJW-CHARACTER-008","XJW-CHARACTER-011","XJW-CHARACTER-012","XJW-CHARACTER-014"],
+    "mode": "approved-v405-semantic-reuse-v14"
+  }
+}
