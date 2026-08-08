@@ -23,6 +23,11 @@ jobs:
         with:
           python-version: '3.13'
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
       - name: Validate formal release authority
         run: python tools/validate-site-release.py
 
@@ -40,6 +45,9 @@ jobs:
 
       - name: Validate rebuilt 500-post generators and queue counts
         run: python tools/validate-post-bank-generators-v20260808.py
+
+      - name: Simulate full publishing-center 500-post runtime chain
+        run: node tools/validate-post-bank-runtime-v20260808.mjs
 
       - name: Validate public sitemap boundary
         run: python tools/validate-public-boundary-v20260808.py
