@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-canonical-v15-strict-preflight",
+  "version": "2026-08-08-canonical-v16-preflight-replacements",
   "updated": "2026-08-08",
   "status": "source-updated-deployment-not-yet-verified",
   "catalog": "six-official-products-six-single-specs",
@@ -8,9 +8,10 @@
     "runtimeContentTotal": 500,
     "publishedLocked": 3,
     "campaignHold": 11,
-    "activeImageGenerationRequired": 478,
-    "existingCandidateNeeds16PointReview": 8,
-    "preflightRejectedNeedsRegeneration": 13,
+    "activeImageGenerationRequired": 465,
+    "existingCandidateNeeds16PointReview": 21,
+    "preflightRejectedNeedsRegeneration": 0,
+    "preflightRejectedReplaced": 13,
     "imageQueue": "content/image-generation-queue-v20260808.json",
     "postBankManifest": "content/post-bank-v6-manifest.json",
     "postGeneratorV6": "publishing-center-data-v6.js",
@@ -22,21 +23,16 @@
     "partnerMode": "content/partner-mode-policy.json"
   },
   "candidatePreflight": {
-    "rejectedCount": 13,
-    "rejectedPostIds": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
-    "rule": "情境錯配、重複背景、deprecated產品來源、AI重畫產品、舊包裝或泛用圖示代替正式產品時直接退回生成；人工審核只保留正式原圖或正式原圖合成候選。"
+    "oldRejectedCount": 13,
+    "replacementGeneratedCount": 13,
+    "activeRejectedNeedsRegeneration": 0,
+    "postIds": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
+    "rule": "舊圖已隔離；新生活／天氣／料理候選不畫產品，產品選擇／使用候選只嵌正式products-v3原圖。13張新圖仍需16項人工審核。"
   },
   "productAuthority": {
     "productCount": 6,
     "sellableSpecificationCount": 6,
-    "specifications": [
-      "龜鹿膏 100g／罐",
-      "龜鹿飲30cc玻璃罐 30cc／罐",
-      "龜鹿飲180cc鋁袋 180cc／包",
-      "龜鹿湯塊 75g／盒",
-      "龜鹿膠 600g（1斤）／盒",
-      "鹿茸粉 75g／罐"
-    ],
+    "specifications": ["龜鹿膏 100g／罐","龜鹿飲30cc玻璃罐 30cc／罐","龜鹿飲180cc鋁袋 180cc／包","龜鹿湯塊 75g／盒","龜鹿膠 600g（1斤）／盒","鹿茸粉 75g／罐"],
     "guiluTangkuai": "75g／盒｜8塊裝｜每塊約9.375g；深藍正式盒裝；不得建立其他龜鹿湯塊容量",
     "guiluDrink30": "30cc／罐（小玻璃罐）；裸罐、無貼紙、無外盒、無外袋、金色蓋；同型約42×51mm；不得拉高拉胖；不得稱瓶",
     "guiluDrink180": "180cc／包（鋁袋）；狹長直立；寬高比約0.64；不得拉寬或加高",
@@ -67,43 +63,10 @@
     "preventRepublish": true,
     "doNotRegenerate": true
   },
-  "pricingPolicy": {
-    "guiluDrink30cc": "正式售價60元／罐｜買10送1｜11罐600元",
-    "guiluDrink180cc": "單包200元｜買10送1｜11包2,000元",
-    "catalogPages": "一般官網產品目錄不公開全系列價格",
-    "trialCampaign": "可顯示使用者確認的龜鹿飲正式價格"
-  },
-  "generationPolicy": {
-    "mode": "chatgpt_handoff",
-    "paidOpenAIImageApi": false,
-    "paidOpenAITextApiForRegeneration": false,
-    "newContentStatus": "pending_review",
-    "autoApprove": false,
-    "autoPublishBeforeApproval": false,
-    "productAuthoritySource": "catalog-public.json",
-    "visualAuthoritySource": "content/visual-production-spec-v20260807.json",
-    "brandCharacterSource": "brand-character-spec.json",
-    "rejectUnknownProductSpecs": true,
-    "generatorAuthority": "base23 + v6 current300 + v7 current177 = runtime500"
-  },
-  "schedule": {
-    "timezone": "Asia/Taipei",
-    "weekly": ["星期二 19:30","星期六 09:30"],
-    "immediatePublishBypassesSchedule": true,
-    "liveWeatherRequiresRecheck": true
-  },
-  "platformPolicy": {
-    "facebook": "由ERP執行時讀取實際授權狀態；公開Git不宣稱Token已就緒",
-    "instagram": "由ERP執行時讀取實際授權狀態；公開Git不宣稱Token已就緒",
-    "lineOA": "由ERP／LINE OA執行時讀取實際授權狀態；公開Git不宣稱Token已就緒",
-    "lineVoom": "manual_only",
-    "googleBusiness": "由ERP執行時讀取實際授權狀態；未授權則轉人工發布包"
-  },
-  "privacy": {
-    "consumerBrand": "仙加味",
-    "publicForbiddenByDefault": ["台興山產有限公司","統一編號","公司電話","公司地址"],
-    "companyInfoOnlyWhenRequired": true,
-    "partnerProtectionMode": true
-  },
+  "pricingPolicy": {"guiluDrink30cc":"正式售價60元／罐｜買10送1｜11罐600元","guiluDrink180cc":"單包200元｜買10送1｜11包2,000元","catalogPages":"一般官網產品目錄不公開全系列價格","trialCampaign":"可顯示使用者確認的龜鹿飲正式價格"},
+  "generationPolicy": {"mode":"chatgpt_handoff","paidOpenAIImageApi":false,"paidOpenAITextApiForRegeneration":false,"newContentStatus":"pending_review","autoApprove":false,"autoPublishBeforeApproval":false,"productAuthoritySource":"catalog-public.json","visualAuthoritySource":"content/visual-production-spec-v20260807.json","brandCharacterSource":"brand-character-spec.json","rejectUnknownProductSpecs":true,"generatorAuthority":"base23 + v6 current300 + v7 current177 = runtime500"},
+  "schedule": {"timezone":"Asia/Taipei","weekly":["星期二 19:30","星期六 09:30"],"immediatePublishBypassesSchedule":true,"liveWeatherRequiresRecheck":true},
+  "platformPolicy": {"facebook":"由ERP執行時讀取實際授權狀態；公開Git不宣稱Token已就緒","instagram":"由ERP執行時讀取實際授權狀態；公開Git不宣稱Token已就緒","lineOA":"由ERP／LINE OA執行時讀取實際授權狀態；公開Git不宣稱Token已就緒","lineVoom":"manual_only","googleBusiness":"由ERP執行時讀取實際授權狀態；未授權則轉人工發布包"},
+  "privacy": {"consumerBrand":"仙加味","publicForbiddenByDefault":["台興山產有限公司","統一編號","公司電話","公司地址"],"companyInfoOnlyWhenRequired":true,"partnerProtectionMode":true},
   "safety": "six-single-spec-authority-no-redrawn-product-packaging-approved-website-chibi-no-public-company-data-by-default-no-duplicate-posting-no-paid-background-generation"
 }
