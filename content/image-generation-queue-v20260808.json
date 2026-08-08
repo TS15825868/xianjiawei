@@ -1,14 +1,14 @@
 {
-  "version": "2026-08-08-image-generation-queue-v6-preflight",
+  "version": "2026-08-08-image-generation-queue-v7-strict-preflight",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "summary": {
     "publishedFinalLocked": 3,
     "campaignHold": 11,
-    "generationRequiredActive": 473,
-    "existingCandidateNeeds16PointReview": 13,
+    "generationRequiredActive": 478,
+    "existingCandidateNeeds16PointReview": 8,
     "priority1GeneratedPendingReview": 6,
-    "preflightRejectedNeedsRegeneration": 8,
+    "preflightRejectedNeedsRegeneration": 13,
     "total": 500
   },
   "publishedFinalLocked": [
@@ -24,11 +24,11 @@
   "priorityBatches": [
     {
       "priority": 0,
-      "name": "自動預檢退回8張舊候選",
-      "count": 8,
+      "name": "嚴格預檢退回13張舊候選",
+      "count": 13,
       "status": "generation_required",
-      "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN"],
-      "rules": "不得再沿用 home-brand、FAQ錯情境、重複四季背景、deprecated products-all 或舊 recipes 產品場景；重做後仍先待16項審核。"
+      "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
+      "rules": "凡情境錯配、重複背景、deprecated產品來源、AI重畫產品、舊產品包裝、泛用圖示代替正式產品，直接退回生成；不送人工審核。"
     },
     {
       "priority": 1,
@@ -46,6 +46,14 @@
         "POST-COMBO": "images/posts/generated-v20260808-priority1/guilu-gao-drink-combo.svg"
       },
       "reason": "第一批已改用正式產品原圖等比例合成，不讓生成式AI重畫包裝。SVG只作候選審核；ERP在核准、立即發布或手動發布包前會自動轉1254×1254 JPEG並上傳媒體庫。"
+    },
+    {
+      "priority": 1.5,
+      "name": "2張正式單品原圖｜待版面審核",
+      "count": 2,
+      "status": "official_reference_pending_layout_review",
+      "post_ids": ["POST-SOUP-75","POST-LUERONG"],
+      "rules": "龜鹿湯塊只用75g深藍盒正式原圖；鹿茸粉只用75g白色塑膠罐正式原圖。產品本體不需重生成，只需確認社群版面。"
     },
     {
       "priority": 2,
@@ -81,15 +89,15 @@
     }
   ],
   "existingCandidateNeeds16PointReview": {
-    "count": 13,
+    "count": 8,
     "priority1Count": 6,
-    "otherCurrentCandidates": 7,
-    "rule": "候選圖不能直接發布；必須完成16項檢查，任何一項不符就交給ChatGPT重生成或改用正式原圖重新合成。"
+    "officialSingleProductCount": 2,
+    "rule": "只保留正式產品原圖或正式原圖合成候選。候選仍不能直接發布，必須完成16項檢查。"
   },
   "preflightRejected": {
-    "count": 8,
-    "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN"],
-    "rule": "情境、環境、產品來源或重複圖已有確定性錯誤，直接退回生成，不送人工審核。"
+    "count": 13,
+    "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
+    "rule": "情境、環境、產品來源、AI重畫產品、舊包裝或重複圖已有確定性錯誤，直接退回生成，不送人工審核。"
   },
   "generationRouting": {
     "mode": "chatgpt_handoff_plus_exact_original_composite",
