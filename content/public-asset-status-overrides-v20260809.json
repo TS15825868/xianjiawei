@@ -1,25 +1,25 @@
 {
-  "version": "2026-08-09-public-asset-status-overrides-v1",
+  "version": "2026-08-09-public-asset-status-overrides-v2-batch5-candidates",
   "authority": "formal-runtime-asset-review",
-  "reason": "避免舊素材庫條目把內嵌products-v2的預檢SVG誤標為可審候選；本檔狀態優先於較舊的public-asset-library條目。",
+  "reason": "避免舊素材庫條目把內嵌products-v2的預檢SVG誤標為可審候選；第一批5篇產品／多產品新版候選已完成，狀態改為candidate-review-required。",
   "deprecatedAssets": [
     {
       "id": "preflight-guide-use",
       "path": "images/posts/generated-v20260808-preflight/guide-use.svg",
       "status": "deprecated-reference-only",
-      "reason": "SVG內嵌舊products-v2產品圖；產品使用方式貼文必須依文案重新生成，產品本體只使用products-v3正式原圖。"
+      "reason": "SVG內嵌舊products-v2產品圖；已由新版batch5 guide候選取代，不再作可審素材。"
     },
     {
       "id": "preflight-choose-products",
       "path": "images/posts/generated-v20260808-preflight/choose-products.svg",
       "status": "deprecated-reference-only",
-      "reason": "SVG內嵌舊products-v2產品圖且多產品尺度不可直接沿用；需重新生成。"
+      "reason": "SVG內嵌舊products-v2產品圖且多產品尺度不可直接沿用；已由新版batch5 choose候選取代。"
     },
     {
       "id": "preflight-choose-by-habit",
       "path": "images/posts/generated-v20260808-preflight/choose-by-habit.svg",
       "status": "deprecated-reference-only",
-      "reason": "SVG內嵌舊products-v2產品圖且多產品尺度不可直接沿用；需重新生成。"
+      "reason": "SVG內嵌舊products-v2產品圖且多產品尺度不可直接沿用；已由新版batch5 choose-by-habit候選取代。"
     }
   ],
   "safeCandidateBindings": {
@@ -34,18 +34,21 @@
     "POST-STORE": "images/posts/generated-v20260808-preflight/contact-line.svg",
     "POST-RECIPES": "images/posts/generated-v20260808-preflight/recipes.svg"
   },
-  "forcedRegenerationPostIds": [
-    "POST-PRODUCT-OVERVIEW",
-    "POST-COMBO",
-    "POST-GUIDE",
-    "POST-CHOOSE",
-    "POST-CHOOSE-BY-HABIT"
-  ],
+  "productReviewCandidateBindings": {
+    "POST-PRODUCT-OVERVIEW": "images/posts/candidates-v20260809/product-overview.svg",
+    "POST-COMBO": "images/posts/candidates-v20260809/combo.svg",
+    "POST-GUIDE": "images/posts/candidates-v20260809/guide.svg",
+    "POST-CHOOSE": "images/posts/candidates-v20260809/choose.svg",
+    "POST-CHOOSE-BY-HABIT": "images/posts/candidates-v20260809/choose-by-habit.svg"
+  },
+  "forcedRegenerationPostIds": [],
   "rules": {
     "safeCandidateStatus": "candidate-review-required",
+    "productReviewCandidateStatus": "candidate-review-required",
     "forcedRegenerationStatus": "needs_generation",
     "officialProductImageAuthority": "images/products-v3/",
     "unknownMultiProductRelativeScale": "do-not-guess",
+    "batch5Composition": "independent-product-panels-no-physical-relative-scale-claim",
     "onUnusableImage": "regenerate-to-pending-review"
   }
 }
