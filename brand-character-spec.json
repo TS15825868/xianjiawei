@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-v2-website-chibi",
+  "version": "2026-08-09-v3-website-chibi-full-frame",
   "status": "locked",
   "brand": "仙加味",
   "masterAssetPath": "images/brand/approved-v405/",
@@ -17,25 +17,41 @@
     "apron": "深橄欖綠圍裙",
     "chestMark": "紅色直式仙加味印章",
     "apronLowerMotif": "可保留小鹿與小烏龜圖樣",
-    "posePolicy": "任何合理姿勢皆可：招手、指向、介紹、比讚、端飲、料理、工作、休息、思考等；姿勢可變但角色識別不可變"
+    "posePolicy": "任何合理姿勢皆可：招手、指向、介紹、比讚、端飲、料理、工作、休息、思考等；姿勢可變但角色識別不可變",
+    "framingPolicy": "頭、頭髮、雙手、雙腳與手持物必須完整顯示；不得為卡片版面裁頭、裁手、裁腳或用cover／slice聚焦角色。",
+    "recommendedSafeMargin": "四周至少約8%",
+    "displayMode": "contain-no-crop"
   },
   "partners": {
     "requiredEveryImage": false,
     "characters": ["小鹿", "小烏龜"],
-    "rule": "情境需要夥伴時，小鹿與小烏龜必須是分開的獨立角色並沿用同一Q版質感；不得融合成單一角色。"
+    "rule": "情境需要夥伴時，小鹿與小烏龜必須是分開的獨立角色並沿用同一Q版質感；不得融合成單一角色，也不得用未核准的簡單向量替代正式造型。"
   },
   "optionalComfortProps": ["灰色小河馬娃娃", "米色小鹿安撫巾"],
+  "assetPoolPolicy": {
+    "website": "官網與公開發佈中心使用網站核准角色母型／依網站母型重新生成的候選圖。",
+    "lineOA": "LINE OA可使用LINE OA專用角色場景，但不得直接裁切後拿去當官網／公開貼文的角色素材。",
+    "crossUse": "角色識別與畫風一致，但官網與LINE OA的已輸出場景素材池分開管理；禁止為方便直接混用或裁切拼貼。"
+  },
+  "sceneMatchPolicy": {
+    "required": ["季節", "天氣或冷熱", "場合", "地點或環境", "表情", "動作", "文案主題"],
+    "rule": "先讀文案再選／生成角色情境；任何情境不符都不能因圖漂亮而硬用。"
+  },
   "rules": {
     "sameCharacterAcrossSystems": true,
+    "separateSceneAssetPoolsAcrossWebsiteAndLine": true,
     "freePoseAllowed": true,
     "sameVisualStyleRequired": true,
+    "fullCharacterNoCropRequired": true,
     "partnersRemainConsistent": true,
+    "unapprovedVectorCompanionsForbidden": true,
     "realProductImagesOnly": true,
     "noProductRedraw": true,
     "noPackageTextChange": true,
     "noProductScaleDistortion": true,
     "traditionalChineseOnly": true,
     "noInternalPostNumberOnImage": true,
-    "newImagesRequireReview": true
+    "newImagesRequireReview": true,
+    "unusableImageAction": "regenerate-to-pending-review"
   }
 }
