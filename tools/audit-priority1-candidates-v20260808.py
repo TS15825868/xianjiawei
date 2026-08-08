@@ -21,11 +21,14 @@ def main():
  assert summary['total']==500
  assert summary['publishedFinalLocked']==3
  assert summary['campaignHold']==11
- assert summary['generationRequiredActive']==465
- assert summary['existingCandidateNeeds16PointReview']==21
+ assert summary['generationRequiredActive']==478
+ assert summary['existingCandidateNeeds16PointReview']==8
+ assert summary['preflightRejectedNeedsRegeneration']==13
  assert summary['priority1GeneratedPendingReview']==6
- batch=data['priorityBatches'][0]
+ batch=next((item for item in data['priorityBatches'] if item.get('priority')==1),None)
+ assert batch is not None,'找不到第一優先候選批次'
  assert batch['status']=='generated_pending_16_point_review'
+ assert batch['count']==6
  assert batch['assets']==EXPECTED
  for post_id,path in EXPECTED.items():
   file=ROOT/path
@@ -37,6 +40,6 @@ def main():
  assert "candidate_generation_mode:'exact-official-original-composite'" in patch
  assert "publish_allowed:false" in patch
  assert "approval_required:true" in patch
- print('PASS priority1 candidates: 6 exact-original SVG review cards, queue counts and publishing-center patch aligned')
+ print('PASS priority1 candidates: 6 exact-original SVG review cards; strict queue 478 generation / 8 review / 13 rejected aligned')
 
 if __name__=='__main__':main()
