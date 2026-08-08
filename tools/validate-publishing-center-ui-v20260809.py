@@ -5,6 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 JS=(ROOT/'publishing-center-v2.js').read_text(encoding='utf-8')
 HTML=(ROOT/'publishing-center.html').read_text(encoding='utf-8')
 BRIDGE=(ROOT/'publishing-center-erp-bridge.js').read_text(encoding='utf-8')
+STATE_CSS=(ROOT/'publishing-center-state-v20260809.css').read_text(encoding='utf-8')
 
 
 def req(ok,message):
@@ -24,10 +25,12 @@ def main():
     for value in ['Ø42×H51','51×78','0.64','8%','不得為排版強制等高或等寬']:
         req(value in JS,f'發佈中心UI缺少正式尺寸／構圖規則：{value}')
     req("publishing-center-v2.js?v=20260809-07" in HTML,'HTML未強制載入新版needs-generation UI')
+    req('publishing-center-state-v20260809.css?v=20260809-01' in HTML,'HTML未載入需重生成警示樣式')
     req('>需重生成／待更換<' in HTML,'狀態篩選仍未清楚標示需重生成')
+    req('.status.needs-image' in STATE_CSS and '[data-image-status="needs-image"]' in STATE_CSS,'需重生成狀態缺少獨立可視化樣式')
     req("requiresGeneration(post)" in BRIDGE and "const sourceImage=mustRegenerate?'':" in BRIDGE,'ERP bridge仍可能帶入needs-generation舊圖')
     req("requires_image_generation:mustRegenerate" in BRIDGE,'ERP bridge未傳遞需重生成旗標')
-    print('PASS publishing center UI: needs-generation first class, no preapproval without new image, products-v3 direct generation, ERP image-free handoff')
+    print('PASS publishing center UI: visible needs-generation state, no preapproval without new image, products-v3 direct generation, ERP image-free handoff')
 
 
 if __name__=='__main__':
