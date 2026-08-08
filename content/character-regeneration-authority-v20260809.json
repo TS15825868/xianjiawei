@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-09-character-regeneration-authority-v3-b1-exact-prompts",
+  "version": "2026-08-09-character-regeneration-authority-v4-b1-b2-exact-prompts",
   "authority": "formal-mascot-review",
   "status": "locked",
   "originalInvalidCharacterCandidates": 120,
@@ -37,7 +37,9 @@
       "safeReuseCount": 0,
       "count": 16,
       "oldMode": "companion-vector-v15-review",
-      "newMode": "chatgpt-companion-v15-required",
+      "newMode": "chatgpt-companion-v15-b2-exact-required",
+      "promptManifest": "content/character-b2-prompt-manifest-v20260809.json",
+      "exactPromptCount": 16,
       "oldIssue": "小老闆來自裁切LINE OA圖，且小鹿、小烏龜、灰色小河馬娃娃、米色小鹿安撫巾以簡單SVG重新繪製，未經正式造型核准。"
     }
   ],
@@ -79,8 +81,8 @@
   "companions": {
     "deer": "小鹿必須為獨立Q版角色，與小老闆分開呈現。",
     "turtle": "小烏龜必須為獨立Q版角色，與小老闆分開呈現。",
-    "hippo": "灰色小河馬娃娃只在適合的居家陪伴情境作道具。",
-    "lovey": "米色小鹿安撫巾只在適合的陪伴／居家情境作道具。",
+    "hippo": "灰色小河馬娃娃只在適合的居家陪伴情境作道具，必須維持娃娃質感，不可畫成活體河馬。",
+    "lovey": "米色小鹿安撫巾只在適合的陪伴／居家情境作道具，必須維持布巾＋小鹿頭造型，不可畫成活鹿。",
     "unapprovedSimpleVectorForbidden": true
   },
   "reviewOutcome": {
