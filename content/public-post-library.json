@@ -1,20 +1,23 @@
 {
-  "version": "2026-08-08-public-posts-v5-six-single-specs",
+  "version": "2026-08-09-public-posts-v6-formal-image-state",
   "authority": "TS15825868/xianjiawei",
   "privacy": "public-safe-marketing-content-only",
   "counts": {
     "total": 23,
     "published_locked": 2,
     "pending_review": 21,
-    "known_image_copy_mismatches": 0,
+    "known_image_copy_mismatches": 5,
     "duplicate_primary_images": 0,
-    "missing_asset_bindings": 0
+    "missing_asset_bindings": 5
   },
   "productAuthority": {
     "source": "catalog-public.json",
+    "imageAuthority": "images/products-v3/",
+    "physicalScaleAuthority": "content/product-physical-scale-authority-v20260809.json",
     "sixProductsSixSpecs": true,
     "soupBlock": "75g／盒｜深藍盒｜8塊裝｜每塊約9.375g",
-    "rejectUnknownSpecs": true
+    "rejectUnknownSpecs": true,
+    "rejectUnknownMultiProductRelativeScale": true
   },
   "publishing_defaults": {
     "owner_review_required": true,
@@ -52,10 +55,11 @@
       "copy": "忙碌的日子裡，也記得替自己留一點喘息的時間。\n\n喝口溫水、放慢步調，讓日常回到適合自己的節奏。\n\n仙加味\n補養，是一種節奏。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-02",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/home-brand.webp",
+      "image_asset_id": "preflight-work-rest",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/work-rest.svg",
       "image_status": "candidate-review-required",
-      "image_prompt": "忙碌工作空檔、喝溫水、放慢步調；表情平靜，動作自然。"
+      "image_prompt": "忙碌工作空檔、喝溫水、放慢步調；表情平靜，動作自然。",
+      "image_review_reason": "已換成不含產品本體的嚴格預檢候選；仍須16項人工審核。"
     },
     {
       "id": "POST-PRODUCT-OVERVIEW",
@@ -63,11 +67,13 @@
       "copy": "仙加味目前有六個正式產品：龜鹿膏100g、龜鹿飲30cc玻璃罐、龜鹿飲180cc鋁袋、龜鹿湯塊75g深藍盒、龜鹿膠600g淡紫盒與鹿茸粉75g。每個產品只使用目前確認的正式規格。\n\n固定節奏可參考龜鹿膏；方便快速可選龜鹿飲；料理搭配可選龜鹿湯塊或龜鹿膠；自行搭配可參考鹿茸粉。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-03",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/products-all.webp",
-      "image_status": "replace-required",
+      "image_asset_id": null,
+      "image_url": null,
+      "image_status": "needs_generation",
       "regeneration_mode": "chatgpt_handoff",
-      "image_prompt": "六個正式產品使用各自正式原圖等比例合成；30cc小玻璃罐、180cc狹長鋁袋、75g龜鹿湯塊深藍盒、600g龜鹿膠淡紫盒不得互換或改比例。"
+      "product_refs": ["guilu-gao", "guilu-drink-30", "guilu-drink-180", "guilu-tangkuai", "guilu-jiao", "luerong-fen"],
+      "image_prompt": "六個正式產品使用products-v3各自正式原圖合成；不得強制等高或等寬。30cc約Ø42×H51mm、龜鹿膏100g約51×78mm；180cc維持狹長鋁袋。湯塊、龜鹿膠、鹿茸粉沒有可信毫米尺寸時不得自行猜測多產品相對尺度；無法安全合成就先生成不含產品本體的完整場景並送待審核。",
+      "image_review_reason": "舊products-all多產品圖不再作正式候選；必須依正式原圖與實際尺寸規則重新生成。"
     },
     {
       "id": "POST-GAO-100",
@@ -76,9 +82,9 @@
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "product-gao-official",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=20260805",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=20260809-25",
       "image_status": "official-reference-pending-layout-review",
-      "image_prompt": "龜鹿膏100g正式原圖等比例使用；只使用現行米白標籤，不重畫、不改包裝。"
+      "image_prompt": "龜鹿膏100g products-v3正式原圖等比例使用；罐體約寬51mm×高78mm，只使用正式包裝，不重畫、不改包裝。"
     },
     {
       "id": "POST-DRINK-30",
@@ -87,9 +93,9 @@
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "product-drink30-official",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260805",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260809-25",
       "image_status": "official-reference-pending-layout-review",
-      "image_prompt": "30cc小玻璃罐正式原圖；裸罐無貼紙、無外盒、無外袋；維持原有高矮胖瘦。"
+      "image_prompt": "30cc小玻璃罐 products-v3正式原圖；約Ø42×H51mm；裸罐無貼紙、無外盒、無外袋；維持原有高矮胖瘦，不得稱瓶。"
     },
     {
       "id": "POST-DRINK-180",
@@ -98,9 +104,9 @@
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "product-drink180-official",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg?v=20260805",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg?v=20260809-25",
       "image_status": "official-reference-pending-layout-review",
-      "image_prompt": "180cc鋁袋正式原圖；維持狹長直立比例，不拉寬、不加高。"
+      "image_prompt": "180cc鋁袋 products-v3正式原圖；維持狹長直立比例，寬高比目標約0.64，不拉寬、不加高、不誇張放大。"
     },
     {
       "id": "POST-SOUP-75",
@@ -109,9 +115,9 @@
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "product-tangkuai-official",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg?v=20260805",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg?v=20260809-25",
       "image_status": "official-reference-pending-layout-review",
-      "image_prompt": "龜鹿湯塊75g深藍盒正式原圖；8塊裝；不得改盒型、顏色、文字、容量或產品比例。"
+      "image_prompt": "龜鹿湯塊75g深藍盒 products-v3正式原圖；8塊裝；不得改盒型、顏色、文字、容量或產品比例；盒體毫米尺寸未知時不得自行推算。"
     },
     {
       "id": "POST-LUERONG",
@@ -120,9 +126,9 @@
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "product-luerong-official",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=20260805",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=20260809-25",
       "image_status": "official-reference-pending-layout-review",
-      "image_prompt": "鹿茸粉75g白色塑膠罐正式原圖，不改包裝與罐型。"
+      "image_prompt": "鹿茸粉75g白色正式罐 products-v3正式原圖，不改包裝與罐型；沒有可信毫米尺寸時只保持原圖長寬比。"
     },
     {
       "id": "POST-JIAO-600",
@@ -131,9 +137,9 @@
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "image_asset_id": "product-jiao-official",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=20260805",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=20260809-25",
       "image_status": "official-reference-pending-layout-review",
-      "image_prompt": "龜鹿膠600g淡紫盒正式原圖；32塊裝；等比例呈現，不得與龜鹿湯塊深藍盒混用。"
+      "image_prompt": "龜鹿膠600g淡紫盒 products-v3正式原圖；32塊裝；等比例呈現，不得與龜鹿湯塊深藍盒混用；盒體毫米尺寸未知時不得自行猜測。"
     },
     {
       "id": "POST-CHOOSE",
@@ -141,10 +147,13 @@
       "copy": "想建立固定節奏，可參考龜鹿膏；方便快速可選龜鹿飲；料理搭配可選龜鹿湯塊75g或龜鹿膠600g；自行搭配可參考鹿茸粉。先看使用方式，再確認正式規格。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-09",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/choose.webp",
-      "image_status": "candidate-review-required",
-      "image_prompt": "六個正式產品與簡潔選擇指引；產品不得互換、裁切、重畫或自行新增規格。"
+      "image_asset_id": null,
+      "image_url": null,
+      "image_status": "needs_generation",
+      "regeneration_mode": "chatgpt_handoff",
+      "product_refs": ["guilu-gao", "guilu-drink-30", "guilu-drink-180", "guilu-tangkuai", "guilu-jiao", "luerong-fen"],
+      "image_prompt": "重新建立清楚的選擇指引場景；產品若出現只能使用products-v3正式原圖。多產品相對尺寸沒有可靠依據時不要自行等高／等寬排列，必要時使用小老闆指向文字看板並把產品留作後續人工合成。",
+      "image_review_reason": "舊choose圖以泛用圖示代替產品；不再作候選。"
     },
     {
       "id": "POST-STORAGE",
@@ -152,10 +161,11 @@
       "copy": "龜鹿膏開罐後需密封冷藏；鹿茸粉請密封防潮；龜鹿飲開罐或開封後請儘速飲用；其他產品保存方式以實際包裝標示為準。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-10",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/faq.webp",
+      "image_asset_id": "preflight-storage",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/storage.svg",
       "image_status": "candidate-review-required",
-      "image_prompt": "居家保存、冰箱、密封與乾燥收納情境；不作療效暗示。"
+      "image_prompt": "居家保存、冰箱、密封與乾燥收納情境；不作療效暗示。",
+      "image_review_reason": "已換成保存情境嚴格預檢候選；仍須16項人工審核。"
     },
     {
       "id": "POST-COMBO",
@@ -163,11 +173,13 @@
       "copy": "龜鹿膏與龜鹿飲可依生活型態分開安排；需要方便攜帶時選擇龜鹿飲，想維持固定習慣時可了解龜鹿膏。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-11",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/combo.webp",
-      "image_status": "replace-required",
+      "image_asset_id": null,
+      "image_url": null,
+      "image_status": "needs_generation",
       "regeneration_mode": "chatgpt_handoff",
-      "image_prompt": "使用龜鹿膏100g、30cc小玻璃罐與180cc狹長鋁袋正式原圖等比例合成；不改產品比例與標示。"
+      "product_refs": ["guilu-gao", "guilu-drink-30", "guilu-drink-180"],
+      "image_prompt": "依文案重做生活型態搭配圖。產品本體只使用products-v3：龜鹿膏100g、30cc小玻璃罐、180cc狹長鋁袋。30cc約Ø42×H51mm、龜鹿膏約51×78mm；180cc維持寬高比約0.64。不得強制等高／等寬；若三產品相對尺度無法可靠合成，就先生成不含產品本體、預留乾淨合成區的完整情境。",
+      "image_review_reason": "舊combo多產品圖比例與包裝不再視為正式候選。"
     },
     {
       "id": "POST-GUIDE",
@@ -175,10 +187,13 @@
       "copy": "龜鹿膏可直接取用或熱水化開；龜鹿飲可直接飲用或溫熱；龜鹿湯塊75g可搭配熱水、保溫壺或家常湯品；龜鹿膠600g可熱水化開或搭配燉湯；鹿茸粉可加入溫飲。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-12",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/guide-how-to-use.webp",
-      "image_status": "candidate-review-required",
-      "image_prompt": "六個正式產品與正確使用情境；不改包裝、規格或產品比例。"
+      "image_asset_id": null,
+      "image_url": null,
+      "image_status": "needs_generation",
+      "regeneration_mode": "chatgpt_handoff",
+      "product_refs": ["guilu-gao", "guilu-drink-30", "guilu-drink-180", "guilu-tangkuai", "guilu-jiao", "luerong-fen"],
+      "image_prompt": "依正式使用方式重做一張1:1情境圖。小老闆動作與使用方式匹配；產品若出現只用products-v3正式原圖，不重畫、不裁切、不拉伸。多產品尺寸無可靠依據時以情境＋文字分類為主，產品留待人工等比例合成。",
+      "image_review_reason": "舊guide-how-to-use圖含AI重畫產品與錯誤瓶型，不再作候選。"
     },
     {
       "id": "POST-RECIPES",
@@ -186,10 +201,11 @@
       "copy": "龜鹿湯塊75g或龜鹿膠可依料理方式搭配雞肉、排骨、山藥、紅棗或其他家常食材燉煮。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-13",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/recipes.webp",
+      "image_asset_id": "preflight-recipes",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/recipes.svg",
       "image_status": "candidate-review-required",
-      "image_prompt": "家常雞湯或排骨湯場景，溫熱燉煮；產品若出現只能使用對應正式原圖。"
+      "image_prompt": "家常雞湯或排骨湯場景，溫熱燉煮；目前候選不畫產品本體，需要產品時只能使用對應products-v3正式原圖。",
+      "image_review_reason": "已換成不含產品本體的料理嚴格預檢候選；仍須16項人工審核。"
     },
     {
       "id": "POST-STORE",
@@ -197,10 +213,11 @@
       "copy": "仙加味從萬華開始，延續家族多年累積的經驗，以更貼近日常的方式分享。需要了解產品或聯絡方式，請透過仙加味官方 LINE。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "post-14",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/brand/approved-v405/contact-line.webp",
+      "image_asset_id": "preflight-contact-line",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/contact-line.svg",
       "image_status": "candidate-review-required",
-      "image_prompt": "仙加味品牌與官方LINE導流，不放公開地址與電話。"
+      "image_prompt": "仙加味品牌與官方LINE導流，不放公開地址與電話；不需產品本體。",
+      "image_review_reason": "已換成不含舊產品包裝的LINE導流嚴格預檢候選；仍須16項人工審核。"
     },
     {
       "id": "POST-SEASONS-RHYTHM",
@@ -208,10 +225,11 @@
       "copy": "春天整理步調、夏天留意清爽、秋天回到規律、冬天安排溫熱。從每天做得到的小事開始。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "generated-four-seasons",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/four-seasons.svg",
+      "image_asset_id": "preflight-four-seasons",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/four-seasons.svg",
       "image_status": "candidate-review-required",
-      "image_prompt": "四季四格；春夏秋冬環境、色調與冷熱感清楚。"
+      "image_prompt": "四季四格；春夏秋冬環境、色調與冷熱感清楚。",
+      "image_review_reason": "已換成真正區分四季的嚴格預檢候選；仍須16項人工審核。"
     },
     {
       "id": "POST-INGREDIENT-PRINCIPLE",
@@ -219,10 +237,11 @@
       "copy": "仙加味重視每一項原料與製作資料，也希望產品規格、保存方式與日常搭配都能清楚呈現。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "generated-ingredient-principle",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/ingredient-principle.svg",
+      "image_asset_id": "preflight-ingredient-principle",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/ingredient-principle.svg",
       "image_status": "candidate-review-required",
-      "image_prompt": "乾淨原料、製作資料、規格標示與文件整理；不誇大、不暗示療效。"
+      "image_prompt": "乾淨原料、製作資料、規格標示與文件整理；不誇大、不暗示療效；不使用舊產品拼圖。",
+      "image_review_reason": "已換成不含舊products-all的嚴格預檢候選；仍須16項人工審核。"
     },
     {
       "id": "POST-DAILY-SOUP",
@@ -230,10 +249,11 @@
       "copy": "準備一鍋雞湯或排骨湯，依料理份量加入適合的食材，慢慢燉煮、溫熱享用。若搭配龜鹿湯塊，請使用75g深藍盒正式產品。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "generated-daily-soup",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/daily-soup.svg",
+      "image_asset_id": "preflight-daily-soup",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/daily-soup.svg",
       "image_status": "candidate-review-required",
-      "image_prompt": "居家廚房、備料、熱氣湯鍋、慢火燉煮、溫熱享用；若出現產品只使用75g龜鹿湯塊深藍盒正式原圖。"
+      "image_prompt": "居家廚房、備料、熱氣湯鍋、慢火燉煮、溫熱享用；候選先不畫產品，若後續加入只使用75g龜鹿湯塊products-v3正式原圖。",
+      "image_review_reason": "已換成不重畫產品的料理嚴格預檢候選；仍須16項人工審核。"
     },
     {
       "id": "POST-CHOOSE-BY-HABIT",
@@ -241,10 +261,13 @@
       "copy": "喜歡固定安排，可先了解膏狀形式；重視方便可看看即飲形式；習慣料理可從75g龜鹿湯塊或龜鹿膠開始；想自行搭配可了解粉狀產品。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
-      "image_asset_id": "generated-choose-habit",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/choose-by-habit.svg",
-      "image_status": "candidate-review-required",
-      "image_prompt": "固定安排、方便即飲、料理搭配、自行搭配四種選擇；產品規格依正式資料。"
+      "image_asset_id": null,
+      "image_url": null,
+      "image_status": "needs_generation",
+      "regeneration_mode": "chatgpt_handoff",
+      "product_refs": ["guilu-gao", "guilu-drink-30", "guilu-drink-180", "guilu-tangkuai", "guilu-jiao", "luerong-fen"],
+      "image_prompt": "固定安排、方便即飲、料理搭配、自行搭配四類選擇重新生成。產品若出現只用products-v3正式原圖；不可使用泛用瓶罐圖示或把不同產品強制等高／等寬。尺寸資料不足時以小老闆＋分類看板為主並預留產品合成區。",
+      "image_review_reason": "舊choose-by-habit使用泛用產品圖示，不再作候選。"
     },
     {
       "id": "POST-WEATHER-HOT",
@@ -253,10 +276,11 @@
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "live_check_required": true,
-      "image_asset_id": "generated-weather-hot",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/weather-hot.svg",
+      "image_asset_id": "preflight-weather-hot",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/weather-hot.svg",
       "image_status": "live-check-required",
-      "image_prompt": "台灣悶熱外出、攜帶水壺、分次補水；清爽但不呈現冰飲。"
+      "image_prompt": "台灣悶熱外出、攜帶水壺、分次補水；清爽但不呈現冰飲。",
+      "image_review_reason": "嚴格預檢候選已替換舊室內加太陽版本；發布前仍須確認當日天氣。"
     },
     {
       "id": "POST-WEATHER-TEMP",
@@ -265,10 +289,11 @@
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "live_check_required": true,
-      "image_asset_id": "generated-weather-temp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/weather-temp.svg",
+      "image_asset_id": "preflight-weather-temp",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/weather-temp.svg",
       "image_status": "live-check-required",
-      "image_prompt": "早晚溫差、換季、攜帶薄外套，表情為關心提醒。"
+      "image_prompt": "早晚溫差、換季、攜帶薄外套，表情為關心提醒。",
+      "image_review_reason": "嚴格預檢候選已替換舊日夜符號版本；發布前仍須確認當日天氣。"
     },
     {
       "id": "POST-WEATHER-RAIN",
@@ -277,10 +302,11 @@
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "live_check_required": true,
-      "image_asset_id": "generated-weather-rain",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260806/weather-rain.svg",
+      "image_asset_id": "preflight-weather-rain",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/generated-v20260808-preflight/weather-rain.svg",
       "image_status": "live-check-required",
-      "image_prompt": "窗外下雨、收傘、室內喝溫水、整理手邊事物，表情平靜。"
+      "image_prompt": "窗外下雨、收傘、室內喝溫水、整理手邊事物，表情平靜。",
+      "image_review_reason": "嚴格預檢候選已替換舊室內加雨線版本；發布前仍須確認當日天氣。"
     },
     {
       "id": "POST-GUILU-DRINK-TRIAL-EVERGREEN",
@@ -294,7 +320,7 @@
       "schedule_enabled": false,
       "scheduled_at": null,
       "image_asset_id": "guilu-drink-trial-final-20260808",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/final-published/guilu-drink-trial-final-20260808-preview.svg",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/final-published/guilu-drink-trial-final-20260808-web.svg",
       "image_status": "approved-published-final-locked",
       "source_manifest": "content/final-published-assets-v20260808.json",
       "prevent_republish": true,
