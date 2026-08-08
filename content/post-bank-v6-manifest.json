@@ -1,11 +1,12 @@
 {
-  "version": "2026-08-08-post-bank-v11-500-queue",
+  "version": "2026-08-08-post-bank-v12-six-current-products",
   "authority": "TS15825868/xianjiawei",
   "baseLibrary": "content/public-post-library.json",
   "extensions": ["publishing-center-data-v6.js","publishing-center-data-v7.js","publishing-center-data-v8-fixes.js","publishing-center-data-v10-published-locks.js","publishing-center-data-v11-campaign-holds.js"],
   "publishingCenter": "publishing-center.html",
   "visualSpec": "content/visual-production-spec-v20260807.json",
   "aiBrandControl": "content/ai-brand-control-v20260807.json",
+  "brandCharacterSpec": "brand-character-spec.json",
   "brandGuardian": "content/brand-guardian-rules.json",
   "annualCalendar": "content/annual-content-calendar-v2026.json",
   "assetUsageLedger": "content/asset-usage-ledger.json",
@@ -22,9 +23,17 @@
     "publishedLockedInGenerated": 1,
     "publishedLockedTotal": 3,
     "campaignHold": 11,
-    "activeImageGenerationRequired": 471,
-    "existingCandidateNeeds16PointReview": 15,
+    "activeImageGenerationRequired": 465,
+    "existingCandidateNeeds16PointReview": 21,
     "newGeneratedPostsStatus": "pending_review"
+  },
+  "generatorAuthority": {
+    "v6": "300篇：產品48、日常節奏48、四季48、天氣關懷48、料理48、品牌24、FAQ24、試喝12",
+    "v7": "177篇：節慶24、地點24、萬華在地24、小老闆與夥伴32、陪伴角色16、FAQ24、合作夥伴素材24、門市日常9",
+    "officialProductCount": 6,
+    "officialSellableSpecs": 6,
+    "soupBlock": "龜鹿湯塊只有75g／盒深藍盒｜8塊裝｜每塊約9.375g",
+    "mascot": "官網 approved-v405 同款柔和立體Q版小老闆；姿勢自由，臉型、髮型、服裝與畫風固定；小鹿與小烏龜依情境加入而非每張強制"
   },
   "finalPublishedLocks": [
     {"post_id":"XJW-TRIAL-001","asset_id":"guilu-drink-trial-final-20260808","status":"published_final_locked","do_not_regenerate":true,"prevent_republish":true,"published_confirmed_on":"2026-08-08"}
@@ -37,13 +46,36 @@
     "hold_until": "2026-11-06"
   },
   "generatedCopyQueueByPillar": {
-    "產品": 48,"日常節奏": 48,"四季": 48,"天氣關懷": 48,"料理": 48,"品牌": 24,"FAQ": 48,"試喝活動": 12,"節慶": 24,"地點": 24,"萬華在地": 24,"小老闆與夥伴": 32,"陪伴角色": 16,"合作夥伴素材": 24,"門市日常": 9
+    "產品": 48,
+    "日常節奏": 48,
+    "四季": 48,
+    "天氣關懷": 48,
+    "料理": 48,
+    "品牌": 24,
+    "FAQ": 48,
+    "試喝活動": 12,
+    "節慶": 24,
+    "地點": 24,
+    "萬華在地": 24,
+    "小老闆與夥伴": 32,
+    "陪伴角色": 16,
+    "合作夥伴素材": 24,
+    "門市日常": 9
   },
   "imageWorkflow": "圖片依優先佇列處理；不符合者由發布中心／ERP帶完整規格到ChatGPT重做。所有新圖先待審核，完成16項檢查才可核准；已發布最終母版不進重生成；試喝變體暫緩期間不生圖、不排程。",
   "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
   "liveChecks": ["天氣","颱風","寒流","高溫","空氣品質","重大即時事件"],
   "schedule": ["星期二 19:30","星期六 09:30"],
   "rules": {
-    "sameImageWithinDays": 90,"sameCopyWithinDays": 180,"sameSceneWithinDays": 45,"sameMascotPoseWithinDays": 30,"weatherNeverPreAutoPublish": true,"ownerReviewRequired": true,"companyInfoNotPublicByDefault": true,"partnerProtectionMode": true,"paidOpenAIApiDisabled": true,"regenerationMode": "chatgpt_handoff"
+    "sameImageWithinDays": 90,
+    "sameCopyWithinDays": 180,
+    "sameSceneWithinDays": 45,
+    "sameMascotPoseWithinDays": 30,
+    "weatherNeverPreAutoPublish": true,
+    "ownerReviewRequired": true,
+    "companyInfoNotPublicByDefault": true,
+    "partnerProtectionMode": true,
+    "paidOpenAIApiDisabled": true,
+    "regenerationMode": "chatgpt_handoff"
   }
 }
