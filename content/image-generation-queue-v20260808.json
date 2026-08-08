@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-09-image-generation-queue-v16-batch5-review-candidates",
+  "version": "2026-08-09-image-generation-queue-v17-five-mascot-safe-reuse",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
   "countPolicy": "待審核、需重生成與候選總數一律以發佈中心載入全部runtime安全層後的即時資料為準；本檔只鎖可由來源程式直接確認的最低數量，不再把舊批次486／0等數字寫死為現況。",
@@ -10,8 +10,9 @@
     "existingCandidateNeeds16PointReview": null,
     "knownBaseForcedRegeneration": 0,
     "knownProductReviewCandidates": 5,
-    "knownCharacterSceneRegeneration": 120,
-    "knownForcedRegenerationMinimum": 120,
+    "knownCharacterSafeReuseCandidates": 5,
+    "knownCharacterSceneRegeneration": 115,
+    "knownForcedRegenerationMinimum": 115,
     "knownSafePreflightReplacement": 10,
     "runtimeCalculated": true,
     "total": 500
@@ -47,14 +48,36 @@
     "reason": "原本5篇產品／多產品舊圖已於2026-08-09完成第一批新版候選，不再列入強制重生成。",
     "action": "目前基礎產品批次先進待審核；只有人工退件才重新進needs_generation。"
   },
+  "knownCharacterSafeReuseCandidates": {
+    "count": 5,
+    "mode": "approved-v405-semantic-reuse-v14",
+    "bindings": {
+      "XJW-CHARACTER-006": "images/brand/approved-v405/home-brand.webp",
+      "XJW-CHARACTER-008": "images/brand/approved-v405/choose.webp",
+      "XJW-CHARACTER-011": "images/brand/approved-v405/guide-how-to-use.webp",
+      "XJW-CHARACTER-012": "images/brand/approved-v405/recipes.webp",
+      "XJW-CHARACTER-014": "images/brand/approved-v405/faq.webp"
+    },
+    "actions": {
+      "XJW-CHARACTER-006": "招手歡迎",
+      "XJW-CHARACTER-008": "指向看板",
+      "XJW-CHARACTER-011": "端溫水",
+      "XJW-CHARACTER-012": "看鍋燉煮",
+      "XJW-CHARACTER-014": "思考問題"
+    },
+    "status": "candidate-review-required",
+    "rule": "只重用官網approved-v405中與文案動作精準對應的完整原圖；不裁切、不混用LINE OA素材；同一既有圖本批只綁一篇，仍需16項人工審核與近期主圖重複檢查。"
+  },
   "knownCharacterSceneRegeneration": {
-    "count": 120,
+    "count": 115,
     "breakdown": {
       "v13FestivalLocationWanhua": 72,
-      "v14BossDaily": 32,
+      "v14BossDaily": 27,
       "v15Companions": 16
     },
-    "source": "publishing-center-data-v7.js 產生24篇節慶＋24篇地點＋24篇萬華；48篇角色中每3篇1篇陪伴角色，因此32篇小老闆日常＋16篇陪伴角色。",
+    "originalInvalidCount": 120,
+    "safeApprovedReuseCount": 5,
+    "source": "舊v13共72篇；舊v14共32篇，其中5篇找到官網approved-v405精準動作正式圖可直接回待審核，所以剩27篇；v15陪伴角色16篇仍需重生成。",
     "reason": "舊v13／v14把LINE OA圖片用slice／clipPath裁切成候選，違反官網與LINE素材分流及角色完整不裁切規則；舊v15另用簡單SVG重畫小鹿、小烏龜、灰色小河馬娃娃與米色小鹿安撫巾，造型未經正式核准。",
     "newModes": {
       "v13": "chatgpt-character-scene-v13-required",
@@ -73,9 +96,10 @@
     "sourceLayers": ["publishing-center-data-v8-fixes.js","publishing-center-data-v10-published-locks.js","publishing-center-data-v11-campaign-holds.js","publishing-center-data-v12-auto-candidates.js","publishing-center-data-v13-character-scenes.js","publishing-center-data-v14-boss-daily.js","publishing-center-data-v15-companions.js","publishing-center-data-v16-actual-product-photos.js"],
     "candidateReviewTotal": null,
     "generationRequired": null,
-    "knownGenerationRequiredMinimum": 120,
+    "knownGenerationRequiredMinimum": 115,
     "knownProductReviewCandidates": 5,
-    "rule": "只承認最終runtime狀態；舊products-v2、舊DM、內嵌舊產品圖SVG、裁切LINE角色候選、簡單向量陪伴角色不能算已完成候選。第一批5篇產品候選已改用新版products-v3獨立產品卡構圖並回待審核。"
+    "knownCharacterSafeReuseCandidates": 5,
+    "rule": "只承認最終runtime狀態；舊products-v2、舊DM、內嵌舊產品圖SVG、裁切LINE角色候選、簡單向量陪伴角色不能算已完成候選。第一批5篇產品候選已回待審核，另5篇小老闆日常以精準匹配官網核准圖回待審核。"
   },
   "priorityBatches": [
     {"priority":0,"name":"已發布鎖定與活動冷卻","status":"protected","rules":"已發布正式母版不重生成、不重發；冷卻活動不自動排程。"},
@@ -84,7 +108,8 @@
     {"priority":2,"name":"嚴格預檢替代候選","status":"candidate-review-required","safe_replacements":["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-STORE","POST-RECIPES"],"rules":"純情境替代圖可進待審；仍需16項人工審核。"},
     {"priority":3,"name":"v12安全非角色候選","status":"runtime-calculated","rules":"單一明確產品可直接引用products-v3正式原圖；多產品貼文若無核准候選不自動假生成；無產品內容可生成產品留白的情境候選。"},
     {"priority":4,"name":"v13節慶／地點／萬華角色場景","count":72,"status":"needs_generation","rules":"舊裁切LINE角色候選全部停用；依文案用官網正式Q版重生成完整角色圖。"},
-    {"priority":5,"name":"v14小老闆日常","count":32,"status":"needs_generation","rules":"舊slice／clipPath角色候選停用；依文案重新生成完整小老闆，不裁頭手腳。"},
+    {"priority":4.5,"name":"v14官網核准場景精準重用","count":5,"status":"candidate-review-required","post_ids":["XJW-CHARACTER-006","XJW-CHARACTER-008","XJW-CHARACTER-011","XJW-CHARACTER-012","XJW-CHARACTER-014"],"rules":"招手歡迎、指向看板、端溫水、看鍋燉煮、思考問題各使用一張官網approved-v405完整正式圖；不裁切，不重複套到其他貼文，仍需16項審核。"},
+    {"priority":5,"name":"v14小老闆日常剩餘","count":27,"status":"needs_generation","rules":"沒有精準可重用官網圖的舊候選維持重生成；依文案生成完整小老闆，不裁頭手腳。"},
     {"priority":6,"name":"v15陪伴角色","count":16,"status":"needs_generation","rules":"舊LINE角色裁切與簡單SVG陪伴角色停用；小鹿、小烏龜須是獨立Q版角色，灰色小河馬娃娃與米色小鹿安撫巾依正式情境重生成。"},
     {"priority":7,"name":"v16產品圖與預檢最後安全層","status":"active","rules":"攔截products-v2、舊DM、錯誤products-v3路徑與已知舊SVG；第一批5篇產品候選優先升級為candidate-review-required，其餘安全情境換候選，不安全內容維持needs_generation。"}
   ],
