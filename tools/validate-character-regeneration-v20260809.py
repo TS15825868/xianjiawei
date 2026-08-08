@@ -27,6 +27,7 @@ def main():
     batches = data("content/character-generation-batches-v20260809.json")
     b1 = data("content/character-b1-prompt-manifest-v20260809.json")
     b2 = data("content/character-b2-prompt-manifest-v20260809.json")
+    b3 = data("content/character-b3-prompt-manifest-v20260809.json")
     v13 = text("publishing-center-data-v13-character-scenes.js")
     v14 = text("publishing-center-data-v14-boss-daily.js")
     v15 = text("publishing-center-data-v15-companions.js")
@@ -43,6 +44,9 @@ def main():
     counts = {item["layer"]: item["count"] for item in authority["breakdown"]}
     req(counts == {"v13": 72, "v14": 27, "v15": 16}, f"角色剩餘重生成分布錯誤：{counts}")
     by_layer={item["layer"]:item for item in authority["breakdown"]}
+    req(by_layer["v13"]["newMode"]=="chatgpt-character-scene-v13-b3-context-required", "角色權威v13模式不是B3保留情境模式")
+    req(by_layer["v13"]["contextPromptCount"]==72 and by_layer["v13"]["compositionVariantCount"]==4, "角色權威v13數量／構圖變體錯誤")
+    req(by_layer["v13"]["promptManifest"]=="content/character-b3-prompt-manifest-v20260809.json", "角色權威v13未連結B3提示母本")
     req(by_layer["v14"]["newMode"]=="chatgpt-boss-daily-v14-b1-exact-required", "角色權威v14模式不是B1精準提示")
     req(by_layer["v14"]["exactPromptCount"]==27 and by_layer["v14"]["promptManifest"]=="content/character-b1-prompt-manifest-v20260809.json", "角色權威v14精準提示母本錯誤")
     req(by_layer["v15"]["newMode"]=="chatgpt-companion-v15-b2-exact-required", "角色權威v15模式不是B2精準提示")
@@ -56,7 +60,11 @@ def main():
     req(authority["reviewOutcome"]["remainingStatus"] == "needs_generation", "剩餘舊角色候選未維持needs_generation")
     req(authority["reviewOutcome"]["safeExactMatches"] == "candidate-review-required", "精準既有圖未回待審核")
 
-    req("chatgpt-character-scene-v13-required" in v13, "v13未使用正式重生成模式")
+    req("chatgpt-character-scene-v13-b3-context-required" in v13, "v13未切到B3保留原情境模式")
+    req("image_generation_manifest:'content/character-b3-prompt-manifest-v20260809.json'" in v13, "v13未連結B3正式提示母本")
+    req("const original=String(p.image_prompt||'').trim()" in v13, "v13沒有保留原始image_prompt")
+    req("compositionVariants:4" in v13 and "VARIANTS" in v13, "v13沒有四種構圖變化")
+    req("萬華場景不得誤用其他城市地標" in v13 and "地點必須維持" in v13, "v13缺少萬華／地點守門")
     req("image_status:'needs_generation'" in v13 and "candidate_generated:false" in v13, "v13未維持needs_generation")
     req("images/brand/line-oa/" not in v13 and "<clipPath" not in v13 and "preserveAspectRatio=" not in v13, "v13仍有LINE OA裁切來源")
 
@@ -106,7 +114,13 @@ def main():
     req(all(item.get("direction") and item.get("companion") for item in b2["entries"]), "B2有貼文缺少陪伴角色或精準製圖方向")
     req({item["companion"] for item in b2["entries"]}=={"小鹿","小烏龜","灰色小河馬娃娃","米色小鹿安撫巾"}, "B2陪伴角色種類不完整")
 
-    print("PASS character regeneration v20260809: 5 exact approved-v405 reuses + 27 exact B1 prompts + 16 exact B2 prompts + 72 B3 context posts = 115 remaining")
+    req(b3["batch"]=="CHAR-B3-FESTIVAL-LOCATION-WANHUA" and b3["count"]==72, "B3提示母本不是72篇")
+    req(b3["sharedRules"]["preserveOriginalImagePrompt"] is True, "B3未要求保留原始image_prompt")
+    req(set(b3["compositionVariants"])=={"1","2","3","4"}, "B3不是四種構圖變化")
+    req(set(b3["categoryRules"])=={"節慶","地點","萬華在地"}, "B3三類情境規則不完整")
+    req(b3["sharedRules"]["publish"]=="生成後只進待審核，不自動核准、不自動排程、不自動發布", "B3發布安全規則錯誤")
+
+    print("PASS character regeneration v20260809: 5 safe reuses + B1 27 exact + B2 16 exact + B3 72 context-preserving prompts = 115 generation-ready")
 
 
 if __name__ == "__main__":
