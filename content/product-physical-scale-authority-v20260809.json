@@ -1,0 +1,61 @@
+{
+  "version": "2026-08-09-product-physical-scale-authority-v1",
+  "authority": "user-confirmed-original-product-photos",
+  "scope": ["website", "LINE OA", "publishing center", "ERP", "social post images"],
+  "hard_rule": "所有產品本體只能使用核准的實際產品照片並等比例縮放；不得AI重畫、拉寬、拉高、改變盒型／罐型／袋型、改標籤位置，亦不得為了版面把不同產品強制做成同高或同寬。",
+  "display_rule": "螢幕上的像素尺寸可因版面做整體等比例縮放，但不可改變產品本身長寬比、包裝外觀或多產品之間的真實相對尺度觀感。若缺少可信的相對尺寸依據，多產品同框一律不得自行猜測比例，改用單品圖或送待審核。",
+  "multi_product_rule": "多產品同框時優先使用使用者核准的原始群組照片作尺度參考；禁止把30cc小玻璃罐、180cc鋁袋、100g龜鹿膏、75g湯塊、600g龜鹿膠、75g鹿茸粉任意等高排列。",
+  "products": {
+    "guilu-gao": {
+      "name": "龜鹿膏",
+      "spec": "100g／罐",
+      "known_container_dimensions_mm": {"width": 51, "height": 78},
+      "scale_rule": "六角玻璃罐外型與金色蓋比例固定；只允許等比例縮放。"
+    },
+    "guilu-drink-30": {
+      "name": "龜鹿飲30cc玻璃罐",
+      "spec": "30cc／罐（小玻璃罐）",
+      "known_container_dimensions_mm": {"diameter": 42, "height": 51},
+      "scale_rule": "必須維持小罐感；裸罐、無貼紙、金色蓋；不可做高、做胖、放大成接近100g罐尺寸，更不可改稱瓶。"
+    },
+    "guilu-drink-180": {
+      "name": "龜鹿飲180cc鋁袋",
+      "spec": "180cc／包（鋁袋）",
+      "known_aspect_ratio_width_to_height": {"min": 0.60, "target": 0.64, "max": 0.68},
+      "scale_rule": "狹長直立鋁袋；不得橫向拉寬、不得誇張放大；與30cc同框時依核准參考圖維持自然相對尺度。"
+    },
+    "guilu-tangkuai": {
+      "name": "龜鹿湯塊",
+      "spec": "75g／盒｜8塊裝｜每塊約9.375g",
+      "known_container_dimensions_mm": null,
+      "scale_source": "user-approved original product photo",
+      "scale_rule": "深藍正式盒裝；尺寸未知時不得自行推算或改變盒身長寬比。"
+    },
+    "guilu-jiao": {
+      "name": "龜鹿膠",
+      "spec": "600g（1斤）／盒｜32塊裝｜每塊約18.75g",
+      "known_container_dimensions_mm": null,
+      "scale_source": "user-approved original product photo",
+      "scale_rule": "淡紫正式盒裝；不得把盒身橫向拉長或縮成與75g湯塊相近尺寸。"
+    },
+    "luerong-fen": {
+      "name": "鹿茸粉",
+      "spec": "75g／罐",
+      "known_container_dimensions_mm": null,
+      "scale_source": "user-approved original product photo",
+      "scale_rule": "白色正式罐裝；不得變更罐型、容量標示或罐身長寬比。"
+    }
+  },
+  "review_gate": {
+    "hard_fail": [
+      "產品長寬比被改變",
+      "30cc被放大成與龜鹿膏或其他大包裝接近尺寸",
+      "180cc鋁袋被拉寬或誇張放大",
+      "不同產品為排版被強制等高／等寬",
+      "盒裝或罐裝被AI重畫成不同外型",
+      "實際規格文字與正式規格不符"
+    ],
+    "on_fail": "do_not_publish; use approved original photo or regenerate background/scene only, then composite approved product at locked scale; send to pending review",
+    "manual_approval_required_for_unknown_relative_scale": true
+  }
+}
