@@ -25,6 +25,7 @@ def main():
     authority = data("content/character-regeneration-authority-v20260809.json")
     queue = data("content/image-generation-queue-v20260808.json")
     batches = data("content/character-generation-batches-v20260809.json")
+    b1 = data("content/character-b1-prompt-manifest-v20260809.json")
     v13 = text("publishing-center-data-v13-character-scenes.js")
     v14 = text("publishing-center-data-v14-boss-daily.js")
     v15 = text("publishing-center-data-v15-companions.js")
@@ -65,7 +66,9 @@ def main():
         req(pid in v14, f"v14缺少精準重用ID：{pid}")
     for path in ["home-brand.webp","choose.webp","guide-how-to-use.webp","recipes.webp","faq.webp"]:
         req(path in v14, f"v14缺少核准官網場景：{path}")
-    req("chatgpt-boss-daily-v14-required" in v14, "v14剩餘27篇未維持正式重生成模式")
+    req("chatgpt-boss-daily-v14-b1-exact-required" in v14, "v14剩餘27篇未切到B1逐篇精準重生成模式")
+    req("B1_DIRECTION" in v14 and "exactPromptCount:Object.keys(B1_DIRECTION).length" in v14, "v14未載入27篇逐篇精準場景")
+    req("image_generation_manifest:'content/character-b1-prompt-manifest-v20260809.json'" in v14, "v14未連結B1正式提示母本")
     req("approvedExistingCandidate:5" in v14 and "regenerationRequired:27" in v14, "v14統計不是5張重用＋27篇重生成")
     req("images/brand/line-oa/" not in v14, "v14仍直接引用LINE OA角色圖片")
     req("<clipPath" not in v14 and "preserveAspectRatio=" not in v14, "v14仍有舊角色裁切程式")
@@ -86,7 +89,14 @@ def main():
     req(by_id["CHAR-B3-FESTIVAL-LOCATION-WANHUA"]["count"]==72, "B3節慶／地點／萬華批次不是72篇")
     req(batches["alreadyMovedToReview"]["count"]==5 and set(batches["alreadyMovedToReview"]["postIds"])==expected_reuse, "批次檔未正確排除5篇已回待審核角色")
 
-    print("PASS character regeneration v20260809: 5 exact approved-v405 reuses + executable batches 27 boss / 16 companions / 72 festival-location-wanhua = 115 remaining")
+    req(b1["batch"]=="CHAR-B1-BOSS-DAILY" and b1["count"]==27, "B1精準提示母本不是27篇")
+    b1_ids=[item["postId"] for item in b1["entries"]]
+    req(len(b1_ids)==27 and len(set(b1_ids))==27, "B1精準提示母本ID重複或缺漏")
+    req(set(b1_ids)==set(by_id["CHAR-B1-BOSS-DAILY"]["postIds"]), "B1精準提示母本與批次ID不一致")
+    req(all(item.get("direction") for item in b1["entries"]), "B1有貼文缺少精準製圖方向")
+    req(b1["sharedRules"]["publish"]=="生成後只進待審核，不自動核准、不自動排程、不自動發布", "B1提示母本發布安全規則錯誤")
+
+    print("PASS character regeneration v20260809: 5 exact approved-v405 reuses + 27 exact B1 prompts + 16 companions + 72 festival-location-wanhua = 115 remaining")
 
 
 if __name__ == "__main__":
