@@ -37,6 +37,9 @@ jobs:
       - name: Validate 120 character-scene regenerations
         run: python tools/validate-character-regeneration-v20260809.py
 
+      - name: Validate publishing center needs-generation UI
+        run: python tools/validate-publishing-center-ui-v20260809.py
+
       - name: Validate formal JSON authorities parse cleanly
         run: |
           python -m json.tool brand-character-spec.json >/dev/null
@@ -49,6 +52,7 @@ jobs:
 
       - name: Validate publishing runtime JavaScript syntax
         run: |
+          node --check publishing-center-v2.js
           node --check publishing-center-data-v8-fixes.js
           node --check publishing-center-data-v12-auto-candidates.js
           node --check publishing-center-data-v13-character-scenes.js
