@@ -49,15 +49,18 @@ def main():
     require(counts.get("generatedCopyQueueV6") == 300, "v6 manifest不是300")
     require(counts.get("generatedCopyQueueV7") == 177, "v7 manifest不是177")
     require(counts.get("runtimeTotal") == 500, "runtime總數不是500")
-    require(counts.get("activeImageGenerationRequired") == 465, "待生成圖片數不是465")
-    require(counts.get("existingCandidateNeeds16PointReview") == 21, "候選待16項審核數不是21")
+    require(counts.get("activeImageGenerationRequired") == 473, "待生成圖片數不是473")
+    require(counts.get("existingCandidateNeeds16PointReview") == 13, "候選待16項審核數不是13")
+    require(counts.get("preflightRejectedNeedsRegeneration") == 8, "預檢退回數不是8")
 
     queue_summary = queue.get("summary", {})
     require(queue.get("runtimeContentTotal") == 500, "圖片佇列runtimeContentTotal不是500")
-    require(queue_summary.get("generationRequiredActive") == 465, "圖片佇列待生成數與manifest不一致")
-    require(queue_summary.get("existingCandidateNeeds16PointReview") == 21, "圖片佇列候選數與manifest不一致")
+    require(queue_summary.get("generationRequiredActive") == 473, "圖片佇列待生成數與manifest不一致")
+    require(queue_summary.get("existingCandidateNeeds16PointReview") == 13, "圖片佇列候選數與manifest不一致")
+    require(queue_summary.get("preflightRejectedNeedsRegeneration") == 8, "圖片佇列預檢退回數不是8")
     require(queue_summary.get("publishedFinalLocked") == 3, "已發布鎖定數不是3")
     require(queue_summary.get("campaignHold") == 11, "活動冷卻數不是11")
+    require(473 + 13 + 3 + 11 == 500, "圖片狀態合計不是500")
 
     pillars = manifest.get("generatedCopyQueueByPillar", {})
     require(sum(int(v) for v in pillars.values()) == 477, "生成文案分類合計必須為477，與base23合計500")
@@ -66,7 +69,7 @@ def main():
     require(pillars.get("FAQ") == 48, "FAQ內容數不是48")
     require(pillars.get("試喝活動") == 12, "試喝內容數不是12")
 
-    print("PASS post bank generators: base23 + v6 300 + v7 177 = 500; six current products only; image queue 465/21/3/11")
+    print("PASS post bank generators: base23 + v6 300 + v7 177 = 500; six current products only; image queue 473/13/3/11 with 8 preflight rejects")
 
 
 if __name__ == "__main__":
