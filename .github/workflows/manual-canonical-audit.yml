@@ -31,6 +31,9 @@ jobs:
       - name: Validate 2026-08-09 formal product, scale, trial and publishing authority
         run: python tools/validate-formal-v20260809.py
 
+      - name: Validate base 23-post image review state
+        run: python tools/validate-base-post-library-v20260809.py
+
       - name: Validate 120 character-scene regenerations
         run: python tools/validate-character-regeneration-v20260809.py
 
@@ -42,6 +45,7 @@ jobs:
           python -m json.tool content/public-content-policy.json >/dev/null
           python -m json.tool content/public-asset-status-overrides-v20260809.json >/dev/null
           python -m json.tool content/image-generation-queue-v20260808.json >/dev/null
+          python -m json.tool content/public-post-library.json >/dev/null
 
       - name: Validate publishing runtime JavaScript syntax
         run: |
@@ -53,6 +57,7 @@ jobs:
           node --check publishing-center-data-v16-actual-product-photos.js
           node --check publishing-center-ai-tools.js
           node --check publishing-center-guardian.js
+          node --check publishing-center-erp-bridge.js
 
       - name: Ensure audit makes no repository changes
         run: git diff --exit-code
