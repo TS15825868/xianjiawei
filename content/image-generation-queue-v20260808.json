@@ -1,15 +1,14 @@
 {
-  "version": "2026-08-08-image-generation-queue-v12-complete-candidate-coverage",
+  "version": "2026-08-09-image-generation-queue-v13-runtime-truth-scale-safe",
   "authority": "TS15825868/xianjiawei",
   "runtimeContentTotal": 500,
+  "countPolicy": "待審核、需重生成與候選數量一律以發佈中心載入全部runtime安全層後的即時資料為準，不再把舊批次486／0等數字寫死為現況。",
   "summary": {
     "publishedFinalLocked": 3,
     "campaignHold": 11,
-    "generationRequiredActive": 0,
-    "existingCandidateNeeds16PointReview": 486,
-    "priority1GeneratedPendingReview": 6,
-    "preflightRejectedNeedsRegeneration": 0,
-    "preflightRejectedReplaced": 13,
+    "generationRequiredActive": null,
+    "existingCandidateNeeds16PointReview": null,
+    "runtimeCalculated": true,
     "total": 500
   },
   "publishedFinalLocked": [
@@ -22,74 +21,70 @@
     "hold_until": "2026-11-06",
     "reason": "同一試喝主活動已發布最終主圖；依90天主圖與活動去重規則，其他試喝變體不排程、不發布。到期後仍需人工重審。"
   },
+  "knownForcedRegeneration": {
+    "minimumKnownCount": 2,
+    "post_ids": ["POST-PRODUCT-OVERVIEW","POST-COMBO"],
+    "reason": "舊priority1多產品SVG曾把不同產品放入固定同尺寸容器，且內嵌舊products-v2產品圖；目前已退回needs_generation。多產品沒有完整可信相對實物尺寸時不得猜測。",
+    "action": "使用『圖不符合｜ChatGPT生成』依原文案重做；產品本體只合成products-v3正式原圖，生成後回待審核。"
+  },
   "runtimeCandidateCoverage": {
-    "existingBeforeRuntimeLayers": 21,
-    "v12SafeNonCharacter": 345,
-    "v13FestivalLocationWanhua": 72,
-    "v14BossDaily": 32,
-    "v15Companions": 16,
-    "candidateReviewTotal": 486,
-    "generationRequired": 0,
-    "rule": "缺圖已清零；486張仍只是候選，未完成16項人工審核前不得發布。"
+    "sourceLayers": ["publishing-center-data-v8-fixes.js","publishing-center-data-v10-published-locks.js","publishing-center-data-v11-campaign-holds.js","publishing-center-data-v12-auto-candidates.js","publishing-center-data-v13-character-scenes.js","publishing-center-data-v14-boss-daily.js","publishing-center-data-v15-companions.js","publishing-center-data-v16-actual-product-photos.js"],
+    "candidateReviewTotal": null,
+    "generationRequired": null,
+    "rule": "只承認最終runtime狀態；舊products-v2、舊DM、內嵌舊產品圖SVG、多產品相對尺寸無依據者不能算已完成候選。"
   },
   "priorityBatches": [
     {
       "priority": 0,
-      "name": "13張嚴格預檢替代候選已重做｜待16項審核",
-      "count": 13,
-      "status": "generated_pending_16_point_review",
-      "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
-      "rules": "舊候選已隔離；新生活／天氣／料理圖不畫產品；產品選擇／使用圖只嵌products-v3正式原圖。"
+      "name": "已發布鎖定與活動冷卻",
+      "status": "protected",
+      "rules": "已發布正式母版不重生成、不重發；冷卻活動不自動排程。"
     },
     {
       "priority": 1,
-      "name": "6張正式原圖候選已生成｜待16項審核",
-      "count": 6,
-      "status": "generated_pending_16_point_review",
-      "post_ids": ["POST-PRODUCT-OVERVIEW","POST-GAO-100","POST-DRINK-30","POST-DRINK-180","POST-JIAO-600","POST-COMBO"]
+      "name": "第一優先產品貼文校正",
+      "status": "mixed-runtime-status",
+      "single_product_updated": ["POST-GAO-100","POST-DRINK-30","POST-DRINK-180","POST-JIAO-600"],
+      "single_product_rule": "直接使用products-v3正式產品原圖，僅等比例呈現，仍待16項審核。",
+      "multi_product_needs_generation": ["POST-PRODUCT-OVERVIEW","POST-COMBO"],
+      "multi_product_rule": "舊SVG停用；不得強制等高／等寬。沒有完整可信相對尺寸時維持needs_generation。"
     },
     {
       "priority": 1.5,
-      "name": "2張正式單品原圖｜待版面審核",
-      "count": 2,
-      "status": "official_reference_pending_layout_review",
+      "name": "正式單品原圖待版面審核",
+      "status": "official-reference-pending-layout-review",
       "post_ids": ["POST-SOUP-75","POST-LUERONG"]
     },
-    {"priority":2,"name":"v12安全非角色候選","count":345,"status":"generated_pending_16_point_review","rules":"產品若出現只引用正式products-v3原圖；其他生活圖不硬塞產品。"},
-    {"priority":3,"name":"v13節慶／地點／萬華角色場景","count":72,"status":"generated_pending_16_point_review","rules":"使用官網approved-v405衍生Q版小老闆來源。"},
-    {"priority":4,"name":"v14小老闆日常","count":32,"status":"generated_pending_16_point_review","rules":"8張網站正式角色場景與4種版面輪替；姿勢情境仍需人工審核。"},
-    {"priority":5,"name":"v15陪伴角色","count":16,"status":"generated_pending_16_point_review","rules":"小鹿、小烏龜、灰色小河馬娃娃、米色小鹿安撫巾各自獨立候選；造型需特別人工確認。"}
+    {"priority":2,"name":"v12安全非角色候選","status":"runtime-calculated","rules":"單一明確產品可直接引用products-v3正式原圖；多產品貼文不自動假生成；無產品內容可生成產品留白的情境候選。"},
+    {"priority":3,"name":"v13節慶／地點／萬華角色場景","status":"runtime-calculated","rules":"使用網站正式Q版角色來源；仍需檢查情境與完整不裁切。"},
+    {"priority":4,"name":"v14小老闆日常","status":"runtime-calculated","rules":"依文案選角色場景；姿勢、季節、環境、冷熱仍需人工審核。"},
+    {"priority":5,"name":"v15陪伴角色","status":"runtime-calculated","rules":"小鹿、小烏龜、灰色小河馬娃娃、米色小鹿安撫巾依文案使用；造型與情境需人工確認。"},
+    {"priority":6,"name":"v16產品圖最後安全層","status":"active","rules":"攔截products-v2、舊DM、錯誤products-v3路徑及已知內嵌舊產品圖SVG；單品校正回正式原圖，多產品不安全圖退回needs_generation。"}
   ],
-  "existingCandidateNeeds16PointReview": {
-    "count": 486,
-    "rule": "候選不能直接發布；必須完成16項檢查。陪伴角色v15如風格不符，直接用ChatGPT重生成。"
-  },
-  "preflightHistory": {
-    "rejectedOldCount": 13,
-    "replacementGeneratedCount": 13,
-    "activeRejectedNeedsRegeneration": 0,
-    "rule": "保留舊圖退回原因供稽核，但發布中心只讀新替代候選。"
-  },
   "generationRouting": {
-    "mode": "runtime_safe_svg_plus_chatgpt_handoff",
+    "mode": "runtime_safe_plus_chatgpt_handoff",
     "paidOpenAIApi": false,
     "newImageStatus": "pending_review",
-    "authoritySources": ["catalog-public.json","brand-character-spec.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
+    "authoritySources": ["catalog-public.json","content/public-content-policy.json","content/product-physical-scale-authority-v20260809.json","brand-character-spec.json","content/visual-production-spec-v20260807.json","content/ai-brand-control-v20260807.json"],
     "rejectUnknownProductSpecs": true,
+    "rejectLegacyProductImages": true,
+    "rejectUnknownMultiProductRelativeScale": true,
     "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"]
   },
   "productLocks": {
-    "guiluDrink30": "30cc玻璃罐；裸罐、無貼紙、無外盒、無外袋、金色蓋、約42×51mm比例；不得稱瓶",
-    "guiluDrink180": "180cc狹長鋁袋、寬高比約0.64，不拉寬、不加高",
-    "guiluGao": "100g六角罐，只使用新版米白標籤",
-    "guiluTangkuai": "75g深藍盒；8塊裝、每塊約9.375g；只使用正式原圖，不建立其他容量",
-    "guiluJiao": "600g（1斤）淡紫盒、32塊裝、每塊約18.75g；等比例，禁止橫向拉長",
-    "luerongFen": "75g白色塑膠罐；正式原圖等比例"
+    "imageAuthority": "images/products-v3/",
+    "guiluDrink30": "30cc玻璃罐；裸罐、無貼紙、無外盒、無外袋、金色蓋；約直徑42mm×高51mm；不得稱瓶，不得放大成接近100g龜鹿膏罐",
+    "guiluDrink180": "180cc狹長直立鋁袋；寬高比目標約0.64；不拉寬、不加高、不誇張放大",
+    "guiluGao": "100g六角罐；約寬51mm×高78mm；只使用正式原圖，不改罐型與標籤比例",
+    "guiluTangkuai": "75g深藍盒；8塊裝、每塊約9.375g；毫米尺寸未知時不猜，只保持正式原圖比例",
+    "guiluJiao": "600g（1斤）淡紫盒、32塊裝、每塊約18.75g；毫米尺寸未知時不猜；禁止橫向拉長",
+    "luerongFen": "75g白色正式罐；毫米尺寸未知時不猜，只保持正式原圖比例"
   },
   "mascotLock": {
     "reference": "images/brand/approved-v405/",
     "style": "網站同款柔和立體Q版小老闆",
-    "pose": "任何符合情境的姿勢皆可",
-    "companions": "小鹿與小烏龜依情境加入；灰色小河馬娃娃與米色小鹿安撫巾只在陪伴情境使用；所有陪伴角色候選仍需人工確認。"
+    "framing": "完整顯示頭、手、腳與持物，不裁切",
+    "pose": "依文案、季節、場合、環境、冷熱與動作需求變化",
+    "companions": "小鹿與小烏龜依情境加入且分開呈現；灰色小河馬娃娃與米色小鹿安撫巾只在適合的陪伴情境使用。"
   }
 }
