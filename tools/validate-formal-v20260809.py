@@ -41,7 +41,6 @@ def main():
         "luerong-fen": "75g／罐",
     }
 
-    # Canonical public product data.
     canonical = data("data.json")
     catalog = data("catalog-public.json")
     req(len(canonical.get("products", [])) == 6, "data.json 必須只有六項正式產品")
@@ -53,21 +52,18 @@ def main():
         req(set(by_id) == set(product_paths), f"{source_name} 六項產品ID不一致")
         for pid, expected_path in product_paths.items():
             item = by_id[pid]
-            req(expected_specs[pid] in str(item.get("size", item.get("spec", ""))) or item.get("size") == expected_specs[pid], f"{source_name} {pid} 規格錯誤")
+            req(item.get("size") == expected_specs[pid], f"{source_name} {pid} 規格錯誤：{item.get('size')}")
             req(expected_path in str(item.get("image", "")), f"{source_name} {pid} 未使用 products-v3 正式原圖")
 
-    # Physical scale authority.
     scale = data("content/product-physical-scale-authority-v20260809.json")
     req(scale["products"]["guilu-drink-30"]["known_container_dimensions_mm"] == {"diameter": 42, "height": 51}, "30cc實際尺寸鎖錯誤")
     req(scale["products"]["guilu-gao"]["known_container_dimensions_mm"] == {"width": 51, "height": 78}, "龜鹿膏100g實際尺寸鎖錯誤")
     ratio = scale["products"]["guilu-drink-180"]["known_aspect_ratio_width_to_height"]
     req(ratio["target"] == 0.64 and ratio["min"] <= 0.64 <= ratio["max"], "180cc鋁袋比例鎖錯誤")
-    req(scale["products"]["guilu-tangkuai"]["known_container_dimensions_mm"] is None, "湯塊未知毫米尺寸不得亂補")
-    req(scale["products"]["guilu-jiao"]["known_container_dimensions_mm"] is None, "龜鹿膠未知毫米尺寸不得亂補")
-    req(scale["products"]["luerong-fen"]["known_container_dimensions_mm"] is None, "鹿茸粉未知毫米尺寸不得亂補")
+    for pid in ["guilu-tangkuai", "guilu-jiao", "luerong-fen"]:
+        req(scale["products"][pid]["known_container_dimensions_mm"] is None, f"{pid} 未知毫米尺寸不得亂補")
     req(scale["review_gate"]["manual_approval_required_for_unknown_relative_scale"] is True, "未知多產品相對尺度必須人工審核")
 
-    # Public pages must use current product authority, never legacy main images.
     live_pages = [
         "product-guilu-gao.html",
         "product-guilu-drink-30cc.html",
@@ -84,7 +80,6 @@ def main():
         req(path in combined_pages, f"正式頁面缺少產品原圖：{path}")
     req("30cc／瓶" not in combined_pages and "30cc玻璃瓶" not in combined_pages, "正式頁面仍出現30cc瓶型舊稱")
 
-    # Trial final image identity and web display derivative.
     trial_manifest = data("content/final-published-assets-v20260808.json")
     asset = trial_manifest["assets"][0]
     req(asset["asset_id"] == "guilu-drink-trial-final-20260808", "試喝正式素材ID錯誤")
@@ -95,7 +90,6 @@ def main():
     req((ROOT / web_trial).exists(), "試喝正式Web顯示圖不存在")
     req(web_trial in text("trial.html"), "trial.html 未使用正式試喝Web圖")
 
-    # Publishing center runtime authority.
     v8 = text("publishing-center-data-v8-fixes.js")
     v12 = text("publishing-center-data-v12-auto-candidates.js")
     v16 = text("publishing-center-data-v16-actual-product-photos.js")
@@ -110,18 +104,26 @@ def main():
     req("images/products-v2/" not in v12, "v12仍會生成 products-v2 候選")
     req("if(productIds(p).length>1)return false" in v12, "v12仍可能自動假生成多產品候選")
     req("LEGACY_MULTI_SVG" in v16 and "generated-v20260808" in v16, "v16未攔截內嵌舊產品圖SVG")
-    req("/\\/images\\/products-v2\\//" in v16 or "products-v2" in v16, "v16缺少舊products-v2攔截")
+    req("SAFE_PREFLIGHT" in v16 and "FORCE_REGEN_IDS" in v16, "v16未套用預檢安全替代／強制重生成分流")
+    for pid in ["POST-PRODUCT-OVERVIEW", "POST-COMBO", "POST-GUIDE", "POST-CHOOSE", "POST-CHOOSE-BY-HABIT"]:
+        req(pid in v16, f"v16缺少強制重生成：{pid}")
+    for pid in ["XJW-WORK-REST-001", "POST-STORAGE", "POST-SEASONS-RHYTHM", "POST-INGREDIENT-PRINCIPLE", "POST-DAILY-SOUP", "POST-WEATHER-HOT", "POST-WEATHER-TEMP", "POST-WEATHER-RAIN", "POST-STORE", "POST-RECIPES"]:
+        req(pid in v16, f"v16缺少安全預檢替代：{pid}")
+    req("products-v2" in v16, "v16缺少舊products-v2攔截")
+
     req("products-v3/guilu-drink-30.jpg" in ai and "products-v3/guilu-drink-180.jpg" in ai, "ChatGPT重生成未帶新版正式產品圖")
     for phrase in ["42", "51", "0.64", "不裁切", "多產品"]:
         req(phrase in ai, f"ChatGPT重生成缺少尺度／完整構圖規則：{phrase}")
     req("products-v2" in guardian and "玻璃瓶" in guardian, "發佈中心守門員缺少舊圖／30cc瓶型偵測")
+
     req(policy["productAuthority"]["imageAuthority"] == "images/products-v3/", "公開內容政策未鎖 products-v3")
     req(policy["publishingSafety"]["multiProductUnknownScaleAction"] == "keep-needs-generation-until-reviewed", "公開政策未鎖多產品未知尺度處理")
     req(queue["summary"]["runtimeCalculated"] is True, "生成佇列仍使用寫死候選數字")
-    req("POST-PRODUCT-OVERVIEW" in queue["knownForcedRegeneration"]["post_ids"], "六項產品總覽未列強制重生成")
-    req("POST-COMBO" in queue["knownForcedRegeneration"]["post_ids"], "多產品搭配未列強制重生成")
+    req(queue["knownForcedRegeneration"]["minimumKnownCount"] == 5, "強制重生成清單必須是5篇")
+    req(queue["knownSafePreflightReplacement"]["count"] == 10, "安全預檢替代清單必須是10篇")
+    req(set(queue["knownForcedRegeneration"]["post_ids"]) == {"POST-PRODUCT-OVERVIEW", "POST-COMBO", "POST-GUIDE", "POST-CHOOSE", "POST-CHOOSE-BY-HABIT"}, "強制重生成ID不一致")
 
-    print("PASS formal v20260809: products-v3 authority, physical-scale lock, trial lock, publishing regeneration safety")
+    print("PASS formal v20260809: products-v3 authority, physical-scale lock, trial lock, 10 safe preflight replacements, 5 forced regenerations")
 
 
 if __name__ == "__main__":
