@@ -1,4 +1,4 @@
-const DATA_URL='content/public-post-library.json?v=20260807-6';
+const DATA_URL='content/public-post-library.json?v=20260808-12';
 const RECORD_KEY='xjw-publishing-v3-records';
 const IMAGE_KEY='xjw-publishing-v3-local-images';
 const SCHEDULE_SLOTS=[{day:2,hour:19,minute:30,label:'星期二 19:30'},{day:6,hour:9,minute:30,label:'星期六 09:30'}];
@@ -38,12 +38,14 @@ function promptFor(p){return `請只生成一張獨立1:1繁體中文社群貼�
 \
 固定角色：官網版Q版小老闆，米白中式上衣、深綠圍裙、紅色直式「仙加味」印章；圍裙下方小鹿與小烏龜圖樣不可省略。只要小老闆出現，小鹿與小烏龜兩位主要夥伴必須一起出現並自然互動；居家、休息、陪伴情境才可加入灰色小河馬娃娃與米色小鹿安撫巾。不得換成其他角色。\
 視覺：暖米色、深藍、深綠、印章紅、少量金色；依貼文情境可使用先前龜鹿膠淡紫米白精品版型；繁體中文；不談療效。\
-產品：只能使用仙加味正式產品原圖等比例合成；AI只生成背景、角色、道具與情境。不可重畫、不可裁切、不可改包裝、文字、顏色、容量、規格或拉伸產品。\
-固定產品比例：\
-1. 龜鹿飲30cc玻璃罐：30cc／罐（小玻璃罐），裸罐、無貼紙、金色蓋；同型外觀約42mm直徑×51mm高，高矮胖瘦照正式原圖，不得做高或做胖。\
-2. 龜鹿飲180cc鋁袋：180cc／包（鋁袋），狹長直立，寬高比約0.64；同框時自然縮小，不得橫向拉寬或加高放大。\
-3. 龜鹿膏：100g／罐，六角玻璃罐約51×78mm；只使用目前新版標籤，舊紅白直式貼紙禁止。\
-4. 龜鹿膠：600g（1斤）／盒｜32塊裝｜每塊約18.75g；淡紫色正式盒裝依原圖比例，紫盒不可橫向拉長。\
+產品：正式產品只有六項、六個規格。只能使用仙加味正式產品原圖等比例合成；AI只生成背景、角色、道具與情境。不可重畫、不可裁切、不可改包裝、文字、顏色、容量、規格或拉伸產品。\
+固定產品規格與比例：\
+1. 龜鹿膏：100g／罐，六角玻璃罐約51×78mm；只使用目前新版米白標籤，舊紅白直式貼紙禁止。\
+2. 龜鹿飲30cc玻璃罐：30cc／罐（小玻璃罐），裸罐、無貼紙、無外盒、無外袋、金色蓋；同型外觀約42mm直徑×51mm高，高矮胖瘦照正式原圖，不得做高、做胖或稱瓶。\
+3. 龜鹿飲180cc鋁袋：180cc／包（鋁袋），狹長直立，寬高比約0.64；同框時自然縮小，不得橫向拉寬或加高放大。\
+4. 龜鹿湯塊：只有75g／盒深藍正式盒裝，8塊裝、每塊約9.375g；不得建立其他容量，不得套用龜鹿膠包裝。\
+5. 龜鹿膠：600g（1斤）／盒｜32塊裝｜每塊約18.75g；淡紫色正式盒裝依原圖比例，紫盒不可橫向拉長。\
+6. 鹿茸粉：75g／罐，白色塑膠罐正式原圖；不得改罐型、容量或標示。\
 圖片需求：${p.image_prompt||'依文案建立完全匹配的生活情境。'}\
 必須逐項匹配：品牌、產品、規格、價格／活動、季節、天氣、場合、地點、情境、環境、冷熱、表情、動作、小老闆與夥伴、比例尺寸、重複圖。\
 不可出現與文案無關的產品、季節、天氣、地點、冰塊、冰飲、表情或動作。新圖只進待審核，不直接發布。`}
@@ -55,7 +57,7 @@ function markPublished(p){if(locked(p))return;const r=rec(p.id);if(!r.approvedAt
 function replaceLocal(p,file){if(!file)return;if(!/^image\//.test(file.type)){alert('請選擇圖片檔');return}const reader=new FileReader();reader.onload=()=>{state.images[p.id]={dataUrl:reader.result,name:file.name,updatedAt:new Date().toISOString()};const r=rec(p.id);r.checks={};r.approvedAt=null;r.scheduledAt=null;r.scheduleStatus=null;state.records[p.id]=r;persist();openDialog(p);toast('新圖已換上，需重新完成十六項檢查')};reader.readAsDataURL(file)}
 function exportData(){const data={exportedAt:new Date().toISOString(),timezone:'Asia/Taipei',schedule:SCHEDULE_SLOTS,sourceVersion:state.data?.version,records:state.records,localImageMetadata:Object.fromEntries(Object.entries(state.images).map(([id,v])=>[id,{name:v.name,updatedAt:v.updatedAt}]))};const b=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='仙加味發布與排程紀錄-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(u)}
 function find(id){return state.data?.posts?.find(p=>p.id===id)}
-function matches(p){const q=state.query.toLowerCase();if(q&&!JSON.stringify(p).toLowerCase().includes(q))return false;const s=status(p);if(state.filter==='all')return true;if(state.filter==='needs-image')return !state.images[p.id]&&/needs|missing|unmatched/i.test(p.image_status||'');if(state.filter==='approved')return s==='approved'||s==='scheduled';return s===state.filter}
+function matches(p){const q=state.query.toLowerCase();if(q&&!JSON.stringify(p).toLowerCase().includes(q))return false;const s=status(p);if(state.filter==='all')return true;if(state.filter==='needs-image')return !state.images[p.id]&&/needs|missing|unmatched|replace/i.test(p.image_status||'');if(state.filter==='approved')return s==='approved'||s==='scheduled';return s===state.filter}
 function fmt(iso){if(!iso)return'';return new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',month:'numeric',day:'numeric',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(iso))}
 function card(p){const r=rec(p.id),s=status(p),cnt=DIMENSIONS.filter(([k])=>r.checks?.[k]).length,img=localImage(p);const stateText=locked(p)?'已發布鎖定':s==='scheduled'?'已核准排程':s==='approved'?'已核准':s==='published'?'本機已發布':'待審核';return `<article class="post-card" data-id="${esc(p.id)}"><div class="image-wrap">${img?`<img src="${esc(img)}" alt="${esc(p.title)}" loading="lazy">`:'<div class="state-card">尚無圖片</div>'}<span class="image-state">${state.images[p.id]?'本機ChatGPT新圖':esc(p.image_status||'候選圖')}</span></div><div class="card-body"><div class="card-title-row"><h2>${esc(p.title)}</h2><span class="status ${s}">${stateText}</span></div><p class="excerpt">${esc(p.copy)}</p><div class="platforms">${(p.platforms||[]).map(x=>`<span class="platform-chip">${esc(x)}</span>`).join('')}</div>${r.scheduledAt?`<div class="review-note">預定發布：${esc(fmt(r.scheduledAt))}</div>`:''}<div class="review-note ${cnt===DIMENSIONS.length?'':'warning'}">完整檢查 ${cnt}／${DIMENSIONS.length}</div><div class="card-actions"><button class="button secondary small" data-view="${esc(p.id)}">查看與檢查</button><button class="button secondary small" data-copy="${esc(p.id)}">複製文案</button>${img?`<a class="button secondary small" href="${esc(img)}" target="_blank" rel="noopener">開啟圖片</a>`:''}${!locked(p)?`<button class="button orange small" data-chatgpt="${esc(p.id)}">圖不符合｜ChatGPT生成</button><button class="button green small" data-approve="${esc(p.id)}">${r.approvedAt?'取消核准與排程':'審核通過並排程'}</button>${r.approvedAt?`<button class="button primary small" data-now="${esc(p.id)}">立即發布</button>`:''}<button class="button secondary small" data-published="${esc(p.id)}">${r.publishedAt?'取消本機標記':'手動補登已發布'}</button>`:''}</div></div></article>`}
 function render(){if(!state.data)return;const ps=state.data.posts||[];$('metricTotal').textContent=ps.length;$('metricPending').textContent=ps.filter(p=>!locked(p)&&!rec(p.id).approvedAt&&!rec(p.id).publishedAt).length;$('metricLocked').textContent=ps.filter(locked).length;$('metricLocal').textContent=ps.filter(p=>rec(p.id).publishedAt).length;const list=ps.filter(matches);$('postList').innerHTML=list.length?list.map(card).join(''):'<section class="state-card">目前沒有符合條件的貼文。</section>'}
@@ -64,7 +66,7 @@ function expectation(p,k){
  const map={
   brand:'只顯示「仙加味」；不可出現公司名稱、統編、公司電話或公司地址。',
   product:'產品品項與文案一致；產品只能使用正式原圖等比例合成，不可重畫或換包裝。',
-  specification:'容量、重量、塊數、罐／包／盒稱呼完全依正式規格；30cc必須稱「罐」而不是「瓶」。',
+  specification:'容量、重量、塊數、罐／包／盒稱呼完全依六項正式規格；龜鹿湯塊只有75g／盒；30cc必須稱「罐」而不是「瓶」。',
   offer:/60|600|200|2,000|2000|試喝|免費|買10送1/.test(t)?'價格、試喝、運費與買10送1資訊必須逐字對應目前活動。':'沒有價格活動的貼文，不得自行加入價格、贈品或折扣。',
   season:/春|夏|秋|冬|梅雨|寒冷/.test(t)?'季節必須明確符合文案。':'不得出現衝突季節。',
   weather:/雨|晴|太陽|高溫|悶熱|颱風|寒冷|強風|溫差/.test(t)?'晴雨、風勢、衣著與溫度感必須符合；即時天氣貼文發布前再查當日資訊。':'天氣保持中性且不衝突。',
@@ -76,7 +78,7 @@ function expectation(p,k){
   expression:/提醒|溫差|悶熱|下雨|颱風/.test(t)?'關心、提醒、自然表情。':'自然親切，不誇張推銷或暗示療效。',
   action:/燉|料理|雞湯|排骨/.test(t)?'備料、看鍋、攪拌、燉煮或盛湯。':/下雨/.test(t)?'撐傘、收傘、喝溫水或整理物品。':/試喝/.test(t)?'展示三罐試喝品、指向官方LINE或說明申請。':'動作服務文案主題。',
   characters:'官網版Q版小老闆造型正確；小老闆出現時小鹿與小烏龜必須一起出現；居家陪伴情境才可加灰色小河馬娃娃與米色小鹿安撫巾。',
-  proportion:/30cc|小玻璃罐/.test(t)?'30cc小玻璃罐同型約42mm直徑×51mm高，裸罐無貼紙、金色蓋，不可拉高拉胖。':/180cc|鋁袋/.test(t)?'180cc鋁袋狹長直立，寬高比約0.64；不可過寬、過高或放得比實品誇張。':/龜鹿膏/.test(t)?'龜鹿膏六角罐約51×78mm，只用新版標籤，舊貼紙禁止。':/龜鹿膠/.test(t)?'龜鹿膠淡紫盒依正式原圖等比例，不可橫向拉長。':'產品若出現，一律比對正式原圖比例。',
+  proportion:/30cc|小玻璃罐/.test(t)?'30cc小玻璃罐同型約42mm直徑×51mm高，裸罐無貼紙、金色蓋，不可拉高拉胖。':/180cc|鋁袋/.test(t)?'180cc鋁袋狹長直立，寬高比約0.64；不可過寬、過高或放得比實品誇張。':/龜鹿膏/.test(t)?'龜鹿膏六角罐約51×78mm，只用新版米白標籤。':/龜鹿湯塊/.test(t)?'龜鹿湯塊只用75g深藍盒正式原圖，8塊裝，不可變成其他容量。':/龜鹿膠/.test(t)?'龜鹿膠600g淡紫盒依正式原圖等比例，不可橫向拉長。':/鹿茸粉/.test(t)?'鹿茸粉只用75g白色塑膠罐正式原圖。':'產品若出現，一律比對正式原圖比例。',
   duplicate:'確認這張主圖與最近90天已使用主圖不同；同一構圖、角色姿勢與背景不可只換文字重複使用。'
  };
  return map[k]
