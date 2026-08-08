@@ -1,11 +1,11 @@
 "use strict";
 
-/* 全站入口 2026-08-08：載入核心、六項正式產品原圖安全層、正式規格顯示層與共用手機比例修正。 */
+/* 全站入口 2026-08-08：載入核心、實際產品照片安全層、正式規格顯示層與共用手機比例修正。 */
 (function () {
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260808-19";
+  const VERSION = "20260808-20";
   const CORE = `site-core-v410.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
   const VARIANTS = `site-official-product-variants.js?v=${VERSION}`;
