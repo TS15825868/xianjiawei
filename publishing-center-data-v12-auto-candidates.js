@@ -12,7 +12,7 @@
     'guilu-jiao':{name:'龜鹿膠',spec:'600g（1斤）／盒｜32塊裝｜每塊約18.75g',img:'images/products-v3/guilu-jiao.jpg?v=20260809-25',dimensions:null},
     'luerong-fen':{name:'鹿茸粉',spec:'75g／罐',img:'images/products-v3/luerong-fen.jpg?v=20260809-25',dimensions:null}
   };
-  const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
   const cut=(s='',n=48)=>{const t=String(s).replace(/\s+/g,' ').trim();return t.length>n?t.slice(0,n-1)+'…':t};
   const titleLines=(s='')=>{const t=String(s).trim();if(t.length<=18)return[t];let at=Math.min(18,Math.max(8,t.lastIndexOf('｜',18)+1||18));return[t.slice(0,at),t.slice(at,36)]};
   const hash=(s='')=>[...String(s)].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,2166136261);
@@ -27,9 +27,10 @@
     if(!(p.image_status==='needs_generation'||!p.image_url))return false;
     if(String(p.characters||'').trim())return false;
     if(/小老闆與夥伴|陪伴角色/.test(String(p.category||'')))return false;
+    if(productIds(p).length>1)return false;
     return true;
   }
-  function buildProductFreeSvg(p,reason='情境候選'){ 
+  function buildProductFreeSvg(p,reason='情境候選'){
     const lines=titleLines(p.title||'仙加味日常'),seed=hash(p.id),a=150+seed%540,b=420+(seed>>>4)%280;
     const chips=[p.season,p.weather,p.occasion,p.location].filter(x=>x&&x!=='中性').slice(0,3);
     const chipSvg=chips.map((x,i)=>`<rect x="${76+i*190}" y="292" width="174" height="46" rx="23" fill="#EEF3EF"/><text x="${163+i*190}" y="322" class="g" font-size="20" text-anchor="middle">${esc(cut(x,9))}</text>`).join('');
@@ -47,12 +48,11 @@
       const id=ids[0],v=PRODUCTS[id];
       return{...p,image_asset_id:`official-v3-${id}`,image_url:PUBLIC+v.img,image_status:'candidate-review-required',candidate_generated:true,candidate_generation_mode:'official-product-photo-v12',candidate_generated_at:GENERATED_AT,image_preflight:'official-photo-pending-context-review',publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,image_source:'products-v3-user-approved-original',image_policy:'approved-original-uniform-scale-contain-no-crop-no-stretch',physical_scale_policy:'preserve-original-aspect-and-realistic-scale',image_review_reason:`此篇只有一項明確產品，直接使用 ${v.name} products-v3正式原圖；不生成產品替身、不改包裝、不拉伸。仍須確認文案情境是否適合直接使用單品照。`};
     }
-    if(ids.length>1)return blobCandidate(p,'多產品相對尺寸沒有足夠可靠依據，禁止自動做成同高／同寬');
     return blobCandidate(p,'此篇目前不需要產品本體，先建立產品留白的生活情境候選');
   }
   window.fetch=async function(input,init){
     const url=typeof input==='string'?input:(input?.url||'');const response=await PREV_FETCH(input,init);if(!url.includes(TARGET)||!response.ok)return response;
-    try{const data=await response.clone().json();const posts=(data.posts||[]).map(p=>eligible(p)?candidate(p):p);const merged={...data,version:'2026-08-09-public-posts-v24-products-v3-scale-safe',posts};merged.counts={...(data.counts||{}),total:posts.length,campaign_hold:posts.filter(p=>p.campaign_hold).length,auto_candidate_v12:posts.filter(p=>String(p.candidate_generation_mode||'').includes('v12')).length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length};const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});}catch{return response}
+    try{const data=await response.clone().json();const posts=(data.posts||[]).map(p=>eligible(p)?candidate(p):p);const merged={...data,version:'2026-08-09-public-posts-v25-multi-product-needs-generation',posts};merged.counts={...(data.counts||{}),total:posts.length,campaign_hold:posts.filter(p=>p.campaign_hold).length,auto_candidate_v12:posts.filter(p=>String(p.candidate_generation_mode||'').includes('v12')).length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length};const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});}catch{return response}
   };
-  window.XJWRuntimeCandidateFactory={version:'2026-08-09-v12-products-v3-scale-safe',products:PRODUCTS,getSvg:(id)=>svgs.get(id)||'',has:(id)=>svgs.has(id),getStats:()=>({generated:svgs.size})};
+  window.XJWRuntimeCandidateFactory={version:'2026-08-09-v12-products-v3-multi-product-hold',products:PRODUCTS,getSvg:(id)=>svgs.get(id)||'',has:(id)=>svgs.has(id),getStats:()=>({generated:svgs.size})};
 })();
