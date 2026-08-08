@@ -1,4 +1,4 @@
-name: 仙加味整站正式資料手動驗收
+name: 仙加味正式母本手動驗收
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: xianjiawei-manual-canonical-audit
+  group: xianjiawei-manual-formal-audit
   cancel-in-progress: true
 
 jobs:
@@ -28,41 +28,16 @@ jobs:
         with:
           node-version: 22
 
-      - name: Validate formal release authority
-        run: python tools/validate-site-release.py
+      - name: Validate 2026-08-09 formal product, scale, trial and publishing authority
+        run: python tools/validate-formal-v20260809.py
 
-      - name: Validate canonical product facts and publishing handoff
-        run: python tools/validate-canonical-facts-v20260808.py
-
-      - name: Validate actual product photos and new-recording website fixes
-        run: python tools/validate-new-recording-public-fixes-v20260808.py
-
-      - name: Validate official product originals and legacy-DM isolation
-        run: python tools/validate-official-originals-v20260808.py
-
-      - name: Validate public post image-state separation
-        run: python tools/audit-public-post-images-v20260808.py
-
-      - name: Validate priority1 exact-original candidates
-        run: python tools/audit-priority1-candidates-v20260808.py
-
-      - name: Validate deterministic candidate preflight replacements
-        run: python tools/validate-candidate-preflight-v20260808.py
-
-      - name: Validate v12 runtime SVG candidate and ERP handoff contract
-        run: python tools/validate-runtime-auto-candidates-v20260808.py
-
-      - name: Validate rebuilt 500-post generators and queue authority
-        run: python tools/validate-post-bank-generators-v20260808.py
-
-      - name: Simulate full publishing-center 500-post runtime
-        run: node tools/validate-post-bank-runtime-v20260808.mjs
-
-      - name: Validate public sitemap boundary
-        run: python tools/validate-public-boundary-v20260808.py
-
-      - name: Validate mobile UI and approved website mascot runtime
-        run: python tools/validate-mobile-mascot-runtime-v20260808.py
+      - name: Validate publishing runtime JavaScript syntax
+        run: |
+          node --check publishing-center-data-v8-fixes.js
+          node --check publishing-center-data-v12-auto-candidates.js
+          node --check publishing-center-data-v16-actual-product-photos.js
+          node --check publishing-center-ai-tools.js
+          node --check publishing-center-guardian.js
 
       - name: Ensure audit makes no repository changes
         run: git diff --exit-code
