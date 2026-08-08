@@ -118,8 +118,8 @@ def main():
         req(mode in source, f"{label} 未切到正式ChatGPT重生成模式")
         req("image_status:'needs_generation'" in source, f"{label} 未維持needs_generation")
         req("images/brand/line-oa/" not in source, f"{label} 仍混用LINE OA專用角色素材")
-        req("clipPath" not in source and "clip-path" not in source, f"{label} 仍使用裁切角色clipPath")
-        req("preserveAspectRatio=\"xMaxYMid slice\"" not in source and " slice" not in source, f"{label} 仍使用slice裁切角色")
+        req("<clipPath" not in source and "clip-path=" not in source, f"{label} 仍含真正的SVG裁切程式")
+        req("preserveAspectRatio=" not in source, f"{label} 仍含舊slice／preserveAspectRatio裁切程式")
         req("完整" in source and "不得裁切" in source, f"{label} 缺少角色完整不裁切規則")
     req("簡單SVG" in v15 or "簡單向量" in v15, "v15未明確禁止未核准向量陪伴角色")
 
