@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-09-post-bank-current-authority-v1",
+  "version": "2026-08-10-post-bank-current-authority-v2-true-originals",
   "authority": "TS15825868/xianjiawei",
   "status": "current-authority",
   "purpose": "取代舊 runtime manifest 的即時判斷；舊 manifest 與 queue 保留歷史追溯，不再代表目前可發布狀態。",
@@ -31,6 +31,8 @@
   },
   "imageState": {
     "productImageAuthority": "images/products-v3/",
+    "productImageVersion": "20260810-products-v3-true-originals-v2",
+    "productImagePayload": "true-original-product-photos",
     "legacyProductImagesRejected": true,
     "legacyDmRejected": true,
     "legacyHomeBrandComposite": "images/brand/approved-v405/home-brand.webp",
@@ -52,7 +54,7 @@
       "bossDailyWithoutApprovedReuse": 28,
       "companions": 16
     },
-    "rule": "任何未核准、裁切角色、舊LINE OA角色、舊產品圖、home-brand多產品情境合成或簡單向量夥伴候選不得視為完成圖片；必須重新生成或回待審核。"
+    "rule": "任何未核准、裁切角色、舊LINE OA角色、舊產品圖、home-brand多產品情境合成或簡單向量夥伴候選不得視為完成圖片；產品本體只允許20260810-products-v3-true-originals-v2真正實拍原圖；其他不合格圖片必須重新生成或回待審核。"
   },
   "regeneration": {
     "mode": "chatgpt-handoff-free-roundtrip",
@@ -81,5 +83,5 @@
     "圖文一致",
     "法規與最終確認"
   ],
-  "updatedAt": "2026-08-09"
+  "updatedAt": "2026-08-10"
 }
