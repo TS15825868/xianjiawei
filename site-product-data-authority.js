@@ -1,45 +1,57 @@
 "use strict";
 
-/* 仙加味正式產品資料圖片權威層｜2026-08-10
- * products-v3 六張正式路徑已直接換成使用者最新提供的原始產品實拍；不再用 DM／海報作為產品主圖。
- * 舊 products-v2 與 dm-final 只保留歷史／宣傳參考，不再成為產品卡、詳頁、OG 或結構化資料主圖。
- * 所有產品本體只允許等比例顯示；禁止拉寬、拉高、cover裁切或把不同產品強制等高／等寬。
+/* 仙加味產品資料權威層｜2026-08-10
+ * products-v3 = 六項正式原始產品照，供產品權威、LINE OA、貼文審核與 officialOriginalImage 使用。
+ * products-v4-final = 官網顧客顯示層，六項完整成套；不得反向改寫 products-v3 權威。
+ * 所有產品只允許等比例 contain 顯示，禁止裁切、拉寬、拉高或改變包裝比例。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
-  const VERSION='20260810-products-v3-latest-originals-v3';
-  const DATA_CACHE_VERSION='20260810-16';
+  const OFFICIAL_VERSION='20260810-products-v3-latest-originals-v3';
+  const CUSTOMER_VERSION='20260810-products-v4-final-v1';
+  const DATA_CACHE_VERSION='20260810-17';
   const OFFICIAL=Object.freeze({
-    'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${VERSION}`,
-    'guilu-drink-30':`images/products-v3/guilu-drink-30.jpg?v=${VERSION}`,
-    'guilu-drink-180':`images/products-v3/guilu-drink-180.jpg?v=${VERSION}`,
-    'guilu-tangkuai':`images/products-v3/guilu-tangkuai.jpg?v=${VERSION}`,
-    'guilu-jiao':`images/products-v3/guilu-jiao.jpg?v=${VERSION}`,
-    'luerong-fen':`images/products-v3/luerong-fen.jpg?v=${VERSION}`
+    'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${OFFICIAL_VERSION}`,
+    'guilu-drink-30':`images/products-v3/guilu-drink-30.jpg?v=${OFFICIAL_VERSION}`,
+    'guilu-drink-180':`images/products-v3/guilu-drink-180.jpg?v=${OFFICIAL_VERSION}`,
+    'guilu-tangkuai':`images/products-v3/guilu-tangkuai.jpg?v=${OFFICIAL_VERSION}`,
+    'guilu-jiao':`images/products-v3/guilu-jiao.jpg?v=${OFFICIAL_VERSION}`,
+    'luerong-fen':`images/products-v3/luerong-fen.jpg?v=${OFFICIAL_VERSION}`
+  });
+  const CUSTOMER=Object.freeze({
+    'guilu-gao':`images/products-v4-final/guilu-gao.svg?v=${CUSTOMER_VERSION}`,
+    'guilu-drink-30':`images/products-v4-final/guilu-drink-30.svg?v=${CUSTOMER_VERSION}`,
+    'guilu-drink-180':`images/products-v4-final/guilu-drink-180.svg?v=${CUSTOMER_VERSION}`,
+    'guilu-tangkuai':`images/products-v4-final/guilu-tangkuai.svg?v=${CUSTOMER_VERSION}`,
+    'guilu-jiao':`images/products-v4-final/guilu-jiao.svg?v=${CUSTOMER_VERSION}`,
+    'luerong-fen':`images/products-v4-final/luerong-fen.svg?v=${CUSTOMER_VERSION}`
   });
   const ABS=(path)=>new URL(path,location.href).href;
   function normalizeData(data){
     if(!data||!Array.isArray(data.products)) return data;
     data.products=data.products.map(product=>{
-      const photo=OFFICIAL[product?.id];
-      if(!photo) return product;
+      const official=OFFICIAL[product?.id];
+      const customer=CUSTOMER[product?.id];
+      if(!official||!customer) return product;
       return {
         ...product,
-        image:photo,
-        imageUrl:photo,
-        image_url:photo,
-        dmImage:photo,
-        officialOriginalImage:photo,
-        detailImages:[photo],
-        imagePolicy:'approved-original-product-photo-uniform-scale-contain-no-crop',
+        image:customer,
+        imageUrl:customer,
+        image_url:customer,
+        dmImage:customer,
+        officialOriginalImage:official,
+        detailImages:[customer],
+        imagePolicy:'customer-display-v4-final-contain-no-crop',
+        officialImagePolicy:'products-v3-authority-original-no-redraw',
         physicalScalePolicy:'preserve-original-aspect-and-realistic-relative-scale'
       };
     });
     data.runtime={
       ...(data.runtime||{}),
-      productMainImageSource:'products-v3-latest-original-product-photos',
-      dmFallback:'approved-original-photo-until-current-dm-passes-review',
+      productMainImageSource:'products-v4-final-customer-display',
+      officialProductImageSource:'products-v3-latest-original-product-photos',
+      dmFallback:'customer-display-v4-final',
       productsV2Use:'legacy-reference-only',
       productScalePolicy:'uniform-only-no-equal-height-equal-width',
       dataCacheVersion:DATA_CACHE_VERSION
@@ -68,7 +80,7 @@
         const data=normalizeData(await cloned.json());
         return new Response(JSON.stringify(data),{status:response.status,statusText:response.statusText,headers:response.headers});
       }
-    }catch(error){console.warn('仙加味產品圖片權威層套用失敗',error)}
+    }catch(error){console.warn('仙加味產品顧客顯示層套用失敗',error)}
     return response;
   };
   function pageProductId(){
@@ -82,7 +94,7 @@
     return '';
   }
   function normalizeHead(){
-    const id=pageProductId(); const photo=OFFICIAL[id]; if(!photo)return;
+    const id=pageProductId(); const photo=CUSTOMER[id]; if(!photo)return;
     const absolute=ABS(photo);
     document.querySelectorAll('meta[property="og:image"],meta[name="twitter:image"]').forEach(meta=>meta.setAttribute('content',absolute));
     document.querySelectorAll('script[type="application/ld+json"]').forEach(script=>{
@@ -105,5 +117,5 @@
   }
   normalizeHead();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startCopyGuard,{once:true});else startCopyGuard();
-  window.XJWProductDataAuthority=Object.freeze({version:VERSION,dataCacheVersion:DATA_CACHE_VERSION,official:OFFICIAL,normalizeData,normalizeHead,normalizeVisibleCopy,cacheBustInput});
+  window.XJWProductDataAuthority=Object.freeze({version:CUSTOMER_VERSION,officialVersion:OFFICIAL_VERSION,dataCacheVersion:DATA_CACHE_VERSION,official:OFFICIAL,customer:CUSTOMER,normalizeData,normalizeHead,normalizeVisibleCopy,cacheBustInput});
 })();
