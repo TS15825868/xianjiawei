@@ -1,7 +1,7 @@
 {
-  "version": "2026-08-09-final-published-assets-v3-web-display",
+  "version": "2026-08-09-final-published-assets-v4-historical-web-boundary",
   "authority": "user-confirmed-final-published",
-  "updated_at_taipei": "2026-08-09T02:13:00+08:00",
+  "updated_at_taipei": "2026-08-09T20:30:00+08:00",
   "assets": [
     {
       "asset_id": "guilu-drink-trial-final-20260808",
@@ -22,9 +22,12 @@
       "git_web_display_url": "images/posts/final-published/guilu-drink-trial-final-20260808-web.svg",
       "git_web_display_width_px": 600,
       "git_web_display_height_px": 600,
-      "git_web_display_purpose": "官網試喝頁、公開發布中心與社群預覽使用的正式Web顯示衍生版；內容不得重新設計，不取代1254×1254來源母本身份。",
+      "git_web_display_purpose": "已發布歷史紀錄與必要相容預覽；不得再作為現役官網試喝頁主圖。",
+      "website_current_use": false,
+      "website_replacement_policy": "現役官網試喝頁只使用products-v3正式30cc／180cc產品實拍與HTML文案，不使用含歷史價格／活動文字的已發布創意圖。",
+      "historical_published_record_only": true,
       "git_preview_url": "images/posts/final-published/guilu-drink-trial-final-20260808-preview.svg",
-      "git_preview_purpose": "舊160×160辨識縮圖，只保留相容用途；正式顯示優先使用git_web_display_url。",
+      "git_preview_purpose": "舊160×160辨識縮圖，只保留歷史相容用途。",
       "creative_lock": {
         "headline": "龜鹿飲試喝組｜先試喝，再決定",
         "trial_offer": "3罐試喝品免費；運費自付",
@@ -38,7 +41,7 @@
         "drink180_price": "單包200元；買10送1｜11包2,000元",
         "mascot": "官網版Q版小老闆＋小鹿＋小烏龜"
       },
-      "notes": "此圖由使用者確認為最終正式試喝主圖。1254×1254來源母本SHA保持不變；GitHub新增600×600 Web顯示衍生版供網站直接顯示。任何後續批次不得把它判定為錯圖、待生成或自動重新發布；除非使用者明確要求改版。"
+      "notes": "此圖由使用者確認為當時已發布最終主圖，內容與來源母本保持歷史鎖定，不重新設計、不重複發布。因現行官網採不公開售價／活動金額政策，現役試喝頁不再引用此圖，改用products-v3正式產品實拍。"
     }
   ]
 }
