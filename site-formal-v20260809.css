@@ -1,5 +1,6 @@
 /* 仙加味正式上線視覺收斂｜2026-08-09
    目的：全站品牌底色、Logo不壓縮、產品與角色圖片一律 contain 不裁切；首頁資訊層級收斂。
+   首頁 Hero 不再使用含多產品的舊情境合成圖；產品本體只在產品區使用 products-v3 正式實拍。
 */
 
 :root{
@@ -12,7 +13,6 @@
   --xjw-green:#4f5f3b;
 }
 
-/* 全站正式品牌畫布：不要被舊灰色漸層或後補樣式帶偏。 */
 html,body{
   background:var(--xjw-cream) !important;
 }
@@ -20,7 +20,6 @@ html,body{
   background:rgba(247,244,237,.96) !important;
 }
 
-/* Header Logo：只等比例縮放，禁止固定方框把原圖壓縮。 */
 .site-header .brand-mark{
   min-width:0;
   flex:0 1 auto;
@@ -35,7 +34,6 @@ html,body{
   flex:0 0 auto !important;
 }
 
-/* 正式產品與官網角色：全站只允許完整等比例顯示。 */
 .product-card__img,
 .modal-gallery__item{
   overflow:hidden;
@@ -59,11 +57,9 @@ img[src*="images/products-v3/"]{
 body[data-page="home"] .page{
   overflow:clip;
 }
-
 body[data-page="home"] .hero{
   padding:34px 18px 28px;
 }
-
 body[data-page="home"] .hero__panel{
   display:grid;
   grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);
@@ -75,14 +71,12 @@ body[data-page="home"] .hero__panel{
   padding:clamp(22px,4vw,44px);
   box-shadow:0 18px 48px rgba(11,31,59,.08);
 }
-
 body[data-page="home"] .hero__content{
   padding:0;
   border:0;
   background:transparent;
   box-shadow:none;
 }
-
 body[data-page="home"] .hero__content h1{
   max-width:760px;
   color:var(--xjw-ink);
@@ -90,25 +84,23 @@ body[data-page="home"] .hero__content h1{
   font-size:clamp(34px,5.2vw,64px);
   letter-spacing:.01em;
 }
-
 body[data-page="home"] .hero__lead{
   max-width:690px;
   color:#4d5562;
   font-size:clamp(16px,1.8vw,20px);
   line-height:1.85;
 }
-
 body[data-page="home"] .hero__media,
-body[data-page="home"] .home-mascot-frame{
+body[data-page="home"] .home-mascot-frame,
+body[data-page="home"] .home-brand-signature{
   min-width:0;
   min-height:0;
   overflow:visible !important;
   border-radius:26px;
-  background:rgba(255,255,255,.68);
-  border:1px solid rgba(180,138,69,.20);
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(180,138,69,.22);
   padding:18px;
 }
-
 body[data-page="home"] .home-mascot-frame{
   margin:0;
   display:flex;
@@ -116,7 +108,6 @@ body[data-page="home"] .home-mascot-frame{
   justify-content:center;
   aspect-ratio:1 / 1;
 }
-
 body[data-page="home"] .home-mascot-frame img{
   width:100%;
   height:100%;
@@ -127,13 +118,81 @@ body[data-page="home"] .home-mascot-frame img{
   clip-path:none !important;
 }
 
+/* 正式首頁品牌面板：Logo／印記／文字是一個原生版面，不放任何 AI 重畫產品或拼貼商品。 */
+body[data-page="home"] .home-brand-signature{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  min-height:390px;
+  text-align:center;
+  isolation:isolate;
+  overflow:hidden !important;
+  background:
+    radial-gradient(circle at 50% 18%,rgba(180,138,69,.16),transparent 34%),
+    linear-gradient(145deg,#fffdf8 0%,#f2eadc 100%);
+}
+body[data-page="home"] .home-brand-signature::before,
+body[data-page="home"] .home-brand-signature::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(180,138,69,.15);
+  pointer-events:none;
+  z-index:-1;
+}
+body[data-page="home"] .home-brand-signature::before{
+  width:270px;height:270px;right:-92px;top:-95px;
+}
+body[data-page="home"] .home-brand-signature::after{
+  width:210px;height:210px;left:-88px;bottom:-96px;
+}
+body[data-page="home"] .home-brand-signature__seal{
+  display:grid;
+  place-items:center;
+  width:72px;
+  height:72px;
+  border-radius:20px;
+  background:var(--xjw-red);
+  color:#fffaf1;
+  box-shadow:0 10px 28px rgba(123,30,30,.18);
+}
+body[data-page="home"] .home-brand-signature__seal span{
+  font-family:"Noto Serif TC","PingFang TC",serif;
+  font-size:34px;
+  font-weight:900;
+}
+body[data-page="home"] .home-brand-signature img{
+  width:auto !important;
+  height:auto !important;
+  max-width:min(78%,300px) !important;
+  max-height:128px !important;
+  object-fit:contain !important;
+  transform:none !important;
+}
+body[data-page="home"] .home-brand-signature p{
+  margin:0;
+  color:var(--xjw-ink);
+  font-family:"Noto Serif TC","PingFang TC",serif;
+  font-size:clamp(17px,2vw,22px);
+  font-weight:800;
+  letter-spacing:.04em;
+}
+body[data-page="home"] .home-brand-signature small{
+  max-width:340px;
+  color:#74716a;
+  font-size:12px;
+  line-height:1.7;
+}
+
 body[data-page="home"] .home-trust-row{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
   margin-top:20px;
 }
-
 body[data-page="home"] .home-trust-row span{
   display:inline-flex;
   align-items:center;
@@ -146,29 +205,24 @@ body[data-page="home"] .home-trust-row span{
   font-size:13px;
   font-weight:800;
 }
-
 body[data-page="home"] .section{
   padding-top:28px;
   padding-bottom:54px;
 }
-
 body[data-page="home"] .section-heading{
   max-width:780px;
   margin-bottom:24px;
 }
-
 body[data-page="home"] .section-heading h2{
   color:var(--xjw-ink);
   font-family:"Noto Serif TC","PingFang TC","Microsoft JhengHei",serif;
 }
-
 body[data-page="home"] .home-choice-grid,
 body[data-page="home"] .home-feature-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:16px;
 }
-
 body[data-page="home"] .home-choice-card,
 body[data-page="home"] .home-feature-card,
 body[data-page="home"] .home-story-card,
@@ -179,26 +233,22 @@ body[data-page="home"] .home-faq-card{
   padding:22px;
   box-shadow:0 8px 24px rgba(11,31,59,.05);
 }
-
 body[data-page="home"] .home-choice-card h3,
 body[data-page="home"] .home-feature-card h3{
   color:var(--xjw-red);
   margin-bottom:8px;
 }
-
 body[data-page="home"] .home-choice-card p,
 body[data-page="home"] .home-feature-card p,
 body[data-page="home"] .home-story-card p,
 body[data-page="home"] .home-faq-card p{
   color:#596170;
 }
-
 body[data-page="home"] .home-feature-card{
   position:relative;
   overflow:hidden;
   min-height:210px;
 }
-
 body[data-page="home"] .home-feature-card::after{
   content:"";
   position:absolute;
@@ -210,14 +260,12 @@ body[data-page="home"] .home-feature-card::after{
   background:rgba(180,138,69,.08);
   pointer-events:none;
 }
-
 body[data-page="home"] .home-story-card{
   display:grid;
   grid-template-columns:minmax(0,1fr) auto;
   gap:22px;
   align-items:center;
 }
-
 body[data-page="home"] .home-story-mark{
   display:grid;
   place-items:center;
@@ -231,44 +279,37 @@ body[data-page="home"] .home-story-mark{
   font-size:34px;
   font-weight:900;
 }
-
 body[data-page="home"] .home-final-cta{
   text-align:center;
   background:linear-gradient(135deg,#0b1f3b 0%,#173758 100%);
   color:#fff;
   border:0;
 }
-
 body[data-page="home"] .home-final-cta h2,
 body[data-page="home"] .home-final-cta p,
 body[data-page="home"] .home-final-cta .eyebrow{
   color:#fff;
 }
-
 body[data-page="home"] .home-final-cta .btn-outline{
   border-color:rgba(255,255,255,.72);
   color:#fff;
   background:transparent;
 }
-
 body[data-page="home"] .product-card__img{
   overflow:hidden;
   background:#fbf7ef;
 }
-
 body[data-page="home"] .product-card__img img{
   object-fit:contain !important;
   object-position:center center !important;
   transform:none !important;
 }
-
 body[data-page="home"] .section-actions{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
   margin-top:18px;
 }
-
 body[data-page="home"] .page-updated{
   max-width:1200px;
   margin:0 auto 36px;
@@ -281,12 +322,15 @@ body[data-page="home"] .page-updated{
   body[data-page="home"] .hero__panel{
     grid-template-columns:1fr;
   }
-  body[data-page="home"] .home-mascot-frame{
+  body[data-page="home"] .home-mascot-frame,
+  body[data-page="home"] .home-brand-signature{
     width:min(100%,620px);
     justify-self:center;
   }
+  body[data-page="home"] .home-brand-signature{
+    min-height:330px;
+  }
 }
-
 @media (max-width:640px){
   .site-header .brand-mark img{
     height:40px !important;
@@ -307,6 +351,19 @@ body[data-page="home"] .page-updated{
     aspect-ratio:1 / 1;
     padding:12px;
     border-radius:18px;
+  }
+  body[data-page="home"] .home-brand-signature{
+    min-height:280px;
+    padding:26px 18px;
+    border-radius:20px;
+  }
+  body[data-page="home"] .home-brand-signature__seal{
+    width:62px;
+    height:62px;
+    border-radius:17px;
+  }
+  body[data-page="home"] .home-brand-signature__seal span{
+    font-size:29px;
   }
   body[data-page="home"] .home-choice-grid,
   body[data-page="home"] .home-feature-grid,
@@ -331,7 +388,6 @@ body[data-page="home"] .page-updated{
     padding:14px 12px;
   }
 }
-
 @media (max-width:390px){
   body[data-page="home"] .product-grid{
     grid-template-columns:1fr;
