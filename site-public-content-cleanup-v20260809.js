@@ -4,7 +4,7 @@
 (function(){
   if(window.__XJW_PUBLIC_CONTENT_CLEANUP__)return;
   window.__XJW_PUBLIC_CONTENT_CLEANUP__=true;
-  const VERSION="20260809-public-clean-v5-brand-logo-guard";
+  const VERSION="20260809-public-clean-v6-knowledge-scope";
 
   function removeUpdatedNotes(){
     document.querySelectorAll('.page-updated').forEach(el=>el.remove());
@@ -72,7 +72,7 @@
   }
 
   function cleanKnowledgeCopy(){
-    if(document.body?.dataset?.page!=='knowledge')return;
+    if(document.body?.dataset?.page!=='knowledge'||!document.querySelector('.knowledge-page-v409'))return;
     const hero=document.querySelector('.hero__content > p:not(.eyebrow)');
     if(hero)hero.textContent='想了解產品、食材、使用方式、知識影音或資料來源，都可以從這裡開始。依主題切換閱讀，查找會更快。';
     document.querySelectorAll('[data-knowledge-panel="videos"] .section-heading p').forEach(p=>{
