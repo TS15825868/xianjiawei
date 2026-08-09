@@ -29,8 +29,13 @@ def main():
         req(token not in source,f'官網顧客頁仍引用舊候選/拼貼素材：{token}')
 
     index=(ROOT/'index.html').read_text(encoding='utf-8')
-    req('images/brand/approved-v405/home-brand.webp' not in index,'首頁不得再使用含多產品的舊情境合成圖')
+    brand=(ROOT/'brand.html').read_text(encoding='utf-8')
+    legacy_brand='images/brand/approved-v405/home-brand.webp'
+    req(legacy_brand not in index,'首頁不得再使用含多產品的舊情境合成圖')
+    req(legacy_brand not in brand,'品牌故事頁不得再使用含多產品的舊情境合成圖')
     req('home-brand-signature' in index and 'images/logo.png' in index,'首頁應使用乾淨品牌識別面板，不使用可能失真的產品情境圖')
+    req('images/logo.png' in brand,'品牌故事頁應使用乾淨品牌識別，不使用舊產品合成圖')
+    req('images/logo.png' in brand and 'primaryImageOfPage' in brand,'品牌故事結構化主圖必須回到品牌Logo')
 
     trial=(ROOT/'trial.html').read_text(encoding='utf-8')
     req('guilu-drink-trial-final-20260808-web.svg' not in trial,'試喝頁不得回退到舊價格／活動歷史圖')
@@ -41,6 +46,6 @@ def main():
         html=(ROOT/page).read_text(encoding='utf-8')
         req('images/products-v2/' not in html and 'images/dm-final/' not in html,f'{page}不得使用舊產品圖')
 
-    print(f'PASS website visual cohesion: {len(PAGES)} customer pages use contain/no-crop rules; homepage avoids unsafe product composites; products and trial use products-v3 official photos.')
+    print(f'PASS website visual cohesion: {len(PAGES)} customer pages use contain/no-crop rules; homepage and brand story avoid unsafe product composites; products and trial use products-v3 official photos.')
 
 if __name__=='__main__': main()
