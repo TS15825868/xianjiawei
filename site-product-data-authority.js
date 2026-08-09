@@ -1,15 +1,15 @@
 "use strict";
 
 /* 仙加味正式產品資料圖片權威層｜2026-08-10
- * products-v3 六張正式路徑已直接換成真正原始產品實拍；不再用 DM／海報作為產品主圖。
+ * products-v3 六張正式路徑已直接換成使用者最新提供的原始產品實拍；不再用 DM／海報作為產品主圖。
  * 舊 products-v2 與 dm-final 只保留歷史／宣傳參考，不再成為產品卡、詳頁、OG 或結構化資料主圖。
  * 所有產品本體只允許等比例顯示；禁止拉寬、拉高、cover裁切或把不同產品強制等高／等寬。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
-  const VERSION='20260810-products-v3-true-originals-v2';
-  const DATA_CACHE_VERSION='20260810-14';
+  const VERSION='20260810-products-v3-latest-originals-v3';
+  const DATA_CACHE_VERSION='20260810-15';
   const OFFICIAL=Object.freeze({
     'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${VERSION}`,
     'guilu-drink-30':`images/products-v3/guilu-drink-30.jpg?v=${VERSION}`,
@@ -38,7 +38,7 @@
     });
     data.runtime={
       ...(data.runtime||{}),
-      productMainImageSource:'products-v3-true-original-product-photos',
+      productMainImageSource:'products-v3-latest-original-product-photos',
       dmFallback:'approved-original-photo-until-current-dm-passes-review',
       productsV2Use:'legacy-reference-only',
       productScalePolicy:'uniform-only-no-equal-height-equal-width',
