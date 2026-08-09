@@ -4,7 +4,7 @@
 (function(){
   if(window.__XJW_PUBLIC_CONTENT_CLEANUP__)return;
   window.__XJW_PUBLIC_CONTENT_CLEANUP__=true;
-  const VERSION="20260809-public-clean-v4-brand-safe-hero";
+  const VERSION="20260809-public-clean-v5-brand-logo-guard";
 
   function removeUpdatedNotes(){
     document.querySelectorAll('.page-updated').forEach(el=>el.remove());
@@ -51,16 +51,18 @@
     });
   }
 
-  function cleanBrandVisual(){
+  function guardBrandVisual(){
     if(document.body?.dataset?.page!=='brand-origin')return;
     const hero=document.querySelector('.brand-hero-v410__media img');
-    if(hero){
-      hero.src='images/brand/approved-v405/brand-story.webp?v=20260809-01';
-      hero.alt='仙加味品牌故事Q版小老闆情境圖';
-      hero.style.objectFit='contain';
-      hero.style.objectPosition='center center';
-      hero.style.transform='none';
+    if(!hero)return;
+    const src=hero.getAttribute('src')||'';
+    if(/approved-v405\/home-brand\.webp/i.test(src)){
+      hero.src='images/logo.png?v=20260809-09';
+      hero.alt='仙加味 Logo';
     }
+    hero.style.objectFit='contain';
+    hero.style.objectPosition='center center';
+    hero.style.transform='none';
   }
 
   function cleanProductsCopy(){
@@ -101,7 +103,7 @@
     removeTechnicalCards();
     removeImplementationParagraphs();
     cleanHomeCopy();
-    cleanBrandVisual();
+    guardBrandVisual();
     cleanProductsCopy();
     cleanKnowledgeCopy();
     cleanVideoCopy();
