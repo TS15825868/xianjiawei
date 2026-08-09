@@ -1,0 +1,21 @@
+name: 仙加味貼文候選圖文匹配手動驗收
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Audit candidate copy and image matching
+        run: python tools/validate-publishing-content-match-v20260809.py
+      - name: Ensure audit makes no repository changes
+        run: git diff --exit-code
