@@ -1,4 +1,4 @@
-name: 仙加味正式母本手動驗收
+name: 仙加味官網正式版手動驗收
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: xianjiawei-manual-formal-audit
+  group: xianjiawei-manual-website-audit
   cancel-in-progress: true
 
 jobs:
@@ -28,44 +28,34 @@ jobs:
         with:
           node-version: 22
 
-      - name: Validate public customer pages and iPhone trial poster
+      - name: Validate public customer pages
         run: python tools/validate-public-customer-pages-v20260809.py
 
-      - name: Validate 2026-08-09 formal product, scale, trial and publishing authority
-        run: python tools/validate-formal-v20260809.py
+      - name: Validate website production release
+        run: python tools/validate-site-production-release-v20260809.py
 
-      - name: Validate base 23-post image review state
-        run: python tools/validate-base-post-library-v20260809.py
+      - name: Validate website visual cohesion
+        run: python tools/validate-visual-cohesion-v20260809.py
 
-      - name: Validate 5 mascot reuses and 115 remaining character generations
-        run: python tools/validate-character-regeneration-v20260809.py
+      - name: Validate public AIO SEO and GEO
+        run: python tools/validate_public_aio_seo.py
 
-      - name: Validate publishing center needs-generation UI
-        run: python tools/validate-publishing-center-ui-v20260809.py
-
-      - name: Validate formal JSON authorities parse cleanly
+      - name: Validate public JSON authorities parse cleanly
         run: |
-          python -m json.tool brand-character-spec.json >/dev/null
+          python -m json.tool data.json >/dev/null
+          python -m json.tool catalog-public.json >/dev/null
+          python -m json.tool geo-data.json >/dev/null
           python -m json.tool content/product-physical-scale-authority-v20260809.json >/dev/null
-          python -m json.tool content/character-regeneration-authority-v20260809.json >/dev/null
-          python -m json.tool content/character-generation-batches-v20260809.json >/dev/null
           python -m json.tool content/public-content-policy.json >/dev/null
-          python -m json.tool content/public-asset-status-overrides-v20260809.json >/dev/null
-          python -m json.tool content/image-generation-queue-v20260808.json >/dev/null
-          python -m json.tool content/public-post-library.json >/dev/null
+          python -m json.tool assets/data/official-products.json >/dev/null
 
-      - name: Validate publishing runtime JavaScript syntax
+      - name: Validate website JavaScript syntax
         run: |
-          node --check publishing-center-v2.js
-          node --check publishing-center-data-v8-fixes.js
-          node --check publishing-center-data-v12-auto-candidates.js
-          node --check publishing-center-data-v13-character-scenes.js
-          node --check publishing-center-data-v14-boss-daily.js
-          node --check publishing-center-data-v15-companions.js
-          node --check publishing-center-data-v16-actual-product-photos.js
-          node --check publishing-center-ai-tools.js
-          node --check publishing-center-guardian.js
-          node --check publishing-center-erp-bridge.js
+          node --check site.js
+          node --check site-core-v410.js
+          node --check site-product-data-authority.js
+          node --check site-product-image-safety.js
+          node --check site-public-content-cleanup-v20260809.js
 
       - name: Ensure audit makes no repository changes
         run: git diff --exit-code
