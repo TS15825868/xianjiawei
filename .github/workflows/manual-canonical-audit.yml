@@ -28,6 +28,9 @@ jobs:
         with:
           node-version: 22
 
+      - name: Validate public customer pages and iPhone trial poster
+        run: python tools/validate-public-customer-pages-v20260809.py
+
       - name: Validate 2026-08-09 formal product, scale, trial and publishing authority
         run: python tools/validate-formal-v20260809.py
 
