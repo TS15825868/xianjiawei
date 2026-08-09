@@ -1,11 +1,11 @@
 "use strict";
 
-/* 全站入口 2026-08-09：產品資料權威 → 核心 → 圖片安全 → 正式規格 → 顧客版內容清理 → 視覺層。 */
+/* 全站入口 2026-08-10：產品資料權威 → 核心 → 圖片安全 → 正式規格 → 顧客版內容清理 → 視覺層。 */
 (function () {
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260809-12";
+  const VERSION = "20260810-13";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const CORE = `site-core-v410.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
@@ -13,6 +13,7 @@
   const PUBLIC_CLEANUP = `site-public-content-cleanup-v20260809.js?v=${VERSION}`;
   const HOTFIX = `site-ux-v4104.css?v=${VERSION}`;
   const FORMAL = `site-formal-v20260809.css?v=${VERSION}`;
+  const RAW_DISPLAY = `site-raw-product-display-v20260810.css?v=${VERSION}`;
 
   function appendScript(src, onload) {
     const script = document.createElement("script");
@@ -36,6 +37,7 @@
             appendScript(PUBLIC_CLEANUP, function () {
               appendStyle(HOTFIX, "site-ux-v4104.css");
               appendStyle(FORMAL, "site-formal-v20260809.css");
+              appendStyle(RAW_DISPLAY, "site-raw-product-display-v20260810.css");
             });
           });
         });
@@ -50,5 +52,6 @@
     document.write('<script src="' + PUBLIC_CLEANUP + '"><\/script>');
     document.write('<link rel="stylesheet" href="' + HOTFIX + '">');
     document.write('<link rel="stylesheet" href="' + FORMAL + '">');
+    document.write('<link rel="stylesheet" href="' + RAW_DISPLAY + '">');
   } else loadSequentially();
 })();
