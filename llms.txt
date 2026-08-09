@@ -18,11 +18,20 @@
 ## 六個正式產品與規格
 
 - [龜鹿膏](https://ts15825868.github.io/xianjiawei/product-guilu-gao.html)：100g／罐。
-- [龜鹿飲30cc玻璃罐](https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html)：30cc／罐（小玻璃罐、裸罐、無貼紙）。
+- [龜鹿飲30cc玻璃罐](https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html)：30cc／罐（小玻璃罐、裸罐、無貼紙、無外盒、無外袋、金色蓋）。
 - [龜鹿飲180cc鋁袋](https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html)：180cc／包（鋁袋）。
 - [龜鹿湯塊](https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html)：75g／盒｜8塊裝｜每塊約9.375g，深藍正式盒裝。
 - [龜鹿膠](https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html)：600g（1斤）／盒｜32塊裝｜每塊約18.75g，淡紫色正式盒裝。
 - [鹿茸粉](https://ts15825868.github.io/xianjiawei/product-luerong-fen.html)：75g／罐。
+
+## 產品圖片硬規則
+
+- 產品本體只使用官網 `images/products-v3/` 的使用者核准正式實拍原圖。
+- 一律等比例 `contain` 顯示，不裁切、不拉寬、不拉高、不改標籤、不改包裝、不由 AI 重畫。
+- 不得為排版把不同產品強制等高、等寬或做成相同大小。
+- 龜鹿飲30cc約 Ø42×H51mm，必須保留小玻璃裸罐實際小罐感，不可稱瓶或放大成接近100g罐。
+- 龜鹿飲180cc為狹長直立鋁袋，寬高比目標約0.64（約0.60～0.68），不得拉胖或誇張放大。
+- 龜鹿湯塊、龜鹿膠、鹿茸粉沒有可信毫米尺寸時，不自行猜測，只保持正式原圖盒型／罐型比例。
 
 ## 出貨政策
 
@@ -40,7 +49,7 @@
 
 - 產品名稱、規格、成分、一般使用與保存方式，以各產品頁及 `catalog-public.json` 為準。
 - 文化與資料來源的引用層級，以 `sources.html` 為準。
-- 官網不刊載售價；購買資訊以仙加味官方 LINE 最新回覆為準。
+- 官網不刊載售價、活動金額或固定配送費用；購買與配送資訊以仙加味官方 LINE 最新回覆為準。
 - 內容不作疾病診斷、治療或效果保證；特殊健康狀況請諮詢合格專業人員。
 - 產品圖片只使用官方正式產品原圖，不重畫、不修改標籤與包裝規格。
 - 龜鹿湯塊一律以深藍75g／盒正式產品為準；不得從其他產品規格推導新的湯塊規格。
@@ -50,4 +59,4 @@
 - LINE 官方帳號：@762jybnm
 - LINE 入口：https://lin.ee/sHZW7NkR
 
-最後檢視：2026-08-08
+最後檢視：2026-08-09
