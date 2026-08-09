@@ -1,14 +1,15 @@
 (()=>{
   const PREV_FETCH=window.fetch.bind(window);
   const TARGET='content/public-post-library.json';
-  const VERSION='2026-08-09-v16-products-v3-batch5-review-candidates';
+  const PRODUCT_IMAGE_VERSION='20260810-products-v3-true-originals-v2';
+  const VERSION='2026-08-10-v17-products-v3-true-originals-regeneration-first';
   const MAP={
-    'guilu-gao':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=20260809-25',
-    'guilu-drink-30':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260809-25',
-    'guilu-drink-180':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg?v=20260809-25',
-    'guilu-tangkuai':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg?v=20260809-25',
-    'guilu-jiao':'https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=20260809-25',
-    'luerong-fen':'https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=20260809-25'
+    'guilu-gao':`https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=${PRODUCT_IMAGE_VERSION}`,
+    'guilu-drink-30':`https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=${PRODUCT_IMAGE_VERSION}`,
+    'guilu-drink-180':`https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg?v=${PRODUCT_IMAGE_VERSION}`,
+    'guilu-tangkuai':`https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg?v=${PRODUCT_IMAGE_VERSION}`,
+    'guilu-jiao':`https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=${PRODUCT_IMAGE_VERSION}`,
+    'luerong-fen':`https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=${PRODUCT_IMAGE_VERSION}`
   };
   const SAFE_PREFLIGHT=Object.freeze({
     'XJW-WORK-REST-001':'images/posts/generated-v20260808-preflight/work-rest.svg',
@@ -22,14 +23,14 @@
     'POST-STORE':'images/posts/generated-v20260808-preflight/contact-line.svg',
     'POST-RECIPES':'images/posts/generated-v20260808-preflight/recipes.svg'
   });
-  const BATCH5_CANDIDATES=Object.freeze({
+  const RETIRED_BATCH5_CANDIDATES=Object.freeze({
     'POST-PRODUCT-OVERVIEW':'images/posts/candidates-v20260809/product-overview.svg',
     'POST-COMBO':'images/posts/candidates-v20260809/combo.svg',
     'POST-GUIDE':'images/posts/candidates-v20260809/guide.svg',
     'POST-CHOOSE':'images/posts/candidates-v20260809/choose.svg',
     'POST-CHOOSE-BY-HABIT':'images/posts/candidates-v20260809/choose-by-habit.svg'
   });
-  const FORCE_REGEN_IDS=new Set(['POST-PRODUCT-OVERVIEW','POST-COMBO','POST-GUIDE','POST-CHOOSE','POST-CHOOSE-BY-HABIT']);
+  const FORCE_REGEN_IDS=new Set(Object.keys(RETIRED_BATCH5_CANDIDATES));
   const LEGACY_SINGLE_SVG=[
     [/generated-v20260808-priority1\/guilu-gao-100g\.svg/i,'guilu-gao'],
     [/generated-v20260808-priority1\/guilu-drink-30cc\.svg/i,'guilu-drink-30'],
@@ -66,9 +67,9 @@
       scheduled_at:null,
       owner_review_required:true,
       approval_required:true,
-      image_policy:'products-v3-only-real-scale-no-guessing',
+      image_policy:'products-v3-true-originals-only-single-scene-no-collage',
       physical_scale_policy:'multi-product-relative-scale-must-be-evidenced',
-      image_review_reason:`${reason}｜不可硬用舊圖。請用「圖不符合｜ChatGPT生成」依原文案重做；產品本體只合成products-v3正式原圖，尺寸比例有依據才同框，完成後回待審核。`
+      image_review_reason:`${reason}｜舊卡片／海報候選已退役，不可直接送審。請用「圖不符合｜ChatGPT重生成」依原文案重做單一完整場景；產品本體只能使用${PRODUCT_IMAGE_VERSION}真正products-v3實拍原圖，無可靠相對尺寸時不要多產品同框。完成後回待審核並重做16項檢查。`
     };
   }
   function safeReplacement(p,path){
@@ -89,29 +90,9 @@
       image_review_reason:'舊圖文綁定已隔離，改用不重畫產品的嚴格預檢替代候選；仍須完成16項人工審核，若文案／季節／環境／冷熱／表情／動作不符就再用ChatGPT重生成。'
     };
   }
-  function batch5Candidate(p,path){
-    return{
-      ...p,
-      status:'pending_review',
-      image_asset_id:`batch5-review-${p.id}`,
-      image_url:path,
-      image_status:'candidate-review-required',
-      candidate_generated:true,
-      candidate_generation_mode:'batch5-products-v3-independent-panel-candidate',
-      publish_allowed:false,
-      schedule_enabled:false,
-      scheduled_at:null,
-      owner_review_required:true,
-      approval_required:true,
-      image_policy:'products-v3-independent-panels-contain-no-crop-no-stretch',
-      physical_scale_policy:'separate-product-panels-no-physical-relative-scale-claim',
-      image_review_reason:'2026-08-09 第一批產品候選：使用products-v3正式原圖，產品放在獨立卡片中以contain等比例展示，不把不同包裝強制等高／等寬，也不宣稱卡片間是實物相對尺寸。此圖只進待審核，16項全部確認後才能交ERP。'
-    };
-  }
   function fixPost(p){
     const url=String(p?.image_url||'');
-    if(p.status!=='published'&&BATCH5_CANDIDATES[p.id])return batch5Candidate(p,BATCH5_CANDIDATES[p.id]);
-    if(p.status!=='published'&&FORCE_REGEN_IDS.has(p.id))return quarantine(p,'此篇需要多產品／產品使用選擇構圖，現有舊圖或替代SVG不符合正式產品尺度規則');
+    if(p.status!=='published'&&FORCE_REGEN_IDS.has(p.id))return quarantine(p,'此篇原本的batch5獨立卡片／產品海報候選不符合目前單一完整場景規則');
     if(p.status!=='published'&&SAFE_PREFLIGHT[p.id])return safeReplacement(p,SAFE_PREFLIGHT[p.id]);
     const refs=refsOf(p);
     if(LEGACY_MULTI_SVG.test(url))return quarantine(p,'偵測到內嵌舊產品圖的多產品歷史SVG');
@@ -125,8 +106,8 @@
       return{
         ...p,
         image_url:MAP[id],
-        image_asset_id:`official-v3-${id}`,
-        image_source:'products-v3-user-approved-original-product-photo',
+        image_asset_id:`official-v3-true-original-${id}`,
+        image_source:'products-v3-true-original-product-photo',
         image_status:'candidate-review-required',
         image_policy:'approved-original-uniform-scale-contain-no-crop-no-stretch',
         physical_scale_policy:'preserve-original-aspect-and-realistic-relative-scale',
@@ -135,12 +116,12 @@
         scheduled_at:null,
         owner_review_required:true,
         approval_required:true,
-        image_review_reason:`${String(p.image_review_reason||'').replace(/products-v2|products-v3|正式原圖/g,'正式產品原圖')}｜2026-08-09校正：舊產品圖／舊SVG已淘汰；產品本體只用products-v3核准實拍，禁止拉寬、拉高、裁切、AI重畫。`
+        image_review_reason:`${String(p.image_review_reason||'').replace(/products-v2|products-v3|正式原圖/g,'正式產品原圖')}｜2026-08-10校正：舊產品圖／舊SVG／舊海報已淘汰；產品本體只用${PRODUCT_IMAGE_VERSION}真正products-v3實拍，禁止拉寬、拉高、裁切、AI重畫。`
       };
     }
     return{
       ...p,
-      image_source:p.image_source||'products-v3-user-approved-original-product-photo',
+      image_source:p.image_source||'products-v3-true-original-product-photo',
       image_policy:'approved-original-uniform-scale-contain-no-crop-no-stretch',
       physical_scale_policy:'preserve-original-aspect-and-realistic-relative-scale'
     };
@@ -148,9 +129,9 @@
   function patchAuthorityNotices(){
     document.querySelectorAll('.published-note,.spec-note,.automation-note').forEach(node=>{
       let html=node.innerHTML;
-      html=html.replace('v16再攔截任何漏網 products-v3／舊DM產品主圖','v16再攔截任何漏網 products-v2／舊DM／舊SVG產品主圖');
-      html=html.replace('產品若出現只引用 <strong>products-v2 實際產品照片</strong>，不再把 products-v3 宣傳版面當產品主圖','產品若出現只引用 <strong>products-v3 使用者確認的正式產品原圖</strong>；舊 products-v2、舊DM與內嵌舊產品圖的SVG不得作產品主圖');
-      html=html.replace('產品主圖只用 products-v2 實際產品照片等比例合成','產品主圖只用 products-v3 使用者確認的正式產品原圖等比例合成');
+      html=html.replace('v16再攔截任何漏網 products-v3／舊DM產品主圖','產品圖守門會攔截任何舊 products-v2／舊DM／舊SVG／舊海報產品主圖');
+      html=html.replace('產品若出現只引用 <strong>products-v2 實際產品照片</strong>，不再把 products-v3 宣傳版面當產品主圖',`產品若出現只引用 <strong>${PRODUCT_IMAGE_VERSION} products-v3 真正產品實拍原圖</strong>；舊 products-v2、舊DM、舊海報與內嵌舊產品圖的SVG不得作產品主圖`);
+      html=html.replace('產品主圖只用 products-v2 實際產品照片等比例合成',`產品主圖只用 ${PRODUCT_IMAGE_VERSION} products-v3 真正產品實拍原圖等比例呈現`);
       node.innerHTML=html;
     });
   }
@@ -161,8 +142,8 @@
     try{
       const data=await response.clone().json();
       const posts=(data.posts||[]).map(fixPost);
-      const merged={...data,version:'2026-08-09-public-posts-v28-batch5-review-candidates',posts};
-      merged.counts={...(data.counts||{}),total:posts.length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,preflight_safe_replacements:posts.filter(p=>p.candidate_generation_mode==='preflight-product-free-safe-replacement').length,batch5_review_candidates:posts.filter(p=>p.candidate_generation_mode==='batch5-products-v3-independent-panel-candidate').length,forced_regeneration:posts.filter(p=>p.candidate_generation_mode==='copy-matched-regeneration-required').length};
+      const merged={...data,version:'2026-08-10-public-posts-v29-true-originals-regeneration-first',posts};
+      merged.counts={...(data.counts||{}),total:posts.length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,preflight_safe_replacements:posts.filter(p=>p.candidate_generation_mode==='preflight-product-free-safe-replacement').length,retired_batch5_forced_regeneration:posts.filter(p=>FORCE_REGEN_IDS.has(p.id)&&p.image_status==='needs_generation').length,forced_regeneration:posts.filter(p=>p.candidate_generation_mode==='copy-matched-regeneration-required').length};
       const headers=new Headers(response.headers);
       headers.set('content-type','application/json; charset=utf-8');
       headers.set('cache-control','no-store');
@@ -170,5 +151,5 @@
     }catch{return response}
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',patchAuthorityNotices,{once:true});else patchAuthorityNotices();
-  window.XJWActualProductPhotoAuthority=Object.freeze({version:VERSION,map:MAP,productId,fixPost,patchAuthorityNotices,safePreflight:SAFE_PREFLIGHT,batch5Candidates:BATCH5_CANDIDATES,forceRegeneration:[...FORCE_REGEN_IDS]});
+  window.XJWActualProductPhotoAuthority=Object.freeze({version:VERSION,productImageVersion:PRODUCT_IMAGE_VERSION,map:MAP,productId,fixPost,patchAuthorityNotices,safePreflight:SAFE_PREFLIGHT,retiredBatch5Candidates:RETIRED_BATCH5_CANDIDATES,forceRegeneration:[...FORCE_REGEN_IDS]});
 })();
