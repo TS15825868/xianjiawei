@@ -9,7 +9,7 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
   const VERSION='20260810-products-v3-latest-originals-v3';
-  const DATA_CACHE_VERSION='20260810-15';
+  const DATA_CACHE_VERSION='20260810-16';
   const OFFICIAL=Object.freeze({
     'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${VERSION}`,
     'guilu-drink-30':`images/products-v3/guilu-drink-30.jpg?v=${VERSION}`,
