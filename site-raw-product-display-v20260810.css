@@ -1,5 +1,5 @@
 /* 仙加味官網顧客版產品實拍顯示層｜2026-08-10
- * 只處理顧客看得到的產品卡與詳頁視覺，不改 products-v3 資料權威、LINE OA 或貼文中心。
+ * 只處理顧客看得到的產品卡、詳頁與產品彈窗視覺，不改產品資料權威、LINE OA 或貼文中心。
  * 產品本體使用 repo 既有實拍原圖，不重畫、不裁切、不拉伸；30cc 與 180cc 分別保留小玻璃罐與狹長鋁袋觀感。
  */
 .product-card[data-product-id] .product-card__img{
@@ -12,14 +12,14 @@
   opacity:0!important;
   visibility:hidden!important;
 }
-.product-card[data-product-id="guilu-gao"] .product-card__img{background-image:url("images/guilu-gao-main.jpg?v=20260810-raw2")!important;background-size:auto 76%!important}
-.product-card[data-product-id="guilu-drink-30"] .product-card__img{background-image:url("images/guilu-drink-30cc-glass.jpg?v=20260810-raw2")!important;background-size:auto 58%!important}
-.product-card[data-product-id="guilu-drink-180"] .product-card__img{background-image:url("images/guilu-drink-180cc.jpg?v=20260810-raw2")!important;background-size:auto 82%!important}
-.product-card[data-product-id="guilu-tangkuai"] .product-card__img{background-image:url("images/guilu-block.jpg?v=20260810-raw2")!important;background-size:82% auto!important}
-.product-card[data-product-id="guilu-jiao"] .product-card__img{background-image:url("images/products-v2/guilu-jiao-open-new.jpg?v=20260810-raw2")!important;background-size:82% auto!important}
-.product-card[data-product-id="luerong-fen"] .product-card__img{background-image:url("images/lurong.jpg?v=20260810-raw2")!important;background-size:auto 72%!important}
+.product-card[data-product-id="guilu-gao"] .product-card__img{background-image:url("images/guilu-gao-main.jpg?v=20260810-raw3")!important;background-size:auto 76%!important}
+.product-card[data-product-id="guilu-drink-30"] .product-card__img{background-image:url("images/guilu-drink-30cc-glass.jpg?v=20260810-raw3")!important;background-size:auto 58%!important}
+.product-card[data-product-id="guilu-drink-180"] .product-card__img{background-image:url("images/guilu-drink-180cc.jpg?v=20260810-raw3")!important;background-size:auto 82%!important}
+.product-card[data-product-id="guilu-tangkuai"] .product-card__img{background-image:url("images/guilu-block.jpg?v=20260810-raw3")!important;background-size:82% auto!important}
+.product-card[data-product-id="guilu-jiao"] .product-card__img{background-image:url("images/products-v2/guilu-jiao-open-new.jpg?v=20260810-raw3")!important;background-size:82% auto!important}
+.product-card[data-product-id="luerong-fen"] .product-card__img{background-image:url("images/lurong.jpg?v=20260810-raw3")!important;background-size:auto 72%!important}
 
-/* 詳頁：圖片安全層仍可維持 products-v3 權威 src；顧客視覺改以同產品實拍背景顯示。 */
+/* 詳頁：圖片安全層仍可維持正式權威 src；顧客視覺改以同產品實拍背景顯示。 */
 .product-detail-hero__media a[href*="guilu-gao.jpg"],
 .product-detail-hero__media a[href*="guilu-drink-30.jpg"],
 .product-detail-hero__media a[href*="guilu-drink-180.jpg"],
@@ -35,13 +35,35 @@
   background-size:contain!important;
   border-radius:18px!important;
 }
-.product-detail-hero__media a[href*="guilu-gao.jpg"]{background-image:url("images/guilu-gao-main.jpg?v=20260810-raw2")!important;background-size:auto 76%!important}
-.product-detail-hero__media a[href*="guilu-drink-30.jpg"]{background-image:url("images/guilu-drink-30cc-glass.jpg?v=20260810-raw2")!important;background-size:auto 58%!important}
-.product-detail-hero__media a[href*="guilu-drink-180.jpg"]{background-image:url("images/guilu-drink-180cc.jpg?v=20260810-raw2")!important;background-size:auto 82%!important}
-.product-detail-hero__media a[href*="guilu-tangkuai.jpg"]{background-image:url("images/guilu-block.jpg?v=20260810-raw2")!important;background-size:82% auto!important}
-.product-detail-hero__media a[href*="guilu-jiao.jpg"]{background-image:url("images/products-v2/guilu-jiao-open-new.jpg?v=20260810-raw2")!important;background-size:82% auto!important}
-.product-detail-hero__media a[href*="luerong-fen.jpg"]{background-image:url("images/lurong.jpg?v=20260810-raw2")!important;background-size:auto 72%!important}
+.product-detail-hero__media a[href*="guilu-gao.jpg"]{background-image:url("images/guilu-gao-main.jpg?v=20260810-raw3")!important;background-size:auto 76%!important}
+.product-detail-hero__media a[href*="guilu-drink-30.jpg"]{background-image:url("images/guilu-drink-30cc-glass.jpg?v=20260810-raw3")!important;background-size:auto 58%!important}
+.product-detail-hero__media a[href*="guilu-drink-180.jpg"]{background-image:url("images/guilu-drink-180cc.jpg?v=20260810-raw3")!important;background-size:auto 82%!important}
+.product-detail-hero__media a[href*="guilu-tangkuai.jpg"]{background-image:url("images/guilu-block.jpg?v=20260810-raw3")!important;background-size:82% auto!important}
+.product-detail-hero__media a[href*="guilu-jiao.jpg"]{background-image:url("images/products-v2/guilu-jiao-open-new.jpg?v=20260810-raw3")!important;background-size:82% auto!important}
+.product-detail-hero__media a[href*="luerong-fen.jpg"]{background-image:url("images/lurong.jpg?v=20260810-raw3")!important;background-size:auto 72%!important}
 .product-detail-hero__media a[href*="products-v3/"]>img{opacity:0!important;visibility:hidden!important;width:1px!important;height:1px!important;position:absolute!important}
+
+/* 產品卡點開後的 Modal 也維持實拍，不再跳回 DM／海報圖。 */
+.modal-gallery__item:has(img[src*="guilu-gao.jpg"]),
+.modal-gallery__item:has(img[src*="guilu-drink-30.jpg"]),
+.modal-gallery__item:has(img[src*="guilu-drink-180.jpg"]),
+.modal-gallery__item:has(img[src*="guilu-tangkuai.jpg"]),
+.modal-gallery__item:has(img[src*="guilu-jiao.jpg"]),
+.modal-gallery__item:has(img[src*="luerong-fen.jpg"]){
+  min-height:340px!important;
+  background-color:#fff!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+  background-size:contain!important;
+  border-radius:18px!important;
+}
+.modal-gallery__item:has(img[src*="guilu-gao.jpg"]){background-image:url("images/guilu-gao-main.jpg?v=20260810-raw3")!important;background-size:auto 76%!important}
+.modal-gallery__item:has(img[src*="guilu-drink-30.jpg"]){background-image:url("images/guilu-drink-30cc-glass.jpg?v=20260810-raw3")!important;background-size:auto 58%!important}
+.modal-gallery__item:has(img[src*="guilu-drink-180.jpg"]){background-image:url("images/guilu-drink-180cc.jpg?v=20260810-raw3")!important;background-size:auto 82%!important}
+.modal-gallery__item:has(img[src*="guilu-tangkuai.jpg"]){background-image:url("images/guilu-block.jpg?v=20260810-raw3")!important;background-size:82% auto!important}
+.modal-gallery__item:has(img[src*="guilu-jiao.jpg"]){background-image:url("images/products-v2/guilu-jiao-open-new.jpg?v=20260810-raw3")!important;background-size:82% auto!important}
+.modal-gallery__item:has(img[src*="luerong-fen.jpg"]){background-image:url("images/lurong.jpg?v=20260810-raw3")!important;background-size:auto 72%!important}
+.modal-gallery__item>img[src*="products-v3/"]{opacity:0!important;visibility:hidden!important;width:1px!important;height:1px!important;position:absolute!important}
 
 /* 試喝頁與實品照頁專用：背景圖不會被產品圖片守門改回海報。 */
 .xjw-raw-photo{
@@ -53,12 +75,12 @@
   background-repeat:no-repeat;
   background-size:contain;
 }
-.xjw-raw-photo--gao{background-image:url("images/guilu-gao-main.jpg?v=20260810-raw2")}
-.xjw-raw-photo--drink30{background-image:url("images/guilu-drink-30cc-glass.jpg?v=20260810-raw2");background-size:auto 68%}
-.xjw-raw-photo--drink180{background-image:url("images/guilu-drink-180cc.jpg?v=20260810-raw2");background-size:auto 88%}
-.xjw-raw-photo--tangkuai{background-image:url("images/guilu-block.jpg?v=20260810-raw2");background-size:88% auto}
-.xjw-raw-photo--jiao{background-image:url("images/products-v2/guilu-jiao-open-new.jpg?v=20260810-raw2");background-size:88% auto}
-.xjw-raw-photo--luerong{background-image:url("images/lurong.jpg?v=20260810-raw2");background-size:auto 82%}
+.xjw-raw-photo--gao{background-image:url("images/guilu-gao-main.jpg?v=20260810-raw3")}
+.xjw-raw-photo--drink30{background-image:url("images/guilu-drink-30cc-glass.jpg?v=20260810-raw3");background-size:auto 68%}
+.xjw-raw-photo--drink180{background-image:url("images/guilu-drink-180cc.jpg?v=20260810-raw3");background-size:auto 88%}
+.xjw-raw-photo--tangkuai{background-image:url("images/guilu-block.jpg?v=20260810-raw3");background-size:88% auto}
+.xjw-raw-photo--jiao{background-image:url("images/products-v2/guilu-jiao-open-new.jpg?v=20260810-raw3");background-size:88% auto}
+.xjw-raw-photo--luerong{background-image:url("images/lurong.jpg?v=20260810-raw3");background-size:auto 82%}
 
 @media(max-width:700px){
   .product-card[data-product-id="guilu-drink-30"] .product-card__img{background-size:auto 52%!important}
@@ -66,6 +88,9 @@
   .product-detail-hero__media a[href*="products-v3/"]{min-height:280px!important}
   .product-detail-hero__media a[href*="guilu-drink-30.jpg"]{background-size:auto 52%!important}
   .product-detail-hero__media a[href*="guilu-drink-180.jpg"]{background-size:auto 76%!important}
+  .modal-gallery__item:has(img[src*="products-v3/"]){min-height:260px!important}
+  .modal-gallery__item:has(img[src*="guilu-drink-30.jpg"]){background-size:auto 52%!important}
+  .modal-gallery__item:has(img[src*="guilu-drink-180.jpg"]){background-size:auto 76%!important}
   .xjw-raw-photo{min-height:230px}
   .xjw-raw-photo--drink30{background-size:auto 58%}
   .xjw-raw-photo--drink180{background-size:auto 80%}
