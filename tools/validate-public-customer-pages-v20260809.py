@@ -15,6 +15,14 @@ PUBLIC_PAGES = [
     "recipes.html",
     "faq.html",
     "brand.html",
+    "brand-facts.html",
+    "ingredients.html",
+    "quality.html",
+    "craft.html",
+    "knowledge.html",
+    "video.html",
+    "hanfang-baike.html",
+    "sources.html",
     "contact.html",
     "trial.html",
     "product-guilu-gao.html",
@@ -37,7 +45,11 @@ FORBIDDEN_VISIBLE = [
     "runtime",
     "快取版本",
     "正式母本",
-    "資料更新：2026-08-09",
+    "機器可讀產品母本",
+    "catalog-public.json",
+    "geo-data.json",
+    "llms-full.txt",
+    "官網、LINE OA、ERP 使用同一套正式資料",
 ]
 
 class VisibleText(HTMLParser):
@@ -81,25 +93,24 @@ def main():
             req(phrase not in text, f"{rel} 可見文案仍含內部／開發用語：{phrase}")
         req("30cc玻璃瓶" not in text and "30cc／瓶" not in text, f"{rel} 又出現30cc瓶型舊稱")
 
+    # 允許歷史型知識頁原始HTML仍帶舊的page-updated節點，但現役清理器必須在前台移除；
+    # 已重寫的核心顧客頁則不得再有這種版本對話。
+    source_clean_pages = ["index.html","products.html","dm.html","knowledge.html","ingredients.html","quality.html","brand-facts.html","faq.html","trial.html"]
+    for rel in source_clean_pages:
+        text = visible_text(ROOT / rel)
+        req("資料更新：" not in text and "內容版本" not in text, f"{rel} 原始顧客文案仍含資料更新／內容版本說明")
+
+    cleanup = (ROOT / "site-public-content-cleanup-v20260809.js").read_text(encoding="utf-8")
+    req(".page-updated" in cleanup and "removeUpdatedNotes" in cleanup, "舊知識頁的資料更新註記沒有前台防回退清理")
+    req("cleanVideoCopy" in cleanup, "影音頁仍缺少網站改版對話清理")
+
     trial_path = ROOT / "trial.html"
     trial = trial_path.read_text(encoding="utf-8")
     trial_visible = visible_text(trial_path)
     req("<iframe" not in trial.lower(), "trial.html 不得再用iframe顯示正式試喝主圖，iPhone Safari曾出現灰屏")
     req("guilu-drink-trial-final-20260808-web.svg" in trial, "trial.html 未使用鎖定正式試喝主圖")
     req("<img" in trial and "trial-poster" in trial, "trial.html 正式試喝圖沒有使用一般img顯示")
-    for phrase in [
-        "3罐試喝品免費",
-        "7-11 店到店",
-        "運費 60元",
-        "郵局宅配",
-        "運費 100元",
-        "30cc／罐（小玻璃罐）",
-        "180cc／包（鋁袋）",
-        "60元／罐",
-        "11罐 600元",
-        "200元／包",
-        "11包 2,000元",
-    ]:
+    for phrase in ["3罐試喝品免費","7-11 店到店","運費 60元","郵局宅配","運費 100元","30cc／罐（小玻璃罐）","180cc／包（鋁袋）","60元／罐","11罐 600元","200元／包","11包 2,000元"]:
         req(phrase in trial_visible, f"trial.html 缺少正式試喝資訊：{phrase}")
 
     product30 = visible_text(ROOT / "product-guilu-drink-30cc.html")
@@ -110,8 +121,10 @@ def main():
     dm = visible_text(ROOT / "dm.html")
     req("六項產品實際包裝與規格" in dm, "產品實品照頁不是顧客版圖鑑")
     req("待審核" not in dm and "毫米尺寸未知" not in dm, "產品實品照頁仍露出內部審核／製圖說明")
+    quality = visible_text(ROOT / "quality.html")
+    req("ERP" not in quality and "產品資訊與實品一致" in quality, "品質頁仍把內部平台管理當成顧客內容")
 
-    print(f"PASS public customer pages: {len(PUBLIC_PAGES)} pages clean; no internal implementation dialogue; trial poster uses img and official trial facts")
+    print(f"PASS public customer pages: {len(PUBLIC_PAGES)} pages audited; core pages source-clean; legacy knowledge pages protected by public cleanup; trial poster uses img")
 
 if __name__ == "__main__":
     main()
