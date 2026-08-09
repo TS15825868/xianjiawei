@@ -5,7 +5,7 @@
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260810-14";
+  const VERSION = "20260810-15";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const CORE = `site-core-v410.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
