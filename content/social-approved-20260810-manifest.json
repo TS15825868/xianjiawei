@@ -1,0 +1,31 @@
+{
+  "version": "2026-08-10-upload-audit-v1",
+  "source": "新貼文的圖(3).zip",
+  "accepted": [
+    {"source":"102B2024-711A-4C6B-9EE6-B9C574AD1FC1.PNG","file":"images/social-approved/20260810/warm-meal-daily-rhythm.jpg","title":"暖食日常安排","release_policy":"evergreen"},
+    {"source":"1BDF6F03-A38C-407B-AC26-28A39EC0DEE7.PNG","file":"images/social-approved/20260810/storage-daily-reminder.jpg","title":"開封與日常保存提醒","release_policy":"evergreen"},
+    {"source":"3C818F36-DCC3-41E8-AA93-F680AD8F5E69.PNG","file":"images/social-approved/20260810/warm-drink-temperature.jpg","title":"熱飲先開封再調整溫度","release_policy":"evergreen"},
+    {"source":"D558F584-DEE1-45BB-B243-6166E118617C.PNG","file":"images/social-approved/20260810/work-rest-reminder.jpg","title":"工作再忙也要留點休息","release_policy":"evergreen"},
+    {"source":"B66BC1FB-49B3-4982-BEB8-283BF4463777.PNG","file":"images/social-approved/20260810/rainy-day-at-home.jpg","title":"下雨天在家留一點暖身時間","release_policy":"weather_hold"},
+    {"source":"8C5C74BD-0459-4C4E-9B52-425FF503DA54.PNG","file":"images/social-approved/20260810/hydration-daily.jpg","title":"日常補水提醒","release_policy":"hot_weather_hold"},
+    {"source":"9CEB8667-4105-4300-928E-57A14A9CA270.PNG","file":"images/social-approved/20260810/hot-weather-outdoor-care.jpg","title":"悶熱外出防曬補水","release_policy":"hot_weather_hold"},
+    {"source":"EFEE829F-108E-4C2B-A8CC-9D803BE5AE8B.PNG","file":"images/social-approved/20260810/care-self-family.jpg","title":"照顧自己也關心家人","release_policy":"evergreen"},
+    {"source":"FE0E7D33-DDFF-4BF0-B2C0-3BFA4BF7D30A.PNG","file":"images/social-approved/20260810/temperature-gap-jacket.jpg","title":"早晚溫差薄外套提醒","release_policy":"weather_hold"},
+    {"source":"AEC94FDF-B7A8-4367-B223-A631798E2256.PNG","file":"images/social-approved/20260810/choose-daily-form.jpg","title":"依作息選擇日常型態","release_policy":"evergreen"},
+    {"source":"1966D041-6C21-4DBE-80E0-50A4DF07152D.PNG","file":"images/social-approved/20260810/product-luerong-powder-75g.jpg","title":"鹿茸粉75g日常搭配","release_policy":"product_review_pass"},
+    {"source":"A57D68A7-5AC0-46B6-869B-7B1B33BA0BE2.PNG","file":"images/social-approved/20260810/product-guilu-jiao-600g.jpg","title":"龜鹿膠600g／32塊","release_policy":"product_review_pass"}
+  ],
+  "rejected": [
+    {"source":"15A965C6-9971-49CD-A994-2EE940CDF0DE.PNG","reason":"30cc標示為「玻璃瓶」，正式名稱必須是「龜鹿飲30cc玻璃罐／30cc罐」。","action":"regenerate"},
+    {"source":"AF3412AF-F398-4FED-BB63-BAF900DDB8C0.PNG","reason":"圖上出現「5°C以下冷藏」固定說法，與目前公開產品母本保存敘述未完全一致。","action":"review_or_regenerate"},
+    {"source":"BE5D3522-FB80-4311-AEDF-C02E226A12A7.PNG","reason":"圖上「也可日常燉煮」不是目前龜鹿膏公開母本的核心固定使用說法，先不進正式庫。","action":"review_or_regenerate"}
+  ],
+  "duplicates": [
+    {"source":"7C74B21C-FFAD-4315-BE75-6C501568B793 2.PNG","duplicate_of":"7C74B21C-FFAD-4315-BE75-6C501568B793.PNG","action":"drop_exact_duplicate"},
+    {"source":"7C74B21C-FFAD-4315-BE75-6C501568B793.PNG","reason":"與下雨天主題B66版本高度重複，保留B66新版。","action":"hold_duplicate_theme"},
+    {"source":"634CBEF9-5A29-44EE-BFFC-AA5DDB8C049B.PNG","reason":"與工作休息D558版本主題重複，保留D558版本。","action":"hold_duplicate_theme"},
+    {"source":"8A1CC795-FAD3-44A7-8304-86DBAE441246.PNG","reason":"與補水8C5／9CE主題重複，保留差異較明確的兩張。","action":"hold_duplicate_theme"},
+    {"source":"8D1745B2-B5D5-4DCA-8643-96BBF69814E8.PNG","reason":"與關心家人EFEE版本主題重複，保留EFEE版本。","action":"hold_duplicate_theme"},
+    {"source":"AD488B6A-D546-4B27-9403-2024646D92A1.PNG","reason":"與早晚溫差FE0E版本主題重複，保留FE0E版本。","action":"hold_duplicate_theme"}
+  ]
+}
