@@ -49,6 +49,7 @@ def check_image_value(pid: str, field: str, value: str):
     req("products-v2" not in value and "dm-final" not in value, f"{pid}.{field} 又回到舊產品圖")
 
 def main():
+    # 顧客頁內容與公開邊界先獨立驗證；貼文系統／ERP 不再阻擋官網正式發布。
     subprocess.run([sys.executable, str(ROOT / "tools/validate-public-customer-pages-v20260809.py")], check=True)
     data=json.loads(text("data.json")); products=data.get("products") or []
     req(len(products)==6, f"data.json 正式產品必須剛好6項，目前{len(products)}項")
@@ -68,6 +69,11 @@ def main():
         page_source=text(page)
         req(f"images/products-v3/{filename}" in page_source, f"{page} 未直接引用正式產品原圖")
         req("products-v2" not in page_source, f"{page} 靜態HTML仍引用 products-v2")
+
+    for rel in PUBLIC_HTML:
+        source=text(rel)
+        req("products-v2" not in source, f"{rel} 靜態HTML仍引用 products-v2 舊產品圖")
+        req("images/dm-final/" not in source, f"{rel} 靜態HTML仍把舊DM當產品正式圖")
 
     for pid in ("guilu-drink-30","guilu-drink-180"):
         p=by_id[pid]
@@ -94,14 +100,11 @@ def main():
 
     trial=text("trial.html")
     req("<iframe" not in trial.lower(), "試喝頁不得再用iframe，iPhone Safari曾灰屏")
-    req("guilu-drink-trial-final-20260808-web.svg" in trial and "<img" in trial, "試喝頁未使用鎖定正式主圖img")
-    req((ROOT/"images/trial/guilu-drink-trial-final-20260808-web.svg").exists(), "正式試喝Web圖不存在")
-
-    publishing=text("publishing-center.html")
-    req("xianjiawei-internal.tung314069.workers.dev/publishing.html" in publishing, "候選審核中心未導向獨立貼文系統")
-    req("/#posts" not in publishing and "ERP 貼文中心" not in publishing, "候選審核中心又導回ERP貼文路由")
-    bridge=text("publishing-center-erp-bridge.js")
-    req("/publishing.html" in bridge and "#posts" not in bridge, "候選交接仍導向舊ERP貼文頁")
+    req("images/products-v3/guilu-drink-30.jpg" in trial, "試喝頁主視覺必須使用30cc products-v3正式實拍")
+    req("images/products-v3/guilu-drink-180.jpg" in trial, "試喝頁必須另列180cc products-v3正式實拍")
+    req("guilu-drink-trial-final-20260808-web.svg" not in trial, "試喝頁不得回退到舊價格／活動歷史圖")
+    req("試喝品免費，運費自付" in trial, "試喝頁缺少正式試喝說明")
+    req("龜鹿飲30cc小玻璃罐 × 3罐" in trial, "試喝頁試喝份量未鎖定目前正式3罐版本")
 
     broken=[]
     for rel in PUBLIC_HTML:
@@ -120,6 +123,6 @@ def main():
 
     site_js=text("site.js"); req("site-formal-v20260809.css" in site_js, "site.js 未載入正式版面CSS")
     formal_css=text("site-formal-v20260809.css"); req("object-fit:contain" in formal_css.replace(" ","").lower(), "正式CSS未鎖定圖片contain")
-    print(f"PASS website production release: {len(PUBLIC_HTML)} customer pages, 6 canonical products, ingredients/usage/fulfillment, physical scale, trial, navigation and standalone publishing handoff validated")
+    print(f"PASS website production release: {len(PUBLIC_HTML)} customer pages, 6 canonical products, ingredients/usage/fulfillment, physical scale, products-v3 trial, navigation and website-only release boundary validated")
 
 if __name__ == "__main__": main()
