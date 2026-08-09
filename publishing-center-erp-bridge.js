@@ -24,11 +24,12 @@
     if(reservedWindow&&!reservedWindow.closed){try{reservedWindow.opener=null;reservedWindow.location.replace(publishingUrl);return}catch{}}
     window.open(publishingUrl,'_blank','noopener');
   }
-  function enhance(){document.querySelectorAll('[data-now]').forEach(button=>{button.textContent='匯入獨立貼文系統｜再審核發布';button.title='完整貼文會先安全匯入獨立貼文系統草稿；needs_generation貼文不帶入舊圖。人工審核通過後，可選固定排程或立即發布。';button.dataset.erpPublishHandoff='1'});const metric=document.getElementById('metricLocal');const label=metric?.parentElement?.querySelector('small');if(label)label.textContent='本機補登';document.querySelectorAll('.status').forEach(node=>{if(node.textContent.trim()==='本機已發布')node.textContent='本機補登已發布'})}
+  function labelPage(){document.title='仙加味｜貼文審核中心';const h1=document.querySelector('.topbar h1');if(h1)h1.textContent='貼文審核中心';const eyebrow=document.querySelector('.topbar .eyebrow');if(eyebrow)eyebrow.textContent='仙加味・公開候選審核工具';const subtitle=document.querySelector('.topbar .subtitle');if(subtitle)subtitle.textContent='公開候選文案、圖片與16項檢查在這裡整理；正式審核、排程、立即發布與平台結果統一進獨立貼文發佈系統。';document.querySelectorAll('.topbar a').forEach(link=>{if(String(link.href||'').includes('xianjiawei-internal.tung314069.workers.dev')){link.href=PUBLISHING_BASE;link.textContent='前往獨立貼文發佈系統'}})}
+  function enhance(){labelPage();document.querySelectorAll('[data-now]').forEach(button=>{button.textContent='匯入獨立貼文系統｜再審核發布';button.title='完整貼文會先安全匯入獨立貼文系統草稿；needs_generation貼文不帶入舊圖。人工審核通過後，可選固定排程或立即發布。';button.dataset.erpPublishHandoff='1'});const metric=document.getElementById('metricLocal');const label=metric?.parentElement?.querySelector('small');if(label)label.textContent='本機補登';document.querySelectorAll('.status').forEach(node=>{if(node.textContent.trim()==='本機已發布')node.textContent='本機補登已發布'})}
   migrateLegacyFakePublish();
   document.addEventListener('click',event=>{const button=event.target.closest?.('[data-now]');if(!button)return;event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();const reserved=window.open('about:blank','_blank');if(!reserved)toast('瀏覽器阻擋新分頁，請允許此網站開啟新分頁後再試');handoff(button,reserved)},true);
   const observer=new MutationObserver(enhance);observer.observe(document.documentElement,{childList:true,subtree:true});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{enhance();if(window.__XJW_PUBLIC_PUBLISH_MIGRATED__)setTimeout(()=>location.reload(),80)},{once:true});else{enhance();if(window.__XJW_PUBLIC_PUBLISH_MIGRATED__)setTimeout(()=>location.reload(),80)}
-  window.XJWERPBridge=Object.freeze({version:'2026-08-09-v6-standalone-publishing',publishingBase:PUBLISHING_BASE,requiresGeneration});
+  window.XJWERPBridge=Object.freeze({version:'2026-08-09-v7-standalone-publishing-labels',publishingBase:PUBLISHING_BASE,requiresGeneration});
   window.XJWPublishingBridge=window.XJWERPBridge;
 })();
