@@ -1,10 +1,15 @@
 User-agent: *
 Allow: /
 Disallow: /content/
+Disallow: /config/
+Disallow: /tools/
+Disallow: /deploy-version.json
 Disallow: /publishing-center.html
 Disallow: /publishing-center-data-
+Disallow: /publishing-center-guardian.js
 Disallow: /post-bank-export.html
 Disallow: /images/posts/generated-
 Disallow: /images/posts/approved-
+Disallow: /images/posts/candidates-
 
 Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml
