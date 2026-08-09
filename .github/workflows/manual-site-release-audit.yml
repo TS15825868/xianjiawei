@@ -17,5 +17,7 @@ jobs:
           python-version: '3.12'
       - name: Audit all customer-facing pages and formal product/trial contracts
         run: python tools/validate-site-production-release-v20260809.py
+      - name: Audit single cohesive visual and no-collage policy
+        run: python tools/validate-visual-cohesion-v20260809.py
       - name: Ensure audit makes no repository changes
         run: git diff --exit-code
