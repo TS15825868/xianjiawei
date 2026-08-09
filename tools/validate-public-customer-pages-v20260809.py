@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -51,6 +52,7 @@ FORBIDDEN_VISIBLE = [
     "llms-full.txt",
     "官網、LINE OA、ERP 使用同一套正式資料",
 ]
+PRIVATE_PRICE_RE = re.compile(r"(?<!\d)(?:60|200|600|1,500|1500|1,600|1600|1,800|1800|2,000|2000|2,100|2100|9,600|9600|12,000|12000)\s*元")
 
 class VisibleText(HTMLParser):
     def __init__(self):
@@ -92,6 +94,10 @@ def main():
         for phrase in FORBIDDEN_VISIBLE:
             req(phrase not in text, f"{rel} 可見文案仍含內部／開發用語：{phrase}")
         req("30cc玻璃瓶" not in text and "30cc／瓶" not in text, f"{rel} 又出現30cc瓶型舊稱")
+        if rel != "trial.html":
+            req("正式售價" not in text and "優惠價" not in text, f"{rel} 不得公開顯示商品售價／優惠價")
+            match = PRIVATE_PRICE_RE.search(text)
+            req(match is None, f"{rel} 洩漏LINE／私訊銷售金額：{match.group(0) if match else ''}")
 
     # 允許歷史型知識頁原始HTML仍帶舊的page-updated節點，但現役清理器必須在前台移除；
     # 已重寫的核心顧客頁則不得再有這種版本對話。
@@ -124,7 +130,7 @@ def main():
     quality = visible_text(ROOT / "quality.html")
     req("ERP" not in quality and "產品資訊與實品一致" in quality, "品質頁仍把內部平台管理當成顧客內容")
 
-    print(f"PASS public customer pages: {len(PUBLIC_PAGES)} pages audited; core pages source-clean; legacy knowledge pages protected by public cleanup; trial poster uses img")
+    print(f"PASS public customer pages: {len(PUBLIC_PAGES)} pages audited; private product prices hidden outside trial; core pages source-clean; trial poster uses img")
 
 if __name__ == "__main__":
     main()
