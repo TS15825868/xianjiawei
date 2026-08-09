@@ -1,13 +1,13 @@
 "use strict";
 
-/* 正式產品原照安全層 2026-08-09
- * 最新使用者確認：products-v3 為正式產品本體來源。
- * 官網所有產品卡、詳頁、快速查看一律使用 products-v3 正式原圖；
+/* 正式產品原照安全層 2026-08-10
+ * products-v3 六張正式路徑目前直接存放真正產品實拍原圖。
+ * 官網所有產品卡、詳頁、快速查看一律使用同一批 products-v3 真原圖；
  * 舊 products-v2、舊DM與30cc瓶裝錯版不得再作正式產品主圖。
  * 所有產品只允許等比例顯示，禁止拉寬、拉高或用 cover 裁切。
  */
 (function(){
-  const VERSION = "20260809-21-products-v3-size-lock";
+  const VERSION = "20260810-products-v3-true-originals-v2";
   const OFFICIAL = Object.freeze({
     gao: `images/products-v3/guilu-gao.jpg?v=${VERSION}`,
     drink30: `images/products-v3/guilu-drink-30.jpg?v=${VERSION}`,
