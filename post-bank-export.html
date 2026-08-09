@@ -27,8 +27,10 @@
   const RUNTIME='20260810-export-v2-true-originals';
   const PRODUCT_IMAGE_VERSION='20260810-products-v3-true-originals-v2';
   const FORCED_REGEN_IDS=['POST-PRODUCT-OVERVIEW','POST-COMBO','POST-GUIDE','POST-CHOOSE','POST-CHOOSE-BY-HABIT'];
+  const KNOWN_REGENERATION_MINIMUM=121;
   const INTERNAL_ORIGIN='https://xianjiawei-internal.tung314069.workers.dev';
   const state=document.getElementById('state');
+  const countMode=(posts,mode)=>posts.filter(post=>post?.candidate_generation_mode===mode&&post?.image_status==='needs_generation'&&!String(post?.image_url||'').trim()).length;
   function verifyRuntime(posts){
     const authority=window.XJWActualProductPhotoAuthority;
     if(authority?.productImageVersion!==PRODUCT_IMAGE_VERSION)throw new Error(`產品圖守門未載入目前正式版本：${authority?.productImageVersion||'未提供'}`);
@@ -38,6 +40,18 @@
       if(post.image_status!=='needs_generation'||String(post.image_url||'').trim())throw new Error(`${id} 仍帶舊卡片／海報候選，已停止匯出`);
       if(post.candidate_generation_mode!=='copy-matched-regeneration-required')throw new Error(`${id} 未進入正式ChatGPT重生成流程`);
     }
+    const v13=countMode(posts,'chatgpt-character-scene-v13-b3-context-required');
+    const v14=countMode(posts,'chatgpt-boss-daily-v14-b1-exact-required');
+    const v17=countMode(posts,'chatgpt-boss-daily-v17-retired-composite-required');
+    const v15=countMode(posts,'chatgpt-companion-v15-b2-exact-required');
+    const product=countMode(posts,'copy-matched-regeneration-required');
+    if(v13!==72)throw new Error(`節慶／地點／萬華重生成數量不同步：${v13}/72`);
+    if(v14+v17!==28)throw new Error(`小老闆日常重生成數量不同步：${v14+v17}/28`);
+    if(v15!==16)throw new Error(`陪伴角色重生成數量不同步：${v15}/16`);
+    if(product<5)throw new Error(`產品版型強制重生成數量不足：${product}/5`);
+    const known=v13+v14+v17+v15+FORCED_REGEN_IDS.length;
+    if(known<KNOWN_REGENERATION_MINIMUM)throw new Error(`已知重生成最低數量不同步：${known}/${KNOWN_REGENERATION_MINIMUM}`);
+    return{v13,v14:v14+v17,v15,product:FORCED_REGEN_IDS.length,knownMinimum:known};
   }
   async function run(){
     try{
@@ -46,11 +60,11 @@
       const data=await response.json();
       const posts=Array.isArray(data.posts)?data.posts:[];
       if(posts.length!==500)throw new Error(`runtime 母庫應為500篇，目前${posts.length}篇`);
-      verifyRuntime(posts);
-      const payload={schema:SCHEMA,runtime:RUNTIME,version:data.version||'',generated_at:new Date().toISOString(),authority:'TS15825868/xianjiawei',product_image_version:PRODUCT_IMAGE_VERSION,forced_regeneration_ids:FORCED_REGEN_IDS,posts,counts:data.counts||{}};
-      state.className='ok';state.textContent=`已重建 ${posts.length} 篇；5篇舊產品卡片已強制重生成，候選只供正式貼文系統同步與人工審核。`;
+      const regeneration=verifyRuntime(posts);
+      const payload={schema:SCHEMA,runtime:RUNTIME,version:data.version||'',generated_at:new Date().toISOString(),authority:'TS15825868/xianjiawei',product_image_version:PRODUCT_IMAGE_VERSION,forced_regeneration_ids:FORCED_REGEN_IDS,known_regeneration:regeneration,posts,counts:data.counts||{}};
+      state.className='ok';state.textContent=`已重建 ${posts.length} 篇；已驗證至少 ${regeneration.knownMinimum} 篇必須重生成，候選只供正式貼文系統同步與人工審核。`;
       if(window.parent!==window)window.parent.postMessage(payload,INTERNAL_ORIGIN);
-      window.XJWPostBankExport=Object.freeze({schema:SCHEMA,runtime:RUNTIME,count:posts.length,version:payload.version,productImageVersion:PRODUCT_IMAGE_VERSION,forcedRegenerationIds:FORCED_REGEN_IDS,payload});
+      window.XJWPostBankExport=Object.freeze({schema:SCHEMA,runtime:RUNTIME,count:posts.length,version:payload.version,productImageVersion:PRODUCT_IMAGE_VERSION,forcedRegenerationIds:FORCED_REGEN_IDS,knownRegenerationMinimum:KNOWN_REGENERATION_MINIMUM,payload});
     }catch(error){
       state.className='error';state.textContent=error?.message||String(error);
       if(window.parent!==window)window.parent.postMessage({schema:SCHEMA,error:error?.message||String(error)},INTERNAL_ORIGIN);
