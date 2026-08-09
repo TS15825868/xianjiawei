@@ -1,5 +1,5 @@
 /* 仙加味正式上線視覺收斂｜2026-08-09
-   目的：首頁資訊層級收斂、Q版小老闆完整顯示、產品與角色圖片一律 contain 不裁切。
+   目的：全站品牌底色、Logo不壓縮、產品與角色圖片一律 contain 不裁切；首頁資訊層級收斂。
 */
 
 :root{
@@ -12,13 +12,48 @@
   --xjw-green:#4f5f3b;
 }
 
-/* 任何官網核准小老闆素材：全站完整顯示，不使用 cover、縮放裁切或 clip。 */
+/* 全站正式品牌畫布：不要被舊灰色漸層或後補樣式帶偏。 */
+html,body{
+  background:var(--xjw-cream) !important;
+}
+.site-header{
+  background:rgba(247,244,237,.96) !important;
+}
+
+/* Header Logo：只等比例縮放，禁止固定方框把原圖壓縮。 */
+.site-header .brand-mark{
+  min-width:0;
+  flex:0 1 auto;
+}
+.site-header .brand-mark img{
+  width:auto !important;
+  height:46px !important;
+  max-width:min(42vw,180px) !important;
+  object-fit:contain !important;
+  object-position:left center !important;
+  transform:none !important;
+  flex:0 0 auto !important;
+}
+
+/* 正式產品與官網角色：全站只允許完整等比例顯示。 */
+.product-card__img,
+.modal-gallery__item{
+  overflow:hidden;
+  background:#fbf7ef;
+}
+.product-card__img img,
+.modal-gallery__item img,
+img[src*="images/products-v3/"],
 img[src*="images/brand/approved-v405/"],
 img[src*="images/brand/line-oa/"]{
   object-fit:contain !important;
   object-position:center center !important;
   transform:none !important;
   clip-path:none !important;
+}
+img[src*="images/products-v3/"]{
+  max-width:100%;
+  height:auto;
 }
 
 body[data-page="home"] .page{
@@ -253,6 +288,10 @@ body[data-page="home"] .page-updated{
 }
 
 @media (max-width:640px){
+  .site-header .brand-mark img{
+    height:40px !important;
+    max-width:min(48vw,150px) !important;
+  }
   body[data-page="home"] .hero{
     padding:18px 12px 14px;
   }
