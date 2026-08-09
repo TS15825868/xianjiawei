@@ -8,23 +8,23 @@
 <style>body{font-family:-apple-system,BlinkMacSystemFont,"PingFang TC",sans-serif;background:#f7f4ed;color:#0b1f3b;margin:0;padding:32px}main{max-width:760px;margin:auto;background:#fff;padding:28px;border-radius:20px;border:1px solid #e4ddd0}code{word-break:break-all}.ok{color:#245b3b}.error{color:#8b1e1e}</style>
 </head>
 <body>
-<main><h1>仙加味貼文母庫安全匯出</h1><p id="state">正在重建正式 runtime 母庫…</p><p>此頁只用於 500 篇內容庫的安全遷移；不核准、不排程、不發布。產品本體只認 20260810-products-v3-true-originals-v2 真正實拍原圖；舊海報／卡片候選不視為完成圖。</p></main>
-<script src="publishing-center-data-v6.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v7.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v8-fixes.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v10-published-locks.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v11-campaign-holds.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v12-auto-candidates.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v13-character-scenes.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v14-boss-daily.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v15-companions.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v16-actual-product-photos.js?v=20260810-export-v2-true-originals"></script>
-<script src="publishing-center-data-v17-retired-composite-guard.js?v=20260810-export-v2-true-originals"></script>
+<main><h1>仙加味貼文母庫安全匯出</h1><p id="state">正在重建正式 runtime 母庫…</p><p>此頁只用於 500 篇內容庫的安全遷移；不核准、不排程、不發布。產品本體只認 20260810-products-v3-true-originals-v2 真正實拍原圖；舊海報／卡片候選已退役並移除，不視為完成圖。</p></main>
+<script src="publishing-center-data-v6.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v7.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v8-fixes.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v10-published-locks.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v11-campaign-holds.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v12-auto-candidates.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v13-character-scenes.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v14-boss-daily.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v15-companions.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v16-actual-product-photos.js?v=20260810-export-v3-retired-assets-removed"></script>
+<script src="publishing-center-data-v17-retired-composite-guard.js?v=20260810-export-v3-retired-assets-removed"></script>
 <script>
 (()=>{
   'use strict';
   const SCHEMA='xjw-post-bank-export-v1';
-  const RUNTIME='20260810-export-v2-true-originals';
+  const RUNTIME='20260810-export-v3-retired-assets-removed';
   const PRODUCT_IMAGE_VERSION='20260810-products-v3-true-originals-v2';
   const FORCED_REGEN_IDS=['POST-PRODUCT-OVERVIEW','POST-COMBO','POST-GUIDE','POST-CHOOSE','POST-CHOOSE-BY-HABIT'];
   const KNOWN_REGENERATION_MINIMUM=121;
@@ -34,6 +34,7 @@
   function verifyRuntime(posts){
     const authority=window.XJWActualProductPhotoAuthority;
     if(authority?.productImageVersion!==PRODUCT_IMAGE_VERSION)throw new Error(`產品圖守門未載入目前正式版本：${authority?.productImageVersion||'未提供'}`);
+    if(!String(authority?.version||'').includes('retired-assets-removed'))throw new Error(`產品圖守門仍不是退役資產清除版：${authority?.version||'未提供'}`);
     for(const id of FORCED_REGEN_IDS){
       const post=posts.find(item=>item?.id===id);
       if(!post)throw new Error(`母庫缺少強制重生成貼文：${id}`);
@@ -61,10 +62,10 @@
       const posts=Array.isArray(data.posts)?data.posts:[];
       if(posts.length!==500)throw new Error(`runtime 母庫應為500篇，目前${posts.length}篇`);
       const regeneration=verifyRuntime(posts);
-      const payload={schema:SCHEMA,runtime:RUNTIME,version:data.version||'',generated_at:new Date().toISOString(),authority:'TS15825868/xianjiawei',product_image_version:PRODUCT_IMAGE_VERSION,forced_regeneration_ids:FORCED_REGEN_IDS,known_regeneration:regeneration,posts,counts:data.counts||{}};
-      state.className='ok';state.textContent=`已重建 ${posts.length} 篇；已驗證至少 ${regeneration.knownMinimum} 篇必須重生成，候選只供正式貼文系統同步與人工審核。`;
+      const payload={schema:SCHEMA,runtime:RUNTIME,version:data.version||'',generated_at:new Date().toISOString(),authority:'TS15825868/xianjiawei',product_image_version:PRODUCT_IMAGE_VERSION,forced_regeneration_ids:FORCED_REGEN_IDS,known_regeneration:regeneration,retired_assets_removed:true,posts,counts:data.counts||{}};
+      state.className='ok';state.textContent=`已重建 ${posts.length} 篇；已驗證至少 ${regeneration.knownMinimum} 篇必須重生成，5張舊產品卡片資產已移除。`;
       if(window.parent!==window)window.parent.postMessage(payload,INTERNAL_ORIGIN);
-      window.XJWPostBankExport=Object.freeze({schema:SCHEMA,runtime:RUNTIME,count:posts.length,version:payload.version,productImageVersion:PRODUCT_IMAGE_VERSION,forcedRegenerationIds:FORCED_REGEN_IDS,knownRegenerationMinimum:KNOWN_REGENERATION_MINIMUM,payload});
+      window.XJWPostBankExport=Object.freeze({schema:SCHEMA,runtime:RUNTIME,count:posts.length,version:payload.version,productImageVersion:PRODUCT_IMAGE_VERSION,forcedRegenerationIds:FORCED_REGEN_IDS,knownRegenerationMinimum:KNOWN_REGENERATION_MINIMUM,retiredAssetsRemoved:true,payload});
     }catch(error){
       state.className='error';state.textContent=error?.message||String(error);
       if(window.parent!==window)window.parent.postMessage({schema:SCHEMA,error:error?.message||String(error)},INTERNAL_ORIGIN);
