@@ -6,6 +6,7 @@
   ];
   const LIVE=['颱風','寒流','高溫','空氣品質','午後雷陣雨'];
   const GUARD_BLOCKING=false;
+  const PUBLISHING_URL='https://xianjiawei-internal.tung314069.workers.dev/publishing.html';
   function text(card){return `${card.querySelector('h2')?.textContent||''} ${card.querySelector('.excerpt')?.textContent||''}`}
   function imageUrls(card){
     const urls=[];
@@ -59,15 +60,15 @@
     return{errors:[...new Set(errors)],notes};
   }
   function labelPageRole(){
-    document.title='仙加味｜貼文審核中心';
+    document.title='仙加味｜貼文候選審核中心';
     const h1=document.querySelector('.topbar h1');
-    if(h1)h1.textContent='貼文審核中心';
+    if(h1)h1.textContent='貼文候選審核中心';
     const eyebrow=document.querySelector('.topbar .eyebrow');
-    if(eyebrow)eyebrow.textContent='仙加味・公開審核工具';
+    if(eyebrow)eyebrow.textContent='仙加味・內容候選庫';
     const subtitle=document.querySelector('.topbar .subtitle');
-    if(subtitle)subtitle.textContent='這裡負責候選文案、候選圖片、16項檢查與ERP草稿交接；真正的立即發布與固定排程請到ERP貼文中心。';
+    if(subtitle)subtitle.textContent='查看候選文案與圖片、完成16項檢查；正式審核、排程、立即發布與平台結果統一進獨立貼文發佈系統。';
     document.querySelectorAll('.topbar a').forEach(link=>{
-      if(String(link.href||'').includes('xianjiawei-internal.tung314069.workers.dev'))link.textContent='前往 ERP 正式發布';
+      if(String(link.href||'').includes('xianjiawei-internal.tung314069.workers.dev')){link.href=PUBLISHING_URL;link.textContent='前往獨立貼文發佈系統'}
     });
   }
   function enhance(){
