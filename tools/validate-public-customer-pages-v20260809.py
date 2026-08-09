@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_PAGES = [
     "index.html",
     "products.html",
+    "dm.html",
     "choose.html",
     "combo.html",
     "guide.html",
@@ -106,6 +107,9 @@ def main():
     products = visible_text(ROOT / "products.html")
     req("75g／盒｜8塊裝｜每塊約9.375g" in products, "產品總覽龜鹿湯塊規格錯誤")
     req("600g（1斤）／盒｜32塊裝｜每塊約18.75g" in products, "產品總覽龜鹿膠規格錯誤")
+    dm = visible_text(ROOT / "dm.html")
+    req("六項產品實際包裝與規格" in dm, "產品實品照頁不是顧客版圖鑑")
+    req("待審核" not in dm and "毫米尺寸未知" not in dm, "產品實品照頁仍露出內部審核／製圖說明")
 
     print(f"PASS public customer pages: {len(PUBLIC_PAGES)} pages clean; no internal implementation dialogue; trial poster uses img and official trial facts")
 
