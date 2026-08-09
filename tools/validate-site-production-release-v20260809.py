@@ -19,7 +19,14 @@ PRODUCTS = {
     "guilu-jiao": ("龜鹿膠", "600g（1斤）／盒｜32塊裝｜每塊約18.75g", "guilu-jiao.jpg", "product-guilu-jiao.html"),
     "luerong-fen": ("鹿茸粉", "75g／罐", "luerong-fen.jpg", "product-luerong-fen.html"),
 }
-
+CANONICAL_INGREDIENTS = {
+    "guilu-gao": ["鹿角萃取物","龜板萃取物","枸杞","紅棗","黃耆","粉光蔘"],
+    "guilu-drink-30": ["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],
+    "guilu-drink-180": ["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],
+    "guilu-tangkuai": ["龜板萃取物","鹿角萃取物"],
+    "guilu-jiao": ["龜板萃取物","鹿角萃取物"],
+    "luerong-fen": ["鹿茸"],
+}
 PUBLIC_HTML = [
     "index.html","products.html","dm.html","choose.html","combo.html","guide.html","recipes.html","faq.html",
     "brand.html","brand-facts.html","ingredients.html","quality.html","craft.html","knowledge.html","video.html",
@@ -28,28 +35,22 @@ PUBLIC_HTML = [
 ]
 
 class Links(HTMLParser):
-    def __init__(self):
-        super().__init__(); self.hrefs=[]
+    def __init__(self): super().__init__(); self.hrefs=[]
     def handle_starttag(self, tag, attrs):
-        if tag != "a": return
-        href=dict(attrs).get("href")
-        if href: self.hrefs.append(href)
+        if tag == "a":
+            href=dict(attrs).get("href")
+            if href: self.hrefs.append(href)
 
 def req(ok: bool, message: str):
     if not ok: raise AssertionError(message)
-
-def text(path: str) -> str:
-    return (ROOT / path).read_text(encoding="utf-8")
-
+def text(path: str) -> str: return (ROOT / path).read_text(encoding="utf-8")
 def check_image_value(pid: str, field: str, value: str):
     req("/images/products-v3/" in value or value.startswith("images/products-v3/"), f"{pid}.{field} 未使用 products-v3 正式原圖")
     req("products-v2" not in value and "dm-final" not in value, f"{pid}.{field} 又回到舊產品圖")
 
 def main():
     subprocess.run([sys.executable, str(ROOT / "tools/validate-public-customer-pages-v20260809.py")], check=True)
-
-    data=json.loads(text("data.json"))
-    products=data.get("products") or []
+    data=json.loads(text("data.json")); products=data.get("products") or []
     req(len(products)==6, f"data.json 正式產品必須剛好6項，目前{len(products)}項")
     by_id={p.get("id"):p for p in products}
     for pid,(name,spec,filename,page) in PRODUCTS.items():
@@ -57,18 +58,30 @@ def main():
         req(p.get("name")==name or p.get("displayName")==name, f"{pid} 正式名稱錯誤")
         actual=p.get("specification") or p.get("size") or p.get("spec")
         req(actual==spec, f"{pid} 正式規格錯誤：{actual}")
+        req(p.get("ingredients")==CANONICAL_INGREDIENTS[pid], f"{pid} 正式成分或成分順序不同步")
         for field in ("image","dmImage","officialOriginalImage"):
-            value=str(p.get(field) or "")
-            req(bool(value), f"{pid}.{field} 缺少正式產品原圖")
-            check_image_value(pid,field,value)
+            value=str(p.get(field) or ""); req(bool(value), f"{pid}.{field} 缺少正式產品原圖"); check_image_value(pid,field,value)
         for field in ("imageUrl","image_url"):
             if p.get(field): check_image_value(pid,field,str(p[field]))
-        if p.get("imagePolicy") is not None:
-            req("contain" in str(p.get("imagePolicy")), f"{pid} 圖片政策未鎖定 contain/no-crop")
+        if p.get("imagePolicy") is not None: req("contain" in str(p.get("imagePolicy")), f"{pid} 圖片政策未鎖定 contain/no-crop")
         req((ROOT/"images/products-v3"/filename).exists(), f"缺少正式產品原圖：images/products-v3/{filename}")
         page_source=text(page)
         req(f"images/products-v3/{filename}" in page_source, f"{page} 未直接引用正式產品原圖")
         req("products-v2" not in page_source, f"{page} 靜態HTML仍引用 products-v2")
+
+    for pid in ("guilu-drink-30","guilu-drink-180"):
+        p=by_id[pid]
+        req(p.get("fulfillmentType")=="made-to-order-drink", f"{pid} 必須是接單製作龜鹿飲")
+        req(p.get("readyStock") is False, f"{pid} 不得標成現貨")
+        req(p.get("productionLeadTime")=="5～7個工作天", f"{pid} 製作時間必須是5～7個工作天")
+    for pid in ("guilu-gao","guilu-tangkuai","guilu-jiao","luerong-fen"):
+        p=by_id[pid]
+        req(p.get("fulfillmentType")=="ready-stock", f"{pid} 必須是預先備貨商品")
+        req(p.get("readyStock") is True, f"{pid} 現貨狀態不同步")
+        req(p.get("productionLeadTime") is None, f"{pid} 不得套用龜鹿飲5～7個工作天")
+    gao_usage=by_id["guilu-gao"].get("usage") or []
+    req("每日早上及下午各一小匙" in gao_usage, "龜鹿膏正式用法缺少每日早上及下午各一小匙")
+    req(not any("每天一次，每次一小匙" in str(x) for x in gao_usage), "龜鹿膏又回到舊的一日一次用法")
 
     p30=json.dumps(by_id["guilu-drink-30"],ensure_ascii=False)
     req(not re.search(r"玻璃瓶|30cc\s*[／/]\s*瓶|瓶裝",p30), "30cc正式母資料又出現瓶／瓶裝")
@@ -105,12 +118,8 @@ def main():
             if not resolved.exists(): broken.append(f"{rel} → {target}")
     req(not broken, "站內連結目標不存在："+"；".join(broken[:20]))
 
-    site_js=text("site.js")
-    req("site-formal-v20260809.css" in site_js, "site.js 未載入正式版面CSS")
-    formal_css=text("site-formal-v20260809.css")
-    req("object-fit:contain" in formal_css.replace(" ","").lower(), "正式CSS未鎖定圖片contain")
+    site_js=text("site.js"); req("site-formal-v20260809.css" in site_js, "site.js 未載入正式版面CSS")
+    formal_css=text("site-formal-v20260809.css"); req("object-fit:contain" in formal_css.replace(" ","").lower(), "正式CSS未鎖定圖片contain")
+    print(f"PASS website production release: {len(PUBLIC_HTML)} customer pages, 6 canonical products, ingredients/usage/fulfillment, physical scale, trial, navigation and standalone publishing handoff validated")
 
-    print(f"PASS website production release: {len(PUBLIC_HTML)} customer pages, 6 products, physical-scale locks, trial, navigation, standalone publishing handoff and no internal-copy leakage validated")
-
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()
