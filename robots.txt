@@ -11,5 +11,8 @@ Disallow: /post-bank-export.html
 Disallow: /images/posts/generated-
 Disallow: /images/posts/approved-
 Disallow: /images/posts/candidates-
+Disallow: /images/products-v2/
+Disallow: /images/products-v4/
+Disallow: /images/dm-final/
 
 Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml
