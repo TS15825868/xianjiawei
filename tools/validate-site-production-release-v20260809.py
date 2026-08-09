@@ -41,6 +41,10 @@ def req(ok: bool, message: str):
 def text(path: str) -> str:
     return (ROOT / path).read_text(encoding="utf-8")
 
+def check_image_value(pid: str, field: str, value: str):
+    req("/images/products-v3/" in value or value.startswith("images/products-v3/"), f"{pid}.{field} 未使用 products-v3 正式原圖")
+    req("products-v2" not in value and "dm-final" not in value, f"{pid}.{field} 又回到舊產品圖")
+
 def main():
     subprocess.run([sys.executable, str(ROOT / "tools/validate-public-customer-pages-v20260809.py")], check=True)
 
@@ -53,10 +57,12 @@ def main():
         req(p.get("name")==name or p.get("displayName")==name, f"{pid} 正式名稱錯誤")
         actual=p.get("specification") or p.get("size") or p.get("spec")
         req(actual==spec, f"{pid} 正式規格錯誤：{actual}")
-        for field in ("image","imageUrl","image_url","dmImage","officialOriginalImage"):
+        for field in ("image","dmImage","officialOriginalImage"):
             value=str(p.get(field) or "")
-            req("/images/products-v3/" in value or value.startswith("images/products-v3/"), f"{pid}.{field} 未使用 products-v3 正式原圖")
-            req("products-v2" not in value and "dm-final" not in value, f"{pid}.{field} 又回到舊產品圖")
+            req(bool(value), f"{pid}.{field} 缺少正式產品原圖")
+            check_image_value(pid,field,value)
+        for field in ("imageUrl","image_url"):
+            if p.get(field): check_image_value(pid,field,str(p[field]))
         if p.get("imagePolicy") is not None:
             req("contain" in str(p.get("imagePolicy")), f"{pid} 圖片政策未鎖定 contain/no-crop")
         req((ROOT/"images/products-v3"/filename).exists(), f"缺少正式產品原圖：images/products-v3/{filename}")
@@ -66,6 +72,10 @@ def main():
 
     p30=json.dumps(by_id["guilu-drink-30"],ensure_ascii=False)
     req(not re.search(r"玻璃瓶|30cc\s*[／/]\s*瓶|瓶裝",p30), "30cc正式母資料又出現瓶／瓶裝")
+    req(by_id["guilu-drink-30"].get("knownContainerDimensionsMm")=={"diameter":42,"height":51}, "30cc實際尺寸鎖不是Ø42×H51mm")
+    req(by_id["guilu-gao"].get("knownContainerDimensionsMm")=={"width":51,"height":78}, "龜鹿膏100g實際尺寸鎖不是51×78mm")
+    ratio=(by_id["guilu-drink-180"].get("aspectRatioWidthToHeight") or {}).get("target")
+    req(abs(float(ratio or 0)-0.64)<0.001, "180cc鋁袋寬高比目標不是0.64")
     soup=json.dumps(by_id["guilu-tangkuai"],ensure_ascii=False)
     req(not re.search(r"300\s*g|600\s*g",soup,re.I), "龜鹿湯塊正式母資料又出現300g／600g")
 
@@ -80,7 +90,6 @@ def main():
     bridge=text("publishing-center-erp-bridge.js")
     req("/publishing.html" in bridge and "#posts" not in bridge, "候選交接仍導向舊ERP貼文頁")
 
-    # 驗站內HTML導覽：忽略外部網址、mailto/tel/hash、動態query，只驗實際.html目標存在。
     broken=[]
     for rel in PUBLIC_HTML:
         parser=Links(); parser.feed(text(rel))
@@ -101,7 +110,7 @@ def main():
     formal_css=text("site-formal-v20260809.css")
     req("object-fit:contain" in formal_css.replace(" ","").lower(), "正式CSS未鎖定圖片contain")
 
-    print(f"PASS website production release: {len(PUBLIC_HTML)} customer pages, 6 products, trial, navigation, standalone publishing handoff and no internal-copy leakage validated")
+    print(f"PASS website production release: {len(PUBLIC_HTML)} customer pages, 6 products, physical-scale locks, trial, navigation, standalone publishing handoff and no internal-copy leakage validated")
 
 if __name__ == "__main__":
     main()
