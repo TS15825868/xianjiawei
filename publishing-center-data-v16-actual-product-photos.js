@@ -2,7 +2,7 @@
   const PREV_FETCH=window.fetch.bind(window);
   const TARGET='content/public-post-library.json';
   const PRODUCT_IMAGE_VERSION='20260810-products-v3-true-originals-v2';
-  const VERSION='2026-08-10-v17-products-v3-true-originals-regeneration-first';
+  const VERSION='2026-08-10-v18-products-v3-true-originals-retired-assets-removed';
   const MAP={
     'guilu-gao':`https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=${PRODUCT_IMAGE_VERSION}`,
     'guilu-drink-30':`https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=${PRODUCT_IMAGE_VERSION}`,
@@ -23,14 +23,13 @@
     'POST-STORE':'images/posts/generated-v20260808-preflight/contact-line.svg',
     'POST-RECIPES':'images/posts/generated-v20260808-preflight/recipes.svg'
   });
-  const RETIRED_BATCH5_CANDIDATES=Object.freeze({
-    'POST-PRODUCT-OVERVIEW':'images/posts/candidates-v20260809/product-overview.svg',
-    'POST-COMBO':'images/posts/candidates-v20260809/combo.svg',
-    'POST-GUIDE':'images/posts/candidates-v20260809/guide.svg',
-    'POST-CHOOSE':'images/posts/candidates-v20260809/choose.svg',
-    'POST-CHOOSE-BY-HABIT':'images/posts/candidates-v20260809/choose-by-habit.svg'
-  });
-  const FORCE_REGEN_IDS=new Set(Object.keys(RETIRED_BATCH5_CANDIDATES));
+  const FORCE_REGEN_IDS=new Set([
+    'POST-PRODUCT-OVERVIEW',
+    'POST-COMBO',
+    'POST-GUIDE',
+    'POST-CHOOSE',
+    'POST-CHOOSE-BY-HABIT'
+  ]);
   const LEGACY_SINGLE_SVG=[
     [/generated-v20260808-priority1\/guilu-gao-100g\.svg/i,'guilu-gao'],
     [/generated-v20260808-priority1\/guilu-drink-30cc\.svg/i,'guilu-drink-30'],
@@ -142,7 +141,7 @@
     try{
       const data=await response.clone().json();
       const posts=(data.posts||[]).map(fixPost);
-      const merged={...data,version:'2026-08-10-public-posts-v29-true-originals-regeneration-first',posts};
+      const merged={...data,version:'2026-08-10-public-posts-v30-true-originals-retired-assets-removed',posts};
       merged.counts={...(data.counts||{}),total:posts.length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'||(!p.image_url&&p.status!=='published'&&!p.campaign_hold)).length,candidate_review:posts.filter(p=>p.image_status==='candidate-review-required'&&!p.campaign_hold).length,preflight_safe_replacements:posts.filter(p=>p.candidate_generation_mode==='preflight-product-free-safe-replacement').length,retired_batch5_forced_regeneration:posts.filter(p=>FORCE_REGEN_IDS.has(p.id)&&p.image_status==='needs_generation').length,forced_regeneration:posts.filter(p=>p.candidate_generation_mode==='copy-matched-regeneration-required').length};
       const headers=new Headers(response.headers);
       headers.set('content-type','application/json; charset=utf-8');
@@ -151,5 +150,5 @@
     }catch{return response}
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',patchAuthorityNotices,{once:true});else patchAuthorityNotices();
-  window.XJWActualProductPhotoAuthority=Object.freeze({version:VERSION,productImageVersion:PRODUCT_IMAGE_VERSION,map:MAP,productId,fixPost,patchAuthorityNotices,safePreflight:SAFE_PREFLIGHT,retiredBatch5Candidates:RETIRED_BATCH5_CANDIDATES,forceRegeneration:[...FORCE_REGEN_IDS]});
+  window.XJWActualProductPhotoAuthority=Object.freeze({version:VERSION,productImageVersion:PRODUCT_IMAGE_VERSION,map:MAP,productId,fixPost,patchAuthorityNotices,safePreflight:SAFE_PREFLIGHT,retiredProductCardIds:[...FORCE_REGEN_IDS],forceRegeneration:[...FORCE_REGEN_IDS]});
 })();
