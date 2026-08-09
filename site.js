@@ -13,6 +13,7 @@
   const PUBLIC_CLEANUP = `site-public-content-cleanup-v20260809.js?v=${VERSION}`;
   const HOTFIX = `site-ux-v4104.css?v=${VERSION}`;
   const FORMAL = `site-formal-v20260809.css?v=${VERSION}`;
+  const CUSTOMER_POLISH = `site-customer-polish-v20260810.css?v=${VERSION}`;
 
   function appendScript(src, onload) {
     const script = document.createElement("script");
@@ -36,6 +37,7 @@
             appendScript(PUBLIC_CLEANUP, function () {
               appendStyle(HOTFIX, "site-ux-v4104.css");
               appendStyle(FORMAL, "site-formal-v20260809.css");
+              appendStyle(CUSTOMER_POLISH, "site-customer-polish-v20260810.css");
             });
           });
         });
@@ -50,5 +52,6 @@
     document.write('<script src="' + PUBLIC_CLEANUP + '"><\/script>');
     document.write('<link rel="stylesheet" href="' + HOTFIX + '">');
     document.write('<link rel="stylesheet" href="' + FORMAL + '">');
+    document.write('<link rel="stylesheet" href="' + CUSTOMER_POLISH + '">');
   } else loadSequentially();
 })();
