@@ -1,7 +1,7 @@
 "use strict";
 
 /* 仙加味產品資料權威層｜2026-08-10
- * products-v3 = 六項正式原始產品照，供產品權威、LINE OA、貼文審核與 officialOriginalImage 使用。
+ * products-v3 = 六項正式原始產品照，供產品權威、LINE OA、貼文審核、分享預覽與 officialOriginalImage 使用。
  * products-v4-final = 官網顧客顯示層，六項完整成套；不得反向改寫 products-v3 權威。
  * 所有產品只允許等比例 contain 顯示，禁止裁切、拉寬、拉高或改變包裝比例。
  */
@@ -51,6 +51,7 @@
       ...(data.runtime||{}),
       productMainImageSource:'products-v4-final-customer-display',
       officialProductImageSource:'products-v3-latest-original-product-photos',
+      shareImageSource:'products-v3-jpeg-authority',
       dmFallback:'customer-display-v4-final',
       productsV2Use:'legacy-reference-only',
       productScalePolicy:'uniform-only-no-equal-height-equal-width',
@@ -94,7 +95,7 @@
     return '';
   }
   function normalizeHead(){
-    const id=pageProductId(); const photo=CUSTOMER[id]; if(!photo)return;
+    const id=pageProductId(); const photo=OFFICIAL[id]; if(!photo)return;
     const absolute=ABS(photo);
     document.querySelectorAll('meta[property="og:image"],meta[name="twitter:image"]').forEach(meta=>meta.setAttribute('content',absolute));
     document.querySelectorAll('script[type="application/ld+json"]').forEach(script=>{
