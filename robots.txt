@@ -3,6 +3,7 @@ Allow: /
 Disallow: /content/
 Disallow: /publishing-center.html
 Disallow: /publishing-center-data-
+Disallow: /post-bank-export.html
 Disallow: /images/posts/generated-
 Disallow: /images/posts/approved-
 
