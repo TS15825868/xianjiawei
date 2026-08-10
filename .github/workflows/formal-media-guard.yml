@@ -1,0 +1,52 @@
+name: 仙加味正式內容與圖片守門
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'images/dm-approved-v20260810/**'
+      - 'data/formal-media-authority-v20260810.json'
+      - 'dm.html'
+      - 'index.html'
+      - 'publishing-center.html'
+      - '.github/workflows/formal-media-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Validate latest formal media authority
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const a=JSON.parse(fs.readFileSync('data/formal-media-authority-v20260810.json','utf8'));
+          const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
+          const expected={
+            'guilu-gao':'100g／罐',
+            'guilu-drink-30cc':'30cc／罐（小玻璃罐）',
+            'guilu-drink-180cc':'180cc／包（鋁袋）',
+            'guilu-tangkuai':'75g／盒｜8塊裝',
+            'guilu-jiao':'600g／盒｜32塊裝',
+            'lurong-fen':'75g／罐'
+          };
+          must(a.products.length===6,'正式產品必須維持六項');
+          for(const p of a.products){
+            must(expected[p.id]===p.spec,`產品正式規格不符：${p.id}`);
+            const local=p.dm.replace(/^\//,'');
+            must(fs.existsSync(local),`缺少使用者核准DM：${local}`);
+          }
+          must(fs.existsSync(a.trial.image.replace(/^\//,'')),'缺少正式試喝圖');
+          must(a.trial.free.includes('3罐')&&a.trial.lead_time.includes('5～7'),'試喝正式規則不完整');
+          must(a.image_rules.includes('產品本體不得AI重畫'),'產品原圖權威不得放寬');
+          must(/ZIP library first/.test(a.post_image_policy),'貼文圖規則必須以使用者ZIP素材優先');
+          console.log('PASS：以最新正式資料與使用者核准素材驗收；不綁舊版號／舊固定文案。');
+          NODE
