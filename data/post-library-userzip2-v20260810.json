@@ -1,21 +1,36 @@
 {
-  "runtime":"20260810-userzip2-post-library-v2-binary-aware",
+  "runtime":"20260810-userzip2-post-library-v3-all-22-classified",
   "source":"user-uploaded 2.zip",
-  "principle":"ZIP素材優先；依文案情境比對；只有具備可載入公開圖片網址的候選才能成為正式配圖；產品型貼文仍以正式DM/products-v3為權威；找不到合格且可載入的圖才重新生成；生成或換圖後回待審核並重跑16項審核。",
+  "principle":"2.zip素材優先；生活情境圖依季節、情境、環境、冷熱、表情、動作與道具比對；產品型貼文先使用目前核准正式DM/products-v3，ZIP產品海報只保留為需要產品權威檢查的候選，不得因檔名或產品文字自動放行；有合格來源但二進位尚未上線時標記needs_binary_sync，不重新生成；真的沒有合格來源才重新生成；任何換圖／生成後舊核准失效、回待審核並重跑16項。",
   "candidate_count":22,
+  "classified_count":22,
   "binary_sync":{"status":"pending","publishable_count":0,"rule":"檔名／目錄資料不等於圖片已上線；必須是真實圖片二進位且具有可載入public_url才可被正式選用"},
   "safe_scene_priority":[
-    {"id":"self-care","source_file":"242A0279-4C5B-4FF6-B3B6-4878597E09FF.PNG","public_url":"","binary_ready":false,"keywords":["照顧自己","日常","安心","休息"]},
-    {"id":"storage","source_file":"2AC9FB02-1BE8-4309-9F03-848FB93CCF2E.PNG","public_url":"","binary_ready":false,"keywords":["開封","保存","冷藏","保存提醒"]},
-    {"id":"temperature","source_file":"37A166A8-A2E0-4AE1-9207-3064390B1FB6.PNG","public_url":"","binary_ready":false,"keywords":["早晚溫差","換季","外套","秋天"]},
-    {"id":"warm-rhythm","source_file":"928E2F46-2107-4160-A79F-B540FA7CD18B.PNG","public_url":"","binary_ready":false,"keywords":["暖一點","日常","慢慢安排","溫熱"]},
-    {"id":"choose-type","source_file":"92BDF325-BF85-4336-8004-595E0388BD35.PNG","public_url":"","binary_ready":false,"keywords":["怎麼選","產品選擇","依作息","型態"]},
-    {"id":"hydration","source_file":"9A5C0228-E916-4227-88F9-C6E3C106B177.PNG","public_url":"","binary_ready":false,"keywords":["補水","喝水","日常提醒","水分"]},
-    {"id":"hot-weather","source_file":"ADF0816E-E061-4831-9273-608585F065F7.PNG","public_url":"","binary_ready":false,"keywords":["天氣悶熱","夏天","外出","補水"]},
-    {"id":"daily-warm","source_file":"D3D39324-8BB5-4748-AE3A-168EE4F3A1CF.PNG","public_url":"","binary_ready":false,"keywords":["想暖一點","熱飲","日常安排","溫暖"]},
-    {"id":"work-break","source_file":"E9C7429D-27F7-457C-94C3-5FD0368C58FC.PNG","public_url":"","binary_ready":false,"keywords":["工作再忙","休息","上班","小休息"]},
-    {"id":"rainy-day","source_file":"F90B4AE1-51C1-441A-8EA8-4E28CB410456.PNG","public_url":"","binary_ready":false,"keywords":["下雨天","雨天","溫暖","在家"]}
+    {"id":"self-care","source_file":"242A0279-4C5B-4FF6-B3B6-4878597E09FF.PNG","public_url":"","binary_ready":false,"keywords":["照顧自己","日常","安心","休息","家人"]},
+    {"id":"storage","source_file":"2AC9FB02-1BE8-4309-9F03-848FB93CCF2E.PNG","public_url":"","binary_ready":false,"keywords":["開封","保存","冷藏","保存提醒","陰涼"]},
+    {"id":"temperature","source_file":"37A166A8-A2E0-4AE1-9207-3064390B1FB6.PNG","public_url":"","binary_ready":false,"keywords":["早晚溫差","換季","外套","秋天","氣溫"]},
+    {"id":"warm-rhythm","source_file":"928E2F46-2107-4160-A79F-B540FA7CD18B.PNG","public_url":"","binary_ready":false,"keywords":["暖一點","日常","慢慢安排","溫熱","沖泡"]},
+    {"id":"choose-type","source_file":"92BDF325-BF85-4336-8004-595E0388BD35.PNG","public_url":"","binary_ready":false,"keywords":["怎麼選","產品選擇","依作息","型態","膏","飲","湯塊","鹿茸粉"]},
+    {"id":"hydration","source_file":"9A5C0228-E916-4227-88F9-C6E3C106B177.PNG","public_url":"","binary_ready":false,"keywords":["補水","喝水","日常提醒","水分","外出"]},
+    {"id":"hot-weather","source_file":"ADF0816E-E061-4831-9273-608585F065F7.PNG","public_url":"","binary_ready":false,"keywords":["天氣悶熱","夏天","外出","補水","炎熱"]},
+    {"id":"daily-warm","source_file":"D3D39324-8BB5-4748-AE3A-168EE4F3A1CF.PNG","public_url":"","binary_ready":false,"keywords":["想暖一點","熱飲","日常安排","溫暖","白天"]},
+    {"id":"work-break","source_file":"E9C7429D-27F7-457C-94C3-5FD0368C58FC.PNG","public_url":"","binary_ready":false,"keywords":["工作再忙","休息","上班","小休息","忙碌"]},
+    {"id":"rainy-day","source_file":"F90B4AE1-51C1-441A-8EA8-4E28CB410456.PNG","public_url":"","binary_ready":false,"keywords":["下雨天","雨天","溫暖","在家","慢慢"]}
   ],
-  "product_specific_policy":"產品介紹優先使用已核准正式DM或products-v3；未完成二進位同步的ZIP候選不得冒充正式配圖。",
-  "other_zip_files":["1967B71A-6417-41A7-BE0C-B42FE2983160.PNG","2FBAF2F0-DA70-4796-A915-F654B1FF7BAE.PNG","3D02D674-16E3-431A-B079-C4B749DB036B.PNG","3E20A049-DB9F-42BA-A828-DAFDC1B87384.PNG","486C33CC-6045-4041-9451-777B2E2B2A66.PNG","60BDE43A-0474-49A0-8CAE-0D88B6A32D25.PNG","7114B988-ADEE-4A70-A05B-2039B080672B.PNG","B9A8F67D-09C9-4BCE-9093-09E0ED61D1CC.PNG","D37D8281-B5AC-486A-9A19-000ECD978674.PNG","D3A1186B-978E-4B45-9AC3-7EA7D5D22832.PNG","D5CCFBDB-AD95-4C41-89BF-8BA163FAE750.PNG","DC9243ED-24EB-4363-A7B8-E07F20FE238D.PNG"]
+  "product_reference_candidates":[
+    {"id":"zip-lurong-1","source_file":"1967B71A-6417-41A7-BE0C-B42FE2983160.PNG","product":"鹿茸粉","keywords":["鹿茸粉","75g","日常搭配"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-tangkuai-1","source_file":"2FBAF2F0-DA70-4796-A915-F654B1FF7BAE.PNG","product":"龜鹿湯塊","keywords":["龜鹿湯塊","75g","料理","熱水"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-gao-1","source_file":"3D02D674-16E3-431A-B079-C4B749DB036B.PNG","product":"龜鹿膏","keywords":["龜鹿膏","100g","日常"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-drink30-1","source_file":"3E20A049-DB9F-42BA-A828-DAFDC1B87384.PNG","product":"龜鹿飲30cc","keywords":["龜鹿飲30cc","30cc","小玻璃罐","外出"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-lurong-2","source_file":"486C33CC-6045-4041-9451-777B2E2B2A66.PNG","product":"鹿茸粉","keywords":["鹿茸粉","75g","熱飲"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-drink180-1","source_file":"60BDE43A-0474-49A0-8CAE-0D88B6A32D25.PNG","product":"龜鹿飲180cc","keywords":["龜鹿飲180cc","180cc","鋁袋","外出"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-trial","source_file":"7114B988-ADEE-4A70-A05B-2039B080672B.PNG","product":"龜鹿飲試喝組","keywords":["試喝","3罐免費","先試喝"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true,"preferred_authority":"formal_trial_media"},
+    {"id":"zip-jiao-1","source_file":"B9A8F67D-09C9-4BCE-9093-09E0ED61D1CC.PNG","product":"龜鹿膠","keywords":["龜鹿膠","600g","32塊"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-gao-2","source_file":"D37D8281-B5AC-486A-9A19-000ECD978674.PNG","product":"龜鹿膏","keywords":["龜鹿膏","100g","日常"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-tangkuai-2","source_file":"D3A1186B-978E-4B45-9AC3-7EA7D5D22832.PNG","product":"龜鹿湯塊","keywords":["龜鹿湯塊","75g","料理","熱水"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-jiao-2","source_file":"D5CCFBDB-AD95-4C41-89BF-8BA163FAE750.PNG","product":"龜鹿膠","keywords":["龜鹿膠","600g","32塊"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true},
+    {"id":"zip-drink180-2","source_file":"DC9243ED-24EB-4363-A7B8-E07F20FE238D.PNG","product":"龜鹿飲180cc","keywords":["龜鹿飲180cc","180cc","鋁袋","外出"],"binary_ready":false,"public_url":"","auto_publish":false,"requires_product_authority_check":true}
+  ],
+  "product_specific_policy":"產品介紹與試喝優先使用目前核准正式DM／試喝圖或products-v3；ZIP產品海報只有在產品本體、包裝、標示、比例與文案全部通過產品權威檢查後才可升格為可用素材；未完成二進位同步不得冒充正式配圖。",
+  "guard_policy":"守目前資料與能力，不守舊版號、舊檔名或舊固定文案；正確新版不得因舊規則誤擋。"
 }
