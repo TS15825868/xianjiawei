@@ -13,6 +13,7 @@ on:
       - 'dm.html'
       - 'trial.html'
       - 'index.html'
+      - 'products.html'
       - 'publishing-center.html'
       - '.github/workflows/formal-media-guard.yml'
   workflow_dispatch:
@@ -68,10 +69,15 @@ jobs:
           }
           const retired=['post-001.jpg','post-002.jpg','post-003.jpg','post-004.jpg','post-005.jpg','post-006.jpg','post-007.jpg','post-008.jpg','generated-daily-hydration.jpg','generated-rainy-warm.jpg','generated-warm-drink-reminder.jpg'];
           for(const name of retired) must(!fs.existsSync('images/post-library-v20260810/'+name),`不得回復先前的本機路徑假圖片：${name}`);
+          const index=fs.readFileSync('index.html','utf8');
+          const products=fs.readFileSync('products.html','utf8');
           const dm=fs.readFileSync('dm.html','utf8');
           const trialHtml=fs.readFileSync('trial.html','utf8');
+          must(index.includes('href="dm.html">查看產品DM'),'首頁必須提供最新產品DM直接入口');
+          must(products.includes('href="dm.html">查看產品DM'),'產品總覽必須正確標示產品DM入口');
+          must(!products.includes('href="dm.html">查看產品實品照'),'不得把產品DM誤標成實品照');
           must(dm.includes('dm-approved-v20260810')&&!dm.includes('images/products-v4-final/guilu-gao.svg'),'DM頁必須直接使用最新核准DM');
           must(trialHtml.includes('guilu-drink-trial.webp')&&trialHtml.includes('7-11 店到店')&&trialHtml.includes('60元')&&trialHtml.includes('郵局宅配')&&trialHtml.includes('100元'),'試喝頁未同步正式海報／運費');
-          must(!dm.includes('/mnt/data/')&&!trialHtml.includes('/mnt/data/'),'顧客頁不得引用本機假路徑');
-          console.log('PASS：最新產品DM／試喝真實二進位、2.zip優先配圖與二進位狀態均正確；守門驗能力與資料，不綁舊版號／舊固定文案。');
+          must(!index.includes('/mnt/data/')&&!products.includes('/mnt/data/')&&!dm.includes('/mnt/data/')&&!trialHtml.includes('/mnt/data/'),'顧客頁不得引用本機假路徑');
+          console.log('PASS：最新產品DM／試喝真實二進位、首頁／產品頁DM入口、2.zip優先配圖與二進位狀態均正確；守門驗能力與最新資料，不綁舊版號／舊固定文案。');
           NODE
