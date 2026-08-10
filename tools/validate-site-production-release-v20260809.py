@@ -51,6 +51,15 @@ def check_image_value(pid: str, field: str, value: str):
 def main():
     # 顧客頁內容與公開邊界先獨立驗證；貼文系統／ERP 不再阻擋官網正式發布。
     subprocess.run([sys.executable, str(ROOT / "tools/validate-public-customer-pages-v20260809.py")], check=True)
+
+    # products-v3 永遠是產品本體原圖權威；products-v4-final 只能做顧客顯示層。
+    site_authority=text("site-product-data-authority.js")
+    req("images/products-v3/" in site_authority, "官網缺少 products-v3 正式產品原圖權威")
+    req("images/products-v4-final/" in site_authority, "官網缺少核准顧客顯示層")
+    req("officialImagePolicy:'products-v3-authority-original-no-redraw'" in site_authority, "顧客顯示層沒有保留 products-v3 原圖／禁止重畫政策")
+    req("customer-display-v4-final-contain-no-crop" in site_authority, "顧客顯示層沒有鎖定 contain/no-crop")
+    req("productsV2Use:'legacy-reference-only'" in site_authority, "products-v2 沒有降級為歷史參考")
+
     data=json.loads(text("data.json")); products=data.get("products") or []
     req(len(products)==6, f"data.json 正式產品必須剛好6項，目前{len(products)}項")
     by_id={p.get("id"):p for p in products}
@@ -100,8 +109,12 @@ def main():
 
     trial=text("trial.html")
     req("<iframe" not in trial.lower(), "試喝頁不得再用iframe，iPhone Safari曾灰屏")
-    req("images/products-v3/guilu-drink-30.jpg" in trial, "試喝頁主視覺必須使用30cc products-v3正式實拍")
-    req("images/products-v3/guilu-drink-180.jpg" in trial, "試喝頁必須另列180cc products-v3正式實拍")
+    trial30=("images/products-v3/guilu-drink-30.jpg" in trial or "images/products-v4-final/guilu-drink-30.svg" in trial)
+    trial180=("images/products-v3/guilu-drink-180.jpg" in trial or "images/products-v4-final/guilu-drink-180.svg" in trial)
+    req(trial30, "試喝頁主視覺必須使用30cc正式原圖或核准顧客顯示層")
+    req(trial180, "試喝頁必須另列180cc正式原圖或核准顧客顯示層")
+    if "images/products-v4-final/" in trial:
+        req("site-product-data-authority.js" in trial, "試喝頁使用顧客顯示層時必須載入 products-v3 正式原圖權威")
     req("guilu-drink-trial-final-20260808-web.svg" not in trial, "試喝頁不得回退到舊價格／活動歷史圖")
     req("試喝品免費，運費自付" in trial, "試喝頁缺少正式試喝說明")
     req("龜鹿飲30cc小玻璃罐 × 3罐" in trial, "試喝頁試喝份量未鎖定目前正式3罐版本")
@@ -123,6 +136,6 @@ def main():
 
     site_js=text("site.js"); req("site-formal-v20260809.css" in site_js, "site.js 未載入正式版面CSS")
     formal_css=text("site-formal-v20260809.css"); req("object-fit:contain" in formal_css.replace(" ","").lower(), "正式CSS未鎖定圖片contain")
-    print(f"PASS website production release: {len(PUBLIC_HTML)} customer pages, 6 canonical products, ingredients/usage/fulfillment, physical scale, products-v3 trial, navigation and website-only release boundary validated")
+    print(f"PASS website production release: {len(PUBLIC_HTML)} customer pages, 6 canonical products, products-v3 original authority + approved customer display, ingredients/usage/fulfillment, physical scale, trial, navigation and website-only release boundary validated")
 
 if __name__ == "__main__": main()
