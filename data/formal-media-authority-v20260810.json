@@ -1,18 +1,18 @@
 {
-  "runtime": "20260810-formal-media-authority-v1",
+  "runtime": "20260810-formal-media-authority-v2-real-binaries",
   "principle": "validate current formal capabilities and user-approved content; never block a correct upgrade only because a legacy version string or old fixed copy changed",
   "product_image_authority": "products-v3 true original product photos remain the immutable identity authority; approved DM images are customer-facing display assets and must never redefine package identity",
   "products": [
-    {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","dm":"/images/dm-approved-v20260810/guilu-gao-100g.png"},
-    {"id":"guilu-drink-30cc","name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","rules":["裸罐","無貼紙"],"dm":"/images/dm-approved-v20260810/guilu-drink-30cc.png"},
-    {"id":"guilu-drink-180cc","name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","dm":"/images/dm-approved-v20260810/guilu-drink-180cc.png"},
-    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","dm":"/images/dm-approved-v20260810/guilu-tangkuai-75g.png"},
-    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g／盒｜32塊裝","dm":"/images/dm-approved-v20260810/guilu-jiao-600g.png"},
-    {"id":"lurong-fen","name":"鹿茸粉","spec":"75g／罐","dm":"/images/dm-approved-v20260810/lurong-fen-75g.png"}
+    {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","dm":"/images/dm-approved-v20260810/guilu-gao-100g.webp"},
+    {"id":"guilu-drink-30cc","name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","rules":["裸罐","無貼紙"],"dm":"/images/dm-approved-v20260810/guilu-drink-30cc.webp"},
+    {"id":"guilu-drink-180cc","name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","dm":"/images/dm-approved-v20260810/guilu-drink-180cc.webp"},
+    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","dm":"/images/dm-approved-v20260810/guilu-tangkuai-75g.webp"},
+    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g／盒｜32塊裝","dm":"/images/dm-approved-v20260810/guilu-jiao-600g.webp"},
+    {"id":"lurong-fen","name":"鹿茸粉","spec":"75g／罐","dm":"/images/dm-approved-v20260810/lurong-fen-75g.webp"}
   ],
   "trial": {
     "title":"龜鹿飲試喝組｜先試喝，再決定",
-    "image":"/images/dm-approved-v20260810/guilu-drink-trial.png",
+    "image":"/images/dm-approved-v20260810/guilu-drink-trial.webp",
     "free":"3罐試喝品免費",
     "shipping":["7-11店到店60元","郵局宅配100元"],
     "limit":"每位顧客、電話及地址限申請一次",
