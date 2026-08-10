@@ -4,13 +4,14 @@
  * products-v3 = 六項正式原始產品照，供產品權威、LINE OA、貼文審核、分享預覽與 officialOriginalImage 使用。
  * products-v4-final = 官網顧客顯示層，六項完整成套；不得反向改寫 products-v3 權威。
  * 所有產品只允許等比例 contain 顯示，禁止裁切、拉寬、拉高或改變包裝比例。
+ * 顧客可見舊字串在此統一修正，避免 Pages 快取或舊 HTML 讓正式規格回退。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
   const OFFICIAL_VERSION='20260810-products-v3-latest-originals-v3';
   const CUSTOMER_VERSION='20260810-products-v4-final-v1';
-  const DATA_CACHE_VERSION='20260810-17';
+  const DATA_CACHE_VERSION='20260810-18';
   const OFFICIAL=Object.freeze({
     'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${OFFICIAL_VERSION}`,
     'guilu-drink-30':`images/products-v3/guilu-drink-30.jpg?v=${OFFICIAL_VERSION}`,
@@ -34,8 +35,14 @@
       const official=OFFICIAL[product?.id];
       const customer=CUSTOMER[product?.id];
       if(!official||!customer) return product;
+      const normalized={...product};
+      if(product.id==='guilu-drink-30'){
+        normalized.name='龜鹿飲30cc玻璃罐';
+        normalized.spec='30cc／罐（小玻璃罐）';
+      }
+      if(product.id==='guilu-jiao') normalized.spec='600g／盒｜32塊裝';
       return {
-        ...product,
+        ...normalized,
         image:customer,
         imageUrl:customer,
         image_url:customer,
@@ -102,21 +109,67 @@
       try{const value=JSON.parse(script.textContent||'{}');if(value&&value['@type']==='Product'){value.image=absolute;script.textContent=JSON.stringify(value)}}catch{}
     });
   }
+  const COPY_REPLACEMENTS=Object.freeze([
+    ['五種型態・六項規格','六個正式產品・六個正式規格'],
+    ['五種型態、六項規格','六個正式產品、六個正式規格'],
+    ['五種產品使用方式','六項正式產品使用方式'],
+    ['規格：30cc／瓶','規格：30cc／罐（小玻璃罐）'],
+    ['30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'],
+    ['30cc／瓶','30cc／罐（小玻璃罐）'],
+    ['龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'],
+    ['規格：600g／盒｜1斤｜32塊裝','規格：600g／盒｜32塊裝'],
+    ['600g／盒｜1斤｜32塊裝','600g／盒｜32塊裝']
+  ]);
   function normalizeVisibleCopy(root=document){
-    const walker=document.createTreeWalker(root.body||root,NodeFilter.SHOW_TEXT);
+    const body=root.body||root;
+    if(!body)return;
+    const walker=document.createTreeWalker(body,NodeFilter.SHOW_TEXT);
+    const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
+    for(const node of nodes){
+      let text=String(node.nodeValue||'');
+      let next=text;
+      for(const [from,to] of COPY_REPLACEMENTS) next=next.replaceAll(from,to);
+      if(next!==text) node.nodeValue=next;
+    }
+  }
+  function normalizeCustomerLinks(root=document){
+    if(!root?.querySelectorAll)return;
+    root.querySelectorAll('a').forEach(link=>{
+      const label=String(link.textContent||'').trim();
+      if(label==='查看門市'){
+        link.textContent='LINE 詢問';
+        link.href='https://lin.ee/7A5Q1Lm';
+        link.target='_blank';
+        link.rel='noopener';
+      }
+    });
+  }
+  function normalizeCustomerAddress(root=document){
+    if(!root?.body)return;
+    if(!/\/(?:index\.html)?$/i.test(location.pathname))return;
+    const walker=document.createTreeWalker(root.body,NodeFilter.SHOW_TEXT);
     const nodes=[]; while(walker.nextNode()) nodes.push(walker.currentNode);
     for(const node of nodes){
       const text=String(node.nodeValue||'');
-      if(text.includes('五種型態・六項規格')) node.nodeValue=text.replaceAll('五種型態・六項規格','六個正式產品・六個正式規格');
-      if(text.includes('五種型態、六項規格')) node.nodeValue=String(node.nodeValue||'').replaceAll('五種型態、六項規格','六個正式產品、六個正式規格');
+      if(text.includes('台北市萬華區西昌街52號')) node.nodeValue=text.replaceAll('台北市萬華區西昌街52號','想了解門市資訊，歡迎透過 LINE 詢問');
     }
   }
-  function startCopyGuard(){
+  function normalizeCustomerView(){
     normalizeVisibleCopy();
-    const observer=new MutationObserver(()=>normalizeVisibleCopy());
+    normalizeCustomerLinks();
+    normalizeCustomerAddress();
+  }
+  function startCopyGuard(){
+    normalizeCustomerView();
+    let scheduled=false;
+    const observer=new MutationObserver(()=>{
+      if(scheduled)return;
+      scheduled=true;
+      queueMicrotask(()=>{scheduled=false;normalizeCustomerView()});
+    });
     observer.observe(document.documentElement,{subtree:true,childList:true,characterData:true});
   }
   normalizeHead();
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startCopyGuard,{once:true});else startCopyGuard();
-  window.XJWProductDataAuthority=Object.freeze({version:CUSTOMER_VERSION,officialVersion:OFFICIAL_VERSION,dataCacheVersion:DATA_CACHE_VERSION,official:OFFICIAL,customer:CUSTOMER,normalizeData,normalizeHead,normalizeVisibleCopy,cacheBustInput});
+  window.XJWProductDataAuthority=Object.freeze({version:CUSTOMER_VERSION,officialVersion:OFFICIAL_VERSION,dataCacheVersion:DATA_CACHE_VERSION,official:OFFICIAL,customer:CUSTOMER,normalizeData,normalizeHead,normalizeVisibleCopy,normalizeCustomerView,cacheBustInput});
 })();
