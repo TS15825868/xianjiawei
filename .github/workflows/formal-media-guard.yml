@@ -5,8 +5,11 @@ on:
     branches: [main]
     paths:
       - 'images/dm-approved-v20260810/**'
+      - 'images/formal-display/**'
       - 'data/formal-media-authority-v20260810.json'
+      - 'site-formal-media-v20260810.js'
       - 'dm.html'
+      - 'trial.html'
       - 'index.html'
       - 'publishing-center.html'
       - '.github/workflows/formal-media-guard.yml'
@@ -38,15 +41,24 @@ jobs:
             'guilu-jiao':'600g／盒｜32塊裝',
             'lurong-fen':'75g／罐'
           };
-          must(a.products.length===6,'正式產品必須維持六項');
+          const isWebP=(file)=>{const b=fs.readFileSync(file);return b.length>12&&b.subarray(0,4).toString()==='RIFF'&&b.subarray(8,12).toString()==='WEBP';};
+          must(Array.isArray(a.products)&&a.products.length===6,'正式產品必須維持六項');
           for(const p of a.products){
             must(expected[p.id]===p.spec,`產品正式規格不符：${p.id}`);
             const local=p.dm.replace(/^\//,'');
             must(fs.existsSync(local),`缺少使用者核准DM：${local}`);
+            must(isWebP(local),`核准DM不是有效WebP二進位檔：${local}`);
           }
-          must(fs.existsSync(a.trial.image.replace(/^\//,'')),'缺少正式試喝圖');
-          must(a.trial.free.includes('3罐')&&a.trial.lead_time.includes('5～7'),'試喝正式規則不完整');
+          const trial=a.trial.image.replace(/^\//,'');
+          must(fs.existsSync(trial),'缺少正式試喝圖');
+          must(isWebP(trial),'正式試喝圖不是有效WebP二進位檔');
+          must(a.trial.free.includes('3罐')&&a.trial.shipping.includes('7-11店到店60元')&&a.trial.shipping.includes('郵局宅配100元')&&a.trial.lead_time.includes('5～7'),'試喝正式規則不完整');
           must(a.image_rules.includes('產品本體不得AI重畫'),'產品原圖權威不得放寬');
           must(/ZIP library first/.test(a.post_image_policy),'貼文圖規則必須以使用者ZIP素材優先');
-          console.log('PASS：以最新正式資料與使用者核准素材驗收；不綁舊版號／舊固定文案。');
+          const dm=fs.readFileSync('dm.html','utf8');
+          const trialHtml=fs.readFileSync('trial.html','utf8');
+          must(dm.includes('dm-approved-v20260810')&&!dm.includes('images/products-v4-final/guilu-gao.svg'),'DM頁必須直接使用最新核准DM');
+          must(trialHtml.includes('guilu-drink-trial.webp')&&trialHtml.includes('7-11 店到店')&&trialHtml.includes('60元')&&trialHtml.includes('郵局宅配')&&trialHtml.includes('100元'),'試喝頁未同步正式海報／運費');
+          must(!dm.includes('/mnt/data/')&&!trialHtml.includes('/mnt/data/'),'顧客頁不得引用本機假路徑');
+          console.log('PASS：以最新正式資料、真實二進位素材與顧客可見能力驗收；不綁舊版號／舊固定文案。');
           NODE
