@@ -29,7 +29,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - name: Validate latest formal media authority
+      - name: Validate current formal media authority and capabilities
         shell: bash
         run: |
           node <<'NODE'
@@ -47,6 +47,7 @@ jobs:
           };
           const isWebP=(file)=>{const b=fs.readFileSync(file);return b.length>12&&b.subarray(0,4).toString()==='RIFF'&&b.subarray(8,12).toString()==='WEBP';};
           must(Array.isArray(a.products)&&a.products.length===6,'正式產品必須維持六項');
+          must(String(a.approval_batch||'').length>0,'正式媒體權威必須標示目前使用者核准批次');
           for(const p of a.products){
             must(expected[p.id]===p.spec,`產品正式規格不符：${p.id}`);
             const local=p.dm.replace(/^\//,'');
@@ -58,10 +59,13 @@ jobs:
           must(isWebP(trial),'正式試喝圖不是有效WebP二進位檔');
           must(a.trial.free.includes('3罐')&&a.trial.shipping.includes('7-11店到店60元')&&a.trial.shipping.includes('郵局宅配100元')&&a.trial.lead_time.includes('5～7'),'試喝正式規則不完整');
           must(a.image_rules.includes('產品本體不得AI重畫'),'產品原圖權威不得放寬');
-          must(/ZIP library first/.test(a.post_image_policy),'貼文圖規則必須以使用者ZIP素材優先');
+          const policy=String(a.post_image_policy||'');
+          must(/2\.zip/i.test(policy),'貼文配圖權威必須明確使用目前2.zip素材批次');
+          must(/first|優先/i.test(policy),'貼文配圖必須維持使用者ZIP素材優先');
+          must(/season|季節/i.test(policy)&&/scene|情境/i.test(policy)&&/temperature|冷熱/i.test(policy),'貼文圖比對必須涵蓋季節／情境／冷熱能力');
+          must(/regeneration|重新生成/i.test(policy)&&/pending review|pending_review|待審核/i.test(policy)&&/16/.test(policy),'重新生成後必須回待審核並維持16項審核');
           must(zip.source==='user-uploaded 2.zip'&&Number(zip.candidate_count)>=22,'官網未同步最新2.zip候選目錄');
           must(Array.isArray(zip.safe_scene_priority)&&zip.safe_scene_priority.length>=10,'最新ZIP缺少可依文案比對的情境候選');
-          must(/找不到合格.*才重新生成/.test(zip.principle||''),'最新ZIP政策必須維持「沒有合格可用圖才重新生成」能力');
           must(zip.binary_sync&&['pending','ready'].includes(zip.binary_sync.status),'最新ZIP必須明確標示二進位同步狀態');
           if(zip.binary_sync.status==='ready'){
             must(Number(zip.binary_sync.publishable_count)>0,'ZIP標示ready時必須存在可正式使用圖片');
@@ -76,8 +80,9 @@ jobs:
           must(index.includes('href="dm.html">查看產品DM'),'首頁必須提供最新產品DM直接入口');
           must(products.includes('href="dm.html">查看產品DM'),'產品總覽必須正確標示產品DM入口');
           must(!products.includes('href="dm.html">查看產品實品照'),'不得把產品DM誤標成實品照');
-          must(dm.includes('dm-approved-v20260810')&&!dm.includes('images/products-v4-final/guilu-gao.svg'),'DM頁必須直接使用最新核准DM');
+          must(dm.includes('dm-approved-v20260810')&&!dm.includes('images/products-v4-final/guilu-gao.svg'),'DM頁必須直接使用目前核准DM');
           must(trialHtml.includes('guilu-drink-trial.webp')&&trialHtml.includes('7-11 店到店')&&trialHtml.includes('60元')&&trialHtml.includes('郵局宅配')&&trialHtml.includes('100元'),'試喝頁未同步正式海報／運費');
           must(!index.includes('/mnt/data/')&&!products.includes('/mnt/data/')&&!dm.includes('/mnt/data/')&&!trialHtml.includes('/mnt/data/'),'顧客頁不得引用本機假路徑');
-          console.log('PASS：最新產品DM／試喝真實二進位、首頁／產品頁DM入口、2.zip優先配圖與二進位狀態均正確；守門驗能力與最新資料，不綁舊版號／舊固定文案。');
+          must(/current|目前|最新/i.test(String(a.guard_policy||''))&&!/require retired|綁舊/i.test(String(a.guard_policy||'')),'守門員原則必須跟隨目前正式權威，不得鎖舊版');
+          console.log('PASS：守門依目前正式權威驗六項規格、核准DM／試喝真實二進位、2.zip優先語意配圖、二進位狀態與16項重審能力；正常升版／換文案不會因舊固定字串被誤擋。');
           NODE
