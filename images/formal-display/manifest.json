@@ -1,5 +1,6 @@
 {
-  "runtime": "20260810-formal-customer-media-v2-user-approved",
+  "runtime": "20260810-formal-customer-media-v3-latest-user-batch",
+  "approval_batch": "20260810-latest-user-dm-and-trial",
   "products": {
     "guilu-gao": {"name":"龜鹿膏","spec":"100g／罐","path":"/images/dm-approved-v20260810/guilu-gao-100g.webp"},
     "guilu-drink-30": {"name":"龜鹿飲30cc","spec":"30cc／罐（小玻璃罐、裸罐、無貼紙）","path":"/images/dm-approved-v20260810/guilu-drink-30cc.webp"},
@@ -12,5 +13,5 @@
     "path":"/images/dm-approved-v20260810/guilu-drink-trial.webp",
     "rules":{"free_samples":3,"shipping_paid_by_customer":true,"seven_eleven":60,"postal":100,"limit":"每位顧客／電話／地址限申請一次","lead_time":"約5～7個工作天","apply_via":"LINE OA","price_30":"60元／罐；買10送1，11罐600元","price_180":"200元／包；買10送1，11包2,000元"}
   },
-  "rules":{"product_authority":"products-v3 original product identity; user-approved DM is customer display only","no_ai_product_redraw":true,"no_crop":true,"no_stretch":true,"guard_policy":"validate current approved content and capabilities; never require retired version strings or old fixed copy"}
+  "rules":{"product_authority":"products-v3 original product identity; newest user-approved DM is customer display only","no_ai_product_redraw":true,"no_crop":true,"no_stretch":true,"zip_first":true,"regenerate_only_if_no_match":true,"review_after_media_change":16,"guard_policy":"validate current approved content, actual binary availability and capabilities; never require retired version strings, filenames or old fixed copy"}
 }
