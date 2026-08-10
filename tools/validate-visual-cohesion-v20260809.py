@@ -28,6 +28,12 @@ def main():
     for token in ['generated-v20260808-priority1','generated-v20260808-preflight/guide-use','generated-v20260808-preflight/choose-products','generated-v20260808-preflight/choose-by-habit']:
         req(token not in source,f'官網顧客頁仍引用舊候選/拼貼素材：{token}')
 
+    site_authority=(ROOT/'site-product-data-authority.js').read_text(encoding='utf-8')
+    req('images/products-v3/' in site_authority,'官網缺少products-v3產品本體原圖權威')
+    req('images/products-v4-final/' in site_authority,'官網缺少核准顧客顯示層')
+    req("officialImagePolicy:'products-v3-authority-original-no-redraw'" in site_authority,'顧客顯示層沒有保留products-v3禁止重畫權威')
+    req('customer-display-v4-final-contain-no-crop' in site_authority,'顧客顯示層沒有鎖定contain/no-crop')
+
     index=(ROOT/'index.html').read_text(encoding='utf-8')
     brand=(ROOT/'brand.html').read_text(encoding='utf-8')
     legacy_brand='images/brand/approved-v405/home-brand.webp'
@@ -39,13 +45,18 @@ def main():
 
     trial=(ROOT/'trial.html').read_text(encoding='utf-8')
     req('guilu-drink-trial-final-20260808-web.svg' not in trial,'試喝頁不得回退到舊價格／活動歷史圖')
-    req('images/products-v3/guilu-drink-30.jpg' in trial,'試喝頁主視覺必須使用30cc正式實拍')
-    req('images/products-v3/guilu-drink-180.jpg' in trial,'試喝頁必須另列180cc正式實拍')
+    trial30=('images/products-v3/guilu-drink-30.jpg' in trial or 'images/products-v4-final/guilu-drink-30.svg' in trial)
+    trial180=('images/products-v3/guilu-drink-180.jpg' in trial or 'images/products-v4-final/guilu-drink-180.svg' in trial)
+    req(trial30,'試喝頁主視覺必須使用30cc正式原圖或核准顧客顯示層')
+    req(trial180,'試喝頁必須另列180cc正式原圖或核准顧客顯示層')
+    if 'images/products-v4-final/' in trial:
+        req('site-product-data-authority.js' in trial,'試喝頁使用顧客顯示層時必須載入products-v3正式原圖權威')
+    req('object-fit:contain' in trial.replace(' ',''),'試喝頁產品圖必須contain，不得裁切')
 
     for page in ['products.html','dm.html','trial.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']:
         html=(ROOT/page).read_text(encoding='utf-8')
         req('images/products-v2/' not in html and 'images/dm-final/' not in html,f'{page}不得使用舊產品圖')
 
-    print(f'PASS website visual cohesion: {len(PAGES)} customer pages use contain/no-crop rules; homepage and brand story avoid unsafe product composites; products and trial use products-v3 official photos.')
+    print(f'PASS website visual cohesion: {len(PAGES)} customer pages use contain/no-crop rules; homepage and brand story avoid unsafe product composites; products-v3 remains original authority and approved customer display is allowed without stale-version blocking.')
 
 if __name__=='__main__': main()
