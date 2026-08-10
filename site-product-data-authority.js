@@ -12,6 +12,7 @@
   const OFFICIAL_VERSION='20260810-products-v3-latest-originals-v3';
   const CUSTOMER_VERSION='20260810-products-v4-final-v1';
   const DATA_CACHE_VERSION='20260810-18';
+  const LINE_URL='https://lin.ee/sHZW7NkR';
   const OFFICIAL=Object.freeze({
     'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${OFFICIAL_VERSION}`,
     'guilu-drink-30':`images/products-v3/guilu-drink-30.jpg?v=${OFFICIAL_VERSION}`,
@@ -138,7 +139,7 @@
       const label=String(link.textContent||'').trim();
       if(label==='查看門市'){
         link.textContent='LINE 詢問';
-        link.href='https://lin.ee/7A5Q1Lm';
+        link.href=LINE_URL;
         link.target='_blank';
         link.rel='noopener';
       }
