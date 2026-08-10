@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-08-post-bank-v20-complete-candidate-coverage",
+  "version": "2026-08-10-post-bank-v21-approved-dm-zip-first",
   "authority": "TS15825868/xianjiawei",
   "baseLibrary": "content/public-post-library.json",
   "extensions": [
@@ -24,6 +24,8 @@
   "imageGenerationQueue": "content/image-generation-queue-v20260808.json",
   "contentPerformance": "content/content-performance-schema.json",
   "partnerMode": "content/partner-mode-policy.json",
+  "formalMediaAuthority": "data/formal-media-authority-v20260810.json",
+  "latestUserZipCatalog": "data/post-library-userzip2-v20260810.json",
   "counts": {
     "base": 23,
     "generatedCopyQueueV6": 300,
@@ -47,15 +49,22 @@
     "existingBeforeV12": 21,
     "candidateReviewTotal": 486,
     "missingImageTotal": 0,
-    "rule": "候選覆蓋完整不等於人工核准；所有486張仍需16項審核。"
+    "rule": "候選覆蓋完整不等於人工核准；所有486張仍需16項審核。最新核准DM與2.zip只作為更高優先的正確配圖來源，不跳過審核。"
   },
   "generatorAuthority": {
     "v6": "300篇：產品48、日常節奏48、四季48、天氣關懷48、料理48、品牌24、FAQ24、試喝12",
     "v7": "177篇：節慶24、地點24、萬華在地24、小老闆與夥伴32、陪伴角色16、FAQ24、合作夥伴素材24、門市日常9",
     "officialProductCount": 6,
     "officialSellableSpecs": 6,
-    "soupBlock": "龜鹿湯塊只有75g／盒深藍盒｜8塊裝｜每塊約9.375g",
-    "mascot": "官網 approved-v405 同款柔和立體Q版小老闆；姿勢自由，角色識別固定；夥伴依情境加入"
+    "formalSpecs": [
+      "龜鹿膏100g／罐",
+      "龜鹿飲30cc：30cc／罐（小玻璃罐、裸罐、無貼紙）",
+      "龜鹿飲180cc：180cc／包（鋁袋）",
+      "龜鹿湯塊75g／盒｜8塊裝",
+      "龜鹿膠600g／盒｜32塊裝",
+      "鹿茸粉75g／罐"
+    ],
+    "mascot": "官網正式精緻Q版小老闆；姿勢、季節、冷熱、表情、動作與道具依文案改變，角色識別固定；小鹿與小烏龜依情境加入且不得裁切。"
   },
   "finalPublishedLocks": [
     {"post_id":"XJW-TRIAL-001","asset_id":"guilu-drink-trial-final-20260808","status":"published_final_locked","do_not_regenerate":true,"prevent_republish":true,"published_confirmed_on":"2026-08-08"}
@@ -72,14 +81,50 @@
     "replacementGeneratedCount": 13,
     "activeRejectedNeedsRegeneration": 0,
     "post_ids": ["XJW-WORK-REST-001","POST-STORAGE","POST-SEASONS-RHYTHM","POST-INGREDIENT-PRINCIPLE","POST-DAILY-SOUP","POST-WEATHER-HOT","POST-WEATHER-TEMP","POST-WEATHER-RAIN","POST-GUIDE","POST-STORE","POST-RECIPES","POST-CHOOSE","POST-CHOOSE-BY-HABIT"],
-    "reason": "舊圖因情境錯配、重複背景、deprecated產品、AI重畫產品或舊包裝被隔離；已建立13張新候選，仍需16項審核。"
+    "reason": "舊圖因情境錯配、重複背景、deprecated產品、AI重畫產品或舊包裝被隔離；已有替代候選，仍需16項審核。"
   },
   "generatedCopyQueueByPillar": {
-    "產品": 48,"日常節奏": 48,"四季": 48,"天氣關懷": 48,"料理": 48,"品牌": 24,"FAQ": 48,"試喝活動": 12,"節慶": 24,"地點": 24,"萬華在地": 24,"小老闆與夥伴": 32,"陪伴角色": 16,"合作夥伴素材": 24,"門市日常": 9
+    "產品": 48,
+    "日常節奏": 48,
+    "四季": 48,
+    "天氣關懷": 48,
+    "料理": 48,
+    "品牌": 24,
+    "FAQ": 48,
+    "試喝活動": 12,
+    "節慶": 24,
+    "地點": 24,
+    "萬華在地": 24,
+    "小老闆與夥伴": 32,
+    "陪伴角色": 16,
+    "合作夥伴素材": 24,
+    "門市日常": 9
   },
-  "imageWorkflow": "500篇已無缺圖待生成；486張為候選待16項審核。產品本體只能使用正式原圖等比例合成；網站小老闆使用approved-v405衍生來源；陪伴角色候選需特別人工確認造型。已發布最終母版不重生成；試喝變體冷卻期間不發布。",
+  "imageWorkflow": {
+    "priority": [
+      "產品／試喝文案：先使用使用者核准正式DM／試喝圖",
+      "生活情境文：先依季節、情境、環境、冷熱、表情、動作、道具比對最新2.zip",
+      "只有正式DM與2.zip都沒有合格來源時才重新生成"
+    ],
+    "productIdentityAuthority": "products-v3真正正式產品原圖；DM是核准顧客顯示素材，不得反向改寫產品包裝身分",
+    "zipBinaryRule": "只有真實二進位且具有可載入public_url的ZIP候選才能正式套用；只找到檔名／目錄時標記待同步原圖，不得假裝已上線，也不得因此亂生成替代圖",
+    "regenerationRule": "生成或換圖後原核准與排程失效，回pending_review並重跑16項審核；不得自動核准或發布",
+    "currentMissingImageTotal": 0,
+    "ownerReviewRequired": true
+  },
   "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
   "liveChecks": ["天氣","颱風","寒流","高溫","空氣品質","重大即時事件"],
   "schedule": ["星期二 19:30","星期六 09:30"],
-  "rules": {"sameImageWithinDays":90,"sameCopyWithinDays":180,"sameSceneWithinDays":45,"sameMascotPoseWithinDays":30,"weatherNeverPreAutoPublish":true,"ownerReviewRequired":true,"companyInfoNotPublicByDefault":true,"partnerProtectionMode":true,"paidOpenAIApiDisabled":true,"regenerationMode":"chatgpt_handoff"}
+  "rules": {
+    "sameImageWithinDays": 90,
+    "sameCopyWithinDays": 180,
+    "sameSceneWithinDays": 45,
+    "sameMascotPoseWithinDays": 30,
+    "weatherNeverPreAutoPublish": true,
+    "ownerReviewRequired": true,
+    "companyInfoNotPublicByDefault": true,
+    "partnerProtectionMode": true,
+    "paidOpenAIApiDisabled": true,
+    "regenerationMode": "chatgpt_handoff"
+  }
 }
