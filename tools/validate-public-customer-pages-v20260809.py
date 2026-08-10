@@ -46,11 +46,22 @@ def main():
     req(".page-updated" in cleanup and "removeUpdatedNotes" in cleanup,"舊知識頁的資料更新註記沒有前台防回退清理")
     req("cleanVideoCopy" in cleanup,"影音頁仍缺少網站改版對話清理")
 
+    authority=(ROOT/"site-product-data-authority.js").read_text(encoding="utf-8")
+    req("images/products-v3/" in authority,"官網產品資料權威層缺少products-v3正式原圖")
+    req("images/products-v4-final/" in authority,"官網產品資料權威層缺少正式顧客顯示層")
+    req("officialImagePolicy:'products-v3-authority-original-no-redraw'" in authority,"顧客顯示層沒有保留products-v3原圖／禁止重畫權威")
+    req("contain-no-crop" in authority,"官網產品顯示層沒有保留contain/no-crop規則")
+    req("products-v2" not in authority or "legacy-reference-only" in authority,"官網產品權威不得把products-v2恢復成正式來源")
+
     trial_path=ROOT/"trial.html"; trial=trial_path.read_text(encoding="utf-8"); trial_visible=visible_text(trial_path)
     req("<iframe" not in trial.lower(),"trial.html 不得使用iframe顯示產品或試喝視覺")
     req("guilu-drink-trial-final-20260808-web.svg" not in trial,"官網試喝頁不得再使用含舊價格／活動資訊的已發布歷史試喝圖")
-    req("images/products-v3/guilu-drink-30.jpg" in trial,"trial.html 主視覺必須使用30cc products-v3正式實拍")
-    req("images/products-v3/guilu-drink-180.jpg" in trial,"trial.html 必須另列180cc products-v3正式實拍")
+    trial30=("images/products-v3/guilu-drink-30.jpg" in trial or "images/products-v4-final/guilu-drink-30.svg" in trial)
+    trial180=("images/products-v3/guilu-drink-180.jpg" in trial or "images/products-v4-final/guilu-drink-180.svg" in trial)
+    req(trial30,"trial.html 主視覺必須使用30cc正式原圖或核准顧客顯示層")
+    req(trial180,"trial.html 必須另列180cc正式原圖或核准顧客顯示層")
+    if "images/products-v4-final/" in trial:
+        req("site-product-data-authority.js" in trial,"trial.html 使用顧客顯示層時必須同時載入products-v3原圖權威層")
     req("object-fit:contain" in trial.replace(" ",""),"trial.html 產品圖必須contain，不得裁切")
     for phrase in ["試喝品免費","運費自付","7-11 店到店","郵局宅配","配送費用由官方 LINE 確認","30cc／罐（小玻璃罐）","180cc／包（鋁袋）","產品售價、活動與實際購買方式統一由官方 LINE 最新回覆為準"]:
         req(phrase in trial_visible,f"trial.html 缺少正式試喝資訊：{phrase}")
@@ -67,6 +78,6 @@ def main():
     req("待審核" not in dm and "毫米尺寸未知" not in dm,"產品實品照頁仍露出內部審核／製圖說明")
     quality=visible_text(ROOT/"quality.html")
     req("ERP" not in quality and "產品資訊與實品一致" in quality,"品質頁仍把內部平台管理當成顧客內容")
-    print(f"PASS public customer pages: {len(PUBLIC_PAGES)} pages audited; public prices hidden; trial uses products-v3 originals; no legacy price-bearing trial creative")
+    print(f"PASS public customer pages: {len(PUBLIC_PAGES)} pages audited; public prices hidden; trial uses approved customer display backed by products-v3 originals; no legacy price-bearing trial creative")
 
 if __name__ == "__main__": main()
