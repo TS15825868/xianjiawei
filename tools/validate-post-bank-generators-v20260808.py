@@ -21,5 +21,19 @@ def main():
     s=queue['summary'];require(queue['runtimeContentTotal']==500,'圖片佇列總數錯誤');require(s['generationRequiredActive']==0 and s['existingCandidateNeeds16PointReview']==486,'圖片佇列0/486不一致');require(s['preflightRejectedNeedsRegeneration']==0 and s['preflightRejectedReplaced']==13,'預檢替代狀態不一致');require(s['publishedFinalLocked']==3 and s['campaignHold']==11,'鎖定／冷卻數錯誤');require(0+486+3+11==500,'圖片狀態合計不是500')
     qcov=queue['runtimeCandidateCoverage'];require(qcov['v12SafeNonCharacter']==345 and qcov['v13FestivalLocationWanhua']==72 and qcov['v14BossDaily']==32 and qcov['v15Companions']==16,'圖片佇列v12-v15覆蓋錯誤')
     pillars=manifest['generatedCopyQueueByPillar'];require(sum(int(v) for v in pillars.values())==477,'生成分類合計必須477');require(pillars['小老闆與夥伴']==32 and pillars['陪伴角色']==16 and pillars['FAQ']==48 and pillars['試喝活動']==12,'分類數錯誤')
-    print('PASS post bank: runtime500; 0 missing images / 486 review candidates / 3 locked / 11 hold; v12-v15 complete candidate coverage')
+
+    # 最新配圖原則驗「能力／資料」，不綁任何單一 v21/v22 版號或舊固定文案。
+    require(manifest.get('formalMediaAuthority')=='data/formal-media-authority-v20260810.json','母庫必須連到目前正式DM／試喝權威')
+    require(manifest.get('latestUserZipCatalog')=='data/post-library-userzip2-v20260810.json','母庫必須連到最新使用者2.zip圖庫')
+    wf=manifest.get('imageWorkflow') or {}
+    priority=wf.get('priority') or []
+    joined='｜'.join(priority)
+    require('正式DM' in joined and '2.zip' in joined and '重新生成' in joined,'母庫缺少正式DM→2.zip→缺圖才重生成的優先能力')
+    require('products-v3' in str(wf.get('productIdentityAuthority','')),'產品身分權威必須維持products-v3真正正式原圖')
+    require('public_url' in str(wf.get('zipBinaryRule','')) and '真實二進位' in str(wf.get('zipBinaryRule','')),'ZIP候選必須驗真實二進位與可載入public_url')
+    regen=str(wf.get('regenerationRule',''))
+    require('pending_review' in regen and '16項' in regen and '不得自動核准或發布' in regen,'重生成／換圖後必須回待審核、重跑16項且不得自動發布')
+    require(wf.get('currentMissingImageTotal')==0,'目前500篇母庫仍不應被誤判為缺圖而大量重生成')
+
+    print('PASS post bank: runtime500; 0 missing / 486 review candidates / 3 locked / 11 hold; approved DM first, latest 2.zip second, regeneration only when truly missing; guards validate capability rather than legacy version text')
 if __name__=='__main__':main()
