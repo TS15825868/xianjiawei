@@ -6,7 +6,9 @@ on:
     paths:
       - 'images/dm-approved-v20260810/**'
       - 'images/formal-display/**'
+      - 'images/post-library-v20260810/**'
       - 'data/formal-media-authority-v20260810.json'
+      - 'data/post-library-userzip2-v20260810.json'
       - 'site-formal-media-v20260810.js'
       - 'dm.html'
       - 'trial.html'
@@ -32,6 +34,7 @@ jobs:
           node <<'NODE'
           const fs=require('fs');
           const a=JSON.parse(fs.readFileSync('data/formal-media-authority-v20260810.json','utf8'));
+          const zip=JSON.parse(fs.readFileSync('data/post-library-userzip2-v20260810.json','utf8'));
           const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
           const expected={
             'guilu-gao':'100g／罐',
@@ -55,10 +58,15 @@ jobs:
           must(a.trial.free.includes('3罐')&&a.trial.shipping.includes('7-11店到店60元')&&a.trial.shipping.includes('郵局宅配100元')&&a.trial.lead_time.includes('5～7'),'試喝正式規則不完整');
           must(a.image_rules.includes('產品本體不得AI重畫'),'產品原圖權威不得放寬');
           must(/ZIP library first/.test(a.post_image_policy),'貼文圖規則必須以使用者ZIP素材優先');
+          must(zip.source==='user-uploaded 2.zip'&&Number(zip.candidate_count)>=22,'官網未同步最新2.zip候選目錄');
+          must(Array.isArray(zip.safe_scene_priority)&&zip.safe_scene_priority.length>=10,'最新ZIP缺少可依文案比對的情境候選');
+          must(/找不到合格圖才重新生成/.test(zip.principle||''),'最新ZIP政策必須是缺圖才重新生成');
+          const retired=['post-001.jpg','post-002.jpg','post-003.jpg','post-004.jpg','post-005.jpg','post-006.jpg','post-007.jpg','post-008.jpg','generated-daily-hydration.jpg','generated-rainy-warm.jpg','generated-warm-drink-reminder.jpg'];
+          for(const name of retired) must(!fs.existsSync('images/post-library-v20260810/'+name),`不得回復先前的本機路徑假圖片：${name}`);
           const dm=fs.readFileSync('dm.html','utf8');
           const trialHtml=fs.readFileSync('trial.html','utf8');
           must(dm.includes('dm-approved-v20260810')&&!dm.includes('images/products-v4-final/guilu-gao.svg'),'DM頁必須直接使用最新核准DM');
           must(trialHtml.includes('guilu-drink-trial.webp')&&trialHtml.includes('7-11 店到店')&&trialHtml.includes('60元')&&trialHtml.includes('郵局宅配')&&trialHtml.includes('100元'),'試喝頁未同步正式海報／運費');
           must(!dm.includes('/mnt/data/')&&!trialHtml.includes('/mnt/data/'),'顧客頁不得引用本機假路徑');
-          console.log('PASS：以最新正式資料、真實二進位素材與顧客可見能力驗收；不綁舊版號／舊固定文案。');
+          console.log('PASS：最新產品DM／試喝真實二進位、2.zip優先配圖目錄與顧客可見能力均正確；不綁舊版號／舊固定文案。');
           NODE
