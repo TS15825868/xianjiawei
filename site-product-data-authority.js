@@ -11,7 +11,7 @@
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
   const OFFICIAL_VERSION='20260810-products-v3-latest-originals-v3';
   const CUSTOMER_VERSION='20260810-products-v4-final-v1';
-  const DATA_CACHE_VERSION='20260810-18';
+  const DATA_CACHE_VERSION='20260810-19';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const OFFICIAL=Object.freeze({
     'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${OFFICIAL_VERSION}`,
@@ -37,11 +37,35 @@
       const customer=CUSTOMER[product?.id];
       if(!official||!customer) return product;
       const normalized={...product};
+      if(product.id==='guilu-gao'){
+        normalized.spec='100g／罐';
+        normalized.size='100g／罐';
+        normalized.usage=['一天一次一小匙','初次可先從半匙開始','可直接食用或加入約100～300mL溫熱水化開','避免接近睡前食用'];
+      }
       if(product.id==='guilu-drink-30'){
         normalized.name='龜鹿飲30cc玻璃罐';
         normalized.spec='30cc／罐（小玻璃罐）';
+        normalized.size='30cc／罐（小玻璃罐）';
+        normalized.usage=['每日一份','開罐即可飲用','可隔水加熱或溫熱後飲用','避免冰飲','開罐後請儘速飲用完畢'];
       }
-      if(product.id==='guilu-jiao') normalized.spec='600g／盒｜32塊裝';
+      if(product.id==='guilu-drink-180'){
+        normalized.name='龜鹿飲180cc鋁袋';
+        normalized.spec='180cc／包（鋁袋）';
+        normalized.size='180cc／包（鋁袋）';
+        normalized.usage=['每日一份','撕開包裝即可飲用','可隔水加熱或溫熱後飲用','避免冰飲','開封後請儘速飲用完畢'];
+      }
+      if(product.id==='guilu-tangkuai'){
+        normalized.spec='75g／盒｜8塊裝';
+        normalized.size='75g／盒｜8塊裝';
+      }
+      if(product.id==='guilu-jiao'){
+        normalized.spec='600g／盒｜32塊裝';
+        normalized.size='600g／盒｜32塊裝';
+      }
+      if(product.id==='luerong-fen'){
+        normalized.spec='75g／罐';
+        normalized.size='75g／罐';
+      }
       return {
         ...normalized,
         image:customer,
@@ -114,12 +138,15 @@
     ['五種型態・六項規格','六個正式產品・六個正式規格'],
     ['五種型態、六項規格','六個正式產品、六個正式規格'],
     ['五種產品使用方式','六項正式產品使用方式'],
+    ['每日早上及下午各一小匙','一天一次一小匙'],
     ['規格：30cc／瓶','規格：30cc／罐（小玻璃罐）'],
     ['30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'],
     ['30cc／瓶','30cc／罐（小玻璃罐）'],
     ['龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'],
+    ['75g／盒｜8塊裝｜每塊約9.375g','75g／盒｜8塊裝'],
     ['規格：600g／盒｜1斤｜32塊裝','規格：600g／盒｜32塊裝'],
-    ['600g／盒｜1斤｜32塊裝','600g／盒｜32塊裝']
+    ['600g／盒｜1斤｜32塊裝','600g／盒｜32塊裝'],
+    ['600g（1斤）／盒｜32塊裝｜每塊約18.75g','600g／盒｜32塊裝']
   ]);
   function normalizeVisibleCopy(root=document){
     const body=root.body||root;
