@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'data/formal-media-authority-v20260810.json'
+      - 'images/dm-approved-v20260810/**'
       - 'tools/sync-formal-media.py'
       - 'docs/FORMAL_MEDIA_POLICY_20260810.md'
       - '.github/workflows/sync-formal-media-v2.yml'
@@ -26,17 +28,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Sync latest formal DM and trial display
+      - name: Sync current user-approved DM and trial display
         run: python tools/sync-formal-media.py
-      - name: Validate formal customer display
+      - name: Validate current formal customer display
         shell: bash
         run: |
           test -f images/formal-display/manifest.json
           test -f site-formal-media-v20260810.js
-          grep -Fq '30cc／罐（小玻璃罐' images/formal-display/manifest.json
-          grep -Fq '180cc／包（鋁袋）' images/formal-display/manifest.json
-          grep -Fq '75g／盒｜8塊裝' images/formal-display/manifest.json
-          grep -Fq '600g／盒｜32塊裝' images/formal-display/manifest.json
+          node <<'NODE'
+          const fs=require('fs');
+          const a=JSON.parse(fs.readFileSync('data/formal-media-authority-v20260810.json','utf8'));
+          const m=JSON.parse(fs.readFileSync('images/formal-display/manifest.json','utf8'));
+          const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
+          must(String(a.approval_batch||'').length>0,'正式權威缺少目前核准批次');
+          must(m.approval_batch===a.approval_batch,'顧客顯示層沒有跟目前核准批次同步');
+          must(Object.keys(m.products||{}).length===6,'顧客顯示層必須維持六項產品');
+          for(const spec of ['100g／罐','30cc／罐（小玻璃罐）','180cc／包（鋁袋）','75g／盒｜8塊裝','600g／盒｜32塊裝','75g／罐']) must(JSON.stringify(m).includes(spec),`顯示層缺少正式規格：${spec}`);
+          must(m.rules?.no_ai_product_redraw===true&&m.rules?.no_crop===true&&m.rules?.no_stretch===true,'顯示層不得放寬產品圖硬規則');
+          must(m.rules?.zip_first===true&&m.rules?.regenerate_only_if_no_match===true&&Number(m.rules?.review_after_media_change)===16,'顯示層必須維持ZIP優先／真缺圖才生成／16項重審');
+          console.log('PASS: current approval batch and formal display capabilities are synchronized.');
+          NODE
           ! grep -R -F '30cc／瓶' --include='*.html' .
           ! grep -R -F '五種產品使用方式' --include='*.html' .
       - name: Commit synchronized output
@@ -53,5 +64,5 @@ jobs:
             echo 'Nothing to commit after safe staging.'
             exit 0
           fi
-          git commit -m 'deploy: sync latest approved DM and trial display media'
+          git commit -m 'deploy: sync current user-approved DM and trial display media'
           git push origin HEAD:main
