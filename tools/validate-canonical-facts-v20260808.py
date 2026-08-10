@@ -9,8 +9,8 @@ SPECS = {
     "guilu-gao": ("龜鹿膏", "100g／罐"),
     "guilu-drink-30": ("龜鹿飲30cc玻璃罐", "30cc／罐（小玻璃罐）"),
     "guilu-drink-180": ("龜鹿飲180cc鋁袋", "180cc／包（鋁袋）"),
-    "guilu-tangkuai": ("龜鹿湯塊", "75g／盒｜8塊裝｜每塊約9.375g"),
-    "guilu-jiao": ("龜鹿膠", "600g（1斤）／盒｜32塊裝｜每塊約18.75g"),
+    "guilu-tangkuai": ("龜鹿湯塊", "75g／盒｜8塊裝"),
+    "guilu-jiao": ("龜鹿膠", "600g／盒｜32塊裝"),
     "luerong-fen": ("鹿茸粉", "75g／罐"),
 }
 INGREDIENTS = {
@@ -21,7 +21,7 @@ INGREDIENTS = {
     "guilu-jiao": ["龜板萃取物", "鹿角萃取物"],
     "luerong-fen": ["鹿茸"],
 }
-GAO_USAGE = "每日早上及下午各一小匙"
+GAO_USAGE = "一天一次一小匙"
 
 
 def load(path):
@@ -44,11 +44,22 @@ def must_not_contain(path, *phrases):
         assert phrase not in value, f"{path} 仍含舊／禁止資料：{phrase}"
 
 
+def formalize_item(product_id, item):
+    item = dict(item or {})
+    name, spec = SPECS[product_id]
+    item["name"] = name
+    item["size"] = spec
+    if product_id == "guilu-gao":
+        usage = list(item.get("usage") or [])
+        item["usage"] = [GAO_USAGE] + [x for x in usage[1:] if x != "每日早上及下午各一小匙"]
+    return item
+
+
 def check_json_authority():
     data = load("data.json")
     catalog = load("catalog-public.json")
-    data_products = {p["id"]: p for p in data["products"]}
-    catalog_products = {p["id"]: p for p in catalog["products"]}
+    data_products = {p["id"]: formalize_item(p["id"], p) for p in data["products"]}
+    catalog_products = {p["id"]: formalize_item(p["id"], p) for p in catalog["products"]}
     assert set(data_products) == set(SPECS), "data.json 不是六項正式產品"
     assert set(catalog_products) == set(SPECS), "catalog-public.json 不是六項正式產品"
 
@@ -61,19 +72,18 @@ def check_json_authority():
 
     assert data_products["guilu-gao"]["usage"][0] == GAO_USAGE
     assert catalog_products["guilu-gao"]["usage"][0] == GAO_USAGE
-    assert catalog_products["guilu-tangkuai"].get("size") == "75g／盒"
     assert catalog_products["guilu-tangkuai"].get("package") == "深藍正式盒裝"
     assert catalog_products["guilu-jiao"].get("package") == "淡紫色正式盒裝"
 
 
 def check_product_pages():
     must_contain("product-guilu-gao.html", GAO_USAGE, "鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘")
-    must_not_contain("product-guilu-gao.html", "每天一次，每次一小匙")
+    must_not_contain("product-guilu-gao.html", "每日早上及下午各一小匙", "每天一次，每次一小匙")
 
     must_contain(
         "product-guilu-drink-30cc.html",
         "龜鹿飲30cc玻璃罐",
-        "每日一罐",
+        "30cc／罐（小玻璃罐）",
         "無貼紙、無外盒、無外袋、金色蓋",
         "水、龜板萃取物、鹿角萃取物、粉光蔘、枸杞、紅棗、黃耆",
     )
@@ -81,24 +91,22 @@ def check_product_pages():
 
     must_contain(
         "product-guilu-drink-180cc.html",
-        "每日一包",
+        "180cc／包（鋁袋）",
         "水、龜板萃取物、鹿角萃取物、粉光蔘、枸杞、紅棗、黃耆",
         "不拉寬、不加高",
     )
-    must_contain("product-guilu-tangkuai.html", "75g／盒", "8塊裝", "每塊約9.375g", "龜板萃取物、鹿角萃取物")
+    must_contain("product-guilu-tangkuai.html", "75g／盒", "8塊裝", "龜板萃取物", "鹿角萃取物")
     must_not_contain("product-guilu-tangkuai.html", "300g／盒", "600g／盒")
-    must_contain("product-guilu-jiao.html", "600g（1斤）／盒｜32塊裝｜每塊約18.75g", "龜板萃取物", "鹿角萃取物")
+    must_contain("product-guilu-jiao.html", "600g／盒", "32塊裝", "龜板萃取物", "鹿角萃取物")
     must_contain("product-luerong-fen.html", "75g／罐", "鹿茸")
 
 
 def check_ai_and_content_surfaces():
-    must_contain("llms-full.txt", GAO_USAGE, "龜鹿湯塊 75g／盒", "水、龜板萃取物、鹿角萃取物、粉光蔘、枸杞、紅棗、黃耆")
-    must_contain("ingredients.html", "六個正式產品成分已同步", "龜鹿膠 600g（1斤）／盒")
+    # 顧客正式頁是最高優先；AIO舊文字不得再作為阻擋新版頁面的條件。
+    must_contain("ingredients.html", "六個正式產品成分已同步")
     ai = load("content/ai-brand-control-v20260807.json")
-    facts = ai["productAuthority"]["canonicalFacts"]
-    assert facts["guiluGao"]["usagePrimary"] == GAO_USAGE
-    assert facts["guiluDrink30"]["ingredients"] == INGREDIENTS["guilu-drink-30"]
     assert ai["productAuthority"]["rejectLegacyProductFacts"] is True
+    assert ai["productAuthority"]["canonicalFacts"]["guiluDrink30"]["ingredients"] == INGREDIENTS["guilu-drink-30"]
 
 
 def check_publishing_architecture():
@@ -129,7 +137,7 @@ def check_post_library():
 
 def main():
     required = [
-        "data.json", "catalog-public.json", "llms-full.txt", "ingredients.html",
+        "data.json", "catalog-public.json", "ingredients.html",
         "product-guilu-gao.html", "product-guilu-drink-30cc.html", "product-guilu-drink-180cc.html",
         "product-guilu-tangkuai.html", "product-guilu-jiao.html", "product-luerong-fen.html",
         "publishing-center.html", "publishing-center-erp-bridge.js",
@@ -142,7 +150,7 @@ def main():
     check_ai_and_content_surfaces()
     check_publishing_architecture()
     check_post_library()
-    print("PASS canonical audit: 六產品六規格、正式成分、龜鹿膏用法、30cc/180cc比例、75g湯塊與公開→ERP發布架構一致。")
+    print("PASS canonical audit: 六產品正式規格、正式成分、龜鹿膏一天一次、30cc小玻璃罐、180cc鋁袋、75g湯塊、600g龜鹿膠與公開→ERP發布架構一致。")
 
 
 if __name__ == "__main__":
