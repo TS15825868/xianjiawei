@@ -1,0 +1,20 @@
+{
+  "runtime":"20260810-userzip2-post-library-v1",
+  "source":"user-uploaded 2.zip",
+  "principle":"ZIP素材優先；依文案情境比對；產品型貼文仍以正式DM/products-v3為權威；找不到合格圖才重新生成；生成後回待審核並重跑16項審核。",
+  "candidate_count":22,
+  "safe_scene_priority":[
+    {"id":"self-care","source_file":"242A0279-4C5B-4FF6-B3B6-4878597E09FF.PNG","keywords":["照顧自己","日常","安心","休息"]},
+    {"id":"storage","source_file":"2AC9FB02-1BE8-4309-9F03-848FB93CCF2E.PNG","keywords":["開封","保存","冷藏","保存提醒"]},
+    {"id":"temperature","source_file":"37A166A8-A2E0-4AE1-9207-3064390B1FB6.PNG","keywords":["早晚溫差","換季","外套","秋天"]},
+    {"id":"warm-rhythm","source_file":"928E2F46-2107-4160-A79F-B540FA7CD18B.PNG","keywords":["暖一點","日常","慢慢安排","溫熱"]},
+    {"id":"choose-type","source_file":"92BDF325-BF85-4336-8004-595E0388BD35.PNG","keywords":["怎麼選","產品選擇","依作息","型態"]},
+    {"id":"hydration","source_file":"9A5C0228-E916-4227-88F9-C6E3C106B177.PNG","keywords":["補水","喝水","日常提醒","水分"]},
+    {"id":"hot-weather","source_file":"ADF0816E-E061-4831-9273-608585F065F7.PNG","keywords":["天氣悶熱","夏天","外出","補水"]},
+    {"id":"daily-warm","source_file":"D3D39324-8BB5-4748-AE3A-168EE4F3A1CF.PNG","keywords":["想暖一點","熱飲","日常安排","溫暖"]},
+    {"id":"work-break","source_file":"E9C7429D-27F7-457C-94C3-5FD0368C58FC.PNG","keywords":["工作再忙","休息","上班","小休息"]},
+    {"id":"rainy-day","source_file":"F90B4AE1-51C1-441A-8EA8-4E28CB410456.PNG","keywords":["下雨天","雨天","溫暖","在家"]}
+  ],
+  "product_specific_policy":"產品介紹優先使用已核准正式DM或products-v3，不讓貼文候選圖取代產品本體權威。",
+  "other_zip_files":["1967B71A-6417-41A7-BE0C-B42FE2983160.PNG","2FBAF2F0-DA70-4796-A915-F654B1FF7BAE.PNG","3D02D674-16E3-431A-B079-C4B749DB036B.PNG","3E20A049-DB9F-42BA-A828-DAFDC1B87384.PNG","486C33CC-6045-4041-9451-777B2E2B2A66.PNG","60BDE43A-0474-49A0-8CAE-0D88B6A32D25.PNG","7114B988-ADEE-4A70-A05B-2039B080672B.PNG","B9A8F67D-09C9-4BCE-9093-09E0ED61D1CC.PNG","D37D8281-B5AC-486A-9A19-000ECD978674.PNG","D3A1186B-978E-4B45-9AC3-7EA7D5D22832.PNG","D5CCFBDB-AD95-4C41-89BF-8BA163FAE750.PNG","DC9243ED-24EB-4363-A7B8-E07F20FE238D.PNG"]
+}
