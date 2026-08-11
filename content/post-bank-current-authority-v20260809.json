@@ -2,11 +2,13 @@
   "version": "current-post-bank-authority",
   "authority": "TS15825868/xianjiawei",
   "status": "current-authority",
-  "purpose": "保留歷史資料層作500篇相容組裝，但正式判斷只依目前能力、正式產品／資產權威與實際runtime結果；不再以歷史layer版號、固定候選數、固定重生成數或舊檔名當發布條件。",
+  "purpose": "正式貼文母庫張數跟隨目前公開資料並可持續增加；歷史資料層只作相容組裝。正式判斷依目前產品／媒體／資產權威、ID唯一性與實際runtime能力，不再以500篇、歷史layer版號、固定候選數、固定重生成數、舊檔名或已退役文案當發布條件。",
   "contentBank": {
     "baseLibrary": "content/public-post-library.json",
     "assemblyMode": "runtime-compatibility-layers",
-    "runtimeTotalRequired": 500,
+    "runtimeCountPolicy": "current-catalog-dynamic",
+    "minimumRuntimeCount": 1,
+    "declaredCountMustMatchRuntime": true,
     "uniqueIdsRequired": true,
     "exporter": "post-bank-export.html",
     "exportSchema": "xjw-post-bank-export-v1",
@@ -16,7 +18,7 @@
   "migration": {
     "officialTarget": "https://xianjiawei-internal.tung314069.workers.dev/publishing.html",
     "syncTool": "assets/js/post-bank-sync.js",
-    "syncButton": "同步500篇母庫",
+    "syncButton": "同步目前母庫",
     "deduplicateBySourceId": true,
     "boundedWriteConcurrency": true,
     "autoApprove": false,
@@ -35,20 +37,20 @@
   "imageState": {
     "productAuthoritySource": "catalog-public.json",
     "productImageAuthority": "images/products-v3/",
+    "formalMediaAuthority": "data/formal-media-authority-v20260810.json",
     "publicAssetAuthority": "content/public-asset-library.json",
     "latestUserPostCatalog": "data/post-library-userzip3-v20260811.json",
     "latestUserPostSource": "新貼文的圖(3).zip",
     "latestUserPostBinaryPolicy": "有語意合格ZIP來源但binary尚未同步時標記needs_binary_sync，不得因此亂換圖或直接重生成",
     "legacyProductImagesRejected": true,
-    "legacyDmRejected": true,
+    "unapprovedDmRejected": true,
+    "approvedCurrentDmAllowed": true,
     "deprecatedAssetStatusesRejectedForNewCandidates": [
       "deprecated-reference-only",
       "preflight-rejected-reference-only",
       "superseded-reference-only"
     ],
-    "quarantinedCurrentCopyConflict": "images/dm-approved-v20260810/guilu-drink-30cc.webp",
-    "quarantinedCurrentCopyConflictReason": "30cc DM內嵌文字仍是30cc／瓶，與正式30cc／罐（小玻璃罐）衝突",
-    "rule": "產品本體只用目前products-v3正式實拍原圖；生活情境優先比對目前最新使用者ZIP；任何已退役、圖文不符、裁切角色、混用LINE OA角色、AI重畫產品、30cc錯瓶型／錯單位或180cc錯袋型的候選都不得視為完成圖片。"
+    "rule": "產品本體只用目前products-v3正式實拍原圖；產品／試喝文案可使用目前formal authority逐張核准顧客媒體；生活情境優先比對目前最新使用者ZIP。任何已退役、未核准DM、圖文不符、裁切角色、混用LINE OA角色、AI重畫產品、30cc錯瓶型／錯單位或180cc錯袋型候選都不得視為完成圖片。"
   },
   "regeneration": {
     "mode": "chatgpt-handoff-free-roundtrip",
@@ -63,10 +65,12 @@
   "guardPolicy": {
     "validateCurrentAuthority": true,
     "validateCapabilitiesNotHistoricalVersions": true,
+    "fixedHistoricalPostCountsForbidden": true,
     "fixedHistoricalCandidateCountsForbidden": true,
     "fixedHistoricalRegenerationMinimumsForbidden": true,
     "oldRuntimeStringEqualityForbidden": true,
-    "oldUiVersionEqualityForbidden": true
+    "oldUiVersionEqualityForbidden": true,
+    "approvedCurrentMediaMustNotBeQuarantinedByOldRules": true
   },
   "reviewDimensions": [
     "品牌",
