@@ -1,3 +1,4 @@
+# One-shot repair: rebuild corrupted formal DM WebP binaries from approved repository JPG sources.
 name: 修復正式 DM WebP 圖檔
 
 on:
