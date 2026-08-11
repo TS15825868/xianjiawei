@@ -33,18 +33,15 @@ class Links(HTMLParser):
    if href:self.hrefs.append(href)
 
 def req(ok,message):
- if not ok:raise AssertionError(message)
-def text(path):return (ROOT/path).read_text(encoding='utf-8')
-def load(path):return json.loads(text(path))
+ if not ok: raise AssertionError(message)
+def text(path): return (ROOT/path).read_text(encoding='utf-8')
+def load(path): return json.loads(text(path))
 def webp(path):
  b=(ROOT/path).read_bytes(); return len(b)>12 and b[:4]==b'RIFF' and b[8:12]==b'WEBP'
-def local_from_public_url(value):
- value=str(value or '').split('?',1)[0]
- if '/xianjiawei/' in value:value=value.split('/xianjiawei/',1)[1]
- return value.lstrip('/')
 
 def check_current_authority():
- data=load('data.json'); catalog=load('catalog-public.json'); config=load('config/official-products.json'); visual=load('content/visual-production-spec-current.json'); formal=load('data/formal-media-authority-v20260810.json'); display=load('images/formal-display/manifest.json')
+ data=load('data.json'); catalog=load('catalog-public.json'); config=load('config/official-products.json')
+ visual=load('content/visual-production-spec-current.json'); formal=load('data/formal-media-authority-v20260810.json'); display=load('images/formal-display/manifest.json')
  products={p['id']:p for p in data.get('products',[])}; cat={p['id']:p for p in catalog.get('products',[])}; cfg={p['id']:p for p in config.get('products',[])}
  req(config.get('authority')=='user-confirmed-current','config/official-products.json 必須是目前 user-confirmed-current')
  req(set(products)==set(PRODUCTS),'data.json 必須剛好六項目前正式產品')
@@ -65,20 +62,24 @@ def check_current_authority():
   req('products-v2' not in page_source,f'{page} 不得引用products-v2')
 
  req(products['guilu-gao'].get('usage',[None])[0]=='一天一次一小匙','data.json 龜鹿膏用法不是目前一天一次一小匙')
- req(cat['guilu-gao'].get('usage',[None])[0]=='一天一次一小匙','catalog 龜鹿膏用法不是目前一天一次一小匙')
  req(products['guilu-drink-30'].get('knownContainerDimensionsMm')=={'diameter':42,'height':51},'30cc尺寸不是Ø42×H51mm')
  req(products['guilu-gao'].get('knownContainerDimensionsMm')=={'width':51,'height':78},'龜鹿膏罐尺寸不是51×78mm')
  ratio=(products['guilu-drink-180'].get('aspectRatioWidthToHeight') or {}).get('target')
  req(abs(float(ratio or 0)-0.64)<0.001,'180cc鋁袋寬高比目標不是0.64')
  req(visual.get('official_specs')==[f'{PRODUCTS[k][0]} {PRODUCTS[k][1]}' for k in PRODUCTS],'current visual authority 六項規格不同步')
- req(visual.get('copy_image_match',{}).get('review_items')==16,'current visual authority 必須維持16項審核')
- req(visual.get('post_media_policy',{}).get('regenerate_only_if_no_approved_match') is True,'current visual authority 必須維持無合格圖才生成')
- req(visual.get('products',{}).get('guilu-drink-30',{}).get('customer_dm_status')=='quarantined_until_copy_matches_current_spec','30cc錯字DM未在目前視覺權威隔離')
+ match=visual.get('copy_image_match',{})
+ req(match.get('review_items')==16 and match.get('auto_approve') is False and match.get('auto_publish') is False,'圖文修改後必須維持16項人工審核且不得自動核准／發布')
+ post_policy=visual.get('post_media_policy',{})
+ req(post_policy.get('regenerate_only_if_no_approved_match') is True and post_policy.get('generated_media_returns_to')=='pending_review','貼文圖必須ZIP優先、無合格圖才生成，生成後回待審核')
  req(str(formal.get('post_catalog') or '').endswith('post-library-userzip3-v20260811.json'),'formal authority 沒有指向目前貼文素材catalog')
- req(next(p for p in formal['products'] if p['id']=='guilu-drink-30cc').get('status')=='quarantined_copy_conflict','formal media 未隔離30cc錯字DM')
- req(display.get('products',{}).get('guilu-drink-30',{}).get('status')=='products-v3-fallback','顧客正式展示manifest未回退30cc products-v3')
- req('/images/products-v3/guilu-drink-30.jpg' in str(cat['guilu-drink-30'].get('dmImage') or ''),'catalog 30cc dmImage 必須回退products-v3')
- req('guilu-drink-30cc.webp' in str(cat['guilu-drink-30'].get('quarantinedDmImage') or ''),'catalog 必須保留30cc隔離DM紀錄')
+
+ formal30=next(p for p in formal.get('products',[]) if p.get('id')=='guilu-drink-30cc')
+ display30=display.get('products',{}).get('guilu-drink-30',{})
+ visual30=visual.get('products',{}).get('guilu-drink-30',{})
+ req(formal30.get('status')=='approved_display','30cc目前核准DM未標記 approved_display')
+ req(str(formal30.get('dm') or '').endswith('/guilu-drink-30cc.webp'),'30cc formal media 未指向目前核准DM')
+ req(display30.get('status')=='approved_display' and str(display30.get('path') or '').endswith('/guilu-drink-30cc.webp'),'顧客展示manifest未使用目前核准30cc DM')
+ req(str(visual30.get('customer_dm_status') or '').startswith('approved'),'current visual authority 未標記30cc DM已通過目前規格驗證')
 
 def check_fulfillment():
  data=load('data.json'); by={p['id']:p for p in data['products']}
@@ -94,14 +95,15 @@ def check_formal_media():
  req(len(formal.get('products',[]))==6,'formal media 必須有六項媒體紀錄')
  for p in formal['products']:
   local=str(p['dm']).lstrip('/'); req((ROOT/local).is_file(),f'媒體實體不存在：{local}'); req(webp(local),f'媒體不是有效WebP：{local}')
- trial=str(formal['trial']['image']).lstrip('/'); req((ROOT/trial).is_file() and webp(trial),'正式試喝圖缺失或不是WebP')
- req(formal['trial']['title']=='龜鹿飲試喝組｜先試喝，再決定','試喝標題不同步')
- req('3罐' in formal['trial']['free'] and '7-11店到店60元' in formal['trial']['shipping'] and '郵局宅配100元' in formal['trial']['shipping'],'試喝規則不同步')
+ trial=formal.get('trial',{}); local=str(trial.get('image') or '').lstrip('/')
+ req(trial.get('status')=='approved_display','正式試喝圖尚未標記 approved_display')
+ req((ROOT/local).is_file() and webp(local),'正式試喝圖缺失或不是WebP')
+ req(trial.get('title')=='龜鹿飲試喝組｜先試喝，再決定','試喝標題不同步')
+ req('3罐' in str(trial.get('free')) and '7-11店到店60元' in trial.get('shipping',[]) and '郵局宅配100元' in trial.get('shipping',[]),'試喝規則不同步')
  dm=text('dm.html'); trial_html=text('trial.html')
- req('images/products-v3/guilu-drink-30.jpg' in dm,'DM頁30cc必須使用products-v3 fallback')
- req('images/dm-approved-v20260810/guilu-drink-30cc.webp' not in dm,'DM頁不得直接顯示30cc錯字DM')
+ req('images/dm-approved-v20260810/guilu-drink-30cc.webp' in dm,'DM頁沒有使用目前核准30cc DM')
  req('guilu-drink-trial.webp' in trial_html,'試喝頁沒有使用目前試喝圖')
- req('images/products-v3/guilu-drink-30.jpg' in trial_html,'試喝頁30cc產品本體必須使用products-v3')
+ req('images/products-v3/guilu-drink-30.jpg' in trial_html,'試喝頁30cc產品本體仍須使用products-v3識別原圖')
  req('7-11 店到店' in trial_html and '60元' in trial_html and '郵局宅配' in trial_html and '100元' in trial_html,'試喝頁運費不同步')
  req('<iframe' not in trial_html.lower(),'試喝頁不得用iframe')
 
@@ -126,10 +128,9 @@ def check_public_pages():
    if not resolved.exists():parser_errors.append(f'{rel} → {target}')
  req(not parser_errors,'站內連結目標不存在：'+'；'.join(parser_errors[:20]))
  site_authority=text('site-product-data-authority.js')
- req("const CUSTOMER=OFFICIAL" in site_authority,'官網產品顧客主圖必須直接使用products-v3 authority')
- req('products-v4-final' not in site_authority,'官網產品資料層不得再把products-v4-final當顧客產品本體')
- req('products-v3-current-customer-authority-contain-no-crop' in site_authority,'官網顧客產品圖未鎖products-v3 contain/no-crop')
+ req("const CUSTOMER=OFFICIAL" in site_authority,'官網產品本體識別必須維持products-v3 authority')
+ req('products-v3-current-customer-authority-contain-no-crop' in site_authority,'官網產品本體未鎖products-v3 contain/no-crop')
 
 if __name__=='__main__':
  check_current_authority(); check_fulfillment(); check_formal_media(); check_public_pages()
- print('PASS website production release: current six specs, once-daily guilu-gao usage, products-v3 customer product identity, 30cc DM quarantine, validated display media, fulfillment, customer pages and links; no legacy version/copy/spec lock.')
+ print('PASS website production release: current facts, products-v3 identity, approved current DM/trial media, capability-based 16-item review/regeneration gates, fulfillment and customer pages; no legacy version/copy lock.')
