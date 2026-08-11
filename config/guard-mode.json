@@ -1,0 +1,9 @@
+{
+  "mode": "paused_for_full_system_update",
+  "blocking": false,
+  "automatic_guard_workflows": false,
+  "keep_minimum_safety": true,
+  "reason": "Temporary maintenance window: finish website, LINE OA and publishing-center updates first, then re-enable updated current-authority guards after owner review.",
+  "re_enable_after": "owner_visual_and_functional_review",
+  "guard_principle_when_reenabled": "Validate current capabilities, current authority, current product specs and current approved media. Never require retired version strings, old exact copy, old image names or fixed candidate counts."
+}
