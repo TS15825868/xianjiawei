@@ -1,7 +1,9 @@
 {
-  "runtime": "20260810-formal-media-authority-v3-latest-user-batch",
+  "runtime": "20260811-formal-media-authority-current",
   "approval_batch": "20260810-latest-user-dm-and-trial",
-  "principle": "the newest user-approved product DM, trial poster, product facts and copy supersede retired assets and wording; guards validate current capabilities and current authority, never legacy version strings or old fixed copy",
+  "post_approval_batch": "20260811-latest-user-post-images",
+  "post_catalog": "/data/post-library-userzip3-v20260811.json",
+  "principle": "the newest user-approved product DM, trial poster, product facts, post-media authority and copy supersede retired assets and wording; guards validate current capabilities and current authority, never legacy version strings, old ZIP filenames, fixed candidate counts or old fixed copy",
   "product_image_authority": "products-v3 true original product photos remain the immutable identity authority; approved DM images are customer-facing display assets and must never redefine package identity",
   "products": [
     {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","dm":"/images/dm-approved-v20260810/guilu-gao-100g.webp"},
@@ -22,6 +24,6 @@
     "prices":{"30cc":"60元／罐；買10送1，11罐600元","180cc":"200元／包；買10送1，11包2,000元"}
   },
   "image_rules":["產品本體不得AI重畫","圖文必須一致","禁止拼貼","禁止黑塊","角色不可裁切","30cc不可改瓶型或比例","180cc必須維持鋁袋型態"],
-  "post_image_policy":"user supplied 2.zip library first; match copy by season, scene, environment, temperature, expression, action and props; only when no suitable approved image matches should regeneration be requested; regenerated or replaced content returns to pending review and never bypasses the 16-item review gate",
-  "guard_policy":"validate the current authority, actual binary availability, formal specs and required capabilities; do not reject a correct upgrade because an old version number, retired filename or previous wording changed"
+  "post_image_policy":"use the current user post catalog first for lifestyle content after semantic matching by season, scene, environment, temperature, expression, action, props and copy context; product and trial copy uses current approved formal DM/products-v3 first; when a suitable user ZIP source exists but its binary is not online, keep needs_binary_sync and do not regenerate; only a true no-match may request regeneration; any generated, replaced or edited content invalidates prior approval, returns to pending_review and must pass the 16-item review gate",
+  "guard_policy":"validate the current authority, actual binary availability, formal specs and required capabilities; compare post-media behavior to post_catalog/post_approval_batch instead of retired ZIP names, fixed counts, old version numbers, retired filenames or previous wording"
 }
