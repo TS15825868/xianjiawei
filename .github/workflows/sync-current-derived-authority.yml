@@ -1,18 +1,7 @@
 name: 仙加味目前權威衍生資料同步
 
+# MAINTENANCE MODE: manual only until the owner finishes visual/function review.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'data.json'
-      - 'catalog-public.json'
-      - 'config/official-products.json'
-      - 'assets/data/official-products.json'
-      - 'content/visual-production-spec-current.json'
-      - 'data/formal-media-authority-v20260810.json'
-      - 'data/post-library-userzip3-v20260811.json'
-      - 'tools/sync-current-derived-authority.py'
-      - '.github/workflows/sync-current-derived-authority.yml'
   workflow_dispatch:
 
 permissions:
@@ -32,6 +21,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Maintenance mode notice
+        run: echo "PAUSED automatic sync; this run is manual maintenance verification only."
       - name: Sync current derived authority files
         run: python tools/sync-current-derived-authority.py
       - name: Validate synchronized customer outputs
