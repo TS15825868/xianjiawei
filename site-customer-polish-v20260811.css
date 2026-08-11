@@ -4,12 +4,16 @@ body[data-page="home"] .hero__panel{
   position:relative;
   isolation:isolate;
   overflow:hidden!important;
+  background:linear-gradient(135deg,#fffdf8 0%,#f5efe5 100%)!important;
+  background-image:linear-gradient(135deg,#fffdf8 0%,#f5efe5 100%)!important;
 }
 body[data-page="home"] .hero__content{
   position:relative;
   z-index:2;
   min-width:0;
   overflow:visible;
+  background:none!important;
+  background-image:none!important;
 }
 /* 舊首頁快取若仍帶回已退役元素，一律不顯示給客人。 */
 body[data-page="home"] .hero__content > .eyebrow,
@@ -29,24 +33,55 @@ body[data-page="home"] .hero__lead{
   position:relative;
   z-index:2;
 }
+body[data-page="home"] .hero-actions,
+body[data-page="home"] .home-trust-row,
+body[data-page="home"] .section-actions{
+  position:relative;
+  z-index:2;
+  background:none!important;
+  background-image:none!important;
+  box-shadow:none;
+  filter:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
 body[data-page="home"] .home-brand-signature{
+  position:relative;
   min-height:300px;
   gap:18px;
   padding:28px 22px;
   overflow:hidden!important;
   background:linear-gradient(145deg,#fffdf8 0%,#f2eadc 100%)!important;
+  background-image:linear-gradient(145deg,#fffdf8 0%,#f2eadc 100%)!important;
+  filter:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
 }
 /* 正式版不再使用首頁圓形、圓弧、光暈裝飾。把舊 CSS 的 pseudo element 全部硬關閉。 */
+body[data-page="home"] .page::before,
+body[data-page="home"] .page::after,
+body[data-page="home"] .hero::before,
+body[data-page="home"] .hero::after,
 body[data-page="home"] .hero__panel::before,
 body[data-page="home"] .hero__panel::after,
 body[data-page="home"] .hero__content::before,
 body[data-page="home"] .hero__content::after,
+body[data-page="home"] .hero-actions::before,
+body[data-page="home"] .hero-actions::after,
+body[data-page="home"] .home-trust-row::before,
+body[data-page="home"] .home-trust-row::after,
 body[data-page="home"] .home-brand-signature::before,
 body[data-page="home"] .home-brand-signature::after,
+body[data-page="home"] .home-choice-card::before,
+body[data-page="home"] .home-choice-card::after,
 body[data-page="home"] .home-feature-card::before,
 body[data-page="home"] .home-feature-card::after,
 body[data-page="home"] .home-story-card::before,
-body[data-page="home"] .home-story-card::after{
+body[data-page="home"] .home-story-card::after,
+body[data-page="home"] .home-faq-card::before,
+body[data-page="home"] .home-faq-card::after,
+body[data-page="home"] .section-actions::before,
+body[data-page="home"] .section-actions::after{
   content:none!important;
   display:none!important;
   width:0!important;
@@ -55,6 +90,8 @@ body[data-page="home"] .home-story-card::after{
   outline:0!important;
   box-shadow:none!important;
   background:none!important;
+  background-image:none!important;
+  filter:none!important;
 }
 body[data-page="home"] .home-brand-signature img{
   max-width:min(76%,300px)!important;
@@ -65,6 +102,7 @@ body[data-page="home"] .home-story-card{
 }
 body[data-page="home"] .product-card__img{
   padding:14px;
+  overflow:hidden!important;
 }
 body[data-page="home"] .product-card__img img{
   width:100%!important;
@@ -83,6 +121,7 @@ body[data-page="home"] .product-card__img img{
     gap:22px!important;
     overflow:hidden!important;
     background:linear-gradient(135deg,#fffdf8 0%,#f5efe5 100%)!important;
+    background-image:linear-gradient(135deg,#fffdf8 0%,#f5efe5 100%)!important;
   }
   body[data-page="home"] .hero__content h1{
     font-size:clamp(34px,11vw,46px)!important;
@@ -99,6 +138,7 @@ body[data-page="home"] .product-card__img img{
     padding:24px 18px!important;
     overflow:hidden!important;
     background:linear-gradient(145deg,#fffdf8 0%,#f2eadc 100%)!important;
+    background-image:linear-gradient(145deg,#fffdf8 0%,#f2eadc 100%)!important;
   }
   body[data-page="home"] .home-brand-signature img{
     max-width:min(72%,250px)!important;
