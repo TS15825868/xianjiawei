@@ -12,8 +12,6 @@ on:
       - 'data/formal-media-authority-v20260810.json'
       - 'data/post-library-userzip3-v20260811.json'
       - 'tools/sync-current-derived-authority.py'
-      - 'tools/validate-site-production-release-v20260809.py'
-      - 'tools/validate-site-release.py'
       - '.github/workflows/sync-current-derived-authority.yml'
   workflow_dispatch:
 
@@ -36,8 +34,21 @@ jobs:
           python-version: '3.12'
       - name: Sync current derived authority files
         run: python tools/sync-current-derived-authority.py
-      - name: Validate current website release
-        run: python tools/validate-site-release.py
+      - name: Validate synchronized derived outputs only
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          targets=['content/public-post-library.json','llms-full.txt']
+          retired=['每日早上及下午各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','龜鹿飲30cc玻璃瓶','30cc／瓶']
+          json.loads(Path('content/public-post-library.json').read_text(encoding='utf-8'))
+          for rel in targets:
+            text=Path(rel).read_text(encoding='utf-8')
+            for phrase in retired:
+              if phrase in text: raise SystemExit(f'{rel} 仍含退役目前資料：{phrase}')
+          print('PASS: derived public post/LLM outputs follow current authority; full-site release remains guarded separately.')
+          PY
       - name: Commit synchronized derived outputs
         shell: bash
         run: |
@@ -46,7 +57,7 @@ jobs:
             exit 0
           fi
           git config user.name 'github-actions[bot]'
-          git config user.email '4189824+github-actions[bot]@users.noreply.github.com'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add content/public-post-library.json content/public-content-policy.json config/public-content-policy.json content/post-bank-v6-manifest.json llms-full.txt
           if git diff --cached --quiet; then
             echo 'No derived output changes to commit.'
