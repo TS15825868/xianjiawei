@@ -1,8 +1,8 @@
 {
   "schemaVersion": 12,
-  "catalogVersion": "2026-08-11-current-products-v3-approved-dm",
+  "catalogVersion": "2026-08-11-current-products-v3-dm-copy-validated",
   "updatedAt": "2026-08-11",
-  "source": {"repository":"TS15825868/xianjiawei","branch":"main","role":"仙加味官網公開六項目前正式產品規格、products-v3產品識別原圖與使用者核准正式DM"},
+  "source": {"repository":"TS15825868/xianjiawei","branch":"main","role":"仙加味官網公開六項目前正式產品規格、products-v3產品識別原圖與逐張通過目前規格驗證的顧客展示媒體"},
   "brand": "仙加味",
   "lineId": "@762jybnm",
   "lineUrl": "https://lin.ee/sHZW7NkR",
@@ -17,15 +17,15 @@
     "鹿茸粉 75g／罐"
   ],
   "productImageVersion": "20260810-products-v3-latest-originals-v3",
-  "formalDmApprovalBatch": "20260810-latest-user-dm-and-trial",
+  "formalDmApprovalBatch": "20260810-latest-user-dm-and-trial-copy-validated-current",
   "physicalScalePolicy": {
     "authority":"content/product-physical-scale-authority-v20260809.json",
-    "hardRule":"所有產品本體識別只使用products-v3最新正式產品原圖；只允許整體等比例縮放，不得拉寬、拉高、裁切、AI重畫、改包裝或把不同產品強制等高／等寬。使用者核准DM只作顧客展示，不得反向改寫產品本體。",
+    "hardRule":"所有產品本體識別只使用products-v3最新正式產品原圖；只允許整體等比例縮放，不得拉寬、拉高、裁切、AI重畫、改包裝或把不同產品強制等高／等寬。顧客DM只有在內嵌文字、產品外觀與目前正式規格全部一致時才可展示，不得反向改寫產品本體。",
     "unknownDimensionRule":"沒有可信毫米尺寸的產品，不自行猜測；維持最新正式原圖長寬比。多產品相對尺度無可靠依據時改用單品圖或送人工審核。"
   },
   "specificationRules": {
     "soupBlock": "龜鹿湯塊目前正式顧客規格為75g／盒｜8塊裝；不得回退300g、600g或硬帶舊每塊重量延伸字樣",
-    "drink30": "30cc產品正式名稱為龜鹿飲30cc玻璃罐；小玻璃裸罐、無貼紙、無外盒、無外袋、金色蓋；實際罐體約直徑42mm、高51mm；不得稱瓶或放大成接近100g龜鹿膏罐",
+    "drink30": "30cc產品正式名稱為龜鹿飲30cc玻璃罐；小玻璃裸罐、無貼紙、無外盒、無外袋、金色蓋；實際罐體約直徑42mm、高51mm；不得稱瓶或放大成接近100g龜鹿膏罐；任何內嵌30cc／瓶文字的DM不得顧客展示",
     "drink180": "180cc產品正式名稱為龜鹿飲180cc鋁袋；狹長直立鋁袋，寬高比目標約0.64；不得拉寬或誇張放大",
     "guiluGao": "龜鹿膏100g六角玻璃罐約寬51mm、高78mm；罐型、金色蓋與現行標籤比例固定；目前使用方式一天一次一小匙，初次可先半匙",
     "guiluJiao": "龜鹿膠目前正式顧客規格為600g／盒｜32塊裝；淡紫色正式盒裝；不可與龜鹿湯塊混用；盒體毫米尺寸未知時不得自行推算"
@@ -43,15 +43,15 @@
       "usage":["一天一次一小匙","初次可先從半匙開始","可直接取用或以約100～300mL溫熱水化開","避免接近睡前食用"],
       "storage":["未開封置於陰涼乾燥處","開罐後密封冷藏"],"fulfillmentType":"ready-stock",
       "page":"https://ts15825868.github.io/xianjiawei/product-guilu-gao.html","image":"https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=20260810-products-v3-latest-originals-v3","dmImage":"https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-gao-100g.webp",
-      "knownContainerDimensionsMm":{"width":51,"height":78},"imagePolicy":"products-v3為產品識別原圖；核准DM為顧客展示；均等比例contain、不重畫、不裁切、不拉伸"
+      "knownContainerDimensionsMm":{"width":51,"height":78},"imagePolicy":"products-v3為產品識別原圖；通過目前規格驗證的DM才可顧客展示；均等比例contain、不重畫、不裁切、不拉伸"
     },
     {
       "id":"guilu-drink-30","series":"仙加味・龜鹿","name":"龜鹿飲30cc玻璃罐","size":"30cc／罐（小玻璃罐）","form":"液態即飲","package":"小玻璃裸罐、無貼紙、無外盒、無外袋、金色蓋",
       "ingredients":["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],
       "usage":["每日一罐","開罐即可飲用","可隔水加熱或溫熱後飲用","避免冰飲"],
       "storage":["未開封置於陰涼乾燥處","開罐後請儘速飲用完畢"],"fulfillmentType":"made-to-order-drink",
-      "page":"https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html","image":"https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260810-products-v3-latest-originals-v3","dmImage":"https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-drink-30cc.webp",
-      "knownContainerDimensionsMm":{"diameter":42,"height":51},"imagePolicy":"products-v3為30cc小玻璃裸罐產品識別；核准DM為顧客展示；不可改瓶型或放大成接近100g罐"
+      "page":"https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html","image":"https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260810-products-v3-latest-originals-v3","dmImage":"https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260810-products-v3-latest-originals-v3","quarantinedDmImage":"https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-drink-30cc.webp",
+      "knownContainerDimensionsMm":{"diameter":42,"height":51},"imagePolicy":"products-v3為30cc小玻璃裸罐產品識別與目前顧客展示fallback；原30cc DM因內嵌30cc／瓶文字隔離；不可改瓶型或放大成接近100g罐"
     },
     {
       "id":"guilu-drink-180","series":"仙加味・龜鹿","name":"龜鹿飲180cc鋁袋","size":"180cc／包（鋁袋）","form":"液態即飲","package":"狹長直立鋁袋",
@@ -59,7 +59,7 @@
       "usage":["每日一包","撕開包裝即可飲用","可隔水加熱或溫熱後飲用","避免冰飲"],
       "storage":["未開封置於陰涼乾燥處","開封後請儘速飲用完畢"],"fulfillmentType":"made-to-order-drink",
       "page":"https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html","image":"https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg?v=20260810-products-v3-latest-originals-v3","dmImage":"https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-drink-180cc.webp",
-      "aspectRatioWidthToHeight":{"min":0.60,"target":0.64,"max":0.68},"imagePolicy":"products-v3為180cc鋁袋產品識別；核准DM為顧客展示；不得拉寬、加高或誇張放大"
+      "aspectRatioWidthToHeight":{"min":0.60,"target":0.64,"max":0.68},"imagePolicy":"products-v3為180cc鋁袋產品識別；通過目前規格驗證的DM可顧客展示；不得拉寬、加高或誇張放大"
     },
     {
       "id":"guilu-tangkuai","series":"仙加味・龜鹿","name":"龜鹿湯塊","size":"75g／盒｜8塊裝","pieceCount":8,"form":"塊狀","package":"深藍正式盒裝",
@@ -67,7 +67,7 @@
       "usage":["可搭配熱水、保溫壺或家常燉湯","可加入雞湯或排骨湯燉煮"],
       "storage":["依實際包裝標示保存","置於陰涼乾燥處並避免高溫潮濕"],"fulfillmentType":"ready-stock",
       "page":"https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html","image":"https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg?v=20260810-products-v3-latest-originals-v3","dmImage":"https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-tangkuai-75g.webp",
-      "knownContainerDimensionsMm":null,"imagePolicy":"products-v3為75g深藍盒產品識別；核准DM為顧客展示；盒體毫米尺寸未知，不自行猜測；只保留75g／8塊裝"
+      "knownContainerDimensionsMm":null,"imagePolicy":"products-v3為75g深藍盒產品識別；通過目前規格驗證的DM可顧客展示；盒體毫米尺寸未知，不自行猜測；只保留75g／8塊裝"
     },
     {
       "id":"guilu-jiao","series":"仙加味・龜鹿","name":"龜鹿膠","size":"600g／盒｜32塊裝","pieceCount":32,"form":"塊狀","package":"淡紫色正式盒裝",
@@ -75,16 +75,16 @@
       "usage":["取適量以熱水化開","亦可加入雞湯或排骨湯燉煮"],
       "storage":["依實際包裝標示保存"],"fulfillmentType":"ready-stock",
       "page":"https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html","image":"https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=20260810-products-v3-latest-originals-v3","dmImage":"https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-jiao-600g.webp",
-      "knownContainerDimensionsMm":null,"imagePolicy":"products-v3為淡紫盒產品識別；核准DM為顧客展示；盒體毫米尺寸未知，不自行猜測；不得橫向拉長或縮成與75g湯塊相近尺寸"
+      "knownContainerDimensionsMm":null,"imagePolicy":"products-v3為淡紫盒產品識別；通過目前規格驗證的DM可顧客展示；盒體毫米尺寸未知，不自行猜測；不得橫向拉長或縮成與75g湯塊相近尺寸"
     },
     {
       "id":"luerong-fen","series":"仙加味・鹿茸","name":"鹿茸粉","size":"75g／罐","form":"粉狀","package":"白色塑膠罐","ingredients":["鹿茸"],
       "usage":["取適量加入溫開水、牛奶、豆漿或其他飲品","攪拌均勻後飲用"],
       "storage":["開封後密封保存","避免受潮與高溫"],"fulfillmentType":"ready-stock",
       "page":"https://ts15825868.github.io/xianjiawei/product-luerong-fen.html","image":"https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=20260810-products-v3-latest-originals-v3","dmImage":"https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/lurong-fen-75g.webp",
-      "knownContainerDimensionsMm":null,"imagePolicy":"products-v3為75g白色塑膠罐產品識別；核准DM為顧客展示；罐體毫米尺寸未知，不自行猜測"
+      "knownContainerDimensionsMm":null,"imagePolicy":"products-v3為75g白色塑膠罐產品識別；通過目前規格驗證的DM可顧客展示；罐體毫米尺寸未知，不自行猜測"
     }
   ],
-  "dmPolicy": {"currentDmStatus":"user-approved-customer-display","legacyDmUse":"reference-only","consumerDmMustBeReviewed":true,"productMainImageMustNotUseDm":false,"dmMustNotRedefineProductIdentity":true},
+  "dmPolicy": {"currentDmStatus":"per-product-copy-validation-required","legacyDmUse":"reference-only","consumerDmMustBeReviewed":true,"consumerDmMustMatchCurrentSpecification":true,"productMainImageMustNotUseDm":true,"dmMustNotRedefineProductIdentity":true,"quarantined":{"guilu-drink-30":"DM內嵌30cc／瓶文字，顧客端回退products-v3"}},
   "contentPolicy": {"publicPrice":false,"medicalClaims":false,"officialProductImagesOnly":true,"productRedrawForbidden":true,"imageCroppingForbidden":true,"imageStretchingForbidden":true,"differentProductsEqualSizingForbidden":true,"lineForPurchase":true,"guardPolicy":"current-authority-capability-based-no-legacy-copy-lock"}
 }
