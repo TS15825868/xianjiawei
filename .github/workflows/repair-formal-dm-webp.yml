@@ -1,12 +1,9 @@
 # One-shot repair: rebuild corrupted formal DM WebP binaries from approved repository JPG sources.
+# MAINTENANCE MODE: manual only. Do not trigger automatically while full-system content is being updated.
 name: 修復正式 DM WebP 圖檔
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/repair-formal-dm-webp.yml'
 
 permissions:
   contents: write
