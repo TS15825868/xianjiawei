@@ -5,7 +5,7 @@
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260811-21";
+  const VERSION = "20260811-22";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
   const CORE = `site-core-v410.js?v=${VERSION}`;
@@ -15,6 +15,7 @@
   const HOTFIX = `site-ux-v4104.css?v=${VERSION}`;
   const FORMAL = `site-formal-v20260809.css?v=${VERSION}`;
   const CUSTOMER_POLISH = `site-customer-polish-v20260811.css?v=${VERSION}`;
+  const HOME_FINAL = `site-home-final-v20260811.css?v=${VERSION}`;
 
   function appendScript(src, onload) {
     const script = document.createElement("script");
@@ -40,6 +41,7 @@
                 appendStyle(HOTFIX, "site-ux-v4104.css");
                 appendStyle(FORMAL, "site-formal-v20260809.css");
                 appendStyle(CUSTOMER_POLISH, "site-customer-polish-v20260811.css");
+                appendStyle(HOME_FINAL, "site-home-final-v20260811.css");
               });
             });
           });
@@ -57,5 +59,6 @@
     document.write('<link rel="stylesheet" href="' + HOTFIX + '">');
     document.write('<link rel="stylesheet" href="' + FORMAL + '">');
     document.write('<link rel="stylesheet" href="' + CUSTOMER_POLISH + '">');
+    document.write('<link rel="stylesheet" href="' + HOME_FINAL + '">');
   } else loadSequentially();
 })();
