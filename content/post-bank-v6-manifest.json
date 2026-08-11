@@ -1,6 +1,7 @@
 {
-  "version": "2026-08-10-post-bank-v21-approved-dm-zip-first",
+  "version": "current-post-bank-compatibility-manifest",
   "authority": "TS15825868/xianjiawei",
+  "role": "compatibility-assembly-manifest-not-fixed-count-guard",
   "baseLibrary": "content/public-post-library.json",
   "extensions": [
     "publishing-center-data-v6.js",
@@ -14,46 +15,19 @@
     "publishing-center-data-v15-companions.js"
   ],
   "publishingCenter": "publishing-center.html",
-  "visualSpec": "content/visual-production-spec-v20260807.json",
-  "aiBrandControl": "content/ai-brand-control-v20260807.json",
-  "brandCharacterSpec": "brand-character-spec.json",
-  "brandGuardian": "content/brand-guardian-rules.json",
-  "annualCalendar": "content/annual-content-calendar-v2026.json",
-  "assetUsageLedger": "content/asset-usage-ledger.json",
-  "finalPublishedAssets": "content/final-published-assets-v20260808.json",
-  "imageGenerationQueue": "content/image-generation-queue-v20260808.json",
-  "contentPerformance": "content/content-performance-schema.json",
-  "partnerMode": "content/partner-mode-policy.json",
+  "currentAuthority": "content/post-bank-current-authority-v20260809.json",
   "formalMediaAuthority": "data/formal-media-authority-v20260810.json",
-  "latestUserZipCatalog": "data/post-library-userzip2-v20260810.json",
-  "counts": {
-    "base": 23,
+  "latestUserZipCatalog": "data/post-library-userzip3-v20260811.json",
+  "latestUserZipSource": "新貼文的圖(3).zip",
+  "runtimeCountPolicy": "actual-runtime-count-must-match-current-exporter; no fixed historical count is a release condition",
+  "historicalCompatibilitySnapshot": {
+    "baseAtSnapshot": 23,
     "generatedCopyQueueV6": 300,
     "generatedCopyQueueV7": 177,
-    "runtimeTotal": 500,
-    "publishedLockedInBase": 2,
-    "publishedLockedInGenerated": 1,
-    "publishedLockedTotal": 3,
-    "campaignHold": 11,
-    "activeImageGenerationRequired": 0,
-    "existingCandidateNeeds16PointReview": 486,
-    "preflightRejectedNeedsRegeneration": 0,
-    "preflightRejectedReplaced": 13,
-    "newGeneratedPostsStatus": "pending_review"
-  },
-  "runtimeCandidateCoverage": {
-    "v12SafeNonCharacter": 345,
-    "v13FestivalLocationWanhua": 72,
-    "v14BossDaily": 32,
-    "v15Companions": 16,
-    "existingBeforeV12": 21,
-    "candidateReviewTotal": 486,
-    "missingImageTotal": 0,
-    "rule": "候選覆蓋完整不等於人工核准；所有486張仍需16項審核。最新核准DM與2.zip只作為更高優先的正確配圖來源，不跳過審核。"
+    "assembledRuntimeAtSnapshot": 500,
+    "note": "These numbers describe the old compatibility assembly snapshot only. They must never be used to reject a newer valid current catalog."
   },
   "generatorAuthority": {
-    "v6": "300篇：產品48、日常節奏48、四季48、天氣關懷48、料理48、品牌24、FAQ24、試喝12",
-    "v7": "177篇：節慶24、地點24、萬華在地24、小老闆與夥伴32、陪伴角色16、FAQ24、合作夥伴素材24、門市日常9",
     "officialProductCount": 6,
     "officialSellableSpecs": 6,
     "formalSpecs": [
@@ -66,89 +40,25 @@
     ],
     "mascot": "官網正式精緻Q版小老闆；姿勢、季節、冷熱、表情、動作與道具依文案改變，角色識別固定；小鹿與小烏龜依情境加入且不得裁切。"
   },
-  "finalPublishedLocks": [
-    {
-      "post_id": "XJW-TRIAL-001",
-      "asset_id": "guilu-drink-trial-final-20260808",
-      "status": "published_final_locked",
-      "do_not_regenerate": true,
-      "prevent_republish": true,
-      "published_confirmed_on": "2026-08-08"
-    }
-  ],
-  "publishedHistorySuperseded": [
-    {
-      "post_id": "POST-GUILU-DRINK-TRIAL-EVERGREEN",
-      "old_asset_id": "post-trial-evergreen-v412",
-      "published_at_taipei": "2026-08-06T12:54:00+08:00",
-      "current_campaign_asset": "guilu-drink-trial-final-20260808",
-      "prevent_republish": true
-    }
-  ],
-  "campaignHolds": {
-    "ids": [
-      "XJW-TRIAL-002",
-      "XJW-TRIAL-003",
-      "XJW-TRIAL-004",
-      "XJW-TRIAL-005",
-      "XJW-TRIAL-006",
-      "XJW-TRIAL-007",
-      "XJW-TRIAL-008",
-      "XJW-TRIAL-009",
-      "XJW-TRIAL-010",
-      "XJW-TRIAL-011",
-      "XJW-TRIAL-012"
-    ],
-    "hold_until": "2026-11-06"
-  },
-  "preflightHistory": {
-    "oldRejectedCount": 13,
-    "replacementGeneratedCount": 13,
-    "activeRejectedNeedsRegeneration": 0,
-    "post_ids": [
-      "XJW-WORK-REST-001",
-      "POST-STORAGE",
-      "POST-SEASONS-RHYTHM",
-      "POST-INGREDIENT-PRINCIPLE",
-      "POST-DAILY-SOUP",
-      "POST-WEATHER-HOT",
-      "POST-WEATHER-TEMP",
-      "POST-WEATHER-RAIN",
-      "POST-GUIDE",
-      "POST-STORE",
-      "POST-RECIPES",
-      "POST-CHOOSE",
-      "POST-CHOOSE-BY-HABIT"
-    ],
-    "reason": "舊圖因情境錯配、重複背景、deprecated產品、AI重畫產品或舊包裝被隔離；已有替代候選，仍需16項審核。"
-  },
-  "generatedCopyQueueByPillar": {
-    "產品": 48,
-    "日常節奏": 48,
-    "四季": 48,
-    "天氣關懷": 48,
-    "料理": 48,
-    "品牌": 24,
-    "FAQ": 48,
-    "試喝活動": 12,
-    "節慶": 24,
-    "地點": 24,
-    "萬華在地": 24,
-    "小老闆與夥伴": 32,
-    "陪伴角色": 16,
-    "合作夥伴素材": 24,
-    "門市日常": 9
+  "protection": {
+    "publishedContentLocked": true,
+    "campaignHoldProtected": true,
+    "mediaChangeInvalidatesOldApproval": true,
+    "newOrUpdatedCandidatesRequire16PointReview": true,
+    "autoApprove": false,
+    "autoSchedule": false,
+    "autoPublish": false
   },
   "imageWorkflow": {
     "priority": [
-      "產品／試喝文案：先使用使用者核准正式DM／試喝圖",
-      "生活情境文：先依季節、情境、環境、冷熱、表情、動作、道具比對最新2.zip",
-      "只有正式DM與2.zip都沒有合格來源時才重新生成"
+      "產品／試喝文案：先使用目前formal media authority核准正式媒體；產品本體身分維持products-v3",
+      "生活情境文：依季節、情境、環境、冷熱、表情、動作、道具與文案語意比對目前最新使用者ZIP",
+      "有語意合格ZIP來源但binary未同步：標記needs_binary_sync，不得重生成",
+      "只有正式媒體與最新ZIP都沒有合格來源時才重新生成"
     ],
-    "productIdentityAuthority": "products-v3真正正式產品原圖；DM是核准顧客顯示素材，不得反向改寫產品包裝身分",
-    "zipBinaryRule": "只有真實二進位且具有可載入public_url的ZIP候選才能正式套用；只找到檔名／目錄時標記待同步原圖，不得假裝已上線，也不得因此亂生成替代圖",
+    "productIdentityAuthority": "products-v3真正正式產品原圖；核准DM是顧客顯示素材，不得反向改寫產品包裝身分",
+    "zipBinaryRule": "只有真實二進位且具有可載入public_url的ZIP候選才能正式套用；只找到合格來源但二進位未同步時標記needs_binary_sync，不得假裝已上線，也不得亂生成替代圖",
     "regenerationRule": "生成或換圖後原核准與排程失效，回pending_review並重跑16項審核；不得自動核准或發布",
-    "currentMissingImageTotal": 0,
     "ownerReviewRequired": true
   },
   "reviewDimensions": [
@@ -160,37 +70,28 @@
     "天氣",
     "場合",
     "地點",
-    "情境",
-    "環境",
-    "冷熱",
+    "情境／環境／冷熱",
     "表情",
     "動作",
     "小老闆與夥伴",
     "比例尺寸",
-    "重複圖"
+    "重複圖",
+    "圖文一致",
+    "法規與最終確認"
   ],
-  "liveChecks": [
-    "天氣",
-    "颱風",
-    "寒流",
-    "高溫",
-    "空氣品質",
-    "重大即時事件"
-  ],
-  "schedule": [
-    "星期二 19:30",
-    "星期六 09:30"
-  ],
-  "rules": {
-    "sameImageWithinDays": 90,
-    "sameCopyWithinDays": 180,
-    "sameSceneWithinDays": 45,
-    "sameMascotPoseWithinDays": 30,
-    "weatherNeverPreAutoPublish": true,
-    "ownerReviewRequired": true,
-    "companyInfoNotPublicByDefault": true,
-    "partnerProtectionMode": true,
-    "paidOpenAIApiDisabled": true,
-    "regenerationMode": "chatgpt_handoff"
-  }
+  "guardPolicy": {
+    "validateCurrentAuthority": true,
+    "validateCapabilitiesNotHistoricalVersions": true,
+    "fixedHistoricalPostCountsForbidden": true,
+    "fixedHistoricalCandidateCountsForbidden": true,
+    "fixedHistoricalRegenerationMinimumsForbidden": true,
+    "latestZipComesFromCurrentAuthority": true,
+    "approvedCurrentMediaMustNotBeRejectedByOldRules": true
+  },
+  "schedulePolicy": {
+    "scheduleIsOptional": true,
+    "immediatePublishMustNotBeBlockedByConfiguredSchedule": true,
+    "weatherOrFastChangingPostsRequireLiveCheck": true
+  },
+  "updatedAt": "2026-08-11"
 }
