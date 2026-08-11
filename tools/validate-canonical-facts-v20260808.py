@@ -44,34 +44,26 @@ def must_not_contain(path, *phrases):
         assert phrase not in value, f"{path} 仍含舊／禁止資料：{phrase}"
 
 
-def formalize_item(product_id, item):
-    item = dict(item or {})
-    name, spec = SPECS[product_id]
-    item["name"] = name
-    item["size"] = spec
-    if product_id == "guilu-gao":
-        usage = list(item.get("usage") or [])
-        item["usage"] = [GAO_USAGE] + [x for x in usage[1:] if x != "每日早上及下午各一小匙"]
-    return item
-
-
 def check_json_authority():
     data = load("data.json")
     catalog = load("catalog-public.json")
-    data_products = {p["id"]: formalize_item(p["id"], p) for p in data["products"]}
-    catalog_products = {p["id"]: formalize_item(p["id"], p) for p in catalog["products"]}
-    assert set(data_products) == set(SPECS), "data.json 不是六項正式產品"
-    assert set(catalog_products) == set(SPECS), "catalog-public.json 不是六項正式產品"
+    data_products = {p["id"]: p for p in data["products"]}
+    catalog_products = {p["id"]: p for p in catalog["products"]}
+    assert set(data_products) == set(SPECS), "data.json 不是目前六項正式產品"
+    assert set(catalog_products) == set(SPECS), "catalog-public.json 不是目前六項正式產品"
 
     for product_id, (name, spec) in SPECS.items():
         item = data_products[product_id]
+        catalog_item = catalog_products[product_id]
         assert item.get("name") == name, f"data.json {product_id} 名稱錯誤"
-        assert item.get("size") == spec, f"data.json {product_id} 規格錯誤"
+        assert (item.get("size") or item.get("specification") or item.get("spec")) == spec, f"data.json {product_id} 規格錯誤"
+        assert catalog_item.get("name") == name, f"catalog {product_id} 名稱錯誤"
+        assert catalog_item.get("size") == spec, f"catalog {product_id} 規格錯誤"
         assert item.get("ingredients") == INGREDIENTS[product_id], f"data.json {product_id} 成分／順序錯誤"
-        assert catalog_products[product_id].get("ingredients") == INGREDIENTS[product_id], f"catalog {product_id} 成分／順序錯誤"
+        assert catalog_item.get("ingredients") == INGREDIENTS[product_id], f"catalog {product_id} 成分／順序錯誤"
 
-    assert data_products["guilu-gao"]["usage"][0] == GAO_USAGE
-    assert catalog_products["guilu-gao"]["usage"][0] == GAO_USAGE
+    assert data_products["guilu-gao"]["usage"][0] == GAO_USAGE, "data.json 龜鹿膏主要使用方式不同步"
+    assert catalog_products["guilu-gao"]["usage"][0] == GAO_USAGE, "catalog 龜鹿膏主要使用方式不同步"
     assert catalog_products["guilu-tangkuai"].get("package") == "深藍正式盒裝"
     assert catalog_products["guilu-jiao"].get("package") == "淡紫色正式盒裝"
 
@@ -102,7 +94,6 @@ def check_product_pages():
 
 
 def check_ai_and_content_surfaces():
-    # 顧客正式頁是最高優先；AIO舊文字不得再作為阻擋新版頁面的條件。
     must_contain("ingredients.html", "六個正式產品成分已同步")
     ai = load("content/ai-brand-control-v20260807.json")
     assert ai["productAuthority"]["rejectLegacyProductFacts"] is True
@@ -123,16 +114,20 @@ def check_publishing_architecture():
 
 def check_post_library():
     posts = load("content/public-post-library.json")
-    assert posts.get("counts", {}).get("total") == len(posts.get("posts", []))
-    assert all(p.get("status") in {"published", "pending_review", "draft", "rejected", "archived"} for p in posts["posts"])
-    for post in posts["posts"]:
+    items=posts.get("posts", [])
+    assert items and posts.get("counts", {}).get("total") == len(items), "公開貼文母庫宣告數量必須跟目前實際數量一致"
+    ids=[str(p.get('id') or '').strip() for p in items]
+    assert all(ids) and len(ids)==len(set(ids)), "公開貼文ID不可空白或重複"
+    for post in items:
         body = json.dumps(post, ensure_ascii=False)
+        assert post.get("status") in {"published", "pending_review", "draft", "rejected", "archived", "campaign_hold"}, f"未知貼文狀態：{post.get('id')}"
         if "龜鹿湯塊" in body:
             for value in re.findall(r"(?<!\d)(\d+(?:\.\d+)?)g", body):
                 number = float(value)
                 if number >= 50 and abs(number - 75) > 0.001 and "龜鹿膠" not in body:
                     raise AssertionError(f"貼文 {post.get('id')} 疑似含未核准湯塊重量 {value}g")
         assert "龜鹿飲30cc玻璃瓶" not in body
+        assert "30cc／瓶" not in body
 
 
 def main():
@@ -150,7 +145,7 @@ def main():
     check_ai_and_content_surfaces()
     check_publishing_architecture()
     check_post_library()
-    print("PASS canonical audit: 六產品正式規格、正式成分、龜鹿膏一天一次、30cc小玻璃罐、180cc鋁袋、75g湯塊、600g龜鹿膠與公開→ERP發布架構一致。")
+    print("PASS canonical audit: 直接驗證目前來源資料，不先在記憶體改寫；六產品正式規格／成分、龜鹿膏一天一次、30cc小玻璃罐、180cc鋁袋、75g湯塊、600g龜鹿膠、動態母庫ID唯一與公開→ERP發布架構一致。")
 
 
 if __name__ == "__main__":
