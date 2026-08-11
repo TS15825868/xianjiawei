@@ -1,0 +1,73 @@
+name: Verify Current Website Live Once
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/verify-live-current-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify GitHub Pages current homepage and uploaded media
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://ts15825868.github.io/xianjiawei'
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            ok=1
+            curl -fsSL --max-time 20 "$base/index.html" -o /tmp/index.html || ok=0
+            curl -fsSL --max-time 20 "$base/site-customer-polish-v20260811.css" -o /tmp/polish.css || ok=0
+            curl -fsSL --max-time 20 "$base/data/post-library-userzip3-v20260811.json" -o /tmp/catalog.json || ok=0
+            if [ "$ok" = 1 ] && grep -q 'site.js' /tmp/index.html && grep -q 'home-brand-signature::before' /tmp/polish.css && grep -q 'content:none!important' /tmp/polish.css; then
+              python - <<'PY'
+          import json
+          d=json.load(open('/tmp/catalog.json',encoding='utf-8'))
+          assert d['binary_sync']['status']=='synced'
+          assert d['binary_sync']['publishable_count']==15
+          rows=d['safe_scene_priority']
+          assert len(rows)==15
+          assert all(x.get('binary_ready') is True and x.get('public_url') for x in rows)
+          print('catalog current')
+          PY
+              pass=1
+              for f in warm-rhythm storage warm-water work-break rainy-warm hot-weather-hydration daily-hydration self-care-family hot-weather-hydration-2 temperature-coat choose-by-routine rainy-home work-break-2 self-care-family-2 temperature-coat-2; do
+                curl -fsSL --max-time 20 "$base/images/post-library/userzip3-v20260811/$f.webp" -o /tmp/$f.webp || pass=0
+                test -s /tmp/$f.webp || pass=0
+              done
+              if [ "$pass" = 1 ]; then
+                echo 'PASS: current homepage CSS and all 15 uploaded lifestyle images are live on GitHub Pages.'
+                exit 0
+              fi
+            fi
+            sleep 15
+          done
+          echo 'GitHub Pages did not expose the current release within retry window.' >&2
+          exit 1
+      - name: Record live status and remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > live-status-current.json <<JSON
+          {
+            "status": "verified_live",
+            "verified_at_utc": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "homepage_mobile_polish": "site-customer-polish-v20260811.css",
+            "uploaded_lifestyle_media_count": 15,
+            "post_library_binary_sync": "synced",
+            "blocking_guards": false,
+            "guard_mode": "paused_for_full_system_update"
+          }
+          JSON
+          rm -f .github/workflows/verify-live-current-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'audit: confirm current website and uploaded media live'
+          git pull --rebase origin main
+          git push origin HEAD:main
