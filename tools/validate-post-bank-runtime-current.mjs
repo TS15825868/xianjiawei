@@ -17,6 +17,7 @@ const nativeFetch=async input=>responseFor(typeof input==='string'?input:(input?
 globalThis.window={fetch:nativeFetch};
 globalThis.document={readyState:'loading',querySelectorAll:()=>[],addEventListener:()=>{}};
 
+// These filenames are compatibility assembly sources, not release-version requirements.
 const layers=[
   'publishing-center-data-v6.js',
   'publishing-center-data-v7.js',
@@ -59,19 +60,39 @@ const retired=new Set(
     .filter(Boolean)
 );
 const normalize=value=>String(value||'').replace(/^https?:\/\/[^/]+\/xianjiawei\//i,'').replace(/^\//,'').split(/[?#]/)[0];
-let needsGeneration=0,publishedLocked=0,campaignHold=0,candidateReview=0;
+const isProtected=post=>post.status==='published'||post.status==='archived'||post.prevent_republish===true||post.do_not_republish===true;
+const isHold=post=>post.campaign_hold===true||post.status==='campaign_hold'||Boolean(post.hold_until);
+const isRegen=post=>post.image_status==='needs_generation'||post.requires_image_generation===true||/regeneration-required|chatgpt.*required|chatgpt_handoff/i.test(String(post.candidate_generation_mode||post.regeneration_mode||''));
+
+let needsGeneration=0,publishedLocked=0,campaignHold=0,candidateReview=0,unclassified=0;
 for(const post of posts){
   const image=String(post?.image_url||'').trim();
   const normalized=normalize(image);
   const serialized=JSON.stringify(post);
-  assert.doesNotMatch(image,/\/images\/products-v2\/|\/images\/dm-final\//i,`${post.id} 仍引用舊產品圖／舊DM`);
-  assert.doesNotMatch(image,/\/images\/dm-approved-v20260810\/guilu-drink-30cc\.webp/i,`${post.id} 仍引用內嵌30cc／瓶字樣的隔離DM`);
-  assert.doesNotMatch(serialized,/30\s*cc.{0,40}(玻璃瓶|瓶裝|[／/]\s*瓶)/i,`${post.id} 仍出現30cc瓶型舊稱`);
-  assert.doesNotMatch(serialized,/龜鹿湯塊.{0,80}(300\s*g|600\s*g)/i,`${post.id} 龜鹿湯塊仍出現舊容量`);
-  if(normalized&&retired.has(normalized)&&post.status!=='published'&&post.status!=='archived')assert.fail(`${post.id} 仍沿用目前資產庫已退役圖片：${normalized}`);
-  if(/\/images\/brand\/line-oa\//i.test(image))assert.fail(`${post.id} 正式候選不得直接混用LINE OA專用角色圖`);
+  const protectedPost=isProtected(post);
+  const hold=isHold(post);
+  const regen=!protectedPost&&!hold&&isRegen(post);
 
-  const regen=post.image_status==='needs_generation'||post.requires_image_generation===true||/regeneration-required|chatgpt.*required|chatgpt_handoff/i.test(String(post.candidate_generation_mode||post.regeneration_mode||''));
+  assert.doesNotMatch(image,/\/images\/products-v2\/|\/images\/dm-final\//i,`${post.id} 仍引用舊產品圖／舊DM`);
+  if(!protectedPost){
+    assert.doesNotMatch(image,/\/images\/dm-approved-v20260810\/guilu-drink-30cc\.webp/i,`${post.id} 仍引用內嵌30cc／瓶字樣的隔離DM`);
+    assert.doesNotMatch(serialized,/30\s*cc.{0,40}(玻璃瓶|瓶裝|[／/]\s*瓶)/i,`${post.id} 仍出現30cc瓶型舊稱`);
+    assert.doesNotMatch(serialized,/龜鹿湯塊.{0,80}(300\s*g|600\s*g)/i,`${post.id} 龜鹿湯塊仍出現舊容量`);
+    if(normalized&&retired.has(normalized))assert.fail(`${post.id} 仍沿用目前資產庫已退役圖片：${normalized}`);
+    if(/\/images\/brand\/line-oa\//i.test(image))assert.fail(`${post.id} 正式候選不得直接混用LINE OA專用角色圖`);
+  }
+
+  if(protectedPost){
+    publishedLocked++;
+    assert.notEqual(post.publish_allowed,true,`${post.id} 已發布／防重發鎖定不得重新允許發布`);
+    continue;
+  }
+  if(hold){
+    campaignHold++;
+    assert.notEqual(post.publish_allowed,true,`${post.id} 活動冷卻不得允許發布`);
+    assert.notEqual(post.schedule_enabled,true,`${post.id} 活動冷卻不得啟用排程`);
+    continue;
+  }
   if(regen){
     needsGeneration++;
     assert.equal(image,'',`${post.id} 需重生成時舊image_url必須清空`);
@@ -79,23 +100,22 @@ for(const post of posts){
     assert.notEqual(post.schedule_enabled,true,`${post.id} 需重生成不得允許排程`);
     assert.ok(String(post.image_prompt||'').trim(),`${post.id} 需重生成必須保留可執行image_prompt`);
     assert.ok(String(post.image_review_reason||'').trim(),`${post.id} 需重生成必須有退件／審核理由`);
+    continue;
   }
-  if(post.status==='published'||post.prevent_republish===true||post.do_not_republish===true){
-    publishedLocked++;
-    assert.notEqual(post.publish_allowed,true,`${post.id} 已發布鎖定不得重新允許發布`);
-  }else if(post.campaign_hold===true||post.status==='campaign_hold'||post.hold_until){
-    campaignHold++;
-    assert.notEqual(post.publish_allowed,true,`${post.id} 活動冷卻不得允許發布`);
-  }else if(['candidate-review-required','official-reference-pending-layout-review'].includes(String(post.image_status||''))){
+  if(['candidate-review-required','official-reference-pending-layout-review'].includes(String(post.image_status||''))){
     candidateReview++;
     assert.ok(image,`${post.id} 待審核候選必須有圖片`);
     assert.notEqual(post.publish_allowed,true,`${post.id} 待審核候選不得直接發布`);
+    assert.notEqual(post.schedule_enabled,true,`${post.id} 待審核候選不得直接排程`);
+    continue;
   }
+  unclassified++;
 }
 
 assert.equal(posts.filter(post=>post.id==='XJW-TRIAL-001').length,1,'正式試喝已發布紀錄必須保留且唯一');
 assert.ok(needsGeneration>0,'目前不合格圖應保留待重生成／待新ZIP替換的安全狀態，不能假裝全部完成');
-assert.equal(posts.length,publishedLocked+campaignHold+needsGeneration+candidateReview,'500篇必須全部落在已發布鎖定、活動冷卻、需重生成或待審核安全狀態');
+assert.equal(unclassified,0,'500篇存在未落入正式安全狀態的貼文');
+assert.equal(posts.length,publishedLocked+campaignHold+needsGeneration+candidateReview,'500篇安全狀態分類總數必須等於500');
 
 console.log('PASS runtime500 capability audit',JSON.stringify({
   total:posts.length,
@@ -103,6 +123,7 @@ console.log('PASS runtime500 capability audit',JSON.stringify({
   campaignHold,
   needsGeneration,
   candidateReview,
+  unclassified,
   productAuthority:'products-v3',
   currentAssetGuard:true
 },null,2));
