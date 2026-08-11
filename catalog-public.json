@@ -20,7 +20,7 @@
     "龜鹿膠 600g／盒｜32塊裝",
     "鹿茸粉 75g／罐"
   ],
-  "productImageVersion": "20260810-products-v3-latest-originals-v3",
+  "productImageVersion": "current-products-v3-originals",
   "formalDmApprovalBatch": "current-user-approved-media",
   "physicalScalePolicy": {
     "authority": "content/product-physical-scale-authority-v20260809.json",
@@ -75,8 +75,8 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=20260810-products-v3-latest-originals-v3",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-gao-100g.webp",
+      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=current-products-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=current",
       "knownContainerDimensionsMm": {
         "width": 51,
         "height": 78
@@ -111,7 +111,7 @@
       ],
       "fulfillmentType": "made-to-order-drink",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260810-products-v3-latest-originals-v3",
+      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=current-products-v3",
       "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-drink-30cc.webp?v=current",
       "knownContainerDimensionsMm": {
         "diameter": 42,
@@ -147,8 +147,8 @@
       ],
       "fulfillmentType": "made-to-order-drink",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg?v=20260810-products-v3-latest-originals-v3",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-drink-180cc.webp",
+      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg?v=current-products-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=current",
       "aspectRatioWidthToHeight": {
         "min": 0.6,
         "target": 0.64,
@@ -178,8 +178,8 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg?v=20260810-products-v3-latest-originals-v3",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-tangkuai-75g.webp",
+      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg?v=current-products-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=current",
       "knownContainerDimensionsMm": null,
       "imagePolicy": "products-v3為75g深藍盒產品識別；通過目前規格驗證的DM可顧客展示；盒體毫米尺寸未知，不自行猜測；只保留75g／8塊裝"
     },
@@ -204,8 +204,8 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=20260810-products-v3-latest-originals-v3",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-jiao-600g.webp",
+      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=current-products-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=current",
       "knownContainerDimensionsMm": null,
       "imagePolicy": "products-v3為淡紫盒產品識別；通過目前規格驗證的DM可顧客展示；盒體毫米尺寸未知，不自行猜測；不得橫向拉長或縮成與75g湯塊相近尺寸"
     },
@@ -229,22 +229,20 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-luerong-fen.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=20260810-products-v3-latest-originals-v3",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/lurong-fen-75g.webp",
+      "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=current-products-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=current",
       "knownContainerDimensionsMm": null,
       "imagePolicy": "products-v3為75g白色塑膠罐產品識別；通過目前規格驗證的DM可顧客展示；罐體毫米尺寸未知，不自行猜測"
     }
   ],
   "dmPolicy": {
-    "currentDmStatus": "per-product-copy-validation-required",
+    "currentDmStatus": "current-approved-display-with-products-v3-identity-authority",
     "legacyDmUse": "reference-only",
     "consumerDmMustBeReviewed": true,
     "consumerDmMustMatchCurrentSpecification": true,
     "productMainImageMustNotUseDm": true,
     "dmMustNotRedefineProductIdentity": true,
-    "quarantined": {
-      "guilu-drink-30": "DM內嵌30cc／罐（小玻璃罐）文字，顧客端回退products-v3"
-    }
+    "quarantined": {}
   },
   "contentPolicy": {
     "publicPrice": false,
