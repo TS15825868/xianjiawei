@@ -1,0 +1,43 @@
+{
+  "runtime": "current-user-post-zip-catalog",
+  "source": "新貼文的圖(3).zip",
+  "uploaded_batch_date": "2026-08-11",
+  "original_file_count": 21,
+  "unique_image_count": 20,
+  "duplicate_count": 1,
+  "priority": "user_zip_approved_after_semantic_match",
+  "binary_sync": {
+    "status": "pending",
+    "publishable_count": 0,
+    "rule": "原始二進位尚未同步前只標記 needs_binary_sync，不得因此改用不相符圖片，也不得直接重新生成。"
+  },
+  "product_media_rule": "ZIP中的產品卡型圖片不自動取得產品權威；產品／試喝文案優先使用正式核准DM與products-v3真實產品原圖。",
+  "safe_scene_priority": [
+    {"id":"warm-rhythm","source_file":"102B2024-711A-4C6B-9EE6-B9C574AD1FC1.PNG","public_url":"","binary_ready":false,"scene":"想吃得暖一點、日常慢慢安排、溫熱料理","keywords":["暖一點","溫熱","日常","料理","慢慢安排"]},
+    {"id":"storage","source_file":"1BDF6F03-A38C-407B-AC26-28A39EC0DEE7.PNG","public_url":"","binary_ready":false,"scene":"開封後與平時保存提醒","keywords":["開封","保存","冷藏","陰涼","保存提醒"]},
+    {"id":"warm-water","source_file":"3C818F36-DCC3-41E8-AA93-F680AD8F5E69.PNG","public_url":"","binary_ready":false,"scene":"想喝熱熱的時候、溫熱水與日常安排","keywords":["熱熱","溫熱","熱水","暖","日常安排"]},
+    {"id":"work-break","source_file":"634CBEF9-5A29-44EE-BFFC-AA5DDB8C049B.PNG","public_url":"","binary_ready":false,"scene":"工作再忙也別忘了休息一下","keywords":["工作","上班","忙碌","休息","喘口氣"]},
+    {"id":"rainy-warm","source_file":"7C74B21C-FFAD-4315-BE75-6C501568B793 2.PNG","public_url":"","binary_ready":false,"scene":"下雨天在家、留一點暖暖的時間","keywords":["下雨","雨天","在家","暖暖","休息"]},
+    {"id":"hot-weather-hydration","source_file":"8A1CC795-FAD3-44A7-8304-86DBAE441246.PNG","public_url":"","binary_ready":false,"scene":"天氣炎熱、記得分次補充水分","keywords":["天氣炎熱","夏天","補水","水分","外出"]},
+    {"id":"daily-hydration","source_file":"8C5C74BD-0459-4C4E-9B52-425FF503DA54.PNG","public_url":"","binary_ready":false,"scene":"日常補水提醒、分次補充水分","keywords":["補水","喝水","水分","日常提醒"]},
+    {"id":"self-care-family","source_file":"8D1745B2-B5D5-4DCA-8643-96BBF69814E8.PNG","public_url":"","binary_ready":false,"scene":"照顧自己也別忘了關心家人","keywords":["照顧自己","家人","關心","日常"]},
+    {"id":"hot-weather-hydration-2","source_file":"9CEB8667-4105-4300-928E-57A14A9CA270.PNG","public_url":"","binary_ready":false,"scene":"天氣悶熱、外出記得留意防曬與補水","keywords":["天氣悶熱","夏天","外出","防曬","補水"]},
+    {"id":"temperature-coat","source_file":"AD488B6A-D546-4B27-9403-2024646D92A1.PNG","public_url":"","binary_ready":false,"scene":"早晚溫差大、出門多帶一件薄外套","keywords":["早晚溫差","換季","外套","出門","天氣"]},
+    {"id":"choose-by-routine","source_file":"AEC94FDF-B7A8-4367-B223-A631798E2256.PNG","public_url":"","binary_ready":false,"scene":"依照自己的作息選擇適合的日常型態","keywords":["怎麼選","作息","日常型態","選擇","依習慣"]},
+    {"id":"rainy-home","source_file":"B66BC1FB-49B3-4982-BEB8-283BF4463777.PNG","public_url":"","binary_ready":false,"scene":"下雨天在家、留一點放鬆時間","keywords":["下雨天","雨天","在家","放鬆","休息"]},
+    {"id":"work-break-2","source_file":"D558F584-DEE1-45BB-B243-6166E118617C.PNG","public_url":"","binary_ready":false,"scene":"工作再忙也別忘了休息一下、幫自己倒杯水","keywords":["工作再忙","工作","休息","喝水","照顧自己"]},
+    {"id":"self-care-family-2","source_file":"EFEE829F-108E-4C2B-A8CC-9D803BE5AE8B.PNG","public_url":"","binary_ready":false,"scene":"照顧自己也別忘了關心家人、留意溫度與暖意","keywords":["照顧自己","家人","關心","溫度","暖意"]},
+    {"id":"temperature-coat-2","source_file":"FE0E7D33-DDFF-4BF0-B2C0-3BFA4BF7D30A.PNG","public_url":"","binary_ready":false,"scene":"早晚溫差大、出門多帶一件薄外套","keywords":["早晚溫差","換季","薄外套","出門","天氣"]}
+  ],
+  "product_card_review_only": [
+    {"source_file":"15A965C6-9971-49CD-A994-2EE940CDF0DE.PNG","topic":"龜鹿飲／30cc與180cc","status":"not_zip_authority","reason":"產品文案改用正式DM／products-v3，ZIP產品卡不得自行取代產品原圖權威。"},
+    {"source_file":"1966D041-6C21-4DBE-80E0-50A4DF07152D.PNG","topic":"鹿茸粉75g","status":"not_zip_authority","reason":"產品文案改用正式DM／products-v3。"},
+    {"source_file":"A57D68A7-5AC0-46B6-869B-7B1B33BA0BE2.PNG","topic":"龜鹿膠600g","status":"not_zip_authority","reason":"產品文案改用正式DM／products-v3。"},
+    {"source_file":"AF3412AF-F398-4FED-BB63-BAF900DDB8C0.PNG","topic":"龜鹿湯塊75g","status":"not_zip_authority","reason":"產品文案改用正式DM／products-v3。"},
+    {"source_file":"BE5D3522-FB80-4311-AEDF-C02E226A12A7.PNG","topic":"龜鹿膏100g","status":"not_zip_authority","reason":"產品文案改用正式DM／products-v3。"}
+  ],
+  "duplicate_files": [
+    {"kept":"7C74B21C-FFAD-4315-BE75-6C501568B793 2.PNG","duplicate":"7C74B21C-FFAD-4315-BE75-6C501568B793.PNG"}
+  ],
+  "review_rule": "任何套圖、換圖、重新生成或文案修改後舊核准失效，回 pending_review 並重新完成16項審核。"
+}
