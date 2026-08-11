@@ -37,13 +37,13 @@
         normalized.name='龜鹿飲30cc玻璃罐';
         normalized.spec='30cc／罐（小玻璃罐）';
         normalized.size='30cc／罐（小玻璃罐）';
-        normalized.usage=['每日一份','開罐即可飲用','可隔水加熱或溫熱後飲用','避免冰飲','開罐後請儘速飲用完畢'];
+        normalized.usage=['每日一罐','開罐即可飲用','可隔水加熱或溫熱後飲用','避免冰飲','開罐後請儘速飲用完畢'];
       }
       if(product.id==='guilu-drink-180'){
         normalized.name='龜鹿飲180cc鋁袋';
         normalized.spec='180cc／包（鋁袋）';
         normalized.size='180cc／包（鋁袋）';
-        normalized.usage=['每日一份','撕開包裝即可飲用','可隔水加熱或溫熱後飲用','避免冰飲','開封後請儘速飲用完畢'];
+        normalized.usage=['每日一包','撕開包裝即可飲用','可隔水加熱或溫熱後飲用','避免冰飲','開封後請儘速飲用完畢'];
       }
       if(product.id==='guilu-tangkuai'){
         normalized.spec='75g／盒｜8塊裝';
@@ -75,7 +75,7 @@
       productMainImageSource:'products-v3-latest-original-product-photos',
       officialProductImageSource:'products-v3-latest-original-product-photos',
       shareImageSource:'products-v3-jpeg-authority',
-      dmFallback:'products-v3-until-dm-copy-currently-validated',
+      dmFallback:'current-approved-formal-media-then-products-v3',
       productsV2Use:'legacy-reference-only',
       productsV4Use:'retired-customer-display-reference-only',
       productScalePolicy:'uniform-only-no-equal-height-equal-width',
