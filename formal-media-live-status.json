@@ -1,0 +1,9 @@
+{
+  "status": "verified_live",
+  "verified_at_utc": "2026-08-11T10:17:56Z",
+  "product_identity": "products-v3 user-uploaded originals",
+  "customer_product_dm": "current approved uploaded DMs",
+  "trial_media": "current approved uploaded trial image",
+  "blocking_guards": false,
+  "guard_mode": "paused_for_full_system_update"
+}
