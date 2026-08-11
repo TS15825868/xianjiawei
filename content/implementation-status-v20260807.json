@@ -1,30 +1,81 @@
 {
-  "checkedAt": "2026-08-07T23:23:00+08:00",
-  "version": "2026-08-07-implementation-v1",
-  "brandUnification": {"status":"complete","publicBrand":"仙加味","publicCompanyInfoDefault":"hidden"},
-  "contentLibrary": {"status":"ready-for-review","target":500,"runtimeTotal":500,"copyGenerated":477,"basePosts":23,"newGeneratedStatus":"pending_review"},
-  "imageLibrary": {"status":"generation-queue","note":"500篇均有圖片情境與生成規則；尚未聲稱500張成品圖全部完成。所有新圖生成後必須進待審核。"},
-  "review": {"status":"active","dimensions":16,"automaticTextGuardian":true,"visualHumanReviewRequired":true},
-  "regenerateButtons": {"image":true,"copy":true,"all":true,"mode":"opens ChatGPT with current post and locked brand/product rules"},
-  "schedule": {"weekly":["TU 19:30","SA 09:30"],"immediatePublishBypass":true,"liveWeatherRecheck":true},
-  "platforms": {
-    "Facebook":{"configured":true,"officialApiPreferred":true},
-    "Instagram":{"configured":true,"officialApiPreferred":true},
-    "LINE OA":{"configured":true,"officialApiPreferred":true},
-    "LINE VOOM":{"configured":false,"manualRequired":true},
-    "Google 商家":{"configured":false,"note":"待完成Google伺服器端OAuth／商家帳戶與地點設定"}
+  "checkedAt": "2026-08-11T13:29:00+08:00",
+  "version": "current-three-system-maintenance-status",
+  "brandUnification": {
+    "status": "current-authority",
+    "publicBrand": "仙加味",
+    "publicCompanyInfoDefault": "hidden"
   },
-  "modules": {
-    "annualCalendar":"ready",
-    "assetUsageLedger":"schema-ready; actual records accumulate after publishing",
-    "contentPerformance":"schema-ready; actual metrics require platform results",
-    "partnerMode":"ready",
-    "brandGuardian":"active"
+  "products": {
+    "authority": "current-six-products",
+    "productImageAuthority": "images/products-v3/",
+    "customerMediaAuthority": "data/formal-media-authority-v20260810.json",
+    "fixedHistoricalVersionRequired": false
+  },
+  "contentLibrary": {
+    "status": "expandable-current-bank",
+    "fixedTargetForbidden": true,
+    "currentAuthority": "content/post-bank-current-authority-v20260809.json",
+    "newOrChangedContentStatus": "pending_review",
+    "ownerReviewRequired": true
+  },
+  "imageLibrary": {
+    "latestUserSource": "新貼文的圖(3).zip",
+    "catalog": "data/post-library-userzip3-v20260811.json",
+    "binarySync": "pending",
+    "safeLifestyleScenes": 15,
+    "rule": "產品／試喝先用目前正式核准媒體與products-v3；生活情境先依語意比對最新使用者ZIP。有合格來源但binary未上線時標記needs_binary_sync，不重生成；只有true no-match才重新生成。"
+  },
+  "review": {
+    "status": "active-after-media-or-copy-change",
+    "dimensions": 16,
+    "automaticBlockingDuringMaintenance": false,
+    "visualHumanReviewRequired": true,
+    "approvalInvalidatedAfterMediaOrCopyChange": true
+  },
+  "guards": {
+    "website": "paused_for_full_system_update",
+    "line": "paused_for_full_system_update",
+    "publishingCenter": "paused_for_full_system_update",
+    "minimumSyntaxAndDeploySafety": true,
+    "manualCurrentAuthorityAuditsAvailable": true,
+    "reEnableAfter": "owner_visual_and_functional_review",
+    "futurePrinciple": "驗目前能力、目前正式產品資料與目前核准媒體；不得以退役版號、舊檔名、舊固定文案或固定候選數阻擋新版。"
+  },
+  "lineOA": {
+    "runtime": "Render",
+    "deployment": "live",
+    "blockingGuards": false,
+    "minimumPrestartSafety": true,
+    "richMenu": "current-six-tap-static-vector",
+    "productIdentity": "products-v3",
+    "customerDisplayMedia": "current-approved-formal-media"
+  },
+  "publishingCenter": {
+    "repository": "TS15825868/xianjiawei-internal",
+    "runtime": "Cloudflare Worker",
+    "deploymentWorkflow": "maintenance-minimum-safety",
+    "latestDeploymentVerification": "in-progress-after-workflow-refresh",
+    "immediatePublishBypassesFixedSchedule": true,
+    "postBankFixedCount": false,
+    "regenerationMode": "chatgpt_handoff",
+    "binarySyncPending": true
+  },
+  "platforms": {
+    "Facebook": {"mode": "configured-or-runtime-probed", "publishResultMustBeRecorded": true},
+    "Instagram": {"mode": "configured-or-runtime-probed", "publishResultMustBeRecorded": true},
+    "LINE OA": {"configured": true, "service": "TS-LINE"},
+    "LINE VOOM": {"manualRequired": true},
+    "Google 商家": {"manualOrUnconfiguredUntilValidOAuth": true}
   },
   "repositories": {
-    "publicAuthority":"TS15825868/xianjiawei",
-    "erp":"TS15825868/xianjiawei-internal",
-    "line":"TS15825868/TS-LINE",
-    "privateHistory":"TS15825868/xianjiawei-internal-private"
-  }
+    "publicAuthority": "TS15825868/xianjiawei",
+    "publishing": "TS15825868/xianjiawei-internal",
+    "line": "TS15825868/TS-LINE"
+  },
+  "remaining": [
+    "把新貼文的圖(3).zip之15張合格生活情境原圖binary真正同步成可公開載入資產並回寫public_url/binary_ready",
+    "確認最新Cloudflare Worker maintenance部署完成且publishing.html與healthz/core可正常載入",
+    "完成三端實際視覺與按鈕操作確認後，才重新開啟更新後的能力式守門員"
+  ]
 }
