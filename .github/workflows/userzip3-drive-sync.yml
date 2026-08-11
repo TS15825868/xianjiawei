@@ -14,34 +14,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download current ZIP lifestyle package
+      - name: Download current uploaded lifestyle package
         shell: bash
         run: |
           set -euo pipefail
-          curl -fL --retry 3 --retry-delay 2 'https://drive.google.com/uc?export=download&id=1Jvr24IWbtSDcTrcmLqMtZAaIhUQbMlXH' -o /tmp/userzip3-assets.tar.gz
-          echo 'cd405e019c2cb867057551f51b68eddb92a5ee38ba882a3f0d17365feb736fe0  /tmp/userzip3-assets.tar.gz' | sha256sum -c -
-      - name: Extract and verify assets
+          curl -fL --retry 4 --retry-delay 3 'https://drive.google.com/uc?export=download&id=1D3JeI09rvaHej8zc2eQ6rQ16F5Q3m4AQ' -o /tmp/userzip3-assets.tar.gz
+          echo '1540da1dd3885a298d2fac1b51dd306ee8a9e947bc2c20a46825c4916320a9d5  /tmp/userzip3-assets.tar.gz' | sha256sum -c -
+      - name: Extract and verify 15 uploaded lifestyle assets
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p images/post-library/userzip3-v20260811
           tar -xzf /tmp/userzip3-assets.tar.gz -C images/post-library/userzip3-v20260811
           cd images/post-library/userzip3-v20260811
-          echo '149e5ec357d7130317bcbdaaacc24d6d8bc225df3dce53aedda4b9055c920b61  choose-by-routine.webp' | sha256sum -c -
-          echo 'a400409addf2ca5195bfdf6ea14c265c54ce8eb57a3f17589e35b76912041982  daily-hydration.webp' | sha256sum -c -
-          echo '820220fb10cf118041e3eb5e90997df7f079425bd07d1795b553b586d6c9df69  hot-weather-hydration-2.webp' | sha256sum -c -
-          echo '3f588c601a5572df44a55119bc1874de5f8778ec9e827e8da2a92e8a05133120  hot-weather-hydration.webp' | sha256sum -c -
-          echo '180fc9e584d0243f0df56e10e4c041fdc3c83ea15bcefe1dcbe342b931d00402  rainy-home.webp' | sha256sum -c -
-          echo '068ca7de06587a146b36d33b5a6f04874cc4e8800e084d26651d9acbaa5c2488  rainy-warm.webp' | sha256sum -c -
-          echo '4a583f80c726f3d2bacf68fa77b691247c7d051ea1a7a00b9df3de01969e16f1  self-care-family-2.webp' | sha256sum -c -
-          echo '5bd85d4fe3f034ac308fbc83f96b3bf5d4624559f8dc91f131291d756c07f330  self-care-family.webp' | sha256sum -c -
-          echo 'cb10742f5cb5f2d97e56ed779514c8f7821a9ed7c595b2c25afd27d487c332dd  storage.webp' | sha256sum -c -
-          echo 'dbb84765673b1ec1ce4dab762cdb8e4ac62d979a980e0062809cef1aa289ad77  temperature-coat-2.webp' | sha256sum -c -
-          echo 'eaf7d0c13e468248ca0a3367287b0d1f9b6335f32b8b04aabc866efb2d4ed2bf  temperature-coat.webp' | sha256sum -c -
-          echo '72fe46e786d18e90db49793c0135db56bb66114fcb337befc435b20907af74ac  warm-rhythm.webp' | sha256sum -c -
-          echo 'c847fd22b60ed6fa4cbe9755f92c25e5408408f3dfb540f8e10fc164e7c99b0b  warm-water.webp' | sha256sum -c -
-          echo '528838b2fe42159e7965bc0796e3dbf72b4852c1e8e671d61729d17de9fbf961  work-break-2.webp' | sha256sum -c -
-          echo '396e79cc51f877ab6294947d147129128c10430d3b401b527cd69e52f85658a7  work-break.webp' | sha256sum -c -
+          echo 'afeb5a335bcaf0618586bd5649be2aa5f2a2a4474be44d033f3615c013294823  warm-rhythm.webp' | sha256sum -c -
+          echo '6f9066214e2ca09aa2f01330076976a899394254df01648756053013536fb229  storage.webp' | sha256sum -c -
+          echo 'ad9865ae1063ce6218e192a47d5b73439d7cd38518cd91042628ac06a40e5e00  warm-water.webp' | sha256sum -c -
+          echo '3ca1418242fcb567d897ee042c440829a7037c7bd2ec35a1e084cc6ddbb9f937  work-break.webp' | sha256sum -c -
+          echo '75f2be36b9598f076f2f5a6415969c483f964c7afafc4dcc03b73b57424dfcb4  rainy-warm.webp' | sha256sum -c -
+          echo 'e63ccd5f354ada30c2a55129eee333d1afdf4bcfddd9c4fde7b5ca4fccf2b0b3  hot-weather-hydration.webp' | sha256sum -c -
+          echo '890a1231723c968a399cf24f459fbb04c002d118448da75b94e8e2670bb716ba  daily-hydration.webp' | sha256sum -c -
+          echo '4d76284d6e32895516e28ebf17319aef3f45b142c588f1befe07d30023c9ae6a  self-care-family.webp' | sha256sum -c -
+          echo '39befcd7464d85b7050d7067fdeceaaf8ba76169d9d141c48616a8ee41b942e1  hot-weather-hydration-2.webp' | sha256sum -c -
+          echo 'bafa64dc4df5dda4f4adeb9bf4ad1f6723dbefaa47163f7c2965e053bbba9d6d  temperature-coat.webp' | sha256sum -c -
+          echo '9461b46cc24ef19319bf0ce9868328d931a0c5f926eed5db5cf0f3b1301a253d  choose-by-routine.webp' | sha256sum -c -
+          echo '4c771b510877141844e78c0e98cfe9a2fda01bf6c888ce1c8dec102e65880d07  rainy-home.webp' | sha256sum -c -
+          echo 'a89e411e4503b8b2117b7d91cb8497a36a427a2cbb0a0c6f06c8346c909ab8ea  work-break-2.webp' | sha256sum -c -
+          echo '6e81f0eac71d3b168d33cd9c8f46a9c5a667ec36252b94d479261c63f4ac1c0e  self-care-family-2.webp' | sha256sum -c -
+          echo 'b424f0fbde1007a6940390be93996b8b079aa6730a287078ce990f8084cd42b6  temperature-coat-2.webp' | sha256sum -c -
       - name: Commit synced assets and remove one-time workflow
         shell: bash
         run: |
@@ -51,5 +51,6 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
           git diff --cached --quiet && exit 0
-          git commit -m 'media: publish current ZIP lifestyle assets'
-          git push
+          git commit -m 'media: publish 15 current uploaded lifestyle assets'
+          git pull --rebase origin main
+          git push origin HEAD:main
