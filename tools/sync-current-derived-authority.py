@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
+FORMAL_AUTH=ROOT/'data'/'formal-media-authority-v20260810.json'
+SITE_BASE='https://ts15825868.github.io/xianjiawei'
 
 REPLACEMENTS=[
  ('每日早上及下午各一小匙','一天一次一小匙'),
@@ -46,7 +48,7 @@ def sync_json(rel:str):
  original=json.loads(path.read_text(encoding='utf-8'))
  data=transform(original)
  if rel=='content/public-post-library.json':
-  data['version']='2026-08-11-public-posts-current-authority'
+  data['version']='current-public-posts-authority'
   auth=data.setdefault('productAuthority',{})
   auth['source']='catalog-public.json'
   auth['imageAuthority']='images/products-v3/'
@@ -73,18 +75,40 @@ def sync_json(rel:str):
 def sync_catalog_current_media():
  path=ROOT/'catalog-public.json'
  if not path.exists():return False
- data=json.loads(path.read_text(encoding='utf-8'))
- data=transform(data)
+ data=transform(json.loads(path.read_text(encoding='utf-8')))
+ formal=json.loads(FORMAL_AUTH.read_text(encoding='utf-8')) if FORMAL_AUTH.exists() else {}
+ formal_by={p.get('id'):p for p in formal.get('products',[])}
+ mapping={
+  'guilu-gao':'guilu-gao',
+  'guilu-drink-30':'guilu-drink-30cc',
+  'guilu-drink-180':'guilu-drink-180cc',
+  'guilu-tangkuai':'guilu-tangkuai',
+  'guilu-jiao':'guilu-jiao',
+  'luerong-fen':'luerong-fen',
+ }
  data['catalogVersion']='current-products-v3-approved-formal-media'
- data['formalDmApprovalBatch']='current-user-approved-media'
+ data['productImageVersion']='current-products-v3-originals'
+ data['formalDmApprovalBatch']=formal.get('approval_batch') or data.get('formalDmApprovalBatch') or 'current-user-approved-media'
  rules=data.setdefault('specificationRules',{})
  rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、無外盒、無外袋、金色蓋；實際罐體約直徑42mm、高51mm；不得改瓶型或放大成接近100g龜鹿膏罐；顧客DM必須先通過目前正式規格與產品外觀驗證，衝突時立即隔離。'
- by={p.get('id'):p for p in data.get('products',[])}
- p=by.get('guilu-drink-30')
+ for product in data.get('products',[]):
+  fid=mapping.get(product.get('id'))
+  f=formal_by.get(fid) if fid else None
+  if f and f.get('status')=='approved_display' and str(f.get('dm') or '').startswith('/images/'):
+   product['dmImage']=SITE_BASE+str(f['dm'])+'?v=current'
+  if str(product.get('image') or '').startswith(SITE_BASE+'/images/products-v3/'):
+   product['image']=str(product['image']).split('?',1)[0]+'?v=current-products-v3'
+ p=next((x for x in data.get('products',[]) if x.get('id')=='guilu-drink-30'),None)
  if p:
-  p['dmImage']='https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-drink-30cc.webp?v=current'
-  p.pop('quarantinedDmImage',None)
   p['imagePolicy']='products-v3維持30cc小玻璃裸罐產品本體識別權威；目前使用者核准DM已通過規格文字與產品外觀驗證，可顧客展示；後續DM若衝突則隔離並回退products-v3。'
+ dm_policy=data.setdefault('dmPolicy',{})
+ dm_policy['currentDmStatus']='current-approved-display-with-products-v3-identity-authority'
+ dm_policy['legacyDmUse']='reference-only'
+ dm_policy['consumerDmMustBeReviewed']=True
+ dm_policy['consumerDmMustMatchCurrentSpecification']=True
+ dm_policy['productMainImageMustNotUseDm']=True
+ dm_policy['dmMustNotRedefineProductIdentity']=True
+ dm_policy['quarantined']={}
  return write_json_if_changed(path,data)
 
 def sync_text(rel:str):
@@ -97,7 +121,6 @@ def sync_text(rel:str):
  return False
 
 def validate_no_retired_customer_copy():
- # 只檢查會直接成為顧客／公開內容的目前輸出，不掃描守門規則、歷史隔離說明、版本註記等政策文字。
  current=[
   'content/public-post-library.json','llms-full.txt','deploy-version.json','data.json','catalog-public.json',
   'config/official-products.json','assets/data/official-products.json'
