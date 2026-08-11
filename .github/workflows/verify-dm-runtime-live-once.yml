@@ -1,0 +1,52 @@
+name: Verify Website Approved DM Runtime Live Once
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/verify-dm-runtime-live-once.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify current runtime files on GitHub Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://ts15825868.github.io/xianjiawei'
+          for attempt in 1 2 3 4 5 6 7 8; do
+            site="$(curl -fsSL --max-time 20 "$base/site.js" || true)"
+            dm="$(curl -fsSL --max-time 20 "$base/site-dm-authority-v20260811.js" || true)"
+            if printf '%s' "$site" | grep -q '20260811-20' && printf '%s' "$site" | grep -q 'site-dm-authority-v20260811.js' && printf '%s' "$dm" | grep -q 'current-user-approved-dm' && printf '%s' "$dm" | grep -q 'guilu-drink-trial.webp'; then
+              echo 'PASS: website runtime separates products-v3 originals from current uploaded approved DMs/trial.'
+              exit 0
+            fi
+            sleep 15
+          done
+          exit 1
+      - name: Record and self-remove
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > dm-runtime-live-status.json <<JSON
+          {
+            "status": "verified_live",
+            "verified_at_utc": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "product_identity": "products-v3 user-uploaded originals",
+            "dm_runtime": "current approved uploaded DMs",
+            "trial_runtime": "current approved uploaded trial image",
+            "site_wrapper_version": "20260811-20"
+          }
+          JSON
+          rm -f .github/workflows/verify-dm-runtime-live-once.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'audit: confirm approved DM runtime live'
+          git pull --rebase origin main
+          git push origin HEAD:main
