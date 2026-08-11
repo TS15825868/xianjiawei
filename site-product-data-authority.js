@@ -1,17 +1,16 @@
 "use strict";
 
-/* 仙加味產品資料權威層｜2026-08-10
- * products-v3 = 六項正式原始產品照，供產品權威、LINE OA、貼文審核、分享預覽與 officialOriginalImage 使用。
- * products-v4-final = 官網顧客顯示層，六項完整成套；不得反向改寫 products-v3 權威。
- * 所有產品只允許等比例 contain 顯示，禁止裁切、拉寬、拉高或改變包裝比例。
- * 顧客可見舊字串在此統一修正，避免 Pages 快取或舊 HTML 讓正式規格回退。
+/* 仙加味目前產品資料權威層
+ * products-v3 = 六項正式真實產品原圖，也是官網顧客產品本體、分享預覽、detail image 唯一來源。
+ * 顧客DM屬獨立展示媒體，必須先通過目前規格／內嵌文字驗證；不得反向改寫產品本體。
+ * 所有產品只允許等比例 contain，禁止裁切、拉寬、拉高、AI重畫或改變包裝比例。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
   const OFFICIAL_VERSION='20260810-products-v3-latest-originals-v3';
-  const CUSTOMER_VERSION='20260810-products-v4-final-v1';
-  const DATA_CACHE_VERSION='20260810-19';
+  const CUSTOMER_VERSION='20260811-products-v3-current-customer-authority';
+  const DATA_CACHE_VERSION='20260811-current';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const OFFICIAL=Object.freeze({
     'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${OFFICIAL_VERSION}`,
@@ -21,21 +20,13 @@
     'guilu-jiao':`images/products-v3/guilu-jiao.jpg?v=${OFFICIAL_VERSION}`,
     'luerong-fen':`images/products-v3/luerong-fen.jpg?v=${OFFICIAL_VERSION}`
   });
-  const CUSTOMER=Object.freeze({
-    'guilu-gao':`images/products-v4-final/guilu-gao.svg?v=${CUSTOMER_VERSION}`,
-    'guilu-drink-30':`images/products-v4-final/guilu-drink-30.svg?v=${CUSTOMER_VERSION}`,
-    'guilu-drink-180':`images/products-v4-final/guilu-drink-180.svg?v=${CUSTOMER_VERSION}`,
-    'guilu-tangkuai':`images/products-v4-final/guilu-tangkuai.svg?v=${CUSTOMER_VERSION}`,
-    'guilu-jiao':`images/products-v4-final/guilu-jiao.svg?v=${CUSTOMER_VERSION}`,
-    'luerong-fen':`images/products-v4-final/luerong-fen.svg?v=${CUSTOMER_VERSION}`
-  });
+  const CUSTOMER=OFFICIAL;
   const ABS=(path)=>new URL(path,location.href).href;
   function normalizeData(data){
     if(!data||!Array.isArray(data.products)) return data;
     data.products=data.products.map(product=>{
       const official=OFFICIAL[product?.id];
-      const customer=CUSTOMER[product?.id];
-      if(!official||!customer) return product;
+      if(!official) return product;
       const normalized={...product};
       if(product.id==='guilu-gao'){
         normalized.spec='100g／罐';
@@ -68,24 +59,25 @@
       }
       return {
         ...normalized,
-        image:customer,
-        imageUrl:customer,
-        image_url:customer,
-        dmImage:customer,
+        image:official,
+        imageUrl:official,
+        image_url:official,
+        dmImage:official,
         officialOriginalImage:official,
-        detailImages:[customer],
-        imagePolicy:'customer-display-v4-final-contain-no-crop',
+        detailImages:[official],
+        imagePolicy:'products-v3-current-customer-authority-contain-no-crop',
         officialImagePolicy:'products-v3-authority-original-no-redraw',
         physicalScalePolicy:'preserve-original-aspect-and-realistic-relative-scale'
       };
     });
     data.runtime={
       ...(data.runtime||{}),
-      productMainImageSource:'products-v4-final-customer-display',
+      productMainImageSource:'products-v3-latest-original-product-photos',
       officialProductImageSource:'products-v3-latest-original-product-photos',
       shareImageSource:'products-v3-jpeg-authority',
-      dmFallback:'customer-display-v4-final',
+      dmFallback:'products-v3-until-dm-copy-currently-validated',
       productsV2Use:'legacy-reference-only',
+      productsV4Use:'retired-customer-display-reference-only',
       productScalePolicy:'uniform-only-no-equal-height-equal-width',
       dataCacheVersion:DATA_CACHE_VERSION
     };
