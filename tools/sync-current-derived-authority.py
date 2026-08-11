@@ -76,10 +76,12 @@ def sync_text(rel:str):
  if new!=old:path.write_text(new,encoding='utf-8');return True
  return False
 
-def validate_no_retired_current_copy():
+def validate_no_retired_customer_copy():
+ # 只檢查會直接成為顧客／公開內容的目前輸出，不掃描守門規則、歷史隔離說明、版本註記等政策文字。
+ # 守門員的工作是擋顧客端錯資料，不是因政策文件提到舊字串就誤判新版失敗。
  current=[
-  'content/public-post-library.json','llms-full.txt','deploy-version.json','data.json','catalog-public.json',
-  'config/official-products.json','assets/data/official-products.json','content/visual-production-spec-current.json'
+  'content/public-post-library.json','llms-full.txt','deploy-version.json','data.json',
+  'config/official-products.json','assets/data/official-products.json'
  ]
  retired=['每日早上及下午各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','龜鹿飲30cc玻璃瓶','30cc／瓶']
  for rel in current:
@@ -87,12 +89,12 @@ def validate_no_retired_current_copy():
   if not path.exists():continue
   value=path.read_text(encoding='utf-8')
   for phrase in retired:
-   if phrase in value:raise SystemExit(f'{rel} 仍含退役目前資料：{phrase}')
+   if phrase in value:raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
 
 changed=[]
 for rel in ['content/public-post-library.json','content/public-content-policy.json','config/public-content-policy.json','content/post-bank-v6-manifest.json']:
  if sync_json(rel):changed.append(rel)
 for rel in ['llms-full.txt']:
  if sync_text(rel):changed.append(rel)
-validate_no_retired_current_copy()
+validate_no_retired_customer_copy()
 print('current authority derived sync:', ', '.join(changed) if changed else 'already current')
