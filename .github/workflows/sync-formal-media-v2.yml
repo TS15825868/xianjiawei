@@ -23,7 +23,7 @@ jobs:
           python-version: '3.12'
       - name: Maintenance mode notice
         run: echo "PAUSED automatic formal-media sync; this run is manual maintenance verification only."
-      - name: Sync current user-approved DM and trial display
+      - name: Sync current approved customer media
         run: python tools/sync-formal-media.py
       - name: Validate current formal customer display
         shell: bash
@@ -40,8 +40,10 @@ jobs:
           must(Object.keys(m.products||{}).length===6,'顧客顯示層必須維持六項產品');
           for(const spec of ['100g／罐','30cc／罐（小玻璃罐）','180cc／包（鋁袋）','75g／盒｜8塊裝','600g／盒｜32塊裝','75g／罐']) must(JSON.stringify(m).includes(spec),`顯示層缺少正式規格：${spec}`);
           must(m.rules?.no_ai_product_redraw===true&&m.rules?.no_crop===true&&m.rules?.no_stretch===true,'顯示層不得放寬產品圖硬規則');
-          must(m.rules?.zip_first===true&&m.rules?.regenerate_only_if_no_match===true&&Number(m.rules?.review_after_media_change)===16,'顯示層必須維持ZIP優先／真缺圖才生成／16項重審');
-          console.log('PASS: current approval batch and formal display capabilities are synchronized.');
+          must(m.rules?.zip_first_for_lifestyle===true&&m.rules?.regenerate_only_if_no_match===true&&Number(m.rules?.review_after_media_change)===16,'顯示層必須維持ZIP優先／真缺圖才生成／16項重審');
+          for(const p of Object.values(m.products||{})) must(['jpeg','png','webp'].includes(String(p.format||'')),`正式顯示媒體格式未辨識：${p.path}`);
+          must(['jpeg','png','webp'].includes(String(m.trial?.format||'')),'試喝顯示媒體格式未辨識');
+          console.log('PASS: current approval batch, raster media and formal display capabilities are synchronized.');
           NODE
           ! grep -R -F '30cc／瓶' --include='*.html' .
           ! grep -R -F '五種產品使用方式' --include='*.html' .
@@ -54,10 +56,10 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
+          git add images/formal-display/manifest.json site-formal-media-v20260810.js index.html dm.html products.html trial.html guide.html
           if git diff --cached --quiet; then
             echo 'Nothing to commit after safe staging.'
             exit 0
           fi
-          git commit -m 'deploy: sync current user-approved DM and trial display media'
+          git commit -m 'deploy: sync current approved formal display media'
           git push origin HEAD:main
