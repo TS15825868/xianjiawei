@@ -3,14 +3,14 @@
   "approval_batch": "20260810-latest-user-dm-and-trial",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
-  "principle": "new user media may be used only when it agrees with the latest formal product facts; guards validate current capabilities and current authority, never legacy version strings, old ZIP filenames, fixed candidate counts or old fixed copy",
+  "principle": "new user media may be used only when it agrees with the latest formal product facts; guards validate current capabilities and current authority, never legacy version strings, old ZIP filenames, fixed candidate counts, old fixed copy or retired derived specifications",
   "product_image_authority": "products-v3 true original product photos remain the immutable identity authority; customer-facing DM images must never redefine package identity, specification wording or proportion",
   "products": [
     {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","dm":"/images/dm-approved-v20260810/guilu-gao-100g.webp","status":"approved_display"},
     {"id":"guilu-drink-30cc","name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","rules":["裸罐","無貼紙","不得稱瓶"],"dm":"/images/dm-approved-v20260810/guilu-drink-30cc.webp","status":"quarantined_copy_conflict","fallback":"/images/products-v3/guilu-drink-30.jpg","reason":"目前使用者提供的30cc DM內嵌文字仍寫30cc／瓶，與最新正式規格衝突；顧客端先使用products-v3正式小玻璃罐原圖＋正確HTML文字。"},
     {"id":"guilu-drink-180cc","name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","dm":"/images/dm-approved-v20260810/guilu-drink-180cc.webp","status":"approved_display"},
-    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒｜8塊裝｜每塊約9.375g","dm":"/images/dm-approved-v20260810/guilu-tangkuai-75g.webp","status":"approved_display"},
-    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g（1斤）／盒｜32塊裝｜每塊約18.75g","dm":"/images/dm-approved-v20260810/guilu-jiao-600g.webp","status":"approved_display"},
+    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","dm":"/images/dm-approved-v20260810/guilu-tangkuai-75g.webp","status":"approved_display"},
+    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g／盒｜32塊裝","dm":"/images/dm-approved-v20260810/guilu-jiao-600g.webp","status":"approved_display"},
     {"id":"luerong-fen","name":"鹿茸粉","spec":"75g／罐","dm":"/images/dm-approved-v20260810/lurong-fen-75g.webp","status":"approved_display"}
   ],
   "trial": {
@@ -24,7 +24,7 @@
     "prices":{"30cc":"60元／罐；買10送1，11罐600元","180cc":"200元／包；買10送1，11包2,000元"}
   },
   "latest_post_zip": {"catalog":"/data/post-library-userzip3-v20260811.json","source":"新貼文的圖(3).zip","original_files":21,"unique_images":20,"product_cards_are_not_product_authority":true},
-  "image_rules":["產品本體不得AI重畫","圖文必須一致","禁止拼貼","禁止黑塊","角色不可裁切","30cc不可改瓶型、規格文字或比例","180cc必須維持鋁袋型態"],
+  "image_rules":["產品本體不得AI重畫","圖文必須一致","禁止拼貼","禁止黑塊","角色不可裁切","30cc不可改瓶型、規格文字或比例","180cc必須維持鋁袋型態","顧客DM內嵌文字若與目前正式規格衝突必須隔離並回退products-v3"],
   "post_image_policy":"use the current user post catalog for lifestyle content after semantic matching by season, scene, environment, temperature, expression, action, props and copy context; product and trial copy uses current approved formal media/products-v3 first; when a suitable user ZIP source exists but its binary is not online, keep needs_binary_sync and do not regenerate; only a true no-match may request regeneration; any generated, replaced or edited content invalidates prior approval, returns to pending_review and must pass the 16-item review gate",
-  "guard_policy":"validate current authority, actual binary availability, formal specs and required capabilities; do not reject a correct upgrade because an old version number, retired filename, historical candidate count or previous wording changed"
+  "guard_policy":"validate current authority, actual binary availability, formal specs and required capabilities; do not reject a correct upgrade because an old version number, retired filename, historical candidate count, previous wording or retired derived specification changed"
 }
