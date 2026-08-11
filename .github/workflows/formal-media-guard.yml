@@ -1,21 +1,8 @@
 name: 仙加味正式內容與圖片守門
 
+# MAINTENANCE MODE: automatic blocking guard is temporarily paused.
+# Keep this workflow for manual verification while website / LINE OA / publishing center are being updated.
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'images/dm-approved-v20260810/**'
-      - 'images/formal-display/**'
-      - 'images/post-library*/**'
-      - 'data/formal-media-authority-v20260810.json'
-      - 'data/post-library-userzip*.json'
-      - 'site-formal-media-v20260810.js'
-      - 'dm.html'
-      - 'trial.html'
-      - 'index.html'
-      - 'products.html'
-      - 'publishing-center.html'
-      - '.github/workflows/formal-media-guard.yml'
   workflow_dispatch:
 
 permissions:
@@ -29,6 +16,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
+      - name: Maintenance mode notice
+        run: echo "PAUSED automatic guard; this run is manual verification only."
       - name: Validate current formal media authority and capabilities
         shell: bash
         run: |
