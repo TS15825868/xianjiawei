@@ -2,12 +2,12 @@
   "runtime": "current-formal-customer-media",
   "approval_batch": "current-user-approved-media",
   "products": {
-    "guilu-gao": {"name":"龜鹿膏","spec":"100g／罐","path":"/images/dm-approved-v20260810/guilu-gao-100g.webp","status":"approved_display"},
+    "guilu-gao": {"name":"龜鹿膏","spec":"100g／罐","path":"/images/dm-final/01_guilu-gao-100g-dm.jpg","status":"approved_display"},
     "guilu-drink-30": {"name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","path":"/images/dm-approved-v20260810/guilu-drink-30cc.webp","status":"approved_display","validation":"current-copy-and-product-shape-approved"},
-    "guilu-drink-180": {"name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","path":"/images/dm-approved-v20260810/guilu-drink-180cc.webp","status":"approved_display"},
-    "guilu-tangkuai": {"name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","path":"/images/dm-approved-v20260810/guilu-tangkuai-75g.webp","status":"approved_display"},
-    "guilu-jiao": {"name":"龜鹿膠","spec":"600g／盒｜32塊裝","path":"/images/dm-approved-v20260810/guilu-jiao-600g.webp","status":"approved_display"},
-    "luerong-fen": {"name":"鹿茸粉","spec":"75g／罐","path":"/images/dm-approved-v20260810/lurong-fen-75g.webp","status":"approved_display"}
+    "guilu-drink-180": {"name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","path":"/images/dm-final/03_guilu-drink-180cc-dm.jpg","status":"approved_display"},
+    "guilu-tangkuai": {"name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","path":"/images/dm-final/05_guilu-tangkuai-75g-dm.jpg","status":"approved_display"},
+    "guilu-jiao": {"name":"龜鹿膠","spec":"600g／盒｜32塊裝","path":"/images/dm-final/06_guilu-jiao-600g-dm.jpg","status":"approved_display"},
+    "luerong-fen": {"name":"鹿茸粉","spec":"75g／罐","path":"/images/dm-final/04_luerong-fen-75g-dm.jpg","status":"approved_display"}
   },
   "trial": {
     "path":"/images/dm-approved-v20260810/guilu-drink-trial.webp",
