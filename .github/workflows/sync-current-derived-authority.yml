@@ -1,0 +1,56 @@
+name: 仙加味目前權威衍生資料同步
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data.json'
+      - 'catalog-public.json'
+      - 'config/official-products.json'
+      - 'assets/data/official-products.json'
+      - 'content/visual-production-spec-current.json'
+      - 'data/formal-media-authority-v20260810.json'
+      - 'data/post-library-userzip3-v20260811.json'
+      - 'tools/sync-current-derived-authority.py'
+      - 'tools/validate-site-production-release-v20260809.py'
+      - 'tools/validate-site-release.py'
+      - '.github/workflows/sync-current-derived-authority.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xianjiawei-current-authority-derived-sync
+  cancel-in-progress: true
+
+jobs:
+  sync-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Sync current derived authority files
+        run: python tools/sync-current-derived-authority.py
+      - name: Validate current website release
+        run: python tools/validate-site-release.py
+      - name: Commit synchronized derived outputs
+        shell: bash
+        run: |
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo 'Derived authority outputs already current.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '4189824+github-actions[bot]@users.noreply.github.com'
+          git add content/public-post-library.json content/public-content-policy.json config/public-content-policy.json content/post-bank-v6-manifest.json llms-full.txt
+          if git diff --cached --quiet; then
+            echo 'No derived output changes to commit.'
+            exit 0
+          fi
+          git commit -m 'sync: refresh derived public content from current authority'
+          git push origin HEAD:main
