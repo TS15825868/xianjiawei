@@ -1,11 +1,11 @@
 "use strict";
 
-/* 全站入口 2026-08-10：產品資料權威 → 核心 → 圖片安全 → 正式規格 → 顧客版內容清理 → 視覺層。 */
+/* 全站入口 2026-08-11：產品資料權威 → 核心 → 圖片安全 → 正式規格 → 顧客版內容清理 → 視覺層。 */
 (function () {
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260810-17";
+  const VERSION = "20260811-18";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const CORE = `site-core-v410.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
