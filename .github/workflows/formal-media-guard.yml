@@ -6,9 +6,9 @@ on:
     paths:
       - 'images/dm-approved-v20260810/**'
       - 'images/formal-display/**'
-      - 'images/post-library-v20260810/**'
+      - 'images/post-library*/**'
       - 'data/formal-media-authority-v20260810.json'
-      - 'data/post-library-userzip2-v20260810.json'
+      - 'data/post-library-userzip*.json'
       - 'site-formal-media-v20260810.js'
       - 'dm.html'
       - 'trial.html'
@@ -35,8 +35,10 @@ jobs:
           node <<'NODE'
           const fs=require('fs');
           const a=JSON.parse(fs.readFileSync('data/formal-media-authority-v20260810.json','utf8'));
-          const zip=JSON.parse(fs.readFileSync('data/post-library-userzip2-v20260810.json','utf8'));
           const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
+          const catalogPath=String(a.post_catalog||'').replace(/^\//,'');
+          must(catalogPath&&fs.existsSync(catalogPath),`目前貼文素材權威不存在：${catalogPath||'(empty)'}`);
+          const zip=JSON.parse(fs.readFileSync(catalogPath,'utf8'));
           const expected={
             'guilu-gao':'100g／罐',
             'guilu-drink-30cc':'30cc／罐（小玻璃罐）',
@@ -47,7 +49,8 @@ jobs:
           };
           const isWebP=(file)=>{const b=fs.readFileSync(file);return b.length>12&&b.subarray(0,4).toString()==='RIFF'&&b.subarray(8,12).toString()==='WEBP';};
           must(Array.isArray(a.products)&&a.products.length===6,'正式產品必須維持六項');
-          must(String(a.approval_batch||'').length>0,'正式媒體權威必須標示目前使用者核准批次');
+          must(String(a.approval_batch||'').length>0,'正式產品／試喝媒體權威必須標示目前核准批次');
+          must(String(a.post_approval_batch||'').length>0,'貼文媒體權威必須標示目前核准批次');
           for(const p of a.products){
             must(expected[p.id]===p.spec,`產品正式規格不符：${p.id}`);
             const local=p.dm.replace(/^\//,'');
@@ -59,30 +62,49 @@ jobs:
           must(isWebP(trial),'正式試喝圖不是有效WebP二進位檔');
           must(a.trial.free.includes('3罐')&&a.trial.shipping.includes('7-11店到店60元')&&a.trial.shipping.includes('郵局宅配100元')&&a.trial.lead_time.includes('5～7'),'試喝正式規則不完整');
           must(a.image_rules.includes('產品本體不得AI重畫'),'產品原圖權威不得放寬');
+
           const policy=String(a.post_image_policy||'');
-          must(/2\.zip/i.test(policy),'貼文配圖權威必須明確使用目前2.zip素材批次');
+          must(/current user post catalog|目前|current/i.test(policy),'貼文配圖權威必須跟隨目前使用者素材目錄');
           must(/first|優先/i.test(policy),'貼文配圖必須維持使用者ZIP素材優先');
           must(/season|季節/i.test(policy)&&/scene|情境/i.test(policy)&&/temperature|冷熱/i.test(policy),'貼文圖比對必須涵蓋季節／情境／冷熱能力');
-          must(/regeneration|重新生成/i.test(policy)&&/pending review|pending_review|待審核/i.test(policy)&&/16/.test(policy),'重新生成後必須回待審核並維持16項審核');
-          must(zip.source==='user-uploaded 2.zip'&&Number(zip.candidate_count)>=22,'官網未同步最新2.zip候選目錄');
-          must(Array.isArray(zip.safe_scene_priority)&&zip.safe_scene_priority.length>=10,'最新ZIP缺少可依文案比對的情境候選');
-          must(zip.binary_sync&&['pending','ready'].includes(zip.binary_sync.status),'最新ZIP必須明確標示二進位同步狀態');
+          must(/needs_binary_sync/.test(policy),'貼文配圖規則必須保留待同步原圖狀態');
+          must(/true no-match|no-match|沒有合格|無合格/i.test(policy)&&/regeneration|重新生成/i.test(policy),'只有真正無合格來源才可重新生成');
+          must(/pending_review|pending review|待審核/i.test(policy)&&/16/.test(policy),'換圖／生成後必須回待審核並維持16項審核');
+
+          const candidateCount=Number(zip.candidate_count ?? zip.unique_image_count ?? 0);
+          const originalCount=Number(zip.original_file_count ?? candidateCount);
+          const duplicateCount=Number(zip.duplicate_count ?? 0);
+          must(String(zip.source||'').trim().length>0,'目前ZIP目錄缺少來源名稱');
+          must(candidateCount>0,'目前ZIP目錄沒有可審核候選');
+          must(originalCount>=candidateCount,'目前ZIP候選數不得大於原始圖數');
+          must(duplicateCount>=0,'ZIP重複數不得為負值');
+          must(String(zip.approval_batch||'')===String(a.post_approval_batch||''),'官網貼文catalog與formal authority核准批次不同步');
+          must(/^user_zip_approved/.test(String(zip.priority||'')),'目前ZIP沒有維持使用者素材優先');
+          must(Array.isArray(zip.safe_scene_priority),'目前ZIP缺少生活情境候選陣列');
+          const reviewedProducts=Array.isArray(zip.product_card_review_only)?zip.product_card_review_only:(Array.isArray(zip.product_reference_candidates)?zip.product_reference_candidates:[]);
+          must(zip.safe_scene_priority.length+reviewedProducts.length<=candidateCount,'ZIP分類候選不得超過目前唯一候選總數');
+          must(zip.binary_sync&&['pending','ready'].includes(zip.binary_sync.status),'目前ZIP必須明確標示二進位同步狀態');
           if(zip.binary_sync.status==='ready'){
             must(Number(zip.binary_sync.publishable_count)>0,'ZIP標示ready時必須存在可正式使用圖片');
             for(const c of zip.safe_scene_priority||[]) if(c.binary_ready) must(/^https:\/\//.test(c.public_url||''),'binary_ready候選必須有可載入公開網址');
           }
+          for(const c of reviewedProducts){
+            must(c.auto_publish!==true,'ZIP產品型圖片不得繞過產品權威自動發布');
+          }
+
           const retired=['post-001.jpg','post-002.jpg','post-003.jpg','post-004.jpg','post-005.jpg','post-006.jpg','post-007.jpg','post-008.jpg','generated-daily-hydration.jpg','generated-rainy-warm.jpg','generated-warm-drink-reminder.jpg'];
           for(const name of retired) must(!fs.existsSync('images/post-library-v20260810/'+name),`不得回復先前的本機路徑假圖片：${name}`);
           const index=fs.readFileSync('index.html','utf8');
           const products=fs.readFileSync('products.html','utf8');
           const dm=fs.readFileSync('dm.html','utf8');
           const trialHtml=fs.readFileSync('trial.html','utf8');
-          must(index.includes('href="dm.html">查看產品DM'),'首頁必須提供最新產品DM直接入口');
+          must(index.includes('href="dm.html">查看產品DM'),'首頁必須提供目前產品DM直接入口');
           must(products.includes('href="dm.html">查看產品DM'),'產品總覽必須正確標示產品DM入口');
           must(!products.includes('href="dm.html">查看產品實品照'),'不得把產品DM誤標成實品照');
           must(dm.includes('dm-approved-v20260810')&&!dm.includes('images/products-v4-final/guilu-gao.svg'),'DM頁必須直接使用目前核准DM');
           must(trialHtml.includes('guilu-drink-trial.webp')&&trialHtml.includes('7-11 店到店')&&trialHtml.includes('60元')&&trialHtml.includes('郵局宅配')&&trialHtml.includes('100元'),'試喝頁未同步正式海報／運費');
           must(!index.includes('/mnt/data/')&&!products.includes('/mnt/data/')&&!dm.includes('/mnt/data/')&&!trialHtml.includes('/mnt/data/'),'顧客頁不得引用本機假路徑');
-          must(/current|目前|最新/i.test(String(a.guard_policy||''))&&!/require retired|綁舊/i.test(String(a.guard_policy||'')),'守門員原則必須跟隨目前正式權威，不得鎖舊版');
-          console.log('PASS：守門依目前正式權威驗六項規格、核准DM／試喝真實二進位、2.zip優先語意配圖、二進位狀態與16項重審能力；正常升版／換文案不會因舊固定字串被誤擋。');
+          const guard=String(a.guard_policy||'');
+          must(/current|目前/i.test(guard)&&!/require retired/i.test(guard),'守門員原則必須跟隨目前正式權威，不得鎖舊版');
+          console.log(`PASS：守門依目前 authority 驗六項規格、核准DM／試喝真實二進位、目前貼文素材 ${zip.source}（${candidateCount}候選）、語意配圖、二進位狀態與16項重審；不綁舊ZIP檔名／固定張數／舊版號／舊固定文案。`);
           NODE
