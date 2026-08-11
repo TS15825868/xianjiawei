@@ -1,0 +1,48 @@
+name: 仙加味目前權威完整驗收（手動）
+
+# MAINTENANCE MODE：只手動執行，不阻擋目前三系統更新。
+# 使用者完成視覺／功能確認後，再決定是否把此能力式驗收接回自動守門。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xianjiawei-current-release-audit
+  cancel-in-progress: true
+
+jobs:
+  current-authority-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Current six-product and customer page authority
+        run: |
+          python tools/validate-canonical-facts-v20260808.py
+          python tools/validate-public-customer-pages-v20260809.py
+          python tools/validate-site-production-release-v20260809.py
+      - name: Current publishing and media authority
+        run: |
+          node tools/validate-post-bank-runtime-current.mjs
+          python tools/validate-post-bank-current-authority-v20260809.py
+          python tools/validate-post-bank-generators-v20260808.py
+          python tools/validate-publishing-content-match-v20260809.py
+      - name: Maintenance guard policy check
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          mode=json.loads(Path('config/guard-mode.json').read_text(encoding='utf-8'))
+          assert mode.get('mode')=='paused_for_full_system_update'
+          assert mode.get('blocking') is False
+          assert mode.get('keep_minimum_safety') is True
+          print('PASS: automatic blockers remain paused; current-authority full audit is available manually.')
+          PY
