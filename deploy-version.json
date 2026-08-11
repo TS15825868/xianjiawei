@@ -1,80 +1,81 @@
 {
-  "version": "2026-08-08-canonical-v20-complete-candidate-coverage",
-  "updated": "2026-08-08",
-  "status": "source-updated-deployment-not-yet-verified",
-  "catalog": "six-official-products-six-single-specs",
-  "contentAuthority": {
-    "publishingCenter": "publishing-center.html",
-    "runtimeContentTotal": 500,
-    "publishedLocked": 3,
-    "campaignHold": 11,
-    "activeImageGenerationRequired": 0,
-    "existingCandidateNeeds16PointReview": 486,
-    "preflightRejectedNeedsRegeneration": 0,
-    "preflightRejectedReplaced": 13,
-    "runtimeCandidateLayers": ["v12-safe-non-character:345","v13-festival-location-wanhua:72","v14-boss-daily:32","v15-companions:16"],
-    "imageQueue": "content/image-generation-queue-v20260808.json",
-    "postBankManifest": "content/post-bank-v6-manifest.json",
-    "postGeneratorV6": "publishing-center-data-v6.js",
-    "postGeneratorV7": "publishing-center-data-v7.js",
-    "aiBrandControl": "content/ai-brand-control-v20260807.json",
-    "brandCharacterSpec": "brand-character-spec.json",
-    "annualCalendar": "content/annual-content-calendar-v2026.json"
+  "version":"2026-08-11-current-authority-release",
+  "updated":"2026-08-11",
+  "status":"source-current-deployment-verification-required",
+  "catalog":"six-official-products-current-six-specs",
+  "contentAuthority":{
+    "websiteData":"data.json",
+    "publicCatalog":"catalog-public.json",
+    "formalMedia":"data/formal-media-authority-v20260810.json",
+    "visualAuthority":"content/visual-production-spec-current.json",
+    "postMediaCatalog":"data/post-library-userzip3-v20260811.json",
+    "publishingCenter":"publishing-center.html",
+    "runtimeContentTotal":500,
+    "postBankAuthority":"content/post-bank-v6-manifest.json",
+    "guardPolicy":"current-authority-capability-based-no-legacy-version-copy-zip-count-lock"
   },
-  "candidatePreflight": {
-    "oldRejectedCount": 13,
-    "replacementGeneratedCount": 13,
-    "activeRejectedNeedsRegeneration": 0,
-    "rule": "舊不合格圖已隔離；替代圖與v12-v15新候選全部維持待16項審核。"
+  "productAuthority":{
+    "productCount":6,
+    "sellableSpecificationCount":6,
+    "specifications":["龜鹿膏 100g／罐","龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）","龜鹿飲180cc鋁袋 180cc／包（鋁袋）","龜鹿湯塊 75g／盒｜8塊裝","龜鹿膠 600g／盒｜32塊裝","鹿茸粉 75g／罐"],
+    "guiluGao":"100g／罐；一天一次一小匙；六角玻璃罐；產品識別使用products-v3正式原圖",
+    "guiluDrink30":"30cc／罐（小玻璃罐）；裸罐、無貼紙、無外盒、無外袋、金色蓋；不得稱瓶；約Ø42×H51mm",
+    "guiluDrink180":"180cc／包（鋁袋）；狹長直立；寬高比目標約0.64；不得拉寬或誇張放大",
+    "guiluTangkuai":"75g／盒｜8塊裝；深藍正式盒裝；不得建立其他容量或硬帶退役每塊重量",
+    "guiluJiao":"600g／盒｜32塊裝；淡紫色正式盒裝；不得回退舊1斤／每塊重量延伸",
+    "luerongFen":"75g／罐；白色塑膠罐正式原圖"
   },
-  "productAuthority": {
-    "productCount": 6,
-    "sellableSpecificationCount": 6,
-    "specifications": ["龜鹿膏 100g／罐","龜鹿飲30cc玻璃罐 30cc／罐","龜鹿飲180cc鋁袋 180cc／包","龜鹿湯塊 75g／盒","龜鹿膠 600g（1斤）／盒","鹿茸粉 75g／罐"],
-    "guiluTangkuai": "75g／盒｜8塊裝｜每塊約9.375g；深藍正式盒裝；不得建立其他龜鹿湯塊容量",
-    "guiluDrink30": "30cc／罐（小玻璃罐）；裸罐、無貼紙、無外盒、無外袋、金色蓋；不得稱瓶",
-    "guiluDrink180": "180cc／包（鋁袋）；狹長直立；不得拉寬或加高",
-    "guiluGao": "100g／罐；六角玻璃罐；只使用現行新版米白標籤",
-    "guiluJiao": "600g（1斤）／盒｜32塊裝｜每塊約18.75g；淡紫盒等比例",
-    "luerongFen": "75g／罐；白色塑膠罐正式原圖"
+  "imagePolicy":{
+    "identityAuthority":"images/products-v3/",
+    "customerDmAuthority":"images/dm-approved-v20260810/",
+    "productMethod":"產品本體直接使用products-v3正式實拍原圖；核准DM只作顧客展示；AI不得重畫產品包裝或標籤",
+    "displayMode":"contain-no-crop-no-stretch",
+    "mascot":"content/visual-production-spec-current.json 的精緻柔和立體Q版小老闆；姿勢依文案變化，角色識別固定",
+    "companions":"小鹿與小烏龜分開；灰色小河馬娃娃、米色小鹿安撫巾依情境使用",
+    "reviewItems":16,
+    "reviewDimensions":["產品／規格","季節","天氣","場合／地點","情境／環境","冷熱","表情","動作／道具","小老闆與夥伴","人物完整度／安全邊界","產品實際比例","重複圖","品牌調性","法規文案","來源權威","最終一致性"]
   },
-  "imagePolicy": {
-    "productMethod": "正式原產品照片等比例合成；AI／SVG候選只生成背景、角色、道具與情境；不重畫產品包裝或標籤",
-    "displayMode": "contain-no-crop",
-    "mascot": "官網 images/brand/approved-v405/ 同款柔和立體Q版小老闆；姿勢可變，角色識別與畫風固定",
-    "companions": "小鹿、小烏龜、灰色小河馬娃娃、米色小鹿安撫巾依情境使用；v15為候選，造型仍需人工確認",
-    "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
-    "samePrimaryImageCooldownDays": 90,
-    "sameCopyCooldownDays": 180
+  "postMediaPolicy":{
+    "approvalBatch":"20260811-latest-user-post-images",
+    "source":"新貼文的圖(3).zip",
+    "originalFileCount":21,
+    "candidateCount":20,
+    "duplicateCount":1,
+    "priority":"user_zip_approved",
+    "binaryStatus":"pending",
+    "rule":"產品／試喝文案先用目前核准DM或products-v3；生活情境文先比對目前最新使用者ZIP；有合格來源但原圖未公開則needs_binary_sync，不重新生成；只有真正無合格來源才生成。",
+    "afterAnyChange":"invalidate_old_approval_and_schedule_then_pending_review",
+    "reviewItemsAfterChange":16,
+    "autoApprove":false,
+    "autoPublish":false
   },
-  "trialCampaign": {
-    "authority": "content/social-guilu-drink-trial-v1.json",
-    "currentFinalAssetId": "guilu-drink-trial-final-20260808",
-    "userConfirmedFinalAndPublishedOn": "2026-08-08",
-    "preventRepublish": true,
-    "doNotRegenerate": true
+  "trialCampaign":{
+    "title":"龜鹿飲試喝組｜先試喝，再決定",
+    "image":"images/dm-approved-v20260810/guilu-drink-trial.webp",
+    "freeSamples":3,
+    "shipping":{"7-11店到店":60,"郵局宅配":100},
+    "leadTime":"約5～7個工作天",
+    "applyVia":"LINE OA"
   },
-  "pricingPolicy": {
-    "guiluDrink30cc": "正式售價60元／罐｜買10送1｜11罐600元",
-    "guiluDrink180cc": "單包200元｜買10送1｜11包2,000元",
-    "catalogPages": "一般官網產品目錄不公開全系列價格",
-    "trialCampaign": "可顯示使用者確認的龜鹿飲正式價格"
+  "pricingPolicy":{
+    "guiluDrink30cc":"正式售價60元／罐｜買10送1｜11罐600元",
+    "guiluDrink180cc":"單包200元｜買10送1｜11包2,000元",
+    "catalogPages":"一般官網產品目錄不公開全系列價格",
+    "trialCampaign":"可顯示使用者確認的龜鹿飲正式價格"
   },
-  "generationPolicy": {
-    "mode": "runtime_safe_svg_plus_chatgpt_handoff",
-    "paidOpenAIImageApi": false,
-    "paidOpenAITextApiForRegeneration": false,
-    "newContentStatus": "pending_review",
-    "autoApprove": false,
-    "autoPublishBeforeApproval": false,
-    "productAuthoritySource": "catalog-public.json",
-    "visualAuthoritySource": "content/visual-production-spec-v20260807.json",
-    "brandCharacterSource": "brand-character-spec.json",
-    "rejectUnknownProductSpecs": true,
-    "generatorAuthority": "base23 + v6 current300 + v7 current177 = runtime500; v12-v15 provide candidate coverage"
+  "generationPolicy":{
+    "paidOpenAIImageApi":false,
+    "newContentStatus":"pending_review",
+    "autoApprove":false,
+    "autoPublishBeforeApproval":false,
+    "productAuthoritySource":"catalog-public.json",
+    "visualAuthoritySource":"content/visual-production-spec-current.json",
+    "regenerateOnlyIfNoApprovedMatch":true,
+    "rejectUnknownProductSpecs":true,
+    "rejectAiRedrawnProduct":true
   },
-  "schedule": {"timezone":"Asia/Taipei","weekly":["星期二 19:30","星期六 09:30"],"immediatePublishBypassesSchedule":true,"liveWeatherRequiresRecheck":true},
-  "platformPolicy": {"facebook":"ERP執行時讀取實際授權狀態","instagram":"ERP執行時讀取實際授權狀態","lineOA":"ERP／LINE OA執行時讀取實際授權狀態","lineVoom":"manual_only","googleBusiness":"未授權則轉人工發布包"},
-  "privacy": {"consumerBrand":"仙加味","publicForbiddenByDefault":["台興山產有限公司","統一編號","公司電話","公司地址"],"companyInfoOnlyWhenRequired":true,"partnerProtectionMode":true},
-  "safety": "six-single-spec-authority-zero-missing-images-all-new-candidates-review-only-no-redrawn-product-packaging-approved-website-chibi-no-duplicate-posting"
+  "schedule":{"timezone":"Asia/Taipei","immediatePublishBypassesSchedule":true,"liveWeatherRequiresRecheck":true},
+  "platformPolicy":{"facebook":"正式發布時讀取實際授權狀態","instagram":"正式發布時讀取實際授權狀態","lineOA":"TS-LINE執行時讀取實際授權狀態","lineVoom":"manual_only","googleBusiness":"未授權則轉人工發布包"},
+  "privacy":{"consumerBrand":"仙加味","publicForbiddenByDefault":["內部測試字樣","ERP秘密資料","Token／Secret"],"companyInfoOnlyWhenRequired":true,"partnerProtectionMode":true},
+  "safety":"current-six-spec-authority-products-v3-identity-approved-dm-display-current-zip-first-binary-aware-16-review-no-auto-publish-no-legacy-lock"
 }
