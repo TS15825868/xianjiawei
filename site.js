@@ -5,7 +5,7 @@
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260811-18";
+  const VERSION = "20260811-19";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const CORE = `site-core-v410.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
@@ -13,7 +13,7 @@
   const PUBLIC_CLEANUP = `site-public-content-cleanup-v20260809.js?v=${VERSION}`;
   const HOTFIX = `site-ux-v4104.css?v=${VERSION}`;
   const FORMAL = `site-formal-v20260809.css?v=${VERSION}`;
-  const CUSTOMER_POLISH = `site-customer-polish-v20260810.css?v=${VERSION}`;
+  const CUSTOMER_POLISH = `site-customer-polish-v20260811.css?v=${VERSION}`;
 
   function appendScript(src, onload) {
     const script = document.createElement("script");
@@ -37,7 +37,7 @@
             appendScript(PUBLIC_CLEANUP, function () {
               appendStyle(HOTFIX, "site-ux-v4104.css");
               appendStyle(FORMAL, "site-formal-v20260809.css");
-              appendStyle(CUSTOMER_POLISH, "site-customer-polish-v20260810.css");
+              appendStyle(CUSTOMER_POLISH, "site-customer-polish-v20260811.css");
             });
           });
         });
