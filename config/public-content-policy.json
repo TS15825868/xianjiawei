@@ -45,8 +45,8 @@
       "龜鹿膏 100g／罐",
       "龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）",
       "龜鹿飲180cc鋁袋 180cc／包（鋁袋）",
-      "龜鹿湯塊 75g／盒｜8塊裝｜每塊約9.375g",
-      "龜鹿膠 600g（1斤）／盒｜32塊裝｜每塊約18.75g",
+      "龜鹿湯塊 75g／盒｜8塊裝",
+      "龜鹿膠 600g／盒｜32塊裝",
       "鹿茸粉 75g／罐"
     ],
     "soupBlockRule": "龜鹿湯塊深藍盒只允許75g／盒，不得建立其他容量",
@@ -55,8 +55,21 @@
     "imageRule": "產品只允許等比例contain，不裁切、不拉伸、不改包裝、不改標籤、不AI重畫，不把不同產品強制等高等寬"
   },
   "currentPublishedContent": [
-    {"postId":"POST-BRAND-START","status":"published-locked","preventRepublish":true},
-    {"postId":"XJW-TRIAL-001","status":"published-final-locked","copy":"content/social-guilu-drink-trial-v1.json","assetManifest":"content/final-published-assets-v20260808.json","ownerPublicationConfirmed":true,"publishAllowed":false,"preventRepublish":true,"doNotRepublish":true}
+    {
+      "postId": "POST-BRAND-START",
+      "status": "published-locked",
+      "preventRepublish": true
+    },
+    {
+      "postId": "XJW-TRIAL-001",
+      "status": "published-final-locked",
+      "copy": "content/social-guilu-drink-trial-v1.json",
+      "assetManifest": "content/final-published-assets-v20260808.json",
+      "ownerPublicationConfirmed": true,
+      "publishAllowed": false,
+      "preventRepublish": true,
+      "doNotRepublish": true
+    }
   ],
   "workflowPolicy": {
     "publicActionsMayValidateAndDeploy": true,
