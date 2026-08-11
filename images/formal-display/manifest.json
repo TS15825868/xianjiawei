@@ -1,17 +1,18 @@
 {
-  "runtime": "20260810-formal-customer-media-v3-latest-user-batch",
-  "approval_batch": "20260810-latest-user-dm-and-trial",
+  "runtime": "current-formal-customer-media",
+  "approval_batch": "current-user-media",
   "products": {
-    "guilu-gao": {"name":"龜鹿膏","spec":"100g／罐","path":"/images/dm-approved-v20260810/guilu-gao-100g.webp"},
-    "guilu-drink-30": {"name":"龜鹿飲30cc","spec":"30cc／罐（小玻璃罐、裸罐、無貼紙）","path":"/images/dm-approved-v20260810/guilu-drink-30cc.webp"},
-    "guilu-drink-180": {"name":"龜鹿飲180cc","spec":"180cc／包（鋁袋）","path":"/images/dm-approved-v20260810/guilu-drink-180cc.webp"},
-    "guilu-tangkuai": {"name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","path":"/images/dm-approved-v20260810/guilu-tangkuai-75g.webp"},
-    "guilu-jiao": {"name":"龜鹿膠","spec":"600g／盒｜32塊裝","path":"/images/dm-approved-v20260810/guilu-jiao-600g.webp"},
-    "lurong-fen": {"name":"鹿茸粉","spec":"75g／罐","path":"/images/dm-approved-v20260810/lurong-fen-75g.webp"}
+    "guilu-gao": {"name":"龜鹿膏","spec":"100g／罐","path":"/images/dm-approved-v20260810/guilu-gao-100g.webp","status":"approved_display"},
+    "guilu-drink-30": {"name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","path":"/images/products-v3/guilu-drink-30.jpg","status":"products-v3-fallback","quarantined_dm":"/images/dm-approved-v20260810/guilu-drink-30cc.webp","reason":"30cc DM內嵌文字仍寫30cc／瓶，與正式規格衝突。"},
+    "guilu-drink-180": {"name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","path":"/images/dm-approved-v20260810/guilu-drink-180cc.webp","status":"approved_display"},
+    "guilu-tangkuai": {"name":"龜鹿湯塊","spec":"75g／盒｜8塊裝｜每塊約9.375g","path":"/images/dm-approved-v20260810/guilu-tangkuai-75g.webp","status":"approved_display"},
+    "guilu-jiao": {"name":"龜鹿膠","spec":"600g（1斤）／盒｜32塊裝｜每塊約18.75g","path":"/images/dm-approved-v20260810/guilu-jiao-600g.webp","status":"approved_display"},
+    "luerong-fen": {"name":"鹿茸粉","spec":"75g／罐","path":"/images/dm-approved-v20260810/lurong-fen-75g.webp","status":"approved_display"}
   },
   "trial": {
     "path":"/images/dm-approved-v20260810/guilu-drink-trial.webp",
     "rules":{"free_samples":3,"shipping_paid_by_customer":true,"seven_eleven":60,"postal":100,"limit":"每位顧客／電話／地址限申請一次","lead_time":"約5～7個工作天","apply_via":"LINE OA","price_30":"60元／罐；買10送1，11罐600元","price_180":"200元／包；買10送1，11包2,000元"}
   },
-  "rules":{"product_authority":"products-v3 original product identity; newest user-approved DM is customer display only","no_ai_product_redraw":true,"no_crop":true,"no_stretch":true,"zip_first":true,"regenerate_only_if_no_match":true,"review_after_media_change":16,"guard_policy":"validate current approved content, actual binary availability and capabilities; never require retired version strings, filenames or old fixed copy"}
+  "latestPostZip":{"source":"新貼文的圖(3).zip","originalFiles":21,"uniqueImages":20,"catalog":"/data/post-library-userzip3-v20260811.json"},
+  "rules":{"product_authority":"products-v3 original product identity; customer display media may only be used when embedded copy agrees with current formal facts","no_ai_product_redraw":true,"no_crop":true,"no_stretch":true,"zip_first_for_lifestyle":true,"regenerate_only_if_no_match":true,"review_after_media_change":16,"guard_policy":"validate current approved content, actual binary availability and capabilities; never require retired version strings, filenames, historical counts or old fixed copy"}
 }
