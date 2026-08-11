@@ -1,15 +1,18 @@
 {
-  "runtime": "current-user-post-zip-catalog",
+  "runtime": "20260811-userzip3-post-library-current",
+  "approval_batch": "20260811-latest-user-post-images",
   "source": "新貼文的圖(3).zip",
   "uploaded_batch_date": "2026-08-11",
   "original_file_count": 21,
   "unique_image_count": 20,
+  "candidate_count": 20,
   "duplicate_count": 1,
-  "priority": "user_zip_approved_after_semantic_match",
+  "priority": "user_zip_approved",
+  "principle": "目前最新使用者ZIP素材優先；生活情境圖依季節、情境、環境、冷熱、表情、動作、道具與文案語意比對；產品與試喝文案先使用目前核准正式DM/products-v3；ZIP產品型圖只作待產品權威檢查候選，不得改寫產品包裝、標示、尺寸或比例；有合格來源但二進位尚未上線時標記needs_binary_sync，不重新生成；真的沒有合格來源才重新生成；任何換圖／生成後舊核准失效、回待審核並重跑16項。",
   "binary_sync": {
     "status": "pending",
     "publishable_count": 0,
-    "rule": "原始二進位尚未同步前只標記 needs_binary_sync，不得因此改用不相符圖片，也不得直接重新生成。"
+    "rule": "原始二進位尚未同步前只標記 needs_binary_sync；檔名與分類不等於圖片已公開上線，不得因此改用不相符圖片，也不得直接重新生成。"
   },
   "product_media_rule": "ZIP中的產品卡型圖片不自動取得產品權威；產品／試喝文案優先使用正式核准DM與products-v3真實產品原圖。",
   "safe_scene_priority": [
@@ -39,5 +42,6 @@
   "duplicate_files": [
     {"kept":"7C74B21C-FFAD-4315-BE75-6C501568B793 2.PNG","duplicate":"7C74B21C-FFAD-4315-BE75-6C501568B793.PNG"}
   ],
-  "review_rule": "任何套圖、換圖、重新生成或文案修改後舊核准失效，回 pending_review 並重新完成16項審核。"
+  "review_rule": "任何套圖、換圖、重新生成或文案修改後舊核准失效，回 pending_review 並重新完成16項審核。",
+  "guard_policy": "守目前authority與語意能力，不守舊ZIP檔名、固定候選數、舊版號或舊固定文案。"
 }
