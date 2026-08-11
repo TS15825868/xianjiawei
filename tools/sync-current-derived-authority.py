@@ -34,6 +34,12 @@ def transform(value):
  if isinstance(value,dict):return {k:transform(v) for k,v in value.items()}
  return value
 
+def write_json_if_changed(path:Path,data)->bool:
+ text=json.dumps(data,ensure_ascii=False,indent=2)+'\n'
+ old=path.read_text(encoding='utf-8') if path.exists() else ''
+ if text!=old:path.write_text(text,encoding='utf-8');return True
+ return False
+
 def sync_json(rel:str):
  path=ROOT/rel
  if not path.exists():return False
@@ -62,10 +68,24 @@ def sync_json(rel:str):
     post['auto_approve']=False
     post['auto_schedule']=False
     post['auto_publish']=False
- text=json.dumps(data,ensure_ascii=False,indent=2)+'\n'
- old=path.read_text(encoding='utf-8')
- if text!=old:path.write_text(text,encoding='utf-8');return True
- return False
+ return write_json_if_changed(path,data)
+
+def sync_catalog_current_media():
+ path=ROOT/'catalog-public.json'
+ if not path.exists():return False
+ data=json.loads(path.read_text(encoding='utf-8'))
+ data=transform(data)
+ data['catalogVersion']='current-products-v3-approved-formal-media'
+ data['formalDmApprovalBatch']='current-user-approved-media'
+ rules=data.setdefault('specificationRules',{})
+ rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、無外盒、無外袋、金色蓋；實際罐體約直徑42mm、高51mm；不得改瓶型或放大成接近100g龜鹿膏罐；顧客DM必須先通過目前正式規格與產品外觀驗證，衝突時立即隔離。'
+ by={p.get('id'):p for p in data.get('products',[])}
+ p=by.get('guilu-drink-30')
+ if p:
+  p['dmImage']='https://ts15825868.github.io/xianjiawei/images/dm-approved-v20260810/guilu-drink-30cc.webp?v=current'
+  p.pop('quarantinedDmImage',None)
+  p['imagePolicy']='products-v3維持30cc小玻璃裸罐產品本體識別權威；目前使用者核准DM已通過規格文字與產品外觀驗證，可顧客展示；後續DM若衝突則隔離並回退products-v3。'
+ return write_json_if_changed(path,data)
 
 def sync_text(rel:str):
  path=ROOT/rel
@@ -78,9 +98,8 @@ def sync_text(rel:str):
 
 def validate_no_retired_customer_copy():
  # 只檢查會直接成為顧客／公開內容的目前輸出，不掃描守門規則、歷史隔離說明、版本註記等政策文字。
- # 守門員的工作是擋顧客端錯資料，不是因政策文件提到舊字串就誤判新版失敗。
  current=[
-  'content/public-post-library.json','llms-full.txt','deploy-version.json','data.json',
+  'content/public-post-library.json','llms-full.txt','deploy-version.json','data.json','catalog-public.json',
   'config/official-products.json','assets/data/official-products.json'
  ]
  retired=['每日早上及下午各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','龜鹿飲30cc玻璃瓶','30cc／瓶']
@@ -94,6 +113,7 @@ def validate_no_retired_customer_copy():
 changed=[]
 for rel in ['content/public-post-library.json','content/public-content-policy.json','config/public-content-policy.json','content/post-bank-v6-manifest.json']:
  if sync_json(rel):changed.append(rel)
+if sync_catalog_current_media():changed.append('catalog-public.json')
 for rel in ['llms-full.txt']:
  if sync_text(rel):changed.append(rel)
 validate_no_retired_customer_copy()
