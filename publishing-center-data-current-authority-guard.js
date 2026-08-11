@@ -33,6 +33,7 @@
     if(!image)return'';
     const normalized=normalize(image);
     if(retired.has(normalized))return `圖片已由目前公開資產權威標記為退役：${normalized}`;
+    if(/\/images\/brand\/line-oa\//i.test(image))return '官網／貼文正式候選不得直接混用 LINE OA 專用角色圖片';
     if(/\/images\/products-v2\/|\/images\/dm-final\//i.test(image))return '圖片仍使用舊產品圖／舊DM';
     if(CURRENT_COPY_CONFLICTS.some(pattern=>pattern.test(image)))return '30cc DM內嵌文字仍是30cc／瓶，與目前30cc／罐（小玻璃罐）正式規格衝突';
     return'';
@@ -52,8 +53,8 @@
       scheduled_at:null,
       owner_review_required:true,
       approval_required:true,
-      image_policy:'current-authority-copy-match-products-v3-no-collage',
-      image_prompt:originalPrompt||'依原貼文文案重新建立一張完整1:1單一場景候選圖；季節、情境、環境、冷熱、表情、動作與道具必須吻合文案。若需要產品本體，只能合成products-v3目前正式產品原圖並保留實際比例；30cc必須是小玻璃裸罐、180cc必須是狹長鋁袋。若不需要產品則不放產品。生成後只回待審核，不自動核准、排程或發布。',
+      image_policy:'current-authority-copy-match-products-v3-no-collage-no-line-oa-mix',
+      image_prompt:originalPrompt||'依原貼文文案重新建立一張完整1:1單一場景候選圖；季節、情境、環境、冷熱、表情、動作與道具必須吻合文案。若需要產品本體，只能合成products-v3目前正式產品原圖並保留實際比例；30cc必須是小玻璃裸罐、180cc必須是狹長鋁袋。小老闆使用官網專用核准造型，不得直接裁切或混用LINE OA專用角色圖。若不需要產品則不放產品。生成後只回待審核，不自動核准、排程或發布。',
       image_review_reason:`${reason}。目前權威守門已移除舊候選；優先比對最新使用者ZIP與正式產品／試喝媒體，真的沒有合格來源才重新生成。任何換圖或生成後都回待審核並重新完成16項檢查。`
     };
   }
