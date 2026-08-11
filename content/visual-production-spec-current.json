@@ -11,7 +11,7 @@
   },
   "authority_layers":{
     "product_identity":"images/products-v3/ 真實正式產品原圖；產品本體、包裝、標示、尺寸與比例唯一識別權威",
-    "customer_dm":"images/dm-approved-v20260810/ 為使用者提供的顧客展示素材，但只有圖片內嵌文字、產品外觀與目前正式規格全部一致時才可顯示；若衝突必須隔離並回退products-v3，不得因檔名或舊核准狀態覆蓋目前權威",
+    "customer_dm":"images/dm-approved-v20260810/ 為使用者提供的顧客展示素材；只有圖片內嵌文字、產品外觀與目前正式規格全部一致時才可顯示。若後續素材發生衝突，必須隔離並回退products-v3，不得因檔名或舊核准狀態覆蓋目前權威",
     "post_lifestyle":"目前最新使用者ZIP素材先依文案語意比對；有合格來源但原圖待同步時保持needs_binary_sync；真的沒有合格來源才重新生成",
     "guard":"驗目前authority與能力，不綁歷史版號、舊ZIP名稱、固定候選數、舊固定文案或退役延伸規格"
   },
@@ -25,10 +25,10 @@
   ],
   "products":{
     "guilu-gao":{"name":"龜鹿膏","spec":"100g／罐","usage_primary":"一天一次一小匙","image_rule":"直接使用products-v3正式實拍識別；只允許等比例縮放，不AI重畫、不裁切、不換蓋、不換標籤"},
-    "guilu-drink-30":{"name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","presentation":"裸罐、無貼紙、無外盒、無外袋、金色蓋","container_dimensions_mm":{"diameter":42,"height":51},"image_rule":"必須保留實際小玻璃罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐","customer_dm_status":"quarantined_until_copy_matches_current_spec","customer_dm_path":"/images/dm-approved-v20260810/guilu-drink-30cc.webp","customer_fallback":"/images/products-v3/guilu-drink-30.jpg","quarantine_reason":"目前30cc DM內嵌文字仍寫30cc／瓶，與正式30cc／罐（小玻璃罐）衝突"},
+    "guilu-drink-30":{"name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","presentation":"裸罐、無貼紙、無外盒、無外袋、金色蓋","container_dimensions_mm":{"diameter":42,"height":51},"image_rule":"必須保留實際小玻璃罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐","customer_dm_status":"approved_current_copy","customer_dm_path":"/images/dm-approved-v20260810/guilu-drink-30cc.webp","customer_dm_validation":"目前使用者核准DM的規格文字、30cc小玻璃裸罐外觀與正式資料一致；若未來改版衝突，立即隔離並回退products-v3"},
     "guilu-drink-180":{"name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","presentation":"狹長直立鋁袋","aspect_ratio_width_to_height":{"min":0.60,"target":0.64,"max":0.68},"image_rule":"使用正式鋁袋原圖等比例；禁止橫向拉寬、加高或誇張放大"},
     "guilu-tangkuai":{"name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","presentation":"深藍正式盒裝","image_rule":"使用正式原盒等比例；不得建立300g／600g或硬帶舊每塊重量延伸"},
-    "guilu-jiao":{"name":"龜鹿膠","spec":"600g／盒｜32塊裝","presentation":"淡紫色正式盒裝","image_rule":"使用正式原盒等比例；不得橫向拉長，不回退舊1斤／每塊重量延伸，不得與75g湯塊混用"},
+    "guilu-jiao":{"name":"龜鹿膠","spec":"600g／盒｜32塊裝","presentation":"淡紫色正式盒裝","image_rule":"使用正式原盒等比例；不得橫向拉長，不回退舊延伸重量說法，不得與75g湯塊混用"},
     "luerong-fen":{"name":"鹿茸粉","spec":"75g／罐","presentation":"白色塑膠罐正式原圖","image_rule":"不改包裝、罐型、容量或標示，只允許等比例呈現"}
   },
   "mascot":{
