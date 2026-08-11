@@ -28,6 +28,23 @@ jobs:
           python tools/validate-canonical-facts-v20260808.py
           python tools/validate-public-customer-pages-v20260809.py
           python tools/validate-site-production-release-v20260809.py
+      - name: Verify website runtime does not override current drink units
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const src=fs.readFileSync('site-product-data-authority.js','utf8');
+          const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
+          must(src.includes("normalized.usage=['每日一罐'"),'30cc runtime must keep 每日一罐');
+          must(src.includes("normalized.usage=['每日一包'"),'180cc runtime must keep 每日一包');
+          must(!src.includes("normalized.usage=['每日一份'"),'runtime must not genericize drink units to 每日一份');
+          const zip=JSON.parse(fs.readFileSync('data/post-library-userzip3-v20260811.json','utf8'));
+          must(['pending','ready'].includes(zip.binary_sync?.status),'ZIP binary state must be explicit');
+          if(zip.binary_sync?.status==='pending'){
+            must(Number(zip.binary_sync?.publishable_count||0)===0,'pending ZIP binary must not claim publishable assets');
+            must((zip.safe_scene_priority||[]).every(x=>x.binary_ready===false&&!x.public_url),'pending ZIP scenes must not claim public URLs');
+          }
+          console.log(`PASS: website runtime drink units are explicit; ZIP binary state=${zip.binary_sync?.status}.`);
+          NODE
       - name: Current publishing and media authority
         run: |
           node tools/validate-post-bank-runtime-current.mjs
