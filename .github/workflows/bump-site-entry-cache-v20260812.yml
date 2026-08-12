@@ -20,31 +20,55 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Apply cache-bust to all root HTML entry points
+      - name: Apply cache-bust and retire bad public preview composites
         run: python tools/bump_site_entry_cache_v20260812.py
 
-      - name: Validate no stale site runtime/style cache keys remain
+      - name: Validate current public image hotfix entry points
         run: |
           python - <<'PY'
           import re
           from pathlib import Path
-          version='20260812-formal-image-fix-v3'
+          version='20260812-public-image-hotfix-v4'
           pattern=re.compile(r'(?:src|href)=["\'](site(?:-[^?"\']+)?\.(?:js|css))\?v=([^"\']+)["\']',re.I)
           stale=[]
           refs=0
+          retired=[
+            'images/brand/approved-v405/home-brand.webp',
+            'images/brand/approved-v405/products-all.webp',
+            'images/brand/approved-v405/contact-line.webp',
+            'images/brand/approved-v405/combo.webp',
+            'images/brand/approved-v405/guide-how-to-use.webp',
+          ]
+          bad_meta=[]
           for p in Path('.').glob('*.html'):
               text=p.read_text(encoding='utf-8')
               for file, value in pattern.findall(text):
                   refs+=1
                   if value!=version: stale.append((p.name,file,value))
+              for old in retired:
+                  if old in text and ('property="og:image"' in text or 'name="twitter:image"' in text):
+                      for line in text.splitlines():
+                          if old in line and ('og:image' in line or 'twitter:image' in line):
+                              bad_meta.append((p.name,old))
           if stale:
               raise SystemExit('stale site cache refs: '+repr(stale[:20]))
+          if bad_meta:
+              raise SystemExit('retired public preview images remain: '+repr(bad_meta[:20]))
           if refs==0:
               raise SystemExit('no site runtime/style refs found')
+          mascot=Path('site-mascot-placement-v20260812.js').read_text(encoding='utf-8')
+          if 'homeLine:' in mascot or 'contact-line.webp?v=' in mascot:
+              raise SystemExit('retired contact-line mascot runtime still active')
+          retirement=Path('site-public-image-retirement-v20260812.js').read_text(encoding='utf-8')
+          for required in ['guilu-gao.webp','guilu-drink-30cc.webp','guilu-drink-180cc.webp','guilu-tangkuai.webp','guilu-jiao.webp','luerong-fen.webp']:
+              if required not in retirement:
+                  raise SystemExit('missing formal product replacement '+required)
           print('PASS unified refs',refs,'version',version)
+          print('PASS retired bad preview composites')
+          print('PASS current six formal product replacement guard')
           PY
 
-      - name: Commit HTML cache keys
+      - name: Commit HTML cache keys and preview cleanup
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -53,5 +77,5 @@ jobs:
             echo 'No HTML cache changes required.'
             exit 0
           fi
-          git commit -m 'fix(cache): refresh all site entry runtime keys'
+          git commit -m 'fix(images): refresh public entry cache and retire bad previews'
           git push origin HEAD:main
