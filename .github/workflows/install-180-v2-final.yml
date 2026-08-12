@@ -1,0 +1,79 @@
+name: Install verified 180cc sharp AVIF final
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/install-180-v2-final.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Reassemble and verify exact master
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(find _upload/avif-v6-180-v2 -maxdepth 1 -type f | wc -l)" -eq 6
+          cat _upload/avif-v6-180-v2/001 _upload/avif-v6-180-v2/002 _upload/avif-v6-180-v2/003 _upload/avif-v6-180-v2/004 _upload/avif-v6-180-v2/005 _upload/avif-v6-180-v2/006 | base64 -d > /tmp/guilu-drink-180cc.avif
+          test "$(sha256sum /tmp/guilu-drink-180cc.avif | awk '{print $1}')" = 'b1223ff545bd95dcaa22543270689a46a2c83a760346dfca8044725a0219d45e'
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 /tmp/guilu-drink-180cc.avif)" = '1122x1402'
+          ffmpeg -v error -i /tmp/guilu-drink-180cc.avif -f null -
+          echo 'PASS exact 180cc master sha/dimensions/full decode'
+      - name: Verify other five formal masters
+        shell: bash
+        run: |
+          set -euo pipefail
+          declare -A SHA=(
+            [guilu-drink-30cc]='a57ce8e03a867e8162065ae380dae97248c85f6923eb74578d72349610e435d8'
+            [guilu-gao]='6958c71f7d1d8cac4df348511fca2e2f4983eace279126444174589798d46ff2'
+            [guilu-jiao]='091145c925a3579e53b75468555c07ecbeeb45d4176028ec5e0879ccb0fdafee'
+            [guilu-tangkuai]='0d54fbb42d2d6d875713295ff6c53cecc7dd5f753f8d5e5b0fc54f6cf40677bf'
+            [luerong-fen]='d9312b796007cbead43d9525867c759b265a089c5424e3de24a1afd8b1f16fc3'
+          )
+          for name in guilu-drink-30cc guilu-gao guilu-jiao guilu-tangkuai luerong-fen; do
+            file="images/customer-display-v20260812/${name}.avif"
+            test -f "$file"
+            test "$(sha256sum "$file" | awk '{print $1}')" = "${SHA[$name]}"
+            test "$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 "$file")" = '1122x1402'
+            ffmpeg -v error -i "$file" -f null -
+            echo "PASS $name"
+          done
+      - name: Install and record six-master status
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp /tmp/guilu-drink-180cc.avif images/customer-display-v20260812/guilu-drink-180cc.avif
+          cat > images/customer-display-v20260812/hd-avif-v6-status.json <<'JSON'
+          {
+            "version":"20260812-sharp-formal-media-v6",
+            "status":"six-approved-product-avif-masters-installed-and-verified",
+            "dimensions":"1122x1402",
+            "role":"formal-product-main-only",
+            "product_dm_trial_roles_separate":true,
+            "drink30":"30cc／罐（小玻璃罐）；裸罐；不得改比例或罐型",
+            "drink180":"180cc／包（鋁袋）；不得改袋型或比例",
+            "tangkuai_main":"75g／盒｜8塊裝",
+            "jiao_main":"600g（1斤）／盒｜32塊裝"
+          }
+          JSON
+          rm -rf _upload/avif-v6-180-v2
+          rm -f _upload/avif-v6-180.part-* _upload/avif-v6.ready _upload/avif-v6-v2.ready _upload/avif-v6-180-v2-diagnostic.txt
+      - name: Commit verified master and cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A images/customer-display-v20260812 _upload
+          git commit -m 'fix(images): install six verified sharp formal product AVIF masters v6'
+          git push origin HEAD:main
