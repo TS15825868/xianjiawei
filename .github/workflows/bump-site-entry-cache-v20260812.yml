@@ -56,7 +56,6 @@ jobs:
           if refs==0:
               raise SystemExit('no site runtime/style refs found')
 
-          # High-resolution safe public mascot sources restored from the approved original batch.
           hd={
             'images/brand/hd-v20260812/brand-story.png': 1000000,
             'images/brand/hd-v20260812/faq.png': 1000000,
@@ -82,9 +81,11 @@ jobs:
                   raise SystemExit('missing visual hotfix token: '+token)
 
           mascot=Path('site-mascot-placement-v20260812.js').read_text(encoding='utf-8')
-          for required in ['hd-v20260812/choose.jpg','hd-v20260812/faq.png']:
+          if "const HD='images/brand/hd-v20260812/'" not in mascot:
+              raise SystemExit('high-resolution mascot base path missing')
+          for required in ['choose.jpg','faq.png']:
               if required not in mascot:
-                  raise SystemExit('high-resolution mascot source missing: '+required)
+                  raise SystemExit('high-resolution mascot filename missing: '+required)
           if 'homeLine:' in mascot or 'contact-line.webp?v=' in mascot:
               raise SystemExit('retired contact-line mascot runtime still active')
 
