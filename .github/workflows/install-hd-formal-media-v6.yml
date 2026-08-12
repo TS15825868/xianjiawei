@@ -1,0 +1,78 @@
+name: Install HD formal media v6
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_upload/hd-media-v6.tar.gz'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install HD formal media package
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive='_upload/hd-media-v6.tar.gz'
+          if [ ! -f "$archive" ]; then
+            echo 'HD media archive is already consumed; nothing to install.'
+            exit 0
+          fi
+          tar -xzf "$archive" -C .
+
+          expected=(
+            images/customer-display-v20260812/guilu-gao.webp
+            images/customer-display-v20260812/guilu-drink-30cc.webp
+            images/customer-display-v20260812/guilu-drink-180cc.webp
+            images/customer-display-v20260812/guilu-tangkuai.webp
+            images/customer-display-v20260812/guilu-jiao.webp
+            images/customer-display-v20260812/luerong-fen.webp
+            images/dm-final/01_guilu-gao-100g-dm.jpg
+            images/dm-approved-v20260810/guilu-drink-30cc.webp
+            images/dm-approved-v20260810/guilu-drink-180cc.webp
+            images/dm-approved-v20260810/guilu-tangkuai-75g.webp
+            images/dm-approved-v20260810/guilu-jiao-600g.webp
+            images/dm-approved-v20260810/lurong-fen-75g.webp
+          )
+          for f in "${expected[@]}"; do
+            test -f "$f" || { echo "missing $f" >&2; exit 1; }
+            bytes=$(wc -c < "$f")
+            test "$bytes" -gt 100000 || { echo "file too small: $f ($bytes)" >&2; exit 1; }
+            case "$f" in
+              *.webp)
+                test "$(dd if="$f" bs=1 skip=8 count=4 status=none)" = 'WEBP' || { echo "bad WEBP: $f" >&2; exit 1; }
+                ;;
+              *.jpg)
+                magic=$(xxd -p -l 2 "$f")
+                test "$magic" = 'ffd8' || { echo "bad JPEG: $f" >&2; exit 1; }
+                ;;
+            esac
+            echo "PASS $f $bytes bytes"
+          done
+
+          rm -f "$archive"
+
+      - name: Commit HD formal media
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/customer-display-v20260812 images/dm-final/01_guilu-gao-100g-dm.jpg images/dm-approved-v20260810 _upload/hd-media-v6.tar.gz
+          if git diff --cached --quiet; then
+            echo 'No HD media changes required.'
+            exit 0
+          fi
+          git commit -m 'fix(images): install sharp formal product and DM media v6'
+          git push origin HEAD:main
