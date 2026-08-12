@@ -1,12 +1,12 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-08-12 final-v3-clean
+/* 官網顧客產品圖片安全層｜2026-08-12 screenshot-fix
  * 顧客產品頁／產品卡：六張使用者確認的正式產品圖優先。
- * DM：獨立媒體角色，由 DM 權威層管理；dm-approved 目錄不得被產品圖安全層覆蓋。
+ * DM：獨立媒體角色，由 DM 權威層管理；dm-approved 與 dm-final 目錄不得被產品圖安全層覆蓋。
  * products-v3：只保留為真實產品外觀、包裝與比例的實物身份參考。
  */
 (function(){
-  const VERSION='20260812-six-product-final-v3-clean-dm-separated';
+  const VERSION='20260812-screenshot-fix-v1-dm-separated';
   const CUSTOMER=Object.freeze({
     gao:`images/customer-display-v20260812/guilu-gao.webp?v=${VERSION}`,
     drink30:`images/customer-display-v20260812/guilu-drink-30cc.webp?v=${VERSION}`,
@@ -30,7 +30,7 @@
   ]);
   const ALT=Object.freeze({gao:'龜鹿膏正式產品圖',drink30:'龜鹿飲30cc正式產品圖｜小玻璃裸罐',drink180:'龜鹿飲180cc正式產品圖｜鋁袋',tangkuai:'龜鹿湯塊正式產品圖',jiao:'龜鹿膠正式產品圖',luerong:'鹿茸粉正式產品圖'});
   function alreadyCurrent(value){return /\/images\/customer-display-v20260812\//i.test(String(value||''));}
-  function isDetailedDm(value){return /\/images\/dm-approved-v20260810\//i.test(String(value||''));}
+  function isDetailedDm(value){return /\/images\/(?:dm-approved-v20260810|dm-final)\//i.test(String(value||''));}
   function match(value){
     const text=String(value||'');
     if(alreadyCurrent(text)||isDetailedDm(text))return'';
@@ -43,7 +43,7 @@
     node.setAttribute('src',CUSTOMER[key]);
     node.alt=ALT[key];
     node.style.objectFit='contain';node.style.objectPosition='center';node.style.width='100%';node.style.height='100%';node.style.maxWidth='100%';node.style.maxHeight='100%';node.style.transform='none';node.style.clipPath='none';
-    node.dataset.xjwCustomerDisplay='official-product-image-final-v3-clean';
+    node.dataset.xjwCustomerDisplay='official-product-image-screenshot-fix';
     node.dataset.xjwProductIdentityAuthority='products-v3';
     node.dataset.xjwScalePolicy='uniform-only-contain-no-stretch';
   }
