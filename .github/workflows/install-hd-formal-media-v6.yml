@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '_upload/hd-media-v6.tar.gz'
+      - '_upload/hd-media-v6.ready'
   workflow_dispatch:
 
 permissions:
@@ -20,16 +20,22 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Install HD formal media package
+      - name: Reassemble and install HD formal media package
         shell: bash
         run: |
           set -euo pipefail
-          archive='_upload/hd-media-v6.tar.gz'
-          if [ ! -f "$archive" ]; then
-            echo 'HD media archive is already consumed; nothing to install.'
+          marker='_upload/hd-media-v6.ready'
+          if [ ! -f "$marker" ]; then
+            echo 'HD media marker is already consumed; nothing to install.'
             exit 0
           fi
-          tar -xzf "$archive" -C .
+          shopt -s nullglob
+          parts=(_upload/hd-media-v6.part-*)
+          test ${#parts[@]} -gt 0 || { echo 'No HD media chunks found.' >&2; exit 1; }
+          printf '%s\n' "${parts[@]}" | sort > /tmp/hd-parts.txt
+          while IFS= read -r f; do cat "$f"; done < /tmp/hd-parts.txt | base64 -d > /tmp/hd-media-v6.tar.gz
+          tar -tzf /tmp/hd-media-v6.tar.gz >/tmp/hd-media-list.txt
+          tar -xzf /tmp/hd-media-v6.tar.gz -C .
 
           expected=(
             images/customer-display-v20260812/guilu-gao.webp
@@ -61,7 +67,7 @@ jobs:
             echo "PASS $f $bytes bytes"
           done
 
-          rm -f "$archive"
+          rm -f _upload/hd-media-v6.part-* "$marker"
 
       - name: Commit HD formal media
         shell: bash
@@ -69,7 +75,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add images/customer-display-v20260812 images/dm-final/01_guilu-gao-100g-dm.jpg images/dm-approved-v20260810 _upload/hd-media-v6.tar.gz
+          git add -A images/customer-display-v20260812 images/dm-final/01_guilu-gao-100g-dm.jpg images/dm-approved-v20260810 _upload
           if git diff --cached --quiet; then
             echo 'No HD media changes required.'
             exit 0
