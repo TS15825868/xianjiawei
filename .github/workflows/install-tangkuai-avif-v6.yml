@@ -1,0 +1,73 @@
+name: Install corrected tangkuai AVIF v6
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_upload/tangkuai-v6.ready'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Reassemble corrected high-resolution tangkuai master
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f _upload/tangkuai-v6.ready
+          cat _upload/tangkuai-v6.part-* | base64 -d > /tmp/guilu-tangkuai.avif
+
+      - name: Verify exact approved tangkuai binary and dimensions
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected='0d54fbb42d2d6d875713295ff6c53cecc7dd5f753f8d5e5b0fc54f6cf40677bf'
+          actual="$(sha256sum /tmp/guilu-tangkuai.avif | awk '{print $1}')"
+          test "$actual" = "$expected"
+          dims="$(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 /tmp/guilu-tangkuai.avif)"
+          test "$dims" = '1122x1402'
+          echo "PASS corrected guilu-tangkuai $dims $actual"
+
+      - name: Install corrected tangkuai master and remove bad legacy WebP from runtime authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp /tmp/guilu-tangkuai.avif images/customer-display-v20260812/guilu-tangkuai.avif
+          rm -f _upload/tangkuai-v6.part-* _upload/tangkuai-v6.ready
+          cat > images/customer-display-v20260812/tangkuai-hd-v6-status.json <<'JSON'
+          {
+            "version": "20260813-sharp-formal-media-v6",
+            "product": "龜鹿湯塊",
+            "status": "corrected-hd-avif-installed",
+            "dimensions": "1122x1402",
+            "main_spec": "75g／盒｜8塊裝",
+            "detail_unit_approx": "每塊約9.375g",
+            "detail_unit_rule": "detail-data-only",
+            "legacy_webp_status": "decode-failed-do-not-use",
+            "rule": "formal product main only; detailed DM remains separate"
+          }
+          JSON
+
+      - name: Commit corrected tangkuai master
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A images/customer-display-v20260812/guilu-tangkuai.avif images/customer-display-v20260812/tangkuai-hd-v6-status.json _upload/tangkuai-v6.part-* _upload/tangkuai-v6.ready || true
+          if git diff --cached --quiet; then
+            echo 'No corrected tangkuai changes.'
+            exit 0
+          fi
+          git commit -m 'fix(images): install corrected sharp tangkuai AVIF v6'
+          git push origin HEAD:main
