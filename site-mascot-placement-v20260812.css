@@ -1,0 +1,57 @@
+/* 仙加味小老闆輔助情境圖｜不進產品主圖／DM */
+body.ux-v410 .xjw-mascot-section{
+  padding-top:12px!important;
+  padding-bottom:18px!important;
+}
+body.ux-v410 .xjw-mascot-context{
+  margin:0 auto!important;
+  width:min(100%,760px)!important;
+  min-width:0!important;
+  border:1px solid rgba(11,31,59,.10)!important;
+  border-radius:24px!important;
+  overflow:hidden!important;
+  background:#F7F4ED!important;
+  box-shadow:0 18px 44px rgba(11,31,59,.08)!important;
+}
+body.ux-v410 .xjw-mascot-context img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+}
+body.ux-v410 .home-final-cta.xjw-cta-with-mascot{
+  display:grid!important;
+  grid-template-columns:minmax(220px,.72fr) minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:24px!important;
+  text-align:left!important;
+}
+body.ux-v410 .home-final-cta.xjw-cta-with-mascot>.xjw-mascot-context{
+  grid-row:1 / span 5!important;
+  width:100%!important;
+  max-width:420px!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+body.ux-v410 .home-final-cta.xjw-cta-with-mascot>.hero-actions{
+  justify-content:flex-start!important;
+}
+@media(max-width:760px){
+  body.ux-v410 .xjw-mascot-section{padding-top:8px!important;padding-bottom:12px!important;}
+  body.ux-v410 .xjw-mascot-context{border-radius:18px!important;}
+  body.ux-v410 .home-final-cta.xjw-cta-with-mascot{
+    grid-template-columns:1fr!important;
+    text-align:center!important;
+    gap:14px!important;
+  }
+  body.ux-v410 .home-final-cta.xjw-cta-with-mascot>.xjw-mascot-context{
+    grid-row:auto!important;
+    max-width:360px!important;
+  }
+  body.ux-v410 .home-final-cta.xjw-cta-with-mascot>.hero-actions{justify-content:center!important;}
+}
