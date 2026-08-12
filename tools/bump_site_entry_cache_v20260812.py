@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Unify root HTML site JS/CSS cache keys to the current public image hotfix.
 
-Also retires old approved-v405 composite images from social preview metadata where
-those images contain generated/redrawn product packaging. Product/runtime content
-is otherwise left untouched.
+Also retires old approved-v405 composite images from social preview metadata and
+from the active site core where those images contain generated/redrawn products.
 """
 from __future__ import annotations
 
@@ -36,6 +35,15 @@ for path in sorted(ROOT.glob("*.html")):
     if updated != text:
         path.write_text(updated, encoding="utf-8")
         changed.append((path.name, count, meta_count))
+
+core = ROOT / "site-core-v410.js"
+if core.exists():
+    text = core.read_text(encoding="utf-8")
+    old = "images/brand/approved-v405/home-brand.webp?v=${UX_VERSION}"
+    new = "images/brand/approved-v405/brand-story.webp?v=${UX_VERSION}"
+    if old in text:
+        core.write_text(text.replace(old, new), encoding="utf-8")
+        print("UPDATED site-core-v410.js: retired dormant home-brand composite")
 
 print(f"PASS cache version: {VERSION}")
 for name, count, meta_count in changed:
