@@ -1,6 +1,6 @@
 "use strict";
 
-/* 全站入口 2026-08-12：產品資料權威 → 六張正式產品圖 → 獨立DM權威 → 核心 → 圖片安全 → 正式規格 → 顧客版內容清理 → 視覺層。 */
+/* 全站入口 2026-08-12：產品資料權威 → 六張正式產品圖 → 獨立DM權威 → 核心 → 圖片安全 → 正式規格 → 顧客版清理 → 小老闆輔助情境 → 視覺層。 */
 (function () {
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
@@ -13,10 +13,12 @@
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
   const VARIANTS = `site-official-product-variants.js?v=${VERSION}`;
   const PUBLIC_CLEANUP = `site-public-content-cleanup-v20260809.js?v=${VERSION}`;
+  const MASCOT = `site-mascot-placement-v20260812.js?v=${VERSION}`;
   const HOTFIX = `site-ux-v4104.css?v=${VERSION}`;
   const FORMAL = `site-formal-v20260809.css?v=${VERSION}`;
   const CUSTOMER_POLISH = `site-customer-polish-v20260811.css?v=${VERSION}`;
   const HOME_FINAL = `site-home-final-v20260811.css?v=${VERSION}`;
+  const MASCOT_STYLE = `site-mascot-placement-v20260812.css?v=${VERSION}`;
 
   function appendScript(src, onload) {
     const script = document.createElement("script");
@@ -32,6 +34,13 @@
     link.href = href;
     document.head.appendChild(link);
   }
+  function loadStyles(){
+    appendStyle(HOTFIX, "site-ux-v4104.css");
+    appendStyle(FORMAL, "site-formal-v20260809.css");
+    appendStyle(CUSTOMER_POLISH, "site-customer-polish-v20260811.css");
+    appendStyle(HOME_FINAL, "site-home-final-v20260811.css");
+    appendStyle(MASCOT_STYLE, "site-mascot-placement-v20260812.css");
+  }
   function loadSequentially() {
     appendScript(AUTHORITY, function () {
       appendScript(PRODUCT_DISPLAY, function () {
@@ -40,10 +49,7 @@
             appendScript(SAFETY, function () {
               appendScript(VARIANTS, function () {
                 appendScript(PUBLIC_CLEANUP, function () {
-                  appendStyle(HOTFIX, "site-ux-v4104.css");
-                  appendStyle(FORMAL, "site-formal-v20260809.css");
-                  appendStyle(CUSTOMER_POLISH, "site-customer-polish-v20260811.css");
-                  appendStyle(HOME_FINAL, "site-home-final-v20260811.css");
+                  appendScript(MASCOT, loadStyles);
                 });
               });
             });
@@ -60,9 +66,11 @@
     document.write('<script src="' + SAFETY + '"><\/script>');
     document.write('<script src="' + VARIANTS + '"><\/script>');
     document.write('<script src="' + PUBLIC_CLEANUP + '"><\/script>');
+    document.write('<script src="' + MASCOT + '"><\/script>');
     document.write('<link rel="stylesheet" href="' + HOTFIX + '">');
     document.write('<link rel="stylesheet" href="' + FORMAL + '">');
     document.write('<link rel="stylesheet" href="' + CUSTOMER_POLISH + '">');
     document.write('<link rel="stylesheet" href="' + HOME_FINAL + '">');
+    document.write('<link rel="stylesheet" href="' + MASCOT_STYLE + '">');
   } else loadSequentially();
 })();
