@@ -632,7 +632,7 @@ function renderBrandPage() {
           </div>
         </div>
         <div class="brand-hero-v410__media">
-          <img src="images/brand/approved-v405/brand-story.webp?v=${UX_VERSION}" alt="仙加味小老闆與龜鹿系列產品" fetchpriority="high" decoding="async">
+          <img src="images/brand/hd-v20260812/brand-story.png?v=${UX_VERSION}" alt="仙加味小老闆與龜鹿系列產品" fetchpriority="high" decoding="async">
         </div>
       </article>
     </section>
