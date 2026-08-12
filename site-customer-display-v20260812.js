@@ -8,7 +8,7 @@
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260812-six-product-final-v2';
+  const VERSION='20260812-six-product-final-v3-clean';
   const DISPLAY=Object.freeze({
     'guilu-gao':'images/customer-display-v20260812/guilu-gao.webp',
     'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc.webp',
@@ -63,12 +63,12 @@
     });
     data.runtime={
       ...(data.runtime||{}),
-      productMainImageSource:'20260812-user-confirmed-six-product-final',
+      productMainImageSource:'20260812-user-confirmed-six-product-final-v3-clean',
       dmSource:'separate-current-approved-dm-layer',
       officialProductImageSource:'products-v3-real-product-identity-reference',
       trialImage:`${TRIAL}?v=${VERSION}`,
       displayVersion:VERSION,
-      displayRule:'六張產品圖=產品主視覺；DM與試喝圖分開；30cc/180cc/湯塊/龜鹿膠不得再共用試喝圖或錯圖'
+      displayRule:'六張產品圖=產品主視覺；DM與試喝圖分開；龜鹿湯塊主規格區已清除殘影；30cc/180cc/湯塊/龜鹿膠不得再共用試喝圖或錯圖'
     };
     return data;
   }
