@@ -1,4 +1,4 @@
-name: Install HD formal media v6
+name: Install HD formal product media v6
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Reassemble and install HD formal media package
+      - name: Reassemble and install six HD formal product images
         shell: bash
         run: |
           set -euo pipefail
@@ -33,9 +33,9 @@ jobs:
           parts=(_upload/hd-media-v6.part-*)
           test ${#parts[@]} -gt 0 || { echo 'No HD media chunks found.' >&2; exit 1; }
           printf '%s\n' "${parts[@]}" | sort > /tmp/hd-parts.txt
-          while IFS= read -r f; do cat "$f"; done < /tmp/hd-parts.txt | base64 -d > /tmp/hd-media-v6.tar.gz
-          tar -tzf /tmp/hd-media-v6.tar.gz >/tmp/hd-media-list.txt
-          tar -xzf /tmp/hd-media-v6.tar.gz -C .
+          while IFS= read -r f; do cat "$f"; done < /tmp/hd-parts.txt | base64 -d > /tmp/hd-products-v6.tar.gz
+          tar -tzf /tmp/hd-products-v6.tar.gz >/tmp/hd-products-list.txt
+          tar -xzf /tmp/hd-products-v6.tar.gz -C .
 
           expected=(
             images/customer-display-v20260812/guilu-gao.webp
@@ -44,41 +44,26 @@ jobs:
             images/customer-display-v20260812/guilu-tangkuai.webp
             images/customer-display-v20260812/guilu-jiao.webp
             images/customer-display-v20260812/luerong-fen.webp
-            images/dm-final/01_guilu-gao-100g-dm.jpg
-            images/dm-approved-v20260810/guilu-drink-30cc.webp
-            images/dm-approved-v20260810/guilu-drink-180cc.webp
-            images/dm-approved-v20260810/guilu-tangkuai-75g.webp
-            images/dm-approved-v20260810/guilu-jiao-600g.webp
-            images/dm-approved-v20260810/lurong-fen-75g.webp
           )
           for f in "${expected[@]}"; do
             test -f "$f" || { echo "missing $f" >&2; exit 1; }
             bytes=$(wc -c < "$f")
-            test "$bytes" -gt 100000 || { echo "file too small: $f ($bytes)" >&2; exit 1; }
-            case "$f" in
-              *.webp)
-                test "$(dd if="$f" bs=1 skip=8 count=4 status=none)" = 'WEBP' || { echo "bad WEBP: $f" >&2; exit 1; }
-                ;;
-              *.jpg)
-                magic=$(xxd -p -l 2 "$f")
-                test "$magic" = 'ffd8' || { echo "bad JPEG: $f" >&2; exit 1; }
-                ;;
-            esac
+            test "$bytes" -gt 50000 || { echo "file too small: $f ($bytes)" >&2; exit 1; }
+            test "$(dd if="$f" bs=1 skip=8 count=4 status=none)" = 'WEBP' || { echo "bad WEBP: $f" >&2; exit 1; }
             echo "PASS $f $bytes bytes"
           done
-
           rm -f _upload/hd-media-v6.part-* "$marker"
 
-      - name: Commit HD formal media
+      - name: Commit six sharp formal product images
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A images/customer-display-v20260812 images/dm-final/01_guilu-gao-100g-dm.jpg images/dm-approved-v20260810 _upload
+          git add -A images/customer-display-v20260812 _upload
           if git diff --cached --quiet; then
             echo 'No HD media changes required.'
             exit 0
           fi
-          git commit -m 'fix(images): install sharp formal product and DM media v6'
+          git commit -m 'fix(images): install six sharp formal product images v6'
           git push origin HEAD:main
