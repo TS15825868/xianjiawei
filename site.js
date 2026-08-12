@@ -1,12 +1,13 @@
 "use strict";
 
-/* 全站入口 2026-08-11：產品本體權威 → 核准DM權威 → 核心 → 圖片安全 → 正式規格 → 顧客版內容清理 → 視覺層。 */
+/* 全站入口 2026-08-12：產品資料權威 → 六張正式產品圖 → 獨立DM權威 → 核心 → 圖片安全 → 正式規格 → 顧客版內容清理 → 視覺層。 */
 (function () {
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260811-22";
+  const VERSION = "20260812-six-product-final-v3-clean";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
+  const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
   const CORE = `site-core-v410.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
@@ -33,15 +34,17 @@
   }
   function loadSequentially() {
     appendScript(AUTHORITY, function () {
-      appendScript(DM_AUTHORITY, function () {
-        appendScript(CORE, function () {
-          appendScript(SAFETY, function () {
-            appendScript(VARIANTS, function () {
-              appendScript(PUBLIC_CLEANUP, function () {
-                appendStyle(HOTFIX, "site-ux-v4104.css");
-                appendStyle(FORMAL, "site-formal-v20260809.css");
-                appendStyle(CUSTOMER_POLISH, "site-customer-polish-v20260811.css");
-                appendStyle(HOME_FINAL, "site-home-final-v20260811.css");
+      appendScript(PRODUCT_DISPLAY, function () {
+        appendScript(DM_AUTHORITY, function () {
+          appendScript(CORE, function () {
+            appendScript(SAFETY, function () {
+              appendScript(VARIANTS, function () {
+                appendScript(PUBLIC_CLEANUP, function () {
+                  appendStyle(HOTFIX, "site-ux-v4104.css");
+                  appendStyle(FORMAL, "site-formal-v20260809.css");
+                  appendStyle(CUSTOMER_POLISH, "site-customer-polish-v20260811.css");
+                  appendStyle(HOME_FINAL, "site-home-final-v20260811.css");
+                });
               });
             });
           });
@@ -51,6 +54,7 @@
   }
   if (document.readyState === "loading") {
     document.write('<script src="' + AUTHORITY + '"><\/script>');
+    document.write('<script src="' + PRODUCT_DISPLAY + '"><\/script>');
     document.write('<script src="' + DM_AUTHORITY + '"><\/script>');
     document.write('<script src="' + CORE + '"><\/script>');
     document.write('<script src="' + SAFETY + '"><\/script>');
