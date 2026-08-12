@@ -20,7 +20,7 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Apply cache-bust and retire bad public preview composites
+      - name: Apply cache-bust and retire bad public image composites
         run: python tools/bump_site_entry_cache_v20260812.py
 
       - name: Validate current public image hotfix entry points
@@ -46,10 +46,9 @@ jobs:
                   refs+=1
                   if value!=version: stale.append((p.name,file,value))
               for old in retired:
-                  if old in text and ('property="og:image"' in text or 'name="twitter:image"' in text):
-                      for line in text.splitlines():
-                          if old in line and ('og:image' in line or 'twitter:image' in line):
-                              bad_meta.append((p.name,old))
+                  for line in text.splitlines():
+                      if old in line and ('og:image' in line or 'twitter:image' in line):
+                          bad_meta.append((p.name,old))
           if stale:
               raise SystemExit('stale site cache refs: '+repr(stale[:20]))
           if bad_meta:
@@ -59,23 +58,29 @@ jobs:
           mascot=Path('site-mascot-placement-v20260812.js').read_text(encoding='utf-8')
           if 'homeLine:' in mascot or 'contact-line.webp?v=' in mascot:
               raise SystemExit('retired contact-line mascot runtime still active')
+          core=Path('site-core-v410.js').read_text(encoding='utf-8')
+          if 'images/brand/approved-v405/home-brand.webp' in core:
+              raise SystemExit('dormant home-brand composite remains in site core')
+          if 'images/brand/approved-v405/brand-story.webp' not in core:
+              raise SystemExit('safe brand story replacement missing from site core')
           retirement=Path('site-public-image-retirement-v20260812.js').read_text(encoding='utf-8')
           for required in ['guilu-gao.webp','guilu-drink-30cc.webp','guilu-drink-180cc.webp','guilu-tangkuai.webp','guilu-jiao.webp','luerong-fen.webp']:
               if required not in retirement:
                   raise SystemExit('missing formal product replacement '+required)
           print('PASS unified refs',refs,'version',version)
           print('PASS retired bad preview composites')
+          print('PASS retired dormant site-core composite')
           print('PASS current six formal product replacement guard')
           PY
 
-      - name: Commit HTML cache keys and preview cleanup
+      - name: Commit public image cleanup
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- '*.html'
+          git add -- '*.html' site-core-v410.js
           if git diff --cached --quiet; then
-            echo 'No HTML cache changes required.'
+            echo 'No public image cleanup changes required.'
             exit 0
           fi
-          git commit -m 'fix(images): refresh public entry cache and retire bad previews'
+          git commit -m 'fix(images): remove dormant generated product composite'
           git push origin HEAD:main
