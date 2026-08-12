@@ -18,7 +18,7 @@
     'guilu-jiao':'images/customer-display-v20260812/guilu-jiao.avif',
     'luerong-fen':'images/customer-display-v20260812/luerong-fen.avif'
   });
-  const TRIAL='images/customer-display-v20260812/trial-small-boss.webp';
+  const TRIAL='images/customer-display-v20260812/trial-small-boss.png';
   const OFFICIAL=window.XJWProductDataAuthority?.official||Object.freeze({
     'guilu-gao':'images/products-v3/guilu-gao.jpg',
     'guilu-drink-30':'images/products-v3/guilu-drink-30.jpg',
@@ -66,8 +66,8 @@
       productMainImageSource:'20260813-sharp-formal-media-v6',
       dmSource:'separate-current-approved-dm-layer',
       officialProductImageSource:'products-v3-real-product-identity-reference',
-      trialImage:`${TRIAL}?v=${VERSION}`,
-      trialSource:'user-provided-small-boss-trial-master-20260812',
+      trialImage:`${TRIAL}?v=20260813-trial-png-stability-v1`,
+      trialSource:'user-provided-small-boss-trial-master-20260812-stable-png-copy',
       displayVersion:VERSION,
       displayRule:'六張高解析產品主圖／詳細DM／小老闆試喝主圖三個角色分開；產品主圖不得回退低解析WebP；試喝不得取代產品主圖或DM'
     };
