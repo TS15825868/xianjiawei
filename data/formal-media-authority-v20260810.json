@@ -20,14 +20,7 @@
       "id": "guilu-drink-30cc",
       "name": "龜鹿飲30cc玻璃罐",
       "spec": "30cc／罐（小玻璃罐）",
-      "rules": [
-        "小玻璃罐",
-        "裸罐",
-        "無貼紙",
-        "不得稱瓶",
-        "不改比例",
-        "不改罐型"
-      ],
+      "rules": ["小玻璃罐","裸罐","無貼紙","不得稱瓶","不改比例","不改罐型"],
       "image": "/images/customer-display-v20260812/guilu-drink-30cc.avif",
       "dm": "/images/dm-approved-v20260810/guilu-drink-30cc.webp",
       "status": "approved_display",
@@ -38,12 +31,7 @@
       "id": "guilu-drink-180cc",
       "name": "龜鹿飲180cc鋁袋",
       "spec": "180cc／包（鋁袋）",
-      "rules": [
-        "鋁袋",
-        "不改袋型",
-        "不改比例",
-        "不得亂畫包裝"
-      ],
+      "rules": ["鋁袋","不改袋型","不改比例","不得亂畫包裝"],
       "image": "/images/customer-display-v20260812/guilu-drink-180cc.jpg",
       "dm": "/images/dm-approved-v20260810/guilu-drink-180cc.webp",
       "status": "approved_display",
@@ -88,14 +76,8 @@
     "role": "separate-detailed-media-layer",
     "status": "approved_corrected_valid_binary",
     "source": "user-provided DM assets plus corrected text-only edits; guilu gao uses approved JPG fallback because retired WebP binary is invalid",
-    "retired_invalid_paths": [
-      "/images/dm-approved-v20260810/guilu-gao-100g.webp"
-    ],
-    "corrected_product_ids": [
-      "guilu-drink-30cc",
-      "guilu-tangkuai",
-      "guilu-jiao"
-    ],
+    "retired_invalid_paths": ["/images/dm-approved-v20260810/guilu-gao-100g.webp"],
+    "corrected_product_ids": ["guilu-drink-30cc","guilu-tangkuai","guilu-jiao"],
     "rules": [
       "產品圖與DM分開",
       "DM檔案必須可正常解碼",
@@ -107,24 +89,22 @@
   },
   "trial": {
     "title": "龜鹿飲試喝組｜先試喝，再決定",
-    "image": "/images/customer-display-v20260812/trial-small-boss.webp",
-    "version": "20260812-small-boss-trial-v1",
+    "image": "/images/customer-display-v20260812/trial-small-boss.png",
+    "version": "20260813-trial-png-stability-v1",
     "status": "approved_display",
-    "binary_status": "valid_webp_user_provided_20260812",
-    "source": "user-provided-small-boss-trial-master-20260812",
+    "binary_status": "stable_png_copy_of_current_user_provided_trial_master_400x400",
+    "source": "user-provided-small-boss-trial-master-20260812-same-pixels-png-copy",
     "character": "仙加味小老闆＋小鹿＋小烏龜",
     "do_not_use_as_product_image": true,
     "do_not_use_as_dm": true,
     "do_not_regenerate": true,
     "retired_trial_paths": [
       "/images/customer-display-v20260812/trial.webp",
-      "/images/customer-display-v20260812/trial-clean-v4.svg"
+      "/images/customer-display-v20260812/trial-clean-v4.svg",
+      "/images/customer-display-v20260812/trial-small-boss.webp"
     ],
     "free": "3罐試喝品免費",
-    "shipping": [
-      "7-11店到店60元",
-      "郵局宅配100元"
-    ],
+    "shipping": ["7-11店到店60元","郵局宅配100元"],
     "limit": "每位顧客、電話及地址限申請一次",
     "lead_time": "接單後安排製作，約5～7個工作天出貨",
     "order_channel": "所有試喝申請與正式下單皆在LINE OA完成",
@@ -143,8 +123,8 @@
   "image_rules": [
     "六張產品圖用於產品頁／產品卡／一般產品貼文",
     "有效詳細DM只用於DM版位／DM貼文",
-    "試喝類固定使用使用者20260812指定的小老闆試喝主圖",
-    "舊trial.webp與trial-clean-v4.svg不得再當正式試喝主圖",
+    "試喝類固定使用使用者20260812指定的小老闆試喝主圖；網站優先使用同圖PNG穩定副本",
+    "舊trial.webp、trial-clean-v4.svg與有顯示異常風險的trial-small-boss.webp不得再當網站正式試喝主圖",
     "所有對外圖片必須可被瀏覽器正常解碼",
     "產品本體不得AI重畫或改包裝身份",
     "圖文必須一致",
