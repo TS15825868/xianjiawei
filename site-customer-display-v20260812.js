@@ -1,23 +1,24 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-08-12 最終六產品圖
- * 使用者最新確認：官網／LINE／貼文中心對外使用這一批六張正式產品圖；DM與試喝圖分開管理。
- * products-v3仍保留為實際產品外觀、包裝、比例與標示的不可變身份參考，不得用來覆蓋最新顧客主視覺。
+/* 仙加味顧客端產品主視覺｜2026-08-12 截圖巡檢修正版
+ * 六張產品圖、詳細DM、試喝圖三個媒體角色分開管理。
+ * 30cc主圖不得出現「瓶」；湯塊與龜鹿膠單塊約重只留詳細資料，不放產品主圖。
+ * products-v3保留為實物外觀、包裝、比例與標示的身份參考。
  */
 (function(){
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260812-six-product-final-v3-clean';
+  const VERSION='20260812-screenshot-fix-v2';
   const DISPLAY=Object.freeze({
     'guilu-gao':'images/customer-display-v20260812/guilu-gao.webp',
-    'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc.webp',
+    'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc-clean.svg',
     'guilu-drink-180':'images/customer-display-v20260812/guilu-drink-180cc.webp',
-    'guilu-tangkuai':'images/customer-display-v20260812/guilu-tangkuai.webp',
-    'guilu-jiao':'images/customer-display-v20260812/guilu-jiao.webp',
+    'guilu-tangkuai':'images/customer-display-v20260812/guilu-tangkuai-clean.svg',
+    'guilu-jiao':'images/customer-display-v20260812/guilu-jiao-clean.svg',
     'luerong-fen':'images/customer-display-v20260812/luerong-fen.webp'
   });
-  const TRIAL='images/customer-display-v20260812/trial.webp';
+  const TRIAL='images/customer-display-v20260812/trial-clean-v4.svg';
   const OFFICIAL=window.XJWProductDataAuthority?.official||Object.freeze({
     'guilu-gao':'images/products-v3/guilu-gao.jpg',
     'guilu-drink-30':'images/products-v3/guilu-drink-30.jpg',
@@ -53,7 +54,6 @@
         image:displayUrl,
         imageUrl:displayUrl,
         image_url:displayUrl,
-        dmImage:displayUrl,
         detailImages:[displayUrl],
         officialOriginalImage:official||product.officialOriginalImage||'',
         imagePolicy:'user-confirmed-six-product-customer-visual-contain-no-crop',
@@ -63,12 +63,12 @@
     });
     data.runtime={
       ...(data.runtime||{}),
-      productMainImageSource:'20260812-user-confirmed-six-product-final-v3-clean',
+      productMainImageSource:'20260812-screenshot-fix-v2',
       dmSource:'separate-current-approved-dm-layer',
       officialProductImageSource:'products-v3-real-product-identity-reference',
       trialImage:`${TRIAL}?v=${VERSION}`,
       displayVersion:VERSION,
-      displayRule:'六張產品圖=產品主視覺；DM與試喝圖分開；龜鹿湯塊主規格區已清除殘影；30cc/180cc/湯塊/龜鹿膠不得再共用試喝圖或錯圖'
+      displayRule:'30cc產品圖已改為罐；龜鹿湯塊與龜鹿膠主圖移除單塊約重；試喝使用獨立乾淨主圖；DM仍為獨立媒體角色'
     };
     return data;
   }
