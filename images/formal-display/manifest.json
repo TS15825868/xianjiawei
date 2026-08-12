@@ -1,6 +1,6 @@
 {
   "runtime": "current-formal-customer-media",
-  "approval_batch": "20260812-six-product-final-v2",
+  "approval_batch": "20260812-six-product-final-v3-clean",
   "products": {
     "guilu-gao": {"name":"龜鹿膏","spec":"100g／罐","path":"/images/customer-display-v20260812/guilu-gao.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image"},
     "guilu-drink-30": {"name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","path":"/images/customer-display-v20260812/guilu-drink-30cc.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image; true product is small bare glass jar, no label, no bottle wording, no shape/proportion changes"},
@@ -8,6 +8,11 @@
     "guilu-tangkuai": {"name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","detail_unit_approx":"每塊約9.375g","detail_unit_rule":"detail-data-only; do not place on main product image or DM main spec","path":"/images/customer-display-v20260812/guilu-tangkuai.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image"},
     "guilu-jiao": {"name":"龜鹿膠","spec":"600g（1斤）／盒｜32塊裝","detail_unit_approx":"每塊約18.75g","detail_unit_rule":"detail-data-only; do not place on main product image or DM main spec","path":"/images/customer-display-v20260812/guilu-jiao.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image"},
     "luerong-fen": {"name":"鹿茸粉","spec":"75g／罐","path":"/images/customer-display-v20260812/luerong-fen.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image"}
+  },
+  "dm": {
+    "role":"separate-detailed-media-layer",
+    "status":"correction-required-before-switching-customer-dm-surfaces",
+    "rule":"DM files are separate from the six product images; any DM with wrong wording/spec must be corrected before use"
   },
   "trial": {
     "path":"/images/customer-display-v20260812/trial.webp",
