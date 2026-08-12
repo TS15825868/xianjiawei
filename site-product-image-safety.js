@@ -1,18 +1,18 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-08-12 screenshot-fix
+/* 官網顧客產品圖片安全層｜2026-08-12 screenshot-fix-v2
  * 顧客產品頁／產品卡：六張使用者確認的正式產品圖優先。
  * DM：獨立媒體角色，由 DM 權威層管理；dm-approved 與 dm-final 目錄不得被產品圖安全層覆蓋。
  * products-v3：只保留為真實產品外觀、包裝與比例的實物身份參考。
  */
 (function(){
-  const VERSION='20260812-screenshot-fix-v1-dm-separated';
+  const VERSION='20260812-screenshot-fix-v2';
   const CUSTOMER=Object.freeze({
     gao:`images/customer-display-v20260812/guilu-gao.webp?v=${VERSION}`,
-    drink30:`images/customer-display-v20260812/guilu-drink-30cc.webp?v=${VERSION}`,
+    drink30:`images/customer-display-v20260812/guilu-drink-30cc-clean.svg?v=${VERSION}`,
     drink180:`images/customer-display-v20260812/guilu-drink-180cc.webp?v=${VERSION}`,
-    tangkuai:`images/customer-display-v20260812/guilu-tangkuai.webp?v=${VERSION}`,
-    jiao:`images/customer-display-v20260812/guilu-jiao.webp?v=${VERSION}`,
+    tangkuai:`images/customer-display-v20260812/guilu-tangkuai-clean.svg?v=${VERSION}`,
+    jiao:`images/customer-display-v20260812/guilu-jiao-clean.svg?v=${VERSION}`,
     luerong:`images/customer-display-v20260812/luerong-fen.webp?v=${VERSION}`
   });
   const OFFICIAL=Object.freeze({
@@ -28,8 +28,11 @@
     {key:'tangkuai',tests:[/guilu-tangkuai/i]},
     {key:'jiao',tests:[/guilu-jiao/i]}
   ]);
-  const ALT=Object.freeze({gao:'龜鹿膏正式產品圖',drink30:'龜鹿飲30cc正式產品圖｜小玻璃裸罐',drink180:'龜鹿飲180cc正式產品圖｜鋁袋',tangkuai:'龜鹿湯塊正式產品圖',jiao:'龜鹿膠正式產品圖',luerong:'鹿茸粉正式產品圖'});
-  function alreadyCurrent(value){return /\/images\/customer-display-v20260812\//i.test(String(value||''));}
+  const ALT=Object.freeze({gao:'龜鹿膏正式產品圖',drink30:'龜鹿飲30cc正式產品圖｜小玻璃裸罐',drink180:'龜鹿飲180cc正式產品圖｜鋁袋',tangkuai:'龜鹿湯塊75g／盒｜8塊裝正式產品圖',jiao:'龜鹿膠600g（1斤）／盒｜32塊裝正式產品圖',luerong:'鹿茸粉75g正式產品圖'});
+  function alreadyCurrent(value){
+    const text=String(value||'');
+    return Object.values(CUSTOMER).some(url=>text.includes(String(url).split('?')[0]));
+  }
   function isDetailedDm(value){return /\/images\/(?:dm-approved-v20260810|dm-final)\//i.test(String(value||''));}
   function match(value){
     const text=String(value||'');
@@ -43,7 +46,7 @@
     node.setAttribute('src',CUSTOMER[key]);
     node.alt=ALT[key];
     node.style.objectFit='contain';node.style.objectPosition='center';node.style.width='100%';node.style.height='100%';node.style.maxWidth='100%';node.style.maxHeight='100%';node.style.transform='none';node.style.clipPath='none';
-    node.dataset.xjwCustomerDisplay='official-product-image-screenshot-fix';
+    node.dataset.xjwCustomerDisplay='official-product-image-screenshot-fix-v2';
     node.dataset.xjwProductIdentityAuthority='products-v3';
     node.dataset.xjwScalePolicy='uniform-only-contain-no-stretch';
   }
