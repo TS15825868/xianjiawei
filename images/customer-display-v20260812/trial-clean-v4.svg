@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="t d">
+  <title id="t">仙加味龜鹿飲試喝組｜先試喝，再決定</title>
+  <desc id="d">30cc小玻璃罐3罐試喝品免費，運費自付，每位顧客、電話及地址限申請一次，約5至7個工作天出貨，另有180cc鋁袋。</desc>
+  <rect width="1200" height="1200" fill="#F7F4ED"/>
+  <rect x="42" y="42" width="1116" height="1116" rx="36" fill="#FCFAF5" stroke="#B58A3D" stroke-width="4"/>
+  <rect x="66" y="66" width="1068" height="1068" rx="26" fill="none" stroke="#E4D3A8" stroke-width="2"/>
+  <text x="600" y="142" text-anchor="middle" font-family="Noto Serif TC,Noto Serif CJK TC,serif" font-size="54" fill="#8A1C1C">仙加味</text>
+  <text x="600" y="248" text-anchor="middle" font-family="Noto Serif TC,Noto Serif CJK TC,serif" font-size="82" fill="#142C4C">龜鹿飲試喝組</text>
+  <text x="600" y="326" text-anchor="middle" font-family="Noto Sans TC,Noto Sans CJK TC,sans-serif" font-size="44" fill="#8A1C1C">先試喝，再決定</text>
+  <rect x="230" y="350" width="740" height="76" rx="38" fill="#F3E6C9" stroke="#B58A3D" stroke-width="2"/>
+  <text x="600" y="401" text-anchor="middle" font-family="Noto Sans TC,Noto Sans CJK TC,sans-serif" font-size="38" fill="#5D3A22">30cc／罐（小玻璃罐） × 3罐</text>
+  <rect x="235" y="448" width="730" height="380" rx="28" fill="#FFFDF8" stroke="#E5D5B8" stroke-width="2"/>
+  <svg x="335" y="455" width="530" height="360" viewBox="250 390 630 680" preserveAspectRatio="xMidYMid meet">
+    <image href="guilu-drink-30cc.webp?legacy-source=20260812" x="0" y="0" width="1122" height="1402" preserveAspectRatio="xMidYMid meet"/>
+  </svg>
+  <text x="600" y="900" text-anchor="middle" font-family="Noto Sans TC,Noto Sans CJK TC,sans-serif" font-size="38" font-weight="700" fill="#8A1C1C">3罐試喝品免費｜運費自付</text>
+  <text x="600" y="960" text-anchor="middle" font-family="Noto Sans TC,Noto Sans CJK TC,sans-serif" font-size="31" font-weight="700" fill="#142C4C">每位顧客／電話／地址限申請一次</text>
+  <text x="600" y="1010" text-anchor="middle" font-family="Noto Sans TC,Noto Sans CJK TC,sans-serif" font-size="30" fill="#6A6258">接單後安排製作｜約5～7個工作天出貨</text>
+  <line x1="190" y1="1050" x2="1010" y2="1050" stroke="#D8C7A3" stroke-width="2"/>
+  <text x="600" y="1110" text-anchor="middle" font-family="Noto Sans TC,Noto Sans CJK TC,sans-serif" font-size="31" font-weight="700" fill="#142C4C">另有販售180cc鋁袋</text>
+</svg>
