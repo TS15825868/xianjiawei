@@ -3,14 +3,15 @@
 /* 仙加味目前產品資料權威層｜2026-08-12
  * 六張使用者確認的正式產品圖 = 官網／LINE／貼文產品主視覺。
  * 詳細 DM 與試喝圖為獨立媒體角色，不得反向覆蓋產品主圖。
+ * 試喝目前唯一正式主圖為使用者最新提供的小老闆版本。
  * products-v3 只保留為真實產品外觀、包裝與比例的身份參考。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260812-screenshot-broken-image-fix-v1';
-  const DATA_CACHE_VERSION='20260812-screenshot-broken-image-fix-v1';
+  const VERSION='20260812-small-boss-trial-v1';
+  const DATA_CACHE_VERSION='20260812-small-boss-trial-v1';
   const LINE_URL='https://lin.ee/sHZW7NkR';
 
   const OFFICIAL=Object.freeze({
@@ -31,7 +32,7 @@
     'luerong-fen':`images/customer-display-v20260812/luerong-fen.webp?v=${VERSION}`
   });
 
-  const TRIAL=`images/customer-display-v20260812/trial.webp?v=${VERSION}`;
+  const TRIAL=`images/customer-display-v20260812/trial-small-boss.webp?v=${VERSION}`;
   const ABS=(path)=>new URL(path,location.href).href;
 
   function normalizeData(data){
@@ -69,7 +70,8 @@
       productImageVersion:VERSION,
       dmSource:'separate-detailed-dm-authority',
       trialImage:TRIAL,
-      trialRole:'separate-trial-master-not-a-product-image'
+      trialSource:'user-provided-small-boss-trial-master-20260812',
+      trialRole:'separate-trial-master-not-a-product-image-or-dm'
     };
     return data;
   }
