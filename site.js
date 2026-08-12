@@ -5,7 +5,7 @@
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260812-mobile-visual-fix-v5";
+  const VERSION = "20260813-sharp-formal-media-v6";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;

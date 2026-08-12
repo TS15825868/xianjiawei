@@ -24,12 +24,12 @@
   });
 
   const CUSTOMER=Object.freeze({
-    'guilu-gao':`images/customer-display-v20260812/guilu-gao.webp?v=${VERSION}`,
-    'guilu-drink-30':`images/customer-display-v20260812/guilu-drink-30cc.webp?v=${VERSION}`,
-    'guilu-drink-180':`images/customer-display-v20260812/guilu-drink-180cc.webp?v=${VERSION}`,
-    'guilu-tangkuai':`images/customer-display-v20260812/guilu-tangkuai.webp?v=${VERSION}`,
-    'guilu-jiao':`images/customer-display-v20260812/guilu-jiao.webp?v=${VERSION}`,
-    'luerong-fen':`images/customer-display-v20260812/luerong-fen.webp?v=${VERSION}`
+    'guilu-gao':`images/customer-display-v20260812/guilu-gao.avif?v=${VERSION}`,
+    'guilu-drink-30':`images/customer-display-v20260812/guilu-drink-30cc.avif?v=${VERSION}`,
+    'guilu-drink-180':`images/customer-display-v20260812/guilu-drink-180cc.jpg?v=${VERSION}`,
+    'guilu-tangkuai':`images/customer-display-v20260812/guilu-tangkuai.avif?v=${VERSION}`,
+    'guilu-jiao':`images/customer-display-v20260812/guilu-jiao.avif?v=${VERSION}`,
+    'luerong-fen':`images/customer-display-v20260812/luerong-fen.avif?v=${VERSION}`
   });
 
   const TRIAL=`images/customer-display-v20260812/trial-small-boss.webp?v=${VERSION}`;

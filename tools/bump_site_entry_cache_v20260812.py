@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "20260812-mobile-visual-fix-v5"
+VERSION = "20260813-sharp-formal-media-v6"
 PATTERN = re.compile(r'(?P<prefix>(?:src|href)=["\'])(?P<file>site(?:-[^?"\']+)?\.(?:js|css))\?v=[^"\']+(?P<suffix>["\'])', re.I)
 
 RETIRED_META_IMAGES = {
@@ -62,7 +62,7 @@ for path in sorted(ROOT.glob("*.html")):
         )
         updated = re.sub(
             r'<div class="brand-hero-v410__media" aria-label="仙加味品牌識別">\s*<img src="images/logo\.png\?v=[^"]+" alt="仙加味 Logo"[^>]*/>\s*</div>',
-            '<div class="brand-hero-v410__media" aria-label="仙加味品牌故事情境">\n        <img src="images/brand/hd-v20260812/brand-story.png?v=20260812-mobile-visual-fix-v5" alt="仙加味品牌故事｜萬華四代與小老闆情境" width="1448" height="1086" fetchpriority="high" decoding="async"/>\n      </div>',
+            '<div class="brand-hero-v410__media" aria-label="仙加味品牌故事情境">\n        <img src="images/brand/hd-v20260812/brand-story.png?v=20260813-sharp-formal-media-v6" alt="仙加味品牌故事｜萬華四代與小老闆情境" width="1448" height="1086" fetchpriority="high" decoding="async"/>\n      </div>',
             updated,
             count=1,
             flags=re.S,
