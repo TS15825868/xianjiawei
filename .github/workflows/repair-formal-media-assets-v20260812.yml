@@ -33,33 +33,53 @@ jobs:
       - name: Install Pillow
         run: python -m pip install --disable-pip-version-check Pillow==11.3.0
 
-      - name: Repair formal image binaries
+      - name: Repair formal image binaries and stale source refs
         run: python tools/repair_formal_media_assets_v20260812.py
 
-      - name: Validate retired and current trial paths
+      - name: Validate current and retired-compatible image paths
         run: |
           python - <<'PY'
           from pathlib import Path
+          from PIL import Image
           root = Path('.')
           required = [
               root/'images/customer-display-v20260812/trial-small-boss.webp',
               root/'images/customer-display-v20260812/trial-small-boss.jpg',
+              root/'images/customer-display-v20260812/trial.webp',
+              root/'images/dm-approved-v20260810/guilu-drink-trial.webp',
               root/'images/dm-approved-v20260810/guilu-drink-trial.png',
+              root/'images/dm-approved-v20260810/guilu-gao-100g.webp',
           ]
           for p in required:
               if not p.is_file() or p.stat().st_size < 1024:
                   raise SystemExit(f'invalid required media: {p}')
-              print('PASS', p, p.stat().st_size)
+              with Image.open(p) as image:
+                  image.load()
+                  print('PASS', p, image.size, p.stat().st_size)
+          guardian=(root/'publishing-center-guardian.js').read_text(encoding='utf-8')
+          trial=(root/'trial.html').read_text(encoding='utf-8')
+          if "const TRIAL='trial-small-boss.webp';" not in guardian:
+              raise SystemExit('guardian is not locked to trial-small-boss')
+          if 'guilu-drink-30cc-clean.svg' in trial:
+              raise SystemExit('trial page still references clean.svg')
+          print('PASS source references')
           PY
 
-      - name: Commit repaired binaries
+      - name: Commit repaired binaries and source refs
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add images/dm-approved-v20260810/*.png images/customer-display-v20260812/trial-small-boss.jpg images/customer-display-v20260812/formal-image-repair-v20260812.json
+          git add \
+            images/dm-approved-v20260810/*.png \
+            images/dm-approved-v20260810/guilu-gao-100g.webp \
+            images/dm-approved-v20260810/guilu-drink-trial.webp \
+            images/customer-display-v20260812/trial.webp \
+            images/customer-display-v20260812/trial-small-boss.jpg \
+            images/customer-display-v20260812/formal-image-repair-v20260812.json \
+            trial.html publishing-center-guardian.js
           if git diff --cached --quiet; then
-            echo 'No binary changes required.'
+            echo 'No changes required.'
             exit 0
           fi
-          git commit -m 'fix(media): rebuild broken PNG aliases and LINE trial JPEG'
+          git commit -m 'fix(media): retire stale trial aliases and remove broken fallbacks'
           git push origin HEAD:main
