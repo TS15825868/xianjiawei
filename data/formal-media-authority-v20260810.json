@@ -1,29 +1,25 @@
 {
   "runtime": "current-formal-media-authority",
-  "approval_batch": "20260812-six-product-final-v3-clean",
+  "approval_batch": "20260812-product-dm-separated-v1",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
-  "principle": "the six user-confirmed product images are the customer product-image authority; DM images and the trial image are separate media roles; products-v3 remains immutable real-product identity reference only",
-  "product_image_authority": "six user-confirmed 20260812 product visuals final-v3-clean; product body, package, label, material and proportions must still agree with products-v3 physical identity reference",
+  "principle": "six user-confirmed product images, corrected detailed DMs, and the trial image are three separate media roles; products-v3 remains immutable real-product identity reference only",
+  "product_image_authority": "six user-confirmed 20260812 product visuals final-v3-clean",
   "products": [
-    {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","image":"/images/customer-display-v20260812/guilu-gao.webp","status":"approved_display","source":"user-confirmed-six-product-final-v3-clean","display_rule":"official product image"},
-    {"id":"guilu-drink-30cc","name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","rules":["小玻璃罐","裸罐","無貼紙","不得稱瓶","不改比例","不改罐型"],"image":"/images/customer-display-v20260812/guilu-drink-30cc.webp","status":"approved_display","source":"user-confirmed-six-product-final-v3-clean","display_rule":"official product image; do not substitute trial poster"},
-    {"id":"guilu-drink-180cc","name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","rules":["鋁袋","不改袋型","不改比例","不得亂畫包裝"],"image":"/images/customer-display-v20260812/guilu-drink-180cc.webp","status":"approved_display","source":"user-confirmed-six-product-final-v3-clean","display_rule":"official product image; do not substitute trial poster"},
-    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","detail_unit_approx":"每塊約9.375g","detail_unit_rule":"僅產品詳細資料可顯示，不放產品主圖或DM主規格","image":"/images/customer-display-v20260812/guilu-tangkuai.webp","status":"approved_display","source":"user-confirmed-six-product-final-v3-clean","display_rule":"official product image"},
-    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g（1斤）／盒｜32塊裝","detail_unit_approx":"每塊約18.75g","detail_unit_rule":"僅產品詳細資料可顯示，不放產品主圖或DM主規格","image":"/images/customer-display-v20260812/guilu-jiao.webp","status":"approved_display","source":"user-confirmed-six-product-final-v3-clean","display_rule":"official product image"},
-    {"id":"luerong-fen","name":"鹿茸粉","spec":"75g／罐","image":"/images/customer-display-v20260812/luerong-fen.webp","status":"approved_display","source":"user-confirmed-six-product-final-v3-clean","display_rule":"official product image"}
+    {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","image":"/images/customer-display-v20260812/guilu-gao.webp","dm":"/images/dm-approved-v20260810/guilu-gao-100g.webp","status":"approved_display"},
+    {"id":"guilu-drink-30cc","name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","rules":["小玻璃罐","裸罐","無貼紙","不得稱瓶","不改比例","不改罐型"],"image":"/images/customer-display-v20260812/guilu-drink-30cc.webp","dm":"/images/dm-approved-v20260810/guilu-drink-30cc.webp","status":"approved_display","dm_status":"approved_corrected"},
+    {"id":"guilu-drink-180cc","name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","rules":["鋁袋","不改袋型","不改比例","不得亂畫包裝"],"image":"/images/customer-display-v20260812/guilu-drink-180cc.webp","dm":"/images/dm-approved-v20260810/guilu-drink-180cc.webp","status":"approved_display"},
+    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","detail_unit_approx":"每塊約9.375g","detail_unit_rule":"僅產品詳細資料可顯示，不放產品主圖或DM主規格","image":"/images/customer-display-v20260812/guilu-tangkuai.webp","dm":"/images/dm-approved-v20260810/guilu-tangkuai-75g.webp","status":"approved_display","dm_status":"approved_corrected"},
+    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g（1斤）／盒｜32塊裝","detail_unit_approx":"每塊約18.75g","detail_unit_rule":"僅產品詳細資料可顯示，不放產品主圖或DM主規格","image":"/images/customer-display-v20260812/guilu-jiao.webp","dm":"/images/dm-approved-v20260810/guilu-jiao-600g.webp","status":"approved_display","dm_status":"approved_corrected"},
+    {"id":"luerong-fen","name":"鹿茸粉","spec":"75g／罐","image":"/images/customer-display-v20260812/luerong-fen.webp","dm":"/images/dm-approved-v20260810/lurong-fen-75g.webp","status":"approved_display"}
   ],
   "dm": {
+    "version":"20260812-dm-corrected-v1",
     "role":"separate-detailed-media-layer",
-    "status":"correction-required-before-customer-switch",
-    "source":"user-provided-20260809-dm-zip",
-    "rules":[
-      "產品圖與DM分開，不得把六張產品圖標成DM",
-      "30cc DM不得出現瓶、瓶裝、開瓶、30cc／瓶等舊字",
-      "龜鹿湯塊DM主規格不得放每塊約9.375g",
-      "龜鹿膠DM主規格不得放每塊約18.75g",
-      "DM錯字或舊規格修正完成並驗收後才可切換顧客DM頁"
-    ]
+    "status":"approved_corrected",
+    "source":"user-provided-20260809-dm-zip plus corrected text-only edits",
+    "corrected_product_ids":["guilu-drink-30cc","guilu-tangkuai","guilu-jiao"],
+    "rules":["產品圖與DM分開","30cc DM不得出現瓶、瓶裝、開瓶、30cc／瓶","龜鹿湯塊DM主規格不得放每塊約9.375g","龜鹿膠DM主規格不得放每塊約18.75g","只有DM意圖的版位才使用詳細DM"]
   },
   "trial": {
     "title":"龜鹿飲試喝組｜先試喝，再決定",
@@ -31,6 +27,7 @@
     "status":"approved_display",
     "source":"user-confirmed-separate-trial-master",
     "do_not_use_as_product_image":true,
+    "do_not_use_as_dm":true,
     "do_not_regenerate":true,
     "free":"3罐試喝品免費",
     "shipping":["7-11店到店60元","郵局宅配100元"],
@@ -40,17 +37,7 @@
     "prices":{"30cc":"60元／罐；買10送1，11罐600元","180cc":"200元／包；買10送1，11包2,000元"}
   },
   "latest_post_zip": {"catalog":"/data/post-library-userzip3-v20260811.json","source":"新貼文的圖(3).zip","original_files":21,"unique_images":20,"product_cards_are_not_product_authority":true},
-  "image_rules":[
-    "六張產品圖是產品頁與產品卡的正式產品圖；DM與試喝圖不可取代產品圖",
-    "產品本體不得AI重畫或改包裝身份",
-    "圖文必須一致",
-    "禁止拼貼與黑塊",
-    "30cc必須維持小玻璃裸罐、無貼紙、原比例與原罐型",
-    "180cc必須維持鋁袋、原袋型與原比例",
-    "龜鹿湯塊產品圖／DM主規格只放75g／盒｜8塊裝；每塊約9.375g僅詳細資料",
-    "龜鹿膠產品圖／DM主規格只放600g（1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料",
-    "試喝類固定使用獨立正式試喝主圖"
-  ],
-  "post_image_policy":"product posts use the six official product visuals; DM posts use each corrected current approved DM only after text/spec validation; trial copy always uses the separate approved trial master; lifestyle content uses current post catalog after semantic matching; only a true no-match or a text/spec error may request regeneration; any generated, replaced or edited content invalidates prior approval, returns to pending_review and must pass the 16-item review gate",
-  "guard_policy":"validate product image, DM, trial and physical identity as separate roles; never reject a correct current visual because it is not a products-v3 simple original, and never substitute the trial poster for a product image"
+  "image_rules":["六張產品圖用於產品頁／產品卡／一般產品貼文","修正版詳細DM只用於DM版位／DM貼文","試喝類固定使用獨立試喝主圖","產品本體不得AI重畫或改包裝身份","圖文必須一致","禁止拼貼與黑塊","30cc維持小玻璃裸罐、無貼紙、原比例與原罐型","180cc維持鋁袋、原袋型與原比例","龜鹿湯塊產品圖／DM主規格只放75g／盒｜8塊裝；每塊約9.375g僅詳細資料","龜鹿膠產品圖／DM主規格只放600g（1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料"],
+  "post_image_policy":"product posts use six official product visuals; explicit DM posts use corrected detailed DMs; trial posts use the separate trial master; lifestyle content uses the current post catalog after semantic matching; edits return to pending_review and must pass the 16-item review gate",
+  "guard_policy":"validate product image, detailed DM, trial and physical identity as separate roles"
 }
