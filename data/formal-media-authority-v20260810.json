@@ -1,9 +1,9 @@
 {
   "runtime": "current-formal-media-authority",
-  "approval_batch": "20260812-dm-binary-fix-v2",
+  "approval_batch": "20260812-small-boss-trial-v1",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
-  "principle": "six user-confirmed product images, valid detailed DMs, and the trial image are three separate media roles; products-v3 remains immutable real-product identity reference only",
+  "principle": "six user-confirmed product images, valid detailed DMs, and the user-provided small-boss trial image are three separate media roles; products-v3 remains immutable real-product identity reference only",
   "product_image_authority": "six user-confirmed 20260812 product visuals with valid browser-decodable binaries",
   "products": [
     {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","image":"/images/customer-display-v20260812/guilu-gao.webp","dm":"/images/dm-final/01_guilu-gao-100g-dm.jpg","status":"approved_display","binary_status":"valid_product_webp","dm_binary_status":"valid_approved_jpeg_fallback"},
@@ -24,13 +24,16 @@
   },
   "trial": {
     "title":"龜鹿飲試喝組｜先試喝，再決定",
-    "image":"/images/customer-display-v20260812/trial.webp",
+    "image":"/images/customer-display-v20260812/trial-small-boss.webp",
+    "version":"20260812-small-boss-trial-v1",
     "status":"approved_display",
-    "binary_status":"valid_webp_repaired_20260812",
-    "source":"user-confirmed-separate-trial-master",
+    "binary_status":"valid_webp_user_provided_20260812",
+    "source":"user-provided-small-boss-trial-master-20260812",
+    "character":"仙加味小老闆＋小鹿＋小烏龜",
     "do_not_use_as_product_image":true,
     "do_not_use_as_dm":true,
     "do_not_regenerate":true,
+    "retired_trial_paths":["/images/customer-display-v20260812/trial.webp","/images/customer-display-v20260812/trial-clean-v4.svg"],
     "free":"3罐試喝品免費",
     "shipping":["7-11店到店60元","郵局宅配100元"],
     "limit":"每位顧客、電話及地址限申請一次",
@@ -39,7 +42,7 @@
     "prices":{"30cc":"60元／罐；買10送1，11罐600元","180cc":"200元／包；買10送1，11包2,000元"}
   },
   "latest_post_zip": {"catalog":"/data/post-library-userzip3-v20260811.json","source":"新貼文的圖(3).zip","original_files":21,"unique_images":20,"product_cards_are_not_product_authority":true},
-  "image_rules":["六張產品圖用於產品頁／產品卡／一般產品貼文","有效詳細DM只用於DM版位／DM貼文","試喝類固定使用獨立試喝主圖","所有對外圖片必須可被瀏覽器正常解碼","產品本體不得AI重畫或改包裝身份","圖文必須一致","禁止拼貼與黑塊","30cc維持小玻璃裸罐、無貼紙、原比例與原罐型","180cc維持鋁袋、原袋型與原比例","龜鹿湯塊產品圖／DM主規格只放75g／盒｜8塊裝；每塊約9.375g僅詳細資料","龜鹿膠產品圖／DM主規格只放600g（1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料"],
-  "post_image_policy":"product posts use six official product visuals; explicit DM posts use valid detailed DMs; trial posts use the separate trial master; edits return to pending_review and must pass the 16-item review gate",
-  "guard_policy":"validate product image, detailed DM, trial, decodable binary and physical identity as separate roles"
+  "image_rules":["六張產品圖用於產品頁／產品卡／一般產品貼文","有效詳細DM只用於DM版位／DM貼文","試喝類固定使用使用者20260812指定的小老闆試喝主圖","舊trial.webp與trial-clean-v4.svg不得再當正式試喝主圖","所有對外圖片必須可被瀏覽器正常解碼","產品本體不得AI重畫或改包裝身份","圖文必須一致","禁止拼貼與黑塊","30cc維持小玻璃裸罐、無貼紙、原比例與原罐型","180cc維持鋁袋、原袋型與原比例","龜鹿湯塊產品圖／DM主規格只放75g／盒｜8塊裝；每塊約9.375g僅詳細資料","龜鹿膠產品圖／DM主規格只放600g（1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料"],
+  "post_image_policy":"product posts use six official product visuals; explicit DM posts use valid detailed DMs; trial posts use the user-provided small-boss trial master; edits return to pending_review and must pass the 16-item review gate",
+  "guard_policy":"validate product image, detailed DM, trial, decodable binary and physical identity as separate roles; never restore retired trial masters"
 }
