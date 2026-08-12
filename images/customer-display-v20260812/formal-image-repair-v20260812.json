@@ -1,0 +1,72 @@
+{
+  "version": "20260812-formal-image-fix-v3",
+  "policy": "no-redraw-no-crop-no-proportion-change",
+  "trialPolicy": "trial-small-boss-only-retired-trial-never-restored",
+  "files": [
+    {
+      "file": "images/dm-approved-v20260810/guilu-gao-100g.png",
+      "source": "images/dm-final/01_guilu-gao-100g-dm.jpg",
+      "width": 1122,
+      "height": 1402,
+      "bytes": 1935977,
+      "sha256": "52c7a22c28cac205aff5578ba57264d51933dc8b283d1212690de0f8c73c508a"
+    },
+    {
+      "file": "images/dm-approved-v20260810/guilu-drink-30cc.png",
+      "source": "images/dm-approved-v20260810/guilu-drink-30cc.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 135392,
+      "sha256": "630ea2b8ed32c6e7efd95ec45b4e2afeb9ad33b939546cbfea20b21d63aea6e1"
+    },
+    {
+      "file": "images/dm-approved-v20260810/guilu-drink-180cc.png",
+      "source": "images/dm-approved-v20260810/guilu-drink-180cc.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 136287,
+      "sha256": "a0243a90672bfe5de99cf458ae3b1a1d73480dd05fc56227097d973e1ba7d096"
+    },
+    {
+      "file": "images/dm-approved-v20260810/guilu-tangkuai-75g.png",
+      "source": "images/dm-approved-v20260810/guilu-tangkuai-75g.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 155190,
+      "sha256": "ceb5e5bfe2218dac43abe9a8f66fb018e14c0878b017c57e430e371effcf7a59"
+    },
+    {
+      "file": "images/dm-approved-v20260810/guilu-jiao-600g.png",
+      "source": "images/dm-approved-v20260810/guilu-jiao-600g.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 144776,
+      "sha256": "9e747fa1f46b2234a011c6395e7ffd0701aac7f129c6fc72cd1cd52a8b9c555d"
+    },
+    {
+      "file": "images/dm-approved-v20260810/lurong-fen-75g.png",
+      "source": "images/dm-approved-v20260810/lurong-fen-75g.webp",
+      "width": 320,
+      "height": 400,
+      "bytes": 134422,
+      "sha256": "797a2ffdd853d6118107b12f5d5d6b7658c4857c3eb632eff5d19368fd53250c"
+    },
+    {
+      "file": "images/dm-approved-v20260810/guilu-drink-trial.png",
+      "source": "images/customer-display-v20260812/trial-small-boss.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 345589,
+      "sha256": "4c0aa7e176ccb5572c8364e625227f93db0c26c8ae41bfd5caf5ebb219566e00"
+    },
+    {
+      "file": "images/customer-display-v20260812/trial-small-boss.jpg",
+      "source": "images/customer-display-v20260812/trial-small-boss.webp",
+      "width": 400,
+      "height": 400,
+      "bytes": 81234,
+      "sha256": "1f5aaa647cf4d9e0eddd899dc87b2250b1ae6a1e607a611c518263706e4376f4",
+      "role": "line-compatible-exact-trial-master"
+    }
+  ]
+}
