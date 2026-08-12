@@ -29,7 +29,7 @@ jobs:
           python - <<'PY'
           from PIL import Image, ImageOps, ImageFilter
           from pathlib import Path
-          import json, math, os
+          import json, math
 
           targets = {
             'guilu-gao': Path('images/customer-display-v20260812/guilu-gao.webp'),
@@ -59,14 +59,15 @@ jobs:
           exts={'.png','.jpg','.jpeg','.webp'}
 
           def load(path):
-            im=ImageOps.exif_transpose(Image.open(path)).convert('RGB')
-            return im
+            with Image.open(path) as src:
+              src.seek(0)
+              im=src.convert('RGB').copy()
+            return ImageOps.exif_transpose(im)
 
           def canvas(im, size=96):
             bg=Image.new('RGB',(size,size),'white')
             fit=ImageOps.contain(im,(size,size),Image.Resampling.LANCZOS)
-            x=(size-fit.width)//2; y=(size-fit.height)//2
-            bg.paste(fit,(x,y))
+            bg.paste(fit,((size-fit.width)//2,(size-fit.height)//2))
             return bg
 
           def mse(a,b):
@@ -83,42 +84,41 @@ jobs:
             ar=min(abs(math.log(max(ar_a,1e-6)/max(ar_b,1e-6))),1.0)
             return base*0.52 + edge*0.38 + ar*0.10
 
-          all_files=[]
-          seen=set()
+          all_files=[]; seen=set()
           for root in candidate_roots:
             if not root.exists(): continue
             for p in root.rglob('*'):
               if p.is_file() and p.suffix.lower() in exts and p not in seen:
                 seen.add(p); all_files.append(p)
 
-          report={'version':'20260813-hd-source-match-v7','targets':{}}
+          report={'version':'20260813-hd-source-match-v7.1','targets':{}}
           for key,t in targets.items():
-            base=load(t)
-            rows=[]
-            tokens=name_tokens[key]
+            entry={'current':{'path':str(t),'bytes':t.stat().st_size},'decode_ok':False,'decode_error':None,'best':[]}
+            try:
+              base=load(t)
+              entry['decode_ok']=True
+              entry['current'].update({'width':base.width,'height':base.height})
+            except Exception as exc:
+              entry['decode_error']=f'{type(exc).__name__}: {exc}'
+              report['targets'][key]=entry
+              continue
+            rows=[]; tokens=name_tokens[key]
             for p in all_files:
               if p.resolve()==t.resolve(): continue
               low=str(p).lower().replace('cc','')
-              # Keep product-semantic candidates only; avoid cross-product visual mistakes.
-              if not any(tok.replace('cc','') in low for tok in tokens):
-                continue
+              if not any(tok.replace('cc','') in low for tok in tokens): continue
               try:
                 im=load(p)
               except Exception:
                 continue
               rows.append({
-                'path':str(p),
-                'score':round(score(base,im),6),
-                'width':im.width,
-                'height':im.height,
-                'bytes':p.stat().st_size,
+                'path':str(p),'score':round(score(base,im),6),
+                'width':im.width,'height':im.height,'bytes':p.stat().st_size,
                 'larger_than_current':p.stat().st_size > t.stat().st_size*2,
               })
             rows.sort(key=lambda r:r['score'])
-            report['targets'][key]={
-              'current':{'path':str(t),'width':base.width,'height':base.height,'bytes':t.stat().st_size},
-              'best':rows[:8]
-            }
+            entry['best']=rows[:10]
+            report['targets'][key]=entry
           Path('hd-source-match-v7.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
           print(Path('hd-source-match-v7.json').read_text(encoding='utf-8'))
           PY
