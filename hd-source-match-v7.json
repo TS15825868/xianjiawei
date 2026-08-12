@@ -1,0 +1,426 @@
+{
+  "version": "20260813-hd-source-match-v7.1",
+  "targets": {
+    "guilu-gao": {
+      "current": {
+        "path": "images/customer-display-v20260812/guilu-gao.webp",
+        "bytes": 8598,
+        "width": 320,
+        "height": 400
+      },
+      "decode_ok": true,
+      "decode_error": null,
+      "best": [
+        {
+          "path": "images/dm-approved-v20260810/guilu-gao-100g.png",
+          "score": 0.061526,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 1935977,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-final/01_guilu-gao-100g-dm.jpg",
+          "score": 0.061526,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 432165,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-v3/guilu-gao.jpg",
+          "score": 0.061529,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 322506,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-approved-v20260810/guilu-gao-100g.webp",
+          "score": 0.0616,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 320110,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/guilu-gao-card.jpg",
+          "score": 0.084941,
+          "width": 900,
+          "height": 900,
+          "bytes": 139565,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/guilu-gao-main.jpg",
+          "score": 0.090516,
+          "width": 1024,
+          "height": 1536,
+          "bytes": 526572,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/guilu-gao.jpg",
+          "score": 0.091953,
+          "width": 1024,
+          "height": 1536,
+          "bytes": 232101,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/formal-display/dm-guilu-gao.jpg",
+          "score": 0.108181,
+          "width": 1024,
+          "height": 1536,
+          "bytes": 667620,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/hero/hero-guilu-gao-dm.jpg",
+          "score": 0.108181,
+          "width": 1024,
+          "height": 1536,
+          "bytes": 667620,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/guilu-gao-label.jpg",
+          "score": 0.123095,
+          "width": 1200,
+          "height": 1200,
+          "bytes": 189627,
+          "larger_than_current": true
+        }
+      ]
+    },
+    "guilu-drink-30cc": {
+      "current": {
+        "path": "images/customer-display-v20260812/guilu-drink-30cc.webp",
+        "bytes": 7374,
+        "width": 240,
+        "height": 300
+      },
+      "decode_ok": true,
+      "decode_error": null,
+      "best": [
+        {
+          "path": "images/dm-approved-v20260810/guilu-drink-30cc.png",
+          "score": 0.06211,
+          "width": 320,
+          "height": 400,
+          "bytes": 135392,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-approved-v20260810/guilu-drink-30cc.webp",
+          "score": 0.06211,
+          "width": 320,
+          "height": 400,
+          "bytes": 7904,
+          "larger_than_current": false
+        },
+        {
+          "path": "images/dm-v3/guilu-drink-30.jpg",
+          "score": 0.064278,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 296722,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-final/02_guilu-drink-30cc-dm.jpg",
+          "score": 0.064298,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 404963,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/products-v2/guilu-drink-30.jpeg",
+          "score": 0.079609,
+          "width": 1024,
+          "height": 1536,
+          "bytes": 97466,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/guilu-drink-30cc-glass.jpg",
+          "score": 0.079609,
+          "width": 1024,
+          "height": 1536,
+          "bytes": 97466,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/formal-display/dm-guilu-drink-30.jpg",
+          "score": 0.113452,
+          "width": 1054,
+          "height": 1492,
+          "bytes": 489117,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/brand/approved-v405/product-guilu-drink-30cc.webp",
+          "score": 0.266489,
+          "width": 1448,
+          "height": 1086,
+          "bytes": 201996,
+          "larger_than_current": true
+        }
+      ]
+    },
+    "guilu-drink-180cc": {
+      "current": {
+        "path": "images/customer-display-v20260812/guilu-drink-180cc.webp",
+        "bytes": 10896,
+        "width": 240,
+        "height": 300
+      },
+      "decode_ok": true,
+      "decode_error": null,
+      "best": [
+        {
+          "path": "images/dm-approved-v20260810/guilu-drink-180cc.webp",
+          "score": 0.061415,
+          "width": 320,
+          "height": 400,
+          "bytes": 8344,
+          "larger_than_current": false
+        },
+        {
+          "path": "images/dm-approved-v20260810/guilu-drink-180cc.png",
+          "score": 0.061415,
+          "width": 320,
+          "height": 400,
+          "bytes": 136287,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-v3/guilu-drink-180.jpg",
+          "score": 0.061919,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 315796,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-final/03_guilu-drink-180cc-dm.jpg",
+          "score": 0.061953,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 417526,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/guilu-drink-180cc.jpg",
+          "score": 0.104604,
+          "width": 726,
+          "height": 1086,
+          "bytes": 177977,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/products-v2/guilu-drink-180.jpeg",
+          "score": 0.105659,
+          "width": 1022,
+          "height": 1536,
+          "bytes": 701808,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/formal-display/dm-guilu-drink-180.jpg",
+          "score": 0.111192,
+          "width": 1055,
+          "height": 1491,
+          "bytes": 560426,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/brand/approved-v405/product-guilu-drink-180cc.webp",
+          "score": 0.234031,
+          "width": 1448,
+          "height": 1086,
+          "bytes": 278508,
+          "larger_than_current": true
+        }
+      ]
+    },
+    "guilu-tangkuai": {
+      "current": {
+        "path": "images/customer-display-v20260812/guilu-tangkuai.webp",
+        "bytes": 11646
+      },
+      "decode_ok": false,
+      "decode_error": "OSError: failed to read next frame",
+      "best": []
+    },
+    "guilu-jiao": {
+      "current": {
+        "path": "images/customer-display-v20260812/guilu-jiao.webp",
+        "bytes": 6870,
+        "width": 240,
+        "height": 300
+      },
+      "decode_ok": true,
+      "decode_error": null,
+      "best": [
+        {
+          "path": "images/dm-approved-v20260810/guilu-jiao-600g.webp",
+          "score": 0.043011,
+          "width": 320,
+          "height": 400,
+          "bytes": 8526,
+          "larger_than_current": false
+        },
+        {
+          "path": "images/dm-approved-v20260810/guilu-jiao-600g.png",
+          "score": 0.043011,
+          "width": 320,
+          "height": 400,
+          "bytes": 144776,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-final/06_guilu-jiao-600g-dm.jpg",
+          "score": 0.043632,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 439985,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-v3/guilu-jiao.jpg",
+          "score": 0.043638,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 333006,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/formal-display/dm-guilu-jiao.jpg",
+          "score": 0.115067,
+          "width": 1054,
+          "height": 1492,
+          "bytes": 583709,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/guilu-jiao.jpg",
+          "score": 0.133392,
+          "width": 1600,
+          "height": 1200,
+          "bytes": 144688,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/products-v2/guilu-jiao-box-jar-new.jpg",
+          "score": 0.173474,
+          "width": 1536,
+          "height": 864,
+          "bytes": 552214,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/products-v2/guilu-jiao-open-new.jpg",
+          "score": 0.177284,
+          "width": 1536,
+          "height": 864,
+          "bytes": 521270,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/products-v2/guilu-jiao.jpeg",
+          "score": 0.189847,
+          "width": 1398,
+          "height": 1536,
+          "bytes": 745626,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/brand/approved-v405/product-guilu-jiao-600g.webp",
+          "score": 0.255156,
+          "width": 1448,
+          "height": 1086,
+          "bytes": 220132,
+          "larger_than_current": true
+        }
+      ]
+    },
+    "luerong-fen": {
+      "current": {
+        "path": "images/customer-display-v20260812/luerong-fen.webp",
+        "bytes": 8122,
+        "width": 320,
+        "height": 400
+      },
+      "decode_ok": true,
+      "decode_error": null,
+      "best": [
+        {
+          "path": "images/dm-approved-v20260810/lurong-fen-75g.webp",
+          "score": 0.0,
+          "width": 320,
+          "height": 400,
+          "bytes": 8122,
+          "larger_than_current": false
+        },
+        {
+          "path": "images/dm-approved-v20260810/lurong-fen-75g.png",
+          "score": 0.0,
+          "width": 320,
+          "height": 400,
+          "bytes": 134422,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-v3/luerong-fen.jpg",
+          "score": 0.000416,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 300880,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/dm-final/04_luerong-fen-75g-dm.jpg",
+          "score": 0.000418,
+          "width": 1122,
+          "height": 1402,
+          "bytes": 406096,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/products-v2/luerong-fen.jpeg",
+          "score": 0.078178,
+          "width": 1152,
+          "height": 1536,
+          "bytes": 530095,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/formal-display/dm-lurong-fen.jpg",
+          "score": 0.083487,
+          "width": 1086,
+          "height": 1448,
+          "bytes": 566599,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/luerong-fen.jpg",
+          "score": 0.088284,
+          "width": 900,
+          "height": 900,
+          "bytes": 78476,
+          "larger_than_current": true
+        },
+        {
+          "path": "images/brand/approved-v405/product-luerong-fen-75g.webp",
+          "score": 0.264268,
+          "width": 1448,
+          "height": 1086,
+          "bytes": 196682,
+          "larger_than_current": true
+        }
+      ]
+    }
+  }
+}
