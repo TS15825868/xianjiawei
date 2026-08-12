@@ -20,15 +20,15 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Apply cache-bust and retire bad public image composites
+      - name: Apply cache-bust and mobile visual fixes
         run: python tools/bump_site_entry_cache_v20260812.py
 
-      - name: Validate current public image hotfix entry points
+      - name: Validate current mobile visual fix
         run: |
           python - <<'PY'
           import re
           from pathlib import Path
-          version='20260812-public-image-hotfix-v4'
+          version='20260812-mobile-visual-fix-v5'
           pattern=re.compile(r'(?:src|href)=["\'](site(?:-[^?"\']+)?\.(?:js|css))\?v=([^"\']+)["\']',re.I)
           stale=[]
           refs=0
@@ -55,32 +55,72 @@ jobs:
               raise SystemExit('retired public preview images remain: '+repr(bad_meta[:20]))
           if refs==0:
               raise SystemExit('no site runtime/style refs found')
+
+          # High-resolution safe public mascot sources restored from the approved original batch.
+          hd={
+            'images/brand/hd-v20260812/brand-story.png': 1000000,
+            'images/brand/hd-v20260812/faq.png': 1000000,
+            'images/brand/hd-v20260812/choose.jpg': 500000,
+          }
+          for name,min_bytes in hd.items():
+              p=Path(name)
+              if not p.is_file() or p.stat().st_size < min_bytes:
+                  raise SystemExit(f'high-resolution source missing/too small: {name} {p.stat().st_size if p.exists() else 0}')
+
+          hotfix=Path('site-ux-v4104.css').read_text(encoding='utf-8')
+          required_css=[
+            'body.ux-v410 .hero__content::after',
+            'content:none!important',
+            'background-image:none!important',
+            'body.ux-v410 .brand-hero-v410__copy',
+            'order:1!important',
+            'body.ux-v410 .brand-hero-v410__media',
+            'order:2!important',
+          ]
+          for token in required_css:
+              if token not in hotfix:
+                  raise SystemExit('missing visual hotfix token: '+token)
+
           mascot=Path('site-mascot-placement-v20260812.js').read_text(encoding='utf-8')
+          for required in ['hd-v20260812/choose.jpg','hd-v20260812/faq.png']:
+              if required not in mascot:
+                  raise SystemExit('high-resolution mascot source missing: '+required)
           if 'homeLine:' in mascot or 'contact-line.webp?v=' in mascot:
               raise SystemExit('retired contact-line mascot runtime still active')
+
+          brand=Path('brand.html').read_text(encoding='utf-8')
+          if 'images/brand/hd-v20260812/brand-story.png' not in brand:
+              raise SystemExit('brand hero is not using high-resolution brand story source')
+          media_match=re.search(r'<div class="brand-hero-v410__media"[^>]*>(.*?)</div>',brand,re.S)
+          if not media_match or 'images/logo.png' in media_match.group(1):
+              raise SystemExit('brand hero still contains oversized logo layout')
+
           core=Path('site-core-v410.js').read_text(encoding='utf-8')
           if 'images/brand/approved-v405/home-brand.webp' in core:
               raise SystemExit('dormant home-brand composite remains in site core')
-          if 'images/brand/approved-v405/brand-story.webp' not in core:
-              raise SystemExit('safe brand story replacement missing from site core')
+          if 'images/brand/hd-v20260812/brand-story.png' not in core:
+              raise SystemExit('high-resolution brand story fallback missing from site core')
+
           retirement=Path('site-public-image-retirement-v20260812.js').read_text(encoding='utf-8')
           for required in ['guilu-gao.webp','guilu-drink-30cc.webp','guilu-drink-180cc.webp','guilu-tangkuai.webp','guilu-jiao.webp','luerong-fen.webp']:
               if required not in retirement:
                   raise SystemExit('missing formal product replacement '+required)
+
           print('PASS unified refs',refs,'version',version)
-          print('PASS retired bad preview composites')
-          print('PASS retired dormant site-core composite')
-          print('PASS current six formal product replacement guard')
+          print('PASS transparent hero circle disabled globally')
+          print('PASS high-resolution choose/faq/brand sources')
+          print('PASS brand mobile reading order copy then image')
+          print('PASS current product/DM/trial separation guard retained')
           PY
 
-      - name: Commit public image cleanup
+      - name: Commit mobile visual cleanup
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- '*.html' site-core-v410.js
           if git diff --cached --quiet; then
-            echo 'No public image cleanup changes required.'
+            echo 'No generated entry changes required.'
             exit 0
           fi
-          git commit -m 'fix(images): remove dormant generated product composite'
+          git commit -m 'fix(ui): refresh mobile visual layout and sharp image entries'
           git push origin HEAD:main
