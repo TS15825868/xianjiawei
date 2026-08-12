@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-08-12 小老闆試喝主圖版
+/* 仙加味顧客端產品主視覺｜2026-08-12 正式圖片修正版
  * 六張產品圖、詳細DM、試喝圖三個媒體角色分開管理。
  * 試喝固定使用使用者最新指定的小老闆主圖；不得拿試喝圖取代產品圖或DM。
  * products-v3保留為實物外觀、包裝、比例與標示的身份參考。
@@ -9,13 +9,13 @@
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260812-small-boss-trial-v1';
+  const VERSION='20260812-formal-image-fix-v3';
   const DISPLAY=Object.freeze({
     'guilu-gao':'images/customer-display-v20260812/guilu-gao.webp',
-    'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc-clean.svg',
+    'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc.webp',
     'guilu-drink-180':'images/customer-display-v20260812/guilu-drink-180cc.webp',
-    'guilu-tangkuai':'images/customer-display-v20260812/guilu-tangkuai-clean.svg',
-    'guilu-jiao':'images/customer-display-v20260812/guilu-jiao-clean.svg',
+    'guilu-tangkuai':'images/customer-display-v20260812/guilu-tangkuai.webp',
+    'guilu-jiao':'images/customer-display-v20260812/guilu-jiao.webp',
     'luerong-fen':'images/customer-display-v20260812/luerong-fen.webp'
   });
   const TRIAL='images/customer-display-v20260812/trial-small-boss.webp';
@@ -63,13 +63,13 @@
     });
     data.runtime={
       ...(data.runtime||{}),
-      productMainImageSource:'20260812-screenshot-fix-v2',
+      productMainImageSource:'20260812-formal-image-fix-v3',
       dmSource:'separate-current-approved-dm-layer',
       officialProductImageSource:'products-v3-real-product-identity-reference',
       trialImage:`${TRIAL}?v=${VERSION}`,
       trialSource:'user-provided-small-boss-trial-master-20260812',
       displayVersion:VERSION,
-      displayRule:'六張產品圖／詳細DM／小老闆試喝主圖三個角色分開；試喝不得回退舊簡版或取代產品圖'
+      displayRule:'六張產品圖／詳細DM／小老闆試喝主圖三個角色分開；產品圖只用六張正式WebP；試喝不得回退舊簡版或取代產品圖'
     };
     return data;
   }
