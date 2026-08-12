@@ -1,7 +1,7 @@
 name: 仙加味正式內容與圖片守門
 
-# MAINTENANCE MODE: automatic blocking remains paused until owner review.
-# Manual validation follows the latest authority; it must never force retired customer visuals back.
+# MAINTENANCE MODE: manual validation only until the whole system is formally reviewed.
+# Guard current authority; never force old product images, old trial masters, old specs or old prices back.
 on:
   workflow_dispatch:
 
@@ -11,12 +11,13 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Validate current authority and customer-facing capabilities
+      - name: Validate current sharp-v6 product / DM / trial authority
         shell: bash
         run: |
           node <<'NODE'
@@ -30,51 +31,68 @@ jobs:
             if(b[0]===0xff&&b[1]===0xd8&&b[2]===0xff)return 'jpeg';
             if(b.subarray(0,8).equals(Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a])))return 'png';
             if(b.subarray(0,4).toString()==='RIFF'&&b.subarray(8,12).toString()==='WEBP')return 'webp';
+            if(b.subarray(4,12).toString().includes('ftypavif')||b.subarray(4,16).toString().includes('ftypavif'))return 'avif';
             return '';
           };
           const expected={
-            'guilu-gao':'100g／罐','guilu-drink-30cc':'30cc／罐（小玻璃罐）','guilu-drink-180cc':'180cc／包（鋁袋）',
-            'guilu-tangkuai':'75g／盒｜8塊裝','guilu-jiao':'600g／盒｜32塊裝','luerong-fen':'75g／罐'
+            'guilu-gao':'100g／罐',
+            'guilu-drink-30cc':'30cc／罐（小玻璃罐）',
+            'guilu-drink-180cc':'180cc／包（鋁袋）',
+            'guilu-tangkuai':'75g／盒｜8塊裝',
+            'guilu-jiao':'600g（1斤）／盒｜32塊裝',
+            'luerong-fen':'75g／罐'
           };
-          const manifestKeys={'guilu-gao':'guilu-gao','guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180','guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'};
+          const manifestKeys={
+            'guilu-gao':'guilu-gao','guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180',
+            'guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'
+          };
           const a=readJson('data/formal-media-authority-v20260810.json');
           const m=readJson('images/formal-display/manifest.json');
+          must(a.runtime==='20260813-sharp-formal-media-v6','authority runtime 不是 sharp v6');
+          must(m.runtime==='20260813-sharp-formal-media-v6','manifest runtime 不是 sharp v6');
           must(Array.isArray(a.products)&&a.products.length===6,'正式產品必須維持六項');
-          must(m.approval_batch===a.approval_batch,'顧客顯示層與目前核准批次不同步');
+          must(m.approval_batch===a.approval_batch,'正式顯示層與核准批次不同步');
+
           for(const p of a.products){
             must(expected[p.id]===p.spec,`產品正式規格不符：${p.id}`);
-            must(p.status==='approved_display',`產品媒體尚未核准顧客展示：${p.id}`);
-            const file=local(p.dm),kind=rasterKind(file);must(['jpeg','png','webp'].includes(kind),`正式產品媒體不是可用點陣圖片：${file}`);
-            const mp=m.products?.[manifestKeys[p.id]];must(mp&&mp.path===p.dm,`manifest 路徑未跟目前 authority 同步：${p.id}`);
-            must(file.startsWith('images/customer-display-v20260812/'),`顧客主視覺未使用20260812正式顯示層：${p.id}`);
+            must(p.status==='approved_display',`產品主圖尚未核准：${p.id}`);
+            const image=local(p.image), dm=local(p.dm);
+            must(['jpeg','png','webp','avif'].includes(rasterKind(image)),`產品主圖不是可用點陣圖片：${image}`);
+            must(['jpeg','png','webp'].includes(rasterKind(dm)),`詳細DM不是可用點陣圖片：${dm}`);
+            must(image.startsWith('images/customer-display-v20260812/'),`產品主圖未使用正式顧客顯示層：${p.id}`);
+            must(image!==dm,`產品主圖與詳細DM不可混成同一媒體角色：${p.id}`);
+            const mp=m.products?.[manifestKeys[p.id]];
+            must(mp&&local(mp.path)===image,`manifest 產品主圖未跟 authority 同步：${p.id}`);
           }
+
           must(a.trial?.status==='approved_display','試喝圖尚未核准顧客展示');
-          must(['jpeg','png','webp'].includes(rasterKind(local(a.trial.image))),'試喝正式圖不是可用點陣圖片');
-          must(m.trial?.path===a.trial.image,'試喝 manifest 未跟目前 authority 同步');
-          must(local(a.trial.image)==='images/customer-display-v20260812/trial.webp','試喝必須使用20260812正式主圖');
+          must(local(a.trial.image)==='images/customer-display-v20260812/trial-small-boss.png','網站試喝主圖必須使用目前小老闆正式圖的 PNG 穩定副本');
+          must(rasterKind(local(a.trial.image))==='png','試喝網站正式圖必須為 PNG 穩定副本');
+          must(local(m.trial?.path)===local(a.trial.image),'試喝 manifest 未跟 authority 同步');
           must(String(a.trial.free||'').includes('3罐'),'試喝免費數量不符');
           must((a.trial.shipping||[]).some(x=>String(x).includes('60元'))&&(a.trial.shipping||[]).some(x=>String(x).includes('100元')),'試喝運費規則不完整');
           must(String(a.trial.lead_time||'').includes('5～7'),'試喝交期規則不完整');
-          must(String(a.product_image_authority||'').includes('products-v3'),'產品實物身份權威必須維持products-v3');
-          must((a.image_rules||[]).some(x=>String(x).includes('不得AI重畫')),'產品本體不得AI重畫規則不可移除');
-          must((a.image_rules||[]).some(x=>String(x).includes('不要再以簡單原圖')),'顧客端DM優先規則不可移除');
 
-          const catalogPath=local(a.post_catalog);must(catalogPath&&fs.existsSync(catalogPath),'目前貼文素材catalog不存在');
-          const zip=readJson(catalogPath);const candidateCount=Number(zip.candidate_count??zip.unique_image_count??0);
-          must(String(zip.source||'').trim(),'目前貼文素材缺少來源');must(candidateCount>0,'目前貼文素材沒有候選');
-          must(Array.isArray(zip.safe_scene_priority),'目前貼文素材缺少生活情境候選');
-          must(zip.binary_sync&&['pending','ready'].includes(zip.binary_sync.status),'貼文素材必須明確標示二進位同步狀態');
-
+          const customer=fs.readFileSync('site-customer-display-v20260812.js','utf8');
           const safety=fs.readFileSync('site-product-image-safety.js','utf8');
-          must(safety.includes('customer-display-v20260812'),'官網圖片安全層未使用目前正式顧客視覺');
-          must(safety.includes('products-v3'),'官網圖片安全層必須保留products-v3實物身份權威');
-          must(!/CUSTOMER=.*products-v4-final/s.test(safety),'圖片安全層不得把顧客主視覺強制退回products-v4-final');
-          const guardian=fs.readFileSync('publishing-center-guardian.js','utf8');
-          must(guardian.includes('正式DM')&&guardian.includes('products-v3僅作實物校正'),'貼文守門員未同步DM優先／實物校正分工');
-          must(guardian.includes('GUARD_BLOCKING=false'),'三系統收尾前守門員必須維持提示模式');
-
-          const trial=fs.readFileSync('trial.html','utf8');must(trial.includes('site.js'),'試喝頁必須載入全站正式視覺安全層');
-          for(const text of [trial,safety,guardian])must(!text.includes('/mnt/data/'),'顧客或守門程式不得引用本機路徑');
-          const guard=String(a.guard_policy||'');must(/do not reject/i.test(guard)&&/formal DM/i.test(guard),'守門原則必須明確禁止誤擋目前正式DM');
-          console.log(`PASS: 20260812 DM-first customer visuals, products-v3 identity authority, trial master, current post catalog and non-blocking current-authority guard are aligned. candidates=${candidateCount}.`);
+          const retirement=fs.readFileSync('site-public-image-retirement-v20260812.js','utf8');
+          const formal=fs.readFileSync('site-formal-media-v20260810.js','utf8');
+          const trial=fs.readFileSync('trial.html','utf8');
+          const brand=fs.readFileSync('brand.html','utf8');
+          const ux=fs.readFileSync('site-ux-v4104.css','utf8');
+          for(const text of [customer,safety,retirement]){
+            for(const old of ['guilu-gao.webp','guilu-drink-30cc.webp','guilu-drink-180cc.webp','guilu-tangkuai.webp','guilu-jiao.webp','luerong-fen.webp']){
+              must(!text.includes('customer-display-v20260812/'+old),`顧客 runtime 不得恢復低解析產品圖：${old}`);
+            }
+          }
+          must(customer.includes('trial-small-boss.png'),'顧客 runtime 試喝圖未切到 PNG 穩定副本');
+          must(formal.includes('m.dm?.paths?.[key]'),'DM 頁必須使用獨立詳細DM路徑');
+          must(trial.includes('trial-small-boss.png'),'試喝頁仍在使用顯示異常風險 WebP');
+          must(trial.includes('guilu-drink-30cc.avif')&&trial.includes('guilu-drink-180cc.jpg'),'試喝頁兩個產品圖未使用正式高解析主圖');
+          must(brand.includes('images/brand/hd-v20260812/brand-story.png'),'品牌故事高解析主圖不可倒退');
+          must(ux.includes('body.ux-v410 .hero__content::after')&&ux.includes('content:none!important'),'全站 Hero 半透明圓形退役規則不可移除');
+          must(String(a.product_image_authority||'').includes('products-v3'),'products-v3 實物身份權威不可移除');
+          must((a.image_rules||[]).some(x=>String(x).includes('不得AI重畫')),'產品本體不得AI重畫規則不可移除');
+          must(!trial.includes('/mnt/data/')&&!safety.includes('/mnt/data/'),'公開網站不得引用本機路徑');
+          console.log('PASS current sharp-v6 product images, separate detailed DMs, stable PNG trial master, brand HD layout and transparent-circle removal.');
           NODE
