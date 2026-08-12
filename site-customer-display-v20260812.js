@@ -1,15 +1,15 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-08-12 截圖巡檢修正版
+/* 仙加味顧客端產品主視覺｜2026-08-12 小老闆試喝主圖版
  * 六張產品圖、詳細DM、試喝圖三個媒體角色分開管理。
- * 30cc主圖不得出現「瓶」；湯塊與龜鹿膠單塊約重只留詳細資料，不放產品主圖。
+ * 試喝固定使用使用者最新指定的小老闆主圖；不得拿試喝圖取代產品圖或DM。
  * products-v3保留為實物外觀、包裝、比例與標示的身份參考。
  */
 (function(){
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260812-screenshot-fix-v2';
+  const VERSION='20260812-small-boss-trial-v1';
   const DISPLAY=Object.freeze({
     'guilu-gao':'images/customer-display-v20260812/guilu-gao.webp',
     'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc-clean.svg',
@@ -18,7 +18,7 @@
     'guilu-jiao':'images/customer-display-v20260812/guilu-jiao-clean.svg',
     'luerong-fen':'images/customer-display-v20260812/luerong-fen.webp'
   });
-  const TRIAL='images/customer-display-v20260812/trial-clean-v4.svg';
+  const TRIAL='images/customer-display-v20260812/trial-small-boss.webp';
   const OFFICIAL=window.XJWProductDataAuthority?.official||Object.freeze({
     'guilu-gao':'images/products-v3/guilu-gao.jpg',
     'guilu-drink-30':'images/products-v3/guilu-drink-30.jpg',
@@ -67,8 +67,9 @@
       dmSource:'separate-current-approved-dm-layer',
       officialProductImageSource:'products-v3-real-product-identity-reference',
       trialImage:`${TRIAL}?v=${VERSION}`,
+      trialSource:'user-provided-small-boss-trial-master-20260812',
       displayVersion:VERSION,
-      displayRule:'30cc產品圖已改為罐；龜鹿湯塊與龜鹿膠主圖移除單塊約重；試喝使用獨立乾淨主圖；DM仍為獨立媒體角色'
+      displayRule:'六張產品圖／詳細DM／小老闆試喝主圖三個角色分開；試喝不得回退舊簡版或取代產品圖'
     };
     return data;
   }
