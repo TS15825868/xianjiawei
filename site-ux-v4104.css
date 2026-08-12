@@ -1,4 +1,4 @@
-/* 仙加味｜全站手機版、圖片比例與比較卡一致性修正 v410.4 */
+/* 仙加味｜全站手機版、圖片比例與比較卡一致性修正 v410.5 */
 
 /* 全站只限制橫向溢位，不裁掉正常的垂直內容。 */
 body.ux-v410 .page{
@@ -58,7 +58,8 @@ body.ux-v410 .brand-hero-v410__media img,
 body.ux-v410 .home-brand-card__media img,
 body.ux-v410 .product-mascot-anchor img,
 body.ux-v410 img[src*="images/products-v3/"],
-body.ux-v410 img[src*="images/brand/approved-v405/"]{
+body.ux-v410 img[src*="images/customer-display-v20260812/"],
+body.ux-v410 img[src*="images/brand/hd-v20260812/"]{
   width:100%!important;
   height:100%!important;
   max-width:100%!important;
@@ -66,6 +67,9 @@ body.ux-v410 img[src*="images/brand/approved-v405/"]{
   object-fit:contain!important;
   object-position:center!important;
   transform:none!important;
+  image-rendering:auto!important;
+  filter:none!important;
+  opacity:1!important;
 }
 body.ux-v410 .brand-hero-v410__media,
 body.ux-v410 .home-brand-card__media{
@@ -101,6 +105,89 @@ body.ux-v410 .brand-generation__year{
   letter-spacing:.03em!important;
 }
 
+/* 2026-08-12 截圖修正：全站停用舊 hero 半透明圓形／灰黑光暈。
+   原因是 v410 的 ::after 390px 圓形在手機上看起來像透明黑圈。 */
+body.ux-v410{
+  background:linear-gradient(180deg,#ece7df 0,#f7f4ed 250px,#f7f4ed 100%)!important;
+  background-image:linear-gradient(180deg,#ece7df 0,#f7f4ed 250px,#f7f4ed 100%)!important;
+}
+body.ux-v410 .hero__content{
+  background:linear-gradient(135deg,#fff 0,#f8f4ec 100%)!important;
+  background-image:linear-gradient(135deg,#fff 0,#f8f4ec 100%)!important;
+  isolation:isolate!important;
+}
+body.ux-v410 .hero__content::before,
+body.ux-v410 .hero__content::after{
+  content:none!important;
+  display:none!important;
+  width:0!important;
+  height:0!important;
+  inset:auto!important;
+  border:0!important;
+  border-radius:0!important;
+  background:none!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+  opacity:0!important;
+}
+
+/* 圖片清晰度：不套瀏覽器濾鏡、不做 CSS 放大；情境圖優先使用 1448×1086 原始母圖。 */
+body.ux-v410 img{
+  image-rendering:auto!important;
+  filter:none!important;
+  opacity:1!important;
+  -webkit-filter:none!important;
+}
+body.ux-v410 .xjw-mascot-context img,
+body.ux-v410 .brand-hero-v410__media img{
+  transform:none!important;
+  clip-path:none!important;
+  -webkit-mask-image:none!important;
+  mask-image:none!important;
+}
+
+/* 品牌故事首屏：文字先閱讀，品牌情境圖為輔，不再用巨大 Logo 當主視覺。 */
+body.ux-v410 .brand-hero-v410__panel{
+  grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr)!important;
+  align-items:center!important;
+  gap:clamp(24px,4vw,48px)!important;
+}
+body.ux-v410 .brand-hero-v410__copy{
+  order:1!important;
+  min-width:0!important;
+}
+body.ux-v410 .brand-hero-v410__media{
+  order:2!important;
+  padding:0!important;
+  border:1px solid rgba(11,31,59,.10)!important;
+  border-radius:26px!important;
+  overflow:hidden!important;
+  background:#efe7db!important;
+  box-shadow:0 16px 42px rgba(11,31,59,.08)!important;
+}
+body.ux-v410 .brand-hero-v410__media img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+}
+
+@media(max-width:980px){
+  body.ux-v410 .brand-hero-v410__panel{
+    grid-template-columns:1fr!important;
+  }
+  body.ux-v410 .brand-hero-v410__copy{
+    order:1!important;
+  }
+  body.ux-v410 .brand-hero-v410__media{
+    order:2!important;
+    width:100%!important;
+    max-width:760px!important;
+    margin:8px auto 0!important;
+  }
+}
+
 @media(max-width:760px){
   body.ux-v410 .brand-mark img{
     width:44px!important;
@@ -126,6 +213,13 @@ body.ux-v410 .brand-generation__year{
   body.ux-v410 .mobile-compare-card dl{grid-template-columns:68px minmax(0,1fr)!important;gap:8px 10px!important;}
   body.ux-v410 .brand-generation{grid-template-columns:54px minmax(0,1fr)!important;}
   body.ux-v410 .product-card__img{overflow:hidden!important;}
+  body.ux-v410 .hero__content{
+    padding:32px 22px!important;
+  }
+  body.ux-v410 .brand-hero-v410__media{
+    border-radius:20px!important;
+    margin-top:4px!important;
+  }
 }
 
 @media(max-width:560px){
