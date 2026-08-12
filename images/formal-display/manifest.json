@@ -90,17 +90,18 @@
     "rule": "DM files are separate from the six product images; never use the retired invalid guilu-gao WebP; do not upgrade DM from older large files until copy/spec is individually audited"
   },
   "trial": {
-    "path": "/images/customer-display-v20260812/trial-small-boss.webp",
-    "version": "20260812-small-boss-trial-v1",
+    "path": "/images/customer-display-v20260812/trial-small-boss.png",
+    "version": "20260813-trial-png-stability-v1",
     "status": "approved_display",
-    "format": "webp",
-    "binary_status": "valid_user_provided_webp_20260812",
-    "source": "user-provided-small-boss-trial-master-20260812",
+    "format": "png",
+    "binary_status": "stable_png_copy_of_current_user_provided_trial_master_400x400",
+    "source": "user-provided-small-boss-trial-master-20260812-same-pixels-png-copy",
     "character": "仙加味小老闆＋小鹿＋小烏龜",
     "role": "separate-approved-trial-master-not-a-product-image-or-dm",
     "retired_paths": [
       "/images/customer-display-v20260812/trial.webp",
-      "/images/customer-display-v20260812/trial-clean-v4.svg"
+      "/images/customer-display-v20260812/trial-clean-v4.svg",
+      "/images/customer-display-v20260812/trial-small-boss.webp"
     ],
     "rules": {
       "free_samples": 3,
