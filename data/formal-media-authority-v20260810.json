@@ -1,23 +1,24 @@
 {
   "runtime": "current-formal-media-authority",
-  "approval_batch": "current-user-approved-media",
+  "approval_batch": "20260812-user-approved-customer-display",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
-  "principle": "new user media may be used only when it agrees with the latest formal product facts; guards validate current capabilities and current authority, never legacy version strings, old ZIP filenames, fixed candidate counts, old fixed copy or retired derived specifications",
-  "product_image_authority": "products-v3 true original product photos remain the immutable identity authority; customer-facing DM images must never redefine package identity, specification wording or proportion",
+  "principle": "customer-facing surfaces use the current user-approved formal DM / formal visual first; products-v3 remains the immutable real-product identity reference only; guards validate the current authority and must not force old simple originals back to customer surfaces",
+  "product_image_authority": "products-v3 true original product photos remain the immutable identity authority for package shape, label, material and proportion; they are internal/reference authority and are not the required customer-facing main visual",
   "products": [
-    {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","dm":"/images/dm-final/01_guilu-gao-100g-dm.jpg","status":"approved_display","source":"approved-dm-valid-binary"},
-    {"id":"guilu-drink-30cc","name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","rules":["裸罐","無貼紙","不得稱瓶"],"dm":"/images/dm-approved-v20260810/guilu-drink-30cc.webp","status":"approved_display","source":"current-user-approved-30cc-dm","validation":"內嵌文字已使用30cc／罐（小玻璃罐），產品外觀為小玻璃裸罐，符合目前正式規格"},
-    {"id":"guilu-drink-180cc","name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","dm":"/images/dm-final/03_guilu-drink-180cc-dm.jpg","status":"approved_display","source":"approved-dm-valid-binary"},
-    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","dm":"/images/dm-final/05_guilu-tangkuai-75g-dm.jpg","status":"approved_display","source":"approved-dm-valid-binary"},
-    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g／盒｜32塊裝","dm":"/images/dm-final/06_guilu-jiao-600g-dm.jpg","status":"approved_display","source":"approved-dm-valid-binary"},
-    {"id":"luerong-fen","name":"鹿茸粉","spec":"75g／罐","dm":"/images/dm-final/04_luerong-fen-75g-dm.jpg","status":"approved_display","source":"approved-dm-valid-binary"}
+    {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","dm":"/images/customer-display-v20260812/guilu-gao.webp","status":"approved_display","source":"20260812-current-customer-display","display_rule":"use its own formal DM; do not share the guilu-drink trial visual"},
+    {"id":"guilu-drink-30cc","name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","rules":["小玻璃罐","裸罐","無貼紙","不得稱瓶","不改比例","不改罐型"],"dm":"/images/customer-display-v20260812/guilu-drink-30cc.webp","status":"approved_display","source":"20260812-trial-master-derived-customer-display","display_rule":"customer-facing 30cc uses the approved trial master visual / its 30cc area / its three-jar area; products-v3 is reference only"},
+    {"id":"guilu-drink-180cc","name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","rules":["鋁袋","不改袋型","不改比例","不得亂畫包裝"],"dm":"/images/customer-display-v20260812/guilu-drink-180cc.webp","status":"approved_display","source":"20260812-trial-master-derived-customer-display","display_rule":"customer-facing 180cc uses the approved trial master lower-right 180cc foil-pouch visual as source; products-v3 is reference only"},
+    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","dm":"/images/customer-display-v20260812/guilu-tangkuai.webp","status":"approved_display","source":"20260812-current-customer-display","display_rule":"use its own formal DM"},
+    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g／盒｜32塊裝","dm":"/images/customer-display-v20260812/guilu-jiao.webp","status":"approved_display","source":"20260812-current-customer-display","display_rule":"use its own formal DM"},
+    {"id":"luerong-fen","name":"鹿茸粉","spec":"75g／罐","dm":"/images/customer-display-v20260812/luerong-fen.webp","status":"approved_display","source":"20260812-current-customer-display","display_rule":"use its own formal DM"}
   ],
   "trial": {
     "title":"龜鹿飲試喝組｜先試喝，再決定",
-    "image":"/images/dm-approved-v20260810/guilu-drink-trial.webp",
+    "image":"/images/customer-display-v20260812/trial.webp",
     "status":"approved_display",
-    "source":"current-user-approved-trial-poster",
+    "source":"20260812-user-approved-trial-master",
+    "do_not_regenerate":true,
     "free":"3罐試喝品免費",
     "shipping":["7-11店到店60元","郵局宅配100元"],
     "limit":"每位顧客、電話及地址限申請一次",
@@ -26,7 +27,17 @@
     "prices":{"30cc":"60元／罐；買10送1，11罐600元","180cc":"200元／包；買10送1，11包2,000元"}
   },
   "latest_post_zip": {"catalog":"/data/post-library-userzip3-v20260811.json","source":"新貼文的圖(3).zip","original_files":21,"unique_images":20,"product_cards_are_not_product_authority":true},
-  "image_rules":["產品本體不得AI重畫","圖文必須一致","禁止拼貼","禁止黑塊","角色不可裁切","30cc不可改瓶型、規格文字或比例","180cc必須維持鋁袋型態","顧客DM內嵌文字若與目前正式規格衝突必須隔離並回退products-v3"],
-  "post_image_policy":"use the current user post catalog for lifestyle content after semantic matching by season, scene, environment, temperature, expression, action, props and copy context; product and trial copy uses current approved formal media/products-v3 first; when a suitable user ZIP source exists but its binary is not online, keep needs_binary_sync and do not regenerate; only a true no-match may request regeneration; any generated, replaced or edited content invalidates prior approval, returns to pending_review and must pass the 16-item review gate",
-  "guard_policy":"validate current authority, actual binary availability, formal specs and required capabilities; do not reject a correct upgrade because an old version number, retired filename, historical candidate count, previous wording or retired derived specification changed"
+  "image_rules":[
+    "顧客端不要再以簡單原圖作主要視覺，正式DM／正式視覺優先",
+    "產品本體不得AI重畫或改包裝身份",
+    "圖文必須一致",
+    "禁止拼貼與黑塊",
+    "角色不可裁切",
+    "30cc必須維持小玻璃裸罐、無貼紙、原比例與原罐型",
+    "180cc必須維持鋁袋、原袋型與原比例",
+    "試喝類固定使用20260812正式試喝主圖",
+    "龜鹿膏、龜鹿湯塊、龜鹿膠、鹿茸粉不得共用龜鹿飲試喝主圖"
+  ],
+  "post_image_policy":"trial copy always uses the 20260812 approved trial master; guilu-drink product copy prefers the current formal DM / trial-master-derived visual; other product copy uses each product's own formal DM; lifestyle content uses the current user post catalog after semantic matching by season, scene, environment, temperature, expression, action and props; products-v3 is the real-product identity reference only; only a true no-match may request regeneration; any generated, replaced or edited content invalidates prior approval, returns to pending_review and must pass the 16-item review gate",
+  "guard_policy":"validate the current designated formal visual and the real product identity separately; do not reject a correct customer-facing formal DM merely because it is not a products-v3 simple original; do not force old versions, old filenames, old fixed copy or retired visual layers back into production"
 }
