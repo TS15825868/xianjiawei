@@ -1,0 +1,65 @@
+name: Repair formal media assets 20260812
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/repair-formal-media-assets-v20260812.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: repair-formal-media-assets-v20260812
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check Pillow==11.3.0
+
+      - name: Repair formal image binaries
+        run: python tools/repair_formal_media_assets_v20260812.py
+
+      - name: Validate retired and current trial paths
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          root = Path('.')
+          required = [
+              root/'images/customer-display-v20260812/trial-small-boss.webp',
+              root/'images/customer-display-v20260812/trial-small-boss.jpg',
+              root/'images/dm-approved-v20260810/guilu-drink-trial.png',
+          ]
+          for p in required:
+              if not p.is_file() or p.stat().st_size < 1024:
+                  raise SystemExit(f'invalid required media: {p}')
+              print('PASS', p, p.stat().st_size)
+          PY
+
+      - name: Commit repaired binaries
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/dm-approved-v20260810/*.png images/customer-display-v20260812/trial-small-boss.jpg images/customer-display-v20260812/formal-image-repair-v20260812.json
+          if git diff --cached --quiet; then
+            echo 'No binary changes required.'
+            exit 0
+          fi
+          git commit -m 'fix(media): rebuild broken PNG aliases and LINE trial JPEG'
+          git push origin HEAD:main
