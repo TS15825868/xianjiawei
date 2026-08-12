@@ -1,21 +1,21 @@
 {
   "runtime": "current-formal-customer-media",
-  "approval_batch": "20260812-user-approved-customer-display",
+  "approval_batch": "20260812-six-product-final-v2",
   "products": {
-    "guilu-gao": {"name":"龜鹿膏","spec":"100g／罐","path":"/images/customer-display-v20260812/guilu-gao.webp","status":"approved_display","format":"webp","display_rule":"own-formal-dm"},
-    "guilu-drink-30": {"name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","path":"/images/customer-display-v20260812/guilu-drink-30cc.webp","status":"approved_display","format":"webp","display_rule":"approved-trial-master / 30cc area / three-jar area; true product must remain small bare glass jar without label"},
-    "guilu-drink-180": {"name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","path":"/images/customer-display-v20260812/guilu-drink-180cc.webp","status":"approved_display","format":"webp","display_rule":"approved-trial-master lower-right 180cc foil-pouch visual source; true product must remain foil pouch"},
-    "guilu-tangkuai": {"name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","path":"/images/customer-display-v20260812/guilu-tangkuai.webp","status":"approved_display","format":"webp","display_rule":"own-formal-dm"},
-    "guilu-jiao": {"name":"龜鹿膠","spec":"600g／盒｜32塊裝","path":"/images/customer-display-v20260812/guilu-jiao.webp","status":"approved_display","format":"webp","display_rule":"own-formal-dm"},
-    "luerong-fen": {"name":"鹿茸粉","spec":"75g／罐","path":"/images/customer-display-v20260812/luerong-fen.webp","status":"approved_display","format":"webp","display_rule":"own-formal-dm"}
+    "guilu-gao": {"name":"龜鹿膏","spec":"100g／罐","path":"/images/customer-display-v20260812/guilu-gao.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image"},
+    "guilu-drink-30": {"name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","path":"/images/customer-display-v20260812/guilu-drink-30cc.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image; true product is small bare glass jar, no label, no bottle wording, no shape/proportion changes"},
+    "guilu-drink-180": {"name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","path":"/images/customer-display-v20260812/guilu-drink-180cc.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image; true product remains foil pouch, no pouch/proportion changes"},
+    "guilu-tangkuai": {"name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","detail_unit_approx":"每塊約9.375g","detail_unit_rule":"detail-data-only; do not place on main product image or DM main spec","path":"/images/customer-display-v20260812/guilu-tangkuai.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image"},
+    "guilu-jiao": {"name":"龜鹿膠","spec":"600g（1斤）／盒｜32塊裝","detail_unit_approx":"每塊約18.75g","detail_unit_rule":"detail-data-only; do not place on main product image or DM main spec","path":"/images/customer-display-v20260812/guilu-jiao.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image"},
+    "luerong-fen": {"name":"鹿茸粉","spec":"75g／罐","path":"/images/customer-display-v20260812/luerong-fen.webp","status":"approved_display","format":"webp","display_rule":"user-confirmed official product image"}
   },
   "trial": {
     "path":"/images/customer-display-v20260812/trial.webp",
     "status":"approved_display",
     "format":"webp",
-    "role":"guilu-drink-trial-master-and-30-180-customer-visual-source",
+    "role":"separate-approved-trial-master-not-a-product-image",
     "rules":{"free_samples":3,"shipping_paid_by_customer":true,"seven_eleven":60,"postal":100,"limit":"每位顧客、電話及地址限申請一次","lead_time":"約5～7個工作天","apply_via":"LINE OA","price_30":"60元／罐；買10送1，11罐600元","price_180":"200元／包；買10送1，11包2,000元"}
   },
   "latestPostZip":{"catalog":"/data/post-library-userzip3-v20260811.json","source":"新貼文的圖(3).zip","original_files":21,"unique_images":20,"product_cards_are_not_product_authority":true},
-  "rules":{"product_authority":"products-v3 original product identity reference only; customer-facing main visual is the current formal DM layer","customer_main_visual":"20260812 formal DM / formal visual first","no_ai_product_redraw":true,"no_stretch":true,"trial_fixed_to_current_master":true,"drink30":"small bare glass jar, no label, no shape/proportion changes","drink180":"foil pouch, no pouch/proportion changes","zip_first_for_lifestyle":true,"regenerate_only_if_no_match":true,"review_after_media_change":16,"guard_policy":"validate current designated formal visual plus real-product identity; never force retired simple-original customer display"}
+  "rules":{"product_authority":"the six user-confirmed 20260812 product visuals are the customer-facing product image authority; products-v3 remains physical identity reference only","customer_main_visual":"six official product images for product surfaces; DM and trial are separate media roles","no_ai_product_redraw":true,"no_stretch":true,"trial_fixed_to_current_master":true,"drink30":"small bare glass jar, no label, no shape/proportion changes","drink180":"foil pouch, no pouch/proportion changes","tangkuai_main_spec":"75g／盒｜8塊裝","jiao_main_spec":"600g（1斤）／盒｜32塊裝","piece_weight_policy":"9.375g and 18.75g are approximate detail data only, not product/DM main-image copy","regenerate_only_if_text_or-spec-is-wrong":true,"review_after_media_change":16,"guard_policy":"validate current designated product visual, DM role and real-product identity separately; never substitute trial image for product image"}
 }
