@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - '_upload/avif-v6.ready'
+      - '_upload/avif-v6-v2.ready'
   workflow_dispatch:
 
 permissions:
@@ -24,9 +24,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          marker='_upload/avif-v6.ready'
+          marker='_upload/avif-v6-v2.ready'
           test -f "$marker"
-          cat _upload/avif-v6-180.part-* | base64 -d > /tmp/guilu-drink-180cc.avif
+          test "$(find _upload/avif-v6-180-v2 -maxdepth 1 -type f | wc -l)" -eq 6
+          cat _upload/avif-v6-180-v2/001 _upload/avif-v6-180-v2/002 _upload/avif-v6-180-v2/003 _upload/avif-v6-180-v2/004 _upload/avif-v6-180-v2/005 _upload/avif-v6-180-v2/006 | base64 -d > /tmp/guilu-drink-180cc.avif
 
       - name: Verify exact approved binaries and dimensions
         shell: bash
@@ -51,12 +52,13 @@ jobs:
           done
           echo 'PASS guilu-drink-180cc 1122x1402'
 
-      - name: Install 180cc AVIF and clean upload chunks
+      - name: Install 180cc AVIF and clean temporary upload chunks
         shell: bash
         run: |
           set -euo pipefail
           cp /tmp/guilu-drink-180cc.avif images/customer-display-v20260812/guilu-drink-180cc.avif
-          rm -f _upload/avif-v6-180.part-* _upload/avif-v6.ready
+          rm -rf _upload/avif-v6-180-v2
+          rm -f _upload/avif-v6-180.part-* _upload/avif-v6.ready _upload/avif-v6-v2.ready
           cat > images/customer-display-v20260812/hd-avif-v6-status.json <<'JSON'
           {
             "version": "20260812-sharp-formal-media-v6",
