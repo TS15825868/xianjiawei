@@ -8,7 +8,7 @@
   const GUARD_BLOCKING=false;
   const PUBLISHING_URL='https://xianjiawei-internal.tung314069.workers.dev/publishing.html';
   const CURRENT='/images/customer-display-v20260812/';
-  const TRIAL='trial.webp';
+  const TRIAL='trial-small-boss.webp';
   function text(card){return `${card.querySelector('h2')?.textContent||''} ${card.querySelector('.excerpt')?.textContent||''}`}
   function imageUrls(card){
     const urls=[];
@@ -29,7 +29,7 @@
       if(/products-v4-final/i.test(url))errors.push('圖片：仍引用已退役的簡單顧客產品圖層，顧客端應改用目前正式DM／正式視覺');
     }
     const isTrial=/試喝|3\s*罐.*免費|先試喝/.test(t);
-    if(isTrial&&urls.length&&!urls.some(url=>url.includes(`${CURRENT}${TRIAL}`)||/dm-approved-v20260810\/guilu-drink-trial\.webp/i.test(url)))errors.push('試喝圖片：必須使用目前核准「龜鹿飲試喝組｜先試喝，再決定」正式主圖');
+    if(isTrial&&urls.length&&!urls.some(url=>url.includes(`${CURRENT}${TRIAL}`)))errors.push('試喝圖片：必須使用目前核准 trial-small-boss 小老闆正式主圖');
     if(/30\s*cc/i.test(t)){
       const known=urls.filter(url=>/guilu-drink-30|30cc/i.test(url));
       if(known.some(url=>/products-v[234]|dm-final/i.test(url)))errors.push('30cc顧客圖：不可再以簡單原圖／舊DM當主要視覺；請使用目前正式DM主視覺');
@@ -46,8 +46,8 @@
     errors.push(...unauthorizedSoupWeights(t));errors.push(...imageErrors(card,t));
     const imageState=card.querySelector('.image-state')?.textContent?.trim()||'';
     if(/needs|待生成|需重生成|replace-required/i.test(imageState))errors.push('圖片：此篇已列入重新生成／更換清單');
-    if(t.includes('30cc'))notes.push('30cc顧客端以目前正式DM／試喝主視覺為主；產品本體仍必須是小玻璃裸罐、無貼紙、金色蓋、比例不變。products-v3僅作實物校正。');
-    if(t.includes('180cc'))notes.push('180cc顧客端以目前正式DM／試喝圖右下180cc鋁袋視覺為來源；產品本體必須維持狹長鋁袋，不改袋型與比例。');
+    if(t.includes('30cc'))notes.push('30cc產品型貼文使用六張正式產品圖；詳細DM只在DM用途使用；試喝文只用trial-small-boss。產品本體必須是小玻璃裸罐、無貼紙、比例不變。');
+    if(t.includes('180cc'))notes.push('180cc產品型貼文使用六張正式產品圖；詳細DM只在DM用途使用；試喝圖獨立。產品本體必須維持鋁袋，不改袋型與比例。');
     if(t.includes('龜鹿膏'))notes.push('龜鹿膏100g維持自己的正式DM；產品罐型、標籤與比例不得改。');
     if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊只有75g／盒、8塊裝；維持自己的正式DM。');
     if(t.includes('龜鹿膠'))notes.push('龜鹿膠600g／盒、32塊裝；維持自己的正式DM，不可與龜鹿湯塊互換。');
