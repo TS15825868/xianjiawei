@@ -1,18 +1,18 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-08-12 screenshot-fix-v2
+/* 官網顧客產品圖片安全層｜2026-08-12 formal-image-fix-v3
  * 顧客產品頁／產品卡：六張使用者確認的正式產品圖優先。
  * DM：獨立媒體角色，由 DM 權威層管理；dm-approved 與 dm-final 目錄不得被產品圖安全層覆蓋。
  * products-v3：只保留為真實產品外觀、包裝與比例的實物身份參考。
  */
 (function(){
-  const VERSION='20260812-screenshot-fix-v2';
+  const VERSION='20260812-formal-image-fix-v3';
   const CUSTOMER=Object.freeze({
     gao:`images/customer-display-v20260812/guilu-gao.webp?v=${VERSION}`,
-    drink30:`images/customer-display-v20260812/guilu-drink-30cc-clean.svg?v=${VERSION}`,
+    drink30:`images/customer-display-v20260812/guilu-drink-30cc.webp?v=${VERSION}`,
     drink180:`images/customer-display-v20260812/guilu-drink-180cc.webp?v=${VERSION}`,
-    tangkuai:`images/customer-display-v20260812/guilu-tangkuai-clean.svg?v=${VERSION}`,
-    jiao:`images/customer-display-v20260812/guilu-jiao-clean.svg?v=${VERSION}`,
+    tangkuai:`images/customer-display-v20260812/guilu-tangkuai.webp?v=${VERSION}`,
+    jiao:`images/customer-display-v20260812/guilu-jiao.webp?v=${VERSION}`,
     luerong:`images/customer-display-v20260812/luerong-fen.webp?v=${VERSION}`
   });
   const OFFICIAL=Object.freeze({
@@ -46,7 +46,7 @@
     node.setAttribute('src',CUSTOMER[key]);
     node.alt=ALT[key];
     node.style.objectFit='contain';node.style.objectPosition='center';node.style.width='100%';node.style.height='100%';node.style.maxWidth='100%';node.style.maxHeight='100%';node.style.transform='none';node.style.clipPath='none';
-    node.dataset.xjwCustomerDisplay='official-product-image-screenshot-fix-v2';
+    node.dataset.xjwCustomerDisplay='official-product-image-formal-image-fix-v3';
     node.dataset.xjwProductIdentityAuthority='products-v3';
     node.dataset.xjwScalePolicy='uniform-only-contain-no-stretch';
   }
