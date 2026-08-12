@@ -1,7 +1,9 @@
 {
-  "status": "pages_rebuild_pending_verification",
+  "status": "pages_built_verified",
   "content_release": "20260812-screenshot-broken-image-fix-v1",
-  "updated_at_utc": "2026-08-12T09:40:00Z",
+  "verified_content_commit": "89603ca11fa315ff64757762dcabd47c6e1de934",
+  "verified_pages_build": 1146820800,
+  "updated_at_utc": "2026-08-12T09:43:00Z",
   "product_image_authority": "six-user-confirmed-product-images-with-valid-webp-binaries",
   "product_dm_authority": "six-separate-detailed-dms-20260812-dm-corrected-v1",
   "corrected_dm_product_ids": ["guilu-drink-30", "guilu-tangkuai", "guilu-jiao"],
@@ -15,5 +17,5 @@
   "post_library_binary_sync": "synced",
   "blocking_guards": false,
   "guard_mode": "paused_for_full_system_update",
-  "pages_live_verified": false
+  "pages_live_verified": true
 }
