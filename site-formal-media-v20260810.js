@@ -1,5 +1,5 @@
 (()=>{
-const V='current-formal-media';
+const V='20260813-sharp-formal-media-v6';
 const pathBase=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
 const replace=(img,path)=>{if(!path)return;img.src=pathBase+path+(path.includes('?')?'&':'?')+'v='+V;img.style.objectFit='contain';img.style.objectPosition='center';img.removeAttribute('width');img.removeAttribute('height');};
 function fixDmEntry(){
@@ -14,7 +14,19 @@ fetch(pathBase+'/images/formal-display/manifest.json?v='+V,{cache:'no-store'}).t
  window.XJWFormalCustomerMedia=m;
  document.documentElement.dataset.formalMediaRuntime=String(m.runtime||V);
  document.documentElement.dataset.formalMediaApprovalBatch=String(m.approval_batch||'');
- if(/\/dm\.html$/.test(location.pathname)){document.querySelectorAll('img').forEach(img=>{const box=img.closest('article,section,figure,div');const t=((img.alt||'')+' '+(box?.textContent||'')).replace(/\s+/g,' ');for(const p of Object.values(m.products||{})){if(t.includes(p.name)||t.includes(p.spec)){replace(img,p.path);break;}}});}
+ if(/\/dm\.html$/.test(location.pathname)){
+  document.querySelectorAll('img').forEach(img=>{
+   const box=img.closest('article,section,figure,div');
+   const t=((img.alt||'')+' '+(box?.textContent||'')).replace(/\s+/g,' ');
+   for(const [key,p] of Object.entries(m.products||{})){
+    if(t.includes(p.name)||t.includes(p.spec)){
+     const dm=m.dm?.paths?.[key];
+     if(dm)replace(img,dm);
+     break;
+    }
+   }
+  });
+ }
  if(/\/trial\.html$/.test(location.pathname)&&m.trial?.path){const hero=document.querySelector('.trial-poster img')||[...document.querySelectorAll('img')].find(img=>/試喝/.test((img.alt||'')+' '+(img.closest('section,article,figure,div')?.textContent||'')));if(hero)replace(hero,m.trial.path);}
 }).catch(()=>{});
 })();
