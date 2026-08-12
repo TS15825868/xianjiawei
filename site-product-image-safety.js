@@ -1,11 +1,12 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-08-12
- * 顧客端：正式 DM／正式視覺優先。
- * products-v3：只保留為真實產品外觀、包裝與比例的內部身份權威，不再強制覆蓋顧客主視覺。
+/* 官網顧客產品圖片安全層｜2026-08-12 final-v3-clean
+ * 顧客產品頁／產品卡：六張使用者確認的正式產品圖優先。
+ * DM：獨立媒體角色，由 DM 權威層管理，不可反過來覆蓋產品圖。
+ * products-v3：只保留為真實產品外觀、包裝與比例的實物身份參考。
  */
 (function(){
-  const VERSION='20260812-formal-dm-customer-v2';
+  const VERSION='20260812-six-product-final-v3-clean';
   const CUSTOMER=Object.freeze({
     gao:`images/customer-display-v20260812/guilu-gao.webp?v=${VERSION}`,
     drink30:`images/customer-display-v20260812/guilu-drink-30cc.webp?v=${VERSION}`,
@@ -27,7 +28,7 @@
     {key:'tangkuai',tests:[/guilu-tangkuai/i]},
     {key:'jiao',tests:[/guilu-jiao/i]}
   ]);
-  const ALT=Object.freeze({gao:'龜鹿膏正式主視覺',drink30:'龜鹿飲30cc正式主視覺｜小玻璃裸罐',drink180:'龜鹿飲180cc正式主視覺｜鋁袋',tangkuai:'龜鹿湯塊正式主視覺',jiao:'龜鹿膠正式主視覺',luerong:'鹿茸粉正式主視覺'});
+  const ALT=Object.freeze({gao:'龜鹿膏正式產品圖',drink30:'龜鹿飲30cc正式產品圖｜小玻璃裸罐',drink180:'龜鹿飲180cc正式產品圖｜鋁袋',tangkuai:'龜鹿湯塊正式產品圖',jiao:'龜鹿膠正式產品圖',luerong:'鹿茸粉正式產品圖'});
   function alreadyCurrent(value){return /\/images\/customer-display-v20260812\//i.test(String(value||''));}
   function match(value){
     const text=String(value||'');
@@ -41,7 +42,7 @@
     node.setAttribute('src',CUSTOMER[key]);
     node.alt=ALT[key];
     node.style.objectFit='contain';node.style.objectPosition='center';node.style.width='100%';node.style.height='100%';node.style.maxWidth='100%';node.style.maxHeight='100%';node.style.transform='none';node.style.clipPath='none';
-    node.dataset.xjwCustomerDisplay='formal-dm-20260812';
+    node.dataset.xjwCustomerDisplay='official-product-image-final-v3-clean';
     node.dataset.xjwProductIdentityAuthority='products-v3';
     node.dataset.xjwScalePolicy='uniform-only-contain-no-stretch';
   }
@@ -49,7 +50,7 @@
     const value=node.getAttribute(attr)||'';const key=match(value);if(!key)return;
     node.setAttribute(attr,CUSTOMER[key]);
     if(node.tagName==='IMG')forceImage(node,key);
-    if(node.tagName==='A'){const label=(node.textContent||'').trim();if(/DM|海報|大圖|產品圖|產品照片/.test(label))node.textContent='查看正式主視覺';node.title='查看正式主視覺';}
+    if(node.tagName==='A'){const label=(node.textContent||'').trim();if(/產品圖|產品照片|主視覺/.test(label))node.textContent='查看正式產品圖';node.title='查看正式產品圖';}
   }
   function keyFromProductCard(card){return IDS[String(card?.dataset?.productId||'').trim()]||'';}
   function keyFromLocation(){const path=location.pathname.toLowerCase();if(path.includes('product-guilu-drink-30cc'))return'drink30';if(path.includes('product-guilu-drink-180cc'))return'drink180';if(path.includes('product-guilu-gao'))return'gao';if(path.includes('product-guilu-tangkuai'))return'tangkuai';if(path.includes('product-guilu-jiao'))return'jiao';if(path.includes('product-luerong-fen'))return'luerong';return'';}
@@ -57,19 +58,19 @@
   function forceKnownSurfaces(root=document){
     root.querySelectorAll?.('.product-card[data-product-id]').forEach(card=>{const key=keyFromProductCard(card),img=card.querySelector('.product-card__img img, img');if(key&&img)forceImage(img,key);});
     const detailKey=keyFromLocation();
-    if(detailKey){document.querySelectorAll('.product-detail-hero__media img').forEach(img=>forceImage(img,detailKey));document.querySelectorAll('.product-detail-hero__media a').forEach(a=>{a.href=CUSTOMER[detailKey];a.title='查看正式主視覺';});}
+    if(detailKey){document.querySelectorAll('.product-detail-hero__media img').forEach(img=>forceImage(img,detailKey));document.querySelectorAll('.product-detail-hero__media a').forEach(a=>{a.href=CUSTOMER[detailKey];a.title='查看正式產品圖';});}
     const modal=document.getElementById('product-modal');
     if(modal&&modal.classList.contains('show')){const key=keyFromModal(modal);if(key){modal.querySelectorAll('img').forEach(img=>forceImage(img,key));modal.querySelectorAll('a[href]').forEach(a=>{if(match(a.href))a.href=CUSTOMER[key];});}}
     if(location.pathname.toLowerCase().includes('trial.html')){
       document.querySelectorAll('.trial-product-grid article').forEach(card=>{const text=card.textContent||'';const key=/180\s*cc/.test(text)?'drink180':/30\s*cc/.test(text)?'drink30':'';const img=card.querySelector('img');if(key&&img)forceImage(img,key);});
       const intro=document.querySelector('#trial-products-title')?.parentElement?.querySelector('p:last-child');
-      if(intro)intro.textContent='顧客端以正式試喝／龜鹿飲主視覺呈現；products-v3原圖只保留作產品實物外觀、包裝與比例校正。';
+      if(intro)intro.textContent='試喝主圖與六張正式產品圖分開管理；產品本體仍以 products-v3 真實外觀、包裝與比例作校正。';
     }
   }
   function repair(root){
     const scope=root?.querySelectorAll?root:document;
     scope.querySelectorAll('img[src], source[srcset]').forEach(node=>repairNode(node,node.tagName==='SOURCE'?'srcset':'src'));
-    scope.querySelectorAll('a[href], [data-dm-src]').forEach(node=>{repairNode(node,'href');const dm=node.getAttribute('data-dm-src')||'',key=match(dm);if(key)node.setAttribute('data-dm-src',CUSTOMER[key]);});
+    scope.querySelectorAll('a[href]').forEach(node=>repairNode(node,'href'));
     forceKnownSurfaces(scope);
   }
   let queued=false;function queueRepair(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;repair(document);});}
