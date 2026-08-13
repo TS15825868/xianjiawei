@@ -1,22 +1,22 @@
 "use strict";
 
-/* 仙加味顧客DM權威層｜2026-08-13 v8
+/* 仙加味顧客DM權威層｜2026-08-13 HD fix
  * 產品主圖、詳細DM、trial展示元件分開。
- * 本層只負責六張詳細DM；不得再寫入或覆蓋任何 trial 圖片來源。
- * 180cc產品主圖由產品 authority 管理，DM只保留在明確DM用途。
+ * 本層只負責六張詳細DM；DM一律使用已核准的高解析 JPG 母檔。
+ * 不得再以 8~10KB 低解析 WebP 作為顧客端正式DM。
  */
 (function(){
   if(window.__XJW_DM_AUTHORITY__) return;
   window.__XJW_DM_AUTHORITY__=true;
 
-  const VERSION='20260813-trial-product-role-fix-v8';
+  const VERSION='20260813-dm-trial-display-fix-v1';
   const DM=Object.freeze({
     'guilu-gao':'images/dm-final/01_guilu-gao-100g-dm.jpg',
-    'guilu-drink-30':'images/dm-approved-v20260810/guilu-drink-30cc.webp',
-    'guilu-drink-180':'images/dm-approved-v20260810/guilu-drink-180cc.webp',
-    'guilu-tangkuai':'images/dm-approved-v20260810/guilu-tangkuai-75g.webp',
-    'guilu-jiao':'images/dm-approved-v20260810/guilu-jiao-600g.webp',
-    'luerong-fen':'images/dm-approved-v20260810/lurong-fen-75g.webp'
+    'guilu-drink-30':'images/dm-final/02_guilu-drink-30cc-dm.jpg',
+    'guilu-drink-180':'images/dm-final/03_guilu-drink-180cc-dm.jpg',
+    'guilu-tangkuai':'images/dm-final/05_guilu-tangkuai-75g-dm.jpg',
+    'guilu-jiao':'images/dm-final/06_guilu-jiao-600g-dm.jpg',
+    'luerong-fen':'images/dm-final/04_luerong-fen-75g-dm.jpg'
   });
   const RETIRED_TRIAL=Object.freeze([
     'images/customer-display-v20260812/trial.webp',
@@ -38,14 +38,14 @@
       if(Array.isArray(data.products)){
         data.products=data.products.map(product=>{
           const dm=DM[product?.id];
-          return dm?{...product,dmImage:`${dm}?v=${VERSION}`,dmImagePolicy:'separate-current-approved-detailed-dm-contain-no-crop'}:product;
+          return dm?{...product,dmImage:`${dm}?v=${VERSION}`,dmImagePolicy:'separate-current-approved-hd-dm-contain-no-crop'}:product;
         });
       }
       data.runtime={
         ...(data.runtime||{}),
-        dmSource:'separate-current-approved-detailed-dm',
+        dmSource:'separate-current-approved-hd-dm',
         dmVersion:VERSION,
-        dmRoleRule:'product main image / detailed DM / trial component are separate roles',
+        dmRoleRule:'product main image / high-resolution detailed DM / trial component are separate roles',
         trialMediaOwnedBy:'trial-showcase-v20260813',
         retiredTrialBinaries:[...RETIRED_TRIAL]
       };
@@ -60,7 +60,7 @@
   window.XJWCurrentDmAuthority=Object.freeze({
     version:VERSION,
     products:DM,
-    role:'separate-detailed-dm-only',
+    role:'separate-high-resolution-detailed-dm-only',
     trialMediaOwnedBy:'trial-showcase-v20260813',
     retiredTrialBinaries:RETIRED_TRIAL
   });
