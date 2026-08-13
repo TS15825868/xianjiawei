@@ -7,51 +7,86 @@
   const LIVE=['颱風','寒流','高溫','空氣品質','午後雷陣雨'];
   const GUARD_BLOCKING=false;
   const PUBLISHING_URL='https://xianjiawei-internal.tung314069.workers.dev/publishing.html';
-  const CURRENT='/images/customer-display-v20260812/';
-  const TRIAL='trial-small-boss.webp';
+  const PRODUCT=Object.freeze({
+    drink30:'images/customer-display-v20260812/guilu-drink-30cc.avif',
+    drink180:'images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
+  });
+  const DM=Object.freeze({
+    drink30:'images/dm-approved-v20260810/guilu-drink-30cc.webp',
+    drink180:'images/dm-approved-v20260810/guilu-drink-180cc.webp'
+  });
+  const RETIRED_TRIAL=[
+    'trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png','guilu-drink-trial.webp','guilu-drink-trial.png'
+  ];
+  const TRIAL_COMPONENT='trial-showcase-v20260813';
+
   function text(card){return `${card.querySelector('h2')?.textContent||''} ${card.querySelector('.excerpt')?.textContent||''}`}
   function imageUrls(card){
     const urls=[];
-    card.querySelectorAll('img[src],source[srcset],a[href]').forEach(node=>{const raw=node.getAttribute('src')||node.getAttribute('srcset')||node.getAttribute('href')||'';if(raw)urls.push(raw);});
+    card.querySelectorAll('img[src],source[srcset],a[href]').forEach(node=>{
+      const raw=node.getAttribute('src')||node.getAttribute('srcset')||node.getAttribute('href')||'';
+      if(raw)urls.push(raw);
+    });
     return urls;
   }
   function unauthorizedSoupWeights(value=''){
     const source=String(value||''),labels=['龜鹿湯塊','龜鹿膠','龜鹿膏','鹿茸粉'],errors=[];
     const re=/(?<!\d)(\d+(?:\.\d+)?)\s*g/gi;let match;
-    while((match=re.exec(source))){const number=Number(match[1]);if(!Number.isFinite(number)||number<50)continue;const before=source.slice(Math.max(0,match.index-80),match.index);let pos=-1,label='';for(const candidate of labels){const p=before.lastIndexOf(candidate);if(p>pos){pos=p;label=candidate}}if(label==='龜鹿湯塊'&&Math.abs(number-75)>0.001)errors.push(`龜鹿湯塊只能使用75g／盒，目前出現${match[0]}`);}
+    while((match=re.exec(source))){
+      const number=Number(match[1]);if(!Number.isFinite(number)||number<50)continue;
+      const before=source.slice(Math.max(0,match.index-80),match.index);let pos=-1,label='';
+      for(const candidate of labels){const p=before.lastIndexOf(candidate);if(p>pos){pos=p;label=candidate}}
+      if(label==='龜鹿湯塊'&&Math.abs(number-75)>0.001)errors.push(`龜鹿湯塊只能使用75g／盒，目前出現${match[0]}`);
+      if(label==='龜鹿膠'&&Math.abs(number-600)>0.001)errors.push(`龜鹿膠主規格只能使用600g（1斤）／盒，目前出現${match[0]}`);
+    }
     return errors;
   }
+  function isDmIntent(t=''){return /\bDM\b|詳細DM|產品DM|DM版位|DM貼文/i.test(String(t||''));}
+  function includesPath(urls,path){return urls.some(url=>String(url||'').includes(path));}
   function imageErrors(card,t=''){
-    const urls=imageUrls(card),errors=[];
+    const urls=imageUrls(card),errors=[],dmIntent=isDmIntent(t);
     for(const url of urls){
-      if(/\/images\/products-v2\//i.test(url))errors.push('圖片：仍引用已退役舊產品圖');
       if(/legacy/i.test(url))errors.push('圖片：仍引用歷史／退役素材');
-      if(/products-v4-final/i.test(url))errors.push('圖片：仍引用已退役的簡單顧客產品圖層，顧客端應改用目前正式DM／正式視覺');
+      if(/products-v4-final/i.test(url))errors.push('圖片：仍引用已退役產品圖層');
+      if(RETIRED_TRIAL.some(name=>String(url).includes(name)))errors.push('試喝圖片：引用已退役或已知花圖素材，禁止再使用');
+      if(/customer-display-v20260812\/guilu-drink-180cc\.jpg/i.test(url))errors.push('180cc圖片：這是錯誤角色的DM海報別名，禁止當產品主圖');
     }
+
     const isTrial=/試喝|3\s*罐.*免費|先試喝/.test(t);
-    if(isTrial&&urls.length&&!urls.some(url=>url.includes(`${CURRENT}${TRIAL}`)))errors.push('試喝圖片：必須使用目前核准 trial-small-boss 小老闆正式主圖');
+    if(isTrial){
+      if(urls.some(url=>RETIRED_TRIAL.some(name=>String(url).includes(name))))errors.push('試喝內容：不得恢復舊trial-small-boss或trial別名');
+    }
+
     if(/30\s*cc/i.test(t)){
-      const known=urls.filter(url=>/guilu-drink-30|30cc/i.test(url));
-      if(known.some(url=>/products-v[234]|dm-final/i.test(url)))errors.push('30cc顧客圖：不可再以簡單原圖／舊DM當主要視覺；請使用目前正式DM主視覺');
+      if(dmIntent){
+        if(urls.length&&!includesPath(urls,DM.drink30))errors.push('30cc DM用途：應使用目前核准30cc詳細DM，不可拿產品主圖替代DM');
+      }else if(urls.some(url=>/guilu-drink-30|30cc/i.test(String(url)))){
+        if(!includesPath(urls,PRODUCT.drink30))errors.push('30cc產品用途：應使用正式30cc產品主圖；詳細DM只供DM用途');
+      }
     }
     if(/180\s*cc/i.test(t)){
-      const known=urls.filter(url=>/guilu-drink-180|180cc/i.test(url));
-      if(known.some(url=>/products-v[234]|dm-final/i.test(url)))errors.push('180cc顧客圖：不可再以簡單原圖／舊DM當主要視覺；請使用目前正式DM主視覺');
+      if(dmIntent){
+        if(urls.length&&!includesPath(urls,DM.drink180))errors.push('180cc DM用途：應使用目前核准180cc詳細DM');
+      }else if(urls.some(url=>/guilu-drink-180|180cc/i.test(String(url)))){
+        if(!includesPath(urls,PRODUCT.drink180))errors.push('180cc產品用途：必須使用正式高清鋁袋產品圖，不得拿DM海報替代');
+      }
     }
     return errors;
   }
   function scan(card){
     const t=text(card),errors=[],notes=[];
     for(const [label,terms] of BLOCK){const hit=terms.find(x=>t.includes(x));if(hit)errors.push(`${label}：發現「${hit}」`)}
-    errors.push(...unauthorizedSoupWeights(t));errors.push(...imageErrors(card,t));
+    errors.push(...unauthorizedSoupWeights(t));
+    errors.push(...imageErrors(card,t));
     const imageState=card.querySelector('.image-state')?.textContent?.trim()||'';
     if(/needs|待生成|需重生成|replace-required/i.test(imageState))errors.push('圖片：此篇已列入重新生成／更換清單');
-    if(t.includes('30cc'))notes.push('30cc產品型貼文使用六張正式產品圖；詳細DM只在DM用途使用；試喝文只用trial-small-boss。產品本體必須是小玻璃裸罐、無貼紙、比例不變。');
-    if(t.includes('180cc'))notes.push('180cc產品型貼文使用六張正式產品圖；詳細DM只在DM用途使用；試喝圖獨立。產品本體必須維持鋁袋，不改袋型與比例。');
-    if(t.includes('龜鹿膏'))notes.push('龜鹿膏100g維持自己的正式DM；產品罐型、標籤與比例不得改。');
-    if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊只有75g／盒、8塊裝；維持自己的正式DM。');
-    if(t.includes('龜鹿膠'))notes.push('龜鹿膠600g／盒、32塊裝；維持自己的正式DM，不可與龜鹿湯塊互換。');
-    if(t.includes('鹿茸粉'))notes.push('鹿茸粉75g／罐；維持自己的正式DM。');
+    if(t.includes('30cc'))notes.push('30cc產品用途使用正式小玻璃裸罐主圖；詳細DM只在明確DM用途使用。');
+    if(t.includes('180cc'))notes.push('180cc產品用途使用正式高清鋁袋主圖；詳細DM只在明確DM用途使用，兩者不可互換。');
+    if(/試喝|先試喝/.test(t))notes.push(`官網試喝頁目前使用${TRIAL_COMPONENT}元件；已花圖的trial-small-boss與舊trial別名全部退役。貼文候選不得引用這些退役檔，正式貼文圖仍需依最新核准素材做16項人工檢查。`);
+    if(t.includes('龜鹿膏'))notes.push('龜鹿膏100g維持正式產品圖與獨立詳細DM，產品罐型、標籤與比例不得改。');
+    if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊主規格75g／盒｜8塊裝；每塊約9.375g只屬詳細資料。');
+    if(t.includes('龜鹿膠'))notes.push('龜鹿膠主規格600g（1斤）／盒｜32塊裝；每塊約18.75g只屬詳細資料。');
+    if(t.includes('鹿茸粉'))notes.push('鹿茸粉75g／罐；維持正式產品圖與獨立詳細DM。');
     if(LIVE.some(x=>t.includes(x)))notes.push('此貼文含即時天氣／事件字詞，發布前必須重新確認當日資訊。');
     return{errors:[...new Set(errors)],notes};
   }
@@ -65,12 +100,20 @@
   function enhance(){
     labelPageRole();
     document.querySelectorAll('.post-card').forEach(card=>{
-      let box=card.querySelector('[data-brand-guardian]');if(!box){box=document.createElement('div');box.dataset.brandGuardian='1';box.className='review-note';const body=card.querySelector('.card-body');body?.insertBefore(box,body.querySelector('.card-actions'))}
+      let box=card.querySelector('[data-brand-guardian]');
+      if(!box){box=document.createElement('div');box.dataset.brandGuardian='1';box.className='review-note';const body=card.querySelector('.card-body');body?.insertBefore(box,body.querySelector('.card-actions'))}
       const result=scan(card),approve=card.querySelector('[data-approve]');
-      if(result.errors.length){box.className='review-note warning';box.textContent=`AI規格檢查提醒：${result.errors.join('；')}。目前守門員維持提示模式，請人工檢查或用ChatGPT重生成後再決定是否核准。`;if(approve&&GUARD_BLOCKING){approve.disabled=true;approve.title='先完成修正'}}
-      else{box.className='review-note';box.textContent=`AI規格文字／圖源預檢通過。${result.notes.length?' '+result.notes.join(' '):' 圖片仍需完成16項人工檢查。'}`;}
+      if(result.errors.length){
+        box.className='review-note warning';
+        box.textContent=`AI規格檢查提醒：${result.errors.join('；')}。目前守門員維持提示模式，請人工檢查或重新生成後再決定是否核准。`;
+        if(approve&&GUARD_BLOCKING){approve.disabled=true;approve.title='先完成修正'}
+      }else{
+        box.className='review-note';
+        box.textContent=`AI規格文字／圖源預檢通過。${result.notes.length?' '+result.notes.join(' '):' 圖片仍需完成16項人工檢查。'}`;
+      }
     });
   }
+  window.XJWPublishingGuardian=Object.freeze({version:'20260813-v8',blocking:GUARD_BLOCKING,product:PRODUCT,dm:DM,trialComponent:TRIAL_COMPONENT,retiredTrial:RETIRED_TRIAL,scan});
   new MutationObserver(enhance).observe(document.documentElement,{subtree:true,childList:true});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
 })();
