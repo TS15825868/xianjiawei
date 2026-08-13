@@ -1,6 +1,6 @@
 {
-  "runtime": "20260813-trial-product-role-fix-v7",
-  "approval_batch": "20260813-trial-product-role-fix-v7",
+  "runtime": "20260813-trial-product-role-fix-v8",
+  "approval_batch": "20260813-trial-product-role-fix-v8",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
   "principle": "formal product images, valid detailed DMs, and the trial showcase component are separate media roles; products-v3 remains immutable real-product identity reference only",
@@ -32,7 +32,7 @@
       "name": "龜鹿飲180cc鋁袋",
       "spec": "180cc／包（鋁袋）",
       "rules": ["鋁袋","不改袋型","不改比例","不得亂畫包裝","產品主圖不得使用詳細DM海報"],
-      "image": "/images/products-v2/guilu-drink-180.jpeg",
+      "image": "/images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
       "dm": "/images/dm-approved-v20260810/guilu-drink-180cc.webp",
       "status": "approved_display",
       "binary_status": "verified_real_foil_pouch_product_photo_1022x1536_non_dm"

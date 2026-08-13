@@ -1,5 +1,5 @@
 (()=>{
-const V='20260813-trial-product-role-fix-v7';
+const V='20260813-trial-product-role-fix-v8';
 const pathBase=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
 const replace=(img,path)=>{if(!path)return;img.src=pathBase+path+(path.includes('?')?'&':'?')+'v='+V;img.style.objectFit='contain';img.style.objectPosition='center';img.removeAttribute('width');img.removeAttribute('height');};
 function fixDmEntry(){

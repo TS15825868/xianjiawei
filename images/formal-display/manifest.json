@@ -1,6 +1,6 @@
 {
-  "runtime": "20260813-trial-product-role-fix-v7",
-  "approval_batch": "20260813-trial-product-role-fix-v7",
+  "runtime": "20260813-trial-product-role-fix-v8",
+  "approval_batch": "20260813-trial-product-role-fix-v8",
   "products": {
     "guilu-gao": {
       "name": "龜鹿膏",
@@ -23,7 +23,7 @@
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
       "spec": "180cc／包（鋁袋）",
-      "path": "/images/products-v2/guilu-drink-180.jpeg",
+      "path": "/images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
       "status": "approved_display",
       "format": "jpeg",
       "binary_status": "verified_real_foil_pouch_product_photo_1022x1536_non_dm",

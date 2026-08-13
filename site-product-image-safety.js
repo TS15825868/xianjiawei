@@ -5,11 +5,11 @@
  * DM 為獨立角色；180cc 明確禁止以詳細DM海報取代產品主圖。
  */
 (function(){
-  const VERSION='20260813-trial-product-role-fix-v7';
+  const VERSION='20260813-trial-product-role-fix-v8';
   const CUSTOMER=Object.freeze({
     gao:`images/customer-display-v20260812/guilu-gao.avif?v=${VERSION}`,
     drink30:`images/customer-display-v20260812/guilu-drink-30cc.avif?v=${VERSION}`,
-    drink180:`images/products-v2/guilu-drink-180.jpeg?v=${VERSION}`,
+    drink180:`images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=${VERSION}`,
     tangkuai:`images/customer-display-v20260812/guilu-tangkuai.avif?v=${VERSION}`,
     jiao:`images/customer-display-v20260812/guilu-jiao.avif?v=${VERSION}`,
     luerong:`images/customer-display-v20260812/luerong-fen.avif?v=${VERSION}`

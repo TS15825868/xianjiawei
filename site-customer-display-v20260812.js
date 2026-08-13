@@ -9,11 +9,11 @@
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260813-trial-product-role-fix-v7';
+  const VERSION='20260813-trial-product-role-fix-v8';
   const DISPLAY=Object.freeze({
     'guilu-gao':'images/customer-display-v20260812/guilu-gao.avif',
     'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc.avif',
-    'guilu-drink-180':'images/products-v2/guilu-drink-180.jpeg',
+    'guilu-drink-180':'images/customer-display-v20260812/guilu-drink-180cc-product.jpg',
     'guilu-tangkuai':'images/customer-display-v20260812/guilu-tangkuai.avif',
     'guilu-jiao':'images/customer-display-v20260812/guilu-jiao.avif',
     'luerong-fen':'images/customer-display-v20260812/luerong-fen.avif'

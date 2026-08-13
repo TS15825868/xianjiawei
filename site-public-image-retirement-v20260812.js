@@ -8,11 +8,11 @@
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260813-trial-product-role-fix-v7';
+  const VERSION='20260813-trial-product-role-fix-v8';
   const PRODUCT_REPLACEMENTS=Object.freeze({
     'product-guilu-gao-100g.webp':`images/customer-display-v20260812/guilu-gao.avif?v=${VERSION}`,
     'product-guilu-drink-30cc.webp':`images/customer-display-v20260812/guilu-drink-30cc.avif?v=${VERSION}`,
-    'product-guilu-drink-180cc.webp':`images/products-v2/guilu-drink-180.jpeg?v=${VERSION}`,
+    'product-guilu-drink-180cc.webp':`images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=${VERSION}`,
     'product-guilu-tangkuai-75g.webp':`images/customer-display-v20260812/guilu-tangkuai.avif?v=${VERSION}`,
     'product-guilu-jiao-600g.webp':`images/customer-display-v20260812/guilu-jiao.avif?v=${VERSION}`,
     'product-luerong-fen-75g.webp':`images/customer-display-v20260812/luerong-fen.avif?v=${VERSION}`
@@ -39,7 +39,7 @@
   }
   function productReplacement(value=''){
     const raw=String(value||'');
-    if(WRONG_ROLE_180.test(raw))return`images/products-v2/guilu-drink-180.jpeg?v=${VERSION}`;
+    if(WRONG_ROLE_180.test(raw))return`images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=${VERSION}`;
     const path=clean(value);
     if(!path.includes(APPROVED_PREFIX))return'';
     return PRODUCT_REPLACEMENTS[basename(path)]||'';

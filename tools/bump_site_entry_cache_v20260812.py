@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "20260813-trial-product-role-fix-v7"
+VERSION = "20260813-trial-product-role-fix-v8"
 PATTERN = re.compile(r'(?P<prefix>(?:src|href)=["\'])(?P<file>site(?:-[^?"\']+)?\.(?:js|css))\?v=[^"\']+(?P<suffix>["\'])', re.I)
 
 RETIRED_META_IMAGES = {
@@ -25,8 +25,8 @@ SAFE_META_IMAGE = "https://ts15825868.github.io/xianjiawei/images/logo.png"
 HD_BRAND = "https://ts15825868.github.io/xianjiawei/images/brand/hd-v20260812/brand-story.png"
 HD_CHOOSE = "https://ts15825868.github.io/xianjiawei/images/brand/hd-v20260812/choose.jpg"
 HD_FAQ = "https://ts15825868.github.io/xianjiawei/images/brand/hd-v20260812/faq.png"
-GOOD_180_REL = f"images/products-v2/guilu-drink-180.jpeg?v={VERSION}"
-GOOD_180_ABS = f"https://ts15825868.github.io/xianjiawei/images/products-v2/guilu-drink-180.jpeg?v={VERSION}"
+GOOD_180_REL = f"images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v={VERSION}"
+GOOD_180_ABS = f"https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v={VERSION}"
 GOOD_TRIAL_PREVIEW = f"https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-drink-30cc.avif?v={VERSION}"
 
 changed = []
