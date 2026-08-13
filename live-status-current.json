@@ -1,37 +1,71 @@
 {
-  "status": "pages_built_verified",
-  "content_release": "20260812-formal-image-fix-v3",
-  "verified_content_commit": "bfc4983149f620ded72821d9e24e6bf2f166b1cd",
-  "verified_pages_run_id": 31601972151,
-  "verified_pages_run_number": 6137,
-  "updated_at_utc": "2026-08-12T13:33:32Z",
-  "product_image_authority": "six-user-confirmed-formal-product-webp-images",
-  "product_dm_authority": "six-separate-detailed-dm-images-decodable",
-  "trial_media_authority": "images/customer-display-v20260812/trial-small-boss.webp",
-  "trial_line_compatible": "images/customer-display-v20260812/trial-small-boss.jpg",
-  "trial_media_version": "20260812-formal-image-fix-v3",
-  "trial_media_source": "user-provided-small-boss-trial-master-20260812",
-  "trial_character": "仙加味Q版小老闆＋小鹿＋小烏龜",
+  "status": "pages_deployed_release_v8",
+  "content_release": "20260813-trial-product-role-fix-v8",
+  "verified_site_release_commit": "cf4b25a9b3d33a3da4ba149cc44ae26ff6c73fc0",
+  "verified_repo_cleanup_commit": "ab05259510f612e05799bdafd2aadf8ebca42316",
+  "verified_pages_run_id": 31663133634,
+  "verified_pages_run_number": 6239,
+  "verified_pages_conclusion": "success",
+  "updated_at_utc": "2026-08-13T03:11:33Z",
+  "runtime_cache_version": "20260813-trial-product-role-fix-v8",
+  "product_media_policy": "formal product main images / detailed DMs / trial showcase are three separate roles",
+  "product_image_authority": {
+    "guilu-gao": "images/customer-display-v20260812/guilu-gao.avif",
+    "guilu-drink-30cc": "images/customer-display-v20260812/guilu-drink-30cc.avif",
+    "guilu-drink-180cc": "images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
+    "guilu-tangkuai": "images/customer-display-v20260812/guilu-tangkuai.avif",
+    "guilu-jiao": "images/customer-display-v20260812/guilu-jiao.avif",
+    "luerong-fen": "images/customer-display-v20260812/luerong-fen.avif"
+  },
+  "guilu_drink_180_product_master": {
+    "path": "images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
+    "source_identity_copy": "images/products-v3/guilu-drink-180.jpg",
+    "bytes": 315576,
+    "sha256": "719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62",
+    "role": "product-main-image",
+    "dm_path": "images/dm-approved-v20260810/guilu-drink-180cc.webp",
+    "rule": "產品主圖與詳細DM不可互換"
+  },
+  "trial_media_authority": {
+    "render_mode": "component",
+    "component_id": "trial-showcase-v20260813",
+    "mascot_support": "images/post-library/userzip3-v20260811/self-care-family-2.webp",
+    "product_image": "images/customer-display-v20260812/guilu-drink-30cc.avif",
+    "layout": "natural-height; contain; no fixed crop; product cards have independent media/content/actions sections",
+    "reason": "先前trial-small-boss webp/jpg/png雖可解碼但共用已花圖來源像素，因此全部退出網站正式runtime"
+  },
   "retired_trial_paths": [
     "images/customer-display-v20260812/trial.webp",
+    "images/customer-display-v20260812/trial-clean-v4.svg",
+    "images/customer-display-v20260812/trial-small-boss.webp",
+    "images/customer-display-v20260812/trial-small-boss.jpg",
+    "images/customer-display-v20260812/trial-small-boss.png",
     "images/dm-approved-v20260810/guilu-drink-trial.webp",
-    "images/dm-approved-v20260810/guilu-drink-trial.png",
-    "images/customer-display-v20260812/trial-clean-v4.svg"
+    "images/dm-approved-v20260810/guilu-drink-trial.png"
   ],
-  "retired_trial_alias_policy": "legacy raster aliases resolve to current trial-small-boss artwork; retired SVG is rejected by current authority and guardian",
-  "repaired_formal_media": "broken 50/77-byte aliases rebuilt as decodable images; invalid guilu-gao WebP rebuilt from approved JPEG source",
-  "media_role_policy": "six product images / six detailed DMs / trial-small-boss are separate roles and may not replace one another",
-  "product_identity_reference": "products-v3-real-product-package-shape-proportion-reference-only",
+  "retired_wrong_role_product_paths": [
+    "images/customer-display-v20260812/guilu-drink-180cc.jpg"
+  ],
   "product_specs": {
+    "guilu_gao": "100g／罐",
+    "guilu_drink_30cc": "30cc／罐（小玻璃罐）",
+    "guilu_drink_180cc": "180cc／包（鋁袋）",
     "guilu_tangkuai_main": "75g／盒｜8塊裝",
     "guilu_tangkuai_detail_only": "每塊約9.375g",
     "guilu_jiao_main": "600g（1斤）／盒｜32塊裝",
-    "guilu_jiao_detail_only": "每塊約18.75g"
+    "guilu_jiao_detail_only": "每塊約18.75g",
+    "luerong_fen": "75g／罐"
   },
-  "runtime_cache_version": "20260812-formal-image-fix-v3",
-  "site_entry_cache_refs": "all root HTML site*.js/site*.css refs unified to current version",
-  "mascot_support_placement": ["home-line-cta","choose","faq","contact","trial-uses-dedicated-trial-small-boss"],
+  "previous_visual_repairs_retained": {
+    "transparent_gray_hero_circle": "retired globally",
+    "brand_story": "high-resolution layout retained",
+    "image_fit": "contain-no-stretch",
+    "mobile_trial_cards": "height-auto and content-contained"
+  },
   "blocking_guards": false,
   "guard_mode": "paused_for_full_system_update",
-  "pages_live_verified": true
+  "manual_current_guard": ".github/workflows/formal-media-guard.yml",
+  "manual_cache_validation": ".github/workflows/bump-site-entry-cache-v20260812.yml",
+  "pages_deployment_verified": true,
+  "device_visual_note": "GitHub Pages部署與正式程式/素材已驗證；實體iPhone Safari最終像素視覺仍以使用者裝置截圖為最後人工驗收"
 }
