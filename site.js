@@ -1,11 +1,11 @@
 "use strict";
 
-/* 全站入口 2026-08-12：產品資料權威 → 六張正式產品圖 → 獨立DM權威 → 核心 → 圖片安全 → 正式規格 → 顧客版清理 → 公開舊圖退役 → 小老闆輔助情境 → 視覺層。 */
+/* 全站入口 2026-08-13：產品資料權威 → 正式產品圖 → 獨立DM權威 → 核心 → 圖片安全 → 正式規格 → 顧客版清理 → 公開舊圖退役 → 小老闆輔助情境 → 視覺層。 */
 (function () {
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260813-sharp-formal-media-v6";
+  const VERSION = "20260813-trial-product-role-fix-v7";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
