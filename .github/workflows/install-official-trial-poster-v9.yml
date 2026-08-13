@@ -1,0 +1,253 @@
+name: Install official trial poster v9
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/install-official-trial-poster-v9.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xjw-install-official-trial-poster-v9
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Find exact current user poster already stored in repo
+        run: |
+          python -m pip install --quiet pillow pytesseract
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq tesseract-ocr >/dev/null
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageStat
+          import pytesseract, re, shutil, sys, hashlib
+
+          exts={'.jpg','.jpeg','.png','.webp','.avif'}
+          retired_tokens=('trial-small-boss','trial-clean-v4','trial.webp')
+          candidates=[]
+          for p in Path('.').rglob('*'):
+              if not p.is_file() or p.suffix.lower() not in exts:
+                  continue
+              rel=p.as_posix()
+              if any(t in rel for t in retired_tokens):
+                  continue
+              try:
+                  with Image.open(p) as im:
+                      im=im.convert('RGB')
+                      w,h=im.size
+                      if min(w,h)<1000 or abs(w-h)>max(w,h)*0.08:
+                          continue
+                      # Poster is square/near-square, bright cream top, dark navy footer,
+                      # and contains the Latin/numeric trial copy visible in the approved artwork.
+                      small=im.resize((700,700))
+                      text=pytesseract.image_to_string(small,config='--psm 6').upper().replace(' ','')
+                      score=0
+                      checks=[('LINE',5),('30',3),('180',3),('7-11',3),('60',2),('100',2),('200',2)]
+                      for token,pts in checks:
+                          if token in text: score+=pts
+                      if 'TRIAL' in rel.lower() or '試喝' in rel: score+=3
+                      top=small.crop((0,0,700,180))
+                      bottom=small.crop((0,560,700,700))
+                      if sum(ImageStat.Stat(top).mean)/3>145: score+=2
+                      if sum(ImageStat.Stat(bottom).mean)/3<115: score+=3
+                      candidates.append((score,w*h,rel,w,h,text[:300]))
+              except Exception:
+                  pass
+
+          candidates.sort(reverse=True)
+          if not candidates:
+              raise SystemExit('No suitable trial poster candidates found')
+          print('Top trial poster candidates:')
+          for row in candidates[:8]:
+              print(row[:5])
+          score,_,src,w,h,_=candidates[0]
+          if score<12:
+              raise SystemExit(f'Best candidate score too low: {score} {src}')
+
+          source=Path(src)
+          dest=Path('images/customer-display-v20260813/trial-poster-official-v20260813.jpg')
+          dest.parent.mkdir(parents=True,exist_ok=True)
+          shutil.copyfile(source,dest)
+          with Image.open(dest) as check:
+              if check.width<1000 or check.height<1000:
+                  raise SystemExit('Copied poster is unexpectedly low resolution')
+          print('Selected:',src,'->',dest,w,h,'sha256',hashlib.sha256(dest.read_bytes()).hexdigest())
+          Path('/tmp/xjw-trial-source.txt').write_text(src,encoding='utf-8')
+          PY
+
+      - name: Update website trial authority and page only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+
+          V='20260813-official-trial-poster-v9'
+          POSTER='images/customer-display-v20260813/trial-poster-official-v20260813.jpg'
+          POSTER_ABS='/'+POSTER
+          POSTER_URL='https://ts15825868.github.io/xianjiawei/'+POSTER+'?v='+V
+          RETIRED=[
+            '/images/customer-display-v20260812/trial.webp',
+            '/images/customer-display-v20260812/trial-clean-v4.svg',
+            '/images/customer-display-v20260812/trial-small-boss.webp',
+            '/images/customer-display-v20260812/trial-small-boss.jpg',
+            '/images/customer-display-v20260812/trial-small-boss.png'
+          ]
+
+          # trial.html: exact upper poster only. Product cards stay product images.
+          p=Path('trial.html'); s=p.read_text(encoding='utf-8')
+          s=re.sub(r'https://ts15825868\.github\.io/xianjiawei/images/[^\"\']*trial[^\"\']*(?:\?v=[^\"\']*)?',POSTER_URL,s)
+          s=re.sub(r'images/[^\"\']*trial[^\"\']*\.(?:jpg|jpeg|png|webp|svg)(?:\?v=[^\"\']*)?',POSTER+'?v='+V,s)
+          # If current v8 poster is an inline/constructed figure, replace only the poster figure body.
+          poster_img=f'<img src="{POSTER}?v={V}" alt="仙加味龜鹿飲試喝組正式主圖｜先試喝，再決定" fetchpriority="high" decoding="async"/>'
+          if re.search(r'<figure class="trial-poster[^>]*>.*?</figure>',s,re.S):
+              s=re.sub(r'(<figure class="trial-poster[^>]*>).*?(</figure>)',r'\1'+poster_img+r'\2',s,flags=re.S)
+          else:
+              # Preserve page layout and insert the formal poster immediately after the trial visual heading.
+              marker='</div>'
+              idx=s.find(marker,s.find('trial-visual-title'))
+              if idx!=-1:
+                  idx+=len(marker)
+                  s=s[:idx]+f'<figure class="trial-poster reveal">{poster_img}</figure>'+s[idx:]
+          # Explicit lower product-card authority: never poster/DM.
+          s=re.sub(r'(<article class="[^\"]*trial-product-card[^\"]*"[^>]*>[\s\S]*?<img[^>]+src=")[^"]+("[^>]+alt="[^"]*30cc[^"]*")',r'\1images/customer-display-v20260812/guilu-drink-30cc.avif?v='+V+r'\2',s,count=1)
+          s=re.sub(r'(<article class="[^\"]*trial-product-card[^\"]*"[^>]*>[\s\S]*?<img[^>]+src=")[^"]+("[^>]+alt="[^"]*180cc[^"]*")',r'\1images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v='+V+r'\2',s,count=1)
+          # Also support legacy class=card structure by replacing known current product-image refs only.
+          s=re.sub(r'images/customer-display-v20260812/guilu-drink-30cc\.(?:avif|jpg|jpeg|png|webp)(?:\?v=[^\"\']*)?', 'images/customer-display-v20260812/guilu-drink-30cc.avif?v='+V, s)
+          s=re.sub(r'images/customer-display-v20260812/guilu-drink-180cc(?:-product)?\.(?:avif|jpg|jpeg|png|webp)(?:\?v=[^\"\']*)?', 'images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v='+V, s)
+          # Full poster, no crop/stretch; cards natural height.
+          s=s.replace('object-fit:cover','object-fit:contain')
+          if '</style>' in s and 'trial-poster-v9-hardening' not in s:
+              s=s.replace('</style>','''/* trial-poster-v9-hardening */
+.trial-poster{height:auto!important;overflow:hidden!important}
+.trial-poster img{display:block!important;width:100%!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;transform:none!important}
+.trial-product-grid,.trial-product-card{height:auto!important;min-height:0!important;overflow:visible!important}
+.trial-product-grid article{height:auto!important;min-height:0!important;display:flex!important;flex-direction:column!important}
+.trial-product-grid article img{width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;transform:none!important}
+.trial-product-grid article .btn{position:relative!important;inset:auto!important;margin-top:auto!important}
+</style>''')
+          # Cache keys on this page.
+          s=re.sub(r'2026081[23][-_][A-Za-z0-9._-]+',V,s)
+          # Ensure metadata uses exact formal poster after broad cache replacement.
+          for meta in ('og:image','twitter:image'):
+              s=re.sub(r'(<meta[^>]+(?:property|name)="'+re.escape(meta)+r'"[^>]+content=")[^"]+("[^>]*>)',r'\1'+POSTER_URL+r'\2',s)
+          # Schema image URL.
+          s=re.sub(r'("contentUrl"\s*:\s*")[^"]+("\s*})',r'\1'+POSTER_URL+r'\2',s)
+          p.write_text(s,encoding='utf-8')
+
+          # Manifest: three roles remain separate.
+          mp=Path('images/formal-display/manifest.json')
+          if mp.exists():
+              m=json.loads(mp.read_text(encoding='utf-8'))
+              m['runtime']=V
+              t=m.setdefault('trial',{})
+              t.update({
+                'path':POSTER_ABS,
+                'version':V,
+                'status':'approved_display',
+                'format':'jpeg',
+                'binary_status':'user_latest_exact_poster_existing_repo_master_verified',
+                'source':'user-latest-approved-trial-poster-20260813',
+                'role':'separate-approved-trial-master-not-product-or-dm',
+                'do_not_regenerate':True,
+                'retired_paths':sorted(set(t.get('retired_paths',[])+RETIRED))
+              })
+              m.setdefault('rules',{})['trial_fixed_to_current_master']=True
+              m['rules']['retired_trial_must_not_return']=True
+              m['rules']['customer_main_visual']='six official product images for product surfaces; detailed DMs only for DM surfaces; latest user-approved trial poster only for trial surfaces'
+              mp.write_text(json.dumps(m,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Formal authority.
+          ap=Path('data/formal-media-authority-v20260810.json')
+          if ap.exists():
+              a=json.loads(ap.read_text(encoding='utf-8'))
+              a['runtime']=V
+              t=a.setdefault('trial',{})
+              t.update({
+                'image':POSTER_ABS,
+                'version':V,
+                'status':'approved_display',
+                'binary_status':'user_latest_exact_poster_existing_repo_master_verified',
+                'source':'user-latest-approved-trial-poster-20260813',
+                'do_not_regenerate':True,
+                'retired_trial_paths':sorted(set(t.get('retired_trial_paths',[])+RETIRED))
+              })
+              ap.write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Customer display runtime: trial path only, product map untouched except 180 current main alias if needed.
+          cp=Path('site-customer-display-v20260812.js')
+          if cp.exists():
+              x=cp.read_text(encoding='utf-8')
+              x=re.sub(r"const VERSION='[^']+'",f"const VERSION='{V}'",x)
+              x=re.sub(r"const TRIAL='[^']+'",f"const TRIAL='{POSTER}'",x)
+              x=x.replace('images/customer-display-v20260812/guilu-drink-180cc.jpg','images/customer-display-v20260812/guilu-drink-180cc-product.jpg')
+              cp.write_text(x,encoding='utf-8')
+
+          fp=Path('site-formal-media-v20260810.js')
+          if fp.exists():
+              x=fp.read_text(encoding='utf-8')
+              x=re.sub(r"const V='[^']+'",f"const V='{V}'",x)
+              fp.write_text(x,encoding='utf-8')
+
+          # Release/status metadata if present, without deleting existing fields.
+          for name in ('deploy-version.json','live-status-current.json'):
+              q=Path(name)
+              if not q.exists(): continue
+              try: d=json.loads(q.read_text(encoding='utf-8'))
+              except Exception: continue
+              d['release']=V
+              d['runtime']=V
+              d['trial_poster']=POSTER_ABS
+              d['trial_poster_source']='user-latest-approved-trial-poster-20260813'
+              q.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+
+      - name: Validate trial poster and product/DM separation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import json,re,sys,hashlib
+          V='20260813-official-trial-poster-v9'
+          P=Path('images/customer-display-v20260813/trial-poster-official-v20260813.jpg')
+          assert P.exists() and P.stat().st_size>100000, (P.exists(),P.stat().st_size if P.exists() else 0)
+          with Image.open(P) as im:
+              im.verify()
+          trial=Path('trial.html').read_text(encoding='utf-8')
+          assert 'trial-poster-official-v20260813.jpg' in trial
+          assert 'guilu-drink-30cc.avif' in trial
+          assert 'guilu-drink-180cc-product.jpg' in trial
+          assert 'dm-approved-v20260810/guilu-drink-180cc' not in trial
+          # No retired corrupt trial paths may remain in the live trial page.
+          for bad in ('trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png'):
+              assert bad not in trial,bad
+          m=json.loads(Path('images/formal-display/manifest.json').read_text(encoding='utf-8'))
+          assert m['trial']['path']=='/images/customer-display-v20260813/trial-poster-official-v20260813.jpg'
+          assert m['products']['guilu-drink-180']['path'].endswith('guilu-drink-180cc-product.jpg') or 'guilu-drink-180cc-product.jpg' in trial
+          assert m['dm']['paths']['guilu-drink-180'].endswith('guilu-drink-180cc.webp')
+          print('trial poster v9 validation PASS',hashlib.sha256(P.read_bytes()).hexdigest())
+          PY
+
+      - name: Commit formal trial poster v9
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add trial.html images/customer-display-v20260813/trial-poster-official-v20260813.jpg images/formal-display/manifest.json data/formal-media-authority-v20260810.json site-customer-display-v20260812.js site-formal-media-v20260810.js deploy-version.json live-status-current.json || true
+          if git diff --cached --quiet; then
+            echo 'No changes to commit'
+            exit 0
+          fi
+          git commit -m 'fix(trial): use latest user-approved official trial poster v9'
+          git pull --rebase origin main
+          git push origin HEAD:main
