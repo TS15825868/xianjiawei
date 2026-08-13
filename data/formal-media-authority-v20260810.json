@@ -4,7 +4,7 @@
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
   "principle": "formal product images, valid detailed DMs, and the trial showcase component are separate media roles; products-v3 remains immutable real-product identity reference only",
-  "product_image_authority": "formal product media only; 180cc currently uses a verified real foil-pouch product photo because the previous customer-display JPG was actually the DM poster",
+  "product_image_authority": "formal product media only; 180cc uses the exact user-approved 1122x1402 HD product master restored from repository history; detailed DM remains a separate role",
   "products": [
     {
       "id": "guilu-gao",
@@ -35,7 +35,8 @@
       "image": "/images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
       "dm": "/images/dm-approved-v20260810/guilu-drink-180cc.webp",
       "status": "approved_display",
-      "binary_status": "verified_real_foil_pouch_product_photo_1022x1536_non_dm"
+      "binary_status": "verified_exact_user_approved_hd_master_1122x1402_315576_bytes",
+      "sha256": "719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62"
     },
     {
       "id": "guilu-tangkuai",
