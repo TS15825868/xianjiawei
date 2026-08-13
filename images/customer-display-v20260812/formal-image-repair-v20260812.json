@@ -1,106 +1,31 @@
 {
-  "version": "20260812-formal-image-fix-v3",
-  "policy": "six-products-six-dms-trial-separated-no-redraw-no-crop-no-proportion-change",
-  "trialPolicy": "trial-small-boss-only-all-retired-aliases-resolve-current-master",
-  "files": [
-    {
-      "file": "images/dm-approved-v20260810/guilu-gao-100g.png",
-      "source": "images/dm-final/01_guilu-gao-100g-dm.jpg",
-      "width": 1122,
-      "height": 1402,
-      "bytes": 1935977,
-      "sha256": "52c7a22c28cac205aff5578ba57264d51933dc8b283d1212690de0f8c73c508a",
-      "role": "repaired-compatible-alias"
-    },
-    {
-      "file": "images/dm-approved-v20260810/guilu-drink-30cc.png",
-      "source": "images/dm-approved-v20260810/guilu-drink-30cc.webp",
-      "width": 320,
-      "height": 400,
-      "bytes": 135392,
-      "sha256": "630ea2b8ed32c6e7efd95ec45b4e2afeb9ad33b939546cbfea20b21d63aea6e1",
-      "role": "repaired-compatible-alias"
-    },
-    {
-      "file": "images/dm-approved-v20260810/guilu-drink-180cc.png",
-      "source": "images/dm-approved-v20260810/guilu-drink-180cc.webp",
-      "width": 320,
-      "height": 400,
-      "bytes": 136287,
-      "sha256": "a0243a90672bfe5de99cf458ae3b1a1d73480dd05fc56227097d973e1ba7d096",
-      "role": "repaired-compatible-alias"
-    },
-    {
-      "file": "images/dm-approved-v20260810/guilu-tangkuai-75g.png",
-      "source": "images/dm-approved-v20260810/guilu-tangkuai-75g.webp",
-      "width": 320,
-      "height": 400,
-      "bytes": 155190,
-      "sha256": "ceb5e5bfe2218dac43abe9a8f66fb018e14c0878b017c57e430e371effcf7a59",
-      "role": "repaired-compatible-alias"
-    },
-    {
-      "file": "images/dm-approved-v20260810/guilu-jiao-600g.png",
-      "source": "images/dm-approved-v20260810/guilu-jiao-600g.webp",
-      "width": 320,
-      "height": 400,
-      "bytes": 144776,
-      "sha256": "9e747fa1f46b2234a011c6395e7ffd0701aac7f129c6fc72cd1cd52a8b9c555d",
-      "role": "repaired-compatible-alias"
-    },
-    {
-      "file": "images/dm-approved-v20260810/lurong-fen-75g.png",
-      "source": "images/dm-approved-v20260810/lurong-fen-75g.webp",
-      "width": 320,
-      "height": 400,
-      "bytes": 134422,
-      "sha256": "797a2ffdd853d6118107b12f5d5d6b7658c4857c3eb632eff5d19368fd53250c",
-      "role": "repaired-compatible-alias"
-    },
-    {
-      "file": "images/dm-approved-v20260810/guilu-drink-trial.png",
-      "source": "images/customer-display-v20260812/trial-small-boss.webp",
-      "width": 400,
-      "height": 400,
-      "bytes": 345589,
-      "sha256": "4c0aa7e176ccb5572c8364e625227f93db0c26c8ae41bfd5caf5ebb219566e00",
-      "role": "repaired-compatible-alias"
-    },
-    {
-      "file": "images/dm-approved-v20260810/guilu-gao-100g.webp",
-      "source": "images/dm-final/01_guilu-gao-100g-dm.jpg",
-      "width": 1122,
-      "height": 1402,
-      "bytes": 320110,
-      "sha256": "6370190aa47dfa102ad93eda5680bf749eb6f8d9db37ea7a0343fe44ee8a4752",
-      "role": "repaired-current-dm-webp"
-    },
-    {
-      "file": "images/customer-display-v20260812/trial-small-boss.jpg",
-      "source": "images/customer-display-v20260812/trial-small-boss.webp",
-      "width": 400,
-      "height": 400,
-      "bytes": 81234,
-      "sha256": "1f5aaa647cf4d9e0eddd899dc87b2250b1ae6a1e607a611c518263706e4376f4",
-      "role": "line-compatible-exact-trial-master"
-    },
-    {
-      "file": "images/dm-approved-v20260810/guilu-drink-trial.webp",
-      "source": "images/customer-display-v20260812/trial-small-boss.webp",
-      "width": 400,
-      "height": 400,
-      "bytes": 36740,
-      "sha256": "15e3368f601a27f696686efb24053c60d41feacd8693f29add3dadaebbffca49",
-      "role": "retired-trial-alias-points-to-current-master"
-    },
-    {
-      "file": "images/customer-display-v20260812/trial.webp",
-      "source": "images/customer-display-v20260812/trial-small-boss.webp",
-      "width": 400,
-      "height": 400,
-      "bytes": 36740,
-      "sha256": "15e3368f601a27f696686efb24053c60d41feacd8693f29add3dadaebbffca49",
-      "role": "retired-trial-alias-points-to-current-master"
-    }
-  ]
+  "version": "20260813-trial-product-role-fix-v8",
+  "status": "historical-repair-record-retired-from-website-runtime",
+  "note": "This file replaces the old v3 repair manifest so future tooling does not treat structurally decodable but visually corrupted trial aliases as current website authority.",
+  "current_authority": {
+    "formal_media": "data/formal-media-authority-v20260810.json",
+    "display_manifest": "images/formal-display/manifest.json",
+    "website_trial_render_mode": "component",
+    "website_trial_component": "trial-showcase-v20260813",
+    "website_trial_mascot_support": "images/post-library/userzip3-v20260811/self-care-family-2.webp",
+    "website_trial_product_image": "images/customer-display-v20260812/guilu-drink-30cc.avif",
+    "guilu_drink_180_product": "images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
+    "guilu_drink_180_dm": "images/dm-approved-v20260810/guilu-drink-180cc.webp"
+  },
+  "retired_from_website_runtime": [
+    "images/customer-display-v20260812/trial.webp",
+    "images/customer-display-v20260812/trial-clean-v4.svg",
+    "images/customer-display-v20260812/trial-small-boss.webp",
+    "images/customer-display-v20260812/trial-small-boss.jpg",
+    "images/customer-display-v20260812/trial-small-boss.png",
+    "images/dm-approved-v20260810/guilu-drink-trial.webp",
+    "images/dm-approved-v20260810/guilu-drink-trial.png",
+    "images/customer-display-v20260812/guilu-drink-180cc.jpg"
+  ],
+  "retirement_reason": {
+    "trial_aliases": "The old trial-small-boss source pixels are visually corrupted/glitched even though some file containers decode successfully.",
+    "180cc_old_customer_jpg": "The file is a detailed DM poster and was assigned to the wrong product-main-image role."
+  },
+  "compatibility_policy": "Physical retired files may remain temporarily when another system could still reference them, but website runtime, authority, manifest, trial page, product cards and guards must not select them.",
+  "do_not_run_old_repair_logic": true
 }
