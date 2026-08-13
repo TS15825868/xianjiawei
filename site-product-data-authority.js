@@ -1,17 +1,16 @@
 "use strict";
 
-/* 仙加味目前產品資料權威層｜2026-08-12
- * 六張使用者確認的正式產品圖 = 官網／LINE／貼文產品主視覺。
- * 詳細 DM 與試喝圖為獨立媒體角色，不得反向覆蓋產品主圖。
- * 試喝目前唯一正式主圖為使用者最新提供的小老闆版本。
- * products-v3 只保留為真實產品外觀、包裝與比例的身份參考。
+/* 仙加味目前產品資料權威層｜2026-08-13 v7
+ * 六張正式產品圖／詳細DM／trial展示元件為三個獨立角色。
+ * 180cc 產品表面只用真實鋁袋產品照片；DM不得反向覆蓋產品主圖。
+ * 已知花圖的舊 trial-small-boss binary 全部退出網站 runtime。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__) return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260812-small-boss-trial-v1';
-  const DATA_CACHE_VERSION='20260812-small-boss-trial-v1';
+  const VERSION='20260813-trial-product-role-fix-v7';
+  const DATA_CACHE_VERSION=VERSION;
   const LINE_URL='https://lin.ee/sHZW7NkR';
 
   const OFFICIAL=Object.freeze({
@@ -26,13 +25,25 @@
   const CUSTOMER=Object.freeze({
     'guilu-gao':`images/customer-display-v20260812/guilu-gao.avif?v=${VERSION}`,
     'guilu-drink-30':`images/customer-display-v20260812/guilu-drink-30cc.avif?v=${VERSION}`,
-    'guilu-drink-180':`images/customer-display-v20260812/guilu-drink-180cc.jpg?v=${VERSION}`,
+    'guilu-drink-180':`images/products-v2/guilu-drink-180.jpeg?v=${VERSION}`,
     'guilu-tangkuai':`images/customer-display-v20260812/guilu-tangkuai.avif?v=${VERSION}`,
     'guilu-jiao':`images/customer-display-v20260812/guilu-jiao.avif?v=${VERSION}`,
     'luerong-fen':`images/customer-display-v20260812/luerong-fen.avif?v=${VERSION}`
   });
 
-  const TRIAL=`images/customer-display-v20260812/trial-small-boss.webp?v=${VERSION}`;
+  const TRIAL=Object.freeze({
+    mode:'component',
+    id:'trial-showcase-v20260813',
+    mascot:`images/post-library/userzip3-v20260811/self-care-family-2.webp?v=${VERSION}`,
+    product:CUSTOMER['guilu-drink-30'],
+    retired:Object.freeze([
+      'images/customer-display-v20260812/trial.webp',
+      'images/customer-display-v20260812/trial-clean-v4.svg',
+      'images/customer-display-v20260812/trial-small-boss.webp',
+      'images/customer-display-v20260812/trial-small-boss.jpg',
+      'images/customer-display-v20260812/trial-small-boss.png'
+    ])
+  });
   const ABS=(path)=>new URL(path,location.href).href;
 
   function normalizeData(data){
@@ -59,19 +70,22 @@
         image_url:customer,
         detailImages:[customer],
         officialOriginalImage:official||normalized.officialOriginalImage||'',
-        imagePolicy:'six-user-confirmed-product-visuals-contain-no-crop',
+        imagePolicy:'formal-product-image-only-contain-no-crop-no-dm-substitution',
         officialImagePolicy:'products-v3-real-product-identity-reference-only',
         physicalScalePolicy:'preserve-real-product-shape-package-and-proportion'
       };
     });
     data.runtime={
       ...(data.runtime||{}),
-      productMainImageSource:'20260812-six-user-confirmed-product-visuals',
+      productMainImageSource:VERSION,
       productImageVersion:VERSION,
       dmSource:'separate-detailed-dm-authority',
-      trialImage:TRIAL,
-      trialSource:'user-provided-small-boss-trial-master-20260812',
-      trialRole:'separate-trial-master-not-a-product-image-or-dm'
+      trialMode:TRIAL.mode,
+      trialComponent:TRIAL.id,
+      trialMascotSupport:TRIAL.mascot,
+      trialProductImage:TRIAL.product,
+      retiredTrialBinaries:[...TRIAL.retired],
+      trialRole:'separate-trial-component-not-a-product-image-or-dm'
     };
     return data;
   }
