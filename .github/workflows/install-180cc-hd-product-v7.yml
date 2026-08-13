@@ -1,0 +1,63 @@
+name: Install 180cc HD formal product v7
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_upload/180cc-hd-v7.ready'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Reassemble exact user-provided 180cc product master
+        shell: bash
+        run: |
+          set -euo pipefail
+          marker='_upload/180cc-hd-v7.ready'
+          if [ ! -f "$marker" ]; then
+            echo 'marker already consumed; nothing to install'
+            exit 0
+          fi
+          shopt -s nullglob
+          parts=(_upload/180cc-hd-v7.part-*)
+          test ${#parts[@]} -gt 0 || { echo 'missing 180cc chunks' >&2; exit 1; }
+          printf '%s\n' "${parts[@]}" | sort > /tmp/parts.txt
+          while IFS= read -r f; do cat "$f"; done < /tmp/parts.txt | base64 -d > /tmp/guilu-drink-180-hd.jpg
+          bytes=$(wc -c < /tmp/guilu-drink-180-hd.jpg)
+          test "$bytes" -gt 300000 || { echo "180cc HD file too small: $bytes" >&2; exit 1; }
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('/tmp/guilu-drink-180-hd.jpg')
+          b=p.read_bytes()
+          assert b[:3]==b'\xff\xd8\xff', 'not jpeg'
+          print('PASS JPEG bytes',len(b))
+          PY
+          mkdir -p images/products-v3 images/customer-display-v20260812
+          cp /tmp/guilu-drink-180-hd.jpg images/products-v3/guilu-drink-180.jpg
+          cp /tmp/guilu-drink-180-hd.jpg images/customer-display-v20260812/guilu-drink-180cc-product.jpg
+          rm -f _upload/180cc-hd-v7.part-* "$marker"
+
+      - name: Commit exact HD 180cc product image
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/products-v3/guilu-drink-180.jpg images/customer-display-v20260812/guilu-drink-180cc-product.jpg _upload
+          if git diff --cached --quiet; then
+            echo 'No binary changes required.'
+            exit 0
+          fi
+          git commit -m 'fix(images): install exact HD 180cc formal product master v7'
+          git push origin HEAD:main
