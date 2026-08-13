@@ -20,7 +20,7 @@ jobs:
           from PIL import Image
           import base64,hashlib
           parts=sorted(Path('_tmp/trial-poster-v12').glob('part-*.b64'))
-          assert len(parts)==40,len(parts)
+          assert len(parts)==10,len(parts)
           raw=base64.b64decode(''.join(p.read_text().strip() for p in parts))
           expected='9e4c0b66f1208b6d39954111590a450c3b57e7f6de95d31e4da56415206dc711'
           assert hashlib.sha256(raw).hexdigest()==expected
@@ -45,9 +45,8 @@ jobs:
           s,n=re.subn(r'<section class="section section--narrow" aria-labelledby="trial-visual-title">.*?</section>',section,s,count=1,flags=re.S); assert n==1
           if 'trial-poster-v12' not in s:
             s=s.replace('</style>','/* trial-poster-v12 */\n.trial-poster{max-width:900px;margin:0 auto;padding:5px;border:1px solid rgba(11,31,59,.08);border-radius:22px;background:#fff;box-shadow:0 16px 40px rgba(33,24,16,.08);overflow:hidden}.trial-poster img{display:block!important;width:100%!important;height:auto!important;max-width:100%!important;max-height:none!important;object-fit:contain!important;object-position:center!important;transform:none!important;filter:none!important}@media(max-width:700px){.trial-poster{padding:3px;border-radius:16px}}\n</style>',1)
-          # lower product cards stay formal product images
-          s=re.sub(r'images/customer-display-v20260812/guilu-drink-30cc\.(?:avif|jpg|jpeg|png|webp)(?:\?v=[^\"\']*)?',f'images/customer-display-v20260812/guilu-drink-30cc.avif?v={V}',s)
-          s=re.sub(r'images/customer-display-v20260812/guilu-drink-180cc(?:-product)?\.(?:avif|jpg|jpeg|png|webp)(?:\?v=[^\"\']*)?',f'images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v={V}',s)
+          s=re.sub(r'images/customer-display-v20260812/guilu-drink-30cc\.(?:avif|jpg|jpeg|png|webp)(?:\?v[^\"\']*)?',f'images/customer-display-v20260812/guilu-drink-30cc.avif?v={V}',s)
+          s=re.sub(r'images/customer-display-v20260812/guilu-drink-180cc(?:-product)?\.(?:avif|jpg|jpeg|png|webp)(?:\?v[^\"\']*)?',f'images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v={V}',s)
           for key in ('og:image','twitter:image'):
             s=re.sub(r'(<meta[^>]+(?:property|name)="'+re.escape(key)+r'"[^>]+content=")[^"]+("[^>]*>)',r'\1'+WEB+r'\2',s)
           s=re.sub(r'("contentUrl"\s*:\s*")[^"]+("\s*})',r'\1'+WEB+r'\2',s)
