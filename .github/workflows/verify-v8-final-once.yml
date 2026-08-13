@@ -1,0 +1,113 @@
+name: Verify website v8 final once
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-v8-final-once.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax
+        run: |
+          node --check site.js
+          node --check site-product-data-authority.js
+          node --check site-customer-display-v20260812.js
+          node --check site-dm-authority-v20260811.js
+          node --check site-product-image-safety.js
+          node --check site-public-image-retirement-v20260812.js
+          node --check site-formal-media-v20260810.js
+          node --check publishing-center-guardian.js
+      - name: Validate current v8 release authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,re
+          from pathlib import Path
+          V='20260813-trial-product-role-fix-v8'
+          P180='images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
+          WRONG180='images/customer-display-v20260812/guilu-drink-180cc.jpg'
+          specs={'guilu-gao':'100g／罐','guilu-drink-30cc':'30cc／罐（小玻璃罐）','guilu-drink-180cc':'180cc／包（鋁袋）','guilu-tangkuai':'75g／盒｜8塊裝','guilu-jiao':'600g（1斤）／盒｜32塊裝','luerong-fen':'75g／罐'}
+          a=json.loads(Path('data/formal-media-authority-v20260810.json').read_text(encoding='utf-8'))
+          m=json.loads(Path('images/formal-display/manifest.json').read_text(encoding='utf-8'))
+          assert a['runtime']==V and m['runtime']==V
+          assert a['approval_batch']==V and m['approval_batch']==V
+          assert len(a['products'])==6
+          for p in a['products']:
+              assert p['spec']==specs[p['id']], (p['id'],p['spec'])
+              assert Path(p['image'].lstrip('/')).is_file(), p['image']
+              assert Path(p['dm'].lstrip('/')).is_file(), p['dm']
+              assert p['image']!=p['dm']
+          p180=next(x for x in a['products'] if x['id']=='guilu-drink-180cc')
+          assert p180['image']=='/'+P180
+          assert p180['dm']=='/images/dm-approved-v20260810/guilu-drink-180cc.webp'
+          assert m['products']['guilu-drink-180']['path']=='/'+P180
+          b=Path(P180).read_bytes()
+          assert len(b)==315576 and b[:3]==b'\xff\xd8\xff'
+          assert hashlib.sha256(b).hexdigest()=='719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62'
+          assert a['trial']['render_mode']=='component' and a['trial']['component_id']=='trial-showcase-v20260813'
+          assert m['trial']['render_mode']=='component' and m['trial']['component_id']=='trial-showcase-v20260813'
+          print('PASS authority: six specs, exact 180cc product master, separate DM, trial component')
+
+          active=['site-product-data-authority.js','site-customer-display-v20260812.js','site-product-image-safety.js','site-public-image-retirement-v20260812.js','product-guilu-drink-180cc.html','trial.html']
+          for name in active:
+              text=Path(name).read_text(encoding='utf-8')
+              assert P180 in text, name
+              if name!='site-public-image-retirement-v20260812.js':
+                  assert WRONG180 not in text, name
+          dm=Path('site-dm-authority-v20260811.js').read_text(encoding='utf-8')
+          assert "const TRIAL='images/customer-display-v20260812/trial-small-boss.webp'" not in dm
+          assert 'trialMediaOwnedBy' in dm and 'trial-showcase-v20260813' in dm
+          guardian=Path('publishing-center-guardian.js').read_text(encoding='utf-8')
+          assert P180 in guardian
+          assert "const TRIAL='trial-small-boss.webp'" not in guardian
+          assert 'GUARD_BLOCKING=false' in guardian
+          print('PASS active runtime/guardian do not restore old trial or wrong-role 180cc DM')
+
+          trial=Path('trial.html').read_text(encoding='utf-8')
+          for bad in ['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png']:
+              assert bad not in trial, bad
+          for token in ['data-trial-showcase="official"','trial-product-card__media','trial-product-card__content','trial-product-card__actions','height:auto!important','object-fit:contain!important','data-product-key="drink30"','data-product-key="drink180"']:
+              assert token in trial, token
+          assert 'object-fit:cover!important' not in trial
+          assert 'min-height:430px' not in trial and 'min-height:320px;max-height:380px' not in trial
+          print('PASS trial: no corrupt poster, no fixed crop, natural product cards and contained actions')
+
+          site=Path('site.js').read_text(encoding='utf-8')
+          assert f'const VERSION = "{V}"' in site
+          pat=re.compile(r'(?:src|href)=["\']site(?:-[^?"\']+)?\.(?:js|css)\?v=([^"\']+)["\']',re.I)
+          refs=[(p.name,v) for p in Path('.').glob('*.html') for v in pat.findall(p.read_text(encoding='utf-8'))]
+          stale=[x for x in refs if x[1]!=V]
+          assert refs and not stale, stale[:20]
+          ux=Path('site-ux-v4104.css').read_text(encoding='utf-8')
+          assert 'body.ux-v410 .hero__content::after' in ux and 'content:none!important' in ux and 'background-image:none!important' in ux
+          brand=Path('brand.html').read_text(encoding='utf-8')
+          assert 'images/brand/hd-v20260812/brand-story.png' in brand
+          print('PASS cache v8 and previous transparent-circle/brand-story repairs retained')
+
+          obsolete=[
+            '.github/workflows/repair-formal-media-assets-v20260812.yml',
+            '.github/workflows/repair-formal-dm-webp.yml',
+            '.github/workflows/site-closeout-status-once.yml',
+            '.github/workflows/match-hd-product-sources-v7.yml',
+            'tools/repair_formal_media_assets_v20260812.py',
+            'tools/finalize_sharp_formal_media_v6.py',
+            'hd-source-match-v7.json',
+          ]
+          assert not [x for x in obsolete if Path(x).exists()], [x for x in obsolete if Path(x).exists()]
+          print('PASS obsolete repair/finalizer flows removed')
+          PY
