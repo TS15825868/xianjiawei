@@ -1,6 +1,6 @@
 {
-  "runtime": "20260813-sharp-formal-media-v6",
-  "approval_batch": "20260812-small-boss-trial-v1",
+  "runtime": "20260813-trial-product-role-fix-v7",
+  "approval_batch": "20260813-trial-product-role-fix-v7",
   "products": {
     "guilu-gao": {
       "name": "龜鹿膏",
@@ -23,11 +23,11 @@
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
       "spec": "180cc／包（鋁袋）",
-      "path": "/images/customer-display-v20260812/guilu-drink-180cc.jpg",
+      "path": "/images/products-v2/guilu-drink-180.jpeg",
       "status": "approved_display",
       "format": "jpeg",
-      "binary_status": "verified_high_resolution_1122x1402",
-      "display_rule": "foil pouch, no pouch/proportion changes"
+      "binary_status": "verified_real_foil_pouch_product_photo_1022x1536_non_dm",
+      "display_rule": "real foil pouch product photo; detailed DM poster is a separate role and cannot be used as product main image"
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",
@@ -82,26 +82,23 @@
       "luerong-fen": "valid_webp"
     },
     "retired_invalid_path": "/images/dm-approved-v20260810/guilu-gao-100g.webp",
-    "corrected": [
-      "guilu-drink-30",
-      "guilu-tangkuai",
-      "guilu-jiao"
-    ],
-    "rule": "DM files are separate from the six product images; never use the retired invalid guilu-gao WebP; do not upgrade DM from older large files until copy/spec is individually audited"
+    "corrected": ["guilu-drink-30", "guilu-tangkuai", "guilu-jiao"],
+    "rule": "DM files are separate from product main images; 180cc DM must never be used on a product-main-image surface; do not upgrade DM from older large files until copy/spec is individually audited"
   },
   "trial": {
-    "path": "/images/customer-display-v20260812/trial-small-boss.png",
-    "version": "20260813-trial-png-stability-v1",
-    "status": "approved_display",
-    "format": "png",
-    "binary_status": "stable_png_copy_of_current_user_provided_trial_master_400x400",
-    "source": "user-provided-small-boss-trial-master-20260812-same-pixels-png-copy",
-    "character": "仙加味小老闆＋小鹿＋小烏龜",
-    "role": "separate-approved-trial-master-not-a-product-image-or-dm",
+    "render_mode": "component",
+    "component_id": "trial-showcase-v20260813",
+    "status": "approved_component",
+    "mascot_support": "/images/post-library/userzip3-v20260811/self-care-family-2.webp",
+    "product_image": "/images/customer-display-v20260812/guilu-drink-30cc.avif",
+    "role": "separate-trial-component-not-a-product-image-or-dm",
+    "binary_policy": "the prior trial-small-boss webp/jpg/png share visually corrupted source pixels and are retired even if their containers decode",
     "retired_paths": [
       "/images/customer-display-v20260812/trial.webp",
       "/images/customer-display-v20260812/trial-clean-v4.svg",
-      "/images/customer-display-v20260812/trial-small-boss.webp"
+      "/images/customer-display-v20260812/trial-small-boss.webp",
+      "/images/customer-display-v20260812/trial-small-boss.jpg",
+      "/images/customer-display-v20260812/trial-small-boss.png"
     ],
     "rules": {
       "free_samples": 3,
@@ -115,10 +112,7 @@
       "price_180": "200元／包；買10送1，11包2,000元"
     }
   },
-  "repaired_invalid_webp": [
-    "guilu-gao",
-    "guilu-tangkuai"
-  ],
+  "repaired_invalid_webp": ["guilu-gao", "guilu-tangkuai"],
   "retired_low_resolution_product_paths": [
     "/images/customer-display-v20260812/guilu-gao.webp",
     "/images/customer-display-v20260812/guilu-drink-30cc.webp",
@@ -126,6 +120,9 @@
     "/images/customer-display-v20260812/guilu-tangkuai.webp",
     "/images/customer-display-v20260812/guilu-jiao.webp",
     "/images/customer-display-v20260812/luerong-fen.webp"
+  ],
+  "retired_wrong_role_product_paths": [
+    "/images/customer-display-v20260812/guilu-drink-180cc.jpg"
   ],
   "latestPostZip": {
     "catalog": "/data/post-library-userzip3-v20260811.json",
@@ -135,18 +132,18 @@
     "product_cards_are_not_product_authority": true
   },
   "rules": {
-    "product_authority": "six user-confirmed high-resolution product masters are the customer-facing product image authority; products-v3 remains physical identity reference only",
-    "customer_main_visual": "six HD official product masters for product surfaces; valid detailed DMs only for DM surfaces; user-provided small-boss trial poster only for trial surfaces",
+    "product_authority": "formal product images are for product surfaces only; products-v3 remains physical identity reference and 180cc currently uses the verified real foil-pouch product photo",
+    "customer_main_visual": "formal product media for product surfaces; valid detailed DMs only for DM surfaces; trial uses the approved component with mascot support plus formal 30cc product image",
     "no_ai_product_redraw": true,
     "no_stretch": true,
-    "trial_fixed_to_current_master": true,
+    "trial_component_authority": "trial-showcase-v20260813",
     "retired_trial_must_not_return": true,
     "drink30": "small bare glass jar, no label, no shape/proportion changes",
-    "drink180": "foil pouch, no pouch/proportion changes",
+    "drink180": "foil pouch, no pouch/proportion changes, no DM poster as main product image",
     "tangkuai_main_spec": "75g／盒｜8塊裝",
     "jiao_main_spec": "600g（1斤）／盒｜32塊裝",
     "piece_weight_policy": "9.375g and 18.75g are approximate detail data only, not product/DM main-image copy",
     "review_after_media_change": 16,
-    "guard_policy": "validate product image, valid detailed DM, user-provided trial and real-product identity separately; reject corrupt, low-resolution or retired media"
+    "guard_policy": "validate product image, valid detailed DM, trial component and real-product identity separately; reject corrupt, low-resolution, wrong-role or retired media"
   }
 }
