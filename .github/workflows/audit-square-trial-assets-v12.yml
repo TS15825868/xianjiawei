@@ -1,0 +1,39 @@
+name: Audit square trial assets v12
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/audit-square-trial-assets-v12.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: List square image candidates
+        run: |
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib
+          exts={'.jpg','.jpeg','.png','.webp','.avif'}
+          rows=[]
+          for p in Path('.').rglob('*'):
+            if not p.is_file() or p.suffix.lower() not in exts: continue
+            try:
+              with Image.open(p) as im:
+                w,h=im.size
+              if min(w,h) >= 800 and abs(w-h) <= max(w,h)*0.08:
+                raw=p.read_bytes()
+                rows.append((p.as_posix(),w,h,len(raw),hashlib.sha256(raw).hexdigest()))
+            except Exception:
+              pass
+          rows.sort(key=lambda x:(0 if 'trial' in x[0].lower() else 1,-x[3],x[0]))
+          print('SQUARE_CANDIDATES',len(rows))
+          for row in rows:
+            print('|'.join(map(str,row)))
+          PY
