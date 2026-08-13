@@ -1,18 +1,18 @@
 "use strict";
 
-/* 仙加味公開網站舊圖退役層｜2026-08-12 public-image-hotfix-v4
- * 目的：任何舊程式若再次插入 approved-v405 的生成式產品圖／產品拼圖，公開頁立即退役。
- * 六個產品型態改回使用者確認的六張正式產品圖；含多產品的舊情境拼圖不再出現在公開 DOM。
+/* 仙加味公開網站舊圖退役層｜2026-08-13 v7
+ * 任何舊程式若再次插入 approved-v405 的生成式產品圖／產品拼圖，公開頁立即退役。
+ * 產品型態改回正式產品圖；180cc 使用真實鋁袋產品照片，不得回到詳細DM海報。
  */
 (function(){
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260813-sharp-formal-media-v6';
+  const VERSION='20260813-trial-product-role-fix-v7';
   const PRODUCT_REPLACEMENTS=Object.freeze({
     'product-guilu-gao-100g.webp':`images/customer-display-v20260812/guilu-gao.avif?v=${VERSION}`,
     'product-guilu-drink-30cc.webp':`images/customer-display-v20260812/guilu-drink-30cc.avif?v=${VERSION}`,
-    'product-guilu-drink-180cc.webp':`images/customer-display-v20260812/guilu-drink-180cc.jpg?v=${VERSION}`,
+    'product-guilu-drink-180cc.webp':`images/products-v2/guilu-drink-180.jpeg?v=${VERSION}`,
     'product-guilu-tangkuai-75g.webp':`images/customer-display-v20260812/guilu-tangkuai.avif?v=${VERSION}`,
     'product-guilu-jiao-600g.webp':`images/customer-display-v20260812/guilu-jiao.avif?v=${VERSION}`,
     'product-luerong-fen-75g.webp':`images/customer-display-v20260812/luerong-fen.avif?v=${VERSION}`
@@ -26,6 +26,7 @@
   ]);
   const APPROVED_PREFIX='images/brand/approved-v405/';
   const SAFE_FALLBACK=`images/logo.png?v=${VERSION}`;
+  const WRONG_ROLE_180=/images\/customer-display-v20260812\/guilu-drink-180cc\.jpg/i;
 
   function clean(value=''){
     try{return new URL(String(value||''),location.href).pathname.replace(/^.*\/xianjiawei\//,'');}
@@ -37,6 +38,8 @@
     return path.includes(APPROVED_PREFIX)&&COMPOSITES.has(basename(path));
   }
   function productReplacement(value=''){
+    const raw=String(value||'');
+    if(WRONG_ROLE_180.test(raw))return`images/products-v2/guilu-drink-180.jpeg?v=${VERSION}`;
     const path=clean(value);
     if(!path.includes(APPROVED_PREFIX))return'';
     return PRODUCT_REPLACEMENTS[basename(path)]||'';
@@ -51,6 +54,7 @@
     const replacement=productReplacement(src);
     if(replacement){
       img.src=replacement;
+      img.removeAttribute('srcset');
       img.style.objectFit='contain';
       img.style.objectPosition='center';
       img.style.transform='none';
