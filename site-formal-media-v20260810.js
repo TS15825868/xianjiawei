@@ -1,5 +1,5 @@
 (()=>{
-const V='20260813-sharp-formal-media-v6';
+const V='20260813-trial-product-role-fix-v7';
 const pathBase=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
 const replace=(img,path)=>{if(!path)return;img.src=pathBase+path+(path.includes('?')?'&':'?')+'v='+V;img.style.objectFit='contain';img.style.objectPosition='center';img.removeAttribute('width');img.removeAttribute('height');};
 function fixDmEntry(){
@@ -27,6 +27,11 @@ fetch(pathBase+'/images/formal-display/manifest.json?v='+V,{cache:'no-store'}).t
    }
   });
  }
- if(/\/trial\.html$/.test(location.pathname)&&m.trial?.path){const hero=document.querySelector('.trial-poster img')||[...document.querySelectorAll('img')].find(img=>/試喝/.test((img.alt||'')+' '+(img.closest('section,article,figure,div')?.textContent||'')));if(hero)replace(hero,m.trial.path);}
+ /* trial.html 自 v7 起由 data-trial-showcase 元件自己管理小老闆＋30cc正式產品圖。
+    禁止再依 manifest 把舊 trial-small-boss 二進位覆寫回畫面。 */
+ if(/\/trial\.html$/.test(location.pathname)){
+   const showcase=document.querySelector('[data-trial-showcase="official"]');
+   if(showcase) document.documentElement.dataset.trialMediaMode='component-v7';
+ }
 }).catch(()=>{});
 })();
