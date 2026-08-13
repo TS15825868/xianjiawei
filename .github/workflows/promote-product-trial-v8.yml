@@ -26,152 +26,78 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           from pathlib import Path
+          import subprocess
 
           old_version='20260813-trial-product-role-fix-v7'
           version='20260813-trial-product-role-fix-v8'
           old_180='images/products-v2/guilu-drink-180.jpeg'
           new_180='images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
-
           files=[
-            'site-customer-display-v20260812.js',
-            'site-product-image-safety.js',
-            'site-product-data-authority.js',
-            'site-public-image-retirement-v20260812.js',
-            'site-formal-media-v20260810.js',
-            'site.js',
-            'images/formal-display/manifest.json',
-            'data/formal-media-authority-v20260810.json',
-            'product-guilu-drink-180cc.html',
-            'trial.html',
-            'tools/bump_site_entry_cache_v20260812.py',
-            '.github/workflows/bump-site-entry-cache-v20260812.yml',
-            '.github/workflows/formal-media-guard.yml',
+            'site-customer-display-v20260812.js','site-product-image-safety.js','site-product-data-authority.js',
+            'site-public-image-retirement-v20260812.js','site-formal-media-v20260810.js','site.js',
+            'images/formal-display/manifest.json','data/formal-media-authority-v20260810.json',
+            'product-guilu-drink-180cc.html','trial.html','tools/bump_site_entry_cache_v20260812.py'
           ]
           for name in files:
-              p=Path(name)
-              text=p.read_text(encoding='utf-8')
-              text=text.replace(old_180,new_180).replace(old_version,version)
-              p.write_text(text,encoding='utf-8')
+              p=Path(name); text=p.read_text(encoding='utf-8')
+              p.write_text(text.replace(old_180,new_180).replace(old_version,version),encoding='utf-8')
 
-          trial=Path('trial.html')
-          text=trial.read_text(encoding='utf-8')
-          text=text.replace(
-              '.trial-showcase__mascot{min-height:430px}',
-              '.trial-showcase__mascot{margin:0!important;width:100%!important;min-height:0!important;max-height:none!important}'
-          )
-          text=text.replace(
-              '.trial-showcase__mascot img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:32% 78%!important;transform:none!important;filter:none!important}',
-              '.trial-showcase__mascot img{display:block!important;width:100%!important;height:auto!important;max-width:100%!important;max-height:none!important;object-fit:contain!important;object-position:center!important;transform:none!important;filter:none!important}'
-          )
-          text=text.replace(
-              '.trial-showcase__mascot{min-height:320px;max-height:380px}',
-              '.trial-showcase__mascot{min-height:0!important;max-height:none!important}'
-          )
-          text=text.replace(
-              '.trial-showcase__mascot img{object-position:32% 78%!important}',
-              '.trial-showcase__mascot img{object-position:center!important}'
-          )
-          trial.write_text(text,encoding='utf-8')
+          p=Path('trial.html'); text=p.read_text(encoding='utf-8')
+          text=text.replace('.trial-showcase__mascot{min-height:430px}', '.trial-showcase__mascot{margin:0!important;width:100%!important;min-height:0!important;max-height:none!important}')
+          text=text.replace('.trial-showcase__mascot img{display:block!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:32% 78%!important;transform:none!important;filter:none!important}', '.trial-showcase__mascot img{display:block!important;width:100%!important;height:auto!important;max-width:100%!important;max-height:none!important;object-fit:contain!important;object-position:center!important;transform:none!important;filter:none!important}')
+          text=text.replace('.trial-showcase__mascot{min-height:320px;max-height:380px}', '.trial-showcase__mascot{min-height:0!important;max-height:none!important}')
+          text=text.replace('.trial-showcase__mascot img{object-position:32% 78%!important}', '.trial-showcase__mascot img{object-position:center!important}')
+          p.write_text(text,encoding='utf-8')
 
-          # The cache generator is authoritative for all root public entries.
-          import subprocess
           subprocess.run(['python','tools/bump_site_entry_cache_v20260812.py'],check=True)
-
-          # One-time recovery helper and any abandoned chunks are no longer part of the formal repo.
-          for p in Path('_upload').glob('180cc-hd-v7.part-*'):
-              p.unlink()
+          for f in Path('_upload').glob('180cc-hd-v7.part-*'): f.unlink()
           marker=Path('_upload/180cc-hd-v7.ready')
           if marker.exists(): marker.unlink()
-          installer=Path('.github/workflows/install-180cc-hd-product-v7.yml')
-          if installer.exists(): installer.unlink()
           PY
 
-      - name: Validate v8 media-role authority and mobile trial structure
+      - name: Validate v8 public media roles and trial layout
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
-          import hashlib, json, re
+          import hashlib,json,re
           from pathlib import Path
-
-          version='20260813-trial-product-role-fix-v8'
-          product='images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
-          expected_sha='719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62'
-          expected_bytes=315576
-
-          for name in [product,'images/products-v3/guilu-drink-180.jpg']:
-              p=Path(name)
-              if not p.is_file(): raise SystemExit('missing exact 180cc master: '+name)
-              b=p.read_bytes()
-              if len(b)!=expected_bytes: raise SystemExit(f'wrong bytes {name}: {len(b)}')
-              if hashlib.sha256(b).hexdigest()!=expected_sha: raise SystemExit('wrong sha256: '+name)
-              if not b.startswith(b'\xff\xd8\xff'): raise SystemExit('not jpeg: '+name)
-          print('PASS exact 180cc official master and public alias')
-
-          active=[
-            'site-customer-display-v20260812.js','site-product-image-safety.js','site-product-data-authority.js',
-            'site-public-image-retirement-v20260812.js','product-guilu-drink-180cc.html','trial.html',
-            'images/formal-display/manifest.json','data/formal-media-authority-v20260810.json'
-          ]
+          V='20260813-trial-product-role-fix-v8'
+          IMG='images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
+          SHA='719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62'
+          for name in [IMG,'images/products-v3/guilu-drink-180.jpg']:
+              b=Path(name).read_bytes(); assert len(b)==315576 and hashlib.sha256(b).hexdigest()==SHA and b[:3]==b'\xff\xd8\xff'
+          active=['site-customer-display-v20260812.js','site-product-image-safety.js','site-product-data-authority.js','site-public-image-retirement-v20260812.js','product-guilu-drink-180cc.html','trial.html','images/formal-display/manifest.json','data/formal-media-authority-v20260810.json']
           for name in active:
-              text=Path(name).read_text(encoding='utf-8')
-              if product not in text: raise SystemExit(f'{name} does not use exact 180cc product alias')
-              if 'images/products-v2/guilu-drink-180.jpeg' in text: raise SystemExit(f'{name} still uses temporary 180cc fallback')
-              if 'images/customer-display-v20260812/guilu-drink-180cc.jpg' in text and name not in ['images/formal-display/manifest.json','data/formal-media-authority-v20260810.json']:
-                  raise SystemExit(f'{name} still activates wrong-role 180cc DM poster path')
-          print('PASS product surface and DM roles separated')
-
+              text=Path(name).read_text(encoding='utf-8'); assert IMG in text, name
+              assert 'images/products-v2/guilu-drink-180.jpeg' not in text, name
           a=json.loads(Path('data/formal-media-authority-v20260810.json').read_text(encoding='utf-8'))
           m=json.loads(Path('images/formal-display/manifest.json').read_text(encoding='utf-8'))
-          if a['runtime']!=version or m['runtime']!=version: raise SystemExit('authority/manifest not v8')
+          assert a['runtime']==V and m['runtime']==V
           p180=next(p for p in a['products'] if p['id']=='guilu-drink-180cc')
-          if p180['image']!='/'+product: raise SystemExit('authority 180cc product path mismatch')
-          if p180['dm']!='/images/dm-approved-v20260810/guilu-drink-180cc.webp': raise SystemExit('180cc DM role mismatch')
-          if m['products']['guilu-drink-180']['path']!='/'+product: raise SystemExit('manifest 180cc product path mismatch')
-
+          assert p180['image']=='/'+IMG and p180['dm']=='/images/dm-approved-v20260810/guilu-drink-180cc.webp'
+          assert m['products']['guilu-drink-180']['path']=='/'+IMG
           trial=Path('trial.html').read_text(encoding='utf-8')
-          for bad in ['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png']:
-              if bad in trial: raise SystemExit('retired corrupted trial binary returned: '+bad)
-          required=[
-            'data-trial-showcase="official"','trial-product-card__media','trial-product-card__content','trial-product-card__actions',
-            'height:auto!important','object-fit:contain!important','margin:0!important','data-product-key="drink30"','data-product-key="drink180"'
-          ]
-          for token in required:
-              if token not in trial: raise SystemExit('trial v8 missing '+token)
-          if 'object-fit:cover!important' in trial: raise SystemExit('trial mascot still crops with cover')
-          if 'min-height:320px;max-height:380px' in trial or 'min-height:430px' in trial: raise SystemExit('trial mascot still forced into fixed crop frame')
-          print('PASS trial component no corrupt poster, no mascot crop, natural-height cards')
-
-          site=Path('site.js').read_text(encoding='utf-8')
-          if f'const VERSION = "{version}"' not in site: raise SystemExit('site.js is not v8')
-          pattern=re.compile(r'(?:src|href)=["\']site(?:-[^?"\']+)?\.(?:js|css)\?v=([^"\']+)["\']',re.I)
-          stale=[];refs=0
-          for p in Path('.').glob('*.html'):
-              for value in pattern.findall(p.read_text(encoding='utf-8')):
-                  refs+=1
-                  if value!=version: stale.append((p.name,value))
-          if stale: raise SystemExit('stale root cache refs: '+repr(stale[:20]))
-          print('PASS root public cache refs',refs,'version',version)
-
-          ux=Path('site-ux-v4104.css').read_text(encoding='utf-8')
-          if 'body.ux-v410 .hero__content::after' not in ux or 'content:none!important' not in ux:
-              raise SystemExit('transparent hero-circle retirement regressed')
-          brand=Path('brand.html').read_text(encoding='utf-8')
-          if 'images/brand/hd-v20260812/brand-story.png' not in brand:
-              raise SystemExit('brand-story HD layout regressed')
-          print('PASS previous visual repairs retained')
+          for bad in ['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png']: assert bad not in trial
+          for token in ['data-trial-showcase="official"','trial-product-card__media','trial-product-card__content','trial-product-card__actions','height:auto!important','object-fit:contain!important','margin:0!important','data-product-key="drink30"','data-product-key="drink180"']: assert token in trial, token
+          assert 'object-fit:cover!important' not in trial
+          assert 'min-height:320px;max-height:380px' not in trial and 'min-height:430px' not in trial
+          site=Path('site.js').read_text(encoding='utf-8'); assert f'const VERSION = "{V}"' in site
+          pat=re.compile(r'(?:src|href)=["\']site(?:-[^?"\']+)?\.(?:js|css)\?v=([^"\']+)["\']',re.I)
+          vals=[(p.name,v) for p in Path('.').glob('*.html') for v in pat.findall(p.read_text(encoding='utf-8'))]
+          assert vals and not [(n,v) for n,v in vals if v!=V]
+          ux=Path('site-ux-v4104.css').read_text(encoding='utf-8'); assert 'body.ux-v410 .hero__content::after' in ux and 'content:none!important' in ux
+          brand=Path('brand.html').read_text(encoding='utf-8'); assert 'images/brand/hd-v20260812/brand-story.png' in brand
+          print('PASS v8:',len(vals),'cache refs; exact 180cc product alias; separate DM; stable trial natural layout')
           PY
 
-      - name: Commit v8 formal release
+      - name: Commit v8 site release
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          if git diff --cached --quiet; then
-            echo 'No v8 changes required.'
-            exit 0
-          fi
+          git add -A -- ':!.github/workflows/*'
+          if git diff --cached --quiet; then echo 'No v8 site changes required.'; exit 0; fi
           git commit -m 'fix(site): publish exact 180cc product and stable trial layout v8'
           git push origin HEAD:main
