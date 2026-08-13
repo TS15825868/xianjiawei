@@ -1,16 +1,15 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-08-13 sharp-formal-media-v6
- * 顧客產品頁／產品卡：六張經驗證的高解析正式產品主圖優先。
- * DM：獨立媒體角色，由 DM 權威層管理；dm-approved 與 dm-final 目錄不得被產品圖安全層覆蓋。
- * products-v3：只保留為真實產品外觀、包裝與比例的實物身份參考。
+/* 官網顧客產品圖片安全層｜2026-08-13 product-role-fix-v7
+ * 產品卡／產品詳頁／Modal／trial產品卡只能使用正式產品主圖。
+ * DM 為獨立角色；180cc 明確禁止以詳細DM海報取代產品主圖。
  */
 (function(){
-  const VERSION='20260813-sharp-formal-media-v6';
+  const VERSION='20260813-trial-product-role-fix-v7';
   const CUSTOMER=Object.freeze({
     gao:`images/customer-display-v20260812/guilu-gao.avif?v=${VERSION}`,
     drink30:`images/customer-display-v20260812/guilu-drink-30cc.avif?v=${VERSION}`,
-    drink180:`images/customer-display-v20260812/guilu-drink-180cc.jpg?v=${VERSION}`,
+    drink180:`images/products-v2/guilu-drink-180.jpeg?v=${VERSION}`,
     tangkuai:`images/customer-display-v20260812/guilu-tangkuai.avif?v=${VERSION}`,
     jiao:`images/customer-display-v20260812/guilu-jiao.avif?v=${VERSION}`,
     luerong:`images/customer-display-v20260812/luerong-fen.avif?v=${VERSION}`
@@ -33,7 +32,7 @@
     const text=String(value||'');
     return Object.values(CUSTOMER).some(url=>text.includes(String(url).split('?')[0]));
   }
-  function isDetailedDm(value){return /\/images\/(?:dm-approved-v20260810|dm-final)\//i.test(String(value||''));}
+  function isDetailedDm(value){return /\/images\/(?:dm-approved-v20260810|dm-final|dm-v3)\//i.test(String(value||''));}
   function match(value){
     const text=String(value||'');
     if(alreadyCurrent(text)||isDetailedDm(text))return'';
@@ -44,9 +43,10 @@
   function forceImage(node,key){
     if(!node||!key||!CUSTOMER[key])return;
     node.setAttribute('src',CUSTOMER[key]);
+    node.removeAttribute('srcset');
     node.alt=ALT[key];
-    node.style.objectFit='contain';node.style.objectPosition='center';node.style.width='100%';node.style.height='100%';node.style.maxWidth='100%';node.style.maxHeight='100%';node.style.transform='none';node.style.clipPath='none';
-    node.dataset.xjwCustomerDisplay='official-product-image-sharp-formal-media-v6';
+    node.style.objectFit='contain';node.style.objectPosition='center';node.style.width='100%';node.style.maxWidth='100%';node.style.maxHeight='100%';node.style.transform='none';node.style.clipPath='none';
+    node.dataset.xjwCustomerDisplay='official-product-image-v7';
     node.dataset.xjwProductIdentityAuthority='products-v3';
     node.dataset.xjwScalePolicy='uniform-only-contain-no-stretch';
   }
@@ -66,9 +66,7 @@
     const modal=document.getElementById('product-modal');
     if(modal&&modal.classList.contains('show')){const key=keyFromModal(modal);if(key){modal.querySelectorAll('img').forEach(img=>forceImage(img,key));modal.querySelectorAll('a[href]').forEach(a=>{if(match(a.href))a.href=CUSTOMER[key];});}}
     if(location.pathname.toLowerCase().includes('trial.html')){
-      document.querySelectorAll('.trial-product-grid article').forEach(card=>{const text=card.textContent||'';const key=/180\s*cc/.test(text)?'drink180':/30\s*cc/.test(text)?'drink30':'';const img=card.querySelector('img');if(key&&img)forceImage(img,key);});
-      const intro=document.querySelector('#trial-products-title')?.parentElement?.querySelector('p:last-child');
-      if(intro)intro.textContent='試喝主圖與六張高解析正式產品主圖分開管理；產品本體仍以 products-v3 真實外觀、包裝與比例作校正。';
+      document.querySelectorAll('.trial-product-card').forEach(card=>{const key=String(card.dataset.productKey||'');const img=card.querySelector('.trial-product-card__media img');if(key&&img){forceImage(img,key);img.style.height='auto';img.style.maxHeight='none';}});
     }
   }
   function repair(root){
