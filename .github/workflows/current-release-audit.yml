@@ -1,7 +1,7 @@
-name: 仙加味目前權威完整驗收（手動）
+name: 仙加味目前權威完整驗收 v8（手動）
 
 # MAINTENANCE MODE：只手動執行，不阻擋目前三系統更新。
-# 使用者完成視覺／功能確認後，再決定是否把此能力式驗收接回自動守門。
+# 驗證目前正式能力與 authority，不鎖舊版本號／舊圖片／舊 trial。
 on:
   workflow_dispatch:
 
@@ -15,42 +15,99 @@ concurrency:
 jobs:
   current-authority-audit:
     runs-on: ubuntu-latest
+    timeout-minutes: 6
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Current six-product and customer page authority
+
+      - name: Validate current v8 authority and media roles
+        shell: bash
         run: |
-          python tools/validate-canonical-facts-v20260808.py
-          python tools/validate-public-customer-pages-v20260809.py
-          python tools/validate-site-production-release-v20260809.py
-      - name: Verify website runtime does not override current drink units
-        run: |
-          node - <<'NODE'
-          const fs=require('fs');
-          const src=fs.readFileSync('site-product-data-authority.js','utf8');
-          const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
-          must(src.includes("normalized.usage=['每日一罐'"),'30cc runtime must keep 每日一罐');
-          must(src.includes("normalized.usage=['每日一包'"),'180cc runtime must keep 每日一包');
-          must(!src.includes("normalized.usage=['每日一份'"),'runtime must not genericize drink units to 每日一份');
-          const zip=JSON.parse(fs.readFileSync('data/post-library-userzip3-v20260811.json','utf8'));
-          must(['pending','ready'].includes(zip.binary_sync?.status),'ZIP binary state must be explicit');
-          if(zip.binary_sync?.status==='pending'){
-            must(Number(zip.binary_sync?.publishable_count||0)===0,'pending ZIP binary must not claim publishable assets');
-            must((zip.safe_scene_priority||[]).every(x=>x.binary_ready===false&&!x.public_url),'pending ZIP scenes must not claim public URLs');
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,re
+          from pathlib import Path
+          V='20260813-trial-product-role-fix-v8'
+          P180='images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
+          specs={
+            'guilu-gao':'100g／罐',
+            'guilu-drink-30cc':'30cc／罐（小玻璃罐）',
+            'guilu-drink-180cc':'180cc／包（鋁袋）',
+            'guilu-tangkuai':'75g／盒｜8塊裝',
+            'guilu-jiao':'600g（1斤）／盒｜32塊裝',
+            'luerong-fen':'75g／罐',
           }
-          console.log(`PASS: website runtime drink units are explicit; ZIP binary state=${zip.binary_sync?.status}.`);
-          NODE
-      - name: Current publishing and media authority
+          a=json.loads(Path('data/formal-media-authority-v20260810.json').read_text(encoding='utf-8'))
+          m=json.loads(Path('images/formal-display/manifest.json').read_text(encoding='utf-8'))
+          assert a['runtime']==V and m['runtime']==V
+          assert len(a['products'])==6
+          for p in a['products']:
+              assert p['spec']==specs[p['id']], (p['id'],p['spec'])
+              image=p['image'].lstrip('/').split('?')[0]
+              dm=p['dm'].lstrip('/').split('?')[0]
+              assert Path(image).is_file(), image
+              assert Path(dm).is_file(), dm
+              assert image!=dm
+          p180=next(x for x in a['products'] if x['id']=='guilu-drink-180cc')
+          assert p180['image']=='/'+P180
+          assert p180['dm']=='/images/dm-approved-v20260810/guilu-drink-180cc.webp'
+          b=Path(P180).read_bytes()
+          assert len(b)==315576 and b[:3]==b'\xff\xd8\xff'
+          assert hashlib.sha256(b).hexdigest()=='719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62'
+          assert a['trial']['render_mode']=='component'
+          assert a['trial']['component_id']=='trial-showcase-v20260813'
+          assert m['trial']['component_id']=='trial-showcase-v20260813'
+          print('PASS six current specs, exact 180cc product master, separate DM and trial component')
+          PY
+
+      - name: Validate public runtime and mobile trial structure
+        shell: bash
         run: |
-          node tools/validate-post-bank-runtime-current.mjs
-          python tools/validate-post-bank-current-authority-v20260809.py
-          python tools/validate-post-bank-generators-v20260808.py
-          python tools/validate-publishing-content-match-v20260809.py
+          set -euo pipefail
+          node --check site-product-data-authority.js
+          node --check site-customer-display-v20260812.js
+          node --check site-dm-authority-v20260811.js
+          node --check site-product-image-safety.js
+          node --check site-public-image-retirement-v20260812.js
+          node --check site-formal-media-v20260810.js
+          node --check publishing-center-guardian.js
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          V='20260813-trial-product-role-fix-v8'
+          P180='images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
+          site=Path('site.js').read_text(encoding='utf-8')
+          assert f'const VERSION = "{V}"' in site
+          pat=re.compile(r'(?:src|href)=["\']site(?:-[^?"\']+)?\.(?:js|css)\?v=([^"\']+)["\']',re.I)
+          refs=[(p.name,v) for p in Path('.').glob('*.html') for v in pat.findall(p.read_text(encoding='utf-8'))]
+          assert refs and not [(n,v) for n,v in refs if v!=V]
+          trial=Path('trial.html').read_text(encoding='utf-8')
+          for bad in ['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png']:
+              assert bad not in trial, bad
+          for token in ['data-trial-showcase="official"','trial-product-card__media','trial-product-card__content','trial-product-card__actions','height:auto!important','object-fit:contain!important',P180]:
+              assert token in trial, token
+          assert 'object-fit:cover!important' not in trial
+          detail=Path('product-guilu-drink-180cc.html').read_text(encoding='utf-8')
+          assert P180 in detail
+          assert 'images/customer-display-v20260812/guilu-drink-180cc.jpg' not in detail
+          guardian=Path('publishing-center-guardian.js').read_text(encoding='utf-8')
+          assert P180 in guardian
+          assert "const TRIAL='trial-small-boss.webp'" not in guardian
+          dm=Path('site-dm-authority-v20260811.js').read_text(encoding='utf-8')
+          assert 'trialMediaOwnedBy' in dm
+          assert "const TRIAL='images/customer-display-v20260812/trial-small-boss.webp'" not in dm
+          ux=Path('site-ux-v4104.css').read_text(encoding='utf-8')
+          assert 'body.ux-v410 .hero__content::after' in ux and 'content:none!important' in ux
+          brand=Path('brand.html').read_text(encoding='utf-8')
+          assert 'images/brand/hd-v20260812/brand-story.png' in brand
+          print('PASS v8 runtime, trial natural layout, guardian, DM authority and prior visual repairs')
+          PY
+
       - name: Maintenance guard policy check
         shell: bash
         run: |
@@ -61,5 +118,5 @@ jobs:
           assert mode.get('mode')=='paused_for_full_system_update'
           assert mode.get('blocking') is False
           assert mode.get('keep_minimum_safety') is True
-          print('PASS: automatic blockers remain paused; current-authority full audit is available manually.')
+          print('PASS automatic blockers remain paused; current v8 audits are manual only.')
           PY
