@@ -26,8 +26,9 @@
       "path": "/images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
       "status": "approved_display",
       "format": "jpeg",
-      "binary_status": "verified_real_foil_pouch_product_photo_1022x1536_non_dm",
-      "display_rule": "real foil pouch product photo; detailed DM poster is a separate role and cannot be used as product main image"
+      "binary_status": "verified_exact_user_approved_hd_master_1122x1402_315576_bytes",
+      "sha256": "719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62",
+      "display_rule": "exact approved 180cc product master; detailed DM poster is a separate role and cannot be used as product main image"
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",
@@ -132,7 +133,7 @@
     "product_cards_are_not_product_authority": true
   },
   "rules": {
-    "product_authority": "formal product images are for product surfaces only; products-v3 remains physical identity reference and 180cc currently uses the verified real foil-pouch product photo",
+    "product_authority": "formal product images are for product surfaces only; products-v3 remains physical identity reference and 180cc uses the exact approved HD product master",
     "customer_main_visual": "formal product media for product surfaces; valid detailed DMs only for DM surfaces; trial uses the approved component with mascot support plus formal 30cc product image",
     "no_ai_product_redraw": true,
     "no_stretch": true,
