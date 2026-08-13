@@ -27,14 +27,14 @@ jobs:
           VERSION='20260813-trial-poster-user-final-v9'
           REL='images/trial/trial-poster-user-final-v20260813.jpg'
           WEB='https://ts15825868.github.io/xianjiawei/'+REL+'?v='+VERSION
-          EXPECTED_SHA='4c90e692c9687a72c90a3ddddde9b0da7216bf60084e4b38f422e44897975d92'
+          EXPECTED_SHA='edba3bc899f3ef6a19f8453fd0ac2d821b8166a3cb15f32a711bb6312198e430'
           chunks=sorted(Path('_tmp/trial-poster').glob('part-*.b64'))
           assert chunks, 'trial poster chunks missing'
           raw=base64.b64decode(''.join(p.read_text().strip() for p in chunks))
           assert hashlib.sha256(raw).hexdigest()==EXPECTED_SHA, 'trial poster checksum mismatch'
           out=Path(REL); out.parent.mkdir(parents=True,exist_ok=True); out.write_bytes(raw)
           with Image.open(out) as im:
-              assert im.size==(1254,1254), im.size
+              assert im.size==(900,900), im.size
               im.verify()
 
           # trial.html: only replace the top trial visual; preserve both product cards below.
@@ -59,7 +59,7 @@ jobs:
           m['runtime']=VERSION
           m['trial']={
             'render_mode':'poster','path':'/'+REL,'version':VERSION,
-            'status':'approved_user_provided_final','format':'jpeg','dimensions':'1254x1254',
+            'status':'approved_user_provided_final','format':'jpeg','dimensions':'900x900',
             'binary_status':'verified_decodable_user_upload_recompressed_for_web_without_content_change',
             'source':'user-upload-20260813-latest-approved-trial-poster',
             'character':'仙加味小老闆＋小鹿＋小烏龜','role':'separate-approved-trial-poster-not-product-or-dm',
@@ -77,7 +77,7 @@ jobs:
           a['approval_batch']='20260813-user-final-trial-poster-v1'
           a['trial']={
             'title':'龜鹿飲試喝組｜先試喝，再決定','render_mode':'poster','path':'/'+REL,
-            'version':VERSION,'status':'approved_user_provided_final','format':'jpeg','dimensions':'1254x1254',
+            'version':VERSION,'status':'approved_user_provided_final','format':'jpeg','dimensions':'900x900',
             'sha256':EXPECTED_SHA,'source':'user-upload-20260813-latest-approved-trial-poster',
             'do_not_use_as_product_image':True,'do_not_use_as_dm':True,'do_not_regenerate':True,
             'retired_trial_paths':['/images/customer-display-v20260812/trial.webp','/images/customer-display-v20260812/trial-clean-v4.svg','/images/customer-display-v20260812/trial-small-boss.webp','/images/customer-display-v20260812/trial-small-boss.jpg','/images/customer-display-v20260812/trial-small-boss.png'],
