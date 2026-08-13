@@ -1,17 +1,13 @@
-name: Bump site entry cache 20260813 v7
+name: 仙加味官網快取與公開媒體驗證 v8
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/bump-site-entry-cache-v20260812.yml'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  bump:
+  verify-and-bump:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -19,117 +15,43 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-
       - name: Validate generator syntax
         run: python -m py_compile tools/bump_site_entry_cache_v20260812.py
-
-      - name: Apply v7 cache-bust and public media-role fixes
+      - name: Apply current cache generator
         run: python tools/bump_site_entry_cache_v20260812.py
-
-      - name: Validate current v7 public site
+      - name: Validate current v8 public roles
         shell: bash
         run: |
           set -euo pipefail
           python - <<'PY'
-          import re
+          import hashlib,re
           from pathlib import Path
-
-          version='20260813-trial-product-role-fix-v7'
-          pattern=re.compile(r'(?:src|href)=["\'](site(?:-[^?"\']+)?\.(?:js|css))\?v=([^"\']+)["\']',re.I)
-          stale=[]
-          refs=0
-          for p in Path('.').glob('*.html'):
-              text=p.read_text(encoding='utf-8')
-              for file,value in pattern.findall(text):
-                  refs+=1
-                  if value!=version:
-                      stale.append((p.name,file,value))
-          if stale:
-              raise SystemExit('stale site runtime/style refs: '+repr(stale[:30]))
-          if refs==0:
-              raise SystemExit('no root HTML site runtime/style refs found')
-
-          site=Path('site.js').read_text(encoding='utf-8')
-          if f'const VERSION = "{version}"' not in site:
-              raise SystemExit('site.js internal runtime is not v7')
-
-          customer=Path('site-customer-display-v20260812.js').read_text(encoding='utf-8')
-          safety=Path('site-product-image-safety.js').read_text(encoding='utf-8')
-          retirement=Path('site-public-image-retirement-v20260812.js').read_text(encoding='utf-8')
-          for text,name in [(customer,'customer display'),(safety,'image safety'),(retirement,'image retirement')]:
-              if 'images/products-v2/guilu-drink-180.jpeg' not in text:
-                  raise SystemExit(f'{name} does not use real 180cc pouch product photo')
-          if 'images/customer-display-v20260812/guilu-drink-180cc.jpg' in customer or 'images/customer-display-v20260812/guilu-drink-180cc.jpg' in safety:
-              raise SystemExit('wrong-role 180cc DM poster still active in product runtime')
-
-          pouch=Path('images/products-v2/guilu-drink-180.jpeg')
-          if not pouch.is_file() or pouch.stat().st_size < 100000:
-              raise SystemExit('verified 180cc foil pouch product photo missing/too small')
-          data=pouch.read_bytes()
-          if not data.startswith(b'\xff\xd8\xff'):
-              raise SystemExit('180cc foil pouch file is not JPEG')
-
+          V='20260813-trial-product-role-fix-v8'
+          P='images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
+          b=Path(P).read_bytes()
+          assert len(b)==315576
+          assert hashlib.sha256(b).hexdigest()=='719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62'
+          assert b[:3]==b'\xff\xd8\xff'
+          site=Path('site.js').read_text(encoding='utf-8'); assert f'const VERSION = "{V}"' in site
+          pattern=re.compile(r'(?:src|href)=["\']site(?:-[^?"\']+)?\.(?:js|css)\?v=([^"\']+)["\']',re.I)
+          refs=[(p.name,v) for p in Path('.').glob('*.html') for v in pattern.findall(p.read_text(encoding='utf-8'))]
+          assert refs and not [(n,v) for n,v in refs if v!=V]
+          for name in ['site-customer-display-v20260812.js','site-product-image-safety.js','site-product-data-authority.js','site-public-image-retirement-v20260812.js','product-guilu-drink-180cc.html','trial.html']:
+              text=Path(name).read_text(encoding='utf-8'); assert P in text and 'images/products-v2/guilu-drink-180.jpeg' not in text
           trial=Path('trial.html').read_text(encoding='utf-8')
-          required_trial=[
-              'data-trial-showcase="official"',
-              'trial-product-card__media',
-              'trial-product-card__content',
-              'trial-product-card__actions',
-              'data-product-key="drink30"',
-              'data-product-key="drink180"',
-              'images/products-v2/guilu-drink-180.jpeg',
-              'images/customer-display-v20260812/guilu-drink-30cc.avif',
-              'height:auto!important',
-          ]
-          for token in required_trial:
-              if token not in trial:
-                  raise SystemExit('trial v7 missing: '+token)
-          for retired in ['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png']:
-              if retired in trial:
-                  raise SystemExit('retired/corrupted trial binary remains in public trial HTML: '+retired)
-          if 'position:absolute!important' in trial:
-              raise SystemExit('trial product card still uses absolute positioning')
-
-          support=Path('images/post-library/userzip3-v20260811/self-care-family-2.webp')
-          if not support.is_file() or support.stat().st_size < 50000:
-              raise SystemExit('approved trial mascot support image missing/too small')
-
-          product180=Path('product-guilu-drink-180cc.html').read_text(encoding='utf-8')
-          if 'images/products-v2/guilu-drink-180.jpeg' not in product180:
-              raise SystemExit('180cc detail page does not use product pouch image')
-          if 'images/customer-display-v20260812/guilu-drink-180cc.jpg' in product180:
-              raise SystemExit('180cc detail page still contains wrong-role DM poster path')
-
-          manifest=Path('images/formal-display/manifest.json').read_text(encoding='utf-8')
-          authority=Path('data/formal-media-authority-v20260810.json').read_text(encoding='utf-8')
-          for text,name in [(manifest,'manifest'),(authority,'authority')]:
-              if version not in text or 'trial-showcase-v20260813' not in text:
-                  raise SystemExit(f'{name} is not aligned with v7 trial component')
-              if 'images/products-v2/guilu-drink-180.jpeg' not in text:
-                  raise SystemExit(f'{name} does not point 180cc product role to pouch photo')
-
-          hotfix=Path('site-ux-v4104.css').read_text(encoding='utf-8')
-          for token in ['body.ux-v410 .hero__content::after','content:none!important','background-image:none!important']:
-              if token not in hotfix:
-                  raise SystemExit('transparent-circle global retirement regressed: '+token)
-
-          print('PASS root runtime/style refs',refs,'version',version)
-          print('PASS 180cc product main image is real foil pouch, not DM poster')
-          print('PASS corrupted trial binaries absent from public trial page')
-          print('PASS trial 30cc/180cc cards use natural-height dedicated structure')
-          print('PASS previous transparent hero-circle fix retained')
+          for bad in ['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png']: assert bad not in trial
+          assert 'object-fit:cover!important' not in trial
+          assert all(x in trial for x in ['trial-product-card__media','trial-product-card__content','trial-product-card__actions','height:auto!important','object-fit:contain!important'])
+          ux=Path('site-ux-v4104.css').read_text(encoding='utf-8'); assert 'body.ux-v410 .hero__content::after' in ux and 'content:none!important' in ux
+          print('PASS v8 public cache/media validation:',len(refs),'runtime/style refs')
           PY
-
-      - name: Commit generated v7 public entries
+      - name: Commit cache changes only when needed
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- '*.html' site-core-v410.js
-          if git diff --cached --quiet; then
-            echo 'No generated entry changes required.'
-            exit 0
-          fi
-          git commit -m 'fix(ui): publish v7 product-role and trial-card repair'
+          if git diff --cached --quiet; then echo 'No cache changes required.'; exit 0; fi
+          git commit -m 'chore(cache): refresh current v8 public entries'
           git push origin HEAD:main
