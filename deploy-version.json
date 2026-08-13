@@ -1,81 +1,80 @@
 {
-  "version":"2026-08-12-formal-image-fix-v3",
-  "updated":"2026-08-12",
-  "status":"current-authority-release",
-  "catalog":"six-official-products-current-six-specs",
-  "contentAuthority":{
-    "websiteData":"data.json",
-    "publicCatalog":"catalog-public.json",
-    "formalMedia":"data/formal-media-authority-v20260810.json",
-    "visualAuthority":"content/visual-production-spec-current.json",
-    "postMediaCatalog":"data/post-library-userzip3-v20260811.json",
-    "publishingCenter":"publishing-center.html",
-    "runtimeContentTotal":500,
-    "postBankAuthority":"content/post-bank-v6-manifest.json",
-    "guardPolicy":"current-authority-capability-based-no-legacy-version-copy-zip-count-lock"
+  "version": "2026-08-13-trial-product-role-fix-v8",
+  "updated": "2026-08-13",
+  "status": "current-authority-release",
+  "catalog": "six-official-products-current-six-specs",
+  "contentAuthority": {
+    "websiteData": "data.json",
+    "publicCatalog": "catalog-public.json",
+    "formalMedia": "data/formal-media-authority-v20260810.json",
+    "formalDisplayManifest": "images/formal-display/manifest.json",
+    "visualAuthority": "content/visual-production-spec-current.json",
+    "postMediaCatalog": "data/post-library-userzip3-v20260811.json",
+    "publishingCenter": "publishing-center.html",
+    "postBankAuthority": "content/post-bank-v6-manifest.json",
+    "guardPolicy": "current-authority-only-manual-guard-no-legacy-version-lock"
   },
-  "productAuthority":{
-    "productCount":6,
-    "sellableSpecificationCount":6,
-    "specifications":["龜鹿膏 100g／罐","龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）","龜鹿飲180cc鋁袋 180cc／包（鋁袋）","龜鹿湯塊 75g／盒｜8塊裝","龜鹿膠 600g（1斤）／盒｜32塊裝","鹿茸粉 75g／罐"],
-    "guiluGao":"100g／罐；產品識別使用正式六張產品圖，真實外觀以products-v3校正",
-    "guiluDrink30":"30cc／罐（小玻璃罐）；裸罐、無貼紙；不得稱瓶；外觀與比例不得改變",
-    "guiluDrink180":"180cc／包（鋁袋）；不得拉寬、加高或改袋型與比例",
-    "guiluTangkuai":"75g／盒｜8塊裝；每塊約9.375g只屬詳細資料，不放產品主圖／DM主規格",
-    "guiluJiao":"600g（1斤）／盒｜32塊裝；每塊約18.75g只屬詳細資料，不放產品主圖／DM主規格",
-    "luerongFen":"75g／罐；正式原圖等比例"
+  "productAuthority": {
+    "productCount": 6,
+    "sellableSpecificationCount": 6,
+    "specifications": [
+      "龜鹿膏 100g／罐",
+      "龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）",
+      "龜鹿飲180cc鋁袋 180cc／包（鋁袋）",
+      "龜鹿湯塊 75g／盒｜8塊裝",
+      "龜鹿膠 600g（1斤）／盒｜32塊裝",
+      "鹿茸粉 75g／罐"
+    ],
+    "guiluDrink30": "30cc／罐（小玻璃罐）；裸罐、無貼紙；不得稱瓶；外觀與比例不得改變",
+    "guiluDrink180": "180cc／包（鋁袋）；產品主圖使用正式高清產品母圖，不得以DM海報替代",
+    "guiluTangkuai": "75g／盒｜8塊裝；每塊約9.375g只屬詳細資料",
+    "guiluJiao": "600g（1斤）／盒｜32塊裝；每塊約18.75g只屬詳細資料"
   },
-  "imagePolicy":{
-    "identityAuthority":"images/products-v3/",
-    "customerProductAuthority":"images/customer-display-v20260812/ six formal product WebP files",
-    "customerDmAuthority":"images/dm-approved-v20260810/ six separate detailed DM files",
-    "trialAuthority":"images/customer-display-v20260812/trial-small-boss.webp",
-    "productMethod":"六張產品圖、六張詳細DM、試喝正式主圖分開；產品本體不得AI重畫包裝、瓶罐、鋁袋、比例或標籤",
-    "displayMode":"contain-no-crop-no-stretch",
-    "mascot":"精緻Q版小老闆；米白中式上衣＋深橄欖綠圍裙＋胸前紅色直式仙加味印章；姿勢依文案變化",
-    "companions":"小鹿與小烏龜分開；灰色小河馬娃娃、米色小鹿安撫巾依情境使用",
-    "reviewItems":16,
-    "reviewDimensions":["產品／規格","季節","天氣","場合／地點","情境／環境","冷熱","表情","動作／道具","小老闆與夥伴","人物完整度／安全邊界","產品實際比例","重複圖","品牌調性","法規文案","來源權威","最終一致性"]
+  "imagePolicy": {
+    "identityAuthority": "images/products-v3/",
+    "customerProductAuthority": "images/customer-display-v20260812/ formal product media",
+    "customerDmAuthority": "images/dm-approved-v20260810/ plus approved guilu-gao JPEG fallback",
+    "productDmTrialRolesSeparated": true,
+    "guiluDrink180Product": "images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
+    "guiluDrink180Dm": "images/dm-approved-v20260810/guilu-drink-180cc.webp",
+    "displayMode": "contain-no-crop-no-stretch",
+    "productMethod": "正式產品圖、詳細DM、試喝元件完全分開；產品本體不得AI重畫包裝、瓶罐、鋁袋、比例或標籤"
   },
-  "postMediaPolicy":{
-    "approvalBatch":"20260812-formal-image-fix-v3",
-    "priority":"current-approved-media-first",
-    "rule":"產品型貼文先用六張正式產品圖；明確DM用途才用六張詳細DM；試喝文固定trial-small-boss；生活情境文先比對最新使用者核准素材；真的沒有合格來源才生成。",
-    "afterAnyChange":"invalidate_old_approval_and_schedule_then_pending_review",
-    "reviewItemsAfterChange":16,
-    "autoApprove":false,
-    "autoPublish":false
+  "trialCampaign": {
+    "title": "龜鹿飲試喝組｜先試喝，再決定",
+    "renderMode": "component",
+    "componentId": "trial-showcase-v20260813",
+    "mascotSupport": "images/post-library/userzip3-v20260811/self-care-family-2.webp",
+    "productImage": "images/customer-display-v20260812/guilu-drink-30cc.avif",
+    "freeSamples": 3,
+    "shipping": {"7-11店到店": 60, "郵局宅配": 100},
+    "leadTime": "約5～7個工作天",
+    "applyVia": "LINE OA",
+    "retiredAssets": [
+      "images/customer-display-v20260812/trial.webp",
+      "images/customer-display-v20260812/trial-clean-v4.svg",
+      "images/customer-display-v20260812/trial-small-boss.webp",
+      "images/customer-display-v20260812/trial-small-boss.jpg",
+      "images/customer-display-v20260812/trial-small-boss.png",
+      "舊evergreen試喝圖"
+    ],
+    "layoutPolicy": "natural-height-cards; media/content/actions stay inside each card; mascot and product images use contain"
   },
-  "trialCampaign":{
-    "title":"龜鹿飲試喝組｜先試喝，再決定",
-    "image":"images/customer-display-v20260812/trial-small-boss.webp",
-    "lineCompatibleImage":"images/customer-display-v20260812/trial-small-boss.jpg",
-    "freeSamples":3,
-    "shipping":{"7-11店到店":60,"郵局宅配":100},
-    "leadTime":"約5～7個工作天",
-    "applyVia":"LINE OA",
-    "retiredAssets":["images/customer-display-v20260812/trial.webp","images/dm-approved-v20260810/guilu-drink-trial.webp","舊evergreen試喝圖"],
-    "retiredAliasPolicy":"舊路徑若仍被快取呼叫，只能解析為目前trial-small-boss內容，不得恢復舊圖"
+  "pricingPolicy": {
+    "guiluDrink30cc": "正式售價60元／罐｜買10送1｜11罐600元",
+    "guiluDrink180cc": "單包200元｜買10送1｜11包2,000元",
+    "catalogPages": "一般官網產品目錄不公開全系列價格",
+    "trialCampaign": "可顯示使用者確認的龜鹿飲正式價格"
   },
-  "pricingPolicy":{
-    "guiluDrink30cc":"正式售價60元／罐｜買10送1｜11罐600元",
-    "guiluDrink180cc":"單包200元｜買10送1｜11包2,000元",
-    "catalogPages":"一般官網產品目錄不公開全系列價格",
-    "trialCampaign":"可顯示使用者確認的龜鹿飲正式價格"
+  "generationPolicy": {
+    "paidOpenAIImageApi": false,
+    "newContentStatus": "pending_review",
+    "autoApprove": false,
+    "autoPublishBeforeApproval": false,
+    "regenerateOnlyIfNoApprovedMatch": true,
+    "rejectUnknownProductSpecs": true,
+    "rejectAiRedrawnProduct": true
   },
-  "generationPolicy":{
-    "paidOpenAIImageApi":false,
-    "newContentStatus":"pending_review",
-    "autoApprove":false,
-    "autoPublishBeforeApproval":false,
-    "productAuthoritySource":"catalog-public.json",
-    "visualAuthoritySource":"content/visual-production-spec-current.json",
-    "regenerateOnlyIfNoApprovedMatch":true,
-    "rejectUnknownProductSpecs":true,
-    "rejectAiRedrawnProduct":true
-  },
-  "schedule":{"timezone":"Asia/Taipei","immediatePublishBypassesSchedule":true,"liveWeatherRequiresRecheck":true},
-  "platformPolicy":{"facebook":"正式發布時讀取實際授權狀態","instagram":"正式發布時讀取實際授權狀態","lineOA":"TS-LINE執行時讀取實際授權狀態","lineVoom":"manual_only","googleBusiness":"未授權則轉人工發布包"},
-  "privacy":{"consumerBrand":"仙加味","publicForbiddenByDefault":["內部測試字樣","ERP秘密資料","Token／Secret"],"companyInfoOnlyWhenRequired":true,"partnerProtectionMode":true},
-  "safety":"current-six-spec-authority-six-product-six-dm-trial-small-boss-separated-current-approved-media-first-16-review-no-auto-publish-no-legacy-lock"
+  "schedule": {"timezone": "Asia/Taipei", "immediatePublishBypassesSchedule": true, "liveWeatherRequiresRecheck": true},
+  "safety": "v8-current-six-spec-product-dm-trial-component-separated-exact-180cc-product-master-no-corrupt-trial-binary-no-legacy-lock"
 }
