@@ -1,4 +1,4 @@
-name: Bump site entry cache 20260812
+name: Bump site entry cache 20260813 v7
 
 on:
   push:
@@ -20,102 +20,110 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Apply cache-bust and mobile visual fixes
+      - name: Validate generator syntax
+        run: python -m py_compile tools/bump_site_entry_cache_v20260812.py
+
+      - name: Apply v7 cache-bust and public media-role fixes
         run: python tools/bump_site_entry_cache_v20260812.py
 
-      - name: Validate current mobile visual fix
+      - name: Validate current v7 public site
+        shell: bash
         run: |
+          set -euo pipefail
           python - <<'PY'
           import re
           from pathlib import Path
-          version='20260812-mobile-visual-fix-v5'
+
+          version='20260813-trial-product-role-fix-v7'
           pattern=re.compile(r'(?:src|href)=["\'](site(?:-[^?"\']+)?\.(?:js|css))\?v=([^"\']+)["\']',re.I)
           stale=[]
           refs=0
-          retired=[
-            'images/brand/approved-v405/home-brand.webp',
-            'images/brand/approved-v405/products-all.webp',
-            'images/brand/approved-v405/contact-line.webp',
-            'images/brand/approved-v405/combo.webp',
-            'images/brand/approved-v405/guide-how-to-use.webp',
-          ]
-          bad_meta=[]
           for p in Path('.').glob('*.html'):
               text=p.read_text(encoding='utf-8')
-              for file, value in pattern.findall(text):
+              for file,value in pattern.findall(text):
                   refs+=1
-                  if value!=version: stale.append((p.name,file,value))
-              for old in retired:
-                  for line in text.splitlines():
-                      if old in line and ('og:image' in line or 'twitter:image' in line):
-                          bad_meta.append((p.name,old))
+                  if value!=version:
+                      stale.append((p.name,file,value))
           if stale:
-              raise SystemExit('stale site cache refs: '+repr(stale[:20]))
-          if bad_meta:
-              raise SystemExit('retired public preview images remain: '+repr(bad_meta[:20]))
+              raise SystemExit('stale site runtime/style refs: '+repr(stale[:30]))
           if refs==0:
-              raise SystemExit('no site runtime/style refs found')
+              raise SystemExit('no root HTML site runtime/style refs found')
 
-          hd={
-            'images/brand/hd-v20260812/brand-story.png': 1000000,
-            'images/brand/hd-v20260812/faq.png': 1000000,
-            'images/brand/hd-v20260812/choose.jpg': 500000,
-          }
-          for name,min_bytes in hd.items():
-              p=Path(name)
-              if not p.is_file() or p.stat().st_size < min_bytes:
-                  raise SystemExit(f'high-resolution source missing/too small: {name} {p.stat().st_size if p.exists() else 0}')
+          site=Path('site.js').read_text(encoding='utf-8')
+          if f'const VERSION = "{version}"' not in site:
+              raise SystemExit('site.js internal runtime is not v7')
+
+          customer=Path('site-customer-display-v20260812.js').read_text(encoding='utf-8')
+          safety=Path('site-product-image-safety.js').read_text(encoding='utf-8')
+          retirement=Path('site-public-image-retirement-v20260812.js').read_text(encoding='utf-8')
+          for text,name in [(customer,'customer display'),(safety,'image safety'),(retirement,'image retirement')]:
+              if 'images/products-v2/guilu-drink-180.jpeg' not in text:
+                  raise SystemExit(f'{name} does not use real 180cc pouch product photo')
+          if 'images/customer-display-v20260812/guilu-drink-180cc.jpg' in customer or 'images/customer-display-v20260812/guilu-drink-180cc.jpg' in safety:
+              raise SystemExit('wrong-role 180cc DM poster still active in product runtime')
+
+          pouch=Path('images/products-v2/guilu-drink-180.jpeg')
+          if not pouch.is_file() or pouch.stat().st_size < 100000:
+              raise SystemExit('verified 180cc foil pouch product photo missing/too small')
+          data=pouch.read_bytes()
+          if not data.startswith(b'\xff\xd8\xff'):
+              raise SystemExit('180cc foil pouch file is not JPEG')
+
+          trial=Path('trial.html').read_text(encoding='utf-8')
+          required_trial=[
+              'data-trial-showcase="official"',
+              'trial-product-card__media',
+              'trial-product-card__content',
+              'trial-product-card__actions',
+              'data-product-key="drink30"',
+              'data-product-key="drink180"',
+              'images/products-v2/guilu-drink-180.jpeg',
+              'images/customer-display-v20260812/guilu-drink-30cc.avif',
+              'height:auto!important',
+          ]
+          for token in required_trial:
+              if token not in trial:
+                  raise SystemExit('trial v7 missing: '+token)
+          for retired in ['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png']:
+              if retired in trial:
+                  raise SystemExit('retired/corrupted trial binary remains in public trial HTML: '+retired)
+          if 'position:absolute!important' in trial:
+              raise SystemExit('trial product card still uses absolute positioning')
+
+          support=Path('images/post-library/userzip3-v20260811/self-care-family-2.webp')
+          if not support.is_file() or support.stat().st_size < 50000:
+              raise SystemExit('approved trial mascot support image missing/too small')
+
+          product180=Path('product-guilu-drink-180cc.html').read_text(encoding='utf-8')
+          if 'images/products-v2/guilu-drink-180.jpeg' not in product180:
+              raise SystemExit('180cc detail page does not use product pouch image')
+          if 'images/customer-display-v20260812/guilu-drink-180cc.jpg' in product180:
+              raise SystemExit('180cc detail page still contains wrong-role DM poster path')
+
+          manifest=Path('images/formal-display/manifest.json').read_text(encoding='utf-8')
+          authority=Path('data/formal-media-authority-v20260810.json').read_text(encoding='utf-8')
+          for text,name in [(manifest,'manifest'),(authority,'authority')]:
+              if version not in text or 'trial-showcase-v20260813' not in text:
+                  raise SystemExit(f'{name} is not aligned with v7 trial component')
+              if 'images/products-v2/guilu-drink-180.jpeg' not in text:
+                  raise SystemExit(f'{name} does not point 180cc product role to pouch photo')
 
           hotfix=Path('site-ux-v4104.css').read_text(encoding='utf-8')
-          required_css=[
-            'body.ux-v410 .hero__content::after',
-            'content:none!important',
-            'background-image:none!important',
-            'body.ux-v410 .brand-hero-v410__copy',
-            'order:1!important',
-            'body.ux-v410 .brand-hero-v410__media',
-            'order:2!important',
-          ]
-          for token in required_css:
+          for token in ['body.ux-v410 .hero__content::after','content:none!important','background-image:none!important']:
               if token not in hotfix:
-                  raise SystemExit('missing visual hotfix token: '+token)
+                  raise SystemExit('transparent-circle global retirement regressed: '+token)
 
-          mascot=Path('site-mascot-placement-v20260812.js').read_text(encoding='utf-8')
-          if "const HD='images/brand/hd-v20260812/'" not in mascot:
-              raise SystemExit('high-resolution mascot base path missing')
-          for required in ['choose.jpg','faq.png']:
-              if required not in mascot:
-                  raise SystemExit('high-resolution mascot filename missing: '+required)
-          if 'homeLine:' in mascot or 'contact-line.webp?v=' in mascot:
-              raise SystemExit('retired contact-line mascot runtime still active')
-
-          brand=Path('brand.html').read_text(encoding='utf-8')
-          if 'images/brand/hd-v20260812/brand-story.png' not in brand:
-              raise SystemExit('brand hero is not using high-resolution brand story source')
-          media_match=re.search(r'<div class="brand-hero-v410__media"[^>]*>(.*?)</div>',brand,re.S)
-          if not media_match or 'images/logo.png' in media_match.group(1):
-              raise SystemExit('brand hero still contains oversized logo layout')
-
-          core=Path('site-core-v410.js').read_text(encoding='utf-8')
-          if 'images/brand/approved-v405/home-brand.webp' in core:
-              raise SystemExit('dormant home-brand composite remains in site core')
-          if 'images/brand/hd-v20260812/brand-story.png' not in core:
-              raise SystemExit('high-resolution brand story fallback missing from site core')
-
-          retirement=Path('site-public-image-retirement-v20260812.js').read_text(encoding='utf-8')
-          for required in ['guilu-gao.webp','guilu-drink-30cc.webp','guilu-drink-180cc.webp','guilu-tangkuai.webp','guilu-jiao.webp','luerong-fen.webp']:
-              if required not in retirement:
-                  raise SystemExit('missing formal product replacement '+required)
-
-          print('PASS unified refs',refs,'version',version)
-          print('PASS transparent hero circle disabled globally')
-          print('PASS high-resolution choose/faq/brand sources')
-          print('PASS brand mobile reading order copy then image')
-          print('PASS current product/DM/trial separation guard retained')
+          print('PASS root runtime/style refs',refs,'version',version)
+          print('PASS 180cc product main image is real foil pouch, not DM poster')
+          print('PASS corrupted trial binaries absent from public trial page')
+          print('PASS trial 30cc/180cc cards use natural-height dedicated structure')
+          print('PASS previous transparent hero-circle fix retained')
           PY
 
-      - name: Commit mobile visual cleanup
+      - name: Commit generated v7 public entries
+        shell: bash
         run: |
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -- '*.html' site-core-v410.js
@@ -123,5 +131,5 @@ jobs:
             echo 'No generated entry changes required.'
             exit 0
           fi
-          git commit -m 'fix(ui): refresh mobile visual layout and sharp image entries'
+          git commit -m 'fix(ui): publish v7 product-role and trial-card repair'
           git push origin HEAD:main
