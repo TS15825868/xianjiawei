@@ -1,10 +1,10 @@
 {
-  "runtime": "20260813-sharp-formal-media-v6",
-  "approval_batch": "20260812-small-boss-trial-v1",
+  "runtime": "20260813-trial-product-role-fix-v7",
+  "approval_batch": "20260813-trial-product-role-fix-v7",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
-  "principle": "six user-confirmed high-resolution product masters, valid detailed DMs, and the user-provided small-boss trial image are three separate media roles; products-v3 remains immutable real-product identity reference only",
-  "product_image_authority": "six user-confirmed 1122x1402 high-resolution product masters; products-v3 remains immutable real-product identity reference only",
+  "principle": "formal product images, valid detailed DMs, and the trial showcase component are separate media roles; products-v3 remains immutable real-product identity reference only",
+  "product_image_authority": "formal product media only; 180cc currently uses a verified real foil-pouch product photo because the previous customer-display JPG was actually the DM poster",
   "products": [
     {
       "id": "guilu-gao",
@@ -31,11 +31,11 @@
       "id": "guilu-drink-180cc",
       "name": "龜鹿飲180cc鋁袋",
       "spec": "180cc／包（鋁袋）",
-      "rules": ["鋁袋","不改袋型","不改比例","不得亂畫包裝"],
-      "image": "/images/customer-display-v20260812/guilu-drink-180cc.jpg",
+      "rules": ["鋁袋","不改袋型","不改比例","不得亂畫包裝","產品主圖不得使用詳細DM海報"],
+      "image": "/images/products-v2/guilu-drink-180.jpeg",
       "dm": "/images/dm-approved-v20260810/guilu-drink-180cc.webp",
       "status": "approved_display",
-      "binary_status": "verified_high_resolution_1122x1402"
+      "binary_status": "verified_real_foil_pouch_product_photo_1022x1536_non_dm"
     },
     {
       "id": "guilu-tangkuai",
@@ -81,6 +81,7 @@
     "rules": [
       "產品圖與DM分開",
       "DM檔案必須可正常解碼",
+      "180cc詳細DM不得出現在產品主圖版位",
       "30cc DM不得出現瓶、瓶裝、開瓶、30cc／瓶",
       "龜鹿湯塊DM主規格不得放每塊約9.375g",
       "龜鹿膠DM主規格不得放每塊約18.75g",
@@ -89,20 +90,22 @@
   },
   "trial": {
     "title": "龜鹿飲試喝組｜先試喝，再決定",
-    "image": "/images/customer-display-v20260812/trial-small-boss.png",
-    "version": "20260813-trial-png-stability-v1",
-    "status": "approved_display",
-    "binary_status": "stable_png_copy_of_current_user_provided_trial_master_400x400",
-    "source": "user-provided-small-boss-trial-master-20260812-same-pixels-png-copy",
-    "character": "仙加味小老闆＋小鹿＋小烏龜",
+    "render_mode": "component",
+    "component_id": "trial-showcase-v20260813",
+    "status": "approved_component",
+    "mascot_support": "/images/post-library/userzip3-v20260811/self-care-family-2.webp",
+    "product_image": "/images/customer-display-v20260812/guilu-drink-30cc.avif",
+    "character": "仙加味小老闆＋小鹿＋小烏龜情境搭配正式30cc產品圖",
     "do_not_use_as_product_image": true,
     "do_not_use_as_dm": true,
-    "do_not_regenerate": true,
     "retired_trial_paths": [
       "/images/customer-display-v20260812/trial.webp",
       "/images/customer-display-v20260812/trial-clean-v4.svg",
-      "/images/customer-display-v20260812/trial-small-boss.webp"
+      "/images/customer-display-v20260812/trial-small-boss.webp",
+      "/images/customer-display-v20260812/trial-small-boss.jpg",
+      "/images/customer-display-v20260812/trial-small-boss.png"
     ],
+    "retirement_reason": "trial-small-boss webp/jpg/png share visually corrupted source pixels; structurally decodable does not mean visually valid",
     "free": "3罐試喝品免費",
     "shipping": ["7-11店到店60元","郵局宅配100元"],
     "limit": "每位顧客、電話及地址限申請一次",
@@ -120,20 +123,21 @@
     "unique_images": 20,
     "product_cards_are_not_product_authority": true
   },
+  "retired_wrong_role_product_paths": ["/images/customer-display-v20260812/guilu-drink-180cc.jpg"],
   "image_rules": [
-    "六張產品圖用於產品頁／產品卡／一般產品貼文",
+    "正式產品圖用於產品頁／產品卡／一般產品貼文",
     "有效詳細DM只用於DM版位／DM貼文",
-    "試喝類固定使用使用者20260812指定的小老闆試喝主圖；網站優先使用同圖PNG穩定副本",
-    "舊trial.webp、trial-clean-v4.svg與有顯示異常風險的trial-small-boss.webp不得再當網站正式試喝主圖",
-    "所有對外圖片必須可被瀏覽器正常解碼",
+    "試喝頁使用trial-showcase-v20260813元件，小老闆情境與正式30cc產品圖分開呈現",
+    "舊trial.webp、trial-clean-v4.svg、trial-small-boss.webp、jpg、png不得再當網站試喝主圖",
+    "所有對外圖片除了可解碼之外，還必須視覺內容正常且媒體角色正確",
     "產品本體不得AI重畫或改包裝身份",
     "圖文必須一致",
     "禁止拼貼與黑塊",
     "30cc維持小玻璃裸罐、無貼紙、原比例與原罐型",
-    "180cc維持鋁袋、原袋型與原比例",
+    "180cc維持鋁袋、原袋型與原比例，產品主圖不得使用DM海報",
     "龜鹿湯塊產品圖／DM主規格只放75g／盒｜8塊裝；每塊約9.375g僅詳細資料",
     "龜鹿膠產品圖／DM主規格只放600g（1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料"
   ],
-  "post_image_policy": "product posts use six official product visuals; explicit DM posts use valid detailed DMs; trial posts use the user-provided small-boss trial master; edits return to pending_review and must pass the 16-item review gate",
-  "guard_policy": "validate product image, detailed DM, trial, decodable binary and physical identity as separate roles; never restore retired trial masters"
+  "post_image_policy": "product posts use formal product visuals; explicit DM posts use valid detailed DMs; trial content uses the approved trial component; edits return to pending_review and must pass the 16-item review gate",
+  "guard_policy": "validate product image, detailed DM, trial component, visual validity and physical identity as separate roles; never restore retired trial masters or wrong-role 180cc DM"
 }
