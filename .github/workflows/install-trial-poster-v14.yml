@@ -1,0 +1,125 @@
+name: Install approved trial poster v14
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_tmp/trial-poster-v14/install.trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Assemble approved poster
+        run: |
+          python -m pip install --quiet pillow
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import base64, hashlib
+          parts=sorted(Path('_tmp/trial-poster-v14').glob('part-*.b64'))
+          assert len(parts)==9, len(parts)
+          raw=base64.b64decode(''.join(p.read_text().strip() for p in parts))
+          expected='ccd6542ecd4dca305598c3f39fc70581eeab6df5a5c2f18b08d7c927595823b8'
+          assert hashlib.sha256(raw).hexdigest()==expected
+          out=Path('images/trial/trial-poster-official-v20260813.webp')
+          out.parent.mkdir(parents=True,exist_ok=True)
+          out.write_bytes(raw)
+          with Image.open(out) as im:
+              assert im.size==(900,900), im.size
+              im.verify()
+          print('poster binary PASS',len(raw),expected)
+          PY
+
+      - name: Update website trial poster
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          V='20260813-trial-official-v14'
+          REL='images/trial/trial-poster-official-v20260813.webp'
+          ABS='/'+REL
+          WEB='https://ts15825868.github.io/xianjiawei/'+REL+'?v='+V
+          SHA='ccd6542ecd4dca305598c3f39fc70581eeab6df5a5c2f18b08d7c927595823b8'
+          RET=['/images/customer-display-v20260812/trial.webp','/images/customer-display-v20260812/trial-clean-v4.svg','/images/customer-display-v20260812/trial-small-boss.webp','/images/customer-display-v20260812/trial-small-boss.jpg','/images/customer-display-v20260812/trial-small-boss.png','trial-showcase-v20260813']
+
+          p=Path('trial.html'); s=p.read_text(encoding='utf-8')
+          s=re.sub(r'20260813-[A-Za-z0-9._-]+',V,s)
+          section='<section class="section section--narrow" aria-labelledby="trial-visual-title"><div class="section-heading reveal" style="text-align:center"><p class="eyebrow">試喝活動</p><h2 id="trial-visual-title">龜鹿飲試喝組｜先試喝，再決定</h2><p>30cc小玻璃罐3罐試喝品免費，運費自付；試喝申請由官方 LINE OA 完成。</p></div><figure class="trial-poster reveal"><img src="'+REL+'?v='+V+'" alt="仙加味龜鹿飲試喝組｜先試喝，再決定" fetchpriority="high" decoding="async"/></figure></section>'
+          s,n=re.subn(r'<section class="section section--narrow" aria-labelledby="trial-visual-title">.*?</section>',section,s,count=1,flags=re.S)
+          assert n==1
+          if 'trial-poster-v14' not in s:
+              css='/* trial-poster-v14 */\n.trial-poster{max-width:900px;margin:0 auto;padding:5px;border:1px solid rgba(11,31,59,.08);border-radius:22px;background:#fff;box-shadow:0 16px 40px rgba(33,24,16,.08);overflow:hidden}.trial-poster img{display:block!important;width:100%!important;height:auto!important;max-width:100%!important;max-height:none!important;aspect-ratio:auto!important;object-fit:contain!important;object-position:center!important;transform:none!important;filter:none!important}@media(max-width:700px){.trial-poster{padding:3px;border-radius:16px}}\n'
+              s=s.replace('</style>',css+'</style>',1)
+          s=re.sub(r'images/customer-display-v20260812/guilu-drink-30cc\.(?:avif|jpg|jpeg|png|webp)(?:\?v=[^\"\']*)?',f'images/customer-display-v20260812/guilu-drink-30cc.avif?v={V}',s)
+          s=re.sub(r'images/customer-display-v20260812/guilu-drink-180cc(?:-product)?\.(?:avif|jpg|jpeg|png|webp)(?:\?v=[^\"\']*)?',f'images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v={V}',s)
+          for key in ('og:image','twitter:image'):
+              s=re.sub(r'(<meta[^>]+(?:property|name)="'+re.escape(key)+r'"[^>]+content=")[^"]+("[^>]*>)',r'\1'+WEB+r'\2',s)
+          s=re.sub(r'("contentUrl"\s*:\s*")[^"]+("\s*})',r'\1'+WEB+r'\2',s)
+          p.write_text(s,encoding='utf-8')
+
+          mp=Path('images/formal-display/manifest.json'); m=json.loads(mp.read_text(encoding='utf-8'))
+          m['runtime']=V; m['approval_batch']=V
+          m['trial']={'render_mode':'poster','path':ABS,'version':V,'status':'approved_user_latest','format':'webp','dimensions':'900x900','sha256':SHA,'binary_status':'web_optimized_from_exact_user_upload_q75','source':'user-upload-20260813-latest-approved-trial-poster','role':'trial-only-not-product-or-dm','do_not_regenerate':True,'retired_paths':RET,'rules':{'free_samples':3,'shipping_paid_by_customer':True,'seven_eleven':60,'postal':100,'limit':'每位顧客、電話及地址限申請一次','lead_time':'約5～7個工作天','apply_via':'LINE OA','price_30':'60元／罐；買10送1，11罐600元','price_180':'200元／包；買10送1，11包2,000元'}}
+          m.setdefault('rules',{})['trial_fixed_to_current_master']=True
+          m['rules']['retired_trial_must_not_return']=True
+          m['rules']['customer_main_visual']='產品主圖、詳細DM、試喝主圖三層媒體角色完全分開；試喝固定使用20260813使用者最新指定主圖'
+          mp.write_text(json.dumps(m,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          ap=Path('data/formal-media-authority-v20260810.json'); a=json.loads(ap.read_text(encoding='utf-8'))
+          a['runtime']=V; a['approval_batch']=V
+          a['trial']={'title':'龜鹿飲試喝組｜先試喝，再決定','render_mode':'poster','image':ABS,'path':ABS,'version':V,'status':'approved_user_latest','format':'webp','dimensions':'900x900','sha256':SHA,'binary_status':'web_optimized_from_exact_user_upload_q75','source':'user-upload-20260813-latest-approved-trial-poster','do_not_use_as_product_image':True,'do_not_use_as_dm':True,'do_not_regenerate':True,'retired_trial_paths':RET,'free':'3罐試喝品免費','shipping':['7-11店到店60元','郵局宅配100元'],'limit':'每位顧客、電話及地址限申請一次','lead_time':'接單後安排製作，約5～7個工作天出貨','order_channel':'所有試喝申請與正式下單皆在LINE OA完成'}
+          ap.write_text(json.dumps(a,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          cp=Path('site-customer-display-v20260812.js'); x=cp.read_text(encoding='utf-8')
+          x=re.sub(r"const VERSION='[^']+'",f"const VERSION='{V}'",x,count=1)
+          x=re.sub(r"const TRIAL=Object\.freeze\(\{.*?\}\);","const TRIAL=Object.freeze({mode:'poster',path:'"+REL+"'});",x,count=1,flags=re.S)
+          x=re.sub(r"trialMode:TRIAL\.mode,\s*trialComponent:TRIAL\.id,\s*trialMascotSupport:`\$\{TRIAL\.mascot\}\?v=\$\{VERSION\}`,\s*trialProductImage:`\$\{TRIAL\.product\}\?v=\$\{VERSION\}`,","trialMode:TRIAL.mode,\n      trialImage:`${TRIAL.path}?v=${VERSION}`,",x,count=1)
+          cp.write_text(x,encoding='utf-8')
+
+          fp=Path('site-formal-media-v20260810.js'); x=fp.read_text(encoding='utf-8')
+          x=re.sub(r"const V='[^']+'",f"const V='{V}'",x,count=1)
+          fp.write_text(x,encoding='utf-8')
+          PY
+
+      - name: Validate
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          import hashlib,json
+          p=Path('images/trial/trial-poster-official-v20260813.webp')
+          assert hashlib.sha256(p.read_bytes()).hexdigest()=='ccd6542ecd4dca305598c3f39fc70581eeab6df5a5c2f18b08d7c927595823b8'
+          with Image.open(p) as im: assert im.size==(900,900)
+          s=Path('trial.html').read_text(encoding='utf-8')
+          assert 'trial-poster-official-v20260813.webp' in s
+          assert 'guilu-drink-30cc.avif' in s
+          assert 'guilu-drink-180cc-product.jpg' in s
+          assert 'dm-approved-v20260810/guilu-drink-180cc.webp' not in s
+          assert 'trial-showcase-v20260813' not in s
+          m=json.loads(Path('images/formal-display/manifest.json').read_text(encoding='utf-8'))
+          assert m['trial']['path']=='/images/trial/trial-poster-official-v20260813.webp'
+          assert m['dm']['paths']['guilu-drink-180'].endswith('guilu-drink-180cc.webp')
+          print('trial v14 PASS')
+          PY
+          node --check site-customer-display-v20260812.js
+          node --check site-formal-media-v20260810.js
+
+      - name: Commit website update
+        run: |
+          rm -rf _tmp/trial-poster-v14
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add trial.html images/trial/trial-poster-official-v20260813.webp images/formal-display/manifest.json data/formal-media-authority-v20260810.json site-customer-display-v20260812.js site-formal-media-v20260810.js _tmp/trial-poster-v14 || true
+          git commit -m 'fix(trial): publish latest approved trial poster v14'
+          git pull --rebase origin main
+          git push origin HEAD:main
