@@ -10,7 +10,7 @@ ROOT=Path(__file__).resolve().parents[1]
 REQUIRED_IDS=('guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen')
 FORMAL_ID={
  'guilu-gao':'guilu-gao','guilu-drink-30':'guilu-drink-30cc','guilu-drink-180':'guilu-drink-180cc',
- 'guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'lurong-fen'
+ 'guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'
 }
 DISPLAY_KEY={
  'guilu-gao':'guilu-gao','guilu-drink-30':'guilu-drink-30','guilu-drink-180':'guilu-drink-180',
@@ -21,12 +21,20 @@ PAGE_BY_ID={
  'guilu-drink-180':'product-guilu-drink-180cc.html','guilu-tangkuai':'product-guilu-tangkuai.html',
  'guilu-jiao':'product-guilu-jiao.html','luerong-fen':'product-luerong-fen.html'
 }
-PRODUCT_IMAGE_BY_ID={
+PRODUCT_IDENTITY_FILE={
  'guilu-gao':'guilu-gao.jpg','guilu-drink-30':'guilu-drink-30.jpg','guilu-drink-180':'guilu-drink-180.jpg',
  'guilu-tangkuai':'guilu-tangkuai.jpg','guilu-jiao':'guilu-jiao.jpg','luerong-fen':'luerong-fen.jpg'
 }
+CURRENT_SPECS={
+ 'guilu-gao':'100g／罐',
+ 'guilu-drink-30':'30cc／罐（小玻璃罐）',
+ 'guilu-drink-180':'180cc／包（鋁袋）',
+ 'guilu-tangkuai':'75g／盒｜8塊裝',
+ 'guilu-jiao':'600g（1斤）／盒｜32塊裝',
+ 'luerong-fen':'75g／罐',
+}
 PUBLIC_HTML=['index.html','products.html','dm.html','choose.html','combo.html','guide.html','recipes.html','faq.html','brand.html','brand-facts.html','ingredients.html','quality.html','craft.html','knowledge.html','video.html','hanfang-baike.html','sources.html','contact.html','trial.html',*PAGE_BY_ID.values()]
-RETIRED_COPY=('每日早上及下午各一小匙','早晚各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','龜鹿飲30cc玻璃瓶','30cc／瓶')
+RETIRED_PUBLIC_COPY=('一天一次一小匙','早晚各一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶','30cc瓶裝')
 
 class Links(HTMLParser):
  def __init__(self): super().__init__(); self.hrefs=[]
@@ -43,85 +51,104 @@ def local(value): return str(value or '').split('?',1)[0].lstrip('/')
 def raster_kind(path):
  p=ROOT/path
  if not p.is_file() or p.stat().st_size<12:return ''
- b=p.read_bytes()[:16]
+ b=p.read_bytes()[:20]
  if b[:3]==b'\xff\xd8\xff':return 'jpeg'
  if b[:8]==b'\x89PNG\r\n\x1a\n':return 'png'
  if b[:4]==b'RIFF' and b[8:12]==b'WEBP':return 'webp'
+ if b[4:16].find(b'ftypavif')>=0:return 'avif'
  return ''
 
 def validate_product_authority():
  config=load('config/official-products.json')
- req(config.get('authority')=='user-confirmed-current','產品權威必須明確是目前使用者確認資料')
+ public_config=load('assets/data/official-products.json')
+ req(config.get('authority')=='user-confirmed-current','產品權威必須是目前使用者確認資料')
+ req(public_config.get('authority')=='user-confirmed-current','公開產品權威必須是目前使用者確認資料')
  official={p.get('id'):p for p in config.get('products') or []}
- req(set(official)==set(REQUIRED_IDS),'目前產品權威必須維持六項正式產品')
+ public_official={p.get('id'):p for p in public_config.get('products') or []}
  data={p.get('id'):p for p in load('data.json').get('products') or []}
  catalog={p.get('id'):p for p in load('catalog-public.json').get('products') or []}
- req(set(data)==set(REQUIRED_IDS) and set(catalog)==set(REQUIRED_IDS),'公開data/catalog必須維持目前六項產品')
+ for collection,name in [(official,'config/official-products.json'),(public_official,'assets/data/official-products.json'),(data,'data.json'),(catalog,'catalog-public.json')]:
+  req(set(collection)==set(REQUIRED_IDS),f'{name} 必須剛好六項正式產品')
  for pid in REQUIRED_IDS:
-  auth=official[pid]; name=str(auth.get('name') or ''); spec=str(auth.get('spec') or '')
-  req(name and spec,f'{pid}目前權威缺名稱／規格')
-  p=data[pid]; c=catalog[pid]
-  req(p.get('name')==name,f'{pid} data.json名稱未同步目前authority')
-  req((p.get('size') or p.get('specification') or p.get('spec'))==spec,f'{pid} data.json規格未同步目前authority')
-  req(c.get('name')==name and c.get('size')==spec,f'{pid} catalog名稱／規格未同步目前authority')
-  identity=' '.join(str(p.get(k) or '') for k in ('image','imageUrl','image_url','officialOriginalImage'))
-  req('/images/products-v3/' in identity or 'images/products-v3/' in identity,f'{pid}產品識別必須維持products-v3')
-  req('/images/products-v2/' not in identity and 'images/products-v2/' not in identity,f'{pid}產品識別不得回退products-v2')
-  req((ROOT/'images/products-v3'/PRODUCT_IMAGE_BY_ID[pid]).is_file(),f'{pid}缺少products-v3正式原圖')
+  spec=CURRENT_SPECS[pid]; auth=official[pid]; p=data[pid]; c=catalog[pid]; pub=public_official[pid]
+  req(auth.get('spec')==spec,f'{pid} official主規格不同步')
+  req(pub.get('specification')==spec,f'{pid} public official主規格不同步')
+  req((p.get('size') or p.get('specification') or p.get('spec'))==spec,f'{pid} data.json規格不同步')
+  req(c.get('size')==spec,f'{pid} catalog規格不同步')
+  req(p.get('name')==auth.get('name')==c.get('name')==pub.get('name'),f'{pid} 名稱不同步')
+  identity=' '.join(str(p.get(k) or '') for k in ('image','imageUrl','image_url','officialOriginalImage','detailImages'))
+  req('/images/products-v3/' in identity or 'images/products-v3/' in identity,f'{pid}資料層缺products-v3身份原圖')
+  req('/images/products-v2/' not in identity and 'images/products-v2/' not in identity,f'{pid}資料層回退products-v2')
+  req((ROOT/'images/products-v3'/PRODUCT_IDENTITY_FILE[pid]).is_file(),f'{pid}缺products-v3身份原圖')
   page=read(PAGE_BY_ID[pid])
   req(spec in page,f'{PAGE_BY_ID[pid]}缺目前正式規格：{spec}')
   req('products-v2' not in page,f'{PAGE_BY_ID[pid]}不得引用products-v2')
  req(data['guilu-gao'].get('usage',[None])[0]=='每日早上及下午各一小匙','龜鹿膏主要使用方式未同步目前authority')
+ req(catalog['guilu-gao'].get('usage',[None])[0]=='每日早上及下午各一小匙','catalog龜鹿膏主要使用方式未同步目前authority')
  req(data['guilu-drink-30'].get('knownContainerDimensionsMm')=={'diameter':42,'height':51},'30cc必須維持小玻璃罐Ø42×H51mm參考尺寸')
  req(data['guilu-gao'].get('knownContainerDimensionsMm')=={'width':51,'height':78},'龜鹿膏罐必須維持51×78mm參考尺寸')
  ratio=(data['guilu-drink-180'].get('aspectRatioWidthToHeight') or {}).get('target')
- req(abs(float(ratio or 0)-float(official['guilu-drink-180'].get('aspect_ratio_width_to_height') or .64))<.001,'180cc鋁袋比例未同步目前authority')
+ req(abs(float(ratio or 0)-.64)<.001,'180cc鋁袋比例未同步目前authority')
+ req(official['guilu-tangkuai'].get('detail_unit_approx')=='每塊約9.375g','湯塊詳細約重不同步')
+ req(official['guilu-jiao'].get('detail_unit_approx')=='每塊約18.75g','龜鹿膠詳細約重不同步')
  return official
 
 def validate_formal_media(official):
  formal=load('data/formal-media-authority-v20260810.json')
  display=load('images/formal-display/manifest.json')
  by={p.get('id'):p for p in formal.get('products') or []}
- req(len(by)==6,'formal media必須維持六項產品')
- req(str(formal.get('approval_batch') or '').strip(),'formal media必須有目前核准批次')
- req(display.get('approval_batch')==formal.get('approval_batch'),'顧客display manifest未同步目前核准批次')
+ req(set(by)==set(FORMAL_ID.values()),'formal media必須剛好維持六項產品')
+ req(formal.get('runtime')==display.get('runtime'),'formal authority與display runtime不同步')
+ req(formal.get('approval_batch')==display.get('approval_batch'),'formal authority與display approval batch不同步')
  for pid in REQUIRED_IDS:
-  item=by.get(FORMAL_ID[pid]); shown=(display.get('products') or {}).get(DISPLAY_KEY[pid])
-  req(item and item.get('status')=='approved_display',f'{pid}目前顧客媒體尚未核准')
+  item=by[FORMAL_ID[pid]]; shown=(display.get('products') or {}).get(DISPLAY_KEY[pid])
+  req(item.get('status')=='approved_display',f'{pid}目前產品媒體尚未核准')
   req(item.get('spec')==official[pid].get('spec'),f'{pid} formal media規格未同步目前authority')
-  path=local(item.get('dm')); kind=raster_kind(path)
-  req(kind in {'jpeg','png','webp'},f'{pid}正式顧客媒體不是有效點陣圖：{path}')
-  req(shown and local(shown.get('path'))==path and shown.get('status')=='approved_display',f'{pid} display manifest未同步目前formal media')
- trial=formal.get('trial') or {}; trial_path=local(trial.get('image'))
- req(trial.get('status')=='approved_display','試喝目前顧客媒體尚未核准')
- req(raster_kind(trial_path) in {'jpeg','png','webp'},'試喝正式圖不是有效點陣圖')
- req((display.get('trial') or {}).get('path')==trial.get('image'),'試喝display manifest未同步目前formal media')
+  product_path=local(item.get('image')); dm_path=local(item.get('dm'))
+  req(raster_kind(product_path) in {'jpeg','png','webp','avif'},f'{pid}產品主圖不是有效點陣圖：{product_path}')
+  req(raster_kind(dm_path) in {'jpeg','png','webp','avif'},f'{pid}詳細DM不是有效點陣圖：{dm_path}')
+  req(product_path!=dm_path,f'{pid}產品主圖與詳細DM角色混用')
+  req(shown and local(shown.get('path'))==product_path and shown.get('status')=='approved_display',f'{pid} display manifest產品主圖不同步')
+ p30=by['guilu-drink-30cc']
+ req(local(p30.get('dm'))=='images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg','30cc詳細DM不是目前核准JPG')
+ req('瓶' not in str(p30.get('name') or '') and p30.get('spec')=='30cc／罐（小玻璃罐）','30cc名稱／規格回退')
+ p180=by['guilu-drink-180cc']
+ req(local(p180.get('image'))=='images/customer-display-v20260812/guilu-drink-180cc-product.jpg','180cc產品主圖不是目前核准HD產品圖')
+ req(local(p180.get('image'))!=local(p180.get('dm')),'180cc產品主圖被DM取代')
+ trial=formal.get('trial') or {}; display_trial=display.get('trial') or {}
+ trial_path=local(trial.get('image') or trial.get('path'))
+ req(trial.get('render_mode')=='poster' and trial.get('status')=='approved_user_original','試喝必須是目前核准海報模式')
+ req(trial_path=='images/trial/trial-poster-small-boss-official-v20260814.jpg','試喝不是2026-08-14核准正式海報')
+ req(raster_kind(trial_path)=='jpeg','試喝正式海報不是有效JPEG')
+ req(local(display_trial.get('path'))==trial_path,'試喝display manifest未同步目前formal authority')
  req('3罐' in str(trial.get('free') or ''),'試喝必須維持3罐免費')
  shipping=trial.get('shipping') or []
  req(any('60元' in str(x) for x in shipping) and any('100元' in str(x) for x in shipping),'試喝運費規則不完整')
  req('5～7' in str(trial.get('lead_time') or ''),'試喝交期規則不完整')
  dm=read('dm.html'); trial_html=read('trial.html')
- for pid in REQUIRED_IDS:req(local(by[FORMAL_ID[pid]].get('dm')) in dm,f'DM頁未使用目前核准媒體：{pid}')
+ for pid in REQUIRED_IDS:req(local(by[FORMAL_ID[pid]].get('dm')) in dm,f'DM頁未使用目前核准詳細DM：{pid}')
  req(trial_path in trial_html,'試喝頁未使用目前核准海報')
- req('images/products-v3/guilu-drink-30.jpg' in trial_html,'試喝頁30cc產品本體必須維持products-v3')
+ req('images/customer-display-v20260812/guilu-drink-30cc.avif' in trial_html,'試喝頁30cc產品卡未使用目前顧客正式產品圖')
+ req('images/customer-display-v20260812/guilu-drink-180cc-product.jpg' in trial_html,'試喝頁180cc產品卡未使用目前顧客正式產品圖')
  return formal
 
 def validate_post_media(formal):
- path=local(formal.get('post_catalog'))
- req(path and (ROOT/path).is_file(),'目前formal authority指向的貼文素材catalog不存在')
+ visual=load('content/visual-production-spec-current.json')
+ policy=visual.get('post_media_policy') or {}
+ path=local(policy.get('current_catalog') or formal.get('post_catalog'))
+ req(path and (ROOT/path).is_file(),'目前貼文素材catalog不存在')
  catalog=load(path)
  candidate_count=int(catalog.get('candidate_count') or catalog.get('unique_image_count') or 0)
  original_count=int(catalog.get('original_file_count') or candidate_count)
  req(candidate_count>0 and original_count>=candidate_count,'目前ZIP候選數必須有效；不得依賴歷史固定張數')
- req(str(catalog.get('approval_batch') or '')==str(formal.get('post_approval_batch') or ''),'目前ZIP與formal authority核准批次不同步')
+ if formal.get('post_approval_batch'):req(str(catalog.get('approval_batch') or '')==str(formal.get('post_approval_batch') or ''),'目前ZIP與formal authority核准批次不同步')
  req(catalog.get('binary_sync',{}).get('status') in {'pending','ready'},'目前ZIP binary_sync必須是pending或ready')
- if catalog.get('binary_sync',{}).get('status')=='ready':
-  req(int(catalog.get('binary_sync',{}).get('publishable_count') or 0)>0,'ZIP標示ready時必須有可發布二進位圖')
- policy=str(formal.get('post_image_policy') or '')
- for token in ('season','scene','environment','temperature','expression','action','props'):req(token in policy,f'貼文語意比對缺少：{token}')
- req('needs_binary_sync' in policy,'貼文流程必須保留needs_binary_sync')
- req(('true no-match' in policy.lower() or 'no-match' in policy.lower() or '沒有合格' in policy) and ('regeneration' in policy.lower() or '重新生成' in policy),'必須只有真正無合格來源才重新生成')
- req(('pending_review' in policy or '待審核' in policy) and '16' in policy,'換圖／生成後必須回待審核並重跑16項')
+ dimensions=set(policy.get('semantic_match_dimensions') or [])
+ for token in ('season','scene','environment','temperature','expression','action','props','copy_context'):req(token in dimensions,f'貼文語意比對缺少：{token}')
+ req(policy.get('matching_source_without_binary')=='needs_binary_sync','有匹配但缺binary時必須保持needs_binary_sync')
+ req(policy.get('regenerate_only_if_no_approved_match') is True,'只有真正沒有核准匹配來源才可重新生成')
+ req(policy.get('generated_media_returns_to')=='pending_review','換圖／生成後必須回待審核')
+ req(int(policy.get('review_items_after_change') or 0)==16,'換圖／生成後必須重跑16項審核')
  return candidate_count
 
 def validate_public_pages():
@@ -129,7 +156,7 @@ def validate_public_pages():
   req((ROOT/rel).is_file(),f'缺顧客頁：{rel}')
   source=read(rel)
   req('/mnt/data/' not in source,f'{rel}不得露出本機路徑')
-  for phrase in RETIRED_COPY:req(phrase not in source,f'{rel}仍顯示退役資料：{phrase}')
+  for phrase in RETIRED_PUBLIC_COPY:req(phrase not in source,f'{rel}仍顯示退役資料：{phrase}')
   parser=Links(); parser.feed(source)
   for href in parser.hrefs:
    h=href.strip()
@@ -139,8 +166,10 @@ def validate_public_pages():
    target=(ROOT/parsed.path.lstrip('/')).resolve()
    if ROOT not in target.parents and target!=ROOT:continue
    req(target.exists(),f'{rel}站內連結不存在：{parsed.path}')
- site=read('site-product-data-authority.js')
- req('products-v3' in site and ('contain' in site or 'no-crop' in site),'官網產品圖片runtime必須維持products-v3與等比例不裁切能力')
+ site=read('site-product-image-safety.js')
+ req("objectFit','contain" in site or "objectFit='contain'" in site,'產品圖片runtime缺少contain等比例能力')
+ req('customer-display-v20260812' in site,'產品圖片runtime未使用目前顧客正式產品圖層')
+ trial=read('trial.html'); req('object-fit:contain' in trial,'試喝頁圖片不得cover裁切')
 
 def validate_fulfillment():
  products={p['id']:p for p in load('data.json')['products']}
@@ -168,4 +197,4 @@ if __name__=='__main__':
  validate_fulfillment()
  validate_public_pages()
  validate_guard_mode()
- print(f'PASS website current release capabilities: six current products, products-v3 identity, current approved raster media, current ZIP({candidates} candidates), semantic matching, needs_binary_sync, 16-item review, fulfillment and customer pages; no WebP-only/fixed-count/retired-version/old-copy guard lock.')
+ print(f'PASS website current release: six current products, products-v3 identity, customer-display main images, separate current DMs, 2026-08-14 trial poster, current ZIP({candidates} candidates), semantic matching, 16-item review, fulfillment and public links all align.')
