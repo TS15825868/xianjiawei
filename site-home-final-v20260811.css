@@ -1,5 +1,7 @@
-/* 仙加味首頁最終乾淨版｜2026-08-11
-   目的：手機版不再出現任何圓形／圓弧／光暈裝飾；產品與DM保持等比例完整顯示。 */
+/* 仙加味首頁最終乾淨版｜2026-08-14 online audit
+   目的：手機版不再出現裝飾型圓弧／光暈；品牌故事圖與產品／DM完整等比例顯示。
+   修正：移除舊版手機 max-width:68% / max-height:116px，避免品牌圖縮成小圖留大片空白。
+ */
 body[data-page="home"] .page,
 body[data-page="home"] .hero,
 body[data-page="home"] .hero__panel,
@@ -55,7 +57,20 @@ body[data-page="home"] .home-faq-card{
 }
 
 body[data-page="home"] .home-brand-signature{
+  min-height:0!important;
+  height:auto!important;
+  padding:0!important;
   background:linear-gradient(145deg,#fffdf8 0%,#f2eadc 100%)!important;
+}
+body[data-page="home"] .home-brand-signature img{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  height:100%!important;
+  max-height:none!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  margin:0!important;
 }
 
 /* 不讓舊快取留下的圓章／圓形故事標記再次出現。 */
@@ -91,8 +106,8 @@ img[src*="/images/post-library/userzip3-v20260811/"]{
     padding:16px 10px 12px!important;
   }
   body[data-page="home"] .hero__panel{
-    gap:18px!important;
-    padding:22px 16px!important;
+    gap:12px!important;
+    padding:12px!important;
     border-radius:20px!important;
   }
   body[data-page="home"] .hero__content h1{
@@ -115,33 +130,37 @@ img[src*="/images/post-library/userzip3-v20260811/"]{
   }
   body[data-page="home"] .home-trust-row{
     display:grid!important;
-    grid-template-columns:repeat(3,minmax(0,1fr))!important;
-    gap:8px!important;
+    grid-template-columns:1fr!important;
+    gap:6px!important;
   }
   body[data-page="home"] .home-trust-row span{
     justify-content:center!important;
     min-width:0!important;
+    min-height:38px!important;
     padding:7px 6px!important;
     text-align:center!important;
     line-height:1.35!important;
   }
   body[data-page="home"] .home-brand-signature{
-    min-height:220px!important;
-    padding:22px 16px!important;
+    width:100%!important;
+    max-width:none!important;
+    min-height:0!important;
+    height:auto!important;
+    padding:0!important;
+    aspect-ratio:16/10!important;
     border-radius:18px!important;
   }
   body[data-page="home"] .home-brand-signature img{
-    max-width:min(68%,230px)!important;
-    max-height:116px!important;
+    display:block!important;
+    width:100%!important;
+    max-width:none!important;
+    height:100%!important;
+    max-height:none!important;
+    object-fit:cover!important;
+    object-position:center!important;
   }
   body[data-page="home"] .section{
     padding-left:10px!important;
     padding-right:10px!important;
-  }
-}
-
-@media (max-width:390px){
-  body[data-page="home"] .home-trust-row{
-    grid-template-columns:1fr!important;
   }
 }
