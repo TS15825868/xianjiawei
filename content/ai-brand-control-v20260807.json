@@ -1,15 +1,15 @@
 {
-  "version": "2026-08-08-ai-brand-control-v8-website-chibi",
+  "version": "2026-08-14-ai-brand-control-v9-public-name",
   "authority": "user-confirmed",
   "brand": {
     "publicName": "仙加味",
     "seriesName": "仙加味・龜鹿",
     "tagline": "補養，是一種節奏。",
     "publicSurfaces": ["官網","LINE OA","公開發布中心","ERP對外內容","Facebook","Instagram","LINE VOOM","Google 商家最新動態"],
-    "publicForbidden": ["台興山產有限公司","統一編號","公司電話","公司地址"],
+    "publicForbidden": ["台興山產","台興山產・仙加味","台興山產有限公司","統一編號","公司電話","公司地址"],
     "companyInfoAllowedOnlyWhenRequired": ["依法必須揭露","食品標示","發票與合約","商務合作","批發交易","正式法律文件"],
     "consumerRouting": "仙加味官方LINE",
-    "partnerProtection": "一般品牌內容不主動強調原公司名稱，避免合作通路產生原廠直接搶客疑慮"
+    "partnerProtection": "一般品牌內容不主動顯示舊公司或商號名稱，對外統一使用仙加味；依法或正式商務文件必須揭露時例外"
   },
   "productAuthority": {
     "source": "catalog-public.json",
@@ -86,7 +86,7 @@
     "assetUsageLedger":{"enabled":true,"purpose":"記錄圖片與素材最後使用日期、平台、貼文ID，避免短期重複"},
     "contentPerformance":{"enabled":true,"purpose":"記錄平台、主題、發布時段、觸及、互動、點擊與轉換，供後續輪替優化"},
     "partnerMode":{"enabled":true,"purpose":"提供中藥店／中醫診所可下載品牌素材；合作夥伴版不強迫導流至仙加味，保護通路關係"},
-    "brandGuardian":{"enabled":false,"blockingBeforeApproval":false,"mode":"advisory-until-full-system-accepted","checks":["公司資訊外洩","錯誤產品","錯誤規格","錯誤成分／舊使用資料","錯誤包裝","30cc誤稱瓶或加貼紙","180cc鋁袋比例錯誤","龜鹿湯塊不是75g深藍盒","龜鹿膠淡紫盒拉長","小老闆畫風或服裝錯誤","夥伴出現時造型錯誤或融合","季節天氣衝突","圖文不符","重複圖"],"note":"系統未全部驗收前維持提示模式；正式產品資料本身仍禁止寫入未確認規格或舊版正式事實。"}
+    "brandGuardian":{"enabled":false,"blockingBeforeApproval":false,"mode":"advisory-until-full-system-accepted","checks":["舊品牌名稱或公司資訊外洩","錯誤產品","錯誤規格","錯誤成分／舊使用資料","錯誤包裝","30cc誤稱瓶或加貼紙","180cc鋁袋比例錯誤","龜鹿湯塊不是75g深藍盒","龜鹿膠淡紫盒拉長","小老闆畫風或服裝錯誤","夥伴出現時造型錯誤或融合","季節天氣衝突","圖文不符","重複圖"],"note":"系統未全部驗收前維持提示模式；正式產品資料本身仍禁止寫入未確認規格或舊版正式事實。"}
   },
   "statusPolicy": {"generatedContent":"pending_review","autoApprove":false,"autoPublishBeforeApproval":false,"publishedContentLockedAgainstDuplicatePublish":true}
 }
