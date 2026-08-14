@@ -1,6 +1,6 @@
 name: 仙加味官網目前權威完整驗收（手動）
 
-# 全面整理期間維持手動；驗目前能力與目前 authority，不鎖退役版號、舊試喝圖或舊固定文案。
+# 全面整理期間維持手動；以目前正式 authority 驗資料與媒體一致性，不鎖退役版號、舊試喝圖、舊規格或舊固定使用時段。
 on:
   workflow_dispatch:
 
@@ -33,20 +33,19 @@ jobs:
           const kind=p=>{if(!fs.existsSync(p))return'';const b=fs.readFileSync(p);if(b[0]===0xff&&b[1]===0xd8&&b[2]===0xff)return'jpeg';if(b.subarray(0,8).equals(Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a])))return'png';if(b.subarray(0,4).toString()==='RIFF'&&b.subarray(8,12).toString()==='WEBP')return'webp';if(b.subarray(4,16).toString().includes('ftypavif'))return'avif';return''};
           const a=J('data/formal-media-authority-v20260810.json');
           const m=J('images/formal-display/manifest.json');
-          const specs={
-            'guilu-gao':'100g／罐',
-            'guilu-drink-30cc':'30cc／罐（小玻璃罐）',
-            'guilu-drink-180cc':'180cc／包（鋁袋）',
-            'guilu-tangkuai':'75g／盒｜8塊裝',
-            'guilu-jiao':'600g（1斤）／盒｜32塊裝',
-            'luerong-fen':'75g／罐',
-          };
+          const official=J('assets/data/official-products.json');
+          const byOfficial=new Map((official.products||[]).map(x=>[x.id,x]));
+          const idMap={'guilu-gao':'guilu-gao','guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180','guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'};
           const manifestKeys={'guilu-gao':'guilu-gao','guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180','guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'};
           must(a.runtime===m.runtime,'authority與manifest runtime不同步');
           must(a.approval_batch===m.approval_batch,'authority與manifest approval batch不同步');
-          must(Array.isArray(a.products)&&a.products.length===6,'正式產品不是六項');
+          must(Array.isArray(a.products)&&a.products.length===6,'正式媒體產品不是六項');
+          must(byOfficial.size===6,'目前產品權威不是六項');
           for(const p of a.products){
-            must(p.spec===specs[p.id],`主規格錯誤 ${p.id}: ${p.spec}`);
+            const current=byOfficial.get(idMap[p.id]);
+            must(current,`找不到目前正式產品 ${p.id}`);
+            must(p.spec===current.specification,`媒體authority主規格未同步 ${p.id}: ${p.spec} != ${current.specification}`);
+            if(current.detail_unit_approx)must(p.detail_unit_approx===current.detail_unit_approx,`每塊約重未同步 ${p.id}`);
             const image=local(p.image),dm=local(p.dm),mk=manifestKeys[p.id];
             must(['jpeg','png','webp','avif'].includes(kind(image)),`產品主圖不可解碼 ${image}`);
             must(['jpeg','png','webp','avif'].includes(kind(dm)),`詳細DM不可解碼 ${dm}`);
@@ -54,23 +53,20 @@ jobs:
             must(local(m.products?.[mk]?.path)===image,`manifest產品主圖不同步 ${p.id}`);
           }
           const p30=a.products.find(x=>x.id==='guilu-drink-30cc');
-          must(/30cc／罐/.test(p30.spec)&&!/瓶/.test(JSON.stringify(p30)),'30cc正式名稱／規格回退成瓶');
+          must(p30.name==='龜鹿飲30cc玻璃罐'&&!/玻璃瓶|30cc／瓶|瓶裝/.test(JSON.stringify(p30)),'30cc正式名稱／規格回退成瓶');
           must(local(p30.dm)==='images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg','30cc詳細DM不是目前核准JPG');
           const p180=a.products.find(x=>x.id==='guilu-drink-180cc');
           must(local(p180.image)==='images/customer-display-v20260812/guilu-drink-180cc-product.jpg','180cc產品主圖角色錯誤');
           must(local(p180.dm)!==local(p180.image),'180cc產品主圖被詳細DM取代');
           if(p180.sha256){const b=fs.readFileSync(local(p180.image));must(crypto.createHash('sha256').update(b).digest('hex')===p180.sha256,'180cc核准產品原圖hash不符');}
-          const tang=a.products.find(x=>x.id==='guilu-tangkuai'),jiao=a.products.find(x=>x.id==='guilu-jiao');
-          must(tang.detail_unit_approx==='每塊約9.375g'&&/僅/.test(tang.detail_unit_rule||''),'湯塊詳細約重規則錯誤');
-          must(jiao.detail_unit_approx==='每塊約18.75g'&&/僅/.test(jiao.detail_unit_rule||''),'龜鹿膠詳細約重規則錯誤');
+          must(String(a.customer_text_spec_policy||'').includes('顧客產品頁'),'目前完整文字規格政策缺失');
+          must(String(a.customer_text_spec_policy||'').includes('不得因此自行加字'),'完整文字規格政策沒有保護產品圖／DM原圖');
           must(a.trial?.render_mode==='poster'&&a.trial?.status==='approved_user_original','試喝目前不是核准海報模式');
           const trialPath=local(a.trial.image||a.trial.path),manifestTrial=local(m.trial?.path);
           must(trialPath===manifestTrial,'authority與manifest試喝海報不同步');
-          must(trialPath==='images/trial/trial-poster-small-boss-official-v20260814.jpg','試喝不是2026-08-14核准正式海報');
+          must(trialPath==='images/trial/trial-poster-small-boss-official-v20260814.jpg','試喝不是目前核准正式海報');
           must(kind(trialPath)==='jpeg','正式試喝海報不可解碼');
-          const retired=['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png','trial-poster-official-v20260813.webp','trial-poster-user-final-v20260813.jpg'];
-          must(retired.every(x=>!trialPath.endsWith(x)),'正式試喝路徑回退舊素材');
-          console.log('PASS: six current specs + separated product/DM/trial media authority.');
+          console.log('PASS: current product authority + separated product/DM/trial media authority.');
           NODE
 
       - name: Validate runtime and public surfaces
@@ -82,21 +78,31 @@ jobs:
           done
           node <<'NODE'
           const fs=require('fs');const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
+          const J=p=>JSON.parse(fs.readFileSync(p,'utf8'));
           const site=fs.readFileSync('site.js','utf8');
+          const authorityJs=fs.readFileSync('site-product-data-authority.js','utf8');
+          const official=J('assets/data/official-products.json');
           for(const token of ['site-product-data-authority.js','site-customer-display-v20260812.js','site-dm-authority-v20260811.js','site-media-modal-final-v20260814.js','site-product-image-safety.js','site-official-product-variants.js','site-public-image-retirement-v20260812.js','site-stability-v20260814.js'])must(site.includes(token),`site.js缺少目前正式層：${token}`);
-          must(site.includes('每日早上及下午各一小匙'),'site.js安全備援仍不是目前龜鹿膏用法');
-          must(site.includes('30cc／罐（小玻璃罐）')&&!site.includes('30cc／瓶'),'site.js安全備援30cc規格錯誤');
-          must(site.includes('600g（1斤）／盒｜32塊裝'),'site.js安全備援龜鹿膠主規格錯誤');
+          for(const p of official.products||[]){
+            must(authorityJs.includes(p.specification),`前端資料權威未包含目前規格 ${p.id}: ${p.specification}`);
+            if(p.usage_primary)must(authorityJs.includes(p.usage_primary),`前端資料權威未包含目前用法 ${p.id}: ${p.usage_primary}`);
+            if(p.usage_timing)must(authorityJs.includes(p.usage_timing),`前端資料權威未包含目前時間原則 ${p.id}`);
+            if(p.detail_unit_approx)must(authorityJs.includes(p.detail_unit_approx),`前端資料權威未包含每塊約重 ${p.id}`);
+          }
           const trial=fs.readFileSync('trial.html','utf8');
-          must(trial.includes('trial-poster-small-boss-official-v20260814.jpg'),'trial.html不是目前8/14試喝主圖');
+          must(trial.includes('trial-poster-small-boss-official-v20260814.jpg'),'trial.html不是目前試喝主圖');
           must(trial.includes('30cc／罐（小玻璃罐）'),'trial.html 30cc規格錯誤');
           must(trial.includes('data-product-intro="1"'),'trial產品介紹入口沒有統一Modal標記');
           const dm=fs.readFileSync('dm.html','utf8');
           must(dm.includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'),'dm.html 30cc不是目前正式DM');
           must((dm.match(/data-product-intro="1"/g)||[]).length>=6,'六項DM查看介紹沒有全部走統一Modal');
+          const tang=fs.readFileSync('product-guilu-tangkuai.html','utf8');
+          const jiao=fs.readFileSync('product-guilu-jiao.html','utf8');
+          must(tang.includes('75g （2兩）／盒｜8塊裝')&&tang.includes('每塊約9.375g'),'龜鹿湯塊顧客產品頁未顯示完整目前規格');
+          must(jiao.includes('600g （1斤）／盒｜32塊裝')&&/每塊約18\.75\s*g/.test(jiao),'龜鹿膠顧客產品頁未顯示完整目前規格');
           const modal=fs.readFileSync('site-media-modal-final-v20260814.js','utf8');
           must(modal.includes('openProductModal')&&modal.includes('data-product-intro'),'正式Modal攔截能力缺失');
-          console.log('PASS: public runtime, trial, DM and six-product modal contract.');
+          console.log('PASS: public runtime, current product text, trial, DM and six-product modal contract.');
           NODE
 
       - name: Verify retired write-back workflows are gone
