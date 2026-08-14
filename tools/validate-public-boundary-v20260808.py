@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://ts15825868.github.io/xianjiawei/"
 
 FORBIDDEN_PUBLIC = [
+    "台興山產",
     "台興山產有限公司",
     "統一編號",
     "公司電話",
@@ -48,7 +49,7 @@ def main():
     for page in pages:
         source = (ROOT / page).read_text(encoding="utf-8")
         for phrase in FORBIDDEN_PUBLIC:
-            assert phrase not in source, f"{page} 公開頁出現禁止公司資訊：{phrase}"
+            assert phrase not in source, f"{page} 公開頁出現禁止品牌／公司資訊：{phrase}"
         assert "龜鹿飲30cc玻璃瓶" not in source, f"{page} 仍把30cc稱玻璃瓶"
         assert "30cc／瓶" not in source, f"{page} 仍使用30cc／瓶"
         assert "小玻璃瓶" not in source, f"{page} 仍使用小玻璃瓶"
@@ -71,7 +72,7 @@ def main():
     assert "lin.ee/sHZW7NkR" in contact, "聯絡頁缺少官方LINE"
     assert "@762jybnm" in contact or "官方 LINE" in contact or "官方LINE" in contact, "聯絡頁LINE身份不清楚"
 
-    print(f"PASS public boundary: 已檢查 sitemap {len(pages)} 個公開頁；公司資訊、30cc瓶型、湯塊舊容量與產品頁歷史DM皆未越界。")
+    print(f"PASS public boundary: 已檢查 sitemap {len(pages)} 個公開頁；品牌名稱、公司資訊、30cc瓶型、湯塊舊容量與產品頁歷史DM皆未越界。")
 
 
 if __name__ == "__main__":
