@@ -10,11 +10,14 @@ SITE_BASE='https://ts15825868.github.io/xianjiawei'
 PRODUCT_IDENTITY_BASE='images/products-v3/'
 
 # 只清理真正退役內容；新版合法資訊不得被同步腳本降級。
+# 舊版「～」寫法以 Unicode escape 保存，避免一次性同步工具把守門條目本身改成目前合法的「1-2」。
+OLD_30_RANGE_TIGHT='每日1\uFF5E2罐'
+OLD_30_RANGE_SPACED='每日 1\uFF5E2罐'
 REPLACEMENTS=[
  ('每日早上及下午各一小匙','食用時間可依個人使用習慣與作息時間安排'),
  ('建議白天飲用','飲用時間可依個人使用習慣與作息時間安排'),
  ('每日一罐','每日 1-2罐'),('每日1罐','每日 1-2罐'),('每日 1 罐','每日 1-2罐'),
- ('每日1～2罐','每日 1-2罐'),('每日 1～2罐','每日 1-2罐'),
+ (OLD_30_RANGE_TIGHT,'每日 1-2罐'),(OLD_30_RANGE_SPACED,'每日 1-2罐'),
  ('食用時間與份量可依個人使用習慣與作息安排','食用時間可依個人使用習慣與作息時間安排'),
  ('食用時間可依個人使用習慣與作息安排','食用時間可依個人使用習慣與作息時間安排'),
  ('飲用時間可依個人使用習慣與作息安排','飲用時間可依個人使用習慣與作息時間安排'),
@@ -102,7 +105,7 @@ def sync_text(rel:str):
 
 def validate_no_retired_customer_copy():
  current=['content/public-post-library.json','llms-full.txt','deploy-version.json','data.json','catalog-public.json','config/official-products.json','assets/data/official-products.json']
- retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日1罐','每日 1 罐','每日1～2罐','每日 1～2罐','龜鹿飲30cc玻璃瓶','30cc／瓶']
+ retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日1罐','每日 1 罐',OLD_30_RANGE_TIGHT,OLD_30_RANGE_SPACED,'龜鹿飲30cc玻璃瓶','30cc／瓶']
  for rel in current:
   path=ROOT/rel
   if not path.exists():continue
