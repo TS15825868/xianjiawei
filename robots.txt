@@ -1,9 +1,20 @@
 User-agent: *
 Allow: /
+
+# 內部設定、工具、暫存與營運資料不提供搜尋引擎索引
 Disallow: /content/
 Disallow: /config/
 Disallow: /tools/
+Disallow: /_tmp/
+Disallow: /_payload/
+Disallow: /_upload/
+Disallow: /tmp/
+Disallow: /staging/
+Disallow: /artifacts/
 Disallow: /deploy-version.json
+Disallow: /live-status-current.json
+Disallow: /dm-runtime-live-status.json
+Disallow: /formal-media-live-status.json
 Disallow: /publishing-center.html
 Disallow: /publishing-center-data-
 Disallow: /publishing-center-guardian.js
@@ -13,6 +24,6 @@ Disallow: /images/posts/approved-
 Disallow: /images/posts/candidates-
 Disallow: /images/products-v2/
 Disallow: /images/products-v4/
-Disallow: /images/dm-final/
 
+# 正式產品圖、正式 DM、品牌圖與公開頁面維持可抓取
 Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml
