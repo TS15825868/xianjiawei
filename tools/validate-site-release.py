@@ -12,10 +12,10 @@ CURRENT_SPECS={
  'guilu-drink-30':'30cc／罐（小玻璃罐）',
  'guilu-drink-180':'180cc／包（鋁袋）',
  'guilu-tangkuai':'75g／盒｜8塊裝',
- 'guilu-jiao':'600g／盒｜32塊裝',
+ 'guilu-jiao':'600g（1斤）／盒｜32塊裝',
  'luerong-fen':'75g／罐',
 }
-RETIRED_PUBLIC_FACTS=['每日早上及下午各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','30cc／瓶','龜鹿飲30cc玻璃瓶']
+RETIRED_PUBLIC_FACTS=['一天一次一小匙','早晚各一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶','30cc瓶裝']
 
 def load(path):return json.loads((ROOT/path).read_text(encoding='utf-8'))
 def text(path):return (ROOT/path).read_text(encoding='utf-8')
@@ -23,28 +23,39 @@ def req(ok,msg):
  if not ok:raise AssertionError(msg)
 
 def validate_current_authorities():
- data=load('data.json'); catalog=load('catalog-public.json'); official=load('config/official-products.json'); public_official=load('assets/data/official-products.json'); visual=load('content/visual-production-spec-current.json'); formal=load('data/formal-media-authority-v20260810.json')
+ data=load('data.json'); catalog=load('catalog-public.json'); official=load('config/official-products.json'); public_official=load('assets/data/official-products.json'); visual=load('content/visual-production-spec-current.json'); formal=load('data/formal-media-authority-v20260810.json'); manifest=load('images/formal-display/manifest.json')
  data_by={p['id']:p for p in data['products']}; cat_by={p['id']:p for p in catalog['products']}; off_by={p['id']:p for p in official['products']}; pub_by={p['id']:p for p in public_official['products']}
  for collection,name in [(data_by,'data.json'),(cat_by,'catalog-public.json'),(off_by,'config/official-products.json'),(pub_by,'assets/data/official-products.json')]:req(set(collection)==set(CURRENT_SPECS),f'{name} 必須剛好六項正式產品')
+ req(official.get('authority')=='user-confirmed-current' and public_official.get('authority')=='user-confirmed-current','正式產品母本必須是目前使用者確認權威')
  for pid,spec in CURRENT_SPECS.items():
   req(data_by[pid].get('size')==spec,f'data.json {pid} 規格不同步')
   req(cat_by[pid].get('size')==spec,f'catalog {pid} 規格不同步')
   req(off_by[pid].get('spec')==spec,f'official master {pid} 規格不同步')
   req(pub_by[pid].get('specification')==spec,f'public official master {pid} 規格不同步')
- req(data_by['guilu-gao'].get('usage',[None])[0]=='每日早上及下午各一小匙','data.json 龜鹿膏用法未同步')
- req(cat_by['guilu-gao'].get('usage',[None])[0]=='每日早上及下午各一小匙','catalog 龜鹿膏用法未同步')
+ req(data_by['guilu-gao'].get('usage',[None])[0]=='每日早上及下午各一小匙','data.json 龜鹿膏目前用法未同步')
+ req(cat_by['guilu-gao'].get('usage',[None])[0]=='每日早上及下午各一小匙','catalog 龜鹿膏目前用法未同步')
+ req(off_by['guilu-tangkuai'].get('detail_unit_approx')=='每塊約9.375g','湯塊詳細約重不同步')
+ req(off_by['guilu-jiao'].get('detail_unit_approx')=='每塊約18.75g','龜鹿膠詳細約重不同步')
  req(official.get('visual_spec')=='content/visual-production-spec-current.json','official master 未指向 current visual authority')
  req(public_official.get('visual_spec')=='content/visual-production-spec-current.json','public official master 未指向 current visual authority')
- req(visual.get('official_specs')==[f"{off_by[pid]['name']} {CURRENT_SPECS[pid]}" for pid in CURRENT_SPECS],'current visual 六項規格不同步')
+ req(visual.get('official_specs')==[f"{off_by[pid]['name']} {CURRENT_SPECS[pid]}" for pid in CURRENT_SPECS],'current visual 六項主規格不同步')
+ req(visual.get('products',{}).get('guilu-gao',{}).get('usage_primary')=='每日早上及下午各一小匙','current visual 龜鹿膏用法不同步')
  req(visual.get('copy_image_match',{}).get('review_items')==16,'current visual 必須維持16項審核')
- req(visual.get('post_media_policy',{}).get('regenerate_only_if_no_approved_match') is True,'current visual 必須維持真正缺圖才生成')
- post_catalog=str(formal.get('post_catalog') or '').lstrip('/')
- req(post_catalog and (ROOT/post_catalog).is_file(),'formal authority 缺少目前貼文素材目錄')
+ post_policy=visual.get('post_media_policy') or {}
+ req(post_policy.get('regenerate_only_if_no_approved_match') is True,'current visual 必須維持真正缺圖才生成')
+ req(post_policy.get('matching_source_without_binary')=='needs_binary_sync','有合格來源但binary未同步時必須維持needs_binary_sync')
+ req(post_policy.get('generated_media_returns_to')=='pending_review','生成或換圖後必須回待審核')
+ req(int(post_policy.get('review_items_after_change') or 0)==16,'生成或換圖後必須重新16項審核')
+ req(formal.get('runtime')==manifest.get('runtime') and formal.get('approval_batch')==manifest.get('approval_batch'),'formal authority與manifest不同步')
+ trial=str((formal.get('trial') or {}).get('image') or (formal.get('trial') or {}).get('path') or '')
+ req(trial.endswith('/images/trial/trial-poster-small-boss-official-v20260814.jpg'),'目前試喝權威不是2026-08-14核准海報')
+ post_catalog=str(post_policy.get('current_catalog') or formal.get('post_catalog') or '').lstrip('/')
+ req(post_catalog and (ROOT/post_catalog).is_file(),'目前貼文素材catalog不存在')
  post=load(post_catalog)
- req(post.get('approval_batch')==formal.get('post_approval_batch'),'formal authority 與目前貼文素材核准批次不同步')
- req(post.get('priority')=='user_zip_approved' and int(post.get('candidate_count') or 0)>0,'目前使用者ZIP素材權威不同步')
- req(post.get('binary_sync',{}).get('status') in {'pending','ready'},'目前ZIP缺少二進位狀態')
- for rel in ['data.json','catalog-public.json','config/official-products.json','assets/data/official-products.json','content/visual-production-spec-current.json','data/formal-media-authority-v20260810.json']:
+ if formal.get('post_approval_batch'):req(post.get('approval_batch')==formal.get('post_approval_batch'),'formal authority 與目前貼文素材核准批次不同步')
+ req(int(post.get('candidate_count') or post.get('unique_image_count') or 0)>0,'目前使用者ZIP素材權威沒有候選圖')
+ req(post.get('binary_sync',{}).get('status') in {'pending','ready'},'目前ZIP缺少有效二進位狀態')
+ for rel in ['data.json','catalog-public.json','config/official-products.json','assets/data/official-products.json','content/visual-production-spec-current.json']:
   value=text(rel)
   for phrase in RETIRED_PUBLIC_FACTS:req(phrase not in value,f'{rel} 仍含退役正式資料：{phrase}')
 
@@ -65,9 +76,17 @@ def validate_posts():
   if p.get('image_status') in {'needs_generation','replace-required'}:
    req(p.get('regeneration_mode')=='chatgpt_handoff',f"需換圖貼文未走ChatGPT回填：{p.get('id')}")
 
+def validate_retired_writebacks_removed():
+ retired=[
+  '.github/workflows/install-trial-poster-v9.yml','.github/workflows/install-trial-poster-v10.yml','.github/workflows/install-trial-poster-v11.yml','.github/workflows/install-trial-poster-v12.yml','.github/workflows/install-trial-poster-v14.yml',
+  '.github/workflows/audit-square-trial-assets-v12.yml','.github/workflows/bump-site-entry-cache-v20260812.yml','tools/bump_site_entry_cache_v20260812.py',
+  '.github/workflows/sync-formal-media-v2.yml','tools/sync-formal-media.py'
+ ]
+ for rel in retired:req(not (ROOT/rel).exists(),f'退役舊版寫回工具仍存在：{rel}')
+
 def main():
  subprocess.run([sys.executable,str(ROOT/'tools/validate-site-production-release-v20260809.py')],check=True)
- validate_current_authorities(); validate_posts()
- print('PASS current site release: current product/data/catalog/visual/post-media authorities, public post review safety and website production release all align; no legacy copy/version/ZIP-count locks.')
+ validate_current_authorities(); validate_posts(); validate_retired_writebacks_removed()
+ print('PASS current site release: current product/data/catalog/visual/formal/post authorities and review safety align; retired trial/cache/media write-back tools are removed; no old-copy/version locks.')
 
 if __name__=='__main__':main()
