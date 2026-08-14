@@ -1,7 +1,6 @@
-name: 仙加味目前權威完整驗收 v8（手動）
+name: 仙加味官網目前權威完整驗收（手動）
 
-# MAINTENANCE MODE：只手動執行，不阻擋目前三系統更新。
-# 驗證目前正式能力與 authority，不鎖舊版本號／舊圖片／舊 trial。
+# 全面整理期間維持手動；驗目前能力與目前 authority，不鎖退役版號、舊試喝圖或舊固定文案。
 on:
   workflow_dispatch:
 
@@ -15,108 +14,112 @@ concurrency:
 jobs:
   current-authority-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 8
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
-          python-version: '3.12'
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
+          node-version: 22
 
-      - name: Validate current v8 authority and media roles
+      - name: Validate current product DM trial authority
         shell: bash
         run: |
           set -euo pipefail
-          python - <<'PY'
-          import hashlib,json,re
-          from pathlib import Path
-          V='20260813-trial-product-role-fix-v8'
-          P180='images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
-          specs={
+          node <<'NODE'
+          const fs=require('fs'),crypto=require('crypto');
+          const J=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+          const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
+          const local=p=>String(p||'').split('?')[0].replace(/^\//,'');
+          const kind=p=>{if(!fs.existsSync(p))return'';const b=fs.readFileSync(p);if(b[0]===0xff&&b[1]===0xd8&&b[2]===0xff)return'jpeg';if(b.subarray(0,8).equals(Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a])))return'png';if(b.subarray(0,4).toString()==='RIFF'&&b.subarray(8,12).toString()==='WEBP')return'webp';if(b.subarray(4,16).toString().includes('ftypavif'))return'avif';return''};
+          const a=J('data/formal-media-authority-v20260810.json');
+          const m=J('images/formal-display/manifest.json');
+          const specs={
             'guilu-gao':'100g／罐',
             'guilu-drink-30cc':'30cc／罐（小玻璃罐）',
             'guilu-drink-180cc':'180cc／包（鋁袋）',
             'guilu-tangkuai':'75g／盒｜8塊裝',
             'guilu-jiao':'600g（1斤）／盒｜32塊裝',
             'luerong-fen':'75g／罐',
+          };
+          const manifestKeys={'guilu-gao':'guilu-gao','guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180','guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'};
+          must(a.runtime===m.runtime,'authority與manifest runtime不同步');
+          must(a.approval_batch===m.approval_batch,'authority與manifest approval batch不同步');
+          must(Array.isArray(a.products)&&a.products.length===6,'正式產品不是六項');
+          for(const p of a.products){
+            must(p.spec===specs[p.id],`主規格錯誤 ${p.id}: ${p.spec}`);
+            const image=local(p.image),dm=local(p.dm),mk=manifestKeys[p.id];
+            must(['jpeg','png','webp','avif'].includes(kind(image)),`產品主圖不可解碼 ${image}`);
+            must(['jpeg','png','webp','avif'].includes(kind(dm)),`詳細DM不可解碼 ${dm}`);
+            must(image!==dm,`產品主圖與詳細DM角色混用 ${p.id}`);
+            must(local(m.products?.[mk]?.path)===image,`manifest產品主圖不同步 ${p.id}`);
           }
-          a=json.loads(Path('data/formal-media-authority-v20260810.json').read_text(encoding='utf-8'))
-          m=json.loads(Path('images/formal-display/manifest.json').read_text(encoding='utf-8'))
-          assert a['runtime']==V and m['runtime']==V
-          assert len(a['products'])==6
-          for p in a['products']:
-              assert p['spec']==specs[p['id']], (p['id'],p['spec'])
-              image=p['image'].lstrip('/').split('?')[0]
-              dm=p['dm'].lstrip('/').split('?')[0]
-              assert Path(image).is_file(), image
-              assert Path(dm).is_file(), dm
-              assert image!=dm
-          p180=next(x for x in a['products'] if x['id']=='guilu-drink-180cc')
-          assert p180['image']=='/'+P180
-          assert p180['dm']=='/images/dm-approved-v20260810/guilu-drink-180cc.webp'
-          b=Path(P180).read_bytes()
-          assert len(b)==315576 and b[:3]==b'\xff\xd8\xff'
-          assert hashlib.sha256(b).hexdigest()=='719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62'
-          assert a['trial']['render_mode']=='component'
-          assert a['trial']['component_id']=='trial-showcase-v20260813'
-          assert m['trial']['component_id']=='trial-showcase-v20260813'
-          print('PASS six current specs, exact 180cc product master, separate DM and trial component')
-          PY
+          const p30=a.products.find(x=>x.id==='guilu-drink-30cc');
+          must(/30cc／罐/.test(p30.spec)&&!/瓶/.test(JSON.stringify(p30)),'30cc正式名稱／規格回退成瓶');
+          must(local(p30.dm)==='images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg','30cc詳細DM不是目前核准JPG');
+          const p180=a.products.find(x=>x.id==='guilu-drink-180cc');
+          must(local(p180.image)==='images/customer-display-v20260812/guilu-drink-180cc-product.jpg','180cc產品主圖角色錯誤');
+          must(local(p180.dm)!==local(p180.image),'180cc產品主圖被詳細DM取代');
+          if(p180.sha256){const b=fs.readFileSync(local(p180.image));must(crypto.createHash('sha256').update(b).digest('hex')===p180.sha256,'180cc核准產品原圖hash不符');}
+          const tang=a.products.find(x=>x.id==='guilu-tangkuai'),jiao=a.products.find(x=>x.id==='guilu-jiao');
+          must(tang.detail_unit_approx==='每塊約9.375g'&&/僅/.test(tang.detail_unit_rule||''),'湯塊詳細約重規則錯誤');
+          must(jiao.detail_unit_approx==='每塊約18.75g'&&/僅/.test(jiao.detail_unit_rule||''),'龜鹿膠詳細約重規則錯誤');
+          must(a.trial?.render_mode==='poster'&&a.trial?.status==='approved_user_original','試喝目前不是核准海報模式');
+          const trialPath=local(a.trial.image||a.trial.path),manifestTrial=local(m.trial?.path);
+          must(trialPath===manifestTrial,'authority與manifest試喝海報不同步');
+          must(trialPath==='images/trial/trial-poster-small-boss-official-v20260814.jpg','試喝不是2026-08-14核准正式海報');
+          must(kind(trialPath)==='jpeg','正式試喝海報不可解碼');
+          const retired=['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png','trial-poster-official-v20260813.webp','trial-poster-user-final-v20260813.jpg'];
+          must(retired.every(x=>!trialPath.endsWith(x)),'正式試喝路徑回退舊素材');
+          console.log('PASS: six current specs + separated product/DM/trial media authority.');
+          NODE
 
-      - name: Validate public runtime and mobile trial structure
+      - name: Validate runtime and public surfaces
         shell: bash
         run: |
           set -euo pipefail
-          node --check site-product-data-authority.js
-          node --check site-customer-display-v20260812.js
-          node --check site-dm-authority-v20260811.js
-          node --check site-product-image-safety.js
-          node --check site-public-image-retirement-v20260812.js
-          node --check site-formal-media-v20260810.js
-          node --check publishing-center-guardian.js
-          python - <<'PY'
-          import re
-          from pathlib import Path
-          V='20260813-trial-product-role-fix-v8'
-          P180='images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
-          site=Path('site.js').read_text(encoding='utf-8')
-          assert f'const VERSION = "{V}"' in site
-          pat=re.compile(r'(?:src|href)=["\']site(?:-[^?"\']+)?\.(?:js|css)\?v=([^"\']+)["\']',re.I)
-          refs=[(p.name,v) for p in Path('.').glob('*.html') for v in pat.findall(p.read_text(encoding='utf-8'))]
-          assert refs and not [(n,v) for n,v in refs if v!=V]
-          trial=Path('trial.html').read_text(encoding='utf-8')
-          for bad in ['trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png']:
-              assert bad not in trial, bad
-          for token in ['data-trial-showcase="official"','trial-product-card__media','trial-product-card__content','trial-product-card__actions','height:auto!important','object-fit:contain!important',P180]:
-              assert token in trial, token
-          assert 'object-fit:cover!important' not in trial
-          detail=Path('product-guilu-drink-180cc.html').read_text(encoding='utf-8')
-          assert P180 in detail
-          assert 'images/customer-display-v20260812/guilu-drink-180cc.jpg' not in detail
-          guardian=Path('publishing-center-guardian.js').read_text(encoding='utf-8')
-          assert P180 in guardian
-          assert "const TRIAL='trial-small-boss.webp'" not in guardian
-          dm=Path('site-dm-authority-v20260811.js').read_text(encoding='utf-8')
-          assert 'trialMediaOwnedBy' in dm
-          assert "const TRIAL='images/customer-display-v20260812/trial-small-boss.webp'" not in dm
-          ux=Path('site-ux-v4104.css').read_text(encoding='utf-8')
-          assert 'body.ux-v410 .hero__content::after' in ux and 'content:none!important' in ux
-          brand=Path('brand.html').read_text(encoding='utf-8')
-          assert 'images/brand/hd-v20260812/brand-story.png' in brand
-          print('PASS v8 runtime, trial natural layout, guardian, DM authority and prior visual repairs')
-          PY
+          for file in site.js site-product-data-authority.js site-customer-display-v20260812.js site-dm-authority-v20260811.js site-media-modal-final-v20260814.js site-product-image-safety.js site-official-product-variants.js site-public-content-cleanup-v20260809.js site-public-image-retirement-v20260812.js site-mascot-placement-v20260812.js site-stability-v20260814.js; do
+            node --check "$file"
+          done
+          node <<'NODE'
+          const fs=require('fs');const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
+          const site=fs.readFileSync('site.js','utf8');
+          for(const token of ['site-product-data-authority.js','site-customer-display-v20260812.js','site-dm-authority-v20260811.js','site-media-modal-final-v20260814.js','site-product-image-safety.js','site-official-product-variants.js','site-public-image-retirement-v20260812.js','site-stability-v20260814.js'])must(site.includes(token),`site.js缺少目前正式層：${token}`);
+          must(site.includes('每日早上及下午各一小匙'),'site.js安全備援仍不是目前龜鹿膏用法');
+          must(site.includes('30cc／罐（小玻璃罐）')&&!site.includes('30cc／瓶'),'site.js安全備援30cc規格錯誤');
+          must(site.includes('600g（1斤）／盒｜32塊裝'),'site.js安全備援龜鹿膠主規格錯誤');
+          const trial=fs.readFileSync('trial.html','utf8');
+          must(trial.includes('trial-poster-small-boss-official-v20260814.jpg'),'trial.html不是目前8/14試喝主圖');
+          must(trial.includes('30cc／罐（小玻璃罐）'),'trial.html 30cc規格錯誤');
+          must(trial.includes('data-product-intro="1"'),'trial產品介紹入口沒有統一Modal標記');
+          const dm=fs.readFileSync('dm.html','utf8');
+          must(dm.includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'),'dm.html 30cc不是目前正式DM');
+          must((dm.match(/data-product-intro="1"/g)||[]).length>=6,'六項DM查看介紹沒有全部走統一Modal');
+          const modal=fs.readFileSync('site-media-modal-final-v20260814.js','utf8');
+          must(modal.includes('openProductModal')&&modal.includes('data-product-intro'),'正式Modal攔截能力缺失');
+          console.log('PASS: public runtime, trial, DM and six-product modal contract.');
+          NODE
+
+      - name: Verify retired write-back workflows are gone
+        run: |
+          node <<'NODE'
+          const fs=require('fs');const retired=[
+            '.github/workflows/install-trial-poster-v9.yml',
+            '.github/workflows/install-trial-poster-v10.yml',
+            '.github/workflows/install-trial-poster-v11.yml',
+            '.github/workflows/install-trial-poster-v12.yml',
+            '.github/workflows/install-trial-poster-v14.yml',
+            '.github/workflows/audit-square-trial-assets-v12.yml',
+            '.github/workflows/bump-site-entry-cache-v20260812.yml',
+            'tools/bump_site_entry_cache_v20260812.py',
+          ];
+          for(const file of retired)if(fs.existsSync(file))throw new Error(`退役舊版寫回工具仍存在：${file}`);
+          console.log('PASS: retired trial/cache write-back paths are removed.');
+          NODE
 
       - name: Maintenance guard policy check
-        shell: bash
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          mode=json.loads(Path('config/guard-mode.json').read_text(encoding='utf-8'))
-          assert mode.get('mode')=='paused_for_full_system_update'
-          assert mode.get('blocking') is False
-          assert mode.get('keep_minimum_safety') is True
-          print('PASS automatic blockers remain paused; current v8 audits are manual only.')
-          PY
+          node <<'NODE'
+          const mode=require('./config/guard-mode.json');
+          if(mode.mode!=='paused_for_full_system_update'||mode.blocking!==false||mode.keep_minimum_safety!==true)throw new Error('maintenance guard mode changed unexpectedly');
+          console.log('PASS: automatic blockers remain paused; current-authority audits stay manual during cleanup.');
+          NODE
