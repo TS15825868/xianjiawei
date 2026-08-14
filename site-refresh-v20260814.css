@@ -1,0 +1,335 @@
+/* 仙加味全站正式視覺收斂｜2026-08-14
+ * 目標：Safari/Chrome 穩定可讀、手機優先、品牌一致、產品圖片完整、不再白屏。
+ */
+:root{
+  --xjw-navy:#0b1f3b;
+  --xjw-cream:#f7f4ed;
+  --xjw-paper:#fffdf9;
+  --xjw-red:#8b1f24;
+  --xjw-red-dark:#71181c;
+  --xjw-gold:#b58b45;
+  --xjw-green:#315b4a;
+  --xjw-text:#182033;
+  --xjw-muted:#5f6673;
+  --xjw-line:rgba(11,31,59,.11);
+  --xjw-shadow:0 16px 42px rgba(11,31,59,.08);
+  --xjw-shadow-soft:0 8px 24px rgba(11,31,59,.06);
+  --xjw-radius:24px;
+  --xjw-max:1180px;
+}
+
+html{background:var(--xjw-cream);scroll-padding-top:86px}
+body,
+body.ux-v410{
+  margin:0!important;
+  color:var(--xjw-text)!important;
+  background:linear-gradient(180deg,#ebe5da 0,#f7f4ed 260px,#f7f4ed 100%)!important;
+  font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif!important;
+  line-height:1.75!important;
+  overflow-x:hidden!important;
+}
+body.menu-open,body.modal-open{overflow:hidden!important}
+
+/* 重要：內容預設必須可見。動畫是加分，不可以成為內容能否看到的前提。 */
+.reveal,
+.reveal.show,
+.reveal.is-visible,
+body.ux-v410 .reveal,
+body.ux-v410 .reveal.show{
+  opacity:1!important;
+  transform:none!important;
+  visibility:visible!important;
+}
+
+.page{min-height:70vh!important;overflow-x:clip!important}
+.site-header{
+  position:sticky!important;
+  top:0!important;
+  z-index:1200!important;
+  background:rgba(247,244,237,.94)!important;
+  border-bottom:1px solid var(--xjw-line)!important;
+  backdrop-filter:blur(16px)!important;
+  -webkit-backdrop-filter:blur(16px)!important;
+}
+.header-inner{max-width:var(--xjw-max)!important;margin:0 auto!important;padding:11px 18px!important;min-height:70px!important}
+.brand-mark{gap:10px!important;color:var(--xjw-navy)!important}
+.brand-mark__copy{display:grid!important;gap:0!important;line-height:1.2!important}
+.brand-mark__name{font-family:"Noto Serif TC","Songti TC",serif!important;font-size:18px!important;letter-spacing:.06em!important}
+.brand-mark__tagline{font-size:12px!important;color:var(--xjw-muted)!important;font-weight:600!important;letter-spacing:.04em!important;margin-top:3px!important}
+.menu-btn{min-height:42px!important;padding:0 15px!important;background:#fff!important;border:1px solid var(--xjw-line)!important;color:var(--xjw-navy)!important;box-shadow:none!important}
+
+h1,h2,h3{color:var(--xjw-navy)!important;text-wrap:balance}
+h1{font-family:"Noto Serif TC","Songti TC",serif!important;font-size:clamp(36px,5.2vw,60px)!important;line-height:1.16!important;letter-spacing:.01em!important}
+h2{font-family:"Noto Serif TC","Songti TC",serif!important;font-size:clamp(27px,3.6vw,40px)!important;line-height:1.28!important}
+h3{font-size:clamp(19px,2.3vw,25px)!important;line-height:1.35!important}
+p,li{color:var(--xjw-text)}
+.muted{color:var(--xjw-muted)!important}
+.eyebrow{color:var(--xjw-red)!important;font-size:13px!important;font-weight:850!important;letter-spacing:.11em!important}
+
+.hero,.section{max-width:var(--xjw-max)!important;margin:0 auto!important;padding-left:20px!important;padding-right:20px!important}
+.hero{padding-top:46px!important;padding-bottom:28px!important}
+.hero--compact{padding-top:34px!important}
+.section{padding-top:28px!important;padding-bottom:58px!important}
+.section--narrow{max-width:940px!important}
+.section-heading{max-width:760px;margin-bottom:24px!important}
+.section-heading>p:last-child{color:var(--xjw-muted)!important}
+
+.card,.panel,.final-cta,.hero__content,.hero__panel,
+.home-choice-card,.home-feature-card,.home-story-card,.home-faq-card,
+.product-card,.brand-generation,.brand-story-intro{
+  border:1px solid var(--xjw-line)!important;
+  box-shadow:var(--xjw-shadow-soft)!important;
+  background:var(--xjw-paper)!important;
+}
+.card,.panel,.final-cta,.product-card,.home-choice-card,.home-feature-card,.home-story-card,.home-faq-card{
+  border-radius:var(--xjw-radius)!important;
+}
+@media(hover:hover){
+  .card:hover,.panel:hover,.product-card:hover{transform:translateY(-2px)!important;box-shadow:var(--xjw-shadow)!important}
+}
+
+.btn{min-height:48px!important;padding:0 20px!important;border-radius:999px!important;font-weight:850!important;letter-spacing:.01em!important;box-shadow:none!important}
+.btn-primary{background:var(--xjw-red)!important;border-color:var(--xjw-red)!important;color:#fff!important}
+.btn-primary:hover{background:var(--xjw-red-dark)!important;border-color:var(--xjw-red-dark)!important}
+.btn-outline{background:#fff!important;border-color:var(--xjw-navy)!important;color:var(--xjw-navy)!important}
+.btn-line{background:#06c755!important;border-color:#06c755!important;color:#fff!important}
+.hero-actions,.section-actions,.final-cta__actions{gap:10px!important}
+
+/* 首頁：文字與品牌情境各司其職，取消巨大空白 Logo 卡。 */
+body[data-page="home"] .hero{padding-top:24px!important}
+body[data-page="home"] .hero__panel{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.06fr) minmax(320px,.94fr)!important;
+  align-items:stretch!important;
+  gap:18px!important;
+  padding:18px!important;
+  border-radius:30px!important;
+  background:linear-gradient(135deg,#fffdf8 0,#f2eadc 100%)!important;
+}
+body[data-page="home"] .hero__content{
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  min-width:0!important;
+  padding:34px 28px!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+body[data-page="home"] .hero__lead{max-width:660px!important;font-size:clamp(17px,2vw,20px)!important;line-height:1.8!important;color:#343b49!important}
+body[data-page="home"] .home-brand-signature{
+  min-height:0!important;
+  height:auto!important;
+  aspect-ratio:4/3!important;
+  position:relative!important;
+  display:block!important;
+  overflow:hidden!important;
+  padding:0!important;
+  border-radius:22px!important;
+  border:1px solid var(--xjw-line)!important;
+  background:#eee4d6!important;
+  box-shadow:none!important;
+}
+body[data-page="home"] .home-brand-signature img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:cover!important;
+  object-position:center!important;
+}
+body[data-page="home"] .home-brand-signature p{
+  position:absolute!important;
+  left:14px!important;
+  right:14px!important;
+  bottom:14px!important;
+  margin:0!important;
+  padding:10px 13px!important;
+  border-radius:14px!important;
+  color:#fff!important;
+  background:rgba(11,31,59,.82)!important;
+  backdrop-filter:blur(8px)!important;
+  -webkit-backdrop-filter:blur(8px)!important;
+  text-align:center!important;
+  font-weight:800!important;
+  line-height:1.45!important;
+}
+body[data-page="home"] .home-trust-row{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:8px!important;
+  margin-top:20px!important;
+}
+body[data-page="home"] .home-trust-row span{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:42px!important;
+  padding:7px 8px!important;
+  border:1px solid rgba(139,31,36,.16)!important;
+  border-radius:12px!important;
+  color:var(--xjw-red)!important;
+  background:rgba(255,255,255,.72)!important;
+  font-size:13px!important;
+  font-weight:800!important;
+  text-align:center!important;
+}
+body[data-page="home"] .home-choice-grid,
+body[data-page="home"] .home-feature-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:16px!important;
+}
+body[data-page="home"] .home-choice-card,
+body[data-page="home"] .home-feature-card{padding:24px!important}
+body[data-page="home"] .home-story-card{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  padding:clamp(26px,4vw,42px)!important;
+  background:linear-gradient(135deg,#fffdf8 0,#efe5d7 100%)!important;
+}
+body[data-page="home"] .home-story-card p:not(.eyebrow){max-width:780px!important;font-size:17px!important;line-height:1.85!important}
+
+/* 產品：真實產品圖完整顯示，手機不擠。 */
+.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+.product-card{overflow:hidden!important;cursor:default!important}
+.product-card__img{aspect-ratio:4/3!important;padding:18px!important;background:#fbf8f1!important;overflow:hidden!important}
+.product-card__img img,
+.product-detail-hero__media img,
+.modal-gallery__item img,
+.trial-product-card__media img,
+.real-product-gallery img{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+}
+.product-card__body{padding:19px!important}
+.product-card__actions{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+.product-card__actions .btn{width:100%!important}
+.real-product-gallery{gap:20px!important}
+.real-product-gallery article{padding:18px!important}
+.real-product-gallery img{height:auto!important;aspect-ratio:auto!important;border-radius:16px!important;background:#fff!important}
+
+/* 表格與 FAQ */
+.table-scroll{overflow:auto!important;-webkit-overflow-scrolling:touch!important;border-radius:18px!important;border:1px solid var(--xjw-line)!important;background:#fff!important}
+.compare-table{min-width:720px!important}
+.faq-item{border-color:var(--xjw-line)!important;border-radius:18px!important;box-shadow:none!important}
+.faq-item summary{color:var(--xjw-navy)!important}
+
+/* 品牌故事：先讀故事，再看年份。 */
+body[data-page="brand-origin"] .breadcrumb{max-width:var(--xjw-max)!important;margin:0 auto!important;padding:18px 20px 0!important}
+body[data-page="brand-origin"] .brand-hero-v410{padding-top:22px!important}
+body[data-page="brand-origin"] .brand-hero-v410__panel{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr)!important;
+  gap:24px!important;
+  align-items:center!important;
+  padding:clamp(22px,4vw,42px)!important;
+  border-radius:30px!important;
+  background:linear-gradient(135deg,#fffdf8 0,#efe5d7 100%)!important;
+}
+body[data-page="brand-origin"] .brand-hero-v410__copy>p:not(.eyebrow){font-size:17px!important;line-height:1.9!important;color:#343b49!important}
+body[data-page="brand-origin"] .brand-hero-v410__media{
+  aspect-ratio:4/3!important;
+  min-height:0!important;
+  padding:0!important;
+  border-radius:22px!important;
+  overflow:hidden!important;
+  background:#eee4d6!important;
+}
+body[data-page="brand-origin"] .brand-hero-v410__media img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important}
+.brand-facts{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:8px!important;margin:22px 0 4px!important}
+.brand-fact{padding:12px 10px!important;border-radius:14px!important;background:rgba(255,255,255,.78)!important;border:1px solid rgba(139,31,36,.13)!important;text-align:center!important}
+.brand-fact strong{display:block!important;color:var(--xjw-red)!important;font-family:"Noto Serif TC","Songti TC",serif!important;font-size:22px!important}
+.brand-fact span{display:block!important;margin-top:3px!important;color:var(--xjw-muted)!important;font-size:12px!important;line-height:1.45!important}
+.brand-promise-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important}
+.brand-promise-card{padding:24px!important}
+.brand-story-panel{display:grid!important;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr)!important;gap:22px!important;align-items:start!important}
+.brand-story-intro{position:sticky!important;top:92px!important;padding:26px!important;border-radius:22px!important}
+.brand-story-intro p{color:var(--xjw-muted)!important}
+.brand-timeline{display:grid!important;gap:14px!important}
+.brand-generation{
+  display:grid!important;
+  grid-template-columns:78px minmax(0,1fr)!important;
+  gap:18px!important;
+  align-items:start!important;
+  padding:24px!important;
+  border-radius:22px!important;
+}
+.brand-generation__mark{display:flex!important;align-items:center!important;justify-content:center!important;min-height:58px!important;border-radius:16px!important;background:var(--xjw-navy)!important;color:#fff!important;font-weight:900!important;font-size:14px!important;letter-spacing:.02em!important}
+.brand-generation__year{margin:0 0 4px!important;color:var(--xjw-red)!important;font-weight:900!important;font-size:14px!important;letter-spacing:.04em!important}
+.brand-generation__body>p:last-child{color:#414856!important;line-height:1.85!important}
+
+/* Footer 與 Modal */
+.site-footer{padding:12px 20px 34px!important}
+.footer-card{max-width:var(--xjw-max)!important;padding:28px!important;border-radius:24px!important;background:#fffdf9!important}
+.product-modal__panel{max-width:980px!important;border-radius:24px!important}
+.modal-top{gap:24px!important}
+.modal-gallery__item{background:#fbf8f1!important}
+
+@media(max-width:980px){
+  body[data-page="home"] .hero__panel,
+  body[data-page="brand-origin"] .brand-hero-v410__panel{grid-template-columns:1fr!important}
+  body[data-page="home"] .home-brand-signature{max-width:720px!important;width:100%!important;margin:0 auto!important;aspect-ratio:16/10!important}
+  body[data-page="brand-origin"] .brand-hero-v410__media{max-width:720px!important;width:100%!important;margin:0 auto!important;aspect-ratio:16/10!important}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .brand-story-panel{grid-template-columns:1fr!important}
+  .brand-story-intro{position:relative!important;top:auto!important}
+  .brand-promise-grid{grid-template-columns:1fr!important}
+}
+
+@media(max-width:700px){
+  .header-inner{padding:9px 12px!important;min-height:62px!important}
+  .brand-mark__tagline{display:none!important}
+  .hero,.section{padding-left:12px!important;padding-right:12px!important}
+  .hero{padding-top:18px!important;padding-bottom:18px!important}
+  .section{padding-top:22px!important;padding-bottom:38px!important}
+  .hero__content{padding:24px 18px!important}
+  h1{font-size:clamp(34px,10.2vw,44px)!important}
+  h2{font-size:clamp(25px,7vw,32px)!important}
+  p,li{font-size:15.5px!important}
+  .btn{width:100%!important;min-height:50px!important;padding:0 16px!important}
+  .hero-actions,.section-actions,.final-cta__actions{display:grid!important;grid-template-columns:1fr!important;width:100%!important}
+
+  body[data-page="home"] .hero__panel{padding:12px!important;gap:12px!important;border-radius:22px!important}
+  body[data-page="home"] .hero__content{padding:24px 16px 20px!important}
+  body[data-page="home"] .hero__lead{font-size:16px!important;line-height:1.78!important}
+  body[data-page="home"] .home-trust-row{grid-template-columns:1fr!important;gap:6px!important}
+  body[data-page="home"] .home-trust-row span{min-height:38px!important}
+  body[data-page="home"] .home-brand-signature{aspect-ratio:16/10!important;border-radius:18px!important}
+  body[data-page="home"] .home-brand-signature p{left:10px!important;right:10px!important;bottom:10px!important;font-size:13px!important}
+  body[data-page="home"] .home-choice-grid,
+  body[data-page="home"] .home-feature-grid{grid-template-columns:1fr!important;gap:12px!important}
+  body[data-page="home"] .home-choice-card,
+  body[data-page="home"] .home-feature-card{padding:20px!important}
+  body[data-page="home"] .home-story-card{padding:24px 20px!important}
+
+  .product-grid{grid-template-columns:1fr!important;gap:14px!important}
+  .product-card__img{aspect-ratio:4/3!important;padding:16px!important}
+  .real-product-gallery{grid-template-columns:1fr!important}
+
+  body[data-page="brand-origin"] .breadcrumb{padding:12px 12px 0!important}
+  body[data-page="brand-origin"] .brand-hero-v410__panel{padding:22px 16px!important;gap:18px!important;border-radius:22px!important}
+  body[data-page="brand-origin"] .brand-hero-v410__copy>p:not(.eyebrow){font-size:16px!important;line-height:1.85!important}
+  body[data-page="brand-origin"] .brand-hero-v410__media{aspect-ratio:16/10!important;border-radius:18px!important}
+  .brand-facts{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .brand-generation{grid-template-columns:1fr!important;gap:12px!important;padding:20px!important}
+  .brand-generation__mark{width:max-content!important;min-width:60px!important;min-height:38px!important;padding:0 12px!important;border-radius:999px!important}
+  .brand-story-intro{padding:22px!important}
+
+  .site-footer{padding-left:12px!important;padding-right:12px!important}
+  .footer-card{padding:22px!important}
+  .product-modal__scroll{padding:0!important}
+  .product-modal__panel{min-height:100dvh!important;border-radius:0!important;padding:16px 12px 26px!important}
+}
+
+@media(max-width:390px){
+  h1{font-size:33px!important}
+  .brand-facts{grid-template-columns:1fr 1fr!important}
+}
