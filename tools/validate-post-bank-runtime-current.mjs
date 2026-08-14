@@ -42,24 +42,33 @@ assert.equal(new Set(ids).size,posts.length,'目前貼文ID必須唯一');
 assert.ok(ids.every(Boolean),'目前貼文不得有空白ID');
 
 const productAuthority=window.XJWActualProductPhotoAuthority;
-assert.ok(productAuthority,'未載入目前產品圖片權威');
+assert.ok(productAuthority,'未載入products-v3產品身份參考層');
 const productUrls=Object.values(productAuthority.map||{}).map(String);
-assert.equal(productUrls.length,6,'正式產品圖片權威必須維持六項');
+assert.equal(productUrls.length,6,'products-v3身份參考必須維持六項');
 for(const url of productUrls){
-  assert.match(url,/\/images\/products-v3\//,'產品權威必須使用products-v3');
-  assert.doesNotMatch(url,/products-v2/,'產品權威不得回退products-v2');
+  assert.match(url,/\/images\/products-v3\//,'身份參考必須使用products-v3真實原圖');
+  assert.doesNotMatch(url,/products-v2/,'身份參考不得回退products-v2');
 }
-assert.ok(window.XJWCurrentPostMediaAuthority,'未載入目前公開資產權威守門');
+const currentGuard=window.XJWCurrentPostMediaAuthority;
+assert.ok(currentGuard,'未載入目前公開資產權威守門');
+assert.equal(currentGuard.validateFormalCopy({copy:'龜鹿膏每日早上及下午各一小匙'}),'','目前龜鹿膏正式用法不得被守門誤退');
+assert.match(currentGuard.validateFormalCopy({copy:'龜鹿膏一天一次一小匙'}),/退役使用方式/,'舊龜鹿膏一天一次用法應被擋下');
+assert.equal(currentGuard.validateFormalCopy({copy:'龜鹿湯塊75g／盒｜8塊裝，龜鹿膠600g（1斤）／盒｜32塊裝'}),'','跨產品正確規格不得互相誤判');
 
 const retired=new Set((assets.assets||[])
   .filter(asset=>['deprecated-reference-only','preflight-rejected-reference-only','superseded-reference-only'].includes(String(asset.status||'')))
   .map(asset=>String(asset.path||'').split(/[?#]/)[0].replace(/^\//,''))
   .filter(Boolean));
-const approvedFormal=new Set([
-  ...(formal.products||[]).filter(p=>p.status==='approved_display').map(p=>String(p.dm||'')),
-  ...(formal.trial?.status==='approved_display'?[String(formal.trial.image||'')]:[])
-].map(value=>value.replace(/^https?:\/\/[^/]+\/xianjiawei\//i,'').replace(/^\//,'').split(/[?#]/)[0]).filter(Boolean));
 const normalize=value=>String(value||'').replace(/^https?:\/\/[^/]+\/xianjiawei\//i,'').replace(/^\//,'').split(/[?#]/)[0];
+const approvedDms=new Set((formal.products||[])
+  .filter(p=>p.status==='approved_display')
+  .map(p=>normalize(p.dm))
+  .filter(Boolean));
+const currentFormal=currentGuard.currentFormalPaths(formal);
+assert.ok(currentFormal.has('images/trial/trial-poster-small-boss-official-v20260814.jpg'),'8/14正式試喝海報必須存在目前媒體權威');
+assert.ok(approvedDms.size>=6,'目前formal authority應包含六產品詳細DM');
+assert.ok(currentFormal.size>=13,'目前formal authority應包含六產品主圖、六張DM與試喝正式媒體');
+
 const isProtected=post=>post.status==='published'||post.status==='archived'||post.prevent_republish===true||post.do_not_republish===true;
 const isHold=post=>post.campaign_hold===true||post.status==='campaign_hold'||Boolean(post.hold_until);
 const isRegen=post=>post.image_status==='needs_generation'||post.requires_image_generation===true||/regeneration-required|chatgpt.*required|chatgpt_handoff/i.test(String(post.candidate_generation_mode||post.regeneration_mode||''));
@@ -78,10 +87,12 @@ for(const post of posts){
   assert.doesNotMatch(image,/\/images\/products-v2\//i,`${post.id} 仍引用products-v2退役產品圖`);
   if(!protectedPost){
     assert.doesNotMatch(serialized,/30\s*cc.{0,40}(玻璃瓶|瓶裝|[／/]\s*瓶)/i,`${post.id} 仍出現30cc瓶型舊稱`);
-    assert.doesNotMatch(serialized,/龜鹿湯塊.{0,80}(300\s*g|600\s*g)/i,`${post.id} 龜鹿湯塊仍出現舊容量`);
+    for(const segment of currentGuard.productSegments(serialized,'龜鹿湯塊')){
+      assert.doesNotMatch(segment,/(300\s*g|600\s*g)/i,`${post.id} 龜鹿湯塊自己的語境仍出現舊容量`);
+    }
     if(normalized&&retired.has(normalized))assert.fail(`${post.id} 仍沿用目前資產庫已退役圖片：${normalized}`);
     if(/\/images\/brand\/line-oa\//i.test(image))assert.fail(`${post.id} 正式候選不得直接混用LINE OA專用角色圖`);
-    if(/\/images\/dm-(?:final|approved-v\d+)\//i.test(image)&&!approvedFormal.has(normalized))assert.fail(`${post.id} 使用DM目錄圖片但不在目前formal authority核准清單：${normalized}`);
+    if(/\/images\/dm-(?:final|approved-v\d+)\//i.test(image)&&!approvedDms.has(normalized))assert.fail(`${post.id} 使用DM目錄圖片但不在目前formal authority核准清單：${normalized}`);
   }
 
   if(protectedPost){
@@ -116,15 +127,16 @@ for(const post of posts){
     assert.notEqual(post.schedule_enabled,true,`${post.id} 待審核候選不得直接排程`);
     continue;
   }
-  // Current catalogs may contain additional explicitly safe draft states; they are allowed only if not publishable/scheduled.
   otherSafe++;
   assert.notEqual(post.publish_allowed,true,`${post.id} 未分類草稿狀態不得直接發布`);
 }
 
 assert.equal(posts.length,publishedLocked+campaignHold+needsGeneration+needsBinarySync+candidateReview+otherSafe,'目前安全狀態分類總數必須等於runtime實際篇數');
-assert.ok(approvedFormal.size>=7,'目前formal authority應包含六產品＋試喝核准媒體');
+const overview=posts.find(post=>post.id==='POST-PRODUCT-OVERVIEW');
+assert.ok(overview,'缺少產品總覽貼文');
+assert.doesNotMatch(String(overview.image_review_reason||''),/龜鹿湯塊仍含退役容量/,'產品總覽不得再被跨產品規格誤退件');
 
 console.log('PASS current post runtime capability audit',JSON.stringify({
   total:posts.length,publishedLocked,campaignHold,needsGeneration,needsBinarySync,candidateReview,otherSafe,
-  productAuthority:'products-v3',currentAssetGuard:true,currentFormalMediaCount:approvedFormal.size
+  productIdentityAuthority:'products-v3',currentAssetGuard:true,currentFormalMediaCount:currentFormal.size
 },null,2));
