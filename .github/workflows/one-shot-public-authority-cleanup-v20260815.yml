@@ -1,0 +1,137 @@
+name: 仙加味公開品牌與自動化權威一次性整理
+
+on:
+  push:
+    paths:
+      - '.github/workflows/one-shot-public-authority-cleanup-v20260815.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Align public and automation authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          llms = Path('llms-full.txt')
+          text = llms.read_text(encoding='utf-8')
+          old = '- 對外常用名稱：台興山產・仙加味'
+          if old not in text:
+              raise SystemExit('llms-full old public alias not found; stop instead of guessing')
+          text = text.replace(old, '- 對外品牌名稱：仙加味')
+          llms.write_text(text, encoding='utf-8')
+
+          ai_path = Path('content/ai-brand-control-v20260807.json')
+          ai = json.loads(ai_path.read_text(encoding='utf-8'))
+          ai['version'] = '2026-08-15-ai-brand-control-v10-current-authority'
+          ai['brand']['publicName'] = '仙加味'
+          ai['brand']['seriesName'] = '仙加味・龜鹿'
+          ai['productAuthority']['specifications'] = [
+              '龜鹿膏 100g／罐',
+              '龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）',
+              '龜鹿飲180cc鋁袋 180cc／包（鋁袋）',
+              '龜鹿湯塊 75g／盒｜8塊裝',
+              '龜鹿膠 600g（1斤）／盒｜32塊裝',
+              '鹿茸粉 75g／罐',
+          ]
+          gr = ai['generationRouting']
+          gr['imageGenerationQueue'] = 'managed-by-xianjiawei-internal-publishing-center'
+          gr['queueSummary'] = {
+              'mode': 'dynamic',
+              'fixedLimit': False,
+              'note': '貼文與題庫可持續增加，不設固定篇數上限；實際數量與狀態由目前正式貼文中心動態計算。'
+          }
+          gr['authorityInjection'] = [
+              'catalog-public.json',
+              'brand-character-spec.json',
+              'content/visual-production-spec-current.json',
+              'content/ai-brand-control-v20260807.json'
+          ]
+          ai['campaignHolds'] = []
+          ai['imageRules']['guiluDrink30'] = '30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；同型外觀約42mm直徑×51mm高；不可叫瓶、不可改罐型或比例、不可放大成100g罐大小。'
+          ai['imageRules']['guiluTangkuai'] = '75g／盒｜8塊裝；深藍正式盒裝，照原圖等比例；每塊約9.375g僅屬產品詳細資料，不放貼文、產品圖或DM主規格。'
+          ai['imageRules']['guiluJiao'] = '600g（1斤）／盒｜32塊裝；淡紫正式盒裝照原圖等比例；每塊約18.75g僅屬產品詳細資料，不放貼文、產品圖或DM主規格。'
+          rotation = ai.get('rotation', {})
+          rotation.pop('targetLibrarySize', None)
+          rotation['librarySizePolicy'] = 'dynamic-unbounded-reviewed-content-library'
+          ai['rotation'] = rotation
+          ai_path.write_text(json.dumps(ai, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          vis_path = Path('content/visual-production-spec-current.json')
+          vis = json.loads(vis_path.read_text(encoding='utf-8'))
+          vis['version'] = '2026-08-15-current-visual-authority-v2'
+          vis['updated_at_taipei'] = '2026-08-15'
+          vis['authority_layers'] = {
+              'product_identity': 'images/products-v3/ 只作真實產品身份、包裝與比例校正參考；不直接取代目前顧客產品主圖',
+              'customer_product_display': 'images/customer-display-v20260812/ 為目前一般產品頁、產品卡與一般產品貼文主圖來源',
+              'detailed_dm': 'images/dm-final/ 只用於明確DM／詳細DM版位，與一般產品主圖分離',
+              'trial': 'images/trial/trial-poster-small-boss-official-v20260814.jpg 為目前試喝頁與試喝貼文固定正式海報',
+              'post_lifestyle': '目前最新使用者ZIP素材先依文案語意比對；有合格來源但原圖待同步時保持needs_binary_sync；真的沒有合格來源才重新生成',
+              'guard': '驗目前authority與能力，不綁歷史版號、舊ZIP名稱、固定候選數、舊固定文案或退役延伸規格'
+          }
+          p30 = vis['products']['guilu-drink-30']
+          p30['presentation'] = '小玻璃裸罐、無貼紙、金色蓋；罐型高矮胖瘦固定照正式原圖'
+          p30['customer_dm_status'] = 'approved_current_20260814'
+          p30['customer_dm_path'] = '/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg'
+          p30['customer_dm_validation'] = '目前核准30cc詳細DM；一般產品主圖仍使用customer-display，DM不得取代產品主圖'
+          vis['products']['guilu-tangkuai']['image_rule'] = '使用正式原盒等比例；主規格固定75g／盒｜8塊裝；每塊約9.375g僅詳細資料，不放產品主圖或DM主規格；不得建立其他容量。'
+          vis['products']['guilu-jiao']['image_rule'] = '使用正式原盒等比例；主規格固定600g（1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料，不放產品主圖或DM主規格；不得與75g湯塊混用。'
+          vis_path.write_text(json.dumps(vis, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Validate updated authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          node <<'NODE'
+          const fs=require('fs');
+          const ai=JSON.parse(fs.readFileSync('content/ai-brand-control-v20260807.json','utf8'));
+          const vis=JSON.parse(fs.readFileSync('content/visual-production-spec-current.json','utf8'));
+          const llms=fs.readFileSync('llms-full.txt','utf8');
+          const must=(x,m)=>{if(!x)throw new Error(m)};
+          must(llms.includes('- 對外品牌名稱：仙加味'),'llms-full未統一仙加味');
+          must(!llms.includes('對外常用名稱：台興山產'),'llms-full仍把舊名稱列為對外名稱');
+          must(ai.brand.publicName==='仙加味','AI品牌公開名稱錯誤');
+          must(ai.generationRouting.queueSummary.mode==='dynamic'&&ai.generationRouting.queueSummary.fixedLimit===false,'內容庫仍有固定篇數限制');
+          must(!('targetLibrarySize' in ai.rotation),'rotation仍鎖固定內容庫張數');
+          must(ai.generationRouting.authorityInjection.includes('content/visual-production-spec-current.json'),'AI仍引用舊視覺authority');
+          must(!/無外盒|無外袋/.test(ai.imageRules.guiluDrink30),'AI 30cc仍自創外盒／外袋限制');
+          must(ai.productAuthority.specifications.includes('龜鹿湯塊 75g／盒｜8塊裝'),'湯塊主規格未對齊');
+          must(ai.productAuthority.specifications.includes('龜鹿膠 600g（1斤）／盒｜32塊裝'),'龜鹿膠主規格未對齊');
+          must(vis.products['guilu-drink-30'].spec==='30cc／罐（小玻璃罐）','視覺30cc主規格錯誤');
+          must(!/無外盒|無外袋/.test(vis.products['guilu-drink-30'].presentation),'視覺30cc仍自創外盒／外袋限制');
+          must(vis.products['guilu-drink-30'].customer_dm_path.includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'),'視覺30cc DM仍舊版');
+          must(vis.authority_layers.detailed_dm.includes('images/dm-final/'),'視覺authority未分離DM');
+          must(vis.authority_layers.trial.includes('trial-poster-small-boss-official-v20260814.jpg'),'視覺authority試喝未對齊8/14');
+          console.log('PASS: public name, dynamic content library and current visual roles aligned.');
+          NODE
+          python tools/validate-site-release.py
+          python tools/validate_public_aio_seo.py
+
+      - name: Commit verified authority updates
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'TS15825868'
+          git config user.email 'tung314069@gmail.com'
+          git add llms-full.txt content/ai-brand-control-v20260807.json content/visual-production-spec-current.json
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+            exit 0
+          fi
+          git commit -m 'fix(site): align public brand and automation authority'
+          git push origin HEAD:main
