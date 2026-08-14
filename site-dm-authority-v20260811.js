@@ -1,7 +1,7 @@
 "use strict";
 
 /* 仙加味顧客DM權威層｜2026-08-13 HD fix
- * 產品主圖、詳細DM、trial展示元件分開。
+ * 產品主圖、詳細DM、正式試喝海報分開。
  * 本層只負責六張詳細DM；DM一律使用已核准的高解析 JPG 母檔。
  * 不得再以 8~10KB 低解析 WebP 作為顧客端正式DM。
  */
@@ -45,7 +45,7 @@
         ...(data.runtime||{}),
         dmSource:'separate-current-approved-hd-dm',
         dmVersion:VERSION,
-        dmRoleRule:'product main image / high-resolution detailed DM / trial component are separate roles',
+        dmRoleRule:'product main image / current detailed DM / approved trial poster are separate roles',
         trialMediaOwnedBy:'trial-poster-small-boss-official-v20260814',
         retiredTrialBinaries:[...RETIRED_TRIAL]
       };

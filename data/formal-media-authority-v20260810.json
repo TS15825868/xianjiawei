@@ -3,7 +3,7 @@
   "approval_batch": "20260814-product-modal-media-v3",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
-  "principle": "formal product images, valid detailed DMs, and the trial showcase component are separate media roles; products-v3 remains immutable real-product identity reference only",
+  "principle": "formal product images, current detailed DMs, and the latest user-approved trial poster are separate media roles; products-v3 remains immutable real-product identity reference only",
   "product_image_authority": "formal product media only; 180cc uses the exact user-approved 1122x1402 HD product master restored from repository history; detailed DM remains a separate role",
   "products": [
     {
@@ -86,10 +86,10 @@
     }
   ],
   "dm": {
-    "version": "20260812-dm-binary-fix-v2",
+    "version": "20260814-product-modal-media-v3",
     "role": "separate-detailed-media-layer",
-    "status": "approved_corrected_valid_binary",
-    "source": "user-provided DM assets plus corrected text-only edits; guilu gao uses approved JPG fallback because retired WebP binary is invalid",
+    "status": "approved_current_media",
+    "source": "current approved DM assets; 30cc uses exact latest user-approved 1122x1402 JPEG with 30cc／罐",
     "retired_invalid_paths": [
       "/images/dm-approved-v20260810/guilu-gao-100g.webp"
     ],
@@ -137,7 +137,7 @@
   "image_rules": [
     "正式產品圖用於產品頁／產品卡／一般產品貼文",
     "有效詳細DM只用於DM版位／DM貼文",
-    "試喝頁使用trial-showcase-v20260813元件，小老闆情境與正式30cc產品圖分開呈現",
+    "試喝頁使用最新核准小老闆正式試喝海報，產品圖／DM／試喝圖三層分離",
     "舊trial.webp、trial-clean-v4.svg、trial-small-boss.webp、jpg、png不得再當網站試喝主圖",
     "所有對外圖片除了可解碼之外，還必須視覺內容正常且媒體角色正確",
     "產品本體不得AI重畫或改包裝身份",
@@ -148,6 +148,6 @@
     "龜鹿湯塊產品圖／DM主規格只放75g／盒｜8塊裝；每塊約9.375g僅詳細資料",
     "龜鹿膠產品圖／DM主規格只放600g（1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料"
   ],
-  "post_image_policy": "product posts use formal product visuals; explicit DM posts use valid detailed DMs; trial content uses the approved trial component; edits return to pending_review and must pass the 16-item review gate",
-  "guard_policy": "validate product image, detailed DM, trial component, visual validity and physical identity as separate roles; never restore retired trial masters or wrong-role 180cc DM"
+  "post_image_policy": "product posts use formal product visuals; explicit DM posts use current approved detailed DMs; trial content uses the latest approved trial poster; edits return to pending_review and must pass the 16-item review gate",
+  "guard_policy": "validate product image, detailed DM, trial poster, visual validity and physical identity as separate roles; never restore retired trial masters or wrong-role 180cc DM"
 }

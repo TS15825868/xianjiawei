@@ -18,7 +18,7 @@
   const RETIRED_TRIAL=[
     'trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png','guilu-drink-trial.webp','guilu-drink-trial.png'
   ];
-  const TRIAL_COMPONENT='trial-showcase-v20260813';
+  const TRIAL_POSTER='images/trial/trial-poster-small-boss-official-v20260814.jpg';
 
   function text(card){return `${card.querySelector('h2')?.textContent||''} ${card.querySelector('.excerpt')?.textContent||''}`}
   function imageUrls(card){
@@ -82,7 +82,7 @@
     if(/needs|待生成|需重生成|replace-required/i.test(imageState))errors.push('圖片：此篇已列入重新生成／更換清單');
     if(t.includes('30cc'))notes.push('30cc產品用途使用正式小玻璃裸罐主圖；詳細DM只在明確DM用途使用。');
     if(t.includes('180cc'))notes.push('180cc產品用途使用正式高清鋁袋主圖；詳細DM只在明確DM用途使用，兩者不可互換。');
-    if(/試喝|先試喝/.test(t))notes.push(`官網試喝頁目前使用${TRIAL_COMPONENT}元件；已花圖的trial-small-boss與舊trial別名全部退役。貼文候選不得引用這些退役檔，正式貼文圖仍需依最新核准素材做16項人工檢查。`);
+    if(/試喝|先試喝/.test(t))notes.push(`官網試喝頁目前固定使用最新核准正式試喝海報 ${TRIAL_POSTER}；已花圖的trial-small-boss與舊trial別名全部退役。貼文候選不得引用退役檔，正式貼文圖仍需依最新核准素材做16項人工檢查。`);
     if(t.includes('龜鹿膏'))notes.push('龜鹿膏100g維持正式產品圖與獨立詳細DM，產品罐型、標籤與比例不得改。');
     if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊主規格75g／盒｜8塊裝；每塊約9.375g只屬詳細資料。');
     if(t.includes('龜鹿膠'))notes.push('龜鹿膠主規格600g（1斤）／盒｜32塊裝；每塊約18.75g只屬詳細資料。');
@@ -113,7 +113,7 @@
       }
     });
   }
-  window.XJWPublishingGuardian=Object.freeze({version:'20260813-v8',blocking:GUARD_BLOCKING,product:PRODUCT,dm:DM,trialComponent:TRIAL_COMPONENT,retiredTrial:RETIRED_TRIAL,scan});
+  window.XJWPublishingGuardian=Object.freeze({version:'20260814-v9',blocking:GUARD_BLOCKING,product:PRODUCT,dm:DM,trialPoster:TRIAL_POSTER,retiredTrial:RETIRED_TRIAL,scan});
   new MutationObserver(enhance).observe(document.documentElement,{subtree:true,childList:true});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
 })();

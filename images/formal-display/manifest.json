@@ -130,10 +130,9 @@
   },
   "rules": {
     "product_authority": "formal product images are for product surfaces only; products-v3 remains physical identity reference and 180cc uses the exact approved HD product master",
-    "customer_main_visual": "formal product media for product surfaces; valid detailed DMs only for DM surfaces; trial uses the approved component with mascot support plus formal 30cc product image",
+    "customer_main_visual": "formal product media for product surfaces; current approved detailed DMs only for DM surfaces; latest user-approved trial poster only for trial surfaces",
     "no_ai_product_redraw": true,
     "no_stretch": true,
-    "trial_component_authority": "trial-showcase-v20260813",
     "retired_trial_must_not_return": true,
     "drink30": "small bare glass jar, no label, no shape/proportion changes",
     "drink180": "foil pouch, no pouch/proportion changes, no DM poster as main product image",
@@ -141,6 +140,7 @@
     "jiao_main_spec": "600g（1斤）／盒｜32塊裝",
     "piece_weight_policy": "9.375g and 18.75g are approximate detail data only, not product/DM main-image copy",
     "review_after_media_change": 16,
-    "guard_policy": "validate product image, valid detailed DM, trial component and real-product identity separately; reject corrupt, low-resolution, wrong-role or retired media"
+    "guard_policy": "validate product image, current detailed DM, trial poster and real-product identity as separate roles; reject corrupt, low-resolution, wrong-role or retired media",
+    "trial_poster_authority": "/images/trial/trial-poster-small-boss-official-v20260814.jpg"
   }
 }
