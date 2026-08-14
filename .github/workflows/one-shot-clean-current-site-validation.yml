@@ -1,6 +1,6 @@
 name: 仙加味官網目前正式版驗收後自清理
 
-# rerun-4: publishing runtime guard and runtime audit aligned to current product context
+# rerun-5: every regeneration-required runtime post now carries an explicit review reason
 on:
   push:
     branches: [main]
