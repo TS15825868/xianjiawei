@@ -1,4 +1,5 @@
 name: 仙加味產品與FAQ規格更新
+# rerun after updating the current customer-page validator
 on:
   push:
     branches: [main]
@@ -18,7 +19,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import subprocess,re
+          import subprocess
           files=subprocess.check_output(['git','ls-files'],text=True).splitlines()
           binary_ext={'.png','.jpg','.jpeg','.webp','.avif','.gif','.ico','.zip','.pdf','.mp4','.mov','.woff','.woff2','.ttf','.otf'}
           for name in files:
@@ -33,17 +34,14 @@ jobs:
             s=s.replace('75g／盒｜8塊裝','75g （2兩）／盒｜8塊裝')
             s=s.replace('600g（1斤）／盒｜32塊裝','600g （1斤）／盒｜32塊裝')
             s=s.replace('75g／8塊裝','75g （2兩）／8塊裝')
-            # FAQ：規格回答必須包含單塊約重；同時保留前次確認的龜鹿飲用量／作息原則。
             if name=='faq.html':
               s=s.replace('龜鹿湯塊75g （2兩）／盒｜8塊裝、龜鹿膠600g （1斤）／盒｜32塊裝與鹿茸粉75g／罐。','龜鹿湯塊75g （2兩）／盒｜8塊裝，每塊約9.375g、龜鹿膠600g （1斤）／盒｜32塊裝，每塊約18.75 g，以及鹿茸粉75g／罐。')
               s=s.replace('龜鹿湯塊是75g （2兩）／盒｜8塊裝；龜鹿膠是600g （1斤）／盒｜32塊裝。兩者為不同產品。','龜鹿湯塊是75g （2兩）／盒｜8塊裝，每塊約9.375g；龜鹿膠是600g （1斤）／盒｜32塊裝，每塊約18.75 g。兩者為不同產品。')
               s=s.replace('龜鹿湯塊為75g （2兩）／盒｜8塊裝；龜鹿膠為600g （1斤）／盒｜32塊裝。兩者是不同產品。','龜鹿湯塊為75g （2兩）／盒｜8塊裝，每塊約9.375g；龜鹿膠為600g （1斤）／盒｜32塊裝，每塊約18.75 g。兩者是不同產品。')
-              s=s.replace('龜鹿湯塊目前正式規格為75g （2兩）／盒｜8塊裝，每塊約9.375g。','龜鹿湯塊目前正式規格為75g （2兩）／盒｜8塊裝，每塊約9.375g。')
               s=s.replace('每日一份，可直接飲用或隔水溫熱後飲用，飲用時間可依個人使用習慣與作息時間安排並避免冰飲。開罐或開封後請儘速飲用完畢。','30cc為每日 1-2罐；180cc為每日一包。可直接飲用或隔水溫熱後飲用，飲用時間可依個人使用習慣與作息時間安排並避免冰飲。開罐或開封後請儘速飲用完畢。')
             if name=='products.html':
               s=s.replace('<td>75g （2兩）／盒｜8塊裝</td>','<td>75g （2兩）／盒｜8塊裝，每塊約9.375g</td>')
               s=s.replace('<td>600g （1斤）／盒｜32塊裝</td>','<td>600g （1斤）／盒｜32塊裝，每塊約18.75 g</td>')
-            # 詳情頁的「規格」卡片直接以完整規格呈現，避免只靠下一行補充。
             if name=='product-guilu-tangkuai.html':
               s=s.replace('<p><strong>75g （2兩）／盒｜8塊裝</strong></p><p>每塊約9.375g。</p>','<p><strong>75g （2兩）／盒｜8塊裝，每塊約9.375g</strong></p>')
             if name=='product-guilu-jiao.html':
@@ -66,8 +64,8 @@ jobs:
       - name: Run current site validation
         shell: bash
         run: |
-          if [ -f tools/validate-site-release.py ]; then python tools/validate-site-release.py; fi
-          if [ -f tools/validate-public-customer-pages-v20260809.py ]; then python tools/validate-public-customer-pages-v20260809.py; fi
+          python tools/validate-site-release.py
+          python tools/validate-public-customer-pages-v20260809.py
       - name: Commit verified changes
         shell: bash
         run: |
