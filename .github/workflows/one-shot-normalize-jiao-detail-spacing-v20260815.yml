@@ -26,7 +26,7 @@ jobs:
           from pathlib import Path
           needle='每塊約18.75g'
           replacement='每塊約18.75 g'
-          out=subprocess.check_output(['git','grep','-Il',needle,'--',':!images/**',':!.github/workflows/one-shot-normalize-jiao-detail-spacing-v20260815.yml'],text=True).splitlines()
+          out=subprocess.check_output(['git','grep','-Il',needle,'--',':!images/**',':!.github/workflows/**'],text=True).splitlines()
           changed=[]
           for name in out:
               p=Path(name)
