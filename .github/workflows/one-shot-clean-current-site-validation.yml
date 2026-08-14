@@ -1,6 +1,6 @@
 name: 仙加味官網目前正式版驗收後自清理
 
-# rerun-5: every regeneration-required runtime post now carries an explicit review reason
+# rerun-6: 30cc FAQ source wording and regeneration reasons aligned to current authority
 on:
   push:
     branches: [main]
