@@ -56,11 +56,11 @@
           "黃耆",
           "粉光蔘"
         ],
-        "usagePrimary": "每日早上及下午各一小匙",
+        "usagePrimary": "食用時間與份量可依個人使用習慣與作息安排",
         "usageNotes": [
           "初次可先從半匙開始",
           "可直接取用或以約100～300mL熱水化開",
-          "避免接近睡前食用"
+          "食用時間與份量可依個人使用習慣與作息安排"
         ]
       },
       "guiluDrink30": {
@@ -73,7 +73,7 @@
           "紅棗",
           "黃耆"
         ],
-        "usagePrimary": "每日一罐"
+        "usagePrimary": "每日1～2罐"
       },
       "guiluDrink180": {
         "ingredients": [
@@ -85,7 +85,7 @@
           "紅棗",
           "黃耆"
         ],
-        "usagePrimary": "每日一包"
+        "usagePrimary": "飲用份量與時間可依個人使用習慣與作息安排"
       },
       "guiluTangkuai": {
         "ingredients": [

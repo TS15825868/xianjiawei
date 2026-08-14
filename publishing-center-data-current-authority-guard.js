@@ -101,7 +101,7 @@
       if(/600\s*g/i.test(segment)&&/(規格|容量|盒裝)/.test(segment)&&!/32\s*塊/.test(segment))return '龜鹿膠自己的主規格語境應維持600g（1斤）／盒｜32塊裝';
     }
     for(const segment of productSegments(serialized,'龜鹿膏')){
-      if(/(一天一次一小匙|每日一次一小匙|早晚各一小匙)/i.test(segment))return '龜鹿膏仍含退役使用方式；目前為每日早上及下午各一小匙';
+      if(/(一天一次一小匙|每日一次一小匙|早晚各一小匙)/i.test(segment))return '龜鹿膏仍含退役使用方式；目前為食用時間與份量可依個人使用習慣與作息安排';
     }
     return'';
   }

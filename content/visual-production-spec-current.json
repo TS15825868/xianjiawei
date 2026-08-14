@@ -41,7 +41,7 @@
     "guilu-gao": {
       "name": "龜鹿膏",
       "spec": "100g／罐",
-      "usage_primary": "每日早上及下午各一小匙",
+      "usage_primary": "食用時間與份量可依個人使用習慣與作息安排",
       "image_rule": "直接使用products-v3正式實拍識別；只允許等比例縮放，不AI重畫、不裁切、不換蓋、不換標籤"
     },
     "guilu-drink-30": {
@@ -55,7 +55,8 @@
       "image_rule": "必須保留實際小玻璃罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐",
       "customer_dm_status": "approved_current_20260814",
       "customer_dm_path": "/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
-      "customer_dm_validation": "目前核准30cc詳細DM；一般產品主圖仍使用customer-display，DM不得取代產品主圖"
+      "customer_dm_validation": "目前核准30cc詳細DM；一般產品主圖仍使用customer-display，DM不得取代產品主圖",
+      "usage_primary": "每日1～2罐；飲用時間可依個人使用習慣與作息安排"
     },
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
@@ -66,7 +67,8 @@
         "target": 0.64,
         "max": 0.68
       },
-      "image_rule": "使用正式鋁袋原圖等比例；禁止橫向拉寬、加高或誇張放大"
+      "image_rule": "使用正式鋁袋原圖等比例；禁止橫向拉寬、加高或誇張放大",
+      "usage_primary": "飲用份量與時間可依個人使用習慣與作息安排"
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",

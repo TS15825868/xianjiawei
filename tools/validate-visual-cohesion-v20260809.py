@@ -41,7 +41,7 @@ def main():
     req('images/customer-display-v20260812/' in site_authority,'官網缺少目前顧客產品顯示層')
     req("officialImagePolicy:'products-v3-real-product-identity-reference-only'" in site_authority,'產品身份層沒有鎖products-v3參考角色')
     req("imagePolicy:'formal-product-image-only-contain-no-crop-no-dm-substitution'" in site_authority,'顧客產品圖沒有鎖contain/no-crop/no-DM替代')
-    req("normalized.usage=['每日早上及下午各一小匙'" in site_authority,'動態龜鹿膏用法未同步目前正式句')
+    req("normalized.usage=['食用時間與份量可依個人使用習慣與作息安排'" in site_authority,'動態龜鹿膏用法未同步目前正式句')
 
     index=read('index.html'); brand=read('brand.html')
     legacy_brand='images/brand/approved-v405/home-brand.webp'

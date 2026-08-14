@@ -11,8 +11,12 @@ PRODUCT_IDENTITY_BASE='images/products-v3/'
 
 # 只清理真正退役內容；新版合法資訊不得被同步腳本降級。
 REPLACEMENTS=[
- ('一天一次一小匙','每日早上及下午各一小匙'),
- ('早晚各一小匙','每日早上及下午各一小匙'),
+ ('每日早上及下午各一小匙','食用時間與份量可依個人使用習慣與作息安排'),
+ ('建議白天飲用','飲用時間可依個人使用習慣與作息安排'),
+ ('每日一罐','每日1～2罐'),
+ ('每日一包','飲用份量與時間可依個人使用習慣與作息安排'),
+ ('一天一次一小匙','食用時間與份量可依個人使用習慣與作息安排'),
+ ('早晚各一小匙','食用時間與份量可依個人使用習慣與作息安排'),
  ('600g／盒｜32塊裝','600g（1斤）／盒｜32塊裝'),
  ('600g一斤裝','600g（1斤）／盒｜32塊裝'),
  ('龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'),
@@ -147,7 +151,7 @@ def sync_text(rel:str):
 
 def validate_no_retired_customer_copy():
  current=['content/public-post-library.json','llms-full.txt','deploy-version.json','data.json','catalog-public.json','config/official-products.json','assets/data/official-products.json']
- retired=['一天一次一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶']
+ retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日一包','龜鹿飲30cc玻璃瓶','30cc／瓶']
  for rel in current:
   path=ROOT/rel
   if not path.exists():continue

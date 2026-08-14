@@ -15,7 +15,7 @@ CURRENT_SPECS={
  'guilu-jiao':'600g（1斤）／盒｜32塊裝',
  'luerong-fen':'75g／罐',
 }
-RETIRED_PUBLIC_FACTS=['一天一次一小匙','早晚各一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶','30cc瓶裝']
+RETIRED_PUBLIC_FACTS=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日一包','龜鹿飲30cc玻璃瓶','30cc／瓶','30cc瓶裝']
 
 def load(path):return json.loads((ROOT/path).read_text(encoding='utf-8'))
 def text(path):return (ROOT/path).read_text(encoding='utf-8')
@@ -32,14 +32,14 @@ def validate_current_authorities():
   req(cat_by[pid].get('size')==spec,f'catalog {pid} 規格不同步')
   req(off_by[pid].get('spec')==spec,f'official master {pid} 規格不同步')
   req(pub_by[pid].get('specification')==spec,f'public official master {pid} 規格不同步')
- req(data_by['guilu-gao'].get('usage',[None])[0]=='每日早上及下午各一小匙','data.json 龜鹿膏目前用法未同步')
- req(cat_by['guilu-gao'].get('usage',[None])[0]=='每日早上及下午各一小匙','catalog 龜鹿膏目前用法未同步')
+ req(data_by['guilu-gao'].get('usage',[None])[0]=='食用時間與份量可依個人使用習慣與作息安排','data.json 龜鹿膏目前用法未同步')
+ req(cat_by['guilu-gao'].get('usage',[None])[0]=='食用時間與份量可依個人使用習慣與作息安排','catalog 龜鹿膏目前用法未同步')
  req(off_by['guilu-tangkuai'].get('detail_unit_approx')=='每塊約9.375g','湯塊詳細約重不同步')
  req(off_by['guilu-jiao'].get('detail_unit_approx')=='每塊約18.75g','龜鹿膠詳細約重不同步')
  req(official.get('visual_spec')=='content/visual-production-spec-current.json','official master 未指向 current visual authority')
  req(public_official.get('visual_spec')=='content/visual-production-spec-current.json','public official master 未指向 current visual authority')
  req(visual.get('official_specs')==[f"{off_by[pid]['name']} {CURRENT_SPECS[pid]}" for pid in CURRENT_SPECS],'current visual 六項主規格不同步')
- req(visual.get('products',{}).get('guilu-gao',{}).get('usage_primary')=='每日早上及下午各一小匙','current visual 龜鹿膏用法不同步')
+ req(visual.get('products',{}).get('guilu-gao',{}).get('usage_primary')=='食用時間與份量可依個人使用習慣與作息安排','current visual 龜鹿膏用法不同步')
  req(visual.get('copy_image_match',{}).get('review_items')==16,'current visual 必須維持16項審核')
  post_policy=visual.get('post_media_policy') or {}
  req(post_policy.get('regenerate_only_if_no_approved_match') is True,'current visual 必須維持真正缺圖才生成')
