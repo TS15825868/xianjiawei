@@ -24,8 +24,8 @@ REPLACEMENTS=[
  ('使用時間可依個人使用習慣與作息時間安排','使用時間可依個人使用習慣與作息時間安排'),
  ('一天一次一小匙','食用時間可依個人使用習慣與作息時間安排'),
  ('早晚各一小匙','食用時間可依個人使用習慣與作息時間安排'),
- ('600g／盒｜32塊裝','600g（1斤）／盒｜32塊裝'),
- ('600g一斤裝','600g（1斤）／盒｜32塊裝'),
+ ('600g／盒｜32塊裝','600g （1斤）／盒｜32塊裝'),
+ ('600g一斤裝','600g （1斤）／盒｜32塊裝'),
  ('龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'),
  ('30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'),
  ('30cc／瓶','30cc／罐（小玻璃罐）'),
@@ -62,11 +62,11 @@ def sync_json(rel:str):
  data=transform(json.loads(path.read_text(encoding='utf-8')))
  if rel=='content/public-post-library.json':
   formal=load_formal(); current=formal_by_catalog_id(formal); data['version']='current-public-posts-authority-20260812-v2'; auth=data.setdefault('productAuthority',{})
-  auth['source']='data/formal-media-authority-v20260810.json'; auth['imageAuthority']='images/customer-display-v20260812/'; auth['identityReference']='images/products-v3/'; auth['sixProductsSixSpecs']=True; auth['mediaRoles']='product image / valid detailed DM / trial are separate'; auth['soupBlock']='75g／盒｜深藍盒｜8塊裝'; auth['guiluJiao']='600g（1斤）／盒｜32塊裝｜淡紫色正式盒裝'; auth['guardPolicy']='validate-current-authority-no-legacy-copy-version-lock'
+  auth['source']='data/formal-media-authority-v20260810.json'; auth['imageAuthority']='images/customer-display-v20260812/'; auth['identityReference']='images/products-v3/'; auth['sixProductsSixSpecs']=True; auth['mediaRoles']='product image / valid detailed DM / trial are separate'; auth['soupBlock']='75g／盒｜深藍盒｜8塊裝'; auth['guiluJiao']='600g （1斤）／盒｜32塊裝｜淡紫色正式盒裝'; auth['guardPolicy']='validate-current-authority-no-legacy-copy-version-lock'
   for post in data.get('posts',[]):
    pid=post.get('id')
-   if pid=='POST-SOUP-75':post['copy']='龜鹿湯塊為75g／盒｜8塊裝的深藍正式盒裝，可搭配熱水、保溫壺，也可加入雞湯、排骨湯或日常食材燉煮。'
-   elif pid=='POST-JIAO-600':post['copy']='龜鹿膠為600g（1斤）／盒｜32塊裝的淡紫色盒裝，可加入熱水化開，也可依料理方式搭配湯品。'
+   if pid=='POST-SOUP-75':post['copy']='龜鹿湯塊為75g （2兩）／盒｜8塊裝的深藍正式盒裝，可搭配熱水、保溫壺，也可加入雞湯、排骨湯或日常食材燉煮。'
+   elif pid=='POST-JIAO-600':post['copy']='龜鹿膠為600g （1斤）／盒｜32塊裝的淡紫色盒裝，可加入熱水化開，也可依料理方式搭配湯品。'
    product_id=post.get('product_id') or post.get('productId'); f=current.get(product_id)
    if f and f.get('status')=='approved_display' and post.get('status') not in {'published','archived'}:
     image=str(post.get('image_url') or '')
@@ -82,7 +82,7 @@ def sync_catalog_current_media():
  if not path.exists():return False
  data=transform(json.loads(path.read_text(encoding='utf-8'))); formal=load_formal(); current=formal_by_catalog_id(formal)
  data['catalogVersion']='current-six-product-display-and-valid-dm-20260812-v2'; data['productImageVersion']='current-six-user-confirmed-product-images'; data['productIdentityReference']='products-v3-real-product-package-shape-proportion-only'; data['formalDmApprovalBatch']=formal.get('approval_batch') or '20260812-dm-binary-fix-v2'
- rules=data.setdefault('specificationRules',{}); rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；不得改罐型、比例或稱瓶。'; rules['tangkuai']='75g／盒｜8塊裝；每塊約9.375g只留產品詳細資料，不放產品圖、DM主規格或貼文主規格。'; rules['jiao']='600g（1斤）／盒｜32塊裝；每塊約18.75g只留產品詳細資料，不放產品圖、DM主規格或貼文主規格。'
+ rules=data.setdefault('specificationRules',{}); rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；不得改罐型、比例或稱瓶。'; rules['tangkuai']='75g （2兩）／盒｜8塊裝；每塊約9.375g只留產品詳細資料，不放產品圖、DM主規格或貼文主規格。'; rules['jiao']='600g （1斤）／盒｜32塊裝；每塊約18.75g只留產品詳細資料，不放產品圖、DM主規格或貼文主規格。'
  for product in data.get('products',[]):
   f=current.get(product.get('id'))
   if not f or f.get('status')!='approved_display':continue
@@ -114,7 +114,7 @@ def validate_no_retired_customer_copy():
    if phrase in value:raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
  for rel in ['content/public-post-library.json','catalog-public.json']:
   path=ROOT/rel
-  if path.exists() and '龜鹿膠' in path.read_text(encoding='utf-8') and '600g（1斤）／盒｜32塊裝' not in path.read_text(encoding='utf-8'):raise SystemExit(f'{rel} 缺少目前正式龜鹿膠規格：600g（1斤）／盒｜32塊裝')
+  if path.exists() and '龜鹿膠' in path.read_text(encoding='utf-8') and '600g （1斤）／盒｜32塊裝' not in path.read_text(encoding='utf-8'):raise SystemExit(f'{rel} 缺少目前正式龜鹿膠規格：600g （1斤）／盒｜32塊裝')
 
 changed=[]
 for rel in ['content/public-post-library.json','content/public-content-policy.json','config/public-content-policy.json','content/post-bank-v6-manifest.json','data.json','geo-data.json','assets/data/official-products.json','content/visual-production-spec-current.json']:

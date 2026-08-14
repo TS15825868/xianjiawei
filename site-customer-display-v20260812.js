@@ -48,11 +48,11 @@
       if(product.id==='guilu-drink-30') normalized.size='30cc／罐（小玻璃罐）';
       if(product.id==='guilu-drink-180') normalized.size='180cc／包（鋁袋）';
       if(product.id==='guilu-tangkuai'){
-        normalized.size='75g／盒｜8塊裝';
+        normalized.size='75g （2兩）／盒｜8塊裝';
         normalized.unitApprox='每塊約9.375g（僅詳細資料，不放產品主圖／DM主規格）';
       }
       if(product.id==='guilu-jiao'){
-        normalized.size='600g（1斤）／盒｜32塊裝';
+        normalized.size='600g （1斤）／盒｜32塊裝';
         normalized.unitApprox='每塊約18.75g（僅詳細資料，不放產品主圖／DM主規格）';
       }
       return {

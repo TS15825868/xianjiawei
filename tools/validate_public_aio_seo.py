@@ -11,9 +11,9 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = "https://ts15825868.github.io/xianjiawei/"
-SOUP_MAIN_SPEC = "75g／盒｜8塊裝"
+SOUP_MAIN_SPEC = "75g （2兩）／盒｜8塊裝"
 SOUP_DETAIL = "每塊約9.375g"
-JIAO_MAIN_SPEC = "600g（1斤）／盒｜32塊裝"
+JIAO_MAIN_SPEC = "600g （1斤）／盒｜32塊裝"
 JIAO_DETAIL = "每塊約18.75g"
 OFFICIAL_SPECS = [
     "龜鹿膏 100g／罐",

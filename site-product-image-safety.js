@@ -27,7 +27,7 @@
     {key:'tangkuai',tests:[/guilu-tangkuai/i]},
     {key:'jiao',tests:[/guilu-jiao/i]}
   ]);
-  const ALT=Object.freeze({gao:'龜鹿膏正式產品圖',drink30:'龜鹿飲30cc正式產品圖｜小玻璃裸罐',drink180:'龜鹿飲180cc正式產品圖｜鋁袋',tangkuai:'龜鹿湯塊75g／盒｜8塊裝正式產品圖',jiao:'龜鹿膠600g（1斤）／盒｜32塊裝正式產品圖',luerong:'鹿茸粉75g正式產品圖'});
+  const ALT=Object.freeze({gao:'龜鹿膏正式產品圖',drink30:'龜鹿飲30cc正式產品圖｜小玻璃裸罐',drink180:'龜鹿飲180cc正式產品圖｜鋁袋',tangkuai:'龜鹿湯塊75g （2兩）／盒｜8塊裝正式產品圖',jiao:'龜鹿膠600g （1斤）／盒｜32塊裝正式產品圖',luerong:'鹿茸粉75g正式產品圖'});
   const IMAGE_EXT=/\.(?:avif|webp|png|jpe?g|gif|svg)(?:[?#]|$)/i;
 
   function absolute(value=''){try{return new URL(String(value||''),location.href).href}catch{return String(value||'')}}

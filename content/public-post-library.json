@@ -18,7 +18,7 @@
     "soupBlock": "75g／盒｜深藍盒｜8塊裝",
     "rejectUnknownSpecs": true,
     "rejectUnknownMultiProductRelativeScale": true,
-    "guiluJiao": "600g（1斤）／盒｜32塊裝｜淡紫色正式盒裝",
+    "guiluJiao": "600g （1斤）／盒｜32塊裝｜淡紫色正式盒裝",
     "guardPolicy": "validate-current-authority-no-legacy-copy-version-lock",
     "identityReference": "images/products-v3/",
     "mediaRoles": "product image / valid detailed DM / trial are separate"
@@ -166,7 +166,7 @@
     {
       "id": "POST-SOUP-75",
       "title": "龜鹿湯塊75g",
-      "copy": "龜鹿湯塊為75g／盒｜8塊裝的深藍正式盒裝，可搭配熱水、保溫壺，也可加入雞湯、排骨湯或日常食材燉煮。",
+      "copy": "龜鹿湯塊為75g （2兩）／盒｜8塊裝的深藍正式盒裝，可搭配熱水、保溫壺，也可加入雞湯、排骨湯或日常食材燉煮。",
       "platforms": [
         "Facebook",
         "Instagram"
@@ -204,7 +204,7 @@
     {
       "id": "POST-JIAO-600",
       "title": "龜鹿膠600g",
-      "copy": "龜鹿膠為600g（1斤）／盒｜32塊裝的淡紫色盒裝，可加入熱水化開，也可依料理方式搭配湯品。",
+      "copy": "龜鹿膠為600g （1斤）／盒｜32塊裝的淡紫色盒裝，可加入熱水化開，也可依料理方式搭配湯品。",
       "platforms": [
         "Facebook",
         "Instagram"

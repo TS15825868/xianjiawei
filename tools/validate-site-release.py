@@ -11,8 +11,8 @@ CURRENT_SPECS={
  'guilu-gao':'100g／罐',
  'guilu-drink-30':'30cc／罐（小玻璃罐）',
  'guilu-drink-180':'180cc／包（鋁袋）',
- 'guilu-tangkuai':'75g／盒｜8塊裝',
- 'guilu-jiao':'600g（1斤）／盒｜32塊裝',
+ 'guilu-tangkuai':'75g （2兩）／盒｜8塊裝',
+ 'guilu-jiao':'600g （1斤）／盒｜32塊裝',
  'luerong-fen':'75g／罐',
 }
 RETIRED_PUBLIC_FACTS=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日1～2罐','每日 1～2罐','龜鹿飲30cc玻璃瓶','30cc／瓶','30cc瓶裝']

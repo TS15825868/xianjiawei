@@ -23,7 +23,7 @@ def main():
 
     req("String(p.characters||'').trim()" in v12,'v12沒有避開明確角色需求貼文')
     req("candidate_generation_mode:'runtime-safe-svg-v12'" in v12,'v12候選模式錯誤')
-    for phrase in ['龜鹿膏','100g／罐','龜鹿飲30cc玻璃罐','30cc／罐（小玻璃罐）','龜鹿飲180cc鋁袋','180cc／包（鋁袋）','龜鹿湯塊','75g／盒｜8塊裝｜每塊約9.375g','龜鹿膠','600g（1斤）／盒｜32塊裝｜每塊約18.75g','鹿茸粉','75g／罐']:
+    for phrase in ['龜鹿膏','100g／罐','龜鹿飲30cc玻璃罐','30cc／罐（小玻璃罐）','龜鹿飲180cc鋁袋','180cc／包（鋁袋）','龜鹿湯塊','75g （2兩）／盒｜8塊裝｜每塊約9.375g','龜鹿膠','600g （1斤）／盒｜32塊裝｜每塊約18.75g','鹿茸粉','75g／罐']:
         req(phrase in v12 or phrase in catalog,f'缺少正式產品權威：{phrase}')
 
     req('images/products-v3/guilu-gao.jpg' in v16 and 'images/products-v3/guilu-tangkuai.jpg' in v16,'v16未切到products-v3正式產品原圖')

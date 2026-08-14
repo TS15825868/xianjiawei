@@ -31,8 +31,8 @@
 | 龜鹿膏 | `/images/customer-display-v20260812/guilu-gao.avif` | 100g／罐 |
 | 龜鹿飲30cc玻璃罐 | `/images/customer-display-v20260812/guilu-drink-30cc.avif` | 30cc／罐（小玻璃罐） |
 | 龜鹿飲180cc鋁袋 | `/images/customer-display-v20260812/guilu-drink-180cc-product.jpg` | 180cc／包（鋁袋） |
-| 龜鹿湯塊 | `/images/customer-display-v20260812/guilu-tangkuai.avif` | 75g／盒｜8塊裝 |
-| 龜鹿膠 | `/images/customer-display-v20260812/guilu-jiao.avif` | 600g（1斤）／盒｜32塊裝 |
+| 龜鹿湯塊 | `/images/customer-display-v20260812/guilu-tangkuai.avif` | 75g （2兩）／盒｜8塊裝 |
+| 龜鹿膠 | `/images/customer-display-v20260812/guilu-jiao.avif` | 600g （1斤）／盒｜32塊裝 |
 | 鹿茸粉 | `/images/customer-display-v20260812/luerong-fen.avif` | 75g／罐 |
 
 180cc 正式產品主圖：

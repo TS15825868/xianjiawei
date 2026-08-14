@@ -9,7 +9,7 @@ SPECS = {
     "guilu-gao": ("龜鹿膏", "100g／罐"),
     "guilu-drink-30": ("龜鹿飲30cc玻璃罐", "30cc／罐（小玻璃罐）"),
     "guilu-drink-180": ("龜鹿飲180cc鋁袋", "180cc／包（鋁袋）"),
-    "guilu-tangkuai": ("龜鹿湯塊", "75g／盒｜8塊裝"),
+    "guilu-tangkuai": ("龜鹿湯塊", "75g （2兩）／盒｜8塊裝"),
     "guilu-jiao": ("龜鹿膠", "600g／盒｜32塊裝"),
     "luerong-fen": ("鹿茸粉", "75g／罐"),
 }

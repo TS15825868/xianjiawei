@@ -55,7 +55,7 @@
     {
       "id": "guilu-tangkuai",
       "name": "龜鹿湯塊",
-      "spec": "75g／盒｜8塊裝",
+      "spec": "75g （2兩）／盒｜8塊裝",
       "detail_unit_approx": "每塊約9.375g",
       "detail_unit_rule": "僅產品詳細資料可顯示，不放產品主圖或DM主規格",
       "image": "/images/customer-display-v20260812/guilu-tangkuai.avif",
@@ -67,7 +67,7 @@
     {
       "id": "guilu-jiao",
       "name": "龜鹿膠",
-      "spec": "600g（1斤）／盒｜32塊裝",
+      "spec": "600g （1斤）／盒｜32塊裝",
       "detail_unit_approx": "每塊約18.75g",
       "detail_unit_rule": "僅產品詳細資料可顯示，不放產品主圖或DM主規格",
       "image": "/images/customer-display-v20260812/guilu-jiao.avif",
@@ -162,8 +162,8 @@
     "禁止拼貼與黑塊",
     "30cc維持小玻璃裸罐、無貼紙、原比例與原罐型",
     "180cc維持鋁袋、原袋型與原比例，產品主圖不得使用DM海報",
-    "龜鹿湯塊產品圖／DM主規格只放75g／盒｜8塊裝；每塊約9.375g僅詳細資料",
-    "龜鹿膠產品圖／DM主規格只放600g（1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料"
+    "龜鹿湯塊產品圖／DM主規格只放75g （2兩）／盒｜8塊裝；每塊約9.375g僅詳細資料",
+    "龜鹿膠產品圖／DM主規格只放600g （1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料"
   ],
   "post_image_policy": "product posts use formal product visuals; explicit DM posts use current approved detailed DMs; trial content uses the latest approved trial poster; edits return to pending_review and must pass the 16-item review gate",
   "guard_policy": "validate product image, detailed DM, trial poster, visual validity and physical identity as separate roles; never restore retired trial masters or wrong-role 180cc DM"
