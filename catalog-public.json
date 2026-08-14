@@ -1,7 +1,7 @@
 {
   "schemaVersion": 12,
   "catalogVersion": "current-six-product-display-and-valid-dm-20260812-v2",
-  "updatedAt": "2026-08-11",
+  "updatedAt": "2026-08-14",
   "source": {
     "repository": "TS15825868/xianjiawei",
     "branch": "main",
@@ -86,7 +86,8 @@
       "imagePolicy": "六張使用者確認正式產品圖為顧客主視覺；products-v3只作實物身份與比例校正。",
       "imageUrl": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-gao.avif?v=current-product",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-gao.avif?v=current-product",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg"
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260814-product-modal-media-v3"
     },
     {
       "id": "guilu-drink-30",
@@ -125,7 +126,8 @@
       "imagePolicy": "六張使用者確認正式產品圖為顧客主視覺；products-v3只作實物身份與比例校正。",
       "imageUrl": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-drink-30cc.avif?v=current-product",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-drink-30cc.avif?v=current-product",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg"
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260814-product-modal-media-v3"
     },
     {
       "id": "guilu-drink-180",
@@ -165,7 +167,8 @@
       "imagePolicy": "六張使用者確認正式產品圖為顧客主視覺；products-v3只作實物身份與比例校正。",
       "imageUrl": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=current-product",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=current-product",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg"
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260814-product-modal-media-v3"
     },
     {
       "id": "guilu-tangkuai",
@@ -195,7 +198,8 @@
       "imagePolicy": "六張使用者確認正式產品圖為顧客主視覺；products-v3只作實物身份與比例校正。",
       "imageUrl": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-tangkuai.avif?v=current-product",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-tangkuai.avif?v=current-product",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg"
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260814-product-modal-media-v3"
     },
     {
       "id": "guilu-jiao",
@@ -224,7 +228,8 @@
       "imagePolicy": "六張使用者確認正式產品圖為顧客主視覺；products-v3只作實物身份與比例校正。",
       "imageUrl": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-jiao.avif?v=current-product",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-jiao.avif?v=current-product",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg"
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260814-product-modal-media-v3"
     },
     {
       "id": "luerong-fen",
@@ -252,7 +257,8 @@
       "imagePolicy": "六張使用者確認正式產品圖為顧客主視覺；products-v3只作實物身份與比例校正。",
       "imageUrl": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/luerong-fen.avif?v=current-product",
       "image_url": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/luerong-fen.avif?v=current-product",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg"
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260814-product-modal-media-v3"
     }
   ],
   "dmPolicy": {
