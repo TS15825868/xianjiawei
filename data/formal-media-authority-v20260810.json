@@ -5,6 +5,7 @@
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
   "principle": "formal product images, current detailed DMs, and the latest user-approved trial poster are separate media roles; products-v3 remains immutable real-product identity reference only",
   "product_image_authority": "formal product media only; 180cc uses the exact user-approved 1122x1402 HD product master restored from repository history; detailed DM remains a separate role",
+  "customer_text_spec_policy": "顧客產品頁、FAQ與快速查看可顯示目前完整文字規格與每塊約重；產品主圖、DM與產品包裝本體不得因此自行加字、重畫或改比例。",
   "products": [
     {
       "id": "guilu-gao",
@@ -57,7 +58,7 @@
       "name": "龜鹿湯塊",
       "spec": "75g （2兩）／盒｜8塊裝",
       "detail_unit_approx": "每塊約9.375g",
-      "detail_unit_rule": "僅產品詳細資料可顯示，不放產品主圖或DM主規格",
+      "detail_unit_rule": "顧客文字頁、FAQ與快速查看可顯示完整規格與每塊約9.375g；產品主圖與DM主規格維持75g （2兩）／盒｜8塊裝，不自行加字",
       "image": "/images/customer-display-v20260812/guilu-tangkuai.avif",
       "dm": "/images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
       "status": "approved_display",
@@ -69,7 +70,7 @@
       "name": "龜鹿膠",
       "spec": "600g （1斤）／盒｜32塊裝",
       "detail_unit_approx": "每塊約18.75g",
-      "detail_unit_rule": "僅產品詳細資料可顯示，不放產品主圖或DM主規格",
+      "detail_unit_rule": "顧客文字頁、FAQ與快速查看可顯示完整規格與每塊約18.75g；產品主圖與DM主規格維持600g （1斤）／盒｜32塊裝，不自行加字",
       "image": "/images/customer-display-v20260812/guilu-jiao.avif",
       "dm": "/images/dm-final/06_guilu-jiao-600g-dm.jpg",
       "status": "approved_display",
@@ -162,9 +163,9 @@
     "禁止拼貼與黑塊",
     "30cc維持小玻璃裸罐、無貼紙、原比例與原罐型",
     "180cc維持鋁袋、原袋型與原比例，產品主圖不得使用DM海報",
-    "龜鹿湯塊產品圖／DM主規格只放75g （2兩）／盒｜8塊裝；每塊約9.375g僅詳細資料",
-    "龜鹿膠產品圖／DM主規格只放600g （1斤）／盒｜32塊裝；每塊約18.75g僅詳細資料"
+    "龜鹿湯塊顧客文字可顯示75g （2兩）／盒｜8塊裝與每塊約9.375g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字",
+    "龜鹿膠顧客文字可顯示600g （1斤）／盒｜32塊裝與每塊約18.75g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字"
   ],
-  "post_image_policy": "product posts use formal product visuals; explicit DM posts use current approved detailed DMs; trial content uses the latest approved trial poster; edits return to pending_review and must pass the 16-item review gate",
-  "guard_policy": "validate product image, detailed DM, trial poster, visual validity and physical identity as separate roles; never restore retired trial masters or wrong-role 180cc DM"
+  "post_image_policy": "product post copy may include current exact text specifications and unit approximations when relevant; visuals use formal product media; explicit DM posts use current approved detailed DMs; trial content uses the latest approved trial poster; edits return to pending_review and must pass the 16-item review gate",
+  "guard_policy": "validate current product specifications, product image, detailed DM, trial poster, visual validity and physical identity as separate roles; never restore retired trial masters, fixed-time usage rules or wrong-role 180cc DM"
 }
