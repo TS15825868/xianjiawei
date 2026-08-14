@@ -1,6 +1,6 @@
 name: 仙加味官網目前正式版驗收後自清理
 
-# rerun-3: current public boundary no longer forces package color copy
+# rerun-4: publishing runtime guard and runtime audit aligned to current product context
 on:
   push:
     branches: [main]
