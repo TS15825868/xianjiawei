@@ -1,0 +1,57 @@
+name: 仙加味官網目前正式資料一次性完整驗收
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-shot-full-current-site-audit-v20260815.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Run current public customer validators
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate-public-customer-pages-v20260809.py
+          python tools/validate-site-production-release-v20260809.py
+          python tools/validate-visual-cohesion-v20260809.py
+          python tools/validate_public_aio_seo.py
+          python tools/validate-public-boundary-v20260808.py
+          python tools/validate-publishing-content-match-v20260809.py
+      - name: Validate current authority JSON and JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m json.tool data.json >/dev/null
+          python -m json.tool catalog-public.json >/dev/null
+          python -m json.tool geo-data.json >/dev/null
+          python -m json.tool assets/data/official-products.json >/dev/null
+          python -m json.tool data/formal-media-authority-v20260810.json >/dev/null
+          node --check site.js
+          node --check site-product-data-authority.js
+          node --check site-product-image-safety.js
+          node --check site-media-modal-final-v20260814.js
+      - name: Remove one-shot workflow after successful audit
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/one-shot-full-current-site-audit-v20260815.yml
+          git commit -m 'chore(site): remove completed full current audit workflow'
+          git pull --rebase origin main
+          git push origin HEAD:main
