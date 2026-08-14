@@ -4,12 +4,12 @@
   const TARGET='content/public-post-library.json';
   const ASSET_LIBRARY='content/public-asset-library.json';
   const FORMAL_AUTHORITY='data/formal-media-authority-v20260810.json';
-  const RUNTIME='current-authority-media-sanitizer-20260814-v3';
+  const RUNTIME='current-authority-media-sanitizer-20260814-v4';
   const DISALLOWED_ASSET_STATUSES=new Set(['deprecated-reference-only','preflight-rejected-reference-only','superseded-reference-only']);
   const TRIAL_APPROVED_STATES=new Set(['approved_user_original','approved_display','approved_current_media']);
   const PRODUCT_NAMES=['龜鹿膏','龜鹿飲30cc','龜鹿飲180cc','龜鹿湯塊','龜鹿膠','鹿茸粉'];
   const normalize=value=>String(value||'').replace(/^https?:\/\/[^/]+\/xianjiawei\//i,'').replace(/^\//,'').split(/[?#]/)[0];
-  const assetLibraryPromise=PREV_FETCH(ASSET_LIBRARY+'?authority=20260814-v3',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+  const assetLibraryPromise=PREV_FETCH(ASSET_LIBRARY+'?authority=20260814-v4',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
   const formalAuthorityPromise=PREV_FETCH(FORMAL_AUTHORITY+'?authority=20260814-product-modal-media-v3',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
 
   function productSegments(text,target){
@@ -72,6 +72,22 @@
       image_review_reason:`${reason}。目前媒體authority會先允許六張正式產品圖、有效詳細DM與正式試喝圖，再比對最新使用者ZIP；有合格來源但二進位未同步時維持needs_binary_sync，不亂重生成；真的沒有合格來源才生成。任何換圖或生成後都回待審核並重新完成16項檢查。`
     };
   }
+  function ensureGenerationReason(post){
+    if(!post||String(post.image_status||'')!=='needs_generation'||String(post.image_review_reason||'').trim())return post;
+    return{
+      ...post,
+      status:'pending_review',
+      publish_allowed:false,
+      schedule_enabled:false,
+      scheduled_at:null,
+      owner_review_required:true,
+      approval_required:true,
+      auto_approve:false,
+      auto_schedule:false,
+      auto_publish:false,
+      image_review_reason:'目前尚未有通過文案語意、正式素材角色與16項檢查的候選圖；需依原貼文文案優先比對現有正式素材，無合格來源時才生成新候選，完成後回待審核並重新完成16項檢查。'
+    };
+  }
   function validateFormalCopy(post){
     const serialized=JSON.stringify(post||{});
     if(/30\s*cc.{0,40}(玻璃瓶|瓶裝|[／/]\s*瓶)/i.test(serialized))return '貼文仍含30cc瓶型退役稱呼';
@@ -98,16 +114,16 @@
       const retired=retiredPaths(library),currentFormal=currentFormalPaths(formal);
       const posts=(data.posts||[]).map(post=>{
         const mediaReason=needsQuarantine(post,retired,currentFormal);
-        if(mediaReason)return quarantine(post,mediaReason);
+        if(mediaReason)return ensureGenerationReason(quarantine(post,mediaReason));
         const copyReason=validateFormalCopy(post);
-        if(copyReason&&post.status!=='published'&&post.status!=='archived')return quarantine(post,copyReason);
-        return post;
+        if(copyReason&&post.status!=='published'&&post.status!=='archived')return ensureGenerationReason(quarantine(post,copyReason));
+        return ensureGenerationReason(post);
       });
-      const merged={...data,version:`${data.version||'post-bank'}+current-authority-20260814-v3`,posts};
+      const merged={...data,version:`${data.version||'post-bank'}+current-authority-20260814-v4`,posts};
       merged.counts={...(data.counts||{}),total:posts.length,current_authority_regeneration:posts.filter(p=>p.candidate_generation_mode==='current-authority-regeneration-required').length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'&&p.status!=='published'&&!p.campaign_hold).length};
       const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');headers.set('x-xianjiawei-post-bank-current-authority',RUNTIME);
       return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});
     }catch{return response;}
   };
-  window.XJWCurrentPostMediaAuthority=Object.freeze({runtime:RUNTIME,assetLibrary:ASSET_LIBRARY,formalAuthority:FORMAL_AUTHORITY,disallowedAssetStatuses:[...DISALLOWED_ASSET_STATUSES],normalize,productSegments,retiredPaths,currentFormalPaths,needsQuarantine,quarantine,validateFormalCopy});
+  window.XJWCurrentPostMediaAuthority=Object.freeze({runtime:RUNTIME,assetLibrary:ASSET_LIBRARY,formalAuthority:FORMAL_AUTHORITY,disallowedAssetStatuses:[...DISALLOWED_ASSET_STATUSES],normalize,productSegments,retiredPaths,currentFormalPaths,needsQuarantine,quarantine,ensureGenerationReason,validateFormalCopy});
 })();
