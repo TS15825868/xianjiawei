@@ -165,7 +165,7 @@ def main() -> int:
     if f"Sitemap: {BASE}sitemap.xml" not in robots_text: fail(errors,"robots.txt 未指向正式 sitemap.xml")
 
     llms=(ROOT/"llms.txt").read_text("utf-8"); llms_full=(ROOT/"llms-full.txt").read_text("utf-8")
-    for marker in ["龜鹿膏","龜鹿飲30cc玻璃罐","龜鹿飲180cc鋁袋","龜鹿湯塊","75g／盒","龜鹿膠","鹿茸粉","catalog-public.json","geo-data.json","llms-full.txt"]:
+    for marker in ["龜鹿膏","龜鹿飲30cc玻璃罐","龜鹿飲180cc鋁袋","龜鹿湯塊",SOUP_MAIN_SPEC,"龜鹿膠","鹿茸粉","catalog-public.json","geo-data.json","llms-full.txt"]:
         if marker not in llms: fail(errors,f"llms.txt 缺少：{marker}")
     for marker in [f"正式規格：{SOUP_MAIN_SPEC}",f"詳細資料：{SOUP_DETAIL}",f"正式規格：{JIAO_MAIN_SPEC}",f"詳細資料：{JIAO_DETAIL}"]:
         if marker not in llms_full: fail(errors,f"llms-full.txt 缺少主規格／詳細資料分層：{marker}")
@@ -179,19 +179,19 @@ def main() -> int:
     soup=next((item for item in catalog.get("products",[]) if item.get("id")=="guilu-tangkuai"),None)
     if not soup or soup.get("size")!=SOUP_MAIN_SPEC or soup.get("package")!="深藍正式盒裝": fail(errors,"catalog-public.json龜鹿湯塊主規格或包裝錯誤")
     soup_rule=((catalog.get("specificationRules") or {}).get("tangkuai") or "")
-    if SOUP_DETAIL not in soup_rule or "詳細資料" not in soup_rule: fail(errors,"catalog-public.json龜鹿湯塊每塊約重沒有維持detail-only規則")
+    if SOUP_DETAIL not in soup_rule or "顧客文字可顯示完整規格" not in soup_rule: fail(errors,"catalog-public.json龜鹿湯塊完整顧客文字規格政策不同步")
     jiao=next((item for item in catalog.get("products",[]) if item.get("id")=="guilu-jiao"),None)
     if not jiao or jiao.get("size")!=JIAO_MAIN_SPEC: fail(errors,"catalog-public.json龜鹿膠目前主規格錯誤")
 
     geo_text=(ROOT/"geo-data.json").read_text("utf-8")
-    for marker in ["仙加味","萬華","龜鹿膏","龜鹿飲","龜鹿湯塊","75g／盒","龜鹿膠","鹿茸粉"]:
+    for marker in ["仙加味","萬華","龜鹿膏","龜鹿飲","龜鹿湯塊",SOUP_MAIN_SPEC,"龜鹿膠","鹿茸粉"]:
         if marker not in geo_text: fail(errors,f"geo-data.json 缺少實體或規格：{marker}")
     bad_geo=unauthorized_soup_weights(geo_text)
     if bad_geo: fail(errors,f"geo-data.json 出現未核准龜鹿湯塊重量：{bad_geo}")
 
     runtime=(ROOT/"site-official-product-variants.js").read_text("utf-8")
-    for marker in [SOUP_MAIN_SPEC,JIAO_MAIN_SPEC,SOUP_DETAIL,JIAO_DETAIL,"僅詳細資料"]:
-        if marker not in runtime: fail(errors,f"正式規格顯示層缺少目前主規格／詳細資料規則：{marker}")
+    for marker in [SOUP_MAIN_SPEC,JIAO_MAIN_SPEC,SOUP_DETAIL,JIAO_DETAIL]:
+        if marker not in runtime: fail(errors,f"正式規格顯示層缺少目前主規格／詳細約重：{marker}")
     bad_runtime=unauthorized_soup_weights(runtime)
     if bad_runtime: fail(errors,f"正式規格顯示層出現未核准龜鹿湯塊重量：{bad_runtime}")
 
@@ -203,7 +203,7 @@ def main() -> int:
         print("AIO／SEO／GEO 正式合約失敗：")
         for error in errors: print(f"- {error}")
         return 1
-    print(f"PASS AIO／SEO／GEO：{len(urls)}個canonical sitemap頁面、{len(PRIMARY_DECISION_PAGES)}個主要決策頁、Canonical、摘要、社群預覽、Schema、六個目前正式主規格、湯塊／龜鹿膠detail-only規則與機器可讀資料均通過")
+    print(f"PASS AIO／SEO／GEO（目前權威）：{len(urls)}個canonical sitemap頁面、{len(PRIMARY_DECISION_PAGES)}個主要決策頁、Canonical、摘要、社群預覽、Schema、六個目前正式主規格、湯塊／龜鹿膠detail-only規則與機器可讀資料均通過")
     return 0
 
 

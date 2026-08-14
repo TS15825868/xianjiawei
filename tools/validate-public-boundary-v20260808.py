@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
+import re
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,12 +55,13 @@ def main():
         if page in PRODUCT_PAGES:
             assert "images/dm-final/" not in source, f"{page} 正式產品主頁不應把詳細DM當產品主視覺"
         if page == "product-guilu-tangkuai.html":
-            assert "75g／盒" in source
+            assert "75g （2兩）／盒｜8塊裝" in source
+            assert "每塊約9.375g" in source
             assert "300g／盒" not in source
             assert "600g／盒" not in source
         if page == "product-guilu-jiao.html":
-            assert "600g（1斤）／盒" in source
-            assert "32塊裝" in source
+            assert "600g （1斤）／盒｜32塊裝" in source
+            assert re.search(r"每塊約18\.75\s*g", source)
         if page == "product-guilu-drink-30cc.html":
             for phrase in ["30cc／罐", "小玻璃罐", "裸罐", "無貼紙", "每日 1-2罐"]:
                 assert phrase in source, f"30cc正式頁缺少目前硬規格／使用資訊：{phrase}"
@@ -73,7 +75,7 @@ def main():
 
     print(
         f"PASS public boundary: 已檢查 sitemap {len(pages)} 個公開頁；"
-        "公司內部資訊、30cc罐型、湯塊舊容量、龜鹿膠1斤／32塊規格與產品頁媒體角色均未越界。"
+        "公司內部資訊、30cc罐型、湯塊75g（2兩）／8塊與龜鹿膠600g（1斤）／32塊完整文字規格、產品頁媒體角色均未越界。"
     )
 
 
