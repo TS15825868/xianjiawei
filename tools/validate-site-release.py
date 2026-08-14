@@ -54,7 +54,9 @@ def validate_current_authorities():
  post=load(post_catalog)
  if formal.get('post_approval_batch'):req(post.get('approval_batch')==formal.get('post_approval_batch'),'formal authority 與目前貼文素材核准批次不同步')
  req(int(post.get('candidate_count') or post.get('unique_image_count') or 0)>0,'目前使用者ZIP素材權威沒有候選圖')
- req(post.get('binary_sync',{}).get('status') in {'pending','ready'},'目前ZIP缺少有效二進位狀態')
+ sync_status=post.get('binary_sync',{}).get('status')
+ req(sync_status in {'pending','ready','synced'},f'目前ZIP二進位狀態不支援：{sync_status}')
+ if sync_status=='synced':req(int(post.get('binary_sync',{}).get('publishable_count') or 0)>0,'ZIP標記synced但沒有可發布情境圖')
  for rel in ['data.json','catalog-public.json','config/official-products.json','assets/data/official-products.json','content/visual-production-spec-current.json']:
   value=text(rel)
   for phrase in RETIRED_PUBLIC_FACTS:req(phrase not in value,f'{rel} 仍含退役正式資料：{phrase}')
