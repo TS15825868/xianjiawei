@@ -9,7 +9,7 @@
     'guilu-drink-30':{name:'龜鹿飲30cc玻璃罐',spec:'30cc／罐（小玻璃罐）',img:'images/products-v3/guilu-drink-30.jpg?v=20260809-25',dimensions:{diameterMm:42,heightMm:51}},
     'guilu-drink-180':{name:'龜鹿飲180cc鋁袋',spec:'180cc／包（鋁袋）',img:'images/products-v3/guilu-drink-180.jpg?v=20260809-25',aspectRatio:{min:.60,target:.64,max:.68}},
     'guilu-tangkuai':{name:'龜鹿湯塊',spec:'75g （2兩）／盒｜8塊裝｜每塊約9.375g',img:'images/products-v3/guilu-tangkuai.jpg?v=20260809-25',dimensions:null},
-    'guilu-jiao':{name:'龜鹿膠',spec:'600g （1斤）／盒｜32塊裝｜每塊約18.75g',img:'images/products-v3/guilu-jiao.jpg?v=20260809-25',dimensions:null},
+    'guilu-jiao':{name:'龜鹿膠',spec:'600g （1斤）／盒｜32塊裝｜每塊約18.75 g',img:'images/products-v3/guilu-jiao.jpg?v=20260809-25',dimensions:null},
     'luerong-fen':{name:'鹿茸粉',spec:'75g／罐',img:'images/products-v3/luerong-fen.jpg?v=20260809-25',dimensions:null}
   };
   const esc=(s='')=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));

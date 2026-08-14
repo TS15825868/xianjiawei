@@ -10,7 +10,7 @@
     {id:'guilu-drink-30',short:'龜鹿飲30cc小玻璃罐',name:'龜鹿飲30cc玻璃罐',spec:'30cc／罐（小玻璃罐）',mode:'方便即飲',image:'images/products-v3/guilu-drink-30.jpg',visual:'小玻璃裸罐、無貼紙、無外盒、無外袋、金色蓋，約42mm直徑×51mm高，不得稱瓶。'},
     {id:'guilu-drink-180',short:'龜鹿飲180cc鋁袋',name:'龜鹿飲180cc鋁袋',spec:'180cc／包（鋁袋）',mode:'方便即飲',image:'images/products-v3/guilu-drink-180.jpg',visual:'狹長直立鋁袋，寬高比約0.64，不拉寬、不放大失真。'},
     {id:'guilu-tangkuai',short:'龜鹿湯塊75g',name:'龜鹿湯塊',spec:'75g （2兩）／盒｜8塊裝｜每塊約9.375g',mode:'料理搭配',image:'images/products-v3/guilu-tangkuai.jpg',visual:'只有75g深藍正式盒裝，8塊裝，只用正式原圖。'},
-    {id:'guilu-jiao',short:'龜鹿膠600g',name:'龜鹿膠',spec:'600g （1斤）／盒｜32塊裝｜每塊約18.75g',mode:'家庭料理',image:'images/products-v3/guilu-jiao.jpg',visual:'淡紫色正式盒裝，32塊裝，等比例呈現，不與龜鹿湯塊混用。'},
+    {id:'guilu-jiao',short:'龜鹿膠600g',name:'龜鹿膠',spec:'600g （1斤）／盒｜32塊裝｜每塊約18.75 g',mode:'家庭料理',image:'images/products-v3/guilu-jiao.jpg',visual:'淡紫色正式盒裝，32塊裝，等比例呈現，不與龜鹿湯塊混用。'},
     {id:'luerong-fen',short:'鹿茸粉75g',name:'鹿茸粉',spec:'75g／罐',mode:'自行搭配',image:'images/products-v3/luerong-fen.jpg',visual:'75g白色塑膠罐正式原圖，不改罐型或標示。'}
   ];
   const SEASONS=['春','夏','秋','冬'];
@@ -24,7 +24,7 @@
     ['30cc罐型','30cc使用小玻璃裸罐，正式呈現不加貼紙、外盒或外袋。'],
     ['180cc鋁袋','180cc採狹長直立鋁袋包裝，圖片與實品都以正式原袋比例呈現。'],
     ['龜鹿湯塊規格','龜鹿湯塊正式規格為75g／盒，8塊裝，每塊約9.375g，使用深藍正式盒裝。'],
-    ['龜鹿膠規格','龜鹿膠為600g（1斤）／盒，32塊裝，每塊約18.75g，使用淡紫正式盒裝。'],
+    ['龜鹿膠規格','龜鹿膠為600g（1斤）／盒，32塊裝，每塊約18.75 g，使用淡紫正式盒裝。'],
     ['龜鹿膏怎麼使用','龜鹿膏一般使用為每日早上及下午各一小匙；初次可先從半匙開始，可直接取用或以約100～300mL熱水化開。'],
     ['龜鹿飲怎麼喝','30cc每日一罐、180cc每日一包，可溫熱飲用並避免冰飲。'],
     ['保存方式','未開封依產品標示保存；開封後依產品說明處理並儘早使用。'],

@@ -35,7 +35,7 @@ def validate_current_authorities():
  req(data_by['guilu-gao'].get('usage',[None])[0]=='食用時間可依個人使用習慣與作息時間安排','data.json 龜鹿膏目前用法未同步')
  req(cat_by['guilu-gao'].get('usage',[None])[0]=='食用時間可依個人使用習慣與作息時間安排','catalog 龜鹿膏目前用法未同步')
  req(off_by['guilu-tangkuai'].get('detail_unit_approx')=='每塊約9.375g','湯塊詳細約重不同步')
- req(off_by['guilu-jiao'].get('detail_unit_approx')=='每塊約18.75g','龜鹿膠詳細約重不同步')
+ req(off_by['guilu-jiao'].get('detail_unit_approx')=='每塊約18.75 g','龜鹿膠詳細約重不同步')
  req(official.get('visual_spec')=='content/visual-production-spec-current.json','official master 未指向 current visual authority')
  req(public_official.get('visual_spec')=='content/visual-production-spec-current.json','public official master 未指向 current visual authority')
  req(visual.get('official_specs')==[f"{off_by[pid]['name']} {CURRENT_SPECS[pid]}" for pid in CURRENT_SPECS],'current visual 六項主規格不同步')

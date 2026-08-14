@@ -70,7 +70,7 @@
       }
       if(product.id==='guilu-jiao'){
         normalized.size='600g （1斤）／盒｜32塊裝';
-        normalized.unitApprox='每塊約18.75g';
+        normalized.unitApprox='每塊約18.75 g';
       }
 
       return {

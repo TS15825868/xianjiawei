@@ -69,8 +69,8 @@
       "id": "guilu-jiao",
       "name": "龜鹿膠",
       "spec": "600g （1斤）／盒｜32塊裝",
-      "detail_unit_approx": "每塊約18.75g",
-      "detail_unit_rule": "顧客文字頁、FAQ與快速查看可顯示完整規格與每塊約18.75g；產品主圖與DM主規格維持600g （1斤）／盒｜32塊裝，不自行加字",
+      "detail_unit_approx": "每塊約18.75 g",
+      "detail_unit_rule": "顧客文字頁、FAQ與快速查看可顯示完整規格與每塊約18.75 g；產品主圖與DM主規格維持600g （1斤）／盒｜32塊裝，不自行加字",
       "image": "/images/customer-display-v20260812/guilu-jiao.avif",
       "dm": "/images/dm-final/06_guilu-jiao-600g-dm.jpg",
       "status": "approved_display",
@@ -122,7 +122,7 @@
       "180cc詳細DM不得出現在產品主圖版位",
       "30cc DM不得出現瓶、瓶裝、開瓶、30cc／瓶",
       "龜鹿湯塊DM主規格不得放每塊約9.375g",
-      "龜鹿膠DM主規格不得放每塊約18.75g",
+      "龜鹿膠DM主規格不得放每塊約18.75 g",
       "只有DM意圖版位才使用詳細DM"
     ]
   },
@@ -164,7 +164,7 @@
     "30cc維持小玻璃裸罐、無貼紙、原比例與原罐型",
     "180cc維持鋁袋、原袋型與原比例，產品主圖不得使用DM海報",
     "龜鹿湯塊顧客文字可顯示75g （2兩）／盒｜8塊裝與每塊約9.375g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字",
-    "龜鹿膠顧客文字可顯示600g （1斤）／盒｜32塊裝與每塊約18.75g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字"
+    "龜鹿膠顧客文字可顯示600g （1斤）／盒｜32塊裝與每塊約18.75 g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字"
   ],
   "post_image_policy": "product post copy may include current exact text specifications and unit approximations when relevant; visuals use formal product media; explicit DM posts use current approved detailed DMs; trial content uses the latest approved trial poster; edits return to pending_review and must pass the 16-item review gate",
   "guard_policy": "validate current product specifications, product image, detailed DM, trial poster, visual validity and physical identity as separate roles; never restore retired trial masters, fixed-time usage rules or wrong-role 180cc DM"

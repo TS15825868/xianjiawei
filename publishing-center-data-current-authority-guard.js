@@ -97,7 +97,7 @@
       if(/每塊約?\s*9\.375g/i.test(segment))return '龜鹿湯塊貼文主規格不應放每塊約9.375g；此值只留產品詳細資料';
     }
     for(const segment of productSegments(serialized,'龜鹿膠')){
-      if(/每塊約?\s*18\.75g/i.test(segment))return '龜鹿膠貼文主規格不應放每塊約18.75g；此值只留產品詳細資料';
+      if(/每塊約?\s*18\.75g/i.test(segment))return '龜鹿膠貼文主規格不應放每塊約18.75 g；此值只留產品詳細資料';
       if(/600\s*g/i.test(segment)&&/(規格|容量|盒裝)/.test(segment)&&!/32\s*塊/.test(segment))return '龜鹿膠自己的主規格語境應維持600g （1斤）／盒｜32塊裝';
     }
     for(const segment of productSegments(serialized,'龜鹿膏')){

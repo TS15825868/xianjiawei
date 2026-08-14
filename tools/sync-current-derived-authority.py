@@ -71,7 +71,7 @@ def sync_json(rel:str):
   for post in data.get('posts',[]):
    pid=post.get('id')
    if pid=='POST-SOUP-75':post['copy']='龜鹿湯塊為75g （2兩）／盒｜8塊裝，每塊約9.375g；深藍正式盒裝，可搭配熱水、保溫壺，也可加入雞湯、排骨湯或日常食材燉煮。'
-   elif pid=='POST-JIAO-600':post['copy']='龜鹿膠為600g （1斤）／盒｜32塊裝，每塊約18.75g；淡紫色正式盒裝，可加入熱水化開，也可依料理方式搭配湯品。'
+   elif pid=='POST-JIAO-600':post['copy']='龜鹿膠為600g （1斤）／盒｜32塊裝，每塊約18.75 g；淡紫色正式盒裝，可加入熱水化開，也可依料理方式搭配湯品。'
    product_id=post.get('product_id') or post.get('productId'); f=current.get(product_id)
    if f and f.get('status')=='approved_display' and post.get('status') not in {'published','archived'}:
     image=str(post.get('image_url') or '')
@@ -87,7 +87,7 @@ def sync_catalog_current_media():
  if not path.exists():return False
  data=transform(json.loads(path.read_text(encoding='utf-8'))); formal=load_formal(); current=formal_by_catalog_id(formal); official=official_by_id()
  data['catalogVersion']='current-six-product-display-and-valid-dm-20260815-v3'; data['productImageVersion']='current-six-user-confirmed-product-images'; data['productIdentityReference']='products-v3-real-product-package-shape-proportion-only'; data['formalDmApprovalBatch']=formal.get('approval_batch') or 'current'
- rules=data.setdefault('specificationRules',{}); rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；不得改罐型、比例或稱瓶。'; rules['tangkuai']='龜鹿湯塊文字規格為75g （2兩）／盒｜8塊裝，每塊約9.375g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'; rules['jiao']='龜鹿膠文字規格為600g （1斤）／盒｜32塊裝，每塊約18.75g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'
+ rules=data.setdefault('specificationRules',{}); rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；不得改罐型、比例或稱瓶。'; rules['tangkuai']='龜鹿湯塊文字規格為75g （2兩）／盒｜8塊裝，每塊約9.375g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'; rules['jiao']='龜鹿膠文字規格為600g （1斤）／盒｜32塊裝，每塊約18.75 g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'
  for product in data.get('products',[]):
   pid=product.get('id'); f=current.get(pid); o=official.get(pid)
   if o:

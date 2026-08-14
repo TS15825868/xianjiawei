@@ -18,7 +18,7 @@
     "soupBlock": "75g （2兩）／盒｜8塊裝，每塊約9.375g",
     "rejectUnknownSpecs": true,
     "rejectUnknownMultiProductRelativeScale": true,
-    "guiluJiao": "600g （1斤）／盒｜32塊裝，每塊約18.75g",
+    "guiluJiao": "600g （1斤）／盒｜32塊裝，每塊約18.75 g",
     "guardPolicy": "latest-product-authority-first-no-legacy-copy-version-lock",
     "identityReference": "images/products-v3/",
     "mediaRoles": "product image / valid detailed DM / trial are separate"
@@ -204,7 +204,7 @@
     {
       "id": "POST-JIAO-600",
       "title": "龜鹿膠600g",
-      "copy": "龜鹿膠為600g （1斤）／盒｜32塊裝，每塊約18.75g；淡紫色正式盒裝，可加入熱水化開，也可依料理方式搭配湯品。",
+      "copy": "龜鹿膠為600g （1斤）／盒｜32塊裝，每塊約18.75 g；淡紫色正式盒裝，可加入熱水化開，也可依料理方式搭配湯品。",
       "platforms": [
         "Facebook",
         "Instagram"

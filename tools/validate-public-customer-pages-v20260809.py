@@ -49,7 +49,7 @@ def main():
  req('75g （2兩）／盒｜8塊裝' in products,'產品總覽龜鹿湯塊目前規格錯誤')
  req('600g （1斤）／盒｜32塊裝' in products,'產品總覽龜鹿膠目前規格錯誤')
  req('每塊約9.375g' in products,'產品總覽應顯示龜鹿湯塊每塊約9.375g')
- req(('每塊約18.75 g' in products) or ('每塊約18.75g' in products),'產品總覽應顯示龜鹿膠每塊約18.75 g')
+ req(('每塊約18.75 g' in products) or ('每塊約18.75 g' in products),'產品總覽應顯示龜鹿膠每塊約18.75 g')
  dm=visible('dm.html')
  req('六項' in dm and '產品' in dm and 'DM' in dm,'產品DM頁不是目前六項顧客版DM入口')
  req('待審核' not in dm and '毫米尺寸未知' not in dm,'產品DM頁仍露出內部審核／製圖說明')
@@ -73,7 +73,7 @@ def main():
 
  # 目前產品總覽、FAQ與詳頁都可呈現完整規格與每塊約重。
  req('每塊約9.375g' in visible('product-guilu-tangkuai.html'),'龜鹿湯塊詳頁缺少每塊約9.375g詳細資料')
- req(('每塊約18.75 g' in visible('product-guilu-jiao.html')) or ('每塊約18.75g' in visible('product-guilu-jiao.html')),'龜鹿膠詳頁缺少每塊約18.75 g詳細資料')
+ req(('每塊約18.75 g' in visible('product-guilu-jiao.html')) or ('每塊約18.75 g' in visible('product-guilu-jiao.html')),'龜鹿膠詳頁缺少每塊約18.75 g詳細資料')
 
  quality=visible('quality.html')
  req('ERP' not in quality,'品質頁仍把內部平台管理當成顧客內容')

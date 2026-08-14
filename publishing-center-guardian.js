@@ -90,7 +90,7 @@
     if(/試喝|先試喝/.test(t))notes.push(`官網試喝頁目前固定使用最新核准正式試喝海報 ${TRIAL_POSTER}；退役trial素材不得再使用，正式貼文圖仍需完成圖文一致檢查。`);
     if(t.includes('龜鹿膏'))notes.push('龜鹿膏100g維持正式產品圖與獨立詳細DM，產品罐型、標籤與比例不得改。');
     if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊主規格75g （2兩）／盒｜8塊裝；每塊約9.375g只屬詳細資料。');
-    if(t.includes('龜鹿膠'))notes.push('龜鹿膠主規格600g （1斤）／盒｜32塊裝；每塊約18.75g只屬詳細資料。');
+    if(t.includes('龜鹿膠'))notes.push('龜鹿膠主規格600g （1斤）／盒｜32塊裝；每塊約18.75 g只屬詳細資料。');
     if(t.includes('鹿茸粉'))notes.push('鹿茸粉75g／罐；維持正式產品圖與獨立詳細DM。');
     if(LIVE.some(x=>t.includes(x)))notes.push('此貼文含即時天氣／事件字詞，發布前必須重新確認當日資訊。');
     return{errors:[...new Set(errors)],notes:[...new Set(notes)]};

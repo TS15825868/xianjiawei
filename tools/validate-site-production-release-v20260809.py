@@ -90,7 +90,7 @@ def validate_product_authority():
  ratio=(data['guilu-drink-180'].get('aspectRatioWidthToHeight') or {}).get('target')
  req(abs(float(ratio or 0)-.64)<.001,'180cc鋁袋比例未同步目前authority')
  req(official['guilu-tangkuai'].get('detail_unit_approx')=='每塊約9.375g','湯塊詳細約重不同步')
- req(official['guilu-jiao'].get('detail_unit_approx')=='每塊約18.75g','龜鹿膠詳細約重不同步')
+ req(official['guilu-jiao'].get('detail_unit_approx')=='每塊約18.75 g','龜鹿膠詳細約重不同步')
  return official
 
 def validate_formal_media(official):
