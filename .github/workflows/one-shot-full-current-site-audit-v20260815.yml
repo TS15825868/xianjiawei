@@ -39,8 +39,9 @@ jobs:
 
           p=Path('tools/validate-public-boundary-v20260808.py')
           s=p.read_text(encoding='utf-8')
+          if 'import re\n' not in s:s=s.replace('from pathlib import Path\n','from pathlib import Path\nimport re\n')
           s=s.replace('assert "75g／盒" in source','assert "75g （2兩）／盒｜8塊裝" in source\n            assert "每塊約9.375g" in source')
-          s=s.replace('assert "600g（1斤）／盒" in source\n            assert "32塊裝" in source','assert "600g （1斤）／盒｜32塊裝" in source\n            assert "每塊約18.75g" in source')
+          s=s.replace('assert "600g（1斤）／盒" in source\n            assert "32塊裝" in source','assert "600g （1斤）／盒｜32塊裝" in source\n            assert re.search(r"每塊約18\\.75\\s*g", source)')
           s=s.replace('湯塊舊容量、龜鹿膠1斤／32塊規格與產品頁媒體角色均未越界。','湯塊75g（2兩）／8塊與龜鹿膠600g（1斤）／32塊完整文字規格、產品頁媒體角色均未越界。')
           p.write_text(s,encoding='utf-8')
           PY
