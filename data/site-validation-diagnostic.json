@@ -1,0 +1,31 @@
+{
+  "release": {
+    "rc": 0,
+    "tail": "PASS website current release: six current products, products-v3 identity, customer-display main images, separate current DMs, 2026-08-14 trial poster, current ZIP(20 candidates), semantic matching, 16-item review, fulfillment and public links all align. | PASS current site release: current product/data/catalog/visual/formal/post authorities and review safety align; retired trial/cache/media write-back tools are removed; no old-copy/version locks."
+  },
+  "public": {
+    "rc": 0,
+    "tail": "PASS public customer pages: 25 pages follow current specs; current guilu paste usage and guilu jiao 1斤 spec align; product detail weights remain detail-only; trial pricing is whitespace-insensitive and current; technical/internal copy stays hidden."
+  },
+  "visual": {
+    "rc": 0,
+    "tail": "PASS website visual cohesion: 17 customer pages preserve contain/no-crop/no-stretch; customer-display product images, dm-final detailed DMs, 8/14 trial poster and products-v3 identity remain separate roles; no LINE-only or products-v2 visual leakage."
+  },
+  "aio": {
+    "rc": 0,
+    "tail": "PASS AIO／SEO／GEO：26個canonical sitemap頁面、15個主要決策頁、Canonical、摘要、社群預覽、Schema、六個目前正式主規格、湯塊／龜鹿膠detail-only規則與機器可讀資料均通過"
+  },
+  "boundary": {
+    "rc": 1,
+    "tail": "Traceback (most recent call last): | File \"/home/runner/work/xianjiawei/xianjiawei/tools/validate-public-boundary-v20260808.py\", line 79, in <module> | main() | ~~~~^^ | File \"/home/runner/work/xianjiawei/xianjiawei/tools/validate-public-boundary-v20260808.py\", line 67, in main | assert phrase in source, f\"30cc正式頁缺少：{phrase}\" | ^^^^^^^^^^^^^^^^ | AssertionError: 30cc正式頁缺少：無外盒"
+  },
+  "publishing": {
+    "rc": 1,
+    "tail": "core_count=validate_core_library(approved_formal) | File \"/home/runner/work/xianjiawei/xianjiawei/tools/validate-publishing-content-match-v20260809.py\", line 93, in validate_core_library | req(not re.search(r'龜鹿湯塊.{0,80}(300\\s*g|600\\s*g)',joined,re.I),f'{pid} 龜鹿湯塊又出現非75g舊規格') | ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ | File \"/home/runner/work/xianjiawei/xianjiawei/tools/validate-publishing-content-match-v20260809.py\", line 28, in req | if not ok: raise AssertionError(msg) | ^^^^^^^^^^^^^^^^^^^^^^^^^ | AssertionError: POST-PRODUCT-OVERVIEW 龜鹿湯塊又出現非75g舊規格"
+  },
+  "javascript": {
+    "rc": 0,
+    "tail": ""
+  },
+  "all_pass": false
+}
