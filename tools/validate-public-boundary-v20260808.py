@@ -59,7 +59,7 @@ def main():
             assert "600g／盒" not in source
         if page == "product-guilu-jiao.html":
             assert "600g（1斤）／盒" in source
-            assert "淡紫" in source
+            assert "32塊裝" in source
         if page == "product-guilu-drink-30cc.html":
             for phrase in ["30cc／罐", "小玻璃罐", "裸罐", "無貼紙", "每日一罐"]:
                 assert phrase in source, f"30cc正式頁缺少目前硬規格／使用資訊：{phrase}"
@@ -73,7 +73,7 @@ def main():
 
     print(
         f"PASS public boundary: 已檢查 sitemap {len(pages)} 個公開頁；"
-        "公司內部資訊、30cc罐型、湯塊舊容量、龜鹿膠1斤規格與產品頁媒體角色均未越界。"
+        "公司內部資訊、30cc罐型、湯塊舊容量、龜鹿膠1斤／32塊規格與產品頁媒體角色均未越界。"
     )
 
 
