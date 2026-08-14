@@ -1,0 +1,23 @@
+/* 仙加味公開網站穩定層｜2026-08-14 iOS/Safari v4
+   可靠性優先：JS 或 IntersectionObserver 異常時內容仍必須可見；手機首頁不保留巨大空白品牌框。 */
+html,body{min-height:100%;}
+.reveal{opacity:1!important;transform:none!important;visibility:visible!important;}
+.reveal.show{opacity:1!important;transform:none!important;visibility:visible!important;}
+img{image-rendering:auto;}
+.product-card__img img,.modal-gallery__item img,.real-product-gallery img,.trial-poster img,.trial-product-card__media img{object-fit:contain!important;object-position:center!important;transform:none!important;clip-path:none!important;opacity:1!important;visibility:visible!important;}
+.product-modal.show .product-modal__scroll{display:block!important;}
+.product-modal.show .product-modal__panel{display:block!important;visibility:visible!important;opacity:1!important;}
+.product-modal.show #product-modal-body{display:block!important;visibility:visible!important;opacity:1!important;min-height:1px;}
+.product-modal.show #product-modal-body:empty::before{content:'產品資料載入中…';display:block;padding:72px 20px;text-align:center;color:#0b1f3b;font-weight:800;}
+body[data-page="home"] .home-brand-signature{min-height:240px!important;}
+body[data-page="home"] .home-brand-signature img{opacity:1!important;visibility:visible!important;}
+@media(max-width:640px){
+  .site-header{min-height:64px;}
+  body[data-page="home"] .hero__panel{gap:14px!important;}
+  body[data-page="home"] .home-brand-signature{min-height:0!important;width:100%!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:center!important;gap:16px!important;padding:16px 18px!important;border-radius:18px!important;}
+  body[data-page="home"] .home-brand-signature img{width:auto!important;height:auto!important;max-width:70px!important;max-height:118px!important;flex:0 0 auto!important;}
+  body[data-page="home"] .home-brand-signature p{margin:0!important;max-width:260px!important;text-align:left!important;font-size:16px!important;line-height:1.55!important;}
+  .product-modal__scroll{padding:0!important;}
+  .product-modal__panel{min-height:100dvh!important;padding:16px 14px 28px!important;}
+  .product-modal__close{top:8px!important;margin-bottom:8px!important;}
+}
