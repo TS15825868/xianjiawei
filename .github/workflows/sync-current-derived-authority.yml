@@ -42,7 +42,7 @@ jobs:
           assert p30o['usage_primary']=='每日 1-2罐'
           assert p30o['usage_timing']=='飲用時間可依個人使用習慣與作息時間安排'
           assert tang['specification']=='75g （2兩）／盒｜8塊裝' and tang['detail_unit_approx']=='每塊約9.375g'
-          assert jiao['specification']=='600g （1斤）／盒｜32塊裝' and jiao['detail_unit_approx']=='每塊約18.75g'
+          assert jiao['specification']=='600g （1斤）／盒｜32塊裝' and jiao['detail_unit_approx']=='每塊約18.75 g'
           json.loads(Path('content/public-post-library.json').read_text(encoding='utf-8'))
           catalog=json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
           products={p.get('id'):p for p in catalog.get('products',[])}
