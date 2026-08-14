@@ -319,13 +319,21 @@ function renderProductsPage() {
   if (compare && !compare.children.length) {
     compare.innerHTML = (SITE_DATA?.products || []).map(product => `
       <article class="card reveal">
-        <p class="eyebrow">${escapeHtml(product.size || "產品規格")}</p>
+        <p class="eyebrow">${escapeHtml(productDisplaySpec(product) || "產品規格")}</p>
         <h3>${escapeHtml(product.displayName || product.name || "產品")}</h3>
         <p>${escapeHtml(product.purpose || product.description || "")}</p>
         <a class="btn btn-outline" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">查看介紹</a>
       </article>
     `).join("");
   }
+}
+
+function productDisplaySpec(product = {}) {
+  const size = String(product?.size || product?.specification || product?.spec || "").trim();
+  const unitApprox = String(product?.unitApprox || product?.detailUnitApprox || "").trim();
+  if (!size) return unitApprox;
+  if (!unitApprox || size.includes(unitApprox)) return size;
+  return `${size}，${unitApprox}`;
 }
 
 function fillProducts(targetId, products, options = {}) {
@@ -347,7 +355,7 @@ function fillProducts(targetId, products, options = {}) {
           <h3>${escapeHtml(name)}</h3>
           ${product.purpose ? `<p class="product-purpose">${escapeHtml(product.purpose)}</p>` : ""}
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
-          <p class="muted">規格：${escapeHtml(product.size || "請見產品介紹")}</p>
+          <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
           <div class="product-card__actions">
             <a class="btn btn-outline" href="${escapeAttribute(page)}">查看介紹</a>
             ${!options.compact ? '<button class="btn btn-outline" type="button" data-quick-view="1">快速查看</button>' : ""}
@@ -778,7 +786,7 @@ function openProductModal(product, sourceElement) {
         <h2 id="product-modal-title">${escapeHtml(name)}</h2>
         ${product.purpose ? `<p class="product-purpose">${escapeHtml(product.purpose)}</p>` : ""}
         <p>${escapeHtml(product.description || "")}</p>
-        <p class="muted">規格：${escapeHtml(product.size || "請見正式產品資訊")}</p>
+        <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見正式產品資訊")}</p>
 
         ${ingredients.length ? `<div class="modal-section"><h3>成分</h3><p>${escapeHtml(ingredients.join("、"))}</p></div>` : ""}
         ${usage.length ? `<div class="modal-section"><h3>使用方式</h3><ul>${usage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
