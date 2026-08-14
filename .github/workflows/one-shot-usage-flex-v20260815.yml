@@ -1,5 +1,5 @@
 name: 仙加味 20260815 使用方式與試喝按鈕一次性更新
-# rerun-v6-current-30cc-not-retired
+# rerun-v7-robust-retired-guard
 on:
   push:
     branches: [main]
