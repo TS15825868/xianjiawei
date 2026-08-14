@@ -1,6 +1,6 @@
-/* 仙加味首頁最終乾淨版｜2026-08-14 online audit
-   目的：手機版不再出現裝飾型圓弧／光暈；品牌故事圖與產品／DM完整等比例顯示。
-   修正：移除舊版手機 max-width:68% / max-height:116px，避免品牌圖縮成小圖留大片空白。
+/* 仙加味首頁最終乾淨版｜2026-08-14 online audit v3
+ * 手機優先；品牌故事圖固定滿寬等比例；說明文字固定在圖下方。
+ * 不再允許舊 max-width/max-height、absolute caption 或裝飾層造成左上小圖＋大片空白。
  */
 body[data-page="home"] .page,
 body[data-page="home"] .hero,
@@ -11,11 +11,8 @@ body[data-page="home"] .home-brand-signature,
 body[data-page="home"] .home-choice-card,
 body[data-page="home"] .home-feature-card,
 body[data-page="home"] .home-story-card,
-body[data-page="home"] .home-faq-card{
-  isolation:isolate;
-}
+body[data-page="home"] .home-faq-card{isolation:isolate}
 
-/* 所有首頁裝飾型 pseudo element 一律停用。 */
 body[data-page="home"] .page::before,
 body[data-page="home"] .page::after,
 body[data-page="home"] .hero::before,
@@ -36,14 +33,8 @@ body[data-page="home"] .home-story-card::before,
 body[data-page="home"] .home-story-card::after,
 body[data-page="home"] .home-faq-card::before,
 body[data-page="home"] .home-faq-card::after{
-  content:none!important;
-  display:none!important;
-  width:0!important;
-  height:0!important;
-  border:0!important;
-  outline:0!important;
-  box-shadow:none!important;
-  background:none!important;
+  content:none!important;display:none!important;width:0!important;height:0!important;
+  border:0!important;outline:0!important;box-shadow:none!important;background:none!important
 }
 
 body[data-page="home"] .hero__panel,
@@ -52,40 +43,67 @@ body[data-page="home"] .home-brand-signature,
 body[data-page="home"] .home-choice-card,
 body[data-page="home"] .home-feature-card,
 body[data-page="home"] .home-story-card,
-body[data-page="home"] .home-faq-card{
-  overflow:hidden!important;
-}
+body[data-page="home"] .home-faq-card{overflow:hidden!important}
 
-body[data-page="home"] .home-brand-signature{
+/* 權威：首頁品牌故事圖。使用較高 specificity，蓋過 site-refresh 舊規則。 */
+html body[data-page="home"] .hero .hero__panel .home-brand-signature{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
   min-height:0!important;
   height:auto!important;
+  aspect-ratio:auto!important;
+  position:relative!important;
+  margin:0!important;
   padding:0!important;
-  background:linear-gradient(145deg,#fffdf8 0%,#f2eadc 100%)!important;
+  overflow:hidden!important;
+  border-radius:20px!important;
+  border:1px solid rgba(11,31,59,.10)!important;
+  background:#efe6d8!important;
+  box-shadow:none!important
 }
-body[data-page="home"] .home-brand-signature img{
+html body[data-page="home"] .hero .hero__panel .home-brand-signature>img{
   display:block!important;
   width:100%!important;
   max-width:none!important;
-  height:100%!important;
+  min-width:0!important;
+  height:auto!important;
   max-height:none!important;
-  object-fit:cover!important;
+  min-height:0!important;
+  aspect-ratio:auto!important;
+  object-fit:contain!important;
   object-position:center!important;
   margin:0!important;
+  padding:0!important;
+  transform:none!important;
+  clip-path:none!important;
+  background:#efe6d8!important
+}
+html body[data-page="home"] .hero .hero__panel .home-brand-signature>p{
+  position:static!important;
+  inset:auto!important;
+  width:auto!important;
+  margin:0!important;
+  padding:11px 14px!important;
+  border-radius:0!important;
+  color:#fff!important;
+  background:#0b1f3b!important;
+  text-align:center!important;
+  font-size:13px!important;
+  line-height:1.5!important;
+  font-weight:800!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important
 }
 
-/* 不讓舊快取留下的圓章／圓形故事標記再次出現。 */
 body[data-page="home"] .home-brand-signature__seal,
-body[data-page="home"] .home-story-mark{
-  display:none!important;
-}
+body[data-page="home"] .home-story-mark{display:none!important}
 
-/* 產品、正式DM、試喝圖一律完整等比例顯示。 */
-.product-card__img,
-.modal-gallery__item,
-.dm-card__media,
-.trial-media{
-  overflow:hidden!important;
-}
+/* 產品、正式 DM、試喝圖一律完整等比例。 */
+.product-card__img,.modal-gallery__item,.dm-card__media,.trial-media{overflow:hidden!important}
 .product-card__img img,
 .modal-gallery__item img,
 .dm-card__media img,
@@ -94,73 +112,20 @@ img[src*="/images/products-v3/"],
 img[src*="/images/dm-final/"],
 img[src*="/images/dm-approved-v20260810/"],
 img[src*="/images/post-library/userzip3-v20260811/"]{
-  max-width:100%!important;
-  object-fit:contain!important;
-  object-position:center center!important;
-  transform:none!important;
-  clip-path:none!important;
+  max-width:100%!important;object-fit:contain!important;object-position:center center!important;
+  transform:none!important;clip-path:none!important
 }
 
-@media (max-width:640px){
-  body[data-page="home"] .hero{
-    padding:16px 10px 12px!important;
-  }
-  body[data-page="home"] .hero__panel{
-    gap:12px!important;
-    padding:12px!important;
-    border-radius:20px!important;
-  }
-  body[data-page="home"] .hero__content h1{
-    font-size:clamp(34px,10.5vw,44px)!important;
-    line-height:1.18!important;
-    margin:0 0 16px!important;
-  }
-  body[data-page="home"] .hero__lead{
-    line-height:1.72!important;
-  }
-  body[data-page="home"] .hero-actions{
-    display:grid!important;
-    grid-template-columns:1fr!important;
-    gap:10px!important;
-  }
-  body[data-page="home"] .hero-actions .btn{
-    width:100%!important;
-    min-height:52px!important;
-    justify-content:center!important;
-  }
-  body[data-page="home"] .home-trust-row{
-    display:grid!important;
-    grid-template-columns:1fr!important;
-    gap:6px!important;
-  }
-  body[data-page="home"] .home-trust-row span{
-    justify-content:center!important;
-    min-width:0!important;
-    min-height:38px!important;
-    padding:7px 6px!important;
-    text-align:center!important;
-    line-height:1.35!important;
-  }
-  body[data-page="home"] .home-brand-signature{
-    width:100%!important;
-    max-width:none!important;
-    min-height:0!important;
-    height:auto!important;
-    padding:0!important;
-    aspect-ratio:16/10!important;
-    border-radius:18px!important;
-  }
-  body[data-page="home"] .home-brand-signature img{
-    display:block!important;
-    width:100%!important;
-    max-width:none!important;
-    height:100%!important;
-    max-height:none!important;
-    object-fit:cover!important;
-    object-position:center!important;
-  }
-  body[data-page="home"] .section{
-    padding-left:10px!important;
-    padding-right:10px!important;
-  }
+@media(max-width:640px){
+  body[data-page="home"] .hero{padding:16px 10px 12px!important}
+  body[data-page="home"] .hero__panel{gap:12px!important;padding:12px!important;border-radius:20px!important}
+  body[data-page="home"] .hero__content h1{font-size:clamp(34px,10.5vw,44px)!important;line-height:1.18!important;margin:0 0 16px!important}
+  body[data-page="home"] .hero__lead{line-height:1.72!important}
+  body[data-page="home"] .hero-actions{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+  body[data-page="home"] .hero-actions .btn{width:100%!important;min-height:52px!important;justify-content:center!important}
+  body[data-page="home"] .home-trust-row{display:grid!important;grid-template-columns:1fr!important;gap:6px!important}
+  body[data-page="home"] .home-trust-row span{justify-content:center!important;min-width:0!important;min-height:38px!important;padding:7px 6px!important;text-align:center!important;line-height:1.35!important}
+  html body[data-page="home"] .hero .hero__panel .home-brand-signature{width:100%!important;max-width:none!important;border-radius:18px!important}
+  html body[data-page="home"] .hero .hero__panel .home-brand-signature>img{width:100%!important;max-width:none!important;height:auto!important;max-height:none!important}
+  body[data-page="home"] .section{padding-left:10px!important;padding-right:10px!important}
 }
