@@ -1,0 +1,72 @@
+name: 仙加味目前權威衍生資料一次性同步
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-shot-sync-current-derived-v20260815.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xianjiawei-one-shot-derived-sync-20260815
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Sync derived public outputs from latest authority
+        run: python tools/sync-current-derived-authority.py
+      - name: Verify current product facts survived derivation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          official=json.loads(Path('assets/data/official-products.json').read_text(encoding='utf-8'))
+          by={p['id']:p for p in official['products']}
+          assert len(by)==6
+          assert by['guilu-gao']['usage_primary']=='食用時間可依個人使用習慣與作息時間安排'
+          assert by['guilu-drink-30']['usage_primary']=='每日 1-2罐'
+          assert by['guilu-tangkuai']['specification']=='75g （2兩）／盒｜8塊裝'
+          assert by['guilu-tangkuai']['detail_unit_approx']=='每塊約9.375g'
+          assert by['guilu-jiao']['specification']=='600g （1斤）／盒｜32塊裝'
+          assert by['guilu-jiao']['detail_unit_approx']=='每塊約18.75g'
+          catalog=json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
+          rules=catalog['specificationRules']
+          assert '顧客文字可顯示完整規格' in rules['tangkuai']
+          assert '顧客文字可顯示完整規格' in rules['jiao']
+          products={p['id']:p for p in catalog['products']}
+          assert products['guilu-tangkuai']['size']==by['guilu-tangkuai']['specification']
+          assert products['guilu-tangkuai']['detailUnitApprox']==by['guilu-tangkuai']['detail_unit_approx']
+          assert products['guilu-jiao']['size']==by['guilu-jiao']['specification']
+          assert products['guilu-jiao']['detailUnitApprox']==by['guilu-jiao']['detail_unit_approx']
+          retired=['每日早上及下午各一小匙','建議白天飲用','龜鹿飲30cc玻璃瓶','30cc／瓶']
+          for rel in ['catalog-public.json','content/public-post-library.json','data.json','geo-data.json','llms.txt','llms-full.txt']:
+            text=Path(rel).read_text(encoding='utf-8')
+            for phrase in retired:
+              if phrase in text: raise SystemExit(f'{rel} still has retired public fact: {phrase}')
+          print('PASS: current product facts and full customer text specs are synchronized.')
+          PY
+      - name: Commit derived outputs and remove one-shot workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add catalog-public.json content/public-post-library.json content/public-content-policy.json config/public-content-policy.json content/post-bank-v6-manifest.json data.json geo-data.json assets/data/official-products.json content/visual-production-spec-current.json llms-full.txt llms.txt
+          git rm .github/workflows/one-shot-sync-current-derived-v20260815.yml
+          git diff --cached --check
+          git commit -m 'sync: apply latest product authority to public derived outputs'
+          git pull --rebase origin main
+          git push origin HEAD:main
