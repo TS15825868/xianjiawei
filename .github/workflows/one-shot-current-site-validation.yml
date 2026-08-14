@@ -1,6 +1,6 @@
 name: 仙加味官網目前正式版一次性驗收
 
-# rerun-7: AIO/SEO/GEO metadata and machine-readable current authority completed
+# rerun-8: retry full read-only validation after GitHub Actions API sync delay
 on:
   push:
     branches: [main]
