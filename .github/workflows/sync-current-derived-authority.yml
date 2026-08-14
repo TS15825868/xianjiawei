@@ -31,19 +31,24 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          targets=['content/public-post-library.json','llms-full.txt','catalog-public.json']
-          retired=['每日早上及下午各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','龜鹿飲30cc玻璃瓶','30cc／瓶']
+          targets=['content/public-post-library.json','llms-full.txt','llms.txt','catalog-public.json','data.json','geo-data.json','assets/data/official-products.json']
+          retired=['一天一次一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶']
+          current_gao='每日早上及下午各一小匙'
           json.loads(Path('content/public-post-library.json').read_text(encoding='utf-8'))
           catalog=json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
           products={p.get('id'):p for p in catalog.get('products',[])}
           p30=products.get('guilu-drink-30') or {}
-          assert str(p30.get('dmImage') or '').split('?',1)[0].endswith('/images/dm-approved-v20260810/guilu-drink-30cc.webp')
+          assert str(p30.get('dmImage') or '').split('?',1)[0].endswith('/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg')
           assert 'quarantinedDmImage' not in p30
+          assert current_gao in json.dumps(products.get('guilu-gao') or {},ensure_ascii=False)
+          rules=catalog.get('specificationRules') or {}
+          assert '每塊約9.375g' in str(rules.get('tangkuai') or '')
+          assert '每塊約18.75g' in str(rules.get('jiao') or '')
           for rel in targets:
             text=Path(rel).read_text(encoding='utf-8')
             for phrase in retired:
               if phrase in text: raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
-          print('PASS: customer-facing derived outputs and public catalog follow current authority; policy/history text is not mistaken for customer copy.')
+          print('PASS: current customer outputs follow latest authority; detailed per-piece weights remain detail-only instead of being globally stripped.')
           PY
       - name: Commit synchronized derived outputs
         shell: bash
@@ -54,7 +59,7 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add catalog-public.json content/public-post-library.json content/public-content-policy.json config/public-content-policy.json content/post-bank-v6-manifest.json llms-full.txt
+          git add catalog-public.json content/public-post-library.json content/public-content-policy.json config/public-content-policy.json content/post-bank-v6-manifest.json data.json geo-data.json assets/data/official-products.json content/visual-production-spec-current.json llms-full.txt llms.txt
           if git diff --cached --quiet; then
             echo 'No derived output changes to commit.'
             exit 0
