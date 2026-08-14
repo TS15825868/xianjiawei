@@ -14,7 +14,7 @@
       "dm": "/images/dm-final/01_guilu-gao-100g-dm.jpg",
       "status": "approved_display",
       "binary_status": "verified_high_resolution_1122x1402",
-      "dm_binary_status": "valid_approved_jpeg_fallback"
+      "dm_binary_status": "approved_high_resolution_jpeg"
     },
     {
       "id": "guilu-drink-30cc",
@@ -46,9 +46,10 @@
         "產品主圖不得使用詳細DM海報"
       ],
       "image": "/images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
-      "dm": "/images/dm-approved-v20260810/guilu-drink-180cc.webp",
+      "dm": "/images/dm-final/03_guilu-drink-180cc-dm.jpg",
       "status": "approved_display",
       "binary_status": "verified_exact_user_approved_hd_master_1122x1402_315576_bytes",
+      "dm_status": "approved_high_resolution_jpeg",
       "sha256": "719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62"
     },
     {
@@ -58,10 +59,10 @@
       "detail_unit_approx": "每塊約9.375g",
       "detail_unit_rule": "僅產品詳細資料可顯示，不放產品主圖或DM主規格",
       "image": "/images/customer-display-v20260812/guilu-tangkuai.avif",
-      "dm": "/images/dm-approved-v20260810/guilu-tangkuai-75g.webp",
+      "dm": "/images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
       "status": "approved_display",
       "binary_status": "verified_high_resolution_1122x1402",
-      "dm_status": "approved_corrected"
+      "dm_status": "approved_high_resolution_jpeg"
     },
     {
       "id": "guilu-jiao",
@@ -70,33 +71,49 @@
       "detail_unit_approx": "每塊約18.75g",
       "detail_unit_rule": "僅產品詳細資料可顯示，不放產品主圖或DM主規格",
       "image": "/images/customer-display-v20260812/guilu-jiao.avif",
-      "dm": "/images/dm-approved-v20260810/guilu-jiao-600g.webp",
+      "dm": "/images/dm-final/06_guilu-jiao-600g-dm.jpg",
       "status": "approved_display",
       "binary_status": "verified_high_resolution_1122x1402",
-      "dm_status": "approved_corrected"
+      "dm_status": "approved_high_resolution_jpeg"
     },
     {
       "id": "luerong-fen",
       "name": "鹿茸粉",
       "spec": "75g／罐",
       "image": "/images/customer-display-v20260812/luerong-fen.avif",
-      "dm": "/images/dm-approved-v20260810/lurong-fen-75g.webp",
+      "dm": "/images/dm-final/04_luerong-fen-75g-dm.jpg",
       "status": "approved_display",
-      "binary_status": "verified_high_resolution_1122x1402"
+      "binary_status": "verified_high_resolution_1122x1402",
+      "dm_status": "approved_high_resolution_jpeg"
     }
   ],
   "dm": {
     "version": "20260814-product-modal-media-v3",
     "role": "separate-detailed-media-layer",
     "status": "approved_current_media",
-    "source": "current approved DM assets; 30cc uses exact latest user-approved 1122x1402 JPEG with 30cc／罐",
+    "source": "six current approved high-resolution JPG DM masters; 30cc uses the exact latest user-approved 1122x1402 JPEG with 30cc／罐",
     "retired_invalid_paths": [
-      "/images/dm-approved-v20260810/guilu-gao-100g.webp"
+      "/images/dm-approved-v20260810/guilu-gao-100g.webp",
+      "/images/dm-approved-v20260810/guilu-drink-180cc.webp",
+      "/images/dm-approved-v20260810/guilu-tangkuai-75g.webp",
+      "/images/dm-approved-v20260810/guilu-jiao-600g.webp",
+      "/images/dm-approved-v20260810/lurong-fen-75g.webp"
+    ],
+    "current_high_resolution_paths": [
+      "/images/dm-final/01_guilu-gao-100g-dm.jpg",
+      "/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
+      "/images/dm-final/03_guilu-drink-180cc-dm.jpg",
+      "/images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
+      "/images/dm-final/06_guilu-jiao-600g-dm.jpg",
+      "/images/dm-final/04_luerong-fen-75g-dm.jpg"
     ],
     "corrected_product_ids": [
+      "guilu-gao",
       "guilu-drink-30cc",
+      "guilu-drink-180cc",
       "guilu-tangkuai",
-      "guilu-jiao"
+      "guilu-jiao",
+      "luerong-fen"
     ],
     "rules": [
       "產品圖與DM分開",
