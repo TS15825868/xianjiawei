@@ -68,21 +68,9 @@ jobs:
             "for rel in ['content/public-post-library.json','content/public-content-policy.json','config/public-content-policy.json','content/post-bank-v6-manifest.json','data.json','geo-data.json','assets/data/official-products.json','content/visual-production-spec-current.json']:"
           )
           text=text.replace("for rel in ['llms-full.txt']:", "for rel in ['llms-full.txt','llms.txt']:")
-          start=" retired=['每日早上及下午各一小匙','早晚各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','600g／盒｜32塊裝｜每塊約18.75g','龜鹿飲30cc玻璃瓶','30cc／瓶']"
-          text=text.replace(start," retired=['一天一次一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶']")
+          old=" retired=['每日早上及下午各一小匙','早晚各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','600g／盒｜32塊裝｜每塊約18.75g','龜鹿飲30cc玻璃瓶','30cc／瓶']"
+          text=text.replace(old," retired=['一天一次一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶']")
           sync.write_text(text,encoding='utf-8')
-
-          wf=Path('.github/workflows/sync-current-derived-authority.yml')
-          text=wf.read_text(encoding='utf-8')
-          text=text.replace(
-            "retired=['每日早上及下午各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','龜鹿飲30cc玻璃瓶','30cc／瓶']",
-            "retired=['一天一次一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶']"
-          )
-          text=text.replace(
-            "git add catalog-public.json content/public-post-library.json content/public-content-policy.json config/public-content-policy.json content/post-bank-v6-manifest.json llms-full.txt",
-            "git add catalog-public.json content/public-post-library.json content/public-content-policy.json config/public-content-policy.json content/post-bank-v6-manifest.json data.json geo-data.json assets/data/official-products.json content/visual-production-spec-current.json llms-full.txt llms.txt"
-          )
-          wf.write_text(text,encoding='utf-8')
           PY
 
       - name: Synchronize current derived customer outputs
@@ -113,7 +101,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add tools/sync-current-derived-authority.py .github/workflows/sync-current-derived-authority.yml \
+          git add tools/sync-current-derived-authority.py \
             catalog-public.json content/public-post-library.json content/public-content-policy.json config/public-content-policy.json \
             content/post-bank-v6-manifest.json data.json geo-data.json assets/data/official-products.json \
             content/visual-production-spec-current.json llms-full.txt llms.txt \
