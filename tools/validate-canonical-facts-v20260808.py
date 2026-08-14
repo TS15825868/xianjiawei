@@ -21,7 +21,7 @@ INGREDIENTS = {
     "guilu-jiao": ["龜板萃取物", "鹿角萃取物"],
     "luerong-fen": ["鹿茸"],
 }
-GAO_USAGE = "食用時間與份量可依個人使用習慣與作息安排"
+GAO_USAGE = "食用時間可依個人使用習慣與作息時間安排"
 
 
 def load(path):
@@ -70,7 +70,7 @@ def check_json_authority():
 
 def check_product_pages():
     must_contain("product-guilu-gao.html", GAO_USAGE, "鹿角萃取物、龜板萃取物、枸杞、紅棗、黃耆、粉光蔘")
-    must_not_contain("product-guilu-gao.html", "食用時間與份量可依個人使用習慣與作息安排", "每天一次，每次一小匙")
+    must_not_contain("product-guilu-gao.html", "食用時間可依個人使用習慣與作息時間安排", "每天一次，每次一小匙")
 
     must_contain(
         "product-guilu-drink-30cc.html",

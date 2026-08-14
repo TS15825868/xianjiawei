@@ -34,7 +34,7 @@ CURRENT_SPECS={
  'luerong-fen':'75g／罐',
 }
 PUBLIC_HTML=['index.html','products.html','dm.html','choose.html','combo.html','guide.html','recipes.html','faq.html','brand.html','brand-facts.html','ingredients.html','quality.html','craft.html','knowledge.html','video.html','hanfang-baike.html','sources.html','contact.html','trial.html',*PAGE_BY_ID.values()]
-RETIRED_PUBLIC_COPY=('一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日一包','龜鹿飲30cc玻璃瓶','30cc／瓶','30cc瓶裝')
+RETIRED_PUBLIC_COPY=('一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日1～2罐','每日 1～2罐','龜鹿飲30cc玻璃瓶','30cc／瓶','30cc瓶裝')
 
 class Links(HTMLParser):
  def __init__(self): super().__init__(); self.hrefs=[]
@@ -83,8 +83,8 @@ def validate_product_authority():
   page=read(PAGE_BY_ID[pid])
   req(spec in page,f'{PAGE_BY_ID[pid]}缺目前正式規格：{spec}')
   req('products-v2' not in page,f'{PAGE_BY_ID[pid]}不得引用products-v2')
- req(data['guilu-gao'].get('usage',[None])[0]=='食用時間與份量可依個人使用習慣與作息安排','龜鹿膏主要使用方式未同步目前authority')
- req(catalog['guilu-gao'].get('usage',[None])[0]=='食用時間與份量可依個人使用習慣與作息安排','catalog龜鹿膏主要使用方式未同步目前authority')
+ req(data['guilu-gao'].get('usage',[None])[0]=='食用時間可依個人使用習慣與作息時間安排','龜鹿膏主要使用方式未同步目前authority')
+ req(catalog['guilu-gao'].get('usage',[None])[0]=='食用時間可依個人使用習慣與作息時間安排','catalog龜鹿膏主要使用方式未同步目前authority')
  req(data['guilu-drink-30'].get('knownContainerDimensionsMm')=={'diameter':42,'height':51},'30cc必須維持小玻璃罐Ø42×H51mm參考尺寸')
  req(data['guilu-gao'].get('knownContainerDimensionsMm')=={'width':51,'height':78},'龜鹿膏罐必須維持51×78mm參考尺寸')
  ratio=(data['guilu-drink-180'].get('aspectRatioWidthToHeight') or {}).get('target')

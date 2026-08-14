@@ -61,11 +61,11 @@ def main():
             assert "600g（1斤）／盒" in source
             assert "32塊裝" in source
         if page == "product-guilu-drink-30cc.html":
-            for phrase in ["30cc／罐", "小玻璃罐", "裸罐", "無貼紙", "每日1～2罐"]:
+            for phrase in ["30cc／罐", "小玻璃罐", "裸罐", "無貼紙", "每日 1-2罐"]:
                 assert phrase in source, f"30cc正式頁缺少目前硬規格／使用資訊：{phrase}"
         if page == "product-guilu-drink-180cc.html":
             assert "180cc／包" in source and "鋁袋" in source
-            assert "飲用份量與時間可依個人使用習慣與作息安排" in source and "狹長" in source
+            assert "每日一包；飲用時間可依個人使用習慣與作息時間安排" in source and "狹長" in source
 
     contact = (ROOT / "contact.html").read_text(encoding="utf-8")
     assert "lin.ee/sHZW7NkR" in contact, "聯絡頁缺少官方LINE"

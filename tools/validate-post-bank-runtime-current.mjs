@@ -51,7 +51,7 @@ for(const url of productUrls){
 }
 const currentGuard=window.XJWCurrentPostMediaAuthority;
 assert.ok(currentGuard,'未載入目前公開資產權威守門');
-assert.equal(currentGuard.validateFormalCopy({copy:'龜鹿膏食用時間與份量可依個人使用習慣與作息安排'}),'','目前龜鹿膏正式用法不得被守門誤退');
+assert.equal(currentGuard.validateFormalCopy({copy:'龜鹿膏食用時間可依個人使用習慣與作息時間安排'}),'','目前龜鹿膏正式用法不得被守門誤退');
 assert.match(currentGuard.validateFormalCopy({copy:'龜鹿膏一天一次一小匙'}),/退役使用方式/,'舊龜鹿膏一天一次用法應被擋下');
 assert.equal(currentGuard.validateFormalCopy({copy:'龜鹿湯塊75g／盒｜8塊裝，龜鹿膠600g（1斤）／盒｜32塊裝'}),'','跨產品正確規格不得互相誤判');
 
