@@ -1,0 +1,76 @@
+name: 仙加味官網目前龜鹿膠每塊約重格式同步
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-shot-normalize-jiao-detail-spacing-v20260815.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  normalize-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Normalize current customer text detail format
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import subprocess
+          from pathlib import Path
+          needle='每塊約18.75g'
+          replacement='每塊約18.75 g'
+          out=subprocess.check_output(['git','grep','-Il',needle,'--',':!images/**'],text=True).splitlines()
+          changed=[]
+          for name in out:
+              p=Path(name)
+              text=p.read_text(encoding='utf-8')
+              new=text.replace(needle,replacement)
+              if new!=text:
+                  p.write_text(new,encoding='utf-8')
+                  changed.append(name)
+          print('normalized files:', len(changed))
+          for name in changed: print(name)
+          if not changed:
+              raise SystemExit('No current text file required normalization')
+          PY
+      - name: Validate current website release contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/validate-site-release.py
+          python tools/validate-public-customer-pages-v20260809.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          authority=json.loads(Path('config/official-products.json').read_text(encoding='utf-8'))
+          by={p['id']:p for p in authority['products']}
+          assert by['guilu-tangkuai']['spec']=='75g （2兩）／盒｜8塊裝'
+          assert by['guilu-tangkuai']['detail_unit_approx']=='每塊約9.375g'
+          assert by['guilu-jiao']['spec']=='600g （1斤）／盒｜32塊裝'
+          assert by['guilu-jiao']['detail_unit_approx']=='每塊約18.75 g'
+          faq=Path('faq.html').read_text(encoding='utf-8')
+          product=Path('product-guilu-jiao.html').read_text(encoding='utf-8')
+          assert '600g （1斤）／盒｜32塊裝，每塊約18.75 g' in faq
+          assert '600g （1斤）／盒｜32塊裝，每塊約18.75 g' in product
+          assert '每塊約18.75g' not in '\n'.join(Path(p).read_text(encoding='utf-8') for p in ['config/official-products.json','assets/data/official-products.json','site-product-data-authority.js','catalog-public.json','llms.txt','llms-full.txt'] if Path(p).exists())
+          print('PASS: 官網產品、FAQ與目前權威統一使用龜鹿膠每塊約18.75 g。')
+          PY
+      - name: Commit normalized authority and remove one-shot workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git rm .github/workflows/one-shot-normalize-jiao-detail-spacing-v20260815.yml
+          git diff --cached --check
+          git commit -m 'fix(site): align jiao detail weight with latest customer spec'
+          git pull --rebase origin main
+          git push origin HEAD:main
