@@ -1,0 +1,40 @@
+name: 仙加味官網目前 AIO SEO 一次性補齊
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-shot-apply-current-aio-seo.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Apply deterministic missing metadata only
+        run: python tools/apply-current-aio-seo-v20260814.py
+      - name: Validate AIO SEO GEO before commit
+        run: python tools/validate_public_aio_seo.py
+      - name: Commit current metadata and catalog DM alignment
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- '*.html' catalog-public.json
+          if git diff --cached --quiet; then
+            echo 'No metadata changes needed.'
+            exit 0
+          fi
+          git commit -m 'fix(seo): complete current AIO metadata and catalog DM authority'
+          git pull --rebase origin main
+          git push origin HEAD:main
