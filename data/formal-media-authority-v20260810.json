@@ -1,6 +1,6 @@
 {
-  "runtime": "20260813-trial-product-role-fix-v8",
-  "approval_batch": "20260813-trial-product-role-fix-v8",
+  "runtime": "20260814-product-modal-media-v3",
+  "approval_batch": "20260814-product-modal-media-v3",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
   "principle": "formal product images, valid detailed DMs, and the trial showcase component are separate media roles; products-v3 remains immutable real-product identity reference only",
@@ -20,18 +20,31 @@
       "id": "guilu-drink-30cc",
       "name": "龜鹿飲30cc玻璃罐",
       "spec": "30cc／罐（小玻璃罐）",
-      "rules": ["小玻璃罐","裸罐","無貼紙","不得稱瓶","不改比例","不改罐型"],
+      "rules": [
+        "小玻璃罐",
+        "裸罐",
+        "無貼紙",
+        "不得稱瓶",
+        "不改比例",
+        "不改罐型"
+      ],
       "image": "/images/customer-display-v20260812/guilu-drink-30cc.avif",
-      "dm": "/images/dm-approved-v20260810/guilu-drink-30cc.webp",
+      "dm": "/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
       "status": "approved_display",
       "binary_status": "verified_high_resolution_1122x1402",
-      "dm_status": "approved_corrected"
+      "dm_status": "exact_user_approved_jpeg_1122x1402"
     },
     {
       "id": "guilu-drink-180cc",
       "name": "龜鹿飲180cc鋁袋",
       "spec": "180cc／包（鋁袋）",
-      "rules": ["鋁袋","不改袋型","不改比例","不得亂畫包裝","產品主圖不得使用詳細DM海報"],
+      "rules": [
+        "鋁袋",
+        "不改袋型",
+        "不改比例",
+        "不得亂畫包裝",
+        "產品主圖不得使用詳細DM海報"
+      ],
       "image": "/images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
       "dm": "/images/dm-approved-v20260810/guilu-drink-180cc.webp",
       "status": "approved_display",
@@ -77,8 +90,14 @@
     "role": "separate-detailed-media-layer",
     "status": "approved_corrected_valid_binary",
     "source": "user-provided DM assets plus corrected text-only edits; guilu gao uses approved JPG fallback because retired WebP binary is invalid",
-    "retired_invalid_paths": ["/images/dm-approved-v20260810/guilu-gao-100g.webp"],
-    "corrected_product_ids": ["guilu-drink-30cc","guilu-tangkuai","guilu-jiao"],
+    "retired_invalid_paths": [
+      "/images/dm-approved-v20260810/guilu-gao-100g.webp"
+    ],
+    "corrected_product_ids": [
+      "guilu-drink-30cc",
+      "guilu-tangkuai",
+      "guilu-jiao"
+    ],
     "rules": [
       "產品圖與DM分開",
       "DM檔案必須可正常解碼",
@@ -91,31 +110,19 @@
   },
   "trial": {
     "title": "龜鹿飲試喝組｜先試喝，再決定",
-    "render_mode": "component",
-    "component_id": "trial-showcase-v20260813",
-    "status": "approved_component",
-    "mascot_support": "/images/post-library/userzip3-v20260811/self-care-family-2.webp",
-    "product_image": "/images/customer-display-v20260812/guilu-drink-30cc.avif",
-    "character": "仙加味小老闆＋小鹿＋小烏龜情境搭配正式30cc產品圖",
+    "render_mode": "poster",
+    "status": "approved_user_original",
+    "image": "/images/trial/trial-poster-small-boss-official-v20260814.jpg",
     "do_not_use_as_product_image": true,
     "do_not_use_as_dm": true,
-    "retired_trial_paths": [
-      "/images/customer-display-v20260812/trial.webp",
-      "/images/customer-display-v20260812/trial-clean-v4.svg",
-      "/images/customer-display-v20260812/trial-small-boss.webp",
-      "/images/customer-display-v20260812/trial-small-boss.jpg",
-      "/images/customer-display-v20260812/trial-small-boss.png"
-    ],
-    "retirement_reason": "trial-small-boss webp/jpg/png share visually corrupted source pixels; structurally decodable does not mean visually valid",
     "free": "3罐試喝品免費",
-    "shipping": ["7-11店到店60元","郵局宅配100元"],
+    "shipping": [
+      "7-11店到店60元",
+      "郵局宅配100元"
+    ],
     "limit": "每位顧客、電話及地址限申請一次",
     "lead_time": "接單後安排製作，約5～7個工作天出貨",
-    "order_channel": "所有試喝申請與正式下單皆在LINE OA完成",
-    "prices": {
-      "30cc": "60元／罐；買10送1，11罐600元",
-      "180cc": "200元／包；買10送1，11包2,000元"
-    }
+    "order_channel": "所有試喝申請與正式下單皆在LINE OA完成"
   },
   "latest_post_zip": {
     "catalog": "/data/post-library-userzip3-v20260811.json",
@@ -124,7 +131,9 @@
     "unique_images": 20,
     "product_cards_are_not_product_authority": true
   },
-  "retired_wrong_role_product_paths": ["/images/customer-display-v20260812/guilu-drink-180cc.jpg"],
+  "retired_wrong_role_product_paths": [
+    "/images/customer-display-v20260812/guilu-drink-180cc.jpg"
+  ],
   "image_rules": [
     "正式產品圖用於產品頁／產品卡／一般產品貼文",
     "有效詳細DM只用於DM版位／DM貼文",

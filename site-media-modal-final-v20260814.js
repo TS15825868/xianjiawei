@@ -1,9 +1,9 @@
 "use strict";
 (()=>{
-  const VERSION='20260814-product-modal-media-v2';
+  const VERSION='20260814-product-modal-media-v3';
   const BASE=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
-  const DM30=`${BASE}/images/dm-final/02_guilu-drink-30cc-dm-v20260814.webp?v=${VERSION}`;
-  const TRIAL=`${BASE}/images/trial/trial-poster-small-boss-v20260814.webp?v=${VERSION}`;
+  const DM30=`${BASE}/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=${VERSION}`;
+  const TRIAL=`${BASE}/images/trial/trial-poster-small-boss-official-v20260814.jpg?v=${VERSION}`;
   const INTRO_LABEL=/查看介紹|完整資料|查看比較|快速查看/;
 
   const cleanFile=value=>String(value||'').split('/').pop().split(/[?#]/)[0];

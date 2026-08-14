@@ -1,9 +1,9 @@
 (()=>{
-const V='20260813-dm-trial-display-fix-v1';
+const V='20260814-product-modal-media-v3';
 const pathBase=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
 const HD_DM=Object.freeze({
  'guilu-gao':'/images/dm-final/01_guilu-gao-100g-dm.jpg',
- 'guilu-drink-30':'/images/dm-final/02_guilu-drink-30cc-dm.jpg',
+ 'guilu-drink-30':'/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg',
  'guilu-drink-180':'/images/dm-final/03_guilu-drink-180cc-dm.jpg',
  'guilu-tangkuai':'/images/dm-final/05_guilu-tangkuai-75g-dm.jpg',
  'guilu-jiao':'/images/dm-final/06_guilu-jiao-600g-dm.jpg',

@@ -1,6 +1,6 @@
 {
-  "runtime": "20260813-trial-product-role-fix-v8",
-  "approval_batch": "20260813-trial-product-role-fix-v8",
+  "runtime": "20260814-product-modal-media-v3",
+  "approval_batch": "20260814-product-modal-media-v3",
   "products": {
     "guilu-gao": {
       "name": "龜鹿膏",
@@ -63,12 +63,12 @@
     }
   },
   "dm": {
-    "version": "20260812-dm-binary-fix-v2",
+    "version": "20260814-product-modal-media-v3",
     "role": "separate-detailed-media-layer",
-    "status": "approved_corrected_valid_binary",
+    "status": "approved_user_original_high_resolution",
     "paths": {
       "guilu-gao": "/images/dm-final/01_guilu-gao-100g-dm.jpg",
-      "guilu-drink-30": "/images/dm-approved-v20260810/guilu-drink-30cc.webp",
+      "guilu-drink-30": "/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
       "guilu-drink-180": "/images/dm-approved-v20260810/guilu-drink-180cc.webp",
       "guilu-tangkuai": "/images/dm-approved-v20260810/guilu-tangkuai-75g.webp",
       "guilu-jiao": "/images/dm-approved-v20260810/guilu-jiao-600g.webp",
@@ -76,31 +76,26 @@
     },
     "binary_status": {
       "guilu-gao": "valid_jpeg_fallback_from_approved_master",
-      "guilu-drink-30": "valid_webp",
+      "guilu-drink-30": "exact_user_approved_jpeg_1122x1402_533277_bytes",
       "guilu-drink-180": "valid_webp",
       "guilu-tangkuai": "valid_webp",
       "guilu-jiao": "valid_webp",
       "luerong-fen": "valid_webp"
     },
     "retired_invalid_path": "/images/dm-approved-v20260810/guilu-gao-100g.webp",
-    "corrected": ["guilu-drink-30", "guilu-tangkuai", "guilu-jiao"],
+    "corrected": [
+      "guilu-drink-30",
+      "guilu-tangkuai",
+      "guilu-jiao"
+    ],
     "rule": "DM files are separate from product main images; 180cc DM must never be used on a product-main-image surface; do not upgrade DM from older large files until copy/spec is individually audited"
   },
   "trial": {
-    "render_mode": "component",
-    "component_id": "trial-showcase-v20260813",
-    "status": "approved_component",
-    "mascot_support": "/images/post-library/userzip3-v20260811/self-care-family-2.webp",
-    "product_image": "/images/customer-display-v20260812/guilu-drink-30cc.avif",
-    "role": "separate-trial-component-not-a-product-image-or-dm",
-    "binary_policy": "the prior trial-small-boss webp/jpg/png share visually corrupted source pixels and are retired even if their containers decode",
-    "retired_paths": [
-      "/images/customer-display-v20260812/trial.webp",
-      "/images/customer-display-v20260812/trial-clean-v4.svg",
-      "/images/customer-display-v20260812/trial-small-boss.webp",
-      "/images/customer-display-v20260812/trial-small-boss.jpg",
-      "/images/customer-display-v20260812/trial-small-boss.png"
-    ],
+    "render_mode": "poster",
+    "status": "approved_user_original",
+    "path": "/images/trial/trial-poster-small-boss-official-v20260814.jpg",
+    "binary_status": "exact_user_approved_jpeg_1254x1254_710800_bytes",
+    "role": "separate-trial-poster-not-product-image-or-dm",
     "rules": {
       "free_samples": 3,
       "shipping_paid_by_customer": true,
@@ -108,12 +103,13 @@
       "postal": 100,
       "limit": "每位顧客、電話及地址限申請一次",
       "lead_time": "約5～7個工作天",
-      "apply_via": "LINE OA",
-      "price_30": "60元／罐；買10送1，11罐600元",
-      "price_180": "200元／包；買10送1，11包2,000元"
+      "apply_via": "LINE OA"
     }
   },
-  "repaired_invalid_webp": ["guilu-gao", "guilu-tangkuai"],
+  "repaired_invalid_webp": [
+    "guilu-gao",
+    "guilu-tangkuai"
+  ],
   "retired_low_resolution_product_paths": [
     "/images/customer-display-v20260812/guilu-gao.webp",
     "/images/customer-display-v20260812/guilu-drink-30cc.webp",

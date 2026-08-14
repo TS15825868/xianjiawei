@@ -9,10 +9,10 @@
   if(window.__XJW_DM_AUTHORITY__) return;
   window.__XJW_DM_AUTHORITY__=true;
 
-  const VERSION='20260813-dm-trial-display-fix-v1';
+  const VERSION='20260814-product-modal-media-v3';
   const DM=Object.freeze({
     'guilu-gao':'images/dm-final/01_guilu-gao-100g-dm.jpg',
-    'guilu-drink-30':'images/dm-final/02_guilu-drink-30cc-dm.jpg',
+    'guilu-drink-30':'images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg',
     'guilu-drink-180':'images/dm-final/03_guilu-drink-180cc-dm.jpg',
     'guilu-tangkuai':'images/dm-final/05_guilu-tangkuai-75g-dm.jpg',
     'guilu-jiao':'images/dm-final/06_guilu-jiao-600g-dm.jpg',
@@ -46,7 +46,7 @@
         dmSource:'separate-current-approved-hd-dm',
         dmVersion:VERSION,
         dmRoleRule:'product main image / high-resolution detailed DM / trial component are separate roles',
-        trialMediaOwnedBy:'trial-showcase-v20260813',
+        trialMediaOwnedBy:'trial-poster-small-boss-official-v20260814',
         retiredTrialBinaries:[...RETIRED_TRIAL]
       };
       delete data.runtime.trialImage;
@@ -61,7 +61,7 @@
     version:VERSION,
     products:DM,
     role:'separate-high-resolution-detailed-dm-only',
-    trialMediaOwnedBy:'trial-showcase-v20260813',
+    trialMediaOwnedBy:'trial-poster-small-boss-official-v20260814',
     retiredTrialBinaries:RETIRED_TRIAL
   });
 })();

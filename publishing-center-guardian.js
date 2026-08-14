@@ -12,7 +12,7 @@
     drink180:'images/customer-display-v20260812/guilu-drink-180cc-product.jpg'
   });
   const DM=Object.freeze({
-    drink30:'images/dm-approved-v20260810/guilu-drink-30cc.webp',
+    drink30:'images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg',
     drink180:'images/dm-approved-v20260810/guilu-drink-180cc.webp'
   });
   const RETIRED_TRIAL=[
