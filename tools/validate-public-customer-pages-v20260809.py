@@ -46,10 +46,10 @@ def main():
  p30=visible('product-guilu-drink-30cc.html')
  req('30cc／罐（小玻璃罐）' in p30 and '裸罐' in p30 and '無貼紙' in p30,'30cc詳頁包裝事實不完整')
  products=visible('products.html')
- req('75g／盒｜8塊裝' in products,'產品總覽龜鹿湯塊目前規格錯誤')
- req('600g（1斤）／盒｜32塊裝' in products,'產品總覽龜鹿膠目前規格錯誤')
- req('每塊約9.375g' not in products,'產品總覽不應把湯塊每塊約重塞回主規格')
- req('每塊約18.75g' not in products,'產品總覽不應把龜鹿膠每塊約重塞回主規格')
+ req('75g （2兩）／盒｜8塊裝' in products,'產品總覽龜鹿湯塊目前規格錯誤')
+ req('600g （1斤）／盒｜32塊裝' in products,'產品總覽龜鹿膠目前規格錯誤')
+ req('每塊約9.375g' in products,'產品總覽應顯示龜鹿湯塊每塊約9.375g')
+ req(('每塊約18.75 g' in products) or ('每塊約18.75g' in products),'產品總覽應顯示龜鹿膠每塊約18.75 g')
  dm=visible('dm.html')
  req('六項' in dm and '產品' in dm and 'DM' in dm,'產品DM頁不是目前六項顧客版DM入口')
  req('待審核' not in dm and '毫米尺寸未知' not in dm,'產品DM頁仍露出內部審核／製圖說明')
@@ -71,9 +71,9 @@ def main():
  for phrase in ['正式售價60元／罐','11罐600元','單包200元','11包2,000元']:
   req(phrase in trial_compact,f'trial.html 缺少目前核准正式價格／活動：{phrase}')
 
- # 每塊約重可存在產品詳頁詳細資料，但不得污染總覽主規格或DM主規格。
+ # 目前產品總覽、FAQ與詳頁都可呈現完整規格與每塊約重。
  req('每塊約9.375g' in visible('product-guilu-tangkuai.html'),'龜鹿湯塊詳頁缺少每塊約9.375g詳細資料')
- req('每塊約18.75g' in visible('product-guilu-jiao.html'),'龜鹿膠詳頁缺少每塊約18.75g詳細資料')
+ req(('每塊約18.75 g' in visible('product-guilu-jiao.html')) or ('每塊約18.75g' in visible('product-guilu-jiao.html')),'龜鹿膠詳頁缺少每塊約18.75 g詳細資料')
 
  quality=visible('quality.html')
  req('ERP' not in quality,'品質頁仍把內部平台管理當成顧客內容')
@@ -82,6 +82,6 @@ def main():
  authority=(ROOT/'site-product-data-authority.js').read_text(encoding='utf-8')
  req('images/products-v3/' in authority,'官網產品識別權威缺products-v3正式原圖')
  req('officialImagePolicy' in authority and 'contain-no-crop' in authority,'產品識別／顧客顯示層未保留禁止重畫與contain/no-crop能力')
- print(f'PASS public customer pages: {len(PUBLIC_PAGES)} pages follow current specs; current guilu paste usage and guilu jiao 1斤 spec align; product detail weights remain detail-only; trial pricing is whitespace-insensitive and current; technical/internal copy stays hidden.')
+ print(f'PASS public customer pages: {len(PUBLIC_PAGES)} pages follow current specs; soup block 2兩 and guilu jiao 1斤 full specs are visible on products/FAQ/detail pages; current usage and media rules remain aligned.')
 
 if __name__=='__main__':main()
