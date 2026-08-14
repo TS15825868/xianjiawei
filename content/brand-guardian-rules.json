@@ -1,22 +1,25 @@
 {
-  "version": "2026-08-07-brand-guardian-v1",
+  "version": "2026-08-14-brand-guardian-v2-content",
   "mode": "blocking-before-approval",
   "checks": [
-    {"id":"public-brand","severity":"block","rule":"一般對外內容只顯示仙加味；不得主動出現台興山產有限公司、統編、公司電話、公司地址"},
-    {"id":"medical-claims","severity":"block","rule":"不得使用療效、治療、保證改善等醫療宣稱"},
+    {"id":"public-brand","severity":"block","rule":"一般對外內容只顯示仙加味；已停用舊稱與一般公司／商號資訊不得進入消費者內容"},
+    {"id":"rejected-copy","severity":"block","rule":"不得使用『不是每個人都一定需要』或以相同主張作為品牌／產品定位"},
+    {"id":"medical-claims","severity":"block","rule":"不得使用治療、治癒、療效、改善疾病、預防疾病、保證功效、保證改善、關節、卡卡、疲勞、精神不濟、補氣、生津、膠原蛋白、鈣質等對外功效宣稱"},
+    {"id":"guilu-content-angle","severity":"warning","rule":"龜鹿入門與『為什麼龜鹿』內容以飲食文化、產品型態、生活情境、工序、料理與一般使用為主，不以疾病、症狀或個別健康結果作為理由"},
     {"id":"product-identity","severity":"block","rule":"產品品項必須與文案一致，產品只使用正式原圖"},
     {"id":"specification","severity":"block","rule":"容量、重量、塊數、單位不得錯誤"},
     {"id":"guilu-drink-30","severity":"block","rule":"30cc為小玻璃裸罐、金色蓋、無貼紙、無外盒、無外袋；不可稱瓶；比例約42mm直徑×51mm高"},
     {"id":"guilu-drink-180","severity":"block","rule":"180cc為狹長直立鋁袋，寬高比約0.64；禁止拉寬或加高放大"},
     {"id":"guilu-gao-label","severity":"block","rule":"龜鹿膏100g只使用目前新版米白標籤；舊紅白直式貼紙禁止"},
-    {"id":"guilu-jiao","severity":"block","rule":"龜鹿膠600g淡紫盒照原圖等比例；禁止橫向拉長；32塊裝"},
-    {"id":"mascot","severity":"block","rule":"小老闆固定官網Q版造型；小老闆出現時小鹿與小烏龜必須同時出現"},
+    {"id":"guilu-tangkuai","severity":"block","rule":"龜鹿湯塊只使用75g深藍正式盒裝；8塊裝；不得建立其他容量或套用龜鹿膠包裝"},
+    {"id":"guilu-jiao","severity":"block","rule":"龜鹿膠600g（1斤）淡紫盒照原圖等比例；禁止橫向拉長；32塊裝"},
+    {"id":"mascot","severity":"block","rule":"小老闆固定官網Q版造型；夥伴依情境使用，小鹿與小烏龜出現時必須為分開的獨立角色且不可融合"},
     {"id":"optional-companions","severity":"warning","rule":"灰色小河馬娃娃與米色小鹿安撫巾只在合適的居家、休息、陪伴、親子情境出現"},
     {"id":"season-weather","severity":"block","rule":"季節、天氣、衣著、道具、環境不可互相衝突；即時天氣貼文發布前重新確認"},
     {"id":"temperature","severity":"block","rule":"溫熱、熱湯情境不得出現冰塊或冰飲"},
     {"id":"copy-image-match","severity":"block","rule":"圖片的產品、場合、地點、動作、表情與正文必須一致"},
     {"id":"duplicate-image","severity":"block","rule":"同一主圖90天內不得重複"},
     {"id":"duplicate-copy","severity":"block","rule":"同一文案180天內不得重複"},
-    {"id":"approval","severity":"block","rule":"新文案與新圖一律待審核，未審核不得排程或發布"}
+    {"id":"approval","severity":"block","rule":"新文案與新圖一律待審核，未審核不得排程或發布；人工核准後立即發布不得被固定排程時間阻擋"}
   ]
 }
