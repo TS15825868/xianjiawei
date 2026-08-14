@@ -1,6 +1,7 @@
 name: 仙加味目前權威衍生資料同步
 
 # MAINTENANCE MODE: manual only until the owner finishes visual/function review.
+# 最新正式資料優先；同步器不得把新版規格、用法或顧客文字降級回舊守門內容。
 on:
   workflow_dispatch:
 
@@ -25,30 +26,39 @@ jobs:
         run: echo "PAUSED automatic sync; this run is manual maintenance verification only."
       - name: Sync current derived authority files
         run: python tools/sync-current-derived-authority.py
-      - name: Validate synchronized customer outputs
+      - name: Validate synchronized customer outputs against latest authority
         shell: bash
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
           targets=['content/public-post-library.json','llms-full.txt','llms.txt','catalog-public.json','data.json','geo-data.json','assets/data/official-products.json']
-          retired=['一天一次一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶']
-          current_gao='每日早上及下午各一小匙'
+          retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日1罐','每日 1 罐','龜鹿飲30cc玻璃瓶','30cc／瓶']
+          official=json.loads(Path('assets/data/official-products.json').read_text(encoding='utf-8'))
+          by={p.get('id'):p for p in official.get('products',[])}
+          assert len(by)==6
+          gao=by['guilu-gao']; p30o=by['guilu-drink-30']; tang=by['guilu-tangkuai']; jiao=by['guilu-jiao']
+          assert gao['usage_primary']=='食用時間可依個人使用習慣與作息時間安排'
+          assert p30o['usage_primary']=='每日 1-2罐'
+          assert p30o['usage_timing']=='飲用時間可依個人使用習慣與作息時間安排'
+          assert tang['specification']=='75g （2兩）／盒｜8塊裝' and tang['detail_unit_approx']=='每塊約9.375g'
+          assert jiao['specification']=='600g （1斤）／盒｜32塊裝' and jiao['detail_unit_approx']=='每塊約18.75g'
           json.loads(Path('content/public-post-library.json').read_text(encoding='utf-8'))
           catalog=json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
           products={p.get('id'):p for p in catalog.get('products',[])}
           p30=products.get('guilu-drink-30') or {}
           assert str(p30.get('dmImage') or '').split('?',1)[0].endswith('/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg')
           assert 'quarantinedDmImage' not in p30
-          assert current_gao in json.dumps(products.get('guilu-gao') or {},ensure_ascii=False)
           rules=catalog.get('specificationRules') or {}
-          assert '每塊約9.375g' in str(rules.get('tangkuai') or '')
-          assert '每塊約18.75g' in str(rules.get('jiao') or '')
+          assert tang['specification'] in str(rules.get('tangkuai') or '') and tang['detail_unit_approx'] in str(rules.get('tangkuai') or '')
+          assert jiao['specification'] in str(rules.get('jiao') or '') and jiao['detail_unit_approx'] in str(rules.get('jiao') or '')
+          assert '顧客文字可顯示完整規格' in str(rules.get('tangkuai') or '')
+          assert '顧客文字可顯示完整規格' in str(rules.get('jiao') or '')
           for rel in targets:
             text=Path(rel).read_text(encoding='utf-8')
             for phrase in retired:
               if phrase in text: raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
-          print('PASS: current customer outputs follow latest authority; detailed per-piece weights remain detail-only instead of being globally stripped.')
+          print('PASS: derived customer outputs follow latest product authority; full text specifications remain visible without changing formal product images or DMs.')
           PY
       - name: Commit synchronized derived outputs
         shell: bash
