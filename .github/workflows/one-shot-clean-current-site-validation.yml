@@ -1,5 +1,6 @@
 name: 仙加味官網目前正式版驗收後自清理
 
+# rerun-2: current public boundary and publishing guards aligned to current authority
 on:
   push:
     branches: [main]
