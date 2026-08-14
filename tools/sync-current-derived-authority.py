@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 FORMAL_AUTH=ROOT/'data'/'formal-media-authority-v20260810.json'
+OFFICIAL_PRODUCTS=ROOT/'assets'/'data'/'official-products.json'
 SITE_BASE='https://ts15825868.github.io/xianjiawei'
 PRODUCT_IDENTITY_BASE='images/products-v3/'
 
@@ -18,14 +19,11 @@ REPLACEMENTS=[
  ('建議白天飲用','飲用時間可依個人使用習慣與作息時間安排'),
  ('每日一罐','每日 1-2罐'),('每日1罐','每日 1-2罐'),('每日 1 罐','每日 1-2罐'),
  (OLD_30_RANGE_TIGHT,'每日 1-2罐'),(OLD_30_RANGE_SPACED,'每日 1-2罐'),
- ('食用時間可依個人使用習慣與作息時間安排','食用時間可依個人使用習慣與作息時間安排'),
- ('食用時間可依個人使用習慣與作息時間安排','食用時間可依個人使用習慣與作息時間安排'),
- ('飲用時間可依個人使用習慣與作息時間安排','飲用時間可依個人使用習慣與作息時間安排'),
- ('使用時間可依個人使用習慣與作息時間安排','使用時間可依個人使用習慣與作息時間安排'),
  ('一天一次一小匙','食用時間可依個人使用習慣與作息時間安排'),
  ('早晚各一小匙','食用時間可依個人使用習慣與作息時間安排'),
  ('600g／盒｜32塊裝','600g （1斤）／盒｜32塊裝'),
  ('600g一斤裝','600g （1斤）／盒｜32塊裝'),
+ ('75g／盒｜8塊裝','75g （2兩）／盒｜8塊裝'),
  ('龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'),
  ('30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'),
  ('30cc／瓶','30cc／罐（小玻璃罐）'),
@@ -48,6 +46,8 @@ def write_json_if_changed(path:Path,data)->bool:
  return False
 
 def load_formal():return json.loads(FORMAL_AUTH.read_text(encoding='utf-8')) if FORMAL_AUTH.exists() else {}
+def load_official():return json.loads(OFFICIAL_PRODUCTS.read_text(encoding='utf-8')) if OFFICIAL_PRODUCTS.exists() else {}
+def official_by_id():return {p.get('id'):p for p in load_official().get('products',[]) if p.get('id')}
 def formal_by_catalog_id(formal):
  by={p.get('id'):p for p in formal.get('products',[]) if p.get('id')}
  return {'guilu-gao':by.get('guilu-gao'),'guilu-drink-30':by.get('guilu-drink-30cc'),'guilu-drink-180':by.get('guilu-drink-180cc'),'guilu-tangkuai':by.get('guilu-tangkuai'),'guilu-jiao':by.get('guilu-jiao'),'luerong-fen':by.get('luerong-fen')}
@@ -56,17 +56,22 @@ def public_url(path:str,version='current')->str:
  if path.startswith('http://') or path.startswith('https://'):return path
  return SITE_BASE+'/'+path.lstrip('/')+'?v='+version
 
+def complete_spec(product:dict)->str:
+ spec=str(product.get('specification') or '').strip(); detail=str(product.get('detail_unit_approx') or '').strip()
+ if not detail or detail in spec:return spec
+ return f'{spec}，{detail}'
+
 def sync_json(rel:str):
  path=ROOT/rel
  if not path.exists():return False
  data=transform(json.loads(path.read_text(encoding='utf-8')))
  if rel=='content/public-post-library.json':
-  formal=load_formal(); current=formal_by_catalog_id(formal); data['version']='current-public-posts-authority-20260812-v2'; auth=data.setdefault('productAuthority',{})
-  auth['source']='data/formal-media-authority-v20260810.json'; auth['imageAuthority']='images/customer-display-v20260812/'; auth['identityReference']='images/products-v3/'; auth['sixProductsSixSpecs']=True; auth['mediaRoles']='product image / valid detailed DM / trial are separate'; auth['soupBlock']='75g／盒｜深藍盒｜8塊裝'; auth['guiluJiao']='600g （1斤）／盒｜32塊裝｜淡紫色正式盒裝'; auth['guardPolicy']='validate-current-authority-no-legacy-copy-version-lock'
+  formal=load_formal(); current=formal_by_catalog_id(formal); official=official_by_id(); data['version']='current-public-posts-authority-20260815-v3'; auth=data.setdefault('productAuthority',{})
+  auth['source']='assets/data/official-products.json + data/formal-media-authority-v20260810.json'; auth['imageAuthority']='images/customer-display-v20260812/'; auth['identityReference']='images/products-v3/'; auth['sixProductsSixSpecs']=True; auth['mediaRoles']='product image / valid detailed DM / trial are separate'; auth['soupBlock']=complete_spec(official.get('guilu-tangkuai') or {}); auth['guiluJiao']=complete_spec(official.get('guilu-jiao') or {}); auth['guardPolicy']='latest-product-authority-first-no-legacy-copy-version-lock'
   for post in data.get('posts',[]):
    pid=post.get('id')
-   if pid=='POST-SOUP-75':post['copy']='龜鹿湯塊為75g （2兩）／盒｜8塊裝的深藍正式盒裝，可搭配熱水、保溫壺，也可加入雞湯、排骨湯或日常食材燉煮。'
-   elif pid=='POST-JIAO-600':post['copy']='龜鹿膠為600g （1斤）／盒｜32塊裝的淡紫色盒裝，可加入熱水化開，也可依料理方式搭配湯品。'
+   if pid=='POST-SOUP-75':post['copy']='龜鹿湯塊為75g （2兩）／盒｜8塊裝，每塊約9.375g；深藍正式盒裝，可搭配熱水、保溫壺，也可加入雞湯、排骨湯或日常食材燉煮。'
+   elif pid=='POST-JIAO-600':post['copy']='龜鹿膠為600g （1斤）／盒｜32塊裝，每塊約18.75g；淡紫色正式盒裝，可加入熱水化開，也可依料理方式搭配湯品。'
    product_id=post.get('product_id') or post.get('productId'); f=current.get(product_id)
    if f and f.get('status')=='approved_display' and post.get('status') not in {'published','archived'}:
     image=str(post.get('image_url') or '')
@@ -80,17 +85,24 @@ def sync_json(rel:str):
 def sync_catalog_current_media():
  path=ROOT/'catalog-public.json'
  if not path.exists():return False
- data=transform(json.loads(path.read_text(encoding='utf-8'))); formal=load_formal(); current=formal_by_catalog_id(formal)
- data['catalogVersion']='current-six-product-display-and-valid-dm-20260812-v2'; data['productImageVersion']='current-six-user-confirmed-product-images'; data['productIdentityReference']='products-v3-real-product-package-shape-proportion-only'; data['formalDmApprovalBatch']=formal.get('approval_batch') or '20260812-dm-binary-fix-v2'
- rules=data.setdefault('specificationRules',{}); rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；不得改罐型、比例或稱瓶。'; rules['tangkuai']='75g （2兩）／盒｜8塊裝；每塊約9.375g只留產品詳細資料，不放產品圖、DM主規格或貼文主規格。'; rules['jiao']='600g （1斤）／盒｜32塊裝；每塊約18.75g只留產品詳細資料，不放產品圖、DM主規格或貼文主規格。'
+ data=transform(json.loads(path.read_text(encoding='utf-8'))); formal=load_formal(); current=formal_by_catalog_id(formal); official=official_by_id()
+ data['catalogVersion']='current-six-product-display-and-valid-dm-20260815-v3'; data['productImageVersion']='current-six-user-confirmed-product-images'; data['productIdentityReference']='products-v3-real-product-package-shape-proportion-only'; data['formalDmApprovalBatch']=formal.get('approval_batch') or 'current'
+ rules=data.setdefault('specificationRules',{}); rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；不得改罐型、比例或稱瓶。'; rules['tangkuai']='龜鹿湯塊文字規格為75g （2兩）／盒｜8塊裝，每塊約9.375g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'; rules['jiao']='龜鹿膠文字規格為600g （1斤）／盒｜32塊裝，每塊約18.75g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'
  for product in data.get('products',[]):
-  f=current.get(product.get('id'))
+  pid=product.get('id'); f=current.get(pid); o=official.get(pid)
+  if o:
+   spec=str(o.get('specification') or '').strip(); detail=str(o.get('detail_unit_approx') or '').strip()
+   if spec:
+    product['specification']=spec; product['size']=spec; product['spec']=spec
+   if detail:product['detailUnitApprox']=detail
+   if o.get('usage_primary'):product['usagePrimary']=o.get('usage_primary')
+   if o.get('usage_timing'):product['usageTiming']=o.get('usage_timing')
   if not f or f.get('status')!='approved_display':continue
   image=str(f.get('image') or ''); dm=str(f.get('dm') or '')
   if image.startswith('/images/'):
    product['image']=public_url(image,'current-product'); product['imageUrl']=product['image']; product['image_url']=product['image']
   if dm.startswith('/images/'):product['dmImage']=public_url(dm,'current-dm')
-  product['officialOriginalImage']=SITE_BASE+'/'+PRODUCT_IDENTITY_BASE+{'guilu-gao':'guilu-gao.jpg','guilu-drink-30':'guilu-drink-30.jpg','guilu-drink-180':'guilu-drink-180.jpg','guilu-tangkuai':'guilu-tangkuai.jpg','guilu-jiao':'guilu-jiao.jpg','luerong-fen':'luerong-fen.jpg'}.get(product.get('id'),'')
+  product['officialOriginalImage']=SITE_BASE+'/'+PRODUCT_IDENTITY_BASE+{'guilu-gao':'guilu-gao.jpg','guilu-drink-30':'guilu-drink-30.jpg','guilu-drink-180':'guilu-drink-180.jpg','guilu-tangkuai':'guilu-tangkuai.jpg','guilu-jiao':'guilu-jiao.jpg','luerong-fen':'luerong-fen.jpg'}.get(pid,'')
   product['imagePolicy']='六張使用者確認正式產品圖為顧客主視覺；products-v3只作實物身份與比例校正。'
  dm_policy=data.setdefault('dmPolicy',{}); dm_policy['currentDmStatus']='current-approved-valid-binary-separated-from-product-image'; dm_policy['legacyDmUse']='reference-only'; dm_policy['consumerDmMustBeReviewed']=True; dm_policy['consumerDmMustMatchCurrentSpecification']=True; dm_policy['productMainImageMustNotUseDm']=True; dm_policy['dmMustNotRedefineProductIdentity']=True; dm_policy['retiredInvalidPaths']=['images/dm-approved-v20260810/guilu-gao-100g.webp']
  return write_json_if_changed(path,data)
@@ -99,7 +111,6 @@ def sync_text(rel:str):
  path=ROOT/rel
  if not path.exists():return False
  old=path.read_text(encoding='utf-8'); new=replace_text(old)
- if rel=='llms-full.txt':new=new.replace('最後檢視：2026-08-09','最後檢視：2026-08-12').replace('最後更新：2026-08-09','最後更新：2026-08-12').replace('最後檢視：2026-08-11','最後檢視：2026-08-12').replace('最後更新：2026-08-11','最後更新：2026-08-12')
  if new!=old:path.write_text(new,encoding='utf-8');return True
  return False
 
@@ -112,9 +123,15 @@ def validate_no_retired_customer_copy():
   value=path.read_text(encoding='utf-8')
   for phrase in retired:
    if phrase in value:raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
+ official=official_by_id()
  for rel in ['content/public-post-library.json','catalog-public.json']:
   path=ROOT/rel
-  if path.exists() and '龜鹿膠' in path.read_text(encoding='utf-8') and '600g （1斤）／盒｜32塊裝' not in path.read_text(encoding='utf-8'):raise SystemExit(f'{rel} 缺少目前正式龜鹿膠規格：600g （1斤）／盒｜32塊裝')
+  if not path.exists():continue
+  value=path.read_text(encoding='utf-8')
+  for pid in ['guilu-tangkuai','guilu-jiao']:
+   p=official.get(pid) or {}; spec=str(p.get('specification') or ''); detail=str(p.get('detail_unit_approx') or '')
+   if spec and spec not in value:raise SystemExit(f'{rel} 缺少目前正式規格：{spec}')
+   if detail and detail not in value:raise SystemExit(f'{rel} 缺少目前詳細約重：{detail}')
 
 changed=[]
 for rel in ['content/public-post-library.json','content/public-content-policy.json','config/public-content-policy.json','content/post-bank-v6-manifest.json','data.json','geo-data.json','assets/data/official-products.json','content/visual-production-spec-current.json']:
