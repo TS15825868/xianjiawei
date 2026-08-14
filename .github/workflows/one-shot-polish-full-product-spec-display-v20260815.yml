@@ -1,5 +1,4 @@
 name: 仙加味產品完整規格顯示收尾
-# 顧客顯示完整規格；權威主規格與每塊約重仍分欄保存，避免破壞正式資料契約。
 on:
   push:
     branches: [main]
@@ -19,12 +18,10 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-
           def patch(path, pairs):
               p=Path(path); s=p.read_text(encoding='utf-8'); old=s
               for a,b in pairs: s=s.replace(a,b)
               if s!=old: p.write_text(s,encoding='utf-8')
-
           patch('site.js',[
             ('size:"75g （2兩）／盒｜8塊裝",image:', 'size:"75g （2兩）／盒｜8塊裝",unitApprox:"每塊約9.375g",image:'),
             ('size:"600g （1斤）／盒｜32塊裝",image:', 'size:"600g （1斤）／盒｜32塊裝",unitApprox:"每塊約18.75 g",image:'),
@@ -32,16 +29,9 @@ jobs:
           patch('site-product-data-authority.js',[
             ('主規格維持簡潔；產品詳頁可顯示每塊約重，不再全站硬刪。','權威主規格與每塊約重分欄保存；顧客產品頁、FAQ與快速查看可合併顯示完整規格。'),
           ])
+          helper='function productDisplaySpec(product = {}) {\n  const size = String(product?.size || product?.specification || product?.spec || "").trim();\n  const unitApprox = String(product?.unitApprox || product?.detailUnitApprox || "").trim();\n  if (!size) return unitApprox;\n  if (!unitApprox || size.includes(unitApprox)) return size;\n  return `${size}，${unitApprox}`;\n}'
           patch('site-core-v410.js',[
-            ('function fillProducts(targetId, products, options = {}) {', '''function productDisplaySpec(product = {}) {
-  const size = String(product?.size || product?.specification || product?.spec || "").trim();
-  const unitApprox = String(product?.unitApprox || product?.detailUnitApprox || "").trim();
-  if (!size) return unitApprox;
-  if (!unitApprox || size.includes(unitApprox)) return size;
-  return `${size}，${unitApprox}`;
-}
-
-function fillProducts(targetId, products, options = {}) {'''),
+            ('function fillProducts(targetId, products, options = {}) {', helper+'\n\nfunction fillProducts(targetId, products, options = {}) {'),
             ('${escapeHtml(product.size || "產品規格")}', '${escapeHtml(productDisplaySpec(product) || "產品規格")}'),
             ('規格：${escapeHtml(product.size || "請見產品介紹")}', '規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}'),
             ('規格：${escapeHtml(product.size || "請見正式產品資訊")}', '規格：${escapeHtml(productDisplaySpec(product) || "請見正式產品資訊")}'),
