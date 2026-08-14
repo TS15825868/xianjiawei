@@ -1,20 +1,23 @@
 "use strict";
 (()=>{
-  const VERSION='20260814-dm-trial-modal-v1';
+  const VERSION='20260814-product-modal-media-v2';
   const BASE=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
   const DM30=`${BASE}/images/dm-final/02_guilu-drink-30cc-dm-v20260814.webp?v=${VERSION}`;
   const TRIAL=`${BASE}/images/trial/trial-poster-small-boss-v20260814.webp?v=${VERSION}`;
+  const INTRO_LABEL=/查看介紹|完整資料|查看比較|快速查看/;
 
   const cleanFile=value=>String(value||'').split('/').pop().split(/[?#]/)[0];
   const products=()=>{
-    try{
-      if(typeof SITE_DATA!=='undefined' && Array.isArray(SITE_DATA?.products)) return SITE_DATA.products;
-    }catch(_){ }
+    try{if(typeof SITE_DATA!=='undefined'&&Array.isArray(SITE_DATA?.products))return SITE_DATA.products;}catch(_){ }
     return Array.isArray(window.SITE_DATA?.products)?window.SITE_DATA.products:[];
   };
   const findProduct=href=>{
     const file=cleanFile(href);
     return products().find(product=>[product.page,product.detailPage].some(value=>cleanFile(value)===file));
+  };
+  const findProductByCard=element=>{
+    const card=element?.closest?.('[data-product-id]');
+    return card?products().find(product=>product.id===card.dataset.productId):null;
   };
 
   function fixDm(){
@@ -27,6 +30,10 @@
         img.removeAttribute('srcset');
         Object.assign(img.style,{width:'100%',height:'auto',maxWidth:'100%',maxHeight:'none',objectFit:'contain',objectPosition:'center',transform:'none'});
       }
+    });
+    document.querySelectorAll('.real-product-gallery article').forEach(article=>{
+      const link=[...article.querySelectorAll('a[href*="product-"]')].find(a=>/完整資料|查看介紹/.test(a.textContent||''));
+      if(link){link.textContent='查看介紹';link.dataset.productIntro='1';}
     });
     document.documentElement.dataset.dm30Authority='user-approved-v20260814';
   }
@@ -54,43 +61,48 @@
     document.documentElement.dataset.trialMediaMode='official-poster-v20260814';
   }
 
-  function simplifyProductActions(root=document){
+  function normalizeIntroActions(root=document){
+    root.querySelectorAll('a[href*="product-"]').forEach(anchor=>{
+      const text=(anchor.textContent||'').trim();
+      if(/完整產品頁/.test(text)) return;
+      if(INTRO_LABEL.test(text)||anchor.dataset.productIntro==='1'){
+        anchor.textContent='查看介紹';
+        anchor.dataset.productIntro='1';
+        anchor.setAttribute('aria-haspopup','dialog');
+      }
+    });
     root.querySelectorAll('[data-quick-view="1"]').forEach(button=>{
       const actions=button.closest('.product-card__actions');
-      if(actions && [...actions.querySelectorAll('a,button')].some(el=>/查看介紹/.test(el.textContent||''))) button.remove();
+      if(actions&&[...actions.querySelectorAll('a,button')].some(el=>/查看介紹/.test(el.textContent||'')))button.remove();
     });
   }
 
-  function openIntro(anchor,event){
-    const href=anchor.getAttribute('href')||'';
-    const file=cleanFile(href);
-    if(!/^product-[\w-]+\.html$/i.test(file)) return false;
-    const product=findProduct(href);
-    if(!product || typeof window.openProductModal!=='function') return false;
-    event?.preventDefault();
-    event?.stopPropagation();
-    window.openProductModal(product,anchor);
+  function openIntro(element,event){
+    let product=null;
+    if(element.matches?.('a[href]')) product=findProduct(element.getAttribute('href')||'');
+    if(!product) product=findProductByCard(element);
+    if(!product||typeof window.openProductModal!=='function')return false;
+    event?.preventDefault();event?.stopPropagation();
+    window.openProductModal(product,element);
     return true;
   }
 
   document.addEventListener('click',event=>{
-    const anchor=event.target.closest('a');
-    if(!anchor || !/查看介紹/.test(anchor.textContent||'')) return;
-    openIntro(anchor,event);
+    const target=event.target.closest('[data-product-intro="1"],a[href*="product-"]');
+    if(!target)return;
+    const label=(target.textContent||'').trim();
+    if(target.dataset.productIntro==='1'||INTRO_LABEL.test(label))openIntro(target,event);
   },true);
 
   function enforce(){
-    fixDm();
-    fixTrial();
-    simplifyProductActions();
-    document.documentElement.dataset.productIntroMode='modal-v20260814';
+    fixDm();fixTrial();normalizeIntroActions();
+    document.documentElement.dataset.productIntroMode='modal-v20260814-v2';
   }
-
   const observer=new MutationObserver(mutations=>{
-    if(mutations.some(m=>m.type==='childList' || (m.type==='attributes' && ['src','srcset'].includes(m.attributeName)))) enforce();
+    if(mutations.some(m=>m.type==='childList'||(m.type==='attributes'&&['src','srcset'].includes(m.attributeName))))enforce();
   });
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>{enforce();observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['src','srcset']});});
-  else {enforce();observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['src','srcset']});}
+  const start=()=>{enforce();observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['src','srcset']});};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
   window.addEventListener('load',enforce,{once:true});
   window.XJWMediaModalFinal=Object.freeze({version:VERSION,dm30:DM30,trial:TRIAL});
 })();
