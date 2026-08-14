@@ -1,5 +1,5 @@
 name: 仙加味產品與FAQ規格更新
-# rerun after updating the current customer-page validator
+# rerun after updating the current customer-page validator; do not rewrite other workflows
 on:
   push:
     branches: [main]
@@ -23,6 +23,8 @@ jobs:
           files=subprocess.check_output(['git','ls-files'],text=True).splitlines()
           binary_ext={'.png','.jpg','.jpeg','.webp','.avif','.gif','.ico','.zip','.pdf','.mp4','.mov','.woff','.woff2','.ttf','.otf'}
           for name in files:
+            if name.startswith('.github/workflows/'):
+              continue
             p=Path(name)
             if p.suffix.lower() in binary_ext or not p.is_file():
               continue
@@ -71,7 +73,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
+          git add -A -- ':!.github/workflows'
           if git diff --cached --quiet; then echo 'No changes'; exit 0; fi
           git commit -m 'fix(site): update soup block and guilu jiao specs across product and FAQ pages'
           git push origin HEAD:main
