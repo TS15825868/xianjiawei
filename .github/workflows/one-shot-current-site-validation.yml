@@ -1,6 +1,6 @@
 name: 仙加味官網目前正式版一次性驗收
 
-# rerun-6: visual authority and validator aligned to current customer-product / DM / trial / identity roles
+# rerun-7: AIO/SEO/GEO metadata and machine-readable current authority completed
 on:
   push:
     branches: [main]
