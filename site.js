@@ -1,15 +1,16 @@
 "use strict";
 
-/* 全站入口 2026-08-13：產品資料權威 → 正式產品圖 → 獨立DM權威 → 核心 → 圖片安全 → 正式規格 → 顧客版清理 → 公開舊圖退役 → 小老闆輔助情境 → 視覺層。 */
+/* 全站入口：正式產品資料 → 產品圖 → DM → 核心 → 統一產品介紹 Modal → 圖片安全 → 規格 → 清理 → 視覺。 */
 (function () {
   if (window.__XJW_SITE_WRAPPER__) return;
   window.__XJW_SITE_WRAPPER__ = true;
 
-  const VERSION = "20260813-trial-product-role-fix-v8";
+  const VERSION = "20260814-product-modal-media-v2";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
   const CORE = `site-core-v410.js?v=${VERSION}`;
+  const MEDIA_MODAL = `site-media-modal-final-v20260814.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
   const VARIANTS = `site-official-product-variants.js?v=${VERSION}`;
   const PUBLIC_CLEANUP = `site-public-content-cleanup-v20260809.js?v=${VERSION}`;
@@ -47,11 +48,13 @@
       appendScript(PRODUCT_DISPLAY, function () {
         appendScript(DM_AUTHORITY, function () {
           appendScript(CORE, function () {
-            appendScript(SAFETY, function () {
-              appendScript(VARIANTS, function () {
-                appendScript(PUBLIC_CLEANUP, function () {
-                  appendScript(IMAGE_RETIREMENT, function () {
-                    appendScript(MASCOT, loadStyles);
+            appendScript(MEDIA_MODAL, function () {
+              appendScript(SAFETY, function () {
+                appendScript(VARIANTS, function () {
+                  appendScript(PUBLIC_CLEANUP, function () {
+                    appendScript(IMAGE_RETIREMENT, function () {
+                      appendScript(MASCOT, loadStyles);
+                    });
                   });
                 });
               });
@@ -66,6 +69,7 @@
     document.write('<script src="' + PRODUCT_DISPLAY + '"><\/script>');
     document.write('<script src="' + DM_AUTHORITY + '"><\/script>');
     document.write('<script src="' + CORE + '"><\/script>');
+    document.write('<script src="' + MEDIA_MODAL + '"><\/script>');
     document.write('<script src="' + SAFETY + '"><\/script>');
     document.write('<script src="' + VARIANTS + '"><\/script>');
     document.write('<script src="' + PUBLIC_CLEANUP + '"><\/script>');
