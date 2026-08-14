@@ -1,5 +1,5 @@
 (()=>{
-const V='20260814-product-modal-media-v3';
+const V='20260814-online-audit-v2';
 const pathBase=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
 const HD_DM=Object.freeze({
  'guilu-gao':'/images/dm-final/01_guilu-gao-100g-dm.jpg',
@@ -12,10 +12,20 @@ const HD_DM=Object.freeze({
 const replace=(img,path)=>{if(!path)return;img.src=pathBase+path+(path.includes('?')?'&':'?')+'v='+V;img.removeAttribute('srcset');img.style.objectFit='contain';img.style.objectPosition='center';img.style.width='100%';img.style.height='auto';img.style.maxWidth='100%';img.style.maxHeight='none';img.style.transform='none';img.removeAttribute('width');img.removeAttribute('height');};
 function fixDmEntry(){
  document.querySelectorAll('a[href="dm.html"],a[href$="/dm.html"]').forEach(a=>{if(/實品照|產品圖|DM/i.test(a.textContent||''))a.textContent='查看產品DM';a.setAttribute('aria-label','查看仙加味目前正式產品DM');});
- if(document.body?.dataset?.page==='home'&&!document.querySelector('[data-formal-dm-home-entry]')){
-  const products=document.getElementById('home-products');const actions=products?.nextElementSibling;
-  if(actions?.classList?.contains('section-actions')){const link=document.createElement('a');link.className='btn btn-outline';link.href='dm.html';link.textContent='查看產品DM';link.dataset.formalDmHomeEntry='true';const trial=[...actions.querySelectorAll('a')].find(a=>/trial\.html/.test(a.getAttribute('href')||''));if(trial)actions.insertBefore(link,trial);else actions.appendChild(link);}
+ if(document.body?.dataset?.page!=='home')return;
+ const products=document.getElementById('home-products');
+ const actions=products?.nextElementSibling;
+ if(!actions?.classList?.contains('section-actions'))return;
+ const existing=[...actions.querySelectorAll('a')].find(a=>/^(?:\.\/)?dm\.html(?:[?#]|$)/i.test(a.getAttribute('href')||'')||/\/dm\.html(?:[?#]|$)/i.test(a.getAttribute('href')||''));
+ if(existing){
+   existing.dataset.formalDmHomeEntry='true';
+   existing.textContent='查看產品DM';
+   existing.setAttribute('aria-label','查看仙加味目前正式產品DM');
+   actions.querySelectorAll('a[data-formal-dm-home-entry="true"]').forEach(a=>{if(a!==existing)a.remove();});
+   return;
  }
+ const link=document.createElement('a');link.className='btn btn-outline';link.href='dm.html';link.textContent='查看產品DM';link.dataset.formalDmHomeEntry='true';link.setAttribute('aria-label','查看仙加味目前正式產品DM');
+ const trial=[...actions.querySelectorAll('a')].find(a=>/trial\.html/.test(a.getAttribute('href')||''));if(trial)actions.insertBefore(link,trial);else actions.appendChild(link);
 }
 fixDmEntry();
 fetch(pathBase+'/images/formal-display/manifest.json?v='+V,{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject()).then(m=>{
@@ -36,8 +46,6 @@ fetch(pathBase+'/images/formal-display/manifest.json?v='+V,{cache:'no-store'}).t
    }
   });
  }
- /* trial.html 只允許 trial-showcase-v20260813 正式元件。
-    舊 trial-small-boss 與內嵌 WebP SVG 都不得再覆寫回畫面。 */
  if(/\/trial\.html$/.test(location.pathname)){
    const showcase=document.querySelector('[data-trial-showcase="official"]');
    if(showcase){
