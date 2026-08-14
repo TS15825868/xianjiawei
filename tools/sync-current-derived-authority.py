@@ -11,16 +11,8 @@ PRODUCT_IDENTITY_BASE='images/products-v3/'
 
 # 只清理真正退役內容；新版合法資訊不得被同步腳本降級。
 REPLACEMENTS=[
- ('每日早上及下午各一小匙','一天一次一小匙'),
- ('早晚各一小匙','一天一次一小匙'),
- ('龜鹿湯塊 75g／盒｜深藍盒｜8塊裝｜每塊約9.375g','龜鹿湯塊 75g／盒｜深藍盒｜8塊裝'),
- ('75g／盒｜深藍盒｜8塊裝｜每塊約9.375g','75g／盒｜深藍盒｜8塊裝'),
- ('75g／盒｜8塊裝｜每塊約9.375g','75g／盒｜8塊裝'),
- ('75g／盒，8塊裝、每塊約9.375g','75g／盒｜8塊裝'),
- ('75g／盒、8塊裝、每塊約9.375g','75g／盒｜8塊裝'),
- ('600g（1斤）／盒｜32塊裝｜每塊約18.75g','600g（1斤）／盒｜32塊裝'),
- ('600g（1斤）／盒、32塊裝、每塊約18.75g','600g（1斤）／盒｜32塊裝'),
- ('600g／盒｜32塊裝｜每塊約18.75g','600g（1斤）／盒｜32塊裝'),
+ ('一天一次一小匙','每日早上及下午各一小匙'),
+ ('早晚各一小匙','每日早上及下午各一小匙'),
  ('600g／盒｜32塊裝','600g（1斤）／盒｜32塊裝'),
  ('600g一斤裝','600g（1斤）／盒｜32塊裝'),
  ('龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'),
@@ -155,7 +147,7 @@ def sync_text(rel:str):
 
 def validate_no_retired_customer_copy():
  current=['content/public-post-library.json','llms-full.txt','deploy-version.json','data.json','catalog-public.json','config/official-products.json','assets/data/official-products.json']
- retired=['每日早上及下午各一小匙','早晚各一小匙','75g／盒｜8塊裝｜每塊約9.375g','600g（1斤）／盒｜32塊裝｜每塊約18.75g','600g／盒｜32塊裝｜每塊約18.75g','龜鹿飲30cc玻璃瓶','30cc／瓶']
+ retired=['一天一次一小匙','龜鹿飲30cc玻璃瓶','30cc／瓶']
  for rel in current:
   path=ROOT/rel
   if not path.exists():continue
@@ -171,10 +163,10 @@ def validate_no_retired_customer_copy():
     raise SystemExit(f'{rel} 缺少目前正式龜鹿膠規格：600g（1斤）／盒｜32塊裝')
 
 changed=[]
-for rel in ['content/public-post-library.json','content/public-content-policy.json','config/public-content-policy.json','content/post-bank-v6-manifest.json']:
+for rel in ['content/public-post-library.json','content/public-content-policy.json','config/public-content-policy.json','content/post-bank-v6-manifest.json','data.json','geo-data.json','assets/data/official-products.json','content/visual-production-spec-current.json']:
  if sync_json(rel):changed.append(rel)
 if sync_catalog_current_media():changed.append('catalog-public.json')
-for rel in ['llms-full.txt']:
+for rel in ['llms-full.txt','llms.txt']:
  if sync_text(rel):changed.append(rel)
 validate_no_retired_customer_copy()
 print('current authority derived sync:', ', '.join(changed) if changed else 'already current')

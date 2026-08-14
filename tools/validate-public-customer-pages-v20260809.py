@@ -40,8 +40,8 @@ def main():
   value=visible(rel)
   req('正式售價60元' not in value and '11罐600元' not in value and '單包200元' not in value and '11包2,000元' not in value,f'{rel} 不應公開試喝活動價格')
 
- req('一天一次一小匙' in visible('product-guilu-gao.html'),'龜鹿膏詳頁未顯示目前使用方式')
- req('一天一次一小匙' in visible('guide.html'),'使用方式頁未同步龜鹿膏目前用法')
+ req('每日早上及下午各一小匙' in visible('product-guilu-gao.html'),'龜鹿膏詳頁未顯示目前使用方式')
+ req('每日早上及下午各一小匙' in visible('guide.html'),'使用方式頁未同步龜鹿膏目前用法')
  p30=visible('product-guilu-drink-30cc.html')
  req('30cc／罐（小玻璃罐）' in p30 and '裸罐' in p30 and '無貼紙' in p30,'30cc詳頁包裝事實不完整')
  products=visible('products.html')

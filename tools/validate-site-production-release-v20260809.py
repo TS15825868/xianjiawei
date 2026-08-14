@@ -71,7 +71,7 @@ def validate_product_authority():
   page=read(PAGE_BY_ID[pid])
   req(spec in page,f'{PAGE_BY_ID[pid]}缺目前正式規格：{spec}')
   req('products-v2' not in page,f'{PAGE_BY_ID[pid]}不得引用products-v2')
- req(data['guilu-gao'].get('usage',[None])[0]=='一天一次一小匙','龜鹿膏主要使用方式未同步目前authority')
+ req(data['guilu-gao'].get('usage',[None])[0]=='每日早上及下午各一小匙','龜鹿膏主要使用方式未同步目前authority')
  req(data['guilu-drink-30'].get('knownContainerDimensionsMm')=={'diameter':42,'height':51},'30cc必須維持小玻璃罐Ø42×H51mm參考尺寸')
  req(data['guilu-gao'].get('knownContainerDimensionsMm')=={'width':51,'height':78},'龜鹿膏罐必須維持51×78mm參考尺寸')
  ratio=(data['guilu-drink-180'].get('aspectRatioWidthToHeight') or {}).get('target')

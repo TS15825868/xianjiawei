@@ -1,52 +1,129 @@
 {
-  "version":"2026-08-11-current-visual-authority",
-  "authority":"user-confirmed-current",
-  "updated_at_taipei":"2026-08-11",
-  "brand":{
-    "public_name":"仙加味",
-    "public_series":"仙加味・龜鹿",
-    "tagline":"補養，是一種節奏。",
-    "tone":["日常飲食","生活節奏","料理搭配","不談療效","不強迫"],
-    "colors":["深藍","米白#F7F4ED","深紅","金色點綴","深綠"]
+  "version": "2026-08-11-current-visual-authority",
+  "authority": "user-confirmed-current",
+  "updated_at_taipei": "2026-08-11",
+  "brand": {
+    "public_name": "仙加味",
+    "public_series": "仙加味・龜鹿",
+    "tagline": "補養，是一種節奏。",
+    "tone": [
+      "日常飲食",
+      "生活節奏",
+      "料理搭配",
+      "不談療效",
+      "不強迫"
+    ],
+    "colors": [
+      "深藍",
+      "米白#F7F4ED",
+      "深紅",
+      "金色點綴",
+      "深綠"
+    ]
   },
-  "authority_layers":{
-    "product_identity":"images/products-v3/ 真實正式產品原圖；產品本體、包裝、標示、尺寸與比例唯一識別權威",
-    "customer_dm":"images/dm-approved-v20260810/ 為使用者提供的顧客展示素材；只有圖片內嵌文字、產品外觀與目前正式規格全部一致時才可顯示。若後續素材發生衝突，必須隔離並回退products-v3，不得因檔名或舊核准狀態覆蓋目前權威",
-    "post_lifestyle":"目前最新使用者ZIP素材先依文案語意比對；有合格來源但原圖待同步時保持needs_binary_sync；真的沒有合格來源才重新生成",
-    "guard":"驗目前authority與能力，不綁歷史版號、舊ZIP名稱、固定候選數、舊固定文案或退役延伸規格"
+  "authority_layers": {
+    "product_identity": "images/products-v3/ 真實正式產品原圖；產品本體、包裝、標示、尺寸與比例唯一識別權威",
+    "customer_dm": "images/dm-approved-v20260810/ 為使用者提供的顧客展示素材；只有圖片內嵌文字、產品外觀與目前正式規格全部一致時才可顯示。若後續素材發生衝突，必須隔離並回退products-v3，不得因檔名或舊核准狀態覆蓋目前權威",
+    "post_lifestyle": "目前最新使用者ZIP素材先依文案語意比對；有合格來源但原圖待同步時保持needs_binary_sync；真的沒有合格來源才重新生成",
+    "guard": "驗目前authority與能力，不綁歷史版號、舊ZIP名稱、固定候選數、舊固定文案或退役延伸規格"
   },
-  "official_specs":[
+  "official_specs": [
     "龜鹿膏 100g／罐",
     "龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）",
     "龜鹿飲180cc鋁袋 180cc／包（鋁袋）",
     "龜鹿湯塊 75g／盒｜8塊裝",
-    "龜鹿膠 600g／盒｜32塊裝",
+    "龜鹿膠 600g（1斤）／盒｜32塊裝",
     "鹿茸粉 75g／罐"
   ],
-  "products":{
-    "guilu-gao":{"name":"龜鹿膏","spec":"100g／罐","usage_primary":"一天一次一小匙","image_rule":"直接使用products-v3正式實拍識別；只允許等比例縮放，不AI重畫、不裁切、不換蓋、不換標籤"},
-    "guilu-drink-30":{"name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","presentation":"裸罐、無貼紙、無外盒、無外袋、金色蓋","container_dimensions_mm":{"diameter":42,"height":51},"image_rule":"必須保留實際小玻璃罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐","customer_dm_status":"approved_current_copy","customer_dm_path":"/images/dm-approved-v20260810/guilu-drink-30cc.webp","customer_dm_validation":"目前使用者核准DM的規格文字、30cc小玻璃裸罐外觀與正式資料一致；若未來改版衝突，立即隔離並回退products-v3"},
-    "guilu-drink-180":{"name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","presentation":"狹長直立鋁袋","aspect_ratio_width_to_height":{"min":0.60,"target":0.64,"max":0.68},"image_rule":"使用正式鋁袋原圖等比例；禁止橫向拉寬、加高或誇張放大"},
-    "guilu-tangkuai":{"name":"龜鹿湯塊","spec":"75g／盒｜8塊裝","presentation":"深藍正式盒裝","image_rule":"使用正式原盒等比例；不得建立300g／600g或硬帶舊每塊重量延伸"},
-    "guilu-jiao":{"name":"龜鹿膠","spec":"600g／盒｜32塊裝","presentation":"淡紫色正式盒裝","image_rule":"使用正式原盒等比例；不得橫向拉長，不回退舊延伸重量說法，不得與75g湯塊混用"},
-    "luerong-fen":{"name":"鹿茸粉","spec":"75g／罐","presentation":"白色塑膠罐正式原圖","image_rule":"不改包裝、罐型、容量或標示，只允許等比例呈現"}
+  "products": {
+    "guilu-gao": {
+      "name": "龜鹿膏",
+      "spec": "100g／罐",
+      "usage_primary": "每日早上及下午各一小匙",
+      "image_rule": "直接使用products-v3正式實拍識別；只允許等比例縮放，不AI重畫、不裁切、不換蓋、不換標籤"
+    },
+    "guilu-drink-30": {
+      "name": "龜鹿飲30cc玻璃罐",
+      "spec": "30cc／罐（小玻璃罐）",
+      "presentation": "裸罐、無貼紙、無外盒、無外袋、金色蓋",
+      "container_dimensions_mm": {
+        "diameter": 42,
+        "height": 51
+      },
+      "image_rule": "必須保留實際小玻璃罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐",
+      "customer_dm_status": "approved_current_copy",
+      "customer_dm_path": "/images/dm-approved-v20260810/guilu-drink-30cc.webp",
+      "customer_dm_validation": "目前使用者核准DM的規格文字、30cc小玻璃裸罐外觀與正式資料一致；若未來改版衝突，立即隔離並回退products-v3"
+    },
+    "guilu-drink-180": {
+      "name": "龜鹿飲180cc鋁袋",
+      "spec": "180cc／包（鋁袋）",
+      "presentation": "狹長直立鋁袋",
+      "aspect_ratio_width_to_height": {
+        "min": 0.6,
+        "target": 0.64,
+        "max": 0.68
+      },
+      "image_rule": "使用正式鋁袋原圖等比例；禁止橫向拉寬、加高或誇張放大"
+    },
+    "guilu-tangkuai": {
+      "name": "龜鹿湯塊",
+      "spec": "75g／盒｜8塊裝",
+      "presentation": "深藍正式盒裝",
+      "image_rule": "使用正式原盒等比例；不得建立300g／600g或硬帶舊每塊重量延伸"
+    },
+    "guilu-jiao": {
+      "name": "龜鹿膠",
+      "spec": "600g（1斤）／盒｜32塊裝",
+      "presentation": "淡紫色正式盒裝",
+      "image_rule": "使用正式原盒等比例；不得橫向拉長，不回退舊延伸重量說法，不得與75g湯塊混用"
+    },
+    "luerong-fen": {
+      "name": "鹿茸粉",
+      "spec": "75g／罐",
+      "presentation": "白色塑膠罐正式原圖",
+      "image_rule": "不改包裝、罐型、容量或標示，只允許等比例呈現"
+    }
   },
-  "mascot":{
-    "name":"仙加味小老闆",
-    "style":"精緻柔和立體Q版、圓潤自然、非真人寫實、非扁平2D、非陌生動漫角色",
-    "appearance":"Q版小男孩；圓臉、大而圓的深棕色眼睛、短黑髮、自然微紅臉頰；米白中式上衣＋深橄欖綠圍裙；胸前紅色直式『仙加味』印章",
-    "full_character_required":true,
-    "safe_margin_percent_min":8,
-    "crop_forbidden":true,
-    "companions_when_used":["小鹿","小烏龜"],
-    "companion_rule":"小鹿與小烏龜必須分開為獨立角色、同一Q版質感；不可融合；不是每張都強制出現",
-    "optional_home_rest_companions":["灰色小河馬娃娃","米色小鹿安撫巾"],
-    "pose_rule":"姿勢、表情、視線、道具依文案目的變化，但臉型、短黑髮、米白上衣、深綠圍裙與紅色仙加味識別不變"
+  "mascot": {
+    "name": "仙加味小老闆",
+    "style": "精緻柔和立體Q版、圓潤自然、非真人寫實、非扁平2D、非陌生動漫角色",
+    "appearance": "Q版小男孩；圓臉、大而圓的深棕色眼睛、短黑髮、自然微紅臉頰；米白中式上衣＋深橄欖綠圍裙；胸前紅色直式『仙加味』印章",
+    "full_character_required": true,
+    "safe_margin_percent_min": 8,
+    "crop_forbidden": true,
+    "companions_when_used": [
+      "小鹿",
+      "小烏龜"
+    ],
+    "companion_rule": "小鹿與小烏龜必須分開為獨立角色、同一Q版質感；不可融合；不是每張都強制出現",
+    "optional_home_rest_companions": [
+      "灰色小河馬娃娃",
+      "米色小鹿安撫巾"
+    ],
+    "pose_rule": "姿勢、表情、視線、道具依文案目的變化，但臉型、短黑髮、米白上衣、深綠圍裙與紅色仙加味識別不變"
   },
-  "copy_image_match":{
-    "required":true,
-    "dimensions":["產品／規格","季節","天氣","場合／地點","情境／環境","冷熱","表情","動作／道具","小老闆與夥伴","人物完整度／安全邊界","產品實際比例","重複圖","品牌調性","法規文案","來源權威","最終一致性"],
-    "hard_fail":[
+  "copy_image_match": {
+    "required": true,
+    "dimensions": [
+      "產品／規格",
+      "季節",
+      "天氣",
+      "場合／地點",
+      "情境／環境",
+      "冷熱",
+      "表情",
+      "動作／道具",
+      "小老闆與夥伴",
+      "人物完整度／安全邊界",
+      "產品實際比例",
+      "重複圖",
+      "品牌調性",
+      "法規文案",
+      "來源權威",
+      "最終一致性"
+    ],
+    "hard_fail": [
       "文案產品或規格與圖片不同",
       "DM內嵌文字與目前正式規格不同",
       "30cc被做成瓶型、加標籤或比例放大",
@@ -59,33 +136,106 @@
       "拼貼、拼版、黑塊、產品裁片或角色裁片硬貼",
       "使用退役產品圖／錯圖／圖文不符"
     ],
-    "on_change":"invalidate_previous_approval_and_schedule",
-    "after_change_status":"pending_review",
-    "review_items":16,
-    "auto_approve":false,
-    "auto_publish":false
+    "on_change": "invalidate_previous_approval_and_schedule",
+    "after_change_status": "pending_review",
+    "review_items": 16,
+    "auto_approve": false,
+    "auto_publish": false
   },
-  "scene_rules":{
-    "seasons":{"春":["柔和晨光","換季整理","新綠植栽"],"夏":["明亮自然光","通風室內","外出補水","不預設冰飲"],"秋":["暖金色光","規律作息","家庭餐桌"],"冬":["暖色室內","熱氣湯鍋","溫熱飲食","外套圍巾"]},
-    "weather":{"晴天":"明亮自然、遮陽與補水","悶熱":"通風、補水、休息","下雨":"雨傘、窗景、室內放慢步調","早晚溫差":"薄外套、分層穿著","寒冷":"室內溫暖、湯鍋或溫飲","颱風":"不鼓勵外出，發布前依官方天氣確認"},
-    "temperature":["常溫","溫熱","熱湯","清爽環境"],
-    "expressions":["自然微笑","平靜提醒","專注料理","輕鬆陪伴","精神自然"],
-    "actions":["招手","指向產品","比讚","端溫水","端溫熱飲","料理","收傘","穿薄外套","準備外出","放下工作休息","展示產品","陪家人用餐","思考"]
+  "scene_rules": {
+    "seasons": {
+      "春": [
+        "柔和晨光",
+        "換季整理",
+        "新綠植栽"
+      ],
+      "夏": [
+        "明亮自然光",
+        "通風室內",
+        "外出補水",
+        "不預設冰飲"
+      ],
+      "秋": [
+        "暖金色光",
+        "規律作息",
+        "家庭餐桌"
+      ],
+      "冬": [
+        "暖色室內",
+        "熱氣湯鍋",
+        "溫熱飲食",
+        "外套圍巾"
+      ]
+    },
+    "weather": {
+      "晴天": "明亮自然、遮陽與補水",
+      "悶熱": "通風、補水、休息",
+      "下雨": "雨傘、窗景、室內放慢步調",
+      "早晚溫差": "薄外套、分層穿著",
+      "寒冷": "室內溫暖、湯鍋或溫飲",
+      "颱風": "不鼓勵外出，發布前依官方天氣確認"
+    },
+    "temperature": [
+      "常溫",
+      "溫熱",
+      "熱湯",
+      "清爽環境"
+    ],
+    "expressions": [
+      "自然微笑",
+      "平靜提醒",
+      "專注料理",
+      "輕鬆陪伴",
+      "精神自然"
+    ],
+    "actions": [
+      "招手",
+      "指向產品",
+      "比讚",
+      "端溫水",
+      "端溫熱飲",
+      "料理",
+      "收傘",
+      "穿薄外套",
+      "準備外出",
+      "放下工作休息",
+      "展示產品",
+      "陪家人用餐",
+      "思考"
+    ]
   },
-  "composition":{
-    "single_complete_scene":true,
-    "forbidden":["拼貼","拼版","黑塊","海報卡片亂堆疊","產品裁片硬貼","角色裁片硬貼","產品拉伸","cover裁切角色"],
-    "product_use":"產品出現時以正式原圖自然融入完整場景，不重畫產品；若場景生成無法安全使用產品原圖，改成純小老闆情境圖＋文案另外顯示",
-    "text_in_image":"生活情境圖原則上不把長文案燒進圖內，避免生成錯字；正式DM也必須通過目前正式規格／內嵌文字驗證後才可顧客展示"
+  "composition": {
+    "single_complete_scene": true,
+    "forbidden": [
+      "拼貼",
+      "拼版",
+      "黑塊",
+      "海報卡片亂堆疊",
+      "產品裁片硬貼",
+      "角色裁片硬貼",
+      "產品拉伸",
+      "cover裁切角色"
+    ],
+    "product_use": "產品出現時以正式原圖自然融入完整場景，不重畫產品；若場景生成無法安全使用產品原圖，改成純小老闆情境圖＋文案另外顯示",
+    "text_in_image": "生活情境圖原則上不把長文案燒進圖內，避免生成錯字；正式DM也必須通過目前正式規格／內嵌文字驗證後才可顧客展示"
   },
-  "post_media_policy":{
-    "current_catalog":"/data/post-library-userzip3-v20260811.json",
-    "priority":"user_zip_approved",
-    "semantic_match_dimensions":["season","scene","environment","temperature","expression","action","props","copy_context"],
-    "binary_required_for_publish":true,
-    "matching_source_without_binary":"needs_binary_sync",
-    "regenerate_only_if_no_approved_match":true,
-    "generated_media_returns_to":"pending_review",
-    "review_items_after_change":16
+  "post_media_policy": {
+    "current_catalog": "/data/post-library-userzip3-v20260811.json",
+    "priority": "user_zip_approved",
+    "semantic_match_dimensions": [
+      "season",
+      "scene",
+      "environment",
+      "temperature",
+      "expression",
+      "action",
+      "props",
+      "copy_context"
+    ],
+    "binary_required_for_publish": true,
+    "matching_source_without_binary": "needs_binary_sync",
+    "regenerate_only_if_no_approved_match": true,
+    "generated_media_returns_to": "pending_review",
+    "review_items_after_change": 16
   }
 }

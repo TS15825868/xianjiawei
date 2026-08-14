@@ -21,7 +21,7 @@ INGREDIENTS = {
     "guilu-jiao": ["龜板萃取物", "鹿角萃取物"],
     "luerong-fen": ["鹿茸"],
 }
-GAO_USAGE = "一天一次一小匙"
+GAO_USAGE = "每日早上及下午各一小匙"
 
 
 def load(path):
