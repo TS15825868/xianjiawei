@@ -26,7 +26,7 @@ jobs:
           from pathlib import Path
           needle='每塊約18.75g'
           replacement='每塊約18.75 g'
-          out=subprocess.check_output(['git','grep','-Il',needle,'--',':!images/**'],text=True).splitlines()
+          out=subprocess.check_output(['git','grep','-Il',needle,'--',':!images/**',':!.github/workflows/one-shot-normalize-jiao-detail-spacing-v20260815.yml'],text=True).splitlines()
           changed=[]
           for name in out:
               p=Path(name)
@@ -59,7 +59,8 @@ jobs:
           product=Path('product-guilu-jiao.html').read_text(encoding='utf-8')
           assert '600g （1斤）／盒｜32塊裝，每塊約18.75 g' in faq
           assert '600g （1斤）／盒｜32塊裝，每塊約18.75 g' in product
-          assert '每塊約18.75g' not in '\n'.join(Path(p).read_text(encoding='utf-8') for p in ['config/official-products.json','assets/data/official-products.json','site-product-data-authority.js','catalog-public.json','llms.txt','llms-full.txt'] if Path(p).exists())
+          for p in ['config/official-products.json','assets/data/official-products.json','site-product-data-authority.js','catalog-public.json','llms.txt','llms-full.txt']:
+              if Path(p).exists(): assert '每塊約18.75g' not in Path(p).read_text(encoding='utf-8'), p
           print('PASS: 官網產品、FAQ與目前權威統一使用龜鹿膠每塊約18.75 g。')
           PY
       - name: Commit normalized authority and remove one-shot workflow
@@ -69,7 +70,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A
-          git rm .github/workflows/one-shot-normalize-jiao-detail-spacing-v20260815.yml
+          git rm -f .github/workflows/one-shot-normalize-jiao-detail-spacing-v20260815.yml
           git diff --cached --check
           git commit -m 'fix(site): align jiao detail weight with latest customer spec'
           git pull --rebase origin main
