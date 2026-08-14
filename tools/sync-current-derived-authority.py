@@ -13,8 +13,9 @@ PRODUCT_IDENTITY_BASE='images/products-v3/'
 REPLACEMENTS=[
  ('每日早上及下午各一小匙','食用時間與份量可依個人使用習慣與作息安排'),
  ('建議白天飲用','飲用時間可依個人使用習慣與作息安排'),
- ('每日一罐','每日1～2罐'),
- ('每日一包','飲用份量與時間可依個人使用習慣與作息安排'),
+ ('每日一罐','每日 1-2罐'),
+ ('每日1～2罐','每日 1-2罐'),
+ ('每日 1～2罐','每日 1-2罐'),
  ('一天一次一小匙','食用時間與份量可依個人使用習慣與作息安排'),
  ('早晚各一小匙','食用時間與份量可依個人使用習慣與作息安排'),
  ('600g／盒｜32塊裝','600g（1斤）／盒｜32塊裝'),
@@ -86,7 +87,6 @@ def sync_json(rel:str):
    product_id=post.get('product_id') or post.get('productId')
    f=current.get(product_id)
    if f and f.get('status')=='approved_display' and post.get('status') not in {'published','archived'}:
-    # 只在一般產品貼文有明確產品ID且目前圖為舊產品權威時更新；DM／試喝由各自媒體角色處理。
     image=str(post.get('image_url') or '')
     if '/images/products-v2/' in image or '/images/products-v3/' in image:
      post['image_url']=public_url(str(f.get('image') or ''),'current-product')
@@ -151,14 +151,13 @@ def sync_text(rel:str):
 
 def validate_no_retired_customer_copy():
  current=['content/public-post-library.json','llms-full.txt','deploy-version.json','data.json','catalog-public.json','config/official-products.json','assets/data/official-products.json']
- retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日一包','龜鹿飲30cc玻璃瓶','30cc／瓶']
+ retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日1～2罐','每日 1～2罐','龜鹿飲30cc玻璃瓶','30cc／瓶']
  for rel in current:
   path=ROOT/rel
   if not path.exists():continue
   value=path.read_text(encoding='utf-8')
   for phrase in retired:
    if phrase in value:raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
- # 新版合法內容反向驗證，避免同步時又被舊守門員去掉。
  for rel in ['content/public-post-library.json','catalog-public.json']:
   path=ROOT/rel
   if path.exists() and '龜鹿膠' in path.read_text(encoding='utf-8'):
