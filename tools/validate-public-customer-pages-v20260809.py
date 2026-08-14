@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 PUBLIC_PAGES=["index.html","products.html","dm.html","choose.html","combo.html","guide.html","recipes.html","faq.html","brand.html","brand-facts.html","ingredients.html","quality.html","craft.html","knowledge.html","video.html","hanfang-baike.html","sources.html","contact.html","trial.html","product-guilu-gao.html","product-guilu-drink-30cc.html","product-guilu-drink-180cc.html","product-guilu-tangkuai.html","product-guilu-jiao.html","product-luerong-fen.html"]
 TECHNICAL_VISIBLE=["products-v2","products-v3","GitHub Web","runtime","快取版本","機器可讀產品母本","/mnt/data/","ERP秘密","Token","Secret"]
-RETIRED_VISIBLE=["30cc玻璃瓶","30cc／瓶","每日早上及下午各一小匙","75g／盒｜8塊裝｜每塊約9.375g","600g（1斤）／盒｜32塊裝｜每塊約18.75g"]
+RETIRED_VISIBLE=["30cc玻璃瓶","30cc／瓶","30cc瓶裝","一天一次一小匙","早晚各一小匙"]
 
 class VisibleText(HTMLParser):
  def __init__(self):super().__init__();self.hidden_depth=0;self.parts=[]
@@ -46,7 +46,9 @@ def main():
  req('30cc／罐（小玻璃罐）' in p30 and '裸罐' in p30 and '無貼紙' in p30,'30cc詳頁包裝事實不完整')
  products=visible('products.html')
  req('75g／盒｜8塊裝' in products,'產品總覽龜鹿湯塊目前規格錯誤')
- req('600g／盒｜32塊裝' in products,'產品總覽龜鹿膠目前規格錯誤')
+ req('600g（1斤）／盒｜32塊裝' in products,'產品總覽龜鹿膠目前規格錯誤')
+ req('每塊約9.375g' not in products,'產品總覽不應把湯塊每塊約重塞回主規格')
+ req('每塊約18.75g' not in products,'產品總覽不應把龜鹿膠每塊約重塞回主規格')
  dm=visible('dm.html')
  req('六項' in dm and '產品' in dm and 'DM' in dm,'產品DM頁不是目前六項顧客版DM入口')
  req('待審核' not in dm and '毫米尺寸未知' not in dm,'產品DM頁仍露出內部審核／製圖說明')
@@ -54,7 +56,7 @@ def main():
  formal=load('data/formal-media-authority-v20260810.json')
  trial_authority=formal.get('trial') or {}
  trial_media=local(trial_authority.get('image'))
- req(trial_authority.get('status')=='approved_display' and trial_media,'目前formal authority沒有核准試喝顧客媒體')
+ req(trial_authority.get('status')=='approved_user_original' and trial_authority.get('render_mode')=='poster' and trial_media,'目前formal authority沒有核准試喝顧客海報')
  trial_source=(ROOT/'trial.html').read_text(encoding='utf-8'); trial=visible('trial.html')
  req('<iframe' not in trial_source.lower(),'trial.html 不得使用iframe')
  req(trial_media in trial_source,'trial.html 必須使用目前formal authority核准的試喝圖，不綁歷史檔名')
@@ -66,6 +68,10 @@ def main():
  for phrase in ['龜鹿飲試喝組','3罐','試喝品免費','運費自付','7-11 店到店','60元','郵局宅配','100元','30cc／罐（小玻璃罐）','180cc／包（鋁袋）','買10送1','11罐 600元','11包 2,000元']:
   req(phrase in trial,f'trial.html 缺少目前核准正式試喝資訊：{phrase}')
 
+ # 每塊約重可存在產品詳頁詳細資料，但不得污染總覽主規格或DM主規格。
+ req('每塊約9.375g' in visible('product-guilu-tangkuai.html'),'龜鹿湯塊詳頁缺少每塊約9.375g詳細資料')
+ req('每塊約18.75g' in visible('product-guilu-jiao.html'),'龜鹿膠詳頁缺少每塊約18.75g詳細資料')
+
  quality=visible('quality.html')
  req('ERP' not in quality,'品質頁仍把內部平台管理當成顧客內容')
  cleanup=(ROOT/'site-public-content-cleanup-v20260809.js').read_text(encoding='utf-8')
@@ -73,6 +79,6 @@ def main():
  authority=(ROOT/'site-product-data-authority.js').read_text(encoding='utf-8')
  req('images/products-v3/' in authority,'官網產品識別權威缺products-v3正式原圖')
  req('officialImagePolicy' in authority and 'contain-no-crop' in authority,'產品識別／顧客顯示層未保留禁止重畫與contain/no-crop能力')
- print(f'PASS public customer pages: {len(PUBLIC_PAGES)} pages follow current specs; technical/internal copy hidden; general catalog prices hidden; trial media is derived from current formal authority; no historical trial filename or legacy spec/copy lock.')
+ print(f'PASS public customer pages: {len(PUBLIC_PAGES)} pages follow current specs; current guilu paste usage and guilu jiao 1斤 spec align; product detail weights remain detail-only; trial poster derives from current formal authority; technical/internal copy stays hidden.')
 
 if __name__=='__main__':main()
