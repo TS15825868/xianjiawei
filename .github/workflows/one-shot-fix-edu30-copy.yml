@@ -1,0 +1,58 @@
+name: 仙加味貼文30cc FAQ源頭文案一次性修正
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-shot-fix-edu30-copy.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Replace retired bottle wording at the source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('publishing-center-data-v7.js')
+          text=path.read_text(encoding='utf-8')
+          old='30cc是小玻璃裸罐，正式呈現不加貼紙、外盒或外袋，也不稱玻璃瓶。'
+          new='30cc是小玻璃裸罐，正式呈現維持原罐型、原比例與無貼紙外觀；名稱與單位固定使用「玻璃罐／罐」。'
+          if old not in text:
+              raise SystemExit('target source copy not found')
+          updated=text.replace(old,new,1)
+          if '也不稱玻璃瓶' in updated:
+              raise SystemExit('retired wording still remains')
+          path.write_text(updated,encoding='utf-8')
+          PY
+      - name: Validate current publishing runtime
+        run: |
+          python tools/validate-publishing-content-match-v20260809.py
+          node --check publishing-center-data-v7.js
+          node --check publishing-center-data-current-authority-guard.js
+      - name: Commit source fix and remove one-shot workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add publishing-center-data-v7.js
+          git rm .github/workflows/one-shot-fix-edu30-copy.yml
+          git commit -m 'fix(publishing): use current 30cc jar wording in FAQ source'
+          git pull --rebase origin main
+          git push origin HEAD:main
