@@ -1,0 +1,32 @@
+{
+  "version": "2026-08-14-guilu-topic-bank-v1",
+  "brand": "仙加味",
+  "purpose": "供官網知識專區、LINE OA 與貼文中心共用的龜鹿長青內容方向",
+  "strategy": {
+    "website": "完整說明文化脈絡、產品型態、使用情境與比較方式，建立可搜尋的長青入口",
+    "lineOA": "用短卡與關鍵字快速回答，再導向官網完整內容、產品比較或人工客服",
+    "social": "每篇只講一個問題，以生活情境、文化、工序、產品型態與一般使用切入"
+  },
+  "publicBrandRule": "一般消費者內容只使用仙加味",
+  "blockedCopy": ["不是每個人都一定需要"],
+  "safeAngles": ["飲食文化", "產品型態", "生活情境", "原料特色", "傳統工序", "溫熱飲用", "料理搭配", "一般使用", "保存方式", "規格比較", "品牌故事"],
+  "avoidAngles": ["疾病", "症狀", "治療", "治癒", "療效", "改善疾病", "預防疾病", "保證功效", "關節", "卡卡", "疲勞", "精神不濟", "補氣", "生津", "膠原蛋白", "鈣質"],
+  "topics": [
+    {"id":"why-guilu-daily","title":"為什麼有人把龜鹿放進日常？","website":true,"lineOA":true,"social":true,"angle":"從飲食文化、現代產品型態與生活方式開始認識龜鹿"},
+    {"id":"guilu-three-starts","title":"第一次認識龜鹿，先看哪三件事？","website":true,"lineOA":true,"social":true,"angle":"文化脈絡、產品型態、日常使用情境"},
+    {"id":"guilu-forms","title":"龜鹿飲、龜鹿膏、湯塊與龜鹿膠差在哪？","website":true,"lineOA":true,"social":true,"angle":"比較型態、規格、準備方式與使用場景"},
+    {"id":"drink-30-vs-180","title":"30cc小玻璃罐與180cc鋁袋怎麼選？","website":true,"lineOA":true,"social":true,"angle":"比較容量、攜帶、使用情境；保持正式產品比例與包裝"},
+    {"id":"gao-rhythm","title":"喜歡固定安排，為什麼有人選龜鹿膏？","website":true,"lineOA":true,"social":true,"angle":"從罐裝、取用、溫熱水搭配與固定時段說明"},
+    {"id":"soup-block-vs-jiao","title":"想搭配料理，龜鹿湯塊與龜鹿膠怎麼理解？","website":true,"lineOA":true,"social":true,"angle":"比較盒裝規格、每次取用與家庭料理情境"},
+    {"id":"warm-food-culture","title":"龜鹿與溫熱飲食、燉煮文化有什麼關係？","website":true,"lineOA":true,"social":true,"angle":"以傳統飲食文化與家常料理背景介紹"},
+    {"id":"craft-time-heat","title":"傳統熬製為什麼重視時間與火候？","website":true,"lineOA":true,"social":true,"angle":"說明工序判斷、前處理、時間與火候，不延伸功效"},
+    {"id":"raw-material-story","title":"從原料到成品，一份龜鹿產品經過哪些整理？","website":true,"lineOA":true,"social":true,"angle":"原料確認、前處理、加工、規格與包裝資訊"},
+    {"id":"why-spec-clear","title":"為什麼仙加味把產品規格寫得這麼清楚？","website":true,"lineOA":true,"social":true,"angle":"讓容量、重量、包裝與使用方式容易比較"},
+    {"id":"choose-by-place","title":"在家、外出、工作空檔，龜鹿型態怎麼選？","website":true,"lineOA":true,"social":true,"angle":"從地點與攜帶方式分流產品"},
+    {"id":"choose-by-preparation","title":"想直接飲用、溫熱、沖泡或料理，怎麼挑？","website":true,"lineOA":true,"social":true,"angle":"依準備方式比較不同產品型態"},
+    {"id":"guilu-storage","title":"龜鹿產品的保存與取用，哪些細節要先知道？","website":true,"lineOA":true,"social":true,"angle":"依正式產品標示、開封狀態與乾淨取用整理"},
+    {"id":"guilu-table","title":"把龜鹿放進家常餐桌，可以怎麼搭配？","website":true,"lineOA":true,"social":true,"angle":"熱飲、雞湯、排骨湯等日常料理情境"},
+    {"id":"wanhua-four-generations","title":"一門做了四代的工作，怎麼變成今天的仙加味？","website":true,"lineOA":true,"social":true,"angle":"萬華、鹿角伯、第三代承接、2008品牌與第四代整理"},
+    {"id":"modern-tradition","title":"傳統龜鹿文化，怎麼變得更方便理解？","website":true,"lineOA":true,"social":true,"angle":"從說明方式、產品型態與服務轉變切入"}
+  ]
+}
