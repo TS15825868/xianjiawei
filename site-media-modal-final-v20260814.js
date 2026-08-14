@@ -96,7 +96,7 @@
 
   function enforce(){
     fixDm();fixTrial();normalizeIntroActions();
-    document.documentElement.dataset.productIntroMode='modal-v20260814-v2';
+    document.documentElement.dataset.productIntroMode='modal-v20260814-v3';
   }
   const observer=new MutationObserver(mutations=>{
     if(mutations.some(m=>m.type==='childList'||(m.type==='attributes'&&['src','srcset'].includes(m.attributeName))))enforce();
