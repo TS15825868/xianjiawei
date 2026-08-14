@@ -1,6 +1,6 @@
 name: 仙加味官網目前正式版一次性驗收
 
-# rerun-4: public usage copy, 1斤 spec and detail-only weights aligned to current authority
+# rerun-5: trial price audit now validates current values independent of display whitespace
 on:
   push:
     branches: [main]
