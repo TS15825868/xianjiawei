@@ -1,6 +1,7 @@
 (()=>{
   const BLOCK=[
-    ['公司資訊',['台興山產有限公司','統一編號','公司電話','公司地址']],
+    ['品牌名稱',['台興山產','台興山產・仙加味','台興山產有限公司']],
+    ['公司資訊',['統一編號','公司電話','公司地址']],
     ['30cc名稱',['龜鹿飲30cc玻璃瓶','30cc／瓶','小玻璃瓶','30cc瓶裝','30cc 瓶裝','玻璃瓶裝']],
     ['療效宣稱',['治療','治癒','保證改善','療效','藥到病除']]
   ];
@@ -113,7 +114,7 @@
       }
     });
   }
-  window.XJWPublishingGuardian=Object.freeze({version:'20260814-v9',blocking:GUARD_BLOCKING,product:PRODUCT,dm:DM,trialPoster:TRIAL_POSTER,retiredTrial:RETIRED_TRIAL,scan});
+  window.XJWPublishingGuardian=Object.freeze({version:'20260814-v10-brand-name',blocking:GUARD_BLOCKING,product:PRODUCT,dm:DM,trialPoster:TRIAL_POSTER,retiredTrial:RETIRED_TRIAL,scan});
   new MutationObserver(enhance).observe(document.documentElement,{subtree:true,childList:true});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
 })();
