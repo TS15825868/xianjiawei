@@ -1,6 +1,6 @@
 name: 仙加味官網目前正式版一次性驗收
 
-# rerun-2: formal DM authority aligned to current high-resolution dm-final masters
+# rerun-3: validators recognize completed synced ZIP media state
 on:
   push:
     branches: [main]
