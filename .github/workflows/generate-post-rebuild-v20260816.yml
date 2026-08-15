@@ -48,6 +48,17 @@ jobs:
           im=Image.open(io.BytesIO(data)); im.verify()
           print('PASS mascot sprite',len(data),'bytes')
           PY
+      - name: Allow reading current legacy JPEG source bytes
+        shell: bash
+        run: |
+          python - <<'PY'
+          p='tools/generate-post-rebuild-v20260816.py'
+          s=open(p,encoding='utf-8').read()
+          needle='from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps\n'
+          repl='from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps, ImageFile\nImageFile.LOAD_TRUNCATED_IMAGES=True\n'
+          if needle not in s: raise SystemExit('PIL import marker missing')
+          open(p,'w',encoding='utf-8').write(s.replace(needle,repl,1))
+          PY
       - name: Generate 77 unique formal visuals
         run: python tools/generate-post-rebuild-v20260816.py
       - name: Validate generated outputs
