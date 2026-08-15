@@ -48,6 +48,27 @@ jobs:
           im=Image.open(io.BytesIO(data)); im.verify()
           print('PASS mascot sprite',len(data),'bytes')
           PY
+      - name: Prepare high-resolution formal product source canvases
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from PIL import Image, ImageOps, ImageFile
+          ImageFile.LOAD_TRUNCATED_IMAGES=True
+          pairs={
+            'guilu-gao.jpg':'images/dm-final/01_guilu-gao-100g-dm.jpg',
+            'guilu-drink-30.jpg':'images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg',
+            'guilu-drink-180.jpg':'images/dm-final/03_guilu-drink-180cc-dm.jpg',
+            'luerong-fen.jpg':'images/dm-final/04_luerong-fen-75g-dm.jpg',
+            'guilu-tangkuai.jpg':'images/dm-final/05_guilu-tangkuai-75g-dm.jpg',
+            'guilu-jiao.jpg':'images/dm-final/06_guilu-jiao-600g-dm.jpg',
+          }
+          for dst,src in pairs.items():
+            im=Image.open(src).convert('RGB')
+            im=ImageOps.fit(im,(1122,1402),method=Image.Resampling.LANCZOS,centering=(0.5,0.5))
+            im.save('images/products-v3/'+dst,'JPEG',quality=96,optimize=True)
+            print('prepared',dst,src)
+          PY
       - name: Allow reading current legacy JPEG source bytes
         shell: bash
         run: |
@@ -75,6 +96,7 @@ jobs:
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git restore images/products-v3 || true
           git add images/posts/rebuild-v20260816
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'feat(posts): replace 77 visuals with approved small-boss reference'
