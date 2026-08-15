@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'tools/generate-post-rebuild-v20260816.py'
-      - 'assets/reference/mascot-sprite-v20260816.txt'
+      - 'assets/reference/mascot-sprite-v20260816.part*'
       - '.github/workflows/generate-post-rebuild-v20260816.yml'
   workflow_dispatch:
 
@@ -29,6 +29,25 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq fonts-noto-cjk
           python -m pip install --quiet pillow opencv-python-headless numpy
+      - name: Rebuild approved mascot sprite
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat assets/reference/mascot-sprite-v20260816.part0 \
+              assets/reference/mascot-sprite-v20260816.part1 \
+              assets/reference/mascot-sprite-v20260816.part2 \
+              assets/reference/mascot-sprite-v20260816.part3 \
+              assets/reference/mascot-sprite-v20260816.part4 \
+              > assets/reference/mascot-sprite-v20260816.txt
+          python - <<'PY'
+          import base64, io
+          from PIL import Image
+          p='assets/reference/mascot-sprite-v20260816.txt'
+          raw=open(p,encoding='utf-8').read().strip()
+          data=base64.b64decode(raw,validate=True)
+          im=Image.open(io.BytesIO(data)); im.verify()
+          print('PASS mascot sprite',len(data),'bytes')
+          PY
       - name: Generate 77 unique formal visuals
         run: python tools/generate-post-rebuild-v20260816.py
       - name: Validate generated outputs
