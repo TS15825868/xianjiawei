@@ -1,0 +1,52 @@
+name: 仙加味77篇小老闆正式貼文圖重製
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-post-rebuild-v20260816.py'
+      - 'assets/reference/mascot-sprite-v20260816.txt'
+      - '.github/workflows/generate-post-rebuild-v20260816.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install image dependencies and Traditional Chinese fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk
+          python -m pip install --quiet pillow opencv-python-headless numpy
+      - name: Generate 77 unique formal visuals
+        run: python tools/generate-post-rebuild-v20260816.py
+      - name: Validate generated outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f images/posts/rebuild-v20260816/_contact-sheet.webp
+          count=$(find images/posts/rebuild-v20260816 -maxdepth 1 -type f -name '*.webp' ! -name '_contact-sheet.webp' | wc -l | tr -d ' ')
+          test "$count" = 77
+          grep -q '"count": 77' images/posts/rebuild-v20260816/manifest.json
+      - name: Commit generated visuals
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/posts/rebuild-v20260816
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'feat(posts): replace 77 visuals with approved small-boss reference'
+          git pull --rebase origin main
+          git push origin HEAD:main
