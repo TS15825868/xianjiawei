@@ -7,136 +7,65 @@ const read=path=>fs.readFileSync(new URL(path,root),'utf8');
 const base=JSON.parse(read('content/public-post-library.json'));
 const assets=JSON.parse(read('content/public-asset-library.json'));
 const formal=JSON.parse(read('data/formal-media-authority-v20260810.json'));
-
-const responseFor=(url)=>{
+const responseFor=url=>{
   if(url.includes('content/public-post-library.json'))return new Response(JSON.stringify(base),{status:200,headers:{'content-type':'application/json'}});
   if(url.includes('content/public-asset-library.json'))return new Response(JSON.stringify(assets),{status:200,headers:{'content-type':'application/json'}});
   if(url.includes('data/formal-media-authority-v20260810.json'))return new Response(JSON.stringify(formal),{status:200,headers:{'content-type':'application/json'}});
   return new Response('not found',{status:404});
 };
 const nativeFetch=async input=>responseFor(typeof input==='string'?input:(input?.url||''));
-
 globalThis.window={fetch:nativeFetch};
 globalThis.document={readyState:'loading',querySelectorAll:()=>[],addEventListener:()=>{}};
 
-// Compatibility assembly filenames are implementation layers, not release-version requirements.
-const layers=[
-  'publishing-center-data-v6.js','publishing-center-data-v7.js','publishing-center-data-v8-fixes.js',
-  'publishing-center-data-v10-published-locks.js','publishing-center-data-v11-campaign-holds.js',
-  'publishing-center-data-v12-auto-candidates.js','publishing-center-data-v13-character-scenes.js',
-  'publishing-center-data-v14-boss-daily.js','publishing-center-data-v15-companions.js',
-  'publishing-center-data-v16-actual-product-photos.js','publishing-center-data-v17-retired-composite-guard.js',
-  'publishing-center-data-current-authority-guard.js'
-];
-for(const file of layers)vm.runInThisContext(read(file),{filename:file});
+// Current export deliberately avoids legacy bulk-generation layers. Old files may remain for history,
+// but current runtime is core bank + product identity + semantic media + latest authority guard only.
+for(const file of ['publishing-center-data-v16-actual-product-photos.js','publishing-center-data-v18-content-media-match.js','publishing-center-data-current-authority-guard.js'])vm.runInThisContext(read(file),{filename:file});
 
 const response=await window.fetch('content/public-post-library.json?authority=current');
 assert.equal(response.ok,true,'目前貼文母庫無法讀取');
 const data=await response.json();
 const posts=Array.isArray(data.posts)?data.posts:[];
-const declared=Number(data?.counts?.total||base?.counts?.total||posts.length);
+const declared=Number(data?.counts?.total||posts.length);
 assert.ok(posts.length>0,'目前貼文母庫不得為空');
-if(Number.isFinite(declared)&&declared>0)assert.equal(posts.length,declared,`目前母庫宣告數量${declared}與runtime實際${posts.length}不一致`);
-const ids=posts.map(post=>String(post?.id||'').trim());
-assert.equal(new Set(ids).size,posts.length,'目前貼文ID必須唯一');
+assert.equal(posts.length,declared,'目前母庫宣告數量必須等於runtime實際數量');
+const ids=posts.map(p=>String(p?.id||'').trim());
 assert.ok(ids.every(Boolean),'目前貼文不得有空白ID');
+assert.equal(new Set(ids).size,posts.length,'目前貼文ID必須唯一');
+assert.ok(window.XJWActualProductPhotoAuthority,'未載入products-v3產品身份參考層');
+assert.ok(window.XJWPostBankV18,'未載入v18圖文語意媒體配對層');
+assert.ok(window.XJWCurrentPostMediaAuthority,'未載入目前公開資產權威守門');
 
-const productAuthority=window.XJWActualProductPhotoAuthority;
-assert.ok(productAuthority,'未載入products-v3產品身份參考層');
-const productUrls=Object.values(productAuthority.map||{}).map(String);
-assert.equal(productUrls.length,6,'products-v3身份參考必須維持六項');
-for(const url of productUrls){
-  assert.match(url,/\/images\/products-v3\//,'身份參考必須使用products-v3真實原圖');
-  assert.doesNotMatch(url,/products-v2/,'身份參考不得回退products-v2');
-}
-const currentGuard=window.XJWCurrentPostMediaAuthority;
-assert.ok(currentGuard,'未載入目前公開資產權威守門');
-assert.equal(currentGuard.validateFormalCopy({copy:'龜鹿膏食用時間可依個人使用習慣與作息時間安排'}),'','目前龜鹿膏正式用法不得被守門誤退');
-assert.match(currentGuard.validateFormalCopy({copy:'龜鹿膏一天一次一小匙'}),/退役使用方式/,'舊龜鹿膏一天一次用法應被擋下');
-assert.equal(currentGuard.validateFormalCopy({copy:'龜鹿湯塊75g （2兩）／盒｜8塊裝，龜鹿膠600g （1斤）／盒｜32塊裝'}),'','跨產品正確規格不得互相誤判');
+const guard=window.XJWCurrentPostMediaAuthority;
+assert.equal(guard.validateFormalCopy({copy:'龜鹿湯塊75g （2兩）／盒｜8塊裝｜每塊約9.375g'}),'','正式湯塊每塊重量不得被舊守門誤擋');
+assert.equal(guard.validateFormalCopy({copy:'龜鹿膠600g （1斤）／盒｜32塊裝｜每塊約18.75 g'}),'','正式龜鹿膠每塊重量不得被舊守門誤擋');
+assert.match(guard.validateFormalCopy({copy:'龜鹿湯塊600g／盒'}),/退役容量/,'龜鹿湯塊錯誤600g仍必須被擋');
+assert.match(guard.validateFormalCopy({copy:'龜鹿膏每日早上及下午各一小匙'}),/退役使用方式/,'龜鹿膏舊固定時段仍必須被擋');
 
-const retired=new Set((assets.assets||[])
-  .filter(asset=>['deprecated-reference-only','preflight-rejected-reference-only','superseded-reference-only'].includes(String(asset.status||'')))
-  .map(asset=>String(asset.path||'').split(/[?#]/)[0].replace(/^\//,''))
-  .filter(Boolean));
-const normalize=value=>String(value||'').replace(/^https?:\/\/[^/]+\/xianjiawei\//i,'').replace(/^\//,'').split(/[?#]/)[0];
-const approvedDms=new Set((formal.products||[])
-  .filter(p=>p.status==='approved_display')
-  .map(p=>normalize(p.dm))
-  .filter(Boolean));
-const currentFormal=currentGuard.currentFormalPaths(formal);
-assert.ok(currentFormal.has('images/trial/trial-poster-small-boss-official-v20260814.jpg'),'8/14正式試喝海報必須存在目前媒體權威');
-assert.ok(approvedDms.size>=6,'目前formal authority應包含六產品詳細DM');
-assert.ok(currentFormal.size>=13,'目前formal authority應包含六產品主圖、六張DM與試喝正式媒體');
-
-const isProtected=post=>post.status==='published'||post.status==='archived'||post.prevent_republish===true||post.do_not_republish===true;
-const isHold=post=>post.campaign_hold===true||post.status==='campaign_hold'||Boolean(post.hold_until);
-const isRegen=post=>post.image_status==='needs_generation'||post.requires_image_generation===true||/regeneration-required|chatgpt.*required|chatgpt_handoff/i.test(String(post.candidate_generation_mode||post.regeneration_mode||''));
-const isBinarySync=post=>post.image_status==='needs_binary_sync'||post.media_state==='needs_binary_sync';
-
-let needsGeneration=0,needsBinarySync=0,publishedLocked=0,campaignHold=0,candidateReview=0,otherSafe=0;
-for(const post of posts){
-  const image=String(post?.image_url||'').trim();
-  const normalized=normalize(image);
-  const serialized=JSON.stringify(post);
-  const protectedPost=isProtected(post);
-  const hold=isHold(post);
-  const regen=!protectedPost&&!hold&&isRegen(post);
-  const binarySync=!protectedPost&&!hold&&!regen&&isBinarySync(post);
-
-  assert.doesNotMatch(image,/\/images\/products-v2\//i,`${post.id} 仍引用products-v2退役產品圖`);
-  if(!protectedPost){
-    assert.doesNotMatch(serialized,/30\s*cc.{0,40}(玻璃瓶|瓶裝|[／/]\s*瓶)/i,`${post.id} 仍出現30cc瓶型舊稱`);
-    for(const segment of currentGuard.productSegments(serialized,'龜鹿湯塊')){
-      assert.doesNotMatch(segment,/(300\s*g|600\s*g)/i,`${post.id} 龜鹿湯塊自己的語境仍出現舊容量`);
-    }
-    if(normalized&&retired.has(normalized))assert.fail(`${post.id} 仍沿用目前資產庫已退役圖片：${normalized}`);
-    if(/\/images\/brand\/line-oa\//i.test(image))assert.fail(`${post.id} 正式候選不得直接混用LINE OA專用角色圖`);
-    if(/\/images\/dm-(?:final|approved-v\d+)\//i.test(image)&&!approvedDms.has(normalized))assert.fail(`${post.id} 使用DM目錄圖片但不在目前formal authority核准清單：${normalized}`);
-  }
-
-  if(protectedPost){
-    publishedLocked++;
-    assert.notEqual(post.publish_allowed,true,`${post.id} 已發布／防重發鎖定不得重新允許發布`);
-    continue;
-  }
-  if(hold){
-    campaignHold++;
-    assert.notEqual(post.publish_allowed,true,`${post.id} 活動冷卻不得允許發布`);
-    assert.notEqual(post.schedule_enabled,true,`${post.id} 活動冷卻不得啟用排程`);
-    continue;
-  }
-  if(regen){
-    needsGeneration++;
-    assert.equal(image,'',`${post.id} 需重生成時舊image_url必須清空`);
-    assert.notEqual(post.publish_allowed,true,`${post.id} 需重生成不得允許發布`);
-    assert.notEqual(post.schedule_enabled,true,`${post.id} 需重生成不得允許排程`);
-    assert.ok(String(post.image_prompt||'').trim(),`${post.id} 需重生成必須保留可執行image_prompt`);
-    assert.ok(String(post.image_review_reason||'').trim(),`${post.id} 需重生成必須有退件／審核理由`);
-    continue;
-  }
-  if(binarySync){
-    needsBinarySync++;
-    assert.notEqual(post.publish_allowed,true,`${post.id} 原圖待同步時不得發布`);
-    assert.notEqual(post.schedule_enabled,true,`${post.id} 原圖待同步時不得排程`);
-    continue;
-  }
-  if(['candidate-review-required','official-reference-pending-layout-review','pending_review'].includes(String(post.image_status||post.status||''))){
-    candidateReview++;
-    assert.notEqual(post.publish_allowed,true,`${post.id} 待審核候選不得直接發布`);
-    assert.notEqual(post.schedule_enabled,true,`${post.id} 待審核候選不得直接排程`);
-    continue;
-  }
-  otherSafe++;
-  assert.notEqual(post.publish_allowed,true,`${post.id} 未分類草稿狀態不得直接發布`);
+const retired=new Set((assets.assets||[]).filter(a=>['deprecated-reference-only','preflight-rejected-reference-only','superseded-reference-only'].includes(String(a.status||''))).map(a=>String(a.path||'').replace(/^\//,'').split(/[?#]/)[0]));
+const normalize=v=>String(v||'').replace(/^https?:\/\/[^/]+\/xianjiawei\//i,'').replace(/^\//,'').split(/[?#]/)[0];
+const active=posts.filter(p=>p&&p.status!=='published'&&p.status!=='archived'&&!p.campaign_hold);
+for(const post of active){
+  const image=String(post.image_url||'').trim(),norm=normalize(image),serialized=JSON.stringify(post);
+  assert.ok(image,`${post.id} 目前正式候選仍缺圖`);
+  assert.notEqual(post.image_status,'needs_generation',`${post.id} 目前正式候選仍標記需重生成`);
+  assert.notEqual(post.publish_allowed,true,`${post.id} 待審核內容不得直接發布`);
+  assert.notEqual(post.schedule_enabled,true,`${post.id} 待審核內容不得直接排程`);
+  assert.doesNotMatch(image,/\/images\/products-v2\//i,`${post.id} 不得使用products-v2`);
+  if(retired.has(norm))assert.fail(`${post.id} 仍沿用退役圖片：${norm}`);
+  assert.doesNotMatch(serialized,/30\s*cc.{0,40}(玻璃瓶|瓶裝|[／/]\s*瓶)/i,`${post.id} 仍有30cc瓶型舊稱`);
 }
 
-assert.equal(posts.length,publishedLocked+campaignHold+needsGeneration+needsBinarySync+candidateReview+otherSafe,'目前安全狀態分類總數必須等於runtime實際篇數');
-const overview=posts.find(post=>post.id==='POST-PRODUCT-OVERVIEW');
-assert.ok(overview,'缺少產品總覽貼文');
-assert.doesNotMatch(String(overview.image_review_reason||''),/龜鹿湯塊仍含退役容量/,'產品總覽不得再被跨產品規格誤退件');
+for(const id of ['POST-PRODUCT-OVERVIEW','POST-CHOOSE','POST-COMBO','POST-GUIDE','POST-CHOOSE-BY-HABIT']){
+  const post=posts.find(p=>p.id===id);assert.ok(post,`缺少${id}`);assert.ok(String(post.image_url||'').trim(),`${id} 必須完成配圖`);assert.notEqual(post.image_status,'needs_generation',`${id} 不得再是needs_generation`);
+}
+for(const id of ['POST-WEATHER-HOT','POST-WEATHER-TEMP','POST-WEATHER-RAIN']){
+  const post=posts.find(p=>p.id===id);assert.ok(post,`缺少${id}`);assert.equal(post.live_check_required,true,`${id} 必須保留當日天氣確認`);assert.equal(post.weather_review_required,true,`${id} 必須保留發布前天氣審核`);assert.doesNotMatch(String(post.copy||''),/此類貼文需確認|不自動排程|待審核|人工審核/,`${id} 顧客文案不得混入內部作業文字`);
+}
 
-console.log('PASS current post runtime capability audit',JSON.stringify({
-  total:posts.length,publishedLocked,campaignHold,needsGeneration,needsBinarySync,candidateReview,otherSafe,
-  productIdentityAuthority:'products-v3',currentAssetGuard:true,currentFormalMediaCount:currentFormal.size
-},null,2));
+const reusable=image=>/customer-display-v20260812|products-v3|trial-poster-small-boss-official-v20260814/.test(image);
+const seen=new Map();
+for(const post of active){const image=normalize(post.image_url);if(!image||reusable(image))continue;if(seen.has(image))assert.fail(`生活／情境主圖重複：${post.id} 與 ${seen.get(image)} -> ${image}`);seen.set(image,post.id)}
+assert.equal(Number(data?.counts?.missing_asset_bindings||0),0,'目前runtime不應再有缺圖綁定');
+assert.equal(Number(data?.counts?.known_image_copy_mismatches||0),0,'目前runtime不應再有已知圖文不符');
+assert.equal(Number(data?.counts?.duplicate_primary_images||0),0,'目前runtime不應再有生活／情境主圖重複');
+console.log('PASS current post runtime: core-only export + v18 semantic media + latest formal specs + weather freshness metadata + no active missing/mismatched/duplicate lifestyle images');

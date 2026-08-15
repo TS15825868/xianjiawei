@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1254" height="1254" viewBox="0 0 1254 1254">
+<rect width="1254" height="1254" fill="#F7F4ED"/>
+<rect x="72" y="72" width="1110" height="1110" rx="48" fill="#FFFFFF" stroke="#E3DCCD" stroke-width="3"/>
+<circle cx="172" cy="178" r="54" fill="#8B1E1E"/><text x="172" y="190" text-anchor="middle" font-size="34" fill="white" font-weight="700">搭</text>
+<text x="256" y="168" font-family="Noto Sans TC, PingFang TC, sans-serif" font-size="54" fill="#0B1F3B" font-weight="800">龜鹿膏與龜鹿飲搭配</text>
+<text x="256" y="220" font-family="Noto Sans TC, PingFang TC, sans-serif" font-size="28" fill="#6B7280">依生活型態分開安排，不需要綁在同一個時段</text>
+<line x1="120" y1="304" x2="1134" y2="304" stroke="#B6975A" stroke-width="3"/>
+<rect x="130" y="370" width="300" height="450" rx="32" fill="#FCFBF7" stroke="#DED6C7"/><image href="../../products-v3/guilu-gao.jpg" x="205" y="405" width="150" height="205" preserveAspectRatio="xMidYMid meet"/><text x="280" y="685" text-anchor="middle" font-size="30" fill="#0B1F3B" font-weight="700">龜鹿膏</text><text x="280" y="730" text-anchor="middle" font-size="20" fill="#6B7280">小匙取用｜日常固定習慣</text>
+<rect x="477" y="370" width="300" height="450" rx="32" fill="#FCFBF7" stroke="#DED6C7"/><image href="../../products-v3/guilu-drink-30.jpg" x="552" y="405" width="150" height="205" preserveAspectRatio="xMidYMid meet"/><text x="627" y="685" text-anchor="middle" font-size="30" fill="#0B1F3B" font-weight="700">30cc 龜鹿飲</text><text x="627" y="730" text-anchor="middle" font-size="20" fill="#6B7280">輕巧即飲｜外出方便</text>
+<rect x="824" y="370" width="300" height="450" rx="32" fill="#FCFBF7" stroke="#DED6C7"/><image href="../../products-v3/guilu-drink-180.jpg" x="899" y="405" width="150" height="205" preserveAspectRatio="xMidYMid meet"/><text x="974" y="685" text-anchor="middle" font-size="30" fill="#0B1F3B" font-weight="700">180cc 龜鹿飲</text><text x="974" y="730" text-anchor="middle" font-size="20" fill="#6B7280">完整一包｜居家或工作</text>
+<text x="627" y="940" text-anchor="middle" font-size="22" fill="#6B7280">三項各自獨立呈現，不作實體尺寸比較</text>
+<g font-family="Noto Sans TC, PingFang TC, sans-serif"></g>
+<text x="120" y="1110" font-family="Noto Sans TC, PingFang TC, sans-serif" font-size="28" fill="#46583D" font-weight="700">仙加味</text>
+<text x="120" y="1152" font-family="Noto Sans TC, PingFang TC, sans-serif" font-size="24" fill="#6B7280">補養，是一種節奏。</text>
+</svg>
