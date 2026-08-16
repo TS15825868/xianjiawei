@@ -1,0 +1,67 @@
+name: 仙加味貼文正式圖素材轉檔
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'asset-staging/post-assets-v20260817.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Materialize staged WebP assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ ! -f asset-staging/post-assets-v20260817.json ]; then
+            echo 'No staging payload; nothing to materialize.'
+            exit 0
+          fi
+          node - <<'NODE'
+          const fs=require('fs');
+          const path=require('path');
+          const payload=JSON.parse(fs.readFileSync('asset-staging/post-assets-v20260817.json','utf8'));
+          if(!Array.isArray(payload.files)||payload.files.length===0) throw new Error('staging payload has no files');
+          for(const item of payload.files){
+            if(!/^images\/posts\/rebuild-v20260816\/[A-Za-z0-9._-]+\.webp$/.test(item.path)) throw new Error(`invalid asset path ${item.path}`);
+            const buf=Buffer.from(item.base64,'base64');
+            if(buf.length<20000) throw new Error(`asset too small ${item.path} ${buf.length}`);
+            fs.mkdirSync(path.dirname(item.path),{recursive:true});
+            fs.writeFileSync(item.path,buf);
+            console.log('materialized',item.path,buf.length);
+          }
+          NODE
+      - name: Validate WebP assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, pathlib
+          from PIL import Image
+          p=json.load(open('asset-staging/post-assets-v20260817.json',encoding='utf-8'))
+          for item in p['files']:
+              path=pathlib.Path(item['path'])
+              with Image.open(path) as im:
+                  assert im.format=='WEBP', (path,im.format)
+                  assert im.width>=900 and im.height>=1100, (path,im.size)
+                  print('PASS',path,im.size)
+          PY
+      - name: Commit formal assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'xianjiawei-content-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add images/posts/rebuild-v20260816/*.webp
+          if git diff --cached --quiet; then
+            echo 'No binary asset changes.'
+            exit 0
+          fi
+          git commit -m 'feat(posts): replace priority lifestyle visuals with formal scenes'
+          git push
