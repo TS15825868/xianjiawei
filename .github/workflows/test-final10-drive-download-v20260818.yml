@@ -1,0 +1,24 @@
+name: 測試第一批10張原圖下載
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download one original image
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 2 'https://drive.google.com/uc?export=download&id=1xQvxy5Drdiayqo3Jh3OzLTqFxzWZpHNq' -o /tmp/test.png
+          ls -lh /tmp/test.png
+          file /tmp/test.png
+          python3 - <<'PY'
+          from PIL import Image
+          im=Image.open('/tmp/test.png')
+          print(im.format, im.size)
+          assert im.format == 'PNG'
+          assert im.width >= 1000 and im.height >= 1200
+          print('PASS original image download')
+          PY
