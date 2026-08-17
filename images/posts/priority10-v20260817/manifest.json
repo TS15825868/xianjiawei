@@ -1,212 +1,126 @@
 {
-  "version": "2026-08-17-priority10-scene-v4",
+  "version": "2026-08-17-priority10-image-first-v1",
   "count": 10,
   "posts": [
     {
-      "id": "XJW-GUILU-choose-by-place",
-      "kicker": "仙加味｜生活情境",
-      "title": "今天在家，明天外出，\n產品型態不一定要選同一種",
-      "products": [
-        "drink30",
-        "drink180",
-        "gao"
-      ],
-      "copy": "同一個人的生活，也不會每天都一樣。\n\n在家的晚上，可能有時間坐下來慢慢準備；隔天外出工作，可能只想帶一個方便攜帶的型態。\n\n仙加味龜鹿系列有龜鹿膏、龜鹿飲30cc玻璃罐、180cc鋁袋，也有龜鹿湯塊與龜鹿膠等不同選擇。怎麼選，不需要只看哪一項「最好」，而是先看看今天在哪裡、什麼時間比較方便、想直接飲用、溫熱飲用，還是料理搭配。\n\n先看生活，再選產品。\n\n仙加味｜補養，是一種節奏。",
-      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-choose-by-place.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-choose-by-place.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜今天在家，明天外出，產品型態不一定要選同一種｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "home_out",
-      "bullets": [
-        "在家與外出先看今天行程",
-        "直接飲用、溫熱或料理搭配",
-        "先看生活再選產品"
-      ]
-    },
-    {
-      "id": "XJW-GUILU-drink180-home",
-      "kicker": "仙加味｜居家安排",
-      "title": "回到家，\n把180cc溫熱一下再慢慢喝",
-      "products": [
-        "drink180"
-      ],
-      "copy": "一天忙完回到家，如果比較喜歡溫熱的飲用方式，可以把步調放慢一點。\n\n仙加味龜鹿飲180cc鋁袋，可以依自己的生活習慣安排，也可隔水加熱後溫熱飲用。換下外出的衣服、整理好手邊的事情，再坐到餐桌旁慢慢喝一杯。\n\n有些日常不需要趕，找到自己方便的時間，就是最自然的安排。\n\n仙加味｜補養，是一種節奏。",
-      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-drink180-home.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-drink180-home.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜回到家，把180cc溫熱一下再慢慢喝｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "home",
-      "bullets": [
-        "回家後把步調放慢",
-        "180cc鋁袋可溫熱飲用",
-        "依自己的生活習慣安排"
-      ]
-    },
-    {
       "id": "XJW-GUILU-drink30-work-break",
-      "kicker": "仙加味｜外出／工作",
-      "title": "上班帶一罐，\n30cc不用把行程打亂",
-      "products": [
-        "drink30"
-      ],
-      "copy": "早上趕著出門，包包裡的東西已經不少，想把龜鹿安排進日常，也不一定要準備一大堆東西。\n\n仙加味龜鹿飲30cc玻璃罐是小玻璃罐、裸罐設計，適合依自己的生活節奏，在白天需要的時段安排飲用。到了公司、工作告一段落，找個空檔坐下來，再把今天的一罐慢慢喝完。\n\n不是為了把生活變複雜，而是選一個自己比較容易持續的方式。\n\n仙加味｜補養，是一種節奏。",
+      "kicker": "仙加味｜日常安排",
+      "title": "上班帶一罐，30cc不用把行程打亂",
+      "products": ["drink30"],
+      "copy": "早上出門，包包裡已經有手機、鑰匙、工作用品，日常安排不用再弄得太複雜。\n\n仙加味龜鹿飲30cc是小玻璃罐、裸罐設計，體積小，白天工作告一段落時，就能找個空檔慢慢安排。\n\n龜鹿飲可以直接常溫飲用；如果平常比較喜歡溫熱的方式，也可以依自己的生活情境安排。\n\n不用為了產品改變整天行程，找到自己方便的節奏就好。\n\n仙加味｜補養，是一種節奏。",
       "image_path": "images/posts/priority10-v20260817/XJW-GUILU-drink30-work-break.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-drink30-work-break.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜上班帶一罐，30cc不用把行程打亂｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "work",
-      "bullets": [
-        "上班外出輕巧帶著走",
-        "工作告一段落再找空檔",
-        "30cc小玻璃裸罐"
-      ]
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-drink30-work-break.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆上班工作情境，手持30cc小玻璃裸罐",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜產品實物外觀",
+      "scene": "work"
     },
     {
-      "id": "XJW-GUILU-gao-storage",
-      "kicker": "仙加味｜保存提醒",
-      "title": "龜鹿膏開罐後，\n順手放進冰箱",
-      "products": [
-        "gao"
-      ],
-      "copy": "家裡開了一罐仙加味龜鹿膏，吃完之後最容易忘記的，反而是「放回哪裡」。\n\n龜鹿膏未開封時放在常溫陰涼處即可；開罐後記得冷藏保存。每天早上或下午取用後，蓋好罐蓋，再順手放回冰箱固定的位置。\n\n把保存方式變成日常習慣，下次要使用時也比較好找。\n\n仙加味｜補養，是一種節奏。",
-      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-gao-storage.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-gao-storage.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜龜鹿膏開罐後，順手放進冰箱｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "storage",
-      "bullets": [
-        "未開封放常溫陰涼處",
-        "開罐後記得冷藏",
-        "取用後蓋好放回固定位置"
-      ]
-    },
-    {
-      "id": "XJW-GUILU-jiao-600g",
-      "kicker": "仙加味｜產品認識",
-      "title": "週末有時間，\n再慢慢認識龜鹿膠",
-      "products": [
-        "jiao"
-      ],
-      "copy": "平日忙著工作，很多事情只求方便；到了週末，反而比較有時間把不同產品型態看清楚。\n\n仙加味龜鹿膠為600g／盒（1斤）、32塊裝，和即飲的30cc、180cc不同，它保留的是另一種傳統產品型態。\n\n如果第一次接觸，不需要急著決定哪一種最好，可以先從自己的飲食方式、料理習慣和生活時間來看。\n\n仙加味｜補養，是一種節奏。",
-      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-jiao-600g.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-jiao-600g.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜週末有時間，再慢慢認識龜鹿膠｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "weekend_home",
-      "bullets": [
-        "週末慢慢看清產品型態",
-        "600g／盒、32塊裝",
-        "從料理與家庭使用方式認識"
-      ]
-    },
-    {
-      "id": "XJW-GUILU-luerong-75g",
-      "kicker": "仙加味｜下午日常",
-      "title": "下午想簡單一點，\n可以先認識鹿茸粉",
-      "products": [
-        "luerong"
-      ],
-      "copy": "下午工作告一段落，有人喜歡泡杯茶，也有人習慣準備一杯溫熱飲品。\n\n仙加味鹿茸粉為75g／罐，是龜鹿系列之外另一種不同的產品型態。第一次接觸時，先看清楚產品標示、自己的使用方式與習慣，不用急著把所有產品一次買齊。\n\n如果不知道怎麼安排，可以把平常的作息告訴我們，再從實際生活情境一起討論。\n\n仙加味｜補養，是一種節奏。",
-      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-luerong-75g.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-luerong-75g.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜下午想簡單一點，可以先認識鹿茸粉｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "afternoon_work",
-      "bullets": [
-        "下午工作告一段落",
-        "鹿茸粉75g／罐",
-        "先看標示再依習慣安排"
-      ]
-    },
-    {
-      "id": "XJW-GUILU-tangkuai-soup",
-      "kicker": "仙加味｜家常料理",
-      "title": "今晚燉湯，\n把龜鹿湯塊安排進家常餐桌",
-      "products": [
-        "tangkuai"
-      ],
-      "copy": "晚上想煮一鍋熱湯，雞腿、排骨都是家裡很常出現的料理。\n\n這時候，也可以依自己的飲食習慣，把仙加味龜鹿湯塊安排進家常燉湯裡。龜鹿湯塊一盒75g、8塊裝，產品型態就是為了讓料理時比較容易取用與安排。\n\n從備料、下鍋，到一家人坐下來吃飯，龜鹿也可以回到我們熟悉的飲食文化與餐桌裡。\n\n仙加味｜補養，是一種節奏。",
-      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-tangkuai-soup.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-tangkuai-soup.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜今晚燉湯，把龜鹿湯塊安排進家常餐桌｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "kitchen_dinner",
-      "bullets": [
-        "今晚煮一鍋家常熱湯",
-        "75g／盒、8塊裝",
-        "回到餐桌與燉煮情境"
-      ]
+      "id": "XJW-SOCIAL-20260815-03-storage-basics",
+      "kicker": "仙加味｜整理一下",
+      "title": "星期天整理櫃子，也順便看看龜鹿還剩多少",
+      "products": ["drink30", "drink180", "gao"],
+      "copy": "星期天在家整理櫃子，也可以順手把不同型態的龜鹿產品重新放好。\n\n30cc小玻璃罐、180cc鋁袋、龜鹿膏以及其他產品各自固定位置；已開封與未開封分開，平常拿取時會更清楚。\n\n像龜鹿膏未開封可放常溫陰涼處，開罐後則記得冷藏。\n\n整理不是為了把東西擺得漂亮而已，也是讓下一次要用的時候更順手。\n\n仙加味｜補養，是一種節奏。",
+      "image_path": "images/posts/priority10-v20260817/XJW-SOCIAL-20260815-03-storage-basics.webp",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-SOCIAL-20260815-03-storage-basics.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆星期天整理櫃子與龜鹿產品庫存情境",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜產品實物外觀",
+      "scene": "storage_inventory"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-warm-drink-moment",
       "kicker": "仙加味｜辦公室日常",
-      "title": "辦公桌上的一杯溫熱飲，\n也可以有不同安排",
-      "products": [
-        "drink30",
-        "drink180"
-      ],
-      "copy": "下午工作還沒結束，但剛好可以離開螢幕幾分鐘。準備一杯溫熱飲品，也是重新整理工作節奏的一個小空檔。\n\n仙加味龜鹿飲有30cc小玻璃罐與180cc鋁袋兩種型態，可以依工作、外出或居家情境選擇；喜歡溫熱飲用時，再依自己的方式調整溫度。\n\n不是每天都要一模一樣，依不同場合選擇適合自己的型態就好。\n\n仙加味｜補養，是一種節奏。",
+      "title": "辦公桌上的一杯，也可以有不同選擇",
+      "products": ["drink30", "drink180"],
+      "copy": "下午坐在辦公桌前，想讓自己的節奏慢一點，不一定每次都要用同一種方式。\n\n仙加味龜鹿飲有30cc小玻璃罐，也有180cc鋁袋，可以依工作時間、攜帶方式與當天習慣選擇。\n\n龜鹿飲可以直接常溫飲用；比較喜歡溫熱口感時，再依情境溫熱即可。\n\n產品型態不同，重點還是找到自己平常最容易安排的方式。\n\n仙加味｜補養，是一種節奏。",
       "image_path": "images/posts/priority10-v20260817/XJW-SOCIAL-20260815-01-warm-drink-moment.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-SOCIAL-20260815-01-warm-drink-moment.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜辦公桌上的一杯溫熱飲，也可以有不同安排｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "work_afternoon",
-      "bullets": [
-        "離開螢幕休息幾分鐘",
-        "依工作與居家情境選擇",
-        "想溫熱時再調整溫度"
-      ]
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-SOCIAL-20260815-01-warm-drink-moment.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆辦公桌飲用情境，呈現30cc與180cc不同選擇",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜產品實物外觀",
+      "scene": "office"
     },
     {
-      "id": "XJW-SOCIAL-20260815-03-storage-basics",
-      "kicker": "仙加味｜居家整理",
-      "title": "星期天整理櫃子，\n也順便看看龜鹿還剩多少",
-      "products": [
-        "gao",
-        "drink30",
-        "drink180"
-      ],
-      "copy": "星期天在家整理廚房櫃子，順手把平常會用到的仙加味產品也一起整理一下。\n\n哪些還沒開封、哪些已經開封，不同產品的保存方式是否都放對位置，其實幾分鐘就能確認完成。龜鹿膏開罐後要冷藏；其他產品則依各自包裝標示妥善保存。\n\n與其等到要用的時候才翻箱倒櫃，不如固定一個位置，讓日常使用更清楚、也更順手。\n\n仙加味｜補養，是一種節奏。",
-      "image_path": "images/posts/priority10-v20260817/XJW-SOCIAL-20260815-03-storage-basics.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-SOCIAL-20260815-03-storage-basics.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜星期天整理櫃子，也順便看看龜鹿還剩多少｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "storage_home",
-      "bullets": [
-        "星期天順手整理櫃子",
-        "開封與未開封分開整理",
-        "龜鹿膏開罐後冷藏"
-      ]
+      "id": "XJW-GUILU-tangkuai-soup",
+      "kicker": "仙加味｜料理搭配",
+      "title": "今晚燉湯，把龜鹿湯塊安排進家常餐桌",
+      "products": ["tangkuai"],
+      "copy": "晚上準備家常菜時，如果本來就有燉雞、排骨或湯品的習慣，也可以認識龜鹿湯塊這種料理型態。\n\n仙加味龜鹿湯塊為75g／盒、8塊裝，正式包裝是藍色盒裝。\n\n從備料、下鍋到一家人坐下來吃飯，讓產品自然進入原本就有的家常料理，而不是額外增加一套複雜流程。\n\n有些傳統，就是適合慢慢放進每天的餐桌裡。\n\n仙加味｜補養，是一種節奏。",
+      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-tangkuai-soup.webp",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-tangkuai-soup.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆家常燉湯情境與藍色龜鹿湯塊盒",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜龜鹿湯塊藍色正式盒裝",
+      "scene": "cooking"
+    },
+    {
+      "id": "XJW-GUILU-jiao-600g",
+      "kicker": "仙加味｜型態認識",
+      "title": "週末有時間，再慢慢認識龜鹿膠這種型態",
+      "products": ["jiao"],
+      "copy": "平日忙著工作，很多事情都希望簡單快速；到了週末，反而比較有時間把不同產品型態看清楚。\n\n仙加味龜鹿膠為600g／盒、32塊裝，正式產品為紫色盒裝，和30cc、180cc即飲型態是不同的使用方式。\n\n第一次接觸，不需要一次把所有產品都弄懂。\n\n先看看自己的生活時間、料理方式與使用習慣，再決定哪一種型態比較適合。\n\n仙加味｜補養，是一種節奏。",
+      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-jiao-600g.webp",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-jiao-600g.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆週末認識龜鹿膠情境與紫色龜鹿膠盒",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜龜鹿膠紫色正式盒裝",
+      "scene": "weekend_home"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-line-consult-and-trial",
-      "kicker": "仙加味｜LINE諮詢",
-      "title": "不知道怎麼選？\n先把你的日常告訴我們",
-      "products": [
-        "drink30",
-        "drink180",
-        "gao"
-      ],
-      "copy": "第一次看到龜鹿膏、30cc、180cc、湯塊、龜鹿膠，一下子不知道從哪裡開始，其實很正常。\n\n與其只看產品名稱，不如先告訴仙加味：平常是在家比較多，還是經常外出？比較習慣早上、下午，還是哪個工作空檔？喜歡直接飲用、溫熱飲用，還是家常料理？\n\n想了解產品、試喝或下單，都可以直接透過LINE與仙加味聯絡。\n\n仙加味｜補養，是一種節奏。",
+      "kicker": "仙加味｜LINE 諮詢",
+      "title": "不知道怎麼選，先把你的日常告訴我們",
+      "products": ["drink30", "drink180", "gao", "tangkuai", "jiao"],
+      "copy": "第一次接觸仙加味龜鹿系列，不知道要從哪一種開始，其實可以先不用急著選。\n\n平常比較常在家還是外出？早上比較方便，還是下午？希望直接常溫飲用、依喜好溫熱，還是搭配家常料理？\n\n不同生活方式，適合認識的產品型態也會不一樣。\n\n可以先透過LINE把自己的日常告訴我們，再慢慢了解30cc、180cc、龜鹿膏、龜鹿湯塊、龜鹿膠等不同選擇。\n\n仙加味｜補養，是一種節奏。",
       "image_path": "images/posts/priority10-v20260817/XJW-SOCIAL-20260815-02-line-consult-and-trial.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-SOCIAL-20260815-02-line-consult-and-trial.webp?v=20260817-scene3",
-      "image_alt": "仙加味小老闆｜不知道怎麼選？先把你的日常告訴我們｜生活情境＋正式產品實物｜完整生活場景v2",
-      "image_source": "2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核",
-      "scene": "consult_phone",
-      "bullets": [
-        "先說平常在家或外出",
-        "再說習慣時間與使用方式",
-        "產品、試喝、下單都可LINE詢問"
-      ]
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-SOCIAL-20260815-02-line-consult-and-trial.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆以LINE諮詢協助依日常挑選產品",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜產品實物外觀",
+      "scene": "line_consult"
+    },
+    {
+      "id": "XJW-GUILU-drink180-home",
+      "kicker": "仙加味｜居家安排",
+      "title": "回到家，把180cc安排進自己的節奏",
+      "products": ["drink180"],
+      "copy": "一天忙完回到家，換下外出的節奏，有時候就想坐下來慢慢喝點東西。\n\n仙加味龜鹿飲180cc為鋁袋包裝，可以直接常溫飲用；如果自己比較喜歡溫熱口感，也可以依情境隔水溫熱後再喝。\n\n不是一定要加熱，而是依自己的習慣選擇舒服的方式。\n\n回到家，留一點時間，把生活速度慢慢放下來。\n\n仙加味｜補養，是一種節奏。",
+      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-drink180-home.webp",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-drink180-home.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆居家180cc鋁袋飲用情境，可常溫或依喜好溫熱",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜180cc鋁袋正式外觀",
+      "scene": "home"
+    },
+    {
+      "id": "XJW-GUILU-luerong-75g",
+      "kicker": "仙加味｜產品認識",
+      "title": "下午想簡單一點，可以先認識鹿茸粉",
+      "products": ["luerong"],
+      "copy": "下午工作告一段落，有時候不想安排太複雜，可以先從認識產品本身開始。\n\n仙加味鹿茸粉為75g／罐。第一次接觸時，可以先看看產品標示、份量與自己的日常使用方式。\n\n不需要因為產品很多，就一次全部帶回家。\n\n先把一種產品看懂，再決定要不要安排進自己的生活，反而更清楚。\n\n仙加味｜補養，是一種節奏。",
+      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-luerong-75g.webp",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-luerong-75g.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆下午認識鹿茸粉75g罐裝產品情境",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜鹿茸粉正式產品外觀",
+      "scene": "afternoon"
+    },
+    {
+      "id": "XJW-GUILU-choose-by-place",
+      "kicker": "仙加味｜生活節奏",
+      "title": "今天在家，明天外出，產品型態不一定要選同一種",
+      "products": ["drink30", "drink180", "gao"],
+      "copy": "生活每天都不完全一樣，產品安排當然也不一定只能固定一種。\n\n在家時，可能比較有時間慢慢準備；隔天要出門工作，就會更在意攜帶是不是方便。\n\n仙加味有30cc小玻璃罐、180cc鋁袋、龜鹿膏，以及不同料理與傳統型態，可以依當天的行程挑選。\n\n先看今天要去哪裡、怎麼生活，再決定今天適合哪一種。\n\n仙加味｜補養，是一種節奏。",
+      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-choose-by-place.webp",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-choose-by-place.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆在家與外出雙情境，依生活節奏選不同產品型態",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜產品實物外觀",
+      "scene": "home_out"
+    },
+    {
+      "id": "XJW-GUILU-gao-storage",
+      "kicker": "仙加味｜保存提醒",
+      "title": "龜鹿膏開罐後，順手放進冰箱",
+      "products": ["gao"],
+      "copy": "每天使用完產品後，最容易忽略的往往不是怎麼吃，而是「下一步放去哪裡」。\n\n仙加味龜鹿膏為100g／罐，未開封時可放在常溫陰涼處；開罐後記得冷藏保存。\n\n取用後把蓋子蓋好，再放回冰箱固定的位置，下次使用也更容易找到。\n\n把保存這件小事固定下來，日常就會自然許多。\n\n仙加味｜補養，是一種節奏。",
+      "image_path": "images/posts/priority10-v20260817/XJW-GUILU-gao-storage.webp",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/priority10-v20260817/XJW-GUILU-gao-storage.webp?v=20260817-image-first-v1",
+      "image_alt": "仙加味小老闆把龜鹿膏100g開罐後放回冰箱保存",
+      "image_source": "使用者確認之正式10圖｜以圖生成文案｜固定Q版小老闆｜龜鹿膏正式產品外觀",
+      "scene": "refrigerator_storage"
     }
-  ],
-  "generated_at": "2026-08-17",
-  "visual_policy": {
-    "full_lifestyle_scene": true,
-    "website_q_mascot": true,
-    "official_product_art": true,
-    "ai_product_redraw_forbidden": true,
-    "unique_image": true,
-    "human_review_required": true
-  }
+  ]
 }
