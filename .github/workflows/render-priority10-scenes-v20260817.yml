@@ -1,10 +1,12 @@
-name: 仙加味第一批10篇正式場景圖產出
+name: 仙加味第一批10篇完整生活場景圖產出
 
 on:
   push:
     branches: [main]
     paths:
       - 'asset-staging/priority10-svg-v20260817/TRIGGER.txt'
+      - 'tools/render-priority10-v20260817.mjs'
+      - 'tools/render-scene-poster-core-v20260817.mjs'
   workflow_dispatch:
 
 permissions:
@@ -15,25 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - name: Install Traditional Chinese SVG/WebP renderer
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends librsvg2-bin webp fonts-noto-cjk
-      - name: Build 10 deterministic scene SVGs
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Install renderer
+        run: npm install --no-audit --no-fund --no-package-lock sharp
+      - name: Render 10 full lifestyle scenes
         run: node tools/render-priority10-v20260817.mjs
-      - name: Render social-ready WebP
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -rf images/posts/priority10-v20260817
-          mkdir -p images/posts/priority10-v20260817 /tmp/priority10-png
-          for f in asset-staging/priority10-svg-v20260817/svg/*.svg; do
-            id="$(basename "$f" .svg)"
-            rsvg-convert -w 1080 -h 1350 "$f" -o "/tmp/priority10-png/${id}.png"
-            cwebp -quiet -q 88 "/tmp/priority10-png/${id}.png" -o "images/posts/priority10-v20260817/${id}.webp"
-          done
-          cp asset-staging/priority10-svg-v20260817/manifest.json images/posts/priority10-v20260817/manifest.json
-      - name: Validate 10 images one-to-one
+      - name: Validate 10 scene images and authority metadata
         shell: bash
         run: |
           set -euo pipefail
@@ -42,14 +33,20 @@ jobs:
           const fs=require('fs');
           const m=JSON.parse(fs.readFileSync('images/posts/priority10-v20260817/manifest.json','utf8'));
           if(m.count!==10 || m.posts.length!==10) throw new Error('manifest count mismatch');
+          if(!String(m.version).includes('scene-v4')) throw new Error('old priority10 manifest version');
+          const urls=new Set();
           for(const p of m.posts){
-            const f=`images/posts/priority10-v20260817/${p.id}.webp`;
-            const n=fs.statSync(f).size;
+            if(!p.scene) throw new Error(`${p.id} missing scene`);
+            if(!String(p.image_url).includes('v=20260817-scene2')) throw new Error(`${p.id} missing cache bust`);
+            if(!String(p.image_source).includes('完整生活場景重製v2')) throw new Error(`${p.id} old image source`);
+            const n=fs.statSync(p.image_path).size;
             if(n<50000) throw new Error(`${p.id} too small ${n}`);
-            console.log('PASS',p.id,n);
+            if(urls.has(p.image_url)) throw new Error(`${p.id} duplicate image url`);
+            urls.add(p.image_url);
+            console.log('PASS',p.id,p.scene,n);
           }
           NODE
-      - name: Commit formal WebP scenes
+      - name: Commit formal full-scene WebP
         shell: bash
         run: |
           set -euo pipefail
@@ -60,5 +57,5 @@ jobs:
             echo 'No formal visual changes.'
             exit 0
           fi
-          git commit -m 'feat(posts): publish priority10 matched lifestyle scenes'
+          git commit -m 'feat(posts): rebuild priority10 with full lifestyle scenes'
           git push
