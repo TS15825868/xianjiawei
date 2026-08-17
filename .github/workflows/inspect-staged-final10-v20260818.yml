@@ -1,0 +1,45 @@
+name: 檢查第一批10張暫存圖
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/staging/inspect-final10-v20260818.trigger'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Decode and inspect
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/final10
+          cat assets/staging/final10-v20260818/part-*.txt | base64 -d > /tmp/final10.zip
+          unzip -o /tmp/final10.zip -d /tmp/final10 >/dev/null
+          python3 - <<'PY' > assets/staging/final10-v20260818/INSPECT.txt
+          from PIL import Image
+          from pathlib import Path
+          root=Path('/tmp/final10')
+          files=sorted([p for p in root.rglob('*') if p.is_file()])
+          print('count=',len(files))
+          for p in files:
+              try:
+                  im=Image.open(p)
+                  print(p.name, im.format, im.size, p.stat().st_size)
+              except Exception as e:
+                  print(p.name, 'ERROR', repr(e), p.stat().st_size)
+          PY
+          cat assets/staging/final10-v20260818/INSPECT.txt
+      - name: Commit report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/staging/final10-v20260818/INSPECT.txt
+          git diff --cached --quiet && exit 0
+          git commit -m 'chore: 檢查第一批10張暫存圖尺寸'
+          git push origin HEAD:main
