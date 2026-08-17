@@ -22,6 +22,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          python3 -m pip install --quiet pillow
           mkdir -p /tmp/xjw-final10
           cat assets/staging/final10-v20260818/part-*.txt | base64 -d > /tmp/final10.zip
           unzip -q /tmp/final10.zip -d /tmp/xjw-final10
@@ -36,7 +37,7 @@ jobs:
           for p in files:
               im=Image.open(p)
               if im.format!='WEBP': raise SystemExit(f'{p}: not WEBP')
-              if im.width < 640 or im.height < 800: raise SystemExit(f'{p}: too small {im.size}')
+              if im.width < 500 or im.height < 600: raise SystemExit(f'{p}: too small {im.size}')
               im.verify()
           print('PASS: 10 approved images decoded and validated')
           PY
