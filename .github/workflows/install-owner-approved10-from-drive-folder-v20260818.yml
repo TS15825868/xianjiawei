@@ -1,0 +1,102 @@
+name: 安裝使用者確認第一批10張原始圖
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/staging/install-owner-approved10-folder-v20260818.trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Download owner-approved originals
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --quiet gdown pillow
+          rm -rf /tmp/xjw-drive10
+          mkdir -p /tmp/xjw-drive10
+          gdown --folder --remaining-ok 'https://drive.google.com/drive/folders/1a67dV4sLDwo9tVVGfih6Z65TWpcSa_es' -O /tmp/xjw-drive10
+          find /tmp/xjw-drive10 -type f -maxdepth 3 -printf '%f\n' | sort
+
+      - name: Select exact ten files and validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          out='/tmp/xjw-approved10'
+          rm -rf "$out"
+          mkdir -p "$out"
+          find_one() { find /tmp/xjw-drive10 -type f -name "$1" -print -quit; }
+          cp "$(find_one '01-work-30cc.png')" "$out/01-work-30cc.png"
+          cp "$(find_one '02-home-180cc.png')" "$out/02-home-180cc.png"
+          cp "$(find_one '03-gao-storage.png')" "$out/03-gao-storage.png"
+          cp "$(find_one '04-tangkuai-soup.png')" "$out/04-tangkuai-soup.png"
+          cp "$(find_one '05-jiao-600g.png')" "$out/05-jiao-600g.png"
+          cp "$(find_one '06-lurong-75g.png')" "$out/06-lurong-75g.png"
+          cp "$(find_one '07-line-consult.png')" "$out/07-line-consult.png"
+          cp "$(find_one 'candidate-f0a8.png')" "$out/08-home-out.png"
+          cp "$(find_one 'candidate-c534.png')" "$out/09-organize-cabinet.png"
+          cp "$(find_one 'candidate-2d708.png')" "$out/10-office-warm-drink.png"
+          test "$(find "$out" -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 10
+          python3 - <<'PY'
+          from pathlib import Path
+          from PIL import Image
+          root=Path('/tmp/xjw-approved10')
+          names=[
+            '01-work-30cc.png','02-home-180cc.png','03-gao-storage.png','04-tangkuai-soup.png','05-jiao-600g.png',
+            '06-lurong-75g.png','07-line-consult.png','08-home-out.png','09-organize-cabinet.png','10-office-warm-drink.png'
+          ]
+          for name in names:
+              p=root/name
+              if not p.exists(): raise SystemExit(f'MISSING {name}')
+              im=Image.open(p)
+              if im.format!='PNG': raise SystemExit(f'NOT PNG {name}: {im.format}')
+              if im.size!=(1122,1402): raise SystemExit(f'WRONG SIZE {name}: {im.size}')
+              im.verify()
+              print('PASS', name)
+          PY
+
+      - name: Install into official public asset folder
+        shell: bash
+        run: |
+          set -euo pipefail
+          target='images/posts/owner-approved-v20260818'
+          rm -rf "$target"
+          mkdir -p "$target"
+          cp /tmp/xjw-approved10/*.png "$target"/
+          sha256sum "$target"/*.png > "$target/SHA256SUMS.txt"
+          cat > "$target/README.txt" <<'EOF'
+          2026-08-18 使用者於 ChatGPT 明確確認此第一批 10 張完整圖可用。
+          本批為完整單張情境圖，不得拆圖拼湊、不得以其他 AI 產品圖替代、不得重配其他文案。
+          貼文中心僅能依既定 10 篇文案一對一使用，更新後回待審核。
+          EOF
+          printf '%s\n' 'PASS owner-approved 10 original PNG installed 2026-08-18' > "$target/INSTALL_OK.txt"
+
+      - name: Commit official images
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -r --ignore-unmatch assets/staging/final10-v20260818
+          git rm --ignore-unmatch assets/staging/test-drive-download-v20260818.trigger
+          git rm --ignore-unmatch assets/staging/probe-owner-approved-drive-v20260818.trigger
+          git rm --ignore-unmatch assets/staging/probe-owner-approved-drive-v20260818.ok
+          git rm --ignore-unmatch assets/staging/install-final10-drive-v20260818.trigger
+          git add images/posts/owner-approved-v20260818
+          if git diff --cached --quiet; then
+            echo 'No changes'
+            exit 0
+          fi
+          git commit -m '安裝使用者確認第一批10張正式貼文原圖'
+          git push origin HEAD:main
