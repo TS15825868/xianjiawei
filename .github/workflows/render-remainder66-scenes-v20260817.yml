@@ -43,10 +43,11 @@ jobs:
             if((p.title+p.copy+p.image_alt).includes('台興山產')) throw new Error(`${p.id}: blocked name`);
             if(!Array.isArray(p.bullets)||p.bullets.length<3) throw new Error(`${p.id}: missing scene bullets`);
             if(!p.scene) throw new Error(`${p.id}: missing scene`);
-            if(!String(p.image_url).includes('v=20260817-scene2')) throw new Error(`${p.id}: old cache url`);
-            if(!String(p.image_source).includes('完整生活場景重製v2')) throw new Error(`${p.id}: old image source`);
+            if(!String(p.image_url).includes('v=20260817-scene3')) throw new Error(`${p.id}: stale cache url`);
+            if(!String(p.image_source).includes('完整生活場景重製v3')) throw new Error(`${p.id}: stale image source`);
+            if(!String(p.image_source).includes('無內嵌文字')) throw new Error(`${p.id}: rendered image may still contain generated Chinese text`);
           }
-          console.log('PASS 66/66: full lifestyle scenes, unique copy/image, official product authority metadata');
+          console.log('PASS 66/66: full lifestyle scenes, no generated text overlays, products-v3 official product photos, unique copy/image');
           NODE
       - name: Commit formal full-scene assets
         shell: bash
@@ -60,4 +61,5 @@ jobs:
             exit 0
           fi
           git commit -m 'feat(posts): rebuild remaining 66 with full lifestyle scenes'
+          git pull --rebase origin main
           git push
