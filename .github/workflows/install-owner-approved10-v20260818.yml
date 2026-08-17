@@ -1,0 +1,66 @@
+name: 安裝使用者確認第一批10張正式貼文圖
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/staging/final10-v20260818.trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Rebuild approved image archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/xjw-final10
+          cat assets/staging/final10-v20260818/part-*.txt | base64 -d > /tmp/final10.zip
+          unzip -q /tmp/final10.zip -d /tmp/xjw-final10
+          test "$(find /tmp/xjw-final10 -maxdepth 1 -type f -name '*.webp' | wc -l)" -eq 10
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          files=sorted(Path('/tmp/xjw-final10').glob('*.webp'))
+          expected=['01-work-30cc.webp','02-home-180cc.webp','03-gao-storage.webp','04-tangkuai-soup.webp','05-jiao-600g.webp','06-lurong-75g.webp','07-line-consult.webp','08-home-out.webp','09-organize-cabinet.webp','10-office-warm-drink.webp']
+          if [p.name for p in files] != expected:
+              raise SystemExit(f'file set mismatch: {[p.name for p in files]}')
+          for p in files:
+              im=Image.open(p)
+              if im.format!='WEBP': raise SystemExit(f'{p}: not WEBP')
+              if im.width < 640 or im.height < 800: raise SystemExit(f'{p}: too small {im.size}')
+              im.verify()
+          print('PASS: 10 approved images decoded and validated')
+          PY
+      - name: Install into public website assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          target='images/posts/owner-approved-v20260818'
+          rm -rf "$target"
+          mkdir -p "$target"
+          cp /tmp/xjw-final10/*.webp "$target"/
+          sha256sum "$target"/*.webp | tee "$target/SHA256SUMS.txt"
+          cat > "$target/README.txt" <<'EOF'
+          2026-08-18 使用者於 ChatGPT 明確確認此第一批 10 張圖可用。
+          僅供貼文中心目前 10 篇文案一對一使用。
+          不得拿同圖重配其他文案；不得由 AI 重畫產品包裝。
+          EOF
+          git rm -r --ignore-unmatch assets/staging/final10-v20260818
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$target"
+          if git diff --cached --quiet; then
+            echo 'No image changes to commit'
+          else
+            git commit -m '新增使用者確認第一批10張正式貼文圖'
+            git push origin HEAD:main
+          fi
