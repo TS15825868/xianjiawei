@@ -1,1 +1,1 @@
-render 2026-08-17 priority10 formal lifestyle scenes
+render 2026-08-17 priority10 full lifestyle scenes v2
