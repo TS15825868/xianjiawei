@@ -37,8 +37,9 @@ jobs:
           const urls=new Set();
           for(const p of m.posts){
             if(!p.scene) throw new Error(`${p.id} missing scene`);
-            if(!String(p.image_url).includes('v=20260817-scene2')) throw new Error(`${p.id} missing cache bust`);
-            if(!String(p.image_source).includes('完整生活場景重製v2')) throw new Error(`${p.id} old image source`);
+            if(!String(p.image_url).includes('v=20260817-scene3')) throw new Error(`${p.id} missing fresh cache bust`);
+            if(!String(p.image_source).includes('完整生活場景重製v3')) throw new Error(`${p.id} stale image source`);
+            if(!String(p.image_source).includes('無內嵌文字')) throw new Error(`${p.id} rendered image may still contain generated Chinese text`);
             const n=fs.statSync(p.image_path).size;
             if(n<50000) throw new Error(`${p.id} too small ${n}`);
             if(urls.has(p.image_url)) throw new Error(`${p.id} duplicate image url`);
@@ -58,4 +59,5 @@ jobs:
             exit 0
           fi
           git commit -m 'feat(posts): rebuild priority10 with full lifestyle scenes'
+          git pull --rebase origin main
           git push
