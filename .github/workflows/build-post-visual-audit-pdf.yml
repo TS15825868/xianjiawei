@@ -18,63 +18,46 @@ jobs:
       - uses: actions/checkout@v5
       - name: Install PDF tools
         run: python -m pip install --quiet pillow reportlab
-      - name: Build visual audit PDF
+      - name: Build compact visual audit PDF
         shell: bash
         run: |
           python - <<'PY'
-          import json, os
+          import json, os, tempfile
           from PIL import Image
           from reportlab.pdfgen import canvas
           from reportlab.lib.pagesizes import A4, landscape
           from reportlab.lib.utils import ImageReader
 
-          manifests = [
-              'images/posts/priority10-v20260817/manifest.json',
-              'images/posts/remainder66-v20260817/manifest.json',
-          ]
+          manifests=['images/posts/priority10-v20260817/manifest.json','images/posts/remainder66-v20260817/manifest.json']
           posts=[]
           for m in manifests:
-              with open(m,'r',encoding='utf-8') as f:
-                  posts.extend(json.load(f)['posts'])
+              with open(m,'r',encoding='utf-8') as f: posts.extend(json.load(f)['posts'])
           assert len(posts)==76, len(posts)
           os.makedirs('artifacts',exist_ok=True)
+          os.makedirs('/tmp/audit-thumbs',exist_ok=True)
           out='artifacts/post-visual-audit-76-v20260817.pdf'
-          W,H=landscape(A4)
-          c=canvas.Canvas(out,pagesize=(W,H))
-          margin=18
-          gap=12
-          cell_w=(W-2*margin-gap)/2
-          cell_h=(H-2*margin-gap)/2
+          W,H=landscape(A4); c=canvas.Canvas(out,pagesize=(W,H),pageCompression=1)
+          margin=18; gap=12; cell_w=(W-2*margin-gap)/2; cell_h=(H-2*margin-gap)/2
           for idx,p in enumerate(posts):
               slot=idx%4
               if slot==0:
-                  c.setFont('Helvetica-Bold',11)
-                  c.drawString(margin,H-14,'Xian Jia Wei — 76 Post Visual Audit 2026-08-17')
-              col=slot%2; row=slot//2
-              x=margin+col*(cell_w+gap)
-              y=H-margin-(row+1)*cell_h-row*gap
-              img_path=p['image_path']
-              im=Image.open(img_path).convert('RGB')
-              iw,ih=im.size
-              label_h=34
-              maxw=cell_w; maxh=cell_h-label_h
-              scale=min(maxw/iw,maxh/ih)
-              dw,dh=iw*scale,ih*scale
-              ix=x+(cell_w-dw)/2
-              iy=y+label_h+(maxh-dh)/2
-              c.drawImage(ImageReader(im),ix,iy,width=dw,height=dh,preserveAspectRatio=True,anchor='c')
-              c.setFont('Helvetica-Bold',7.5)
-              c.drawString(x,y+22,f"{idx+1:02d}/76  {p['id']}")
-              # ASCII-safe title fallback for PDF portability; IDs map back to manifest.
-              scene=str(p.get('scene',''))[:42]
-              products=','.join(p.get('products',[]))[:42]
-              c.setFont('Helvetica',6.5)
-              c.drawString(x,y+10,f"scene={scene}  products={products}")
+                  c.setFont('Helvetica-Bold',11); c.drawString(margin,H-14,'Xian Jia Wei — 76 Post Visual Audit 2026-08-17')
+              col=slot%2; row=slot//2; x=margin+col*(cell_w+gap); y=H-margin-(row+1)*cell_h-row*gap
+              im=Image.open(p['image_path']).convert('RGB')
+              im.thumbnail((700,700),Image.Resampling.LANCZOS)
+              thumb=f'/tmp/audit-thumbs/{idx:02d}.jpg'; im.save(thumb,'JPEG',quality=58,optimize=True,progressive=True)
+              iw,ih=im.size; label_h=34; maxw=cell_w; maxh=cell_h-label_h; scale=min(maxw/iw,maxh/ih); dw,dh=iw*scale,ih*scale
+              ix=x+(cell_w-dw)/2; iy=y+label_h+(maxh-dh)/2
+              c.drawImage(thumb,ix,iy,width=dw,height=dh,preserveAspectRatio=True,anchor='c')
+              c.setFont('Helvetica-Bold',7.5); c.drawString(x,y+22,f"{idx+1:02d}/76  {p['id']}")
+              scene=str(p.get('scene',''))[:42]; products=','.join(p.get('products',[]))[:42]
+              c.setFont('Helvetica',6.5); c.drawString(x,y+10,f"scene={scene}  products={products}")
               c.rect(x,y,cell_w,cell_h,stroke=1,fill=0)
-              if slot==3 or idx==len(posts)-1:
-                  c.showPage()
+              if slot==3 or idx==len(posts)-1: c.showPage()
           c.save()
-          print(out)
+          size=os.path.getsize(out)
+          print(out,size)
+          if size>40*1024*1024: raise SystemExit(f'PDF still too large: {size}')
           PY
       - name: Commit audit PDF
         shell: bash
@@ -84,5 +67,5 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add artifacts/post-visual-audit-76-v20260817.pdf
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'chore(audit): build 76-post visual review PDF'
+          git commit -m 'chore(audit): build compact 76-post visual review PDF'
           git push
