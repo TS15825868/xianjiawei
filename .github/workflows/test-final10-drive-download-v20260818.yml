@@ -1,6 +1,10 @@
 name: 測試第一批10張原圖下載
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/staging/test-drive-download-v20260818.trigger'
 permissions:
   contents: read
 jobs:
