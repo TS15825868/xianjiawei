@@ -26,8 +26,8 @@ jobs:
           python3 -m pip install --quiet gdown pillow
           rm -rf /tmp/xjw-drive10
           mkdir -p /tmp/xjw-drive10
-          gdown --folder --remaining-ok 'https://drive.google.com/drive/folders/1a67dV4sLDwo9tVVGfih6Z65TWpcSa_es' -O /tmp/xjw-drive10
-          find /tmp/xjw-drive10 -type f -maxdepth 3 -printf '%f\n' | sort
+          gdown --folder 'https://drive.google.com/drive/folders/1a67dV4sLDwo9tVVGfih6Z65TWpcSa_es' -O /tmp/xjw-drive10
+          find /tmp/xjw-drive10 -maxdepth 3 -type f -printf '%f\n' | sort
 
       - name: Select exact ten files and validate
         shell: bash
