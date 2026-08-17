@@ -1,6 +1,16 @@
 {
-  "version": "2026-08-17-remainder66-v1",
+  "version": "2026-08-17-remainder66-scene-v2",
+  "generated_at": "2026-08-17",
   "count": 66,
+  "visual_policy": {
+    "full_lifestyle_scene": true,
+    "website_q_mascot": true,
+    "official_product_art": true,
+    "ai_product_redraw_forbidden": true,
+    "unique_copy": true,
+    "unique_image": true,
+    "human_review_required": true
+  },
   "posts": [
     {
       "id": "XJW-WORK-REST-001",
@@ -18,9 +28,9 @@
       "copy": "下午事情一多，很容易從午餐一路忙到下班。與其等到真的累到停不下來，不如替自己留一個短短的工作空檔。\n\n仙加味龜鹿飲30cc玻璃罐體積小，適合放在工作桌或隨身袋裡；到了下午想休息一下時，再依自己的習慣安排飲用。這篇不是提醒你「一定要做什麼」，而是把產品放回一個真正會發生的工作情境。\n\n仙加味｜補養，是一種節奏。",
       "bg": "guide",
       "image_path": "images/posts/remainder66-v20260817/XJW-WORK-REST-001.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-WORK-REST-001.webp",
-      "image_alt": "仙加味小老闆｜下午卡在工作裡？先用一杯溫熱龜鹿飲留個休息空檔｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-WORK-REST-001.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜下午卡在工作裡？先用一杯溫熱龜鹿飲留個休息空檔｜office完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-COMBO",
@@ -39,9 +49,9 @@
       "copy": "同一週裡，生活節奏可能差很多。平日一早就出門，和週末待在家整理事情，需要的便利程度自然不一樣。\n\n仙加味龜鹿飲30cc玻璃罐適合外出時輕巧攜帶；龜鹿膏100g則可以放在家中固定位置，依自己的作息取用。兩種型態不用綁在一起，也不需要每天都選一樣的方式。\n\n先看今天怎麼過，再決定今天怎麼安排。仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/POST-COMBO.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-COMBO.webp",
-      "image_alt": "仙加味小老闆｜平日在外、週末在家：龜鹿膏與30cc可以分開安排｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-COMBO.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜平日在外、週末在家：龜鹿膏與30cc可以分開安排｜home_out完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-DRINK",
@@ -60,9 +70,9 @@
       "copy": "早上有時只剩十分鐘就要出門，有時則能在家慢慢吃完早餐。仙加味龜鹿飲30cc玻璃罐與180cc鋁袋，適合的不是同一種早晨。\n\n如果今天要趕車、跑行程，可以先看輕巧的30cc；如果今天留在家中，有時間準備溫熱飲用，再看看180cc鋁袋。先從自己的早晨動線開始，比只看容量更容易理解。\n\n仙加味｜補養，是一種節奏。",
       "bg": "home",
       "image_path": "images/posts/remainder66-v20260817/POST-DRINK.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-DRINK.webp",
-      "image_alt": "仙加味小老闆｜趕著出門還是在家吃早餐？龜鹿飲先看今天的動線｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-DRINK.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜趕著出門還是在家吃早餐？龜鹿飲先看今天的動線｜morning完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-GAO-100",
@@ -80,9 +90,9 @@
       "copy": "龜鹿膏放在家裡，最實際的問題通常不是「記不記得吃」，而是每次取用後有沒有順手收好。\n\n仙加味龜鹿膏100g可依自己的作息在早上或下午安排；開罐後記得冷藏。把小匙、罐子與收納位置固定好，取用完就放回去，反而比較容易形成自己的居家節奏。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/POST-GAO-100.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-GAO-100.webp",
-      "image_alt": "仙加味小老闆｜早上取用完就放回原位：龜鹿膏100g的居家小習慣｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-GAO-100.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜早上取用完就放回原位：龜鹿膏100g的居家小習慣｜morning_home完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-INGREDIENT-PRINCIPLE",
@@ -100,9 +110,9 @@
       "copy": "晚上在家整理新買的食品，很多人會順手看看成分、內容量和保存方式。仙加味也希望龜鹿產品被這樣認識，而不是只靠外觀或一句廣告語。\n\n以龜鹿飲180cc鋁袋為例，可以先看內容量、成分、一般使用方式與保存標示；如果哪一段看不懂，再透過LINE詢問。把資訊讀清楚，才知道這個產品是不是適合自己的生活安排。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/POST-INGREDIENT-PRINCIPLE.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-INGREDIENT-PRINCIPLE.webp",
-      "image_alt": "仙加味小老闆｜晚上看標示，比只看包裝更重要：先把龜鹿飲成分讀清楚｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-INGREDIENT-PRINCIPLE.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜晚上看標示，比只看包裝更重要：先把龜鹿飲成分讀清楚｜reading完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-LUERONG",
@@ -120,9 +130,9 @@
       "copy": "下午想準備一杯溫熱飲品時，先把桌面整理乾淨，再從固定位置拿出鹿茸粉，會比到處找罐子順手很多。\n\n仙加味鹿茸粉為75g／罐。認識這類粉狀產品，可以從「怎麼收、怎麼取、用完怎麼放回去」開始，而不是只看產品名稱。使用後把罐蓋蓋好，並依包裝標示妥善保存。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/POST-LUERONG.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-LUERONG.webp",
-      "image_alt": "仙加味小老闆｜下午泡溫水前，先把鹿茸粉75g放在固定乾燥處｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-LUERONG.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜下午泡溫水前，先把鹿茸粉75g放在固定乾燥處｜afternoon完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-SEASONS-RHYTHM",
@@ -141,9 +151,9 @@
       "copy": "換季時會整理衣櫃、換薄被，也很適合順手看看家裡的仙加味產品：哪些已開封、哪些還沒用到、保存位置有沒有放對。\n\n龜鹿膏開罐後要冷藏；龜鹿飲則依包裝標示妥善保存。這不是要因季節去決定「能不能吃」，而是利用生活裡本來就會出現的整理時刻，把產品狀態確認清楚。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/POST-SEASONS-RHYTHM.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-SEASONS-RHYTHM.webp",
-      "image_alt": "仙加味小老闆｜換季整理衣櫃時，也順便整理家裡的仙加味產品｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-SEASONS-RHYTHM.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜換季整理衣櫃時，也順便整理家裡的仙加味產品｜season完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-STORE",
@@ -162,9 +172,9 @@
       "copy": "如果剛好到萬華附近辦事，又想實際看看仙加味的產品，可以先用LINE告訴我們想了解哪一種型態、什麼時間比較方便。\n\n這樣來之前就能先確認產品資訊，不必到了現場才從頭找。想看龜鹿膏100g、30cc小玻璃罐，或只是先問使用方式，都可以先把問題傳過來。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/POST-STORE.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-STORE.webp",
-      "image_alt": "仙加味小老闆｜到萬華附近辦事，想看產品可以先LINE問今天是否方便｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-STORE.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜到萬華附近辦事，想看產品可以先LINE問今天是否方便｜wanhua完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-WEATHER-HOT",
@@ -182,9 +192,9 @@
       "copy": "天氣悶熱要外出時，包包裡最先準備的還是水。仙加味龜鹿飲30cc如果一起帶出門，可以另外放在固定小袋裡，避免瓶罐在包內到處碰撞，也不要長時間放在高溫曝曬的位置。\n\n補水是補水，產品是產品，兩件事分開安排會更清楚。到了合適的時間，再依自己的生活節奏飲用。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/POST-WEATHER-HOT.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-WEATHER-HOT.webp",
-      "image_alt": "仙加味小老闆｜悶熱午後外出：水瓶放前面，30cc放包內固定小袋｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-WEATHER-HOT.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜悶熱午後外出：水瓶放前面，30cc放包內固定小袋｜hot完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-WEATHER-RAIN",
@@ -202,9 +212,9 @@
       "copy": "下雨天從外面回到家，先換掉濕衣服、擦乾頭髮，整個人坐下來後，才有真正回到家的感覺。\n\n如果你喜歡溫熱飲用，仙加味龜鹿飲180cc鋁袋可以依自己的習慣隔水加熱，再倒進杯中慢慢喝。雨天的重點不是硬套一句「要補」，而是把產品放進一個舒服、清楚的居家時刻。\n\n仙加味｜補養，是一種節奏。",
       "bg": "home",
       "image_path": "images/posts/remainder66-v20260817/POST-WEATHER-RAIN.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-WEATHER-RAIN.webp",
-      "image_alt": "仙加味小老闆｜雨天回家先擦乾，再把180cc溫熱成一杯晚間飲品｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-WEATHER-RAIN.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜雨天回家先擦乾，再把180cc溫熱成一杯晚間飲品｜rain完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "POST-WEATHER-TEMP",
@@ -222,9 +232,9 @@
       "copy": "早上出門覺得涼，中午又變暖，早晚溫差大的日子很常見。這時仙加味更想提醒的是：產品安排可以跟著生活變，不需要一天從早到晚都照同一套。\n\n例如白天外出時帶一罐30cc小玻璃罐，到了晚上回家，再依當天的作息與飲食安排決定是否需要其他型態。先看今天怎麼過，再做選擇。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/POST-WEATHER-TEMP.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-WEATHER-TEMP.webp",
-      "image_alt": "仙加味小老闆｜早晚溫差大的日子：早上30cc，晚上不必照抄同一套｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/POST-WEATHER-TEMP.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜早晚溫差大的日子：早上30cc，晚上不必照抄同一套｜temp完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-drink180-made-order",
@@ -242,9 +252,9 @@
       "copy": "如果你打算下週在家安排仙加味龜鹿飲180cc，不妨把製作時間一起算進行程。龜鹿飲為接單後製作，約5～7個工作天出貨。\n\n有特定日期、送禮或家中需要補貨時，先在LINE確認時間會比較安心。這個等待不是所有產品都一樣，5～7個工作天只適用龜鹿飲。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-drink180-made-order.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink180-made-order.webp",
-      "image_alt": "仙加味小老闆｜準備下週在家喝180cc？記得把5～7個工作天算進去｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink180-made-order.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜準備下週在家喝180cc？記得把5～7個工作天算進去｜calendar完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-drink180-pouch",
@@ -262,9 +272,9 @@
       "copy": "整理家中飲品區時，仙加味龜鹿飲180cc可以先從包裝型態辨識：它是180cc鋁袋，不是大瓶裝，也不是30cc小玻璃罐的放大版。\n\n把不同容量分開收納，日後要拿取時會更直覺。看清楚「容量＋包裝」這兩件事，也能避免把兩種龜鹿飲混在一起。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-drink180-pouch.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink180-pouch.webp",
-      "image_alt": "仙加味小老闆｜把180cc放進家中飲品區：先認清它是鋁袋，不是大瓶裝｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink180-pouch.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜把180cc放進家中飲品區：先認清它是鋁袋，不是大瓶裝｜pantry完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-drink180-storage",
@@ -282,9 +292,9 @@
       "copy": "包裹送到家後，先別急著把仙加味龜鹿飲180cc全部塞進櫃子。先確認鋁袋外觀完整，再把包裝上的保存標示看清楚，最後才放進固定位置。\n\n把「收到→確認→收納」變成一個簡單流程，比臨時想起來再找產品更省事。保存資訊以正式包裝標示為準。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-drink180-storage.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink180-storage.webp",
-      "image_alt": "仙加味小老闆｜180cc收到後先做一件事：看包裝上的保存標示再收進固定位置｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink180-storage.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜180cc收到後先做一件事：看包裝上的保存標示再收進固定位置｜unbox完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-drink180-warm",
@@ -302,9 +312,9 @@
       "copy": "晚餐收好桌面後，如果今天想把龜鹿飲喝得溫一點，可以用隔水加熱的方式處理仙加味180cc鋁袋，再依自己的習慣飲用。\n\n重點不是追求很燙，而是把溫度調到自己方便入口的程度。把飲用安排在一個坐得下來的時刻，也比邊走邊趕更符合日常。\n\n仙加味｜補養，是一種節奏。",
       "bg": "recipes",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-drink180-warm.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink180-warm.webp",
-      "image_alt": "仙加味小老闆｜晚餐後想喝溫一點：180cc用隔水加熱，不把鋁袋直接亂加熱｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink180-warm.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜晚餐後想喝溫一點：180cc用隔水加熱，不把鋁袋直接亂加熱｜dinner完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-drink30-made-order",
@@ -322,9 +332,9 @@
       "copy": "如果你平常習慣把30cc帶去上班，補貨時間最好不要等到完全喝完才想起來。仙加味龜鹿飲30cc同樣是接單後製作，約5～7個工作天出貨。\n\n可以在剩下幾罐時就先透過LINE詢問，讓補貨和自己的通勤節奏接得上。這個交期規則只適用龜鹿飲。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-drink30-made-order.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink30-made-order.webp",
-      "image_alt": "仙加味小老闆｜通勤族補貨別等最後一罐：30cc也要預留5～7個工作天｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink30-made-order.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜通勤族補貨別等最後一罐：30cc也要預留5～7個工作天｜commute_plan完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-drink30-small-jar",
@@ -342,9 +352,9 @@
       "copy": "第一次在線上看到仙加味龜鹿飲30cc，最容易誤會的是尺寸。正式產品是30cc小玻璃罐、裸罐、無貼紙，不是大瓶裝。\n\n所以放進包包、工作桌或試喝組裡時，都應該維持它原本的小尺寸比例。看清楚實際型態，再判斷是不是符合自己的使用情境。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-drink30-small-jar.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink30-small-jar.webp",
-      "image_alt": "仙加味小老闆｜第一次看到30cc別被照片騙了：它就是小玻璃裸罐｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink30-small-jar.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜第一次看到30cc別被照片騙了：它就是小玻璃裸罐｜bag完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-drink30-storage",
@@ -362,9 +372,9 @@
       "copy": "星期五準備下班時，除了收電腦和杯子，也可以順手看看辦公桌抽屜裡還有沒有仙加味龜鹿飲30cc。\n\n如果沒喝完，不要長時間留在高溫、日曬或容易碰撞的位置；帶回家後再依正式包裝標示妥善保存。這種小整理，比臨時找不到產品更實際。\n\n仙加味｜補養，是一種節奏。",
       "bg": "guide",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-drink30-storage.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink30-storage.webp",
-      "image_alt": "仙加味小老闆｜週五下班前整理抽屜：帶回沒喝的30cc，別長期丟在辦公桌｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink30-storage.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜週五下班前整理抽屜：帶回沒喝的30cc，別長期丟在辦公桌｜desk完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-drink30-warm",
@@ -382,9 +392,9 @@
       "copy": "有些人早上習慣從冰飲開始，有些人則比較喜歡溫一點。仙加味龜鹿飲30cc可以依自己的習慣安排溫熱飲用，不必把它做得很複雜。\n\n準備早餐時順手把今天的一罐安排好，等到適合入口的溫度再慢慢喝。生活裡做得到的流程，通常比硬訂一套規矩更容易維持。\n\n仙加味｜補養，是一種節奏。",
       "bg": "home",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-drink30-warm.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink30-warm.webp",
-      "image_alt": "仙加味小老闆｜早上不想喝冰的：30cc先放到合適溫度再飲用｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-drink30-warm.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜早上不想喝冰的：30cc先放到合適溫度再飲用｜breakfast完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-gao-100g",
@@ -402,9 +412,9 @@
       "copy": "冰箱裡東西一多，最容易發生的不是沒有產品，而是每次都要找半天。仙加味龜鹿膏100g開罐後需要冷藏，可以替它留一個固定的位置或收納盒。\n\n早上或下午取用後，蓋好罐蓋就放回同一格。這樣保存方式清楚，日常也不容易被打亂。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-gao-100g.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-gao-100g.webp",
-      "image_alt": "仙加味小老闆｜家裡只留一個固定位置：龜鹿膏100g不必跟所有食品混放｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-gao-100g.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜家裡只留一個固定位置：龜鹿膏100g不必跟所有食品混放｜fridge完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-gao-first-half",
@@ -422,9 +432,9 @@
       "copy": "第一次打開仙加味龜鹿膏，不需要急著照別人的份量。可以先從半匙開始，選一個自己比較好記的早上或下午時段，慢慢認識這種型態。\n\n第一次可以先從較少份量開始，覺得當天不適合時就先暫停，之後再依自己的生活狀況安排。重點是依自己的生活狀況調整，而不是一次做很多。\n\n仙加味｜補養，是一種節奏。",
       "bg": "home",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-gao-first-half.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-gao-first-half.webp",
-      "image_alt": "仙加味小老闆｜第一次吃龜鹿膏，可以先從半匙認識自己的日常節奏｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-gao-first-half.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜第一次吃龜鹿膏，可以先從半匙認識自己的日常節奏｜morning_home完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-gao-routine",
@@ -442,9 +452,9 @@
       "copy": "下午回到家，先洗手、放好鑰匙，再處理今天想安排的仙加味龜鹿膏。固定使用乾淨小匙、取用後蓋好，再放回冰箱。\n\n把這些動作排成同一個小流程，比每天臨時想「什麼時候才對」更容易。龜鹿膏的日常安排，可以很簡單。\n\n仙加味｜補養，是一種節奏。",
       "bg": "home",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-gao-routine.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-gao-routine.webp",
-      "image_alt": "仙加味小老闆｜下午回家先洗手再取一匙：把龜鹿膏變成固定的小流程｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-gao-routine.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜下午回家先洗手再取一匙：把龜鹿膏變成固定的小流程｜afternoon_home完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-gao-warm-water",
@@ -462,9 +472,9 @@
       "copy": "如果今天不想直接取用龜鹿膏，在家也可以換一個方式。仙加味龜鹿膏可用約100～300ml熱水化開，依自己喜歡的濃淡慢慢調整。\n\n準備一個杯子、一支乾淨小匙，坐在餐桌邊把它化開，就是另一種溫熱飲用的生活情境。方式不同，重點仍是自己做得順手。\n\n仙加味｜補養，是一種節奏。",
       "bg": "guide",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-gao-warm-water.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-gao-warm-water.webp",
-      "image_alt": "仙加味小老闆｜不想直接吃龜鹿膏？在家用100～300ml熱水化開也可以｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-gao-warm-water.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜不想直接吃龜鹿膏？在家用100～300ml熱水化開也可以｜tea_table完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-jiao-detail-weight",
@@ -482,9 +492,9 @@
       "copy": "週末整理家裡的龜鹿膠時，可以先把最基本的規格看清楚：仙加味龜鹿膠600g（1斤）／盒，共32塊，每塊約18.75g。\n\n先知道盒裝與單塊的大致份量，之後在家安排料理或取用時才不會把它和75g龜鹿湯塊混在一起。規格清楚，使用情境才容易理解。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-jiao-detail-weight.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-jiao-detail-weight.webp",
-      "image_alt": "仙加味小老闆｜週末分裝前先看清楚：龜鹿膠600g／32塊，每塊約18.75g｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-jiao-detail-weight.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜週末分裝前先看清楚：龜鹿膠600g／32塊，每塊約18.75g｜weekend_table完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-jiao-family",
@@ -502,9 +512,9 @@
       "copy": "家裡多人一起吃飯時，認識龜鹿膠可以先從「一鍋家常湯」這種熟悉情境開始。仙加味龜鹿膠是600g大盒、32塊裝，和單人即飲產品的使用方式不同。\n\n料理前先確認這次要用多少、剩下的怎麼收好，再開始燉煮。把產品放回家庭餐桌，比單看規格數字更容易理解。\n\n仙加味｜補養，是一種節奏。",
       "bg": "recipes",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-jiao-family.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-jiao-family.webp",
-      "image_alt": "仙加味小老闆｜家裡多人一起吃飯，龜鹿膠先從一鍋湯的料理情境認識｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-jiao-family.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜家裡多人一起吃飯，龜鹿膠先從一鍋湯的料理情境認識｜family_dinner完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-jiao-hot-water",
@@ -522,9 +532,9 @@
       "copy": "第一次看到仙加味龜鹿膠，有人會先好奇「這種塊狀產品平常怎麼處理」。可以先從溫熱的使用方式去認識它，再依家裡的料理習慣安排。\n\n更重要的是先認清它是600g／盒、32塊裝的龜鹿膠，不要和75g／盒、8塊裝的龜鹿湯塊混在一起。\n\n仙加味｜補養，是一種節奏。",
       "bg": "guide",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-jiao-hot-water.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-jiao-hot-water.webp",
-      "image_alt": "仙加味小老闆｜想先簡單試一塊龜鹿膠？先從溫熱沖泡方式了解型態｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-jiao-hot-water.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜想先簡單試一塊龜鹿膠？先從溫熱沖泡方式了解型態｜hot_water完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-luerong-single-material",
@@ -542,9 +552,9 @@
       "copy": "晚上整理家裡的產品時，如果想看懂仙加味鹿茸粉，可以先從最簡單的資訊開始：75g／罐，成分為鹿茸。\n\n單一原料不代表要把用途說得很複雜，反而更適合先把產品標示、保存方式與自己的日常習慣看清楚。有問題再透過LINE問，資訊會比較完整。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-luerong-single-material.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-luerong-single-material.webp",
-      "image_alt": "仙加味小老闆｜晚上整理產品標示：鹿茸粉75g先從「成分只有鹿茸」看起｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-luerong-single-material.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜晚上整理產品標示：鹿茸粉75g先從「成分只有鹿茸」看起｜reading完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-luerong-storage",
@@ -562,9 +572,9 @@
       "copy": "梅雨季廚房和流理台容易有水氣，粉狀產品用完更適合立刻收回固定位置。仙加味鹿茸粉75g每次取用後先把罐蓋蓋緊，不要長時間留在潮濕的地方。\n\n保存方式仍以正式包裝標示為準；這篇談的是一個很實際的生活動作：用完就收好。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-luerong-storage.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-luerong-storage.webp",
-      "image_alt": "仙加味小老闆｜梅雨季收納鹿茸粉：用完蓋緊，別把罐子留在潮濕流理台｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-luerong-storage.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜梅雨季收納鹿茸粉：用完蓋緊，別把罐子留在潮濕流理台｜humid完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-tangkuai-75g",
@@ -582,9 +592,9 @@
       "copy": "下午打開冰箱看到還有排骨，晚上想煮一鍋湯時，就很適合順便認識仙加味龜鹿湯塊這種型態。\n\n龜鹿湯塊是75g／盒、8塊裝，每塊約9.375g。先從一鍋熟悉的家常湯去理解它，再看每次取用與剩餘保存，比只背數字更直覺。\n\n仙加味｜補養，是一種節奏。",
       "bg": "recipes",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-tangkuai-75g.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-tangkuai-75g.webp",
-      "image_alt": "仙加味小老闆｜冰箱還有排骨？晚餐前先認識龜鹿湯塊75g／8塊裝｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-tangkuai-75g.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜冰箱還有排骨？晚餐前先認識龜鹿湯塊75g／8塊裝｜kitchen完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-tangkuai-hot-water",
@@ -602,9 +612,9 @@
       "copy": "不是每次回家都有時間燉一大鍋湯。想了解仙加味龜鹿湯塊時，也可以先把它的塊狀型態與溫熱使用方式看懂，再決定哪天安排進料理。\n\n先認清75g／盒、8塊裝，再看自己家裡平常怎麼煮、一次通常準備多少，會比硬套一個固定方式更符合生活。\n\n仙加味｜補養，是一種節奏。",
       "bg": "guide",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-tangkuai-hot-water.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-tangkuai-hot-water.webp",
-      "image_alt": "仙加味小老闆｜臨時不煮大鍋湯？先把龜鹿湯塊的溫熱使用方式看懂｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-tangkuai-hot-water.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜臨時不煮大鍋湯？先把龜鹿湯塊的溫熱使用方式看懂｜small_kitchen完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-trial-first",
@@ -622,9 +632,9 @@
       "copy": "試喝主文已經說過「先試喝，再決定」，這篇換一個更實際的角度：申請前先把收件方式確認好。\n\n仙加味龜鹿飲30cc試喝組為3罐免費、運費自付；7-11店到店60元，郵局宅配100元。每位顧客、電話、地址限申請一次。把收件資料準備好，再到LINE申請，流程會更順。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-trial-first.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-trial-first.webp",
-      "image_alt": "仙加味小老闆｜申請試喝前先確認收件方式：7-11還是郵局宅配？｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-trial-first.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜申請試喝前先確認收件方式：7-11還是郵局宅配？｜phone_shipping完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-trial-shipping",
@@ -642,9 +652,9 @@
       "copy": "送出試喝申請後，下一步不是馬上出貨。仙加味龜鹿飲是接單後製作，試喝組同樣約5～7個工作天出貨。\n\n如果最近剛好要出差、旅行或不方便收件，申請時可以先在LINE說明。把製作時間和收件行程一起想，比一直追物流更安心。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-trial-shipping.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-trial-shipping.webp",
-      "image_alt": "仙加味小老闆｜試喝申請完成後別急著等物流：龜鹿飲要先製作5～7個工作天｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-trial-shipping.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜試喝申請完成後別急著等物流：龜鹿飲要先製作5～7個工作天｜calendar_shipping完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-guilu-first-three",
@@ -663,9 +673,9 @@
       "copy": "第一次接觸龜鹿，不需要先把所有產品名稱背熟。打開LINE時，只要先告訴仙加味：你平常在家比較多、常外出，還是工作時間長？\n\n接著再說自己偏好直接飲用、溫熱飲用或家常料理，我們就能從30cc、180cc、龜鹿膏、湯塊或龜鹿膠的型態慢慢說明。先從生活開始，比先背規格更容易。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-guilu-first-three.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-guilu-first-three.webp",
-      "image_alt": "仙加味小老闆｜第一次來LINE問龜鹿，不用背產品名：先說你平常在哪裡用｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-guilu-first-three.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜第一次來LINE問龜鹿，不用背產品名：先說你平常在哪裡用｜line_new完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-guilu-forms",
@@ -684,9 +694,9 @@
       "copy": "同一個人早上趕著出門，晚上卻可能有時間煮飯。仙加味龜鹿系列不同型態，本來就可以對應不同生活場景。\n\n白天想輕巧帶著走，可以先看30cc小玻璃罐；晚上想把龜鹿放進家常料理，就再認識75g／8塊裝的龜鹿湯塊。不是一定要在兩者之間選一個，而是先看當下情境。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-guilu-forms.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-guilu-forms.webp",
-      "image_alt": "仙加味小老闆｜同一天也能換型態：白天30cc，晚餐料理則看湯塊｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-guilu-forms.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜同一天也能換型態：白天30cc，晚餐料理則看湯塊｜day_to_dinner完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-modern-tradition",
@@ -704,9 +714,9 @@
       "copy": "傳統不是只能拿來講故事。對今天第一次接觸仙加味的人來說，更實際的是先知道產品是什麼規格、怎麼保存、日常可以怎麼安排。\n\n例如龜鹿膏100g開罐後要冷藏，這種清楚的小資訊，就是把老經驗整理成今天能直接使用的方法。文化留下來，也要讓人看得懂。\n\n仙加味｜補養，是一種節奏。",
       "bg": "brand",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-modern-tradition.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-modern-tradition.webp",
-      "image_alt": "仙加味小老闆｜老方法不必只放在老故事裡：今天先從保存與規格做清楚｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-modern-tradition.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜老方法不必只放在老故事裡：今天先從保存與規格做清楚｜workshop完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-warm-food-culture",
@@ -724,9 +734,9 @@
       "copy": "說到龜鹿與溫熱飲食文化，如果只放在文字裡很容易變得抽象。週末家裡正在煮雞湯或排骨湯時，再看看仙加味龜鹿湯塊，反而更容易理解產品為什麼會和燉煮情境放在一起。\n\n文化背景可以談，但產品規格仍要分開看：龜鹿湯塊75g／盒、8塊裝。把故事和實物都說清楚，資訊才完整。\n\n仙加味｜補養，是一種節奏。",
       "bg": "recipes",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-warm-food-culture.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-warm-food-culture.webp",
-      "image_alt": "仙加味小老闆｜週末煮雞湯時，再談龜鹿的溫熱飲食文化會比較有畫面｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-warm-food-culture.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜週末煮雞湯時，再談龜鹿的溫熱飲食文化會比較有畫面｜weekend_soup完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-GUILU-why-guilu-daily",
@@ -746,9 +756,9 @@
       "copy": "星期一趕著上班、星期三在家工作、週末想煮湯，一週裡本來就會有不同節奏。仙加味龜鹿系列也不需要被想成每天只能照同一個方式使用。\n\n外出可以看30cc，居家固定位置可以認識龜鹿膏，料理時再看龜鹿湯塊。先讓產品跟著生活走，才比較知道自己真正需要的是哪種型態。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-GUILU-why-guilu-daily.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-why-guilu-daily.webp",
-      "image_alt": "仙加味小老闆｜不是每天都要同一種：仙加味龜鹿先跟著你的行程走｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-GUILU-why-guilu-daily.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜不是每天都要同一種：仙加味龜鹿先跟著你的行程走｜weekly_plan完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-brand-rhythm",
@@ -767,9 +777,9 @@
       "copy": "每天開始工作前，先把桌面擦乾淨、把仙加味產品擺回固定位置，再確認今天要回覆的LINE訊息。這些看起來很小的動作，其實就是品牌每天真正發生的日常。\n\n龜鹿膏100g、30cc小玻璃罐該是什麼樣子，就維持什麼樣子；資訊也照正式規格說清楚。仙加味想留下的，不只是好看的畫面，而是每天都一致的細節。\n\n仙加味｜補養，是一種節奏。",
       "bg": "home",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-brand-rhythm.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-brand-rhythm.webp",
-      "image_alt": "仙加味小老闆｜每天開店前的第一件事：先把仙加味產品與桌面整理好｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-brand-rhythm.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜每天開店前的第一件事：先把仙加味產品與桌面整理好｜shop_open完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-daily-cooking",
@@ -787,9 +797,9 @@
       "copy": "料理不一定要從複雜食譜開始。打開冰箱看到雞腿，今天就可以從一鍋簡單的家常湯認識仙加味龜鹿湯塊。\n\n龜鹿湯塊為75g／盒、8塊裝。先依家裡原本的料理習慣安排，再慢慢調整自己喜歡的湯量與搭配。產品回到餐桌，才是真正的生活情境。\n\n仙加味｜補養，是一種節奏。",
       "bg": "recipes",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-daily-cooking.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-daily-cooking.webp",
-      "image_alt": "仙加味小老闆｜冰箱有雞腿就不必想太複雜：今晚用龜鹿湯塊煮家常湯｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-daily-cooking.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜冰箱有雞腿就不必想太複雜：今晚用龜鹿湯塊煮家常湯｜chicken_soup完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-product-drink-180",
@@ -807,9 +817,9 @@
       "copy": "週六下午在家整理衣服、收拾房間，不用趕著出門，這時比較適合用居家角度認識仙加味龜鹿飲180cc鋁袋。\n\n想喝溫一點，可以依習慣隔水加熱；坐回餐桌後再慢慢飲用。180cc的重點不是「比較大」，而是它和30cc小玻璃罐對應的生活場景不一樣。\n\n仙加味｜補養，是一種節奏。",
       "bg": "home",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-drink-180.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-drink-180.webp",
-      "image_alt": "仙加味小老闆｜週六下午在家整理家務，180cc放在餐桌比帶出門更順手｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-drink-180.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜週六下午在家整理家務，180cc放在餐桌比帶出門更順手｜weekend_home完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-product-drink-30",
@@ -827,9 +837,9 @@
       "copy": "早上八點要出門，錢包、鑰匙、水瓶都已經準備好。如果今天想帶仙加味龜鹿飲30cc，可以放進包包固定側袋，不用特別準備大容器。\n\n正式30cc就是小玻璃裸罐、無貼紙。白天找到合適的工作空檔再安排飲用，讓產品跟著行程，而不是讓行程遷就產品。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-drink-30.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-drink-30.webp",
-      "image_alt": "仙加味小老闆｜早上八點出門前，把30cc放進側袋就好｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-drink-30.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜早上八點出門前，把30cc放進側袋就好｜morning_bag完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-product-guilu-gao",
@@ -847,9 +857,9 @@
       "copy": "早餐吃完、杯子洗好後，順手把仙加味龜鹿膏收回去，就是最簡單的居家節奏。\n\n龜鹿膏100g開罐後要冷藏；每次取用後蓋好罐蓋，再放回固定位置。比起一直記一大堆規則，把保存動作接在本來就會做的早餐整理後面，反而更自然。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-guilu-gao.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-guilu-gao.webp",
-      "image_alt": "仙加味小老闆｜早餐後整理廚房時，順手把龜鹿膏放回冰箱｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-guilu-gao.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜早餐後整理廚房時，順手把龜鹿膏放回冰箱｜breakfast_cleanup完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-product-guilu-jiao",
@@ -867,9 +877,9 @@
       "copy": "星期日下午比較有時間，適合把平常容易混在一起的規格慢慢看清楚。仙加味龜鹿膠是600g（1斤）／盒、32塊裝，每塊約18.75g。\n\n這和75g／8塊裝的龜鹿湯塊不是同一個產品。先看清楚盒裝、塊數與份量，再想家裡會怎麼料理，資訊就不容易混亂。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-guilu-jiao.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-guilu-jiao.webp",
-      "image_alt": "仙加味小老闆｜星期日下午有時間，先把龜鹿膠32塊的盒裝看清楚｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-product-guilu-jiao.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜星期日下午有時間，先把龜鹿膠32塊的盒裝看清楚｜sunday_table完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-six-products-overview",
@@ -889,9 +899,9 @@
       "copy": "看到仙加味有多種產品時，不需要把「全系列」理解成一次都要買。拿一張這週行程表或購物清單，先圈出自己真正會出現的情境就好。\n\n外出多，可以先看30cc；在家時間多，可以比較180cc或龜鹿膏；這週有打算煮湯，再另外認識龜鹿湯塊或龜鹿膠。先縮小情境，選擇會簡單很多。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-six-products-overview.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-six-products-overview.webp",
-      "image_alt": "仙加味小老闆｜整理購物清單時，不用一次買齊：先圈出這週真正會用的仙加味型態｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-six-products-overview.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜整理購物清單時，不用一次買齊：先圈出這週真正會用的仙加味型態｜shopping_list完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-trial-first",
@@ -909,9 +919,9 @@
       "copy": "試喝主文已經介紹過申請方式，這篇談的是「收到之後」。如果選7-11店到店，取件時先確認外包裝完整，回家後再看看3罐30cc小玻璃罐是否都妥善。\n\n接著依正式產品說明保存，想喝時再按照自己的白天作息安排。從收件開始把流程做清楚，試喝體驗會更完整。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-trial-first.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-trial-first.webp",
-      "image_alt": "仙加味小老闆｜試喝寄到超商後，先確認3罐外觀再帶回家｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-trial-first.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜試喝寄到超商後，先確認3罐外觀再帶回家｜pickup完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-01-usage-personal-routine",
@@ -930,9 +940,9 @@
       "copy": "如果每天早出晚歸，硬套別人的使用時間表通常很難持續。先想想自己一天裡真正有空的時段：是通勤後、下午工作空檔，還是回家整理完事情之後？\n\n仙加味30cc適合從外出情境理解，龜鹿膏則可放在居家固定位置。先讓型態配合作息，不用讓生活配合一張僵硬的表格。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-usage-personal-routine.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-usage-personal-routine.webp",
-      "image_alt": "仙加味小老闆｜你習慣早出晚歸？先把仙加味放進「真的有空」的時段｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-01-usage-personal-routine.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜你習慣早出晚歸？先把仙加味放進「真的有空」的時段｜routine完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-choose-by-routine-first",
@@ -951,9 +961,9 @@
       "copy": "星期天排下週行程時，可以順便看看：哪幾天要整天在外面、哪幾天比較早回家。這些資訊比先問「哪一個產品最好」更有用。\n\n外出日多，可以先看仙加味30cc；居家時間多，再認識龜鹿膏100g。用行程表把生活場景分出來，產品差異自然會清楚。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-choose-by-routine-first.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-choose-by-routine-first.webp",
-      "image_alt": "仙加味小老闆｜先看一週行程表，再決定仙加味要放家裡還是包包裡｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-choose-by-routine-first.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜先看一週行程表，再決定仙加味要放家裡還是包包裡｜calendar完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-drink-180-home",
@@ -971,9 +981,9 @@
       "copy": "傍晚開始備料時，如果今天想安排仙加味龜鹿飲180cc，可以先把它放到餐桌附近，等晚餐事情告一段落後再慢慢處理。\n\n喜歡溫熱飲用的人，可依習慣隔水加熱。把產品放進本來就有的晚餐動線，不必另外製造一個麻煩的流程。\n\n仙加味｜補養，是一種節奏。",
       "bg": "recipes",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-180-home.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-180-home.webp",
-      "image_alt": "仙加味小老闆｜晚餐備料開始前，把180cc先放到今天要用的餐桌區｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-180-home.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜晚餐備料開始前，把180cc先放到今天要用的餐桌區｜meal_prep完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-drink-30-outside",
@@ -991,9 +1001,9 @@
       "copy": "一天要跑幾個地方時，包包常常塞滿鑰匙、充電線和資料。仙加味龜鹿飲30cc是小玻璃罐，外出時可以另外放進小袋或有緩衝的位置，避免和硬物直接碰撞。\n\n等回到公司或找到能坐下來的地方，再依自己的習慣飲用。方便，不代表隨便丟進包裡就好。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-30-outside.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-30-outside.webp",
-      "image_alt": "仙加味小老闆｜跑兩個客戶再回公司？30cc放小袋，別跟鑰匙硬碰硬｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-30-outside.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜跑兩個客戶再回公司？30cc放小袋，別跟鑰匙硬碰硬｜business_trip完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-drink-30-vs-180",
@@ -1012,9 +1022,9 @@
       "copy": "30cc和180cc如果只看數字，很容易過幾天又忘記。換一個方法：想像它們平常會放在哪裡。\n\n仙加味30cc是小玻璃裸罐，放包包或工作桌比較直覺；180cc是鋁袋，在家中餐桌或飲品區安排比較容易。用生活位置來記兩種型態，反而比背規格更清楚。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-30-vs-180.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-30-vs-180.webp",
-      "image_alt": "仙加味小老闆｜一個放包包、一個放家裡：用位置記住30cc與180cc差別｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-30-vs-180.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜一個放包包、一個放家裡：用位置記住30cc與180cc差別｜two_places完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-drink-made-to-order",
@@ -1033,9 +1043,9 @@
       "copy": "如果週末有聚會，想把仙加味龜鹿飲帶給家人或朋友，別等到週五才開始問。龜鹿飲為接單後製作，約5～7個工作天出貨。\n\n有明確日期時，星期一就先透過LINE確認比較實際。交期要先算進行程，這條規則只適用龜鹿飲，不要套到其他產品。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-made-to-order.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-made-to-order.webp",
-      "image_alt": "仙加味小老闆｜週末要送人龜鹿飲？星期一就先問交期，不要到週五才急｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-drink-made-to-order.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜週末要送人龜鹿飲？星期一就先問交期，不要到週五才急｜gift_plan完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-faq-flexible-time",
@@ -1053,9 +1063,9 @@
       "copy": "有些工作日從早上會議一路排到下午，如果為了產品硬訂一個精確分鐘數，反而容易變成壓力。\n\n仙加味龜鹿飲30cc可以放在白天真正有空的時段：會議結束、午餐後回到座位，或下午工作告一段落。生活節奏先行，產品才有機會變成順手的安排。\n\n仙加味｜補養，是一種節奏。",
       "bg": "guide",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-faq-flexible-time.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-faq-flexible-time.webp",
-      "image_alt": "仙加味小老闆｜今天會議排滿？龜鹿飲不用硬卡某個分鐘數｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-faq-flexible-time.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜今天會議排滿？龜鹿飲不用硬卡某個分鐘數｜meeting_day完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-jiao-family-cooking",
@@ -1073,9 +1083,9 @@
       "copy": "週日全家一起吃飯，料理通常會先看今天有幾個人、用多大的鍋、冰箱有哪些食材。仙加味龜鹿膠也適合放進這樣的思考順序。\n\n先決定家庭料理的份量，再從600g／32塊裝的龜鹿膠取用與保存去安排。不是產品決定整桌菜，而是產品配合家裡原本的料理方式。\n\n仙加味｜補養，是一種節奏。",
       "bg": "recipes",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-jiao-family-cooking.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-jiao-family-cooking.webp",
-      "image_alt": "仙加味小老闆｜週日一家人煮湯：先決定鍋子與人數，再拿龜鹿膠｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-jiao-family-cooking.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜週日一家人煮湯：先決定鍋子與人數，再拿龜鹿膠｜family_soup完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-luerong-daily-drink",
@@ -1093,9 +1103,9 @@
       "copy": "下午茶時間不一定只有咖啡或甜點。想認識仙加味鹿茸粉時，可以先從一杯溫水和一個安靜的桌面開始，把75g罐裝、產品標示與自己的習慣看清楚。\n\n不用一次把所有資訊塞進腦袋；今天先看規格，下一次再看保存或使用方式。有疑問再到LINE問，慢慢理解反而比較完整。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-luerong-daily-drink.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-luerong-daily-drink.webp",
-      "image_alt": "仙加味小老闆｜下午茶不是只有咖啡：想認識鹿茸粉就先準備一杯溫水｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-luerong-daily-drink.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜下午茶不是只有咖啡：想認識鹿茸粉就先準備一杯溫水｜tea_break完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-tangkuai-thermos-soup",
@@ -1113,9 +1123,9 @@
       "copy": "有帶便當或保溫罐習慣的人，可以把仙加味龜鹿湯塊放在「早上在家完成料理」的情境裡理解。\n\n先在廚房依家裡的湯量與食材完成燉煮，再把熱湯裝進保溫罐帶出門。龜鹿湯塊是75g／盒、8塊裝；產品處理在家完成，外出只帶做好的餐食會比較清楚。\n\n仙加味｜補養，是一種節奏。",
       "bg": "recipes",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-tangkuai-thermos-soup.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-tangkuai-thermos-soup.webp",
-      "image_alt": "仙加味小老闆｜早上燉好湯帶午餐？龜鹿湯塊先在家完成料理再裝保溫罐｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-tangkuai-thermos-soup.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜早上燉好湯帶午餐？龜鹿湯塊先在家完成料理再裝保溫罐｜thermos完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-02-tangkuai-vs-jiao",
@@ -1134,9 +1144,9 @@
       "copy": "仙加味龜鹿湯塊和龜鹿膠都屬塊狀型態，但把兩盒放在桌上，規格差異就很清楚。\n\n龜鹿湯塊75g／盒、8塊裝，每塊約9.375g；龜鹿膠600g／盒、32塊裝，每塊約18.75g。先把盒裝與塊數分清楚，再談家裡會怎麼料理，最不容易混淆。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-tangkuai-vs-jiao.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-tangkuai-vs-jiao.webp",
-      "image_alt": "仙加味小老闆｜同樣是塊狀，放桌上一比就懂：75g湯塊和600g龜鹿膠不是同一盒｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-02-tangkuai-vs-jiao.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜同樣是塊狀，放桌上一比就懂：75g湯塊和600g龜鹿膠不是同一盒｜compare_table完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-ask-line-before-order",
@@ -1156,9 +1166,9 @@
       "copy": "下單前如果不知道怎麼選，不用只丟一句「哪個比較好」。打開仙加味LINE時，可以先告訴我們：一週有幾天在外面、幾天在家，平常偏好直接飲用、溫熱飲用還是料理。\n\n有了這些生活資訊，再比較30cc、180cc、龜鹿膏或其他型態，會比單看產品名稱更實際。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-ask-line-before-order.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-ask-line-before-order.webp",
-      "image_alt": "仙加味小老闆｜下單前先拍下你的行程：LINE告訴我們在家多還是外出多｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-ask-line-before-order.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜下單前先拍下你的行程：LINE告訴我們在家多還是外出多｜line_order完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-craft-time-and-heat",
@@ -1176,9 +1186,9 @@
       "copy": "談傳統熬製，如果只寫「時間與火候」很容易變成一句漂亮話。真正的工序包含前處理、加熱、觀察、等待與反覆確認，每一步都需要人在現場。\n\n仙加味把家族熟悉的熬製經驗整理成今天容易理解的內容，同時仍把產品規格與一般使用方式分開說清楚。傳承要看得到細節，才不只是口號。\n\n仙加味｜補養，是一種節奏。",
       "bg": "brand",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-craft-time-and-heat.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-craft-time-and-heat.webp",
-      "image_alt": "仙加味小老闆｜熬製工序不是海報上的四個字：看火候時人真的要守在現場｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-craft-time-and-heat.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜熬製工序不是海報上的四個字：看火候時人真的要守在現場｜workshop完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-four-generation-work",
@@ -1196,9 +1206,9 @@
       "copy": "品牌故事主文已經講過仙加味從萬華開始，這篇不重複那段歷史。換一個角度：整理老工具、舊記錄和原料工作痕跡時，更容易看出四代之間留下來的是什麼。\n\n從看料、熬製到今天把產品規格與使用資訊整理清楚，真正延續的是一套做事方法。仙加味希望這些細節能被看見，而不是只剩一句「四代傳承」。\n\n仙加味｜補養，是一種節奏。",
       "bg": "brand",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-four-generation-work.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-four-generation-work.webp",
-      "image_alt": "仙加味小老闆｜整理老工具時，才看得見四代之間真正留下來的工作習慣｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-four-generation-work.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜整理老工具時，才看得見四代之間真正留下來的工作習慣｜workshop_tools完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-gao-half-spoon-start",
@@ -1216,9 +1226,9 @@
       "copy": "第一次打開仙加味龜鹿膏，可以先把流程做簡單：準備乾淨小匙，從半匙開始，選一個自己好記的早上或下午時段。\n\n取用後把罐蓋蓋好，開罐後冷藏。第一次可以先從較少份量開始，覺得當天不適合時就先暫停，之後再依自己的生活狀況安排。先認識自己的反應，比一次照抄別人的份量更實際。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-gao-half-spoon-start.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-gao-half-spoon-start.webp",
-      "image_alt": "仙加味小老闆｜第一次開龜鹿膏，先用乾淨小匙從半匙開始｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-gao-half-spoon-start.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜第一次開龜鹿膏，先用乾淨小匙從半匙開始｜first_open完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-ingredient-info-clear",
@@ -1237,9 +1247,9 @@
       "copy": "把產品買回家後，可以直接用手機把成分、內容量和保存標示拍下來，之後想確認時不用再憑印象找答案。\n\n仙加味龜鹿膏、龜鹿飲等不同產品的成分與規格應該分開看，不要因為同屬龜鹿系列就全部混在一起。有看不懂的欄位，直接LINE問會比猜測更好。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-ingredient-info-clear.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-ingredient-info-clear.webp",
-      "image_alt": "仙加味小老闆｜買回家先把成分拍下來：仙加味希望你真的看得懂產品標示｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-ingredient-info-clear.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜買回家先把成分拍下來：仙加味希望你真的看得懂產品標示｜label_photo完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-thirty-cc-package-detail",
@@ -1257,9 +1267,9 @@
       "copy": "照片如果沒有比例參考，很容易把30cc想成一般大瓶飲品。仙加味龜鹿飲30cc的正式型態就是小玻璃罐、裸罐、無貼紙。\n\n把它放在手掌旁、包包側袋或工作桌上看，才比較接近實際尺寸。之後所有產品圖也應該維持這個比例，不因排版方便就把小罐畫成大瓶。\n\n仙加味｜補養，是一種節奏。",
       "bg": "choose",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-thirty-cc-package-detail.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-thirty-cc-package-detail.webp",
-      "image_alt": "仙加味小老闆｜30cc真正的大小，用手掌旁邊看最清楚｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-thirty-cc-package-detail.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜30cc真正的大小，用手掌旁邊看最清楚｜hand_scale完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-trial-first-then-decide",
@@ -1277,9 +1287,9 @@
       "copy": "試喝主文已經發過，這篇不再重複申請資訊。收到仙加味30cc試喝組後，可以用手機備忘錄簡單記下：今天是在早上、下午還是工作空檔喝？常溫或溫熱哪一種比較順手？\n\n等之後想再詢問30cc或180cc時，把自己的實際生活情境說出來，比只說「我喝過了」更容易討論下一步。\n\n仙加味｜補養，是一種節奏。",
       "bg": "guide",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-trial-first-then-decide.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-trial-first-then-decide.webp",
-      "image_alt": "仙加味小老闆｜試喝收到後，先記下你在哪個時段喝最順手｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-trial-first-then-decide.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜試喝收到後，先記下你在哪個時段喝最順手｜trial_note完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-wanhua-visit-brand",
@@ -1298,9 +1308,9 @@
       "copy": "「從萬華開始」的品牌故事已經發過，這篇不再重講歷史。換成真正會發生的情境：如果你到萬華散步、吃東西或辦事，想順路看看仙加味，可以先LINE詢問今天是否方便。\n\n提前說想看龜鹿膏、30cc或只是想問產品，到了附近再安排比較不容易撲空。\n\n仙加味｜補養，是一種節奏。",
       "bg": "contact",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-wanhua-visit-brand.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-wanhua-visit-brand.webp",
-      "image_alt": "仙加味小老闆｜到萬華散步想順路了解仙加味？先LINE問，不用特地撲空｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-wanhua-visit-brand.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜到萬華散步想順路了解仙加味？先LINE問，不用特地撲空｜wanhua_walk完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-warm-not-iced",
@@ -1319,9 +1329,9 @@
       "copy": "如果你本來就不喜歡冰飲，仙加味龜鹿飲也不需要被處理成很燙。從保存位置取出後，可以依自己的習慣安排常溫或溫熱飲用，重點是入口舒服、流程安全。\n\n30cc小玻璃罐與180cc鋁袋型態不同，但「不要為了追求溫度把產品亂加熱」這件事是一樣的。需要溫熱時，依適合的方式處理。\n\n仙加味｜補養，是一種節奏。",
       "bg": "guide",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-warm-not-iced.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-warm-not-iced.webp",
-      "image_alt": "仙加味小老闆｜從冰箱拿出來不想直接喝冰的？先讓龜鹿飲回到你舒服的溫度｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-warm-not-iced.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜從冰箱拿出來不想直接喝冰的？先讓龜鹿飲回到你舒服的溫度｜temperature完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     },
     {
       "id": "XJW-SOCIAL-20260815-03-why-exact-specs",
@@ -1342,9 +1352,9 @@
       "copy": "整理訂單時，如果只寫「龜鹿飲一個」「龜鹿膠一盒」，最容易發生規格混淆。仙加味把30cc、180cc、75g與600g分開寫清楚，就是為了讓產品在下單、收貨與使用時都能被正確辨識。\n\n30cc是小玻璃罐、180cc是鋁袋；75g／8塊是龜鹿湯塊；600g／32塊是龜鹿膠。規格清楚不是形式，是實際作業與顧客閱讀都需要。\n\n仙加味｜補養，是一種節奏。",
       "bg": "faq",
       "image_path": "images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-why-exact-specs.webp",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-why-exact-specs.webp",
-      "image_alt": "仙加味小老闆｜整理訂單時最怕寫錯：30cc、180cc、75g、600g一定分開｜明確生活情境＋正式產品實物",
-      "image_source": "2026-08-17剩餘66篇正式重製｜網站同款Q版小老闆｜明確生活場景｜產品使用仙加味正式實物圖等比例呈現｜非AI重畫產品｜人工待審核"
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/posts/remainder66-v20260817/XJW-SOCIAL-20260815-03-why-exact-specs.webp?v=20260817-scene2",
+      "image_alt": "仙加味網站同款Q版小老闆｜整理訂單時最怕寫錯：30cc、180cc、75g、600g一定分開｜order_check完整生活場景｜正式產品實物等比例呈現",
+      "image_source": "2026-08-17完整生活場景重製v2｜網站同款Q版小老闆｜辦公／居家／料理／保存／雨天／外出／諮詢等明確場景｜正式產品實物來源｜產品不AI重畫｜人工待審核"
     }
   ]
 }
