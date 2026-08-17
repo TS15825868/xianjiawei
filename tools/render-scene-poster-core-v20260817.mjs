@@ -5,12 +5,12 @@ import sharp from 'sharp';
 const W=1080,H=1350;
 
 const FORMAL_PRODUCT={
-  gao:'images/products-v3/guilu-gao.jpg',
-  drink30:'images/products-v3/guilu-drink-30.jpg',
-  drink180:'images/products-v3/guilu-drink-180.jpg',
-  luerong:'images/products-v3/luerong-fen.jpg',
-  tangkuai:'images/products-v3/guilu-tangkuai.jpg',
-  jiao:'images/products-v3/guilu-jiao.jpg',
+  gao:'images/brand/approved-v405/product-guilu-gao-100g.webp',
+  drink30:'images/brand/approved-v405/product-guilu-drink-30cc.webp',
+  drink180:'images/brand/approved-v405/product-guilu-drink-180cc.webp',
+  luerong:'images/brand/approved-v405/product-luerong-fen-75g.webp',
+  tangkuai:'images/brand/approved-v405/product-guilu-tangkuai-75g.webp',
+  jiao:'images/brand/approved-v405/product-guilu-jiao-600g.webp',
 };
 const PRODUCT_BOX={
   gao:[175,220],
@@ -118,5 +118,5 @@ export function cacheBusted(url){
 }
 
 export function sceneSourceLabel(){
-  return '2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜正式products-v3產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核';
+  return '2026-08-17完整生活場景重製v3｜無內嵌文字｜網站同款Q版小老闆｜approved-v405正式產品原圖｜30cc與180cc依正式比例縮小｜產品不AI重畫｜人工待審核';
 }
