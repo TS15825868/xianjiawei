@@ -1,0 +1,1 @@
+Direct binary upload in progress 2026-08-18. Do not use legacy post-image fallbacks.
