@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'assets/staging/official13-package.zip'
       - 'assets/staging/official13-b64/INSTALL.trigger'
   workflow_dispatch:
 
@@ -25,14 +26,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Restore ZIP from staged base64 chunks
+      - name: Restore official image ZIP
         shell: bash
         run: |
           set -euo pipefail
-          test -d assets/staging/official13-b64
-          count="$(find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' | wc -l)"
-          test "$count" -ge 1
-          find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' -print | sort | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
+          if [ -f assets/staging/official13-package.zip ]; then
+            cp assets/staging/official13-package.zip /tmp/official13.zip
+          else
+            test -d assets/staging/official13-b64
+            count="$(find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' | wc -l)"
+            test "$count" -ge 1
+            find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' -print | sort | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
+          fi
           unzip -t /tmp/official13.zip
           rm -rf /tmp/official13
           mkdir -p /tmp/official13
@@ -89,6 +94,7 @@ jobs:
           git rm -r --ignore-unmatch images/posts/generated-v20260808-priority1
           git rm -r --ignore-unmatch images/posts/generated
           git add "$target"
+          git rm -f --ignore-unmatch assets/staging/official13-package.zip
           git rm -r --ignore-unmatch assets/staging/official13-b64
       - name: Commit official images
         shell: bash
