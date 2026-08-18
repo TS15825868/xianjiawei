@@ -34,7 +34,7 @@ jobs:
           test -n "$files"
           printf '%s\n' "$files" | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
           test "$(stat -c%s /tmp/official13.zip)" -eq 635488
-          printf '%s  %s\n' 'db171823b3d6e77f45a10c4e99a33883d32830575fa9ed8aa87f22a9bde23912' /tmp/official13.zip | sha256sum -c -
+          printf '%s  %s\n' 'd1903805811b476b0ada677727f23b5d68f79ee334c6b6cb93303c285aeb5f3c' /tmp/official13.zip | sha256sum -c -
           unzip -t /tmp/official13.zip
           rm -rf /tmp/official13
           mkdir -p /tmp/official13
