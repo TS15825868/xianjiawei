@@ -1,0 +1,129 @@
+name: 安裝使用者確認最新10張正式貼文圖 v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/data/install-owner-approved10-v2-v20260818.trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xianjiawei-install-owner-approved10-v2
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Download exact latest approved images from Drive
+        shell: bash
+        run: |
+          set -euo pipefail
+          out='images/posts/owner-approved-v20260818'
+          rm -rf "$out"
+          mkdir -p "$out"
+
+          download_one(){
+            local id="$1" file="$2" expected="$3"
+            local tmp="$out/$file.tmp"
+            local final="$out/$file"
+            rm -f "$tmp" "$final"
+
+            for url in \
+              "https://drive.google.com/uc?export=download&id=${id}" \
+              "https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t"; do
+              if curl -L --fail --retry 6 --retry-all-errors --retry-delay 2 --connect-timeout 20 --max-time 120 -A 'Mozilla/5.0' -sS "$url" -o "$tmp"; then
+                if python3 - "$tmp" <<'PY'
+          import hashlib, struct, sys
+          p=sys.argv[1]
+          b=open(p,'rb').read()
+          if not b.startswith(b'\x89PNG\r\n\x1a\n'):
+              raise SystemExit(1)
+          if len(b)<24:
+              raise SystemExit(1)
+          w,h=struct.unpack('>II',b[16:24])
+          if (w,h)!=(1122,1402):
+              raise SystemExit(1)
+          print(hashlib.sha256(b).hexdigest(), w, h, len(b))
+          PY
+                then
+                  break
+                fi
+              fi
+              rm -f "$tmp"
+            done
+
+            test -s "$tmp" || { echo "download failed: $file" >&2; exit 1; }
+            actual=$(sha256sum "$tmp" | awk '{print $1}')
+            test "$actual" = "$expected" || { echo "SHA mismatch $file expected=$expected actual=$actual" >&2; exit 1; }
+            mv "$tmp" "$final"
+            echo "PASS $file $actual"
+          }
+
+          download_one '1LyVWdVSx_Wdz3K4jeJg1Hw6iIPAQAwsS' '01-work-30cc.png' 'c4fd977b9c68ac21b1d4e71d8c838ba1588ff814ee42d715c288e1b851b460a8'
+          download_one '1sWw8wE15PRUNphCGNCy81LVzFmCa9nMq' '02-home-180cc.png' '1e52e430f6bb0814d631c669040f300ba09a6fa4beec12917d60e9aab3f4666a'
+          download_one '1x2Dm7UTwrhq5cN3bdIBineGwTxYOCAzT' '03-gao-storage.png' '9eb03aaefd1757976fe90cf6791cd94bdcc21b6149901e9527fc4b3ad0231739'
+          download_one '1x2apdDckJt8kxNqEYu2P1G8QhIJzWEXU' '04-tangkuai-soup.png' '88d5ea65f901d0562186b66f06007820a2b27e55cdcca96438b9e3b11e927393'
+          download_one '1nhPvhws3fSYAEJA7v5k5d9N1FxKiNauK' '05-jiao-600g.png' '1e649ba9e080e0435a60c38b94cba6816feacecf1616d7d33cb9b63d0c8ed545'
+          download_one '10uR6pMKuyPeQFYCZiZ4cVCLNrBYY-06V' '06-lurong-75g.png' '32825abe0fefdd517a9a8a5b325d7db29ac3e687d7c935262413113820a9bb39'
+          download_one '1oG9AU8OPh5iEBb10VAA7LHK9bO-CBK68' '07-line-consult.png' 'e130aae0bb171524f600e93172bea820202ba3c0976b770bade109a5f277b642'
+          download_one '1jHR6QARPJK04mmgmsb4WScG4v4qQETTH' '08-home-out.png' 'dde4dd12266b75f0ef25a53bfb76734be9536ab6989b57ca2e86f92e2c2bfacc'
+          download_one '1Gkd3fHLu5ND-UQuN_U3DNVtZr3XR_L8u' '09-organize-cabinet.png' '3bd2b92cb80896b5037f87ae360fe47230deb83b5dfe8c842b370b6c012f83a8'
+          download_one '18VPU7NGnQB5sWdP-ZD4GkzViNLY8VNMn' '10-office-warm-drink.png' 'ff9ca341aa7e2ea9b25d452ef5c0b26e4fe49871b66ef0a95e025f2f6f9e480e'
+
+          test "$(find "$out" -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 10
+          test "$(sha256sum "$out"/*.png | awk '{print $1}' | sort -u | wc -l)" -eq 10
+
+      - name: Write authoritative manifest
+        shell: bash
+        run: |
+          cat > images/posts/owner-approved-v20260818/manifest.json <<'JSON'
+          {
+            "version": "2026-08-18-owner-approved10-v2",
+            "count": 10,
+            "source": "使用者確認最新10張正式圖｜Google Drive 原始檔｜2026-08-18重新取回並驗證",
+            "posts": [
+              {"id":"XJW-GUILU-drink30-work-break","title":"上班帶一罐，30cc不用把行程打亂","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/01-work-30cc.png?v=20260818-owner-v2","image_alt":"仙加味小老闆上班工作空檔與30cc小玻璃罐情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"},
+              {"id":"XJW-GUILU-drink180-home","title":"回到家，把180cc安排進自己的節奏","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/02-home-180cc.png?v=20260818-owner-v2","image_alt":"仙加味小老闆居家180cc鋁袋日常情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"},
+              {"id":"XJW-GUILU-gao-storage","title":"龜鹿膏開罐後，順手放進冰箱","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/03-gao-storage.png?v=20260818-owner-v2","image_alt":"仙加味小老闆龜鹿膏開罐後冷藏保存情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"},
+              {"id":"XJW-GUILU-tangkuai-soup","title":"今晚燉湯，把龜鹿湯塊安排進家常餐桌","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/04-tangkuai-soup.png?v=20260818-owner-v2","image_alt":"仙加味小老闆家常燉湯與龜鹿湯塊情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"},
+              {"id":"XJW-GUILU-jiao-600g","title":"週末有時間，再慢慢認識龜鹿膠這種型態","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/05-jiao-600g.png?v=20260818-owner-v2","image_alt":"仙加味小老闆週末認識600g龜鹿膠情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"},
+              {"id":"XJW-GUILU-luerong-75g","title":"下午想簡單一點，可以先認識鹿茸粉","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/06-lurong-75g.png?v=20260818-owner-v2","image_alt":"仙加味小老闆下午認識75g鹿茸粉情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"},
+              {"id":"XJW-SOCIAL-20260815-02-line-consult-and-trial","title":"不知道怎麼選，先把你的日常告訴我們","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/07-line-consult.png?v=20260818-owner-v2","image_alt":"仙加味小老闆LINE諮詢生活情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"},
+              {"id":"XJW-GUILU-choose-by-place","title":"今天在家，明天外出，產品型態不一定要選同一種","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/08-home-out.png?v=20260818-owner-v2","image_alt":"仙加味小老闆在家與外出不同生活情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"},
+              {"id":"XJW-SOCIAL-20260815-03-storage-basics","title":"星期天整理櫃子，也順便看看龜鹿還剩多少","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/09-organize-cabinet.png?v=20260818-owner-v2","image_alt":"仙加味小老闆星期天整理櫃子與龜鹿產品情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"},
+              {"id":"XJW-SOCIAL-20260815-01-warm-drink-moment","title":"辦公桌上的一杯日常安排，也可以有不同選擇","image_url":"https://ts15825868.github.io/xianjiawei/images/posts/owner-approved-v20260818/10-office-warm-drink.png?v=20260818-owner-v2","image_alt":"仙加味小老闆辦公桌30cc與180cc日常情境","image_source":"使用者確認最新正式圖｜完整單張｜圖文一對一"}
+            ]
+          }
+          JSON
+          python3 - <<'PY'
+          import json
+          d=json.load(open('images/posts/owner-approved-v20260818/manifest.json',encoding='utf-8'))
+          assert d['count']==10 and len(d['posts'])==10
+          assert len({x['id'] for x in d['posts']})==10
+          assert len({x['image_url'] for x in d['posts']})==10
+          print('PASS manifest 10/10')
+          PY
+
+      - name: Commit latest approved images
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/posts/owner-approved-v20260818
+          if git diff --cached --quiet; then
+            echo 'No image changes to commit'
+            exit 0
+          fi
+          git commit -m 'feat(posts): 安裝使用者確認最新10張正式貼文圖 v2'
+          git pull --rebase origin main
+          git push origin HEAD:main
