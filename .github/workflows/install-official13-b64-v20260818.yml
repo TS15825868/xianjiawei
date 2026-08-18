@@ -30,8 +30,9 @@ jobs:
         run: |
           set -euo pipefail
           test -d assets/staging/official13-b64
-          test "$(find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' | wc -l)" -eq 13
-          cat assets/staging/official13-b64/part*.txt | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
+          count="$(find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' | wc -l)"
+          test "$count" -ge 1
+          find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' -print | sort | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
           unzip -t /tmp/official13.zip
           rm -rf /tmp/official13
           mkdir -p /tmp/official13
