@@ -1,0 +1,49 @@
+name: 最新貼文圖 Drive 下載診斷
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/data/diagnose-drive-latest10-v20260818.trigger'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Probe first approved image
+        shell: bash
+        run: |
+          set +e
+          mkdir -p /tmp/xjw
+          id='1LyVWdVSx_Wdz3K4jeJg1Hw6iIPAQAwsS'
+          : > /tmp/xjw/result.txt
+          for n in 1 2; do
+            if [ "$n" = 1 ]; then url="https://drive.google.com/uc?export=download&id=${id}"; else url="https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t"; fi
+            rm -f /tmp/xjw/body /tmp/xjw/headers
+            code=$(curl -L -sS -A 'Mozilla/5.0' --connect-timeout 20 --max-time 90 -D /tmp/xjw/headers -o /tmp/xjw/body -w '%{http_code}' "$url")
+            size=$(wc -c </tmp/xjw/body 2>/dev/null || echo 0)
+            sha=$(sha256sum /tmp/xjw/body 2>/dev/null | awk '{print $1}')
+            first=$(od -An -tx1 -N8 /tmp/xjw/body 2>/dev/null | tr -d ' \n')
+            ctype=$(grep -i '^content-type:' /tmp/xjw/headers | tail -1 | tr -d '\r' | cut -d: -f2- | xargs)
+            printf 'endpoint=%s code=%s size=%s sha=%s first8=%s content_type=%s\n' "$n" "$code" "$size" "$sha" "$first" "$ctype" >> /tmp/xjw/result.txt
+          done
+          cat /tmp/xjw/result.txt
+      - name: Commit diagnosis
+        shell: bash
+        run: |
+          mkdir -p assets/data
+          cp /tmp/xjw/result.txt assets/data/drive-latest10-diagnosis-v20260818.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/data/drive-latest10-diagnosis-v20260818.txt
+          git commit -m 'chore: 記錄最新貼文圖 Drive 下載診斷' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
