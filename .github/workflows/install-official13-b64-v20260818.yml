@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
     paths:
-      - 'assets/staging/official13-package.zip'
       - 'assets/staging/official13-b64/INSTALL.trigger'
   workflow_dispatch:
 
@@ -26,18 +25,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Restore official image ZIP
+      - name: Restore official image ZIP from verified chunks
         shell: bash
         run: |
           set -euo pipefail
-          if [ -f assets/staging/official13-package.zip ]; then
-            cp assets/staging/official13-package.zip /tmp/official13.zip
-          else
-            test -d assets/staging/official13-b64
-            count="$(find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' | wc -l)"
-            test "$count" -ge 1
-            find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' -print | sort | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
-          fi
+          test -d assets/staging/official13-b64
+          count="$(find assets/staging/official13-b64 -maxdepth 1 -type f -name 'chunk*.txt' | wc -l)"
+          test "$count" -eq 44 || { echo "expected 44 chunks, got $count" >&2; exit 1; }
+          find assets/staging/official13-b64 -maxdepth 1 -type f -name 'chunk*.txt' -print | sort | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
+          test "$(stat -c%s /tmp/official13.zip)" -eq 635488
           unzip -t /tmp/official13.zip
           rm -rf /tmp/official13
           mkdir -p /tmp/official13
