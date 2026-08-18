@@ -1,0 +1,22 @@
+name: 仙加味 Actions 可用性檢查
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/data/actions-smoke-v20260818.trigger'
+permissions:
+  contents: write
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Record pass
+        run: |
+          mkdir -p assets/data
+          echo 'PASS actions smoke 2026-08-18' > assets/data/actions-smoke-v20260818.ok
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/data/actions-smoke-v20260818.ok
+          git commit -m 'ci: Actions smoke pass'
+          git push origin HEAD:main
