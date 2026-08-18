@@ -4,8 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'assets/staging/official13-package.zip'
-      - 'assets/staging/official13-b64/INSTALL.trigger'
+      - 'assets/staging/official13-direct/**'
   workflow_dispatch:
 
 permissions:
@@ -26,24 +25,20 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Restore official image ZIP
+      - name: Restore verified official image ZIP
         shell: bash
         run: |
           set -euo pipefail
-          if [ -f assets/staging/official13-package.zip ]; then
-            cp assets/staging/official13-package.zip /tmp/official13.zip
-          else
-            test -d assets/staging/official13-b64
-            files="$(find assets/staging/official13-b64 -maxdepth 1 -type f \( -name 'chunk*.txt' -o -name 'part*.txt' \) | sort)"
-            test -n "$files"
-            printf '%s\n' "$files" | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
-          fi
+          test -d assets/staging/official13-direct
+          files="$(find assets/staging/official13-direct -maxdepth 1 -type f -name 'chunk*.txt' | sort)"
+          test -n "$files"
+          printf '%s\n' "$files" | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
           test "$(stat -c%s /tmp/official13.zip)" -eq 635488
+          printf '%s  %s\n' 'db171823b3d6e77f45a10c4e99a33883d32830575fa9ed8aa87f22a9bde23912' /tmp/official13.zip | sha256sum -c -
           unzip -t /tmp/official13.zip
           rm -rf /tmp/official13
           mkdir -p /tmp/official13
           unzip -q /tmp/official13.zip -d /tmp/official13
-          find /tmp/official13 -maxdepth 1 -type f -printf '%f\n' | sort
       - name: Validate exact 13 formal images
         shell: bash
         run: |
@@ -53,11 +48,7 @@ jobs:
           from pathlib import Path
           from PIL import Image
           root=Path('/tmp/official13')
-          names=[
-            '01-work-30cc.webp','02-home-180cc.webp','03-gao-storage.webp','04-tangkuai-soup.webp','05-jiao-600g.webp',
-            '06-lurong-75g.webp','07-line-consult.webp','08-home-out.webp','09-organize-cabinet.webp','10-office-warm-drink.webp',
-            '11-audience-needs.webp','12-trial-group-published.webp','13-brand-story-wanhua-published.webp'
-          ]
+          names=['01-work-30cc.webp','02-home-180cc.webp','03-gao-storage.webp','04-tangkuai-soup.webp','05-jiao-600g.webp','06-lurong-75g.webp','07-line-consult.webp','08-home-out.webp','09-organize-cabinet.webp','10-office-warm-drink.webp','11-audience-needs.webp','12-trial-group-published.webp','13-brand-story-wanhua-published.webp']
           found=sorted(p.name for p in root.glob('*.webp'))
           if found!=sorted(names): raise SystemExit(f'wrong files: {found}')
           for name in names:
@@ -69,7 +60,7 @@ jobs:
               im.verify()
               print('PASS',name)
           PY
-      - name: Install as single formal posting-image authority
+      - name: Install single formal posting-image authority
         shell: bash
         run: |
           set -euo pipefail
@@ -80,34 +71,24 @@ jobs:
           sha256sum "$target"/*.webp > "$target/SHA256SUMS.txt"
           cat > "$target/manifest.json" <<'JSON'
           {
-            "version": "2026-08-18-official13-final",
-            "brand": "仙加味",
-            "count": 13,
-            "status": "installed",
-            "rule": "圖文一對一；不得以FAQ、怎麼使用、舊priority、rebuild或其他fallback圖替代",
-            "review": "未發布內容換圖後一律回待審核；已發布品牌故事與試喝貼文保留已發布狀態"
+            "version":"2026-08-18-official13-final",
+            "brand":"仙加味",
+            "count":13,
+            "status":"installed",
+            "rule":"圖文一對一；不得以FAQ、怎麼使用、舊priority、rebuild或其他fallback圖替代",
+            "review":"未發布內容換圖後一律回待審核；已發布品牌故事與試喝貼文保留已發布狀態"
           }
           JSON
-          git rm -r --ignore-unmatch images/posts/priority10-v20260817
-          git rm -r --ignore-unmatch images/posts/rebuild-v20260816
-          git rm -r --ignore-unmatch images/posts/current-v20260815
-          git rm -r --ignore-unmatch images/posts/generated-v20260806
-          git rm -r --ignore-unmatch images/posts/generated-v20260808-preflight
-          git rm -r --ignore-unmatch images/posts/generated-v20260808-priority1
-          git rm -r --ignore-unmatch images/posts/generated
+          git rm -r --ignore-unmatch images/posts/priority10-v20260817 images/posts/rebuild-v20260816 images/posts/current-v20260815 images/posts/generated-v20260806 images/posts/generated-v20260808-preflight images/posts/generated-v20260808-priority1 images/posts/generated
           git add "$target"
-          git rm -f --ignore-unmatch assets/staging/official13-package.zip
-          git rm -r --ignore-unmatch assets/staging/official13-b64
+          git rm -r --ignore-unmatch assets/staging/official13-direct assets/staging/official13-b64
+          git rm -f --ignore-unmatch assets/data/official13-direct-upload-note.txt
       - name: Commit official images
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          if git diff --cached --quiet; then
-            echo 'No image changes'
-            exit 0
-          fi
           git commit -m 'fix(posts): install 13 user-confirmed formal posting images'
           git pull --rebase origin main
           git push origin HEAD:main
