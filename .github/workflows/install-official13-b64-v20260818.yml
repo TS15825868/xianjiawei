@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'assets/staging/official13-direct/**'
+      - 'assets/staging/official13-b64/**'
   workflow_dispatch:
 
 permissions:
@@ -29,8 +29,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -d assets/staging/official13-direct
-          files="$(find assets/staging/official13-direct -maxdepth 1 -type f -name 'chunk*.txt' | sort)"
+          test -d assets/staging/official13-b64
+          files="$(find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' | sort)"
           test -n "$files"
           printf '%s\n' "$files" | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
           test "$(stat -c%s /tmp/official13.zip)" -eq 635488
