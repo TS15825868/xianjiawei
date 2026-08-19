@@ -34,6 +34,13 @@ def run(args):
     print('RUN', ' '.join(map(str, args)))
     subprocess.run(args, check=True)
 
+
+def ass_time(seconds: float) -> str:
+    h = int(seconds // 3600)
+    m = int((seconds % 3600) // 60)
+    s = seconds % 60
+    return f'{h}:{m:02d}:{s:05.2f}'
+
 # 比上一版再慢一點，但不拉成停格感。
 slow_factor = 2.0
 seg_dur = 4.0
@@ -61,37 +68,49 @@ offset1 = seg_dur - xf
 offset2 = seg_dur * 2 - xf * 2
 total = seg_dur * 3 - xf * 2
 
-# 正式繁中字型與字幕文字檔。
-fontfile = WORK / 'NotoSansTC-VF.otf'
-dl(FONT_URL, fontfile)
-for i, text in enumerate(CAPTIONS, 1):
-    (WORK / f'caption{i}.txt').write_text(text, encoding='utf-8')
-
-# 字幕依閱讀節奏配置，不跟分鏡硬切；第四句穩定停留到片尾。
-CUTS = [(0.0, 2.2), (2.2, 5.25), (5.25, 8.15), (8.15, total)]
-
-final = PUBLIC / 'xianjiawei-true-animation-review.mp4'
+base = WORK / 'animation_base.mp4'
 fc = (
     f'[0:v][1:v]xfade=transition=fade:duration={xf}:offset={offset1}[v01];'
-    f'[v01][2:v]xfade=transition=fade:duration={xf}:offset={offset2}[base];'
+    f'[v01][2:v]xfade=transition=fade:duration={xf}:offset={offset2}[vout]'
 )
-prev = 'base'
-for i, (start, end) in enumerate(CUTS, 1):
-    outlabel = f'v{i}'
-    textfile = (WORK / f'caption{i}.txt').as_posix().replace(':', '\\:')
-    fontpath = fontfile.as_posix().replace(':', '\\:')
-    fc += (
-        f'[{prev}]drawtext=fontfile={fontpath}:textfile={textfile}:'
-        f'fontcolor=0xF7F4ED:fontsize=54:'
-        f'box=1:boxcolor=0x0E2134@0.82:boxborderw=26:'
-        f'x=(w-text_w)/2:y=h-text_h-150:'
-        f"enable='between(t,{start:.2f},{end:.2f})'[{outlabel}];"
-    )
-    prev = outlabel
-
 run([
     ffmpeg, '-y', '-i', str(segments[0]), '-i', str(segments[1]), '-i', str(segments[2]),
-    '-filter_complex', fc, '-map', f'[{prev}]', '-an',
+    '-filter_complex', fc, '-map', '[vout]', '-an',
+    '-c:v', 'libx264', '-crf', '18', '-preset', 'medium',
+    '-pix_fmt', 'yuv420p', str(base)
+])
+
+# 使用 libass 字幕引擎（避免 Render ffmpeg 缺少 drawtext filter）。
+fontfile = WORK / 'NotoSansTC-VF.otf'
+dl(FONT_URL, fontfile)
+CUTS = [(0.0, 2.2), (2.2, 5.25), (5.25, 8.15), (8.15, total)]
+ass = WORK / 'captions.ass'
+header = '''[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding
+Style: Caption,Noto Sans TC,54,&H00EDF4F7,&H00EDF4F7,&H001A1A1A,&H6034210E,0,0,0,0,100,100,0,0,3,1,0,2,55,55,125,1
+
+[Events]
+Format: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text
+'''
+events = ''
+for text, (start, end) in zip(CAPTIONS, CUTS):
+    safe = text.replace('{', '｛').replace('}', '｝')
+    events += f'Dialogue: 0,{ass_time(start)},{ass_time(end)},Caption,,0,0,0,,{safe}\n'
+ass.write_text(header + events, encoding='utf-8')
+
+final = PUBLIC / 'xianjiawei-true-animation-review.mp4'
+ass_path = ass.as_posix().replace(':', r'\:')
+font_dir = WORK.as_posix().replace(':', r'\:')
+vf = f'ass={ass_path}:fontsdir={font_dir}'
+run([
+    ffmpeg, '-y', '-i', str(base), '-vf', vf, '-an',
     '-c:v', 'libx264', '-crf', '18', '-preset', 'medium',
     '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(final)
 ])
