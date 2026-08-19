@@ -1,0 +1,1 @@
+2026-08-19 使用 GitHub Git Data API 直接寫入13張使用者確認正式貼文圖，避免 Actions/Drive 傳輸阻塞。圖片落點：images/posts/official-v20260818/。完成後此標記可清理。
