@@ -1,0 +1,71 @@
+name: 仙加味正式13圖事件安裝器
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  install:
+    if: github.event_name != 'issues' || github.event.issue.title == '[XJW-INSTALL] official13-20260819'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Download and verify exact formal images
+        shell: bash
+        env:
+          URL01: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/aff13dfa-3439-47f0-a173-cf65fc6f9dae.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiY2E1ZmIxZDVmMTE5NGVkMyIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzI3ODY3N30.un7BJTKYz3OZA1PswAsUvk55om685TnvNpYNsSbeRqw'
+          URL02: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/a600873c-0dec-4db6-b9f5-1df87ae972b3.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNjEwOWZkNmNmODY5MmYwNyIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzI3OTg1Mn0.mgzU8efanTrdLlwujmLg07a8qr8KO8mgaXbl617OZD4'
+          URL03: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/a4f6d4c8-403b-4d30-8a98-807b548f763e.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiYzk4YTc1YTJkMzI0MjhkYSIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzIxNDQ5OH0._FaywbbPVHVY1TgSYX2H-1v-2l8d5MRku0GP_GrXcqc'
+          URL04: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/e69a7a41-7f51-4a81-8272-06014c573dc4.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiYjljZmIzNjRiNDlhOGQ5YyIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzI2ODgzNn0.hE5kTcCqymV6WSrl9mHB813ERQRyiyelCRG2YaJk9f8'
+          URL05: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/e5a9cb8e-a328-4ef9-99c5-82622ad03e7c.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiZDIyZjEwYWRlMDFjZjNlNyIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzI0MDYyMX0.HLjjpSW5hAyYtEmkfmANXcGVOHav14q0xwv3DKgISN4'
+          URL06: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/4af72ffd-0716-48d6-aa84-999eedfa26c7.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNzQ5NWI4ODIyMGQwZWEwYyIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzIyOTk1NH0.FASxSvA38Sp98TmYRFB77X31pnAbG_LTH5krfHXeRhU'
+          URL07: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/6f546b0e-b8c6-426c-a7ee-c664c01dd10d.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNTg0MjkwMzk4Y2M4ZjNiMyIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzIxODEwNX0.QuyJk6eheguXrG43qlfFcttxsxfy0tZiRIUuNdSqQuU'
+          URL08: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/67396cc5-9d58-4a63-bdf0-4f46ba1b390c.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiYzlhZGE1NjgwY2RlOTk3MCIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzI3NDA4OH0.-k8r_3hXUUUernu7E4ChP5RsPowBR5iD3_f2v3-sP5g'
+          URL09: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/378a7792-7bc8-464e-86d6-518166ea9e90.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiYjIyYTY2ZjQ1NzFiZjY3YSIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzIxMjkxNn0.rE5QgpCqT1uwk-YKtG01YQ_FSbGX_UyFZZ1_pE8rQhs'
+          URL10: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/2f7d7297-f255-4034-8e40-c11c8414faf8.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiYTdjZGI2NWE2YTVmOTFmZSIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzIwMzAzNH0.6CYObNFVaNCmmH_nNzXOUZxtb8Zlqva0UjPnQJi8PJ0'
+          URL11: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/0174615e-8daa-4256-9151-9b129dc9dc48.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiYzA1YmIwZDI4OTFiMDQ0MSIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzIwNTcxNH0.xY238UncF0i6DiYBJL798ZG-x4VNQRpsNXB8l5bPMO8'
+          URL12: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/71abb67d-40c2-4d38-99ba-88cc959327b0.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiNjA3Y2E5MzEyOWUxOTZhZCIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzI2MjUxM30.5OiktA0qhFU70fY3j5yV1U3L8oBw6ugbn62tE6KcR4k'
+          URL13: 'https://d2jqrm6oza8nb6.cloudfront.net/datasets/b13e20ef-69df-44ad-9c7e-438da91fa4fc.webp?_jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXlIYXNoIjoiZTZmNTc0OWI3MWFmNzdlMCIsImJ1Y2tldCI6InJ1bndheS1kYXRhc2V0cyIsInN0YWdlIjoicHJvZCIsImV4cCI6MTc4NzI0OTA1MX0.UTX1KOhFvGSazNfqBZiOTKVo3LfVImDvU7WYzjCiI-U'
+        run: |
+          set -euo pipefail
+          target='images/posts/official-v20260818'
+          tmp="$(mktemp -d)"
+          names=('01-work-30cc.webp' '02-home-180cc.webp' '03-gao-storage.webp' '04-tangkuai-soup.webp' '05-jiao-600g.webp' '06-lurong-75g.webp' '07-line-consult.webp' '08-home-out.webp' '09-organize-cabinet.webp' '10-office-warm-drink.webp' '11-audience-needs.webp' '12-trial-group-published.webp' '13-brand-story-wanhua-published.webp')
+          hashes=('2126f7218e28840d691d3e7e9277e2e4b3877d7394d3fa1cc9454fce475fdb4d' 'f346affa8e5387ba9323bb1cfaccacab739b06d5f45fdaa0f9c469d966a8b401' 'd9072baa0d40dce6ab1dac9c750fac0badeee188c7f24558cedd97aff6c6c41f' 'f9ad9d7b153ad8da3761b17e7bbacda268361f67986b88a7ca823224150e99a7' '4c2566ffcbdb0af564ebe8c6182ccc3c7d9e51b09c31f7238591052f5835a0bf' '0d0cbdf260af3f9d067205eba476d833d016ad85b16feb27e2bcf1f8c8c494de' 'dc2ab1d8516eb1e133853ad40a8f8128ae6c154c31dba76b7e61d7266ada55e9' '17a75dff9fa92cbe164bb9e729ab6bcf49a8c5011c43b83f9f809d835856d38b' '4f93a8d1c948184b28dad6115708000e47968442eaf5be6f01b2c6ac23912132' '5d35292b7c18c5b1bfae7aebfb2b48b869aea948e4bbde2cba1329fab187ad2f' '30719042a9291b34eb34711dbbc022d7e8ea58a940d553aafc7e40896b6da70d' '47793954b2883aab287edefc1b059c033d1bb9be605df114ff16f0d90cbfe40f' 'dad70a2120e5630e733c341993ef477c28bc5e06eef203a5c780bda72780f9cd')
+          sizes=(49620 53070 47502 50334 48654 46950 52640 50190 49092 49882 50280 57232 27672)
+          for n in $(seq 1 13); do
+            key=$(printf 'URL%02d' "$n")
+            idx=$((n-1))
+            out="$tmp/${names[$idx]}"
+            curl -LfsS --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 120 "${!key}" -o "$out"
+            test "$(stat -c%s "$out")" -eq "${sizes[$idx]}"
+            echo "${hashes[$idx]}  $out" | sha256sum -c -
+          done
+          rm -rf "$target"
+          mkdir -p "$target"
+          cp "$tmp"/*.webp "$target"/
+          (cd "$target" && sha256sum *.webp > SHA256SUMS.txt)
+          cat > "$target/manifest.json" <<'JSON'
+          {"version":"2026-08-19-official13-installed","brand":"仙加味","count":13,"status":"installed","fallback_policy":"forbidden","review":"未發布11篇回待審核；已發布試喝與仙加味從萬華開始維持已發布"}
+          JSON
+          git add "$target"
+          git rm -r --ignore-unmatch images/posts/priority10-v20260817 images/posts/rebuild-v20260816 images/posts/current-v20260815 images/posts/generated-v20260806 images/posts/generated-v20260808-preflight images/posts/generated-v20260808-priority1 images/posts/generated
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'fix(posts): install 13 exact owner-confirmed posting images'
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Close trigger issue
+        if: github.event_name == 'issues' && success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --reason completed
