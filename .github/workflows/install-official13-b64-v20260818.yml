@@ -29,12 +29,44 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test -d assets/staging/official13-b64
-          files="$(find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' | sort)"
-          test -n "$files"
-          printf '%s\n' "$files" | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
-          test "$(stat -c%s /tmp/official13.zip)" -eq 635488
-          printf '%s  %s\n' 'd1903805811b476b0ada677727f23b5d68f79ee334c6b6cb93303c285aeb5f3c' /tmp/official13.zip | sha256sum -c -
+          EXPECTED_SIZE='635488'
+          EXPECTED_SHA='d1903805811b476b0ada677727f23b5d68f79ee334c6b6cb93303c285aeb5f3c'
+          DRIVE_ID='1q1i3kp6UVlOWQRQ2byyqDLpiG6zD_knB'
+          rm -f /tmp/official13.zip /tmp/official13-download
+
+          verify_zip() {
+            local f="$1"
+            test -f "$f" || return 1
+            test "$(stat -c%s "$f")" -eq "$EXPECTED_SIZE" || return 1
+            test "$(sha256sum "$f" | awk '{print $1}')" = "$EXPECTED_SHA" || return 1
+          }
+
+          downloaded=0
+          for url in \
+            "https://drive.usercontent.google.com/download?id=${DRIVE_ID}&export=download&confirm=t" \
+            "https://drive.google.com/uc?export=download&id=${DRIVE_ID}&confirm=t"
+          do
+            rm -f /tmp/official13-download
+            if curl -LfsS --retry 3 --retry-delay 2 --connect-timeout 15 --max-time 120 -A 'Mozilla/5.0' "$url" -o /tmp/official13-download; then
+              if verify_zip /tmp/official13-download; then
+                mv /tmp/official13-download /tmp/official13.zip
+                downloaded=1
+                echo 'RESTORE_SOURCE=google-drive-direct'
+                break
+              fi
+            fi
+          done
+
+          if [ "$downloaded" -ne 1 ]; then
+            echo 'Drive direct download unavailable; falling back to staged base64 parts.'
+            test -d assets/staging/official13-b64
+            files="$(find assets/staging/official13-b64 -maxdepth 1 -type f -name 'part*.txt' | sort)"
+            test -n "$files"
+            printf '%s\n' "$files" | xargs cat | tr -d '\n\r ' | base64 -d > /tmp/official13.zip
+          fi
+
+          test "$(stat -c%s /tmp/official13.zip)" -eq "$EXPECTED_SIZE"
+          printf '%s  %s\n' "$EXPECTED_SHA" /tmp/official13.zip | sha256sum -c -
           unzip -t /tmp/official13.zip
           rm -rf /tmp/official13
           mkdir -p /tmp/official13
