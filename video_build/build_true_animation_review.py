@@ -14,6 +14,9 @@ CLIPS = [
     'https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_061658_c6ff7037-5ae3-4061-ba82-80058c5e0776.mp4',
     'https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_062503_9f51994a-1fd9-4252-8686-091c08b1724d.mp4',
 ]
+
+# V1 暫用聲音：先用可講中文的年輕男聲，後續可直接替換正式小老闆聲音母本。
+TEMP_VOICE_URL = 'https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/01f98ed43e6140349f47dbd37a416827/id=eef6af71-bff8-49aa-a5ea-6b7a2048b022.wav'
 FONT_URL = 'https://github.com/googlefonts/noto-cjk/raw/main/Sans/Variable/OTF/Subset/NotoSansTC-VF.otf'
 CAPTIONS = [
     '嗨，我是仙加味小老闆。',
@@ -41,9 +44,11 @@ def ass_time(seconds: float) -> str:
     s = seconds % 60
     return f'{h}:{m:02d}:{s:05.2f}'
 
-# 比上一版再慢一點，但不拉成停格感。
-slow_factor = 2.0
-seg_dur = 4.0
+# 口白約 13.14 秒，動畫同步延長到 13.15 秒；維持真動畫，不以靜態圖補時間。
+slow_factor = 2.375
+seg_dur = 4.75
+xf = 0.55
+total = seg_dur * 3 - xf * 2
 segments = []
 for i, url in enumerate(CLIPS, 1):
     src = WORK / f'clip{i}.mp4'
@@ -62,12 +67,9 @@ for i, url in enumerate(CLIPS, 1):
     ])
     segments.append(out)
 
-# 長交疊柔順銜接，不硬切、不使用花俏轉場。
-xf = 0.55
+# 柔順交疊，不硬切、不使用花俏轉場。
 offset1 = seg_dur - xf
 offset2 = seg_dur * 2 - xf * 2
-total = seg_dur * 3 - xf * 2
-
 base = WORK / 'animation_base.mp4'
 fc = (
     f'[0:v][1:v]xfade=transition=fade:duration={xf}:offset={offset1}[v01];'
@@ -80,10 +82,25 @@ run([
     '-pix_fmt', 'yuv420p', str(base)
 ])
 
-# 使用 libass 字幕引擎（避免 Render ffmpeg 缺少 drawtext filter）。
+# 下載暫用口白並做非常輕微的童聲化（+1 半音）；不壓低成成人男聲，也不過度升高成女童聲。
+voice_src = WORK / 'voice_temp_source.wav'
+voice = WORK / 'voice_temp_v1.wav'
+dl(TEMP_VOICE_URL, voice_src)
+run([
+    ffmpeg, '-y', '-i', str(voice_src),
+    '-af', 'asetrate=44100*1.059463,aresample=44100,atempo=0.943874,loudnorm=I=-16:TP=-1.5:LRA=11',
+    '-ar', '44100', '-ac', '2', str(voice)
+])
+
+# 字幕直接依 HeyGen 回傳的實際逐字時間點安排，不再平均切段。
 fontfile = WORK / 'NotoSansTC-VF.otf'
 dl(FONT_URL, fontfile)
-CUTS = [(0.0, 2.2), (2.2, 5.25), (5.25, 8.15), (8.15, total)]
+CUTS = [
+    (0.20, 2.80),   # 嗨，我是仙加味小老闆。
+    (2.95, 6.12),   # 忙了一陣子，先坐下來休息一下。
+    (6.12, 9.20),   # 喝口溫熱的，整理一下，再繼續。
+    (9.95, total),  # 仙加味，補養，是一種節奏。
+]
 ass = WORK / 'captions.ass'
 header = '''[Script Info]
 ScriptType: v4.00+
@@ -110,19 +127,22 @@ ass_path = ass.as_posix().replace(':', r'\:')
 font_dir = WORK.as_posix().replace(':', r'\:')
 vf = f'ass={ass_path}:fontsdir={font_dir}'
 run([
-    ffmpeg, '-y', '-i', str(base), '-vf', vf, '-an',
+    ffmpeg, '-y', '-i', str(base), '-i', str(voice),
+    '-vf', vf, '-map', '0:v:0', '-map', '1:a:0',
     '-c:v', 'libx264', '-crf', '18', '-preset', 'medium',
-    '-pix_fmt', 'yuv420p', '-movflags', '+faststart', str(final)
+    '-c:a', 'aac', '-b:a', '160k',
+    '-pix_fmt', 'yuv420p', '-movflags', '+faststart', '-shortest', str(final)
 ])
 
 (PUBLIC / 'index.html').write_text('''<!doctype html>
 <html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>仙加味｜F版真正角色動畫</title>
+<title>仙加味｜V1 暫用聲音版</title>
 <style>
 body{margin:0;background:#0e2134;color:#f7f4ed;font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:24px}
 main{max-width:430px;margin:auto}video{width:100%;border-radius:18px;background:#000;box-shadow:0 12px 40px #0009}
 h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.65}
 </style>
 <main><video controls playsinline preload="metadata" src="xianjiawei-true-animation-review.mp4"></video>
-<h1>仙加味｜F版真正角色動畫</h1><p>自然文案｜角色本體真動畫｜柔順交疊｜無錯誤配音｜待人工審核</p></main></html>''', encoding='utf-8')
+<h1>仙加味｜V1 暫用聲音版</h1>
+<p>自然文案｜真正角色動畫｜柔順轉場｜暫用近似男童聲｜後續直接替換正式小老闆聲音｜待人工審核</p></main></html>''', encoding='utf-8')
 print('FINAL', final, final.stat().st_size, 'duration', total)
