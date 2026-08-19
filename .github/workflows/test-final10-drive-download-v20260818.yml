@@ -1,4 +1,4 @@
-name: 測試第一批10張原圖下載
+name: 測試正式13圖 Drive 套件下載
 on:
   workflow_dispatch:
   push:
@@ -11,18 +11,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Download one original image
+      - name: Download current official13 ZIP
         shell: bash
         run: |
           set -euo pipefail
-          curl -L --fail --retry 2 'https://drive.google.com/uc?export=download&id=1xQvxy5Drdiayqo3Jh3OzLTqFxzWZpHNq' -o /tmp/test.png
-          ls -lh /tmp/test.png
-          file /tmp/test.png
-          python3 - <<'PY'
-          from PIL import Image
-          im=Image.open('/tmp/test.png')
-          print(im.format, im.size)
-          assert im.format == 'PNG'
-          assert im.width >= 1000 and im.height >= 1200
-          print('PASS original image download')
-          PY
+          curl -L --fail --retry 2 'https://drive.google.com/uc?export=download&id=1xlhMb-Xj2D8WKyc498Iq_7jOrXZCNe5f' -o /tmp/official13.zip
+          ls -lh /tmp/official13.zip
+          file /tmp/official13.zip
+          test "$(stat -c%s /tmp/official13.zip)" -eq 635488
+          printf '%s  %s\n' 'd1903805811b476b0ada677727f23b5d68f79ee334c6b6cb93303c285aeb5f3c' /tmp/official13.zip | sha256sum -c -
+          unzip -t /tmp/official13.zip
+          echo 'PASS current official13 Drive package download'
