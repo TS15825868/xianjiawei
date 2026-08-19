@@ -15,8 +15,8 @@ CLIPS = [
     'https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_062503_9f51994a-1fd9-4252-8686-091c08b1724d.mp4',
 ]
 
-# V1.3 暫用聲音：沿用較自然的 zh-TW Multilingual Friendly 男聲、0.9x 生成。
-# 這版再往 5～6 歲小男孩感推一階：+2.3 半音、再削弱成人低頻，但保留自然華語咬字。
+# V1.4 暫用聲音：沿用較自然的 zh-TW Multilingual Friendly 男聲、0.9x 生成。
+# 這版再往約 5 歲小男孩感推一階：+3.0 半音、再削弱成人胸腔低頻，保留自然華語咬字。
 TEMP_VOICE_URL = 'https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/2d432723a02444acb48e28ada714cc43/id=e456ef9b-20d7-4118-aa8d-1c12ecabf5b1.wav'
 FONT_URL = 'https://github.com/googlefonts/noto-cjk/raw/main/Sans/Variable/OTF/Subset/NotoSansTC-VF.otf'
 CAPTIONS = [
@@ -85,14 +85,14 @@ run([
     '-pix_fmt', 'yuv420p', str(base)
 ])
 
-# V1.3 幼齒化：+2.3 半音後用 atempo 補回原時長，並再減少成人胸腔低頻。
-# 幅度仍刻意控制，避免變成女童尖聲、卡通腔或破壞中文字音。
+# V1.4 更幼齒化：+3.0 半音後用 atempo 補回原時長，並再降低成人低頻厚度。
+# 仍控制在自然小男孩範圍，不做高到像女童或卡通角色的尖聲處理。
 voice_src = WORK / 'voice_temp_source.wav'
-voice = WORK / 'voice_temp_v13.wav'
+voice = WORK / 'voice_temp_v14.wav'
 dl(TEMP_VOICE_URL, voice_src)
 run([
     ffmpeg, '-y', '-i', str(voice_src),
-    '-af', 'asetrate=44100*1.142082,aresample=44100,atempo=0.875594,highpass=f=120,equalizer=f=210:t=q:w=1:g=-2.8,equalizer=f=3400:t=q:w=1:g=1.2,loudnorm=I=-16:TP=-1.5:LRA=11',
+    '-af', 'asetrate=44100*1.189207,aresample=44100,atempo=0.840896,highpass=f=130,equalizer=f=205:t=q:w=1:g=-3.5,equalizer=f=3600:t=q:w=1:g=1.4,loudnorm=I=-16:TP=-1.5:LRA=11',
     '-ar', '44100', '-ac', '2', str(voice)
 ])
 
@@ -145,13 +145,13 @@ run([
 
 (PUBLIC / 'index.html').write_text('''<!doctype html>
 <html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>仙加味｜V1.3 更幼齒暫用聲音版</title>
+<title>仙加味｜V1.4 約5歲小男孩暫用聲音版</title>
 <style>
 body{margin:0;background:#0e2134;color:#f7f4ed;font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:24px}
 main{max-width:430px;margin:auto}video{width:100%;border-radius:18px;background:#000;box-shadow:0 12px 40px #0009}
 h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.65}
 </style>
 <main><video controls playsinline preload="metadata" src="xianjiawei-true-animation-review.mp4"></video>
-<h1>仙加味｜V1.3 更幼齒暫用聲音版</h1>
+<h1>仙加味｜V1.4 約5歲小男孩暫用聲音版</h1>
 <p>zh-TW 較慢口白｜更幼齒小男孩感｜大字字幕｜真正角色動畫｜柔順轉場｜官方 LINE CTA｜待人工審核</p></main></html>''', encoding='utf-8')
 print('FINAL', final, final.stat().st_size, 'duration', total)
