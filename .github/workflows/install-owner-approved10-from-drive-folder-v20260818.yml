@@ -1,4 +1,4 @@
-name: 安裝使用者確認第一批10張原始圖
+name: 安裝仙加味貼文中心正式13圖（Drive母包）
 
 on:
   push:
@@ -10,6 +10,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: xjw-install-official13-drive-v20260819
+  cancel-in-progress: true
+
 jobs:
   install:
     runs-on: ubuntu-latest
@@ -18,85 +22,88 @@ jobs:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
-      - name: Download owner-approved originals
+      - name: Download verified official13 package from approved Drive folder
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m pip install --quiet gdown pillow
-          rm -rf /tmp/xjw-drive10
-          mkdir -p /tmp/xjw-drive10
-          gdown --folder 'https://drive.google.com/drive/folders/1a67dV4sLDwo9tVVGfih6Z65TWpcSa_es' -O /tmp/xjw-drive10
-          find /tmp/xjw-drive10 -maxdepth 3 -type f -printf '%f\n' | sort
+          python -m pip install --quiet gdown pillow
+          rm -rf /tmp/xjw-drive /tmp/official13
+          mkdir -p /tmp/xjw-drive /tmp/official13
+          gdown --folder 'https://drive.google.com/drive/folders/1a67dV4sLDwo9tVVGfih6Z65TWpcSa_es' -O /tmp/xjw-drive
+          zipfile="$(find /tmp/xjw-drive -type f -name 'official13-final-20260818.zip' -print -quit)"
+          test -n "$zipfile"
+          test "$(stat -c%s "$zipfile")" -eq 635488
+          printf '%s  %s\n' 'd1903805811b476b0ada677727f23b5d68f79ee334c6b6cb93303c285aeb5f3c' "$zipfile" | sha256sum -c -
+          unzip -t "$zipfile"
+          unzip -q "$zipfile" -d /tmp/official13
 
-      - name: Select exact ten files and validate
+      - name: Validate exact 13 user-confirmed images
         shell: bash
         run: |
           set -euo pipefail
-          out='/tmp/xjw-approved10'
-          rm -rf "$out"
-          mkdir -p "$out"
-          find_one() { find /tmp/xjw-drive10 -type f -name "$1" -print -quit; }
-          cp "$(find_one '01-work-30cc.png')" "$out/01-work-30cc.png"
-          cp "$(find_one '02-home-180cc.png')" "$out/02-home-180cc.png"
-          cp "$(find_one '03-gao-storage.png')" "$out/03-gao-storage.png"
-          cp "$(find_one '04-tangkuai-soup.png')" "$out/04-tangkuai-soup.png"
-          cp "$(find_one '05-jiao-600g.png')" "$out/05-jiao-600g.png"
-          cp "$(find_one '06-lurong-75g.png')" "$out/06-lurong-75g.png"
-          cp "$(find_one '07-line-consult.png')" "$out/07-line-consult.png"
-          cp "$(find_one 'candidate-f0a8.png')" "$out/08-home-out.png"
-          cp "$(find_one 'candidate-c534.png')" "$out/09-organize-cabinet.png"
-          cp "$(find_one 'candidate-2d708.png')" "$out/10-office-warm-drink.png"
-          test "$(find "$out" -maxdepth 1 -type f -name '*.png' | wc -l)" -eq 10
-          python3 - <<'PY'
+          python - <<'PY'
           from pathlib import Path
           from PIL import Image
-          root=Path('/tmp/xjw-approved10')
-          names=[
-            '01-work-30cc.png','02-home-180cc.png','03-gao-storage.png','04-tangkuai-soup.png','05-jiao-600g.png',
-            '06-lurong-75g.png','07-line-consult.png','08-home-out.png','09-organize-cabinet.png','10-office-warm-drink.png'
-          ]
+          root=Path('/tmp/official13')
+          names=['01-work-30cc.webp','02-home-180cc.webp','03-gao-storage.webp','04-tangkuai-soup.webp','05-jiao-600g.webp','06-lurong-75g.webp','07-line-consult.webp','08-home-out.webp','09-organize-cabinet.webp','10-office-warm-drink.webp','11-audience-needs.webp','12-trial-group-published.webp','13-brand-story-wanhua-published.webp']
+          found=sorted(p.name for p in root.glob('*.webp'))
+          if found!=sorted(names): raise SystemExit(f'wrong files: {found}')
           for name in names:
               p=root/name
-              if not p.exists(): raise SystemExit(f'MISSING {name}')
               im=Image.open(p)
-              if im.format!='PNG': raise SystemExit(f'NOT PNG {name}: {im.format}')
-              if im.size!=(1122,1402): raise SystemExit(f'WRONG SIZE {name}: {im.size}')
+              if im.format!='WEBP': raise SystemExit(f'not webp: {name}')
+              if im.width<600 or im.height<450: raise SystemExit(f'too small: {name} {im.size}')
               im.verify()
-              print('PASS', name)
+              print('PASS',name)
           PY
 
-      - name: Install into official public asset folder
+      - name: Replace posting image authority with official13
         shell: bash
         run: |
           set -euo pipefail
-          target='images/posts/owner-approved-v20260818'
+          target='images/posts/official-v20260818'
           rm -rf "$target"
           mkdir -p "$target"
-          cp /tmp/xjw-approved10/*.png "$target"/
-          sha256sum "$target"/*.png > "$target/SHA256SUMS.txt"
-          cat > "$target/README.txt" <<'EOF'
-          2026-08-18 使用者於 ChatGPT 明確確認此第一批 10 張完整圖可用。
-          本批為完整單張情境圖，不得拆圖拼湊、不得以其他 AI 產品圖替代、不得重配其他文案。
-          貼文中心僅能依既定 10 篇文案一對一使用，更新後回待審核。
-          EOF
-          printf '%s\n' 'PASS owner-approved 10 original PNG installed 2026-08-18' > "$target/INSTALL_OK.txt"
+          cp /tmp/official13/*.webp "$target"/
+          sha256sum "$target"/*.webp > "$target/SHA256SUMS.txt"
+          cat > "$target/manifest.json" <<'JSON'
+          {
+            "version":"2026-08-19-official13-final",
+            "brand":"仙加味",
+            "count":13,
+            "status":"installed",
+            "authority":"使用者確認正式貼文圖",
+            "fallback_allowed":false,
+            "rule":"13張圖與指定文案一對一；禁止FAQ、怎麼使用、priority、rebuild及其他舊圖fallback",
+            "review":"未發布內容換圖後一律待審核；已發布試喝與品牌故事維持已發布"
+          }
+          JSON
+          git rm -r --ignore-unmatch images/posts/priority10-v20260817 images/posts/rebuild-v20260816 images/posts/current-v20260815 images/posts/generated-v20260806 images/posts/generated-v20260808-preflight images/posts/generated-v20260808-priority1 images/posts/generated images/posts/owner-approved-v20260818
+          git add "$target"
 
-      - name: Commit official images
+      - name: Verify repository payload before commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(find images/posts/official-v20260818 -maxdepth 1 -type f -name '*.webp' | wc -l)" -eq 13
+          test -f images/posts/official-v20260818/SHA256SUMS.txt
+          test -f images/posts/official-v20260818/manifest.json
+
+      - name: Commit official13 image authority
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git rm -r --ignore-unmatch assets/staging/final10-v20260818
-          git rm --ignore-unmatch assets/staging/test-drive-download-v20260818.trigger
-          git rm --ignore-unmatch assets/staging/probe-owner-approved-drive-v20260818.trigger
-          git rm --ignore-unmatch assets/staging/probe-owner-approved-drive-v20260818.ok
-          git rm --ignore-unmatch assets/staging/install-final10-drive-v20260818.trigger
-          git add images/posts/owner-approved-v20260818
+          git add -A images/posts
           if git diff --cached --quiet; then
-            echo 'No changes'
+            echo 'No image changes to commit.'
             exit 0
           fi
-          git commit -m '安裝使用者確認第一批10張正式貼文原圖'
+          git commit -m 'fix(posts): install 13 user-confirmed formal posting images'
+          git pull --rebase origin main
           git push origin HEAD:main
