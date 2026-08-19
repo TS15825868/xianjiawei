@@ -9,8 +9,8 @@ WORK.mkdir(exist_ok=True)
 ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
 
 # 目前先沿用三段已成功生成的真正角色動畫。
-# 新動畫生成額度目前受限，因此本版只處理「自然童聲、自然停頓、字幕節奏、30 秒 CTA」；
-# 不把重複動畫誤標成最終正式成片，待新動畫生成能力恢復後再逐段換成走路／蹲下／坐下／互動等新場景。
+# 新動畫生成額度目前受限，因此本版優先修正「童聲自然度、停頓節奏、字幕節奏、30 秒 CTA」。
+# 不把重複動畫誤標成最終正式成片，待新動畫生成能力恢復後再逐段換成走路／蹲下／坐下／趴著／互動等新場景。
 CLIPS = [
     'https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_061028_485b7985-7bc9-4913-94dc-1892efe246be.mp4',
     'https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_061658_c6ff7037-5ae3-4061-ba82-80058c5e0776.mp4',
@@ -20,32 +20,30 @@ CLIPS = [
 FONT_URL = 'https://github.com/googlefonts/noto-cjk/raw/main/Sans/Variable/OTF/Subset/NotoSansTC-VF.otf'
 TOTAL = 30.0
 
-# V2 自然童聲測試方向：改用較輕、較自然的 Multilingual 男聲底聲，每一句獨立生成。
-# 不再使用成人底聲 +3～4 半音硬拉幼齒，避免音色變尖、共鳴不自然。
+# V3 自然童聲測試：改用較輕快的男聲底聲，每一句獨立生成。
+# 完全取消 +3～4 半音硬升調與成人共鳴 EQ；只做音量標準化。
 # 每句之間的停頓由後製人工控制，不讓 TTS 自己決定整段節奏。
 VOICE_PARTS = [
-    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/5c1ade5e514c4c6c900b0ded224970fd/id=ace253df-440f-422a-8241-b791d538ede8.wav', 0.45),
-    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/5c1ade5e514c4c6c900b0ded224970fd/id=00f4ee73-fd94-42e6-aa2a-d551377a81cf.wav', 3.60),
-    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/5c1ade5e514c4c6c900b0ded224970fd/id=e092e3fe-a454-44d9-9f03-4f368b20007a.wav', 6.75),
-    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/5c1ade5e514c4c6c900b0ded224970fd/id=c925b454-b001-4281-8ad6-5064d801690c.wav', 9.00),
-    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/5c1ade5e514c4c6c900b0ded224970fd/id=b17b0623-b01a-4d2f-a64f-d45e9deeeb84.wav', 12.45),
-    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/5c1ade5e514c4c6c900b0ded224970fd/id=5292ebfb-05dc-4a72-89d3-0045af34aa81.wav', 15.60),
-    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/5c1ade5e514c4c6c900b0ded224970fd/id=8d38e260-5cb2-4001-a5ba-827b2a9d7de8.wav', 19.10),
+    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/25a40947b46942c1a8e5bd329074bba2/id=9b04a99b-9a9c-46fa-bb60-cf54847834a6.wav', 0.45),
+    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/25a40947b46942c1a8e5bd329074bba2/id=4063391e-9302-46f1-a21c-7fc84dae5fff.wav', 3.05),
+    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/25a40947b46942c1a8e5bd329074bba2/id=827ef4c4-668c-4907-98c5-dd082d1e4996.wav', 5.85),
+    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/25a40947b46942c1a8e5bd329074bba2/id=0efb7fd0-e7ec-4d7e-9a6f-ff8ce0f0c0a0.wav', 8.10),
+    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/25a40947b46942c1a8e5bd329074bba2/id=28aba49e-d805-43d9-9ae6-f01c0ff7d1c0.wav', 13.00),
+    ('https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/25a40947b46942c1a8e5bd329074bba2/id=9c37d079-7d84-48e2-b217-ab433c8c5893.wav', 17.00),
 ]
 
 CAPTIONS = [
-    ('嗨！我是仙加味小老闆。', 0.40, 2.85),
-    ('這是小鹿，還有小烏龜。', 3.55, 6.40),
-    ('他們常常都陪著我。', 6.70, 8.45),
-    ('我有時候會在這裡幫忙。', 8.95, 12.30),
-    ('有時候就到處走走看看。', 12.40, 15.05),
-    ('累了就坐一下，\\N休息一下再繼續。', 15.55, 18.35),
-    ('下次再帶你們認識仙加味喔！', 19.05, 23.40),
+    ('嗨！我是仙加味小老闆。', 0.40, 2.70),
+    ('這是小鹿，還有小烏龜。', 3.00, 5.65),
+    ('他們常常都陪著我。', 5.80, 7.95),
+    ('我有時候在這裡幫忙，\\N有時候就到處走走、看看。', 8.05, 12.65),
+    ('休息一下，\\N再繼續忙自己的事。', 12.95, 16.20),
+    ('下次，我再帶你們一起\\N認識仙加味喔！', 16.95, 20.65),
 ]
 BRAND = '仙加味｜補養，是一種節奏。'
-BRAND_CUT = (23.70, 25.95)
+BRAND_CUT = (21.20, 25.45)
 CTA = '想了解更多，\\N歡迎加入仙加味官方 LINE 詢問'
-CTA_CUT = (26.00, 30.00)
+CTA_CUT = (25.80, 30.00)
 
 
 def dl(url: str, path: Path):
@@ -135,8 +133,6 @@ for idx, (_url, start) in enumerate(VOICE_PARTS):
 filters.append(
     ''.join(labels) +
     f'amix=inputs={len(labels)}:duration=longest:dropout_transition=0,'
-    'highpass=f=90,equalizer=f=220:t=q:w=1:g=-1.0,'
-    'equalizer=f=3600:t=q:w=1:g=0.6,'
     'loudnorm=I=-16:TP=-1.5:LRA=11,'
     f'apad=pad_dur={TOTAL},atrim=0:{TOTAL}[aout]'
 )
@@ -146,6 +142,8 @@ run([
     '-ar', '44100', '-ac', '2', str(voice)
 ])
 
+# 第一輪先把童聲本身修自然；背景音樂等聲音通過後再加。
+# 如加入 BGM，必須使用可正式商用的授權素材，且口白期間自動壓低音量，不蓋住小老闆聲音。
 fontfile = WORK / 'NotoSansTC-VF.otf'
 dl(FONT_URL, fontfile)
 ass = WORK / 'captions_30s_natural.ass'
@@ -189,13 +187,13 @@ run([
 
 (PUBLIC / 'index.html').write_text('''<!doctype html>
 <html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>仙加味｜認識小老闆｜30秒自然童聲待審核版</title>
+<title>仙加味｜認識小老闆｜30秒自然童聲 V3 待審核版</title>
 <style>
 body{margin:0;background:#0e2134;color:#f7f4ed;font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:24px}
 main{max-width:430px;margin:auto}video{width:100%;border-radius:18px;background:#000;box-shadow:0 12px 40px #0009}
 h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.65}
 </style>
 <main><video controls playsinline preload="metadata" src="xianjiawei-true-animation-review.mp4"></video>
-<h1>仙加味｜認識小老闆｜30秒自然童聲待審核版</h1>
-<p>逐句配音｜人工停頓｜取消硬升調｜大字字幕｜真角色動畫｜品牌收尾｜官方 LINE CTA 4秒｜待人工審核</p></main></html>''', encoding='utf-8')
+<h1>仙加味｜認識小老闆｜30秒自然童聲 V3 待審核版</h1>
+<p>逐句配音｜人工停頓｜取消硬升調與成人 EQ｜大字字幕｜真角色動畫｜品牌收尾｜官方 LINE CTA 4.2秒｜待人工審核</p></main></html>''', encoding='utf-8')
 print('FINAL', final, final.stat().st_size, 'duration', TOTAL)
