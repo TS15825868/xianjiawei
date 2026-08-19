@@ -1,3 +1,4 @@
-2026-08-18 rerun owner approved 10 complete originals via gdown folder
-requested_at_taipei=2026-08-18T13:47:00+08:00
-reason=restore exact latest approved images to publishing center after wrong legacy cleanup
+2026-08-19T10:47:00+08:00
+reason=install exact verified 13-image package from approved Drive folder
+zip=official13-final-20260818.zip
+sha256=d1903805811b476b0ada677727f23b5d68f79ee334c6b6cb93303c285aeb5f3c
