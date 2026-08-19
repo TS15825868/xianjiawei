@@ -1,2 +1,2 @@
-run=2026-08-19T12:18:00+08:00
-reason=install-user-confirmed-official13-final-post-center
+run=2026-08-19T12:31:00+08:00
+reason=install-exact-drive-verified-official13-final
