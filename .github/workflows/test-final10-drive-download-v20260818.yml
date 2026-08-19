@@ -6,11 +6,14 @@ on:
     paths:
       - 'assets/staging/test-drive-download-v20260818.trigger'
 permissions:
-  contents: read
+  contents: write
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Download current official13 ZIP
         shell: bash
         run: |
@@ -21,4 +24,14 @@ jobs:
           test "$(stat -c%s /tmp/official13.zip)" -eq 635488
           printf '%s  %s\n' 'd1903805811b476b0ada677727f23b5d68f79ee334c6b6cb93303c285aeb5f3c' /tmp/official13.zip | sha256sum -c -
           unzip -t /tmp/official13.zip
-          echo 'PASS current official13 Drive package download'
+      - name: Record verified download
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf 'verified_at=%s\ndrive_file_id=%s\nsha256=%s\n' "$(date -u +%FT%TZ)" '1xlhMb-Xj2D8WKyc498Iq_7jOrXZCNe5f' 'd1903805811b476b0ada677727f23b5d68f79ee334c6b6cb93303c285aeb5f3c' > assets/staging/official13-drive-download-verified.txt
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/staging/official13-drive-download-verified.txt
+          git commit -m 'test(posts): verify official13 Drive package download' || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
