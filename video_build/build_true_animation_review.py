@@ -46,12 +46,12 @@ def ass_time(seconds: float) -> str:
     s = seconds % 60
     return f'{h}:{m:02d}:{s:05.2f}'
 
-# 暫用幼齒華語口白約 15.23 秒，片尾再留約 1.6 秒顯示 LINE CTA。
-# 全程維持真動畫，三段延長並柔順交疊，不拿靜態圖補時間。
-slow_factor = 3.0
-seg_dur = 6.0
+# 暫用幼齒華語口白約 15.23 秒，片尾多留約 3 秒顯示 LINE CTA。
+# 全程維持真動畫，三段稍微延長並柔順交疊，不以黑畫面或硬停補時間。
+slow_factor = 3.235
+seg_dur = 6.47
 xf = 0.55
-total = seg_dur * 3 - xf * 2  # 16.90 秒
+total = seg_dur * 3 - xf * 2  # 18.31 秒
 segments = []
 for i, url in enumerate(CLIPS, 1):
     src = WORK / f'clip{i}.mp4'
@@ -128,7 +128,7 @@ for text, (start, end) in zip(CAPTIONS, CUTS):
     safe = text.replace('{', '｛').replace('}', '｝')
     events += f'Dialogue: 0,{ass_time(start)},{ass_time(end)},Caption,,0,0,0,,{{\\fad(100,120)}}{safe}\n'
 cta_safe = CTA.replace('{', '｛').replace('}', '｝')
-events += f'Dialogue: 0,{ass_time(CTA_CUT[0])},{ass_time(CTA_CUT[1])},CTA,,0,0,0,,{{\\fad(180,220)}}{cta_safe}\n'
+events += f'Dialogue: 0,{ass_time(CTA_CUT[0])},{ass_time(CTA_CUT[1])},CTA,,0,0,0,,{{\\fad(180,260)}}{cta_safe}\n'
 ass.write_text(header + events, encoding='utf-8')
 
 final = PUBLIC / 'xianjiawei-true-animation-review.mp4'
@@ -153,5 +153,5 @@ h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.65}
 </style>
 <main><video controls playsinline preload="metadata" src="xianjiawei-true-animation-review.mp4"></video>
 <h1>仙加味｜V1.4 約5歲小男孩暫用聲音版</h1>
-<p>zh-TW 較慢口白｜更幼齒小男孩感｜大字字幕｜真正角色動畫｜柔順轉場｜官方 LINE CTA｜待人工審核</p></main></html>''', encoding='utf-8')
+<p>zh-TW 較慢口白｜更幼齒小男孩感｜大字字幕｜真正角色動畫｜柔順轉場｜官方 LINE CTA 約3秒｜待人工審核</p></main></html>''', encoding='utf-8')
 print('FINAL', final, final.stat().st_size, 'duration', total)
