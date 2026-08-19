@@ -21,6 +21,10 @@ CAPTIONS=[
 '溫熱喝一口，再繼續今天的事。',
 '仙加味，補養，是一種節奏。']
 
+# C版時間軸：放慢整體節奏，前三幕各3.9秒，收尾3.8秒，共15.5秒。
+CUTS=[(0,3.9),(3.9,7.8),(7.8,11.7),(11.7,15.5)]
+TOTAL=15.5
+
 def dl(url,path):
     r=requests.get(url,timeout=120); r.raise_for_status(); path.write_bytes(r.content); print('download',path,len(r.content))
 def run(args):
@@ -54,35 +58,40 @@ for idx,text in enumerate(CAPTIONS,1):
 
 segs=[]
 for i,p in enumerate(scene_paths,1):
-    out=WORK/f'seg{i}.mp4'; vf='scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=1.5*PTS,fps=30,format=yuv420p'
-    run([ffmpeg,'-y','-i',str(p),'-an','-vf',vf,'-t','3','-c:v','libx264','-crf','19','-preset','medium',str(out)]); segs.append(out)
+    out=WORK/f'seg{i}.mp4'
+    vf='scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setpts=1.95*PTS,fps=30,format=yuv420p'
+    run([ffmpeg,'-y','-i',str(p),'-an','-vf',vf,'-t','3.9','-c:v','libx264','-crf','19','-preset','medium',str(out)])
+    segs.append(out)
+
 end=WORK/'seg4.mp4'
-run([ffmpeg,'-y','-loop','1','-i',str(end_scene),'-t','3','-vf','scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,format=yuv420p','-an','-c:v','libx264','-crf','19','-preset','medium',str(end)])
+run([ffmpeg,'-y','-loop','1','-i',str(end_scene),'-t','3.8','-vf','scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,format=yuv420p','-an','-c:v','libx264','-crf','19','-preset','medium',str(end)])
 segs.append(end)
 concat=WORK/'concat.txt'; concat.write_text(''.join(f"file '{p.as_posix()}'\n" for p in segs),encoding='utf-8')
 base=WORK/'base.mp4'; run([ffmpeg,'-y','-f','concat','-safe','0','-i',str(concat),'-c','copy',str(base)])
 
-# B版：保留使用者提供的小老闆聲音母本特徵，只做輕度男童化。
-# 約降 1.15 半音，增加低中頻、壓低高頻，避免女童感，同時維持童聲。
-child=WORK/'child_b.wav'
-ratio=2**(-1.15/12)
-rate=48000*ratio
-tempo=1/ratio
-af=(f'asetrate={rate:.3f},aresample=48000,atempo={tempo:.6f},'
-    'equalizer=f=220:t=q:w=1:g=1.8,equalizer=f=3200:t=q:w=1:g=-1.3,'
-    'highpass=f=85,lowpass=f=10500,loudnorm=I=-16:TP=-1.5:LRA=11')
-run([ffmpeg,'-y','-i',str(voice),'-af',af,'-ar','48000','-ac','2',str(child)])
+# C版聲音：取消 asetrate / 變調，避免電子感與怪聲。
+# 只做7%放慢（atempo保留原音高）＋低中頻增益、高頻收斂，讓童聲較偏男孩但仍自然。
+child=WORK/'child_c.wav'
+af=('atempo=0.93,'
+    'equalizer=f=220:t=q:w=1:g=1.4,'
+    'equalizer=f=650:t=q:w=1:g=0.7,'
+    'equalizer=f=3200:t=q:w=1:g=-1.8,'
+    'equalizer=f=5200:t=q:w=1:g=-1.0,'
+    'highpass=f=85,lowpass=f=11000,'
+    'loudnorm=I=-16:TP=-1.5:LRA=11,'
+    'apad=pad_dur=2.5')
+run([ffmpeg,'-y','-i',str(voice),'-af',af,'-ar','48000','-ac','2','-t',str(TOTAL),str(child)])
 
 final=PUBLIC/'xianjiawei-first-official-reel.mp4'
 cmd=[ffmpeg,'-y','-i',str(base),'-i',str(WORK/'logo_crop.png')]
 for i in range(1,5): cmd += ['-i',str(WORK/f'caption{i}.png')]
 cmd += ['-i',str(child)]
 fc=("[1:v]scale=130:-1[lg];[0:v][lg]overlay=W-w-42:52[v1];"
-    "[2:v]scale=980:-1[c1];[v1][c1]overlay=(W-w)/2:H-h-108:enable='between(t,0,3)'[v2];"
-    "[3:v]scale=980:-1[c2];[v2][c2]overlay=(W-w)/2:H-h-108:enable='between(t,3,6)'[v3];"
-    "[4:v]scale=980:-1[c3];[v3][c3]overlay=(W-w)/2:H-h-108:enable='between(t,6,9)'[v4];"
-    "[5:v]scale=980:-1[c4];[v4][c4]overlay=(W-w)/2:H-h-108:enable='between(t,9,12)'[vout]")
-run(cmd+['-filter_complex',fc,'-map','[vout]','-map','6:a:0','-t','12','-c:v','libx264','-crf','18','-preset','medium','-c:a','aac','-b:a','192k','-pix_fmt','yuv420p','-movflags','+faststart',str(final)])
+    "[2:v]scale=980:-1[c1];[v1][c1]overlay=(W-w)/2:H-h-108:enable='between(t,0,3.9)'[v2];"
+    "[3:v]scale=980:-1[c2];[v2][c2]overlay=(W-w)/2:H-h-108:enable='between(t,3.9,7.8)'[v3];"
+    "[4:v]scale=980:-1[c3];[v3][c3]overlay=(W-w)/2:H-h-108:enable='between(t,7.8,11.7)'[v4];"
+    "[5:v]scale=980:-1[c4];[v4][c4]overlay=(W-w)/2:H-h-108:enable='between(t,11.7,15.5)'[vout]")
+run(cmd+['-filter_complex',fc,'-map','[vout]','-map','6:a:0','-t',str(TOTAL),'-c:v','libx264','-crf','18','-preset','medium','-c:a','aac','-b:a','192k','-pix_fmt','yuv420p','-movflags','+faststart',str(final)])
 
-(PUBLIC/'index.html').write_text('''<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>仙加味｜第一支正式短影音</title><style>body{margin:0;background:#0e2134;color:#f7f4ed;font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:24px}main{max-width:430px;margin:auto}video{width:100%;border-radius:18px;background:#000;box-shadow:0 12px 40px #0009}h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.6}</style><main><video controls playsinline preload="metadata" src="xianjiawei-first-official-reel.mp4"></video><h1>仙加味｜第一支正式短影音</h1><p>上班日常篇｜B版小老闆聲音｜待人工審核</p></main></html>''',encoding='utf-8')
+(PUBLIC/'index.html').write_text('''<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>仙加味｜第一支正式短影音</title><style>body{margin:0;background:#0e2134;color:#f7f4ed;font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:24px}main{max-width:430px;margin:auto}video{width:100%;border-radius:18px;background:#000;box-shadow:0 12px 40px #0009}h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.6}</style><main><video controls playsinline preload="metadata" src="xianjiawei-first-official-reel.mp4"></video><h1>仙加味｜第一支正式短影音</h1><p>上班日常篇｜C版自然童聲・慢節奏｜待人工審核</p></main></html>''',encoding='utf-8')
 print('FINAL',final,final.stat().st_size)
