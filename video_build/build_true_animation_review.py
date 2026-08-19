@@ -15,9 +15,9 @@ CLIPS = [
     'https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_062503_9f51994a-1fd9-4252-8686-091c08b1724d.mp4',
 ]
 
-# V1.1 暫用聲音：改用 Multilingual Friendly 男聲，中文生成速度 0.9x。
-# 目標是先降低上一版英文底音造成的外國腔；正式小老闆母本聲線日後直接替換。
-TEMP_VOICE_URL = 'https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/2d432723a02444acb48e28ada714cc43/id=821a5cce-0ddf-4ad1-b892-155b8905e398.wav'
+# V1.2 暫用聲音：同一 Multilingual Friendly 男聲重新指定 zh-TW、0.9x 生成。
+# 再做輕量幼齒化：+1.5 半音、削弱一點成人低頻，不做過度尖化。
+TEMP_VOICE_URL = 'https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/2d432723a02444acb48e28ada714cc43/id=e456ef9b-20d7-4118-aa8d-1c12ecabf5b1.wav'
 FONT_URL = 'https://github.com/googlefonts/noto-cjk/raw/main/Sans/Variable/OTF/Subset/NotoSansTC-VF.otf'
 CAPTIONS = [
     '嗨，我是仙加味小老闆。',
@@ -46,7 +46,7 @@ def ass_time(seconds: float) -> str:
     s = seconds % 60
     return f'{h}:{m:02d}:{s:05.2f}'
 
-# 暫用華語口白約 15.28 秒，片尾再留約 1.6 秒顯示 LINE CTA。
+# 暫用幼齒華語口白約 15.23 秒，片尾再留約 1.6 秒顯示 LINE CTA。
 # 全程維持真動畫，三段延長並柔順交疊，不拿靜態圖補時間。
 slow_factor = 3.0
 seg_dur = 6.0
@@ -85,26 +85,27 @@ run([
     '-pix_fmt', 'yuv420p', str(base)
 ])
 
-# 保留新華語聲線原本共鳴與語速，只做音量標準化；不再額外變調造成口音失真。
+# V1.2 輕量幼齒化：+1.5 半音後用 atempo 補回原時長，再輕削成人低頻。
+# 不做激進升調，避免女童感、卡通感或咬字變形。
 voice_src = WORK / 'voice_temp_source.wav'
-voice = WORK / 'voice_temp_v11.wav'
+voice = WORK / 'voice_temp_v12.wav'
 dl(TEMP_VOICE_URL, voice_src)
 run([
     ffmpeg, '-y', '-i', str(voice_src),
-    '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11',
+    '-af', 'asetrate=44100*1.090508,aresample=44100,atempo=0.916667,highpass=f=105,equalizer=f=220:t=q:w=1:g=-1.8,equalizer=f=3200:t=q:w=1:g=1.0,loudnorm=I=-16:TP=-1.5:LRA=11',
     '-ar', '44100', '-ac', '2', str(voice)
 ])
 
-# 依 HeyGen 實際逐字時間點配置。字幕加大，長句用兩行，手機閱讀優先。
+# 依這次 zh-TW 生成的實際逐字時間點配置；字幕維持 V1.1 大字版。
 fontfile = WORK / 'NotoSansTC-VF.otf'
 dl(FONT_URL, fontfile)
 CUTS = [
     (0.20, 3.15),   # 嗨，我是仙加味小老闆。
-    (3.55, 7.05),   # 忙了一下，先坐下來休息一下。
-    (7.40, 10.70),  # 喝一口溫熱的，等等再繼續。
-    (11.10, 15.18), # 仙加味，補養，是一種節奏。
+    (4.00, 7.20),   # 忙了一下，先坐下來休息一下。
+    (7.70, 10.75),  # 喝一口溫熱的，等等再繼續。
+    (11.30, 15.18), # 仙加味，補養，是一種節奏。
 ]
-CTA_CUT = (15.25, total)
+CTA_CUT = (15.28, total)
 
 ass = WORK / 'captions.ass'
 header = '''[Script Info]
@@ -144,13 +145,13 @@ run([
 
 (PUBLIC / 'index.html').write_text('''<!doctype html>
 <html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>仙加味｜V1.1 暫用聲音修正版</title>
+<title>仙加味｜V1.2 幼齒暫用聲音版</title>
 <style>
 body{margin:0;background:#0e2134;color:#f7f4ed;font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:24px}
 main{max-width:430px;margin:auto}video{width:100%;border-radius:18px;background:#000;box-shadow:0 12px 40px #0009}
 h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.65}
 </style>
 <main><video controls playsinline preload="metadata" src="xianjiawei-true-animation-review.mp4"></video>
-<h1>仙加味｜V1.1 暫用聲音修正版</h1>
-<p>較慢華語口白｜大字字幕｜真正角色動畫｜柔順轉場｜官方 LINE CTA｜待人工審核</p></main></html>''', encoding='utf-8')
+<h1>仙加味｜V1.2 幼齒暫用聲音版</h1>
+<p>zh-TW 較慢口白｜輕量幼齒化｜大字字幕｜真正角色動畫｜柔順轉場｜官方 LINE CTA｜待人工審核</p></main></html>''', encoding='utf-8')
 print('FINAL', final, final.stat().st_size, 'duration', total)
