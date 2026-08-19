@@ -1,5 +1,5 @@
 from pathlib import Path
-import requests, subprocess, imageio_ffmpeg
+import requests, subprocess, imageio_ffmpeg, shutil
 
 ROOT = Path(__file__).resolve().parent
 PUBLIC = ROOT / 'public_true_animation'
@@ -142,6 +142,10 @@ run([
     '-ar', '44100', '-ac', '2', str(voice)
 ])
 
+# 公開同一條30秒口白音軌，供專門的 lip-sync 工作流測試嘴型同步。
+public_voice = PUBLIC / 'xianjiawei-voice-review.wav'
+shutil.copy2(voice, public_voice)
+
 # 第一輪先把童聲本身修自然；背景音樂等聲音通過後再加。
 # 如加入 BGM，必須使用可正式商用的授權素材，且口白期間自動壓低音量，不蓋住小老闆聲音。
 fontfile = WORK / 'NotoSansTC-VF.otf'
@@ -197,3 +201,4 @@ h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.65}
 <h1>仙加味｜認識小老闆｜30秒自然童聲 V3 待審核版</h1>
 <p>逐句配音｜人工停頓｜取消硬升調與成人 EQ｜大字字幕｜真角色動畫｜品牌收尾｜官方 LINE CTA 4.2秒｜待人工審核</p></main></html>''', encoding='utf-8')
 print('FINAL', final, final.stat().st_size, 'duration', TOTAL)
+print('VOICE', public_voice, public_voice.stat().st_size)
