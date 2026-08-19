@@ -11,7 +11,7 @@ SCENES=[
 'https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_061028_485b7985-7bc9-4913-94dc-1892efe246be.mp4',
 'https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_061658_c6ff7037-5ae3-4061-ba82-80058c5e0776.mp4',
 'https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_062503_9f51994a-1fd9-4252-8686-091c08b1724d.mp4']
-VOICE='https://resource2.heygen.ai/text_to_speech/a1e4862b123841a2acf5ce54f0f2398b/5c1ade5e514c4c6c900b0ded224970fd/id=9b390293-70d0-4702-b9a0-f2a2fe331f06.wav'
+VOICE='https://d8j0ntlcm91z4.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/hf_20260819_071444_30961a73-30ed-48de-9d18-66b6d98bf4f7.mp3'
 LOGO='https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/c08dfe3c-4ea7-46b5-8fd1-75a99f98a815.png'
 END_SCENE='https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/2f0e6cc6-16e6-47a1-bbd0-3376d18ae0f4.png'
 FONT='https://github.com/googlefonts/noto-cjk/raw/main/Sans/Variable/OTF/Subset/NotoSansTC-VF.otf'
@@ -29,7 +29,7 @@ def run(args):
 scene_paths=[]
 for i,u in enumerate(SCENES,1):
     p=WORK/f'scene{i}.mp4'; dl(u,p); scene_paths.append(p)
-voice=WORK/'voice.wav'; dl(VOICE,voice)
+voice=WORK/'voice.mp3'; dl(VOICE,voice)
 logo=WORK/'logo.png'; dl(LOGO,logo)
 end_scene=WORK/'end_scene.png'; dl(END_SCENE,end_scene)
 fontfile=WORK/'NotoSansTC-VF.otf'; dl(FONT,fontfile)
@@ -62,7 +62,15 @@ segs.append(end)
 concat=WORK/'concat.txt'; concat.write_text(''.join(f"file '{p.as_posix()}'\n" for p in segs),encoding='utf-8')
 base=WORK/'base.mp4'; run([ffmpeg,'-y','-f','concat','-safe','0','-i',str(concat),'-c','copy',str(base)])
 
-child=WORK/'child.wav'; af='aresample=48000,highpass=f=120,equalizer=f=240:t=q:w=1:g=-3,asetrate=57600,aresample=48000,atempo=0.833333'
+# B版：保留使用者提供的小老闆聲音母本特徵，只做輕度男童化。
+# 約降 1.15 半音，增加低中頻、壓低高頻，避免女童感，同時維持童聲。
+child=WORK/'child_b.wav'
+ratio=2**(-1.15/12)
+rate=48000*ratio
+tempo=1/ratio
+af=(f'asetrate={rate:.3f},aresample=48000,atempo={tempo:.6f},'
+    'equalizer=f=220:t=q:w=1:g=1.8,equalizer=f=3200:t=q:w=1:g=-1.3,'
+    'highpass=f=85,lowpass=f=10500,loudnorm=I=-16:TP=-1.5:LRA=11')
 run([ffmpeg,'-y','-i',str(voice),'-af',af,'-ar','48000','-ac','2',str(child)])
 
 final=PUBLIC/'xianjiawei-first-official-reel.mp4'
@@ -76,5 +84,5 @@ fc=("[1:v]scale=130:-1[lg];[0:v][lg]overlay=W-w-42:52[v1];"
     "[5:v]scale=980:-1[c4];[v4][c4]overlay=(W-w)/2:H-h-108:enable='between(t,9,12)'[vout]")
 run(cmd+['-filter_complex',fc,'-map','[vout]','-map','6:a:0','-t','12','-c:v','libx264','-crf','18','-preset','medium','-c:a','aac','-b:a','192k','-pix_fmt','yuv420p','-movflags','+faststart',str(final)])
 
-(PUBLIC/'index.html').write_text('''<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>仙加味｜第一支正式短影音</title><style>body{margin:0;background:#0e2134;color:#f7f4ed;font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:24px}main{max-width:430px;margin:auto}video{width:100%;border-radius:18px;background:#000;box-shadow:0 12px 40px #0009}h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.6}</style><main><video controls playsinline preload="metadata" src="xianjiawei-first-official-reel.mp4"></video><h1>仙加味｜第一支正式短影音</h1><p>上班日常篇｜待人工審核</p></main></html>''',encoding='utf-8')
+(PUBLIC/'index.html').write_text('''<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>仙加味｜第一支正式短影音</title><style>body{margin:0;background:#0e2134;color:#f7f4ed;font-family:system-ui,-apple-system,sans-serif;text-align:center;padding:24px}main{max-width:430px;margin:auto}video{width:100%;border-radius:18px;background:#000;box-shadow:0 12px 40px #0009}h1{font-size:20px;margin:16px 0 6px}p{opacity:.82;line-height:1.6}</style><main><video controls playsinline preload="metadata" src="xianjiawei-first-official-reel.mp4"></video><h1>仙加味｜第一支正式短影音</h1><p>上班日常篇｜B版小老闆聲音｜待人工審核</p></main></html>''',encoding='utf-8')
 print('FINAL',final,final.stat().st_size)
