@@ -1,7 +1,7 @@
 {
-  "version": "2026-08-15-current-visual-authority-v2",
+  "version": "2026-08-20-current-visual-authority-v3",
   "authority": "user-confirmed-current",
-  "updated_at_taipei": "2026-08-15",
+  "updated_at_taipei": "2026-08-20",
   "brand": {
     "public_name": "仙加味",
     "public_series": "仙加味・龜鹿",
@@ -22,20 +22,25 @@
     ]
   },
   "authority_layers": {
+    "text_product_authority": "public-product-master.json 為七項目前正式產品文字知識最高權威；任何舊圖規、舊守門員、舊固定產品數不得覆蓋",
     "product_identity": "images/products-v3/ 只作真實產品身份、包裝與比例校正參考；不直接取代目前顧客產品主圖",
-    "customer_product_display": "images/customer-display-v20260812/ 為目前一般產品頁、產品卡與一般產品貼文主圖來源",
-    "detailed_dm": "images/dm-final/ 只用於明確DM／詳細DM版位，與一般產品主圖分離",
+    "customer_product_display": "images/customer-display-v20260812/ 為目前六項已有核准實物圖之一般產品頁、產品卡與一般產品貼文主圖來源",
+    "detailed_dm": "images/dm-final/ 只用於六項已有核准詳細DM之版位，與一般產品主圖分離",
+    "qixuan_media": "柒玄茶・龜鹿調飲粉目前為正式文字產品知識；核准正式產品實物原圖尚未確認，不得AI自創包裝或拿其他產品圖代替",
     "trial": "images/trial/trial-poster-small-boss-official-v20260814.jpg 為目前試喝頁與試喝貼文固定正式海報",
     "post_lifestyle": "目前最新使用者ZIP素材先依文案語意比對；有合格來源但原圖待同步時保持needs_binary_sync；真的沒有合格來源才重新生成",
     "guard": "驗目前authority與能力，不綁歷史版號、舊ZIP名稱、固定候選數、舊固定文案或退役延伸規格"
   },
+  "knowledge_product_count": 7,
+  "approved_media_product_count": 6,
   "official_specs": [
     "龜鹿膏 100g／罐",
     "龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）",
     "龜鹿飲180cc鋁袋 180cc／包（鋁袋）",
     "龜鹿湯塊 75g （2兩）／盒｜8塊裝",
     "龜鹿膠 600g （1斤）／盒｜32塊裝",
-    "鹿茸粉 75g／罐"
+    "鹿茸粉 75g／罐",
+    "柒玄茶・龜鹿調飲粉 2g／小包；20g／包（10小包）"
   ],
   "products": {
     "guilu-gao": {
@@ -56,8 +61,9 @@
       "customer_dm_status": "approved_current_20260814",
       "customer_dm_path": "/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
       "customer_dm_validation": "目前核准30cc詳細DM；一般產品主圖仍使用customer-display，DM不得取代產品主圖",
-      "usage_primary": "每日 1-2罐",
-      "usage_timing": "飲用時間可依個人使用習慣與作息時間安排"
+      "usage_primary": "每日 1–2 罐",
+      "usage_timing": "飲用時間可依個人使用習慣與作息時間安排",
+      "fulfillment": "接單後製作，約5～7個工作天出貨"
     },
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
@@ -70,26 +76,44 @@
       },
       "image_rule": "使用正式鋁袋原圖等比例；禁止橫向拉寬、加高或誇張放大",
       "usage_primary": "每日一包",
-      "usage_timing": "飲用時間可依個人使用習慣與作息時間安排"
+      "usage_timing": "飲用時間可依個人使用習慣與作息時間安排",
+      "fulfillment": "接單後製作，約5～7個工作天出貨"
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",
       "spec": "75g （2兩）／盒｜8塊裝",
+      "detail": "每塊約9.375g",
       "presentation": "深藍正式盒裝",
-      "image_rule": "使用正式原盒等比例；主規格固定75g （2兩）／盒｜8塊裝；每塊約9.375g僅詳細資料，不放產品主圖或DM主規格；不得建立其他容量。"
+      "image_rule": "使用正式原盒等比例；主規格固定75g （2兩）／盒｜8塊裝；每塊約9.375g可留詳細資料；不得建立其他容量。"
     },
     "guilu-jiao": {
       "name": "龜鹿膠",
       "spec": "600g （1斤）／盒｜32塊裝",
+      "detail": "每塊約18.75g",
       "presentation": "淡紫色正式盒裝",
-      "image_rule": "使用正式原盒等比例；主規格固定600g （1斤）／盒｜32塊裝；每塊約18.75 g僅詳細資料，不放產品主圖或DM主規格；不得與75g湯塊混用。"
+      "image_rule": "使用正式原盒等比例；主規格固定600g （1斤）／盒｜32塊裝；每塊約18.75g可留詳細資料；不得與75g湯塊混用。"
     },
     "luerong-fen": {
       "name": "鹿茸粉",
       "spec": "75g／罐",
       "presentation": "白色塑膠罐正式原圖",
       "image_rule": "不改包裝、罐型、容量或標示，只允許等比例呈現"
+    },
+    "qixuan-guilu-drink-powder": {
+      "name": "柒玄茶・龜鹿調飲粉",
+      "spec": "2g／小包；20g／包（10小包）",
+      "ingredients_status": "目前公開權威資料尚未提供正式成分表，不自行推測或補寫",
+      "media_status": "formal-product-image-pending",
+      "image_rule": "未確認核准正式產品實物原圖前，不得AI重畫、自創包裝、任意加標籤或拿其他產品圖代替"
     }
+  },
+  "fulfillment_scope": {
+    "made_to_order_products": [
+      "guilu-drink-30",
+      "guilu-drink-180"
+    ],
+    "drink_lead_time": "約5～7個工作天出貨",
+    "rule": "5～7個工作天交期只適用龜鹿飲，不得套用其他產品"
   },
   "mascot": {
     "name": "仙加味小老闆",
@@ -133,8 +157,10 @@
       "文案產品或規格與圖片不同",
       "DM內嵌文字與目前正式規格不同",
       "30cc被做成瓶型、加標籤或比例放大",
+      "30cc文案或資料回退成每日一罐或舊用法",
       "180cc鋁袋被拉寬或誇張放大",
       "產品被AI重畫、包裝文字改變或比例失真",
+      "柒玄茶在未核准正式實物原圖前出現AI自創產品包裝",
       "文案說溫熱／熱湯但圖片呈現冰飲",
       "季節、天氣、場合、地點、情境或環境明顯矛盾",
       "小老闆表情、動作或道具與文案目的不符",
