@@ -1,19 +1,36 @@
 #!/usr/bin/env python3
 from __future__ import annotations
+
 import json
 import subprocess
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
+CURRENT_30='每日 1–2 罐'
+
 
 def req(ok,msg):
     if not ok: raise AssertionError(msg)
 
+
+def load(rel):
+    return json.loads((ROOT/rel).read_text(encoding='utf-8'))
+
+
 def main():
-    authority=json.loads((ROOT/'content/post-bank-current-authority-v20260809.json').read_text(encoding='utf-8'))
+    authority=load('content/post-bank-current-authority-v20260809.json')
     exporter=(ROOT/'post-bank-export.html').read_text(encoding='utf-8')
     current_guard=(ROOT/'publishing-center-data-current-authority-guard.js').read_text(encoding='utf-8')
-    base=json.loads((ROOT/'content/public-post-library.json').read_text(encoding='utf-8'))
+    base=load('content/public-post-library.json')
+    formal=load('data/formal-media-authority-v20260810.json')
+
+    product=authority['productAuthority']
+    req(product.get('textSource')=='public-product-master.json','貼文母庫文字權威必須是public-product-master.json')
+    req(product.get('knowledgeProductCount')==7,'貼文母庫文字產品必須為七項')
+    req(product.get('approvedMediaProductCount')==6,'貼文母庫核准產品媒體必須為六項')
+    req(product.get('drink30Usage')==CURRENT_30,'貼文母庫30cc目前用法必須為每日 1–2 罐')
+    req(product.get('drink180Usage')=='每日一包','貼文母庫180cc目前用法必須為每日一包')
+    req(product.get('latestAuthorityWins') is True,'新版產品權威必須優先')
 
     bank=authority['contentBank']
     req(bank.get('runtimeCountPolicy')=='current-catalog-dynamic','正式母庫張數必須跟隨目前catalog，不得鎖歷史固定數量')
@@ -32,30 +49,43 @@ def main():
     req('目前' in str(migration.get('syncButton') or ''),'同步按鈕文案必須表達目前母庫，不得鎖歷史篇數')
 
     state=authority['imageState']
-    req(state.get('productImageAuthority')=='images/products-v3/','產品圖片權威必須是products-v3')
+    req(state.get('productTextAuthoritySource')=='public-product-master.json','產品文字權威來源錯誤')
+    req(state.get('customerProductDisplayAuthority')=='images/customer-display-v20260812/','顧客產品主圖權威必須是目前customer-display')
+    req(state.get('productIdentityReference')=='images/products-v3/','products-v3只能作產品身份／比例參考')
     req(state.get('publicAssetAuthority')=='content/public-asset-library.json','退役資產判斷必須依目前公開資產權威')
-    req(state.get('formalMediaAuthority')=='data/formal-media-authority-v20260810.json','產品／試喝顧客展示必須依目前formal media authority')
-    latest_catalog=str(state.get('latestUserPostCatalog') or '').strip()
-    req(latest_catalog and (ROOT/latest_catalog).is_file(),'目前貼文圖來源沒有指向可讀取的最新使用者ZIP目錄')
-    latest_zip=json.loads((ROOT/latest_catalog).read_text(encoding='utf-8'))
+    req(state.get('formalMediaAuthority')=='data/formal-media-authority-v20260810.json','產品／DM／試喝顧客展示必須依目前formal media authority')
     req(state.get('legacyProductImagesRejected') is True and state.get('unapprovedDmRejected') is True,'舊產品圖／未核准DM必須拒絕')
-    req(state.get('approvedCurrentDmAllowed') is True,'目前formal authority核准DM不得再被舊隔離規則誤擋')
+    req(state.get('approvedCurrentDmAllowed') is True,'目前formal authority核准DM不得被舊隔離規則誤擋')
+    req(state.get('qixuanMediaPending') is True,'柒玄茶未核准正式產品實物圖前必須維持媒體待核准')
     req('deprecated-reference-only' in state.get('deprecatedAssetStatusesRejectedForNewCandidates',[]),'deprecated資產必須退出新候選')
-    candidate_count=int(latest_zip.get('candidate_count') or latest_zip.get('unique_image_count') or 0)
-    original_count=int(latest_zip.get('original_file_count') or candidate_count)
-    req(candidate_count>0 and original_count>=candidate_count,'目前最新使用者ZIP目錄候選數必須有效；不得要求歷史固定張數')
-    req(latest_zip.get('binary_sync',{}).get('status') in {'pending','ready'},'最新ZIP binary狀態必須可判斷')
+    req('latestUserPostSource' not in state and 'latestUserPostCatalog' not in state,'舊ZIP／舊catalog不得固定宣告為目前最新素材權威')
+    req('舊ZIP' in str(state.get('materialSourcePolicy') or '') and '不得' in str(state.get('materialSourcePolicy') or ''),'素材來源政策必須明確禁止舊ZIP成為目前權威')
+
+    req(Array_is_six := (isinstance(formal.get('products'),list) and len(formal.get('products'))==6),'目前正式產品媒體必須維持六項已核准實物圖／DM')
+    _=Array_is_six
+
+    post_auth=base.get('productAuthority') or {}
+    req(post_auth.get('textAuthority')=='public-product-master.json','公開貼文母庫未綁目前產品文字權威')
+    req(post_auth.get('knowledgeProducts')==7 and post_auth.get('approvedMediaProducts')==6,'公開貼文母庫仍是舊六產品模型')
+    req(post_auth.get('drink30Usage')==CURRENT_30,'公開貼文母庫30cc用法錯誤')
+    req('sixProductsSixSpecs' not in post_auth,'公開貼文母庫仍含舊六產品權威欄位')
+    by={p.get('id'):p for p in base.get('posts',[])}
+    req('柒玄茶・龜鹿調飲粉' in str(by['POST-PRODUCT-OVERVIEW'].get('copy') or ''),'產品總覽缺第七項柒玄茶')
+    req('六個正式產品' not in str(by['POST-PRODUCT-OVERVIEW'].get('copy') or ''),'產品總覽仍是舊六產品文案')
+    req(CURRENT_30 in str(by['POST-DRINK-30'].get('copy') or ''),'30cc待審貼文缺目前使用方式')
+    req('每日一包' in str(by['POST-DRINK-180'].get('copy') or ''),'180cc待審貼文缺目前使用方式')
 
     guard_policy=authority['guardPolicy']
     req(all(guard_policy.get(k) is True for k in [
         'validateCurrentAuthority','validateCapabilitiesNotHistoricalVersions','fixedHistoricalPostCountsForbidden',
         'fixedHistoricalCandidateCountsForbidden','fixedHistoricalRegenerationMinimumsForbidden',
-        'oldRuntimeStringEqualityForbidden','oldUiVersionEqualityForbidden','approvedCurrentMediaMustNotBeQuarantinedByOldRules'
-    ]),'目前守門政策沒有完整禁止歷史版本／固定數字／舊媒體隔離規則誤擋')
+        'oldRuntimeStringEqualityForbidden','oldUiVersionEqualityForbidden','oldZipNameAsLatestAuthorityForbidden',
+        'oldProductDataMayNotOverrideCurrent','approvedCurrentMediaMustNotBeQuarantinedByOldRules'
+    ]),'目前守門政策沒有完整禁止歷史版本／固定數字／舊ZIP／舊資料誤擋')
 
     serialized=json.dumps(authority,ensure_ascii=False)
-    for forbidden in ['runtimeTotalRequired','knownCharacterRegenerationMinimum','knownTotalRegenerationMinimum','knownApprovedMascotReuseCandidates','characterRegenerationBreakdown','quarantinedCurrentCopyConflict']:
-        req(forbidden not in serialized,f'目前權威仍保留固定歷史門檻／舊隔離欄位：{forbidden}')
+    for forbidden in ['runtimeTotalRequired','knownCharacterRegenerationMinimum','knownTotalRegenerationMinimum','knownApprovedMascotReuseCandidates','characterRegenerationBreakdown','quarantinedCurrentCopyConflict','latestUserZipSource']:
+        req(forbidden not in serialized,f'目前權威仍保留固定歷史門檻／舊來源權威：{forbidden}')
 
     req('publishing-center-data-current-authority-guard.js?v=current' in exporter,'匯出頁缺少最後一層目前資產權威守門')
     req('posts.length<1' in exporter,'匯出頁必須拒絕空白母庫')
@@ -68,7 +98,7 @@ def main():
     req('posts.length!==500' not in exporter and 'post_count_500' not in exporter,'匯出頁不得再要求歷史500篇')
     req('KNOWN_REGENERATION_MINIMUM' not in exporter,'匯出頁不得再使用歷史重生成最低數量')
 
-    for token in ['public-asset-library.json','formal-media-authority-v20260810.json','currentFormalPaths','deprecated-reference-only','preflight-rejected-reference-only','superseded-reference-only','current-authority-regeneration-required','needs_generation','products-v2']:
+    for token in ['public-asset-library.json','formal-media-authority-v20260810.json','currentFormalPaths','deprecated-reference-only','preflight-rejected-reference-only','superseded-reference-only','current-authority-regeneration-required','needs_generation','products-v3','每日 1–2 罐','柒玄茶・龜鹿調飲粉']:
         req(token in current_guard,f'目前資產權威守門缺少：{token}')
     req("publish_allowed:false" in current_guard and "schedule_enabled:false" in current_guard,'退役／不合格資產回收後不得直接發布／排程')
     req("status:'pending_review'" in current_guard,'退役／不合格資產處理後必須回待審核')
@@ -78,13 +108,13 @@ def main():
     req(regeneration.get('mode')=='chatgpt-handoff-free-roundtrip','重生成模式不是免費ChatGPT交接閉環')
     req(regeneration.get('resultStatus')=='pending_review' and regeneration.get('reviewRequiredAfterGeneration') is True,'重生成完成後必須回待審核')
     req(regeneration.get('publishedContentLocked') is True,'已發布內容必須鎖定')
-    req(regeneration.get('regenerateOnlyWhenNoApprovedSourceMatches') is True,'必須先找正式／ZIP合格來源，真的缺圖才重生成')
+    req(regeneration.get('regenerateOnlyWhenNoApprovedSourceMatches') is True,'必須先找目前核准正式來源，真的缺圖才重生成')
 
     validator=ROOT/'tools/validate-post-bank-runtime-current.mjs'
     req(validator.exists(),'缺少目前runtime能力式驗收工具')
     subprocess.run(['node',str(validator)],cwd=ROOT,check=True)
 
-    print(f'PASS current post bank authority: dynamic runtime count + unique IDs + current asset/formal authority + products-v3 + current user ZIP({candidate_count} candidates) + pending-review regeneration; no fixed 500/history gates or retired 30cc quarantine.')
+    print('PASS current post bank authority: seven text products, six approved media products, current 30cc/180cc use, current customer/formal media, dynamic counts, unique IDs and no stale ZIP/version gates.')
 
 if __name__=='__main__':
     main()
