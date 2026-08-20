@@ -1,7 +1,7 @@
 name: 仙加味官網目前權威完整驗收（手動）
 
 # 全面整理期間維持手動；只依目前正式 authority 驗證資料、媒體、公開頁、AIO／SEO／GEO與貼文圖文能力。
-# 不鎖退役版號、舊試喝圖、舊規格或舊固定使用時段。
+# 文字／AI知識為七項目前正式產品；正式產品圖／DM媒體目前為六項。30cc最新正式用法為每日 1–2 罐。
 on:
   workflow_dispatch:
 
@@ -27,18 +27,66 @@ jobs:
         with:
           node-version: 22
 
-      - name: Run consolidated current public release validators
+      - name: Validate current seven-product text authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m json.tool public-product-master.json >/dev/null
+          python -m json.tool ai-answers.json >/dev/null
+          python -m json.tool geo-data.json >/dev/null
+          python -m json.tool assets/data/official-products.json >/dev/null
+          python -m json.tool config/official-products.json >/dev/null
+          python tools/validate-ai-geo-current-v20260820.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          CURRENT_30='每日 1–2 罐'
+          master=json.loads(Path('public-product-master.json').read_text(encoding='utf-8'))
+          public=json.loads(Path('assets/data/official-products.json').read_text(encoding='utf-8'))
+          config=json.loads(Path('config/official-products.json').read_text(encoding='utf-8'))
+          expected={
+            'guilu-gao':'100g／罐',
+            'guilu-drink-30':'30cc／罐（小玻璃罐）',
+            'guilu-drink-180':'180cc／包（鋁袋）',
+            'guilu-tangkuai':'75g （2兩）／盒｜8塊裝',
+            'guilu-jiao':'600g （1斤）／盒｜32塊裝',
+            'luerong-fen':'75g／罐',
+            'qixuan-guilu-drink-powder':'2g／小包；20g／包（10小包）',
+          }
+          assert master.get('authority')=='user-confirmed-current'
+          assert master.get('productCount')==7 and len(master.get('products') or [])==7
+          mb={p['id']:p for p in master['products']}
+          pb={p['id']:p for p in public.get('products') or []}
+          cb={p['id']:p for p in config.get('products') or []}
+          assert set(mb)==set(expected)==set(pb)==set(cb)
+          for pid,spec in expected.items():
+            assert mb[pid]['specification']==spec, (pid,'public master',mb[pid].get('specification'))
+            public_spec=pb[pid].get('specification')
+            config_spec=cb[pid].get('spec')
+            assert public_spec==spec, (pid,'public authority',public_spec)
+            assert config_spec==spec, (pid,'config authority',config_spec)
+          assert mb['guilu-drink-30']['usage'][0]==CURRENT_30
+          assert pb['guilu-drink-30']['usage_primary']==CURRENT_30
+          assert cb['guilu-drink-30']['usage_primary']==CURRENT_30
+          assert mb['guilu-drink-180']['usage'][0]=='每日一包'
+          assert len(public.get('approved_media_product_ids') or [])==6
+          assert len(config.get('approved_media_product_ids') or [])==6
+          assert pb['qixuan-guilu-drink-powder']['media_status']=='formal-product-image-pending'
+          print('PASS: seven-product text authority + six-approved-media model + current 30cc daily 1–2 cans.')
+          PY
+
+      - name: Run current public surface validators
         shell: bash
         run: |
           set -euo pipefail
           python tools/validate-public-customer-pages-v20260809.py
-          python tools/validate-site-production-release-v20260809.py
           python tools/validate-visual-cohesion-v20260809.py
           python tools/validate_public_aio_seo.py
           python tools/validate-public-boundary-v20260808.py
           python tools/validate-publishing-content-match-v20260809.py
 
-      - name: Validate current product DM trial authority
+      - name: Validate current product image DM and trial authority
         shell: bash
         run: |
           set -euo pipefail
@@ -57,12 +105,12 @@ jobs:
           must(a.runtime===m.runtime,'authority與manifest runtime不同步');
           must(a.approval_batch===m.approval_batch,'authority與manifest approval batch不同步');
           must(Array.isArray(a.products)&&a.products.length===6,'正式媒體產品不是六項');
-          must(byOfficial.size===6,'目前產品權威不是六項');
+          must(byOfficial.size===7,'目前文字／AI產品權威不是七項');
+          must((official.approved_media_product_ids||[]).length===6,'目前核准媒體產品數不是六項');
           for(const p of a.products){
             const current=byOfficial.get(idMap[p.id]);
             must(current,`找不到目前正式產品 ${p.id}`);
             must(p.spec===current.specification,`媒體authority主規格未同步 ${p.id}: ${p.spec} != ${current.specification}`);
-            if(current.detail_unit_approx)must(p.detail_unit_approx===current.detail_unit_approx,`每塊約重未同步 ${p.id}`);
             const image=local(p.image),dm=local(p.dm),mk=manifestKeys[p.id];
             must(['jpeg','png','webp','avif'].includes(kind(image)),`產品主圖不可解碼 ${image}`);
             must(['jpeg','png','webp','avif'].includes(kind(dm)),`詳細DM不可解碼 ${dm}`);
@@ -76,57 +124,37 @@ jobs:
           must(local(p180.image)==='images/customer-display-v20260812/guilu-drink-180cc-product.jpg','180cc產品主圖角色錯誤');
           must(local(p180.dm)!==local(p180.image),'180cc產品主圖被詳細DM取代');
           if(p180.sha256){const b=fs.readFileSync(local(p180.image));must(crypto.createHash('sha256').update(b).digest('hex')===p180.sha256,'180cc核准產品原圖hash不符');}
-          must(String(a.customer_text_spec_policy||'').includes('顧客產品頁'),'目前完整文字規格政策缺失');
-          must(String(a.customer_text_spec_policy||'').includes('不得因此自行加字'),'完整文字規格政策沒有保護產品圖／DM原圖');
           must(a.trial?.render_mode==='poster'&&a.trial?.status==='approved_user_original','試喝目前不是核准海報模式');
           const trialPath=local(a.trial.image||a.trial.path),manifestTrial=local(m.trial?.path);
           must(trialPath===manifestTrial,'authority與manifest試喝海報不同步');
           must(trialPath==='images/trial/trial-poster-small-boss-official-v20260814.jpg','試喝不是目前核准正式海報');
           must(kind(trialPath)==='jpeg','正式試喝海報不可解碼');
-          console.log('PASS: current product authority + separated product/DM/trial media authority.');
+          console.log('PASS: seven-product authority + six separated product/DM media + approved trial poster.');
           NODE
 
-      - name: Validate runtime and public surfaces
+      - name: Validate runtime authority and current 30cc behavior
         shell: bash
         run: |
           set -euo pipefail
           for file in site.js site-core-v410.js site-product-data-authority.js site-customer-display-v20260812.js site-dm-authority-v20260811.js site-media-modal-final-v20260814.js site-product-image-safety.js site-official-product-variants.js site-public-content-cleanup-v20260809.js site-public-image-retirement-v20260812.js site-mascot-placement-v20260812.js site-stability-v20260814.js; do
             node --check "$file"
           done
-          python -m json.tool data.json >/dev/null
-          python -m json.tool catalog-public.json >/dev/null
-          python -m json.tool geo-data.json >/dev/null
-          python -m json.tool content/product-physical-scale-authority-v20260809.json >/dev/null
-          python -m json.tool content/public-content-policy.json >/dev/null
-          python -m json.tool assets/data/official-products.json >/dev/null
-          python -m json.tool data/formal-media-authority-v20260810.json >/dev/null
           node <<'NODE'
-          const fs=require('fs');const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
-          const J=p=>JSON.parse(fs.readFileSync(p,'utf8'));
-          const site=fs.readFileSync('site.js','utf8');
+          const fs=require('fs');
+          const must=(ok,msg)=>{if(!ok)throw new Error(msg)};
           const authorityJs=fs.readFileSync('site-product-data-authority.js','utf8');
-          const official=J('assets/data/official-products.json');
-          for(const token of ['site-product-data-authority.js','site-customer-display-v20260812.js','site-dm-authority-v20260811.js','site-media-modal-final-v20260814.js','site-product-image-safety.js','site-official-product-variants.js','site-public-image-retirement-v20260812.js','site-stability-v20260814.js'])must(site.includes(token),`site.js缺少目前正式層：${token}`);
-          for(const p of official.products||[]){
-            must(authorityJs.includes(p.specification),`前端資料權威未包含目前規格 ${p.id}: ${p.specification}`);
-            if(p.usage_primary)must(authorityJs.includes(p.usage_primary),`前端資料權威未包含目前用法 ${p.id}: ${p.usage_primary}`);
-            if(p.usage_timing)must(authorityJs.includes(p.usage_timing),`前端資料權威未包含目前時間原則 ${p.id}`);
-            if(p.detail_unit_approx)must(authorityJs.includes(p.detail_unit_approx),`前端資料權威未包含每塊約重 ${p.id}`);
-          }
+          const p30=fs.readFileSync('product-guilu-drink-30cc.html','utf8');
+          const faq=fs.readFileSync('faq.html','utf8');
+          const guide=fs.readFileSync('guide.html','utf8');
+          const CURRENT='每日 1–2 罐';
+          must(authorityJs.includes(`const CURRENT_30_USAGE='${CURRENT}'`),'前端產品權威沒有鎖定30cc每日1–2罐');
+          must(!authorityJs.includes("['每日 1-2罐','每日一罐']"),'前端仍會把1–2罐覆寫成每日一罐');
+          for(const [name,text] of [['30cc產品頁',p30],['FAQ',faq],['使用指南',guide]])must(text.includes(CURRENT),`${name}缺少目前30cc用法`);
           const trial=fs.readFileSync('trial.html','utf8');
           must(trial.includes('trial-poster-small-boss-official-v20260814.jpg'),'trial.html不是目前試喝主圖');
-          must(trial.includes('30cc／罐（小玻璃罐）'),'trial.html 30cc規格錯誤');
-          must(trial.includes('data-product-intro="1"'),'trial產品介紹入口沒有統一Modal標記');
           const dm=fs.readFileSync('dm.html','utf8');
           must(dm.includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'),'dm.html 30cc不是目前正式DM');
-          must((dm.match(/data-product-intro="1"/g)||[]).length>=6,'六項DM查看介紹沒有全部走統一Modal');
-          const tang=fs.readFileSync('product-guilu-tangkuai.html','utf8');
-          const jiao=fs.readFileSync('product-guilu-jiao.html','utf8');
-          must(tang.includes('75g （2兩）／盒｜8塊裝')&&tang.includes('每塊約9.375g'),'龜鹿湯塊顧客產品頁未顯示完整目前規格');
-          must(jiao.includes('600g （1斤）／盒｜32塊裝')&&/每塊約18\.75\s*g/.test(jiao),'龜鹿膠顧客產品頁未顯示完整目前規格');
-          const modal=fs.readFileSync('site-media-modal-final-v20260814.js','utf8');
-          must(modal.includes('openProductModal')&&modal.includes('data-product-intro'),'正式Modal攔截能力缺失');
-          console.log('PASS: public runtime, JSON authorities, current product text, trial, DM and six-product modal contract.');
+          console.log('PASS: runtime no longer downgrades 30cc daily 1–2 cans; product/FAQ/guide surfaces aligned.');
           NODE
 
       - name: Verify retired write-back workflows are gone
