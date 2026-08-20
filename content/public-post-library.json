@@ -1,5 +1,5 @@
 {
-  "version": "current-public-posts-authority-20260820-v6",
+  "version": "current-public-posts-authority-20260820-v7",
   "authority": "TS15825868/xianjiawei",
   "privacy": "public-safe-marketing-content-only",
   "updatedAt": "2026-08-20",
@@ -374,7 +374,7 @@
     {
       "id": "POST-WEATHER-HOT",
       "title": "悶熱外出，把步驟簡單一點",
-      "copy": "天氣悶熱、準備外出時，水壺記得帶著，依活動狀況補充水分。仙加味想提醒的不是多做多少，而是讓日常安排保持清楚、順手。此類貼文需確認當日天氣後再安排，不自動排程。",
+      "copy": "天氣悶熱、準備外出時，水壺記得帶著，依活動狀況補充水分。仙加味想提醒的不是多做多少，而是讓日常安排保持清楚、順手。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "live_check_required": true,
@@ -392,7 +392,7 @@
     {
       "id": "POST-WEATHER-TEMP",
       "title": "早晚溫差，出門多一層準備",
-      "copy": "早晚溫差比較明顯時，出門前可以多帶一件薄外套。仙加味把這種小小的準備也看成生活節奏的一部分。此類貼文需確認當日天氣後再安排，不自動排程。",
+      "copy": "早晚溫差比較明顯時，出門前可以多帶一件薄外套。仙加味把這種小小的準備也看成生活節奏的一部分。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "live_check_required": true,
@@ -410,7 +410,7 @@
     {
       "id": "POST-WEATHER-RAIN",
       "title": "下雨天，把日常放慢一點",
-      "copy": "下雨天回到室內，先收好雨傘、喝口溫水，再整理手邊的事。仙加味想把補養放進這種實際生活情境裡，讓節奏自然一點。此類貼文需確認當日天氣後再安排，不自動排程。",
+      "copy": "下雨天回到室內，先收好雨傘、喝口溫水，再整理手邊的事。仙加味想把補養放進這種實際生活情境裡，讓節奏自然一點。",
       "platforms": ["Facebook", "Instagram"],
       "status": "pending_review",
       "live_check_required": true,
