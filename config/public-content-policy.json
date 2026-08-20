@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-20-seven-product-public-policy-v4",
+  "version": "2026-08-20-six-public-product-policy-v5",
   "authority": "user-confirmed-current",
   "repositoryRole": "公開官網、已核准對外內容與不含私人資料的機器可讀產品資料",
   "internalRepository": "TS15825868/xianjiawei-internal",
@@ -7,9 +7,7 @@
   "allowedPublicContent": [
     "已核准或已發布的貼文文案",
     "已核准或已發布的社群圖片",
-    "七項目前正式產品文字知識與規格",
-    "六項已有核准正式產品實物圖與詳細DM",
-    "柒玄茶・龜鹿調飲粉目前正式文字規格；未確認核准正式產品實物原圖前不得自創包裝",
+    "目前六項官網公開產品文字知識、規格與核准正式產品實物圖／詳細DM",
     "龜鹿飲試喝內容、申請條件與LINE導流；易變價格、活動與配送金額只可使用當下已確認正式版本",
     "品牌故事、FAQ、公開聯絡導流與GEO／AI可讀資料",
     "不含個資、成本、供應商、內部備註與未核准排程的公開JSON"
@@ -20,6 +18,7 @@
     "供應商、採購、成本、毛利、批發底價與實際庫存數量",
     "未核准排程與內部營運備註",
     "未核准產品圖、AI自創產品包裝或錯誤產品比例",
+    "暫緩對外產品的名稱、規格、圖片或文案被舊七項資料重新公開",
     "把舊價格、舊促銷、舊規格、舊圖片或舊文案當成目前正式資料",
     "任何Secret、Token、API Key、Webhook Token或Access憑證",
     "D1資料庫匯出、Cloudflare內部設定與系統診斷",
@@ -43,7 +42,7 @@
   },
   "officialProductAuthority": {
     "source": "public-product-master.json",
-    "knowledgeProductCount": 7,
+    "knowledgeProductCount": 6,
     "approvedMediaProductCount": 6,
     "specifications": [
       "龜鹿膏 100g／罐",
@@ -51,16 +50,15 @@
       "龜鹿飲180cc鋁袋 180cc／包（鋁袋）",
       "龜鹿湯塊 75g （2兩）／盒｜8塊裝｜每塊約9.375g",
       "龜鹿膠 600g （1斤）／盒｜32塊裝｜每塊約18.75g",
-      "鹿茸粉 75g／罐",
-      "柒玄茶・龜鹿調飲粉 2g／小包；20g／包（10小包）"
+      "鹿茸粉 75g／罐"
     ],
     "drink30Rule": "正式名稱為龜鹿飲30cc玻璃罐；30cc／罐（小玻璃罐）；裸罐、無貼紙；正式使用方式為每日 1–2 罐；不得稱瓶、改包裝、改比例或回退每日一罐／舊格式",
     "drink180Rule": "正式名稱為龜鹿飲180cc鋁袋；180cc／包（鋁袋）；狹長直立；正式使用方式為每日一包；不得拉寬或誇張放大",
     "drinkFulfillmentRule": "龜鹿飲30cc與180cc接單後製作，約5～7個工作天出貨；此交期只適用龜鹿飲",
     "soupBlockRule": "龜鹿湯塊正式規格只有75g （2兩）／盒｜8塊裝，每塊約9.375g；不得建立300g、600g或其他舊容量",
     "guiluJiaoRule": "龜鹿膠正式規格600g （1斤）／盒｜32塊裝，每塊約18.75g；不可與龜鹿湯塊混用",
-    "qixuanRule": "柒玄茶・龜鹿調飲粉為第七項正式文字產品知識；目前公開權威尚未提供正式成分表且未確認核准正式產品實物原圖，不自行補成分或生成包裝",
-    "customerProductImageSource": "images/customer-display-v20260812/（六項已有核准正式產品圖）",
+    "deferredProductRule": "暫緩對外產品只保留ERP內部資料；未經使用者日後明確重新上架，不得出現在官網、LINE OA對客知識、公開AI/GEO、FAQ或公開貼文",
+    "customerProductImageSource": "images/customer-display-v20260812/（六項目前核准正式產品圖）",
     "productIdentityReference": "images/products-v3/（只作產品身份、包裝與比例校正參考）",
     "formalDmSource": "images/dm-final/",
     "imageRule": "產品只允許正式實物外觀等比例呈現；不裁切、不拉伸、不改包裝、不改標籤、不AI重畫，不把不同產品強制等高等寬"
@@ -78,24 +76,12 @@
     "oldProductCountMayNotBlock": true,
     "oldZipMayNotBecomeAuthority": true,
     "oldGuardMayNotRestoreRetiredFacts": true,
-    "oldCopyMayNotOverwriteCurrent": true
+    "oldCopyMayNotOverwriteCurrent": true,
+    "deferredProductMayNotBeReintroduced": true
   },
   "currentPublishedContent": [
-    {
-      "postId": "POST-BRAND-START",
-      "status": "published-locked",
-      "preventRepublish": true
-    },
-    {
-      "postId": "XJW-TRIAL-001",
-      "status": "published-final-locked",
-      "copy": "content/social-guilu-drink-trial-v1.json",
-      "assetManifest": "content/final-published-assets-v20260808.json",
-      "ownerPublicationConfirmed": true,
-      "publishAllowed": false,
-      "preventRepublish": true,
-      "doNotRepublish": true
-    }
+    {"postId":"POST-BRAND-START","status":"published-locked","preventRepublish":true},
+    {"postId":"XJW-TRIAL-001","status":"published-final-locked","copy":"content/social-guilu-drink-trial-v1.json","assetManifest":"content/final-published-assets-v20260808.json","ownerPublicationConfirmed":true,"publishAllowed":false,"preventRepublish":true,"doNotRepublish":true}
   ],
   "workflowPolicy": {
     "publicActionsMayValidateAndDeploy": true,
