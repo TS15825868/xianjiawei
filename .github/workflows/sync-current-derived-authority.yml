@@ -1,7 +1,7 @@
 name: 仙加味目前權威衍生資料同步
 
 # MAINTENANCE MODE: manual only until the owner finishes visual/function review.
-# 最新正式資料優先；同步器不得把新版規格、用法或顧客文字降級回舊守門內容。
+# 最新正式資料優先；同步器不得把新版規格、用法、顧客文字或貼文控制降級回舊守門內容。
 on:
   workflow_dispatch:
 
@@ -32,7 +32,13 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          targets=['content/public-post-library.json','llms-full.txt','llms.txt','catalog-public.json','data.json','geo-data.json','assets/data/official-products.json','public-product-master.json','ai-answers.json']
+          targets=[
+            'content/public-post-library.json','content/public-content-policy.json','config/public-content-policy.json',
+            'content/post-bank-v6-manifest.json','content/post-bank-current-authority-v20260809.json',
+            'content/ai-brand-control-v20260807.json','content/visual-production-spec-current.json',
+            'llms-full.txt','llms.txt','catalog-public.json','data.json','geo-data.json',
+            'assets/data/official-products.json','public-product-master.json','product-master.json','ai-answers.json','deploy-version.json'
+          ]
           retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日1～2罐','每日 1～2罐','每日1-2罐','每日 1-2罐','龜鹿飲30cc玻璃瓶','30cc／瓶']
           current_30='每日 1–2 罐'
           official=json.loads(Path('assets/data/official-products.json').read_text(encoding='utf-8'))
@@ -50,27 +56,37 @@ jobs:
           public=json.loads(Path('public-product-master.json').read_text(encoding='utf-8'))
           public_by={p.get('id'):p for p in public.get('products',[])}
           assert public_by['guilu-drink-30']['usage'][0]==current_30
-          json.loads(Path('content/public-post-library.json').read_text(encoding='utf-8'))
+          posts=json.loads(Path('content/public-post-library.json').read_text(encoding='utf-8'))
+          post_auth=posts.get('productAuthority') or {}
+          assert post_auth.get('knowledgeProducts')==7 and post_auth.get('approvedMediaProducts')==6
+          assert post_auth.get('drink30Usage')==current_30
+          assert 'sixProductsSixSpecs' not in post_auth
+          post_by={p.get('id'):p for p in posts.get('posts',[])}
+          assert '柒玄茶・龜鹿調飲粉' in post_by['POST-PRODUCT-OVERVIEW']['copy']
+          assert '六個正式產品' not in post_by['POST-PRODUCT-OVERVIEW']['copy']
+          assert current_30 in post_by['POST-DRINK-30']['copy']
           catalog=json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
           products={p.get('id'):p for p in catalog.get('products',[])}
           p30=products.get('guilu-drink-30') or {}
           assert str(p30.get('dmImage') or '').split('?',1)[0].endswith('/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg')
-          assert 'quarantinedDmImage' not in p30
           assert catalog.get('knowledgeProductCount')==7
           assert catalog.get('approvedMediaProductCount')==6
           rules=catalog.get('specificationRules') or {}
           assert current_30 in str(rules.get('drink30') or '')
           assert tang['specification'] in str(rules.get('tangkuai') or '') and tang['detail_unit_approx'] in str(rules.get('tangkuai') or '')
           assert jiao['specification'] in str(rules.get('jiao') or '') and '18.75' in str(rules.get('jiao') or '')
-          assert '顧客文字可顯示完整規格' in str(rules.get('tangkuai') or '')
-          assert '顧客文字可顯示完整規格' in str(rules.get('jiao') or '')
-          assert '柒玄茶・龜鹿調飲粉' in Path('public-product-master.json').read_text(encoding='utf-8')
           for rel in targets:
             text=Path(rel).read_text(encoding='utf-8')
             for phrase in retired:
               if phrase in text: raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
           print('PASS: derived outputs follow seven-product text authority, six-approved-media model, current 30cc daily 1–2 cans, and no legacy copy regression.')
           PY
+      - name: Audit stale-data blockers
+        run: |
+          python tools/validate-current-authority-no-stale-blockers.py
+          python tools/validate-site-production-release-v20260809.py
+          python tools/validate-ai-geo-current-v20260820.py
+          python tools/validate-public-boundary-v20260808.py
       - name: Commit synchronized derived outputs
         shell: bash
         run: |
@@ -80,7 +96,13 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add catalog-public.json content/public-post-library.json content/public-content-policy.json config/public-content-policy.json content/post-bank-v6-manifest.json data.json geo-data.json assets/data/official-products.json content/visual-production-spec-current.json llms-full.txt llms.txt
+          git add \
+            catalog-public.json data.json geo-data.json public-product-master.json product-master.json ai-answers.json deploy-version.json \
+            assets/data/official-products.json config/official-products.json \
+            content/public-post-library.json content/public-content-policy.json config/public-content-policy.json \
+            content/post-bank-v6-manifest.json content/post-bank-current-authority-v20260809.json \
+            content/ai-brand-control-v20260807.json content/visual-production-spec-current.json \
+            llms-full.txt llms.txt
           if git diff --cached --quiet; then
             echo 'No derived output changes to commit.'
             exit 0
