@@ -1,5 +1,5 @@
 {
-  "version": "current-post-bank-compatibility-manifest",
+  "version": "current-post-bank-compatibility-manifest-20260820-v2",
   "authority": "TS15825868/xianjiawei",
   "role": "compatibility-assembly-manifest-not-fixed-count-guard",
   "baseLibrary": "content/public-post-library.json",
@@ -16,9 +16,11 @@
   ],
   "publishingCenter": "publishing-center.html",
   "currentAuthority": "content/post-bank-current-authority-v20260809.json",
+  "productTextAuthority": "public-product-master.json",
+  "visualProductionAuthority": "content/visual-production-spec-current.json",
   "formalMediaAuthority": "data/formal-media-authority-v20260810.json",
-  "latestUserZipCatalog": "data/post-library-userzip3-v20260811.json",
-  "latestUserZipSource": "新貼文的圖(3).zip",
+  "lifestyleCompatibilityCatalog": "data/post-library-userzip3-v20260811.json",
+  "sourcePolicy": "舊ZIP檔名與舊素材清單只作來源追溯，不得固定宣告為最新權威；實際可用素材以目前貼文中心、正式媒體權威與使用者最新核准素材為準。",
   "runtimeCountPolicy": "actual-runtime-count-must-match-current-exporter; no fixed historical count is a release condition",
   "historicalCompatibilitySnapshot": {
     "baseAtSnapshot": 23,
@@ -28,16 +30,20 @@
     "note": "These numbers describe the old compatibility assembly snapshot only. They must never be used to reject a newer valid current catalog."
   },
   "generatorAuthority": {
-    "officialProductCount": 6,
-    "officialSellableSpecs": 6,
+    "productTextAuthority": "public-product-master.json",
+    "knowledgeProductCount": 7,
+    "approvedMediaProductCount": 6,
     "formalSpecs": [
       "龜鹿膏100g／罐",
-      "龜鹿飲30cc：30cc／罐（小玻璃罐、裸罐、無貼紙）",
-      "龜鹿飲180cc：180cc／包（鋁袋）",
-      "龜鹿湯塊75g （2兩）／盒｜8塊裝",
-      "龜鹿膠600g （1斤）／盒｜32塊裝",
-      "鹿茸粉75g／罐"
+      "龜鹿飲30cc：30cc／罐（小玻璃罐、裸罐、無貼紙）｜每日 1–2 罐",
+      "龜鹿飲180cc：180cc／包（鋁袋）｜每日一包",
+      "龜鹿湯塊75g （2兩）／盒｜8塊裝｜每塊約9.375g",
+      "龜鹿膠600g （1斤）／盒｜32塊裝｜每塊約18.75g",
+      "鹿茸粉75g／罐",
+      "柒玄茶・龜鹿調飲粉2g／小包；20g／包（10小包）｜正式成分表與核准產品實物原圖尚待確認"
     ],
+    "qixuanMediaRule": "未確認核准正式產品實物原圖前，不得AI重畫、自創包裝或拿其他產品圖代替。",
+    "drinkLeadTimeRule": "接單後製作約5～7個工作天只適用龜鹿飲30cc與180cc。",
     "mascot": "官網正式精緻Q版小老闆；姿勢、季節、冷熱、表情、動作與道具依文案改變，角色識別固定；小鹿與小烏龜依情境加入且不得裁切。"
   },
   "protection": {
@@ -52,12 +58,12 @@
   "imageWorkflow": {
     "priority": [
       "產品／試喝文案：先使用目前formal media authority核准正式媒體；產品本體身分維持products-v3",
-      "生活情境文：依季節、情境、環境、冷熱、表情、動作、道具與文案語意比對目前最新使用者ZIP",
-      "有語意合格ZIP來源但binary未同步：標記needs_binary_sync，不得重生成",
-      "只有正式媒體與最新ZIP都沒有合格來源時才重新生成"
+      "生活情境文：依季節、情境、環境、冷熱、表情、動作、道具與文案語意比對目前最新使用者核准素材",
+      "有語意合格來源但binary未同步：標記needs_binary_sync，不得重生成",
+      "只有正式媒體與目前核准生活素材都沒有合格來源時才重新生成"
     ],
     "productIdentityAuthority": "products-v3真正正式產品原圖；核准DM是顧客顯示素材，不得反向改寫產品包裝身分",
-    "zipBinaryRule": "只有真實二進位且具有可載入public_url的ZIP候選才能正式套用；只找到合格來源但二進位未同步時標記needs_binary_sync，不得假裝已上線，也不得亂生成替代圖",
+    "zipBinaryRule": "ZIP檔名只作來源追溯；只有真實二進位且具有可載入public_url的核准候選才能正式套用；只找到合格來源但二進位未同步時標記needs_binary_sync，不得假裝已上線，也不得亂生成替代圖",
     "regenerationRule": "生成或換圖後原核准與排程失效，回pending_review並重跑16項審核；不得自動核准或發布",
     "ownerReviewRequired": true
   },
@@ -85,13 +91,15 @@
     "fixedHistoricalPostCountsForbidden": true,
     "fixedHistoricalCandidateCountsForbidden": true,
     "fixedHistoricalRegenerationMinimumsForbidden": true,
-    "latestZipComesFromCurrentAuthority": true,
-    "approvedCurrentMediaMustNotBeRejectedByOldRules": true
+    "latestMaterialComesFromCurrentAuthority": true,
+    "approvedCurrentMediaMustNotBeRejectedByOldRules": true,
+    "oldZipNamesMustNotOverrideCurrentMaterial": true,
+    "latestProductDataMustOverrideLegacy": true
   },
   "schedulePolicy": {
     "scheduleIsOptional": true,
     "immediatePublishMustNotBeBlockedByConfiguredSchedule": true,
     "weatherOrFastChangingPostsRequireLiveCheck": true
   },
-  "updatedAt": "2026-08-11"
+  "updatedAt": "2026-08-20"
 }
