@@ -1,15 +1,16 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-08-13 product-role-fix-v7
- * 六張產品主圖、詳細DM、試喝專頁視覺三個媒體角色分開管理。
- * 180cc 產品主圖改用真實鋁袋產品照片，不得再拿詳細DM海報替代。
- * 已知花圖的 trial-small-boss 二進位全部退出網站 runtime；trial.html 改由正式元件組合呈現。
+/* 仙加味顧客端產品主視覺｜2026-08-20 current media authority v9
+ * 七項產品文字知識以 public-product-master.json 為最高權威。
+ * 六項已有核准正式產品圖；產品主圖、詳細DM、試喝正式海報分開管理。
+ * products-v3 只作產品身份、包裝與比例校正，不作顧客產品主圖。
  */
 (function(){
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260813-trial-product-role-fix-v8';
+  const VERSION='20260820-current-media-authority-v9';
+  const CURRENT_30_USAGE='每日 1–2 罐';
   const DISPLAY=Object.freeze({
     'guilu-gao':'images/customer-display-v20260812/guilu-gao.avif',
     'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc.avif',
@@ -19,13 +20,19 @@
     'luerong-fen':'images/customer-display-v20260812/luerong-fen.avif'
   });
   const TRIAL=Object.freeze({
-    mode:'component',
-    id:'trial-showcase-v20260813',
-    mascot:'images/post-library/userzip3-v20260811/self-care-family-2.webp',
+    mode:'poster',
+    id:'trial-poster-small-boss-official-v20260814',
+    image:'images/trial/trial-poster-small-boss-official-v20260814.jpg',
     product:DISPLAY['guilu-drink-30'],
-    retired:['images/customer-display-v20260812/trial.webp','images/customer-display-v20260812/trial-clean-v4.svg','images/customer-display-v20260812/trial-small-boss.webp','images/customer-display-v20260812/trial-small-boss.jpg','images/customer-display-v20260812/trial-small-boss.png']
+    retired:[
+      'images/customer-display-v20260812/trial.webp',
+      'images/customer-display-v20260812/trial-clean-v4.svg',
+      'images/customer-display-v20260812/trial-small-boss.webp',
+      'images/customer-display-v20260812/trial-small-boss.jpg',
+      'images/customer-display-v20260812/trial-small-boss.png'
+    ]
   });
-  const OFFICIAL=window.XJWProductDataAuthority?.official||Object.freeze({
+  const IDENTITY=window.XJWProductDataAuthority?.official||Object.freeze({
     'guilu-gao':'images/products-v3/guilu-gao.jpg',
     'guilu-drink-30':'images/products-v3/guilu-drink-30.jpg',
     'guilu-drink-180':'images/products-v3/guilu-drink-180.jpg',
@@ -41,19 +48,27 @@
     if(!data||!Array.isArray(data.products)) return data;
     data.products=data.products.map(product=>{
       const display=DISPLAY[product?.id];
-      const official=OFFICIAL[product?.id];
+      const identity=IDENTITY[product?.id];
       if(!display) return product;
       const displayUrl=`${display}?v=${VERSION}`;
       const normalized={...product};
-      if(product.id==='guilu-drink-30') normalized.size='30cc／罐（小玻璃罐）';
-      if(product.id==='guilu-drink-180') normalized.size='180cc／包（鋁袋）';
+      if(product.id==='guilu-drink-30'){
+        normalized.size='30cc／罐（小玻璃罐）';
+        normalized.usagePrimary=CURRENT_30_USAGE;
+        if(Array.isArray(normalized.usage)&&normalized.usage.length)normalized.usage=[CURRENT_30_USAGE,...normalized.usage.slice(1)];
+      }
+      if(product.id==='guilu-drink-180'){
+        normalized.size='180cc／包（鋁袋）';
+        normalized.usagePrimary='每日一包';
+        if(Array.isArray(normalized.usage)&&normalized.usage.length)normalized.usage=['每日一包',...normalized.usage.slice(1)];
+      }
       if(product.id==='guilu-tangkuai'){
         normalized.size='75g （2兩）／盒｜8塊裝';
-        normalized.unitApprox='每塊約9.375g（僅詳細資料，不放產品主圖／DM主規格）';
+        normalized.unitApprox='每塊約9.375g';
       }
       if(product.id==='guilu-jiao'){
         normalized.size='600g （1斤）／盒｜32塊裝';
-        normalized.unitApprox='每塊約18.75 g（僅詳細資料，不放產品主圖／DM主規格）';
+        normalized.unitApprox='每塊約18.75g';
       }
       return {
         ...normalized,
@@ -61,24 +76,28 @@
         imageUrl:displayUrl,
         image_url:displayUrl,
         detailImages:[displayUrl],
-        officialOriginalImage:official||product.officialOriginalImage||'',
-        imagePolicy:'formal-product-image-only-contain-no-crop-no-dm-substitution',
-        officialImagePolicy:'products-v3-real-product-identity-reference-no-redraw',
+        officialOriginalImage:identity||product.officialOriginalImage||'',
+        imagePolicy:'current-customer-display-formal-product-image-contain-no-crop-no-stretch-no-dm-substitution',
+        officialImagePolicy:'products-v3-product-identity-package-scale-reference-only-no-redraw',
         physicalScalePolicy:'depicted-product-must-match-real-approved-product-shape-package-and-proportion'
       };
     });
     data.runtime={
       ...(data.runtime||{}),
-      productMainImageSource:VERSION,
-      dmSource:'separate-current-approved-dm-layer',
-      officialProductImageSource:'products-v3-real-product-identity-reference',
+      productTextAuthority:'public-product-master.json',
+      knowledgeProductCount:7,
+      approvedMediaProductCount:6,
+      productMainImageSource:'images/customer-display-v20260812/',
+      productIdentityReference:'images/products-v3/',
+      dmSource:'images/dm-final/',
       trialMode:TRIAL.mode,
-      trialComponent:TRIAL.id,
-      trialMascotSupport:`${TRIAL.mascot}?v=${VERSION}`,
+      trialPoster:`${TRIAL.image}?v=${VERSION}`,
       trialProductImage:`${TRIAL.product}?v=${VERSION}`,
       retiredTrialBinaries:TRIAL.retired,
+      drink30Usage:CURRENT_30_USAGE,
+      drink180Usage:'每日一包',
       displayVersion:VERSION,
-      displayRule:'產品主圖／詳細DM／trial元件完全分開；180cc產品主圖不得使用DM；已知花圖trial二進位不得再進網站runtime'
+      displayRule:'七項產品文字知識／六項核准正式產品圖；產品主圖、詳細DM、試喝正式海報分離；products-v3只作身份與比例校正；柒玄茶未核准正式產品實物原圖前不得生成包裝。'
     };
     return data;
   }
@@ -97,5 +116,5 @@
     }
   };
 
-  window.XJWCustomerDisplayAuthority=Object.freeze({version:VERSION,products:DISPLAY,trial:TRIAL,official:OFFICIAL,normalize});
+  window.XJWCustomerDisplayAuthority=Object.freeze({version:VERSION,current30Usage:CURRENT_30_USAGE,products:DISPLAY,trial:TRIAL,identity:IDENTITY,normalize});
 })();
