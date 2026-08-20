@@ -1,47 +1,21 @@
 {
-  "version": "2026-08-20-ai-brand-control-v11-seven-product-authority",
+  "version": "2026-08-20-ai-brand-control-v12-six-public-products",
   "authority": "user-confirmed-current",
   "brand": {
     "publicName": "仙加味",
     "seriesName": "仙加味・龜鹿",
     "tagline": "補養，是一種節奏。",
-    "publicSurfaces": [
-      "官網",
-      "LINE OA",
-      "公開發布中心",
-      "ERP對外內容",
-      "Facebook",
-      "Instagram",
-      "LINE VOOM",
-      "Google 商家最新動態"
-    ],
-    "publicForbidden": [
-      "台興山產",
-      "台興山產・仙加味",
-      "台興山產有限公司",
-      "統一編號",
-      "公司電話",
-      "公司地址"
-    ],
-    "companyInfoAllowedOnlyWhenRequired": [
-      "依法必須揭露",
-      "食品標示",
-      "發票與合約",
-      "商務合作",
-      "批發交易",
-      "正式法律文件"
-    ],
+    "publicSurfaces": ["官網","LINE OA","公開發布中心","ERP對外內容","Facebook","Instagram","LINE VOOM","Google 商家最新動態"],
+    "publicForbidden": ["台興山產","台興山產・仙加味","台興山產有限公司","統一編號","公司電話","公司地址"],
+    "companyInfoAllowedOnlyWhenRequired": ["依法必須揭露","食品標示","發票與合約","商務合作","批發交易","正式法律文件"],
     "consumerRouting": "仙加味官方LINE",
     "partnerProtection": "一般品牌內容不主動顯示舊公司或商號名稱，對外統一使用仙加味；依法或正式商務文件必須揭露時例外"
   },
   "productAuthority": {
     "source": "public-product-master.json",
-    "mirrorSources": [
-      "assets/data/official-products.json",
-      "config/official-products.json"
-    ],
-    "productCount": 7,
-    "knowledgeProductCount": 7,
+    "mirrorSources": ["assets/data/official-products.json","config/official-products.json"],
+    "productCount": 6,
+    "knowledgeProductCount": 6,
     "approvedMediaProductCount": 6,
     "specifications": [
       "龜鹿膏 100g／罐",
@@ -49,80 +23,15 @@
       "龜鹿飲180cc鋁袋 180cc／包（鋁袋）",
       "龜鹿湯塊 75g （2兩）／盒｜8塊裝",
       "龜鹿膠 600g （1斤）／盒｜32塊裝",
-      "鹿茸粉 75g／罐",
-      "柒玄茶・龜鹿調飲粉 2g／小包；20g／包（10小包）"
+      "鹿茸粉 75g／罐"
     ],
     "canonicalFacts": {
-      "guiluGao": {
-        "ingredients": [
-          "鹿角萃取物",
-          "龜板萃取物",
-          "枸杞",
-          "紅棗",
-          "黃耆",
-          "粉光蔘"
-        ],
-        "usagePrimary": "食用時間可依個人使用習慣與作息時間安排",
-        "usageNotes": [
-          "初次可先從半匙開始",
-          "可直接取用或以約100～300mL熱水化開"
-        ]
-      },
-      "guiluDrink30": {
-        "ingredients": [
-          "水",
-          "龜板萃取物",
-          "鹿角萃取物",
-          "粉光蔘",
-          "枸杞",
-          "紅棗",
-          "黃耆"
-        ],
-        "usagePrimary": "每日 1–2 罐",
-        "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
-        "fulfillment": "接單後製作，約5～7個工作天出貨"
-      },
-      "guiluDrink180": {
-        "ingredients": [
-          "水",
-          "龜板萃取物",
-          "鹿角萃取物",
-          "粉光蔘",
-          "枸杞",
-          "紅棗",
-          "黃耆"
-        ],
-        "usagePrimary": "每日一包",
-        "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
-        "fulfillment": "接單後製作，約5～7個工作天出貨"
-      },
-      "guiluTangkuai": {
-        "specification": "75g （2兩）／盒｜8塊裝",
-        "detail": "每塊約9.375g",
-        "ingredients": [
-          "龜板萃取物",
-          "鹿角萃取物"
-        ]
-      },
-      "guiluJiao": {
-        "specification": "600g （1斤）／盒｜32塊裝",
-        "detail": "每塊約18.75g",
-        "ingredients": [
-          "龜板萃取物",
-          "鹿角萃取物"
-        ]
-      },
-      "luerongFen": {
-        "specification": "75g／罐",
-        "ingredients": [
-          "鹿茸"
-        ]
-      },
-      "qixuanGuiluDrinkPowder": {
-        "specification": "2g／小包；20g／包（10小包）",
-        "ingredientsStatus": "目前公開權威資料尚未提供正式成分表，不自行推測或補寫",
-        "mediaStatus": "正式產品實物原圖尚未在目前核准素材庫確認；不得由AI重畫或自創包裝"
-      }
+      "guiluGao": {"ingredients":["鹿角萃取物","龜板萃取物","枸杞","紅棗","黃耆","粉光蔘"],"usagePrimary":"食用時間可依個人使用習慣與作息時間安排","usageNotes":["初次可先從半匙開始","可直接取用或以約100～300mL熱水化開"]},
+      "guiluDrink30": {"ingredients":["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],"usagePrimary":"每日 1–2 罐","usageTiming":"飲用時間可依個人使用習慣與作息時間安排","fulfillment":"接單後製作，約5～7個工作天出貨"},
+      "guiluDrink180": {"ingredients":["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],"usagePrimary":"每日一包","usageTiming":"飲用時間可依個人使用習慣與作息時間安排","fulfillment":"接單後製作，約5～7個工作天出貨"},
+      "guiluTangkuai": {"specification":"75g （2兩）／盒｜8塊裝","detail":"每塊約9.375g","ingredients":["龜板萃取物","鹿角萃取物"]},
+      "guiluJiao": {"specification":"600g （1斤）／盒｜32塊裝","detail":"每塊約18.75g","ingredients":["龜板萃取物","鹿角萃取物"]},
+      "luerongFen": {"specification":"75g／罐","ingredients":["鹿茸"]}
     },
     "rejectUnknownProductSpecs": true,
     "rejectLegacyProductFacts": true,
@@ -130,209 +39,55 @@
     "drink30Rule": "龜鹿飲30cc最新正式使用方式為每日 1–2 罐；任何舊文案、舊鏡像、舊守門員或同步器不得回退成每日一罐或舊標點格式",
     "drinkLeadTimeRule": "約5～7個工作天交期只適用龜鹿飲30cc與180cc",
     "soupBlockRule": "龜鹿湯塊正式規格只有75g （2兩）／盒｜8塊裝；不得建立300g、600g或把龜鹿膠規格套用到龜鹿湯塊",
-    "qixuanRule": "柒玄茶・龜鹿調飲粉屬第七項正式文字產品知識；未確認正式成分表與核准實物原圖前，不自行補成分或生成包裝"
+    "deferredProductRule": "目前暫緩對外產品只保留ERP內部資料；不得注入公開文案、圖片提示、官網、LINE OA對客知識、公開AI/GEO或貼文生成"
   },
-  "contentTaxonomy": [
-    "品牌故事",
-    "產品介紹",
-    "四季",
-    "天氣",
-    "場合",
-    "地點",
-    "節慶",
-    "FAQ",
-    "料理",
-    "萬華在地",
-    "門市日常",
-    "小老闆",
-    "小鹿",
-    "小烏龜",
-    "河馬娃娃",
-    "小鹿安撫巾",
-    "合作夥伴素材"
-  ],
-  "reviewDimensions": [
-    "品牌",
-    "產品",
-    "規格",
-    "價格／活動",
-    "季節",
-    "天氣",
-    "場合",
-    "地點",
-    "情境",
-    "環境",
-    "冷熱",
-    "表情",
-    "動作",
-    "小老闆與夥伴",
-    "比例尺寸",
-    "重複圖"
-  ],
+  "contentTaxonomy": ["品牌故事","產品介紹","四季","天氣","場合","地點","節慶","FAQ","料理","萬華在地","門市日常","小老闆","小鹿","小烏龜","河馬娃娃","小鹿安撫巾","合作夥伴素材"],
+  "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
   "generationRouting": {
     "mode": "chatgpt_handoff",
     "paidOpenAIImageApiEnabled": false,
     "paidOpenAITextApiEnabledForRegeneration": false,
     "reason": "不增加額外付費API；有問題時直接交由ChatGPT處理",
     "imageGenerationQueue": "managed-by-xianjiawei-internal-publishing-center",
-    "queueSummary": {
-      "mode": "dynamic",
-      "fixedLimit": false,
-      "note": "貼文與題庫可持續增加，不設固定篇數上限；實際數量與狀態由目前正式貼文中心動態計算。"
-    },
+    "queueSummary": {"mode":"dynamic","fixedLimit":false,"note":"貼文與題庫可持續增加，不設固定篇數上限；實際數量與狀態由目前正式貼文中心動態計算。"},
     "buttonBehavior": {
       "imageMismatch": "複製完整貼文、正式產品規格、情境與錯誤原因後開啟ChatGPT，由ChatGPT重新生成圖片",
       "copyMismatch": "複製完整貼文資料、正式成分、使用資料與品牌規範後開啟ChatGPT，由ChatGPT重新撰寫文案",
       "regenerateAll": "複製完整資料後開啟ChatGPT，由ChatGPT重做文案與圖片"
     },
-    "authorityInjection": [
-      "public-product-master.json",
-      "assets/data/official-products.json",
-      "brand-character-spec.json",
-      "content/visual-production-spec-current.json",
-      "content/ai-brand-control-v20260807.json"
-    ],
+    "authorityInjection": ["public-product-master.json","assets/data/official-products.json","brand-character-spec.json","content/visual-production-spec-current.json","content/ai-brand-control-v20260807.json"],
     "returnFlow": "ChatGPT處理完成後，新文案／新圖放回待審核；完成16項檢查後才能核准",
     "noApiKeyInPublicFrontend": true,
     "noBackgroundPaidGeneration": true
   },
-  "finalPublishedLocks": [
-    {
-      "postId": "XJW-TRIAL-001",
-      "assetId": "guilu-drink-trial-final-20260808",
-      "campaign": "龜鹿飲試喝組",
-      "status": "published_final_locked",
-      "confirmedOn": "2026-08-08",
-      "doNotRegenerate": true,
-      "preventRepublish": true,
-      "cooldownDays": 90,
-      "assetManifest": "content/final-published-assets-v20260808.json",
-      "note": "已確認為最終版且已發布；除非明確要求改版，否則不得再判定為待生成或自動重發。"
-    }
-  ],
-  "publishedHistory": [
-    {
-      "postId": "POST-GUILU-DRINK-TRIAL-EVERGREEN",
-      "assetId": "post-trial-evergreen-v412",
-      "publishedAtTaipei": "2026-08-06T12:54:00+08:00",
-      "status": "published-history-superseded",
-      "supersededBy": "guilu-drink-trial-final-20260808",
-      "preventRepublish": true
-    }
-  ],
+  "finalPublishedLocks": [{"postId":"XJW-TRIAL-001","assetId":"guilu-drink-trial-final-20260808","campaign":"龜鹿飲試喝組","status":"published_final_locked","confirmedOn":"2026-08-08","doNotRegenerate":true,"preventRepublish":true,"cooldownDays":90,"assetManifest":"content/final-published-assets-v20260808.json","note":"已確認為最終版且已發布；除非明確要求改版，否則不得再判定為待生成或自動重發。"}],
+  "publishedHistory": [{"postId":"POST-GUILU-DRINK-TRIAL-EVERGREEN","assetId":"post-trial-evergreen-v412","publishedAtTaipei":"2026-08-06T12:54:00+08:00","status":"published-history-superseded","supersededBy":"guilu-drink-trial-final-20260808","preventRepublish":true}],
   "campaignHolds": [],
   "imageRules": {
-    "productMethod": "所有產品必須使用正式原產品照片等比例合成；AI只生成背景、角色、道具與情境，不重畫產品包裝",
+    "productMethod": "所有目前公開產品必須使用正式原產品照片等比例合成；AI只生成背景、角色、道具與情境，不重畫產品包裝",
     "guiluDrink30": "30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；同型外觀約42mm直徑×51mm高；不可叫瓶、不可改罐型或比例、不可放大成100g罐大小。",
     "guiluDrink180": "180cc／包（鋁袋）；狹長直立，寬高比約0.64；不得拉寬、不得加高放大；同框時以自然實品比例呈現",
     "guiluGao": "100g／罐；六角玻璃罐約51×78mm；只使用目前核准正式包裝，不得由AI更換標籤或包裝",
     "guiluTangkuai": "75g （2兩）／盒｜8塊裝；深藍正式盒裝，照原圖等比例；每塊約9.375g屬產品詳細資料，產品本體仍使用正式原圖。",
     "guiluJiao": "600g （1斤）／盒｜32塊裝；淡紫正式盒裝照原圖等比例；每塊約18.75g屬產品詳細資料，產品本體仍使用正式原圖。",
     "luerongFen": "75g／罐；白色塑膠罐正式原圖等比例",
-    "qixuanGuiluDrinkPowder": "2g／小包；20g／包（10小包）；目前未核准正式產品實物原圖，不得AI重畫、自創包裝或拿其他產品圖代替",
+    "deferredProducts": "暫緩對外產品不得進入公開生成提示、產品拼圖或公開文案",
     "mascot": "只使用 images/brand/approved-v405/ 同款網站柔和立體Q版小老闆：圓臉、大眼、短黑髮、米白中式上衣、深綠圍裙、胸前紅色直式仙加味印章。姿勢可自由變化，但臉型、髮型、服裝與畫風不可變。",
     "mascotCompanions": "小鹿與小烏龜不是每張強制出現；情境需要夥伴時才加入，且必須是分開的獨立角色、同一Q版質感，不可融合。",
     "optionalCompanions": "灰色小河馬娃娃、米色小鹿安撫巾只在居家、休息、陪伴、親子等合適情境出現",
     "text": "繁體中文；圖片短標題優先；長文案放正文；不談療效、不誇張推銷",
     "duplicate": "同一主圖90天內不得重複；同一文案180天內不得重複"
   },
-  "workflow": [
-    "內容庫建立文案與圖片需求",
-    "注入正式產品權威資料與網站小老闆母規格",
-    "依圖片佇列排序",
-    "16項圖文檢查提示",
-    "不符合則交由ChatGPT重做",
-    "使用者審核通過",
-    "加入排程",
-    "自動發布可用官方API的平台",
-    "LINE VOOM人工發布包",
-    "發布結果回寫ERP"
-  ],
-  "regenerateActions": [
-    "圖不符合 → ChatGPT重新生成",
-    "文案不符合 → ChatGPT重新生成",
-    "全部重新生成"
-  ],
-  "schedule": {
-    "timezone": "Asia/Taipei",
-    "weekly": [
-      "TU 19:30",
-      "SA 09:30"
-    ],
-    "immediatePublishBypassesSchedule": true,
-    "specialContentMayReplaceUpcomingSlot": true,
-    "liveWeatherRequiresRecheck": true,
-    "liveWeatherTypes": [
-      "天氣",
-      "颱風",
-      "寒流",
-      "高溫",
-      "空氣品質",
-      "重大即時事件"
-    ]
-  },
-  "rotation": {
-    "avoidSameProductConsecutive": true,
-    "avoidSameCategoryConsecutive": true,
-    "pillars": [
-      "品牌",
-      "產品",
-      "天氣",
-      "四季",
-      "場合",
-      "地點",
-      "節慶",
-      "FAQ",
-      "料理",
-      "萬華故事",
-      "小老闆與夥伴"
-    ],
-    "librarySizePolicy": "dynamic-unbounded-reviewed-content-library"
-  },
+  "workflow": ["內容庫建立文案與圖片需求","注入正式產品權威資料與網站小老闆母規格","依圖片佇列排序","16項圖文檢查提示","不符合則交由ChatGPT重做","使用者審核通過","加入排程","自動發布可用官方API的平台","LINE VOOM人工發布包","發布結果回寫ERP"],
+  "regenerateActions": ["圖不符合 → ChatGPT重新生成","文案不符合 → ChatGPT重新生成","全部重新生成"],
+  "schedule": {"timezone":"Asia/Taipei","weekly":["TU 19:30","SA 09:30"],"immediatePublishBypassesSchedule":true,"specialContentMayReplaceUpcomingSlot":true,"liveWeatherRequiresRecheck":true,"liveWeatherTypes":["天氣","颱風","寒流","高溫","空氣品質","重大即時事件"]},
+  "rotation": {"avoidSameProductConsecutive":true,"avoidSameCategoryConsecutive":true,"pillars":["品牌","產品","天氣","四季","場合","地點","節慶","FAQ","料理","萬華故事","小老闆與夥伴"],"librarySizePolicy":"dynamic-unbounded-reviewed-content-library"},
   "modules": {
-    "annualContentCalendar": {
-      "enabled": true,
-      "purpose": "提前規劃四季、節慶、新品、品牌活動與即時替換規則"
-    },
-    "assetUsageLedger": {
-      "enabled": true,
-      "purpose": "記錄圖片與素材最後使用日期、平台、貼文ID，避免短期重複"
-    },
-    "contentPerformance": {
-      "enabled": true,
-      "purpose": "記錄平台、主題、發布時段、觸及、互動、點擊與轉換，供後續輪替優化"
-    },
-    "partnerMode": {
-      "enabled": true,
-      "purpose": "提供中藥店／中醫診所可下載品牌素材；合作夥伴版不強迫導流至仙加味，保護通路關係"
-    },
-    "brandGuardian": {
-      "enabled": false,
-      "blockingBeforeApproval": false,
-      "mode": "advisory-until-full-system-accepted",
-      "checks": [
-        "舊品牌名稱或公司資訊外洩",
-        "錯誤產品",
-        "錯誤規格",
-        "錯誤成分／舊使用資料",
-        "錯誤包裝",
-        "30cc誤稱瓶或加貼紙",
-        "180cc鋁袋比例錯誤",
-        "龜鹿湯塊不是75g（2兩）／8塊裝深藍盒",
-        "龜鹿膠不是600g（1斤）／32塊裝或淡紫盒被拉長",
-        "小老闆畫風或服裝錯誤",
-        "夥伴出現時造型錯誤或融合",
-        "季節天氣衝突",
-        "圖文不符",
-        "重複圖"
-      ],
-      "note": "系統未全部驗收前維持提示模式；最新正式產品資料優先，舊版本號、舊固定產品數與舊文案不得阻擋新版正確內容。"
-    }
+    "annualContentCalendar": {"enabled":true,"purpose":"提前規劃四季、節慶、新品、品牌活動與即時替換規則"},
+    "assetUsageLedger": {"enabled":true,"purpose":"記錄圖片與素材最後使用日期、平台、貼文ID，避免短期重複"},
+    "contentPerformance": {"enabled":true,"purpose":"記錄平台、主題、發布時段、觸及、互動、點擊與轉換，供後續輪替優化"},
+    "partnerMode": {"enabled":true,"purpose":"提供中藥店／中醫診所可下載品牌素材；合作夥伴版不強迫導流至仙加味，保護通路關係"},
+    "brandGuardian": {"enabled":false,"blockingBeforeApproval":false,"mode":"advisory-until-full-system-accepted","checks":["舊品牌名稱或公司資訊外洩","錯誤產品","錯誤規格","錯誤成分／舊使用資料","錯誤包裝","30cc誤稱瓶或加貼紙","180cc鋁袋比例錯誤","龜鹿湯塊不是75g（2兩）／8塊裝深藍盒","龜鹿膠不是600g（1斤）／32塊裝或淡紫盒被拉長","小老闆畫風或服裝錯誤","夥伴出現時造型錯誤或融合","季節天氣衝突","圖文不符","重複圖","暫緩對外產品誤進公開內容"],"note":"系統未全部驗收前維持提示模式；最新正式產品資料優先，舊版本號、舊固定產品數與舊文案不得阻擋新版正確內容。"}
   },
-  "statusPolicy": {
-    "generatedContent": "pending_review",
-    "autoApprove": false,
-    "autoPublishBeforeApproval": false,
-    "publishedContentLockedAgainstDuplicatePublish": true
-  }
+  "statusPolicy": {"generatedContent":"pending_review","autoApprove":false,"autoPublishBeforeApproval":false,"publishedContentLockedAgainstDuplicatePublish":true}
 }
