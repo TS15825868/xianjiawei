@@ -1,8 +1,8 @@
 name: 仙加味官網目前權威完整驗收（手動）
 
-# 全面整理期間維持手動；目前官網公開產品為六項。
-# 暫緩對外產品不得由舊七項資料重新加入官網、AI/GEO、FAQ或公開貼文。
-# 龜鹿飲30cc最新正式用法為每日 1–2 罐。
+# 全面整理期間維持手動；目前官網／公開貼文產品為六項。
+# 柒玄茶目前暫不放官網、官網AI/GEO、FAQ或公開貼文；LINE文字知識與ERP資料依各自權威保留。
+# 龜鹿飲30cc最新正式用法為每日 1–2 罐；龜鹿膏不得回退固定早上／下午時段。
 on:
   workflow_dispatch:
 
@@ -26,28 +26,41 @@ jobs:
         with:
           node-version: 22
 
-      - name: Validate six-product current authority
+      - name: Validate current JSON authorities
         run: |
           set -euo pipefail
-          python -m json.tool public-product-master.json >/dev/null
-          python -m json.tool ai-answers.json >/dev/null
-          python -m json.tool geo-data.json >/dev/null
-          python -m json.tool assets/data/official-products.json >/dev/null
-          python -m json.tool config/official-products.json >/dev/null
+          for file in public-product-master.json ai-answers.json geo-data.json assets/data/official-products.json config/official-products.json content/public-post-library.json content/public-content-policy.json config/public-content-policy.json content/visual-production-spec-current.json content/ai-brand-control-v20260807.json; do
+            python -m json.tool "$file" >/dev/null
+          done
+
+      - name: Validate six-product current authority and public surfaces
+        run: |
+          set -euo pipefail
           python tools/validate-current-authority-no-stale-blockers.py
+          python tools/validate-site-production-release-v20260809.py
           python tools/validate-ai-geo-current-v20260820.py
+          python tools/validate-public-boundary-v20260808.py
+          python tools/validate-public-customer-pages-v20260809.py
+          python tools/validate_public_aio_seo.py
+          python tools/validate-site-release.py
+
+      - name: Validate publishing center current authority
+        run: |
+          set -euo pipefail
+          python tools/validate-post-bank-current-authority-v20260809.py
+          python tools/validate-publishing-content-match-v20260809.py
 
       - name: Check current runtime syntax
         run: |
           set -euo pipefail
-          for file in site.js site-core-v410.js site-product-data-authority.js site-customer-display-v20260812.js site-dm-authority-v20260811.js site-media-modal-final-v20260814.js site-product-image-safety.js site-official-product-variants.js site-public-content-cleanup-v20260809.js site-public-image-retirement-v20260812.js site-mascot-placement-v20260812.js site-stability-v20260814.js; do
+          for file in site.js site-core-v410.js site-product-data-authority.js site-customer-display-v20260812.js site-dm-authority-v20260811.js site-media-modal-final-v20260814.js site-product-image-safety.js site-official-product-variants.js site-public-content-cleanup-v20260809.js site-public-image-retirement-v20260812.js site-mascot-placement-v20260812.js site-stability-v20260814.js publishing-center-data-v16-actual-product-photos.js publishing-center-data-v18-content-media-match.js publishing-center-data-current-authority-guard.js; do
             node --check "$file"
           done
 
-      - name: Validate current compatibility sync without writing
+      - name: Validate current compatibility sync without committing
         run: python tools/sync-current-derived-authority.py
 
-      - name: Public safety spot-check
+      - name: Public safety and runtime spot-check
         shell: bash
         run: |
           set -euo pipefail
@@ -55,17 +68,31 @@ jobs:
           from pathlib import Path
           import json
           current='每日 1–2 罐'
+          gao_current='食用時間可依個人使用習慣與作息時間安排'
           deferred_name='柒玄茶・龜鹿調飲粉'
           deferred_id='qixuan-guilu-drink-powder'
           master=json.loads(Path('public-product-master.json').read_text(encoding='utf-8'))
-          assert master['productCount']==6
-          assert len(master['products'])==6
-          assert next(p for p in master['products'] if p['id']=='guilu-drink-30')['usage'][0]==current
-          for rel in ['public-product-master.json','ai-answers.json','geo-data.json','llms.txt','llms-full.txt','index.html','products.html','faq.html','brand-facts.html']:
+          assert master['productCount']==6 and len(master['products'])==6
+          by={p['id']:p for p in master['products']}
+          assert by['guilu-drink-30']['usage'][0]==current
+          assert by['guilu-gao']['usage'][0]==gao_current
+          for rel in ['public-product-master.json','ai-answers.json','geo-data.json','llms.txt','llms-full.txt','index.html','products.html','guide.html','faq.html','brand-facts.html','content/public-post-library.json']:
               text=Path(rel).read_text(encoding='utf-8')
               assert deferred_name not in text, rel
               assert deferred_id not in text, rel
-          print('PASS: six public products only; deferred product absent from public surfaces; 30cc daily 1–2 cans.')
+          gao=Path('product-guilu-gao.html').read_text(encoding='utf-8')
+          assert '時間依作息安排' in gao
+          for retired in ['早上＋下午','早上+下午','早晚各一小匙','每日早上及下午各一小匙']:
+              assert retired not in gao, retired
+          runtime=Path('site-product-data-authority.js').read_text(encoding='utf-8')
+          display=Path('site-customer-display-v20260812.js').read_text(encoding='utf-8')
+          fallback=Path('site.js').read_text(encoding='utf-8')
+          assert 'productCount!==6' in runtime and 'knowledgeProductCount:6' in runtime
+          assert 'knowledgeProductCount:6' in display
+          assert 'knowledgeProductCount: 6' in fallback
+          assert 'knowledgeProductCount:7' not in runtime
+          assert 'knowledgeProductCount:7' not in display
+          print('PASS: six website/public-post products; flexible Guilu Gao timing; 30cc daily 1–2 cans; no stale seven-product runtime gate.')
           PY
 
       - name: Maintenance guard policy check
