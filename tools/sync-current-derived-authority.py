@@ -15,11 +15,12 @@ OLD_30_RANGE_TIGHT='每日1\uFF5E2罐'
 OLD_30_RANGE_SPACED='每日 1\uFF5E2罐'
 OLD_30_HYPHEN_TIGHT='每日1-2罐'
 OLD_30_HYPHEN_SPACED='每日 1-2罐'
+CURRENT_30_USAGE='每日 1–2 罐'
 REPLACEMENTS=[
  ('每日早上及下午各一小匙','食用時間可依個人使用習慣與作息時間安排'),
  ('建議白天飲用','飲用時間可依個人使用習慣與作息時間安排'),
- (OLD_30_RANGE_TIGHT,'每日一罐'),(OLD_30_RANGE_SPACED,'每日一罐'),
- (OLD_30_HYPHEN_TIGHT,'每日一罐'),(OLD_30_HYPHEN_SPACED,'每日一罐'),
+ (OLD_30_RANGE_TIGHT,CURRENT_30_USAGE),(OLD_30_RANGE_SPACED,CURRENT_30_USAGE),
+ (OLD_30_HYPHEN_TIGHT,CURRENT_30_USAGE),(OLD_30_HYPHEN_SPACED,CURRENT_30_USAGE),
  ('一天一次一小匙','食用時間可依個人使用習慣與作息時間安排'),
  ('早晚各一小匙','食用時間可依個人使用習慣與作息時間安排'),
  ('600g／盒｜32塊裝','600g （1斤）／盒｜32塊裝'),
@@ -67,7 +68,7 @@ def sync_json(rel:str):
  if not path.exists():return False
  data=transform(json.loads(path.read_text(encoding='utf-8')))
  if rel=='content/public-post-library.json':
-  formal=load_formal(); current=formal_by_catalog_id(formal); official=official_by_id(); data['version']='current-public-posts-authority-20260820-v4'; auth=data.setdefault('productAuthority',{})
+  formal=load_formal(); current=formal_by_catalog_id(formal); official=official_by_id(); data['version']='current-public-posts-authority-20260820-v5'; auth=data.setdefault('productAuthority',{})
   auth['source']='public-product-master.json + assets/data/official-products.json + data/formal-media-authority-v20260810.json'; auth['imageAuthority']='images/customer-display-v20260812/'; auth['identityReference']='images/products-v3/'; auth['knowledgeProducts']=7; auth['approvedMediaProducts']=6; auth.pop('sixProductsSixSpecs',None); auth['mediaRoles']='product image / valid detailed DM / trial are separate'; auth['soupBlock']=complete_spec(official.get('guilu-tangkuai') or {}); auth['guiluJiao']=complete_spec(official.get('guilu-jiao') or {}); auth['guardPolicy']='latest-product-authority-first-no-legacy-copy-version-lock'
   for post in data.get('posts',[]):
    pid=post.get('id')
@@ -87,8 +88,8 @@ def sync_catalog_current_media():
  path=ROOT/'catalog-public.json'
  if not path.exists():return False
  data=transform(json.loads(path.read_text(encoding='utf-8'))); formal=load_formal(); current=formal_by_catalog_id(formal); official=official_by_id()
- data['catalogVersion']='current-six-approved-media-plus-seven-knowledge-20260820-v4'; data['knowledgeProductCount']=7; data['approvedMediaProductCount']=6; data['publicTextAuthority']='public-product-master.json'; data['productImageVersion']='current-six-user-confirmed-product-images'; data['productIdentityReference']='products-v3-real-product-package-shape-proportion-only'; data['formalDmApprovalBatch']=formal.get('approval_batch') or 'current'
- rules=data.setdefault('specificationRules',{}); rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；每日一罐；不得改罐型、比例或稱瓶。'; rules['tangkuai']='龜鹿湯塊文字規格為75g （2兩）／盒｜8塊裝，每塊約9.375g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'; rules['jiao']='龜鹿膠文字規格為600g （1斤）／盒｜32塊裝，每塊約18.75g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'; rules['qixuan']='柒玄茶・龜鹿調飲粉文字規格2g／小包；20g／包（10小包）；目前未核准正式產品實物原圖，不得AI自創包裝。'
+ data['catalogVersion']='current-six-approved-media-plus-seven-knowledge-20260820-v5'; data['knowledgeProductCount']=7; data['approvedMediaProductCount']=6; data['publicTextAuthority']='public-product-master.json'; data['productImageVersion']='current-six-user-confirmed-product-images'; data['productIdentityReference']='products-v3-real-product-package-shape-proportion-only'; data['formalDmApprovalBatch']=formal.get('approval_batch') or 'current'
+ rules=data.setdefault('specificationRules',{}); rules['drink30']='30cc產品正式名稱為龜鹿飲30cc玻璃罐；規格30cc／罐（小玻璃罐）；小玻璃裸罐、無貼紙、金色蓋；每日 1–2 罐；不得改罐型、比例或稱瓶。'; rules['tangkuai']='龜鹿湯塊文字規格為75g （2兩）／盒｜8塊裝，每塊約9.375g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'; rules['jiao']='龜鹿膠文字規格為600g （1斤）／盒｜32塊裝，每塊約18.75g；顧客文字可顯示完整規格；產品主圖與DM維持正式原圖及主規格，不自行加字。'; rules['qixuan']='柒玄茶・龜鹿調飲粉文字規格2g／小包；20g／包（10小包）；目前未核准正式產品實物原圖，不得AI自創包裝。'
  for product in data.get('products',[]):
   pid=product.get('id'); f=current.get(pid); o=official.get(pid)
   if o:
@@ -125,6 +126,8 @@ def validate_no_retired_customer_copy():
   for phrase in retired:
    if phrase in value:raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
  official=official_by_id()
+ p30=official.get('guilu-drink-30') or {}
+ if p30.get('usage_primary')!=CURRENT_30_USAGE:raise SystemExit(f'30cc 最新正式使用方式錯誤：{p30.get("usage_primary")}')
  for rel in ['content/public-post-library.json','catalog-public.json']:
   path=ROOT/rel
   if not path.exists():continue
