@@ -1,8 +1,10 @@
 (()=>{
+  const CURRENT_30_USAGE='每日 1–2 罐';
   const BLOCK=[
     {label:'品牌名稱',terms:['台興山產・仙加味','台興山產有限公司','台興山產'],message:'品牌名稱：發現已停用舊稱，對外內容只使用「仙加味」'},
     {label:'公司資訊',terms:['統一編號','公司電話','公司地址'],message:'公司資訊：一般消費者內容不主動顯示公司／商號資料'},
     {label:'30cc名稱',terms:['龜鹿飲30cc玻璃瓶','30cc／瓶','小玻璃瓶','30cc瓶裝','30cc 瓶裝','玻璃瓶裝'],message:'30cc名稱：正式名稱為龜鹿飲30cc玻璃罐，單位使用30cc／罐'},
+    {label:'30cc舊用法',terms:['每日一罐','每日1-2罐','每日 1-2罐','每日 1-2 罐','每日1～2罐','每日 1～2罐','每日 1～2 罐'],message:`30cc使用方式：目前正式資料為「${CURRENT_30_USAGE}」，不得由舊文案或舊鏡像回退`},
     {label:'療效宣稱',terms:['治療','治癒','療效','改善疾病','預防疾病','保證功效','保證改善','藥到病除','關節','卡卡','疲勞','精神不濟','補氣','生津','膠原蛋白','鈣質'],message:'對外文案：發現不適合食品公開內容的功效／健康宣稱，請改回飲食文化、產品型態、原料、工序、料理或一般使用情境'},
     {label:'已停用文案',terms:['不是每個人都一定需要'],message:'文案方向：此定位句已停用，請改用正向的生活方式、文化或產品型態敘事'}
   ];
@@ -15,7 +17,7 @@
   });
   const DM=Object.freeze({
     drink30:'images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg',
-    drink180:'images/dm-approved-v20260810/guilu-drink-180cc.webp'
+    drink180:'images/dm-final/03_guilu-drink-180cc-dm.jpg'
   });
   const RETIRED_TRIAL=[
     'trial.webp','trial-clean-v4.svg','trial-small-boss.webp','trial-small-boss.jpg','trial-small-boss.png','guilu-drink-trial.webp','guilu-drink-trial.png'
@@ -38,8 +40,8 @@
       const number=Number(match[1]);if(!Number.isFinite(number)||number<50)continue;
       const before=source.slice(Math.max(0,match.index-80),match.index);let pos=-1,label='';
       for(const candidate of labels){const p=before.lastIndexOf(candidate);if(p>pos){pos=p;label=candidate}}
-      if(label==='龜鹿湯塊'&&Math.abs(number-75)>0.001)errors.push(`龜鹿湯塊只能使用75g／盒，目前出現${match[0]}`);
-      if(label==='龜鹿膠'&&Math.abs(number-600)>0.001)errors.push(`龜鹿膠主規格只能使用600g（1斤）／盒，目前出現${match[0]}`);
+      if(label==='龜鹿湯塊'&&Math.abs(number-75)>0.001)errors.push(`龜鹿湯塊只能使用75g （2兩）／盒｜8塊裝，目前出現${match[0]}`);
+      if(label==='龜鹿膠'&&Math.abs(number-600)>0.001)errors.push(`龜鹿膠主規格只能使用600g（1斤）／盒｜32塊裝，目前出現${match[0]}`);
     }
     return errors;
   }
@@ -71,6 +73,9 @@
         errors.push('180cc產品用途：必須使用正式高清鋁袋產品圖，不得拿DM海報替代');
       }
     }
+    if(/柒玄茶|龜鹿調飲粉/.test(t)&&urls.some(url=>/qixuan|龜鹿調飲粉/i.test(String(url)))){
+      errors.push('柒玄茶：目前尚未確認核准正式產品實物原圖，不得以自創或未核准產品圖發布');
+    }
     return errors;
   }
   function isGuiluKnowledgeTopic(t=''){
@@ -85,13 +90,14 @@
     if(/needs|待生成|需重生成|replace-required/i.test(imageState))errors.push('圖片：此篇已列入重新生成／更換清單');
 
     if(isGuiluKnowledgeTopic(t))notes.push('龜鹿入門主題可使用：飲食文化、產品型態、生活情境、原料與工序、料理搭配、一般使用方式；避免把疾病、症狀或健康結果當成食用理由。');
-    if(t.includes('30cc'))notes.push('30cc產品用途使用正式小玻璃裸罐主圖；詳細DM只在明確DM用途使用。');
-    if(t.includes('180cc'))notes.push('180cc產品用途使用正式高清鋁袋主圖；詳細DM只在明確DM用途使用，兩者不可互換。');
+    if(t.includes('30cc'))notes.push(`30cc最新正式使用方式為「${CURRENT_30_USAGE}」；產品用途使用正式小玻璃裸罐主圖，詳細DM只在明確DM用途使用。`);
+    if(t.includes('180cc'))notes.push('180cc最新正式使用方式為「每日一包」；產品用途使用正式高清鋁袋主圖，詳細DM只在明確DM用途使用，兩者不可互換。');
     if(/試喝|先試喝/.test(t))notes.push(`官網試喝頁目前固定使用最新核准正式試喝海報 ${TRIAL_POSTER}；退役trial素材不得再使用，正式貼文圖仍需完成圖文一致檢查。`);
-    if(t.includes('龜鹿膏'))notes.push('龜鹿膏100g維持正式產品圖與獨立詳細DM，產品罐型、標籤與比例不得改。');
-    if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊主規格75g （2兩）／盒｜8塊裝；每塊約9.375g只屬詳細資料。');
-    if(t.includes('龜鹿膠'))notes.push('龜鹿膠主規格600g （1斤）／盒｜32塊裝；每塊約18.75 g只屬詳細資料。');
+    if(t.includes('龜鹿膏'))notes.push('龜鹿膏100g／罐維持正式產品圖與獨立詳細DM，產品罐型、標籤與比例不得改。');
+    if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊正式規格75g （2兩）／盒｜8塊裝；每塊約9.375g。');
+    if(t.includes('龜鹿膠'))notes.push('龜鹿膠正式規格600g （1斤）／盒｜32塊裝；每塊約18.75g。');
     if(t.includes('鹿茸粉'))notes.push('鹿茸粉75g／罐；維持正式產品圖與獨立詳細DM。');
+    if(/柒玄茶|龜鹿調飲粉/.test(t))notes.push('柒玄茶・龜鹿調飲粉正式文字規格為2g／小包；20g／包（10小包）；正式成分表與核准產品實物原圖尚未確認前不得自行補寫或生成包裝。');
     if(LIVE.some(x=>t.includes(x)))notes.push('此貼文含即時天氣／事件字詞，發布前必須重新確認當日資訊。');
     return{errors:[...new Set(errors)],notes:[...new Set(notes)]};
   }
@@ -118,7 +124,7 @@
       }
     });
   }
-  window.XJWPublishingGuardian=Object.freeze({version:'20260814-v11-content-upgrade',blocking:GUARD_BLOCKING,product:PRODUCT,dm:DM,trialPoster:TRIAL_POSTER,retiredTrial:RETIRED_TRIAL,scan});
+  window.XJWPublishingGuardian=Object.freeze({version:'20260820-v12-current-authority',blocking:GUARD_BLOCKING,current30Usage:CURRENT_30_USAGE,product:PRODUCT,dm:DM,trialPoster:TRIAL_POSTER,retiredTrial:RETIRED_TRIAL,scan});
   new MutationObserver(enhance).observe(document.documentElement,{subtree:true,childList:true});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',enhance);else enhance();
 })();
