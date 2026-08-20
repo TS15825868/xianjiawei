@@ -32,33 +32,40 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          targets=['content/public-post-library.json','llms-full.txt','llms.txt','catalog-public.json','data.json','geo-data.json','assets/data/official-products.json']
-          retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日一罐','每日1罐','每日 1 罐','龜鹿飲30cc玻璃瓶','30cc／瓶']
+          targets=['content/public-post-library.json','llms-full.txt','llms.txt','catalog-public.json','data.json','geo-data.json','assets/data/official-products.json','public-product-master.json','ai-answers.json']
+          retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日1～2罐','每日 1～2罐','每日1-2罐','每日 1-2罐','龜鹿飲30cc玻璃瓶','30cc／瓶']
           official=json.loads(Path('assets/data/official-products.json').read_text(encoding='utf-8'))
           by={p.get('id'):p for p in official.get('products',[])}
-          assert len(by)==6
-          gao=by['guilu-gao']; p30o=by['guilu-drink-30']; tang=by['guilu-tangkuai']; jiao=by['guilu-jiao']
+          assert len(by)==7
+          assert len(official.get('approved_media_product_ids') or [])==6
+          gao=by['guilu-gao']; p30o=by['guilu-drink-30']; tang=by['guilu-tangkuai']; jiao=by['guilu-jiao']; qixuan=by['qixuan-guilu-drink-powder']
           assert gao['usage_primary']=='食用時間可依個人使用習慣與作息時間安排'
-          assert p30o['usage_primary']=='每日 1-2罐'
+          assert p30o['usage_primary']=='每日一罐'
           assert p30o['usage_timing']=='飲用時間可依個人使用習慣與作息時間安排'
           assert tang['specification']=='75g （2兩）／盒｜8塊裝' and tang['detail_unit_approx']=='每塊約9.375g'
-          assert jiao['specification']=='600g （1斤）／盒｜32塊裝' and jiao['detail_unit_approx']=='每塊約18.75 g'
+          assert jiao['specification']=='600g （1斤）／盒｜32塊裝' and str(jiao['detail_unit_approx']).replace(' ','')=='每塊約18.75g'
+          assert qixuan['specification']=='2g／小包；20g／包（10小包）'
+          assert qixuan.get('media_status')=='formal-product-image-pending'
           json.loads(Path('content/public-post-library.json').read_text(encoding='utf-8'))
           catalog=json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
           products={p.get('id'):p for p in catalog.get('products',[])}
           p30=products.get('guilu-drink-30') or {}
           assert str(p30.get('dmImage') or '').split('?',1)[0].endswith('/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg')
           assert 'quarantinedDmImage' not in p30
+          assert catalog.get('knowledgeProductCount')==7
+          assert catalog.get('approvedMediaProductCount')==6
           rules=catalog.get('specificationRules') or {}
+          assert '每日一罐' in str(rules.get('drink30') or '')
           assert tang['specification'] in str(rules.get('tangkuai') or '') and tang['detail_unit_approx'] in str(rules.get('tangkuai') or '')
-          assert jiao['specification'] in str(rules.get('jiao') or '') and jiao['detail_unit_approx'] in str(rules.get('jiao') or '')
+          assert jiao['specification'] in str(rules.get('jiao') or '') and '18.75' in str(rules.get('jiao') or '')
           assert '顧客文字可顯示完整規格' in str(rules.get('tangkuai') or '')
           assert '顧客文字可顯示完整規格' in str(rules.get('jiao') or '')
+          assert '柒玄茶・龜鹿調飲粉' in Path('public-product-master.json').read_text(encoding='utf-8')
           for rel in targets:
             text=Path(rel).read_text(encoding='utf-8')
             for phrase in retired:
               if phrase in text: raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
-          print('PASS: derived customer outputs follow latest product authority; full text specifications remain visible without changing formal product images or DMs.')
+          print('PASS: derived outputs follow seven-product text authority, six-approved-media model, current drink usage, and no legacy copy regression.')
           PY
       - name: Commit synchronized derived outputs
         shell: bash
