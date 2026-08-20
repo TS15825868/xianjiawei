@@ -1,16 +1,18 @@
 "use strict";
 
-/* 仙加味產品資料權威層｜2026-08-17 SSOT
- * product-master.json 是六項正式產品公共安全核心事實的唯一來源。
- * data.json 與頁面既有內容只作版面／非核心文案底稿；核心產品事實一律由 SSOT 覆寫。
+/* 仙加味產品資料權威層｜2026-08-20 七項公開母資料
+ * public-product-master.json 是七項目前正式產品文字／AI核心事實的公開權威。
+ * data.json 保留六項已有正式產品圖的顧客展示資料與通路欄位；
+ * 產品圖／DM沿用目前核准媒體，不得由文字母資料重畫或替換。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260817-product-ssot-v1';
-  const MASTER_URL='product-master.json';
+  const VERSION='20260820-seven-product-public-master-v1';
+  const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
+  const MEDIA_PRODUCT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const nativeFetch=window.fetch.bind(window);
   const ABS=path=>new URL(path,location.href).href;
   const state={master:null,error:null};
@@ -23,19 +25,19 @@
 
   const masterPromise=nativeFetch(cacheBusted(MASTER_URL),{cache:'no-store'})
     .then(response=>{
-      if(!response.ok)throw new Error(`product-master HTTP ${response.status}`);
+      if(!response.ok)throw new Error(`public-product-master HTTP ${response.status}`);
       return response.json();
     })
     .then(master=>{
-      if(master?.authority!=='xianjiawei-product-ssot'||!Array.isArray(master?.products)||master.products.length!==6){
-        throw new Error('product-master authority/productCount invalid');
+      if(master?.authority!=='user-confirmed-current'||master?.productCount!==7||!Array.isArray(master?.products)||master.products.length!==7){
+        throw new Error('public-product-master authority/productCount invalid');
       }
       state.master=master;
       return master;
     })
     .catch(error=>{
       state.error=error;
-      console.error('仙加味產品 SSOT 載入失敗；暫以既有靜態資料顯示',error);
+      console.error('仙加味七項產品公開母資料載入失敗；暫以既有靜態資料顯示',error);
       return null;
     });
 
@@ -44,51 +46,50 @@
   }
 
   function fulfillmentNotice(master,product){
-    if(product?.fulfillmentType==='made-to-order-drink')return master?.fulfillmentPolicy?.drinkNotice||'';
-    if(product?.fulfillmentType==='ready-stock')return master?.fulfillmentPolicy?.readyStockNotice||'';
+    if(product?.id==='guilu-drink-30'||product?.id==='guilu-drink-180')return product.fulfillment||master?.fulfillmentPolicy?.drinkLeadTime||'';
     return '';
+  }
+
+  function usagePrimary(source,product){
+    if(Array.isArray(source?.usage)&&String(source.usage[0]||'').trim())return String(source.usage[0]).trim();
+    return source?.usagePrimary||product?.usagePrimary||'';
   }
 
   function normalizeProduct(product,master){
     const source=productById(master,product?.id);
     if(!source)return product;
-    const image=source.approvedProductImage||product.image||'';
-    const dm=source.approvedDm||product.dmImage||image;
+    // 正式圖片與DM只保留目前展示資料既有核准媒體；七項文字母資料不持有或生成產品圖。
+    const image=product.image||product.imageUrl||product.image_url||'';
+    const dm=product.dmImage||image;
+    const usage=Array.isArray(source.usage)&&source.usage.length?[...source.usage]:product.usage;
+    const detail=source.detail||source.detailUnitApprox||product.detailUnitApprox||product.unitApprox||'';
     return {
       ...product,
       series:source.series||product.series,
       name:source.name,
-      displayName:source.displayName||source.name,
+      displayName:source.name,
       specification:source.specification,
-      size:source.size||source.specification,
+      size:source.specification,
       spec:source.specification,
       form:source.form||product.form,
       package:source.package||product.package,
-      description:source.description||product.description,
-      ingredients:Array.isArray(source.ingredients)?[...source.ingredients]:product.ingredients,
-      usagePrimary:source.usagePrimary||product.usagePrimary,
+      ingredients:Array.isArray(source.ingredients)&&source.ingredients.length?[...source.ingredients]:product.ingredients,
+      usagePrimary:usagePrimary(source,product),
       usageTiming:source.usageTiming||product.usageTiming,
-      usage:Array.isArray(source.usage)?[...source.usage]:product.usage,
-      storage:Array.isArray(source.storage)?[...source.storage]:product.storage,
-      fit:source.fit||product.fit,
-      purpose:source.purpose||product.purpose,
-      purposeDirection:source.purposeDirection||product.purposeDirection,
-      page:source.page||product.page,
-      detailPage:source.page||product.detailPage,
-      fulfillmentType:source.fulfillmentType||product.fulfillmentType,
+      usage,
+      detailUnitApprox:detail||undefined,
+      unitApprox:detail||undefined,
+      fulfillmentType:(source.id==='guilu-drink-30'||source.id==='guilu-drink-180')?'made-to-order-drink':product.fulfillmentType,
       fulfillmentNotice:fulfillmentNotice(master,source)||product.fulfillmentNotice,
-      readyStock:Boolean(source.readyStock),
-      detailUnitApprox:source.detailUnitApprox||product.detailUnitApprox,
-      unitApprox:source.detailUnitApprox||product.unitApprox,
+      page:source.page?new URL(source.page,location.href).pathname.split('/').pop():product.page,
+      detailPage:source.page?new URL(source.page,location.href).pathname.split('/').pop():product.detailPage,
       image,
       imageUrl:image,
       image_url:image,
-      detailImages:[image],
+      detailImages:Array.isArray(product.detailImages)&&product.detailImages.length?product.detailImages:(image?[image]:[]),
       dmImage:dm,
-      officialOriginalImage:source.officialOriginalImage||product.officialOriginalImage||'',
-      knownContainerDimensionsMm:source.knownContainerDimensionsMm??product.knownContainerDimensionsMm,
-      aspectRatioWidthToHeight:source.aspectRatioWidthToHeight??product.aspectRatioWidthToHeight,
-      imagePolicy:'ssot-approved-product-image-no-crop-no-stretch',
+      officialOriginalImage:product.officialOriginalImage||'',
+      imagePolicy:'approved-media-only-no-ai-redraw-no-crop-no-stretch',
       physicalScalePolicy:product.physicalScalePolicy||'preserve-real-product-shape-package-and-proportion'
     };
   }
@@ -96,19 +97,23 @@
   function normalizeData(data,master){
     if(!data||!Array.isArray(data.products)||!master)return data;
     const normalized={...data};
-    normalized.products=data.products.map(product=>normalizeProduct(product,master));
+    normalized.products=data.products.filter(product=>MEDIA_PRODUCT_IDS.includes(product.id)).map(product=>normalizeProduct(product,master));
     normalized.fulfillmentPolicy={...(data.fulfillmentPolicy||{}),...(master.fulfillmentPolicy||{})};
-    normalized.officialProductIds=[...(master.officialProductIds||[])];
-    normalized.officialProductCount=master.productCount;
+    normalized.officialProductIds=[...MEDIA_PRODUCT_IDS];
+    normalized.officialProductCount=MEDIA_PRODUCT_IDS.length;
+    normalized.knowledgeProductIds=(master.products||[]).map(product=>product.id);
+    normalized.knowledgeProductCount=master.productCount;
     normalized.productMasterVersion=master.version;
     normalized.productMasterAuthority=master.authority;
-    normalized.publicDisclaimer=master.publicDisclaimer||data.publicDisclaimer;
+    normalized.publicDisclaimer=master.publicCopyPolicy||data.publicDisclaimer;
     normalized.runtime={
       ...(data.runtime||{}),
-      productDataAuthority:'product-master.json',
+      productDataAuthority:'public-product-master.json',
       productMasterVersion:master.version,
-      productMasterMode:'single-source-of-truth',
-      productMasterLoaded:true
+      productMasterMode:'seven-product-text-authority-six-approved-media-products',
+      productMasterLoaded:true,
+      knowledgeProductCount:7,
+      approvedMediaProductCount:6
     };
     return normalized;
   }
@@ -135,7 +140,7 @@
       const normalized=normalizeData(data,master);
       return new Response(JSON.stringify(normalized),{status:response.status,statusText:response.statusText,headers:response.headers});
     }catch(error){
-      console.warn('仙加味產品 SSOT 套用失敗',error);
+      console.warn('仙加味七項產品公開母資料套用失敗',error);
       return response;
     }
   };
@@ -154,17 +159,14 @@
   async function normalizeHead(){
     const master=await masterPromise;
     const product=productById(master,pageProductId());
-    const image=product?.approvedProductImage;
-    if(!image)return;
-    const absolute=ABS(image);
-    document.querySelectorAll('meta[property="og:image"],meta[name="twitter:image"]').forEach(meta=>{if(meta.content!==absolute)meta.content=absolute;});
+    if(!product)return;
     document.querySelectorAll('script[type="application/ld+json"]').forEach(script=>{
       try{
         const value=JSON.parse(script.textContent||'{}');
         if(value&&value['@type']==='Product'){
-          value.name=product.name||value.name;
-          value.image=absolute;
-          if(product.description)value.description=product.description;
+          value.name=`仙加味・${product.name}`;
+          const primary=usagePrimary(product,{});
+          if(primary&&typeof value.description==='string'&&/每日\s*1[-～至]2罐/.test(value.description))value.description=value.description.replace(/每日\s*1[-～至]2罐/g,'每日一罐');
           script.textContent=JSON.stringify(value);
         }
       }catch{}
@@ -175,6 +177,10 @@
     ['30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'],
     ['30cc／瓶','30cc／罐（小玻璃罐）'],
     ['龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'],
+    ['每日 1-2罐','每日一罐'],
+    ['每日1-2罐','每日一罐'],
+    ['每日 1～2罐','每日一罐'],
+    ['每日1～2罐','每日一罐'],
     ['600g／盒｜1斤｜32塊裝','600g （1斤）／盒｜32塊裝']
   ]);
 
