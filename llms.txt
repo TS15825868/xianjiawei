@@ -1,6 +1,14 @@
 # 仙加味
 
-> 仙加味是從台北萬華出發的四代龜鹿工序品牌。官方網站整理品牌故事、六個正式產品、六個目前正式主規格、成分、一般使用方式、保存方式、料理搭配與資料來源。內容以繁體中文呈現，不提供疾病診斷、治療或效果保證；官網一般產品頁不公開完整售價，價格與活動以官方 LINE 最新回覆為準。
+> 仙加味是從台北萬華出發的現代漢方生活品牌，延續四代家族的鹿角與熬膠工藝及漢方飲食文化，並以現代、方便、貼近日常的方式呈現。品牌標語：「補養，是一種節奏。」目前公開正式產品共七項。內容以繁體中文呈現，不提供疾病診斷、治療、預防、改善或效果保證；價格、促銷、庫存與活動以官方 LINE 最新回覆為準。
+
+## AI／GEO 目前權威優先順序
+
+1. [七項正式產品公開母資料](https://ts15825868.github.io/xianjiawei/public-product-master.json)：目前七項產品名稱、規格、產品型態、已確認成分／使用資料與交期範圍的第一公開權威。
+2. [自然語言 AI 問答資料](https://ts15825868.github.io/xianjiawei/ai-answers.json)：龜鹿膏與龜鹿飲差異、長輩送禮、第一次怎麼選、30cc與180cc差異、交期、價格／下單與品牌故事等可直接引用問答。
+3. [GEO 品牌與產品實體資料 JSON-LD](https://ts15825868.github.io/xianjiawei/geo-data.json)：品牌、七項產品與網站實體關係。
+4. 各正式產品頁、FAQ、品牌故事與資料來源頁。
+5. `catalog-public.json`：保留既有六項已核准產品圖／DM及相容欄位；它不是七項產品總數與新版使用文字的最高權威，不得用舊值覆蓋 `public-product-master.json`。
 
 ## 官方主要入口
 
@@ -17,63 +25,58 @@
 - [常見問題](https://ts15825868.github.io/xianjiawei/faq.html)
 - [聯絡仙加味](https://ts15825868.github.io/xianjiawei/contact.html)
 
-## 六個目前正式產品與主規格
+## 七個目前正式產品與主規格
 
-- [龜鹿膏](https://ts15825868.github.io/xianjiawei/product-guilu-gao.html)：100g／罐。一般使用方式目前為食用時間可依個人使用習慣與作息時間安排；初次可先從半匙開始。
-- [龜鹿飲30cc玻璃罐](https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html)：30cc／罐（小玻璃罐）；裸罐、無貼紙、金色蓋，不得稱瓶。
-- [龜鹿飲180cc鋁袋](https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html)：180cc／包（鋁袋），維持狹長直立比例。
-- [龜鹿湯塊](https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html)：75g （2兩）／盒｜8塊裝。每塊約9.375g只屬產品詳細資料，不是主圖／DM主規格。
-- [龜鹿膠](https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html)：600g （1斤）／盒｜32塊裝。每塊約18.75 g只屬產品詳細資料。
+- [龜鹿膏](https://ts15825868.github.io/xianjiawei/product-guilu-gao.html)：100g／罐。
+- [龜鹿飲30cc玻璃罐](https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html)：30cc／罐（小玻璃罐）；小玻璃罐、裸罐、無貼紙，不得改瓶型、加標籤或放大成一般飲料瓶。每日一罐。
+- [龜鹿飲180cc鋁袋](https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html)：180cc／包；鋁袋，維持正式比例。每日一包。
+- [龜鹿湯塊](https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html)：75g／盒｜8塊裝；詳細資料每塊約9.375g。
+- [龜鹿膠](https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html)：600g／盒（1斤）｜32塊裝；詳細資料每塊約18.75g。
 - [鹿茸粉](https://ts15825868.github.io/xianjiawei/product-luerong-fen.html)：75g／罐。
+- 柒玄茶・龜鹿調飲粉：2g／小包；20g／包（10小包）。目前七項正式產品知識已納入；現有核准素材庫尚未確認其正式產品實物原圖，因此不得由 AI 自創包裝或以其他產品圖片代替。
+
+## 龜鹿飲交期
+
+- 龜鹿飲30cc與180cc為接單後製作，約5～7個工作天出貨。
+- 5～7個工作天只適用龜鹿飲，不可套用龜鹿膏、龜鹿湯塊、龜鹿膠、鹿茸粉或柒玄茶・龜鹿調飲粉。
+
+## AI 常見自然語言問題
+
+- 「龜鹿膏跟龜鹿飲差在哪？」：主要差在產品型態與使用方式；龜鹿膏為100g膏狀，龜鹿飲為30cc小玻璃罐或180cc鋁袋的液態即飲。依日常使用習慣、攜帶需求與份量選擇，不以疾病或療效作為推薦依據。
+- 「長輩送禮有什麼漢方產品？」：可依收禮者使用習慣比較膏狀、即飲、盒裝塊狀與粉末等型態；當期禮盒、現貨、包裝與活動以官方LINE最新資訊為準。
+- 「第一次接觸仙加味怎麼選？」：可先從最容易融入日常的產品型態選擇；想先了解即飲型，可詢問龜鹿飲30cc試喝；實際試喝規則與活動以官方LINE最新回覆為準。
+- 「龜鹿飲30cc跟180cc差在哪？」：主要差在容量與包裝；30cc為小玻璃罐，180cc為鋁袋，兩者皆為接單後製作。
+
+完整答案以 `ai-answers.json` 為準。
 
 ## 產品圖片、DM與試喝媒體權威
 
-- 一般產品頁、產品卡與一般產品貼文：使用 `images/customer-display-v20260812/` 目前核准正式產品圖。
-- 詳細DM版位或文案明確要求「DM／詳細DM」：使用 `images/dm-final/` 六張目前高解析正式DM。
-- 試喝頁與試喝貼文：固定使用 `images/trial/trial-poster-small-boss-official-v20260814.jpg`。
-- `images/products-v3/`：只作產品實物身份、包裝與比例參考，也可作「看實際產品照片」來源；不得反向取代所有顧客主圖。
-- 四種媒體角色不得互相取代。
-- 一律等比例 `contain` 顯示，不裁切、不拉寬、不拉高、不改標籤、不改包裝、不由 AI 重畫產品本體。
-- 龜鹿飲30cc約 Ø42×H51mm，必須保留小玻璃裸罐實際小罐感。
-- 龜鹿飲180cc為狹長直立鋁袋，寬高比目標約0.64（約0.60～0.68），不得拉胖或誇張放大。
+- 現有六項已有核准正式產品圖；產品本體一律使用正式實物外觀，不裁切、不拉伸、不改標籤、不改包裝、不由 AI 重畫。
+- 30cc 必須保留小玻璃裸罐實際小罐感；180cc 必須維持狹長直立鋁袋比例。
+- 柒玄茶・龜鹿調飲粉目前未在核准素材庫確認正式實物原圖，因此可提供正確文字知識，但不得自創產品圖。
+- 試喝頁與試喝貼文維持目前核准正式試喝素材；任何新圖或換圖仍需回待審核。
 
-## 試喝
+## 試喝與下單
 
-- 正式標題：龜鹿飲試喝組｜先試喝，再決定。
-- 30cc小玻璃罐3罐試喝品免費，運費自付。
-- 7-11店到店60元；郵局宅配100元。
-- 每位顧客、電話及地址限申請一次。
-- 接單後安排製作，約5～7個工作天出貨。
-- 試喝申請與正式下單皆透過仙加味 LINE OA 完成。
-
-## 出貨政策
-
-- 龜鹿飲30cc與180cc為接單後安排製作；訂單確認後約需5～7個工作天完成再安排出貨，物流配送時間另計。
-- 龜鹿膏、龜鹿湯塊、龜鹿膠與鹿茸粉依現貨狀況安排出貨，不套用龜鹿飲5～7工作天。
-
-## 貼文圖片規則
-
-- 一般產品文案優先使用目前核准 customer-display 正式產品圖。
-- 明確DM文案才使用 dm-final 詳細DM。
-- 試喝文固定使用2026-08-14目前核准試喝海報。
-- 生活情境文先依目前最新使用者 ZIP 素材，比對季節、天氣、情境、環境、冷熱、表情、動作、道具與文案語意。
-- 有合格ZIP來源但圖片二進位尚未公開時，狀態維持 `needs_binary_sync`；已同步則為 `synced`，不得因此重新生成。
-- 只有真正沒有合格來源才重新生成；任何換圖、生成或文案修改後舊核准失效，回待審核並重新完成16項審核，不自動核准或發布。
+- 龜鹿飲試喝以官方 LINE 當期資訊為準。
+- 試喝申請、正式下單、價格、促銷與庫存皆以仙加味官方 LINE 最新回覆為準，避免 AI 引用過期活動。
 
 ## 機器可讀資料
 
-- [官方公開產品資料 JSON](https://ts15825868.github.io/xianjiawei/catalog-public.json)
+- [七項正式產品公開母資料 JSON](https://ts15825868.github.io/xianjiawei/public-product-master.json)
+- [自然語言 AI 問答 JSON](https://ts15825868.github.io/xianjiawei/ai-answers.json)
+- [既有產品展示相容目錄 JSON](https://ts15825868.github.io/xianjiawei/catalog-public.json)
 - [GEO 品牌與產品實體資料 JSON-LD](https://ts15825868.github.io/xianjiawei/geo-data.json)
 - [完整 AI 參考文字](https://ts15825868.github.io/xianjiawei/llms-full.txt)
 - [網站地圖](https://ts15825868.github.io/xianjiawei/sitemap.xml)
 
 ## 引用與內容邊界
 
-- 產品名稱、主規格、成分、一般使用與保存方式，以各產品頁、`data.json`、`catalog-public.json` 與目前正式 authority 為準。
-- 視覺與配圖以 `content/visual-production-spec-current.json` 與目前正式媒體 authority 為準；日期版舊檔只作歷史參考。
-- 文化與資料來源的引用層級，以 `sources.html` 為準。
-- 官網一般產品頁不刊載完整售價；購買、活動與配送資訊以仙加味官方 LINE 最新回覆為準。
-- 內容不作疾病診斷、治療或效果保證；特殊健康狀況請諮詢合格專業人員。
+- 七項產品總數、名稱與主規格優先以 `public-product-master.json` 為準。
+- `catalog-public.json` 目前只承擔既有六項正式圖片／DM與舊相容欄位，不得用其歷史使用文字覆蓋新版公開母資料。
+- 不知道的成分、價格、促銷、庫存或未核准產品圖片不得推測。
+- 對外主品牌只使用「仙加味」。
+- 內容不作疾病診斷、治療、預防、改善或效果保證；特殊健康狀況請諮詢合格專業人員。
 - 守門員驗目前 authority 與能力，不因舊版號、舊ZIP檔名、固定張數或歷史文案阻擋正確新版。
 
 ## 官方聯絡
@@ -81,4 +84,4 @@
 - LINE 官方帳號：@762jybnm
 - LINE 入口：https://lin.ee/sHZW7NkR
 
-最後檢視：2026-08-14
+最後檢視：2026-08-20
