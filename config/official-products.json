@@ -1,96 +1,31 @@
 {
-  "version": "2026-08-15-personal-routine-usage-v3",
+  "version": "2026-08-20-seven-product-public-authority-v1",
   "authority": "user-confirmed-current",
-  "rule": "全站、LINE OA、貼文中心與公開資料只允許以下6項目前正式顧客規格；最新正式資料可取代舊版，守門不得用舊文案、舊規格或舊版號回退新版正確內容。",
+  "public_authority": "public-product-master.json",
+  "rule": "全站、LINE OA、貼文中心與公開資料的文字／AI產品知識使用7項目前正式產品；現有6項核准正式產品圖維持媒體層。最新正式資料可取代舊版，守門不得用舊文案、舊固定產品數、舊規格或舊版號回退新版正確內容。",
   "visual_spec": "content/visual-production-spec-current.json",
   "products": [
-    {
-      "id": "guilu-gao",
-      "name": "龜鹿膏",
-      "spec": "100g／罐",
-      "package": "六角玻璃罐",
-      "container_dimensions_mm": {
-        "width": 51,
-        "height": 78
-      },
-      "label_rule": "只用目前核准包裝；舊紅白直式貼紙禁止",
-      "usage_primary": "食用時間可依個人使用習慣與作息時間安排",
-      "usage_detail": [
-        "初次可先從半匙開始",
-        "可直接取用或以約100～300mL溫熱水化開"
-      ],
-      "image_rule": "products-v3產品識別原圖等比例；核准DM只作顧客展示"
-    },
-    {
-      "id": "guilu-drink-30",
-      "name": "龜鹿飲30cc玻璃罐",
-      "spec": "30cc／罐（小玻璃罐）",
-      "package": "小玻璃罐",
-      "container_reference_capacity_ml": 35,
-      "container_dimensions_mm": {
-        "diameter": 42,
-        "height": 51
-      },
-      "presentation": "裸罐、無貼紙、無外盒、無外袋、金色蓋",
-      "image_rule": "高矮胖瘦照原圖，不得拉高拉胖或改罐型；不得稱瓶",
-      "usage_primary": "每日 1-2罐",
-      "usage_timing": "飲用時間可依個人使用習慣與作息時間安排"
-    },
-    {
-      "id": "guilu-drink-180",
-      "name": "龜鹿飲180cc鋁袋",
-      "spec": "180cc／包（鋁袋）",
-      "package": "鋁袋",
-      "aspect_ratio_width_to_height": 0.64,
-      "image_rule": "狹長直立、等比例縮小，不得拉寬或加高",
-      "usage_primary": "每日一包",
-      "usage_timing": "飲用時間可依個人使用習慣與作息時間安排"
-    },
-    {
-      "id": "guilu-tangkuai",
-      "name": "龜鹿湯塊",
-      "spec": "75g （2兩）／盒｜8塊裝",
-      "detail_unit_approx": "每塊約9.375g",
-      "detail_unit_rule": "詳細資料可顯示；產品主圖、DM主規格與貼文主規格維持75g （2兩）／盒｜8塊裝",
-      "package": "深藍正式盒裝",
-      "image_rule": "只使用75g （2兩）／8塊裝正式原盒等比例，不建立300g／600g舊規格"
-    },
-    {
-      "id": "guilu-jiao",
-      "name": "龜鹿膠",
-      "spec": "600g （1斤）／盒｜32塊裝",
-      "detail_unit_approx": "每塊約18.75 g",
-      "detail_unit_rule": "詳細資料可顯示；產品主圖、DM主規格與貼文主規格維持600g （1斤）／盒｜32塊裝",
-      "package": "淡紫色盒",
-      "image_rule": "依原圖比例，紫盒不可橫向拉長；不得與75g龜鹿湯塊混用"
-    },
-    {
-      "id": "luerong-fen",
-      "name": "鹿茸粉",
-      "spec": "75g／罐",
-      "package": "白色塑膠罐",
-      "image_rule": "正式原圖等比例"
-    }
+    {"id":"guilu-gao","name":"龜鹿膏","spec":"100g／罐","package":"六角玻璃罐","container_dimensions_mm":{"width":51,"height":78},"label_rule":"只用目前核准包裝；舊紅白直式貼紙禁止","usage_primary":"食用時間可依個人使用習慣與作息時間安排","usage_detail":["初次可先從半匙開始","可直接取用或以約100～300mL溫熱水化開"],"image_rule":"products-v3產品識別原圖等比例；核准DM只作顧客展示"},
+    {"id":"guilu-drink-30","name":"龜鹿飲30cc玻璃罐","spec":"30cc／罐（小玻璃罐）","package":"小玻璃罐","container_reference_capacity_ml":35,"container_dimensions_mm":{"diameter":42,"height":51},"presentation":"裸罐、無貼紙、無外盒、無外袋、金色蓋","image_rule":"高矮胖瘦照原圖，不得拉高拉胖或改罐型；不得稱瓶","usage_primary":"每日一罐","usage_timing":"飲用時間可依個人使用習慣與作息時間安排"},
+    {"id":"guilu-drink-180","name":"龜鹿飲180cc鋁袋","spec":"180cc／包（鋁袋）","package":"鋁袋","aspect_ratio_width_to_height":0.64,"image_rule":"狹長直立、等比例縮小，不得拉寬或加高","usage_primary":"每日一包","usage_timing":"飲用時間可依個人使用習慣與作息時間安排"},
+    {"id":"guilu-tangkuai","name":"龜鹿湯塊","spec":"75g （2兩）／盒｜8塊裝","detail_unit_approx":"每塊約9.375g","detail_unit_rule":"詳細資料可顯示；產品主圖、DM主規格與貼文主規格維持75g （2兩）／盒｜8塊裝","package":"深藍正式盒裝","image_rule":"只使用75g （2兩）／8塊裝正式原盒等比例，不建立300g／600g舊規格"},
+    {"id":"guilu-jiao","name":"龜鹿膠","spec":"600g （1斤）／盒｜32塊裝","detail_unit_approx":"每塊約18.75g","detail_unit_rule":"詳細資料可顯示；產品主圖、DM主規格與貼文主規格維持600g （1斤）／盒｜32塊裝","package":"淡紫色盒","image_rule":"依原圖比例，紫盒不可橫向拉長；不得與75g龜鹿湯塊混用"},
+    {"id":"luerong-fen","name":"鹿茸粉","spec":"75g／罐","package":"白色塑膠罐","image_rule":"正式原圖等比例"},
+    {"id":"qixuan-guilu-drink-powder","name":"柒玄茶・龜鹿調飲粉","spec":"2g／小包；20g／包（10小包）","package":"正式產品實物原圖尚未在目前核准素材庫確認","ingredients_status":"目前公開權威資料尚未提供正式成分表，不自行推測或補寫","image_rule":"文字知識可用；未核准正式實物原圖前不得AI重畫、自創或拿其他產品圖代替","media_status":"formal-product-image-pending"}
   ],
+  "knowledge_product_ids": ["guilu-gao","guilu-drink-30","guilu-drink-180","guilu-tangkuai","guilu-jiao","luerong-fen","qixuan-guilu-drink-powder"],
+  "approved_media_product_ids": ["guilu-gao","guilu-drink-30","guilu-drink-180","guilu-tangkuai","guilu-jiao","luerong-fen"],
   "forbidden_rules": [
-    "龜鹿湯塊顧客主規格只使用75g （2兩）／盒｜8塊裝，不建立300g／600g舊規格；每塊約9.375g可留詳細資料",
-    "龜鹿膠顧客主規格使用600g （1斤）／盒｜32塊裝；每塊約18.75 g可留詳細資料",
+    "不得以舊固定6項產品規則阻擋第7項柒玄茶文字知識",
+    "龜鹿湯塊顧客主規格只使用75g （2兩）／盒｜8塊裝；每塊約9.375g可留詳細資料",
+    "龜鹿膠顧客主規格使用600g （1斤）／盒｜32塊裝；每塊約18.75g可留詳細資料",
     "龜鹿飲30cc必須稱為小玻璃罐，不得稱瓶",
     "30cc小玻璃罐不得加貼紙或外包裝",
     "任何產品圖片不得改變正式原圖比例或包裝文字",
-    "龜鹿膏不設定固定早上／下午時段；目前使用原則為「食用時間可依個人使用習慣與作息時間安排」",
-    "龜鹿飲不設定固定白天時段；30cc目前使用方式為「每日 1-2罐」，且飲用時間可依個人使用習慣與作息時間安排",
-    "所有產品使用時間依個人使用習慣與作息安排，不以固定時段作為唯一使用規則",
-    "龜鹿膏不設定固定早上／下午時段；目前原則為「食用時間可依個人使用習慣與作息時間安排」",
-    "龜鹿飲不設定固定白天時段；30cc目前使用方式為「每日 1-2罐」；飲用時間可依個人使用習慣與作息時間安排",
-    "龜鹿飲180cc保留目前份量「每日一包」；飲用時間可依個人使用習慣與作息時間安排",
-    "所有產品的使用時間依個人使用習慣與作息時間安排，不以固定時段作為唯一規則"
+    "龜鹿膏目前使用原則為食用時間可依個人使用習慣與作息時間安排",
+    "龜鹿飲30cc目前使用方式為每日一罐；180cc為每日一包；飲用時間可依個人使用習慣與作息時間安排",
+    "5～7個工作天交期只適用龜鹿飲30cc與180cc",
+    "柒玄茶尚未核准正式產品實物原圖前不得生成假包裝"
   ],
-  "visual_forbidden": [
-    "龜鹿膏舊紅白直式貼紙",
-    "180cc鋁袋橫向拉寬",
-    "龜鹿膠紫盒橫向拉長",
-    "30cc罐加貼紙或外包裝",
-    "AI重畫產品本體"
-  ]
+  "visual_forbidden": ["龜鹿膏舊紅白直式貼紙","180cc鋁袋橫向拉寬","龜鹿膠紫盒橫向拉長","30cc罐加貼紙或外包裝","AI重畫產品本體"]
 }
