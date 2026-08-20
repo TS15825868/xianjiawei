@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "2026-08-20-seven-product-public-master",
+  "version": "2026-08-20-seven-product-public-master-v2",
   "updatedAt": "2026-08-20",
   "authority": "user-confirmed-current",
   "brand": {
@@ -43,7 +43,7 @@
       "form": "液態即飲",
       "package": "小玻璃罐、裸罐、無貼紙；不可更換瓶型、不可任意加標籤、不可放大成一般飲料瓶",
       "ingredients": ["水", "龜板萃取物", "鹿角萃取物", "粉光蔘", "枸杞", "紅棗", "黃耆"],
-      "usage": ["每日一罐", "可隔水加熱或溫熱飲用", "避免冰飲"],
+      "usage": ["每日 1–2 罐", "可隔水加熱或溫熱飲用", "避免冰飲"],
       "fulfillment": "接單後製作，約5～7個工作天出貨",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
       "mediaStatus": "approved-formal-product-image"
