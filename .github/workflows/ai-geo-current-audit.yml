@@ -1,0 +1,31 @@
+name: 仙加味 AI／GEO 七項正式資料驗收（手動）
+
+# 全面整理期間維持手動，避免舊固定產品數或免費額度被不必要的自動流程消耗。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xianjiawei-ai-geo-current-audit
+  cancel-in-progress: true
+
+jobs:
+  validate-ai-geo-current:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Validate seven-product AI and GEO authority
+        run: |
+          set -euo pipefail
+          python -m json.tool public-product-master.json >/dev/null
+          python -m json.tool ai-answers.json >/dev/null
+          python -m json.tool geo-data.json >/dev/null
+          python tools/validate-ai-geo-current-v20260820.py
+      - name: Ensure audit is read-only
+        run: git diff --exit-code
