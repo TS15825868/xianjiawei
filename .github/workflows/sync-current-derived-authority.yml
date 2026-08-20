@@ -1,7 +1,9 @@
 name: 仙加味目前權威衍生資料同步
 
 # MAINTENANCE MODE: manual only until the owner finishes visual/function review.
-# 最新正式資料優先；同步器不得把新版規格、用法、顧客文字或貼文控制降級回舊守門內容。
+# 最新正式資料優先；官網／公開貼文目前六項產品。
+# 柒玄茶目前暫不放官網與公開貼文；LINE文字知識與ERP資料可依各自權威保留。
+# 同步器不得把新版規格、用法、顧客文字或貼文控制降級回舊守門內容。
 on:
   workflow_dispatch:
 
@@ -22,71 +24,104 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
       - name: Maintenance mode notice
         run: echo "PAUSED automatic sync; this run is manual maintenance verification only."
+
       - name: Sync current derived authority files
         run: python tools/sync-current-derived-authority.py
+
       - name: Validate synchronized customer outputs against latest authority
         shell: bash
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          targets=[
-            'content/public-post-library.json','content/public-content-policy.json','config/public-content-policy.json',
-            'content/post-bank-v6-manifest.json','content/post-bank-current-authority-v20260809.json',
-            'content/ai-brand-control-v20260807.json','content/visual-production-spec-current.json',
-            'llms-full.txt','llms.txt','catalog-public.json','data.json','geo-data.json',
-            'assets/data/official-products.json','public-product-master.json','product-master.json','ai-answers.json','deploy-version.json'
-          ]
-          retired=['一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙','建議白天飲用','每日1～2罐','每日 1～2罐','每日1-2罐','每日 1-2罐','龜鹿飲30cc玻璃瓶','30cc／瓶']
+
+          public_ids=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+          deferred=['柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder']
           current_30='每日 1–2 罐'
+
+          master=json.loads(Path('public-product-master.json').read_text(encoding='utf-8'))
+          master_by={p.get('id'):p for p in master.get('products',[])}
+          assert master.get('authority')=='user-confirmed-current'
+          assert master.get('productCount')==6
+          assert list(master_by)==public_ids
+          assert master_by['guilu-drink-30']['usage'][0]==current_30
+          assert master_by['guilu-drink-180']['usage'][0]=='每日一包'
+          assert master_by['guilu-tangkuai']['specification']=='75g （2兩）／盒｜8塊裝'
+          assert master_by['guilu-tangkuai']['detail']=='每塊約9.375g'
+          assert master_by['guilu-jiao']['specification']=='600g （1斤）／盒｜32塊裝'
+          assert master_by['guilu-jiao']['detail']=='每塊約18.75g'
+
           official=json.loads(Path('assets/data/official-products.json').read_text(encoding='utf-8'))
-          by={p.get('id'):p for p in official.get('products',[])}
-          assert len(by)==7
+          official_by={p.get('id'):p for p in official.get('products',[])}
+          assert list(official_by)==public_ids
           assert len(official.get('approved_media_product_ids') or [])==6
-          gao=by['guilu-gao']; p30o=by['guilu-drink-30']; tang=by['guilu-tangkuai']; jiao=by['guilu-jiao']; qixuan=by['qixuan-guilu-drink-powder']
-          assert gao['usage_primary']=='食用時間可依個人使用習慣與作息時間安排'
-          assert p30o['usage_primary']==current_30
-          assert p30o['usage_timing']=='飲用時間可依個人使用習慣與作息時間安排'
-          assert tang['specification']=='75g （2兩）／盒｜8塊裝' and tang['detail_unit_approx']=='每塊約9.375g'
-          assert jiao['specification']=='600g （1斤）／盒｜32塊裝' and str(jiao['detail_unit_approx']).replace(' ','')=='每塊約18.75g'
-          assert qixuan['specification']=='2g／小包；20g／包（10小包）'
-          assert qixuan.get('media_status')=='formal-product-image-pending'
-          public=json.loads(Path('public-product-master.json').read_text(encoding='utf-8'))
-          public_by={p.get('id'):p for p in public.get('products',[])}
-          assert public_by['guilu-drink-30']['usage'][0]==current_30
+          assert official_by['guilu-gao']['usage_primary']=='食用時間可依個人使用習慣與作息時間安排'
+          assert official_by['guilu-drink-30']['usage_primary']==current_30
+
           posts=json.loads(Path('content/public-post-library.json').read_text(encoding='utf-8'))
           post_auth=posts.get('productAuthority') or {}
-          assert post_auth.get('knowledgeProducts')==7 and post_auth.get('approvedMediaProducts')==6
+          assert post_auth.get('knowledgeProducts')==6
+          assert post_auth.get('approvedMediaProducts')==6
           assert post_auth.get('drink30Usage')==current_30
-          assert 'sixProductsSixSpecs' not in post_auth
           post_by={p.get('id'):p for p in posts.get('posts',[])}
-          assert '柒玄茶・龜鹿調飲粉' in post_by['POST-PRODUCT-OVERVIEW']['copy']
-          assert '六個正式產品' not in post_by['POST-PRODUCT-OVERVIEW']['copy']
+          overview=post_by['POST-PRODUCT-OVERVIEW']['copy']
+          assert '六項產品' in overview or '官網公開六項產品' in overview
           assert current_30 in post_by['POST-DRINK-30']['copy']
+
           catalog=json.loads(Path('catalog-public.json').read_text(encoding='utf-8'))
           products={p.get('id'):p for p in catalog.get('products',[])}
-          p30=products.get('guilu-drink-30') or {}
-          assert str(p30.get('dmImage') or '').split('?',1)[0].endswith('/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg')
-          assert catalog.get('knowledgeProductCount')==7
+          assert set(products)==set(public_ids)
+          assert catalog.get('knowledgeProductCount')==6
           assert catalog.get('approvedMediaProductCount')==6
-          rules=catalog.get('specificationRules') or {}
-          assert current_30 in str(rules.get('drink30') or '')
-          assert tang['specification'] in str(rules.get('tangkuai') or '') and tang['detail_unit_approx'] in str(rules.get('tangkuai') or '')
-          assert jiao['specification'] in str(rules.get('jiao') or '') and '18.75' in str(rules.get('jiao') or '')
-          for rel in targets:
+          p30=products['guilu-drink-30']
+          assert p30.get('usagePrimary')==current_30 or (p30.get('usage') or [None])[0]==current_30
+          assert str(p30.get('dmImage') or '').split('?',1)[0].endswith('/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg')
+
+          public_surfaces=[
+            'public-product-master.json','index.html','products.html','guide.html','faq.html',
+            'ai-answers.json','geo-data.json','llms.txt','llms-full.txt','content/public-post-library.json'
+          ]
+          for rel in public_surfaces:
             text=Path(rel).read_text(encoding='utf-8')
-            for phrase in retired:
-              if phrase in text: raise SystemExit(f'{rel} 顧客／公開目前輸出仍含退役資料：{phrase}')
-          print('PASS: derived outputs follow seven-product text authority, six-approved-media model, current 30cc daily 1–2 cans, and no legacy copy regression.')
+            for marker in deferred:
+              assert marker not in text, f'{rel} 重新公開暫緩產品：{marker}'
+
+          gao=Path('product-guilu-gao.html').read_text(encoding='utf-8')
+          assert '食用時間可依個人使用習慣與作息時間安排' in gao
+          assert '時間依作息安排' in gao
+          for retired in ['早上＋下午','早上+下午','一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙']:
+            assert retired not in gao, f'龜鹿膏詳頁仍含舊固定時段：{retired}'
+
+          retired_output=['建議白天飲用','每日1～2罐','每日 1～2罐','每日1-2罐','每日 1-2罐','龜鹿飲30cc玻璃瓶','30cc／瓶']
+          customer_outputs=[
+            'catalog-public.json','data.json','product-master.json','public-product-master.json',
+            'assets/data/official-products.json','config/official-products.json','ai-answers.json','geo-data.json',
+            'content/public-post-library.json'
+          ]
+          for rel in customer_outputs:
+            text=Path(rel).read_text(encoding='utf-8')
+            for phrase in retired_output:
+              assert phrase not in text, f'{rel} 目前輸出仍含退役資料：{phrase}'
+
+          print('PASS: six website/public-post products, six approved media, current 30cc daily 1–2 cans, flexible Guilu Gao timing, no deferred Qixuan website regression.')
           PY
-      - name: Audit stale-data blockers
+
+      - name: Audit current authority and stale-data blockers
         run: |
           python tools/validate-current-authority-no-stale-blockers.py
           python tools/validate-site-production-release-v20260809.py
           python tools/validate-ai-geo-current-v20260820.py
           python tools/validate-public-boundary-v20260808.py
+          python tools/validate-public-customer-pages-v20260809.py
+          python tools/validate_public_aio_seo.py
+          python tools/validate-post-bank-current-authority-v20260809.py
+
       - name: Commit synchronized derived outputs
         shell: bash
         run: |
