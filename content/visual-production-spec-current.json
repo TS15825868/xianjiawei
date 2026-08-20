@@ -1,37 +1,25 @@
 {
-  "version": "2026-08-20-current-visual-authority-v3",
+  "version": "2026-08-20-current-visual-authority-v4-six-public-products",
   "authority": "user-confirmed-current",
   "updated_at_taipei": "2026-08-20",
   "brand": {
     "public_name": "仙加味",
     "public_series": "仙加味・龜鹿",
     "tagline": "補養，是一種節奏。",
-    "tone": [
-      "日常飲食",
-      "生活節奏",
-      "料理搭配",
-      "不談療效",
-      "不強迫"
-    ],
-    "colors": [
-      "深藍",
-      "米白#F7F4ED",
-      "深紅",
-      "金色點綴",
-      "深綠"
-    ]
+    "tone": ["日常飲食","生活節奏","料理搭配","不談療效","不強迫"],
+    "colors": ["深藍","米白#F7F4ED","深紅","金色點綴","深綠"]
   },
   "authority_layers": {
-    "text_product_authority": "public-product-master.json 為七項目前正式產品文字知識最高權威；任何舊圖規、舊守門員、舊固定產品數不得覆蓋",
+    "text_product_authority": "public-product-master.json 為官網、官網AI/GEO與公開貼文目前六項產品文字最高權威；任何舊七項官網模型、舊圖規、舊守門員或舊固定產品數不得覆蓋",
     "product_identity": "images/products-v3/ 只作真實產品身份、包裝與比例校正參考；不直接取代目前顧客產品主圖",
-    "customer_product_display": "images/customer-display-v20260812/ 為目前六項已有核准實物圖之一般產品頁、產品卡與一般產品貼文主圖來源",
+    "customer_product_display": "images/customer-display-v20260812/ 為目前六項核准實物圖之一般產品頁、產品卡與一般產品貼文主圖來源",
     "detailed_dm": "images/dm-final/ 只用於六項已有核准詳細DM之版位，與一般產品主圖分離",
-    "qixuan_media": "柒玄茶・龜鹿調飲粉目前為正式文字產品知識；核准正式產品實物原圖尚未確認，不得AI自創包裝或拿其他產品圖代替",
+    "qixuan_channel_scope": "柒玄茶・龜鹿調飲粉目前暫不放官網、官網公開AI/GEO或公開貼文；LINE OA可依TS-LINE正式main保留文字知識，ERP保留內部資料。未確認正式成分表或核准實物圖前不得AI自創成分或產品包裝。",
     "trial": "images/trial/trial-poster-small-boss-official-v20260814.jpg 為目前試喝頁與試喝貼文固定正式海報",
     "post_lifestyle": "目前最新使用者ZIP素材先依文案語意比對；有合格來源但原圖待同步時保持needs_binary_sync；真的沒有合格來源才重新生成",
     "guard": "驗目前authority與能力，不綁歷史版號、舊ZIP名稱、固定候選數、舊固定文案或退役延伸規格"
   },
-  "knowledge_product_count": 7,
+  "knowledge_product_count": 6,
   "approved_media_product_count": 6,
   "official_specs": [
     "龜鹿膏 100g／罐",
@@ -39,24 +27,21 @@
     "龜鹿飲180cc鋁袋 180cc／包（鋁袋）",
     "龜鹿湯塊 75g （2兩）／盒｜8塊裝",
     "龜鹿膠 600g （1斤）／盒｜32塊裝",
-    "鹿茸粉 75g／罐",
-    "柒玄茶・龜鹿調飲粉 2g／小包；20g／包（10小包）"
+    "鹿茸粉 75g／罐"
   ],
   "products": {
     "guilu-gao": {
       "name": "龜鹿膏",
       "spec": "100g／罐",
       "usage_primary": "食用時間可依個人使用習慣與作息時間安排",
+      "usage_timing_rule": "不得生成或顯示早上＋下午、早晚各一小匙、每日早上及下午各一小匙等退役固定時段",
       "image_rule": "直接使用products-v3正式實拍識別；只允許等比例縮放，不AI重畫、不裁切、不換蓋、不換標籤"
     },
     "guilu-drink-30": {
       "name": "龜鹿飲30cc玻璃罐",
       "spec": "30cc／罐（小玻璃罐）",
       "presentation": "小玻璃裸罐、無貼紙、金色蓋；罐型高矮胖瘦固定照正式原圖",
-      "container_dimensions_mm": {
-        "diameter": 42,
-        "height": 51
-      },
+      "container_dimensions_mm": {"diameter":42,"height":51},
       "image_rule": "必須保留實際小玻璃罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐",
       "customer_dm_status": "approved_current_20260814",
       "customer_dm_path": "/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
@@ -69,11 +54,7 @@
       "name": "龜鹿飲180cc鋁袋",
       "spec": "180cc／包（鋁袋）",
       "presentation": "狹長直立鋁袋",
-      "aspect_ratio_width_to_height": {
-        "min": 0.6,
-        "target": 0.64,
-        "max": 0.68
-      },
+      "aspect_ratio_width_to_height": {"min":0.6,"target":0.64,"max":0.68},
       "image_rule": "使用正式鋁袋原圖等比例；禁止橫向拉寬、加高或誇張放大",
       "usage_primary": "每日一包",
       "usage_timing": "飲用時間可依個人使用習慣與作息時間安排",
@@ -98,20 +79,24 @@
       "spec": "75g／罐",
       "presentation": "白色塑膠罐正式原圖",
       "image_rule": "不改包裝、罐型、容量或標示，只允許等比例呈現"
-    },
+    }
+  },
+  "deferred_products": {
     "qixuan-guilu-drink-powder": {
       "name": "柒玄茶・龜鹿調飲粉",
-      "spec": "2g／小包；20g／包（10小包）",
-      "ingredients_status": "目前公開權威資料尚未提供正式成分表，不自行推測或補寫",
+      "known_spec": "2g／小包；20g／包（10小包）",
+      "website_visible": false,
+      "public_post_visible": false,
+      "website_ai_geo_visible": false,
+      "line_text_knowledge_may_remain": true,
+      "erp_internal_retain": true,
+      "ingredients_status": "目前未確認正式公開成分表，不自行推測或補寫",
       "media_status": "formal-product-image-pending",
       "image_rule": "未確認核准正式產品實物原圖前，不得AI重畫、自創包裝、任意加標籤或拿其他產品圖代替"
     }
   },
   "fulfillment_scope": {
-    "made_to_order_products": [
-      "guilu-drink-30",
-      "guilu-drink-180"
-    ],
+    "made_to_order_products": ["guilu-drink-30","guilu-drink-180"],
     "drink_lead_time": "約5～7個工作天出貨",
     "rule": "5～7個工作天交期只適用龜鹿飲，不得套用其他產品"
   },
@@ -122,45 +107,23 @@
     "full_character_required": true,
     "safe_margin_percent_min": 8,
     "crop_forbidden": true,
-    "companions_when_used": [
-      "小鹿",
-      "小烏龜"
-    ],
+    "companions_when_used": ["小鹿","小烏龜"],
     "companion_rule": "小鹿與小烏龜必須分開為獨立角色、同一Q版質感；不可融合；不是每張都強制出現",
-    "optional_home_rest_companions": [
-      "灰色小河馬娃娃",
-      "米色小鹿安撫巾"
-    ],
+    "optional_home_rest_companions": ["灰色小河馬娃娃","米色小鹿安撫巾"],
     "pose_rule": "姿勢、表情、視線、道具依文案目的變化，但臉型、短黑髮、米白上衣、深綠圍裙與紅色仙加味識別不變"
   },
   "copy_image_match": {
     "required": true,
-    "dimensions": [
-      "產品／規格",
-      "季節",
-      "天氣",
-      "場合／地點",
-      "情境／環境",
-      "冷熱",
-      "表情",
-      "動作／道具",
-      "小老闆與夥伴",
-      "人物完整度／安全邊界",
-      "產品實際比例",
-      "重複圖",
-      "品牌調性",
-      "法規文案",
-      "來源權威",
-      "最終一致性"
-    ],
+    "dimensions": ["產品／規格","季節","天氣","場合／地點","情境／環境","冷熱","表情","動作／道具","小老闆與夥伴","人物完整度／安全邊界","產品實際比例","重複圖","品牌調性","法規文案","來源權威","最終一致性"],
     "hard_fail": [
       "文案產品或規格與圖片不同",
       "DM內嵌文字與目前正式規格不同",
+      "龜鹿膏出現早上＋下午、早晚各一小匙或其他退役固定時段",
       "30cc被做成瓶型、加標籤或比例放大",
       "30cc文案或資料回退成每日一罐或舊用法",
       "180cc鋁袋被拉寬或誇張放大",
       "產品被AI重畫、包裝文字改變或比例失真",
-      "柒玄茶在未核准正式實物原圖前出現AI自創產品包裝",
+      "柒玄茶在目前暫不放官網期間出現在官網／公開貼文產品圖，或未核准正式實物原圖前出現AI自創產品包裝",
       "文案說溫熱／熱湯但圖片呈現冰飲",
       "季節、天氣、場合、地點、情境或環境明顯矛盾",
       "小老闆表情、動作或道具與文案目的不符",
@@ -176,28 +139,10 @@
   },
   "scene_rules": {
     "seasons": {
-      "春": [
-        "柔和晨光",
-        "換季整理",
-        "新綠植栽"
-      ],
-      "夏": [
-        "明亮自然光",
-        "通風室內",
-        "外出補水",
-        "不預設冰飲"
-      ],
-      "秋": [
-        "暖金色光",
-        "規律作息",
-        "家庭餐桌"
-      ],
-      "冬": [
-        "暖色室內",
-        "熱氣湯鍋",
-        "溫熱飲食",
-        "外套圍巾"
-      ]
+      "春": ["柔和晨光","換季整理","新綠植栽"],
+      "夏": ["明亮自然光","通風室內","外出補水","不預設冰飲"],
+      "秋": ["暖金色光","規律作息","家庭餐桌"],
+      "冬": ["暖色室內","熱氣湯鍋","溫熱飲食","外套圍巾"]
     },
     "weather": {
       "晴天": "明亮自然、遮陽與補水",
@@ -207,63 +152,20 @@
       "寒冷": "室內溫暖、湯鍋或溫飲",
       "颱風": "不鼓勵外出，發布前依官方天氣確認"
     },
-    "temperature": [
-      "常溫",
-      "溫熱",
-      "熱湯",
-      "清爽環境"
-    ],
-    "expressions": [
-      "自然微笑",
-      "平靜提醒",
-      "專注料理",
-      "輕鬆陪伴",
-      "精神自然"
-    ],
-    "actions": [
-      "招手",
-      "指向產品",
-      "比讚",
-      "端溫水",
-      "端溫熱飲",
-      "料理",
-      "收傘",
-      "穿薄外套",
-      "準備外出",
-      "放下工作休息",
-      "展示產品",
-      "陪家人用餐",
-      "思考"
-    ]
+    "temperature": ["常溫","溫熱","熱湯","清爽環境"],
+    "expressions": ["自然微笑","平靜提醒","專注料理","輕鬆陪伴","精神自然"],
+    "actions": ["招手","指向產品","比讚","端溫水","端溫熱飲","料理","收傘","穿薄外套","準備外出","放下工作休息","展示產品","陪家人用餐","思考"]
   },
   "composition": {
     "single_complete_scene": true,
-    "forbidden": [
-      "拼貼",
-      "拼版",
-      "黑塊",
-      "海報卡片亂堆疊",
-      "產品裁片硬貼",
-      "角色裁片硬貼",
-      "產品拉伸",
-      "cover裁切角色"
-    ],
+    "forbidden": ["拼貼","拼版","黑塊","海報卡片亂堆疊","產品裁片硬貼","角色裁片硬貼","產品拉伸","cover裁切角色"],
     "product_use": "產品出現時以正式原圖自然融入完整場景，不重畫產品；若場景生成無法安全使用產品原圖，改成純小老闆情境圖＋文案另外顯示",
     "text_in_image": "生活情境圖原則上不把長文案燒進圖內，避免生成錯字；正式DM也必須通過目前正式規格／內嵌文字驗證後才可顧客展示"
   },
   "post_media_policy": {
     "current_catalog": "/data/post-library-userzip3-v20260811.json",
     "priority": "user_zip_approved",
-    "semantic_match_dimensions": [
-      "season",
-      "scene",
-      "environment",
-      "temperature",
-      "expression",
-      "action",
-      "props",
-      "copy_context"
-    ],
+    "semantic_match_dimensions": ["season","scene","environment","temperature","expression","action","props","copy_context"],
     "binary_required_for_publish": true,
     "matching_source_without_binary": "needs_binary_sync",
     "regenerate_only_if_no_approved_match": true,
