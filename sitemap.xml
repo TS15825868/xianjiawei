@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ts15825868.github.io/xianjiawei/index.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://ts15825868.github.io/xianjiawei/products.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/index.html</loc><lastmod>2026-08-20</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/products.html</loc><lastmod>2026-08-20</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/why-guilu.html</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/product-guilu-gao.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
@@ -13,12 +13,12 @@
   <url><loc>https://ts15825868.github.io/xianjiawei/choose.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/combo.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/guide.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://ts15825868.github.io/xianjiawei/faq.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://ts15825868.github.io/xianjiawei/brand.html</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/faq.html</loc><lastmod>2026-08-20</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/brand.html</loc><lastmod>2026-08-20</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/ingredients.html</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/quality.html</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/craft.html</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://ts15825868.github.io/xianjiawei/brand-facts.html</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/brand-facts.html</loc><lastmod>2026-08-20</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/dm.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/recipes.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/knowledge.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
@@ -26,4 +26,9 @@
   <url><loc>https://ts15825868.github.io/xianjiawei/video.html</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/sources.html</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://ts15825868.github.io/xianjiawei/contact.html</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/public-product-master.json</loc><lastmod>2026-08-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/ai-answers.json</loc><lastmod>2026-08-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/geo-data.json</loc><lastmod>2026-08-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/llms.txt</loc><lastmod>2026-08-20</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ts15825868.github.io/xianjiawei/llms-full.txt</loc><lastmod>2026-08-20</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>
