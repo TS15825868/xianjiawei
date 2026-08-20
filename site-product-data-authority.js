@@ -9,9 +9,10 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260820-seven-product-public-master-v1';
+  const VERSION='20260820-seven-product-public-master-v2';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
+  const CURRENT_30_USAGE='每日 1–2 罐';
   const MEDIA_PRODUCT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const nativeFetch=window.fetch.bind(window);
   const ABS=path=>new URL(path,location.href).href;
@@ -31,6 +32,10 @@
     .then(master=>{
       if(master?.authority!=='user-confirmed-current'||master?.productCount!==7||!Array.isArray(master?.products)||master.products.length!==7){
         throw new Error('public-product-master authority/productCount invalid');
+      }
+      const p30=(master.products||[]).find(product=>product.id==='guilu-drink-30');
+      if(!Array.isArray(p30?.usage)||p30.usage[0]!==CURRENT_30_USAGE){
+        throw new Error(`public-product-master 30cc usage invalid: ${p30?.usage?.[0]||'missing'}`);
       }
       state.master=master;
       return master;
@@ -166,7 +171,9 @@
         if(value&&value['@type']==='Product'){
           value.name=`仙加味・${product.name}`;
           const primary=usagePrimary(product,{});
-          if(primary&&typeof value.description==='string'&&/每日\s*1[-～至]2罐/.test(value.description))value.description=value.description.replace(/每日\s*1[-～至]2罐/g,'每日一罐');
+          if(primary===CURRENT_30_USAGE&&typeof value.description==='string'){
+            value.description=value.description.replace(/每日\s*1\s*[-–～至]\s*2\s*罐/g,CURRENT_30_USAGE);
+          }
           script.textContent=JSON.stringify(value);
         }
       }catch{}
@@ -177,10 +184,14 @@
     ['30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'],
     ['30cc／瓶','30cc／罐（小玻璃罐）'],
     ['龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'],
-    ['每日 1-2罐','每日一罐'],
-    ['每日1-2罐','每日一罐'],
-    ['每日 1～2罐','每日一罐'],
-    ['每日1～2罐','每日一罐'],
+    ['每日 1-2罐',CURRENT_30_USAGE],
+    ['每日1-2罐',CURRENT_30_USAGE],
+    ['每日 1-2 罐',CURRENT_30_USAGE],
+    ['每日 1～2罐',CURRENT_30_USAGE],
+    ['每日1～2罐',CURRENT_30_USAGE],
+    ['每日 1～2 罐',CURRENT_30_USAGE],
+    ['每日1–2罐',CURRENT_30_USAGE],
+    ['每日 1–2罐',CURRENT_30_USAGE],
     ['600g／盒｜1斤｜32塊裝','600g （1斤）／盒｜32塊裝']
   ]);
 
