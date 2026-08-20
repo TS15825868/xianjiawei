@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-20-seven-product-public-authority-v1",
+  "version": "2026-08-20-seven-product-public-authority-v2",
   "authority": "user-confirmed-current",
   "public_authority": "public-product-master.json",
   "rule": "公開文字／AI知識使用7項目前正式產品；現有6項核准正式產品圖維持媒體層。最新正式資料取代舊版，守門不得回退舊用法、舊包裝、舊固定產品數或舊延伸規格。",
@@ -25,7 +25,7 @@
       "container_dimensions_mm": {"diameter": 42,"height": 51},
       "presentation": "裸罐、無貼紙、無外盒、無外袋、金色蓋",
       "image_rule": "高矮胖瘦照原圖，不得拉高拉胖或改罐型；不得稱瓶",
-      "usage_primary": "每日一罐",
+      "usage_primary": "每日 1–2 罐",
       "usage_timing": "飲用時間可依個人使用習慣與作息時間安排"
     },
     {
@@ -83,7 +83,7 @@
     "30cc小玻璃罐不得加貼紙或外包裝",
     "任何產品圖片不得改變正式原圖比例或包裝文字",
     "龜鹿膏目前使用原則為食用時間可依個人使用習慣與作息時間安排",
-    "龜鹿飲30cc目前使用方式為每日一罐；180cc為每日一包；飲用時間可依個人使用習慣與作息時間安排",
+    "龜鹿飲30cc目前使用方式為每日 1–2 罐，不得回退成每日一罐；180cc為每日一包；飲用時間可依個人使用習慣與作息時間安排",
     "5～7個工作天交期只適用龜鹿飲30cc與180cc",
     "柒玄茶尚未核准正式產品實物原圖前不得生成假包裝"
   ],
