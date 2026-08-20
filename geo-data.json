@@ -101,7 +101,7 @@
             "additionalProperty": [
               {"@type": "PropertyValue", "name": "正式規格", "value": "30cc／罐（小玻璃罐）"},
               {"@type": "PropertyValue", "name": "正式包裝", "value": "小玻璃罐、裸罐、無貼紙；不可更換瓶型或任意加標籤"},
-              {"@type": "PropertyValue", "name": "一般使用方式", "value": "每日一罐；可隔水加熱或溫熱飲用；避免冰飲"},
+              {"@type": "PropertyValue", "name": "一般使用方式", "value": "每日 1–2 罐；可隔水加熱或溫熱飲用；避免冰飲"},
               {"@type": "PropertyValue", "name": "出貨方式", "value": "接單後製作，約5～7個工作天出貨"}
             ]
           }
