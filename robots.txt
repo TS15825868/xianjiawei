@@ -1,4 +1,4 @@
-# ChatGPT Search 公開抓取：允許公開內容，但維持內部／營運路徑排除
+# ChatGPT Search 公開抓取：允許正式公開知識，但排除舊相容／衍生資料與內部營運路徑
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /content/
@@ -10,6 +10,9 @@ Disallow: /_upload/
 Disallow: /tmp/
 Disallow: /staging/
 Disallow: /artifacts/
+Disallow: /data.json
+Disallow: /catalog-public.json
+Disallow: /product-master.json
 Disallow: /deploy-version.json
 Disallow: /live-status-current.json
 Disallow: /dm-runtime-live-status.json
@@ -24,7 +27,7 @@ Disallow: /images/posts/candidates-
 Disallow: /images/products-v2/
 Disallow: /images/products-v4/
 
-# 一般搜尋引擎：公開內容可抓取，內部設定、工具、暫存與營運資料不索引
+# 一般搜尋引擎：公開正式頁面可抓取，舊相容資料與內部設定、工具、暫存、營運資料不索引
 User-agent: *
 Allow: /
 Disallow: /content/
@@ -36,6 +39,9 @@ Disallow: /_upload/
 Disallow: /tmp/
 Disallow: /staging/
 Disallow: /artifacts/
+Disallow: /data.json
+Disallow: /catalog-public.json
+Disallow: /product-master.json
 Disallow: /deploy-version.json
 Disallow: /live-status-current.json
 Disallow: /dm-runtime-live-status.json
@@ -50,5 +56,5 @@ Disallow: /images/posts/candidates-
 Disallow: /images/products-v2/
 Disallow: /images/products-v4/
 
-# 正式產品圖、正式 DM、品牌圖與公開頁面維持可抓取
+# 正式 AI／GEO 知識入口：public-product-master.json、ai-answers.json、geo-data.json、llms.txt、llms-full.txt、FAQ、品牌與產品頁皆維持可抓取
 Sitemap: https://ts15825868.github.io/xianjiawei/sitemap.xml
