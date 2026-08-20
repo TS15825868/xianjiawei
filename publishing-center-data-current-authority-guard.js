@@ -4,13 +4,14 @@
   const TARGET='content/public-post-library.json';
   const ASSET_LIBRARY='content/public-asset-library.json';
   const FORMAL_AUTHORITY='data/formal-media-authority-v20260810.json';
-  const RUNTIME='current-authority-media-sanitizer-20260815-v5-latest-specs';
+  const RUNTIME='current-authority-media-sanitizer-20260820-v6-seven-products';
+  const CURRENT_30_USAGE='每日 1–2 罐';
   const DISALLOWED_ASSET_STATUSES=new Set(['deprecated-reference-only','preflight-rejected-reference-only','superseded-reference-only']);
   const TRIAL_APPROVED_STATES=new Set(['approved_user_original','approved_display','approved_current_media']);
-  const PRODUCT_NAMES=['龜鹿膏','龜鹿飲30cc','龜鹿飲180cc','龜鹿湯塊','龜鹿膠','鹿茸粉'];
+  const PRODUCT_NAMES=['龜鹿膏','龜鹿飲30cc','龜鹿飲180cc','龜鹿湯塊','龜鹿膠','鹿茸粉','柒玄茶・龜鹿調飲粉'];
   const normalize=value=>String(value||'').replace(/^https?:\/\/[^/]+\/xianjiawei\//i,'').replace(/^\//,'').split(/[?#]/)[0];
-  const assetLibraryPromise=PREV_FETCH(ASSET_LIBRARY+'?authority=20260815-v5',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
-  const formalAuthorityPromise=PREV_FETCH(FORMAL_AUTHORITY+'?authority=20260815-v5',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+  const assetLibraryPromise=PREV_FETCH(ASSET_LIBRARY+'?authority=20260820-v6',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+  const formalAuthorityPromise=PREV_FETCH(FORMAL_AUTHORITY+'?authority=20260820-v6',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
   function productSegments(text,target){
     const source=String(text||''),segments=[];let start=0;
     while(true){const pos=source.indexOf(target,start);if(pos<0)break;let end=source.length,searchFrom=pos+target.length;for(const name of PRODUCT_NAMES){const next=source.indexOf(name,searchFrom);if(next>=0)end=Math.min(end,next)}segments.push(source.slice(pos,end));start=pos+target.length}
@@ -18,7 +19,9 @@
   }
   function retiredPaths(library){
     const set=new Set();for(const asset of Array.isArray(library?.assets)?library.assets:[]){if(DISALLOWED_ASSET_STATUSES.has(String(asset?.status||''))){const p=normalize(asset?.path);if(p)set.add(p)}}
-    set.add('images/dm-approved-v20260810/guilu-gao-100g.webp');return set;
+    set.add('images/dm-approved-v20260810/guilu-gao-100g.webp');
+    set.add('images/dm-approved-v20260810/guilu-drink-180cc.webp');
+    return set;
   }
   function currentFormalPaths(authority){
     const set=new Set();for(const product of Array.isArray(authority?.products)?authority.products:[]){if(product?.status==='approved_display'){for(const value of [product.image,product.dm]){const p=normalize(value);if(p)set.add(p)}}}
@@ -31,13 +34,15 @@
     if(retired.has(normalized))return `圖片已由目前公開資產權威標記為退役：${normalized}`;
     if(/\/images\/brand\/line-oa\//i.test(image))return '官網／貼文候選不得直接混用 LINE OA 專用角色圖片';
     if(/\/images\/products-v2\//i.test(image))return '圖片仍使用退役 products-v2 產品圖';
+    if(/\/images\/products-v3\//i.test(image))return 'products-v3目前只作產品身份、包裝與比例校正；貼文產品主圖應改用目前核准customer-display／formal media';
     if(/guilu-gao-100g\.webp/i.test(image))return '龜鹿膏詳細DM仍指向已確認損壞的WebP';
+    if(/guilu-drink-180cc\.webp/i.test(image))return '180cc詳細DM仍指向退役WebP，應改用dm-final目前核准JPG';
     if(/\/images\/dm-(?:final|approved-v\d+)\//i.test(image))return '圖片位於DM目錄但不在目前正式媒體authority核准清單';
     return'';
   }
   function quarantine(post,reason){
     const originalPrompt=String(post.image_prompt||'').trim();
-    return{...post,status:'pending_review',image_url:null,image_asset_id:null,image_status:'needs_generation',candidate_generated:false,candidate_generation_mode:'current-authority-regeneration-required',publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,auto_approve:false,auto_schedule:false,auto_publish:false,image_policy:'current-formal-product-image-or-valid-dm-or-trial; products-v3-identity-reference-only; no-collage-no-line-oa-mix',image_prompt:originalPrompt||'依原貼文文案建立1:1完整場景；優先比對目前正式產品圖、有效DM、正式試喝圖與最新使用者ZIP情境素材。若需要產品，本體只使用正式原圖等比例合成；30cc維持小玻璃裸罐，180cc維持狹長鋁袋。季節、天氣、環境、冷熱、表情、動作與道具必須吻合文案。完成後只回待審核。',image_review_reason:`${reason}。優先使用目前正式媒體或最新使用者ZIP；真的沒有合格來源才生成，換圖後回待審核並重新完成16項。`};
+    return{...post,status:'pending_review',image_url:null,image_asset_id:null,image_status:'needs_generation',candidate_generated:false,candidate_generation_mode:'current-authority-regeneration-required',publish_allowed:false,schedule_enabled:false,scheduled_at:null,owner_review_required:true,approval_required:true,auto_approve:false,auto_schedule:false,auto_publish:false,image_policy:'current-formal-product-image-or-valid-dm-or-trial; products-v3-identity-reference-only; no-collage-no-line-oa-mix',image_prompt:originalPrompt||'依原貼文文案建立1:1完整場景；優先比對目前正式產品圖、有效DM、正式試喝圖與目前核准生活情境素材。若需要產品，本體只使用正式原圖等比例合成；30cc維持小玻璃裸罐，180cc維持狹長鋁袋。季節、天氣、環境、冷熱、表情、動作與道具必須吻合文案。完成後只回待審核。',image_review_reason:`${reason}。優先使用目前正式媒體或目前核准生活素材；真的沒有合格來源才生成，換圖後回待審核並重新完成16項。`};
   }
   function ensureGenerationReason(post){
     if(!post||String(post.image_status||'')!=='needs_generation'||String(post.image_review_reason||'').trim())return post;
@@ -45,10 +50,16 @@
   }
   function validateFormalCopy(post){
     const serialized=JSON.stringify(post||{});
-    if(/30\s*cc.{0,40}(玻璃瓶|瓶裝|[／/]\s*瓶)/i.test(serialized))return '貼文仍含30cc瓶型退役稱呼';
+    if(/30\s*cc.{0,60}(玻璃瓶|瓶裝|[／/]\s*瓶)/i.test(serialized))return '貼文仍含30cc瓶型退役稱呼';
+    if(/30\s*cc/i.test(serialized)){
+      if(/每日一罐|每日1[-～－]2罐|每日\s*1[-～－]2\s*罐/.test(serialized))return `30cc仍含退役使用方式；目前正式使用方式為${CURRENT_30_USAGE}`;
+      if(/使用方式|每日|飲用/.test(serialized)&&!/每日\s*1–2\s*罐/.test(serialized)&&String(post?.id||'')==='POST-DRINK-30')return `30cc產品介紹缺目前正式使用方式：${CURRENT_30_USAGE}`;
+    }
     for(const segment of productSegments(serialized,'龜鹿湯塊'))if(/(300\s*g|600\s*g)/i.test(segment))return '龜鹿湯塊自己的語境仍含退役容量';
     for(const segment of productSegments(serialized,'龜鹿膠'))if(/300\s*g/i.test(segment))return '龜鹿膠自己的語境仍含錯誤300g容量';
     for(const segment of productSegments(serialized,'龜鹿膏'))if(/(一天一次一小匙|每日一次一小匙|早晚各一小匙|每日早上及下午各一小匙)/i.test(segment))return '龜鹿膏仍含退役使用方式；目前為食用時間可依個人使用習慣與作息時間安排';
+    if(String(post?.id||'')==='POST-PRODUCT-OVERVIEW'&&(/六個正式產品|六項唯一正式產品|sixProductsSixSpecs/i.test(serialized)))return '產品總覽仍停留在舊六產品模型；目前為七項正式文字知識、六項核准媒體';
+    if(/柒玄茶|龜鹿調飲粉/.test(serialized)&&/(成分[:：]|產品圖|包裝)/.test(serialized)&&!/尚未|未確認|待核准|不得/.test(serialized))return '柒玄茶目前正式成分表／產品實物圖尚未確認，不得自行補寫或生成包裝';
     return'';
   }
   window.fetch=async function(input,init){
@@ -56,10 +67,12 @@
     try{
       const [data,library,formal]=await Promise.all([response.clone().json(),assetLibraryPromise,formalAuthorityPromise]);const retired=retiredPaths(library),currentFormal=currentFormalPaths(formal);
       const posts=(data.posts||[]).map(post=>{const mediaReason=needsQuarantine(post,retired,currentFormal);if(mediaReason)return ensureGenerationReason(quarantine(post,mediaReason));const copyReason=validateFormalCopy(post);if(copyReason&&post.status!=='published'&&post.status!=='archived')return ensureGenerationReason(quarantine(post,copyReason));return ensureGenerationReason(post)});
-      const merged={...data,version:`${data.version||'post-bank'}+current-authority-20260815-v5`,posts};
+      const merged={...data,version:`${String(data.version||'post-bank').replace(/\+current-authority.*$/,'')}+current-authority-20260820-v6`,posts};
+      merged.productAuthority={...(data.productAuthority||{}),textAuthority:'public-product-master.json',knowledgeProducts:7,approvedMediaProducts:6,drink30Usage:CURRENT_30_USAGE,drink180Usage:'每日一包',guardPolicy:'latest-product-authority-first-no-legacy-copy-version-lock'};
+      delete merged.productAuthority.sixProductsSixSpecs;
       merged.counts={...(data.counts||{}),total:posts.length,current_authority_regeneration:posts.filter(p=>p.candidate_generation_mode==='current-authority-regeneration-required').length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'&&p.status!=='published'&&!p.campaign_hold).length};
       const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');headers.set('x-xianjiawei-post-bank-current-authority',RUNTIME);return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});
     }catch{return response}
   };
-  window.XJWCurrentPostMediaAuthority=Object.freeze({runtime:RUNTIME,assetLibrary:ASSET_LIBRARY,formalAuthority:FORMAL_AUTHORITY,disallowedAssetStatuses:[...DISALLOWED_ASSET_STATUSES],normalize,productSegments,retiredPaths,currentFormalPaths,needsQuarantine,quarantine,ensureGenerationReason,validateFormalCopy});
+  window.XJWCurrentPostMediaAuthority=Object.freeze({runtime:RUNTIME,current30Usage:CURRENT_30_USAGE,assetLibrary:ASSET_LIBRARY,formalAuthority:FORMAL_AUTHORITY,disallowedAssetStatuses:[...DISALLOWED_ASSET_STATUSES],normalize,productSegments,retiredPaths,currentFormalPaths,needsQuarantine,quarantine,ensureGenerationReason,validateFormalCopy});
 })();
