@@ -1,5 +1,5 @@
 {
-  "version": "current-post-bank-compatibility-manifest-20260820-v2",
+  "version": "current-post-bank-compatibility-manifest-20260820-v3-six-public-products",
   "authority": "TS15825868/xianjiawei",
   "role": "compatibility-assembly-manifest-not-fixed-count-guard",
   "baseLibrary": "content/public-post-library.json",
@@ -27,11 +27,11 @@
     "generatedCopyQueueV6": 300,
     "generatedCopyQueueV7": 177,
     "assembledRuntimeAtSnapshot": 500,
-    "note": "These numbers describe the old compatibility assembly snapshot only. They must never be used to reject a newer valid current catalog."
+    "note": "These numbers describe an old compatibility assembly snapshot only. They must never be used to reject a newer valid current catalog."
   },
   "generatorAuthority": {
     "productTextAuthority": "public-product-master.json",
-    "knowledgeProductCount": 7,
+    "knowledgeProductCount": 6,
     "approvedMediaProductCount": 6,
     "formalSpecs": [
       "龜鹿膏100g／罐",
@@ -39,10 +39,9 @@
       "龜鹿飲180cc：180cc／包（鋁袋）｜每日一包",
       "龜鹿湯塊75g （2兩）／盒｜8塊裝｜每塊約9.375g",
       "龜鹿膠600g （1斤）／盒｜32塊裝｜每塊約18.75g",
-      "鹿茸粉75g／罐",
-      "柒玄茶・龜鹿調飲粉2g／小包；20g／包（10小包）｜正式成分表與核准產品實物原圖尚待確認"
+      "鹿茸粉75g／罐"
     ],
-    "qixuanMediaRule": "未確認核准正式產品實物原圖前，不得AI重畫、自創包裝或拿其他產品圖代替。",
+    "deferredProductRule": "柒玄茶・龜鹿調飲粉目前暫不放官網與公開貼文；LINE OA 可保留文字知識，ERP保留內部資料；未確認正式產品實物圖時不得AI自創包裝。",
     "drinkLeadTimeRule": "接單後製作約5～7個工作天只適用龜鹿飲30cc與180cc。",
     "mascot": "官網正式精緻Q版小老闆；姿勢、季節、冷熱、表情、動作與道具依文案改變，角色識別固定；小鹿與小烏龜依情境加入且不得裁切。"
   },
@@ -68,22 +67,8 @@
     "ownerReviewRequired": true
   },
   "reviewDimensions": [
-    "品牌",
-    "產品",
-    "規格",
-    "價格／活動",
-    "季節",
-    "天氣",
-    "場合",
-    "地點",
-    "情境／環境／冷熱",
-    "表情",
-    "動作",
-    "小老闆與夥伴",
-    "比例尺寸",
-    "重複圖",
-    "圖文一致",
-    "法規與最終確認"
+    "品牌","產品","規格","價格／活動","季節","天氣","場合","地點",
+    "情境／環境／冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖","圖文一致","法規與最終確認"
   ],
   "guardPolicy": {
     "validateCurrentAuthority": true,
@@ -94,7 +79,8 @@
     "latestMaterialComesFromCurrentAuthority": true,
     "approvedCurrentMediaMustNotBeRejectedByOldRules": true,
     "oldZipNamesMustNotOverrideCurrentMaterial": true,
-    "latestProductDataMustOverrideLegacy": true
+    "latestProductDataMustOverrideLegacy": true,
+    "oldSevenProductWebsiteModelForbidden": true
   },
   "schedulePolicy": {
     "scheduleIsOptional": true,
