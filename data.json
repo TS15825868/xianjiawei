@@ -1,585 +1,103 @@
 {
-  "version": "2026-08-20-six-approved-media-current-v4",
-  "authorityScope": "六項已有核准正式產品圖的顧客顯示／相容資料；七項正式文字產品知識最高權威為 public-product-master.json，本檔不得覆蓋新版產品事實。",
+  "version": "2026-08-20-six-public-products-current-v5",
+  "authorityScope": "目前六項官網公開產品的顧客顯示／相容資料；最高文字權威為 public-product-master.json，本檔不得覆蓋新版產品事實或重新加入暫緩對外產品。",
   "productDataAuthority": "public-product-master.json",
   "brand": "仙加味",
   "lineId": "@762jybnm",
   "siteUrl": "https://ts15825868.github.io/xianjiawei/",
-  "knowledgeProductCount": 7,
+  "knowledgeProductCount": 6,
   "approvedMediaProductCount": 6,
-  "knowledgeProductIds": [
-    "guilu-gao",
-    "guilu-drink-30",
-    "guilu-drink-180",
-    "guilu-tangkuai",
-    "guilu-jiao",
-    "luerong-fen",
-    "qixuan-guilu-drink-powder"
-  ],
+  "knowledgeProductIds": ["guilu-gao","guilu-drink-30","guilu-drink-180","guilu-tangkuai","guilu-jiao","luerong-fen"],
   "products": [
     {
-      "id": "guilu-drink-30",
-      "series": "仙加味・龜鹿",
-      "name": "龜鹿飲30cc玻璃罐",
-      "displayName": "龜鹿飲30cc玻璃罐",
-      "size": "30cc／罐（小玻璃罐）",
-      "image": "images/customer-display-v20260812/guilu-drink-30cc.avif?v=20260820-current-authority",
-      "dmImage": "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-drink-30.jpg?v=20260820-current-authority",
-      "description": "30cc小玻璃罐，維持實際小罐尺寸、裸罐、無貼紙、無外盒、無外袋、金色蓋，適合輕巧即飲、外出攜帶與工作空檔安排。",
-      "ingredients": [
-        "水",
-        "龜板萃取物",
-        "鹿角萃取物",
-        "粉光蔘",
-        "枸杞",
-        "紅棗",
-        "黃耆"
-      ],
-      "usagePrimary": "每日 1–2 罐",
-      "usage": [
-        "每日 1–2 罐",
-        "飲用時間可依個人使用習慣與作息時間安排",
-        "開罐即可飲用",
-        "可隔水加熱或溫熱後飲用",
-        "避免冰飲",
-        "開罐後請儘速飲用完畢"
-      ],
-      "storage": [
-        "未開封置於陰涼乾燥處",
-        "避免高溫與日光直射",
-        "開罐後請儘速飲用完畢"
-      ],
-      "fit": "想方便即飲、第一次接觸、外出攜帶或在工作空檔飲用的人",
-      "purpose": "輕巧即飲食補",
-      "purposeDirection": "適合第一次接觸、外出攜帶、工作空檔或偏好小玻璃罐即飲的人。",
-      "page": "product-guilu-drink-30cc.html",
-      "detailPage": "product-guilu-drink-30cc.html",
-      "fulfillmentType": "made-to-order-drink",
-      "fulfillmentNotice": "龜鹿飲為接單後安排製作加工；訂單資料與付款方式確認後，製作加工約需5～7個工作天，完成後才安排出貨，物流配送時間另計。",
-      "readyStock": false,
-      "priceNote": "價格與優惠請透過官方 LINE 詢問。",
-      "detailImages": [
-        "images/customer-display-v20260812/guilu-drink-30cc.avif?v=20260820-current-authority"
-      ],
-      "knownContainerDimensionsMm": {
-        "diameter": 42,
-        "height": 51
-      },
-      "imagePolicy": "approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch",
-      "physicalScalePolicy": "必須維持30cc小玻璃罐實際小罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐。"
+      "id":"guilu-drink-30","series":"仙加味・龜鹿","name":"龜鹿飲30cc玻璃罐","displayName":"龜鹿飲30cc玻璃罐","size":"30cc／罐（小玻璃罐）","image":"images/customer-display-v20260812/guilu-drink-30cc.avif?v=20260820-current-authority","dmImage":"images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260820-current-authority","officialOriginalImage":"images/products-v3/guilu-drink-30.jpg?v=20260820-current-authority","description":"30cc小玻璃罐，維持實際小罐尺寸、裸罐、無貼紙、無外盒、無外袋、金色蓋，適合輕巧即飲、外出攜帶與工作空檔安排。","ingredients":["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],"usagePrimary":"每日 1–2 罐","usage":["每日 1–2 罐","飲用時間可依個人使用習慣與作息時間安排","開罐即可飲用","可隔水加熱或溫熱後飲用","避免冰飲","開罐後請儘速飲用完畢"],"storage":["未開封置於陰涼乾燥處","避免高溫與日光直射","開罐後請儘速飲用完畢"],"fit":"想方便即飲、第一次接觸、外出攜帶或在工作空檔飲用的人","purpose":"輕巧即飲食補","purposeDirection":"適合第一次接觸、外出攜帶、工作空檔或偏好小玻璃罐即飲的人。","page":"product-guilu-drink-30cc.html","detailPage":"product-guilu-drink-30cc.html","fulfillmentType":"made-to-order-drink","fulfillmentNotice":"龜鹿飲為接單後安排製作加工；訂單資料與付款方式確認後，製作加工約需5～7個工作天，完成後才安排出貨，物流配送時間另計。","readyStock":false,"priceNote":"價格與優惠請透過官方 LINE 詢問。","detailImages":["images/customer-display-v20260812/guilu-drink-30cc.avif?v=20260820-current-authority"],"knownContainerDimensionsMm":{"diameter":42,"height":51},"imagePolicy":"approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch","physicalScalePolicy":"必須維持30cc小玻璃罐實際小罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐。"
     },
     {
-      "id": "guilu-drink-180",
-      "series": "仙加味・龜鹿",
-      "name": "龜鹿飲180cc鋁袋",
-      "displayName": "龜鹿飲180cc鋁袋",
-      "size": "180cc／包（鋁袋）",
-      "image": "images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=20260820-current-authority",
-      "dmImage": "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-drink-180.jpg?v=20260820-current-authority",
-      "description": "180cc狹長直立鋁袋即飲型態，維持正式原圖比例，適合居家、工作空檔或偏好一次安排較完整份量的人。",
-      "ingredients": [
-        "水",
-        "龜板萃取物",
-        "鹿角萃取物",
-        "粉光蔘",
-        "枸杞",
-        "紅棗",
-        "黃耆"
-      ],
-      "usagePrimary": "每日一包",
-      "usage": [
-        "每日一包",
-        "飲用時間可依個人使用習慣與作息時間安排",
-        "撕開包裝即可飲用",
-        "可隔水加熱或溫熱後飲用",
-        "避免冰飲",
-        "開封後請儘速飲用完畢"
-      ],
-      "storage": [
-        "未開封置於陰涼乾燥處",
-        "避免高溫與日光直射",
-        "開封後請儘速飲用完畢"
-      ],
-      "fit": "想要較完整即飲份量、居家安排或工作空檔飲用的人",
-      "purpose": "完整份量即飲食補",
-      "purposeDirection": "適合偏好180cc鋁袋、居家安排、工作空檔或想一次飲用較完整份量的人。",
-      "page": "product-guilu-drink-180cc.html",
-      "detailPage": "product-guilu-drink-180cc.html",
-      "fulfillmentType": "made-to-order-drink",
-      "fulfillmentNotice": "龜鹿飲為接單後安排製作加工；訂單資料與付款方式確認後，製作加工約需5～7個工作天，完成後才安排出貨，物流配送時間另計。",
-      "readyStock": false,
-      "priceNote": "價格與優惠請透過官方 LINE 詢問。",
-      "detailImages": [
-        "images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=20260820-current-authority"
-      ],
-      "aspectRatioWidthToHeight": {
-        "min": 0.6,
-        "target": 0.64,
-        "max": 0.68
-      },
-      "imagePolicy": "approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch",
-      "physicalScalePolicy": "狹長直立鋁袋；禁止橫向拉寬、加高或誇張放大。"
+      "id":"guilu-drink-180","series":"仙加味・龜鹿","name":"龜鹿飲180cc鋁袋","displayName":"龜鹿飲180cc鋁袋","size":"180cc／包（鋁袋）","image":"images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=20260820-current-authority","dmImage":"images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260820-current-authority","officialOriginalImage":"images/products-v3/guilu-drink-180.jpg?v=20260820-current-authority","description":"180cc狹長直立鋁袋即飲型態，維持正式原圖比例，適合居家、工作空檔或偏好一次安排較完整份量的人。","ingredients":["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],"usagePrimary":"每日一包","usage":["每日一包","飲用時間可依個人使用習慣與作息時間安排","撕開包裝即可飲用","可隔水加熱或溫熱後飲用","避免冰飲","開封後請儘速飲用完畢"],"storage":["未開封置於陰涼乾燥處","避免高溫與日光直射","開封後請儘速飲用完畢"],"fit":"想要較完整即飲份量、居家安排或工作空檔飲用的人","purpose":"完整份量即飲食補","purposeDirection":"適合偏好180cc鋁袋、居家安排、工作空檔或想一次飲用較完整份量的人。","page":"product-guilu-drink-180cc.html","detailPage":"product-guilu-drink-180cc.html","fulfillmentType":"made-to-order-drink","fulfillmentNotice":"龜鹿飲為接單後安排製作加工；訂單資料與付款方式確認後，製作加工約需5～7個工作天，完成後才安排出貨，物流配送時間另計。","readyStock":false,"priceNote":"價格與優惠請透過官方 LINE 詢問。","detailImages":["images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=20260820-current-authority"],"aspectRatioWidthToHeight":{"min":0.6,"target":0.64,"max":0.68},"imagePolicy":"approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch","physicalScalePolicy":"狹長直立鋁袋；禁止橫向拉寬、加高或誇張放大。"
     },
     {
-      "id": "guilu-gao",
-      "series": "仙加味・龜鹿",
-      "name": "龜鹿膏",
-      "displayName": "龜鹿膏",
-      "size": "100g／罐",
-      "image": "images/customer-display-v20260812/guilu-gao.avif?v=20260820-current-authority",
-      "dmImage": "images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-gao.jpg?v=20260820-current-authority",
-      "description": "100g小罐膏狀型態，適合固定日常安排，可直接取用或以溫熱水化開。",
-      "ingredients": [
-        "鹿角萃取物",
-        "龜板萃取物",
-        "枸杞",
-        "紅棗",
-        "黃耆",
-        "粉光蔘"
-      ],
-      "usagePrimary": "食用時間可依個人使用習慣與作息時間安排",
-      "usage": [
-        "食用時間可依個人使用習慣與作息時間安排",
-        "初次可先從半匙開始",
-        "可直接食用或加入約100～300mL溫熱水化開"
-      ],
-      "storage": [
-        "未開封置於陰涼乾燥處",
-        "開封後請密封冷藏並使用乾淨湯匙取用"
-      ],
-      "fit": "想固定安排、喜歡小匙取用或溫熱水化開的人",
-      "purpose": "固定日常食補",
-      "purposeDirection": "適合希望建立固定日常節奏的人。",
-      "page": "product-guilu-gao.html",
-      "detailPage": "product-guilu-gao.html",
-      "fulfillmentType": "ready-stock",
-      "fulfillmentNotice": "本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。",
-      "readyStock": true,
-      "priceNote": "價格與優惠請透過官方 LINE 詢問。",
-      "detailImages": [
-        "images/customer-display-v20260812/guilu-gao.avif?v=20260820-current-authority"
-      ],
-      "knownContainerDimensionsMm": {
-        "width": 51,
-        "height": 78
-      },
-      "imagePolicy": "approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch",
-      "physicalScalePolicy": "六角玻璃罐只允許等比例縮放，不改罐型、金色蓋或標籤比例。"
+      "id":"guilu-gao","series":"仙加味・龜鹿","name":"龜鹿膏","displayName":"龜鹿膏","size":"100g／罐","image":"images/customer-display-v20260812/guilu-gao.avif?v=20260820-current-authority","dmImage":"images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260820-current-authority","officialOriginalImage":"images/products-v3/guilu-gao.jpg?v=20260820-current-authority","description":"100g小罐膏狀型態，適合固定日常安排，可直接取用或以溫熱水化開。","ingredients":["鹿角萃取物","龜板萃取物","枸杞","紅棗","黃耆","粉光蔘"],"usagePrimary":"食用時間可依個人使用習慣與作息時間安排","usage":["食用時間可依個人使用習慣與作息時間安排","初次可先從半匙開始","可直接食用或加入約100～300mL溫熱水化開"],"storage":["未開封置於陰涼乾燥處","開封後請密封冷藏並使用乾淨湯匙取用"],"fit":"想固定安排、喜歡小匙取用或溫熱水化開的人","purpose":"固定日常食補","purposeDirection":"適合希望建立固定日常節奏的人。","page":"product-guilu-gao.html","detailPage":"product-guilu-gao.html","fulfillmentType":"ready-stock","fulfillmentNotice":"本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。","readyStock":true,"priceNote":"價格與優惠請透過官方 LINE 詢問。","detailImages":["images/customer-display-v20260812/guilu-gao.avif?v=20260820-current-authority"],"knownContainerDimensionsMm":{"width":51,"height":78},"imagePolicy":"approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch","physicalScalePolicy":"六角玻璃罐只允許等比例縮放，不改罐型、金色蓋或標籤比例。"
     },
     {
-      "id": "guilu-tangkuai",
-      "series": "仙加味・龜鹿",
-      "name": "龜鹿湯塊",
-      "displayName": "龜鹿湯塊",
-      "size": "75g （2兩）／盒｜8塊裝",
-      "detailUnitApprox": "每塊約9.375g",
-      "image": "images/customer-display-v20260812/guilu-tangkuai.avif?v=20260820-current-authority",
-      "dmImage": "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-tangkuai.jpg?v=20260820-current-authority",
-      "description": "75g（2兩）／盒、8塊裝，每塊約9.375g，適合熱水沖泡、保溫壺與家常燉湯。",
-      "ingredients": [
-        "龜板萃取物",
-        "鹿角萃取物"
-      ],
-      "usage": [
-        "使用時間可依個人使用習慣與作息時間安排",
-        "取1塊加入約300～500mL熱水沖泡",
-        "可放入保溫壺悶泡",
-        "也可加入雞湯、排骨湯等湯品燉煮"
-      ],
-      "storage": [
-        "常溫置於陰涼處",
-        "或依實際包裝標示保存"
-      ],
-      "fit": "想小盒裝、方便沖泡、使用保溫壺或搭配燉湯料理的人",
-      "purpose": "沖泡與燉湯食補",
-      "purposeDirection": "適合熱水沖泡、保溫壺悶泡或加入家常湯品。",
-      "page": "product-guilu-tangkuai.html",
-      "detailPage": "product-guilu-tangkuai.html",
-      "fulfillmentType": "ready-stock",
-      "fulfillmentNotice": "本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。",
-      "readyStock": true,
-      "priceNote": "價格與優惠請透過官方 LINE 詢問。",
-      "detailImages": [
-        "images/customer-display-v20260812/guilu-tangkuai.avif?v=20260820-current-authority"
-      ],
-      "knownContainerDimensionsMm": null,
-      "imagePolicy": "approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch",
-      "physicalScalePolicy": "深藍正式盒；盒體毫米尺寸未知時不得自行猜測，只依核准原圖等比例呈現；不得建立其他龜鹿湯塊容量。"
+      "id":"guilu-tangkuai","series":"仙加味・龜鹿","name":"龜鹿湯塊","displayName":"龜鹿湯塊","size":"75g （2兩）／盒｜8塊裝","detailUnitApprox":"每塊約9.375g","image":"images/customer-display-v20260812/guilu-tangkuai.avif?v=20260820-current-authority","dmImage":"images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260820-current-authority","officialOriginalImage":"images/products-v3/guilu-tangkuai.jpg?v=20260820-current-authority","description":"75g（2兩）／盒、8塊裝，每塊約9.375g，適合熱水沖泡、保溫壺與家常燉湯。","ingredients":["龜板萃取物","鹿角萃取物"],"usage":["使用時間可依個人使用習慣與作息時間安排","取1塊加入約300～500mL熱水沖泡","可放入保溫壺悶泡","也可加入雞湯、排骨湯等湯品燉煮"],"storage":["常溫置於陰涼處","或依實際包裝標示保存"],"fit":"想小盒裝、方便沖泡、使用保溫壺或搭配燉湯料理的人","purpose":"沖泡與燉湯食補","purposeDirection":"適合熱水沖泡、保溫壺悶泡或加入家常湯品。","page":"product-guilu-tangkuai.html","detailPage":"product-guilu-tangkuai.html","fulfillmentType":"ready-stock","fulfillmentNotice":"本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。","readyStock":true,"priceNote":"價格與優惠請透過官方 LINE 詢問。","detailImages":["images/customer-display-v20260812/guilu-tangkuai.avif?v=20260820-current-authority"],"knownContainerDimensionsMm":null,"imagePolicy":"approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch","physicalScalePolicy":"深藍正式盒；盒體毫米尺寸未知時不得自行猜測，只依核准原圖等比例呈現；不得建立其他龜鹿湯塊容量。"
     },
     {
-      "id": "guilu-jiao",
-      "series": "仙加味・龜鹿",
-      "name": "龜鹿膠",
-      "displayName": "龜鹿膠",
-      "size": "600g （1斤）／盒｜32塊裝",
-      "detailUnitApprox": "每塊約18.75g",
-      "image": "images/customer-display-v20260812/guilu-jiao.avif?v=20260820-current-authority",
-      "dmImage": "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-jiao.jpg?v=20260820-current-authority",
-      "description": "600g（1斤）／盒、32塊裝，每塊約18.75g，適合固定備用、家庭安排、熱水化開或燉湯。",
-      "ingredients": [
-        "龜板萃取物",
-        "鹿角萃取物"
-      ],
-      "usage": [
-        "使用時間可依個人使用習慣與作息時間安排",
-        "取適量加入約300～500mL熱水化開",
-        "待溫度適合後飲用",
-        "也可加入雞湯、排骨湯等湯品燉煮"
-      ],
-      "storage": [
-        "依實際包裝標示保存"
-      ],
-      "fit": "熟悉龜鹿產品、偏好大規格、家庭安排或搭配湯品的人",
-      "purpose": "家庭大規格食補",
-      "purposeDirection": "適合家庭大規格、固定安排或合作洽詢。",
-      "page": "product-guilu-jiao.html",
-      "detailPage": "product-guilu-jiao.html",
-      "fulfillmentType": "ready-stock",
-      "fulfillmentNotice": "本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。",
-      "readyStock": true,
-      "priceNote": "價格與優惠請透過官方 LINE 詢問。",
-      "detailImages": [
-        "images/customer-display-v20260812/guilu-jiao.avif?v=20260820-current-authority"
-      ],
-      "knownContainerDimensionsMm": null,
-      "imagePolicy": "approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch",
-      "physicalScalePolicy": "淡紫正式盒；毫米尺寸未知時不得自行猜測；不得橫向拉長，也不得縮成與75g湯塊相近尺寸。"
+      "id":"guilu-jiao","series":"仙加味・龜鹿","name":"龜鹿膠","displayName":"龜鹿膠","size":"600g （1斤）／盒｜32塊裝","detailUnitApprox":"每塊約18.75g","image":"images/customer-display-v20260812/guilu-jiao.avif?v=20260820-current-authority","dmImage":"images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260820-current-authority","officialOriginalImage":"images/products-v3/guilu-jiao.jpg?v=20260820-current-authority","description":"600g（1斤）／盒、32塊裝，每塊約18.75g，適合固定備用、家庭安排、熱水化開或燉湯。","ingredients":["龜板萃取物","鹿角萃取物"],"usage":["使用時間可依個人使用習慣與作息時間安排","取適量加入約300～500mL熱水化開","待溫度適合後飲用","也可加入雞湯、排骨湯等湯品燉煮"],"storage":["依實際包裝標示保存"],"fit":"熟悉龜鹿產品、偏好大規格、家庭安排或搭配湯品的人","purpose":"家庭大規格食補","purposeDirection":"適合家庭大規格、固定安排或合作洽詢。","page":"product-guilu-jiao.html","detailPage":"product-guilu-jiao.html","fulfillmentType":"ready-stock","fulfillmentNotice":"本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。","readyStock":true,"priceNote":"價格與優惠請透過官方 LINE 詢問。","detailImages":["images/customer-display-v20260812/guilu-jiao.avif?v=20260820-current-authority"],"knownContainerDimensionsMm":null,"imagePolicy":"approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch","physicalScalePolicy":"淡紫正式盒；毫米尺寸未知時不得自行猜測；不得橫向拉長，也不得縮成與75g湯塊相近尺寸。"
     },
     {
-      "id": "luerong-fen",
-      "series": "仙加味",
-      "name": "鹿茸粉",
-      "displayName": "鹿茸粉",
-      "size": "75g／罐",
-      "image": "images/customer-display-v20260812/luerong-fen.avif?v=20260820-current-authority",
-      "dmImage": "images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/luerong-fen.jpg?v=20260820-current-authority",
-      "description": "75g單方鹿茸粉，適合自行調整份量並加入溫開水、牛奶或豆漿。",
-      "ingredients": [
-        "鹿茸"
-      ],
-      "usage": [
-        "使用時間可依個人使用習慣與作息時間安排",
-        "依個人習慣取適量",
-        "加入溫開水、牛奶、豆漿或其他飲品",
-        "攪拌均勻後飲用"
-      ],
-      "storage": [
-        "開封後請密封保存",
-        "避免受潮並儘早食用完畢"
-      ],
-      "fit": "喜歡粉狀型態、想自行搭配飲品或調整份量的人",
-      "purpose": "自行搭配食補",
-      "purposeDirection": "適合粉狀型態自行搭配。",
-      "page": "product-luerong-fen.html",
-      "detailPage": "product-luerong-fen.html",
-      "fulfillmentType": "ready-stock",
-      "fulfillmentNotice": "本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。",
-      "readyStock": true,
-      "priceNote": "價格與優惠請透過官方 LINE 詢問。",
-      "detailImages": [
-        "images/customer-display-v20260812/luerong-fen.avif?v=20260820-current-authority"
-      ],
-      "knownContainerDimensionsMm": null,
-      "imagePolicy": "approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch",
-      "physicalScalePolicy": "白色正式塑膠罐；毫米尺寸未知時不得自行猜測，只依核准原圖等比例呈現。"
+      "id":"luerong-fen","series":"仙加味","name":"鹿茸粉","displayName":"鹿茸粉","size":"75g／罐","image":"images/customer-display-v20260812/luerong-fen.avif?v=20260820-current-authority","dmImage":"images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260820-current-authority","officialOriginalImage":"images/products-v3/luerong-fen.jpg?v=20260820-current-authority","description":"75g單方鹿茸粉，適合自行調整份量並加入溫開水、牛奶或豆漿。","ingredients":["鹿茸"],"usage":["使用時間可依個人使用習慣與作息時間安排","依個人習慣取適量","加入溫開水、牛奶、豆漿或其他飲品","攪拌均勻後飲用"],"storage":["開封後請密封保存","避免受潮並儘早食用完畢"],"fit":"喜歡粉狀型態、想自行搭配飲品或調整份量的人","purpose":"自行搭配食補","purposeDirection":"適合粉狀型態自行搭配。","page":"product-luerong-fen.html","detailPage":"product-luerong-fen.html","fulfillmentType":"ready-stock","fulfillmentNotice":"本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。","readyStock":true,"priceNote":"價格與優惠請透過官方 LINE 詢問。","detailImages":["images/customer-display-v20260812/luerong-fen.avif?v=20260820-current-authority"],"knownContainerDimensionsMm":null,"imagePolicy":"approved-original-product-photo-uniform-scale-contain-no-crop-no-stretch","physicalScalePolicy":"白色正式塑膠罐；毫米尺寸未知時不得自行猜測，只依核准原圖等比例呈現。"
     }
   ],
   "combos": [
-    {
-      "id": "daily-rhythm",
-      "name": "日常節奏組",
-      "items": [
-        "龜鹿膏 1 罐",
-        "龜鹿飲180cc 5 包"
-      ],
-      "desc": "適合想固定日常節奏，也想保留方便快速選擇的人。"
-    },
-    {
-      "id": "table-pairing",
-      "name": "料理搭配組",
-      "items": [
-        "龜鹿湯塊75g（2兩／8塊裝） 1 盒",
-        "鹿茸粉75g 1 罐"
-      ],
-      "desc": "適合想從料理與溫熱飲品一起安排的人。"
-    },
-    {
-      "id": "full-experience",
-      "name": "完整體驗組",
-      "items": [
-        "龜鹿膏 1 罐",
-        "龜鹿飲180cc 5 包",
-        "龜鹿湯塊75g（2兩／8塊裝） 1 盒",
-        "鹿茸粉75g 1 罐"
-      ],
-      "desc": "適合想一次了解不同型態，再依生活情境安排的人。"
-    }
+    {"id":"daily-rhythm","name":"日常節奏組","items":["龜鹿膏 1 罐","龜鹿飲180cc 5 包"],"desc":"適合想固定日常節奏，也想保留方便快速選擇的人。"},
+    {"id":"table-pairing","name":"料理搭配組","items":["龜鹿湯塊75g（2兩／8塊裝） 1 盒","鹿茸粉75g 1 罐"],"desc":"適合想從料理與溫熱飲品一起安排的人。"},
+    {"id":"full-experience","name":"完整體驗組","items":["龜鹿膏 1 罐","龜鹿飲180cc 5 包","龜鹿湯塊75g（2兩／8塊裝） 1 盒","鹿茸粉75g 1 罐"],"desc":"適合想一次了解不同型態，再依生活情境安排的人。"}
   ],
-  "offers": {
-    "comboOffers": [
-      {
-        "id": "daily-rhythm",
-        "name": "日常節奏組",
-        "items": [
-          "龜鹿膏 1 罐",
-          "龜鹿飲180cc 5 包"
-        ],
-        "desc": "適合想固定日常節奏，也想保留方便快速選擇的人。"
-      },
-      {
-        "id": "table-pairing",
-        "name": "料理搭配組",
-        "items": [
-          "龜鹿湯塊75g（2兩／8塊裝） 1 盒",
-          "鹿茸粉75g 1 罐"
-        ],
-        "desc": "適合想從料理與溫熱飲品一起安排的人。"
-      },
-      {
-        "id": "full-experience",
-        "name": "完整體驗組",
-        "items": [
-          "龜鹿膏 1 罐",
-          "龜鹿飲180cc 5 包",
-          "龜鹿湯塊75g（2兩／8塊裝） 1 盒",
-          "鹿茸粉75g 1 罐"
-        ],
-        "desc": "適合想一次了解不同型態，再依生活情境安排的人。"
-      }
-    ]
-  },
+  "offers": {"comboOffers":[
+    {"id":"daily-rhythm","name":"日常節奏組","items":["龜鹿膏 1 罐","龜鹿飲180cc 5 包"],"desc":"適合想固定日常節奏，也想保留方便快速選擇的人。"},
+    {"id":"table-pairing","name":"料理搭配組","items":["龜鹿湯塊75g（2兩／8塊裝） 1 盒","鹿茸粉75g 1 罐"],"desc":"適合想從料理與溫熱飲品一起安排的人。"},
+    {"id":"full-experience","name":"完整體驗組","items":["龜鹿膏 1 罐","龜鹿飲180cc 5 包","龜鹿湯塊75g（2兩／8塊裝） 1 盒","鹿茸粉75g 1 罐"],"desc":"適合想一次了解不同型態，再依生活情境安排的人。"}
+  ]},
   "recommend": [
-    {
-      "keyword": "固定日常食補",
-      "result": "龜鹿膏",
-      "desc": "適合小匙取用或溫熱水化開。"
-    },
-    {
-      "keyword": "輕巧即飲食補",
-      "result": "龜鹿飲30cc玻璃罐",
-      "desc": "適合第一次接觸、外出攜帶與工作空檔。"
-    },
-    {
-      "keyword": "完整容量即飲食補",
-      "result": "龜鹿飲180cc鋁袋",
-      "desc": "適合居家或偏好較完整份量。"
-    },
-    {
-      "keyword": "沖泡與燉湯食補",
-      "result": "龜鹿湯塊",
-      "desc": "適合熱水、保溫壺或家常湯品。"
-    },
-    {
-      "keyword": "家庭大規格食補",
-      "result": "龜鹿膠",
-      "desc": "適合家庭固定備用或較大規格安排。"
-    },
-    {
-      "keyword": "自行搭配食補",
-      "result": "鹿茸粉",
-      "desc": "適合加入溫開水、牛奶或豆漿。"
-    }
+    {"keyword":"固定日常食補","result":"龜鹿膏","desc":"適合小匙取用或溫熱水化開。"},
+    {"keyword":"輕巧即飲食補","result":"龜鹿飲30cc玻璃罐","desc":"適合第一次接觸、外出攜帶與工作空檔。"},
+    {"keyword":"完整容量即飲食補","result":"龜鹿飲180cc鋁袋","desc":"適合居家或偏好較完整份量。"},
+    {"keyword":"沖泡與燉湯食補","result":"龜鹿湯塊","desc":"適合熱水、保溫壺或家常湯品。"},
+    {"keyword":"家庭大規格食補","result":"龜鹿膠","desc":"適合家庭固定備用或較大規格安排。"},
+    {"keyword":"自行搭配食補","result":"鹿茸粉","desc":"適合加入溫開水、牛奶或豆漿。"}
   ],
   "videos": [
-    {
-      "title": "中醫師觀點｜第 1 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7644475408422948112",
-      "category": "中醫師觀點"
-    },
-    {
-      "title": "中醫師觀點｜第 2 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7599984981527530772",
-      "category": "中醫師觀點"
-    },
-    {
-      "title": "中醫師觀點｜第 3 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7599654150523079957",
-      "category": "中醫師觀點"
-    },
-    {
-      "title": "鹿茸食材｜第 1 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7600388782180945172",
-      "category": "鹿茸系列"
-    },
-    {
-      "title": "中醫師觀點｜第 4 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7597798718720576789",
-      "category": "中醫師觀點"
-    },
-    {
-      "title": "鹿茸食材｜第 2 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7590648704156132868",
-      "category": "鹿茸系列"
-    },
-    {
-      "title": "龜鹿日常｜第 1 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7486299595979394312",
-      "category": "龜鹿系列"
-    },
-    {
-      "title": "龜鹿日常｜第 2 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7488238569224555794",
-      "category": "龜鹿系列"
-    },
-    {
-      "title": "龜鹿日常｜第 3 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7488239418650807560",
-      "category": "龜鹿系列"
-    },
-    {
-      "title": "龜鹿日常｜第 4 集",
-      "url": "https://www.tiktok.com/@changwuchi2023/video/7475988696827727112",
-      "category": "龜鹿系列"
-    }
+    {"title":"中醫師觀點｜第 1 集","url":"https://www.tiktok.com/@changwuchi2023/video/7644475408422948112","category":"中醫師觀點"},
+    {"title":"中醫師觀點｜第 2 集","url":"https://www.tiktok.com/@changwuchi2023/video/7599984981527530772","category":"中醫師觀點"},
+    {"title":"中醫師觀點｜第 3 集","url":"https://www.tiktok.com/@changwuchi2023/video/7599654150523079957","category":"中醫師觀點"},
+    {"title":"鹿茸食材｜第 1 集","url":"https://www.tiktok.com/@changwuchi2023/video/7600388782180945172","category":"鹿茸系列"},
+    {"title":"中醫師觀點｜第 4 集","url":"https://www.tiktok.com/@changwuchi2023/video/7597798718720576789","category":"中醫師觀點"},
+    {"title":"鹿茸食材｜第 2 集","url":"https://www.tiktok.com/@changwuchi2023/video/7590648704156132868","category":"鹿茸系列"},
+    {"title":"龜鹿日常｜第 1 集","url":"https://www.tiktok.com/@changwuchi2023/video/7486299595979394312","category":"龜鹿系列"},
+    {"title":"龜鹿日常｜第 2 集","url":"https://www.tiktok.com/@changwuchi2023/video/7488238569224555794","category":"龜鹿系列"},
+    {"title":"龜鹿日常｜第 3 集","url":"https://www.tiktok.com/@changwuchi2023/video/7488239418650807560","category":"龜鹿系列"},
+    {"title":"龜鹿日常｜第 4 集","url":"https://www.tiktok.com/@changwuchi2023/video/7475988696827727112","category":"龜鹿系列"}
   ],
   "recipes": [
-    {
-      "title": "龜鹿雞湯",
-      "category": "家常湯品",
-      "desc": "雞腿或雞塊汆燙後，加入龜鹿湯塊、枸杞與紅棗，以小火燉煮。"
-    },
-    {
-      "title": "龜鹿排骨湯",
-      "category": "家常湯品",
-      "desc": "排骨汆燙後加入龜鹿湯塊或龜鹿膠，依個人口味調整。"
-    },
-    {
-      "title": "保溫壺沖泡",
-      "category": "熱飲",
-      "desc": "龜鹿湯塊加入約300～500mL熱水悶泡，建議當日飲用完畢。"
-    },
-    {
-      "title": "龜鹿膏熱飲",
-      "category": "熱飲",
-      "desc": "取一小匙龜鹿膏加入溫熱水化開，調至適合溫度後飲用。"
-    },
-    {
-      "title": "鹿茸粉溫豆漿",
-      "category": "調飲",
-      "desc": "將適量鹿茸粉加入溫豆漿攪拌均勻。"
-    }
+    {"title":"龜鹿雞湯","category":"家常湯品","desc":"雞腿或雞塊汆燙後，加入龜鹿湯塊、枸杞與紅棗，以小火燉煮。"},
+    {"title":"龜鹿排骨湯","category":"家常湯品","desc":"排骨汆燙後加入龜鹿湯塊或龜鹿膠，依個人口味調整。"},
+    {"title":"保溫壺沖泡","category":"熱飲","desc":"龜鹿湯塊加入約300～500mL熱水悶泡，建議當日飲用完畢。"},
+    {"title":"龜鹿膏熱飲","category":"熱飲","desc":"取一小匙龜鹿膏加入溫熱水化開，調至適合溫度後飲用。"},
+    {"title":"鹿茸粉溫豆漿","category":"調飲","desc":"將適量鹿茸粉加入溫豆漿攪拌均勻。"}
   ],
   "pageContent": {
     "choose": [
-      {
-        "title": "固定日常食補｜龜鹿膏",
-        "desc": "適合想固定時段、小匙取用或溫熱水化開的人。"
-      },
-      {
-        "title": "輕巧即飲食補｜龜鹿飲30cc",
-        "desc": "適合第一次接觸、外出攜帶與工作空檔。"
-      },
-      {
-        "title": "完整容量即飲食補｜龜鹿飲180cc",
-        "desc": "適合居家與較完整份量安排。"
-      },
-      {
-        "title": "沖泡與燉湯食補｜龜鹿湯塊",
-        "desc": "適合熱水、保溫壺、雞湯與排骨湯。"
-      },
-      {
-        "title": "家庭大規格食補｜龜鹿膠",
-        "desc": "適合家庭安排與較大規格固定備用。"
-      },
-      {
-        "title": "自行搭配食補｜鹿茸粉",
-        "desc": "適合溫開水、牛奶、豆漿或自行調飲。"
-      }
+      {"title":"固定日常食補｜龜鹿膏","desc":"適合想固定時段、小匙取用或溫熱水化開的人。"},
+      {"title":"輕巧即飲食補｜龜鹿飲30cc","desc":"適合第一次接觸、外出攜帶與工作空檔。"},
+      {"title":"完整容量即飲食補｜龜鹿飲180cc","desc":"適合居家與較完整份量安排。"},
+      {"title":"沖泡與燉湯食補｜龜鹿湯塊","desc":"適合熱水、保溫壺、雞湯與排骨湯。"},
+      {"title":"家庭大規格食補｜龜鹿膠","desc":"適合家庭安排與較大規格固定備用。"},
+      {"title":"自行搭配食補｜鹿茸粉","desc":"適合溫開水、牛奶、豆漿或自行調飲。"}
     ],
     "guide": [
-      {
-        "title": "龜鹿膏｜使用方式",
-        "desc": "食用時間可依個人使用習慣與作息時間安排；初次可先從半匙開始。可直接取用或加入約100～300mL溫熱水化開。"
-      },
-      {
-        "title": "龜鹿飲｜使用方式",
-        "desc": "30cc每日 1–2 罐；180cc每日一包；飲用時間可依個人使用習慣與作息時間安排。開封即可飲用，也可溫熱後飲用，避免冰飲。"
-      },
-      {
-        "title": "龜鹿湯塊｜使用方式",
-        "desc": "取1塊加入約300～500mL熱水，可用保溫壺悶泡或加入家常湯品燉煮。"
-      },
-      {
-        "title": "龜鹿膠｜使用方式",
-        "desc": "取適量加入約300～500mL熱水化開，也可加入家常湯品燉煮。"
-      },
-      {
-        "title": "鹿茸粉｜使用方式",
-        "desc": "可加入溫開水、牛奶、豆漿或其他飲品，開封後密封保存。"
-      }
+      {"title":"龜鹿膏｜使用方式","desc":"食用時間可依個人使用習慣與作息時間安排；初次可先從半匙開始。可直接取用或加入約100～300mL溫熱水化開。"},
+      {"title":"龜鹿飲｜使用方式","desc":"30cc每日 1–2 罐；180cc每日一包；飲用時間可依個人使用習慣與作息時間安排。開封即可飲用，也可溫熱後飲用，避免冰飲。"},
+      {"title":"龜鹿湯塊｜使用方式","desc":"取1塊加入約300～500mL熱水，可用保溫壺悶泡或加入家常湯品燉煮。"},
+      {"title":"龜鹿膠｜使用方式","desc":"取適量加入約300～500mL熱水化開，也可加入家常湯品燉煮。"},
+      {"title":"鹿茸粉｜使用方式","desc":"可加入溫開水、牛奶、豆漿或其他飲品，開封後密封保存。"}
     ],
     "recipes": [
-      {
-        "title": "龜鹿雞湯",
-        "desc": "雞腿或雞塊汆燙後，加入龜鹿湯塊、枸杞與紅棗，以小火燉煮。"
-      },
-      {
-        "title": "龜鹿排骨湯",
-        "desc": "排骨汆燙後加入龜鹿湯塊或龜鹿膠，依個人口味調整。"
-      },
-      {
-        "title": "保溫壺沖泡",
-        "desc": "龜鹿湯塊加入約300～500mL熱水悶泡，建議當日飲用完畢。"
-      }
+      {"title":"龜鹿雞湯","desc":"雞腿或雞塊汆燙後，加入龜鹿湯塊、枸杞與紅棗，以小火燉煮。"},
+      {"title":"龜鹿排骨湯","desc":"排骨汆燙後加入龜鹿湯塊或龜鹿膠，依個人口味調整。"},
+      {"title":"保溫壺沖泡","desc":"龜鹿湯塊加入約300～500mL熱水悶泡，建議當日飲用完畢。"}
     ],
-    "contactNotes": [
-      "購買方式、活動、付款與配送安排，請透過官方 LINE 確認。",
-      "特殊健康狀況、正在看診、用藥、孕期或其他疑慮，建議先詢問醫師、中醫師或藥師。"
-    ]
+    "contactNotes": ["購買方式、活動、付款與配送安排，請透過官方 LINE 確認。","特殊健康狀況、正在看診、用藥、孕期或其他疑慮，建議先詢問醫師、中醫師或藥師。"]
   },
-  "shipping": [
-    "宅配",
-    "7-11賣貨便",
-    "雙北親送"
-  ],
-  "series": [
-    "龜鹿系列",
-    "鹿茸系列"
-  ],
-  "catalogVersion": "2026-08-20-six-approved-media-current-v4",
+  "shipping": ["宅配","7-11賣貨便","雙北親送"],
+  "series": ["龜鹿系列","鹿茸系列"],
+  "catalogVersion": "2026-08-20-six-public-products-current-v5",
   "updatedAt": "2026-08-20",
   "fulfillmentPolicy": {
-    "version": "2026-08-20-current",
-    "drinkProductIds": [
-      "guilu-drink-30",
-      "guilu-drink-180"
-    ],
-    "readyStockProductIds": [
-      "guilu-gao",
-      "guilu-tangkuai",
-      "guilu-jiao",
-      "luerong-fen"
-    ],
-    "drinkNotice": "龜鹿飲為接單後安排製作加工；訂單資料與付款方式確認後，製作加工約需5～7個工作天，完成後才安排出貨，物流配送時間另計。",
-    "readyStockNotice": "本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。",
-    "scopeRule": "5～7個工作天交期只適用龜鹿飲30cc與180cc，不得套用其他產品"
+    "version":"2026-08-20-current","drinkProductIds":["guilu-drink-30","guilu-drink-180"],"readyStockProductIds":["guilu-gao","guilu-tangkuai","guilu-jiao","luerong-fen"],"drinkNotice":"龜鹿飲為接單後安排製作加工；訂單資料與付款方式確認後，製作加工約需5～7個工作天，完成後才安排出貨，物流配送時間另計。","readyStockNotice":"本產品為預先製作備貨商品；訂單資料與付款方式確認後，依現貨狀況安排出貨，物流配送時間另計。","scopeRule":"5～7個工作天交期只適用龜鹿飲30cc與180cc，不得套用其他產品"
   },
-  "officialProductIds": [
-    "guilu-drink-30",
-    "guilu-drink-180",
-    "guilu-gao",
-    "guilu-tangkuai",
-    "guilu-jiao",
-    "luerong-fen"
-  ],
+  "officialProductIds": ["guilu-drink-30","guilu-drink-180","guilu-gao","guilu-tangkuai","guilu-jiao","luerong-fen"],
   "officialProductCount": 6,
   "runtime": {
-    "productDataAuthority": "public-product-master.json",
-    "productMasterMode": "seven-product-text-authority-six-approved-media-products",
-    "knowledgeProductCount": 7,
-    "approvedMediaProductCount": 6,
-    "productMainImageSource": "customer-display-v20260812-approved-product-images",
-    "dmFallback": "approved-current-formal-dm-customer-display",
-    "productsV3Use": "identity-package-scale-reference-only",
-    "productsV2Use": "legacy-reference-only",
-    "productScalePolicy": "uniform-only-preserve-realistic-relative-scale-no-equal-sizing",
-    "physicalScaleAuthority": "content/product-physical-scale-authority-v20260809.json",
-    "guardPolicy": "latest-authority-first-no-legacy-copy-version-lock"
+    "productDataAuthority":"public-product-master.json","productMasterMode":"six-public-product-authority","knowledgeProductCount":6,"approvedMediaProductCount":6,"productMainImageSource":"customer-display-v20260812-approved-product-images","dmFallback":"approved-current-formal-dm-customer-display","productsV3Use":"identity-package-scale-reference-only","productsV2Use":"legacy-reference-only","productScalePolicy":"uniform-only-preserve-realistic-relative-scale-no-equal-sizing","physicalScaleAuthority":"content/product-physical-scale-authority-v20260809.json","guardPolicy":"latest-authority-first-no-legacy-copy-version-lock","deferredProductPublic":false
   }
 }
