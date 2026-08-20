@@ -1,0 +1,32 @@
+name: 仙加味舊資料卡關驗收（手動）
+
+# 只檢查目前正式authority與會參與顯示／同步／貼文生成／發布驗收的檔案。
+# 歷史紀錄可保留，但不得重新成為產品、文案、媒體或守門員權威。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xianjiawei-stale-data-blocker-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Validate current authority and reject stale blockers
+        run: |
+          set -euo pipefail
+          python tools/validate-current-authority-no-stale-blockers.py
+          python tools/validate-site-production-release-v20260809.py
+          python tools/validate-ai-geo-current-v20260820.py
+          python tools/validate-public-boundary-v20260808.py
+      - name: Ensure audit is read-only
+        run: git diff --exit-code
