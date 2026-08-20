@@ -1,15 +1,16 @@
 {
-  "version": "current-post-bank-authority-20260820-v2",
+  "version": "current-post-bank-authority-20260820-v3-six-public-products",
   "authority": "TS15825868/xianjiawei",
   "status": "current-authority",
-  "purpose": "正式貼文母庫張數跟隨目前公開資料並可持續增加；歷史資料層只作相容組裝。正式判斷依目前產品／媒體／資產權威、ID唯一性與實際runtime能力，不再以500篇、歷史layer版號、固定候選數、固定重生成數、舊檔名、舊ZIP名稱或已退役文案當發布條件。",
+  "purpose": "正式貼文母庫張數跟隨目前公開資料並可持續增加；歷史資料層只作相容組裝。正式判斷依目前產品／媒體／資產權威、ID唯一性與實際runtime能力，不再以歷史固定數量、舊版號、舊檔名或舊ZIP名稱當發布條件。",
   "productAuthority": {
     "textSource": "public-product-master.json",
-    "knowledgeProductCount": 7,
+    "knowledgeProductCount": 6,
     "approvedMediaProductCount": 6,
     "drink30Usage": "每日 1–2 罐",
     "drink180Usage": "每日一包",
     "drinkLeadTimeScope": "約5～7個工作天只適用龜鹿飲30cc與180cc",
+    "deferredProductPolicy": "柒玄茶・龜鹿調飲粉目前暫不放官網與公開貼文；LINE文字知識及ERP內部資料可保留，未來由使用者明確要求再重新上架。",
     "latestAuthorityWins": true
   },
   "contentBank": {
@@ -55,13 +56,13 @@
     "legacyProductImagesRejected": true,
     "unapprovedDmRejected": true,
     "approvedCurrentDmAllowed": true,
-    "qixuanMediaPending": true,
+    "deferredProductPublicMediaForbidden": true,
     "deprecatedAssetStatusesRejectedForNewCandidates": [
       "deprecated-reference-only",
       "preflight-rejected-reference-only",
       "superseded-reference-only"
     ],
-    "rule": "產品文字與規格以public-product-master.json為最高權威；已有核准產品圖的六項產品使用目前customer-display與formal media；products-v3只作實物身份、包裝與比例校正；柒玄茶未確認正式產品實物原圖前不得AI自創包裝。生活情境素材依目前最新核准素材與文案語意比對。任何已退役、未核准DM、圖文不符、裁切角色、混用角色、AI重畫產品、30cc錯瓶型／錯單位／舊用法或180cc錯袋型候選都不得視為完成圖片。"
+    "rule": "公開貼文產品文字與規格以public-product-master.json六項官網公開產品為最高權威；六項產品使用目前customer-display與formal media；products-v3只作實物身份、包裝與比例校正。柒玄茶目前暫不進官網與公開貼文，不得由舊七項資料重新加入。生活情境素材依目前最新核准素材與文案語意比對。任何已退役、未核准DM、圖文不符、裁切角色、混用角色、AI重畫產品、30cc錯瓶型／錯單位／舊用法或180cc錯袋型候選都不得視為完成圖片。"
   },
   "regeneration": {
     "mode": "chatgpt-handoff-free-roundtrip",
@@ -83,7 +84,8 @@
     "oldUiVersionEqualityForbidden": true,
     "oldZipNameAsLatestAuthorityForbidden": true,
     "oldProductDataMayNotOverrideCurrent": true,
-    "approvedCurrentMediaMustNotBeQuarantinedByOldRules": true
+    "approvedCurrentMediaMustNotBeQuarantinedByOldRules": true,
+    "oldSevenProductWebsiteModelForbidden": true
   },
   "reviewDimensions": [
     "品牌",
