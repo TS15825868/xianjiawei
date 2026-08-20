@@ -1,16 +1,19 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-08-20 current media authority v9
- * 七項產品文字知識以 public-product-master.json 為最高權威。
- * 六項已有核准正式產品圖；產品主圖、詳細DM、試喝正式海報分開管理。
+/* 仙加味顧客端產品主視覺｜2026-08-20 current media authority v10
+ * 官網、官網AI/GEO與公開貼文目前六項產品文字知識以 public-product-master.json 為最高權威。
+ * 六項皆已有核准正式產品圖；產品主圖、詳細DM、試喝正式海報分開管理。
+ * 柒玄茶目前暫不放官網；LINE文字知識與ERP資料由各自正式權威保留。
  * products-v3 只作產品身份、包裝與比例校正，不作顧客產品主圖。
  */
 (function(){
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260820-current-media-authority-v9';
+  const VERSION='20260820-current-media-authority-v10-six-public-products';
   const CURRENT_30_USAGE='每日 1–2 罐';
+  const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
+  const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const DISPLAY=Object.freeze({
     'guilu-gao':'images/customer-display-v20260812/guilu-gao.avif',
     'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc.avif',
@@ -46,12 +49,16 @@
   }
   function normalize(data){
     if(!data||!Array.isArray(data.products)) return data;
-    data.products=data.products.map(product=>{
+    data.products=data.products.filter(product=>PUBLIC_IDS.includes(product?.id)).map(product=>{
       const display=DISPLAY[product?.id];
       const identity=IDENTITY[product?.id];
       if(!display) return product;
       const displayUrl=`${display}?v=${VERSION}`;
       const normalized={...product};
+      if(product.id==='guilu-gao'){
+        normalized.usagePrimary=CURRENT_GAO_TIMING;
+        if(Array.isArray(normalized.usage)&&normalized.usage.length)normalized.usage=[CURRENT_GAO_TIMING,...normalized.usage.slice(1)];
+      }
       if(product.id==='guilu-drink-30'){
         normalized.size='30cc／罐（小玻璃罐）';
         normalized.usagePrimary=CURRENT_30_USAGE;
@@ -72,20 +79,22 @@
       }
       return {
         ...normalized,
-        image:displayUrl,
-        imageUrl:displayUrl,
-        image_url:displayUrl,
-        detailImages:[displayUrl],
+        image:displayUrl,imageUrl:displayUrl,image_url:displayUrl,detailImages:[displayUrl],
         officialOriginalImage:identity||product.officialOriginalImage||'',
         imagePolicy:'current-customer-display-formal-product-image-contain-no-crop-no-stretch-no-dm-substitution',
         officialImagePolicy:'products-v3-product-identity-package-scale-reference-only-no-redraw',
         physicalScalePolicy:'depicted-product-must-match-real-approved-product-shape-package-and-proportion'
       };
     });
+    data.officialProductIds=[...PUBLIC_IDS];
+    data.officialProductCount=6;
+    data.knowledgeProductIds=[...PUBLIC_IDS];
+    data.knowledgeProductCount=6;
+    data.approvedMediaProductCount=6;
     data.runtime={
       ...(data.runtime||{}),
       productTextAuthority:'public-product-master.json',
-      knowledgeProductCount:7,
+      knowledgeProductCount:6,
       approvedMediaProductCount:6,
       productMainImageSource:'images/customer-display-v20260812/',
       productIdentityReference:'images/products-v3/',
@@ -94,10 +103,11 @@
       trialPoster:`${TRIAL.image}?v=${VERSION}`,
       trialProductImage:`${TRIAL.product}?v=${VERSION}`,
       retiredTrialBinaries:TRIAL.retired,
+      guiluGaoUsageTiming:CURRENT_GAO_TIMING,
       drink30Usage:CURRENT_30_USAGE,
       drink180Usage:'每日一包',
       displayVersion:VERSION,
-      displayRule:'七項產品文字知識／六項核准正式產品圖；產品主圖、詳細DM、試喝正式海報分離；products-v3只作身份與比例校正；柒玄茶未核准正式產品實物原圖前不得生成包裝。'
+      displayRule:'官網六項產品文字知識／六項核准正式產品圖；產品主圖、詳細DM、試喝正式海報分離；products-v3只作身份與比例校正；柒玄茶目前不進官網產品顯示。'
     };
     return data;
   }
@@ -110,11 +120,8 @@
     try{
       const data=normalize(await response.clone().json());
       return new Response(JSON.stringify(data),{status:response.status,statusText:response.statusText,headers:response.headers});
-    }catch(error){
-      console.warn('仙加味顧客端正式產品圖套用失敗',error);
-      return response;
-    }
+    }catch(error){console.warn('仙加味顧客端正式產品圖套用失敗',error);return response;}
   };
 
-  window.XJWCustomerDisplayAuthority=Object.freeze({version:VERSION,current30Usage:CURRENT_30_USAGE,products:DISPLAY,trial:TRIAL,identity:IDENTITY,normalize});
+  window.XJWCustomerDisplayAuthority=Object.freeze({version:VERSION,current30Usage:CURRENT_30_USAGE,currentGaoTiming:CURRENT_GAO_TIMING,products:DISPLAY,trial:TRIAL,identity:IDENTITY,normalize});
 })();
