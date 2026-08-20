@@ -8,7 +8,8 @@
       "url": "https://ts15825868.github.io/xianjiawei/",
       "logo": "https://ts15825868.github.io/xianjiawei/images/logo.png",
       "image": "https://ts15825868.github.io/xianjiawei/images/logo.png",
-      "description": "從台北萬華出發的四代龜鹿工序品牌，整理六項目前正式產品、規格、一般使用方式、保存方式、料理搭配與資料來源。",
+      "slogan": "補養，是一種節奏。",
+      "description": "仙加味是從台北萬華起家的現代漢方生活品牌，延續四代家族的鹿角與熬膠工藝及漢方飲食文化，以現代、方便、貼近日常的方式呈現。目前公開正式產品共七項。",
       "foundingLocation": {
         "@type": "Place",
         "name": "台北萬華"
@@ -17,9 +18,7 @@
       "contactPoint": {
         "@type": "ContactPoint",
         "contactType": "customer service",
-        "availableLanguage": [
-          "zh-Hant"
-        ],
+        "availableLanguage": ["zh-Hant"],
         "url": "https://lin.ee/sHZW7NkR"
       }
     },
@@ -29,22 +28,29 @@
       "url": "https://ts15825868.github.io/xianjiawei/",
       "name": "仙加味",
       "inLanguage": "zh-Hant-TW",
-      "publisher": {
-        "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-      }
+      "publisher": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
+      "about": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"}
     },
     {
       "@type": "Dataset",
       "@id": "https://ts15825868.github.io/xianjiawei/geo-data.json#dataset",
-      "name": "仙加味官方六項目前正式產品資料",
-      "description": "供搜尋引擎與生成式搜尋引用的仙加味目前品牌與產品事實。產品識別以products-v3正式實拍原圖為權威；使用者核准DM為顧客展示資產，不反向改寫產品本體。不含疾病診斷、治療或效果保證。",
+      "name": "仙加味官方七項目前正式產品資料",
+      "description": "供搜尋引擎與生成式搜尋理解仙加味品牌與七項目前正式產品事實。價格、促銷與庫存屬易變資料，以官方LINE最新資訊為準；內容不作疾病診斷、治療、預防、改善或效果保證。",
       "url": "https://ts15825868.github.io/xianjiawei/geo-data.json",
-      "dateModified": "2026-08-11",
+      "dateModified": "2026-08-20",
       "inLanguage": "zh-Hant-TW",
-      "creator": {
-        "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-      },
+      "creator": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
       "distribution": [
+        {
+          "@type": "DataDownload",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://ts15825868.github.io/xianjiawei/public-product-master.json"
+        },
+        {
+          "@type": "DataDownload",
+          "encodingFormat": "application/json",
+          "contentUrl": "https://ts15825868.github.io/xianjiawei/ai-answers.json"
+        },
         {
           "@type": "DataDownload",
           "encodingFormat": "application/json",
@@ -60,8 +66,8 @@
     {
       "@type": "ItemList",
       "@id": "https://ts15825868.github.io/xianjiawei/brand-facts.html#products",
-      "name": "仙加味六項目前正式產品",
-      "numberOfItems": 6,
+      "name": "仙加味七項目前正式產品",
+      "numberOfItems": 7,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -73,25 +79,11 @@
             "sku": "guilu-gao",
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-gao.jpg?v=20260810-products-v3-latest-originals-v3",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "100g／罐"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "一般使用方式",
-                "value": "食用時間可依個人使用習慣與作息時間安排；初次可先從半匙開始"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "出貨方式",
-                "value": "預先製作備貨，依現貨狀況安排出貨"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "100g／罐"},
+              {"@type": "PropertyValue", "name": "產品型態", "value": "膏狀"},
+              {"@type": "PropertyValue", "name": "一般使用方式", "value": "食用時間可依個人使用習慣與作息時間安排；初次可先從半匙開始"}
             ]
           }
         },
@@ -105,25 +97,12 @@
             "sku": "guilu-drink-30",
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-30.jpg?v=20260810-products-v3-latest-originals-v3",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "30cc／罐（小玻璃罐）"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "正式包裝",
-                "value": "約Ø42×H51mm；小玻璃裸罐、金色蓋、無貼紙、無外盒、無外袋"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "出貨方式",
-                "value": "接單製作，製作加工約需5～7個工作天，完成後安排出貨"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "30cc／罐（小玻璃罐）"},
+              {"@type": "PropertyValue", "name": "正式包裝", "value": "小玻璃罐、裸罐、無貼紙；不可更換瓶型或任意加標籤"},
+              {"@type": "PropertyValue", "name": "一般使用方式", "value": "每日一罐；可隔水加熱或溫熱飲用；避免冰飲"},
+              {"@type": "PropertyValue", "name": "出貨方式", "value": "接單後製作，約5～7個工作天出貨"}
             ]
           }
         },
@@ -137,25 +116,12 @@
             "sku": "guilu-drink-180",
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-drink-180.jpg?v=20260810-products-v3-latest-originals-v3",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "180cc／包（鋁袋）"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "產品比例",
-                "value": "狹長直立鋁袋，寬高比目標約0.64（約0.60～0.68）"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "出貨方式",
-                "value": "接單製作，製作加工約需5～7個工作天，完成後安排出貨"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "180cc／包（鋁袋）"},
+              {"@type": "PropertyValue", "name": "正式包裝", "value": "狹長直立鋁袋，維持正式比例"},
+              {"@type": "PropertyValue", "name": "一般使用方式", "value": "每日一包；可隔水加熱或溫熱飲用；避免冰飲"},
+              {"@type": "PropertyValue", "name": "出貨方式", "value": "接單後製作，約5～7個工作天出貨"}
             ]
           }
         },
@@ -169,25 +135,10 @@
             "sku": "guilu-tangkuai",
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-tangkuai.jpg?v=20260810-products-v3-latest-originals-v3",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "75g （2兩）／盒｜8塊裝"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "正式包裝",
-                "value": "深藍正式盒裝"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "出貨方式",
-                "value": "預先製作備貨，依現貨狀況安排出貨"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "75g （2兩）／盒｜8塊裝"},
+              {"@type": "PropertyValue", "name": "詳細資料", "value": "每塊約9.375g"}
             ]
           }
         },
@@ -201,25 +152,10 @@
             "sku": "guilu-jiao",
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/guilu-jiao.jpg?v=20260810-products-v3-latest-originals-v3",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "600g （1斤）／盒｜32塊裝"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "正式包裝",
-                "value": "淡紫色正式盒裝"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "出貨方式",
-                "value": "預先製作備貨，依現貨狀況安排出貨"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "600g （1斤）／盒｜32塊裝"},
+              {"@type": "PropertyValue", "name": "詳細資料", "value": "每塊約18.75g"}
             ]
           }
         },
@@ -233,20 +169,24 @@
             "sku": "luerong-fen",
             "url": "https://ts15825868.github.io/xianjiawei/product-luerong-fen.html",
             "image": "https://ts15825868.github.io/xianjiawei/images/products-v3/luerong-fen.jpg?v=20260810-products-v3-latest-originals-v3",
-            "brand": {
-              "@id": "https://ts15825868.github.io/xianjiawei/#organization"
-            },
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
             "additionalProperty": [
-              {
-                "@type": "PropertyValue",
-                "name": "正式規格",
-                "value": "75g／罐"
-              },
-              {
-                "@type": "PropertyValue",
-                "name": "出貨方式",
-                "value": "預先製作備貨，依現貨狀況安排出貨"
-              }
+              {"@type": "PropertyValue", "name": "正式規格", "value": "75g／罐"}
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "Product",
+            "@id": "https://ts15825868.github.io/xianjiawei/#qixuan-guilu-drink-powder",
+            "name": "仙加味・柒玄茶・龜鹿調飲粉",
+            "sku": "qixuan-guilu-drink-powder",
+            "brand": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
+            "additionalProperty": [
+              {"@type": "PropertyValue", "name": "正式規格", "value": "2g／小包；20g／包（10小包）"},
+              {"@type": "PropertyValue", "name": "產品圖片狀態", "value": "目前核准素材庫尚未確認正式產品實物原圖，不由AI自創包裝"}
             ]
           }
         }
