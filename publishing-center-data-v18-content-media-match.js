@@ -2,12 +2,12 @@
   'use strict';
   const PREV_FETCH=window.fetch.bind(window);
   const TARGET='content/public-post-library.json';
-  const VERSION='2026-08-20-v18-current-semantic-media-no-stale-authority';
+  const VERSION='2026-08-20-v18-six-public-semantic-media-no-stale-authority';
   const SITE='https://ts15825868.github.io/xianjiawei/';
   const COMPAT='images/post-library/userzip3-v20260811/';
   const url=path=>SITE+path;
 
-  // 這一層只替「生活情境」候選找既有可用圖，不再覆蓋產品總覽／組合／使用指南等需要依目前產品權威重新生成的圖。
+  // 這一層只替「生活情境」候選找既有可用圖，不覆蓋產品總覽／組合／使用指南等需要依目前六項官網公開產品權威重新生成的圖。
   // 舊ZIP名稱只作來源追溯，不代表目前最新權威。
   const MEDIA=Object.freeze({
     'XJW-WORK-REST-001':{path:COMPAT+'work-break.webp',alt:'仙加味小老闆在工作空檔喝水休息的日常情境',source:'相容生活素材｜work-break｜需目前16項審核',status:'candidate-review-required'},
@@ -27,7 +27,7 @@
   function fix(post){
     if(!post||post.status==='published'||post.status==='archived'||post.prevent_republish===true||post.do_not_republish===true)return post;
     if(KEEP_NEEDS_GENERATION.has(post.id)){
-      return{...post,status:'pending_review',image_url:null,image_asset_id:null,image_status:'needs_generation',regeneration_mode:'chatgpt_handoff',candidate_generated:false,owner_review_required:true,approval_required:true,publish_allowed:false,schedule_enabled:false,scheduled_at:null,auto_approve:false,auto_schedule:false,auto_publish:false,image_review_reason:post.image_review_reason||'此篇需要依目前七項文字產品權威／六項核准媒體重新建立圖文一致候選；舊六產品資訊圖與舊ZIP拼圖不得再覆蓋。'};
+      return{...post,status:'pending_review',image_url:null,image_asset_id:null,image_status:'needs_generation',regeneration_mode:'chatgpt_handoff',candidate_generated:false,owner_review_required:true,approval_required:true,publish_allowed:false,schedule_enabled:false,scheduled_at:null,auto_approve:false,auto_schedule:false,auto_publish:false,image_review_reason:post.image_review_reason||'此篇需要依目前官網六項公開產品文字權威／六項核准媒體重新建立圖文一致候選；舊七項官網模型、舊產品資訊圖與舊ZIP拼圖不得覆蓋。'};
     }
     const media=MEDIA[post.id];
     let out=post;
@@ -52,7 +52,7 @@
     const requestUrl=typeof input==='string'?input:(input?.url||'');const response=await PREV_FETCH(input,init);if(!requestUrl.includes(TARGET)||!response.ok)return response;
     try{
       const data=await response.clone().json();const posts=(data.posts||[]).map(fix);const active=posts.filter(p=>p&&p.status!=='published'&&p.status!=='archived'&&!p.campaign_hold);const missing=active.filter(p=>!String(p.image_url||'').trim()).length;const needs=active.filter(p=>p.image_status==='needs_generation'||p.requires_image_generation===true).length;
-      const merged={...data,version:`${data.version||'post-bank'}+v18-current-semantic-media`,posts};
+      const merged={...data,version:`${data.version||'post-bank'}+v18-six-public-semantic-media`,posts};
       merged.counts={...(data.counts||{}),total:posts.length,known_image_copy_mismatches:needs,missing_asset_bindings:missing,duplicate_primary_images:countDuplicateLifestyle(posts),semantic_media_bound:posts.filter(p=>MEDIA[p.id]).length,weather_live_check_count:posts.filter(p=>p.weather_review_required===true).length};
       const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');headers.set('x-xianjiawei-post-bank-semantic-media',VERSION);return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});
     }catch{return response;}
