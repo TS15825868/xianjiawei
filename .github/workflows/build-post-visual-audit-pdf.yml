@@ -1,11 +1,7 @@
-name: 仙加味76篇貼文視覺稽核PDF
+name: 仙加味76篇貼文視覺稽核PDF（手動）
 
+# 舊76篇視覺稽核只保留人工需要時執行，不再因 push 自動消耗 Actions 或寫回 main。
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/build-post-visual-audit-pdf.yml'
-      - 'artifacts/post-visual-audit.trigger'
   workflow_dispatch:
 
 permissions:
