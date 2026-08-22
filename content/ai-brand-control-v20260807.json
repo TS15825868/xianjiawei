@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-20-ai-brand-control-v13-channel-scoped-products",
+  "version": "2026-08-23-ai-brand-control-v14-qixuan-hidden-public",
   "authority": "user-confirmed-current",
   "brand": {
     "publicName": "仙加味",
@@ -41,13 +41,13 @@
     "guiluGaoTimingRule": "龜鹿膏食用時間可依個人使用習慣與作息時間安排；不得回退成早上＋下午、早晚各一小匙或其他固定時段",
     "drinkLeadTimeRule": "約5～7個工作天交期只適用龜鹿飲30cc與180cc",
     "soupBlockRule": "龜鹿湯塊正式規格只有75g （2兩）／盒｜8塊裝；不得建立300g、600g或把龜鹿膠規格套用到龜鹿湯塊",
-    "deferredProductRule": "柒玄茶・龜鹿調飲粉目前暫不放官網、官網公開AI/GEO、FAQ與公開貼文生成；不得由舊七項資料重新注入上述公開層。LINE OA可依TS-LINE目前正式權威保留文字知識，ERP可保留內部資料；未確認正式成分表或核准實物圖前不得自行補寫成分或生成產品包裝。"
+    "deferredProductRule": "柒玄茶・龜鹿調飲粉目前暫不放官網、LINE OA、官網公開AI/GEO、FAQ與公開貼文生成；不得由舊七項資料重新注入任何公開層。只可保留 ERP 內部／暫緩資料；未確認正式成分表或核准實物圖前不得自行補寫成分或生成產品包裝。"
   },
   "channelSpecificKnowledge": {
-    "lineOA": {"mayKeepQixuanTextKnowledge":true,"authority":"TS15825868/TS-LINE main","productImageRequiredForTextKnowledge":false,"inventIngredientsForbidden":true,"inventProductImageForbidden":true},
+    "lineOA": {"mayKeepQixuanTextKnowledge":false,"qixuanVisible":false,"publicProductCount":6,"authority":"TS15825868/TS-LINE main","productImageRequiredForTextKnowledge":true,"inventIngredientsForbidden":true,"inventProductImageForbidden":true},
     "website": {"qixuanVisible":false,"publicProductCount":6},
     "publicPosts": {"qixuanVisible":false,"publicProductCount":6},
-    "erp": {"retainDeferredProductData":true,"authority":"TS15825868/xianjiawei-internal main"}
+    "erp": {"retainDeferredProductData":true,"qixuanPublicVisible":false,"authority":"TS15825868/xianjiawei-internal main"}
   },
   "contentTaxonomy": ["品牌故事","產品介紹","四季","天氣","場合","地點","節慶","FAQ","料理","萬華在地","門市日常","小老闆","小鹿","小烏龜","河馬娃娃","小鹿安撫巾","合作夥伴素材"],
   "reviewDimensions": ["品牌","產品","規格","價格／活動","季節","天氣","場合","地點","情境","環境","冷熱","表情","動作","小老闆與夥伴","比例尺寸","重複圖"],
@@ -79,7 +79,7 @@
     "guiluTangkuai": "75g （2兩）／盒｜8塊裝；深藍正式盒裝，照原圖等比例；每塊約9.375g屬產品詳細資料，產品本體仍使用正式原圖。",
     "guiluJiao": "600g （1斤）／盒｜32塊裝；淡紫正式盒裝照原圖等比例；每塊約18.75g屬產品詳細資料，產品本體仍使用正式原圖。",
     "luerongFen": "75g／罐；白色塑膠罐正式原圖等比例",
-    "deferredProducts": "柒玄茶目前不得進入官網／公開貼文生成提示或產品拼圖；LINE文字知識與ERP內部保留不受此公開圖片規則刪除",
+    "deferredProducts": "柒玄茶目前不得進入官網、LINE OA、公開貼文生成提示或產品拼圖；只可保留於ERP內部／暫緩資料，不得由公開圖片或文字流程重新帶回。",
     "mascot": "只使用 images/brand/approved-v405/ 同款網站柔和立體Q版小老闆：圓臉、大眼、短黑髮、米白中式上衣、深綠圍裙、胸前紅色直式仙加味印章。姿勢可自由變化，但臉型、髮型、服裝與畫風不可變。",
     "mascotCompanions": "小鹿與小烏龜不是每張強制出現；情境需要夥伴時才加入，且必須是分開的獨立角色、同一Q版質感，不可融合。",
     "optionalCompanions": "灰色小河馬娃娃、米色小鹿安撫巾只在居家、休息、陪伴、親子等合適情境出現",
@@ -95,7 +95,7 @@
     "assetUsageLedger": {"enabled":true,"purpose":"記錄圖片與素材最後使用日期、平台、貼文ID，避免短期重複"},
     "contentPerformance": {"enabled":true,"purpose":"記錄平台、主題、發布時段、觸及、互動、點擊與轉換，供後續輪替優化"},
     "partnerMode": {"enabled":true,"purpose":"提供中藥店／中醫診所可下載品牌素材；合作夥伴版不強迫導流至仙加味，保護通路關係"},
-    "brandGuardian": {"enabled":false,"blockingBeforeApproval":false,"mode":"advisory-until-full-system-accepted","checks":["舊品牌名稱或公司資訊外洩","錯誤產品","錯誤規格","錯誤成分／舊使用資料","錯誤包裝","30cc誤稱瓶或加貼紙","180cc鋁袋比例錯誤","龜鹿膏舊固定時段","龜鹿湯塊不是75g（2兩）／8塊裝深藍盒","龜鹿膠不是600g（1斤）／32塊裝或淡紫盒被拉長","小老闆畫風或服裝錯誤","夥伴出現時造型錯誤或融合","季節天氣衝突","圖文不符","重複圖","柒玄茶誤進官網／公開貼文"],"note":"系統未全部驗收前維持提示模式；最新正式產品資料優先，舊版本號、舊固定產品數與舊文案不得阻擋新版正確內容。"}
+    "brandGuardian": {"enabled":false,"blockingBeforeApproval":false,"mode":"advisory-until-full-system-accepted","checks":["舊品牌名稱或公司資訊外洩","錯誤產品","錯誤規格","錯誤成分／舊使用資料","錯誤包裝","30cc誤稱瓶或加貼紙","180cc鋁袋比例錯誤","龜鹿膏舊固定時段","龜鹿湯塊不是75g（2兩）／8塊裝深藍盒","龜鹿膠不是600g（1斤）／32塊裝或淡紫盒被拉長","小老闆畫風或服裝錯誤","夥伴出現時造型錯誤或融合","季節天氣衝突","圖文不符","重複圖","柒玄茶誤進官網／LINE OA／公開貼文"],"note":"系統未全部驗收前維持提示模式；最新正式產品資料優先，舊版本號、舊固定產品數與舊文案不得阻擋新版正確內容。"}
   },
   "statusPolicy": {"generatedContent":"pending_review","autoApprove":false,"autoPublishBeforeApproval":false,"publishedContentLockedAgainstDuplicatePublish":true}
 }
