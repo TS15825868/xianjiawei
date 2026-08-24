@@ -10,16 +10,26 @@ STATUS=ROOT/'.wan-second-status.json'
 def set_status(state, **extra):
     data={'state':state,'updated_at':time.time(),**extra}
     STATUS.write_text(json.dumps(data,ensure_ascii=False,indent=2),encoding='utf-8')
+    print('WAN_STATUS',json.dumps(data,ensure_ascii=False),flush=True)
 
 def generate():
     set_status('running')
     try:
-        p=subprocess.run(['python','tools/wan_second_video.py'],cwd=ROOT,text=True,capture_output=True,timeout=2400)
+        p=subprocess.Popen(['python','tools/wan_second_video.py'],cwd=ROOT,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,bufsize=1)
+        tail=[]
+        deadline=time.time()+2400
+        for line in p.stdout:
+            line=line.rstrip()
+            tail.append(line); tail=tail[-120:]
+            print('WAN>',line,flush=True)
+            if time.time()>deadline:
+                p.kill(); raise TimeoutError('Wan generation exceeded 40 minutes')
+        code=p.wait()
         outputs=sorted(str(x.relative_to(ROOT)) for x in (ROOT/'public/videos').glob('second-wan-*.mp4'))
-        if p.returncode==0 and outputs:
-            set_status('done',outputs=outputs,stdout=p.stdout[-12000:])
+        if code==0 and outputs:
+            set_status('done',outputs=outputs,tail=tail)
         else:
-            set_status('failed',code=p.returncode,stdout=p.stdout[-12000:],stderr=p.stderr[-12000:])
+            set_status('failed',code=code,outputs=outputs,tail=tail)
     except Exception as e:
         set_status('failed',error=repr(e))
 
