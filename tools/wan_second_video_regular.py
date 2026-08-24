@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import json, math, os, shutil, subprocess, time, urllib.request
+import html, json, math, os, re, subprocess, time, urllib.request
 from pathlib import Path
 import cv2
 import numpy as np
@@ -16,7 +16,7 @@ def p(x,y): return int(x*W),int(y*H)
 def limb(im,a,b,c,t=20):
     a=p(*a); b=p(*b); cv2.line(im,a,b,c,t,cv2.LINE_AA); cv2.circle(im,a,t//2,c,-1,cv2.LINE_AA); cv2.circle(im,b,t//2,c,-1,cv2.LINE_AA)
 def human(im,cx,cy,al,ar,ll,lr,squat=0,turn=0):
-    scale=1.0; head=(cx+.02*turn,cy-.22+.05*squat); neck=(cx,cy-.10+.05*squat); hip=(cx,cy+.17+.10*squat)
+    head=(cx+.02*turn,cy-.22+.05*squat); neck=(cx,cy-.10+.05*squat); hip=(cx,cy+.17+.10*squat)
     sl=(cx-.10,cy-.08+.05*squat); sr=(cx+.10,cy-.08+.05*squat)
     limb(im,hip,ll[0],APRON,25); limb(im,ll[0],ll[1],INK,22); limb(im,hip,lr[0],APRON,25); limb(im,lr[0],lr[1],INK,22)
     cv2.ellipse(im,p(cx,cy+.04+.075*squat),(47,90),0,0,360,TOP,-1,cv2.LINE_AA); cv2.rectangle(im,p(cx-.11,cy-.02+.05*squat),p(cx+.11,cy+.18+.10*squat),APRON,-1)
@@ -47,88 +47,64 @@ def driver(name,kind,fn,sec=4):
     vw.release(); return path
 
 CLIPS=[
- ('01_open_door','door',door,'Same established cute young Taiwanese herbal-shop boy opens a wooden shop door with both hands and turns naturally toward the morning light. Preserve identical face, short black hair, cream Chinese shirt, dark olive apron, red vertical Xian Jia Wei seal. Premium soft 3D chibi, full body, no products, no bottles, no boxes, no pouches, no text.'),
- ('02_crouch_help','basket',crouch,'Same established boy crouches naturally to receive a small folded cleaning cloth beside a wicker basket, then helps push the basket toward a wooden table. Premium soft 3D chibi, full body, no products, no text, natural child body mechanics.'),
- ('03_wipe_table','wipe',wipe,'Same established boy stands and wipes one corner of a wooden table left to right with a small cloth, then places a wicker basket neatly beside it. Warm morning herbal shop, premium soft 3D chibi, no products, no text.'),
- ('04_walk_inside','none',walk,'Same established boy naturally turns and walks deeper into the prepared herbal shop in warm morning light. Full body walking with real weight shift, premium soft 3D chibi, no products, no text, no waving, no writing, no drinking.')]
+ ('01_open_door','door',door),('02_crouch_help','basket',crouch),('03_wipe_table','wipe',wipe),('04_walk_inside','none',walk)]
 
-CANDIDATES=[
- 'tddandroid/Wan2.2-Animate',
- 'AZGD0/Wan2.2-Animate',
- 'Hydra324/Wan2.2-Animate',
- 'xinxin-1/Wan2.2-Animate',
- 'neop3/Wan2.2-Animate-free',
- 'Ejiro2424/Wan2.2-Animate-Demo']
-
-def video_path(obj):
-    if obj is None:return None
-    if isinstance(obj,(list,tuple)):
-        for x in obj:
-            r=video_path(x)
-            if r:return r
-    if isinstance(obj,dict):
-        for k in ('path','url','video','value','name'):
-            if k in obj:
-                r=video_path(obj[k])
-                if r:return r
-        for x in obj.values():
-            r=video_path(x)
-            if r:return r
-    if isinstance(obj,str):
-        s=obj.strip()
-        if s.startswith('http://') or s.startswith('https://'):
-            if any(z in s.lower() for z in ('.mp4','.webm','video')):
-                dst=WORK/f'download-{int(time.time()*1000)}.mp4'; urllib.request.urlretrieve(s,dst); return dst
-        pp=Path(s)
-        if pp.exists() and pp.is_file(): return pp
+def extract_video_url(text):
+    if text is None:return None
+    s=html.unescape(str(text)).replace('\\/','/')
+    urls=re.findall(r'https?://[^\s\"\'<>]+',s)
+    for u in urls:
+        clean=u.rstrip(').,;')
+        if '.mp4' in clean.lower() or '.webm' in clean.lower(): return clean
+    # Some UIs expose href paths via /file= or proxy URLs
+    m=re.search(r'(?:href|src)=[\"\']([^\"\']+(?:\.mp4|\.webm)[^\"\']*)',s,re.I)
+    if m:
+        u=m.group(1)
+        if u.startswith('http'):return u
     return None
 
-def call_space(space,char,drv):
-    print('TRY_SPACE',space,flush=True)
-    c=Client(space,verbose=True)
-    try:
-        api=c.view_api(print_info=False,return_format='dict')
-        print('API_DOC',space,json.dumps(api,ensure_ascii=False,default=str)[:12000],flush=True)
-    except Exception as e: print('API_DOC_ERR',space,repr(e),flush=True)
-    attempts=[
-      ('/predict',(handle_file(str(char)),handle_file(str(drv)),'wan2.2-animate-move','wan-std')),
-      (None,(handle_file(str(char)),handle_file(str(drv)),'wan2.2-animate-move','wan-std')),
-      ('/animate',(handle_file(str(char)),handle_file(str(drv))))]
-    errs=[]
-    for ep,args in attempts:
-        try:
-            print('CALL',space,ep,len(args),flush=True)
-            res=c.predict(*args,**({'api_name':ep} if ep else {}))
-            print('RESULT',space,ep,repr(res)[:4000],flush=True)
-            vp=video_path(res)
-            if vp:return c,ep,vp
-        except Exception as e:
-            errs.append(f'{ep}:{type(e).__name__}:{e}')
-            print('CALL_ERR',space,ep,repr(e),flush=True)
-    raise RuntimeError(' | '.join(errs))
-
-def call_same(c,ep,char,drv):
-    # endpoint signature chosen from successful probe
-    if ep=='/predict' or ep is None:
-        args=(handle_file(str(char)),handle_file(str(drv)),'wan2.2-animate-move','wan-std')
-    else: args=(handle_file(str(char)),handle_file(str(drv)))
-    res=c.predict(*args,**({'api_name':ep} if ep else {})); vp=video_path(res)
-    if not vp: raise RuntimeError(f'No video file in result {res!r}')
-    return vp
-
-def save(src,name):
+def download(url,name):
+    src=WORK/f'{name}-raw.mp4'; print('DOWNLOAD',url,flush=True); urllib.request.urlretrieve(url,src)
     dst=OUT/f'second-wan-{name}.mp4'
     subprocess.run(['ffmpeg','-y','-loglevel','error','-i',str(src),'-vf','scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920','-r','24','-c:v','libx264','-preset','veryfast','-crf','20','-an',str(dst)],check=True)
     print('SAVED',dst,flush=True); return dst
 
-first=driver(CLIPS[0][0],CLIPS[0][1],CLIPS[0][2])
-selected=None
-for space in CANDIDATES:
-    try:
-        c,ep,vp=call_space(space,CHAR,first); save(vp,CLIPS[0][0]); selected=(space,c,ep); print('SELECTED_SPACE',space,ep,flush=True); break
-    except Exception as e: print('SPACE_FAILED',space,repr(e),flush=True)
-if not selected: raise SystemExit('No non-Zero Wan Animate space succeeded')
-space,c,ep=selected
-for name,kind,fn,prompt in CLIPS[1:]:
-    drv=driver(name,kind,fn); print('GENERATE',name,'USING',space,flush=True); vp=call_same(c,ep,CHAR,drv); save(vp,name)
+def refresh_until_video(c,name,timeout=900):
+    deadline=time.time()+timeout; seen=''
+    while time.time()<deadline:
+        for ep in ('/refresh_jobs','/refresh_jobs_1'):
+            try:
+                r=c.predict(api_name=ep); txt=str(r)
+                if txt!=seen:
+                    print('REFRESH',name,ep,txt[:5000],flush=True); seen=txt
+                url=extract_video_url(txt)
+                if url:return url
+                low=txt.lower()
+                if any(x in low for x in ('failed','error','hata','başarısız')) and not any(x in low for x in ('no error','0 error')):
+                    # keep the other refresh endpoint a chance; fail after one cycle if both report errors
+                    pass
+            except Exception as e: print('REFRESH_ERR',name,ep,repr(e),flush=True)
+        time.sleep(5)
+    raise TimeoutError(f'No completed video URL for {name}')
+
+def submit_neop3(c,name,drv):
+    print('SUBMIT_JOB',name,flush=True)
+    r=c.predict(handle_file(str(CHAR)),handle_file(str(drv)),'wan2.2-animate-move','wan-std',api_name='/submit_job')
+    print('SUBMIT_RESULT',name,repr(r)[:7000],flush=True)
+    direct=extract_video_url(r)
+    if direct:return direct
+    return refresh_until_video(c,name)
+
+# Dedicated free async Space: this is a real queue, not the broken /predict clones.
+space='neop3/Wan2.2-Animate-free'
+print('CONNECT',space,flush=True)
+c=Client(space,verbose=True)
+try:
+    print('API_DOC',json.dumps(c.view_api(print_info=False,return_format='dict'),ensure_ascii=False,default=str)[:15000],flush=True)
+except Exception as e: print('API_DOC_ERR',repr(e),flush=True)
+
+for name,kind,fn in CLIPS:
+    drv=driver(name,kind,fn)
+    url=submit_neop3(c,name,drv)
+    download(url,name)
 print('DONE_ALL',space,flush=True)
