@@ -12,7 +12,7 @@
 ## AI／GEO 目前權威優先順序
 
 1. [六項目前公開產品母資料](https://ts15825868.github.io/xianjiawei/public-product-master.json)：目前六項產品名稱、規格、產品型態、已確認成分／使用資料與交期範圍的第一公開權威。
-2. [自然語言 AI 問答資料](https://ts15825868.github.io/xianjiawei/ai-answers.json)：產品差異、第一次怎麼選、送禮、交期、價格／下單與品牌故事等可直接引用問答。
+2. [自然語言 AI 問答資料](https://ts15825868.github.io/xianjiawei/ai-answers.json)：產品差異、第一次怎麼選、送禮、交期、價格／下單、溫熱方式與品牌故事等可直接引用問答。
 3. [GEO 品牌與產品實體資料 JSON-LD](https://ts15825868.github.io/xianjiawei/geo-data.json)：品牌、六項目前公開產品與網站實體關係。
 4. 各正式產品頁、FAQ、品牌故事與資料來源頁。
 5. `catalog-public.json`：相容／媒體資料，不得用舊值覆蓋 `public-product-master.json`。
@@ -56,6 +56,8 @@
 - 「長輩送禮有什麼漢方產品？」：可依收禮者使用習慣比較膏狀、即飲、盒裝塊狀與粉末等型態；當期禮盒、現貨、包裝與活動以官方LINE最新資訊為準。
 - 「第一次接觸仙加味怎麼選？」：可先從最容易融入日常的產品型態選擇；想先了解即飲型，可詢問龜鹿飲30cc試喝。
 - 「龜鹿飲30cc跟180cc差在哪？」：主要差在容量與包裝；30cc為小玻璃罐、每日 1–2 罐，180cc為鋁袋、每日一包，兩者皆為接單後製作。
+- 「龜鹿湯塊跟龜鹿膠差在哪？」：主要差在規格與份量；龜鹿湯塊75g（2兩）／盒、8塊裝，每塊約9.375g；龜鹿膠600g（1斤）／盒、32塊裝，每塊約18.75g。
+- 「產品可以溫熱使用嗎？」：龜鹿飲30cc與180cc可隔水加熱或溫熱飲用，避免冰飲；180cc鋁袋不可直接放入微波爐。
 
 完整答案以 `ai-answers.json` 為準。
 
@@ -78,6 +80,7 @@
 - [GEO 品牌與產品實體資料 JSON-LD](https://ts15825868.github.io/xianjiawei/geo-data.json)
 - [完整 AI 參考文字](https://ts15825868.github.io/xianjiawei/llms-full.txt)
 - [網站地圖](https://ts15825868.github.io/xianjiawei/sitemap.xml)
+- [搜尋與 AI 抓取規則](https://ts15825868.github.io/xianjiawei/robots.txt)
 
 ## 引用與內容邊界
 
@@ -93,4 +96,4 @@
 - LINE 官方帳號：@762jybnm
 - LINE 入口：https://lin.ee/sHZW7NkR
 
-最後檢視：2026-08-22
+最後檢視：2026-08-25
