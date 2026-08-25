@@ -12,7 +12,11 @@
       "description": "仙加味是從台北萬華起家的現代漢方生活品牌，延續四代家族的鹿角與熬膠工藝及漢方飲食文化，以現代、方便、貼近日常的方式呈現。目前官網公開產品共六項。",
       "foundingLocation": {"@type": "Place", "name": "台北萬華"},
       "areaServed": "TW",
-      "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "availableLanguage": ["zh-Hant"], "url": "https://lin.ee/sHZW7NkR"}
+      "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "availableLanguage": ["zh-Hant"], "url": "https://lin.ee/sHZW7NkR"},
+      "subjectOf": [
+        {"@type":"WebPage","url":"https://ts15825868.github.io/xianjiawei/brand.html","name":"仙加味品牌故事"},
+        {"@type":"WebPage","url":"https://ts15825868.github.io/xianjiawei/brand-facts.html","name":"仙加味官方品牌與產品資料"}
+      ]
     },
     {
       "@type": "WebSite",
@@ -21,7 +25,8 @@
       "name": "仙加味",
       "inLanguage": "zh-Hant-TW",
       "publisher": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
-      "about": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"}
+      "about": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
+      "dateModified":"2026-08-25"
     },
     {
       "@type": "Dataset",
@@ -29,14 +34,16 @@
       "name": "仙加味官方六項目前公開產品資料",
       "description": "供搜尋引擎與生成式搜尋理解仙加味品牌與六項目前對外產品事實。價格、促銷與庫存屬易變資料，以官方LINE最新資訊為準；內容不作疾病診斷、治療、預防、改善或效果保證。",
       "url": "https://ts15825868.github.io/xianjiawei/geo-data.json",
-      "dateModified": "2026-08-20",
+      "dateModified": "2026-08-25",
       "inLanguage": "zh-Hant-TW",
       "creator": {"@id": "https://ts15825868.github.io/xianjiawei/#organization"},
       "distribution": [
         {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://ts15825868.github.io/xianjiawei/public-product-master.json"},
         {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://ts15825868.github.io/xianjiawei/ai-answers.json"},
         {"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://ts15825868.github.io/xianjiawei/catalog-public.json"},
-        {"@type": "DataDownload", "encodingFormat": "text/plain", "contentUrl": "https://ts15825868.github.io/xianjiawei/llms.txt"}
+        {"@type": "DataDownload", "encodingFormat": "text/plain", "contentUrl": "https://ts15825868.github.io/xianjiawei/llms.txt"},
+        {"@type": "DataDownload", "encodingFormat": "text/plain", "contentUrl": "https://ts15825868.github.io/xianjiawei/llms-full.txt"},
+        {"@type": "DataDownload", "encodingFormat": "application/xml", "contentUrl": "https://ts15825868.github.io/xianjiawei/sitemap.xml"}
       ]
     },
     {
