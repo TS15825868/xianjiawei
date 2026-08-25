@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "version": "2026-08-20-six-public-product-master-v5",
-  "updatedAt": "2026-08-20",
+  "version": "2026-08-25-six-public-product-master-v6",
+  "updatedAt": "2026-08-25",
   "authority": "user-confirmed-current",
   "brand": {
     "name": "仙加味",
@@ -40,6 +40,15 @@
     "imagePolicy": "提到產品時只可使用正式產品實物外觀；沒有正式原圖就不自創產品圖",
     "drink30CurrentUsage": "每日 1–2 罐",
     "antiRegression": "任何舊文案、舊鏡像、舊守門員、舊衍生同步器不得把龜鹿飲30cc回退成每日一罐；已暫緩對外的產品不得由舊資料自動重新加入官網"
+  },
+  "machineReadable": {
+    "canonicalBase":"https://ts15825868.github.io/xianjiawei/",
+    "geo":"geo-data.json",
+    "aiAnswers":"ai-answers.json",
+    "llms":"llms.txt",
+    "llmsFull":"llms-full.txt",
+    "sitemap":"sitemap.xml",
+    "lastReviewedAt":"2026-08-25"
   },
   "contact": {"lineId":"@762jybnm","lineUrl":"https://lin.ee/sHZW7NkR"}
 }
