@@ -1,0 +1,71 @@
+name: 仙加味 n8n 監控排程
+
+on:
+  schedule:
+    # 避開整點高峰；GitHub Actions 使用 UTC。
+    # 每 15 分鐘喚醒並執行 LINE OA 健康監控。
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xianjiawei-n8n-monitor-scheduler
+  cancel-in-progress: false
+
+jobs:
+  trigger-monitors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: 觸發仙加味只讀監控
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          call_webhook() {
+            local name="$1"
+            local url="$2"
+            echo "觸發：${name}"
+            for attempt in 1 2 3 4; do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 30 --max-time 180 \
+                "$url" >/dev/null; then
+                echo "完成：${name}"
+                return 0
+              fi
+              echo "${name} 第 ${attempt} 次未完成，20 秒後重試"
+              sleep 20
+            done
+            echo "失敗：${name}"
+            return 1
+          }
+
+          LINE_URL='https://xianjiawei-n8n.onrender.com/webhook/xjw-line-health-a7f8c2'
+          SYSTEM_URL='https://xianjiawei-n8n.onrender.com/webhook/xjw-system-health-d4b6e1'
+          AI_GEO_URL='https://xianjiawei-n8n.onrender.com/webhook/xjw-ai-geo-9c3f75'
+
+          # 手動執行時一次驗收三條。
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            call_webhook 'LINE OA 健康監控' "$LINE_URL"
+            call_webhook '系統健康總監控' "$SYSTEM_URL"
+            call_webhook '產品母資料 AI GEO 一致性檢查' "$AI_GEO_URL"
+            exit 0
+          fi
+
+          minute="$(date -u +%M)"
+          hour="$(date -u +%H)"
+
+          # 每 15 分鐘。
+          call_webhook 'LINE OA 健康監控' "$LINE_URL"
+
+          # 每 30 分鐘：07、37 分。
+          if [[ "$minute" == '07' || "$minute" == '37' ]]; then
+            call_webhook '系統健康總監控' "$SYSTEM_URL"
+          fi
+
+          # 每 6 小時：00/06/12/18 UTC 的 07 分。
+          if [[ "$minute" == '07' ]] && (( 10#$hour % 6 == 0 )); then
+            call_webhook '產品母資料 AI GEO 一致性檢查' "$AI_GEO_URL"
+          fi
