@@ -71,3 +71,5 @@ jobs:
           if [[ "$minute" == '07' ]] && (( 10#$hour % 6 == 0 )); then
             call_webhook '產品母資料 AI GEO 一致性檢查' "$AI_GEO_URL"
           fi
+
+          # longterm cutover verification: stable-start retest 2026-09-01
