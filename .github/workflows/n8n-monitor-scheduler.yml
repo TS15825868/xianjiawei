@@ -1,9 +1,6 @@
 name: 仙加味 n8n 監控排程
 
 on:
-  push:
-    paths:
-      - '.github/workflows/n8n-monitor-scheduler.yml'
   schedule:
     # 避開整點高峰；GitHub Actions 使用 UTC。
     - cron: '7,22,37,52 * * * *'
@@ -48,8 +45,8 @@ jobs:
           SYSTEM_URL='https://xianjiawei-n8n-longterm.onrender.com/webhook/xjw-system-health-d4b6e1'
           AI_GEO_URL='https://xianjiawei-n8n-longterm.onrender.com/webhook/xjw-ai-geo-9c3f75'
 
-          # 手動／一次性 push 驗收時一次跑三條。
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "${{ github.event_name }}" == "push" ]]; then
+          # 手動執行時一次驗收三條。
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             call_webhook 'LINE OA 健康監控' "$LINE_URL"
             call_webhook '系統健康總監控' "$SYSTEM_URL"
             call_webhook '產品母資料 AI GEO 一致性檢查' "$AI_GEO_URL"
@@ -71,5 +68,3 @@ jobs:
           if [[ "$minute" == '07' ]] && (( 10#$hour % 6 == 0 )); then
             call_webhook '產品母資料 AI GEO 一致性檢查' "$AI_GEO_URL"
           fi
-
-          # longterm cutover verification: stable-start retest 2026-09-01
