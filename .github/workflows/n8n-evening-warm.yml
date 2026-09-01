@@ -20,22 +20,36 @@ concurrency:
 jobs:
   warm-n8n:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
-      - name: 晚間預熱 n8n longterm
+      - name: 喚醒並驗收 n8n longterm
         shell: bash
         run: |
           set -euo pipefail
-          URL='https://xianjiawei-n8n-longterm.onrender.com/healthz/readiness'
-          for attempt in 1 2 3; do
-            if curl --fail --silent --show-error --location \
-              --connect-timeout 20 --max-time 120 \
-              "$URL" >/dev/null; then
-              echo 'n8n longterm 預熱完成'
-              exit 0
-            fi
-            echo "第 ${attempt} 次預熱未完成，15 秒後重試"
-            sleep 15
-          done
-          echo 'n8n longterm 預熱失敗'
-          exit 1
+
+          call_url() {
+            local name="$1"
+            local url="$2"
+            for attempt in 1 2 3 4; do
+              if curl --fail --silent --show-error --location \
+                --connect-timeout 20 --max-time 180 \
+                "$url" >/dev/null; then
+                echo "完成：${name}"
+                return 0
+              fi
+              echo "${name} 第 ${attempt} 次未完成，20 秒後重試"
+              sleep 20
+            done
+            echo "失敗：${name}"
+            return 1
+          }
+
+          BASE='https://xianjiawei-n8n-longterm.onrender.com'
+          call_url 'n8n longterm 喚醒' "$BASE/healthz"
+
+          # push／手動驗收時，同時確認三條正式 webhook 可執行。
+          if [[ "${{ github.event_name }}" == "push" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            call_url 'LINE OA 健康監控' "$BASE/webhook/xjw-line-health-a7f8c2"
+            call_url '系統健康總監控' "$BASE/webhook/xjw-system-health-d4b6e1"
+            call_url '產品母資料 AI GEO 一致性檢查' "$BASE/webhook/xjw-ai-geo-9c3f75"
+          fi
