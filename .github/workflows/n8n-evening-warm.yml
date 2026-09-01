@@ -1,6 +1,9 @@
 name: 仙加味 n8n 晚間預熱
 
 on:
+  push:
+    paths:
+      - '.github/workflows/n8n-evening-warm.yml'
   schedule:
     # 台灣時間 19:00～00:50，每 10 分鐘預熱一次。
     # GitHub Actions cron 使用 UTC，因此為 11:00～16:50 UTC。
@@ -19,20 +22,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: 晚間預熱 n8n
+      - name: 晚間預熱 n8n longterm
         shell: bash
         run: |
           set -euo pipefail
-          URL='https://xianjiawei-n8n.onrender.com/'
+          URL='https://xianjiawei-n8n-longterm.onrender.com/healthz/readiness'
           for attempt in 1 2 3; do
             if curl --fail --silent --show-error --location \
               --connect-timeout 20 --max-time 120 \
               "$URL" >/dev/null; then
-              echo 'n8n 預熱完成'
+              echo 'n8n longterm 預熱完成'
               exit 0
             fi
             echo "第 ${attempt} 次預熱未完成，15 秒後重試"
             sleep 15
           done
-          echo 'n8n 預熱失敗'
+          echo 'n8n longterm 預熱失敗'
           exit 1
