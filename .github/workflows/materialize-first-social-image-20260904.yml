@@ -1,0 +1,45 @@
+name: 仙加味首篇社群正式圖落檔
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_automation/first-social-image-20260904.webp.b64'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xjw-materialize-first-social-image-20260904
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Materialize verified Q mascot social image
+        shell: bash
+        run: |
+          set -euo pipefail
+          src='_automation/first-social-image-20260904.webp.b64'
+          dst='images/posts/formal-v20260904/first-post-work-rest-qmascot.webp'
+          test -s "$src"
+          mkdir -p "$(dirname "$dst")"
+          base64 --decode "$src" > "$dst"
+          test "$(wc -c < "$dst")" -gt 100000
+          file "$dst" | grep -qi 'Web/P image'
+          echo "bytes=$(wc -c < "$dst")"
+      - name: Commit formal binary image
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name '仙加味自動化'
+          git config user.email 'actions@users.noreply.github.com'
+          git add images/posts/formal-v20260904/first-post-work-rest-qmascot.webp
+          git rm _automation/first-social-image-20260904.webp.b64
+          git commit -m '落檔 2026-09-04 首篇 Q版社群正式圖'
+          git push origin HEAD:main
