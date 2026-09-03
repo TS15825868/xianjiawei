@@ -1,0 +1,27 @@
+name: Export first social post image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/export-first-post-image.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Verify image exists
+        run: test -f images/posts/official-v20260818/01-work-30cc.webp
+      - name: Upload first-post image
+        uses: actions/upload-artifact@v4
+        with:
+          name: first-post-image-20260904
+          path: images/posts/official-v20260818/01-work-30cc.webp
+          if-no-files-found: error
+          retention-days: 1
