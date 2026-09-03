@@ -1,4 +1,4 @@
-name: Export first social post image
+name: Export official social images
 
 on:
   push:
@@ -11,17 +11,19 @@ permissions:
   contents: read
 
 jobs:
-  export-image:
+  export-images:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Verify image exists
-        run: test -f images/posts/official-v20260818/01-work-30cc.webp
-      - name: Upload first-post image
+      - name: Verify official image set exists
+        run: |
+          test -d images/posts/official-v20260818
+          test "$(find images/posts/official-v20260818 -maxdepth 1 -type f -name '*.webp' | wc -l)" -ge 13
+      - name: Upload official image set
         uses: actions/upload-artifact@v4
         with:
-          name: first-post-image-20260904
-          path: images/posts/official-v20260818/01-work-30cc.webp
+          name: official-social-images-20260818
+          path: images/posts/official-v20260818/*.webp
           if-no-files-found: error
           retention-days: 1
