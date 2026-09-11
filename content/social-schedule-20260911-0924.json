@@ -1,0 +1,49 @@
+{
+  "version": "2026-09-11-v1",
+  "brand": "仙加味",
+  "status": "active-formal-schedule",
+  "timezone": "Asia/Taipei",
+  "principles": {
+    "cadence": "少而精、不洗版、不讓人覺得煩；不為填排程硬發",
+    "facebook": "約每週2篇",
+    "instagram": "約每週2篇",
+    "threads": "約每週3至4篇",
+    "heroProducts": ["龜鹿膏", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋"],
+    "deferredPublicProduct": "柒玄茶・龜鹿調飲粉",
+    "funnel": "一般生活內容先自然交流；試喝、怎麼選、價格、下單、配送、售後與個別問題最後導LINE OA @762jybnm",
+    "mascot": "正式Q版男生小老闆；短黑髮、大眼睛、米白中式上衣、深橄欖綠圍裙；小鹿與小烏龜分開",
+    "logo": "所有紅色印章位置只能使用仙加味正式Logo，不得AI自創印章文字"
+  },
+  "imageTextSystem": [
+    {"id":"visual-01","headline":"補養，是一種節奏。","subline":"把日常慢慢調回自己的步調","use":"品牌／生活"},
+    {"id":"visual-02","headline":"怎麼選？","subline":"先從你的使用習慣開始","use":"龜鹿膏 vs 龜鹿飲"},
+    {"id":"visual-03","headline":"下午空檔","subline":"留一點時間給自己","use":"工作／生活情境"},
+    {"id":"visual-04","headline":"常見問題","subline":"不用一次記很多，一題一題看懂","use":"FAQ"},
+    {"id":"visual-05","headline":"30cc？180cc？","subline":"不是哪個比較好，是哪個比較符合生活方式","use":"龜鹿飲規格"},
+    {"id":"visual-06","headline":"龜鹿膏100g","subline":"直接取用，也可用溫熱水化開","use":"龜鹿膏使用"},
+    {"id":"visual-07","headline":"忙了一天","subline":"把節奏慢慢收回來","use":"生活日常"}
+  ],
+  "instagramConciseCopies": [
+    {"topic":"30cc小玻璃罐","copy":"仙加味龜鹿飲30cc：30cc／罐、小玻璃罐、裸罐、無貼紙。可直接飲用，也可以隔水加熱或溫熱後飲用。龜鹿飲接單後製作，約5～7個工作天出貨。試喝、價格、怎麼選與下單，再到官方LINE OA @762jybnm。"},
+    {"topic":"180cc鋁袋","copy":"仙加味龜鹿飲180cc：180cc／包、狹長直立鋁袋。可直接飲用，也可將未開封鋁袋隔水溫熱。龜鹿飲接單後製作，約5～7個工作天出貨。想比較30cc／180cc，再到官方LINE OA @762jybnm。"},
+    {"topic":"怎麼選","copy":"第一次接觸不用先背產品名稱。想小匙取用、慢慢安排，可先了解龜鹿膏；想直接飲用、方便一點，可先了解龜鹿飲。價格、試喝、下單與個別問題，再到官方LINE OA @762jybnm。"},
+    {"topic":"日常節奏","copy":"忙了一天，不一定要再安排很多事。把桌面整理一下、喝口溫熱的，把節奏慢慢收回來，就已經很夠。想了解龜鹿膏、龜鹿飲或不知道怎麼選，再到官方LINE OA @762jybnm。"}
+  ],
+  "metricoolFormalSchedule": [
+    {"date":"2026-09-12T10:00:00+08:00","network":"instagram","topic":"龜鹿飲30cc小玻璃罐","status":"scheduled-auto"},
+    {"date":"2026-09-13T10:30:00+08:00","network":"facebook","topic":"30cc與180cc怎麼選","status":"scheduled-auto"},
+    {"date":"2026-09-13T11:00:00+08:00","network":"threads","topic":"龜鹿飲與生活方式","status":"scheduled-auto"},
+    {"date":"2026-09-16T12:30:00+08:00","network":"threads","topic":"萬華與仙加味","status":"scheduled-auto"},
+    {"date":"2026-09-16T19:45:00+08:00","network":"instagram","topic":"龜鹿飲180cc鋁袋","status":"scheduled-auto"},
+    {"date":"2026-09-18T11:00:00+08:00","network":"threads","topic":"先從使用習慣理解龜鹿系列","status":"scheduled-auto","metricoolId":374250335},
+    {"date":"2026-09-18T19:30:00+08:00","network":"facebook","topic":"FAQ：怎麼選／怎麼吃／30cc與180cc","status":"scheduled-auto","metricoolId":374250030},
+    {"date":"2026-09-20T12:30:00+08:00","network":"instagram","topic":"怎麼選：龜鹿膏vs龜鹿飲","status":"scheduled-auto","metricoolId":374250233},
+    {"date":"2026-09-20T21:00:00+08:00","network":"threads","topic":"工作空檔與生活節奏","status":"scheduled-auto","metricoolId":374250361},
+    {"date":"2026-09-22T12:30:00+08:00","network":"facebook","topic":"龜鹿膏100g日常使用","status":"scheduled-auto","metricoolId":374249567},
+    {"date":"2026-09-22T21:00:00+08:00","network":"threads","topic":"有明確需求再進LINE OA","status":"scheduled-auto","metricoolId":374250391},
+    {"date":"2026-09-24T12:30:00+08:00","network":"threads","topic":"不每篇都賣東西的品牌日常","status":"scheduled-auto","metricoolId":374250492},
+    {"date":"2026-09-24T19:45:00+08:00","network":"instagram","topic":"忙了一天，把節奏慢慢收回來","status":"scheduled-auto","metricoolId":374250281}
+  ],
+  "draftPolicy": "Metricool既有draft=true／autoPublish=false舊候選保留為草稿庫，不會自動發布；避免為清草稿誤刪可用內容。",
+  "animationPolicy": "只有真正連續角色動畫才可取代圖文名額；拼貼、紙偶、圖片平移縮放一律不發布。小老闆固定男生。"
+}
