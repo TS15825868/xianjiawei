@@ -1,0 +1,137 @@
+name: xianjiawei-video-postproduction-candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_path:
+        description: '已通過角色/場景初步檢查的來源影片（repo 內路徑）'
+        required: true
+        default: 'assets/video-input/formal-source.mp4'
+        type: string
+      caption_srt:
+        description: '已人工校對的繁中 SRT（可留空）'
+        required: false
+        default: ''
+        type: string
+      use_whisper:
+        description: '沒有 SRT 時，用 Whisper 產生字幕初稿（仍需人工校對）'
+        required: false
+        default: false
+        type: boolean
+      music_path:
+        description: '已確認授權的背景音樂 repo 路徑（可留空）'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+# IMPORTANT
+# This workflow is POST-PRODUCTION ONLY.
+# It never generates character animation and never publishes to social media.
+# Any output is a review-required candidate, not a formal approved video.
+
+jobs:
+  postprocess-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+
+      - name: Install media runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+          chmod +x tools/video_postprocess/prepare_candidate.sh
+
+      - name: Reject archived or missing sources
+        env:
+          SOURCE_PATH: ${{ inputs.source_path }}
+        run: |
+          test -f "$SOURCE_PATH"
+          lower="$(printf '%s' "$SOURCE_PATH" | tr '[:upper:]' '[:lower:]')"
+          if [[ "$lower" =~ archive|preview|video_free|not-for-publish ]]; then
+            echo 'Rejected/archive video cannot enter the formal postproduction pipeline.' >&2
+            exit 3
+          fi
+
+      - name: Prepare caption path
+        env:
+          SOURCE_PATH: ${{ inputs.source_path }}
+          PROVIDED_SRT: ${{ inputs.caption_srt }}
+          USE_WHISPER: ${{ inputs.use_whisper }}
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/whisper
+          if [[ -n "$PROVIDED_SRT" ]]; then
+            test -f "$PROVIDED_SRT"
+            echo "CAPTION_PATH=$PROVIDED_SRT" >> "$GITHUB_ENV"
+          elif [[ "$USE_WHISPER" == 'true' ]]; then
+            python -m pip install --upgrade pip
+            python -m pip install openai-whisper opencc-python-reimplemented
+            whisper "$SOURCE_PATH" \
+              --model small \
+              --language Chinese \
+              --task transcribe \
+              --output_dir artifacts/whisper \
+              --output_format srt \
+              --fp16 False
+            FOUND_SRT="$(find artifacts/whisper -type f -name '*.srt' | head -n 1)"
+            test -n "$FOUND_SRT"
+            python - "$FOUND_SRT" <<'PY'
+from pathlib import Path
+from opencc import OpenCC
+import sys
+p=Path(sys.argv[1])
+text=p.read_text(encoding='utf-8')
+text=OpenCC('s2twp').convert(text)
+p.write_text(text,encoding='utf-8')
+print(f'Converted Whisper draft to Traditional Chinese: {p}')
+PY
+            echo "CAPTION_PATH=$FOUND_SRT" >> "$GITHUB_ENV"
+          else
+            echo 'CAPTION_PATH=' >> "$GITHUB_ENV"
+          fi
+
+      - name: Build review-required 9:16 candidate
+        env:
+          SOURCE_PATH: ${{ inputs.source_path }}
+          MUSIC_PATH: ${{ inputs.music_path }}
+        run: |
+          tools/video_postprocess/prepare_candidate.sh \
+            "$SOURCE_PATH" \
+            "${CAPTION_PATH:-}" \
+            "$MUSIC_PATH" \
+            artifacts/xianjiawei-video-candidate-REVIEW-REQUIRED.mp4
+
+      - name: Record non-publish notice
+        run: |
+          cat > artifacts/README-REVIEW-REQUIRED.txt <<'EOF'
+          仙加味影片後製候選檔
+
+          這個 workflow 只代表技術後製完成，不代表品牌正式驗收通過。
+          發布前仍必須檢查：
+          1. 正式男生小老闆角色一致
+          2. 小鹿、小烏龜分開且外觀正常
+          3. 場景、情境、動作自然，不是拼貼／紙偶／整圖平移縮放
+          4. 產品外觀與比例正確
+          5. 紅印章只使用正式仙加味 Logo
+          6. 字幕繁體中文與專有名詞正確
+          7. 無療效宣稱、亂碼、錯誤 AI 文字
+
+          未完成上述驗收，不得放入 Metricool 或任何正式發布流程。
+          EOF
+
+      - name: Upload candidate artifact only
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-video-CANDIDATE-REVIEW-REQUIRED
+          path: |
+            artifacts/xianjiawei-video-candidate-REVIEW-REQUIRED.mp4
+            artifacts/xianjiawei-video-candidate-REVIEW-REQUIRED-qa.json
+            artifacts/README-REVIEW-REQUIRED.txt
+            artifacts/whisper/*.srt
+          retention-days: 7
+          if-no-files-found: error
