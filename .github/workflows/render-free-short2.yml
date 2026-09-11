@@ -32,16 +32,11 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install 'Pillow>=10,<12'
 
-      - name: Reconstruct and validate approved mascot authority
+      - name: Reconstruct and normalize approved mascot authority
         run: |
           test -s brand-character-spec.json
           for f in assets/reference/mascot-sprite-v20260816.part0 assets/reference/mascot-sprite-v20260816.part1 assets/reference/mascot-sprite-v20260816.part2 assets/reference/mascot-sprite-v20260816.part3 assets/reference/mascot-sprite-v20260816.part4; do test -s "$f"; done
-          cat assets/reference/mascot-sprite-v20260816.part0 \
-              assets/reference/mascot-sprite-v20260816.part1 \
-              assets/reference/mascot-sprite-v20260816.part2 \
-              assets/reference/mascot-sprite-v20260816.part3 \
-              assets/reference/mascot-sprite-v20260816.part4 \
-              > assets/reference/mascot-sprite-v20260816.txt
+          python tools/video_free/prepare_sprite.py
           python - <<'PY'
           import base64, io, json
           from PIL import Image
@@ -54,7 +49,7 @@ jobs:
           raw=base64.b64decode(b64)
           assert raw[:4] == b'RIFF' and raw[8:12] == b'WEBP', raw[:16]
           im=Image.open(io.BytesIO(raw)); im.verify()
-          print('PASS mascot authority locked and master sprite reconstructed as WEBP')
+          print('PASS mascot authority locked and animation sprite ready')
           PY
 
       - name: Render technical preview
