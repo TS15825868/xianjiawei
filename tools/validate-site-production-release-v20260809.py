@@ -61,9 +61,18 @@ def validate_products():
     req('時間依作息安排' in gao,'龜鹿膏快捷標籤未同步目前用法')
 
 def validate_public_surfaces():
-    for rel in ['index.html','products.html','guide.html','faq.html','ai-answers.json','geo-data.json','llms.txt','llms-full.txt']:
+    # 真正顧客／搜尋引擎答案表面不得重新公開暫緩產品。
+    for rel in ['index.html','products.html','guide.html','faq.html','ai-answers.json','geo-data.json']:
         text=read(rel)
         for marker in DEFERRED:req(marker not in text,f'{rel}重新公開暫緩產品：{marker}')
+
+    # llms 檔是 AI 治理政策：必須能明確告訴模型「柒玄茶目前暫緩／不對外」，
+    # 因此允許出現產品名稱；不得再把「提到名稱」誤判成公開上架。
+    for rel in ['llms.txt','llms-full.txt']:
+        text=read(rel)
+        req(DEFERRED[1] in text,f'{rel}缺少柒玄茶暫緩政策')
+        req(any(word in text for word in ['暫緩','暫不','不對外','不得公開','隱藏']),f'{rel}未清楚標示柒玄茶目前非公開狀態')
+
     req('六項' in read('index.html'),'首頁未維持六項官網產品')
     req('六項' in read('products.html'),'產品總覽未維持六項官網產品')
     req(CURRENT_30 in read('products.html') and CURRENT_30 in read('guide.html') and CURRENT_30 in read('faq.html'),'30cc目前用法未同步公開頁')
@@ -82,6 +91,6 @@ def validate_media():
 
 def main():
     validate_products();validate_public_surfaces();validate_media()
-    print('PASS production release: six website products, six approved media, 30cc daily 1–2 cans, no retired fixed-time Guilu Gao chip, and deferred Qixuan excluded from website/public AI surfaces.')
+    print('PASS production release: six website products, six approved media, 30cc daily 1–2 cans, no retired fixed-time Guilu Gao chip, Qixuan excluded from customer/public answer surfaces while retained as negative policy in llms.')
 
 if __name__=='__main__':main()
