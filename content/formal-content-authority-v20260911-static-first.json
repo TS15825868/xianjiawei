@@ -1,0 +1,54 @@
+{
+  "version": "2026-09-11-static-first-v1",
+  "brand": "仙加味",
+  "status": "formal-current",
+  "updatedAt": "2026-09-11T17:32:00+08:00",
+  "publicBrandOnly": "仙加味",
+  "tagline": "補養，是一種節奏。",
+  "socialPublishing": {
+    "primaryFormat": "文案＋對應正式貼文圖",
+    "animationStatus": "deferred-until-formal-quality",
+    "cadence": {
+      "facebook": "約每週2篇",
+      "instagram": "約每週2篇",
+      "threads": "約每週3至4篇"
+    },
+    "principle": "少而精、不洗版、不為填排程硬發；一般生活貼文不必每篇導LINE OA",
+    "heroProducts": ["龜鹿膏", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋"],
+    "deferredPublicProducts": ["柒玄茶・龜鹿調飲粉"]
+  },
+  "visualAuthority": {
+    "mascot": "正式Q版男生小老闆：短黑髮、大眼睛、米白中式上衣、深橄欖綠圍裙",
+    "partners": ["小鹿", "小烏龜"],
+    "partnersMustRemainSeparate": true,
+    "logoRule": "紅色印章位置只可使用正式仙加味Logo，不得AI亂造印章文字",
+    "productRule": "產品只可使用正式產品原圖或不變形合成；不可AI重新設計包裝",
+    "drink30Rule": "30cc必須是小玻璃裸罐、無貼紙、不可放大成一般飲料瓶",
+    "drink180Rule": "180cc必須維持正式鋁袋比例，不可生成巨大包裝",
+    "copyImageMatch": "每張圖必須與文案的場景、季節、冷熱、動作、表情與產品一致"
+  },
+  "animationAuthority": {
+    "rejectedMethods": ["圖片剪貼", "紙偶", "關節式拼貼預覽", "整張圖片平移縮放", "非正式角色替代"],
+    "rejectedExistingPreview": true,
+    "rejectedPreviewMustNotPublish": true,
+    "formalRequirements": [
+      "小老闆固定男生且外觀與正式角色一致",
+      "小鹿與小烏龜外觀正常且分開",
+      "場景與情境自然正式",
+      "角色本身真正連續動作",
+      "產品若出現只能用正式原圖",
+      "字幕繁體中文無亂碼",
+      "聲音須符合已確認5至6歲小男孩方向或使用核准音檔"
+    ],
+    "publicationRule": "未全部通過前不排程、不發布；正式動畫完成後才可取代一個原圖文名額，不增加總發文量"
+  },
+  "funnel": {
+    "general": "社群／官網先提供品牌、產品與生活資訊",
+    "lineOA": "試喝、怎麼選、價格、下單、配送、售後與個別問題最後統一導LINE OA @762jybnm",
+    "lineCommunity": "LINE社群『仙加味・龜鹿｜日常交流』用於生活、料理、品牌與聊天，避免硬銷"
+  },
+  "lineOAProfile": {
+    "businessProfileCover": "使用者已於2026-09-11在LINE OA Manager手動更換新版封面",
+    "coverOverwritePolicy": "除非使用者明確要求，不得自動改回舊封面或自行覆蓋"
+  }
+}
