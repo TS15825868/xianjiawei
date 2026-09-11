@@ -38,6 +38,32 @@ CURRENT_PUBLIC_COPY_FILES=[
     'content/social-plan-20261015-1031-candidates.json',
 ]
 
+# 暫緩產品不得出現在真正顧客可見產品內容、AI答案、GEO或正式貼文中。
+# llms.txt / llms-full.txt 可保留「目前暫緩、不得公開」的負面限制說明，避免 AI 舊資料回流。
+DEFERRED_PUBLIC_VISIBLE_FILES=[
+    'public-product-master.json',
+    'assets/data/official-products.json',
+    'config/official-products.json',
+    'ai-answers.json',
+    'geo-data.json',
+    'index.html',
+    'products.html',
+    'guide.html',
+    'faq.html',
+    'brand-facts.html',
+    'product-guilu-gao.html',
+    'product-guilu-drink-30cc.html',
+    'product-guilu-drink-180cc.html',
+    'product-guilu-tangkuai.html',
+    'product-guilu-jiao.html',
+    'product-luerong-fen.html',
+    'content/public-post-library.json',
+    'content/social-content-bank-v20260911.json',
+    'content/social-schedule-20260911-0924.json',
+    'content/social-schedule-20261001-1014.json',
+    'content/social-plan-20261015-1031-candidates.json',
+]
+
 # 已明確退役、且不應再出現在目前公開內容中的字串。
 STALE_PUBLIC_LITERALS=[
     '台興山產',
@@ -106,10 +132,8 @@ def main():
         req(pids==PUBLIC_IDS,f'{rel}不是目前六項官網產品')
         req((data.get('knowledge_product_ids') or [])==PUBLIC_IDS,f'{rel}知識產品仍是舊模型')
         req((data.get('approved_media_product_ids') or [])==PUBLIC_IDS,f'{rel}媒體產品不同步')
-        text=json.dumps(data,ensure_ascii=False)
-        req(DEFERRED_ID not in text and DEFERRED_NAME not in text,f'{rel}仍把暫緩產品放回官網鏡像')
 
-    for rel in CURRENT_PUBLIC_COPY_FILES:
+    for rel in DEFERRED_PUBLIC_VISIBLE_FILES:
         text=read(rel)
         req(DEFERRED_ID not in text and DEFERRED_NAME not in text,f'{rel}重新公開暫緩產品')
 
@@ -124,6 +148,6 @@ def main():
     req(CURRENT_30 in read('public-product-master.json'),'缺少30cc目前正式用法')
 
     assert_current_public_copy()
-    print('PASS: six website products; 30cc small glass jar/bare/no sticker; flexible timing; no stale public brand/product/timing regressions; no current public high-risk claim literals.')
+    print('PASS: six website products; 30cc small glass jar/bare/no sticker; flexible timing; deferred product blocked from visible content while llms may retain negative policy; no stale public brand/product/timing regressions or current public high-risk claim literals.')
 
 if __name__=='__main__': main()
