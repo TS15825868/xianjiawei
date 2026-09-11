@@ -1,19 +1,19 @@
-name: render-free-short2
+name: render-free-short2-archive
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'tools/video_free/**'
-      - 'assets/reference/mascot-sprite-v20260816.part*'
-      - 'assets/reference/mascot-sprite-v20260816.txt'
-      - '.github/workflows/render-free-short2.yml'
 
 permissions:
   contents: read
 
+# IMPORTANT
+# This workflow is retained only as an archived technical experiment.
+# The user explicitly rejected the articulated / cutout-style result as not matching
+# the official small-boss character, companions, scene quality, and animation standard.
+# It must never run automatically on push and must never feed the formal publishing pipeline.
+
 jobs:
-  render:
+  render-archived-preview:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
@@ -25,56 +25,42 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install free runtime
+      - name: Install archived preview runtime
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg fonts-noto-cjk
           python -m pip install --upgrade pip
           python -m pip install 'Pillow>=10,<12'
 
-      - name: Reconstruct and normalize approved mascot authority
+      - name: Reconstruct archived mascot reference
         run: |
           test -s brand-character-spec.json
           for f in assets/reference/mascot-sprite-v20260816.part0 assets/reference/mascot-sprite-v20260816.part1 assets/reference/mascot-sprite-v20260816.part2 assets/reference/mascot-sprite-v20260816.part3 assets/reference/mascot-sprite-v20260816.part4; do test -s "$f"; done
           python tools/video_free/prepare_sprite.py
-          python - <<'PY'
-          import base64, io, json
-          from PIL import Image
-          d=json.load(open('brand-character-spec.json',encoding='utf-8'))
-          assert d['status']=='locked'
-          assert d['mascot']['top']=='米白中式上衣'
-          assert d['mascot']['apron']=='深橄欖綠圍裙'
-          assert d['mascot']['chestMark']=='紅色直式仙加味印章'
-          b64=open('assets/reference/mascot-sprite-v20260816.txt',encoding='utf-8').read().strip()
-          raw=base64.b64decode(b64)
-          assert raw[:4] == b'RIFF' and raw[8:12] == b'WEBP', raw[:16]
-          im=Image.open(io.BytesIO(raw)); im.verify()
-          print('PASS mascot authority locked and animation sprite ready')
-          PY
 
-      - name: Render articulated technical preview
+      - name: Render archived technical preview only
         run: |
           mkdir -p artifacts
-          python tools/video_free/render_short2_v2.py --out artifacts/short2-opening-shop-preview.mp4
+          python tools/video_free/render_short2_v2.py --out artifacts/short2-opening-shop-preview-ARCHIVE-NOT-FOR-PUBLISH.mp4
 
-      - name: Validate video
+      - name: Validate technical file only
         run: |
           python - <<'PY'
           import json, subprocess
-          p='artifacts/short2-opening-shop-preview.mp4'
+          p='artifacts/short2-opening-shop-preview-ARCHIVE-NOT-FOR-PUBLISH.mp4'
           raw=subprocess.check_output(['ffprobe','-v','error','-show_entries','stream=width,height,r_frame_rate','-show_entries','format=duration','-of','json',p],text=True)
           d=json.loads(raw)
           v=next(s for s in d['streams'] if 'width' in s)
           dur=float(d['format']['duration'])
           assert v['width']==720 and v['height']==1280, v
           assert 29.5 <= dur <= 30.5, dur
-          print('PASS articulated 720x1280, duration',dur)
+          print('ARCHIVE ONLY: technical container valid; NOT approved for publishing')
           PY
 
-      - name: Upload preview artifact
+      - name: Upload archived artifact
         uses: actions/upload-artifact@v4
         with:
-          name: xianjiawei-short2-free-preview
-          path: artifacts/short2-opening-shop-preview.mp4
-          retention-days: 14
+          name: xianjiawei-short2-ARCHIVE-NOT-FOR-PUBLISH
+          path: artifacts/short2-opening-shop-preview-ARCHIVE-NOT-FOR-PUBLISH.mp4
+          retention-days: 3
           if-no-files-found: error
