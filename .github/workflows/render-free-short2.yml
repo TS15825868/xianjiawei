@@ -52,10 +52,10 @@ jobs:
           print('PASS mascot authority locked and animation sprite ready')
           PY
 
-      - name: Render technical preview
+      - name: Render articulated technical preview
         run: |
           mkdir -p artifacts
-          python tools/video_free/render_short2.py --out artifacts/short2-opening-shop-preview.mp4
+          python tools/video_free/render_short2_v2.py --out artifacts/short2-opening-shop-preview.mp4
 
       - name: Validate video
         run: |
@@ -68,7 +68,7 @@ jobs:
           dur=float(d['format']['duration'])
           assert v['width']==720 and v['height']==1280, v
           assert 29.5 <= dur <= 30.5, dur
-          print('PASS 720x1280, duration',dur)
+          print('PASS articulated 720x1280, duration',dur)
           PY
 
       - name: Upload preview artifact
