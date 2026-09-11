@@ -1,0 +1,83 @@
+{
+  "version": "2026-09-11-v1",
+  "brand": "仙加味",
+  "status": "active-postproduction-only",
+  "purpose": "把正式動畫／實拍來源自動整理成可審核的直式短影片候選；此產線不負責生成角色動畫，也不得把靜態拼貼冒充動畫。",
+  "sourceInsight": "參考常見的 AI 短影音自動化分工：指揮層、Whisper 轉文字、剪輯、FFmpeg、Noto 字型、授權音樂；依仙加味品牌與法規需求重新拆分。",
+  "stages": [
+    {
+      "order": 1,
+      "name": "內容與品牌指揮",
+      "tool": "ChatGPT/GitHub formal authority",
+      "job": "使用正式腳本、角色規格、產品規格、禁語與圖文一致規則；先確認來源影片本身已是真動畫或正常實拍。"
+    },
+    {
+      "order": 2,
+      "name": "字幕轉寫",
+      "tool": "OpenAI Whisper optional",
+      "job": "將已有正式配音轉成字幕初稿；字幕必須再檢查仙加味、龜鹿膏、龜鹿飲、萬華、LINE OA等專有名詞，不能直接因自動轉寫成功就發布。"
+    },
+    {
+      "order": 3,
+      "name": "剪輯",
+      "tool": "FFmpeg core / Auto-Editor optional",
+      "job": "去除多餘空白、銜接片段、控制節奏。Auto-Editor只作可選輔助，不列為正式必要依賴；動畫連續鏡頭不應為了自動剪空白而被切壞。"
+    },
+    {
+      "order": 4,
+      "name": "輸出核心",
+      "tool": "FFmpeg",
+      "job": "統一9:16、H.264/AAC、手機安全區、字幕、音量與輸出檢查。"
+    },
+    {
+      "order": 5,
+      "name": "繁中字型",
+      "tool": "Noto Sans CJK TC / Noto Sans TC",
+      "job": "字幕與圖卡全程繁體中文，不使用來源不明字型檔。"
+    },
+    {
+      "order": 6,
+      "name": "配樂音效",
+      "tool": "合法可商用來源；Pixabay可作候選來源",
+      "job": "每首音樂保留來源與授權紀錄；配樂只作背景，不壓過5至6歲男孩配音；不得單獨再散布音樂檔。"
+    }
+  ],
+  "formalInputGate": {
+    "mustPass": [
+      "小老闆固定男生且外觀與正式角色一致",
+      "小鹿與小烏龜分開且外觀正常",
+      "場景與情境自然、連續、符合文案",
+      "不是圖片拼貼、紙偶、關節剪貼、整圖平移縮放",
+      "產品若出現只使用正式產品原圖或不變形合成",
+      "30cc是小玻璃裸罐；180cc維持正式鋁袋比例",
+      "胸前紅色位置只使用正式仙加味Logo",
+      "無療效宣稱、無亂碼、無錯誤AI文字"
+    ],
+    "rejectedArchiveNeverAllowed": [
+      "tools/video_free/render_short2_v2.py 的舊關節式預覽",
+      "ARCHIVE-NOT-FOR-PUBLISH 標記的任何輸出",
+      "使用者已明確否決的拼貼／紙偶／不像正式角色版本"
+    ]
+  },
+  "output": {
+    "ratio": "9:16",
+    "preferredResolution": "1080x1920",
+    "fallbackResolution": "720x1280",
+    "fpsMax": 30,
+    "videoCodec": "H.264",
+    "audioCodec": "AAC",
+    "language": "繁體中文",
+    "captionSafeArea": "字幕避開上下平台UI與角色／產品主體",
+    "publicationState": "candidate-review-required"
+  },
+  "publishingPolicy": {
+    "autoPublishFromThisPipeline": false,
+    "reason": "後製成功只代表技術檔可用，不代表角色、文案、產品、字幕與品牌已通過正式驗收。",
+    "mayReplaceStaticPost": "只有完整人工／品牌守門驗收通過後，才可取代既有一個圖文名額，不增加總發文頻率。"
+  },
+  "currentGeneratorState": {
+    "runwayConnected": true,
+    "runwayVideoAvailableNow": false,
+    "note": "2026-09-11 檢查連接工作區目前無可用影片模型且剩餘 credits 為 0；因此本產線先作免費後製與正式輸入守門，不假裝已有免費真動畫生成能力。"
+  }
+}
