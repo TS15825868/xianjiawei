@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-11-v2",
+  "version": "2026-09-12-v3-formal-product-media",
   "brand": "仙加味",
   "status": "prepared-not-scheduled",
   "timezone": "Asia/Taipei",
@@ -10,6 +10,7 @@
     "heroProducts": ["龜鹿膏", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋"],
     "deferredPublicProduct": "柒玄茶・龜鹿調飲粉",
     "mediaAuthority": "content/social-next-cycle-media-v20260911.json",
+    "formalProductMediaAuthority": "data/formal-media-authority-v20260810.json",
     "funnel": "一般生活與品牌內容不硬導LINE；試喝、怎麼選、價格、下單、配送、售後與個別問題才導LINE OA。",
     "lifeCopyGate": "生活型文案必須有明確情境＋仙加味／產品連結＋對應生活情境圖；產品頁圖片不得硬配料理或其他生活情境文案。",
     "usageTiming": "不得把龜鹿膏或龜鹿飲鎖成固定早上、下午或白天時段；依個人使用習慣與作息安排。",
@@ -30,7 +31,7 @@
       "network":"facebook",
       "topic":"龜鹿飲30cc小玻璃罐的規格與使用方式",
       "pillar":"產品教育",
-      "media":"images/brand/approved-v405/product-guilu-drink-30cc.webp",
+      "media":"images/customer-display-v20260812/guilu-drink-30cc.avif",
       "text":"30cc 的龜鹿飲，是仙加味比較精簡的一種使用方式。\n\n正式規格是 30cc／罐的小玻璃裸罐，可溫熱飲用。\n\n30cc 與 180cc 不是哪個比較好，先看自己的使用習慣，再決定哪一種規格比較順手。\n\n想了解試喝、怎麼選或下單，再到 LINE OA @762jybnm 一對一詢問。",
       "cta":"line-oa-if-needed",
       "status":"candidate"
@@ -60,7 +61,7 @@
       "network":"facebook",
       "topic":"龜鹿飲180cc鋁袋規格怎麼看",
       "pillar":"產品教育",
-      "media":"images/brand/approved-v405/product-guilu-drink-180cc.webp",
+      "media":"images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
       "text":"仙加味龜鹿飲180cc鋁袋，正式規格是 180cc／包。\n\n如果你偏好一次完整份量，可以把它和 30cc 小玻璃罐一起比較。兩種都可以溫熱飲用，也都是接單後製作，約 5～7 個工作天出貨。\n\n30cc 與 180cc 不是誰比較好，而是哪一種比較符合你的使用習慣。\n\n不確定怎麼選，再到 LINE OA @762jybnm 跟我們說你的使用方式就好。",
       "cta":"line-oa-if-needed",
       "status":"candidate"
@@ -82,7 +83,7 @@
       "media":"media-needed-new-tangkuai-cooking-scene",
       "text":"仙加味龜鹿湯塊是 75g／盒、8塊裝。\n\n如果家裡本來就有煮雞湯、排骨湯或家常燉湯的習慣，可以從熟悉的料理方式開始認識。\n\n不需要把日常變得很複雜，做得到、吃得習慣，比較重要。\n\n#仙加味 #龜鹿湯塊 #料理搭配 #漢方飲食文化",
       "cta":"none",
-      "mediaRule":"本篇是料理生活情境，不能直接以product-guilu-tangkuai-75g.webp產品頁圖取代；需獨立料理情境圖，產品如出現只能使用正式原圖等比例合成。",
+      "mediaRule":"本篇是料理生活情境，不能直接以任何產品頁圖取代；需獨立料理情境圖，龜鹿湯塊如出現只能使用data/formal-media-authority-v20260810.json核准的正式產品原圖等比例合成。",
       "status":"blocked-until-new-formal-media"
     },
     {
@@ -99,7 +100,7 @@
       "network":"facebook",
       "topic":"龜鹿膏100g開罐後保存",
       "pillar":"保存整理",
-      "media":"images/brand/approved-v405/product-guilu-gao-100g.webp",
+      "media":"images/customer-display-v20260812/guilu-gao.avif",
       "text":"龜鹿膏的保存其實不難。\n\n未開罐時放在常溫陰涼處；開罐之後記得冷藏。\n\n把保存方式先做好，日常使用就會簡單很多。\n\n仙加味龜鹿膏規格為 100g／罐。",
       "cta":"none",
       "status":"candidate"
@@ -121,7 +122,7 @@
       "media":"media-needed-new-comparison-image",
       "text":"30cc 與 180cc，不是誰比較好。\n\n一個是 30cc／罐的小玻璃裸罐，一個是 180cc／包的鋁袋。\n\n先看自己平常的使用方式與份量偏好，再選會比較簡單。\n\n有個別問題，再到 LINE OA @762jybnm 找我們。\n\n#仙加味 #龜鹿飲 #怎麼選 #日常補養",
       "cta":"line-oa-if-needed",
-      "mediaRule":"必須重新製作新比較圖；兩款產品只能用正式原圖等比例合成，不可AI重畫產品。",
+      "mediaRule":"必須重新製作新比較圖；30cc只能取用/images/customer-display-v20260812/guilu-drink-30cc.avif，180cc只能取用/images/customer-display-v20260812/guilu-drink-180cc-product.jpg等正式媒體權威來源，等比例合成，不可AI重畫產品。",
       "status":"blocked-until-new-formal-media"
     }
   ],
