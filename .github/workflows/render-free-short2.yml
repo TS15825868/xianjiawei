@@ -1,0 +1,73 @@
+name: render-free-short2
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/video_free/**'
+      - 'assets/reference/mascot-sprite-v20260816.txt'
+      - '.github/workflows/render-free-short2.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install free runtime
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-noto-cjk
+          python -m pip install --upgrade pip
+          python -m pip install 'Pillow>=10,<12'
+
+      - name: Validate approved mascot authority exists
+        run: |
+          test -s assets/reference/mascot-sprite-v20260816.txt
+          test -s brand-character-spec.json
+          python - <<'PY'
+          import json
+          d=json.load(open('brand-character-spec.json',encoding='utf-8'))
+          assert d['status']=='locked'
+          assert d['mascot']['top']=='米白中式上衣'
+          assert d['mascot']['apron']=='深橄欖綠圍裙'
+          assert d['mascot']['chestMark']=='紅色直式仙加味印章'
+          print('PASS mascot authority locked')
+          PY
+
+      - name: Render technical preview
+        run: |
+          mkdir -p artifacts
+          python tools/video_free/render_short2.py --out artifacts/short2-opening-shop-preview.mp4
+
+      - name: Validate video
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          p='artifacts/short2-opening-shop-preview.mp4'
+          raw=subprocess.check_output(['ffprobe','-v','error','-show_entries','stream=width,height,r_frame_rate','-show_entries','format=duration','-of','json',p],text=True)
+          d=json.loads(raw)
+          v=next(s for s in d['streams'] if 'width' in s)
+          dur=float(d['format']['duration'])
+          assert v['width']==720 and v['height']==1280, v
+          assert 29.5 <= dur <= 30.5, dur
+          print('PASS 720x1280, duration',dur)
+          PY
+
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-short2-free-preview
+          path: artifacts/short2-opening-shop-preview.mp4
+          retention-days: 14
+          if-no-files-found: error
