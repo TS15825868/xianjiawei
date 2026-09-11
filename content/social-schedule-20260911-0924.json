@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-11-v1",
+  "version": "2026-09-11-v2-through-0930",
   "brand": "仙加味",
   "status": "active-formal-schedule",
   "timezone": "Asia/Taipei",
@@ -8,6 +8,7 @@
     "facebook": "約每週2篇",
     "instagram": "約每週2篇",
     "threads": "約每週3至4篇",
+    "primaryPublishingMode": "文案＋對應正式貼文圖",
     "heroProducts": ["龜鹿膏", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋"],
     "deferredPublicProduct": "柒玄茶・龜鹿調飲粉",
     "funnel": "一般生活內容先自然交流；試喝、怎麼選、價格、下單、配送、售後與個別問題最後導LINE OA @762jybnm",
@@ -23,12 +24,6 @@
     {"id":"visual-06","headline":"龜鹿膏100g","subline":"直接取用，也可用溫熱水化開","use":"龜鹿膏使用"},
     {"id":"visual-07","headline":"忙了一天","subline":"把節奏慢慢收回來","use":"生活日常"}
   ],
-  "instagramConciseCopies": [
-    {"topic":"30cc小玻璃罐","copy":"仙加味龜鹿飲30cc：30cc／罐、小玻璃罐、裸罐、無貼紙。可直接飲用，也可以隔水加熱或溫熱後飲用。龜鹿飲接單後製作，約5～7個工作天出貨。試喝、價格、怎麼選與下單，再到官方LINE OA @762jybnm。"},
-    {"topic":"180cc鋁袋","copy":"仙加味龜鹿飲180cc：180cc／包、狹長直立鋁袋。可直接飲用，也可將未開封鋁袋隔水溫熱。龜鹿飲接單後製作，約5～7個工作天出貨。想比較30cc／180cc，再到官方LINE OA @762jybnm。"},
-    {"topic":"怎麼選","copy":"第一次接觸不用先背產品名稱。想小匙取用、慢慢安排，可先了解龜鹿膏；想直接飲用、方便一點，可先了解龜鹿飲。價格、試喝、下單與個別問題，再到官方LINE OA @762jybnm。"},
-    {"topic":"日常節奏","copy":"忙了一天，不一定要再安排很多事。把桌面整理一下、喝口溫熱的，把節奏慢慢收回來，就已經很夠。想了解龜鹿膏、龜鹿飲或不知道怎麼選，再到官方LINE OA @762jybnm。"}
-  ],
   "metricoolFormalSchedule": [
     {"date":"2026-09-12T10:00:00+08:00","network":"instagram","topic":"龜鹿飲30cc小玻璃罐","status":"scheduled-auto"},
     {"date":"2026-09-13T10:30:00+08:00","network":"facebook","topic":"30cc與180cc怎麼選","status":"scheduled-auto"},
@@ -42,8 +37,12 @@
     {"date":"2026-09-22T12:30:00+08:00","network":"facebook","topic":"龜鹿膏100g日常使用","status":"scheduled-auto","metricoolId":374249567},
     {"date":"2026-09-22T21:00:00+08:00","network":"threads","topic":"有明確需求再進LINE OA","status":"scheduled-auto","metricoolId":374250391},
     {"date":"2026-09-24T12:30:00+08:00","network":"threads","topic":"不每篇都賣東西的品牌日常","status":"scheduled-auto","metricoolId":374250492},
-    {"date":"2026-09-24T19:45:00+08:00","network":"instagram","topic":"忙了一天，把節奏慢慢收回來","status":"scheduled-auto","metricoolId":374250281}
+    {"date":"2026-09-24T19:45:00+08:00","network":"instagram","topic":"忙了一天，把節奏慢慢收回來","status":"scheduled-auto","metricoolId":374250281},
+    {"date":"2026-09-26T11:00:00+08:00","network":"threads","topic":"週末整理與生活節奏","status":"scheduled-auto","metricoolId":374349553},
+    {"date":"2026-09-28T12:30:00+08:00","network":"threads","topic":"中午溫熱日常","status":"scheduled-auto","metricoolId":374349652},
+    {"date":"2026-09-30T20:30:00+08:00","network":"threads","topic":"第一次接觸先從使用習慣開始","status":"scheduled-auto","metricoolId":374349760}
   ],
   "draftPolicy": "Metricool既有draft=true／autoPublish=false舊候選保留為草稿庫，不會自動發布；避免為清草稿誤刪可用內容。",
-  "animationPolicy": "只有真正連續角色動畫才可取代圖文名額；拼貼、紙偶、圖片平移縮放一律不發布。小老闆固定男生。"
+  "imagePolicy": "FB／IG正式內容優先文案＋對應正式圖。產品若出現只能使用正式原圖或不變形合成；生活圖需符合正式男生小老闆、正式夥伴、情境與品牌規格。沒有合格新圖就不硬排。",
+  "animationPolicy": "目前動畫不列為必要發布項目。使用者已否決拼貼、紙偶、關節式怪預覽；這類素材一律不得發布或當正式候選。只有角色、夥伴、場景、情境、聲音、產品與動作全部正式自然的真正動畫，才可取代一個圖文名額。"
 }
