@@ -57,6 +57,7 @@ def main():
         if not url.startswith(BASE):fail(errors,f'sitemap非正式網域：{url}');continue
         filename=Path(urlparse(url).path).name or 'index.html';path=ROOT/filename
         if not path.exists():fail(errors,f'sitemap指向不存在頁面：{filename}');continue
+        if path.suffix.lower()!='.html':continue
         source=path.read_text(encoding='utf-8');p=HeadParser();p.feed(source)
         if p.lang!='zh-Hant-TW':fail(errors,f'{filename} lang不是zh-Hant-TW')
         if not p.title.strip():fail(errors,f'{filename}缺title')
@@ -89,6 +90,29 @@ def main():
             if marker in text:fail(errors,f'{rel}重新把暫緩產品放到公開AI/GEO/貼文層：{marker}')
     for marker in ['龜鹿膏','龜鹿飲30cc玻璃罐',CURRENT_30,'龜鹿飲180cc鋁袋','每日一包','龜鹿湯塊','75g （2兩）／盒｜8塊裝','龜鹿膠','600g （1斤）／盒｜32塊裝','鹿茸粉']:
         if marker not in read('llms.txt'):fail(errors,f'llms.txt缺少：{marker}')
+
+    answers=load('ai-answers.json')
+    if answers.get('updatedAt')!='2026-09-11':fail(errors,'ai-answers.json未標示最新AEO檢視日期')
+    by_id={a.get('id'):a for a in answers.get('answers') or []}
+    for aid in ['difference-gao-drink','first-time-choice','drink-30-vs-180','drink-shipping','gao-use','trial-30cc','drink-direct-use','line-contact']:
+        item=by_id.get(aid)
+        if not item:fail(errors,f'ai-answers缺AEO核心題：{aid}');continue
+        if not item.get('shortAnswer'):fail(errors,f'ai-answers核心題缺shortAnswer：{aid}')
+        if not str(item.get('sourceUrl') or '').startswith(BASE):fail(errors,f'ai-answers核心題缺正式sourceUrl：{aid}')
+    if (answers.get('officialContact') or {}).get('lineId')!='@762jybnm':fail(errors,'ai-answers官方LINE ID錯誤')
+
+    geo=load('geo-data.json')
+    graph=geo.get('@graph') or []
+    org=next((x for x in graph if x.get('@type')=='Organization'),{})
+    website=next((x for x in graph if x.get('@type')=='WebSite'),{})
+    if website.get('dateModified')!='2026-09-11':fail(errors,'geo-data WebSite dateModified未更新')
+    same_as=set(org.get('sameAs') or [])
+    for url in ['https://www.instagram.com/xianjiawei.tw/','https://www.threads.net/@xianjiawei.tw','https://lin.ee/sHZW7NkR']:
+        if url not in same_as:fail(errors,f'geo-data缺官方實體連結：{url}')
+
+    robots=read('robots.txt')
+    if 'User-agent: OAI-SearchBot' not in robots or 'Allow: /' not in robots:fail(errors,'robots.txt未明確允許OAI-SearchBot')
+
     gao=read('product-guilu-gao.html')
     for retired in ['早上＋下午','早上+下午','每日早上及下午各一小匙','早晚各一小匙']:
         if retired in gao:fail(errors,f'龜鹿膏詳頁仍含舊固定時段：{retired}')
@@ -96,7 +120,7 @@ def main():
 
     if errors:
         print('\n'.join('ERROR '+e for e in errors));return 1
-    print(f'PASS AIO/SEO/GEO: {len(urls)} sitemap URLs, six website products, current 30cc use, no fixed-time Guilu Gao chip, deferred Qixuan absent from website/public AI surfaces.')
+    print(f'PASS AIO/AEO/SEO/GEO: {len(urls)} sitemap URLs, six website products, direct-answer authority, current social entity graph, OAI Search crawl allowed, current 30cc use, deferred product absent from public AI surfaces.')
     return 0
 
 if __name__=='__main__':raise SystemExit(main())
