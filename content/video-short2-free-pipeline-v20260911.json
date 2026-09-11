@@ -1,0 +1,54 @@
+{
+  "version": "2026-09-11-v1-free-programmatic-video",
+  "status": "active-development",
+  "brand": "仙加味",
+  "project": "第2支短影片《早安，今天一起準備開店》",
+  "goal": "建立不依賴付費點數的長期短影音製作流程；用仙加味既有正式角色母本、程式動畫、FFmpeg與GitHub Actions產出9:16短影片。",
+  "costPolicy": {
+    "requiredPaidApi": false,
+    "requiredPaidVideoCredits": false,
+    "requiredWorkMode": false,
+    "renderer": "Python Pillow + FFmpeg",
+    "execution": "public GitHub Actions standard runner",
+    "voice": "核准音檔可直接加入；沒有核准聲音時只輸出technical preview，不得自動發布"
+  },
+  "formalVideo": {
+    "aspectRatio": "9:16",
+    "resolution": "720x1280",
+    "fps": 24,
+    "durationSeconds": 30,
+    "sceneCount": 8,
+    "productVisibleByDefault": false,
+    "reasonNoProduct": "避免任何生成式產品包裝、瓶型、標籤或比例錯誤；若未來需要產品，只能另行合成正式產品原圖。",
+    "mascotAuthority": "brand-character-spec.json + assets/reference/mascot-sprite-v20260816.txt",
+    "partners": ["小鹿", "小烏龜"],
+    "partnersMustRemainSeparate": true,
+    "publicBrandOnly": "仙加味",
+    "forbiddenOldPublicName": "台興山產"
+  },
+  "animationRules": [
+    "不得使用單純整張圖片平移、縮放或Ken Burns假裝動畫",
+    "角色需有姿勢切換、頭身相對擺動、步伐／呼吸等角色本體動作",
+    "場景至少8個鏡位／情境變化",
+    "小鹿與小烏龜獨立動作，不融合",
+    "字幕使用繁體中文並保留手機安全區",
+    "沒有核准聲音時產出只標示technical preview，不進正式發布"
+  ],
+  "publicationGate": {
+    "technicalPreviewAutoPublish": false,
+    "formalCandidateRequirements": [
+      "角色本人辨識一致",
+      "非紙偶／拼貼感",
+      "聲音符合已確認5～6歲小男孩方向或使用已核准音檔",
+      "字幕無錯字亂碼",
+      "無療效宣稱",
+      "無錯誤產品圖",
+      "完整30秒9:16輸出"
+    ],
+    "formalCandidateCanReplaceStaticSlotAfterPass": true
+  },
+  "files": {
+    "renderer": "tools/video_free/render_short2.py",
+    "workflow": ".github/workflows/render-free-short2.yml"
+  }
+}
