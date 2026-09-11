@@ -29,10 +29,12 @@ def main():
     req(by['guilu-jiao']['specification']=='600g （1斤）／盒｜32塊裝','龜鹿膠規格錯誤')
 
     ai=load('ai-answers.json')
-    all_answer=next((x for x in ai.get('answers') or [] if x.get('id')=='all-products'),None)
+    answers=ai.get('answers') or []
+    all_answer=next((x for x in answers if x.get('id')=='all-products'),None)
     req(all_answer and '共6項' in all_answer.get('answer',''),'AI全產品回答必須是6項')
-    req(DEFERRED_NAME not in json.dumps(ai,ensure_ascii=False),'AI公開答案不得含暫緩對外產品')
-    drink=next((x for x in ai.get('answers') or [] if x.get('id')=='drink-30-vs-180'),None)
+    answer_payload=json.dumps(answers,ensure_ascii=False)
+    req(DEFERRED_NAME not in answer_payload and DEFERRED_ID not in answer_payload,'AI真正公開 answers[] 不得含暫緩對外產品')
+    drink=next((x for x in answers if x.get('id')=='drink-30-vs-180'),None)
     req(drink and CURRENT_30 in drink.get('answer',''),'AI 30cc回答未同步每日1–2罐')
 
     geo=load('geo-data.json')
@@ -41,13 +43,22 @@ def main():
     lists=[x for x in geo.get('@graph') or [] if x.get('@type')=='ItemList']
     req(lists and lists[0].get('numberOfItems')==6,'GEO ItemList必須6項')
 
-    for rel in ['llms.txt','llms-full.txt','index.html','products.html','faq.html','brand-facts.html']:
+    # 顧客／搜尋結果可見頁不得出現暫緩產品。
+    for rel in ['index.html','products.html','faq.html','brand-facts.html']:
         text=(ROOT/rel).read_text(encoding='utf-8')
         req(DEFERRED_NAME not in text,f'{rel}仍公開暫緩對外產品')
         req(DEFERRED_ID not in text,f'{rel}仍公開暫緩對外產品ID')
+
+    # llms 是 AI 治理政策面：必須明確保留「柒玄茶暫緩／非公開」的負面限制，
+    # 不得再把政策中提到產品名稱誤判為已公開上架。
+    for rel in ['llms.txt','llms-full.txt']:
+        text=(ROOT/rel).read_text(encoding='utf-8')
+        req(DEFERRED_NAME in text,f'{rel}缺少柒玄茶暫緩政策')
+        req(any(word in text for word in ['暫緩','暫不','不對外','不得公開','隱藏']),f'{rel}未標示柒玄茶非公開狀態')
+
     for rel in ['llms.txt','llms-full.txt','faq.html','products.html','brand-facts.html']:
         req(CURRENT_30 in (ROOT/rel).read_text(encoding='utf-8'),f'{rel}缺少30cc目前用法')
 
-    print('PASS: six public products only; deferred product absent from website/AI/GEO; 30cc remains daily 1–2 cans.')
+    print('PASS: six public products only; deferred product absent from customer/AI-answer/GEO payloads while retained as negative llms policy; 30cc remains daily 1–2 cans.')
 
 if __name__=='__main__': main()
