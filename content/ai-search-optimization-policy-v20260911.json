@@ -1,0 +1,57 @@
+{
+  "version": "2026-09-11-v1",
+  "authority": "user-confirmed-current",
+  "brand": "仙加味",
+  "scope": ["SEO", "AIO", "AEO", "GEO", "ChatGPT Search discoverability"],
+  "principles": {
+    "google": "Google AI Overviews／AI Mode 以既有 Search 索引、品質與 SEO 基礎為核心；不製造大量重複問答頁或關鍵字堆疊。",
+    "answerEngine": "高意圖問題先提供一句可直接引用的短答案，再補細節、正式來源與必要的LINE OA收口。",
+    "entity": "Organization、WebSite、Product、品牌故事、官方社群與聯絡入口使用一致名稱、網址與產品事實。",
+    "firstParty": "優先增加萬華起家、四代工藝、實際日常使用方式、料理、品牌經驗、正式圖片與正式影片等第一方內容。",
+    "freshness": "價格、促銷、庫存、活動、配送、售後不固化為永久搜尋知識；統一由LINE OA確認最新資訊。",
+    "compliance": "不得為搜尋或AI曝光加入疾病、療效、改善、預防或效果保證宣稱。"
+  },
+  "publicAuthority": {
+    "website": "https://ts15825868.github.io/xianjiawei/",
+    "productMaster": "https://ts15825868.github.io/xianjiawei/public-product-master.json",
+    "answers": "https://ts15825868.github.io/xianjiawei/ai-answers.json",
+    "entityGraph": "https://ts15825868.github.io/xianjiawei/geo-data.json",
+    "aiGuide": "https://ts15825868.github.io/xianjiawei/llms.txt",
+    "aiGuideFull": "https://ts15825868.github.io/xianjiawei/llms-full.txt",
+    "sitemap": "https://ts15825868.github.io/xianjiawei/sitemap.xml",
+    "robots": "https://ts15825868.github.io/xianjiawei/robots.txt"
+  },
+  "publicProducts": 6,
+  "deferredPublicProduct": "柒玄茶・龜鹿調飲粉",
+  "officialContact": {
+    "lineId": "@762jybnm",
+    "lineUrl": "https://lin.ee/sHZW7NkR"
+  },
+  "officialSocial": {
+    "instagram": "https://www.instagram.com/xianjiawei.tw/",
+    "threads": "https://www.threads.net/@xianjiawei.tw"
+  },
+  "crawlerPolicy": {
+    "oaiSearchBot": "allow-public-content",
+    "internalPaths": "deny"
+  },
+  "searchConsole": {
+    "connector": "GSC Wizard",
+    "status": "pending-user-oauth-connection",
+    "afterConnected": [
+      "列出Search Console資源並確認正式property",
+      "確認Google搜尋生成式AI控制項為納入網站",
+      "URL Inspection首頁、產品總覽、六項產品詳頁、FAQ、品牌、試喝",
+      "確認canonical與索引狀態",
+      "提交／確認正式sitemap",
+      "分析Generative AI performance、搜尋查詢、CTR、頁面與內容衰退",
+      "追蹤舊/TaiShing/搜尋索引並規劃安全退場"
+    ]
+  },
+  "legacyIndex": {
+    "path": "https://ts15825868.github.io/TaiShing/",
+    "status": "historical-search-index-not-current-authority",
+    "rule": "不得讓舊品牌、舊規格、舊療效文案回流目前/xianjiawei/正式內容。"
+  },
+  "validation": "tools/validate_public_aio_seo.py"
+}
