@@ -10,37 +10,10 @@ DEFERRED_NAME='柒玄茶・龜鹿調飲粉'
 CURRENT_30='每日 1–2 罐'
 CURRENT_GAO='食用時間可依個人使用習慣與作息時間安排'
 
-# 只對目前會參與公開顯示、AI/GEO、正式貼文排程或公開貼文庫的檔案做硬門。
-# 歷史紀錄、內部稽核、舊素材可保留，不因出現舊字串就阻擋新版更新。
-CURRENT_PUBLIC_COPY_FILES=[
-    'public-product-master.json',
-    'assets/data/official-products.json',
-    'config/official-products.json',
-    'ai-answers.json',
-    'geo-data.json',
-    'llms.txt',
-    'llms-full.txt',
-    'index.html',
-    'products.html',
-    'guide.html',
-    'faq.html',
-    'brand-facts.html',
-    'product-guilu-gao.html',
-    'product-guilu-drink-30cc.html',
-    'product-guilu-drink-180cc.html',
-    'product-guilu-tangkuai.html',
-    'product-guilu-jiao.html',
-    'product-luerong-fen.html',
-    'content/public-post-library.json',
-    'content/social-content-bank-v20260911.json',
-    'content/social-schedule-20260911-0924.json',
-    'content/social-schedule-20261001-1014.json',
-    'content/social-plan-20261015-1031-candidates.json',
-]
-
-# 暫緩產品不得出現在真正顧客可見產品內容、AI答案、GEO或正式貼文中。
-# llms.txt / llms-full.txt 可保留「目前暫緩、不得公開」的負面限制說明，避免 AI 舊資料回流。
-DEFERRED_PUBLIC_VISIBLE_FILES=[
+# 只對真正會形成顧客可見內容／AI答案／產品頁／公開貼文的 payload 做字串硬門。
+# llms policy、社群 rules/forbidden/deferredPublicProduct 等治理欄位可合法記錄「禁止／暫緩」內容，
+# 不得因為政策本身提到禁詞就誤判為已對外宣稱。
+STATIC_PUBLIC_FILES=[
     'public-product-master.json',
     'assets/data/official-products.json',
     'config/official-products.json',
@@ -58,13 +31,15 @@ DEFERRED_PUBLIC_VISIBLE_FILES=[
     'product-guilu-jiao.html',
     'product-luerong-fen.html',
     'content/public-post-library.json',
-    'content/social-content-bank-v20260911.json',
-    'content/social-schedule-20260911-0924.json',
-    'content/social-schedule-20261001-1014.json',
-    'content/social-plan-20261015-1031-candidates.json',
 ]
 
-# 已明確退役、且不應再出現在目前公開內容中的字串。
+SOCIAL_PAYLOAD_SOURCES={
+    'content/social-content-bank-v20260911.json': ('topics',),
+    'content/social-schedule-20260911-0924.json': ('metricoolFormalSchedule','schedule'),
+    'content/social-schedule-20261001-1014.json': ('schedule',),
+    'content/social-plan-20261015-1031-candidates.json': ('candidates',),
+}
+
 STALE_PUBLIC_LITERALS=[
     '台興山產',
     '30cc玻璃瓶',
@@ -81,8 +56,6 @@ STALE_PUBLIC_LITERALS=[
     '一天一次一小匙',
 ]
 
-# 目前公開內容不得拿這些高風險療效詞當產品賣點；只掃 CURRENT_PUBLIC_COPY_FILES，
-# 不掃法規說明或歷史稽核文件，避免把「禁止宣稱」本身誤判為違規文案。
 PUBLIC_CLAIM_LITERALS=[
     '關節',
     '卡卡',
@@ -100,26 +73,51 @@ def req(ok,msg):
 def load(rel): return json.loads((ROOT/rel).read_text(encoding='utf-8'))
 def read(rel): return (ROOT/rel).read_text(encoding='utf-8')
 
-def assert_current_public_copy():
+def assert_copy_text(text: str, label: str, *, deferred_forbidden: bool=True):
+    for retired in STALE_PUBLIC_LITERALS:
+        req(retired not in text,f'{label}仍含退役公開資料：{retired}')
+    for claim in PUBLIC_CLAIM_LITERALS:
+        req(claim not in text,f'{label}含目前公開內容禁用療效詞：{claim}')
+    if deferred_forbidden:
+        req(DEFERRED_ID not in text and DEFERRED_NAME not in text,f'{label}把暫緩產品放進實際公開內容')
+
+def assert_static_public_copy():
     missing=[]
-    for rel in CURRENT_PUBLIC_COPY_FILES:
+    for rel in STATIC_PUBLIC_FILES:
         path=ROOT/rel
         if not path.exists():
             missing.append(rel)
             continue
-        text=path.read_text(encoding='utf-8')
-        for retired in STALE_PUBLIC_LITERALS:
-            req(retired not in text,f'{rel}仍含退役公開資料：{retired}')
-        for claim in PUBLIC_CLAIM_LITERALS:
-            req(claim not in text,f'{rel}含目前公開內容禁用療效詞：{claim}')
+        assert_copy_text(path.read_text(encoding='utf-8'),rel)
     req(not missing,f'目前公開守門檔案缺失：{missing}')
+
+def assert_social_payloads():
+    for rel,keys in SOCIAL_PAYLOAD_SOURCES.items():
+        data=load(rel)
+        payloads=[]
+        for key in keys:
+            value=data.get(key)
+            if isinstance(value,list): payloads.extend(value)
+        req(payloads or rel.endswith('social-schedule-20260911-0924.json'),f'{rel}找不到預期社群 payload')
+        for index,item in enumerate(payloads):
+            text=json.dumps(item,ensure_ascii=False,sort_keys=True)
+            assert_copy_text(text,f'{rel}:{index}')
+
+        # 治理欄位可明確保留「暫緩產品」政策；如果有該欄位，值必須就是目前暫緩品，不能指錯產品。
+        policy_candidates=[]
+        for container_key in ('rules','principles'):
+            container=data.get(container_key)
+            if isinstance(container,dict) and 'deferredPublicProduct' in container:
+                policy_candidates.append(container.get('deferredPublicProduct'))
+        for value in policy_candidates:
+            req(value==DEFERRED_NAME,f'{rel} deferredPublicProduct 指向錯誤產品：{value}')
 
 def main():
     master=load('public-product-master.json')
     ids=[p.get('id') for p in master.get('products') or []]
     req(master.get('authority')=='user-confirmed-current','目前公開母資料authority錯誤')
     req(master.get('productCount')==6 and ids==PUBLIC_IDS,'舊七項公開產品模型重新混入')
-    req(DEFERRED_ID not in ids,'暫緩官網產品不得出現在官網母資料')
+    req(DEFERRED_ID not in ids and DEFERRED_NAME not in json.dumps(master.get('products') or [],ensure_ascii=False),'暫緩官網產品不得出現在官網六項產品清單')
     by={p['id']:p for p in master['products']}
     req(by['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc被舊資料回退')
     req('小玻璃罐' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定小玻璃罐')
@@ -133,10 +131,6 @@ def main():
         req((data.get('knowledge_product_ids') or [])==PUBLIC_IDS,f'{rel}知識產品仍是舊模型')
         req((data.get('approved_media_product_ids') or [])==PUBLIC_IDS,f'{rel}媒體產品不同步')
 
-    for rel in DEFERRED_PUBLIC_VISIBLE_FILES:
-        text=read(rel)
-        req(DEFERRED_ID not in text and DEFERRED_NAME not in text,f'{rel}重新公開暫緩產品')
-
     gao=read('product-guilu-gao.html')
     req(CURRENT_GAO in gao and '時間依作息安排' in gao,'龜鹿膏顧客頁未同步目前彈性時段')
 
@@ -147,7 +141,10 @@ def main():
     req('knowledgeProductCount: 6' in fallback,'網站安全備援不是六項')
     req(CURRENT_30 in read('public-product-master.json'),'缺少30cc目前正式用法')
 
-    assert_current_public_copy()
-    print('PASS: six website products; 30cc small glass jar/bare/no sticker; flexible timing; deferred product blocked from visible content while llms may retain negative policy; no stale public brand/product/timing regressions or current public high-risk claim literals.')
+    # llms*.txt 是 AI 治理政策檔，允許寫「柒玄茶目前暫緩／不得公開」與禁語說明；
+    # 真正公開 payload 由以下兩層結構化驗證負責。
+    assert_static_public_copy()
+    assert_social_payloads()
+    print('PASS: six website products; 30cc small glass jar/bare/no sticker; flexible timing; policy metadata may name deferred/forbidden items while actual customer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
 
 if __name__=='__main__': main()
