@@ -11,6 +11,7 @@ on:
       - 'assets/data/official-products.json'
       - 'config/official-products.json'
       - 'data/formal-media-authority-v20260810.json'
+      - 'images/brand/approved-v405-manifest.json'
       - 'ai-answers.json'
       - 'geo-data.json'
       - 'llms.txt'
