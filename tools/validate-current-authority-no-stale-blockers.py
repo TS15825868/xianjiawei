@@ -15,8 +15,8 @@ NEXT_CYCLE_PLAN='content/social-plan-20261015-1031-candidates.json'
 RETIRED_PRODUCT_MEDIA_PREFIX='images/brand/approved-v405/product-'
 FORMAL_PRODUCT_MEDIA={
     'guilu-gao':'images/customer-display-v20260812/guilu-gao.avif',
-    'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc.avif',
-    'guilu-drink-180':'images/customer-display-v20260812/guilu-drink-180cc-product.jpg',
+    'guilu-drink-30cc':'images/customer-display-v20260812/guilu-drink-30cc.avif',
+    'guilu-drink-180cc':'images/customer-display-v20260812/guilu-drink-180cc-product.jpg',
     'guilu-tangkuai':'images/customer-display-v20260812/guilu-tangkuai.avif',
     'guilu-jiao':'images/customer-display-v20260812/guilu-jiao.avif',
     'luerong-fen':'images/customer-display-v20260812/luerong-fen.avif',
@@ -178,7 +178,7 @@ def assert_social_media_authority():
         req(media==path,f'{day} 產品教育候選未使用目前正式產品圖：{media}')
     comparison=dated.get('2026-10-31') or {}
     comparison_rule=str(comparison.get('mediaRule') or '')
-    req(FORMAL_PRODUCT_MEDIA['guilu-drink-30'] in comparison_rule and FORMAL_PRODUCT_MEDIA['guilu-drink-180'] in comparison_rule,'10/31比較圖規則未鎖定30cc與180cc正式原圖')
+    req(FORMAL_PRODUCT_MEDIA['guilu-drink-30cc'] in comparison_rule and FORMAL_PRODUCT_MEDIA['guilu-drink-180cc'] in comparison_rule,'10/31比較圖規則未鎖定30cc與180cc正式原圖')
 
 def main():
     master=load('public-product-master.json')
