@@ -9,6 +9,23 @@ DEFERRED_ID='qixuan-guilu-drink-powder'
 DEFERRED_NAME='柒玄茶・龜鹿調飲粉'
 CURRENT_30='每日 1–2 罐'
 CURRENT_GAO='食用時間可依個人使用習慣與作息時間安排'
+FORMAL_MEDIA_AUTHORITY='data/formal-media-authority-v20260810.json'
+NEXT_CYCLE_MEDIA='content/social-next-cycle-media-v20260911.json'
+NEXT_CYCLE_PLAN='content/social-plan-20261015-1031-candidates.json'
+RETIRED_PRODUCT_MEDIA_PREFIX='images/brand/approved-v405/product-'
+FORMAL_PRODUCT_MEDIA={
+    'guilu-gao':'images/customer-display-v20260812/guilu-gao.avif',
+    'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc.avif',
+    'guilu-drink-180':'images/customer-display-v20260812/guilu-drink-180cc-product.jpg',
+    'guilu-tangkuai':'images/customer-display-v20260812/guilu-tangkuai.avif',
+    'guilu-jiao':'images/customer-display-v20260812/guilu-jiao.avif',
+    'luerong-fen':'images/customer-display-v20260812/luerong-fen.avif',
+}
+EXPECTED_NEXT_CYCLE_PRODUCT_MEDIA={
+    '2026-10-16':'images/customer-display-v20260812/guilu-drink-30cc.avif',
+    '2026-10-21':'images/customer-display-v20260812/guilu-drink-180cc-product.jpg',
+    '2026-10-27':'images/customer-display-v20260812/guilu-gao.avif',
+}
 
 STATIC_PUBLIC_FILES=[
     'public-product-master.json',
@@ -34,7 +51,7 @@ SOCIAL_PAYLOAD_SOURCES={
     'content/social-content-bank-v20260911.json': ('topics',),
     'content/social-schedule-20260911-0924.json': ('metricoolFormalSchedule','schedule'),
     'content/social-schedule-20261001-1014.json': ('schedule',),
-    'content/social-plan-20261015-1031-candidates.json': ('candidates',),
+    NEXT_CYCLE_PLAN: ('candidates',),
 }
 
 # 這些 JSON 同時保存產品 payload 與「不得宣稱／防回流」政策；
@@ -107,7 +124,6 @@ def assert_static_public_copy():
             answers=data.get('answers') or []
             req(isinstance(answers,list) and answers,f'{rel} 缺少 answers[]')
             for index,answer in enumerate(answers):
-                # 只驗證真正會被搜尋引擎／AI引用的問答 payload，不把檔案級安全政策誤當宣稱。
                 payload={key:answer.get(key) for key in ('question','aliases','shortAnswer','answer') if key in answer}
                 assert_copy_text(json.dumps(payload,ensure_ascii=False,sort_keys=True),f'{rel}:answers[{index}]')
     req(not missing,f'目前公開守門檔案缺失：{missing}')
@@ -122,12 +138,47 @@ def assert_social_payloads():
         req(payloads or rel.endswith('social-schedule-20260911-0924.json'),f'{rel}找不到預期社群 payload')
         for index,item in enumerate(payloads):
             assert_copy_text(json.dumps(item,ensure_ascii=False,sort_keys=True),f'{rel}:{index}')
+            if isinstance(item,dict):
+                media=str(item.get('media') or '').lstrip('/')
+                req(not media.startswith(RETIRED_PRODUCT_MEDIA_PREFIX),f'{rel}:{index} 又使用退役approved-v405產品圖：{media}')
 
         # rules/principles 可記錄目前暫緩產品，這是防回流政策，不是待發布文案。
         for container_key in ('rules','principles'):
             container=data.get(container_key)
             if isinstance(container,dict) and 'deferredPublicProduct' in container:
                 req(container.get('deferredPublicProduct')==DEFERRED_NAME,f'{rel} deferredPublicProduct 指向錯誤產品')
+
+def assert_social_media_authority():
+    authority=load(FORMAL_MEDIA_AUTHORITY)
+    by={p.get('id'):str(p.get('image') or '').lstrip('/') for p in authority.get('products') or []}
+    for pid,path in FORMAL_PRODUCT_MEDIA.items():
+        req(by.get(pid)==path,f'{FORMAL_MEDIA_AUTHORITY} 的 {pid} 正式產品圖權威與目前規則不一致：{by.get(pid)}')
+        req((ROOT/path).is_file(),f'正式產品圖檔案不存在：{path}')
+
+    pool=load(NEXT_CYCLE_MEDIA)
+    req(pool.get('sourceAuthority')==FORMAL_MEDIA_AUTHORITY,f'{NEXT_CYCLE_MEDIA} 未以正式產品媒體檔為產品圖權威')
+    product_items=[x for x in pool.get('media') or [] if isinstance(x,dict) and x.get('productId')]
+    pool_by={x.get('productId'):str(x.get('source') or '').lstrip('/') for x in product_items}
+    req(set(pool_by)==set(FORMAL_PRODUCT_MEDIA),f'{NEXT_CYCLE_MEDIA} 產品媒體池品項不完整：{sorted(pool_by)}')
+    for pid,path in FORMAL_PRODUCT_MEDIA.items():
+        req(pool_by.get(pid)==path,f'{NEXT_CYCLE_MEDIA} 的 {pid} 又偏離正式產品圖：{pool_by.get(pid)}')
+    for item in pool.get('media') or []:
+        if isinstance(item,dict):
+            source=str(item.get('source') or '').lstrip('/')
+            if item.get('productId'):
+                req(not source.startswith(RETIRED_PRODUCT_MEDIA_PREFIX),f'{NEXT_CYCLE_MEDIA} 又把approved-v405產品頁圖當正式產品媒體：{source}')
+
+    plan=load(NEXT_CYCLE_PLAN)
+    req(plan.get('principles',{}).get('formalProductMediaAuthority')==FORMAL_MEDIA_AUTHORITY,f'{NEXT_CYCLE_PLAN} 未鎖定正式產品媒體權威')
+    dated={str(x.get('date') or '')[:10]:x for x in plan.get('candidates') or [] if isinstance(x,dict)}
+    for day,path in EXPECTED_NEXT_CYCLE_PRODUCT_MEDIA.items():
+        item=dated.get(day)
+        req(item is not None,f'{NEXT_CYCLE_PLAN} 缺少 {day} 候選')
+        media=str(item.get('media') or '').lstrip('/')
+        req(media==path,f'{day} 產品教育候選未使用目前正式產品圖：{media}')
+    comparison=dated.get('2026-10-31') or {}
+    comparison_rule=str(comparison.get('mediaRule') or '')
+    req(FORMAL_PRODUCT_MEDIA['guilu-drink-30'] in comparison_rule and FORMAL_PRODUCT_MEDIA['guilu-drink-180'] in comparison_rule,'10/31比較圖規則未鎖定30cc與180cc正式原圖')
 
 def main():
     master=load('public-product-master.json')
@@ -161,6 +212,7 @@ def main():
     # llms*.txt 與 policy 欄位可寫「不得公開／不得宣稱」；真正顧客／AI回答／社群 payload 必須通過下列檢查。
     assert_static_public_copy()
     assert_social_payloads()
-    print('PASS: six website products; 30cc small glass jar/bare/no sticker; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
+    assert_social_media_authority()
+    print('PASS: six website products; current formal product media authority; no approved-v405 product-image regression in social candidates; 30cc small glass jar/bare/no sticker; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
 
 if __name__=='__main__': main()
