@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'tools/video_free/**'
+      - 'assets/reference/mascot-sprite-v20260816.part*'
       - 'assets/reference/mascot-sprite-v20260816.txt'
       - '.github/workflows/render-free-short2.yml'
 
@@ -31,18 +32,29 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install 'Pillow>=10,<12'
 
-      - name: Validate approved mascot authority exists
+      - name: Reconstruct and validate approved mascot authority
         run: |
-          test -s assets/reference/mascot-sprite-v20260816.txt
           test -s brand-character-spec.json
+          for f in assets/reference/mascot-sprite-v20260816.part0 assets/reference/mascot-sprite-v20260816.part1 assets/reference/mascot-sprite-v20260816.part2 assets/reference/mascot-sprite-v20260816.part3 assets/reference/mascot-sprite-v20260816.part4; do test -s "$f"; done
+          cat assets/reference/mascot-sprite-v20260816.part0 \
+              assets/reference/mascot-sprite-v20260816.part1 \
+              assets/reference/mascot-sprite-v20260816.part2 \
+              assets/reference/mascot-sprite-v20260816.part3 \
+              assets/reference/mascot-sprite-v20260816.part4 \
+              > assets/reference/mascot-sprite-v20260816.txt
           python - <<'PY'
-          import json
+          import base64, io, json
+          from PIL import Image
           d=json.load(open('brand-character-spec.json',encoding='utf-8'))
           assert d['status']=='locked'
           assert d['mascot']['top']=='米白中式上衣'
           assert d['mascot']['apron']=='深橄欖綠圍裙'
           assert d['mascot']['chestMark']=='紅色直式仙加味印章'
-          print('PASS mascot authority locked')
+          b64=open('assets/reference/mascot-sprite-v20260816.txt',encoding='utf-8').read().strip()
+          raw=base64.b64decode(b64)
+          assert raw[:4] == b'RIFF' and raw[8:12] == b'WEBP', raw[:16]
+          im=Image.open(io.BytesIO(raw)); im.verify()
+          print('PASS mascot authority locked and master sprite reconstructed as WEBP')
           PY
 
       - name: Render technical preview
