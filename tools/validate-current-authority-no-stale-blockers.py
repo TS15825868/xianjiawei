@@ -10,6 +10,7 @@ DEFERRED_NAME='柒玄茶・龜鹿調飲粉'
 CURRENT_30='每日 1–2 罐'
 CURRENT_GAO='食用時間可依個人使用習慣與作息時間安排'
 FORMAL_MEDIA_AUTHORITY='data/formal-media-authority-v20260810.json'
+LEGACY_SCENE_MANIFEST='images/brand/approved-v405-manifest.json'
 NEXT_CYCLE_MEDIA='content/social-next-cycle-media-v20260911.json'
 NEXT_CYCLE_PLAN='content/social-plan-20261015-1031-candidates.json'
 RETIRED_PRODUCT_MEDIA_PREFIX='images/brand/approved-v405/product-'
@@ -155,6 +156,13 @@ def assert_social_media_authority():
         req(by.get(pid)==path,f'{FORMAL_MEDIA_AUTHORITY} 的 {pid} 正式產品圖權威與目前規則不一致：{by.get(pid)}')
         req((ROOT/path).is_file(),f'正式產品圖檔案不存在：{path}')
 
+    legacy=load(LEGACY_SCENE_MANIFEST)
+    req(legacy.get('productMediaAuthority')==FORMAL_MEDIA_AUTHORITY,f'{LEGACY_SCENE_MANIFEST} 又把舊場景檔升成產品媒體權威')
+    req(legacy.get('productPagesRole')=='retired-historical-only-do-not-use-for-current-product-media',f'{LEGACY_SCENE_MANIFEST} 的舊productPages角色未維持退役歷史用途')
+    legacy_product_pages=legacy.get('productPages') or {}
+    req(len(legacy_product_pages)==6,f'{LEGACY_SCENE_MANIFEST} 歷史產品頁對照數量異常')
+    req('不得被runtime、社群排程、產品卡、產品教育或自動化重新選為正式產品媒體' in str(legacy.get('productPagesNote') or ''),f'{LEGACY_SCENE_MANIFEST} 缺少舊產品圖不得回流說明')
+
     pool=load(NEXT_CYCLE_MEDIA)
     req(pool.get('sourceAuthority')==FORMAL_MEDIA_AUTHORITY,f'{NEXT_CYCLE_MEDIA} 未以正式產品媒體檔為產品圖權威')
     product_items=[x for x in pool.get('media') or [] if isinstance(x,dict) and x.get('productId')]
@@ -213,6 +221,6 @@ def main():
     assert_static_public_copy()
     assert_social_payloads()
     assert_social_media_authority()
-    print('PASS: six website products; current formal product media authority; no approved-v405 product-image regression in social candidates; 30cc small glass jar/bare/no sticker; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
+    print('PASS: six website products; current formal product media authority; approved-v405 product mappings remain historical-only; no retired product-image regression in social candidates; 30cc small glass jar/bare/no sticker; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
 
 if __name__=='__main__': main()
