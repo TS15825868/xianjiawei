@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-11-v1",
+  "version": "2026-09-11-v2",
   "brand": "仙加味",
   "status": "prepared-not-scheduled",
   "timezone": "Asia/Taipei",
@@ -11,25 +11,27 @@
     "deferredPublicProduct": "柒玄茶・龜鹿調飲粉",
     "mediaAuthority": "content/social-next-cycle-media-v20260911.json",
     "funnel": "一般生活與品牌內容不硬導LINE；試喝、怎麼選、價格、下單、配送、售後與個別問題才導LINE OA。",
+    "lifeCopyGate": "生活型文案必須有明確情境＋仙加味／產品連結＋對應生活情境圖；產品頁圖片不得硬配料理或其他生活情境文案。",
+    "usageTiming": "不得把龜鹿膏或龜鹿飲鎖成固定早上、下午或白天時段；依個人使用習慣與作息安排。",
     "animation": "不列入本週期必要排程。"
   },
   "candidates": [
     {
       "date":"2026-10-15T20:30:00+08:00",
       "network":"threads",
-      "topic":"泡一杯茶前先看今天的時間與場景",
-      "pillar":"日常茶飲",
-      "text":"有時候不是喝什麼最重要，而是你想把這一杯留在什麼時間。早上出門前、下午工作告一段落，感覺就很不一樣。\n\n你比較常在早上，還是下午泡一杯溫熱的？",
+      "topic":"泡一杯溫熱飲前先看今天的時間與場景",
+      "pillar":"生活聊天",
+      "text":"有時候不是一定要照別人的時間，而是看自己今天想把一杯溫熱的留在哪個空檔。早上出門前、下午工作告一段落，感覺就很不一樣。\n\n仙加味想分享的也是這種做得到的生活節奏。你比較常在哪個時間留一點空檔給自己？",
       "cta":"interaction",
       "status":"candidate"
     },
     {
       "date":"2026-10-16T12:30:00+08:00",
       "network":"facebook",
-      "topic":"龜鹿飲30cc小玻璃罐的使用情境",
+      "topic":"龜鹿飲30cc小玻璃罐的規格與使用方式",
       "pillar":"產品教育",
       "media":"images/brand/approved-v405/product-guilu-drink-30cc.webp",
-      "text":"30cc 的龜鹿飲，是仙加味比較精簡的一種使用方式。\n\n小玻璃罐、單次份量清楚，想溫熱飲用時也很方便。\n\n我們不把它講得很複雜，先看自己的生活習慣，再決定哪一種規格比較順手。\n\n想了解試喝、怎麼選或下單，再到 LINE OA @762jybnm 一對一詢問。",
+      "text":"30cc 的龜鹿飲，是仙加味比較精簡的一種使用方式。\n\n正式規格是 30cc／罐的小玻璃裸罐，可溫熱飲用。\n\n30cc 與 180cc 不是哪個比較好，先看自己的使用習慣，再決定哪一種規格比較順手。\n\n想了解試喝、怎麼選或下單，再到 LINE OA @762jybnm 一對一詢問。",
       "cta":"line-oa-if-needed",
       "status":"candidate"
     },
@@ -38,11 +40,11 @@
       "network":"instagram",
       "topic":"料理前先把材料準備好",
       "pillar":"料理",
-      "media":"images/brand/approved-v405/recipes.webp",
+      "media":"media-needed-new-cooking-scene-or-release-recipes",
       "text":"家常料理不用特別複雜。\n\n先把湯鍋、材料和今天要用的東西準備好，煮的時候就會輕鬆很多。\n\n仙加味想分享的，是把漢方飲食文化放回真正做得到的日常。\n\n#仙加味 #料理搭配 #漢方飲食文化 #日常生活",
       "cta":"none",
-      "instagramAiGenerated":true,
-      "status":"candidate"
+      "mediaRule":"recipes.webp目前由D1待審核稿XJW-SOCIAL-20260911-0900-RECIPE占用；除非原稿被退回／換圖，否則本篇需獨立新料理情境圖。",
+      "status":"blocked-until-unique-formal-media"
     },
     {
       "date":"2026-10-20T21:00:00+08:00",
@@ -56,10 +58,10 @@
     {
       "date":"2026-10-21T18:30:00+08:00",
       "network":"facebook",
-      "topic":"龜鹿飲180cc在家的日常方式",
+      "topic":"龜鹿飲180cc鋁袋規格怎麼看",
       "pillar":"產品教育",
       "media":"images/brand/approved-v405/product-guilu-drink-180cc.webp",
-      "text":"如果你比較習慣在家安排完整一份飲用，180cc 鋁袋會是另一種選擇。\n\n仙加味龜鹿飲180cc鋁袋維持正式包裝比例，建議溫熱飲用。\n\n30cc 與 180cc 不是誰比較好，而是哪一種比較符合你的生活方式。\n\n不確定怎麼選，再到 LINE OA @762jybnm 跟我們說你的使用習慣就好。",
+      "text":"仙加味龜鹿飲180cc鋁袋，正式規格是 180cc／包。\n\n如果你偏好一次完整份量，可以把它和 30cc 小玻璃罐一起比較。兩種都可以溫熱飲用，也都是接單後製作，約 5～7 個工作天出貨。\n\n30cc 與 180cc 不是誰比較好，而是哪一種比較符合你的使用習慣。\n\n不確定怎麼選，再到 LINE OA @762jybnm 跟我們說你的使用方式就好。",
       "cta":"line-oa-if-needed",
       "status":"candidate"
     },
@@ -68,7 +70,7 @@
       "network":"threads",
       "topic":"客人最常問的其實不只產品名稱",
       "pillar":"店裡日常",
-      "text":"店裡最常被問的，很多時候不是『你們有什麼產品？』，而是怎麼選、怎麼用、怎麼保存、多久能拿到。\n\n把這些事情講清楚，比把產品名字一次全部背完實際多了。",
+      "text":"仙加味店裡最常被問的，很多時候不是『你們有什麼產品？』，而是怎麼選、怎麼用、怎麼保存、多久能拿到。\n\n把這些事情講清楚，比把產品名字一次全部背完實際多了。",
       "cta":"none",
       "status":"candidate"
     },
@@ -77,18 +79,18 @@
       "network":"instagram",
       "topic":"龜鹿湯塊75g與家常料理",
       "pillar":"料理／產品教育",
-      "media":"images/brand/approved-v405/product-guilu-tangkuai-75g.webp",
+      "media":"media-needed-new-tangkuai-cooking-scene",
       "text":"仙加味龜鹿湯塊是 75g／盒、8塊裝。\n\n如果家裡本來就有煮雞湯、排骨湯或家常燉湯的習慣，可以從熟悉的料理方式開始認識。\n\n不需要把日常變得很複雜，做得到、吃得習慣，比較重要。\n\n#仙加味 #龜鹿湯塊 #料理搭配 #漢方飲食文化",
       "cta":"none",
-      "instagramAiGenerated":true,
-      "status":"candidate"
+      "mediaRule":"本篇是料理生活情境，不能直接以product-guilu-tangkuai-75g.webp產品頁圖取代；需獨立料理情境圖，產品如出現只能使用正式原圖等比例合成。",
+      "status":"blocked-until-new-formal-media"
     },
     {
       "date":"2026-10-26T11:00:00+08:00",
       "network":"threads",
-      "topic":"早上或下午，哪個時間比較容易留給自己",
+      "topic":"哪個時間比較容易留給自己",
       "pillar":"聊天互動",
-      "text":"如果要固定留一小段時間給自己，你比較做得到的是早上，還是下午？\n\n生活節奏不一定要照別人的版本，能一直做下去才是自己的方式。",
+      "text":"每個人的生活節奏都不一樣。仙加味不想把日常說成只有一種固定時間，重點是找到自己比較做得到、容易維持的方式。\n\n如果要固定留一小段時間給自己，你比較習慣安排在哪個時段？",
       "cta":"interaction",
       "status":"candidate"
     },
@@ -107,7 +109,7 @@
       "network":"threads",
       "topic":"不用每一篇都在賣東西",
       "pillar":"品牌生活",
-      "text":"做品牌久了反而會更在意：不是每一篇都要賣東西。\n\n把規格講清楚、把日常拍好、把大家真的會問的事情回答完整，這些內容才比較留得久。",
+      "text":"做仙加味久了反而會更在意：不是每一篇都要賣東西。\n\n把規格講清楚、把日常整理好、把大家真的會問的事情回答完整，這些內容才比較留得久。",
       "cta":"none",
       "status":"candidate"
     },
@@ -117,10 +119,9 @@
       "topic":"龜鹿飲30cc與180cc先看使用情境",
       "pillar":"產品教育",
       "media":"media-needed-new-comparison-image",
-      "text":"30cc 與 180cc，不是誰比較好。\n\n一個是小玻璃罐的小份量方式，一個是 180cc 鋁袋的完整份量。\n\n先看自己平常在哪裡使用、喜歡怎麼喝，再選會比較簡單。\n\n有個別問題，再到 LINE OA @762jybnm 找我們。\n\n#仙加味 #龜鹿飲 #怎麼選 #日常補養",
+      "text":"30cc 與 180cc，不是誰比較好。\n\n一個是 30cc／罐的小玻璃裸罐，一個是 180cc／包的鋁袋。\n\n先看自己平常的使用方式與份量偏好，再選會比較簡單。\n\n有個別問題，再到 LINE OA @762jybnm 找我們。\n\n#仙加味 #龜鹿飲 #怎麼選 #日常補養",
       "cta":"line-oa-if-needed",
       "mediaRule":"必須重新製作新比較圖；兩款產品只能用正式原圖等比例合成，不可AI重畫產品。",
-      "instagramAiGenerated":true,
       "status":"blocked-until-new-formal-media"
     }
   ],
