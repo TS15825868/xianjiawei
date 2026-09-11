@@ -1,6 +1,6 @@
 {
-  "version": "2026-09-11-v1-free-programmatic-video",
-  "status": "active-development",
+  "version": "2026-09-11-v2-free-programmatic-video",
+  "status": "technical-preview-passed-formal-refinement-required",
   "brand": "仙加味",
   "project": "第2支短影片《早安，今天一起準備開店》",
   "goal": "建立不依賴付費點數的長期短影音製作流程；用仙加味既有正式角色母本、程式動畫、FFmpeg與GitHub Actions產出9:16短影片。",
@@ -20,7 +20,7 @@
     "sceneCount": 8,
     "productVisibleByDefault": false,
     "reasonNoProduct": "避免任何生成式產品包裝、瓶型、標籤或比例錯誤；若未來需要產品，只能另行合成正式產品原圖。",
-    "mascotAuthority": "brand-character-spec.json + assets/reference/mascot-sprite-v20260816.txt",
+    "mascotAuthority": "brand-character-spec.json + assets/reference/mascot-sprite-v20260816.part0..part4",
     "partners": ["小鹿", "小烏龜"],
     "partnersMustRemainSeparate": true,
     "publicBrandOnly": "仙加味",
@@ -34,6 +34,29 @@
     "字幕使用繁體中文並保留手機安全區",
     "沒有核准聲音時產出只標示technical preview，不進正式發布"
   ],
+  "latestTechnicalPreview": {
+    "workflowRunId": 34556213375,
+    "workflowRunNumber": 2,
+    "result": "success",
+    "artifactName": "xianjiawei-short2-free-preview",
+    "artifactId": 10182666689,
+    "video": {
+      "codec": "h264",
+      "width": 720,
+      "height": 1280,
+      "fps": 24,
+      "durationSeconds": 30
+    },
+    "validation": [
+      "正式角色權威檢查通過",
+      "正式sprite由part0..part4成功重建為WEBP",
+      "30秒9:16 MP4成功渲染",
+      "ffprobe尺寸與時長檢查通過",
+      "預覽artifact上傳成功"
+    ],
+    "formalReadiness": false,
+    "reasonNotFormalYet": "目前只是字幕技術預覽；視覺仍需提高角色本體動作自然度、鏡位質感與場景融合，且尚未加入已核准的5～6歲小男孩聲音，因此禁止自動發布。"
+  },
   "publicationGate": {
     "technicalPreviewAutoPublish": false,
     "formalCandidateRequirements": [
