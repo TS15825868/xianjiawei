@@ -1,9 +1,33 @@
-name: 仙加味舊資料卡關驗收（手動）
+name: 仙加味舊資料回流守門
 
-# 只檢查目前正式authority與會參與顯示／同步／貼文生成／發布驗收的檔案。
+# 只檢查目前正式 authority 與會參與顯示／同步／貼文生成／發布驗收的檔案。
 # 歷史紀錄可保留，但不得重新成為產品、文案、媒體或守門員權威。
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'public-product-master.json'
+      - 'assets/data/official-products.json'
+      - 'config/official-products.json'
+      - 'ai-answers.json'
+      - 'geo-data.json'
+      - 'llms.txt'
+      - 'llms-full.txt'
+      - 'index.html'
+      - 'products.html'
+      - 'guide.html'
+      - 'faq.html'
+      - 'brand-facts.html'
+      - 'product-guilu-*.html'
+      - 'product-luerong-fen.html'
+      - 'content/public-post-library.json'
+      - 'content/social-content-bank-v20260911.json'
+      - 'content/social-schedule-20260911-0924.json'
+      - 'content/social-schedule-20261001-1014.json'
+      - 'content/social-plan-20261015-1031-candidates.json'
+      - 'tools/validate-current-authority-no-stale-blockers.py'
+      - '.github/workflows/stale-data-blocker-audit.yml'
 
 permissions:
   contents: read
