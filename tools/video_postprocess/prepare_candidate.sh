@@ -31,7 +31,6 @@ mkdir -p "$(dirname "$OUT")"
 DUR="$(ffprobe -v error -show_entries format=duration -of default=nw=1:nk=1 "$SOURCE")"
 WIDTH="$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=nw=1:nk=1 "$SOURCE")"
 HEIGHT="$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=nw=1:nk=1 "$SOURCE")"
-FPS="$(ffprobe -v error -select_streams v:0 -show_entries stream=r_frame_rate -of default=nw=1:nk=1 "$SOURCE")"
 
 python3 - "$DUR" "$WIDTH" "$HEIGHT" <<'PY'
 import sys
@@ -54,7 +53,7 @@ if [[ -n "$CAPTION" ]]; then
   # Repository paths must not contain a colon. Use brand-safe Traditional Chinese font.
   CAP_ESC="${CAPTION//\\/\\\\}"
   CAP_ESC="${CAP_ESC//:/\\:}"
-  VF+="",subtitles="${CAP_ESC}":force_style='FontName=Noto Sans CJK TC,FontSize=18,PrimaryColour=&H00FFFFFF,OutlineColour=&H00303030,BorderStyle=1,Outline=2,Shadow=0,Alignment=2,MarginV=150'"
+  VF+=",subtitles=${CAP_ESC}:force_style='FontName=Noto Sans CJK TC,FontSize=18,PrimaryColour=&H00FFFFFF,OutlineColour=&H00303030,BorderStyle=1,Outline=2,Shadow=0,Alignment=2,MarginV=150'"
 fi
 
 COMMON_VIDEO=(
