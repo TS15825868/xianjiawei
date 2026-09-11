@@ -31,6 +31,7 @@ permissions:
 # This workflow is POST-PRODUCTION ONLY.
 # It never generates character animation and never publishes to social media.
 # Any output is a review-required candidate, not a formal approved video.
+# Trigger is intentionally workflow_dispatch only.
 
 jobs:
   postprocess-candidate:
@@ -81,15 +82,15 @@ jobs:
             FOUND_SRT="$(find artifacts/whisper -type f -name '*.srt' | head -n 1)"
             test -n "$FOUND_SRT"
             python - "$FOUND_SRT" <<'PY'
-from pathlib import Path
-from opencc import OpenCC
-import sys
-p=Path(sys.argv[1])
-text=p.read_text(encoding='utf-8')
-text=OpenCC('s2twp').convert(text)
-p.write_text(text,encoding='utf-8')
-print(f'Converted Whisper draft to Traditional Chinese: {p}')
-PY
+          from pathlib import Path
+          from opencc import OpenCC
+          import sys
+          p=Path(sys.argv[1])
+          text=p.read_text(encoding='utf-8')
+          text=OpenCC('s2twp').convert(text)
+          p.write_text(text,encoding='utf-8')
+          print(f'Converted Whisper draft to Traditional Chinese: {p}')
+          PY
             echo "CAPTION_PATH=$FOUND_SRT" >> "$GITHUB_ENV"
           else
             echo 'CAPTION_PATH=' >> "$GITHUB_ENV"
