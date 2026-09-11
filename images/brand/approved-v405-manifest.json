@@ -1,10 +1,15 @@
 {
-  "version": "408.7",
+  "version": "408.8-role-split",
+  "status": "scene-authority-with-retired-product-page-mappings",
   "resolution": "at least 1400x1000",
+  "productMediaAuthority": "data/formal-media-authority-v20260810.json",
+  "productPagesRole": "retired-historical-only-do-not-use-for-current-product-media",
   "rules": [
-    "15張依頁面功能獨立配置",
-    "完整顯示、不裁切、不拉伸、不重畫產品包裝",
-    "產品卡與主要產品圖維持真實產品原圖"
+    "15張依頁面功能獨立配置的歷史完整場景素材可保留",
+    "完整顯示、不裁切、不拉伸",
+    "approved-v405內的product-*檔不再是正式產品主圖或社群產品教育權威",
+    "目前正式產品主圖一律以data/formal-media-authority-v20260810.json為準",
+    "產品本體不得AI重畫、改包裝、改瓶罐袋型或改比例"
   ],
   "corePages": {
     "home": "home-brand.webp",
@@ -25,6 +30,7 @@
     "product-guilu-jiao.html": "product-guilu-jiao-600g.webp",
     "product-luerong-fen.html": "product-luerong-fen-75g.webp"
   },
+  "productPagesNote": "以上productPages只保留歷史對照，不得被runtime、社群排程、產品卡、產品教育或自動化重新選為正式產品媒體。",
   "assets": {
     "home-brand": {
       "file": "home-brand.png",
