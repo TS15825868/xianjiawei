@@ -27,6 +27,9 @@ on:
       - 'content/social-schedule-20261001-1014.json'
       - 'content/social-plan-20261015-1031-candidates.json'
       - 'tools/validate-current-authority-no-stale-blockers.py'
+      - 'tools/validate-site-production-release-v20260809.py'
+      - 'tools/validate-ai-geo-current-v20260820.py'
+      - 'tools/validate-public-boundary-v20260808.py'
       - '.github/workflows/stale-data-blocker-audit.yml'
 
 permissions:
