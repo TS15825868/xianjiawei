@@ -1,0 +1,28 @@
+{
+  "version": "2026-09-11-v1",
+  "brand": "仙加味",
+  "status": "eligible-next-cycle-media-pool",
+  "purpose": "提供2026-10-15之後使用、且未在2026-10-01至10-14正式排程中重複使用的核准素材。",
+  "sourceAuthority": "images/brand/approved-v405-manifest.json",
+  "rules": {
+    "completeSceneOnly": true,
+    "noCrop": true,
+    "noStretch": true,
+    "noProductRedraw": true,
+    "noCharacterReplacement": true,
+    "instagramAiDisclosure": "若排Instagram且圖像為AI／顯著AI製作，設定isAiGenerated=true",
+    "topicMatchRequired": true,
+    "reuse": "同一素材在下一排程週期僅配置一個主題；不用同圖換句話重發。"
+  },
+  "media": [
+    {"source":"recipes.webp","allowedPillars":["料理","家常燉湯","漢方飲食文化"],"priority":"high","status":"eligible"},
+    {"source":"product-guilu-gao-100g.webp","allowedPillars":["龜鹿膏100g","使用方式","保存"],"priority":"high","status":"eligible"},
+    {"source":"product-guilu-drink-30cc.webp","allowedPillars":["龜鹿飲30cc","小份量使用情境","試喝"],"priority":"high","status":"eligible"},
+    {"source":"product-guilu-drink-180cc.webp","allowedPillars":["龜鹿飲180cc","在家飲用","規格介紹"],"priority":"high","status":"eligible"},
+    {"source":"product-guilu-tangkuai-75g.webp","allowedPillars":["龜鹿湯塊","料理搭配","規格介紹"],"priority":"medium","status":"eligible"},
+    {"source":"product-guilu-jiao-600g.webp","allowedPillars":["龜鹿膠","規格介紹","品牌產品教育"],"priority":"medium","status":"eligible"},
+    {"source":"product-luerong-fen-75g.webp","allowedPillars":["鹿茸粉","規格介紹","品牌產品教育"],"priority":"medium","status":"eligible"}
+  ],
+  "notIncluded": ["home-brand.webp","products-all.webp","choose.webp","combo.webp","guide-how-to-use.webp","brand-story.webp","faq.webp","contact-line.webp"],
+  "notIncludedReason": "上述8張已配置於2026-10-01至10-14正式排程，下一週期優先不重用。"
+}
