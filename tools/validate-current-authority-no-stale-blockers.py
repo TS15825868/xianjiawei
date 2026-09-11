@@ -10,9 +10,6 @@ DEFERRED_NAME='柒玄茶・龜鹿調飲粉'
 CURRENT_30='每日 1–2 罐'
 CURRENT_GAO='食用時間可依個人使用習慣與作息時間安排'
 
-# 只對真正會形成顧客可見內容／AI答案／產品頁／公開貼文的 payload 做字串硬門。
-# llms policy、社群 rules/forbidden/deferredPublicProduct 等治理欄位可合法記錄「禁止／暫緩」內容，
-# 不得因為政策本身提到禁詞就誤判為已對外宣稱。
 STATIC_PUBLIC_FILES=[
     'public-product-master.json',
     'assets/data/official-products.json',
@@ -38,6 +35,14 @@ SOCIAL_PAYLOAD_SOURCES={
     'content/social-schedule-20260911-0924.json': ('metricoolFormalSchedule','schedule'),
     'content/social-schedule-20261001-1014.json': ('schedule',),
     'content/social-plan-20261015-1031-candidates.json': ('candidates',),
+}
+
+# 這些 JSON 同時保存產品 payload 與「不得宣稱／防回流」政策，
+# 不能對整檔做療效禁詞掃描；會另行只掃 products[] 本體。
+POLICY_BEARING_PRODUCT_JSON={
+    'public-product-master.json',
+    'assets/data/official-products.json',
+    'config/official-products.json',
 }
 
 STALE_PUBLIC_LITERALS=[
@@ -73,11 +78,12 @@ def req(ok,msg):
 def load(rel): return json.loads((ROOT/rel).read_text(encoding='utf-8'))
 def read(rel): return (ROOT/rel).read_text(encoding='utf-8')
 
-def assert_copy_text(text: str, label: str, *, deferred_forbidden: bool=True):
+def assert_copy_text(text: str, label: str, *, deferred_forbidden: bool=True, claims: bool=True):
     for retired in STALE_PUBLIC_LITERALS:
         req(retired not in text,f'{label}仍含退役公開資料：{retired}')
-    for claim in PUBLIC_CLAIM_LITERALS:
-        req(claim not in text,f'{label}含目前公開內容禁用療效詞：{claim}')
+    if claims:
+        for claim in PUBLIC_CLAIM_LITERALS:
+            req(claim not in text,f'{label}含目前公開內容禁用療效詞：{claim}')
     if deferred_forbidden:
         req(DEFERRED_ID not in text and DEFERRED_NAME not in text,f'{label}把暫緩產品放進實際公開內容')
 
@@ -88,7 +94,12 @@ def assert_static_public_copy():
         if not path.exists():
             missing.append(rel)
             continue
-        assert_copy_text(path.read_text(encoding='utf-8'),rel)
+        text=path.read_text(encoding='utf-8')
+        assert_copy_text(text,rel,claims=rel not in POLICY_BEARING_PRODUCT_JSON)
+        if rel in POLICY_BEARING_PRODUCT_JSON:
+            data=json.loads(text)
+            for index,product in enumerate(data.get('products') or []):
+                assert_copy_text(json.dumps(product,ensure_ascii=False,sort_keys=True),f'{rel}:products[{index}]')
     req(not missing,f'目前公開守門檔案缺失：{missing}')
 
 def assert_social_payloads():
@@ -100,17 +111,13 @@ def assert_social_payloads():
             if isinstance(value,list): payloads.extend(value)
         req(payloads or rel.endswith('social-schedule-20260911-0924.json'),f'{rel}找不到預期社群 payload')
         for index,item in enumerate(payloads):
-            text=json.dumps(item,ensure_ascii=False,sort_keys=True)
-            assert_copy_text(text,f'{rel}:{index}')
+            assert_copy_text(json.dumps(item,ensure_ascii=False,sort_keys=True),f'{rel}:{index}')
 
-        # 治理欄位可明確保留「暫緩產品」政策；如果有該欄位，值必須就是目前暫緩品，不能指錯產品。
-        policy_candidates=[]
+        # rules/principles 可記錄目前暫緩產品，這是防回流政策，不是待發布文案。
         for container_key in ('rules','principles'):
             container=data.get(container_key)
             if isinstance(container,dict) and 'deferredPublicProduct' in container:
-                policy_candidates.append(container.get('deferredPublicProduct'))
-        for value in policy_candidates:
-            req(value==DEFERRED_NAME,f'{rel} deferredPublicProduct 指向錯誤產品：{value}')
+                req(container.get('deferredPublicProduct')==DEFERRED_NAME,f'{rel} deferredPublicProduct 指向錯誤產品')
 
 def main():
     master=load('public-product-master.json')
@@ -141,10 +148,9 @@ def main():
     req('knowledgeProductCount: 6' in fallback,'網站安全備援不是六項')
     req(CURRENT_30 in read('public-product-master.json'),'缺少30cc目前正式用法')
 
-    # llms*.txt 是 AI 治理政策檔，允許寫「柒玄茶目前暫緩／不得公開」與禁語說明；
-    # 真正公開 payload 由以下兩層結構化驗證負責。
+    # llms*.txt 與 policy 欄位可寫「不得公開／不得宣稱」；真正顧客與社群 payload 必須通過下列檢查。
     assert_static_public_copy()
     assert_social_payloads()
-    print('PASS: six website products; 30cc small glass jar/bare/no sticker; flexible timing; policy metadata may name deferred/forbidden items while actual customer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
+    print('PASS: six website products; 30cc small glass jar/bare/no sticker; flexible timing; negative policy may name forbidden items while actual product/customer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
 
 if __name__=='__main__': main()
