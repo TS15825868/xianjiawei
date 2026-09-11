@@ -37,13 +37,14 @@ SOCIAL_PAYLOAD_SOURCES={
     'content/social-plan-20261015-1031-candidates.json': ('candidates',),
 }
 
-# 這些 JSON 同時保存產品 payload 與「不得宣稱／防回流」政策，
-# 不能對整檔做療效禁詞掃描；會另行只掃 products[] 本體。
+# 這些 JSON 同時保存產品 payload 與「不得宣稱／防回流」政策；
+# 整檔只做退役資料／暫緩產品檢查，療效禁詞改掃真正 products[] 或 answers[] payload。
 POLICY_BEARING_PRODUCT_JSON={
     'public-product-master.json',
     'assets/data/official-products.json',
     'config/official-products.json',
 }
+POLICY_BEARING_ANSWER_JSON={'ai-answers.json'}
 
 STALE_PUBLIC_LITERALS=[
     '台興山產',
@@ -95,11 +96,20 @@ def assert_static_public_copy():
             missing.append(rel)
             continue
         text=path.read_text(encoding='utf-8')
-        assert_copy_text(text,rel,claims=rel not in POLICY_BEARING_PRODUCT_JSON)
+        policy_bearing = rel in POLICY_BEARING_PRODUCT_JSON or rel in POLICY_BEARING_ANSWER_JSON
+        assert_copy_text(text,rel,claims=not policy_bearing)
         if rel in POLICY_BEARING_PRODUCT_JSON:
             data=json.loads(text)
             for index,product in enumerate(data.get('products') or []):
                 assert_copy_text(json.dumps(product,ensure_ascii=False,sort_keys=True),f'{rel}:products[{index}]')
+        if rel in POLICY_BEARING_ANSWER_JSON:
+            data=json.loads(text)
+            answers=data.get('answers') or []
+            req(isinstance(answers,list) and answers,f'{rel} 缺少 answers[]')
+            for index,answer in enumerate(answers):
+                # 只驗證真正會被搜尋引擎／AI引用的問答 payload，不把檔案級安全政策誤當宣稱。
+                payload={key:answer.get(key) for key in ('question','aliases','shortAnswer','answer') if key in answer}
+                assert_copy_text(json.dumps(payload,ensure_ascii=False,sort_keys=True),f'{rel}:answers[{index}]')
     req(not missing,f'目前公開守門檔案缺失：{missing}')
 
 def assert_social_payloads():
@@ -148,9 +158,9 @@ def main():
     req('knowledgeProductCount: 6' in fallback,'網站安全備援不是六項')
     req(CURRENT_30 in read('public-product-master.json'),'缺少30cc目前正式用法')
 
-    # llms*.txt 與 policy 欄位可寫「不得公開／不得宣稱」；真正顧客與社群 payload 必須通過下列檢查。
+    # llms*.txt 與 policy 欄位可寫「不得公開／不得宣稱」；真正顧客／AI回答／社群 payload 必須通過下列檢查。
     assert_static_public_copy()
     assert_social_payloads()
-    print('PASS: six website products; 30cc small glass jar/bare/no sticker; flexible timing; negative policy may name forbidden items while actual product/customer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
+    print('PASS: six website products; 30cc small glass jar/bare/no sticker; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
 
 if __name__=='__main__': main()
