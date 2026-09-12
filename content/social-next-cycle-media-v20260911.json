@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-12-v5-pending-review-assets",
+  "version": "2026-09-12-v6-approved-github-assets",
   "brand": "仙加味",
   "status": "eligible-next-cycle-media-pool-with-reservations",
   "purpose": "提供2026-10-15之後候選使用，並避免與目前待審核或2026-10-01至10-14正式排程重複用圖。產品教育只採目前正式產品媒體權威；approved-v405僅保留合格生活／品牌場景用途。",
@@ -18,7 +18,7 @@
     "instagramAiDisclosure": "若排Instagram且圖像為AI／顯著AI製作，設定isAiGenerated=true",
     "topicMatchRequired": true,
     "reuse": "同一素材在下一排程週期僅配置一個主題；不用同圖換句話重發；目前D1待審核已占用的圖片不得再分配。",
-    "manualApprovalRequired": "新生成圖片完成後一律pending_review；未經使用者人工通過不得排程或發布。通過後才將核准成品寫入正式GitHub社群圖片路徑。"
+    "manualApprovalRequired": "新生成圖片完成後一律pending_review；使用者人工通過後才可升為approved-not-scheduled。人工通過不等於已排程，仍須通過10/15後的實際表現檢查才可排程。"
   },
   "media": [
     {
@@ -36,36 +36,45 @@
     {"source":"images/customer-display-v20260812/guilu-jiao.avif","productId":"guilu-jiao","allowedPillars":["龜鹿膠600g規格","產品教育"],"priority":"medium","status":"eligible-formal-product-education-only"},
     {"source":"images/customer-display-v20260812/luerong-fen.avif","productId":"luerong-fen","allowedPillars":["鹿茸粉75g規格","產品教育"],"priority":"medium","status":"eligible-formal-product-education-only"}
   ],
-  "draftReviewMedia": [
+  "approvedMedia": [
     {
       "date":"2026-10-18",
       "topic":"料理前先把材料準備好",
-      "provider":"canva",
-      "assetId":"MAHU6pn5Tns",
-      "status":"pending_review",
+      "source":"images/social/approved-202610/2026-10-18-cooking-prep.webp",
+      "sourceCanvaAssetId":"MAHU6pn5Tns",
+      "status":"approved-not-scheduled",
+      "manualApprovedAt":"2026-09-12T10:04:00+08:00",
       "isAiGenerated":true,
       "productShown":false,
+      "sha256":"f769c698f6441e5b586ad28c6539fd9e6ce608df26abc72a580194410631ca39",
+      "dimensions":"900x900",
       "rule":"全新料理備料情境；不重用recipes.webp；固定Q版小老闆、小鹿、小烏龜分開。"
     },
     {
       "date":"2026-10-24",
       "topic":"龜鹿湯塊75g與家常料理",
-      "provider":"canva",
-      "assetId":"MAHU6kflnDg",
-      "status":"pending_review",
+      "source":"images/social/approved-202610/2026-10-24-tangkuai-cooking.webp",
+      "sourceCanvaAssetId":"MAHU6kflnDg",
+      "status":"approved-not-scheduled",
+      "manualApprovedAt":"2026-09-12T10:04:00+08:00",
       "isAiGenerated":true,
       "productShown":true,
+      "sha256":"795d35dd91259874ea744555ea2cce203687e368416f0bb8eaf126d3905f4cb9",
+      "dimensions":"900x900",
       "rule":"料理背景與角色可生成；龜鹿湯塊本體使用正式實物原圖等比例合成，不AI重畫產品。"
     },
     {
       "date":"2026-10-31",
       "topic":"龜鹿飲30cc與180cc先看使用情境",
-      "provider":"canva",
-      "assetId":"MAHU6jYKL74",
-      "status":"pending_review",
+      "source":"images/social/approved-202610/2026-10-31-drink-comparison.webp",
+      "sourceCanvaAssetId":"MAHU6jYKL74",
+      "status":"approved-not-scheduled",
+      "manualApprovedAt":"2026-09-12T10:04:00+08:00",
       "isAiGenerated":false,
       "productShown":true,
-      "rule":"正式30cc小玻璃裸罐與180cc鋁袋實物來源製作比較版，產品不AI重畫；通過後再落正式GitHub媒體路徑。"
+      "sha256":"8e8e46674707498d5c13f89accfd4c00e38f297da4e567849c7ada99931a5a1e",
+      "dimensions":"900x1125",
+      "rule":"正式30cc小玻璃裸罐與180cc鋁袋實物來源製作比較版，產品不AI重畫。"
     }
   ],
   "retiredProductEducationSources": [
@@ -80,5 +89,5 @@
   "notIncluded": ["home-brand.webp","products-all.webp","choose.webp","combo.webp","guide-how-to-use.webp","brand-story.webp","faq.webp","contact-line.webp"],
   "notIncludedReason": "上述8張已配置於2026-10-01至10-14正式排程，下一週期優先不重用；choose.webp同時亦被D1待審核稿占用。",
   "newMediaNeeded": [],
-  "approvalGate": "10/18、10/24、10/31三張新圖已產出並進入pending_review；未人工通過前不視為正式可排程媒體。"
+  "approvalGate": "10/18、10/24、10/31三張新圖已於2026-09-12由使用者人工通過並寫入正式GitHub媒體路徑；目前狀態為approved-not-scheduled，仍未排程。"
 }
