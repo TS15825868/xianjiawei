@@ -2,9 +2,9 @@ name: 仙加味 n8n 監控排程
 
 on:
   schedule:
-    # 避開整點高峰；GitHub Actions 使用 UTC。
-    # 2026-09-11 將分鐘位移 1 分鐘，重新註冊正式 schedule，避免先前排程長時間未觸發。
-    - cron: '8,23,38,53 * * * *'
+    # GitHub Actions 使用 UTC。每小時第 8 分執行，避開整點高峰。
+    # 正式排程由 Metricool 承接；此流程只做健康監控，不需要每 15 分鐘喚醒免費 n8n。
+    - cron: '8 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: xianjiawei-n8n-monitor-scheduler
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   trigger-monitors:
@@ -28,15 +28,15 @@ jobs:
             local name="$1"
             local url="$2"
             echo "觸發：${name}"
-            for attempt in 1 2 3 4; do
+            for attempt in 1 2 3; do
               if curl --fail --silent --show-error --location \
-                --connect-timeout 30 --max-time 180 \
+                --connect-timeout 20 --max-time 120 \
                 "$url" >/dev/null; then
                 echo "完成：${name}"
                 return 0
               fi
-              echo "${name} 第 ${attempt} 次未完成，20 秒後重試"
-              sleep 20
+              echo "${name} 第 ${attempt} 次未完成，15 秒後重試"
+              sleep 15
             done
             echo "失敗：${name}"
             return 1
@@ -46,26 +46,11 @@ jobs:
           SYSTEM_URL='https://xianjiawei-n8n-longterm.onrender.com/webhook/xjw-system-health-d4b6e1'
           AI_GEO_URL='https://xianjiawei-n8n-longterm.onrender.com/webhook/xjw-ai-geo-9c3f75'
 
-          # 手動執行時一次驗收三條。
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            call_webhook 'LINE OA 健康監控' "$LINE_URL"
-            call_webhook '系統健康總監控' "$SYSTEM_URL"
-            call_webhook '產品母資料 AI GEO 一致性檢查' "$AI_GEO_URL"
-            exit 0
-          fi
-
-          minute="$(date -u +%M)"
-          hour="$(date -u +%H)"
-
-          # 每 15 分鐘。
           call_webhook 'LINE OA 健康監控' "$LINE_URL"
+          call_webhook '系統健康總監控' "$SYSTEM_URL"
 
-          # 每 30 分鐘：08、38 分。
-          if [[ "$minute" == '08' || "$minute" == '38' ]]; then
-            call_webhook '系統健康總監控' "$SYSTEM_URL"
-          fi
-
-          # 每 6 小時：00/06/12/18 UTC 的 08 分。
-          if [[ "$minute" == '08' ]] && (( 10#$hour % 6 == 0 )); then
+          # AI／GEO 母資料一致性屬慢變資料，每 6 小時檢查一次即可；手動執行時一定檢查。
+          hour="$(date -u +%H)"
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] || (( 10#$hour % 6 == 0 )); then
             call_webhook '產品母資料 AI GEO 一致性檢查' "$AI_GEO_URL"
           fi
