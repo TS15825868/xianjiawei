@@ -1,0 +1,73 @@
+name: Import approved media binaries
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.asset-import/**/ready.json'
+
+permissions:
+  contents: write
+
+jobs:
+  import-approved-media:
+    if: ${{ !contains(github.event.head_commit.message, '[asset-import-finalize]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and verify approved media
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import json
+          import shutil
+
+          manifests = sorted(Path('.asset-import').glob('**/ready.json'))
+          if not manifests:
+              raise SystemExit('No ready.json manifest found')
+
+          for manifest_path in manifests:
+              manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+              root = manifest_path.parent
+              for item in manifest['items']:
+                  parts_dir = root / item['partsDir']
+                  part_paths = sorted(parts_dir.glob('part-*.bin'))
+                  expected_count = int(item['partCount'])
+                  if len(part_paths) != expected_count:
+                      raise SystemExit(f"{item['target']}: expected {expected_count} parts, found {len(part_paths)}")
+
+                  payload = b''.join(path.read_bytes() for path in part_paths)
+                  actual_size = len(payload)
+                  actual_sha = hashlib.sha256(payload).hexdigest()
+                  if actual_size != int(item['size']):
+                      raise SystemExit(f"{item['target']}: size mismatch {actual_size} != {item['size']}")
+                  if actual_sha != item['sha256']:
+                      raise SystemExit(f"{item['target']}: sha256 mismatch {actual_sha} != {item['sha256']}")
+
+                  target = Path(item['target'])
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  target.write_bytes(payload)
+                  print(f"verified {target} size={actual_size} sha256={actual_sha}")
+
+              shutil.rmtree(root)
+          PY
+
+      - name: Commit verified binaries
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "[asset-import-finalize] media: reconstruct approved social images"
+          git push origin HEAD:main
