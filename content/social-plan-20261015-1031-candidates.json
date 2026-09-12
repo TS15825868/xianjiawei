@@ -1,10 +1,10 @@
 {
-  "version": "2026-09-12-v4-media-pending-review",
+  "version": "2026-09-12-v5-media-approved-not-scheduled",
   "brand": "仙加味",
   "status": "prepared-not-scheduled",
   "timezone": "Asia/Taipei",
   "period": {"from":"2026-10-15","to":"2026-10-31"},
-  "activationGate": "10/15後先讀取10/1至10/14實際發布表現與退追／互動訊號，再決定是否依原時段上線；不為填滿日曆硬發。任何pending_review內容未經使用者人工通過不得排程。",
+  "activationGate": "10/15後先讀取10/1至10/14實際發布表現與退追／互動訊號，再決定是否依原時段上線；不為填滿日曆硬發。approved-not-scheduled只代表圖片與文案已核准，不代表已排程。",
   "principles": {
     "cadence": "少而精",
     "heroProducts": ["龜鹿膏", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋"],
@@ -15,7 +15,7 @@
     "lifeCopyGate": "生活型文案必須有明確情境＋仙加味／產品連結＋對應生活情境圖；產品頁圖片不得硬配料理或其他生活情境文案。",
     "usageTiming": "不得把龜鹿膏或龜鹿飲鎖成固定早上、下午或白天時段；依個人使用習慣與作息安排。",
     "animation": "不列入本週期必要排程。",
-    "reviewGate": "新生成圖片完成後一律pending_review；使用者通過後才可寫入正式GitHub社群圖片路徑並進入排程。"
+    "reviewGate": "新生成圖片完成後一律pending_review；使用者人工通過才升為approved-not-scheduled；仍須依activationGate決定後續排程。"
   },
   "candidates": [
     {
@@ -42,14 +42,15 @@
       "network":"instagram",
       "topic":"料理前先把材料準備好",
       "pillar":"料理",
-      "media":"canva:MAHU6pn5Tns",
-      "mediaProvider":"canva",
-      "mediaAssetId":"MAHU6pn5Tns",
+      "media":"images/social/approved-202610/2026-10-18-cooking-prep.webp",
+      "mediaProvider":"github",
+      "sourceCanvaAssetId":"MAHU6pn5Tns",
       "isAiGenerated":true,
+      "manualApprovedAt":"2026-09-12T10:04:00+08:00",
       "text":"家常料理不用特別複雜。\n\n先把湯鍋、材料和今天要用的東西準備好，煮的時候就會輕鬆很多。\n\n仙加味想分享的，是把漢方飲食文化放回真正做得到的日常。\n\n#仙加味 #料理搭配 #漢方飲食文化 #日常生活",
       "cta":"none",
-      "mediaRule":"全新獨立料理備料情境；不重用recipes.webp。固定Q版小老闆＋小鹿＋小烏龜分開呈現；本篇不需要產品包裝。使用者人工通過後才把核准成品寫入正式GitHub社群圖片路徑。",
-      "status":"pending_review"
+      "mediaRule":"全新獨立料理備料情境；不重用recipes.webp。固定Q版小老闆＋小鹿＋小烏龜分開呈現；本篇不需要產品包裝。",
+      "status":"approved-not-scheduled"
     },
     {
       "date":"2026-10-20T21:00:00+08:00",
@@ -84,14 +85,15 @@
       "network":"instagram",
       "topic":"龜鹿湯塊75g與家常料理",
       "pillar":"料理／產品教育",
-      "media":"canva:MAHU6kflnDg",
-      "mediaProvider":"canva",
-      "mediaAssetId":"MAHU6kflnDg",
+      "media":"images/social/approved-202610/2026-10-24-tangkuai-cooking.webp",
+      "mediaProvider":"github",
+      "sourceCanvaAssetId":"MAHU6kflnDg",
       "isAiGenerated":true,
+      "manualApprovedAt":"2026-09-12T10:04:00+08:00",
       "text":"仙加味龜鹿湯塊是 75g／盒、8塊裝。\n\n如果家裡本來就有煮雞湯、排骨湯或家常燉湯的習慣，可以從熟悉的料理方式開始認識。\n\n不需要把日常變得很複雜，做得到、吃得習慣，比較重要。\n\n#仙加味 #龜鹿湯塊 #料理搭配 #漢方飲食文化",
       "cta":"none",
-      "mediaRule":"全新料理生活情境；背景與角色可生成，但龜鹿湯塊產品本體使用正式實物原圖等比例合成，不AI重畫、不改包裝。使用者人工通過後才把核准成品寫入正式GitHub社群圖片路徑。",
-      "status":"pending_review"
+      "mediaRule":"全新料理生活情境；背景與角色可生成，但龜鹿湯塊產品本體使用正式實物原圖等比例合成，不AI重畫、不改包裝。",
+      "status":"approved-not-scheduled"
     },
     {
       "date":"2026-10-26T11:00:00+08:00",
@@ -126,14 +128,15 @@
       "network":"instagram",
       "topic":"龜鹿飲30cc與180cc先看使用情境",
       "pillar":"產品教育",
-      "media":"canva:MAHU6jYKL74",
-      "mediaProvider":"canva",
-      "mediaAssetId":"MAHU6jYKL74",
+      "media":"images/social/approved-202610/2026-10-31-drink-comparison.webp",
+      "mediaProvider":"github",
+      "sourceCanvaAssetId":"MAHU6jYKL74",
       "isAiGenerated":false,
+      "manualApprovedAt":"2026-09-12T10:04:00+08:00",
       "text":"30cc 與 180cc，不是誰比較好。\n\n一個是 30cc／罐的小玻璃裸罐，一個是 180cc／包的鋁袋。\n\n先看自己平常的使用方式與份量偏好，再選會比較簡單。\n\n有個別問題，再到 LINE OA @762jybnm 找我們。\n\n#仙加味 #龜鹿飲 #怎麼選 #日常補養",
       "cta":"line-oa-if-needed",
-      "mediaRule":"比較成品中的30cc只取用/images/customer-display-v20260812/guilu-drink-30cc.avif所代表的正式小玻璃裸罐實物身份；180cc只取用/images/customer-display-v20260812/guilu-drink-180cc-product.jpg所代表的正式鋁袋實物身份，維持實際比例邏輯，不AI重畫產品。使用者人工通過後才把核准成品寫入正式GitHub社群圖片路徑。",
-      "status":"pending_review"
+      "mediaRule":"比較成品中的30cc使用正式小玻璃裸罐實物身份；180cc使用正式鋁袋實物身份，維持實際比例邏輯，不AI重畫產品。",
+      "status":"approved-not-scheduled"
     }
   ],
   "weatherSlot": {
