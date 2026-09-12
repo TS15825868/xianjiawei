@@ -1,0 +1,11 @@
+# Local / transfer scratch files must not return to the production website branch.
+_tmp/
+_payload/
+_upload/
+asset-staging/
+
+# Common local noise
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
