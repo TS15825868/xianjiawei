@@ -1,0 +1,32 @@
+{
+  "version": "2026-09-12-v1",
+  "brand": "仙加味",
+  "status": "approved-not-scheduled",
+  "scheduleGate": "2026-10-15後先檢查2026-10-01至2026-10-14實際表現再決定是否排程",
+  "files": [
+    {
+      "date": "2026-10-18",
+      "path": "images/social/approved-202610/2026-10-18-cooking-prep.avif",
+      "sha256": "af8b052f12f5a31b76c1d77cc0c425400616de07f4745a0dd1ac04c7d22acd73",
+      "dimensions": "1080x1080",
+      "canvaAssetId": "MAHU6pn5Tns",
+      "isAiGenerated": true
+    },
+    {
+      "date": "2026-10-24",
+      "path": "images/social/approved-202610/2026-10-24-tangkuai-cooking.avif",
+      "sha256": "c8fc2dfb72a6e32050667d352c09aae2c9a3ce3e759cca144b3f1ace4d97e5b0",
+      "dimensions": "1080x1080",
+      "canvaAssetId": "MAHU6kflnDg",
+      "isAiGenerated": true
+    },
+    {
+      "date": "2026-10-31",
+      "path": "images/social/approved-202610/2026-10-31-drink-comparison.avif",
+      "sha256": "33a1126852606688bed1207b2fbb5d56b08f189acd583e1e842993555cd878c5",
+      "dimensions": "1080x1350",
+      "canvaAssetId": "MAHU6jYKL74",
+      "isAiGenerated": false
+    }
+  ]
+}
