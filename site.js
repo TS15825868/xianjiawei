@@ -1,8 +1,9 @@
 "use strict";
 
-/* 仙加味全站穩定啟動器｜2026-08-20 current authority fallback v8
+/* 仙加味全站穩定啟動器｜2026-09-13 production performance v9
  * 正式資料 → 產品圖 → DM → 核心；其餘視覺／守門／Modal 為附加層。
  * 不使用 document.write；單一附加層失敗不阻塞主內容。
+ * 已由頁面載入的同一路徑 CSS／JS 不重抓、不重跑，避免版本參數不同造成重複請求。
  * data.json 逾時／失敗時使用目前六項官網產品／六項核准媒體安全備援。
  * public-product-master.json 為官網六項產品文字最高權威；柒玄茶目前不放官網。
  */
@@ -10,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20260820-six-public-authority-fallback-v8";
+  const VERSION = "20260913-production-performance-v9";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
@@ -54,6 +55,10 @@
     runtime:{productTextAuthority:"public-product-master.json",knowledgeProductCount:6,approvedMediaProductCount:6,deferredWebsiteProduct:"qixuan-guilu-drink-powder",guiluGaoUsageTiming:CURRENT_GAO_TIMING}
   });
 
+  function cleanAssetPath(value){
+    try{return new URL(value,document.baseURI).pathname.replace(/^.*\/xianjiawei\//,"").replace(/^\//,"");}
+    catch{return String(value||"").split("?")[0].replace(/^\.\//,"").replace(/^\//,"");}
+  }
   function installFailsafeStyle(){
     if(document.getElementById("xjw-stability-failsafe"))return;
     const style=document.createElement("style");
@@ -62,9 +67,9 @@
     document.head.appendChild(style);
   }
   function appendStyle(href){
-    const clean=href.split("?")[0];
-    const existing=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>String(link.getAttribute("href")||"").split("?")[0]===clean);
-    if(existing){if(existing.getAttribute("href")!==href)existing.setAttribute("href",href);return;}
+    const clean=cleanAssetPath(href);
+    const existing=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>cleanAssetPath(link.getAttribute("href"))===clean);
+    if(existing)return;
     const link=document.createElement("link");link.rel="stylesheet";link.href=href;document.head.appendChild(link);
   }
   function loadStyles(){STYLES.forEach(appendStyle);}
@@ -75,6 +80,9 @@
     header.innerHTML=`<div class="header-inner"><a class="brand-mark" href="index.html" aria-label="仙加味首頁"><img src="images/logo.png?v=${VERSION}" alt="仙加味" decoding="async"><span class="brand-mark__copy"><span class="brand-mark__name">仙加味</span><span class="brand-mark__tagline">補養，是一種節奏。</span></span></a><a class="btn btn-outline" href="products.html">產品</a></div>`;
   }
   function loadScript(src,timeoutMs=5000){
+    const clean=cleanAssetPath(src);
+    const existing=[...document.scripts].find(script=>script.src&&cleanAssetPath(script.getAttribute("src")||script.src)===clean);
+    if(existing)return Promise.resolve({src,ok:true,skipped:true});
     return new Promise(resolve=>{
       const script=document.createElement("script");let settled=false;
       const finish=ok=>{if(settled)return;settled=true;clearTimeout(timer);resolve({src,ok});};
