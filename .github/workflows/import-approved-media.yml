@@ -25,6 +25,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import base64
           import hashlib
           import json
           import shutil
@@ -38,12 +39,21 @@ jobs:
               root = manifest_path.parent
               for item in manifest['items']:
                   parts_dir = root / item['partsDir']
-                  part_paths = sorted(parts_dir.glob('part-*.bin'))
+                  encoding = item.get('encoding', 'raw')
+                  if encoding == 'base64':
+                      part_paths = sorted(parts_dir.glob('part-*.b64'))
+                      encoded = ''.join(path.read_text(encoding='utf-8').strip() for path in part_paths)
+                      payload = base64.b64decode(encoded, validate=True)
+                  elif encoding == 'raw':
+                      part_paths = sorted(parts_dir.glob('part-*.bin'))
+                      payload = b''.join(path.read_bytes() for path in part_paths)
+                  else:
+                      raise SystemExit(f"{item['target']}: unsupported encoding {encoding}")
+
                   expected_count = int(item['partCount'])
                   if len(part_paths) != expected_count:
                       raise SystemExit(f"{item['target']}: expected {expected_count} parts, found {len(part_paths)}")
 
-                  payload = b''.join(path.read_bytes() for path in part_paths)
                   actual_size = len(payload)
                   actual_sha = hashlib.sha256(payload).hexdigest()
                   if actual_size != int(item['size']):
