@@ -1,0 +1,29 @@
+{
+  "version": "2026-09-12-v3",
+  "items": [
+    {
+      "target": "images/social/approved-202610/2026-10-18-cooking-prep.avif",
+      "partsDir": "18",
+      "partCount": 4,
+      "encoding": "base64",
+      "size": 33877,
+      "sha256": "af8b052f12f5a31b76c1d77cc0c425400616de07f4745a0dd1ac04c7d22acd73"
+    },
+    {
+      "target": "images/social/approved-202610/2026-10-24-tangkuai-cooking.avif",
+      "partsDir": "24",
+      "partCount": 4,
+      "encoding": "base64",
+      "size": 32613,
+      "sha256": "c8fc2dfb72a6e32050667d352c09aae2c9a3ce3e759cca144b3f1ace4d97e5b0"
+    },
+    {
+      "target": "images/social/approved-202610/2026-10-31-drink-comparison.avif",
+      "partsDir": "31",
+      "partCount": 5,
+      "encoding": "base64",
+      "size": 21569,
+      "sha256": "33a1126852606688bed1207b2fbb5d56b08f189acd583e1e842993555cd878c5"
+    }
+  ]
+}
