@@ -48,6 +48,23 @@ jobs:
             test "$code" -lt 500
           }
 
+          wait_ready_200() {
+            local name="$1" url="$2" body="/tmp/${3:-ready}"
+            echo "檢查：$name"
+            local code='000'
+            for attempt in $(seq 1 12); do
+              code="$(curl -LsS --connect-timeout 20 --max-time 45 -o "$body" -w '%{http_code}' "$url" || true)"
+              echo "$name attempt $attempt/12 -> HTTP $code"
+              if [[ "$code" == '200' ]] && [[ -s "$body" ]]; then
+                return 0
+              fi
+              sleep 10
+            done
+            echo "$name 在Render喚醒等待後仍未ready，最後HTTP $code" >&2
+            cat "$body" 2>/dev/null || true
+            return 1
+          }
+
           check_200 '官網首頁' 'https://ts15825868.github.io/xianjiawei/index.html' website
           check_200 '公開產品母資料' 'https://ts15825868.github.io/xianjiawei/public-product-master.json' productmaster
           check_200 'LINE OA 健康檢查' 'https://ts-line.onrender.com/healthz' linehealth
@@ -62,7 +79,17 @@ jobs:
           NODE
 
           check_boundary 'ERP／貼文中心 Cloudflare Access 邊界' 'https://xianjiawei-internal.tung314069.workers.dev/healthz/core'
-          check_200 'n8n 正式服務' 'https://xianjiawei-n8n-longterm.onrender.com/healthz' n8n
+
+          # n8n /healthz 只代表程序存活；/healthz/readiness 才代表資料庫／必要依賴已可接流量。
+          check_200 'n8n 存活檢查' 'https://xianjiawei-n8n-longterm.onrender.com/healthz' n8n-live
+          wait_ready_200 'n8n readiness' 'https://xianjiawei-n8n-longterm.onrender.com/healthz/readiness' n8n-ready
+          node - <<'NODE'
+          const fs=require('fs');
+          for (const file of ['/tmp/n8n-live','/tmp/n8n-ready']) {
+            const v=JSON.parse(fs.readFileSync(file,'utf8'));
+            if(v.status!=='ok') throw new Error(`${file} status != ok`);
+          }
+          NODE
 
           # AI／GEO 母資料屬慢變資料，每 6 小時檢查一次；手動執行一定檢查。
           hour="$(date -u +%H)"
