@@ -1,0 +1,34 @@
+name: 仙加味 n8n readiness 診斷一次
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/diagnose-n8n-readiness-once.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Capture n8n health responses
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://xianjiawei-n8n-longterm.onrender.com'
+          for path in /healthz /healthz/readiness /; do
+            safe="$(echo "$path" | tr '/?' '__')"
+            echo "=== $path ===" | tee -a n8n-readiness-diagnostic.txt
+            curl -sS -i --connect-timeout 20 --max-time 120 "$base$path" | tee -a n8n-readiness-diagnostic.txt || true
+            echo | tee -a n8n-readiness-diagnostic.txt
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: n8n-readiness-diagnostic-${{ github.run_id }}
+          path: n8n-readiness-diagnostic.txt
+          if-no-files-found: error
+          retention-days: 1
