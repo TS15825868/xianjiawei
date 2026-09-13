@@ -1,0 +1,114 @@
+name: 仙加味全系統正式 Smoke 20260913
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/full-system-smoke-20260913.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xianjiawei-full-system-smoke-20260913
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Website all sitemap URLs
+        shell: bash
+        run: |
+          set -euo pipefail
+          : > website-status.txt
+          mapfile -t urls < <(grep -oP '(?<=<loc>)[^<]+' sitemap.xml)
+          test "${#urls[@]}" -ge 20
+          for url in "${urls[@]}"; do
+            code="$(curl -LsS --retry 2 --retry-delay 2 --connect-timeout 15 --max-time 45 -o /tmp/body -w '%{http_code}' "$url")"
+            printf '%s %s\n' "$code" "$url" | tee -a website-status.txt
+            test "$code" = '200'
+            test -s /tmp/body
+          done
+          grep -q 'https://ts15825868.github.io/xianjiawei/index.html' website-status.txt
+          grep -q 'https://ts15825868.github.io/xianjiawei/products.html' website-status.txt
+
+      - name: Website public product authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -LsS --retry 2 --max-time 45 https://ts15825868.github.io/xianjiawei/public-product-master.json -o product-master-live.json
+          node - <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('product-master-live.json','utf8'));
+          const text=JSON.stringify(d);
+          const must=['龜鹿膏','100g','龜鹿飲30cc玻璃罐','30cc','龜鹿飲180cc鋁袋','180cc','龜鹿湯塊','75g','8塊','龜鹿膠','600g','32塊','鹿茸粉','75g'];
+          for(const v of must) if(!text.includes(v)) throw new Error('母資料缺少 '+v);
+          if(text.includes('台興山產')) throw new Error('公開母資料含舊品牌名');
+          console.log('PASS website product authority');
+          NODE
+
+      - name: LINE OA live service
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://ts-line.onrender.com'
+          curl -LsS --retry 2 --retry-delay 4 --connect-timeout 20 --max-time 120 "$base/" -o line-root.json
+          curl -LsS --retry 2 --retry-delay 4 --connect-timeout 20 --max-time 120 "$base/healthz" -o line-health.json
+          node - <<'NODE'
+          const fs=require('fs');
+          const root=JSON.parse(fs.readFileSync('line-root.json','utf8'));
+          const h=JSON.parse(fs.readFileSync('line-health.json','utf8'));
+          if(root.ok!==true||!String(root.service||'').includes('仙加味')) throw new Error('LINE root 異常');
+          if(h.ok!==true) throw new Error('LINE healthz ok=false');
+          if(h.credentialsConfigured!==true) throw new Error('LINE credentials 尚未配置');
+          if(h.orderOpen!==true) throw new Error('LINE 下單狀態未開放');
+          if(Number(h.productCount)!==6) throw new Error('LINE 對外產品數不是6');
+          console.log('PASS LINE OA live',h.version,h.catalogVersion,h.productCount);
+          NODE
+
+      - name: Internal Cloudflare protected boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://xianjiawei-internal.tung314069.workers.dev'
+          : > internal-status.txt
+          for path in '/' '/erp.html' '/publishing.html' '/healthz/core'; do
+            code="$(curl -sS --connect-timeout 15 --max-time 45 -o /tmp/internal-body -w '%{http_code}' "$base$path" || true)"
+            printf '%s %s\n' "$code" "$path" | tee -a internal-status.txt
+            test -n "$code"
+            test "$code" -ge 200
+            test "$code" -lt 500
+          done
+
+      - name: n8n service readiness discovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://xianjiawei-n8n-longterm.onrender.com'
+          : > n8n-status.txt
+          healthy=0
+          for path in '/healthz' '/healthz/readiness' '/'; do
+            code="$(curl -LsS --retry 1 --retry-delay 3 --connect-timeout 20 --max-time 120 -o /tmp/n8n-body -w '%{http_code}' "$base$path" || true)"
+            printf '%s %s\n' "$code" "$path" | tee -a n8n-status.txt
+            if [[ "$code" =~ ^[23][0-9][0-9]$ ]]; then healthy=1; fi
+          done
+          test "$healthy" = '1'
+
+      - name: Upload smoke evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-full-system-smoke-${{ github.run_id }}
+          path: |
+            website-status.txt
+            product-master-live.json
+            line-root.json
+            line-health.json
+            internal-status.txt
+            n8n-status.txt
+          if-no-files-found: error
+          retention-days: 7
