@@ -20,9 +20,9 @@ concurrency:
 jobs:
   health:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     steps:
-      - name: 驗證官網、LINE OA、ERP邊界與n8n本體
+      - name: 驗證官網、LINE OA、ERP／貼文中心邊界與 n8n
         shell: bash
         run: |
           set -euo pipefail
@@ -46,6 +46,7 @@ jobs:
             test -n "$code"
             test "$code" -ge 200
             test "$code" -lt 500
+            test "$code" != '404'
           }
 
           wait_ready_200() {
@@ -60,17 +61,67 @@ jobs:
               fi
               sleep 10
             done
-            echo "$name 在Render喚醒等待後仍未ready，最後HTTP $code" >&2
+            echo "$name 在 Render 喚醒等待後仍未 ready，最後 HTTP $code" >&2
             cat "$body" 2>/dev/null || true
             return 1
           }
 
-          check_200 '官網首頁' 'https://ts15825868.github.io/xianjiawei/index.html' website
-          check_200 '公開產品母資料' 'https://ts15825868.github.io/xianjiawei/public-product-master.json' productmaster
+          site='https://ts15825868.github.io/xianjiawei'
+
+          # 每小時驗證顧客最常用的官網入口與六項正式產品頁。
+          core_pages=(
+            index.html products.html why-guilu.html
+            product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html
+            product-guilu-tangkuai.html product-guilu-jiao.html product-luerong-fen.html
+            trial.html choose.html faq.html brand.html contact.html
+          )
+          for page in "${core_pages[@]}"; do
+            key="${page//[^a-zA-Z0-9]/-}"
+            check_200 "官網 $page" "$site/$page" "site-$key"
+          done
+
+          check_200 '公開產品母資料' "$site/public-product-master.json" productmaster
+          node - <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('/tmp/productmaster','utf8'));
+          if(d.brand?.name!=='仙加味') throw new Error('官網公開品牌不是仙加味');
+          if(Number(d.productCount)!==6 || !Array.isArray(d.products) || d.products.length!==6) throw new Error('官網公開產品數不是6');
+          const names=d.products.map(x=>x.name);
+          const expected=['龜鹿膏','龜鹿飲30cc玻璃罐','龜鹿飲180cc鋁袋','龜鹿湯塊','龜鹿膠','鹿茸粉'];
+          if(JSON.stringify(names)!==JSON.stringify(expected)) throw new Error(`官網產品名稱異常 ${JSON.stringify(names)}`);
+          const text=JSON.stringify(d);
+          if(text.includes('台興山產')) throw new Error('官網公開產品母資料含舊品牌名');
+          const drink30=d.products.find(x=>x.id==='guilu-drink-30');
+          if(!drink30 || !JSON.stringify(drink30.usage).includes('每日 1–2 罐')) throw new Error('30cc最新用法未生效');
+          if(!String(drink30.package||'').includes('裸罐') || !String(drink30.package||'').includes('無貼紙')) throw new Error('30cc正式包裝規則缺漏');
+          const made=[...(d.fulfillmentPolicy?.madeToOrderProducts||[])].sort();
+          const expectedMade=['guilu-drink-180','guilu-drink-30'].sort();
+          if(JSON.stringify(made)!==JSON.stringify(expectedMade)) throw new Error('5～7工作天範圍不是僅兩款龜鹿飲');
+          if(d.contact?.lineId!=='@762jybnm' || d.contact?.lineUrl!=='https://lin.ee/sHZW7NkR') throw new Error('LINE 導流資料異常');
+          NODE
+
+          # 正式產品圖不可斷鏈；只驗證正式顧客展示來源，不使用舊 approved-v405。
+          product_media=(
+            images/customer-display-v20260812/guilu-gao.avif
+            images/customer-display-v20260812/guilu-drink-30cc.avif
+            images/customer-display-v20260812/guilu-drink-180cc-product.jpg
+            images/customer-display-v20260812/guilu-tangkuai.avif
+            images/customer-display-v20260812/guilu-jiao.avif
+            images/customer-display-v20260812/luerong-fen.avif
+          )
+          for asset in "${product_media[@]}"; do
+            key="${asset//[^a-zA-Z0-9]/-}"
+            check_200 "正式產品圖 $asset" "$site/$asset" "media-$key"
+          done
+
+          # LINE OA：同時驗 root、health 與正式營運旗標。
+          check_200 'LINE OA root' 'https://ts-line.onrender.com/' lineroot
           check_200 'LINE OA 健康檢查' 'https://ts-line.onrender.com/healthz' linehealth
           node - <<'NODE'
           const fs=require('fs');
+          const root=JSON.parse(fs.readFileSync('/tmp/lineroot','utf8'));
           const h=JSON.parse(fs.readFileSync('/tmp/linehealth','utf8'));
+          if(root.ok!==true || root.service!=='仙加味 LINE OA') throw new Error('LINE root live 異常');
           if(h.ok!==true) throw new Error('LINE healthz ok=false');
           if(h.credentialsConfigured!==true) throw new Error('LINE credentials 未配置');
           if(h.orderOpen!==true) throw new Error('LINE orderOpen=false');
@@ -78,7 +129,12 @@ jobs:
           if(h.mascotAssetsReady!==true) throw new Error('LINE mascotAssetsReady=false');
           NODE
 
-          check_boundary 'ERP／貼文中心 Cloudflare Access 邊界' 'https://xianjiawei-internal.tung314069.workers.dev/healthz/core'
+          # Cloudflare Access 未登入時應是受保護邊界；404/5xx 一律視為故障。
+          internal='https://xianjiawei-internal.tung314069.workers.dev'
+          check_boundary '內部系統入口' "$internal/"
+          check_boundary 'ERP' "$internal/erp.html"
+          check_boundary '貼文中心' "$internal/publishing.html"
+          check_boundary 'ERP／貼文中心 healthz/core' "$internal/healthz/core"
 
           # n8n /healthz 只代表程序存活；/healthz/readiness 才代表資料庫／必要依賴已可接流量。
           check_200 'n8n 存活檢查' 'https://xianjiawei-n8n-longterm.onrender.com/healthz' n8n-live
@@ -91,12 +147,30 @@ jobs:
           }
           NODE
 
-          # AI／GEO 母資料屬慢變資料，每 6 小時檢查一次；手動執行一定檢查。
+          # 慢變資料與全 sitemap 每 6 小時完整巡檢一次；手動執行一定檢查。
           hour="$(date -u +%H)"
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] || (( 10#$hour % 6 == 0 )); then
-            check_200 'AI Answers' 'https://ts15825868.github.io/xianjiawei/ai-answers.json' aianswers
-            check_200 'GEO Data' 'https://ts15825868.github.io/xianjiawei/geo-data.json' geodata
-            check_200 'LLMs' 'https://ts15825868.github.io/xianjiawei/llms.txt' llms
+            check_200 'Sitemap' "$site/sitemap.xml" sitemap
+            python - <<'PY'
+          import xml.etree.ElementTree as ET
+          root=ET.parse('/tmp/sitemap').getroot()
+          ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          urls=[x.text.strip() for x in root.findall('s:url/s:loc',ns) if x.text and x.text.strip()]
+          if len(urls) < 31:
+              raise SystemExit(f'sitemap URL數不足：{len(urls)}')
+          open('/tmp/sitemap-urls','w',encoding='utf-8').write('\n'.join(urls)+'\n')
+          print('sitemap URLs',len(urls))
+          PY
+            while IFS= read -r url; do
+              code="$(curl -LsS --retry 2 --retry-delay 2 --connect-timeout 20 --max-time 90 -o /tmp/sitemap-body -w '%{http_code}' "$url")"
+              echo "sitemap $url -> HTTP $code"
+              test "$code" = '200'
+              test -s /tmp/sitemap-body
+            done < /tmp/sitemap-urls
+
+            for asset in welcome recommend usage faq service; do
+              check_200 "LINE 小老闆素材 $asset" "https://raw.githubusercontent.com/TS15825868/TS-LINE/main/public/mascot/$asset.jpg" "line-mascot-$asset"
+            done
           fi
 
-          echo 'PASS 仙加味全系統健康監控'
+          echo 'PASS 仙加味全系統健康監控（核心每小時＋全 sitemap 每6小時）'
