@@ -1,0 +1,105 @@
+name: 仙加味官網連結與素材完整驗收 20260913
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/site-link-media-audit-20260913.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v5
+      - name: Audit internal links anchors and local assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlparse, unquote
+          import re, json
+
+          root=Path('.')
+          htmls=sorted([p for p in root.glob('*.html') if p.is_file()])
+          errors=[]; warnings=[]; checks=0
+
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.links=[]; self.assets=[]; self.ids=set()
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if 'id' in d and d['id']: self.ids.add(d['id'])
+                  if 'name' in d and d['name']: self.ids.add(d['name'])
+                  if tag=='a' and d.get('href'): self.links.append(d['href'])
+                  if tag in {'img','script','source','video'} and d.get('src'): self.assets.append(d['src'])
+                  if tag=='link' and d.get('href') and d.get('rel') and any(x in str(d.get('rel')) for x in ['stylesheet','icon']): self.assets.append(d['href'])
+
+          parsed={}
+          for f in htmls:
+              p=P(); p.feed(f.read_text('utf-8',errors='replace')); parsed[f.name]=p
+
+          def clean_path(v):
+              return unquote(v.split('?',1)[0].split('#',1)[0]).lstrip('./')
+
+          for f in htmls:
+              p=parsed[f.name]
+              for href in p.links:
+                  checks+=1
+                  h=href.strip()
+                  if not h or h.lower().startswith(('mailto:','tel:','javascript:','data:')): continue
+                  if h.startswith('#'):
+                      frag=h[1:]
+                      if frag and frag not in p.ids: errors.append(f'{f}: missing anchor #{frag}')
+                      continue
+                  u=urlparse(h)
+                  if u.scheme in {'http','https'}:
+                      if u.netloc=='ts15825868.github.io' and u.path.startswith('/xianjiawei/'):
+                          rel=u.path[len('/xianjiawei/'):]
+                          target=rel or 'index.html'
+                          if target.endswith('/') or not Path(target).suffix: target=target.rstrip('/')+'/index.html'
+                          tp=root/target
+                          if not tp.exists(): errors.append(f'{f}: missing internal target {h}')
+                          if u.fragment and tp.suffix=='.html' and tp.name in parsed and u.fragment not in parsed[tp.name].ids:
+                              errors.append(f'{f}: missing target anchor {h}')
+                      continue
+                  target=clean_path(h)
+                  if not target: continue
+                  tp=(f.parent/target).resolve()
+                  try: tp.relative_to(root.resolve())
+                  except Exception: continue
+                  if target.endswith('/') or not Path(target).suffix:
+                      tp=tp/'index.html'
+                  if not tp.exists(): errors.append(f'{f}: missing link target {h}')
+                  elif u.fragment and tp.suffix=='.html' and tp.name in parsed and u.fragment not in parsed[tp.name].ids:
+                      errors.append(f'{f}: missing target anchor {h}')
+
+              for src in p.assets:
+                  checks+=1
+                  s=src.strip()
+                  if not s or s.startswith(('data:','http://','https://','//')): continue
+                  target=clean_path(s)
+                  if not target: continue
+                  tp=(f.parent/target).resolve()
+                  try: tp.relative_to(root.resolve())
+                  except Exception: continue
+                  if not tp.exists(): errors.append(f'{f}: missing asset {src}')
+
+          report={'htmlPages':len(htmls),'checks':checks,'errors':errors,'warnings':warnings}
+          Path('site-link-media-audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          if errors: raise SystemExit(1)
+          PY
+      - name: Upload audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-site-link-media-audit-${{ github.run_id }}
+          path: site-link-media-audit.json
+          if-no-files-found: error
+          retention-days: 7
