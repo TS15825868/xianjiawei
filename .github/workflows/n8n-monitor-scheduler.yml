@@ -1,6 +1,10 @@
 name: 仙加味全系統健康監控
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/n8n-monitor-scheduler.yml'
   schedule:
     # GitHub Actions 使用 UTC。每小時第 8 分執行，避開整點高峰。
     - cron: '8 * * * *'
