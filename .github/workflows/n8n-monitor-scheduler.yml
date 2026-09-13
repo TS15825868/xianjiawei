@@ -1,9 +1,8 @@
-name: 仙加味 n8n 監控排程
+name: 仙加味全系統健康監控
 
 on:
   schedule:
     # GitHub Actions 使用 UTC。每小時第 8 分執行，避開整點高峰。
-    # 正式排程由 Metricool 承接；此流程只做健康監控，不需要每 15 分鐘喚醒免費 n8n。
     - cron: '8 * * * *'
   workflow_dispatch:
 
@@ -11,46 +10,62 @@ permissions:
   contents: read
 
 concurrency:
-  group: xianjiawei-n8n-monitor-scheduler
+  group: xianjiawei-system-health-monitor
   cancel-in-progress: true
 
 jobs:
-  trigger-monitors:
+  health:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
-      - name: 觸發仙加味只讀監控
+      - name: 驗證官網、LINE OA、ERP邊界與n8n本體
         shell: bash
         run: |
           set -euo pipefail
 
-          call_webhook() {
-            local name="$1"
-            local url="$2"
-            echo "觸發：${name}"
-            for attempt in 1 2 3; do
-              if curl --fail --silent --show-error --location \
-                --connect-timeout 20 --max-time 120 \
-                "$url" >/dev/null; then
-                echo "完成：${name}"
-                return 0
-              fi
-              echo "${name} 第 ${attempt} 次未完成，15 秒後重試"
-              sleep 15
-            done
-            echo "失敗：${name}"
-            return 1
+          check_200() {
+            local name="$1" url="$2" body="/tmp/${3:-body}"
+            echo "檢查：$name"
+            local code
+            code="$(curl -LsS --retry 2 --retry-delay 4 --connect-timeout 20 --max-time 120 -o "$body" -w '%{http_code}' "$url")"
+            echo "$name -> HTTP $code"
+            test "$code" = '200'
+            test -s "$body"
           }
 
-          LINE_URL='https://xianjiawei-n8n-longterm.onrender.com/webhook/xjw-line-health-a7f8c2'
-          SYSTEM_URL='https://xianjiawei-n8n-longterm.onrender.com/webhook/xjw-system-health-d4b6e1'
-          AI_GEO_URL='https://xianjiawei-n8n-longterm.onrender.com/webhook/xjw-ai-geo-9c3f75'
+          check_boundary() {
+            local name="$1" url="$2"
+            echo "檢查：$name"
+            local code
+            code="$(curl -sS --connect-timeout 15 --max-time 45 -o /tmp/boundary -w '%{http_code}' "$url" || true)"
+            echo "$name -> HTTP $code"
+            test -n "$code"
+            test "$code" -ge 200
+            test "$code" -lt 500
+          }
 
-          call_webhook 'LINE OA 健康監控' "$LINE_URL"
-          call_webhook '系統健康總監控' "$SYSTEM_URL"
+          check_200 '官網首頁' 'https://ts15825868.github.io/xianjiawei/index.html' website
+          check_200 '公開產品母資料' 'https://ts15825868.github.io/xianjiawei/public-product-master.json' productmaster
+          check_200 'LINE OA 健康檢查' 'https://ts-line.onrender.com/healthz' linehealth
+          node - <<'NODE'
+          const fs=require('fs');
+          const h=JSON.parse(fs.readFileSync('/tmp/linehealth','utf8'));
+          if(h.ok!==true) throw new Error('LINE healthz ok=false');
+          if(h.credentialsConfigured!==true) throw new Error('LINE credentials 未配置');
+          if(h.orderOpen!==true) throw new Error('LINE orderOpen=false');
+          if(Number(h.productCount)!==6) throw new Error('LINE productCount != 6');
+          if(h.mascotAssetsReady!==true) throw new Error('LINE mascotAssetsReady=false');
+          NODE
 
-          # AI／GEO 母資料一致性屬慢變資料，每 6 小時檢查一次即可；手動執行時一定檢查。
+          check_boundary 'ERP／貼文中心 Cloudflare Access 邊界' 'https://xianjiawei-internal.tung314069.workers.dev/healthz/core'
+          check_200 'n8n 正式服務' 'https://xianjiawei-n8n-longterm.onrender.com/healthz' n8n
+
+          # AI／GEO 母資料屬慢變資料，每 6 小時檢查一次；手動執行一定檢查。
           hour="$(date -u +%H)"
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] || (( 10#$hour % 6 == 0 )); then
-            call_webhook '產品母資料 AI GEO 一致性檢查' "$AI_GEO_URL"
+            check_200 'AI Answers' 'https://ts15825868.github.io/xianjiawei/ai-answers.json' aianswers
+            check_200 'GEO Data' 'https://ts15825868.github.io/xianjiawei/geo-data.json' geodata
+            check_200 'LLMs' 'https://ts15825868.github.io/xianjiawei/llms.txt' llms
           fi
+
+          echo 'PASS 仙加味全系統健康監控'
