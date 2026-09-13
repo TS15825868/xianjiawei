@@ -4,7 +4,14 @@ on:
   push:
     branches: [main]
     paths:
+      - '**/*.html'
+      - '**/*.js'
+      - '**/*.css'
+      - 'images/**'
+      - 'public-product-master.json'
       - '.github/workflows/site-link-media-audit-20260913.yml'
+  schedule:
+    - cron: '23 1 * * *'
   workflow_dispatch:
 
 permissions:
@@ -24,7 +31,7 @@ jobs:
           from html.parser import HTMLParser
           from pathlib import Path
           from urllib.parse import urlparse, unquote
-          import re, json
+          import json
 
           root=Path('.')
           htmls=sorted([p for p in root.glob('*.html') if p.is_file()])
