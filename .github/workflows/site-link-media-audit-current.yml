@@ -1,0 +1,167 @@
+name: 仙加味官網現行連結／產品／素材完整驗收
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - '**/*.js'
+      - '**/*.css'
+      - 'images/**'
+      - 'data/**'
+      - 'public-product-master.json'
+      - '.github/workflows/site-link-media-audit-current.yml'
+  schedule:
+    - cron: '23 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xianjiawei-site-link-media-audit-current
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Verify current public product and media authority
+        shell: node {0}
+        run: |
+          const fs=require('fs');
+          const path=require('path');
+          const master=JSON.parse(fs.readFileSync('public-product-master.json','utf8'));
+          const media=JSON.parse(fs.readFileSync('data/formal-media-authority-v20260810.json','utf8'));
+          const errors=[];
+          const products=Array.isArray(master.products)?master.products:[];
+          if(master.brand?.name!=='仙加味')errors.push('public master brand不是仙加味');
+          if(Number(master.productCount)!==products.length)errors.push(`productCount ${master.productCount} != products ${products.length}`);
+          if(!products.length)errors.push('public product master沒有產品');
+          const ids=new Set();
+          for(const p of products){
+            if(!p.id||!p.name||!p.specification)errors.push('產品缺id/name/specification');
+            if(ids.has(p.id))errors.push(`產品id重複 ${p.id}`); else ids.add(p.id);
+            if(String(p.name).includes('台興山產'))errors.push(`${p.id}: 公開名稱含舊品牌`);
+            if(p.id==='guilu-drink-30'&&p.name!=='龜鹿飲30cc玻璃罐')errors.push('30cc正式名稱錯誤');
+            if(p.id==='guilu-drink-30'&&p.specification!=='30cc／罐（小玻璃罐）')errors.push('30cc正式規格錯誤');
+            if(p.id==='guilu-drink-180'&&p.name!=='龜鹿飲180cc鋁袋')errors.push('180cc正式名稱錯誤');
+            if(p.id==='guilu-drink-180'&&p.specification!=='180cc／包（鋁袋）')errors.push('180cc正式規格錯誤');
+          }
+          const mediaById=new Map((media.products||[]).map(p=>[p.id,p]));
+          for(const p of products){
+            const m=mediaById.get(p.id);
+            if(!m)errors.push(`${p.id}: 正式媒體權威缺產品`);
+            else{
+              if(m.status!=='approved_display')errors.push(`${p.id}: 正式主圖未 approved_display`);
+              for(const key of ['image','dm']){
+                const raw=String(m[key]||'').replace(/^\//,'');
+                if(!raw)errors.push(`${p.id}: 缺${key}`);
+                else if(!fs.existsSync(path.resolve(raw)))errors.push(`${p.id}: ${key}實體不存在 ${raw}`);
+              }
+            }
+          }
+          if(mediaById.has('guilu-drink-30cc')){
+            const m=mediaById.get('guilu-drink-30cc');
+            if(!String(m.image||'').includes('guilu-drink-30cc.avif'))errors.push('30cc主圖不是目前核准小玻璃裸罐');
+          }
+          if(mediaById.has('guilu-drink-180cc')){
+            const m=mediaById.get('guilu-drink-180cc');
+            if(!String(m.image||'').includes('guilu-drink-180cc-product.jpg'))errors.push('180cc主圖未使用正式product master');
+          }
+          if(errors.length){console.error(errors.join('\n'));process.exit(1)}
+          console.log(`PASS website product/media authority: ${products.length} products, ${master.version}`);
+
+      - name: Audit internal links anchors local assets and public wording
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlparse, unquote
+          import json, re
+
+          root=Path('.')
+          htmls=sorted([p for p in root.glob('*.html') if p.is_file()])
+          errors=[]; warnings=[]; checks=0
+
+          class P(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.links=[]; self.assets=[]; self.ids=set()
+              def handle_starttag(self,tag,attrs):
+                  d=dict(attrs)
+                  if 'id' in d and d['id']: self.ids.add(d['id'])
+                  if 'name' in d and d['name']: self.ids.add(d['name'])
+                  if tag=='a' and d.get('href'): self.links.append(d['href'])
+                  if tag in {'img','script','source','video'} and d.get('src'): self.assets.append(d['src'])
+                  if tag=='link' and d.get('href') and d.get('rel') and any(x in str(d.get('rel')) for x in ['stylesheet','icon']): self.assets.append(d['href'])
+
+          parsed={}
+          for f in htmls:
+              text=f.read_text('utf-8',errors='replace')
+              if '台興山產' in text: errors.append(f'{f}: 公開HTML含舊品牌名台興山產')
+              if re.search(r'30\s*cc.{0,16}(玻璃瓶|／\s*瓶|瓶裝)',text,re.I|re.S): errors.append(f'{f}: 公開HTML含30cc舊瓶稱')
+              p=P(); p.feed(text); parsed[f.name]=p
+
+          def clean_path(v):
+              return unquote(v.split('?',1)[0].split('#',1)[0]).lstrip('./')
+
+          for f in htmls:
+              p=parsed[f.name]
+              for href in p.links:
+                  checks+=1
+                  h=href.strip()
+                  if not h or h.lower().startswith(('mailto:','tel:','javascript:','data:')): continue
+                  if h.startswith('#'):
+                      frag=h[1:]
+                      if frag and frag not in p.ids: errors.append(f'{f}: missing anchor #{frag}')
+                      continue
+                  u=urlparse(h)
+                  if u.scheme in {'http','https'}:
+                      if u.netloc=='ts15825868.github.io' and u.path.startswith('/xianjiawei/'):
+                          rel=u.path[len('/xianjiawei/'):]
+                          target=rel or 'index.html'
+                          if target.endswith('/') or not Path(target).suffix: target=target.rstrip('/')+'/index.html'
+                          tp=root/target
+                          if not tp.exists(): errors.append(f'{f}: missing internal target {h}')
+                          if u.fragment and tp.suffix=='.html' and tp.name in parsed and u.fragment not in parsed[tp.name].ids:
+                              errors.append(f'{f}: missing target anchor {h}')
+                      continue
+                  target=clean_path(h)
+                  if not target: continue
+                  tp=(f.parent/target).resolve()
+                  try: tp.relative_to(root.resolve())
+                  except Exception: continue
+                  if target.endswith('/') or not Path(target).suffix: tp=tp/'index.html'
+                  if not tp.exists(): errors.append(f'{f}: missing link target {h}')
+                  elif u.fragment and tp.suffix=='.html' and tp.name in parsed and u.fragment not in parsed[tp.name].ids:
+                      errors.append(f'{f}: missing target anchor {h}')
+
+              for src in p.assets:
+                  checks+=1
+                  s=src.strip()
+                  if not s or s.startswith(('data:','http://','https://','//')): continue
+                  target=clean_path(s)
+                  if not target: continue
+                  tp=(f.parent/target).resolve()
+                  try: tp.relative_to(root.resolve())
+                  except Exception: continue
+                  if not tp.exists(): errors.append(f'{f}: missing asset {src}')
+
+          report={'htmlPages':len(htmls),'checks':checks,'errors':errors,'warnings':warnings}
+          Path('site-link-media-audit.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),'utf-8')
+          print(json.dumps(report,ensure_ascii=False,indent=2))
+          if errors: raise SystemExit(1)
+          PY
+
+      - name: Upload audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-site-link-media-audit-${{ github.run_id }}
+          path: site-link-media-audit.json
+          if-no-files-found: error
+          retention-days: 7
