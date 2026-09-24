@@ -52,9 +52,16 @@ jobs:
             if(p.id==='guilu-drink-180'&&p.specification!=='180cc／包（鋁袋）')errors.push('180cc正式規格錯誤');
           }
           const mediaById=new Map((media.products||[]).map(p=>[p.id,p]));
+          // public-product-master 使用精簡產品 id；正式媒體權威保留既有 30cc/180cc 媒體 id。
+          // 兩者都是現行正式資料，驗收時以明確 alias 對照，不因 id 命名差異誤判為缺產品。
+          const mediaIdAlias={
+            'guilu-drink-30':'guilu-drink-30cc',
+            'guilu-drink-180':'guilu-drink-180cc'
+          };
           for(const p of products){
-            const m=mediaById.get(p.id);
-            if(!m)errors.push(`${p.id}: 正式媒體權威缺產品`);
+            const mediaId=mediaIdAlias[p.id]||p.id;
+            const m=mediaById.get(mediaId);
+            if(!m)errors.push(`${p.id}: 正式媒體權威缺產品（查找 ${mediaId}）`);
             else{
               if(m.status!=='approved_display')errors.push(`${p.id}: 正式主圖未 approved_display`);
               for(const key of ['image','dm']){
