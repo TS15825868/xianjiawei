@@ -704,3 +704,37 @@ body[data-page="home"] #home-products.product-grid .product-card__img img{
     min-height:330px!important;
   }
 }
+
+
+/* 仙加味｜2026-09-24 premium visual v3：全站正式頁一致 */
+body:not([data-page="home"]) .hero{max-width:1240px!important;padding-top:30px!important;padding-bottom:22px!important}
+body:not([data-page="home"]) .hero__content{
+  padding:clamp(30px,5vw,54px)!important;border:1px solid rgba(197,151,67,.34)!important;border-radius:30px!important;
+  background:radial-gradient(circle at 91% 8%,rgba(197,151,67,.16),transparent 24%),linear-gradient(135deg,#fffdf7 0,#f8edda 100%)!important;
+  box-shadow:0 18px 48px rgba(8,40,70,.10)!important
+}
+body:not([data-page="home"]) .hero__content h1{font-size:clamp(38px,5vw,60px)!important;line-height:1.14!important}
+body:not([data-page="home"]) .section{max-width:1240px!important;padding-top:34px!important;padding-bottom:58px!important}
+body:not([data-page="home"]) .section-heading{max-width:850px!important}
+.card,.panel,.faq-item,.final-cta{border-color:rgba(197,151,67,.25)!important}
+.card,.panel{background:linear-gradient(180deg,#fffefa 0,#fffaf1 100%)!important}
+.faq-item{background:#fffdf9!important}
+.faq-item summary{min-height:62px!important;display:flex!important;align-items:center!important;color:var(--xjw-premium-navy)!important}
+.table-scroll{border-color:rgba(197,151,67,.28)!important;box-shadow:0 12px 30px rgba(8,40,70,.06)!important}
+.section-actions{margin-top:22px!important}
+body:not([data-page="home"]) .hero__content{overflow:hidden!important;position:relative!important}
+body:not([data-page="home"]) .hero__content:after{
+  content:"仙加味"!important;position:absolute!important;right:24px!important;bottom:-8px!important;color:rgba(197,151,67,.08)!important;
+  font-family:"Noto Serif TC","Songti TC",serif!important;font-size:clamp(72px,11vw,150px)!important;font-weight:900!important;pointer-events:none!important;z-index:0!important
+}
+body:not([data-page="home"]) .hero__content>*{position:relative!important;z-index:1!important}
+body[data-page="products"] .product-card__img{min-height:360px!important}
+body[data-page="product-detail"] .product-detail-hero__media{min-height:540px!important}
+body[data-page="product-detail"] .product-detail-hero__media img{max-height:600px!important}
+@media(max-width:700px){
+ body:not([data-page="home"]) .hero{padding:14px 10px 18px!important}
+ body:not([data-page="home"]) .hero__content{padding:28px 20px!important;border-radius:22px!important}
+ body:not([data-page="home"]) .section{padding-left:12px!important;padding-right:12px!important}
+ body[data-page="products"] .product-card__img{min-height:330px!important}
+ body[data-page="product-detail"] .product-detail-hero__media{min-height:350px!important}
+}
