@@ -10,17 +10,17 @@
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260924-clean-real-product-display-v13';
+  const VERSION='20260925-formal-display-v17';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const DISPLAY=Object.freeze({
-    'guilu-gao':'images/products-v3/guilu-gao.jpg',
-    'guilu-drink-30':'images/products-v3/guilu-drink-30.jpg',
-    'guilu-drink-180':'images/products-v3/guilu-drink-180.jpg',
-    'guilu-tangkuai':'images/products-v3/guilu-tangkuai.jpg',
-    'guilu-jiao':'images/products-v3/guilu-jiao.jpg',
-    'luerong-fen':'images/products-v3/luerong-fen.jpg'
+    'guilu-gao':'images/customer-display-v20260812/guilu-gao.avif',
+    'guilu-drink-30':'images/customer-display-v20260812/guilu-drink-30cc.avif',
+    'guilu-drink-180':'images/customer-display-v20260812/guilu-drink-180cc-product.jpg',
+    'guilu-tangkuai':'images/customer-display-v20260812/guilu-tangkuai.avif',
+    'guilu-jiao':'images/customer-display-v20260812/guilu-jiao.avif',
+    'luerong-fen':'images/customer-display-v20260812/luerong-fen.avif'
   });
   const TRIAL=Object.freeze({
     mode:'poster',
@@ -81,7 +81,7 @@
         ...normalized,
         image:displayUrl,imageUrl:displayUrl,image_url:displayUrl,detailImages:[displayUrl],
         officialOriginalImage:identity||product.officialOriginalImage||'',
-        imagePolicy:'current-real-product-identity-photo-contain-no-crop-no-stretch-no-dm-substitution',
+        imagePolicy:'current-customer-display-formal-product-image-contain-no-crop-no-stretch-no-dm-substitution',
         officialImagePolicy:'products-v3-product-identity-package-scale-reference-only-no-redraw',
         physicalScalePolicy:'depicted-product-must-match-real-approved-product-shape-package-and-proportion'
       };
@@ -96,7 +96,7 @@
       productTextAuthority:'public-product-master.json',
       knowledgeProductCount:6,
       approvedMediaProductCount:6,
-      productMainImageSource:'images/products-v3/',
+      productMainImageSource:'images/customer-display-v20260812/',
       productIdentityReference:'images/products-v3/',
       dmSource:'images/dm-final/',
       trialMode:TRIAL.mode,
