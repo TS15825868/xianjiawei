@@ -738,3 +738,80 @@ body[data-page="product-detail"] .product-detail-hero__media img{max-height:600p
  body[data-page="products"] .product-card__img{min-height:330px!important}
  body[data-page="product-detail"] .product-detail-hero__media{min-height:350px!important}
 }
+
+
+/* 仙加味｜2026-09-24 premium visual v4：iOS／Android／桌機一致性 */
+/* 跨瀏覽器基礎：Safari / Chrome / Android / iOS */
+html{
+  -webkit-text-size-adjust:100%!important;
+  text-size-adjust:100%!important;
+  scroll-behavior:smooth!important;
+}
+body{
+  -webkit-font-smoothing:antialiased!important;
+  -moz-osx-font-smoothing:grayscale!important;
+  overscroll-behavior-x:none!important;
+}
+a,button,.btn,.menu-btn,.menu-close{
+  -webkit-tap-highlight-color:transparent!important;
+  touch-action:manipulation!important;
+}
+img{
+  -webkit-user-drag:none!important;
+}
+.site-header{
+  padding-top:env(safe-area-inset-top)!important;
+}
+.site-menu{
+  height:100vh!important;
+  height:100dvh!important;
+}
+.site-menu__panel{
+  height:100vh!important;
+  height:100dvh!important;
+  padding-bottom:calc(34px + env(safe-area-inset-bottom))!important;
+  overscroll-behavior:contain!important;
+}
+.product-modal__scroll{
+  min-height:100vh!important;
+  min-height:100dvh!important;
+  padding-bottom:env(safe-area-inset-bottom)!important;
+}
+.site-footer{
+  padding-bottom:calc(32px + env(safe-area-inset-bottom))!important;
+}
+.btn,.menu-btn,.menu-close,.header-line-cta{
+  min-height:46px!important;
+}
+input,button,select,textarea{
+  font-size:16px;
+}
+@supports (-webkit-touch-callout:none){
+  body{
+    min-height:-webkit-fill-available!important;
+  }
+  .site-header{
+    -webkit-transform:translateZ(0);
+    transform:translateZ(0);
+  }
+}
+
+/* 小螢幕與 Android 窄機型：杜絕水平溢位，產品仍完整。 */
+@media(max-width:760px){
+  html,body,.page{max-width:100%!important;overflow-x:hidden!important}
+  .header-inner{max-width:100%!important}
+  .site-menu__panel{width:min(94vw,410px)!important}
+  .section,.hero{max-width:100%!important}
+  .product-card,.home-choice-card,.home-feature-card,.card,.panel{min-width:0!important}
+  .product-card__body h3,.section-heading h2,.hero__content h1{overflow-wrap:anywhere!important}
+  .footer-card{margin-bottom:env(safe-area-inset-bottom)!important}
+}
+/* iPhone SE / 小型 Android */
+@media(max-width:390px){
+  .site-header .brand-mark img{width:50px!important;height:50px!important}
+  .site-header .brand-mark__name{font-size:21px!important}
+  .site-header .menu-btn{padding:0 13px!important}
+  .home-product-showcase__grid>a{grid-template-rows:108px auto!important}
+  .home-product-showcase__grid img{max-height:108px!important}
+  body[data-page="home"] .home-trust-row{grid-template-columns:1fr!important}
+}
