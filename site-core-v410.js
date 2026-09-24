@@ -366,7 +366,7 @@ function fillProducts(targetId, products, options = {}) {
   const safeProducts = Array.isArray(products) ? products : [];
   list.innerHTML = safeProducts.map(product => {
     const name = product.displayName || product.name || "仙加味產品";
-    const image = product.officialOriginalImage || product.image || product.gallery?.[0] || "images/logo.png";
+    const image = product.image || product.gallery?.[0] || "images/logo.png";
     const page = product.page || product.detailPage || "products.html";
     return `
       <article class="product-card reveal" data-product-id="${escapeAttribute(product.id || "")}" tabindex="0" role="button" aria-label="查看${escapeAttribute(name)}介紹">
@@ -796,7 +796,7 @@ function openProductModal(product, sourceElement) {
 
   lastFocusedElement = sourceElement || document.activeElement;
   const name = product.displayName || product.name || "仙加味產品";
-  const image = product.officialOriginalImage || product.image || product.gallery?.[0] || "images/logo.png";
+  const image = product.image || product.gallery?.[0] || "images/logo.png";
   const ingredients = Array.isArray(product.ingredients) ? product.ingredients : [];
   const usage = Array.isArray(product.usage) ? product.usage : [];
   const storage = Array.isArray(product.storage) ? product.storage : [];
