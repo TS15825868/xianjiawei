@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20260925-final-v15";
+  const VERSION = "20260925-final-v16";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
@@ -25,7 +25,10 @@
   const STABILITY = `site-stability-v20260814.js?v=${VERSION}`;
   const CURRENT_GAO_TIMING = "食用時間可依個人使用習慣與作息時間安排";
 
+  const FINAL_STYLE = `site-final-v20260925.css?v=${VERSION}`;
+
   const STYLES = [
+    `site-ux-v410.css?v=${VERSION}`,
     `site-ux-v4104.css?v=${VERSION}`,
     `site-formal-v20260809.css?v=${VERSION}`,
     `site-customer-polish-v20260811.css?v=${VERSION}`,
@@ -69,15 +72,27 @@
   }
   function appendStyle(href){
     const clean=cleanAssetPath(href);
+    const finalLink=document.querySelector('link[href*="site-final-v20260925.css"]');
     const existing=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>cleanAssetPath(link.getAttribute("href"))===clean);
     if(existing){
       const current=existing.getAttribute("href")||"";
       if(current!==href) existing.setAttribute("href",href);
-      return;
+      if(finalLink && existing!==finalLink && existing.compareDocumentPosition(finalLink)&Node.DOCUMENT_POSITION_PRECEDING){
+        finalLink.before(existing);
+      }
+      return existing;
     }
-    const link=document.createElement("link");link.rel="stylesheet";link.href=href;document.head.appendChild(link);
+    const link=document.createElement("link");link.rel="stylesheet";link.href=href;
+    if(finalLink) finalLink.before(link); else document.head.appendChild(link);
+    return link;
   }
-  function loadStyles(){STYLES.forEach(appendStyle);}
+  function ensureFinalStyle(){
+    let finalLink=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>cleanAssetPath(link.getAttribute("href"))===cleanAssetPath(FINAL_STYLE));
+    if(!finalLink){finalLink=document.createElement("link");finalLink.rel="stylesheet";}
+    finalLink.href=FINAL_STYLE;
+    document.head.appendChild(finalLink);
+  }
+  function loadStyles(){STYLES.forEach(appendStyle);ensureFinalStyle();}
   function installEmergencyHeader(){
     const header=document.getElementById("site-header");
     if(!header||header.children.length)return;
