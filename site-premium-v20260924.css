@@ -2622,3 +2622,102 @@ body[data-page="contact"] .contact-line-copy .btn-line{
     grid-template-columns:124px minmax(0,1fr)!important;
   }
 }
+
+
+/* 仙加味｜2026-09-24 premium visual v11：產品圖聚焦與版面精修 */
+/*
+ * 產品主圖仍使用核准正式實品檔，只在卡片/快速查看版位裁掉海報周邊留白與標題，
+ * 不重畫、不變形、不改包裝；完整 DM 仍維持 contain 全圖。
+ */
+.product-card__img,
+.home-product-showcase__grid>a,
+.modal-gallery__item,
+.product-detail-hero__media{
+  overflow:hidden!important;
+}
+.product-card__img img,
+.home-product-showcase__grid img,
+.modal-gallery__item img,
+.product-detail-hero__media img{
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center 55%!important;
+  transform:none!important;
+  clip-path:none!important;
+}
+/* 180cc 鋁袋較長，視窗略往下以保留整包。 */
+.product-card__img img[src*="guilu-drink-180"],
+.home-product-showcase__grid img[src*="guilu-drink-180"],
+.modal-gallery__item img[src*="guilu-drink-180"],
+.product-detail-hero__media img[src*="guilu-drink-180"]{
+  object-position:center 58%!important;
+}
+/* 龜鹿膏盒＋罐、鹿茸粉罐都保留完整產品輪廓。 */
+.product-card__img img[src*="guilu-gao"],
+.home-product-showcase__grid img[src*="guilu-gao"],
+.modal-gallery__item img[src*="guilu-gao"],
+.product-detail-hero__media img[src*="guilu-gao"]{
+  object-position:center 56%!important;
+}
+.product-card__img img[src*="luerong-fen"],
+.home-product-showcase__grid img[src*="luerong-fen"],
+.modal-gallery__item img[src*="luerong-fen"],
+.product-detail-hero__media img[src*="luerong-fen"]{
+  object-position:center 57%!important;
+}
+/* 詳細頁給產品一個穩定的展示窗，不讓整張海報把產品縮得太小。 */
+.product-detail-hero__media{
+  aspect-ratio:4/3!important;
+  min-height:0!important;
+}
+.product-detail-hero__media a{
+  width:100%!important;
+  height:100%!important;
+}
+.product-detail-hero__media img{
+  max-height:none!important;
+  border-radius:16px!important;
+}
+.modal-gallery__item{
+  aspect-ratio:4/3!important;
+}
+.modal-gallery__item img{
+  max-height:none!important;
+}
+/* 首頁六產品主視覺也直接聚焦產品，減少「DM貼進卡片」感。 */
+.home-product-showcase__grid>a{
+  background:linear-gradient(180deg,#fffefa 0,#f5ead7 100%)!important;
+}
+.home-product-showcase__grid img{
+  border-radius:11px!important;
+}
+/* 產品總覽桌機卡片一致高級比例。 */
+@media(min-width:701px){
+  .product-card__img{
+    aspect-ratio:5/4!important;
+    min-height:300px!important;
+  }
+}
+/* 手機橫卡：維持產品完整焦點，避免圖太小。 */
+@media(max-width:700px){
+  .product-card__img{
+    min-height:176px!important;
+    aspect-ratio:auto!important;
+  }
+  .product-card__img img{
+    min-height:176px!important;
+  }
+  .product-detail-hero__media{
+    aspect-ratio:4/3!important;
+    min-height:0!important;
+  }
+}
+/* DM與原圖檢視永遠完整呈現，不套產品卡聚焦裁切。 */
+.real-product-gallery img,
+img[src*="/images/dm-final/"]{
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
