@@ -1,20 +1,20 @@
 {
-  "runtime": "20260924-clean-real-product-display-v13",
-  "approval_batch": "20260924-clean-real-product-display-v13",
+  "runtime": "20260925-formal-display-v17",
+  "approval_batch": "20260925-formal-display-v17",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
   "principle": "formal product images, current detailed DMs, and the latest user-approved trial poster are separate media roles; products-v3 remains immutable real-product identity reference only",
-  "product_image_authority": "網站產品主圖改用 products-v3 正式實品身份照片；完整等比例顯示，不裁切、不拉伸、不重畫包裝；詳細DM仍維持 dm-final 獨立角色。",
+  "product_image_authority": "formal product media only; 180cc uses the exact user-approved 1122x1402 HD product master restored from repository history; detailed DM remains a separate role",
   "customer_text_spec_policy": "顧客產品頁、FAQ與快速查看可顯示目前完整文字規格與每塊約重；產品主圖、DM與產品包裝本體不得因此自行加字、重畫或改比例。",
   "products": [
     {
       "id": "guilu-gao",
       "name": "龜鹿膏",
       "spec": "100g／罐",
-      "image": "/images/products-v3/guilu-gao.jpg",
+      "image": "/images/customer-display-v20260812/guilu-gao.avif",
       "dm": "/images/dm-final/01_guilu-gao-100g-dm.jpg",
       "status": "approved_display",
-      "binary_status": "formal_real_product_identity_photo",
+      "binary_status": "verified_high_resolution_1122x1402",
       "dm_binary_status": "approved_high_resolution_jpeg"
     },
     {
@@ -29,10 +29,10 @@
         "不改比例",
         "不改罐型"
       ],
-      "image": "/images/products-v3/guilu-drink-30.jpg",
+      "image": "/images/customer-display-v20260812/guilu-drink-30cc.avif",
       "dm": "/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
       "status": "approved_display",
-      "binary_status": "formal_real_product_identity_photo",
+      "binary_status": "verified_high_resolution_1122x1402",
       "dm_status": "exact_user_approved_jpeg_1122x1402"
     },
     {
@@ -46,10 +46,10 @@
         "不得亂畫包裝",
         "產品主圖不得使用詳細DM海報"
       ],
-      "image": "/images/products-v3/guilu-drink-180.jpg",
+      "image": "/images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
       "dm": "/images/dm-final/03_guilu-drink-180cc-dm.jpg",
       "status": "approved_display",
-      "binary_status": "formal_real_product_identity_photo",
+      "binary_status": "verified_exact_user_approved_hd_master_1122x1402_315576_bytes",
       "dm_status": "approved_high_resolution_jpeg",
       "sha256": "719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62"
     },
@@ -59,10 +59,10 @@
       "spec": "75g （2兩）／盒｜8塊裝",
       "detail_unit_approx": "每塊約9.375g",
       "detail_unit_rule": "顧客文字頁、FAQ與快速查看可顯示完整規格與每塊約9.375g；產品主圖與DM主規格維持75g （2兩）／盒｜8塊裝，不自行加字",
-      "image": "/images/products-v3/guilu-tangkuai.jpg",
+      "image": "/images/customer-display-v20260812/guilu-tangkuai.avif",
       "dm": "/images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
       "status": "approved_display",
-      "binary_status": "formal_real_product_identity_photo",
+      "binary_status": "verified_high_resolution_1122x1402",
       "dm_status": "approved_high_resolution_jpeg"
     },
     {
@@ -71,20 +71,20 @@
       "spec": "600g （1斤）／盒｜32塊裝",
       "detail_unit_approx": "每塊約18.75 g",
       "detail_unit_rule": "顧客文字頁、FAQ與快速查看可顯示完整規格與每塊約18.75 g；產品主圖與DM主規格維持600g （1斤）／盒｜32塊裝，不自行加字",
-      "image": "/images/products-v3/guilu-jiao.jpg",
+      "image": "/images/customer-display-v20260812/guilu-jiao.avif",
       "dm": "/images/dm-final/06_guilu-jiao-600g-dm.jpg",
       "status": "approved_display",
-      "binary_status": "formal_real_product_identity_photo",
+      "binary_status": "verified_high_resolution_1122x1402",
       "dm_status": "approved_high_resolution_jpeg"
     },
     {
       "id": "luerong-fen",
       "name": "鹿茸粉",
       "spec": "75g／罐",
-      "image": "/images/products-v3/luerong-fen.jpg",
+      "image": "/images/customer-display-v20260812/luerong-fen.avif",
       "dm": "/images/dm-final/04_luerong-fen-75g-dm.jpg",
       "status": "approved_display",
-      "binary_status": "formal_real_product_identity_photo",
+      "binary_status": "verified_high_resolution_1122x1402",
       "dm_status": "approved_high_resolution_jpeg"
     }
   ],
@@ -153,13 +153,18 @@
     "/images/customer-display-v20260812/guilu-drink-180cc.jpg"
   ],
   "image_rules": [
-    "網站產品主圖使用 products-v3 正式實品身份照片，完整等比例顯示",
-    "產品本體不得AI重畫、不得改包裝、不得改標籤、不得拉伸或裁掉重要部位",
+    "正式產品圖用於產品頁／產品卡／一般產品貼文",
+    "有效詳細DM只用於DM版位／DM貼文",
+    "試喝頁使用最新核准小老闆正式試喝海報，產品圖／DM／試喝圖三層分離",
+    "舊trial.webp、trial-clean-v4.svg、trial-small-boss.webp、jpg、png不得再當網站試喝主圖",
+    "所有對外圖片除了可解碼之外，還必須視覺內容正常且媒體角色正確",
+    "產品本體不得AI重畫或改包裝身份",
+    "圖文必須一致",
+    "禁止拼貼與黑塊",
     "30cc維持小玻璃裸罐、無貼紙、原比例與原罐型",
-    "180cc維持鋁袋、原袋型與原比例",
-    "龜鹿湯塊與龜鹿膠使用正式實品外盒／內容物照片，不以DM海報取代產品主圖",
-    "鹿茸粉維持正式實體罐身與貼紙",
-    "詳細DM只用於DM版位；試喝海報只用於試喝版位"
+    "180cc維持鋁袋、原袋型與原比例，產品主圖不得使用DM海報",
+    "龜鹿湯塊顧客文字可顯示75g （2兩）／盒｜8塊裝與每塊約9.375g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字",
+    "龜鹿膠顧客文字可顯示600g （1斤）／盒｜32塊裝與每塊約18.75 g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字"
   ],
   "post_image_policy": "product post copy may include current exact text specifications and unit approximations when relevant; visuals use formal product media; explicit DM posts use current approved detailed DMs; trial content uses the latest approved trial poster; edits return to pending_review and must pass the 16-item review gate",
   "guard_policy": "validate current product specifications, product image, detailed DM, trial poster, visual validity and physical identity as separate roles; never restore retired trial masters, fixed-time usage rules or wrong-role 180cc DM"
