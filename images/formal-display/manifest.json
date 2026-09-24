@@ -1,78 +1,78 @@
 {
-  "runtime": "20260814-product-modal-media-v3",
-  "approval_batch": "20260814-product-modal-media-v3",
+  "runtime": "20260924-clean-real-product-display-v13",
+  "approval_batch": "20260924-clean-real-product-display-v13",
   "products": {
     "guilu-gao": {
       "name": "龜鹿膏",
       "spec": "100g／罐",
-      "path": "/images/customer-display-v20260812/guilu-gao.avif",
+      "path": "/images/products-v3/guilu-gao.jpg",
       "status": "approved_display",
-      "format": "avif",
-      "binary_status": "verified_high_resolution_1122x1402",
-      "display_rule": "user-confirmed official product image; no redraw"
+      "format": "jpeg",
+      "binary_status": "formal_real_product_identity_photo",
+      "display_rule": "正式實品身份照片；完整等比例、不裁切重要部位、不拉伸、不重畫包裝"
     },
     "guilu-drink-30": {
       "name": "龜鹿飲30cc玻璃罐",
       "spec": "30cc／罐（小玻璃罐）",
-      "path": "/images/customer-display-v20260812/guilu-drink-30cc.avif",
+      "path": "/images/products-v3/guilu-drink-30.jpg",
       "status": "approved_display",
-      "format": "avif",
-      "binary_status": "verified_high_resolution_1122x1402",
-      "display_rule": "small bare glass jar, no label, no bottle wording, no shape/proportion changes"
+      "format": "jpeg",
+      "binary_status": "formal_real_product_identity_photo",
+      "display_rule": "正式實品身份照片；完整等比例、不裁切重要部位、不拉伸、不重畫包裝"
     },
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
       "spec": "180cc／包（鋁袋）",
-      "path": "/images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
+      "path": "/images/products-v3/guilu-drink-180.jpg",
       "status": "approved_display",
       "format": "jpeg",
-      "binary_status": "verified_exact_user_approved_hd_master_1122x1402_315576_bytes",
+      "binary_status": "formal_real_product_identity_photo",
       "sha256": "719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62",
-      "display_rule": "exact approved 180cc product master; detailed DM poster is a separate role and cannot be used as product main image"
+      "display_rule": "正式實品身份照片；完整等比例、不裁切重要部位、不拉伸、不重畫包裝"
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",
       "spec": "75g （2兩）／盒｜8塊裝",
       "detail_unit_approx": "每塊約9.375g",
       "detail_unit_rule": "detail-data-only; do not place on main product image or DM main spec",
-      "path": "/images/customer-display-v20260812/guilu-tangkuai.avif",
+      "path": "/images/products-v3/guilu-tangkuai.jpg",
       "status": "approved_display",
-      "format": "avif",
-      "binary_status": "verified_high_resolution_1122x1402",
-      "display_rule": "user-confirmed official product image; legacy WebP decode-failed and is retired"
+      "format": "jpeg",
+      "binary_status": "formal_real_product_identity_photo",
+      "display_rule": "正式實品身份照片；完整等比例、不裁切重要部位、不拉伸、不重畫包裝"
     },
     "guilu-jiao": {
       "name": "龜鹿膠",
       "spec": "600g （1斤）／盒｜32塊裝",
       "detail_unit_approx": "每塊約18.75g",
       "detail_unit_rule": "detail-data-only; do not place on main product image or DM main spec",
-      "path": "/images/customer-display-v20260812/guilu-jiao.avif",
+      "path": "/images/products-v3/guilu-jiao.jpg",
       "status": "approved_display",
-      "format": "avif",
-      "binary_status": "verified_high_resolution_1122x1402",
-      "display_rule": "user-confirmed official product image; no redraw"
+      "format": "jpeg",
+      "binary_status": "formal_real_product_identity_photo",
+      "display_rule": "正式實品身份照片；完整等比例、不裁切重要部位、不拉伸、不重畫包裝"
     },
     "luerong-fen": {
       "name": "鹿茸粉",
       "spec": "75g／罐",
-      "path": "/images/customer-display-v20260812/luerong-fen.avif",
+      "path": "/images/products-v3/luerong-fen.jpg",
       "status": "approved_display",
-      "format": "avif",
-      "binary_status": "verified_high_resolution_1122x1402",
-      "display_rule": "user-confirmed official product image; no redraw"
+      "format": "jpeg",
+      "binary_status": "formal_real_product_identity_photo",
+      "display_rule": "正式實品身份照片；完整等比例、不裁切重要部位、不拉伸、不重畫包裝"
     }
   },
   "dm": {
-    "version": "20260814-product-modal-media-v3",
+    "version": "20260924-dm-final-current",
     "role": "separate-detailed-media-layer",
     "status": "approved_user_original_high_resolution",
     "paths": {
       "guilu-gao": "/images/dm-final/01_guilu-gao-100g-dm.jpg",
       "guilu-drink-30": "/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
-      "guilu-drink-180": "/images/dm-approved-v20260810/guilu-drink-180cc.webp",
-      "guilu-tangkuai": "/images/dm-approved-v20260810/guilu-tangkuai-75g.webp",
-      "guilu-jiao": "/images/dm-approved-v20260810/guilu-jiao-600g.webp",
-      "luerong-fen": "/images/dm-approved-v20260810/lurong-fen-75g.webp"
+      "guilu-drink-180": "/images/dm-final/03_guilu-drink-180cc-dm.jpg",
+      "guilu-tangkuai": "/images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
+      "guilu-jiao": "/images/dm-final/06_guilu-jiao-600g-dm.jpg",
+      "luerong-fen": "/images/dm-final/04_luerong-fen-75g-dm.jpg"
     },
     "binary_status": {
       "guilu-gao": "valid_jpeg_fallback_from_approved_master",
@@ -129,8 +129,8 @@
     "product_cards_are_not_product_authority": true
   },
   "rules": {
-    "product_authority": "formal product images are for product surfaces only; products-v3 remains physical identity reference and 180cc uses the exact approved HD product master",
-    "customer_main_visual": "formal product media for product surfaces; current approved detailed DMs only for DM surfaces; latest user-approved trial poster only for trial surfaces",
+    "product_authority": "網站產品主圖使用 products-v3 正式實品身份照片；DM與試喝素材分層，不得互相代替",
+    "customer_main_visual": "正式實品身份照片用於產品表面；詳細DM只用於DM；試喝正式海報只用於試喝",
     "no_ai_product_redraw": true,
     "no_stretch": true,
     "retired_trial_must_not_return": true,
