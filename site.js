@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20260924-premium-visual-v8";
+  const VERSION = "20260924-premium-visual-v9";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
@@ -122,16 +122,22 @@
       finally{if(timer)clearTimeout(timer);}
     };
   }
-  function ensureCoreBooted(){
-    if(document.readyState==="loading"||document.body?.classList.contains("ux-v410")||window.__XJW_DATA_REQUESTED__||typeof window.initSite!=="function")return;
-    try{const result=window.initSite();if(result&&typeof result.catch==="function")result.catch(error=>console.warn("仙加味核心備援啟動失敗",error));}
-    catch(error){console.warn("仙加味核心備援啟動失敗",error);}
+  function ensureCoreBooted(attempt=0){
+    if(document.body?.classList.contains("ux-v410")||window.__XJW_SITE_INITIALIZED__)return;
+    if(document.readyState!=="loading"&&typeof window.initSite==="function"){
+      try{
+        const result=window.initSite();
+        if(result&&typeof result.catch==="function")result.catch(error=>console.warn("仙加味核心備援啟動失敗",error));
+        return;
+      }catch(error){console.warn("仙加味核心備援啟動失敗",error);}
+    }
+    if(attempt<30)setTimeout(()=>ensureCoreBooted(attempt+1),100);
   }
   async function boot(){
     document.documentElement.dataset.xjwRuntimeLoading=VERSION;
     installFailsafeStyle();loadStyles();installEmergencyHeader();
     await loadScript(AUTHORITY);await loadScript(PRODUCT_DISPLAY);await loadScript(DM_AUTHORITY);
-    installDataFetchTimeout();await loadScript(CORE);setTimeout(ensureCoreBooted,120);
+    installDataFetchTimeout();await loadScript(CORE);ensureCoreBooted();
     await Promise.all([loadScript(MEDIA_MODAL),loadScript(SAFETY),loadScript(VARIANTS),loadScript(PUBLIC_CLEANUP),loadScript(IMAGE_RETIREMENT),loadScript(MASCOT),loadScript(STABILITY)]);
     document.documentElement.dataset.xjwRuntime=VERSION;delete document.documentElement.dataset.xjwRuntimeLoading;
     document.querySelectorAll(".reveal").forEach(element=>element.classList.add("show"));
