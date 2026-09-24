@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20260924-premium-visual-v7";
+  const VERSION = "20260924-premium-visual-v8";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
@@ -70,7 +70,11 @@
   function appendStyle(href){
     const clean=cleanAssetPath(href);
     const existing=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>cleanAssetPath(link.getAttribute("href"))===clean);
-    if(existing)return;
+    if(existing){
+      const current=existing.getAttribute("href")||"";
+      if(current!==href) existing.setAttribute("href",href);
+      return;
+    }
     const link=document.createElement("link");link.rel="stylesheet";link.href=href;document.head.appendChild(link);
   }
   function loadStyles(){STYLES.forEach(appendStyle);}
