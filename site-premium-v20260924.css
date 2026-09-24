@@ -2721,3 +2721,365 @@ img[src*="/images/dm-final/"]{
   object-fit:contain!important;
   object-position:center!important;
 }
+
+
+/* 仙加味｜2026-09-24 premium visual v12：全站可靠性／高級版面最終覆寫 */
+/* 核心原則：固定導覽、內容永遠可見、產品完整、手機不重複、不留巨大空白。 */
+
+/* 1. 所有裝置導覽永久可用；iOS Safari / Android Chrome 不依賴 sticky。 */
+:root{
+  --xjw-v12-header-h:78px;
+  --xjw-v12-mobile-header-h:66px;
+}
+html{
+  scroll-padding-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top) + 16px)!important;
+}
+body{
+  min-width:320px!important;
+  overflow-x:hidden!important;
+}
+.site-header{
+  position:fixed!important;
+  inset:auto 0 auto 0!important;
+  top:0!important;
+  width:100%!important;
+  z-index:12000!important;
+  padding-top:env(safe-area-inset-top)!important;
+  background:rgba(8,40,70,.988)!important;
+  border-bottom:1px solid rgba(243,217,154,.42)!important;
+  box-shadow:0 10px 30px rgba(3,20,36,.20)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.12)!important;
+  backdrop-filter:blur(18px) saturate(1.12)!important;
+  -webkit-transform:translateZ(0)!important;
+  transform:translateZ(0)!important;
+}
+.site-header .header-inner{
+  min-height:var(--xjw-v12-header-h)!important;
+}
+.page{
+  padding-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top))!important;
+}
+[id]{
+  scroll-margin-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top) + 18px)!important;
+}
+
+/* 2. Fail-safe：不再用 reveal opacity 造成「整段空白」。漂亮優先，但內容一定要看得到。 */
+.reveal,
+.reveal.show{
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+  transition:none!important;
+}
+
+/* 3. 選單在任何捲動位置可開；面板自身捲動，不影響頁面。 */
+.site-menu{
+  position:fixed!important;
+  inset:0!important;
+  z-index:13000!important;
+}
+.site-menu__panel{
+  max-height:100vh!important;
+  max-height:100dvh!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+body.menu-open,
+body.modal-open{
+  overflow:hidden!important;
+  touch-action:none!important;
+}
+
+/* 4. 全站節奏：消除不必要的大空白與過長卡片。 */
+.hero{
+  padding-top:24px!important;
+  padding-bottom:18px!important;
+}
+.section{
+  padding-top:26px!important;
+  padding-bottom:42px!important;
+}
+.section:last-child{
+  padding-bottom:34px!important;
+}
+.card,.panel,.final-cta,
+.home-choice-card,.home-feature-card,.home-faq-card{
+  min-height:0!important;
+}
+.site-footer{
+  margin-top:8px!important;
+  padding-top:8px!important;
+}
+.footer-card{
+  min-height:0!important;
+  align-items:start!important;
+}
+.footer-brand-block,.footer-nav,.footer-contact{
+  align-self:start!important;
+}
+
+/* 5. 正式產品本體永遠完整等比例，不用 cover 裁切包裝。 */
+.product-card__img,
+.home-product-showcase__grid>a,
+.modal-gallery__item,
+.product-detail-hero__media{
+  overflow:hidden!important;
+}
+.product-card__img img,
+.home-product-showcase__grid img,
+.modal-gallery__item img,
+.product-detail-hero__media img,
+.trial-product-card__media img,
+.real-product-gallery img,
+img[src*="customer-display-v20260812"],
+img[src*="/images/products-v3/"],
+img[src*="/images/dm-final/"]{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+}
+.real-product-gallery img,
+img[src*="/images/dm-final/"]{
+  height:auto!important;
+}
+
+/* 6. 卡片視覺：減少「每張都是白框」的廉價感，建立一致品牌層次。 */
+.product-card,
+.home-choice-card,
+.home-feature-card,
+.faq-item,
+.card,.panel{
+  border-color:rgba(197,151,67,.26)!important;
+}
+.product-card{
+  background:linear-gradient(180deg,#fffefb 0,#fff9ef 100%)!important;
+}
+.product-card__img{
+  background:
+    radial-gradient(circle at 50% 42%,#fff 0,#fffaf1 62%,#efe1c8 100%)!important;
+}
+.product-card__body h3{
+  color:#082846!important;
+}
+.section-heading h2,.section-title h2{
+  color:#082846!important;
+}
+
+/* 7. 桌機版：Logo、導覽、內容寬度一致。 */
+@media(min-width:1081px){
+  .site-header .header-inner{
+    width:min(calc(100% - 40px),1240px)!important;
+    padding:8px 0!important;
+  }
+  .header-nav{
+    gap:3px!important;
+  }
+  .header-nav a{
+    min-height:42px!important;
+    padding:0 11px!important;
+  }
+  .hero,.section{
+    width:min(100%,1240px)!important;
+  }
+  .product-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  }
+}
+
+/* 8. 平板與手機：固定 Header + 高級緊湊版面。 */
+@media(max-width:1080px){
+  :root{--xjw-v12-header-h:70px}
+  .site-header .header-inner{
+    width:calc(100% - 24px)!important;
+    min-height:var(--xjw-v12-header-h)!important;
+    padding:5px 0!important;
+  }
+  .page{
+    padding-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top))!important;
+  }
+  .header-nav,.header-line-cta{
+    display:none!important;
+  }
+  .site-header .menu-btn{
+    display:flex!important;
+    margin-left:auto!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+  .hero{
+    padding-left:14px!important;
+    padding-right:14px!important;
+  }
+  .section{
+    padding-left:14px!important;
+    padding-right:14px!important;
+  }
+}
+
+@media(max-width:700px){
+  :root{--xjw-v12-header-h:66px}
+  html{
+    scroll-padding-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top) + 12px)!important;
+  }
+  .site-header .header-inner{
+    min-height:var(--xjw-v12-header-h)!important;
+  }
+  .site-header .brand-mark{
+    min-width:0!important;
+  }
+  .site-header .brand-mark img{
+    width:48px!important;
+    height:48px!important;
+    flex:0 0 48px!important;
+  }
+  .site-header .brand-mark__name{
+    font-size:21px!important;
+    white-space:nowrap!important;
+  }
+  .site-header .menu-btn{
+    min-width:88px!important;
+    min-height:44px!important;
+    font-size:15px!important;
+  }
+
+  .hero{
+    padding:12px 10px 10px!important;
+  }
+  .section{
+    padding:20px 10px 30px!important;
+  }
+  .hero__content,
+  body[data-page="home"] .hero__panel{
+    border-radius:20px!important;
+  }
+  body[data-page="home"] .hero__panel{
+    padding:10px!important;
+    gap:12px!important;
+  }
+  body[data-page="home"] .hero__content{
+    padding:22px 15px!important;
+  }
+  body[data-page="home"] .hero__content h1{
+    font-size:clamp(34px,10.5vw,44px)!important;
+  }
+  .section-heading,.section-title{
+    margin-bottom:16px!important;
+  }
+
+  /* 手機產品卡保持橫式，照片完整，文字不塞爆。 */
+  .product-grid{
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+  .product-card{
+    display:grid!important;
+    grid-template-columns:minmax(136px,42%) minmax(0,58%)!important;
+    min-height:176px!important;
+    border-radius:18px!important;
+  }
+  .product-card__img{
+    min-height:176px!important;
+    height:100%!important;
+    aspect-ratio:auto!important;
+    padding:8px!important;
+    border-right:1px solid rgba(197,151,67,.18)!important;
+    border-bottom:0!important;
+  }
+  .product-card__img img{
+    min-height:0!important;
+    max-height:180px!important;
+  }
+  .product-card__body{
+    min-width:0!important;
+    padding:13px 12px!important;
+  }
+  .product-card__body h3{
+    margin:2px 0 6px!important;
+    font-size:18px!important;
+    line-height:1.26!important;
+  }
+  .product-card__body .eyebrow{
+    font-size:10px!important;
+    margin-bottom:3px!important;
+  }
+  .product-card__body .muted{
+    font-size:12px!important;
+    line-height:1.45!important;
+  }
+  .product-card__actions{
+    grid-template-columns:1fr!important;
+  }
+  .product-card__actions .btn{
+    min-height:39px!important;
+    font-size:12px!important;
+  }
+
+  .product-detail-hero{
+    margin:10px 8px 8px!important;
+    padding:10px!important;
+    gap:14px!important;
+  }
+  .product-detail-hero__media{
+    aspect-ratio:4/3!important;
+    min-height:0!important;
+    padding:8px!important;
+  }
+
+  /* 按鈕不要一排擠成小字。 */
+  .hero-actions,.section-actions,.final-cta__actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+  .hero-actions .btn,.section-actions .btn,.final-cta__actions .btn{
+    width:100%!important;
+    min-height:46px!important;
+    padding:0 12px!important;
+    font-size:14px!important;
+  }
+
+  /* Footer 手機版緊湊，不再出現大段空白。 */
+  .footer-card{
+    grid-template-columns:1fr!important;
+    gap:14px!important;
+    padding:18px!important;
+  }
+  .footer-nav-links{
+    grid-template-columns:1fr 1fr!important;
+  }
+  .footer-contact{
+    grid-template-columns:minmax(0,1fr) 96px!important;
+    gap:10px!important;
+    align-items:center!important;
+  }
+  .footer-contact img{
+    width:96px!important;
+    height:96px!important;
+  }
+  .footer-legal{
+    padding-top:12px!important;
+  }
+  .site-footer{
+    padding-bottom:calc(68px + env(safe-area-inset-bottom))!important;
+  }
+
+  /* 比較表：JS 成功時只顯示手機卡片，不重複表格。 */
+  .table-scroll.mobile-compare-ready{
+    display:none!important;
+  }
+  .mobile-compare-cards[data-ready="true"]{
+    display:block!important;
+  }
+}
+@media(max-width:380px){
+  .product-card{
+    grid-template-columns:128px minmax(0,1fr)!important;
+  }
+  .footer-nav-links{
+    grid-template-columns:1fr!important;
+  }
+}
