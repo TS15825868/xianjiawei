@@ -850,7 +850,14 @@ function closeMenu() {
   document.body.classList.remove("menu-open");
 }
 
+function syncHeaderScrolledState() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  header.classList.toggle("is-scrolled", window.scrollY > 12);
+}
+
 function bindGlobalEvents() {
+  syncHeaderScrolledState();
   document.addEventListener("click", event => {
     if (event.target.closest("#menu-btn")) {
       const open = document.getElementById("menu-drawer")?.classList.contains("open");
@@ -875,6 +882,7 @@ function bindGlobalEvents() {
 
   let lastScrollY = window.scrollY;
   window.addEventListener("scroll", () => {
+    syncHeaderScrolledState();
     const moved = Math.abs(window.scrollY - lastScrollY) > 20;
     if (moved && document.body.classList.contains("menu-open")) closeMenu();
     lastScrollY = window.scrollY;
