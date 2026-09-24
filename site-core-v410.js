@@ -333,7 +333,16 @@ function renderCurrentPage() {
 }
 
 function renderHome() {
-  fillProducts("home-products", SITE_DATA?.products || [], { compact: true });
+  const legacyProducts = document.getElementById("home-products");
+  if (legacyProducts) {
+    const legacySection = legacyProducts.closest(".section");
+    if (legacySection) {
+      legacySection.hidden = true;
+      legacySection.dataset.xjwLegacyHomeProductsRemoved = "1";
+    } else {
+      legacyProducts.hidden = true;
+    }
+  }
   document.querySelector("main")?.classList.add("home-v410");
 }
 
