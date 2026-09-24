@@ -70,7 +70,9 @@ function ensureUxStyle() {
   const link = document.createElement("link");
   link.rel = "stylesheet";
   link.href = `site-ux-v410.css?v=${UX_VERSION}`;
-  document.head.appendChild(link);
+  const finalLink = document.querySelector('link[href*="site-final-v20260925.css"]');
+  if (finalLink) finalLink.before(link);
+  else document.head.appendChild(link);
 }
 
 function fallbackData() {
