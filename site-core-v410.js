@@ -3,7 +3,8 @@
 /* 仙加味網站核心｜全站統一正式版 v410.0 */
 window.__XJW_V410__ = true;
 let SITE_DATA = null;
-let lastFocusedElement = null;\nlet menuScrollY = 0;
+let lastFocusedElement = null;
+let menuScrollY = 0;
 
 const UX_VERSION = "410.0";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
