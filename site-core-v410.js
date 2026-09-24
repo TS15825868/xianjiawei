@@ -778,6 +778,7 @@ function renderMobileCompareCards() {
       `;
     }).join("");
     target.dataset.ready = "true";
+    tableWrap?.classList.add("mobile-compare-ready");
   });
 }
 
