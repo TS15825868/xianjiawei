@@ -37,9 +37,15 @@ const MENU_GROUPS = [
 
 ensureUxStyle();
 
-document.addEventListener("DOMContentLoaded", initSite);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initSite, { once: true });
+} else {
+  queueMicrotask(initSite);
+}
 
 async function initSite() {
+  if (window.__XJW_SITE_INITIALIZED__) return;
+  window.__XJW_SITE_INITIALIZED__ = true;
   document.body.classList.add("ux-v410");
   try {
     await loadData();
