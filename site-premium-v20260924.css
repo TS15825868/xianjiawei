@@ -1746,3 +1746,23 @@ img[src*="/images/dm-final/"]{
     font-size:9px!important;
   }
 }
+
+
+/* 仙加味｜2026-09-24 premium visual v7：功能降級保護 */
+/* JS 若未完成手機比較卡，不可把原始表格直接藏掉。 */
+@media(max-width:700px){
+  .table-scroll{
+    display:block!important;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+  .mobile-compare-cards{
+    display:none!important;
+  }
+  .table-scroll.mobile-compare-ready{
+    display:none!important;
+  }
+  .mobile-compare-cards[data-ready="true"]{
+    display:block!important;
+  }
+}
