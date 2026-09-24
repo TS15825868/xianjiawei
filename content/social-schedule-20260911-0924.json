@@ -1,15 +1,16 @@
 {
-  "version": "2026-09-11-v3-through-1014",
+  "version": "2026-09-24-v4-mascot-fix",
   "brand": "仙加味",
   "status": "active-formal-schedule",
-  "updatedAt": "2026-09-11T23:27:00+08:00",
+  "updatedAt": "2026-09-24T20:22:00+08:00",
   "timezone": "Asia/Taipei",
   "sourceOfTruth": {
     "platform": "Metricool",
     "brandId": "6889683",
     "rule": "Only draft=false and autoPublish=true are formal scheduled posts. Metricool draft=true / autoPublish=false items are draft library only and are not counted as formal upcoming posts.",
-    "verifiedWindow": "2026-09-12/2026-10-14",
-    "verifiedFormalUpcomingCount": 30
+    "verifiedWindow": "2026-09-24/2026-10-14",
+    "verifiedFormalUpcomingCount": 30,
+    "note": "2026-09-24已將19:45錯誤角色IG貼文刪除，20:20以使用者核准的新小老闆圖重新發布至Facebook、Instagram、Threads。10/01至10/14既有媒體排程已暫轉草稿，等待最新角色一致性視覺確認後才可恢復自動發布。"
   },
   "principles": {
     "cadence": "少而精、不洗版、不讓人覺得煩；不為填排程硬發",
@@ -17,56 +18,277 @@
     "instagram": "約每週2篇",
     "threads": "約每週3至4篇",
     "primaryPublishingMode": "文案＋對應正式貼文圖",
-    "heroProducts": ["龜鹿膏", "龜鹿飲30cc玻璃罐", "龜鹿飲180cc鋁袋"],
+    "heroProducts": [
+      "龜鹿膏",
+      "龜鹿飲30cc玻璃罐",
+      "龜鹿飲180cc鋁袋"
+    ],
     "deferredPublicProduct": "柒玄茶・龜鹿調飲粉",
     "funnel": "一般生活內容先自然交流；試喝、怎麼選、價格、下單、配送、售後與個別問題最後導LINE OA @762jybnm",
-    "mascot": "正式Q版男生小老闆；短黑髮、大眼睛、米白中式上衣、深橄欖綠圍裙；小鹿與小烏龜分開",
+    "mascot": "正式Q版小朋友、小男孩；短黑髮、大眼睛、圓潤幼童臉型、固定頭身比；米白中式上衣、深橄欖綠圍裙、胸前紅色直式仙加味印章；不得成熟化、少年化、成人化或像不同人；小鹿與小烏龜分開。",
     "logo": "所有紅色印章位置只能使用仙加味正式Logo，不得AI自創印章文字",
     "usageTiming": "不得把龜鹿膏或龜鹿飲鎖成固定早上、下午或白天時段；食用／飲用時間依個人使用習慣與作息安排。"
   },
   "imageTextSystem": [
-    {"id":"visual-01","headline":"補養，是一種節奏。","subline":"把日常慢慢調回自己的步調","use":"品牌／生活"},
-    {"id":"visual-02","headline":"怎麼選？","subline":"先從你的使用習慣開始","use":"龜鹿膏 vs 龜鹿飲"},
-    {"id":"visual-03","headline":"下午空檔","subline":"留一點時間給自己","use":"工作／生活情境"},
-    {"id":"visual-04","headline":"常見問題","subline":"不用一次記很多，一題一題看懂","use":"FAQ"},
-    {"id":"visual-05","headline":"30cc？180cc？","subline":"不是哪個比較好，是哪個比較符合生活方式","use":"龜鹿飲規格"},
-    {"id":"visual-06","headline":"龜鹿膏100g","subline":"直接取用，也可用溫熱水化開","use":"龜鹿膏使用"},
-    {"id":"visual-07","headline":"忙了一天","subline":"把節奏慢慢收回來","use":"生活日常"}
+    {
+      "id": "visual-01",
+      "headline": "補養，是一種節奏。",
+      "subline": "把日常慢慢調回自己的步調",
+      "use": "品牌／生活"
+    },
+    {
+      "id": "visual-02",
+      "headline": "怎麼選？",
+      "subline": "先從你的使用習慣開始",
+      "use": "龜鹿膏 vs 龜鹿飲"
+    },
+    {
+      "id": "visual-03",
+      "headline": "下午空檔",
+      "subline": "留一點時間給自己",
+      "use": "工作／生活情境"
+    },
+    {
+      "id": "visual-04",
+      "headline": "常見問題",
+      "subline": "不用一次記很多，一題一題看懂",
+      "use": "FAQ"
+    },
+    {
+      "id": "visual-05",
+      "headline": "30cc？180cc？",
+      "subline": "不是哪個比較好，是哪個比較符合生活方式",
+      "use": "龜鹿飲規格"
+    },
+    {
+      "id": "visual-06",
+      "headline": "龜鹿膏100g",
+      "subline": "直接取用，也可用溫熱水化開",
+      "use": "龜鹿膏使用"
+    },
+    {
+      "id": "visual-07",
+      "headline": "忙了一天",
+      "subline": "把節奏慢慢收回來",
+      "use": "生活日常"
+    }
   ],
   "metricoolFormalSchedule": [
-    {"date":"2026-09-12T10:00:00+08:00","network":"instagram","topic":"龜鹿飲30cc小玻璃罐","status":"scheduled-auto"},
-    {"date":"2026-09-13T10:30:00+08:00","network":"facebook","topic":"30cc與180cc怎麼選","status":"scheduled-auto"},
-    {"date":"2026-09-13T11:00:00+08:00","network":"threads","topic":"龜鹿飲與生活方式","status":"scheduled-auto","copyFix":"飲用時間依個人使用習慣與作息安排"},
-    {"date":"2026-09-16T12:30:00+08:00","network":"threads","topic":"萬華與仙加味","status":"scheduled-auto"},
-    {"date":"2026-09-16T19:45:00+08:00","network":"instagram","topic":"龜鹿飲180cc鋁袋","status":"scheduled-auto"},
-    {"date":"2026-09-18T11:00:00+08:00","network":"threads","topic":"先從使用習慣理解龜鹿系列","status":"scheduled-auto"},
-    {"date":"2026-09-18T12:00:00+08:00","network":"facebook","topic":"FAQ：怎麼選／怎麼吃／30cc與180cc","status":"scheduled-auto"},
-    {"date":"2026-09-20T12:30:00+08:00","network":"instagram","topic":"怎麼選：龜鹿膏vs龜鹿飲","status":"scheduled-auto"},
-    {"date":"2026-09-20T21:00:00+08:00","network":"threads","topic":"工作空檔與生活節奏","status":"scheduled-auto"},
-    {"date":"2026-09-22T12:30:00+08:00","network":"facebook","topic":"龜鹿膏100g日常使用","status":"scheduled-auto"},
-    {"date":"2026-09-22T21:00:00+08:00","network":"threads","topic":"有明確需求再進LINE OA","status":"scheduled-auto"},
-    {"date":"2026-09-24T12:30:00+08:00","network":"threads","topic":"不每篇都賣東西的品牌日常","status":"scheduled-auto"},
-    {"date":"2026-09-24T19:45:00+08:00","network":"instagram","topic":"忙了一天，把節奏慢慢收回來","status":"scheduled-auto"},
-    {"date":"2026-09-26T11:00:00+08:00","network":"threads","topic":"週末整理與生活節奏","status":"scheduled-auto"},
-    {"date":"2026-09-28T12:30:00+08:00","network":"threads","topic":"中午溫熱日常","status":"scheduled-auto"},
-    {"date":"2026-09-30T20:30:00+08:00","network":"threads","topic":"第一次接觸先從使用習慣開始","status":"scheduled-auto"},
-    {"date":"2026-10-01T12:30:00+08:00","network":"facebook","topic":"仙加味從萬華開始","status":"scheduled-auto"},
-    {"date":"2026-10-02T20:30:00+08:00","network":"threads","topic":"溫熱飲用的日常","status":"scheduled-auto"},
-    {"date":"2026-10-03T19:45:00+08:00","network":"instagram","topic":"第一次接觸怎麼選","status":"scheduled-auto"},
-    {"date":"2026-10-04T11:00:00+08:00","network":"threads","topic":"下午簡單日常","status":"scheduled-auto"},
-    {"date":"2026-10-05T18:30:00+08:00","network":"facebook","topic":"龜鹿膏日常使用方式","status":"scheduled-auto","copyFix":"食用時間依個人使用習慣與作息安排"},
-    {"date":"2026-10-06T21:00:00+08:00","network":"threads","topic":"開店前的小日常","status":"scheduled-auto"},
-    {"date":"2026-10-07T19:45:00+08:00","network":"instagram","topic":"常見問題","status":"scheduled-auto"},
-    {"date":"2026-10-08T12:30:00+08:00","network":"facebook","topic":"龜鹿系列依生活方式選擇","status":"scheduled-auto"},
-    {"date":"2026-10-09T20:30:00+08:00","network":"threads","topic":"保存整理小習慣","status":"scheduled-auto"},
-    {"date":"2026-10-10T19:45:00+08:00","network":"instagram","topic":"家常料理搭配","status":"scheduled-auto"},
-    {"date":"2026-10-11T11:00:00+08:00","network":"threads","topic":"把產品資訊講清楚","status":"scheduled-auto"},
-    {"date":"2026-10-12T18:30:00+08:00","network":"facebook","topic":"有需要再進LINE OA","status":"scheduled-auto"},
-    {"date":"2026-10-13T21:00:00+08:00","network":"threads","topic":"自己的生活空檔","status":"scheduled-auto"},
-    {"date":"2026-10-14T19:45:00+08:00","network":"instagram","topic":"現代漢方生活品牌收束","status":"scheduled-auto"}
+    {
+      "date": "2026-09-12T10:00:00+08:00",
+      "network": "instagram",
+      "topic": "龜鹿飲30cc小玻璃罐",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-13T10:30:00+08:00",
+      "network": "facebook",
+      "topic": "30cc與180cc怎麼選",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-13T11:00:00+08:00",
+      "network": "threads",
+      "topic": "龜鹿飲與生活方式",
+      "status": "scheduled-auto",
+      "copyFix": "飲用時間依個人使用習慣與作息安排"
+    },
+    {
+      "date": "2026-09-16T12:30:00+08:00",
+      "network": "threads",
+      "topic": "萬華與仙加味",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-16T19:45:00+08:00",
+      "network": "instagram",
+      "topic": "龜鹿飲180cc鋁袋",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-18T11:00:00+08:00",
+      "network": "threads",
+      "topic": "先從使用習慣理解龜鹿系列",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-18T12:00:00+08:00",
+      "network": "facebook",
+      "topic": "FAQ：怎麼選／怎麼吃／30cc與180cc",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-20T12:30:00+08:00",
+      "network": "instagram",
+      "topic": "怎麼選：龜鹿膏vs龜鹿飲",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-20T21:00:00+08:00",
+      "network": "threads",
+      "topic": "工作空檔與生活節奏",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-22T12:30:00+08:00",
+      "network": "facebook",
+      "topic": "龜鹿膏100g日常使用",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-22T21:00:00+08:00",
+      "network": "threads",
+      "topic": "有明確需求再進LINE OA",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-24T12:30:00+08:00",
+      "network": "threads",
+      "topic": "不每篇都賣東西的品牌日常",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-24T19:45:00+08:00",
+      "network": "instagram",
+      "topic": "忙了一天，把節奏慢慢收回來",
+      "status": "deleted-after-visual-mismatch",
+      "note": "小老闆角色年齡感不一致，已由使用者刪除"
+    },
+    {
+      "date": "2026-09-24T20:20:00+08:00",
+      "network": "facebook",
+      "topic": "忙了一天，把節奏慢慢收回來",
+      "status": "published-auto",
+      "visualFix": "使用者核准的新Q版小朋友小老闆圖"
+    },
+    {
+      "date": "2026-09-24T20:20:00+08:00",
+      "network": "instagram",
+      "topic": "忙了一天，把節奏慢慢收回來",
+      "status": "published-auto",
+      "visualFix": "使用者核准的新Q版小朋友小老闆圖"
+    },
+    {
+      "date": "2026-09-24T20:20:00+08:00",
+      "network": "threads",
+      "topic": "忙了一天，把節奏慢慢收回來",
+      "status": "published-auto",
+      "visualFix": "使用者核准的新Q版小朋友小老闆圖"
+    },
+    {
+      "date": "2026-09-26T11:00:00+08:00",
+      "network": "threads",
+      "topic": "週末整理與生活節奏",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-28T12:30:00+08:00",
+      "network": "threads",
+      "topic": "中午溫熱日常",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-09-30T20:30:00+08:00",
+      "network": "threads",
+      "topic": "第一次接觸先從使用習慣開始",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-10-01T12:30:00+08:00",
+      "network": "facebook",
+      "topic": "仙加味從萬華開始",
+      "status": "draft-held-for-visual-review",
+      "visualGate": "重新確認小老闆年齡感／同一人、圖文一致、產品外觀與比例後才能恢復autoPublish"
+    },
+    {
+      "date": "2026-10-02T20:30:00+08:00",
+      "network": "threads",
+      "topic": "溫熱飲用的日常",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-10-03T19:45:00+08:00",
+      "network": "instagram",
+      "topic": "第一次接觸怎麼選",
+      "status": "draft-held-for-visual-review",
+      "visualGate": "重新確認小老闆年齡感／同一人、圖文一致、產品外觀與比例後才能恢復autoPublish"
+    },
+    {
+      "date": "2026-10-04T11:00:00+08:00",
+      "network": "threads",
+      "topic": "下午簡單日常",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-10-05T18:30:00+08:00",
+      "network": "facebook",
+      "topic": "龜鹿膏日常使用方式",
+      "status": "draft-held-for-visual-review",
+      "copyFix": "食用時間依個人使用習慣與作息安排",
+      "visualGate": "重新確認小老闆年齡感／同一人、圖文一致、產品外觀與比例後才能恢復autoPublish"
+    },
+    {
+      "date": "2026-10-06T21:00:00+08:00",
+      "network": "threads",
+      "topic": "開店前的小日常",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-10-07T19:45:00+08:00",
+      "network": "instagram",
+      "topic": "常見問題",
+      "status": "draft-held-for-visual-review",
+      "visualGate": "重新確認小老闆年齡感／同一人、圖文一致、產品外觀與比例後才能恢復autoPublish"
+    },
+    {
+      "date": "2026-10-08T12:30:00+08:00",
+      "network": "facebook",
+      "topic": "龜鹿系列依生活方式選擇",
+      "status": "draft-held-for-visual-review",
+      "visualGate": "重新確認小老闆年齡感／同一人、圖文一致、產品外觀與比例後才能恢復autoPublish"
+    },
+    {
+      "date": "2026-10-09T20:30:00+08:00",
+      "network": "threads",
+      "topic": "保存整理小習慣",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-10-10T19:45:00+08:00",
+      "network": "instagram",
+      "topic": "家常料理搭配",
+      "status": "draft-held-for-visual-review",
+      "visualGate": "重新確認小老闆年齡感／同一人、圖文一致、產品外觀與比例後才能恢復autoPublish"
+    },
+    {
+      "date": "2026-10-11T11:00:00+08:00",
+      "network": "threads",
+      "topic": "把產品資訊講清楚",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-10-12T18:30:00+08:00",
+      "network": "facebook",
+      "topic": "有需要再進LINE OA",
+      "status": "draft-held-for-visual-review",
+      "visualGate": "重新確認小老闆年齡感／同一人、圖文一致、產品外觀與比例後才能恢復autoPublish"
+    },
+    {
+      "date": "2026-10-13T21:00:00+08:00",
+      "network": "threads",
+      "topic": "自己的生活空檔",
+      "status": "scheduled-auto"
+    },
+    {
+      "date": "2026-10-14T19:45:00+08:00",
+      "network": "instagram",
+      "topic": "現代漢方生活品牌收束",
+      "status": "draft-held-for-visual-review",
+      "visualGate": "重新確認小老闆年齡感／同一人、圖文一致、產品外觀與比例後才能恢復autoPublish"
+    }
   ],
   "draftPolicy": "Metricool既有draft=true／autoPublish=false舊候選保留為草稿庫，不會自動發布；避免為清草稿誤刪可用內容。",
   "d1Policy": "Cloudflare D1 social_posts 是 ERP／貼文中心審核與內容資料，不是 Metricool 排程總表；不得以 D1 scheduled 數量判斷 Metricool 是否有正式待發內容。",
-  "imagePolicy": "FB／IG正式內容優先文案＋對應正式圖。產品若出現只能使用正式原圖或不變形合成；生活圖需符合正式男生小老闆、正式夥伴、情境與品牌規格。沒有合格新圖就不硬排。",
+  "imagePolicy": "FB／IG／Threads正式內容必須使用對應正式圖。小老闆固定為同一位Q版小朋友小男孩；只要看起來長大、少年化、成人化或像不同人即不合格。產品若出現只能使用正式原圖或不變形合成；沒有通過最新視覺確認的既有媒體一律維持draft或autoPublish=false。",
   "animationPolicy": "目前動畫不列為必要發布項目。拼貼、紙偶、關節式怪預覽、整圖平移縮放一律不得發布或當正式候選；只有角色、夥伴、場景、情境、聲音、產品與動作全部正式自然的真正動畫，才可取代一個圖文名額。"
 }
