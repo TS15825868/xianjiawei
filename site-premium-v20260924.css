@@ -1,3085 +1,446 @@
-/* 仙加味｜2026-09-24 高質感品牌視覺正式版
- * 原則：漂亮、明亮、高級；真實產品圖完整等比例；桌機／手機一致；不破壞既有功能。
- */
+/* 仙加味｜正式全站視覺系統 v13｜2026-09-24
+   目標：品牌一致、固定導覽、產品實品完整、桌機/平板/iOS/Android一致。
+   本檔為最後載入的正式視覺層；不再累積舊版覆寫。 */
 :root{
-  --xjw-premium-navy:#082846;
-  --xjw-premium-navy-2:#0d365d;
-  --xjw-premium-cream:#fffaf0;
-  --xjw-premium-paper:#fffdf9;
-  --xjw-premium-gold:#c59743;
-  --xjw-premium-gold-soft:#ead3a0;
-  --xjw-premium-red:#9a292d;
-  --xjw-premium-green:#315c4a;
-  --xjw-premium-ink:#1e2b38;
-  --xjw-premium-muted:#66717f;
-  --xjw-premium-border:rgba(197,151,67,.30);
-  --xjw-premium-shadow:0 20px 55px rgba(8,40,70,.12);
-  --xjw-premium-shadow-soft:0 12px 34px rgba(8,40,70,.08);
-}
-
-/* 全站底色與字體層級 */
-html{background:var(--xjw-premium-cream)!important}
-body,
-body.ux-v410{
-  color:var(--xjw-premium-ink)!important;
-  background:
-    radial-gradient(circle at 88% 5%,rgba(197,151,67,.11),transparent 24%),
-    radial-gradient(circle at 8% 18%,rgba(154,41,45,.05),transparent 22%),
-    linear-gradient(180deg,#fff9ed 0,#f8f2e7 280px,#fffaf2 100%)!important;
-}
-h1,h2,h3{color:var(--xjw-premium-navy)!important}
-.eyebrow{color:var(--xjw-premium-red)!important}
-.section-heading>p:last-child,.muted{color:var(--xjw-premium-muted)!important}
-
-/* 深藍金色品牌導覽 */
-.site-header{
-  background:rgba(8,40,70,.97)!important;
-  border-bottom:1px solid rgba(234,211,160,.42)!important;
-  box-shadow:0 10px 30px rgba(3,20,36,.12)!important;
-  backdrop-filter:blur(18px)!important;
-  -webkit-backdrop-filter:blur(18px)!important;
-}
-.header-inner{
-  max-width:1240px!important;
-  min-height:76px!important;
-  padding:10px 20px!important;
-  display:flex!important;
-  align-items:center!important;
-  gap:18px!important;
-}
-.brand-mark{color:#fff!important;flex:0 0 auto!important}
-.brand-mark img{
-  width:46px!important;
-  height:46px!important;
-  object-fit:contain!important;
-  border-radius:13px!important;
-  box-shadow:0 0 0 1px rgba(234,211,160,.42),0 8px 20px rgba(0,0,0,.18)!important;
-}
-.brand-mark__name{
-  color:#f6d99a!important;
-  font-size:21px!important;
-  letter-spacing:.08em!important;
-}
-.brand-mark__tagline{color:rgba(255,255,255,.76)!important}
-.header-nav{
-  margin-left:auto!important;
-  display:flex!important;
-  align-items:center!important;
-  gap:4px!important;
-}
-.header-nav a{
-  display:flex!important;
-  align-items:center!important;
-  min-height:44px!important;
-  padding:0 12px!important;
-  border-radius:999px!important;
-  color:rgba(255,255,255,.86)!important;
-  text-decoration:none!important;
-  font-size:14px!important;
-  font-weight:800!important;
-  transition:.2s ease!important;
-}
-.header-nav a:hover,
-.header-nav a.is-active{
-  color:#fff!important;
-  background:rgba(255,255,255,.10)!important;
-}
-.header-line-cta{
-  min-height:44px!important;
-  padding:0 18px!important;
-  flex:0 0 auto!important;
-  border-radius:999px!important;
-  color:#0a2a20!important;
-  background:#dff7e7!important;
-  border:1px solid rgba(255,255,255,.42)!important;
-  font-weight:900!important;
-  text-decoration:none!important;
-}
-.menu-btn{
-  display:none!important;
-  color:#fff!important;
-  background:rgba(255,255,255,.08)!important;
-  border:1px solid rgba(255,255,255,.24)!important;
-}
-
-/* 首頁主視覺 */
-body[data-page="home"] .hero{
-  max-width:1240px!important;
-  padding-top:28px!important;
-  padding-bottom:24px!important;
-}
-body[data-page="home"] .hero__panel{
-  position:relative!important;
-  gap:24px!important;
-  padding:24px!important;
-  border:1px solid var(--xjw-premium-border)!important;
-  border-radius:34px!important;
-  background:
-    radial-gradient(circle at 14% 10%,rgba(197,151,67,.16),transparent 28%),
-    linear-gradient(135deg,#fffdf7 0,#fbf1df 56%,#f4e6cd 100%)!important;
-  box-shadow:var(--xjw-premium-shadow)!important;
-}
-body[data-page="home"] .hero__content{
-  padding:42px 36px!important;
-  border:0!important;
-  box-shadow:none!important;
-  background:transparent!important;
-}
-body[data-page="home"] .hero__content h1{
-  max-width:720px!important;
-  margin:0 0 18px!important;
-  font-size:clamp(44px,6vw,72px)!important;
-  line-height:1.08!important;
-  color:var(--xjw-premium-navy)!important;
-  letter-spacing:.015em!important;
-}
-body[data-page="home"] .hero__lead{
-  max-width:720px!important;
-  font-size:18px!important;
-  line-height:1.9!important;
-  color:#354252!important;
-}
-body[data-page="home"] .hero-actions{margin-top:24px!important}
-body[data-page="home"] .hero-actions .btn{
-  min-height:52px!important;
-  padding:0 24px!important;
-}
-body[data-page="home"] .home-brand-signature{
-  border:1px solid rgba(197,151,67,.42)!important;
-  border-radius:26px!important;
-  background:#f3e8d6!important;
-  box-shadow:0 18px 42px rgba(8,40,70,.12)!important;
-}
-body[data-page="home"] .home-brand-signature>img{
-  background:#f3e8d6!important;
-  object-fit:contain!important;
-}
-body[data-page="home"] .home-brand-signature>p{
-  color:#f9e9bd!important;
-  background:linear-gradient(90deg,var(--xjw-premium-navy),var(--xjw-premium-navy-2))!important;
-  font-weight:900!important;
-  letter-spacing:.04em!important;
-}
-
-/* 首頁四大信任亮點 */
-body[data-page="home"] .home-trust-row{
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  gap:10px!important;
-  margin-top:24px!important;
-}
-body[data-page="home"] .home-trust-row span{
-  min-height:48px!important;
-  padding:9px 10px!important;
-  border:1px solid rgba(197,151,67,.30)!important;
-  border-radius:15px!important;
-  color:var(--xjw-premium-navy)!important;
-  background:rgba(255,255,255,.82)!important;
-  box-shadow:0 7px 18px rgba(8,40,70,.05)!important;
-  font-size:13px!important;
-}
-
-/* 區塊層次 */
-body[data-page="home"] .section{
-  max-width:1240px!important;
-  padding-top:38px!important;
-  padding-bottom:66px!important;
-}
-body[data-page="home"] .section-heading{
-  max-width:820px!important;
-  margin-bottom:28px!important;
-}
-body[data-page="home"] .section-heading h2{
-  font-size:clamp(30px,3.8vw,46px)!important;
-  line-height:1.24!important;
-}
-
-/* 產品卡：真實產品圖更大、更漂亮，不改包裝、不裁切 */
-.product-grid{
-  grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  gap:22px!important;
-}
-.product-card{
-  overflow:hidden!important;
-  border:1px solid var(--xjw-premium-border)!important;
-  border-radius:26px!important;
-  background:var(--xjw-premium-paper)!important;
-  box-shadow:var(--xjw-premium-shadow-soft)!important;
-  transition:transform .22s ease,box-shadow .22s ease!important;
-}
-@media(hover:hover){
-  .product-card:hover{
-    transform:translateY(-5px)!important;
-    box-shadow:0 24px 55px rgba(8,40,70,.14)!important;
-  }
-}
-.product-card__img{
-  min-height:320px!important;
-  aspect-ratio:5/4!important;
-  padding:16px!important;
-  background:
-    radial-gradient(circle at 50% 40%,#fff 0,#fffaf0 56%,#f2e5cc 100%)!important;
-  border-bottom:1px solid rgba(197,151,67,.22)!important;
-}
-.product-card__img img{
-  width:100%!important;
-  height:100%!important;
-  max-width:100%!important;
-  max-height:100%!important;
-  object-fit:contain!important;
-  object-position:center!important;
-  transform:none!important;
-  clip-path:none!important;
-  filter:drop-shadow(0 14px 16px rgba(8,40,70,.11))!important;
-}
-.product-card__body{
-  padding:22px 22px 24px!important;
-}
-.product-card__body h3{
-  margin-top:4px!important;
-  font-size:25px!important;
-  line-height:1.3!important;
-}
-.product-purpose{
-  display:inline-flex!important;
-  align-items:center!important;
-  min-height:34px!important;
-  padding:4px 11px!important;
-  border-radius:999px!important;
-  color:var(--xjw-premium-red)!important;
-  background:#fff0ec!important;
-  font-weight:850!important;
-}
-.product-card__actions .btn{min-height:48px!important}
-
-/* 怎麼選／日常使用 */
-body[data-page="home"] .home-choice-grid{
-  grid-template-columns:repeat(4,minmax(0,1fr))!important;
-  gap:16px!important;
-}
-body[data-page="home"] .home-choice-card,
-body[data-page="home"] .home-feature-card,
-body[data-page="home"] .home-faq-card{
-  border:1px solid var(--xjw-premium-border)!important;
-  background:linear-gradient(180deg,#fffefb 0,#fff8ea 100%)!important;
-  box-shadow:var(--xjw-premium-shadow-soft)!important;
-}
-body[data-page="home"] .home-choice-card{
-  min-height:220px!important;
-  padding:26px!important;
-}
-body[data-page="home"] .home-choice-card h3{
-  margin:5px 0 10px!important;
-  font-size:26px!important;
-}
-
-/* 品牌故事做成深藍金色主視覺 */
-body[data-page="home"] section[aria-labelledby="home-brand-title"] .home-story-card{
-  border:1px solid rgba(234,211,160,.34)!important;
-  background:
-    radial-gradient(circle at 90% 18%,rgba(197,151,67,.22),transparent 26%),
-    linear-gradient(135deg,var(--xjw-premium-navy) 0,#0f3a62 100%)!important;
-  box-shadow:0 24px 55px rgba(5,28,49,.18)!important;
-}
-body[data-page="home"] section[aria-labelledby="home-brand-title"] .home-story-card h2{
-  color:#f7dda3!important;
-}
-body[data-page="home"] section[aria-labelledby="home-brand-title"] .home-story-card p:not(.eyebrow){
-  color:rgba(255,255,255,.88)!important;
-}
-body[data-page="home"] section[aria-labelledby="home-brand-title"] .home-story-card .eyebrow{
-  color:#f3c86d!important;
-}
-body[data-page="home"] section[aria-labelledby="home-brand-title"] .btn-primary{
-  background:#f3d58f!important;
-  border-color:#f3d58f!important;
-  color:var(--xjw-premium-navy)!important;
-}
-body[data-page="home"] section[aria-labelledby="home-brand-title"] .btn-outline{
-  background:transparent!important;
-  border-color:rgba(255,255,255,.58)!important;
-  color:#fff!important;
-}
-
-/* 產品總覽頁／DM頁 hero */
-body[data-page="products"] .hero__content,
-body[data-page="dm"] .hero__content{
-  padding:38px clamp(24px,5vw,56px)!important;
-  border:1px solid rgba(197,151,67,.32)!important;
-  border-radius:30px!important;
-  background:
-    radial-gradient(circle at 92% 18%,rgba(197,151,67,.18),transparent 26%),
-    linear-gradient(135deg,#fffdf7 0,#f8edd9 100%)!important;
-  box-shadow:var(--xjw-premium-shadow)!important;
-}
-body[data-page="products"] .hero__content h1,
-body[data-page="dm"] .hero__content h1{
-  font-size:clamp(38px,5vw,58px)!important;
-}
-
-/* 詳細產品頁：產品圖更大且完整 */
-.product-detail-page{max-width:1240px!important;margin:0 auto!important}
-.product-detail-hero{
-  display:grid!important;
-  grid-template-columns:minmax(360px,.92fr) minmax(0,1.08fr)!important;
-  gap:34px!important;
-  align-items:center!important;
-  margin:24px 20px 16px!important;
-  padding:30px!important;
-  border:1px solid var(--xjw-premium-border)!important;
-  border-radius:32px!important;
-  background:linear-gradient(135deg,#fffef9 0,#f7ecd9 100%)!important;
-  box-shadow:var(--xjw-premium-shadow)!important;
-}
-.product-detail-hero__media{
-  min-height:500px!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  padding:20px!important;
-  border:1px solid rgba(197,151,67,.25)!important;
-  border-radius:24px!important;
-  background:radial-gradient(circle at 50% 42%,#fff 0,#fff8ec 60%,#eedfc3 100%)!important;
-}
-.product-detail-hero__media a{
-  width:100%!important;
-  height:100%!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-}
-.product-detail-hero__media img{
-  width:100%!important;
-  height:100%!important;
-  max-height:560px!important;
-  object-fit:contain!important;
-  transform:none!important;
-  filter:drop-shadow(0 18px 18px rgba(8,40,70,.12))!important;
-}
-.product-detail-hero__content h1{font-size:clamp(42px,5vw,64px)!important}
-.fact-chips span{
-  border:1px solid rgba(197,151,67,.30)!important;
-  background:#fffaf0!important;
-  color:var(--xjw-premium-navy)!important;
-}
-
-/* DM 頁：完整圖大張呈現 */
-.real-product-gallery{
-  gap:24px!important;
-}
-.real-product-gallery article{
-  padding:18px!important;
-  border:1px solid var(--xjw-premium-border)!important;
-  border-radius:26px!important;
-  background:#fffdf9!important;
-  box-shadow:var(--xjw-premium-shadow-soft)!important;
-}
-.real-product-gallery img{
-  width:100%!important;
-  height:auto!important;
-  max-height:none!important;
-  object-fit:contain!important;
-  border:1px solid rgba(197,151,67,.20)!important;
-  border-radius:20px!important;
-  background:#fffaf1!important;
-}
-
-/* 一般卡片與 CTA */
-.card,.panel,.final-cta,
-.brand-generation,.brand-story-intro{
-  border-color:var(--xjw-premium-border)!important;
-}
-.final-cta{
-  padding:clamp(28px,4vw,42px)!important;
-  background:linear-gradient(135deg,#fffef9 0,#f8edd9 100%)!important;
-  box-shadow:var(--xjw-premium-shadow-soft)!important;
-}
-.btn-primary{
-  background:var(--xjw-premium-red)!important;
-  border-color:var(--xjw-premium-red)!important;
-}
-.btn-outline{
-  border-color:rgba(8,40,70,.54)!important;
-  color:var(--xjw-premium-navy)!important;
-}
-.btn-line{
-  box-shadow:0 8px 18px rgba(6,199,85,.16)!important;
-}
-
-/* 頁尾改為深藍品牌收尾 */
-.site-footer{
-  padding:18px 20px 32px!important;
-  background:transparent!important;
-}
-.footer-card{
-  max-width:1240px!important;
-  border:1px solid rgba(234,211,160,.28)!important;
-  background:
-    radial-gradient(circle at 88% 20%,rgba(197,151,67,.16),transparent 26%),
-    linear-gradient(135deg,var(--xjw-premium-navy),#0d355a)!important;
-  box-shadow:0 22px 50px rgba(5,28,49,.16)!important;
-}
-.footer-card h3,
-.footer-brand-block strong{color:#f6d99a!important}
-.footer-card p,
-.footer-card a,
-.footer-legal{color:rgba(255,255,255,.82)!important}
-.footer-contact img{
-  background:#fff!important;
-  padding:8px!important;
-  border-radius:18px!important;
-}
-.footer-card .btn-outline{
-  color:#fff!important;
-  border-color:rgba(255,255,255,.54)!important;
-  background:transparent!important;
-}
-
-/* 桌機／平板／手機 */
-@media(max-width:1080px){
-  .header-nav,.header-line-cta{display:none!important}
-  .menu-btn{display:flex!important;margin-left:auto!important}
-  body[data-page="home"] .home-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  .product-detail-hero{grid-template-columns:1fr!important}
-  .product-detail-hero__media{min-height:420px!important}
-}
-@media(max-width:820px){
-  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  .product-card__img{min-height:270px!important}
-  body[data-page="home"] .home-trust-row{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-}
-@media(max-width:640px){
-  .header-inner{min-height:64px!important;padding:8px 12px!important}
-  .brand-mark img{width:40px!important;height:40px!important}
-  .brand-mark__name{font-size:18px!important}
-  body[data-page="home"] .hero{padding:14px 10px!important}
-  body[data-page="home"] .hero__panel{padding:12px!important;border-radius:22px!important}
-  body[data-page="home"] .hero__content{padding:24px 16px!important}
-  body[data-page="home"] .hero__content h1{font-size:clamp(38px,11vw,50px)!important}
-  body[data-page="home"] .home-trust-row{grid-template-columns:1fr 1fr!important}
-  body[data-page="home"] .home-choice-grid,
-  body[data-page="home"] .home-feature-grid{grid-template-columns:1fr!important}
-  .product-grid{grid-template-columns:1fr!important}
-  .product-card__img{min-height:300px!important}
-  .product-card__body{padding:20px!important}
-  .product-detail-hero{
-    margin:14px 10px!important;
-    padding:14px!important;
-    gap:18px!important;
-    border-radius:22px!important;
-  }
-  .product-detail-hero__media{min-height:330px!important;padding:12px!important}
-  .product-detail-hero__media img{max-height:390px!important}
-  .real-product-gallery article{padding:12px!important;border-radius:20px!important}
-}
-
-/* 最終保護：任何正式產品圖都只能完整等比例呈現 */
-.product-card__img img,
-.product-detail-hero__media img,
-.real-product-gallery img,
-.modal-gallery__item img,
-.trial-product-card__media img,
-img[src*="customer-display-v20260812"],
-img[src*="/images/products-v3/"],
-img[src*="/images/dm-final/"]{
-  object-fit:contain!important;
-  object-position:center!important;
-  transform:none!important;
-  clip-path:none!important;
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v2：Logo 明顯＋六產品主視覺 */
-.site-header .header-inner{
-  min-height:88px!important;
-  padding:10px 20px!important;
-}
-.site-header .brand-mark{
-  gap:14px!important;
-}
-.site-header .brand-mark img{
-  width:64px!important;
-  height:64px!important;
-  padding:3px!important;
-  border-radius:16px!important;
-  background:#fff8ec!important;
-  box-shadow:0 0 0 2px rgba(234,211,160,.62),0 10px 26px rgba(0,0,0,.22)!important;
-}
-.site-header .brand-mark__name{
-  font-size:28px!important;
-  line-height:1.05!important;
-  letter-spacing:.08em!important;
-  color:#f7d98d!important;
-}
-.site-header .brand-mark__tagline{
-  margin-top:5px!important;
-  font-size:13px!important;
-  color:rgba(255,255,255,.84)!important;
-}
-
-body[data-page="home"] .hero__panel{
-  grid-template-columns:minmax(0,.94fr) minmax(470px,1.06fr)!important;
-  align-items:stretch!important;
-  overflow:hidden!important;
-}
-.home-hero-brand-lockup{
-  display:flex!important;
-  align-items:center!important;
-  gap:16px!important;
-  margin:0 0 24px!important;
-}
-.home-hero-brand-lockup__logo{
-  width:88px!important;
-  height:88px!important;
-  object-fit:contain!important;
-  flex:0 0 auto!important;
-  padding:5px!important;
-  border-radius:22px!important;
-  background:#fff8ea!important;
-  border:1px solid rgba(197,151,67,.42)!important;
-  box-shadow:0 14px 30px rgba(8,40,70,.13)!important;
-}
-.home-hero-brand-lockup__copy{
-  display:grid!important;
-  gap:4px!important;
-}
-.home-hero-brand-lockup__name{
-  font-family:"Noto Serif TC","Songti TC",serif!important;
-  font-size:34px!important;
-  line-height:1.05!important;
-  font-weight:900!important;
-  letter-spacing:.09em!important;
-  color:var(--xjw-premium-navy)!important;
-}
-.home-hero-brand-lockup__sub{
-  font-size:14px!important;
-  font-weight:850!important;
-  letter-spacing:.10em!important;
-  color:var(--xjw-premium-red)!important;
-}
-body[data-page="home"] .hero__content h1{
-  margin-top:4px!important;
-}
-.home-product-showcase{
-  min-width:0!important;
-  display:flex!important;
-  flex-direction:column!important;
-  gap:14px!important;
-  margin:0!important;
-  padding:18px!important;
-  border-radius:28px!important;
-  border:1px solid rgba(234,211,160,.40)!important;
-  background:
-    radial-gradient(circle at 88% 6%,rgba(197,151,67,.24),transparent 23%),
-    linear-gradient(145deg,#082846 0,#0d365d 100%)!important;
-  box-shadow:0 20px 46px rgba(5,28,49,.18)!important;
-}
-.home-product-showcase__head{
-  display:grid!important;
-  gap:4px!important;
-  padding:2px 4px 0!important;
-}
-.home-product-showcase__head span{
-  color:#f3c96e!important;
-  font-size:13px!important;
-  font-weight:900!important;
-  letter-spacing:.12em!important;
-}
-.home-product-showcase__head strong{
-  color:#fff!important;
-  font-size:17px!important;
-  line-height:1.5!important;
-}
-.home-product-showcase__grid{
-  display:grid!important;
-  grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  gap:10px!important;
-  flex:1 1 auto!important;
-}
-.home-product-showcase__grid>a{
-  min-width:0!important;
-  display:grid!important;
-  grid-template-rows:minmax(132px,1fr) auto!important;
-  gap:7px!important;
-  align-items:center!important;
-  padding:10px 10px 9px!important;
-  border-radius:18px!important;
-  border:1px solid rgba(234,211,160,.40)!important;
-  background:linear-gradient(180deg,#fffef9 0,#f7ecd9 100%)!important;
-  box-shadow:0 9px 20px rgba(0,0,0,.11)!important;
-}
-.home-product-showcase__grid img{
-  width:100%!important;
-  height:100%!important;
-  max-height:155px!important;
-  object-fit:contain!important;
-  object-position:center!important;
-  transform:none!important;
-  filter:drop-shadow(0 10px 10px rgba(8,40,70,.13))!important;
-}
-.home-product-showcase__grid span{
-  display:block!important;
-  text-align:center!important;
-  color:var(--xjw-premium-navy)!important;
-  font-size:13px!important;
-  line-height:1.3!important;
-  font-weight:900!important;
-}
-.home-product-showcase figcaption{
-  padding:2px 4px 0!important;
-  text-align:center!important;
-  color:rgba(255,255,255,.76)!important;
-  font-size:12px!important;
-  line-height:1.45!important;
-}
-body[data-page="home"] #home-products.product-grid .product-card__img{
-  min-height:350px!important;
-  padding:12px!important;
-}
-body[data-page="home"] #home-products.product-grid .product-card__img img{
-  filter:drop-shadow(0 18px 18px rgba(8,40,70,.13))!important;
-}
-
-@media(max-width:1080px){
-  body[data-page="home"] .hero__panel{
-    grid-template-columns:1fr!important;
-  }
-  .home-product-showcase{max-width:none!important;width:100%!important}
-  .home-product-showcase__grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
-}
-@media(max-width:700px){
-  .site-header .header-inner{
-    min-height:76px!important;
-    padding:8px 12px!important;
-  }
-  .site-header .brand-mark img{
-    width:54px!important;
-    height:54px!important;
-    border-radius:14px!important;
-  }
-  .site-header .brand-mark__name{
-    font-size:23px!important;
-  }
-  .site-header .brand-mark__tagline{display:none!important}
-  .site-header .menu-btn{
-    min-height:46px!important;
-    padding:0 16px!important;
-    font-size:16px!important;
-  }
-  .home-hero-brand-lockup{
-    gap:12px!important;
-    margin-bottom:18px!important;
-  }
-  .home-hero-brand-lockup__logo{
-    width:68px!important;
-    height:68px!important;
-    border-radius:18px!important;
-  }
-  .home-hero-brand-lockup__name{
-    font-size:29px!important;
-  }
-  .home-hero-brand-lockup__sub{
-    font-size:12px!important;
-  }
-  body[data-page="home"] .hero__content h1{
-    font-size:clamp(40px,11.4vw,52px)!important;
-    line-height:1.12!important;
-  }
-  .home-product-showcase{
-    padding:13px!important;
-    border-radius:20px!important;
-  }
-  .home-product-showcase__grid{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:8px!important;
-  }
-  .home-product-showcase__grid>a{
-    grid-template-rows:120px auto!important;
-    padding:8px!important;
-    border-radius:15px!important;
-  }
-  .home-product-showcase__grid img{
-    max-height:120px!important;
-  }
-  body[data-page="home"] #home-products.product-grid .product-card__img{
-    min-height:330px!important;
-  }
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v3：全站正式頁一致 */
-body:not([data-page="home"]) .hero{max-width:1240px!important;padding-top:30px!important;padding-bottom:22px!important}
-body:not([data-page="home"]) .hero__content{
-  padding:clamp(30px,5vw,54px)!important;border:1px solid rgba(197,151,67,.34)!important;border-radius:30px!important;
-  background:radial-gradient(circle at 91% 8%,rgba(197,151,67,.16),transparent 24%),linear-gradient(135deg,#fffdf7 0,#f8edda 100%)!important;
-  box-shadow:0 18px 48px rgba(8,40,70,.10)!important
-}
-body:not([data-page="home"]) .hero__content h1{font-size:clamp(38px,5vw,60px)!important;line-height:1.14!important}
-body:not([data-page="home"]) .section{max-width:1240px!important;padding-top:34px!important;padding-bottom:58px!important}
-body:not([data-page="home"]) .section-heading{max-width:850px!important}
-.card,.panel,.faq-item,.final-cta{border-color:rgba(197,151,67,.25)!important}
-.card,.panel{background:linear-gradient(180deg,#fffefa 0,#fffaf1 100%)!important}
-.faq-item{background:#fffdf9!important}
-.faq-item summary{min-height:62px!important;display:flex!important;align-items:center!important;color:var(--xjw-premium-navy)!important}
-.table-scroll{border-color:rgba(197,151,67,.28)!important;box-shadow:0 12px 30px rgba(8,40,70,.06)!important}
-.section-actions{margin-top:22px!important}
-body:not([data-page="home"]) .hero__content{overflow:hidden!important;position:relative!important}
-body:not([data-page="home"]) .hero__content:after{
-  content:"仙加味"!important;position:absolute!important;right:24px!important;bottom:-8px!important;color:rgba(197,151,67,.08)!important;
-  font-family:"Noto Serif TC","Songti TC",serif!important;font-size:clamp(72px,11vw,150px)!important;font-weight:900!important;pointer-events:none!important;z-index:0!important
-}
-body:not([data-page="home"]) .hero__content>*{position:relative!important;z-index:1!important}
-body[data-page="products"] .product-card__img{min-height:360px!important}
-body[data-page="product-detail"] .product-detail-hero__media{min-height:540px!important}
-body[data-page="product-detail"] .product-detail-hero__media img{max-height:600px!important}
-@media(max-width:700px){
- body:not([data-page="home"]) .hero{padding:14px 10px 18px!important}
- body:not([data-page="home"]) .hero__content{padding:28px 20px!important;border-radius:22px!important}
- body:not([data-page="home"]) .section{padding-left:12px!important;padding-right:12px!important}
- body[data-page="products"] .product-card__img{min-height:330px!important}
- body[data-page="product-detail"] .product-detail-hero__media{min-height:350px!important}
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v4：iOS／Android／桌機一致性 */
-/* 跨瀏覽器基礎：Safari / Chrome / Android / iOS */
+  --xjw-navy:#082846;
+  --xjw-navy-2:#0d365d;
+  --xjw-cream:#f7f1e7;
+  --xjw-paper:#fffdf8;
+  --xjw-paper-2:#fff9ef;
+  --xjw-red:#9c2b30;
+  --xjw-red-dark:#7f2025;
+  --xjw-gold:#c69a4b;
+  --xjw-gold-soft:#efd9a2;
+  --xjw-green:#315a46;
+  --xjw-ink:#243243;
+  --xjw-muted:#6b7480;
+  --xjw-line:rgba(145,108,51,.22);
+  --xjw-shadow:0 18px 44px rgba(8,40,70,.10);
+  --xjw-shadow-soft:0 10px 26px rgba(8,40,70,.075);
+  --xjw-radius:24px;
+  --xjw-max:1240px;
+  --xjw-header-h:78px;
+}
+*{box-sizing:border-box}
 html{
-  -webkit-text-size-adjust:100%!important;
-  text-size-adjust:100%!important;
-  scroll-behavior:smooth!important;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  scroll-behavior:smooth;
+  scroll-padding-top:calc(var(--xjw-header-h) + env(safe-area-inset-top) + 16px);
+  overflow-x:hidden;
 }
 body{
-  -webkit-font-smoothing:antialiased!important;
-  -moz-osx-font-smoothing:grayscale!important;
-  overscroll-behavior-x:none!important;
+  min-width:320px;
+  margin:0;
+  color:var(--xjw-ink);
+  background:
+    radial-gradient(circle at 94% 3%,rgba(198,154,75,.10),transparent 22%),
+    linear-gradient(180deg,#f7efe1 0,#fbf7f0 36%,#f8f2e8 100%);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
 }
+img{max-width:100%;-webkit-user-drag:none}
 a,button,.btn,.menu-btn,.menu-close{
-  -webkit-tap-highlight-color:transparent!important;
-  touch-action:manipulation!important;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
 }
-img{
-  -webkit-user-drag:none!important;
-}
-.site-header{
-  padding-top:env(safe-area-inset-top)!important;
-}
-.site-menu{
-  height:100vh!important;
-  height:100dvh!important;
-}
-.site-menu__panel{
-  height:100vh!important;
-  height:100dvh!important;
-  padding-bottom:calc(34px + env(safe-area-inset-bottom))!important;
-  overscroll-behavior:contain!important;
-}
-.product-modal__scroll{
-  min-height:100vh!important;
-  min-height:100dvh!important;
-  padding-bottom:env(safe-area-inset-bottom)!important;
-}
-.site-footer{
-  padding-bottom:calc(32px + env(safe-area-inset-bottom))!important;
-}
-.btn,.menu-btn,.menu-close,.header-line-cta{
-  min-height:46px!important;
-}
-input,button,select,textarea{
-  font-size:16px;
-}
-@supports (-webkit-touch-callout:none){
-  body{
-    min-height:-webkit-fill-available!important;
-  }
-  .site-header{
-    -webkit-transform:translateZ(0);
-    transform:translateZ(0);
-  }
-}
-
-/* 小螢幕與 Android 窄機型：杜絕水平溢位，產品仍完整。 */
-@media(max-width:760px){
-  html,body,.page{max-width:100%!important;overflow-x:hidden!important}
-  .header-inner{max-width:100%!important}
-  .site-menu__panel{width:min(94vw,410px)!important}
-  .section,.hero{max-width:100%!important}
-  .product-card,.home-choice-card,.home-feature-card,.card,.panel{min-width:0!important}
-  .product-card__body h3,.section-heading h2,.hero__content h1{overflow-wrap:anywhere!important}
-  .footer-card{margin-bottom:env(safe-area-inset-bottom)!important}
-}
-/* iPhone SE / 小型 Android */
-@media(max-width:390px){
-  .site-header .brand-mark img{width:50px!important;height:50px!important}
-  .site-header .brand-mark__name{font-size:21px!important}
-  .site-header .menu-btn{padding:0 13px!important}
-  .home-product-showcase__grid>a{grid-template-rows:108px auto!important}
-  .home-product-showcase__grid img{max-height:108px!important}
-  body[data-page="home"] .home-trust-row{grid-template-columns:1fr!important}
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v5：正式全站收斂版 */
-/*
- * 目的：
- * 1. 手機／平板選單永遠可用，不必滑回頂端。
- * 2. 統一深藍、米白、金、深紅品牌層次。
- * 3. 壓縮過度留白與過長卡片，維持產品圖完整等比例。
- * 4. iOS Safari / Android Chrome / 桌機共用同一配置邏輯。
- */
-
-/* ===== 全站基礎 ===== */
-html{
-  scroll-padding-top:96px!important;
-  background:#f7f2e8!important;
-}
-body{
-  background:
-    radial-gradient(circle at 92% 4%,rgba(197,151,67,.10),transparent 22%),
-    linear-gradient(180deg,#fbf5e9 0,#f7f2e8 34%,#fbf8f1 100%)!important;
-}
+input,button,select,textarea{font-size:16px}
+[id]{scroll-margin-top:calc(var(--xjw-header-h) + env(safe-area-inset-top) + 18px)}
 .page{
-  overflow-x:clip!important;
-}
-.section,
-.hero{
-  width:min(100%,1240px)!important;
-}
-.section{
-  padding-top:30px!important;
-  padding-bottom:52px!important;
-}
-.section-heading,
-.section-title{
-  margin-bottom:22px!important;
-}
-.section-heading h2,
-.section-title h2{
-  margin-bottom:8px!important;
-}
-.section-heading>p:last-child,
-.section-title>p:last-child{
-  max-width:760px!important;
-  line-height:1.75!important;
-}
-.card,
-.panel,
-.final-cta{
-  border:1px solid rgba(197,151,67,.24)!important;
-  border-radius:24px!important;
-  background:rgba(255,253,248,.98)!important;
-  box-shadow:0 14px 38px rgba(8,40,70,.08)!important;
-}
-.card:hover{
-  transform:none!important;
-}
-.btn{
-  letter-spacing:.02em!important;
-  box-shadow:none!important;
-}
-.btn-primary{
-  background:#9a292d!important;
-  border-color:#9a292d!important;
-  color:#fff!important;
-}
-.btn-outline{
-  background:rgba(255,255,255,.88)!important;
-  border-color:rgba(8,40,70,.42)!important;
-  color:#082846!important;
-}
-.btn-line{
-  background:#06c755!important;
-  border-color:#06c755!important;
-  color:#fff!important;
-}
-
-/* ===== Header：桌機 sticky；手機／平板 fixed，選單永遠可點 ===== */
-.site-header{
-  position:sticky!important;
-  top:0!important;
-  left:0!important;
-  right:0!important;
-  z-index:5000!important;
-  width:100%!important;
-  padding-top:0!important;
-  background:rgba(8,40,70,.98)!important;
-  border-bottom:1px solid rgba(234,211,160,.40)!important;
-  box-shadow:0 7px 24px rgba(4,25,43,.14)!important;
-  -webkit-backdrop-filter:blur(18px) saturate(1.12)!important;
-  backdrop-filter:blur(18px) saturate(1.12)!important;
-}
-.site-header .header-inner{
-  width:min(calc(100% - 32px),1240px)!important;
-  min-height:78px!important;
-  margin:0 auto!important;
-  padding:9px 0!important;
-}
-.site-header .brand-mark{
-  gap:13px!important;
-  text-decoration:none!important;
-}
-.site-header .brand-mark img{
-  width:58px!important;
-  height:58px!important;
-  flex:0 0 58px!important;
-  padding:3px!important;
-  border-radius:16px!important;
-  background:#fff8e9!important;
-  border:1px solid rgba(246,217,154,.42)!important;
-  box-shadow:0 7px 18px rgba(0,0,0,.18)!important;
-}
-.site-header .brand-mark__name{
-  color:#f5d68c!important;
-  font-size:26px!important;
-  line-height:1.05!important;
-  letter-spacing:.09em!important;
-}
-.site-header .brand-mark__tagline{
-  color:rgba(255,255,255,.76)!important;
-  font-size:12px!important;
-}
-.site-header .menu-btn{
-  display:none!important;
-  margin-left:auto!important;
-  min-width:102px!important;
-  min-height:46px!important;
-  padding:0 17px!important;
-  color:#f7dda3!important;
-  background:rgba(255,255,255,.06)!important;
-  border:1px solid rgba(246,217,154,.50)!important;
-  box-shadow:none!important;
-}
-.site-header.is-scrolled{
-  box-shadow:0 10px 30px rgba(4,25,43,.20)!important;
-}
-
-/* ===== Drawer：完整、好讀、關閉鈕與快速入口固定可見 ===== */
-.site-menu{
-  z-index:7000!important;
-}
-.site-menu__backdrop{
-  background:rgba(3,17,31,.56)!important;
-  -webkit-backdrop-filter:blur(5px)!important;
-  backdrop-filter:blur(5px)!important;
-}
-.site-menu__panel{
-  width:min(92vw,420px)!important;
-  height:100vh!important;
-  height:100dvh!important;
-  overflow-y:auto!important;
-  overscroll-behavior:contain!important;
-  padding:0 22px calc(32px + env(safe-area-inset-bottom))!important;
-  background:linear-gradient(180deg,#fffdf8 0,#f7f0e4 100%)!important;
-  border-left:1px solid rgba(197,151,67,.28)!important;
-  box-shadow:-24px 0 70px rgba(3,17,31,.22)!important;
-}
-.menu-topline{
-  position:sticky!important;
-  top:0!important;
-  z-index:3!important;
-  margin:0 -22px 14px!important;
-  padding:18px 22px 14px!important;
-  background:rgba(255,253,248,.97)!important;
-  border-bottom:1px solid rgba(197,151,67,.18)!important;
-  -webkit-backdrop-filter:blur(12px)!important;
-  backdrop-filter:blur(12px)!important;
-}
-.menu-brand-mini img{
-  width:46px!important;
-  height:46px!important;
-  border-radius:13px!important;
-  background:#fff8e9!important;
-}
-.menu-brand-mini strong{
-  color:#082846!important;
-  font-size:20px!important;
-}
-.menu-close{
-  width:46px!important;
-  min-width:46px!important;
-  height:46px!important;
-  padding:0!important;
-  color:#082846!important;
-  background:#fff!important;
-  border:1px solid rgba(8,40,70,.18)!important;
-}
-.menu-quick-actions{
-  grid-template-columns:1fr 1fr!important;
-  gap:9px!important;
-  margin-bottom:22px!important;
-}
-.menu-quick-actions .btn{
-  width:100%!important;
-  min-height:45px!important;
-  padding:0 10px!important;
-}
-.menu-quick-actions .btn:last-child{
-  grid-column:1/-1!important;
-}
-.menu-group{
-  padding-top:16px!important;
-}
-.menu-group a{
-  min-height:48px!important;
-  border-radius:13px!important;
-  font-size:16px!important;
-}
-.menu-group a.is-active{
-  background:#082846!important;
-  color:#fff!important;
-}
-.menu-contact-card{
-  padding:17px!important;
-  border-radius:18px!important;
-  background:#fffaf0!important;
-}
-
-/* ===== 首頁 Hero：減少巢狀白框，品牌與產品更像正式官網 ===== */
-body[data-page="home"] .hero{
-  padding-top:26px!important;
-  padding-bottom:20px!important;
-}
-body[data-page="home"] .hero__panel{
-  grid-template-columns:minmax(0,.92fr) minmax(480px,1.08fr)!important;
-  gap:20px!important;
-  padding:20px!important;
-  overflow:hidden!important;
-  border-radius:30px!important;
-  border:1px solid rgba(197,151,67,.30)!important;
-  background:
-    radial-gradient(circle at 8% 4%,rgba(197,151,67,.15),transparent 28%),
-    linear-gradient(135deg,#fffdf8 0,#f6ead4 100%)!important;
-  box-shadow:0 22px 55px rgba(8,40,70,.11)!important;
-}
-body[data-page="home"] .hero__content{
-  align-self:center!important;
-  padding:34px 30px!important;
-  border:0!important;
-  border-radius:0!important;
-  background:transparent!important;
-  box-shadow:none!important;
-}
-.home-hero-brand-lockup{
-  margin-bottom:18px!important;
-}
-.home-hero-brand-lockup__logo{
-  width:76px!important;
-  height:76px!important;
-  border-radius:19px!important;
-}
-.home-hero-brand-lockup__name{
-  font-size:32px!important;
-}
-body[data-page="home"] .hero__content h1{
-  margin-bottom:16px!important;
-  font-size:clamp(44px,5.6vw,68px)!important;
-  line-height:1.10!important;
-}
-body[data-page="home"] .hero__lead{
-  max-width:650px!important;
-  margin-bottom:0!important;
-  font-size:17px!important;
-  line-height:1.82!important;
-}
-body[data-page="home"] .hero-actions{
-  margin-top:22px!important;
-}
-body[data-page="home"] .home-trust-row{
-  grid-template-columns:repeat(2,minmax(0,1fr))!important;
-  gap:8px!important;
-  margin-top:20px!important;
-}
-body[data-page="home"] .home-trust-row span{
-  min-height:42px!important;
-  justify-content:center!important;
-  text-align:center!important;
-}
-.home-product-showcase{
-  min-height:100%!important;
-  padding:16px!important;
-  border-radius:24px!important;
-}
-.home-product-showcase__grid{
-  gap:9px!important;
-}
-.home-product-showcase__grid>a{
-  min-height:0!important;
-  grid-template-rows:minmax(116px,1fr) auto!important;
-  padding:9px!important;
-  border-radius:15px!important;
-}
-.home-product-showcase__grid img{
-  max-height:142px!important;
-}
-.home-product-showcase__grid span{
-  font-size:12.5px!important;
-}
-
-/* ===== 產品卡：桌機完整，手機改成橫式，減少無止盡捲動 ===== */
-.product-grid{
-  gap:18px!important;
-}
-.product-card{
-  border-radius:22px!important;
-  border-color:rgba(197,151,67,.26)!important;
-  background:#fffdf9!important;
-  box-shadow:0 12px 30px rgba(8,40,70,.08)!important;
-}
-.product-card__img{
-  min-height:300px!important;
-  aspect-ratio:5/4!important;
-  padding:14px!important;
-  background:
-    radial-gradient(circle at 50% 42%,#fff 0,#fffaf1 62%,#f0e2c8 100%)!important;
-}
-.product-card__img img{
-  width:100%!important;
-  height:100%!important;
-  max-width:100%!important;
-  max-height:100%!important;
-  object-fit:contain!important;
-  object-position:center!important;
-  transform:none!important;
-  filter:drop-shadow(0 14px 16px rgba(8,40,70,.12))!important;
-}
-.product-card__body{
-  padding:18px 19px 20px!important;
-}
-.product-card__body h3{
-  margin:4px 0 8px!important;
-  font-size:23px!important;
-}
-.product-purpose{
-  min-height:30px!important;
-  padding:3px 10px!important;
-  font-size:13px!important;
-}
-.product-card__actions{
-  gap:8px!important;
-  padding-top:10px!important;
-}
-.product-card__actions .btn{
-  min-height:44px!important;
-}
-
-/* ===== 產品詳細頁：產品完整、文字不擠 ===== */
-.product-detail-hero{
-  gap:28px!important;
-  margin-top:24px!important;
-  padding:26px!important;
-  border-radius:28px!important;
-  background:linear-gradient(135deg,#fffdf8 0,#f6ebd8 100%)!important;
-}
-.product-detail-hero__media{
-  min-height:470px!important;
-  padding:16px!important;
-  border-radius:22px!important;
-}
-.product-detail-hero__media img{
-  max-height:520px!important;
-  object-fit:contain!important;
-  object-position:center!important;
-}
-.fact-chips{
-  gap:8px!important;
-}
-.fact-chips span{
-  min-height:38px!important;
-}
-
-/* ===== 表格 / FAQ / 一般內容 ===== */
-.table-scroll{
-  border-radius:20px!important;
-  border:1px solid rgba(197,151,67,.26)!important;
-  box-shadow:0 10px 26px rgba(8,40,70,.06)!important;
-}
-.faq-item{
-  border-radius:18px!important;
-}
-.faq-item summary{
-  padding:17px 18px!important;
-}
-.final-cta{
-  padding:28px!important;
-  border-radius:24px!important;
-}
-.real-product-gallery{
-  gap:18px!important;
-}
-.real-product-gallery article{
-  border-radius:22px!important;
-}
-
-/* ===== Footer：完整但不拖太長 ===== */
-.site-footer{
-  padding-top:10px!important;
-  padding-bottom:calc(28px + env(safe-area-inset-bottom))!important;
-}
-.footer-card{
-  gap:22px!important;
-  padding:26px!important;
-  border-radius:24px!important;
-}
-.footer-nav-links{
-  gap:8px 14px!important;
-}
-.footer-contact img{
-  width:104px!important;
-  height:104px!important;
-  object-fit:contain!important;
-  background:#fff!important;
-  padding:7px!important;
-}
-.footer-legal{
-  padding-top:15px!important;
-}
-
-/* ===== 1080 以下：固定 Header，從任何捲動位置都能開選單 ===== */
-@media(max-width:1080px){
-  .site-header{
-    position:fixed!important;
-    top:0!important;
-    left:0!important;
-    right:0!important;
-    width:100%!important;
-    z-index:5000!important;
-    padding-top:env(safe-area-inset-top)!important;
-  }
-  .page{
-    padding-top:calc(78px + env(safe-area-inset-top))!important;
-  }
-  .site-header .header-inner{
-    width:calc(100% - 24px)!important;
-    min-height:68px!important;
-    padding:7px 0!important;
-  }
-  .header-nav,
-  .header-line-cta{
-    display:none!important;
-  }
-  .site-header .menu-btn{
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-  }
-  .site-header .brand-mark img{
-    width:50px!important;
-    height:50px!important;
-    flex-basis:50px!important;
-  }
-  .site-header .brand-mark__name{
-    font-size:23px!important;
-  }
-  .site-header .brand-mark__tagline{
-    display:none!important;
-  }
-  body.menu-open{
-    overflow:hidden!important;
-  }
-  body[data-page="home"] .hero__panel{
-    grid-template-columns:1fr!important;
-  }
-  .home-product-showcase{
-    width:100%!important;
-  }
-  .home-product-showcase__grid{
-    grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  }
-}
-
-/* ===== 手機：高級、緊湊、好操作 ===== */
-@media(max-width:700px){
-  html{
-    scroll-padding-top:86px!important;
-  }
-  body{
-    background:linear-gradient(180deg,#f8f2e7 0,#fbf8f2 100%)!important;
-  }
-  .page{
-    padding-top:calc(72px + env(safe-area-inset-top))!important;
-  }
-  .site-header .header-inner{
-    min-height:64px!important;
-  }
-  .site-header .brand-mark{
-    gap:10px!important;
-  }
-  .site-header .brand-mark img{
-    width:48px!important;
-    height:48px!important;
-    flex-basis:48px!important;
-    border-radius:13px!important;
-  }
-  .site-header .brand-mark__name{
-    font-size:21px!important;
-  }
-  .site-header .menu-btn{
-    min-width:92px!important;
-    min-height:44px!important;
-    padding:0 13px!important;
-    font-size:15px!important;
-  }
-  .site-header.is-scrolled .header-inner{
-    min-height:60px!important;
-  }
-  .site-header.is-scrolled .brand-mark img{
-    width:44px!important;
-    height:44px!important;
-    flex-basis:44px!important;
-  }
-
-  .hero{
-    padding:14px 10px 12px!important;
-  }
-  .section{
-    padding:20px 12px 34px!important;
-  }
-  .hero__content{
-    padding:24px 18px!important;
-    border-radius:20px!important;
-  }
-  h1{
-    font-size:clamp(34px,9.6vw,42px)!important;
-    line-height:1.13!important;
-  }
-  h2{
-    font-size:clamp(25px,7vw,31px)!important;
-    line-height:1.25!important;
-  }
-  h3{
-    font-size:20px!important;
-  }
-  p,li{
-    font-size:15.5px!important;
-    line-height:1.75!important;
-  }
-  .section-heading,
-  .section-title{
-    margin-bottom:17px!important;
-  }
-  .card,
-  .panel,
-  .final-cta{
-    border-radius:20px!important;
-  }
-
-  body[data-page="home"] .hero__panel{
-    gap:10px!important;
-    padding:10px!important;
-    border-radius:22px!important;
-  }
-  body[data-page="home"] .hero__content{
-    padding:22px 17px 18px!important;
-  }
-  .home-hero-brand-lockup{
-    gap:11px!important;
-    margin-bottom:15px!important;
-  }
-  .home-hero-brand-lockup__logo{
-    width:62px!important;
-    height:62px!important;
-    border-radius:16px!important;
-  }
-  .home-hero-brand-lockup__name{
-    font-size:27px!important;
-  }
-  .home-hero-brand-lockup__sub{
-    font-size:11px!important;
-  }
-  body[data-page="home"] .hero__content h1{
-    margin-bottom:13px!important;
-    font-size:clamp(37px,10vw,44px)!important;
-  }
-  body[data-page="home"] .hero__lead{
-    font-size:15.5px!important;
-    line-height:1.75!important;
-  }
-  .hero-actions,
-  .section-actions,
-  .final-cta__actions{
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-    gap:8px!important;
-    width:100%!important;
-  }
-  .hero-actions .btn,
-  .section-actions .btn,
-  .final-cta__actions .btn{
-    width:100%!important;
-    min-width:0!important;
-    min-height:46px!important;
-    padding:0 10px!important;
-    font-size:14px!important;
-  }
-  body[data-page="home"] .hero-actions .btn:nth-child(3),
-  .final-cta__actions .btn-line:last-child{
-    grid-column:1/-1!important;
-  }
-  body[data-page="home"] .home-trust-row{
-    grid-template-columns:1fr 1fr!important;
-    gap:7px!important;
-    margin-top:16px!important;
-  }
-  body[data-page="home"] .home-trust-row span{
-    min-height:38px!important;
-    padding:6px 7px!important;
-    font-size:12.5px!important;
-  }
-  .home-product-showcase{
-    padding:11px!important;
-    border-radius:18px!important;
-  }
-  .home-product-showcase__head strong{
-    font-size:15px!important;
-  }
-  .home-product-showcase__grid{
-    grid-template-columns:1fr 1fr!important;
-    gap:7px!important;
-  }
-  .home-product-showcase__grid>a{
-    grid-template-rows:108px auto!important;
-    padding:7px!important;
-  }
-  .home-product-showcase__grid img{
-    max-height:108px!important;
-  }
-
-  /* 手機產品卡改成橫式，縮短頁面，但產品仍大且完整 */
-  .product-grid{
-    grid-template-columns:1fr!important;
-    gap:11px!important;
-  }
-  .product-card{
-    display:grid!important;
-    grid-template-columns:minmax(132px,42%) minmax(0,58%)!important;
-    min-height:176px!important;
-    overflow:hidden!important;
-  }
-  .product-card__img{
-    min-height:176px!important;
-    height:100%!important;
-    aspect-ratio:auto!important;
-    padding:10px!important;
-    border-right:1px solid rgba(197,151,67,.16)!important;
-    border-bottom:0!important;
-  }
-  .product-card__img img{
-    width:100%!important;
-    height:100%!important;
-    max-height:180px!important;
-  }
-  .product-card__body{
-    min-width:0!important;
-    padding:14px 13px 14px!important;
-  }
-  .product-card__body .eyebrow{
-    margin-bottom:3px!important;
-    font-size:10.5px!important;
-  }
-  .product-card__body h3{
-    margin:2px 0 6px!important;
-    font-size:19px!important;
-    line-height:1.25!important;
-  }
-  .product-card__body>p:not(.eyebrow):not(.muted):not(.product-purpose){
-    display:none!important;
-  }
-  .product-purpose{
-    width:max-content!important;
-    max-width:100%!important;
-    min-height:26px!important;
-    margin:0 0 5px!important;
-    padding:2px 8px!important;
-    font-size:11.5px!important;
-  }
-  .product-card__body .muted{
-    margin:4px 0!important;
-    font-size:12px!important;
-    line-height:1.5!important;
-  }
-  .product-card__actions{
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-    gap:6px!important;
-    margin-top:auto!important;
-    padding-top:7px!important;
-  }
-  .product-card__actions .btn{
-    width:100%!important;
-    min-height:38px!important;
-    padding:0 6px!important;
-    font-size:11.5px!important;
-  }
-  body[data-page="home"] .product-card__actions{
-    grid-template-columns:1fr!important;
-  }
-
-  .product-detail-hero{
-    margin:12px 10px 8px!important;
-    padding:12px!important;
-    gap:16px!important;
-    border-radius:20px!important;
-  }
-  .product-detail-hero__media{
-    min-height:300px!important;
-    padding:10px!important;
-    border-radius:17px!important;
-  }
-  .product-detail-hero__media img{
-    max-height:330px!important;
-  }
-  .product-detail-hero__content{
-    padding:2px 4px 6px!important;
-  }
-  .fact-chips{
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-  }
-  .fact-chips span{
-    min-width:0!important;
-    min-height:34px!important;
-    padding:5px 8px!important;
-    font-size:12px!important;
-  }
-
-  .table-scroll{
-    display:none!important;
-  }
-  .mobile-compare-cards{
-    display:block!important;
-  }
-  .mobile-compare-card{
-    padding:16px!important;
-    border-radius:17px!important;
-  }
-  .mobile-compare-card + .mobile-compare-card{
-    margin-top:9px!important;
-  }
-
-  .faq-list{
-    gap:9px!important;
-  }
-  .faq-item summary{
-    min-height:54px!important;
-    padding:14px 15px!important;
-    font-size:15px!important;
-  }
-
-  .real-product-gallery{
-    grid-template-columns:1fr!important;
-    gap:13px!important;
-  }
-  .real-product-gallery article{
-    padding:10px!important;
-    border-radius:18px!important;
-  }
-
-  .footer-card{
-    grid-template-columns:1fr!important;
-    gap:17px!important;
-    padding:20px!important;
-    border-radius:20px!important;
-  }
-  .footer-nav-links{
-    grid-template-columns:1fr 1fr!important;
-    gap:8px 12px!important;
-  }
-  .footer-contact{
-    grid-column:auto!important;
-    grid-template-columns:1fr 92px!important;
-    gap:12px!important;
-  }
-  .footer-contact img{
-    width:92px!important;
-    height:92px!important;
-  }
-  .footer-legal{
-    grid-column:auto!important;
-    font-size:11px!important;
-    line-height:1.55!important;
-  }
-
-  .floating-line-cta{
-    right:12px!important;
-    bottom:calc(14px + env(safe-area-inset-bottom))!important;
-    width:50px!important;
-    height:50px!important;
-    min-height:50px!important;
-    padding:8px!important;
-    border:2px solid rgba(255,255,255,.88)!important;
-    box-shadow:0 10px 26px rgba(6,90,42,.25)!important;
-  }
-  .floating-line-cta__dot{
-    width:30px!important;
-    height:30px!important;
-  }
-}
-
-/* 超窄手機只在必要處改單欄 */
-@media(max-width:360px){
-  .site-header .menu-btn{
-    min-width:82px!important;
-    padding:0 10px!important;
-  }
-  .hero-actions,
-  .section-actions,
-  .final-cta__actions{
-    grid-template-columns:1fr!important;
-  }
-  body[data-page="home"] .hero-actions .btn:nth-child(3),
-  .final-cta__actions .btn-line:last-child{
-    grid-column:auto!important;
-  }
-  .product-card{
-    grid-template-columns:126px minmax(0,1fr)!important;
-  }
-}
-
-/* 最終產品保護：漂亮只能改容器，不得重畫／拉伸／裁斷產品。 */
-.product-card__img img,
-.product-detail-hero__media img,
-.real-product-gallery img,
-.modal-gallery__item img,
-.trial-product-card__media img,
-img[src*="customer-display-v20260812"],
-img[src*="/images/products-v3/"],
-img[src*="/images/dm-final/"]{
-  object-fit:contain!important;
-  object-position:center!important;
-  transform:none!important;
-  clip-path:none!important;
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v6：錄影問題收尾 */
-/* 錄影驗收發現：Footer 曾被一般 card 白底覆蓋；首頁情境卡過高；iOS drawer safe-area 不足。 */
-.footer-card{
-  color:#fff!important;
-  background:
-    radial-gradient(circle at 88% 16%,rgba(197,151,67,.20),transparent 28%),
-    linear-gradient(135deg,#082846 0,#0d365d 100%)!important;
-  border:1px solid rgba(234,211,160,.30)!important;
-  box-shadow:0 20px 48px rgba(5,28,49,.17)!important;
-}
-.footer-brand-block strong,
-.footer-card h3,
-.footer-contact h3{
-  color:#f5d68c!important;
-}
-.footer-card p,
-.footer-card a,
-.footer-contact p,
-.footer-nav-links a,
-.footer-legal{
-  color:rgba(255,255,255,.84)!important;
-}
-.footer-nav-links a:hover{
-  color:#f7dda3!important;
-}
-.footer-legal{
-  border-top-color:rgba(255,255,255,.14)!important;
-}
-.footer-contact img{
-  background:#fff!important;
-  border-color:rgba(234,211,160,.38)!important;
-}
-.footer-card .btn-outline{
-  color:#fff!important;
-  border-color:rgba(255,255,255,.52)!important;
-  background:rgba(255,255,255,.06)!important;
-}
-.footer-card .btn-line{
-  color:#fff!important;
-}
-.menu-topline{
-  padding-top:calc(18px + env(safe-area-inset-top))!important;
-}
-
-@media(max-width:700px){
-  body[data-page="home"] .home-choice-grid,
-  body[data-page="home"] .home-feature-grid{
-    gap:11px!important;
-  }
-  body[data-page="home"] .home-choice-card,
-  body[data-page="home"] .home-feature-card,
-  body[data-page="home"] .home-faq-card{
-    min-height:0!important;
-    padding:18px!important;
-  }
-  body[data-page="home"] .home-choice-card h3,
-  body[data-page="home"] .home-feature-card h3{
-    margin-bottom:7px!important;
-    font-size:21px!important;
-  }
-  body[data-page="home"] .home-choice-card p,
-  body[data-page="home"] .home-feature-card p{
-    margin-bottom:0!important;
-  }
-  body[data-page="home"] .home-story-card{
-    padding:22px 18px!important;
-  }
-  .site-footer{
-    padding-top:4px!important;
-    padding-bottom:calc(76px + env(safe-area-inset-bottom))!important;
-  }
-  .footer-card{
-    margin:0!important;
-  }
-  .footer-brand-block p{
-    margin:6px 0!important;
-  }
-  .footer-nav h3,
-  .footer-contact h3{
-    margin-bottom:8px!important;
-  }
-  .footer-contact p{
-    margin:3px 0!important;
-    font-size:13px!important;
-  }
-  .floating-line-cta{
-    width:46px!important;
-    height:46px!important;
-    min-height:46px!important;
-    padding:7px!important;
-  }
-  .floating-line-cta__dot{
-    width:28px!important;
-    height:28px!important;
-    font-size:9px!important;
-  }
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v7：功能降級保護 */
-/* JS 若未完成手機比較卡，不可把原始表格直接藏掉。 */
-@media(max-width:700px){
-  .table-scroll{
-    display:block!important;
-    overflow-x:auto!important;
-    -webkit-overflow-scrolling:touch!important;
-  }
-  .mobile-compare-cards{
-    display:none!important;
-  }
-  .table-scroll.mobile-compare-ready{
-    display:none!important;
-  }
-  .mobile-compare-cards[data-ready="true"]{
-    display:block!important;
-  }
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v8：全站正式收斂 */
-/* 以錄影實測為準：固定選單、減少冗長留白、統一品牌層級與跨裝置操作。 */
-:root{
-  --xjw-v8-header-h:78px;
-  --xjw-v8-header-mobile-h:70px;
-}
-
-/* 全站版面 */
-html{scroll-padding-top:96px!important}
-body{min-width:320px!important}
-.page{overflow-x:clip!important}
-.section,.hero{width:min(100%,1240px)!important;margin-left:auto!important;margin-right:auto!important}
-.section{padding:30px 20px 52px!important}
-.hero{padding-left:20px!important;padding-right:20px!important}
-.section-heading{max-width:840px!important}
-.section-heading h2{letter-spacing:.01em!important}
-.card,.panel,.final-cta,.faq-item{
-  border-color:rgba(197,151,67,.24)!important;
-  box-shadow:0 12px 34px rgba(8,40,70,.075)!important;
-}
-.card,.panel,.final-cta{background:#fffdf9!important}
-.btn{font-weight:850!important}
-.btn:focus-visible,.menu-btn:focus-visible,.menu-close:focus-visible,a:focus-visible{
-  outline:3px solid rgba(197,151,67,.55)!important;
-  outline-offset:3px!important;
-}
-
-/* Header：任何位置都可操作 */
-.site-header{
-  position:sticky!important;
-  top:0!important;
-  z-index:6000!important;
-  width:100%!important;
-  background:rgba(8,40,70,.985)!important;
-  border-bottom:1px solid rgba(234,211,160,.38)!important;
-  box-shadow:0 8px 26px rgba(3,20,36,.16)!important;
-}
-.site-header .header-inner{
-  width:min(calc(100% - 36px),1240px)!important;
-  min-height:var(--xjw-v8-header-h)!important;
-  margin:0 auto!important;
-  padding:8px 0!important;
-}
-.site-header .brand-mark img{
-  width:58px!important;height:58px!important;flex-basis:58px!important;
-  background:#fff8ea!important;border:1px solid rgba(246,217,154,.45)!important
-}
-.site-header .brand-mark__name{font-size:26px!important;color:#f6d99a!important}
-.site-header .brand-mark__tagline{color:rgba(255,255,255,.78)!important}
-.site-header .header-nav a{color:rgba(255,255,255,.88)!important}
-.site-header .header-nav a.is-active{color:#082846!important;background:#f5d68c!important}
-.site-header .header-line-cta{background:#08c95a!important;color:#fff!important;border-color:#08c95a!important}
-
-/* Drawer */
-.site-menu{position:fixed!important;inset:0!important;z-index:8000!important}
-.site-menu__panel{
-  position:absolute!important;top:0!important;right:0!important;
-  height:100vh!important;height:100dvh!important;
-  overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;
-  width:min(92vw,420px)!important;
-  padding:0 20px calc(32px + env(safe-area-inset-bottom))!important;
-  background:linear-gradient(180deg,#fffdf9 0,#f6efe3 100%)!important;
-}
-.menu-topline{
-  position:sticky!important;top:0!important;z-index:4!important;
-  margin:0 -20px 14px!important;
-  padding:calc(14px + env(safe-area-inset-top)) 20px 12px!important;
-  background:rgba(255,253,249,.985)!important;
-}
-.menu-group h4{color:#8f262b!important}
-.menu-group a{color:#17283a!important;background:rgba(255,255,255,.74)!important}
-.menu-group a.is-active{background:#082846!important;color:#fff!important}
-.menu-contact-card{background:#fff8e9!important;border-color:rgba(197,151,67,.28)!important}
-
-/* Hero / CTA */
-.hero__content{min-width:0!important}
-.hero-actions,.section-actions,.final-cta__actions{gap:10px!important}
-.btn-primary{background:#9a292d!important;border-color:#9a292d!important;color:#fff!important}
-.btn-outline{background:#fff!important;color:#082846!important;border-color:rgba(8,40,70,.42)!important}
-.btn-line{background:#06c755!important;border-color:#06c755!important;color:#fff!important}
-
-/* 產品 */
-.product-grid{gap:18px!important}
-.product-card{overflow:hidden!important;border-radius:22px!important}
-.product-card__img{
-  display:flex!important;align-items:center!important;justify-content:center!important;
-  background:radial-gradient(circle at 50% 40%,#fff 0,#fffaf0 62%,#eee0c7 100%)!important
-}
-.product-card__img img,.product-detail-hero__media img,.real-product-gallery img,.modal-gallery__item img{
-  object-fit:contain!important;object-position:center!important;transform:none!important;clip-path:none!important
-}
-.product-detail-hero{border-radius:28px!important}
-.product-detail-hero__media{background:radial-gradient(circle at 50% 42%,#fff 0,#fff8ec 64%,#eedfc3 100%)!important}
-
-/* Footer */
-.footer-card{
-  color:#fff!important;
-  background:radial-gradient(circle at 88% 16%,rgba(197,151,67,.20),transparent 28%),linear-gradient(135deg,#082846 0,#0d365d 100%)!important;
-  border:1px solid rgba(234,211,160,.30)!important;
-}
-.footer-card h3,.footer-brand-block strong{color:#f5d68c!important}
-.footer-card p,.footer-card a,.footer-legal{color:rgba(255,255,255,.84)!important}
-.footer-contact img{background:#fff!important;border-radius:16px!important}
-.footer-card .btn-outline{color:#fff!important;background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.48)!important}
-
-/* 平板 + 手機：固定 Header，完全不需滑回頂端 */
-@media(max-width:1080px){
-  html{scroll-padding-top:calc(var(--xjw-v8-header-mobile-h) + 16px)!important}
-  .site-header{
-    position:fixed!important;top:0!important;left:0!important;right:0!important;
-    padding-top:env(safe-area-inset-top)!important;
-  }
-  .page{
-    padding-top:calc(var(--xjw-v8-header-mobile-h) + env(safe-area-inset-top))!important;
-  }
-  .site-header .header-inner{
-    width:calc(100% - 24px)!important;
-    min-height:var(--xjw-v8-header-mobile-h)!important;
-    padding:6px 0!important;
-  }
-  .header-nav,.header-line-cta{display:none!important}
-  .site-header .menu-btn{
-    display:flex!important;align-items:center!important;justify-content:center!important;
-    margin-left:auto!important;min-width:94px!important;min-height:44px!important;
-    color:#f7dda3!important;background:rgba(255,255,255,.07)!important;
-    border:1px solid rgba(246,217,154,.52)!important
-  }
-  .site-header .brand-mark img{width:50px!important;height:50px!important;flex-basis:50px!important}
-  .site-header .brand-mark__name{font-size:23px!important}
-  .site-header .brand-mark__tagline{display:none!important}
-  .site-header.is-scrolled .header-inner{min-height:62px!important}
-  .site-header.is-scrolled .brand-mark img{width:44px!important;height:44px!important;flex-basis:44px!important}
-  .site-header.is-scrolled .brand-mark__name{font-size:21px!important}
-}
-
-/* 手機：縮短頁面、產品大、資訊不擠 */
-@media(max-width:700px){
-  .section{padding:22px 12px 36px!important}
-  .hero{padding:14px 10px 12px!important}
-  .hero__content{padding:24px 18px!important}
-  h1{font-size:clamp(34px,9.8vw,43px)!important;line-height:1.12!important}
-  h2{font-size:clamp(25px,7vw,31px)!important;line-height:1.23!important}
-  p,li{font-size:15.5px!important;line-height:1.72!important}
-
-  .hero-actions,.section-actions,.final-cta__actions{
-    display:grid!important;grid-template-columns:1fr 1fr!important;width:100%!important
-  }
-  .hero-actions .btn,.section-actions .btn,.final-cta__actions .btn{
-    width:100%!important;min-width:0!important;min-height:46px!important;padding:0 10px!important;font-size:14px!important
-  }
-  body[data-page="home"] .hero-actions .btn:nth-child(3){grid-column:1/-1!important}
-
-  body[data-page="home"] .hero__panel{gap:10px!important;padding:10px!important;border-radius:22px!important}
-  body[data-page="home"] .hero__content{padding:21px 17px 18px!important}
-  .home-hero-brand-lockup__logo{width:62px!important;height:62px!important}
-  .home-hero-brand-lockup__name{font-size:27px!important}
-  body[data-page="home"] .home-trust-row{grid-template-columns:1fr 1fr!important;gap:7px!important}
-  body[data-page="home"] .home-trust-row span{min-height:38px!important;padding:6px!important;font-size:12.5px!important}
-  .home-product-showcase__grid{grid-template-columns:1fr 1fr!important;gap:7px!important}
-  .home-product-showcase__grid>a{grid-template-rows:108px auto!important;padding:7px!important}
-  .home-product-showcase__grid img{max-height:108px!important}
-
-  .product-grid{grid-template-columns:1fr!important;gap:11px!important}
-  .product-card{
-    display:grid!important;grid-template-columns:minmax(132px,42%) minmax(0,58%)!important;
-    min-height:176px!important
-  }
-  .product-card__img{min-height:176px!important;height:100%!important;aspect-ratio:auto!important;padding:10px!important;border-right:1px solid rgba(197,151,67,.16)!important;border-bottom:0!important}
-  .product-card__img img{max-height:180px!important}
-  .product-card__body{padding:14px 13px!important;min-width:0!important}
-  .product-card__body h3{font-size:19px!important;line-height:1.25!important}
-  .product-card__body>p:not(.eyebrow):not(.muted):not(.product-purpose){display:none!important}
-  .product-purpose{font-size:11.5px!important}
-  .product-card__body .muted{font-size:12px!important;line-height:1.45!important}
-  .product-card__actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important}
-  .product-card__actions .btn{min-height:38px!important;font-size:11.5px!important;padding:0 5px!important}
-  body[data-page="home"] .product-card__actions{grid-template-columns:1fr!important}
-
-  .product-detail-hero{margin:12px 10px 8px!important;padding:12px!important;gap:16px!important;border-radius:20px!important}
-  .product-detail-hero__media{min-height:300px!important;padding:10px!important}
-  .product-detail-hero__media img{max-height:330px!important}
-  .fact-chips{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
-
-  body[data-page="home"] .home-choice-card,
-  body[data-page="home"] .home-feature-card,
-  body[data-page="home"] .home-faq-card{min-height:0!important;padding:18px!important}
-
-  .faq-item summary{min-height:54px!important;padding:14px 15px!important;font-size:15px!important}
-  .real-product-gallery{grid-template-columns:1fr!important}
-  .footer-card{grid-template-columns:1fr!important;padding:20px!important;gap:16px!important}
-  .footer-nav-links{grid-template-columns:1fr 1fr!important;gap:8px 12px!important}
-  .footer-contact{grid-column:auto!important;grid-template-columns:1fr 92px!important;gap:12px!important}
-  .footer-contact img{width:92px!important;height:92px!important}
-  .footer-legal{grid-column:auto!important;font-size:11px!important;line-height:1.55!important}
-  .site-footer{padding-bottom:calc(72px + env(safe-area-inset-bottom))!important}
-
-  .floating-line-cta{
-    right:12px!important;bottom:calc(14px + env(safe-area-inset-bottom))!important;
-    width:48px!important;height:48px!important;min-height:48px!important;padding:7px!important;
-    border:2px solid rgba(255,255,255,.9)!important;box-shadow:0 10px 26px rgba(6,90,42,.24)!important
-  }
-  .floating-line-cta>span:last-child{display:none!important}
-  .floating-line-cta__dot{width:30px!important;height:30px!important;font-size:9px!important}
-
-  /* JS 成功才用卡片取代表格；失敗則保留可橫滑表格 */
-  .table-scroll{display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
-  .mobile-compare-cards{display:none!important}
-  .table-scroll.mobile-compare-ready{display:none!important}
-  .mobile-compare-cards[data-ready="true"]{display:block!important}
-}
-@media(max-width:360px){
-  .hero-actions,.section-actions,.final-cta__actions{grid-template-columns:1fr!important}
-  body[data-page="home"] .hero-actions .btn:nth-child(3){grid-column:auto!important}
-  .product-card{grid-template-columns:124px minmax(0,1fr)!important}
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v10：正式品牌／固定導覽／跨裝置收尾 */
-:root{
-  --xjw-v10-header-h:78px;
-  --xjw-v10-header-mobile-h:70px;
-  --xjw-v10-navy:#082846;
-  --xjw-v10-navy2:#0d365d;
-  --xjw-v10-gold:#c59743;
-  --xjw-v10-gold-soft:#f3d99a;
-  --xjw-v10-cream:#f8f2e8;
-  --xjw-v10-paper:#fffdf8;
-  --xjw-v10-red:#98292d;
-  --xjw-v10-ink:#203043;
-}
-
-/* 最高優先：所有裝置固定導覽。iOS Safari 不再依賴 sticky。 */
-html{
-  scroll-padding-top:calc(var(--xjw-v10-header-h) + 18px)!important;
-  overflow-x:clip!important;
-}
-body{
-  min-width:320px!important;
-  overflow-x:clip!important;
-}
-.site-header{
-  position:fixed!important;
-  top:0!important;
-  left:0!important;
-  right:0!important;
-  width:100%!important;
-  z-index:9000!important;
-  padding-top:env(safe-area-inset-top)!important;
-  background:rgba(8,40,70,.985)!important;
-  border-bottom:1px solid rgba(243,217,154,.38)!important;
-  box-shadow:0 10px 30px rgba(3,20,36,.18)!important;
-  -webkit-backdrop-filter:blur(18px) saturate(1.12)!important;
-  backdrop-filter:blur(18px) saturate(1.12)!important;
-  -webkit-transform:translateZ(0)!important;
-  transform:translateZ(0)!important;
-}
-.site-header .header-inner{
-  width:min(calc(100% - 36px),1240px)!important;
-  min-height:var(--xjw-v10-header-h)!important;
-  margin:0 auto!important;
-  padding:8px 0!important;
-}
-.page{
-  padding-top:calc(var(--xjw-v10-header-h) + env(safe-area-inset-top))!important;
-  overflow-x:clip!important;
-}
-.site-header .brand-mark img{
-  width:58px!important;
-  height:58px!important;
-  flex:0 0 58px!important;
-  padding:3px!important;
-  object-fit:contain!important;
-  border-radius:16px!important;
-  background:#fff8ea!important;
-  border:1px solid rgba(246,217,154,.48)!important;
-  box-shadow:0 7px 18px rgba(0,0,0,.18)!important;
-}
-.site-header .brand-mark__name{
-  color:#f6d99a!important;
-  font-size:26px!important;
-  line-height:1.05!important;
-  letter-spacing:.09em!important;
-}
-.site-header .brand-mark__tagline{
-  color:rgba(255,255,255,.78)!important;
-}
-.site-header .header-nav a{
-  color:rgba(255,255,255,.88)!important;
-}
-.site-header .header-nav a:hover{
-  color:#fff!important;
-  background:rgba(255,255,255,.09)!important;
-}
-.site-header .header-nav a.is-active{
-  color:#082846!important;
-  background:#f3d99a!important;
-}
-.site-header .header-line-cta{
-  color:#fff!important;
-  background:#06c755!important;
-  border-color:#06c755!important;
-}
-.site-header.is-scrolled{
-  box-shadow:0 12px 34px rgba(3,20,36,.24)!important;
-}
-
-/* Drawer：任何捲動位置都可打開，頂部品牌與關閉永遠可見。 */
-.site-menu{
-  position:fixed!important;
-  inset:0!important;
-  z-index:10000!important;
-}
-.site-menu__backdrop{
-  position:absolute!important;
-  inset:0!important;
-  background:rgba(3,17,31,.58)!important;
-  -webkit-backdrop-filter:blur(5px)!important;
-  backdrop-filter:blur(5px)!important;
-}
-.site-menu__panel{
-  position:absolute!important;
-  top:0!important;
-  right:0!important;
-  width:min(92vw,420px)!important;
-  height:100vh!important;
-  height:100dvh!important;
-  padding:0 20px calc(34px + env(safe-area-inset-bottom))!important;
-  overflow-y:auto!important;
-  overscroll-behavior:contain!important;
-  -webkit-overflow-scrolling:touch!important;
-  background:linear-gradient(180deg,#fffdf9 0,#f6efe3 100%)!important;
-  border-left:1px solid rgba(197,151,67,.30)!important;
-  box-shadow:-26px 0 74px rgba(3,17,31,.24)!important;
-}
-.menu-topline{
-  position:sticky!important;
-  top:0!important;
-  z-index:4!important;
-  margin:0 -20px 14px!important;
-  padding:calc(15px + env(safe-area-inset-top)) 20px 13px!important;
-  background:rgba(255,253,249,.985)!important;
-  border-bottom:1px solid rgba(197,151,67,.18)!important;
-  -webkit-backdrop-filter:blur(12px)!important;
-  backdrop-filter:blur(12px)!important;
-}
-.menu-brand-mini img{
-  width:48px!important;
-  height:48px!important;
-  border-radius:13px!important;
-  background:#fff8ea!important;
-}
-.menu-brand-mini strong{
-  color:#082846!important;
-  font-size:20px!important;
-}
-.menu-close{
-  width:46px!important;
-  min-width:46px!important;
-  height:46px!important;
-  padding:0!important;
-  background:#fff!important;
-  color:#082846!important;
-  border:1px solid rgba(8,40,70,.18)!important;
-}
-.menu-quick-actions{
-  grid-template-columns:1fr 1fr!important;
-  gap:9px!important;
-}
-.menu-quick-actions .btn:last-child{
-  grid-column:1/-1!important;
-}
-.menu-group a{
-  min-height:48px!important;
-  padding:10px 13px!important;
-  border-radius:13px!important;
-  background:rgba(255,255,255,.72)!important;
-  color:#17283a!important;
-}
-.menu-group a.is-active{
-  color:#fff!important;
-  background:#082846!important;
-}
-.menu-contact-card{
-  border-color:rgba(197,151,67,.30)!important;
-  background:#fff8e9!important;
-}
-
-/* 全站品牌版面：減少廉價白框感，建立深藍／米白／金色層級。 */
-body{
-  color:var(--xjw-v10-ink)!important;
-  background:
-    radial-gradient(circle at 92% 4%,rgba(197,151,67,.10),transparent 22%),
-    linear-gradient(180deg,#f7efe1 0,#faf6ee 36%,#f8f2e8 100%)!important;
-}
-.hero,.section{
-  width:min(100%,1240px)!important;
-  margin-left:auto!important;
-  margin-right:auto!important;
-}
-.hero{
-  padding-left:20px!important;
-  padding-right:20px!important;
-}
-.section{
-  padding:30px 20px 52px!important;
-}
-.section-heading,.section-title{
-  max-width:840px!important;
-  margin-bottom:22px!important;
-}
-.hero__content,
-.card,.panel,.final-cta,.faq-item{
-  border-color:rgba(197,151,67,.25)!important;
-  box-shadow:0 13px 36px rgba(8,40,70,.075)!important;
-}
-.card,.panel,.final-cta{
-  background:rgba(255,253,248,.98)!important;
-}
-.card:hover,.panel:hover{
-  transform:none!important;
-}
-.eyebrow{
-  color:#98292d!important;
-}
-.btn{
-  font-weight:850!important;
-  letter-spacing:.015em!important;
-}
-.btn-primary{
-  color:#fff!important;
-  background:#98292d!important;
-  border-color:#98292d!important;
-}
-.btn-outline{
-  color:#082846!important;
-  background:#fff!important;
-  border-color:rgba(8,40,70,.42)!important;
-}
-.btn-line{
-  color:#fff!important;
-  background:#06c755!important;
-  border-color:#06c755!important;
-}
-.btn:focus-visible,.menu-btn:focus-visible,.menu-close:focus-visible,a:focus-visible{
-  outline:3px solid rgba(197,151,67,.56)!important;
-  outline-offset:3px!important;
-}
-
-/* 首頁：保留品牌主視覺，縮短不必要的卡片高度。 */
-body[data-page="home"] .hero__panel{
-  border-radius:30px!important;
-  background:
-    radial-gradient(circle at 9% 5%,rgba(197,151,67,.15),transparent 29%),
-    linear-gradient(135deg,#fffdf8 0,#f5e8d1 100%)!important;
-}
-body[data-page="home"] .home-choice-card,
-body[data-page="home"] .home-feature-card,
-body[data-page="home"] .home-faq-card{
-  min-height:0!important;
-}
-body[data-page="home"] .home-story-card{
-  border-color:rgba(243,217,154,.34)!important;
-}
-
-/* 產品：正式實品完整呈現，不拉伸、不裁切。 */
-.product-grid{
-  gap:18px!important;
-}
-.product-card{
-  overflow:hidden!important;
-  border-radius:22px!important;
-  border-color:rgba(197,151,67,.27)!important;
-  background:#fffdf9!important;
-  box-shadow:0 12px 31px rgba(8,40,70,.08)!important;
-}
-.product-card__img{
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  background:
-    radial-gradient(circle at 50% 40%,#fff 0,#fffaf0 62%,#eee0c7 100%)!important;
-}
-.product-card__img img,
-.product-detail-hero__media img,
-.real-product-gallery img,
-.modal-gallery__item img,
-.trial-product-card__media img,
-img[src*="customer-display-v20260812"],
-img[src*="/images/products-v3/"],
-img[src*="/images/dm-final/"]{
-  max-width:100%!important;
-  object-fit:contain!important;
-  object-position:center!important;
-  transform:none!important;
-  clip-path:none!important;
-}
-.product-detail-hero{
-  border-radius:28px!important;
-  border-color:rgba(197,151,67,.27)!important;
-  background:linear-gradient(135deg,#fffdf8 0,#f6ead6 100%)!important;
-}
-.product-detail-hero__media{
-  background:radial-gradient(circle at 50% 42%,#fff 0,#fff8ec 64%,#eedfc3 100%)!important;
-}
-
-/* 聯絡頁：LINE 成為真正的品牌服務主卡，不再大量空白。 */
-body[data-page="contact"] .contact-info-grid{
-  display:grid!important;
-  grid-template-columns:1fr 1fr!important;
-  gap:18px!important;
-}
-body[data-page="contact"] .contact-line-card{
-  grid-column:1/-1!important;
-  padding:28px!important;
-  color:#fff!important;
-  background:
-    radial-gradient(circle at 88% 14%,rgba(197,151,67,.22),transparent 28%),
-    linear-gradient(135deg,#082846 0,#0d365d 100%)!important;
-  border-color:rgba(243,217,154,.35)!important;
-}
-body[data-page="contact"] .contact-line-card h2{
-  color:#f5d68c!important;
-}
-body[data-page="contact"] .contact-line-card p{
-  color:rgba(255,255,255,.86)!important;
-}
-body[data-page="contact"] .contact-line-layout{
-  display:grid!important;
-  grid-template-columns:84px minmax(0,1fr) 160px!important;
-  gap:22px!important;
-  align-items:center!important;
-}
-body[data-page="contact"] .footer-line-logo img{
-  width:76px!important;
-  height:76px!important;
-  object-fit:contain!important;
-  padding:4px!important;
-  border-radius:18px!important;
-  background:#fff8ea!important;
-}
-body[data-page="contact"] .line-qr-card{
-  width:160px!important;
-  height:160px!important;
-  padding:9px!important;
-  object-fit:contain!important;
-  border-radius:16px!important;
-  background:#fff!important;
-  border:1px solid rgba(243,217,154,.48)!important;
-}
-body[data-page="contact"] .contact-line-copy .btn-line{
-  margin-top:8px!important;
-}
-
-/* Footer：品牌深藍收尾，QR 清楚。 */
-.footer-card{
-  color:#fff!important;
-  background:
-    radial-gradient(circle at 88% 16%,rgba(197,151,67,.20),transparent 28%),
-    linear-gradient(135deg,#082846 0,#0d365d 100%)!important;
-  border:1px solid rgba(234,211,160,.30)!important;
-}
-.footer-card h3,.footer-brand-block strong{
-  color:#f5d68c!important;
-}
-.footer-card p,.footer-card a,.footer-legal{
-  color:rgba(255,255,255,.84)!important;
-}
-.footer-contact img{
-  width:108px!important;
-  height:108px!important;
-  padding:7px!important;
-  object-fit:contain!important;
-  background:#fff!important;
-  border-radius:16px!important;
-}
-.footer-card .btn-outline{
-  color:#fff!important;
-  background:rgba(255,255,255,.06)!important;
-  border-color:rgba(255,255,255,.48)!important;
-}
-
-/* 平板／手機：固定 Header，絕不需要滑回頁首。 */
-@media(max-width:1080px){
-  :root{--xjw-v10-header-h:70px}
-  html{
-    scroll-padding-top:calc(var(--xjw-v10-header-h) + env(safe-area-inset-top) + 16px)!important;
-  }
-  .site-header .header-inner{
-    width:calc(100% - 24px)!important;
-    min-height:var(--xjw-v10-header-h)!important;
-    padding:6px 0!important;
-  }
-  .page{
-    padding-top:calc(var(--xjw-v10-header-h) + env(safe-area-inset-top))!important;
-  }
-  .header-nav,.header-line-cta{
-    display:none!important;
-  }
-  .site-header .menu-btn{
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-    margin-left:auto!important;
-    min-width:94px!important;
-    min-height:44px!important;
-    padding:0 14px!important;
-    color:#f7dda3!important;
-    background:rgba(255,255,255,.07)!important;
-    border:1px solid rgba(246,217,154,.52)!important;
-  }
-  .site-header .brand-mark img{
-    width:50px!important;
-    height:50px!important;
-    flex-basis:50px!important;
-  }
-  .site-header .brand-mark__name{
-    font-size:23px!important;
-  }
-  .site-header .brand-mark__tagline{
-    display:none!important;
-  }
-  body.menu-open{
-    overflow:hidden!important;
-  }
-}
-
-@media(max-width:700px){
-  :root{--xjw-v10-header-h:66px}
-  .site-header .header-inner{
-    min-height:var(--xjw-v10-header-h)!important;
-  }
-  .site-header .brand-mark img{
-    width:48px!important;
-    height:48px!important;
-    flex-basis:48px!important;
-    border-radius:13px!important;
-  }
-  .site-header .brand-mark__name{
-    font-size:21px!important;
-  }
-  .site-header .menu-btn{
-    min-width:90px!important;
-    min-height:44px!important;
-    font-size:15px!important;
-  }
-
-  .hero{
-    padding:14px 10px 12px!important;
-  }
-  .section{
-    padding:22px 12px 36px!important;
-  }
-  .hero__content{
-    padding:24px 18px!important;
-    border-radius:20px!important;
-  }
-  h1{
-    font-size:clamp(34px,9.8vw,43px)!important;
-    line-height:1.12!important;
-  }
-  h2{
-    font-size:clamp(25px,7vw,31px)!important;
-    line-height:1.23!important;
-  }
-  p,li{
-    font-size:15.5px!important;
-    line-height:1.72!important;
-  }
-
-  .hero-actions,.section-actions,.final-cta__actions{
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-    gap:8px!important;
-    width:100%!important;
-  }
-  .hero-actions .btn,.section-actions .btn,.final-cta__actions .btn{
-    width:100%!important;
-    min-width:0!important;
-    min-height:46px!important;
-    padding:0 10px!important;
-    font-size:14px!important;
-  }
-  body[data-page="home"] .hero-actions .btn:nth-child(3){
-    grid-column:1/-1!important;
-  }
-
-  /* 手機產品卡橫式化：產品仍大，但頁面不無限拉長。 */
-  .product-grid{
-    grid-template-columns:1fr!important;
-    gap:11px!important;
-  }
-  .product-card{
-    display:grid!important;
-    grid-template-columns:minmax(132px,42%) minmax(0,58%)!important;
-    min-height:176px!important;
-  }
-  .product-card__img{
-    min-height:176px!important;
-    height:100%!important;
-    aspect-ratio:auto!important;
-    padding:10px!important;
-    border-right:1px solid rgba(197,151,67,.16)!important;
-    border-bottom:0!important;
-  }
-  .product-card__img img{
-    max-height:180px!important;
-  }
-  .product-card__body{
-    min-width:0!important;
-    padding:14px 13px!important;
-  }
-  .product-card__body h3{
-    font-size:19px!important;
-    line-height:1.25!important;
-  }
-  .product-card__body>p:not(.eyebrow):not(.muted):not(.product-purpose){
-    display:none!important;
-  }
-  .product-purpose{
-    font-size:11.5px!important;
-  }
-  .product-card__body .muted{
-    font-size:12px!important;
-    line-height:1.45!important;
-  }
-  .product-card__actions{
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-    gap:6px!important;
-  }
-  .product-card__actions .btn{
-    min-height:38px!important;
-    padding:0 5px!important;
-    font-size:11.5px!important;
-  }
-  body[data-page="home"] .product-card__actions{
-    grid-template-columns:1fr!important;
-  }
-
-  .product-detail-hero{
-    margin:12px 10px 8px!important;
-    padding:12px!important;
-    gap:16px!important;
-    border-radius:20px!important;
-  }
-  .product-detail-hero__media{
-    min-height:300px!important;
-    padding:10px!important;
-  }
-  .product-detail-hero__media img{
-    max-height:330px!important;
-  }
-  .fact-chips{
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-    gap:7px!important;
-  }
-
-  body[data-page="contact"] .contact-info-grid{
-    grid-template-columns:1fr!important;
-    gap:12px!important;
-  }
-  body[data-page="contact"] .contact-line-card{
-    grid-column:auto!important;
-    padding:20px!important;
-  }
-  body[data-page="contact"] .contact-line-layout{
-    grid-template-columns:64px minmax(0,1fr)!important;
-    gap:14px!important;
-  }
-  body[data-page="contact"] .footer-line-logo img{
-    width:60px!important;
-    height:60px!important;
-  }
-  body[data-page="contact"] .line-qr-card{
-    grid-column:1/-1!important;
-    justify-self:center!important;
-    width:154px!important;
-    height:154px!important;
-    margin-top:6px!important;
-  }
-
-  .footer-card{
-    grid-template-columns:1fr!important;
-    gap:16px!important;
-    padding:20px!important;
-  }
-  .footer-nav-links{
-    grid-template-columns:1fr 1fr!important;
-    gap:8px 12px!important;
-  }
-  .footer-contact{
-    grid-column:auto!important;
-    grid-template-columns:1fr 100px!important;
-    gap:12px!important;
-  }
-  .footer-contact img{
-    width:100px!important;
-    height:100px!important;
-  }
-  .footer-legal{
-    grid-column:auto!important;
-    font-size:11px!important;
-    line-height:1.55!important;
-  }
-  .site-footer{
-    padding-bottom:calc(72px + env(safe-area-inset-bottom))!important;
-  }
-
-  .floating-line-cta{
-    right:12px!important;
-    bottom:calc(14px + env(safe-area-inset-bottom))!important;
-    width:48px!important;
-    height:48px!important;
-    min-height:48px!important;
-    padding:7px!important;
-    border:2px solid rgba(255,255,255,.90)!important;
-  }
-  .floating-line-cta>span:last-child{
-    display:none!important;
-  }
-  .floating-line-cta__dot{
-    width:30px!important;
-    height:30px!important;
-    font-size:9px!important;
-  }
-
-  /* JS 成功時卡片取代表格；核心失敗時仍保留可橫滑表格。 */
-  .table-scroll{
-    display:block!important;
-    overflow-x:auto!important;
-    -webkit-overflow-scrolling:touch!important;
-  }
-  .mobile-compare-cards{
-    display:none!important;
-  }
-  .table-scroll.mobile-compare-ready{
-    display:none!important;
-  }
-  .mobile-compare-cards[data-ready="true"]{
-    display:block!important;
-  }
-}
-@media(max-width:360px){
-  .hero-actions,.section-actions,.final-cta__actions{
-    grid-template-columns:1fr!important;
-  }
-  body[data-page="home"] .hero-actions .btn:nth-child(3){
-    grid-column:auto!important;
-  }
-  .product-card{
-    grid-template-columns:124px minmax(0,1fr)!important;
-  }
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v11：產品圖聚焦與版面精修 */
-/*
- * 產品主圖仍使用核准正式實品檔，只在卡片/快速查看版位裁掉海報周邊留白與標題，
- * 不重畫、不變形、不改包裝；完整 DM 仍維持 contain 全圖。
- */
-.product-card__img,
-.home-product-showcase__grid>a,
-.modal-gallery__item,
-.product-detail-hero__media{
-  overflow:hidden!important;
-}
-.product-card__img img,
-.home-product-showcase__grid img,
-.modal-gallery__item img,
-.product-detail-hero__media img{
-  width:100%!important;
-  height:100%!important;
-  object-fit:cover!important;
-  object-position:center 55%!important;
-  transform:none!important;
-  clip-path:none!important;
-}
-/* 180cc 鋁袋較長，視窗略往下以保留整包。 */
-.product-card__img img[src*="guilu-drink-180"],
-.home-product-showcase__grid img[src*="guilu-drink-180"],
-.modal-gallery__item img[src*="guilu-drink-180"],
-.product-detail-hero__media img[src*="guilu-drink-180"]{
-  object-position:center 58%!important;
-}
-/* 龜鹿膏盒＋罐、鹿茸粉罐都保留完整產品輪廓。 */
-.product-card__img img[src*="guilu-gao"],
-.home-product-showcase__grid img[src*="guilu-gao"],
-.modal-gallery__item img[src*="guilu-gao"],
-.product-detail-hero__media img[src*="guilu-gao"]{
-  object-position:center 56%!important;
-}
-.product-card__img img[src*="luerong-fen"],
-.home-product-showcase__grid img[src*="luerong-fen"],
-.modal-gallery__item img[src*="luerong-fen"],
-.product-detail-hero__media img[src*="luerong-fen"]{
-  object-position:center 57%!important;
-}
-/* 詳細頁給產品一個穩定的展示窗，不讓整張海報把產品縮得太小。 */
-.product-detail-hero__media{
-  aspect-ratio:4/3!important;
-  min-height:0!important;
-}
-.product-detail-hero__media a{
-  width:100%!important;
-  height:100%!important;
-}
-.product-detail-hero__media img{
-  max-height:none!important;
-  border-radius:16px!important;
-}
-.modal-gallery__item{
-  aspect-ratio:4/3!important;
-}
-.modal-gallery__item img{
-  max-height:none!important;
-}
-/* 首頁六產品主視覺也直接聚焦產品，減少「DM貼進卡片」感。 */
-.home-product-showcase__grid>a{
-  background:linear-gradient(180deg,#fffefa 0,#f5ead7 100%)!important;
-}
-.home-product-showcase__grid img{
-  border-radius:11px!important;
-}
-/* 產品總覽桌機卡片一致高級比例。 */
-@media(min-width:701px){
-  .product-card__img{
-    aspect-ratio:5/4!important;
-    min-height:300px!important;
-  }
-}
-/* 手機橫卡：維持產品完整焦點，避免圖太小。 */
-@media(max-width:700px){
-  .product-card__img{
-    min-height:176px!important;
-    aspect-ratio:auto!important;
-  }
-  .product-card__img img{
-    min-height:176px!important;
-  }
-  .product-detail-hero__media{
-    aspect-ratio:4/3!important;
-    min-height:0!important;
-  }
-}
-/* DM與原圖檢視永遠完整呈現，不套產品卡聚焦裁切。 */
-.real-product-gallery img,
-img[src*="/images/dm-final/"]{
-  width:100%!important;
-  height:auto!important;
-  object-fit:contain!important;
-  object-position:center!important;
-}
-
-
-/* 仙加味｜2026-09-24 premium visual v12：全站可靠性／高級版面最終覆寫 */
-/* 核心原則：固定導覽、內容永遠可見、產品完整、手機不重複、不留巨大空白。 */
-
-/* 1. 所有裝置導覽永久可用；iOS Safari / Android Chrome 不依賴 sticky。 */
-:root{
-  --xjw-v12-header-h:78px;
-  --xjw-v12-mobile-header-h:66px;
-}
-html{
-  scroll-padding-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top) + 16px)!important;
-}
-body{
-  min-width:320px!important;
-  overflow-x:hidden!important;
-}
-.site-header{
-  position:fixed!important;
-  inset:auto 0 auto 0!important;
-  top:0!important;
-  width:100%!important;
-  z-index:12000!important;
-  padding-top:env(safe-area-inset-top)!important;
-  background:rgba(8,40,70,.988)!important;
-  border-bottom:1px solid rgba(243,217,154,.42)!important;
-  box-shadow:0 10px 30px rgba(3,20,36,.20)!important;
-  -webkit-backdrop-filter:blur(18px) saturate(1.12)!important;
-  backdrop-filter:blur(18px) saturate(1.12)!important;
-  -webkit-transform:translateZ(0)!important;
-  transform:translateZ(0)!important;
-}
-.site-header .header-inner{
-  min-height:var(--xjw-v12-header-h)!important;
-}
-.page{
-  padding-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top))!important;
-}
-[id]{
-  scroll-margin-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top) + 18px)!important;
-}
-
-/* 2. Fail-safe：不再用 reveal opacity 造成「整段空白」。漂亮優先，但內容一定要看得到。 */
-.reveal,
-.reveal.show{
+  min-height:70vh;
+  padding-top:calc(var(--xjw-header-h) + env(safe-area-inset-top));
+  overflow:visible!important;
+}
+.reveal,.reveal.show{
   opacity:1!important;
   visibility:visible!important;
   transform:none!important;
   transition:none!important;
 }
 
-/* 3. 選單在任何捲動位置可開；面板自身捲動，不影響頁面。 */
-.site-menu{
+/* Header */
+.site-header{
   position:fixed!important;
-  inset:0!important;
-  z-index:13000!important;
-}
-.site-menu__panel{
-  max-height:100vh!important;
-  max-height:100dvh!important;
-  overflow-y:auto!important;
-  -webkit-overflow-scrolling:touch!important;
-}
-body.menu-open,
-body.modal-open{
-  overflow:hidden!important;
-  touch-action:none!important;
-}
-
-/* 4. 全站節奏：消除不必要的大空白與過長卡片。 */
-.hero{
-  padding-top:24px!important;
-  padding-bottom:18px!important;
-}
-.section{
-  padding-top:26px!important;
-  padding-bottom:42px!important;
-}
-.section:last-child{
-  padding-bottom:34px!important;
-}
-.card,.panel,.final-cta,
-.home-choice-card,.home-feature-card,.home-faq-card{
-  min-height:0!important;
-}
-.site-footer{
-  margin-top:8px!important;
-  padding-top:8px!important;
-}
-.footer-card{
-  min-height:0!important;
-  align-items:start!important;
-}
-.footer-brand-block,.footer-nav,.footer-contact{
-  align-self:start!important;
-}
-
-/* 5. 正式產品本體永遠完整等比例，不用 cover 裁切包裝。 */
-.product-card__img,
-.home-product-showcase__grid>a,
-.modal-gallery__item,
-.product-detail-hero__media{
-  overflow:hidden!important;
-}
-.product-card__img img,
-.home-product-showcase__grid img,
-.modal-gallery__item img,
-.product-detail-hero__media img,
-.trial-product-card__media img,
-.real-product-gallery img,
-img[src*="customer-display-v20260812"],
-img[src*="/images/products-v3/"],
-img[src*="/images/dm-final/"]{
+  top:0!important;left:0!important;right:0!important;
+  z-index:12000!important;
   width:100%!important;
-  height:100%!important;
-  max-width:100%!important;
-  object-fit:contain!important;
-  object-position:center!important;
-  transform:none!important;
-  clip-path:none!important;
+  padding-top:env(safe-area-inset-top)!important;
+  background:rgba(8,40,70,.985)!important;
+  border-bottom:1px solid rgba(239,217,162,.40)!important;
+  box-shadow:0 10px 28px rgba(3,20,36,.18)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.08)!important;
+  backdrop-filter:blur(18px) saturate(1.08)!important;
+  -webkit-transform:translateZ(0)!important;
+  transform:translateZ(0)!important;
 }
-.real-product-gallery img,
-img[src*="/images/dm-final/"]{
-  height:auto!important;
+.site-header .header-inner{
+  width:min(calc(100% - 36px),var(--xjw-max))!important;
+  min-height:var(--xjw-header-h)!important;
+  margin:0 auto!important;
+  padding:8px 0!important;
 }
+.site-header .brand-mark{gap:13px!important;color:#fff!important;min-width:0!important}
+.site-header .brand-mark img{
+  width:58px!important;height:58px!important;flex:0 0 58px!important;
+  padding:3px!important;object-fit:contain!important;
+  border-radius:15px!important;background:#fff8ea!important;
+  border:1px solid rgba(239,217,162,.46)!important;
+  box-shadow:0 6px 16px rgba(0,0,0,.18)!important;
+}
+.site-header .brand-mark__copy{min-width:0!important}
+.site-header .brand-mark__name{
+  color:#f3d58d!important;
+  font-family:"Noto Serif TC","Songti TC",serif!important;
+  font-size:26px!important;font-weight:900!important;line-height:1.05!important;letter-spacing:.08em!important;
+}
+.site-header .brand-mark__tagline{color:rgba(255,255,255,.78)!important;font-size:12px!important}
+.site-header .header-nav{gap:3px!important}
+.site-header .header-nav a{
+  min-height:42px!important;padding:0 11px!important;border-radius:12px!important;
+  color:rgba(255,255,255,.88)!important;font-weight:760!important;
+}
+.site-header .header-nav a:hover{color:#fff!important;background:rgba(255,255,255,.09)!important}
+.site-header .header-nav a.is-active{color:var(--xjw-navy)!important;background:var(--xjw-gold-soft)!important}
+.site-header .header-line-cta{
+  min-height:44px!important;
+  color:#fff!important;background:#06c755!important;border-color:#06c755!important;
+}
+.site-header .menu-btn{
+  min-height:44px!important;padding:0 15px!important;
+  border-radius:999px!important;
+  color:#f7dda3!important;background:rgba(255,255,255,.07)!important;
+  border:1px solid rgba(246,217,154,.52)!important;
+}
+.site-header.is-scrolled{box-shadow:0 14px 34px rgba(3,20,36,.23)!important}
 
-/* 6. 卡片視覺：減少「每張都是白框」的廉價感，建立一致品牌層次。 */
-.product-card,
-.home-choice-card,
-.home-feature-card,
-.faq-item,
-.card,.panel{
-  border-color:rgba(197,151,67,.26)!important;
+/* Drawer */
+.site-menu{position:fixed!important;inset:0!important;z-index:13000!important}
+.site-menu__backdrop{position:absolute!important;inset:0!important;background:rgba(3,17,31,.60)!important;backdrop-filter:blur(5px)!important}
+.site-menu__panel{
+  position:absolute!important;top:0!important;right:0!important;
+  width:min(92vw,420px)!important;height:100vh!important;height:100dvh!important;
+  overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;
+  padding:0 20px calc(30px + env(safe-area-inset-bottom))!important;
+  background:linear-gradient(180deg,#fffdf9 0,#f6efe3 100%)!important;
+  border-left:1px solid rgba(198,154,75,.28)!important;
+  box-shadow:-26px 0 74px rgba(3,17,31,.26)!important;
 }
+.menu-topline{
+  position:sticky!important;top:0!important;z-index:5!important;
+  margin:0 -20px 14px!important;padding:calc(15px + env(safe-area-inset-top)) 20px 13px!important;
+  background:rgba(255,253,249,.985)!important;border-bottom:1px solid rgba(198,154,75,.18)!important;
+}
+.menu-brand-mini img{width:48px!important;height:48px!important;object-fit:contain!important;border-radius:13px!important;background:#fff8ea!important}
+.menu-brand-mini strong{color:var(--xjw-navy)!important;font-size:20px!important}
+.menu-close{width:46px!important;min-width:46px!important;height:46px!important;padding:0!important;background:#fff!important;color:var(--xjw-navy)!important}
+.menu-quick-actions{grid-template-columns:1fr 1fr!important;gap:9px!important}
+.menu-quick-actions .btn:last-child{grid-column:1/-1!important}
+.menu-group{border-top-color:rgba(8,40,70,.08)!important}
+.menu-group a{
+  min-height:48px!important;padding:10px 13px!important;border-radius:13px!important;
+  color:#17283a!important;background:rgba(255,255,255,.72)!important;
+}
+.menu-group a:hover,.menu-group a:focus-visible{background:#efe6d8!important}
+.menu-group a.is-active{color:#fff!important;background:var(--xjw-navy)!important}
+.menu-contact-card{background:#fff8e9!important;border-color:rgba(198,154,75,.28)!important}
+body.menu-open,body.modal-open{overflow:hidden!important}
+
+/* Typography / common layout */
+h1,h2,h3{color:var(--xjw-navy)!important;text-wrap:balance}
+h1{font-family:"Noto Serif TC","Songti TC",serif!important;font-size:clamp(38px,5.2vw,62px)!important;line-height:1.14!important;letter-spacing:.005em!important}
+h2{font-family:"Noto Serif TC","Songti TC",serif!important;font-size:clamp(28px,3.7vw,43px)!important;line-height:1.25!important}
+h3{font-size:clamp(19px,2.2vw,25px)!important;line-height:1.35!important}
+p,li{color:var(--xjw-ink);line-height:1.78}
+.muted{color:var(--xjw-muted)!important}
+.eyebrow{color:var(--xjw-red)!important;font-size:13px!important;font-weight:900!important;letter-spacing:.10em!important}
+.hero,.section{width:min(100%,var(--xjw-max))!important;margin:0 auto!important;padding-left:20px!important;padding-right:20px!important}
+.hero{padding-top:26px!important;padding-bottom:18px!important}
+.hero--compact{padding-top:22px!important}
+.section{padding-top:28px!important;padding-bottom:48px!important}
+.section--narrow{max-width:940px!important}
+.section-heading,.section-title{max-width:820px!important;margin-bottom:22px!important}
+.hero__content,.hero__panel,.card,.panel,.final-cta,.faq-item,
+.home-choice-card,.home-feature-card,.home-faq-card,.home-story-card{
+  border:1px solid var(--xjw-line)!important;
+  box-shadow:var(--xjw-shadow-soft)!important;
+}
+.hero__content,.card,.panel,.final-cta,.home-choice-card,.home-feature-card,.home-faq-card{
+  background:rgba(255,253,248,.98)!important;
+}
+.hero__content{padding:clamp(32px,5vw,56px)!important;border-radius:30px!important}
+.card,.panel,.final-cta,.home-choice-card,.home-feature-card,.home-faq-card{border-radius:var(--xjw-radius)!important}
+.card,.panel{padding:clamp(20px,2.6vw,28px)!important;min-height:0!important}
+.btn{
+  min-height:48px!important;padding:0 20px!important;border-radius:999px!important;
+  font-weight:850!important;letter-spacing:.01em!important;box-shadow:none!important;
+}
+.btn-primary{color:#fff!important;background:var(--xjw-red)!important;border-color:var(--xjw-red)!important}
+.btn-primary:hover{background:var(--xjw-red-dark)!important;border-color:var(--xjw-red-dark)!important}
+.btn-outline{color:var(--xjw-navy)!important;background:#fff!important;border-color:rgba(8,40,70,.40)!important}
+.btn-line{color:#fff!important;background:#06c755!important;border-color:#06c755!important}
+.hero-actions,.section-actions,.final-cta__actions{gap:10px!important;flex-wrap:wrap!important}
+.btn:focus-visible,.menu-btn:focus-visible,.menu-close:focus-visible,a:focus-visible{outline:3px solid rgba(198,154,75,.56)!important;outline-offset:3px!important}
+
+/* Home hero */
+body[data-page="home"] .hero{padding-top:18px!important}
+body[data-page="home"] .hero__panel{
+  display:grid!important;grid-template-columns:minmax(0,.95fr) minmax(480px,1.05fr)!important;
+  gap:18px!important;align-items:stretch!important;
+  padding:18px!important;border-radius:30px!important;
+  background:radial-gradient(circle at 8% 5%,rgba(198,154,75,.16),transparent 28%),linear-gradient(135deg,#fffdf8 0,#f2e4cc 100%)!important;
+}
+body[data-page="home"] .hero__content{display:flex!important;flex-direction:column!important;justify-content:center!important;padding:30px 26px!important;border:0!important;box-shadow:none!important;background:transparent!important}
+.home-hero-brand-lockup{display:flex!important;align-items:center!important;gap:14px!important;margin-bottom:20px!important}
+.home-hero-brand-lockup__logo{width:80px!important;height:80px!important;padding:5px!important;object-fit:contain!important;border-radius:20px!important;background:#fff8ea!important;border:1px solid rgba(198,154,75,.36)!important;box-shadow:0 12px 28px rgba(8,40,70,.10)!important}
+.home-hero-brand-lockup__copy{display:grid!important;gap:3px!important}
+.home-hero-brand-lockup__name{font-family:"Noto Serif TC","Songti TC",serif!important;color:var(--xjw-navy)!important;font-size:32px!important;font-weight:900!important;letter-spacing:.08em!important}
+.home-hero-brand-lockup__sub{color:var(--xjw-red)!important;font-size:13px!important;font-weight:850!important;letter-spacing:.09em!important}
+body[data-page="home"] .hero__lead{max-width:650px!important;font-size:18px!important;line-height:1.82!important;color:#3a4654!important}
+.home-trust-row{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin-top:20px!important}
+.home-trust-row span{min-height:44px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:8px 10px!important;border-radius:13px!important;background:rgba(255,255,255,.80)!important;border:1px solid rgba(198,154,75,.27)!important;color:var(--xjw-navy)!important;font-size:13px!important;font-weight:820!important}
+
+.home-product-showcase{
+  display:flex!important;flex-direction:column!important;gap:13px!important;
+  margin:0!important;padding:16px!important;border-radius:26px!important;
+  background:radial-gradient(circle at 88% 5%,rgba(198,154,75,.24),transparent 23%),linear-gradient(145deg,var(--xjw-navy) 0,var(--xjw-navy-2) 100%)!important;
+  border:1px solid rgba(239,217,162,.35)!important;box-shadow:0 20px 44px rgba(5,28,49,.17)!important;
+}
+.home-product-showcase__head{display:grid!important;gap:3px!important}
+.home-product-showcase__head span{color:#f0cb77!important;font-size:12px!important;font-weight:900!important;letter-spacing:.12em!important}
+.home-product-showcase__head strong{color:#fff!important;font-size:16px!important;line-height:1.45!important}
+.home-product-showcase__grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important}
+.home-product-showcase__grid>a{
+  min-width:0!important;display:grid!important;grid-template-rows:132px auto!important;gap:6px!important;
+  padding:9px!important;border-radius:16px!important;background:linear-gradient(180deg,#fffefb,#f5ead7)!important;border:1px solid rgba(239,217,162,.38)!important;
+}
+.home-product-showcase__grid img{width:100%!important;height:132px!important;object-fit:contain!important;object-position:center!important;filter:drop-shadow(0 8px 9px rgba(8,40,70,.11))!important}
+.home-product-showcase__grid span{text-align:center!important;color:var(--xjw-navy)!important;font-size:12px!important;font-weight:900!important;line-height:1.3!important}
+.home-product-showcase figcaption{color:rgba(255,255,255,.75)!important;text-align:center!important;font-size:11px!important}
+
+/* Home sections */
+body[data-page="home"] .home-choice-grid,
+body[data-page="home"] .home-feature-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:15px!important}
+body[data-page="home"] .home-choice-card,
+body[data-page="home"] .home-feature-card,
+body[data-page="home"] .home-faq-card{padding:22px!important;min-height:0!important}
+body[data-page="home"] .home-story-card{padding:clamp(26px,4vw,40px)!important;border-radius:28px!important;background:linear-gradient(135deg,#fffdf8,#eee1cb)!important}
+body[data-page="home"] .home-story-card p:not(.eyebrow){max-width:800px!important}
+.home-product-links{
+  display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important;margin:16px 0 18px!important;
+}
+.home-product-links a{
+  min-height:52px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;
+  padding:0 16px!important;border:1px solid var(--xjw-line)!important;border-radius:15px!important;
+  color:var(--xjw-navy)!important;background:rgba(255,253,248,.96)!important;font-weight:850!important;
+}
+.home-product-links a::after{content:"→";color:var(--xjw-gold)!important}
+
+/* Product cards */
+.product-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important}
 .product-card{
-  background:linear-gradient(180deg,#fffefb 0,#fff9ef 100%)!important;
+  display:flex!important;flex-direction:column!important;min-width:0!important;overflow:hidden!important;
+  border:1px solid rgba(198,154,75,.28)!important;border-radius:22px!important;
+  background:linear-gradient(180deg,#fffefb 0,#fff9ef 100%)!important;box-shadow:var(--xjw-shadow-soft)!important;
 }
 .product-card__img{
-  background:
-    radial-gradient(circle at 50% 42%,#fff 0,#fffaf1 62%,#efe1c8 100%)!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  min-height:280px!important;aspect-ratio:5/4!important;padding:16px!important;
+  background:radial-gradient(circle at 50% 42%,#fff 0,#fffaf1 62%,#efe1c8 100%)!important;border-bottom:1px solid rgba(198,154,75,.16)!important;
 }
-.product-card__body h3{
-  color:#082846!important;
+.product-card__img img,
+.product-detail-hero__media img,
+.modal-gallery__item img,
+.trial-product-card__media img,
+.real-product-gallery img{
+  width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;
+  object-fit:contain!important;object-position:center!important;transform:none!important;clip-path:none!important;
 }
-.section-heading h2,.section-title h2{
-  color:#082846!important;
-}
+.product-card__body{display:flex!important;flex:1!important;flex-direction:column!important;padding:18px!important}
+.product-card__body h3{margin:2px 0 7px!important}
+.product-purpose{font-size:12px!important;font-weight:800!important;color:var(--xjw-red)!important}
+.product-card__actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important;margin-top:auto!important;padding-top:10px!important}
+.product-card__actions .btn{width:100%!important;min-height:42px!important;padding:0 9px!important;font-size:13px!important}
 
-/* 7. 桌機版：Logo、導覽、內容寬度一致。 */
-@media(min-width:1081px){
-  .site-header .header-inner{
-    width:min(calc(100% - 40px),1240px)!important;
-    padding:8px 0!important;
-  }
-  .header-nav{
-    gap:3px!important;
-  }
-  .header-nav a{
-    min-height:42px!important;
-    padding:0 11px!important;
-  }
-  .hero,.section{
-    width:min(100%,1240px)!important;
-  }
-  .product-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr))!important;
-  }
+/* Product detail */
+.product-detail-hero{
+  display:grid!important;grid-template-columns:minmax(360px,.9fr) minmax(0,1.1fr)!important;gap:26px!important;align-items:center!important;
+  margin:22px 20px 12px!important;padding:24px!important;border:1px solid var(--xjw-line)!important;border-radius:28px!important;
+  background:linear-gradient(135deg,#fffdf8 0,#f3e5cf 100%)!important;box-shadow:var(--xjw-shadow)!important;
 }
+.product-detail-hero__media{display:flex!important;align-items:center!important;justify-content:center!important;min-height:420px!important;aspect-ratio:4/3!important;padding:14px!important;border-radius:20px!important;background:radial-gradient(circle at 50% 42%,#fff 0,#fff8ec 64%,#eedfc3 100%)!important;border:1px solid rgba(198,154,75,.22)!important}
+.product-detail-hero__media a{width:100%!important;height:100%!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.fact-chips{gap:8px!important}
+.fact-chips span{min-height:36px!important}
 
-/* 8. 平板與手機：固定 Header + 高級緊湊版面。 */
+/* Tables / FAQ / forms */
+.table-scroll,.purpose-table-wrap{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important;border:1px solid var(--xjw-line)!important;border-radius:18px!important;background:#fff!important;box-shadow:var(--xjw-shadow-soft)!important}
+.compare-table,.purpose-table{width:100%!important;border-collapse:collapse!important}
+.compare-table th,.compare-table td,.purpose-table th,.purpose-table td{padding:15px 16px!important;border-bottom:1px solid rgba(8,40,70,.07)!important;text-align:left!important}
+.compare-table thead th,.purpose-table thead th{color:#fff!important;background:var(--xjw-navy)!important}
+.faq-list{display:grid!important;gap:10px!important}
+.faq-list details,.faq-item{border:1px solid var(--xjw-line)!important;border-radius:17px!important;background:#fffdf9!important;box-shadow:none!important;overflow:hidden!important}
+.faq-list summary,.faq-item summary{min-height:58px!important;display:flex!important;align-items:center!important;padding:14px 18px!important;color:var(--xjw-navy)!important;font-weight:850!important;cursor:pointer!important}
+.faq-list details p{padding:0 18px 17px!important;margin:0!important}
+
+/* Brand */
+.breadcrumb{width:min(100%,var(--xjw-max))!important;margin:0 auto!important;padding:18px 20px 0!important}
+.brand-hero-v410__panel{display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr)!important;gap:24px!important;align-items:center!important;padding:26px!important;border-radius:28px!important;background:linear-gradient(135deg,#fffdf8,#efe2cd)!important;border:1px solid var(--xjw-line)!important;box-shadow:var(--xjw-shadow)!important}
+.brand-hero-v410__copy{padding:16px!important}
+.brand-hero-v410__media{min-height:0!important;aspect-ratio:4/3!important;border-radius:20px!important;overflow:hidden!important;background:#eadfce!important}
+.brand-hero-v410__media img{width:100%!important;height:100%!important;object-fit:cover!important}
+.brand-promise-grid{gap:15px!important}
+.brand-story-panel{gap:22px!important}
+.brand-story-intro{top:calc(var(--xjw-header-h) + 18px)!important}
+.brand-generation{min-height:0!important}
+
+/* Trial */
+.trial-poster{overflow:hidden!important;border-radius:24px!important;border:1px solid var(--xjw-line)!important;box-shadow:var(--xjw-shadow)!important;background:#fff!important}
+.trial-poster img{display:block!important;width:100%!important;height:auto!important}
+.trial-product-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important}
+.trial-product-card{overflow:hidden!important;border:1px solid var(--xjw-line)!important;border-radius:22px!important;background:#fffdf9!important;box-shadow:var(--xjw-shadow-soft)!important}
+.trial-product-card__media{display:flex!important;align-items:center!important;justify-content:center!important;min-height:300px!important;padding:16px!important;background:radial-gradient(circle at 50% 42%,#fff,#fff9ee 65%,#efe1c8)!important}
+.trial-product-card__content{padding:18px!important}
+.trial-product-card__actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;padding:0 18px 18px!important}
+.trial-steps{gap:14px!important}
+
+/* Contact */
+body[data-page="contact"] .contact-info-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:16px!important}
+body[data-page="contact"] .contact-line-card{grid-column:1/-1!important;padding:26px!important;color:#fff!important;background:radial-gradient(circle at 88% 14%,rgba(198,154,75,.22),transparent 28%),linear-gradient(135deg,var(--xjw-navy),var(--xjw-navy-2))!important;border-color:rgba(239,217,162,.34)!important}
+body[data-page="contact"] .contact-line-card h2{color:#f4d68b!important}
+body[data-page="contact"] .contact-line-card p{color:rgba(255,255,255,.86)!important}
+body[data-page="contact"] .contact-line-layout{display:grid!important;grid-template-columns:80px minmax(0,1fr) 154px!important;gap:20px!important;align-items:center!important}
+body[data-page="contact"] .footer-line-logo img{width:72px!important;height:72px!important;object-fit:contain!important;padding:4px!important;border-radius:17px!important;background:#fff8ea!important}
+body[data-page="contact"] .line-qr-card{width:154px!important;height:154px!important;padding:8px!important;object-fit:contain!important;border-radius:15px!important;background:#fff!important;border:1px solid rgba(239,217,162,.48)!important}
+
+/* Footer */
+.site-footer{padding:10px 18px calc(34px + env(safe-area-inset-bottom))!important}
+.footer-card{
+  display:grid!important;grid-template-columns:1fr .85fr 1.1fr!important;gap:24px!important;
+  width:min(100%,var(--xjw-max))!important;margin:0 auto!important;padding:26px!important;
+  color:#fff!important;border:1px solid rgba(239,217,162,.30)!important;border-radius:24px!important;
+  background:radial-gradient(circle at 88% 16%,rgba(198,154,75,.20),transparent 28%),linear-gradient(135deg,var(--xjw-navy),var(--xjw-navy-2))!important;
+  box-shadow:0 20px 46px rgba(5,28,49,.16)!important;
+}
+.footer-card h3,.footer-brand-block strong{color:#f4d68b!important}
+.footer-card p,.footer-card a,.footer-contact p,.footer-nav-links a,.footer-legal{color:rgba(255,255,255,.84)!important}
+.footer-brand-block p,.footer-contact p{margin:5px 0!important}
+.footer-nav-links{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px 12px!important}
+.footer-contact{display:grid!important;grid-template-columns:1fr auto!important;gap:13px!important;align-items:center!important}
+.footer-contact img{width:104px!important;height:104px!important;padding:7px!important;object-fit:contain!important;border-radius:14px!important;background:#fff!important;border:1px solid rgba(239,217,162,.38)!important}
+.footer-legal{grid-column:1/-1!important;padding-top:14px!important;border-top:1px solid rgba(255,255,255,.14)!important;font-size:11px!important;text-align:center!important}
+.footer-card .btn-outline{color:#fff!important;background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.48)!important}
+
+/* Floating LINE / modal */
+.floating-line-cta{position:fixed!important;right:max(14px,env(safe-area-inset-right))!important;bottom:max(16px,env(safe-area-inset-bottom))!important;z-index:11000!important}
+.product-modal{z-index:14000!important}
+.product-modal__panel{border-radius:24px!important}
+.modal-gallery__item{aspect-ratio:4/3!important;background:radial-gradient(circle at 50% 42%,#fff,#fff8ec 64%,#eedfc3)!important}
+
+/* Tablet */
 @media(max-width:1080px){
-  :root{--xjw-v12-header-h:70px}
-  .site-header .header-inner{
-    width:calc(100% - 24px)!important;
-    min-height:var(--xjw-v12-header-h)!important;
-    padding:5px 0!important;
-  }
-  .page{
-    padding-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top))!important;
-  }
-  .header-nav,.header-line-cta{
-    display:none!important;
-  }
-  .site-header .menu-btn{
-    display:flex!important;
-    margin-left:auto!important;
-    align-items:center!important;
-    justify-content:center!important;
-  }
-  .hero{
-    padding-left:14px!important;
-    padding-right:14px!important;
-  }
-  .section{
-    padding-left:14px!important;
-    padding-right:14px!important;
-  }
+  :root{--xjw-header-h:70px}
+  .site-header .header-inner{width:calc(100% - 24px)!important;min-height:var(--xjw-header-h)!important;padding:5px 0!important}
+  .header-nav,.header-line-cta{display:none!important}
+  .site-header .menu-btn{display:flex!important;margin-left:auto!important;align-items:center!important;justify-content:center!important}
+  .page{padding-top:calc(var(--xjw-header-h) + env(safe-area-inset-top))!important}
+  body[data-page="home"] .hero__panel{grid-template-columns:1fr!important}
+  .home-product-showcase__grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .product-detail-hero{grid-template-columns:1fr!important}
+  .brand-hero-v410__panel{grid-template-columns:1fr!important}
+  .brand-story-intro{position:relative!important;top:auto!important}
 }
 
+/* Mobile */
 @media(max-width:700px){
-  :root{--xjw-v12-header-h:66px}
-  html{
-    scroll-padding-top:calc(var(--xjw-v12-header-h) + env(safe-area-inset-top) + 12px)!important;
-  }
-  .site-header .header-inner{
-    min-height:var(--xjw-v12-header-h)!important;
-  }
-  .site-header .brand-mark{
-    min-width:0!important;
-  }
-  .site-header .brand-mark img{
-    width:48px!important;
-    height:48px!important;
-    flex:0 0 48px!important;
-  }
-  .site-header .brand-mark__name{
-    font-size:21px!important;
-    white-space:nowrap!important;
-  }
-  .site-header .menu-btn{
-    min-width:88px!important;
-    min-height:44px!important;
-    font-size:15px!important;
-  }
+  :root{--xjw-header-h:66px}
+  .site-header .header-inner{min-height:var(--xjw-header-h)!important}
+  .site-header .brand-mark img{width:48px!important;height:48px!important;flex:0 0 48px!important;border-radius:13px!important}
+  .site-header .brand-mark__name{font-size:21px!important;white-space:nowrap!important}
+  .site-header .brand-mark__tagline{display:none!important}
+  .site-header .menu-btn{min-width:88px!important;min-height:44px!important;font-size:15px!important;padding:0 13px!important}
+  .hero{padding:12px 10px 10px!important}
+  .section{padding:20px 10px 32px!important}
+  .hero__content{padding:23px 18px!important;border-radius:20px!important}
+  h1{font-size:clamp(34px,10vw,43px)!important}
+  h2{font-size:clamp(25px,7vw,31px)!important}
+  p,li{font-size:15.5px!important;line-height:1.72!important}
+  .hero-actions,.section-actions,.final-cta__actions{display:grid!important;grid-template-columns:1fr!important;gap:8px!important;width:100%!important}
+  .hero-actions .btn,.section-actions .btn,.final-cta__actions .btn{width:100%!important;min-height:46px!important;padding:0 12px!important;font-size:14px!important}
 
-  .hero{
-    padding:12px 10px 10px!important;
-  }
-  .section{
-    padding:20px 10px 30px!important;
-  }
-  .hero__content,
-  body[data-page="home"] .hero__panel{
-    border-radius:20px!important;
-  }
-  body[data-page="home"] .hero__panel{
-    padding:10px!important;
-    gap:12px!important;
-  }
-  body[data-page="home"] .hero__content{
-    padding:22px 15px!important;
-  }
-  body[data-page="home"] .hero__content h1{
-    font-size:clamp(34px,10.5vw,44px)!important;
-  }
-  .section-heading,.section-title{
-    margin-bottom:16px!important;
-  }
+  body[data-page="home"] .hero__panel{padding:10px!important;gap:12px!important;border-radius:20px!important}
+  body[data-page="home"] .hero__content{padding:20px 14px!important}
+  .home-hero-brand-lockup{margin-bottom:15px!important}
+  .home-hero-brand-lockup__logo{width:66px!important;height:66px!important;border-radius:17px!important}
+  .home-hero-brand-lockup__name{font-size:28px!important}
+  .home-product-showcase{padding:12px!important;border-radius:20px!important}
+  .home-product-showcase__grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .home-product-showcase__grid>a{grid-template-rows:116px auto!important;padding:8px!important}
+  .home-product-showcase__grid img{height:116px!important}
+  .home-trust-row{grid-template-columns:1fr 1fr!important}
+  .home-product-links{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .home-product-links a{min-height:48px!important;padding:0 12px!important;font-size:13px!important}
+  body[data-page="home"] .home-choice-grid,
+  body[data-page="home"] .home-feature-grid{grid-template-columns:1fr!important;gap:10px!important}
+  body[data-page="home"] .home-choice-card,
+  body[data-page="home"] .home-feature-card,
+  body[data-page="home"] .home-faq-card{padding:18px!important}
 
-  /* 手機產品卡保持橫式，照片完整，文字不塞爆。 */
-  .product-grid{
-    grid-template-columns:1fr!important;
-    gap:10px!important;
-  }
-  .product-card{
-    display:grid!important;
-    grid-template-columns:minmax(136px,42%) minmax(0,58%)!important;
-    min-height:176px!important;
-    border-radius:18px!important;
-  }
-  .product-card__img{
-    min-height:176px!important;
-    height:100%!important;
-    aspect-ratio:auto!important;
-    padding:8px!important;
-    border-right:1px solid rgba(197,151,67,.18)!important;
-    border-bottom:0!important;
-  }
-  .product-card__img img{
-    min-height:0!important;
-    max-height:180px!important;
-  }
-  .product-card__body{
-    min-width:0!important;
-    padding:13px 12px!important;
-  }
-  .product-card__body h3{
-    margin:2px 0 6px!important;
-    font-size:18px!important;
-    line-height:1.26!important;
-  }
-  .product-card__body .eyebrow{
-    font-size:10px!important;
-    margin-bottom:3px!important;
-  }
-  .product-card__body .muted{
-    font-size:12px!important;
-    line-height:1.45!important;
-  }
-  .product-card__actions{
-    grid-template-columns:1fr!important;
-  }
-  .product-card__actions .btn{
-    min-height:39px!important;
-    font-size:12px!important;
-  }
+  .product-grid{grid-template-columns:1fr!important;gap:10px!important}
+  .product-card{display:grid!important;grid-template-columns:minmax(140px,42%) minmax(0,58%)!important;min-height:178px!important;border-radius:18px!important}
+  .product-card__img{min-height:178px!important;height:100%!important;aspect-ratio:auto!important;padding:8px!important;border-right:1px solid rgba(198,154,75,.16)!important;border-bottom:0!important}
+  .product-card__img img{max-height:176px!important}
+  .product-card__body{padding:13px 12px!important}
+  .product-card__body h3{font-size:18px!important;line-height:1.25!important;margin:2px 0 6px!important}
+  .product-card__body .eyebrow{font-size:10px!important;margin-bottom:3px!important}
+  .product-card__body>p:not(.eyebrow):not(.muted):not(.product-purpose){display:none!important}
+  .product-card__body .muted{font-size:12px!important;line-height:1.45!important}
+  .product-purpose{font-size:11.5px!important}
+  .product-card__actions{grid-template-columns:1fr!important;gap:5px!important}
+  .product-card__actions .btn{min-height:38px!important;font-size:12px!important}
 
-  .product-detail-hero{
-    margin:10px 8px 8px!important;
-    padding:10px!important;
-    gap:14px!important;
-  }
-  .product-detail-hero__media{
-    aspect-ratio:4/3!important;
-    min-height:0!important;
-    padding:8px!important;
-  }
+  .product-detail-hero{margin:10px 8px 8px!important;padding:10px!important;gap:14px!important;border-radius:20px!important}
+  .product-detail-hero__media{min-height:0!important;aspect-ratio:4/3!important;padding:8px!important}
+  .fact-chips{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
 
-  /* 按鈕不要一排擠成小字。 */
-  .hero-actions,.section-actions,.final-cta__actions{
-    display:grid!important;
-    grid-template-columns:1fr!important;
-    gap:8px!important;
-  }
-  .hero-actions .btn,.section-actions .btn,.final-cta__actions .btn{
-    width:100%!important;
-    min-height:46px!important;
-    padding:0 12px!important;
-    font-size:14px!important;
-  }
+  .purpose-table-wrap,.table-scroll{overflow-x:auto!important}
+  .compare-table,.purpose-table{min-width:700px!important}
+  .table-scroll.mobile-compare-ready{display:none!important}
+  .mobile-compare-cards[data-ready="true"]{display:block!important}
 
-  /* Footer 手機版緊湊，不再出現大段空白。 */
-  .footer-card{
-    grid-template-columns:1fr!important;
-    gap:14px!important;
-    padding:18px!important;
-  }
-  .footer-nav-links{
-    grid-template-columns:1fr 1fr!important;
-  }
-  .footer-contact{
-    grid-template-columns:minmax(0,1fr) 96px!important;
-    gap:10px!important;
-    align-items:center!important;
-  }
-  .footer-contact img{
-    width:96px!important;
-    height:96px!important;
-  }
-  .footer-legal{
-    padding-top:12px!important;
-  }
-  .site-footer{
-    padding-bottom:calc(68px + env(safe-area-inset-bottom))!important;
-  }
+  .brand-hero-v410__panel{padding:12px!important;gap:14px!important;border-radius:20px!important}
+  .brand-hero-v410__copy{padding:14px!important}
+  .brand-hero-v410__media{aspect-ratio:4/3!important}
+  .brand-facts{grid-template-columns:1fr 1fr!important}
+  .brand-promise-grid{grid-template-columns:1fr!important}
 
-  /* 比較表：JS 成功時只顯示手機卡片，不重複表格。 */
-  .table-scroll.mobile-compare-ready{
-    display:none!important;
-  }
-  .mobile-compare-cards[data-ready="true"]{
-    display:block!important;
-  }
+  .trial-product-grid{grid-template-columns:1fr!important}
+  .trial-product-card__media{min-height:240px!important}
+  .trial-product-card__actions{grid-template-columns:1fr!important}
+
+  body[data-page="contact"] .contact-info-grid{grid-template-columns:1fr!important;gap:11px!important}
+  body[data-page="contact"] .contact-line-card{grid-column:auto!important;padding:20px!important}
+  body[data-page="contact"] .contact-line-layout{grid-template-columns:62px minmax(0,1fr)!important;gap:13px!important}
+  body[data-page="contact"] .footer-line-logo img{width:58px!important;height:58px!important}
+  body[data-page="contact"] .line-qr-card{grid-column:1/-1!important;justify-self:center!important;width:150px!important;height:150px!important;margin-top:5px!important}
+
+  .footer-card{grid-template-columns:1fr!important;gap:14px!important;padding:18px!important}
+  .footer-nav-links{grid-template-columns:1fr 1fr!important}
+  .footer-contact{grid-template-columns:minmax(0,1fr) 96px!important;gap:10px!important}
+  .footer-contact img{width:96px!important;height:96px!important}
+  .footer-legal{grid-column:auto!important;padding-top:11px!important}
+  .site-footer{padding:7px 10px calc(68px + env(safe-area-inset-bottom))!important}
+
+  .floating-line-cta{width:48px!important;height:48px!important;min-height:48px!important;padding:7px!important;border:2px solid rgba(255,255,255,.9)!important}
+  .floating-line-cta>span:last-child{display:none!important}
+  .floating-line-cta__dot{width:30px!important;height:30px!important;font-size:9px!important}
 }
 @media(max-width:380px){
-  .product-card{
-    grid-template-columns:128px minmax(0,1fr)!important;
-  }
-  .footer-nav-links{
-    grid-template-columns:1fr!important;
-  }
+  .product-card{grid-template-columns:128px minmax(0,1fr)!important}
+  .home-product-links{grid-template-columns:1fr!important}
+  .footer-nav-links{grid-template-columns:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
