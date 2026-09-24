@@ -758,7 +758,7 @@ function renderMobileCompareCards() {
       target.id = tableIndex === 0 ? "mobile-compare-cards" : `mobile-compare-cards-${tableIndex + 1}`;
       tableWrap?.insertAdjacentElement("afterend", target);
     }
-    if (target.dataset.ready === "true") return;
+    if (target.dataset.ready === "true") { tableWrap?.classList.add("mobile-compare-ready"); return; }
 
     const headerCells = Array.from(table.querySelectorAll("thead th")).map(cell => cell.textContent?.trim() || "");
     const rows = Array.from(table.querySelectorAll("tbody tr"));
