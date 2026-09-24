@@ -908,6 +908,12 @@ function bindGlobalEvents() {
   window.addEventListener("scroll", syncHeaderScrolledState, { passive: true });
 }
 
+function syncHeaderScrollState() {
+  const header = document.getElementById("site-header");
+  if (!header) return;
+  header.classList.toggle("is-scrolled", window.scrollY > 8);
+}
+
 function renderFloatingLineCta() {
   const allowed = ["products", "product-detail", "choose", "combo", "contact", "dm"];
   const page = currentPageKey();
