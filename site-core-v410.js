@@ -3,7 +3,7 @@
 /* 仙加味網站核心｜全站統一正式版 v410.0 */
 window.__XJW_V410__ = true;
 let SITE_DATA = null;
-let lastFocusedElement = null;
+let lastFocusedElement = null;\nlet menuScrollY = 0;
 
 const UX_VERSION = "410.0";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
@@ -838,20 +838,34 @@ function closeModal() {
 function openMenu() {
   const drawer = document.getElementById("menu-drawer");
   const button = document.getElementById("menu-btn");
-  drawer?.classList.add("open");
-  drawer?.setAttribute("aria-hidden", "false");
+  if (!drawer || drawer.classList.contains("open")) return;
+  menuScrollY = window.scrollY || 0;
+  drawer.classList.add("open");
+  drawer.setAttribute("aria-hidden", "false");
   button?.setAttribute("aria-expanded", "true");
   document.body.classList.add("menu-open");
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${menuScrollY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%";
   document.getElementById("menu-close")?.focus();
 }
 
 function closeMenu() {
   const drawer = document.getElementById("menu-drawer");
   const button = document.getElementById("menu-btn");
+  const wasOpen = drawer?.classList.contains("open");
   drawer?.classList.remove("open");
   drawer?.setAttribute("aria-hidden", "true");
   button?.setAttribute("aria-expanded", "false");
   document.body.classList.remove("menu-open");
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+  if (wasOpen) window.scrollTo(0, menuScrollY);
 }
 
 function syncHeaderScrolledState() {
@@ -884,13 +898,7 @@ function bindGlobalEvents() {
     closeModal();
   });
 
-  let lastScrollY = window.scrollY;
-  window.addEventListener("scroll", () => {
-    syncHeaderScrolledState();
-    const moved = Math.abs(window.scrollY - lastScrollY) > 20;
-    if (moved && document.body.classList.contains("menu-open")) closeMenu();
-    lastScrollY = window.scrollY;
-  }, { passive: true });
+  window.addEventListener("scroll", syncHeaderScrolledState, { passive: true });
 }
 
 function renderFloatingLineCta() {
