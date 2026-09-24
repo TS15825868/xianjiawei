@@ -444,3 +444,74 @@ body[data-page="contact"] .line-qr-card{width:154px!important;height:154px!impor
 @media(prefers-reduced-motion:reduce){
   *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+
+/* 仙加味｜正式產品聚焦 v14：高解析核准實品圖，不顯示海報標題區 */
+.xjw-product-focus-frame{
+  position:relative!important;
+  overflow:hidden!important;
+  aspect-ratio:4/3!important;
+  background:radial-gradient(circle at 50% 44%,#fff 0,#fffaf0 65%,#efe2ca 100%)!important;
+}
+.xjw-product-focus{
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:cover!important;
+  object-position:center center!important;
+  transform-origin:center center!important;
+  clip-path:none!important;
+}
+.xjw-product-focus--gao{transform:scale(1.185)!important;object-position:center 65%!important}
+.xjw-product-focus--drink30{transform:scale(1.256)!important;object-position:center 54.3%!important}
+.xjw-product-focus--drink180{transform:scale(1.014)!important;object-position:center 57.9%!important}
+.xjw-product-focus--tangkuai{transform:scale(1.10)!important;object-position:center 52.9%!important}
+.xjw-product-focus--jiao{transform:scale(1.157)!important;object-position:center 55.2%!important}
+.xjw-product-focus--luerong{transform:scale(1.169)!important;object-position:center 60.5%!important}
+.home-product-showcase__media{
+  display:block!important;
+  width:100%!important;
+  aspect-ratio:4/3!important;
+  overflow:hidden!important;
+  border-radius:11px!important;
+  background:#fff9ef!important;
+}
+.home-product-showcase__grid>a{
+  grid-template-rows:auto auto!important;
+  overflow:hidden!important;
+}
+.home-product-showcase__grid img{
+  height:100%!important;
+  max-height:none!important;
+  border-radius:0!important;
+}
+.product-card__img.xjw-product-focus-frame{
+  aspect-ratio:4/3!important;
+  min-height:0!important;
+}
+.product-detail-hero__media.xjw-product-focus-frame,
+.modal-gallery__item.xjw-product-focus-frame,
+.trial-product-card__media.xjw-product-focus-frame{
+  aspect-ratio:4/3!important;
+  min-height:0!important;
+}
+@media(max-width:700px){
+  .product-card{
+    grid-template-columns:minmax(145px,44%) minmax(0,56%)!important;
+    align-items:center!important;
+    min-height:0!important;
+  }
+  .product-card__img.xjw-product-focus-frame{
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    aspect-ratio:4/3!important;
+    align-self:center!important;
+    border-bottom:0!important;
+  }
+  .product-card__img.xjw-product-focus-frame img{
+    min-height:0!important;
+    max-height:none!important;
+  }
+}
