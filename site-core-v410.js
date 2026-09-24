@@ -14,7 +14,7 @@ const MENU_GROUPS = [
       { href: "index.html", label: "首頁", keys: ["home", "404"] },
       { href: "products.html", label: "龜鹿系列", keys: ["products", "product-detail", "dm"] },
       { href: "choose.html", label: "怎麼選", keys: ["choose", "combo"] },
-      { href: "guide.html", label: "食用方式", keys: ["guide"] },
+      { href: "guide.html", label: "使用方式", keys: ["guide"] },
       { href: "recipes.html", label: "料理搭配", keys: ["recipes"] }
     ]
   },
@@ -245,7 +245,7 @@ function renderFooter() {
         <div class="footer-nav-links">
           <a href="products.html">龜鹿系列</a>
           <a href="choose.html">怎麼選</a>
-          <a href="guide.html">食用方式</a>
+          <a href="guide.html">使用方式</a>
           <a href="recipes.html">料理搭配</a>
           <a href="knowledge.html">知識專區</a>
           <a href="brand.html">品牌故事</a>
@@ -753,23 +753,26 @@ function renderMobileCompareCards() {
     }
     if (target.dataset.ready === "true") return;
 
+    const headerCells = Array.from(table.querySelectorAll("thead th")).map(cell => cell.textContent?.trim() || "");
     const rows = Array.from(table.querySelectorAll("tbody tr"));
+
     target.innerHTML = rows.map(row => {
       const cells = Array.from(row.children);
       const link = cells[0]?.querySelector("a");
       const name = link?.textContent?.trim() || cells[0]?.textContent?.trim() || "產品";
       const href = link?.getAttribute("href") || "products.html";
-      const purpose = cells[1]?.textContent?.trim() || "";
-      const size = cells[2]?.textContent?.trim() || "";
-      const fit = cells[3]?.textContent?.trim() || "";
+
+      const details = cells.slice(1).map((cell, index) => {
+        const value = cell.textContent?.trim() || "";
+        if (!value) return "";
+        const label = headerCells[index + 1] || `項目${index + 1}`;
+        return `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`;
+      }).join("");
+
       return `
         <article class="mobile-compare-card">
           <h3>${escapeHtml(name)}</h3>
-          <dl>
-            ${purpose ? `<dt>用途</dt><dd>${escapeHtml(purpose)}</dd>` : ""}
-            ${size ? `<dt>規格</dt><dd>${escapeHtml(size)}</dd>` : ""}
-            ${fit ? `<dt>適合</dt><dd>${escapeHtml(fit)}</dd>` : ""}
-          </dl>
+          <dl>${details}</dl>
           <a class="btn btn-outline" href="${escapeAttribute(href)}">查看產品</a>
         </article>
       `;
