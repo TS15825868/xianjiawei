@@ -156,6 +156,20 @@ function buildShell() {
 
 function renderHeader() {
   const brand = SITE_DATA?.brand || "仙加味";
+  const page = currentPageKey();
+  const links = [
+    ["index.html", "首頁", ["home"]],
+    ["products.html", "產品", ["products", "product-detail", "dm"]],
+    ["choose.html", "怎麼選", ["choose", "combo"]],
+    ["guide.html", "使用方式", ["guide"]],
+    ["trial.html", "試喝", ["trial"]],
+    ["faq.html", "FAQ", ["faq"]]
+  ];
+  const nav = links.map(([href, label, keys]) => {
+    const active = keys.includes(page);
+    return `<a class="${active ? "is-active" : ""}" href="${href}" ${active ? 'aria-current="page"' : ""}>${escapeHtml(label)}</a>`;
+  }).join("");
+
   return `
     <div class="header-inner">
       <a class="brand-mark" href="index.html" aria-label="${escapeAttribute(brand)}首頁">
@@ -165,6 +179,8 @@ function renderHeader() {
           <span class="brand-mark__tagline">補養，是一種節奏。</span>
         </span>
       </a>
+      <nav class="header-nav" aria-label="主要導覽">${nav}</nav>
+      <a class="header-line-cta" href="${buildLineAutoLink(pageLineMessage(page))}" target="_blank" rel="noopener">LINE 諮詢</a>
       <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-expanded="false">☰ 選單</button>
     </div>
   `;
