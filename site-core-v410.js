@@ -749,8 +749,8 @@ function renderBrandPage() {
 }
 
 function renderMobileCompareCards() {
-  document.querySelectorAll(".compare-table").forEach((table, tableIndex) => {
-    const tableWrap = table.closest(".table-scroll");
+  document.querySelectorAll(".compare-table, .purpose-table").forEach((table, tableIndex) => {
+    const tableWrap = table.closest(".table-scroll, .purpose-table-wrap");
     let target = tableWrap?.nextElementSibling;
     if (!target || !target.classList.contains("mobile-compare-cards")) {
       target = document.createElement("div");
