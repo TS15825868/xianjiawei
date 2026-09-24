@@ -655,3 +655,259 @@ body.ux-v410 .btn-line{background:#06c755!important;border-color:#06c755!importa
   body.ux-v410[data-page="products"] .product-grid{grid-template-columns:1fr!important}
   body.ux-v410 .home-choice-grid{grid-template-columns:1fr!important}
 }
+
+
+/* 仙加味｜Final Visual System v17：實品媒體復原＋全站版面收斂 */
+/*
+ * 2026-09-25 實機長截圖驗收：
+ * - 產品主圖回到正式 customer-display 媒體，不再把帶文字的產品身份/海報圖當主圖。
+ * - 首頁不再重複出現第二套六產品巨型清單。
+ * - 深藍／米白為主、金色只做細節、深紅做主要行動、綠色只留 LINE。
+ * - 手機優先降低頁面拖長與白卡堆疊感；桌機仍保留空間感。
+ */
+:root{
+  --xjw-final-shadow:0 16px 40px rgba(8,40,70,.09);
+  --xjw-final-shadow-soft:0 7px 22px rgba(8,40,70,.055);
+}
+body.ux-v410{
+  background:
+    radial-gradient(circle at 92% 2%,rgba(200,154,75,.08),transparent 21%),
+    linear-gradient(180deg,#f8f2e8 0,#fcfaf6 43%,#f7f1e8 100%)!important;
+}
+body.ux-v410 .section{
+  border-top:1px solid rgba(200,154,75,.08)!important;
+}
+body.ux-v410 .section:first-of-type,
+body.ux-v410 .hero + .section{
+  border-top:0!important;
+}
+body.ux-v410 .card,
+body.ux-v410 .panel,
+body.ux-v410 .home-choice-card,
+body.ux-v410 .home-feature-card,
+body.ux-v410 .home-service-card{
+  box-shadow:0 7px 22px rgba(8,40,70,.055)!important;
+}
+body.ux-v410 .card:hover,
+body.ux-v410 .panel:hover{
+  transform:none!important;
+}
+
+/* 正式產品圖：全部完整顯示，背景乾淨，不把 DM/海報字縮進產品框。 */
+body.ux-v410 .product-card__img,
+body.ux-v410 .product-detail-hero__media,
+body.ux-v410 .modal-gallery__item,
+body.ux-v410 .trial-product-card__media,
+body.ux-v410 .home-product-showcase__grid>a{
+  background:
+    radial-gradient(circle at 50% 42%,#fff 0,#fffdf8 68%,#f1e6d4 100%)!important;
+}
+body.ux-v410 .product-card__img img,
+body.ux-v410 .product-detail-hero__media img,
+body.ux-v410 .modal-gallery__item img,
+body.ux-v410 .trial-product-card__media img,
+body.ux-v410 .home-product-showcase__grid img{
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+  filter:drop-shadow(0 8px 12px rgba(8,40,70,.08))!important;
+}
+
+/* 首頁六產品主視覺：統一媒體窗尺寸，避免各圖片高低跳動。 */
+body.ux-v410 .home-product-showcase__grid>a{
+  grid-template-rows:132px auto!important;
+  min-height:166px!important;
+  padding:8px!important;
+}
+body.ux-v410 .home-product-showcase__grid img{
+  width:100%!important;
+  height:132px!important;
+  max-height:132px!important;
+  aspect-ratio:auto!important;
+}
+body.ux-v410 .home-product-showcase__grid span{
+  font-size:12px!important;
+  line-height:1.35!important;
+}
+
+/* 首頁段落：降低卡片密度，品牌故事與 LINE 服務保留重點色塊。 */
+body.ux-v410 .home-intro-section .grid-3{
+  gap:12px!important;
+}
+body.ux-v410 .home-intro-section .card{
+  border-top:2px solid rgba(157,47,50,.48)!important;
+}
+body.ux-v410 .home-choice-card{
+  background:linear-gradient(180deg,#fffefa 0,#faf2e7 100%)!important;
+}
+body.ux-v410 .home-service-card--line{
+  border-color:rgba(6,199,85,.22)!important;
+  background:linear-gradient(135deg,#f1fbf4 0,#fffdf8 78%)!important;
+}
+
+/* 產品總覽：像型錄，不像六張海報。 */
+body.ux-v410[data-page="products"] .product-card{
+  cursor:default!important;
+}
+body.ux-v410[data-page="products"] .product-card__img{
+  padding:15px!important;
+  background:#fffdf8!important;
+}
+body.ux-v410[data-page="products"] .product-card__body h3{
+  min-height:0!important;
+}
+body.ux-v410[data-page="products"] .product-purpose{
+  color:#8f3033!important;
+}
+body.ux-v410[data-page="products"] .product-card__actions .btn{
+  border-color:rgba(8,40,70,.28)!important;
+}
+
+/* 一般 CTA：少量金色，不使用過多黃色框線。 */
+body.ux-v410 .final-cta{
+  background:linear-gradient(135deg,#fffdf8 0,#f7eddd 100%)!important;
+  border-color:rgba(200,154,75,.24)!important;
+}
+body.ux-v410 .faq-list details,
+body.ux-v410 .faq-item{
+  box-shadow:none!important;
+  background:#fffdf9!important;
+}
+
+/* Footer 做深藍品牌收尾，減少高度。 */
+body.ux-v410 .footer-card{
+  box-shadow:0 14px 34px rgba(5,28,49,.13)!important;
+}
+body.ux-v410 .footer-brand-block p,
+body.ux-v410 .footer-contact p{
+  line-height:1.55!important;
+}
+
+/* 手機 / iOS / Android */
+@media(max-width:700px){
+  body.ux-v410 .section{
+    padding:17px 10px 25px!important;
+    border-top-color:rgba(200,154,75,.075)!important;
+  }
+  body.ux-v410 .section-heading,
+  body.ux-v410 .section-title{
+    margin-bottom:12px!important;
+  }
+  body.ux-v410 .section-heading>p:last-child,
+  body.ux-v410 .section-title>p:last-child{
+    font-size:13.5px!important;
+    line-height:1.6!important;
+  }
+  body.ux-v410[data-page="home"] .hero__panel{
+    gap:9px!important;
+  }
+  body.ux-v410[data-page="home"] .hero__content{
+    padding:17px 13px!important;
+  }
+  body.ux-v410[data-page="home"] .hero__lead{
+    margin-bottom:14px!important;
+  }
+  body.ux-v410 .home-product-showcase{
+    padding:9px!important;
+  }
+  body.ux-v410 .home-product-showcase__grid>a{
+    grid-template-rows:116px auto!important;
+    min-height:148px!important;
+    padding:6px!important;
+  }
+  body.ux-v410 .home-product-showcase__grid img{
+    width:100%!important;
+    height:116px!important;
+    max-height:116px!important;
+    aspect-ratio:auto!important;
+  }
+  body.ux-v410 .home-product-showcase__grid span{
+    font-size:11px!important;
+  }
+
+  /* 首頁不再顯示任何舊版重複產品網格。 */
+  body.ux-v410[data-page="home"] [data-xjw-legacy-home-products-removed="1"],
+  body.ux-v410[data-page="home"] #home-products[hidden]{
+    display:none!important;
+  }
+
+  /* 產品總覽 2 欄：圖夠大、字可讀、每張高度接近。 */
+  body.ux-v410[data-page="products"] .product-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  body.ux-v410[data-page="products"] .product-card{
+    border-radius:16px!important;
+    background:#fffdf9!important;
+  }
+  body.ux-v410[data-page="products"] .product-card__img{
+    aspect-ratio:1/1!important;
+    padding:9px!important;
+  }
+  body.ux-v410[data-page="products"] .product-card__body{
+    padding:10px 10px 11px!important;
+  }
+  body.ux-v410[data-page="products"] .product-card__body h3{
+    min-height:38px!important;
+    margin:0 0 5px!important;
+    font-size:15.5px!important;
+    line-height:1.25!important;
+  }
+  body.ux-v410[data-page="products"] .product-card__body .muted{
+    min-height:31px!important;
+    font-size:11px!important;
+    line-height:1.42!important;
+  }
+  body.ux-v410[data-page="products"] .product-card__actions .btn{
+    min-height:36px!important;
+    font-size:11.5px!important;
+  }
+
+  /* 內容頁卡片再收斂，不把一頁切成大量巨大白框。 */
+  body.ux-v410 .card,
+  body.ux-v410 .panel{
+    padding:15px!important;
+  }
+  body.ux-v410 .home-choice-card{
+    padding:13px!important;
+  }
+  body.ux-v410 .home-feature-card,
+  body.ux-v410 .home-service-card{
+    padding:16px!important;
+  }
+  body.ux-v410 .final-cta{
+    padding:18px!important;
+  }
+
+  /* 詳細頁產品圖保持 4:3，更接近真實商品展示，不做滿版海報感。 */
+  body.ux-v410 .product-detail-hero__media,
+  body.ux-v410 .product-detail-hero__media.xjw-product-focus-frame{
+    aspect-ratio:4/3!important;
+    padding:9px!important;
+  }
+
+  /* Footer 在手機不拖太長。 */
+  body.ux-v410 .footer-card{
+    gap:10px!important;
+    padding:14px!important;
+  }
+  body.ux-v410 .footer-contact{
+    grid-template-columns:minmax(0,1fr) 86px!important;
+  }
+  body.ux-v410 .footer-contact img{
+    width:86px!important;
+    height:86px!important;
+  }
+  body.ux-v410 .site-footer{
+    padding:4px 8px calc(62px + env(safe-area-inset-bottom))!important;
+  }
+}
+@media(max-width:360px){
+  body.ux-v410[data-page="products"] .product-grid{
+    grid-template-columns:1fr!important;
+  }
+  body.ux-v410 .home-product-showcase__grid{
+    grid-template-columns:1fr 1fr!important;
+  }
+}
