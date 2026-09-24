@@ -1,4 +1,4 @@
-/* 仙加味｜Final Visual System 2026-09-25 v15
+/* 仙加味｜Final Visual System 2026-09-25 v16
  * 目的：高級、乾淨、品牌一致、桌機/平板/iOS/Android一致。
  * 正式產品圖只完整等比例顯示，不裁切、不拉伸、不重畫。
  */
@@ -461,4 +461,197 @@ body[data-page="contact"] .line-qr-card{width:150px!important;height:150px!impor
 }
 @media(prefers-reduced-motion:reduce){
   *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+
+/* 仙加味｜Final Visual System v16：實機截圖全站精修 */
+/* 根因修正後，此檔永遠是最後一層。以下針對實機截圖做手機優先精修。 */
+body.ux-v410{
+  color:var(--xjw-final-ink)!important;
+  background:
+    radial-gradient(circle at 92% 3%,rgba(200,154,75,.10),transparent 22%),
+    linear-gradient(180deg,#f7efe2 0,#fbf8f2 38%,#f6efe5 100%)!important;
+}
+body.ux-v410 .site-header{position:fixed!important;background:rgba(8,40,70,.985)!important}
+body.ux-v410 .page{overflow-x:hidden!important;overflow-y:visible!important}
+body.ux-v410 .hero__content:before,
+body.ux-v410 .hero__content:after{content:none!important;display:none!important}
+
+/* 實品圖：完整、放大到合理範圍，但不裁切、不拉伸、不改包裝。 */
+body.ux-v410 .product-card__img,
+body.ux-v410 .product-card__img.xjw-product-focus-frame,
+body.ux-v410 .product-detail-hero__media,
+body.ux-v410 .product-detail-hero__media.xjw-product-focus-frame,
+body.ux-v410 .modal-gallery__item,
+body.ux-v410 .trial-product-card__media{
+  overflow:hidden!important;
+  background:radial-gradient(circle at 50% 44%,#fff 0,#fffaf0 66%,#eee0c6 100%)!important;
+}
+body.ux-v410 .product-card__img img,
+body.ux-v410 .product-detail-hero__media img,
+body.ux-v410 .modal-gallery__item img,
+body.ux-v410 .trial-product-card__media img,
+body.ux-v410 .xjw-product-focus,
+body.ux-v410 .xjw-product-focus--gao,
+body.ux-v410 .xjw-product-focus--drink30,
+body.ux-v410 .xjw-product-focus--drink180,
+body.ux-v410 .xjw-product-focus--tangkuai,
+body.ux-v410 .xjw-product-focus--jiao,
+body.ux-v410 .xjw-product-focus--luerong{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  min-height:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+  filter:none!important;
+}
+
+/* 品牌層級：深藍做骨架、米白做底、金色做細節、深紅做行動；綠色只留 LINE。 */
+body.ux-v410 .card,
+body.ux-v410 .panel,
+body.ux-v410 .home-choice-card,
+body.ux-v410 .home-feature-card,
+body.ux-v410 .home-service-card{
+  border-color:rgba(200,154,75,.23)!important;
+  background:rgba(255,253,248,.985)!important;
+  box-shadow:0 9px 24px rgba(8,40,70,.065)!important;
+}
+body.ux-v410 .btn-primary{background:var(--xjw-final-red)!important;border-color:var(--xjw-final-red)!important}
+body.ux-v410 .btn-line{background:#06c755!important;border-color:#06c755!important;box-shadow:none!important}
+
+/* 手機：把截圖中過長、過鬆、產品一張一張巨型直排的問題收斂。 */
+@media(max-width:700px){
+  body.ux-v410 .hero{padding:10px 9px 8px!important}
+  body.ux-v410 .section{padding:18px 10px 27px!important}
+  body.ux-v410 .section-heading,
+  body.ux-v410 .section-title{margin-bottom:14px!important}
+  body.ux-v410 .section-heading>p:last-child,
+  body.ux-v410 .section-title>p:last-child{font-size:14px!important;line-height:1.65!important}
+  body.ux-v410 h1{font-size:clamp(32px,9.4vw,41px)!important;line-height:1.12!important}
+  body.ux-v410 h2{font-size:clamp(24px,6.7vw,30px)!important;line-height:1.22!important}
+  body.ux-v410 h3{font-size:18px!important;line-height:1.3!important}
+
+  /* 首頁首屏更像品牌首頁，而不是一長串表單。 */
+  body.ux-v410[data-page="home"] .hero__content{padding:18px 13px!important}
+  body.ux-v410[data-page="home"] .home-hero-brand-lockup{gap:10px!important;margin-bottom:11px!important}
+  body.ux-v410[data-page="home"] .home-hero-brand-lockup__logo{width:58px!important;height:58px!important;border-radius:15px!important}
+  body.ux-v410[data-page="home"] .home-hero-brand-lockup__name{font-size:25px!important}
+  body.ux-v410[data-page="home"] .home-hero-brand-lockup__sub{font-size:11px!important}
+  body.ux-v410[data-page="home"] .hero__lead{font-size:14.5px!important;line-height:1.68!important}
+  body.ux-v410[data-page="home"] .home-trust-row{gap:6px!important;margin-top:13px!important}
+  body.ux-v410[data-page="home"] .home-trust-row span{min-height:38px!important;padding:6px!important;font-size:11px!important}
+
+  /* 首屏六產品維持 2×3，產品照片完整且視覺一致。 */
+  body.ux-v410 .home-product-showcase{padding:10px!important;gap:9px!important}
+  body.ux-v410 .home-product-showcase__head strong{font-size:14px!important}
+  body.ux-v410 .home-product-showcase__grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}
+  body.ux-v410 .home-product-showcase__grid>a{grid-template-rows:auto auto!important;padding:6px!important;border-radius:13px!important}
+  body.ux-v410 .home-product-showcase__media,
+  body.ux-v410 .home-product-showcase__grid img{width:100%!important;height:auto!important;aspect-ratio:1/1!important;object-fit:contain!important}
+  body.ux-v410 .home-product-showcase__grid span{font-size:11px!important}
+
+  /* 首頁知識／怎麼選：縮短垂直長度。 */
+  body.ux-v410 .home-intro-section .grid-3{grid-template-columns:1fr!important;gap:8px!important}
+  body.ux-v410 .home-intro-section .card{padding:15px 16px!important;border-radius:17px!important}
+  body.ux-v410 .home-intro-section .card h3{margin:3px 0 5px!important;font-size:18px!important}
+  body.ux-v410 .home-intro-section .card p{margin:0!important;font-size:13.5px!important;line-height:1.6!important}
+  body.ux-v410 .home-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  body.ux-v410 .home-choice-card{padding:14px!important;border-radius:16px!important}
+  body.ux-v410 .home-choice-card h3{margin:2px 0 5px!important;font-size:17px!important}
+  body.ux-v410 .home-choice-card p{margin:0!important;font-size:12.5px!important;line-height:1.55!important}
+  body.ux-v410 .home-feature-grid,
+  body.ux-v410 .home-service-grid{gap:9px!important}
+  body.ux-v410 .home-feature-card,
+  body.ux-v410 .home-service-card{padding:17px!important;border-radius:17px!important}
+  body.ux-v410 .home-story-card{padding:22px 17px!important}
+  body.ux-v410 .home-story-card p{font-size:14px!important;line-height:1.7!important}
+
+  /* 產品總覽：固定 2 欄型錄。這是實機圈選區的主要修正。 */
+  body.ux-v410[data-page="products"] .product-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+  body.ux-v410[data-page="products"] .product-card{
+    display:flex!important;
+    flex-direction:column!important;
+    min-width:0!important;
+    min-height:0!important;
+    border-radius:16px!important;
+  }
+  body.ux-v410[data-page="products"] .product-card__img,
+  body.ux-v410[data-page="products"] .product-card__img.xjw-product-focus-frame{
+    width:100%!important;
+    min-height:0!important;
+    aspect-ratio:1/1!important;
+    padding:4px!important;
+    border-right:0!important;
+    border-bottom:1px solid rgba(200,154,75,.15)!important;
+  }
+  body.ux-v410[data-page="products"] .product-card__body{padding:10px!important}
+  body.ux-v410[data-page="products"] .product-card__body .eyebrow{display:none!important}
+  body.ux-v410[data-page="products"] .product-card__body h3{
+    min-height:40px!important;
+    margin:0 0 4px!important;
+    font-size:15px!important;
+    line-height:1.28!important;
+  }
+  body.ux-v410[data-page="products"] .product-purpose{display:none!important}
+  body.ux-v410[data-page="products"] .product-card__body>p:not(.muted){display:none!important}
+  body.ux-v410[data-page="products"] .product-card__body .muted{
+    display:-webkit-box!important;
+    -webkit-box-orient:vertical!important;
+    -webkit-line-clamp:2!important;
+    overflow:hidden!important;
+    min-height:30px!important;
+    margin:0 0 7px!important;
+    font-size:10.5px!important;
+    line-height:1.4!important;
+  }
+  body.ux-v410[data-page="products"] .product-card__actions{display:block!important;padding-top:0!important}
+  body.ux-v410[data-page="products"] .product-card__actions button[data-quick-view]{display:none!important}
+  body.ux-v410[data-page="products"] .product-card__actions .btn{
+    width:100%!important;
+    min-height:34px!important;
+    padding:0 5px!important;
+    font-size:10.5px!important;
+  }
+
+  /* 一般內容卡也壓縮，不讓整站像一堆大白框。 */
+  body.ux-v410 .grid{gap:9px!important}
+  body.ux-v410 .grid-2,
+  body.ux-v410 .grid-3,
+  body.ux-v410 .cards-2,
+  body.ux-v410 .cards-3{grid-template-columns:1fr!important}
+  body.ux-v410 .card,
+  body.ux-v410 .panel{padding:16px!important;border-radius:17px!important}
+  body.ux-v410 .card p:last-child,
+  body.ux-v410 .panel p:last-child{margin-bottom:0!important}
+
+  /* 詳細頁產品圖完整、資訊靠近，不再出現巨大照片框。 */
+  body.ux-v410 .product-detail-hero{margin:8px 8px 6px!important;padding:9px!important;gap:11px!important}
+  body.ux-v410 .product-detail-hero__media,
+  body.ux-v410 .product-detail-hero__media.xjw-product-focus-frame{aspect-ratio:1/1!important;padding:5px!important}
+  body.ux-v410 .fact-chips{gap:5px!important}
+  body.ux-v410 .fact-chips span{font-size:11px!important;min-height:34px!important}
+
+  /* FAQ / CTA / 聯絡 / Footer 全部收緊。 */
+  body.ux-v410 .faq-list{gap:7px!important}
+  body.ux-v410 .faq-list summary,
+  body.ux-v410 .faq-item summary{min-height:50px!important;padding:11px 14px!important;font-size:14px!important}
+  body.ux-v410 .final-cta{padding:19px!important;border-radius:18px!important}
+  body.ux-v410[data-page="contact"] .contact-line-card{padding:17px!important}
+  body.ux-v410[data-page="contact"] .line-qr-card{width:136px!important;height:136px!important}
+  body.ux-v410 .footer-card{gap:11px!important;padding:15px!important;border-radius:18px!important}
+  body.ux-v410 .footer-nav-links{gap:5px 9px!important}
+  body.ux-v410 .footer-contact{grid-template-columns:minmax(0,1fr) 88px!important}
+  body.ux-v410 .footer-contact img{width:88px!important;height:88px!important}
+  body.ux-v410 .site-footer{padding:5px 8px calc(64px + env(safe-area-inset-bottom))!important}
+}
+@media(max-width:340px){
+  body.ux-v410[data-page="products"] .product-grid{grid-template-columns:1fr!important}
+  body.ux-v410 .home-choice-grid{grid-template-columns:1fr!important}
 }
