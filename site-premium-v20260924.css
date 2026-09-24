@@ -1647,3 +1647,102 @@ img[src*="/images/dm-final/"]{
   transform:none!important;
   clip-path:none!important;
 }
+
+
+/* 仙加味｜2026-09-24 premium visual v6：錄影問題收尾 */
+/* 錄影驗收發現：Footer 曾被一般 card 白底覆蓋；首頁情境卡過高；iOS drawer safe-area 不足。 */
+.footer-card{
+  color:#fff!important;
+  background:
+    radial-gradient(circle at 88% 16%,rgba(197,151,67,.20),transparent 28%),
+    linear-gradient(135deg,#082846 0,#0d365d 100%)!important;
+  border:1px solid rgba(234,211,160,.30)!important;
+  box-shadow:0 20px 48px rgba(5,28,49,.17)!important;
+}
+.footer-brand-block strong,
+.footer-card h3,
+.footer-contact h3{
+  color:#f5d68c!important;
+}
+.footer-card p,
+.footer-card a,
+.footer-contact p,
+.footer-nav-links a,
+.footer-legal{
+  color:rgba(255,255,255,.84)!important;
+}
+.footer-nav-links a:hover{
+  color:#f7dda3!important;
+}
+.footer-legal{
+  border-top-color:rgba(255,255,255,.14)!important;
+}
+.footer-contact img{
+  background:#fff!important;
+  border-color:rgba(234,211,160,.38)!important;
+}
+.footer-card .btn-outline{
+  color:#fff!important;
+  border-color:rgba(255,255,255,.52)!important;
+  background:rgba(255,255,255,.06)!important;
+}
+.footer-card .btn-line{
+  color:#fff!important;
+}
+.menu-topline{
+  padding-top:calc(18px + env(safe-area-inset-top))!important;
+}
+
+@media(max-width:700px){
+  body[data-page="home"] .home-choice-grid,
+  body[data-page="home"] .home-feature-grid{
+    gap:11px!important;
+  }
+  body[data-page="home"] .home-choice-card,
+  body[data-page="home"] .home-feature-card,
+  body[data-page="home"] .home-faq-card{
+    min-height:0!important;
+    padding:18px!important;
+  }
+  body[data-page="home"] .home-choice-card h3,
+  body[data-page="home"] .home-feature-card h3{
+    margin-bottom:7px!important;
+    font-size:21px!important;
+  }
+  body[data-page="home"] .home-choice-card p,
+  body[data-page="home"] .home-feature-card p{
+    margin-bottom:0!important;
+  }
+  body[data-page="home"] .home-story-card{
+    padding:22px 18px!important;
+  }
+  .site-footer{
+    padding-top:4px!important;
+    padding-bottom:calc(76px + env(safe-area-inset-bottom))!important;
+  }
+  .footer-card{
+    margin:0!important;
+  }
+  .footer-brand-block p{
+    margin:6px 0!important;
+  }
+  .footer-nav h3,
+  .footer-contact h3{
+    margin-bottom:8px!important;
+  }
+  .footer-contact p{
+    margin:3px 0!important;
+    font-size:13px!important;
+  }
+  .floating-line-cta{
+    width:46px!important;
+    height:46px!important;
+    min-height:46px!important;
+    padding:7px!important;
+  }
+  .floating-line-cta__dot{
+    width:28px!important;
+    height:28px!important;
+    font-size:9px!important;
+  }
+}
