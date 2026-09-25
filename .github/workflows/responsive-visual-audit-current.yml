@@ -56,7 +56,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cat > /tmp/xjw-responsive-audit.js <<'NODE'
+          cat > xjw-responsive-audit.cjs <<'NODE'
           const fs=require('fs');
           const { chromium }=require('playwright');
 
@@ -264,7 +264,7 @@ jobs:
             if(report.errors.length) process.exit(1);
           })();
           NODE
-          node /tmp/xjw-responsive-audit.js
+          node xjw-responsive-audit.cjs
 
       - name: Upload visual audit evidence
         if: always()
