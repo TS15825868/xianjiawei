@@ -1,5 +1,5 @@
 (()=>{
-const V='20260821-trial-direct-line-v1';
+const V='20260925-master-v30';
 const pathBase=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
 const LINE_TRIAL='https://line.me/R/oaMessage/%40762jybnm/?%E7%94%B3%E8%AB%8B%E8%A9%A6%E5%96%9D';
 const HD_DM=Object.freeze({
@@ -10,7 +10,7 @@ const HD_DM=Object.freeze({
  'guilu-jiao':'/images/dm-final/06_guilu-jiao-600g-dm.jpg',
  'luerong-fen':'/images/dm-final/04_luerong-fen-75g-dm.jpg'
 });
-const replace=(img,path)=>{if(!path)return;img.src=pathBase+path+(path.includes('?')?'&':'?')+'v='+V;img.removeAttribute('srcset');img.style.objectFit='contain';img.style.objectPosition='center';img.style.width='100%';img.style.height='auto';img.style.maxWidth='100%';img.style.maxHeight='none';img.style.transform='none';img.removeAttribute('width');img.removeAttribute('height');};
+const replace=(img,path)=>{if(!path)return;const target=pathBase+path+(path.includes('?')?'&':'?')+'v='+V;let samePath=false;try{samePath=new URL(img.currentSrc||img.src||'',location.href).pathname===new URL(target,location.href).pathname;}catch{}if(!samePath)img.src=target;img.removeAttribute('srcset');img.style.objectFit='contain';img.style.objectPosition='center';img.style.width='100%';img.style.height='auto';img.style.maxWidth='100%';img.style.maxHeight='none';img.style.transform='none';img.removeAttribute('width');img.removeAttribute('height');};
 function fixDmEntry(){
  document.querySelectorAll('a[href="dm.html"],a[href$="/dm.html"]').forEach(a=>{if(/實品照|產品圖|DM/i.test(a.textContent||''))a.textContent='查看產品DM';a.setAttribute('aria-label','查看仙加味目前正式產品DM');});
  if(document.body?.dataset?.page!=='home')return;

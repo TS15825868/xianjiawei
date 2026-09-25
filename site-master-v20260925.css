@@ -2159,3 +2159,55 @@ a,button,.btn,.product-card,.faq-list details{
     line-height:1.45!important;
   }
 }
+
+/* ===== Master v30｜高權重最終視覺守門 2026-09-25 ===== */
+html body .site-header .header-line-cta,
+html body a.btn-line,
+html body button.btn-line{
+  color:#fff!important;
+  background-color:#07883f!important;
+  background-image:none!important;
+  border-color:#07883f!important;
+}
+html body[data-page="products"] .product-card__actions .btn,
+html body[data-page="products"] .product-card__actions a.btn,
+html body[data-page="products"] .product-card__actions button.btn{
+  min-height:44px!important;
+  height:auto!important;
+  padding-block:8px!important;
+  font-size:12.5px!important;
+  line-height:1.35!important;
+}
+html body[data-page="products"] .product-card__body p.muted{
+  font-size:12.5px!important;
+  line-height:1.5!important;
+}
+html body[data-page="home"] .home-story-card .btn-primary{
+  color:#082846!important;
+  background-color:#e5c477!important;
+  background-image:none!important;
+  border-color:#e5c477!important;
+}
+html body[data-page="home"] .home-story-card .btn-outline{
+  color:#fff!important;
+  background-color:#103a60!important;
+  background-image:none!important;
+  border-color:rgba(255,255,255,.46)!important;
+}
+html body[data-page="contact"] .contact-line-card{
+  color:#fff!important;
+  background-color:#082846!important;
+  background-image:radial-gradient(circle at 88% 14%,rgba(199,155,77,.18),transparent 28%),linear-gradient(135deg,#082846,#103a60)!important;
+}
+html body[data-page="contact"] .contact-line-card h2,
+html body[data-page="contact"] .contact-line-card h3,
+html body[data-page="contact"] .contact-line-card p,
+html body[data-page="contact"] .contact-line-card strong{
+  color:#fff!important;
+}
+html body #line.btn{
+  color:#fff!important;
+  background-color:#07883f!important;
+  background-image:none!important;
+  border-color:#07883f!important;
+}
