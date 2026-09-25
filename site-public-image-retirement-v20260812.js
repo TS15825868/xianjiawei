@@ -42,11 +42,11 @@
   const SAFE_FALLBACK=`images/logo.png?v=${VERSION}`;
 
   function clean(value=''){
-    try{return new URL(String(value||''),location.href).pathname.replace(/^.*\\/xianjiawei\\//,'');}
-    catch{return String(value||'').split('?')[0].replace(/^\\//,'');}
+    try{return new URL(String(value||''),location.href).pathname.replace(/^.*\/xianjiawei\//,'');}
+    catch{return String(value||'').split('?')[0].replace(/^\//,'');}
   }
   function basename(value=''){const path=clean(value);return path.split('/').pop()||'';}
-  function isDetailedDm(value=''){return /\\/images\\/dm-final\\//i.test(String(value||''));}
+  function isDetailedDm(value=''){return /\/images\/dm-final\//i.test(String(value||''));}
   function isCurrentMain(value=''){
     const path=clean(value);
     return Object.values(MAIN).some(url=>clean(url)===path);
@@ -58,7 +58,7 @@
   function productReplacement(value=''){
     if(isDetailedDm(value)||isCurrentMain(value))return'';
     const path=clean(value),file=basename(path);
-    if(!/^(?:images\\/|.*\\/images\\/)/i.test(path))return'';
+    if(!/^(?:images\/|.*\/images\/)/i.test(path))return'';
     return PRODUCT_REPLACEMENTS[file]||'';
   }
   function removeCompositeContext(img){
