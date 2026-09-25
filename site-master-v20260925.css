@@ -2126,3 +2126,16 @@ a,button,.btn,.product-card,.faq-list details{
   .answer-lead{font-size:15px!important;line-height:1.68!important}
 }
 @media(prefers-reduced-motion:reduce){a,button,.btn,.product-card,.faq-list details{transition:none!important}}
+
+/* v28 footer dark-surface priority */
+.footer-card{
+  color:#fff!important;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(199,155,77,.20),transparent 30%),
+    linear-gradient(135deg,var(--xjw28-navy),var(--xjw28-navy-soft))!important;
+  border-color:rgba(199,155,77,.24)!important;
+}
+.footer-card h2,.footer-card h3,.footer-card strong{color:#fff!important}
+.footer-card p,.footer-card .footer-legal,.footer-card .footer-nav a{color:rgba(255,255,255,.84)!important}
+.footer-card .footer-nav a:hover{color:#fff!important}
+.footer-card .btn-outline{color:#fff!important;background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.38)!important}

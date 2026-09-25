@@ -275,7 +275,7 @@ function renderFooter() {
         <img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code" loading="lazy" decoding="async">
       </div>
 
-      <div class="footer-legal">仙加味網站內容以產品資訊、日常飲食與傳統食補文化整理為主；特殊健康狀況請洽專業醫療人員。</div>
+      <div class="footer-legal">仙加味網站內容以產品資訊、日常飲食與漢方飲食文化整理為主；特殊健康狀況請洽專業醫療人員。</div>
     </div>
   `;
 }
