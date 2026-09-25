@@ -136,15 +136,23 @@ jobs:
                   }));
                   const badInteractiveLinks=rawLinks.filter(x=>!x.href||x.href==='#'||/^javascript:/i.test(x.href));
                   const badLineLinks=rawLinks.filter(x=>/^https:\/\/lin\.ee\//i.test(x.href)&&x.href!=='https://lin.ee/sHZW7NkR');
-                  const formalProductImages=imgs.filter(i=>visible(i)&&String(i.getAttribute('src')||'').includes('product-focus-v20260925/')).map(i=>({
-                    src:i.getAttribute('src')||'',
-                    objectFit:css(i).objectFit,
-                    objectPosition:css(i).objectPosition,
-                    transform:css(i).transform,
-                    width:Math.round(i.getBoundingClientRect().width),
-                    height:Math.round(i.getBoundingClientRect().height)
-                  }));
-                  const productImageStyleIssues=formalProductImages.filter(i=>i.objectFit!=='contain'||i.transform!=='none');
+                  const formalProductImages=imgs.filter(i=>visible(i)&&String(i.getAttribute('src')||'').includes('product-focus-v20260925/')).map(i=>{
+                    const media=i.closest('.product-card__img,.home-product-showcase__grid a,.product-detail-hero__media,.modal-gallery__item,.trial-product-card__media');
+                    return {
+                      src:i.getAttribute('src')||'',
+                      objectFit:css(i).objectFit,
+                      objectPosition:css(i).objectPosition,
+                      transform:css(i).transform,
+                      mediaOverflowX:media?css(media).overflowX:'',
+                      mediaOverflowY:media?css(media).overflowY:'',
+                      width:Math.round(i.getBoundingClientRect().width),
+                      height:Math.round(i.getBoundingClientRect().height)
+                    };
+                  });
+                  const productImageStyleIssues=formalProductImages.filter(i=>
+                    i.objectFit!=='contain'||i.transform!=='none'||
+                    ['hidden','clip'].includes(i.mediaOverflowX)||['hidden','clip'].includes(i.mediaOverflowY)
+                  );
                   const oldBrandPresent=(document.documentElement.innerHTML||'').includes('台興山產');
                   const runtime=document.documentElement.dataset.xjwRuntime||'';
 
