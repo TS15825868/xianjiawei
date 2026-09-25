@@ -1,16 +1,16 @@
 "use strict";
 
-/* 仙加味產品資料權威層｜2026-08-20 六項官網公開產品
+/* 仙加味產品資料權威層｜2026-09-26 六項官網公開產品
  * public-product-master.json 是官網、官網AI/GEO與公開貼文目前六項產品文字核心事實的公開權威。
  * data.json 保留六項已有正式產品圖的顧客展示資料與通路欄位。
  * 柒玄茶目前暫不放官網；LINE OA文字知識與ERP資料由各自正式權威保留。
- * 產品圖／DM沿用目前核准媒體，不得由文字母資料重畫或替換。
+ * 六項一般展示統一使用 products-v3 正式主圖；dm-final 僅為完整介紹頁詳細圖；不得由文字母資料重畫產品包裝。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260925-six-product-public-master-v8';
+  const VERSION='20260926-unified-product-main-v32';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐';
@@ -97,7 +97,7 @@
       detailImages:Array.isArray(product.detailImages)&&product.detailImages.length?product.detailImages:(image?[image]:[]),
       dmImage:dm,
       officialOriginalImage:product.officialOriginalImage||'',
-      imagePolicy:'approved-real-product-identity-photo-direct-display-no-screenshot-no-ai-redraw-no-product-distortion',
+      imagePolicy:'approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch',
       physicalScalePolicy:product.physicalScalePolicy||'preserve-real-product-shape-package-and-proportion'
     };
   }
