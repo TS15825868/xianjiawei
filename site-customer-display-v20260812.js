@@ -1,26 +1,26 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-08-20 current media authority v10
+/* 仙加味顧客端產品主視覺｜2026-09-25 direct real-product media authority v11
  * 官網、官網AI/GEO與公開貼文目前六項產品文字知識以 public-product-master.json 為最高權威。
  * 六項皆已有核准正式產品圖；產品主圖、詳細DM、試喝正式海報分開管理。
  * 柒玄茶目前暫不放官網；LINE文字知識與ERP資料由各自正式權威保留。
- * products-v3 只作產品身份、包裝與比例校正，不作顧客產品主圖。
+ * products-v3 為目前核准正式實品身份照片，直接作為官網產品主圖；DM、試喝素材維持分層。
  */
 (function(){
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260925-formal-focus-v21';
+  const VERSION='20260925-real-product-v26';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const DISPLAY=Object.freeze({
-    'guilu-gao':'images/product-focus-v20260925/guilu-gao.svg',
-    'guilu-drink-30':'images/product-focus-v20260925/guilu-drink-30cc.svg',
-    'guilu-drink-180':'images/product-focus-v20260925/guilu-drink-180cc.svg',
-    'guilu-tangkuai':'images/product-focus-v20260925/guilu-tangkuai.svg',
-    'guilu-jiao':'images/product-focus-v20260925/guilu-jiao.svg',
-    'luerong-fen':'images/product-focus-v20260925/luerong-fen.svg'
+    'guilu-gao':'images/products-v3/guilu-gao.jpg',
+    'guilu-drink-30':'images/products-v3/guilu-drink-30.jpg',
+    'guilu-drink-180':'images/products-v3/guilu-drink-180.jpg',
+    'guilu-tangkuai':'images/products-v3/guilu-tangkuai.jpg',
+    'guilu-jiao':'images/products-v3/guilu-jiao.jpg',
+    'luerong-fen':'images/products-v3/luerong-fen.jpg'
   });
   const TRIAL=Object.freeze({
     mode:'poster',
@@ -81,8 +81,8 @@
         ...normalized,
         image:displayUrl,imageUrl:displayUrl,image_url:displayUrl,detailImages:[displayUrl],
         officialOriginalImage:identity||product.officialOriginalImage||'',
-        imagePolicy:'formal-product-derived-focus-view-no-ai-redraw-no-product-distortion-no-dm-substitution',
-        officialImagePolicy:'products-v3-product-identity-package-scale-reference-only-no-redraw',
+        imagePolicy:'approved-real-product-identity-photo-direct-display-no-screenshot-no-ai-redraw-no-product-distortion-no-dm-substitution',
+        officialImagePolicy:'products-v3-approved-real-product-main-image-no-redraw',
         physicalScalePolicy:'depicted-product-must-match-real-approved-product-shape-package-and-proportion'
       };
     });
@@ -96,7 +96,7 @@
       productTextAuthority:'public-product-master.json',
       knowledgeProductCount:6,
       approvedMediaProductCount:6,
-      productMainImageSource:'images/product-focus-v20260925/',
+      productMainImageSource:'images/products-v3/',
       productIdentityReference:'images/products-v3/',
       dmSource:'images/dm-final/',
       trialMode:TRIAL.mode,
@@ -107,7 +107,7 @@
       drink30Usage:CURRENT_30_USAGE,
       drink180Usage:'每日一包',
       displayVersion:VERSION,
-      displayRule:'官網六項產品文字知識／六項正式產品聚焦圖；聚焦圖只裁掉核准正式素材的海報文字與裝飾區，不重畫、不變形產品本體；產品主圖、詳細DM、試喝海報分離；柒玄茶目前不進官網產品顯示。'
+      displayRule:'官網六項產品文字知識／六項正式實品身份照片；產品主圖直接使用核准實品圖，不使用網頁截圖、不裁切產品本體、不拉伸、不重畫；詳細DM與試喝海報分離；柒玄茶目前不進官網產品顯示。'
     };
     return data;
   }
