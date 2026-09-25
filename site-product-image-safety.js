@@ -1,21 +1,21 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-08-14 Safari stability v9
+/* 官網顧客產品圖片安全層｜2026-09-25 real-product display safety v10
  * 產品卡／產品詳頁／Modal／trial產品卡只使用正式產品主圖。
  * 所有 DOM 寫入先比較現值；HTML 導覽連結永遠不得被圖片守門員改寫。
  */
 (function(){
-  if(window.__XJW_PRODUCT_IMAGE_SAFETY_V9__)return;
-  window.__XJW_PRODUCT_IMAGE_SAFETY_V9__=true;
+  if(window.__XJW_PRODUCT_IMAGE_SAFETY_V10__)return;
+  window.__XJW_PRODUCT_IMAGE_SAFETY_V10__=true;
 
-  const VERSION='20260925-formal-display-v17';
+  const VERSION='20260925-real-product-v26';
   const CUSTOMER=Object.freeze({
-    gao:`images/customer-display-v20260812/guilu-gao.avif?v=${VERSION}`,
-    drink30:`images/customer-display-v20260812/guilu-drink-30cc.avif?v=${VERSION}`,
-    drink180:`images/customer-display-v20260812/guilu-drink-180cc-product.jpg?v=${VERSION}`,
-    tangkuai:`images/customer-display-v20260812/guilu-tangkuai.avif?v=${VERSION}`,
-    jiao:`images/customer-display-v20260812/guilu-jiao.avif?v=${VERSION}`,
-    luerong:`images/customer-display-v20260812/luerong-fen.avif?v=${VERSION}`
+    gao:`images/products-v3/guilu-gao.jpg?v=${VERSION}`,
+    drink30:`images/products-v3/guilu-drink-30.jpg?v=${VERSION}`,
+    drink180:`images/products-v3/guilu-drink-180.jpg?v=${VERSION}`,
+    tangkuai:`images/products-v3/guilu-tangkuai.jpg?v=${VERSION}`,
+    jiao:`images/products-v3/guilu-jiao.jpg?v=${VERSION}`,
+    luerong:`images/products-v3/luerong-fen.jpg?v=${VERSION}`
   });
   const OFFICIAL=Object.freeze({drink30:'images/products-v3/guilu-drink-30.jpg',drink180:'images/products-v3/guilu-drink-180.jpg'});
   const IDS=Object.freeze({'guilu-gao':'gao','guilu-drink-30':'drink30','guilu-drink-180':'drink180','guilu-tangkuai':'tangkuai','guilu-jiao':'jiao','luerong-fen':'luerong'});
@@ -69,8 +69,8 @@
     changed=setStyleIfChanged(node,'maxHeight','100%')||changed;
     changed=setStyleIfChanged(node,'transform','none')||changed;
     changed=setStyleIfChanged(node,'clipPath','none')||changed;
-    node.dataset.xjwCustomerDisplay='official-product-image-v9';
-    node.dataset.xjwProductIdentityAuthority='products-v3';
+    node.dataset.xjwCustomerDisplay='approved-real-product-photo-v10';
+    node.dataset.xjwProductIdentityAuthority='products-v3-approved-real-photo';
     node.dataset.xjwScalePolicy='uniform-only-contain-no-stretch';
     return changed;
   }
