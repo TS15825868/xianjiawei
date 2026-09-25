@@ -35,7 +35,7 @@
     {key:'jiao',tests:[/guilu-jiao/i]}
   ]);
   const ALT=Object.freeze({gao:'龜鹿膏100g正式主圖',drink30:'龜鹿飲30cc正式主圖｜小玻璃裸罐',drink180:'龜鹿飲180cc正式主圖｜鋁袋',tangkuai:'龜鹿湯塊75g／8塊裝正式主圖',jiao:'龜鹿膠600g／32塊裝正式主圖',luerong:'鹿茸粉75g正式主圖'});
-  const IMAGE_EXT=/\\.(?:avif|webp|png|jpe?g|gif|svg)(?:[?#]|$)/i;
+  const IMAGE_EXT=/\.(?:avif|webp|png|jpe?g|gif|svg)(?:[?#]|$)/i;
 
   function absolute(value=''){try{return new URL(String(value||''),location.href).href}catch{return String(value||'')}}
   function sameUrl(a,b){return absolute(a)===absolute(b)}
@@ -48,12 +48,12 @@
   }
   function setStyleIfChanged(node,name,value){if(!node||node.style[name]===value)return false;node.style[name]=value;return true;}
   function alreadyCurrent(value){return Object.values(CUSTOMER).some(url=>sameUrl(value,url));}
-  function isDetailedDm(value){return /\\/images\\/(?:dm-approved-v20260810|dm-final|dm-v3)\\//i.test(String(value||''));}
+  function isDetailedDm(value){return /\/images\/(?:dm-approved-v20260810|dm-final|dm-v3)\//i.test(String(value||''));}
   function isImageHref(value=''){
     const text=String(value||'').trim();
-    if(!text||/^#/.test(text)||/\\.html(?:[?#]|$)/i.test(text))return false;
+    if(!text||/^#/.test(text)||/\.html(?:[?#]|$)/i.test(text))return false;
     if(/^(?:mailto:|tel:|javascript:)/i.test(text))return false;
-    return IMAGE_EXT.test(text)||/\\/images\\//i.test(text);
+    return IMAGE_EXT.test(text)||/\/images\//i.test(text);
   }
   function match(value){
     const text=String(value||'');
@@ -109,7 +109,7 @@
   }
   function keyFromModal(modal){
     const text=String(modal?.textContent||'');
-    if(/30\\s*cc/.test(text))return'drink30';if(/180\\s*cc/.test(text))return'drink180';if(/龜鹿膏/.test(text))return'gao';if(/龜鹿湯塊/.test(text))return'tangkuai';if(/龜鹿膠/.test(text))return'jiao';if(/鹿茸粉/.test(text))return'luerong';return'';
+    if(/30\s*cc/.test(text))return'drink30';if(/180\s*cc/.test(text))return'drink180';if(/龜鹿膏/.test(text))return'gao';if(/龜鹿湯塊/.test(text))return'tangkuai';if(/龜鹿膠/.test(text))return'jiao';if(/鹿茸粉/.test(text))return'luerong';return'';
   }
 
   function forceKnownSurfaces(root=document){
