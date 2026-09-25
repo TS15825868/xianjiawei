@@ -1366,3 +1366,258 @@ body[data-page="products"] .product-card__img img[src*="guilu-jiao.svg"]{
   height:96%!important;
   margin:auto!important;
 }
+
+
+/* 仙加味｜Master Visual v23｜跨裝置可讀性、導覽、品牌高級感最終鎖定 */
+:root{
+  --xjw23-navy:#082846;
+  --xjw23-navy2:#0d365d;
+  --xjw23-gold:#f0d397;
+  --xjw23-red:#98292d;
+  --xjw23-line:#03843a;
+  --xjw23-text:#203043;
+  --xjw23-muted:#526174;
+}
+
+/* 導覽：桌機單列、手機固定；任何捲動位置都能操作。 */
+.site-header .header-inner{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  min-height:76px!important;
+}
+.site-header .brand-mark{
+  display:flex!important;
+  align-items:center!important;
+  flex:0 0 auto!important;
+  margin:0!important;
+}
+.site-header .brand-mark img{
+  width:58px!important;
+  height:58px!important;
+  flex:0 0 58px!important;
+}
+.site-header .brand-mark__name{
+  font-size:25px!important;
+  color:var(--xjw23-gold)!important;
+}
+.site-header .brand-mark__tagline{
+  font-size:12.5px!important;
+  color:rgba(255,255,255,.88)!important;
+}
+.header-nav{
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:nowrap!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:2px!important;
+  margin-left:auto!important;
+}
+.header-nav a{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:44px!important;
+  padding:0 11px!important;
+  white-space:nowrap!important;
+  font-size:15px!important;
+  color:rgba(255,255,255,.92)!important;
+}
+.header-nav a.is-active{
+  color:var(--xjw23-navy)!important;
+  background:#f2d89d!important;
+}
+.header-line-cta{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 auto!important;
+  min-height:44px!important;
+  padding:0 16px!important;
+  margin-left:6px!important;
+  color:#fff!important;
+  background:var(--xjw23-line)!important;
+  border-color:var(--xjw23-line)!important;
+}
+.site-header .menu-btn{
+  display:none!important;
+}
+
+/* LINE 綠採用可讀性更高的深綠，保留品牌識別。 */
+.btn-line,
+.menu-quick-actions .btn-line,
+.menu-contact-card .btn-line,
+.floating-line-cta{
+  color:#fff!important;
+  background:var(--xjw23-line)!important;
+  border-color:var(--xjw23-line)!important;
+}
+
+/* 首頁品牌故事：深藍色塊、金色標題、白色正文，不再吃色。 */
+body[data-page="home"] .home-story-card{
+  color:#fff!important;
+  background:
+    radial-gradient(circle at 88% 15%,rgba(199,155,77,.20),transparent 30%),
+    linear-gradient(135deg,var(--xjw23-navy),var(--xjw23-navy2))!important;
+  border-color:rgba(240,211,151,.34)!important;
+}
+body[data-page="home"] .home-story-card .eyebrow,
+body[data-page="home"] .home-story-card h2,
+body[data-page="home"] .home-story-card h3{
+  color:var(--xjw23-gold)!important;
+}
+body[data-page="home"] .home-story-card p{
+  color:rgba(255,255,255,.93)!important;
+}
+body[data-page="home"] .home-story-card .btn-outline{
+  color:#fff!important;
+  border-color:rgba(255,255,255,.62)!important;
+  background:rgba(255,255,255,.06)!important;
+}
+
+/* Footer：最高優先深藍品牌收尾，所有字都清楚。 */
+body.ux-v410 .site-footer .footer-card.card,
+.site-footer .footer-card.card,
+.footer-card{
+  color:#fff!important;
+  background-color:var(--xjw23-navy)!important;
+  background-image:
+    radial-gradient(circle at 88% 15%,rgba(199,155,77,.19),transparent 29%),
+    linear-gradient(135deg,var(--xjw23-navy),var(--xjw23-navy2))!important;
+  border-color:rgba(240,211,151,.30)!important;
+}
+body.ux-v410 .footer-card h3,
+body.ux-v410 .footer-brand-block strong,
+.footer-card h3,
+.footer-brand-block strong{
+  color:var(--xjw23-gold)!important;
+}
+body.ux-v410 .footer-card p,
+body.ux-v410 .footer-card a,
+body.ux-v410 .footer-contact p,
+body.ux-v410 .footer-nav-links a,
+body.ux-v410 .footer-legal,
+.footer-card p,.footer-card a,.footer-contact p,.footer-nav-links a,.footer-legal{
+  color:rgba(255,255,255,.92)!important;
+}
+.footer-contact img{
+  padding:7px!important;
+  object-fit:contain!important;
+  background:#fff!important;
+  border:1px solid rgba(240,211,151,.44)!important;
+  border-radius:14px!important;
+}
+.footer-legal{
+  font-size:12.5px!important;
+  line-height:1.65!important;
+}
+
+/* 文字層級：正文不過小，說明文字也維持可讀。 */
+body{
+  color:var(--xjw23-text)!important;
+  font-size:16px!important;
+}
+main p,main li{
+  color:var(--xjw23-text)!important;
+}
+.muted{
+  color:var(--xjw23-muted)!important;
+}
+.product-card__body .muted,
+.product-purpose{
+  font-size:13px!important;
+  line-height:1.5!important;
+}
+.product-card__body .eyebrow{
+  font-size:12px!important;
+}
+.product-card__actions .btn{
+  min-height:44px!important;
+  font-size:13px!important;
+  padding:0 10px!important;
+}
+.home-product-showcase__grid span{
+  font-size:13px!important;
+}
+.home-product-showcase figcaption{
+  font-size:12.5px!important;
+  color:rgba(255,255,255,.90)!important;
+}
+
+/* 正式產品聚焦 SVG 只完整等比例顯示；不二次裁切產品本體。 */
+img[src*="product-focus-v20260925/"]{
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+}
+
+/* 平板／手機：隱藏桌機導覽，顯示清楚的金底深藍選單。 */
+@media(max-width:1080px){
+  .site-header .header-inner{
+    width:calc(100% - 24px)!important;
+    min-height:70px!important;
+    gap:9px!important;
+  }
+  .header-nav,.header-line-cta{
+    display:none!important;
+  }
+  .site-header .menu-btn{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin-left:auto!important;
+    min-width:92px!important;
+    min-height:44px!important;
+    padding:0 14px!important;
+    color:var(--xjw23-navy)!important;
+    background:#f2d89d!important;
+    border:1px solid #f2d89d!important;
+    font-size:15px!important;
+    font-weight:900!important;
+  }
+}
+@media(max-width:700px){
+  .site-header .brand-mark img{
+    width:48px!important;
+    height:48px!important;
+    flex:0 0 48px!important;
+  }
+  .site-header .brand-mark__name{
+    font-size:21px!important;
+  }
+  .site-header .menu-btn{
+    min-width:88px!important;
+    min-height:44px!important;
+  }
+  p,li{
+    font-size:15.5px!important;
+    line-height:1.72!important;
+  }
+  .section-heading>p:last-child,
+  .section-title>p:last-child{
+    font-size:14.5px!important;
+    line-height:1.65!important;
+  }
+  body[data-page="products"] .product-card__body h3{
+    min-height:0!important;
+    font-size:15.5px!important;
+    line-height:1.28!important;
+  }
+  body[data-page="products"] .product-card__body .muted{
+    min-height:0!important;
+    font-size:13px!important;
+    line-height:1.45!important;
+  }
+  body[data-page="products"] .product-card__actions .btn{
+    min-height:44px!important;
+    font-size:13px!important;
+    padding:0 7px!important;
+  }
+  .footer-legal{
+    font-size:12px!important;
+  }
+}

@@ -219,7 +219,7 @@ jobs:
                 if(audit.overflowX) report.errors.push({vp:vpName,page:pth,type:'horizontal-overflow',detail:audit.overflow});
                 if(audit.brokenImages.length) report.errors.push({vp:vpName,page:pth,type:'broken-images',detail:audit.brokenImages});
                 if(pageErrors.length) report.errors.push({vp:vpName,page:pth,type:'page-errors',detail:pageErrors});
-                if(requestFailed.length) report.errors.push({vp:vpName,page:pth,type:'request-failed',detail:requestFailed});
+                const meaningfulRequestFailures=requestFailed.filter(x=>!String(x.url||'').includes('google-analytics.com')&&!String(x.url||'').includes('googletagmanager.com'));\n                if(meaningfulRequestFailures.length) report.errors.push({vp:vpName,page:pth,type:'request-failed',detail:meaningfulRequestFailures});
                 if(audit.duplicateIds.length) report.errors.push({vp:vpName,page:pth,type:'duplicate-ids',detail:audit.duplicateIds});
                 if(audit.tapSmall.length && vpName!=='desktop') report.errors.push({vp:vpName,page:pth,type:'tap-target-small',detail:audit.tapSmall});
                 if(audit.h1 && audit.h1.size<(vpName==='desktop'?32:30)) report.errors.push({vp:vpName,page:pth,type:'h1-too-small',detail:audit.h1});
