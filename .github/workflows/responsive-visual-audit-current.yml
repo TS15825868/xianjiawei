@@ -221,6 +221,7 @@ jobs:
                     bodyFont:parseFloat(css(document.body).fontSize),
                     paragraphFont:paras.length?Math.min(...paras.slice(0,30).map(x=>parseFloat(css(x).fontSize))):null,
                     brokenImages:imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),
+                    loadedImagePaths:imgs.filter(i=>i.complete&&i.naturalWidth>0).map(i=>{try{return new URL(i.currentSrc||i.src,location.href).pathname}catch{return''}}).filter(Boolean),
                     missingAlt:imgs.filter(i=>visible(i)&&!i.alt).map(i=>i.src),
                     duplicateIds:[...new Set(duplicates)],
                     rawLinks,badInteractiveLinks,badLineLinks,
@@ -297,16 +298,16 @@ jobs:
                     }
                   }
                 }
-                const successfullyLoadedImagePaths=new Set((audit.brokenImages.length?[]:[...document.images].filter(i=>i.complete&&i.naturalWidth>0).map(i=>{try{return new URL(i.currentSrc||i.src,location.href).pathname}catch{return''}})).filter(Boolean));
-                  const meaningfulRequestFailures=requestFailed.filter(x=>{
-                    const url=String(x.url||'');
-                    if(url.includes('google-analytics.com')||url.includes('googletagmanager.com'))return false;
-                    const errorText=String(x.failure?.errorText||'');
-                    if(errorText==='net::ERR_ABORTED'){
-                      try{if(successfullyLoadedImagePaths.has(new URL(url,location.href).pathname))return false;}catch{}
-                    }
-                    return true;
-                  });
+                const successfullyLoadedImagePaths=new Set(audit.loadedImagePaths||[]);
+                const meaningfulRequestFailures=requestFailed.filter(x=>{
+                  const url=String(x.url||'');
+                  if(url.includes('google-analytics.com')||url.includes('googletagmanager.com'))return false;
+                  const errorText=String(x.failure?.errorText||'');
+                  if(errorText==='net::ERR_ABORTED'){
+                    try{if(successfullyLoadedImagePaths.has(new URL(url,BASE+pth).pathname))return false;}catch{}
+                  }
+                  return true;
+                });
                 if(meaningfulRequestFailures.length) report.errors.push({vp:vpName,page:pth,type:'request-failed',detail:meaningfulRequestFailures});
                 if(audit.duplicateIds.length) report.errors.push({vp:vpName,page:pth,type:'duplicate-ids',detail:audit.duplicateIds});
                 if(audit.tapSmall.length && vpName!=='desktop') report.errors.push({vp:vpName,page:pth,type:'tap-target-small',detail:audit.tapSmall});
