@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20260925-master-v18";
+  const VERSION = "20260925-master-v19";
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
@@ -26,6 +26,7 @@
   const CURRENT_GAO_TIMING = "食用時間可依個人使用習慣與作息時間安排";
 
   const FINAL_STYLE = `site-final-v20260925.css?v=${VERSION}`;
+  const MASTER_STYLE = `site-master-v20260925.css?v=${VERSION}`;
 
   const STYLES = [
     `site-ux-v410.css?v=${VERSION}`,
@@ -92,7 +93,13 @@
     finalLink.href=FINAL_STYLE;
     document.head.appendChild(finalLink);
   }
-  function loadStyles(){STYLES.forEach(appendStyle);ensureFinalStyle();}
+  function ensureMasterStyle(){
+    let masterLink=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>cleanAssetPath(link.getAttribute("href"))===cleanAssetPath(MASTER_STYLE));
+    if(!masterLink){masterLink=document.createElement("link");masterLink.rel="stylesheet";}
+    masterLink.href=MASTER_STYLE;
+    document.head.appendChild(masterLink);
+  }
+  function loadStyles(){STYLES.forEach(appendStyle);ensureFinalStyle();ensureMasterStyle();}
   function installEmergencyHeader(){
     const header=document.getElementById("site-header");
     if(!header||header.children.length)return;
