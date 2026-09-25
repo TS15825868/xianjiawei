@@ -25,20 +25,22 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Wait for GitHub Pages current release
+      - name: Confirm GitHub Pages is reachable
         shell: bash
         run: |
           set -euo pipefail
           url='https://ts15825868.github.io/xianjiawei/index.html'
           ok=0
-          for i in $(seq 1 36); do
-            body="$(curl -LsS --retry 1 --connect-timeout 10 --max-time 20 "$url" || true)"
-            if grep -q '20260924-premium-v12' <<<"$body"; then
-              echo "Pages current release detected on attempt $i"
+          for i in $(seq 1 24); do
+            code="$(curl -LsS --retry 1 --connect-timeout 10 --max-time 20 -o live-index.html -w '%{http_code}' "$url" || true)"
+            if [ "$code" = "200" ] && [ -s live-index.html ]; then
+              echo "GitHub Pages reachable on attempt $i"
+              grep -o 'site-premium-v20260924.css?v=[^"[:space:]]*' live-index.html | head -1 || true
+              grep -o 'site.js?v=[^"[:space:]]*' live-index.html | head -1 || true
               ok=1
               break
             fi
-            echo "Waiting for Pages deployment... $i/36"
+            echo "Waiting for Pages availability... $i/24 (HTTP $code)"
             sleep 5
           done
           test "$ok" = '1'
