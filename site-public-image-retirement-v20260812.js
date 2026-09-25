@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味公開網站舊圖退役層｜2026-09-25 v8
+/* 仙加味公開網站舊圖退役層｜2026-09-25 v9
  * 任何舊程式若再次插入 approved-v405 的生成式產品圖／產品拼圖，公開頁立即退役。
  * 產品型態改回正式產品圖；180cc 使用真實鋁袋產品照片，不得回到詳細DM海報。
  */
@@ -8,14 +8,14 @@
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260925-real-product-v26';
+  const VERSION='20260925-real-original-v27';
   const PRODUCT_REPLACEMENTS=Object.freeze({
-    'product-guilu-gao-100g.webp':`images/products-v3/guilu-gao.jpg?v=${VERSION}`,
-    'product-guilu-drink-30cc.webp':`images/products-v3/guilu-drink-30.jpg?v=${VERSION}`,
-    'product-guilu-drink-180cc.webp':`images/products-v3/guilu-drink-180.jpg?v=${VERSION}`,
-    'product-guilu-tangkuai-75g.webp':`images/products-v3/guilu-tangkuai.jpg?v=${VERSION}`,
-    'product-guilu-jiao-600g.webp':`images/products-v3/guilu-jiao.jpg?v=${VERSION}`,
-    'product-luerong-fen-75g.webp':`images/products-v3/luerong-fen.jpg?v=${VERSION}`
+    'product-guilu-gao-100g.webp':`images/guilu-gao.jpg?v=${VERSION}`,
+    'product-guilu-drink-30cc.webp':`images/guilu-drink-30cc-glass.jpg?v=${VERSION}`,
+    'product-guilu-drink-180cc.webp':`images/guilu-drink-180cc.jpg?v=${VERSION}`,
+    'product-guilu-tangkuai-75g.webp':`images/products-v2/guilu-tangkuai-open-new.jpg?v=${VERSION}`,
+    'product-guilu-jiao-600g.webp':`images/products-v2/guilu-jiao-open-new.jpg?v=${VERSION}`,
+    'product-luerong-fen-75g.webp':`images/products-v2/luerong-fen.jpeg?v=${VERSION}`
   });
   const COMPOSITES=new Set([
     'home-brand.webp',
