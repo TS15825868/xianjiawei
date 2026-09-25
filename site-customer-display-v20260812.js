@@ -35,13 +35,13 @@
       'images/customer-display-v20260812/trial-small-boss.png'
     ]
   });
-  const IDENTITY=window.XJWProductDataAuthority?.official||Object.freeze({
-    'guilu-gao':'images/products-v3/guilu-gao.jpg',
-    'guilu-drink-30':'images/products-v3/guilu-drink-30.jpg',
-    'guilu-drink-180':'images/products-v3/guilu-drink-180.jpg',
-    'guilu-tangkuai':'images/products-v3/guilu-tangkuai.jpg',
-    'guilu-jiao':'images/products-v3/guilu-jiao.jpg',
-    'luerong-fen':'images/products-v3/luerong-fen.jpg'
+  const IDENTITY=Object.freeze({
+    'guilu-gao':'images/guilu-gao.jpg',
+    'guilu-drink-30':'images/guilu-drink-30cc-glass.jpg',
+    'guilu-drink-180':'images/guilu-drink-180cc.jpg',
+    'guilu-tangkuai':'images/products-v2/guilu-tangkuai-open-new.jpg',
+    'guilu-jiao':'images/products-v2/guilu-jiao-open-new.jpg',
+    'luerong-fen':'images/products-v2/luerong-fen.jpeg'
   });
 
   function isDataUrl(value=''){
