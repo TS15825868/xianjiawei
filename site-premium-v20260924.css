@@ -515,3 +515,173 @@ body[data-page="contact"] .line-qr-card{width:154px!important;height:154px!impor
     max-height:none!important;
   }
 }
+
+
+/* 仙加味｜2026-09-25 premium visual v13：可讀性／對比／字級／跨裝置 */
+:root{
+  --xjw-line-accessible:#03843a;
+  --xjw-text-strong:#203043;
+  --xjw-text-muted:#536174;
+}
+
+/* 基礎字級與色彩：避免吃色、過小字。 */
+body{
+  font-size:16px!important;
+  color:var(--xjw-text-strong)!important;
+}
+p,li,td,th,summary{
+  color:var(--xjw-text-strong)!important;
+}
+.muted{
+  color:var(--xjw-text-muted)!important;
+}
+.eyebrow{
+  color:#98292d!important;
+  font-size:13px!important;
+}
+.site-header{
+  background-color:#082846!important;
+}
+.site-header .header-nav a{
+  font-size:15px!important;
+}
+.site-header .brand-mark__tagline{
+  font-size:12.5px!important;
+  color:rgba(255,255,255,.86)!important;
+}
+
+/* LINE：保留綠色識別，但文字版按鈕改用達 AA 的深綠。 */
+.btn-line,
+.header-line-cta,
+.menu-quick-actions .btn-line,
+.menu-contact-card .btn-line,
+.floating-line-cta{
+  background-color:var(--xjw-line-accessible)!important;
+  border-color:var(--xjw-line-accessible)!important;
+  color:#fff!important;
+}
+.floating-line-cta__dot{
+  background:#fff!important;
+  color:#057a36!important;
+}
+
+/* 首頁產品展示小字也要清楚。 */
+.home-product-showcase__head span{
+  font-size:13px!important;
+}
+.home-product-showcase__grid span{
+  font-size:13.5px!important;
+}
+.home-product-showcase figcaption{
+  font-size:12.5px!important;
+  color:rgba(255,255,255,.88)!important;
+}
+
+/* 產品卡文字最低可讀尺寸。 */
+.product-purpose{
+  font-size:13px!important;
+}
+.product-card__body .eyebrow{
+  font-size:11.5px!important;
+}
+.product-card__body .muted{
+  font-size:13px!important;
+}
+.product-card__actions .btn{
+  font-size:13px!important;
+  min-height:42px!important;
+}
+
+/* Contact：錄影曾出現深色設計被其他 card 規則蓋掉，這裡用最高優先明確鎖定。 */
+body[data-page="contact"] article.contact-line-card.card{
+  background-color:#082846!important;
+  background-image:
+    radial-gradient(circle at 88% 14%,rgba(197,151,67,.22),transparent 28%),
+    linear-gradient(135deg,#082846 0,#0d365d 100%)!important;
+  color:#fff!important;
+  border-color:rgba(243,217,154,.38)!important;
+}
+body[data-page="contact"] article.contact-line-card.card h2,
+body[data-page="contact"] article.contact-line-card.card h3{
+  color:#f5d68c!important;
+}
+body[data-page="contact"] article.contact-line-card.card p,
+body[data-page="contact"] article.contact-line-card.card li,
+body[data-page="contact"] article.contact-line-card.card strong{
+  color:rgba(255,255,255,.92)!important;
+}
+body[data-page="contact"] article.contact-line-card.card .btn-line{
+  color:#fff!important;
+  background-color:var(--xjw-line-accessible)!important;
+}
+
+/* Footer：永遠深藍，避免白字落在米白背景。 */
+.footer-card{
+  background-color:#082846!important;
+  color:#fff!important;
+}
+.footer-brand-block strong,
+.footer-card h3,
+.footer-contact h3{
+  color:#f5d68c!important;
+}
+.footer-card p,
+.footer-card a,
+.footer-contact p,
+.footer-nav-links a,
+.footer-legal{
+  color:rgba(255,255,255,.90)!important;
+}
+.footer-legal{
+  font-size:12.5px!important;
+  line-height:1.65!important;
+}
+
+/* 高級但清楚：內文寬度與行距統一。 */
+.hero__content>p:not(.eyebrow),
+.section-heading>p:last-child,
+.section-title>p:last-child,
+.card p,.panel p{
+  line-height:1.78!important;
+}
+.hero__content>p:not(.eyebrow){
+  font-size:clamp(16px,1.5vw,18px)!important;
+}
+.card p,.panel p,.faq-item p{
+  font-size:15.5px!important;
+}
+
+/* 手機、平板：字不縮太小，觸控區至少 44px。 */
+@media(max-width:1080px){
+  .menu-group a{
+    font-size:16px!important;
+    min-height:48px!important;
+  }
+  .menu-quick-actions .btn{
+    min-height:44px!important;
+    font-size:14px!important;
+  }
+}
+@media(max-width:700px){
+  body{
+    font-size:16px!important;
+  }
+  p,li{
+    font-size:15.5px!important;
+    line-height:1.72!important;
+  }
+  .product-card__body .eyebrow{
+    font-size:11.5px!important;
+  }
+  .product-card__body .muted,
+  .product-purpose{
+    font-size:13px!important;
+  }
+  .product-card__actions .btn{
+    min-height:42px!important;
+    font-size:13px!important;
+  }
+  .footer-legal{
+    font-size:12px!important;
+  }
+}
