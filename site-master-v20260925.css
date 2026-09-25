@@ -2211,3 +2211,44 @@ html body #line.btn{
   background-image:none!important;
   border-color:#07883f!important;
 }
+
+/* ===== Master v31｜跨裝置最終優先權＋觸控尺寸守門 ===== */
+@media(max-width:1080px){
+  html body .site-header .header-nav,
+  html body .site-header .header-line-cta{display:none!important}
+  html body .site-header .menu-btn{
+    display:flex!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+    position:relative!important;
+    margin-left:auto!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-width:88px!important;
+    min-height:44px!important;
+    z-index:2!important;
+  }
+}
+@media(max-width:700px){
+  html body.ux-v410[data-page="products"] main.page .product-card .product-card__actions .btn,
+  html body.ux-v410[data-page="products"] main.page .product-card .product-card__actions a.btn,
+  html body.ux-v410[data-page="products"] main.page .product-card .product-card__actions button.btn{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+    height:44px!important;
+    min-height:44px!important;
+    max-height:none!important;
+    padding:8px 10px!important;
+    font-size:13px!important;
+    line-height:1.35!important;
+  }
+  html body.ux-v410[data-page="products"] main.page .product-card .product-card__body p.muted{
+    min-height:0!important;
+    font-size:12.5px!important;
+    line-height:1.5!important;
+    margin-bottom:8px!important;
+  }
+}

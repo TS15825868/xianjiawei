@@ -297,7 +297,16 @@ jobs:
                     }
                   }
                 }
-                const meaningfulRequestFailures=requestFailed.filter(x=>!String(x.url||'').includes('google-analytics.com')&&!String(x.url||'').includes('googletagmanager.com'));
+                const successfullyLoadedImagePaths=new Set((audit.brokenImages.length?[]:[...document.images].filter(i=>i.complete&&i.naturalWidth>0).map(i=>{try{return new URL(i.currentSrc||i.src,location.href).pathname}catch{return''}})).filter(Boolean));
+                  const meaningfulRequestFailures=requestFailed.filter(x=>{
+                    const url=String(x.url||'');
+                    if(url.includes('google-analytics.com')||url.includes('googletagmanager.com'))return false;
+                    const errorText=String(x.failure?.errorText||'');
+                    if(errorText==='net::ERR_ABORTED'){
+                      try{if(successfullyLoadedImagePaths.has(new URL(url,location.href).pathname))return false;}catch{}
+                    }
+                    return true;
+                  });
                 if(meaningfulRequestFailures.length) report.errors.push({vp:vpName,page:pth,type:'request-failed',detail:meaningfulRequestFailures});
                 if(audit.duplicateIds.length) report.errors.push({vp:vpName,page:pth,type:'duplicate-ids',detail:audit.duplicateIds});
                 if(audit.tapSmall.length && vpName!=='desktop') report.errors.push({vp:vpName,page:pth,type:'tap-target-small',detail:audit.tapSmall});
