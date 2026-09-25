@@ -90,6 +90,7 @@ jobs:
             fs.mkdirSync('responsive-audit-screens',{recursive:true});
             const browser=await chromium.launch();
             const report={generatedAt:new Date().toISOString(),base:BASE,viewports:{},errors:[],warnings:[]};
+            const linkStatusCache=new Map();
 
             for(const [vpName,vp] of Object.entries(viewports)){
               const context=await browser.newContext({
@@ -111,7 +112,10 @@ jobs:
                 let response;
                 try{
                   response=await page.goto(BASE+pth,{waitUntil:'domcontentloaded',timeout:30000});
-                  await page.waitForTimeout(250);
+                  if(pth!=='trial-line.html'){
+                    await page.waitForFunction(()=>Boolean(document.documentElement.dataset.xjwRuntime),{timeout:8000}).catch(()=>{});
+                  }
+                  await page.waitForTimeout(180);
                 }catch(e){
                   report.errors.push({vp:vpName,page:pth,type:'navigation',detail:String(e)});
                   await page.close(); continue;
@@ -126,6 +130,23 @@ jobs:
                   const h1=document.querySelector('h1');
                   const paras=[...document.querySelectorAll('main p')].filter(visible);
                   const duplicates=[...document.querySelectorAll('[id]')].map(e=>e.id).filter((id,i,a)=>id&&a.indexOf(id)!==i);
+                  const rawLinks=[...document.querySelectorAll('a[href]')].filter(visible).map(a=>({
+                    text:(a.textContent||'').trim().slice(0,80),
+                    href:(a.getAttribute('href')||'').trim()
+                  }));
+                  const badInteractiveLinks=rawLinks.filter(x=>!x.href||x.href==='#'||/^javascript:/i.test(x.href));
+                  const badLineLinks=rawLinks.filter(x=>/^https:\/\/lin\.ee\//i.test(x.href)&&x.href!=='https://lin.ee/sHZW7NkR');
+                  const formalProductImages=imgs.filter(i=>visible(i)&&String(i.getAttribute('src')||'').includes('product-focus-v20260925/')).map(i=>({
+                    src:i.getAttribute('src')||'',
+                    objectFit:css(i).objectFit,
+                    objectPosition:css(i).objectPosition,
+                    transform:css(i).transform,
+                    width:Math.round(i.getBoundingClientRect().width),
+                    height:Math.round(i.getBoundingClientRect().height)
+                  }));
+                  const productImageStyleIssues=formalProductImages.filter(i=>i.objectFit!=='contain'||i.transform!=='none');
+                  const oldBrandPresent=(document.documentElement.innerHTML||'').includes('台興山產');
+                  const runtime=document.documentElement.dataset.xjwRuntime||'';
 
                   const tiny=[...document.querySelectorAll('main p, main li, main a, .btn, .menu-group a, .footer-card a, .footer-card p')]
                     .filter(visible)
@@ -178,8 +199,10 @@ jobs:
                     bodyFont:parseFloat(css(document.body).fontSize),
                     paragraphFont:paras.length?Math.min(...paras.slice(0,30).map(x=>parseFloat(css(x).fontSize))):null,
                     brokenImages:imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),
-                    missingAlt:imgs.filter(i=>!i.alt).map(i=>i.src),
+                    missingAlt:imgs.filter(i=>visible(i)&&!i.alt).map(i=>i.src),
                     duplicateIds:[...new Set(duplicates)],
+                    rawLinks,badInteractiveLinks,badLineLinks,
+                    formalProductImages,productImageStyleIssues,oldBrandPresent,runtime,
                     tiny,overflow,tapSmall,contrastWarnings
                   };
                 });
@@ -218,7 +241,40 @@ jobs:
                 if(status!==200) report.errors.push({vp:vpName,page:pth,type:'http',detail:status});
                 if(audit.overflowX) report.errors.push({vp:vpName,page:pth,type:'horizontal-overflow',detail:audit.overflow});
                 if(audit.brokenImages.length) report.errors.push({vp:vpName,page:pth,type:'broken-images',detail:audit.brokenImages});
+                if(audit.badInteractiveLinks.length) report.errors.push({vp:vpName,page:pth,type:'invalid-interactive-link',detail:audit.badInteractiveLinks});
+                if(audit.badLineLinks.length) report.errors.push({vp:vpName,page:pth,type:'wrong-line-link',detail:audit.badLineLinks});
+                if(audit.productImageStyleIssues.length) report.errors.push({vp:vpName,page:pth,type:'formal-product-image-style',detail:audit.productImageStyleIssues});
+                if(audit.oldBrandPresent) report.errors.push({vp:vpName,page:pth,type:'old-public-brand-name',detail:'台興山產'});
+                if(pth!=='trial-line.html'&&!audit.runtime) report.errors.push({vp:vpName,page:pth,type:'runtime-not-ready',detail:audit.runtime});
+                if(audit.missingAlt.length) report.warnings.push({vp:vpName,page:pth,type:'missing-alt',detail:audit.missingAlt});
                 if(pageErrors.length) report.errors.push({vp:vpName,page:pth,type:'page-errors',detail:pageErrors});
+
+                if(vpName==='desktop'){
+                  const baseUrl=new URL(BASE);
+                  for(const link of audit.rawLinks){
+                    const raw=String(link.href||'');
+                    if(!raw||raw.startsWith('#')||/^(mailto:|tel:|javascript:)/i.test(raw)) continue;
+                    let target;
+                    try{target=new URL(raw,BASE+pth)}catch{continue}
+                    if(target.origin!==baseUrl.origin||!target.pathname.startsWith(baseUrl.pathname)) continue;
+                    target.hash='';
+                    const key=target.toString();
+                    if(!linkStatusCache.has(key)){
+                      try{
+                        const r=await context.request.get(key,{timeout:15000,failOnStatusCode:false});
+                        linkStatusCache.set(key,r.status());
+                      }catch(e){
+                        linkStatusCache.set(key,{error:String(e)});
+                      }
+                    }
+                    const linkStatus=linkStatusCache.get(key);
+                    if(typeof linkStatus==='number'&&linkStatus>=400){
+                      report.errors.push({vp:vpName,page:pth,type:'broken-internal-link',detail:{...link,status:linkStatus,target:key}});
+                    }else if(linkStatus&&typeof linkStatus==='object'&&linkStatus.error){
+                      report.errors.push({vp:vpName,page:pth,type:'internal-link-request-failed',detail:{...link,target:key,error:linkStatus.error}});
+                    }
+                  }
+                }
                 const meaningfulRequestFailures=requestFailed.filter(x=>!String(x.url||'').includes('google-analytics.com')&&!String(x.url||'').includes('googletagmanager.com'));
                 if(meaningfulRequestFailures.length) report.errors.push({vp:vpName,page:pth,type:'request-failed',detail:meaningfulRequestFailures});
                 if(audit.duplicateIds.length) report.errors.push({vp:vpName,page:pth,type:'duplicate-ids',detail:audit.duplicateIds});
