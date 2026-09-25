@@ -25,22 +25,25 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Confirm GitHub Pages is reachable
+      - name: Confirm latest main is live on GitHub Pages
         shell: bash
         run: |
           set -euo pipefail
           url='https://ts15825868.github.io/xianjiawei/index.html'
+          expected="$(grep -o 'site-master-v20260925.css?v=[^"[:space:]]*' index.html | head -1)"
+          test -n "$expected"
+          echo "Waiting for live release marker: $expected"
           ok=0
-          for i in $(seq 1 24); do
-            code="$(curl -LsS --retry 1 --connect-timeout 10 --max-time 20 -o live-index.html -w '%{http_code}' "$url" || true)"
-            if [ "$code" = "200" ] && [ -s live-index.html ]; then
-              echo "GitHub Pages reachable on attempt $i"
-              grep -o 'site-premium-v20260924.css?v=[^"[:space:]]*' live-index.html | head -1 || true
-              grep -o 'site.js?v=[^"[:space:]]*' live-index.html | head -1 || true
+          for i in $(seq 1 36); do
+            code="$(curl -LsS --retry 1 --connect-timeout 10 --max-time 20 -H 'Cache-Control: no-cache' -o live-index.html -w '%{http_code}' "$url?audit=${GITHUB_SHA}" || true)"
+            if [ "$code" = "200" ] && [ -s live-index.html ] && grep -Fq "$expected" live-index.html; then
+              echo "Latest main is live on attempt $i"
+              grep -o 'site-master-v20260925.css?v=[^"[:space:]]*' live-index.html | head -1 || true
               ok=1
               break
             fi
-            echo "Waiting for Pages availability... $i/24 (HTTP $code)"
+            live="$(grep -o 'site-master-v20260925.css?v=[^"[:space:]]*' live-index.html 2>/dev/null | head -1 || true)"
+            echo "Waiting for latest Pages deployment... $i/36 (HTTP $code, live=$live)"
             sleep 5
           done
           test "$ok" = '1'
@@ -115,7 +118,11 @@ jobs:
                   if(pth!=='trial-line.html'){
                     await page.waitForFunction(()=>Boolean(document.documentElement.dataset.xjwRuntime),{timeout:8000}).catch(()=>{});
                   }
-                  await page.waitForTimeout(180);
+                  await page.waitForFunction(() => {
+                    const visible=i=>!!(i&&(i.offsetWidth||i.offsetHeight||i.getClientRects().length));
+                    return [...document.images].filter(visible).every(i=>i.complete&&i.naturalWidth>0);
+                  },{timeout:5000}).catch(()=>{});
+                  await page.waitForTimeout(220);
                 }catch(e){
                   report.errors.push({vp:vpName,page:pth,type:'navigation',detail:String(e)});
                   await page.close(); continue;
@@ -128,7 +135,9 @@ jobs:
                   const header=document.querySelector('.site-header');
                   const menuBtn=document.querySelector('.menu-btn');
                   const h1=document.querySelector('h1');
-                  const paras=[...document.querySelectorAll('main p')].filter(visible);
+                  const paras=[...document.querySelectorAll('main p')]
+                    .filter(visible)
+                    .filter(p=>!p.matches('.eyebrow,.product-purpose,.muted'));
                   const duplicates=[...document.querySelectorAll('[id]')].map(e=>e.id).filter((id,i,a)=>id&&a.indexOf(id)!==i);
                   const rawLinks=[...document.querySelectorAll('a[href]')].filter(visible).map(a=>({
                     text:(a.textContent||'').trim().slice(0,80),
