@@ -121,7 +121,7 @@ jobs:
                   await page.waitForFunction(() => {
                     const visible=i=>!!(i&&(i.offsetWidth||i.offsetHeight||i.getClientRects().length));
                     return [...document.images].filter(visible).every(i=>i.complete&&i.naturalWidth>0);
-                  },{timeout:5000}).catch(()=>{});
+                  },{timeout:1200}).catch(()=>{});
                   await page.waitForTimeout(220);
                 }catch(e){
                   report.errors.push({vp:vpName,page:pth,type:'navigation',detail:String(e)});
