@@ -10,7 +10,7 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260820-six-product-public-master-v4';
+  const VERSION='20260925-six-product-public-master-v7';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐';
@@ -97,7 +97,7 @@
       detailImages:Array.isArray(product.detailImages)&&product.detailImages.length?product.detailImages:(image?[image]:[]),
       dmImage:dm,
       officialOriginalImage:product.officialOriginalImage||'',
-      imagePolicy:'approved-media-only-no-ai-redraw-no-crop-no-stretch',
+      imagePolicy:'approved-formal-media-derived-focus-view-no-ai-redraw-no-product-distortion',
       physicalScalePolicy:product.physicalScalePolicy||'preserve-real-product-shape-package-and-proportion'
     };
   }
