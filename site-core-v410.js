@@ -272,7 +272,7 @@ function renderFooter() {
           <p>產品規格、一般使用、配送與購買資訊，皆可透過官方 LINE 詢問。</p>
           ${lineButton("前往 LINE 詢問", pageLineMessage())}
         </div>
-        <img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code" loading="lazy" decoding="async">
+        <img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code" loading="eager" decoding="async">
       </div>
 
       <div class="footer-legal">仙加味網站內容以產品資訊、日常飲食與漢方飲食文化整理為主；特殊健康狀況請洽專業醫療人員。</div>

@@ -2139,3 +2139,23 @@ a,button,.btn,.product-card,.faq-list details{
 .footer-card p,.footer-card .footer-legal,.footer-card .footer-nav a{color:rgba(255,255,255,.84)!important}
 .footer-card .footer-nav a:hover{color:#fff!important}
 .footer-card .btn-outline{color:#fff!important;background:rgba(255,255,255,.06)!important;border-color:rgba(255,255,255,.38)!important}
+
+/* v29 mobile touch + accessible LINE CTA */
+.btn-line,.header-line-cta{
+  color:#fff!important;
+  background:#07883f!important;
+  border-color:#07883f!important;
+}
+@media(max-width:700px){
+  body[data-page="products"] .product-card__actions .btn,
+  body[data-page="products"] .product-card__actions a.btn,
+  body[data-page="products"] .product-card__actions button.btn{
+    min-height:44px!important;
+    font-size:12px!important;
+    line-height:1.3!important;
+  }
+  body[data-page="products"] .product-card__body .muted{
+    font-size:12.5px!important;
+    line-height:1.45!important;
+  }
+}
