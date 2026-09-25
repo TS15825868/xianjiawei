@@ -1751,3 +1751,46 @@ body[data-page="products"] .product-card__body h3{margin-top:0!important}
   html{scroll-behavior:auto!important}
   a,button,.btn,.product-card,.menu-btn,.menu-close{transition:none!important}
 }
+
+
+/* 仙加味｜Master Visual v25｜可讀性與互動命中區鎖定 */
+/*
+ * 目的：避免較早高 specificity 規則覆蓋正式品牌色；
+ * LINE CTA 採深綠提高白字對比，手機操作高度至少 44px。
+ */
+html body.ux-v410 .btn.btn-line,
+html body.ux-v410 a.btn.btn-line,
+html body .btn.btn-line,
+html body a.btn.btn-line,
+html body .menu-quick-actions .btn-line,
+html body .menu-contact-card .btn-line,
+html body .header-line-cta,
+html body .floating-line-cta,
+html body[data-page="contact"] article.contact-line-card.card .btn-line{
+  color:#fff!important;
+  background:#03843a!important;
+  border-color:#03843a!important;
+}
+html body[data-page="products"] .product-card__actions .btn,
+html body[data-page="products"] .product-card__actions a.btn,
+html body[data-page="products"] .product-card__actions button.btn{
+  min-height:44px!important;
+  height:auto!important;
+  padding-top:8px!important;
+  padding-bottom:8px!important;
+  line-height:1.3!important;
+}
+main p:not(.eyebrow):not(.product-purpose):not(.muted),
+main li{
+  font-size:15px!important;
+}
+@media(max-width:700px){
+  html body[data-page="products"] .product-card__actions .btn,
+  html body[data-page="products"] .product-card__actions a.btn,
+  html body[data-page="products"] .product-card__actions button.btn{
+    min-height:44px!important;
+    padding-top:9px!important;
+    padding-bottom:9px!important;
+    font-size:13px!important;
+  }
+}
