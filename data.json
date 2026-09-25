@@ -22,9 +22,9 @@
       "name": "龜鹿飲30cc玻璃罐",
       "displayName": "龜鹿飲30cc玻璃罐",
       "size": "30cc／罐（小玻璃罐）",
-      "image": "images/products-v3/guilu-drink-30.jpg?v=20260925-original-v26",
+      "image": "images/guilu-drink-30cc-glass.jpg?v=20260925-real-original-v27",
       "dmImage": "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-drink-30.jpg?v=20260820-current-authority",
+      "officialOriginalImage": "images/guilu-drink-30cc-glass.jpg?v=20260820-current-authority",
       "description": "30cc小玻璃罐，維持實際小罐尺寸、裸罐、無貼紙、無外盒、無外袋、金色蓋，適合輕巧即飲、外出攜帶與工作空檔安排。",
       "ingredients": [
         "水",
@@ -59,7 +59,7 @@
       "readyStock": false,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v3/guilu-drink-30.jpg?v=20260925-original-v26"
+        "images/guilu-drink-30cc-glass.jpg?v=20260925-real-original-v27"
       ],
       "knownContainerDimensionsMm": {
         "diameter": 42,
@@ -74,9 +74,9 @@
       "name": "龜鹿飲180cc鋁袋",
       "displayName": "龜鹿飲180cc鋁袋",
       "size": "180cc／包（鋁袋）",
-      "image": "images/products-v3/guilu-drink-180.jpg?v=20260925-original-v26",
+      "image": "images/guilu-drink-180cc.jpg?v=20260925-real-original-v27",
       "dmImage": "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-drink-180.jpg?v=20260820-current-authority",
+      "officialOriginalImage": "images/guilu-drink-180cc.jpg?v=20260820-current-authority",
       "description": "180cc狹長直立鋁袋即飲型態，維持正式原圖比例，適合居家、工作空檔或偏好一次安排較完整份量的人。",
       "ingredients": [
         "水",
@@ -111,7 +111,7 @@
       "readyStock": false,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v3/guilu-drink-180.jpg?v=20260925-original-v26"
+        "images/guilu-drink-180cc.jpg?v=20260925-real-original-v27"
       ],
       "aspectRatioWidthToHeight": {
         "min": 0.6,
@@ -127,9 +127,9 @@
       "name": "龜鹿膏",
       "displayName": "龜鹿膏",
       "size": "100g／罐",
-      "image": "images/products-v3/guilu-gao.jpg?v=20260925-original-v26",
+      "image": "images/guilu-gao.jpg?v=20260925-real-original-v27",
       "dmImage": "images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-gao.jpg?v=20260820-current-authority",
+      "officialOriginalImage": "images/guilu-gao.jpg?v=20260820-current-authority",
       "description": "100g小罐膏狀型態，適合固定日常安排，可直接取用或以溫熱水化開。",
       "ingredients": [
         "鹿角萃取物",
@@ -159,7 +159,7 @@
       "readyStock": true,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v3/guilu-gao.jpg?v=20260925-original-v26"
+        "images/guilu-gao.jpg?v=20260925-real-original-v27"
       ],
       "knownContainerDimensionsMm": {
         "width": 51,
@@ -175,9 +175,9 @@
       "displayName": "龜鹿湯塊",
       "size": "75g （2兩）／盒｜8塊裝",
       "detailUnitApprox": "每塊約9.375g",
-      "image": "images/products-v3/guilu-tangkuai.jpg?v=20260925-original-v26",
+      "image": "images/products-v2/guilu-tangkuai-open-new.jpg?v=20260925-real-original-v27",
       "dmImage": "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-tangkuai.jpg?v=20260820-current-authority",
+      "officialOriginalImage": "images/products-v2/guilu-tangkuai-open-new.jpg?v=20260820-current-authority",
       "description": "75g（2兩）／盒、8塊裝，每塊約9.375g，適合熱水沖泡、保溫壺與家常燉湯。",
       "ingredients": [
         "龜板萃取物",
@@ -203,7 +203,7 @@
       "readyStock": true,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v3/guilu-tangkuai.jpg?v=20260925-original-v26"
+        "images/products-v2/guilu-tangkuai-open-new.jpg?v=20260925-real-original-v27"
       ],
       "knownContainerDimensionsMm": null,
       "imagePolicy": "approved-real-product-identity-photo-no-screenshot-no-ai-redraw-no-product-distortion",
@@ -216,9 +216,9 @@
       "displayName": "龜鹿膠",
       "size": "600g （1斤）／盒｜32塊裝",
       "detailUnitApprox": "每塊約18.75g",
-      "image": "images/products-v3/guilu-jiao.jpg?v=20260925-original-v26",
+      "image": "images/products-v2/guilu-jiao-open-new.jpg?v=20260925-real-original-v27",
       "dmImage": "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/guilu-jiao.jpg?v=20260820-current-authority",
+      "officialOriginalImage": "images/products-v2/guilu-jiao-open-new.jpg?v=20260820-current-authority",
       "description": "600g（1斤）／盒、32塊裝，每塊約18.75g，適合固定備用、家庭安排、熱水化開或燉湯。",
       "ingredients": [
         "龜板萃取物",
@@ -243,7 +243,7 @@
       "readyStock": true,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v3/guilu-jiao.jpg?v=20260925-original-v26"
+        "images/products-v2/guilu-jiao-open-new.jpg?v=20260925-real-original-v27"
       ],
       "knownContainerDimensionsMm": null,
       "imagePolicy": "approved-real-product-identity-photo-no-screenshot-no-ai-redraw-no-product-distortion",
@@ -255,9 +255,9 @@
       "name": "鹿茸粉",
       "displayName": "鹿茸粉",
       "size": "75g／罐",
-      "image": "images/products-v3/luerong-fen.jpg?v=20260925-original-v26",
+      "image": "images/products-v2/luerong-fen.jpeg?v=20260925-real-original-v27",
       "dmImage": "images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v3/luerong-fen.jpg?v=20260820-current-authority",
+      "officialOriginalImage": "images/products-v2/luerong-fen.jpeg?v=20260820-current-authority",
       "description": "75g單方鹿茸粉，適合自行調整份量並加入溫開水、牛奶或豆漿。",
       "ingredients": [
         "鹿茸"
@@ -282,7 +282,7 @@
       "readyStock": true,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v3/luerong-fen.jpg?v=20260925-original-v26"
+        "images/products-v2/luerong-fen.jpeg?v=20260925-real-original-v27"
       ],
       "knownContainerDimensionsMm": null,
       "imagePolicy": "approved-real-product-identity-photo-no-screenshot-no-ai-redraw-no-product-distortion",
@@ -573,15 +573,15 @@
     "productMasterMode": "six-public-product-authority",
     "knowledgeProductCount": 6,
     "approvedMediaProductCount": 6,
-    "productMainImageSource": "images/products-v3/",
+    "productMainImageSource": "approved-real-product-photo-direct-paths",
     "dmFallback": "approved-current-formal-dm-customer-display",
-    "productsV3Use": "identity-package-scale-reference-only",
+    "productsV3Use": "legacy-reference-only-not-current-main-image",
     "productsV2Use": "legacy-reference-only",
     "productScalePolicy": "uniform-only-preserve-realistic-relative-scale-no-equal-sizing",
     "physicalScaleAuthority": "content/product-physical-scale-authority-v20260809.json",
     "guardPolicy": "latest-authority-first-no-legacy-copy-version-lock",
     "deferredProductPublic": false,
     "productMainImagePolicy": "approved-real-product-identity-photo-direct-display-no-screenshot-no-ai-redraw-no-product-distortion",
-    "displayVersion": "20260925-original-v26"
+    "displayVersion": "20260925-real-original-v27"
   }
 }
