@@ -17,7 +17,7 @@
     jiao:`images/products-v2/guilu-jiao-open-new.jpg?v=${VERSION}`,
     luerong:`images/products-v2/luerong-fen.jpeg?v=${VERSION}`
   });
-  const OFFICIAL=Object.freeze({drink30:'images/products-v3/guilu-drink-30.jpg',drink180:'images/products-v3/guilu-drink-180.jpg'});
+  const OFFICIAL=Object.freeze({drink30:'images/guilu-drink-30cc-glass.jpg',drink180:'images/guilu-drink-180cc.jpg'});
   const IDS=Object.freeze({'guilu-gao':'gao','guilu-drink-30':'drink30','guilu-drink-180':'drink180','guilu-tangkuai':'tangkuai','guilu-jiao':'jiao','luerong-fen':'luerong'});
   const RULES=Object.freeze([
     {key:'gao',tests:[/guilu-gao/i]},
