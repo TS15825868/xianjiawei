@@ -333,16 +333,20 @@ function renderCurrentPage() {
 }
 
 function renderHome() {
-  const legacyProducts = document.getElementById("home-products");
-  if (legacyProducts) {
-    const legacySection = legacyProducts.closest(".section");
-    if (legacySection) {
-      legacySection.hidden = true;
-      legacySection.dataset.xjwLegacyHomeProductsRemoved = "1";
-    } else {
-      legacyProducts.hidden = true;
-    }
-  }
+  /* 首頁只保留 Hero 內的小型六產品展示。
+   * 舊版、快取版或附加層若插入第二套 product-grid / home-products，一律移除，
+   * 避免實機畫面再次出現六張巨大產品海報。
+   */
+  document.querySelectorAll("#home-products, .home-products-section, .home-product-links").forEach(node => {
+    const section = node.closest("section");
+    if (section && section !== document.querySelector(".hero")) section.remove();
+    else node.remove();
+  });
+  document.querySelectorAll("main .product-grid").forEach(grid => {
+    const section = grid.closest("section");
+    if (section && !section.classList.contains("hero")) section.remove();
+    else grid.remove();
+  });
   document.querySelector("main")?.classList.add("home-v410");
 }
 
