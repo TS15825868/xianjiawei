@@ -73,11 +73,11 @@ jobs:
           }
           if(mediaById.has('guilu-drink-30cc')){
             const m=mediaById.get('guilu-drink-30cc');
-            if(!String(m.image||'').includes('guilu-drink-30cc.avif'))errors.push('30cc主圖不是目前核准小玻璃裸罐');
+            if(!String(m.image||'').includes('/images/products-v3/guilu-drink-30.jpg'))errors.push('30cc主圖不是目前統一正式小玻璃裸罐主圖');
           }
           if(mediaById.has('guilu-drink-180cc')){
             const m=mediaById.get('guilu-drink-180cc');
-            if(!String(m.image||'').includes('guilu-drink-180cc-product.jpg'))errors.push('180cc主圖未使用正式product master');
+            if(!String(m.image||'').includes('/images/products-v3/guilu-drink-180.jpg'))errors.push('180cc主圖未使用目前統一正式鋁袋主圖');
           }
           if(errors.length){console.error(errors.join('\n'));process.exit(1)}
           console.log(`PASS website product/media authority: ${products.length} products, ${master.version}`);
