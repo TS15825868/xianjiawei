@@ -1,6 +1,6 @@
 {
-  "version": "2026-09-25-six-public-products-current-v21",
-  "authorityScope": "目前六項官網公開產品的顧客顯示／相容資料；最高文字權威為 public-product-master.json，本檔不得覆蓋新版產品事實或重新加入暫緩對外產品。",
+  "version": "2026-09-26-six-public-products-unified-main-v22",
+  "authorityScope": "目前六項官網公開產品的顧客顯示／相容資料；六項一般展示統一使用 images/products-v3 正式主產品圖，完整介紹頁另使用 dm-final 正式詳細圖；最高文字權威仍為 public-product-master.json。",
   "productDataAuthority": "public-product-master.json",
   "brand": "仙加味",
   "lineId": "@762jybnm",
@@ -22,9 +22,9 @@
       "name": "龜鹿飲30cc玻璃罐",
       "displayName": "龜鹿飲30cc玻璃罐",
       "size": "30cc／罐（小玻璃罐）",
-      "image": "images/guilu-drink-30cc-glass.jpg?v=20260925-real-original-v27",
-      "dmImage": "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/guilu-drink-30cc-glass.jpg?v=20260820-current-authority",
+      "image": "images/products-v3/guilu-drink-30.jpg?v=20260926-unified-product-main-v32",
+      "dmImage": "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260926-unified-product-main-v32",
+      "officialOriginalImage": "images/guilu-drink-30cc-glass.jpg?v=20260926-unified-product-main-v32",
       "description": "30cc小玻璃罐，維持實際小罐尺寸、裸罐、無貼紙、無外盒、無外袋、金色蓋，適合輕巧即飲、外出攜帶與工作空檔安排。",
       "ingredients": [
         "水",
@@ -59,13 +59,13 @@
       "readyStock": false,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/guilu-drink-30cc-glass.jpg?v=20260925-real-original-v27"
+        "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260926-unified-product-main-v32"
       ],
       "knownContainerDimensionsMm": {
         "diameter": 42,
         "height": 51
       },
-      "imagePolicy": "approved-real-product-identity-photo-no-screenshot-no-ai-redraw-no-product-distortion",
+      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "必須維持30cc小玻璃罐實際小罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐。"
     },
     {
@@ -74,9 +74,9 @@
       "name": "龜鹿飲180cc鋁袋",
       "displayName": "龜鹿飲180cc鋁袋",
       "size": "180cc／包（鋁袋）",
-      "image": "images/guilu-drink-180cc.jpg?v=20260925-real-original-v27",
-      "dmImage": "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/guilu-drink-180cc.jpg?v=20260820-current-authority",
+      "image": "images/products-v3/guilu-drink-180.jpg?v=20260926-unified-product-main-v32",
+      "dmImage": "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260926-unified-product-main-v32",
+      "officialOriginalImage": "images/guilu-drink-180cc.jpg?v=20260926-unified-product-main-v32",
       "description": "180cc狹長直立鋁袋即飲型態，維持正式原圖比例，適合居家、工作空檔或偏好一次安排較完整份量的人。",
       "ingredients": [
         "水",
@@ -111,14 +111,14 @@
       "readyStock": false,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/guilu-drink-180cc.jpg?v=20260925-real-original-v27"
+        "images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260926-unified-product-main-v32"
       ],
       "aspectRatioWidthToHeight": {
         "min": 0.6,
         "target": 0.64,
         "max": 0.68
       },
-      "imagePolicy": "approved-real-product-identity-photo-no-screenshot-no-ai-redraw-no-product-distortion",
+      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "狹長直立鋁袋；禁止橫向拉寬、加高或誇張放大。"
     },
     {
@@ -127,9 +127,9 @@
       "name": "龜鹿膏",
       "displayName": "龜鹿膏",
       "size": "100g／罐",
-      "image": "images/guilu-gao.jpg?v=20260925-real-original-v27",
-      "dmImage": "images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/guilu-gao.jpg?v=20260820-current-authority",
+      "image": "images/products-v3/guilu-gao.jpg?v=20260926-unified-product-main-v32",
+      "dmImage": "images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260926-unified-product-main-v32",
+      "officialOriginalImage": "images/guilu-gao.jpg?v=20260926-unified-product-main-v32",
       "description": "100g小罐膏狀型態，適合固定日常安排，可直接取用或以溫熱水化開。",
       "ingredients": [
         "鹿角萃取物",
@@ -159,13 +159,13 @@
       "readyStock": true,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/guilu-gao.jpg?v=20260925-real-original-v27"
+        "images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260926-unified-product-main-v32"
       ],
       "knownContainerDimensionsMm": {
         "width": 51,
         "height": 78
       },
-      "imagePolicy": "approved-real-product-identity-photo-no-screenshot-no-ai-redraw-no-product-distortion",
+      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "六角玻璃罐只允許等比例縮放，不改罐型、金色蓋或標籤比例。"
     },
     {
@@ -175,9 +175,9 @@
       "displayName": "龜鹿湯塊",
       "size": "75g （2兩）／盒｜8塊裝",
       "detailUnitApprox": "每塊約9.375g",
-      "image": "images/products-v2/guilu-tangkuai-open-new.jpg?v=20260925-real-original-v27",
-      "dmImage": "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v2/guilu-tangkuai-open-new.jpg?v=20260820-current-authority",
+      "image": "images/products-v3/guilu-tangkuai.jpg?v=20260926-unified-product-main-v32",
+      "dmImage": "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260926-unified-product-main-v32",
+      "officialOriginalImage": "images/products-v2/guilu-tangkuai-open-new.jpg?v=20260926-unified-product-main-v32",
       "description": "75g（2兩）／盒、8塊裝，每塊約9.375g，適合熱水沖泡、保溫壺與家常燉湯。",
       "ingredients": [
         "龜板萃取物",
@@ -203,10 +203,10 @@
       "readyStock": true,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v2/guilu-tangkuai-open-new.jpg?v=20260925-real-original-v27"
+        "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260926-unified-product-main-v32"
       ],
       "knownContainerDimensionsMm": null,
-      "imagePolicy": "approved-real-product-identity-photo-no-screenshot-no-ai-redraw-no-product-distortion",
+      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "深藍正式盒；盒體毫米尺寸未知時不得自行猜測，只依核准原圖等比例呈現；不得建立其他龜鹿湯塊容量。"
     },
     {
@@ -216,9 +216,9 @@
       "displayName": "龜鹿膠",
       "size": "600g （1斤）／盒｜32塊裝",
       "detailUnitApprox": "每塊約18.75g",
-      "image": "images/products-v2/guilu-jiao-open-new.jpg?v=20260925-real-original-v27",
-      "dmImage": "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v2/guilu-jiao-open-new.jpg?v=20260820-current-authority",
+      "image": "images/products-v3/guilu-jiao.jpg?v=20260926-unified-product-main-v32",
+      "dmImage": "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260926-unified-product-main-v32",
+      "officialOriginalImage": "images/products-v2/guilu-jiao-open-new.jpg?v=20260926-unified-product-main-v32",
       "description": "600g（1斤）／盒、32塊裝，每塊約18.75g，適合固定備用、家庭安排、熱水化開或燉湯。",
       "ingredients": [
         "龜板萃取物",
@@ -243,10 +243,10 @@
       "readyStock": true,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v2/guilu-jiao-open-new.jpg?v=20260925-real-original-v27"
+        "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260926-unified-product-main-v32"
       ],
       "knownContainerDimensionsMm": null,
-      "imagePolicy": "approved-real-product-identity-photo-no-screenshot-no-ai-redraw-no-product-distortion",
+      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "淡紫正式盒；毫米尺寸未知時不得自行猜測；不得橫向拉長，也不得縮成與75g湯塊相近尺寸。"
     },
     {
@@ -255,9 +255,9 @@
       "name": "鹿茸粉",
       "displayName": "鹿茸粉",
       "size": "75g／罐",
-      "image": "images/products-v2/luerong-fen.jpeg?v=20260925-real-original-v27",
-      "dmImage": "images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260820-current-authority",
-      "officialOriginalImage": "images/products-v2/luerong-fen.jpeg?v=20260820-current-authority",
+      "image": "images/products-v3/luerong-fen.jpg?v=20260926-unified-product-main-v32",
+      "dmImage": "images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260926-unified-product-main-v32",
+      "officialOriginalImage": "images/products-v2/luerong-fen.jpeg?v=20260926-unified-product-main-v32",
       "description": "75g單方鹿茸粉，適合自行調整份量並加入溫開水、牛奶或豆漿。",
       "ingredients": [
         "鹿茸"
@@ -282,10 +282,10 @@
       "readyStock": true,
       "priceNote": "價格與優惠請透過官方 LINE 詢問。",
       "detailImages": [
-        "images/products-v2/luerong-fen.jpeg?v=20260925-real-original-v27"
+        "images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260926-unified-product-main-v32"
       ],
       "knownContainerDimensionsMm": null,
-      "imagePolicy": "approved-real-product-identity-photo-no-screenshot-no-ai-redraw-no-product-distortion",
+      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "白色正式塑膠罐；毫米尺寸未知時不得自行猜測，只依核准原圖等比例呈現。"
     }
   ],
@@ -573,7 +573,7 @@
     "productMasterMode": "six-public-product-authority",
     "knowledgeProductCount": 6,
     "approvedMediaProductCount": 6,
-    "productMainImageSource": "approved-real-product-photo-direct-paths",
+    "productMainImageSource": "images/products-v3/",
     "dmFallback": "approved-current-formal-dm-customer-display",
     "productsV3Use": "legacy-reference-only-not-current-main-image",
     "productsV2Use": "legacy-reference-only",
@@ -582,6 +582,11 @@
     "guardPolicy": "latest-authority-first-no-legacy-copy-version-lock",
     "deferredProductPublic": false,
     "productMainImagePolicy": "approved-real-product-identity-photo-direct-display-no-screenshot-no-ai-redraw-no-product-distortion",
-    "displayVersion": "20260925-real-original-v27"
-  }
+    "displayVersion": "20260925-real-original-v27",
+    "productDetailImageSource": "images/dm-final/",
+    "productMainImageVersion": "20260926-unified-product-main-v32",
+    "productMainImageRule": "首頁、產品總覽、怎麼選、試喝與推薦等一般展示只使用六項 products-v3 統一正式主圖；完整介紹頁主圖相同，詳細區才使用 dm-final。",
+    "officialIdentitySource": "verified-original-product-photos"
+  },
+  "productMainImagePolicy": "six-products-use-one-unified-formal-main-set-products-v3; preserve-package-and-proportion; detailed-dm-only-on-complete-product-pages"
 }
