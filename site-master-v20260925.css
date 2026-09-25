@@ -1316,3 +1316,53 @@ body[data-page="contact"] .line-qr-card{
     grid-template-columns:1fr!important;
   }
 }
+
+
+/* 仙加味｜Master Visual v22｜正式產品聚焦圖最終鎖定 */
+/*
+ * v21 已完成整站層級與版面；v22 將「正式產品聚焦 SVG」視為最終顧客主圖。
+ * SVG 內嵌核准正式素材，只裁掉海報周邊文字；此處禁止再二次 cover / scale 裁切產品。
+ */
+img[src*="product-focus-v20260925/"]{
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+  filter:drop-shadow(0 8px 10px rgba(8,40,70,.07))!important;
+}
+.home-product-showcase__grid img[src*="product-focus-v20260925/"],
+.product-card__img img[src*="product-focus-v20260925/"],
+.product-detail-hero__media img[src*="product-focus-v20260925/"],
+.modal-gallery__item img[src*="product-focus-v20260925/"],
+.trial-product-card__media img[src*="product-focus-v20260925/"]{
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+}
+/* 30cc 是實體小玻璃罐：在型錄與首屏刻意保留小罐感，不放大成一般飲料罐。 */
+.home-product-showcase__grid img[src*="guilu-drink-30cc.svg"],
+body[data-page="products"] .product-card__img img[src*="guilu-drink-30cc.svg"]{
+  width:88%!important;
+  height:88%!important;
+  margin:auto!important;
+}
+/* 180cc維持狹長鋁袋感，不橫向撐滿。 */
+.home-product-showcase__grid img[src*="guilu-drink-180cc.svg"],
+body[data-page="products"] .product-card__img img[src*="guilu-drink-180cc.svg"]{
+  width:88%!important;
+  height:96%!important;
+  margin:auto!important;
+}
+/* 盒裝商品要看得到完整盒體輪廓與開盒內容。 */
+.home-product-showcase__grid img[src*="guilu-tangkuai.svg"],
+.home-product-showcase__grid img[src*="guilu-jiao.svg"],
+body[data-page="products"] .product-card__img img[src*="guilu-tangkuai.svg"],
+body[data-page="products"] .product-card__img img[src*="guilu-jiao.svg"]{
+  width:96%!important;
+  height:96%!important;
+  margin:auto!important;
+}
