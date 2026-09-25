@@ -1,0 +1,277 @@
+name: 仙加味官網跨裝置視覺／功能完整驗收
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - '**/*.css'
+      - '**/*.js'
+      - 'images/**'
+      - '.github/workflows/responsive-visual-audit-current.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xianjiawei-responsive-visual-audit-current
+  cancel-in-progress: true
+
+jobs:
+  responsive-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Wait for GitHub Pages current release
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://ts15825868.github.io/xianjiawei/index.html'
+          ok=0
+          for i in $(seq 1 36); do
+            body="$(curl -LsS --retry 1 --connect-timeout 10 --max-time 20 "$url" || true)"
+            if grep -q '20260924-premium-v12' <<<"$body"; then
+              echo "Pages current release detected on attempt $i"
+              ok=1
+              break
+            fi
+            echo "Waiting for Pages deployment... $i/36"
+            sleep 5
+          done
+          test "$ok" = '1'
+
+      - name: Install Playwright Chromium
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Audit desktop tablet iPhone Android
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > /tmp/xjw-responsive-audit.js <<'NODE'
+          const fs=require('fs');
+          const { chromium }=require('playwright');
+
+          const BASE='https://ts15825868.github.io/xianjiawei/';
+          const pages=[
+            'index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','dm.html',
+            'product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html',
+            'knowledge.html','why-guilu.html','video.html','sources.html','brand-facts.html','brand-origin.html','craft.html','ingredients.html','quality.html','combo.html','hanfang-baike.html','trial-line.html','404.html'
+          ];
+          const viewports={
+            desktop:{width:1440,height:1000,isMobile:false,hasTouch:false},
+            tablet:{width:820,height:1180,isMobile:false,hasTouch:true},
+            iphone:{width:390,height:844,isMobile:true,hasTouch:true},
+            android:{width:412,height:915,isMobile:true,hasTouch:true}
+          };
+          const keyScreens=new Set(['index.html','products.html','contact.html','product-guilu-drink-30cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html']);
+
+          function rgb(s){
+            const m=String(s||'').match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)(?:[, /]+([\d.]+))?\)/);
+            return m?{r:+m[1],g:+m[2],b:+m[3],a:m[4]===undefined?1:+m[4]}:null;
+          }
+          function lum(c){
+            const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};
+            return .2126*f(c.r)+.7152*f(c.g)+.0722*f(c.b);
+          }
+          function contrast(a,b){
+            const l1=lum(a),l2=lum(b); return (Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05);
+          }
+
+          (async()=>{
+            fs.mkdirSync('responsive-audit-screens',{recursive:true});
+            const browser=await chromium.launch();
+            const report={generatedAt:new Date().toISOString(),base:BASE,viewports:{},errors:[],warnings:[]};
+
+            for(const [vpName,vp] of Object.entries(viewports)){
+              const context=await browser.newContext({
+                viewport:{width:vp.width,height:vp.height},
+                isMobile:vp.isMobile,
+                hasTouch:vp.hasTouch,
+                deviceScaleFactor:1,
+                locale:'zh-TW'
+              });
+              report.viewports[vpName]={};
+
+              for(const pth of pages){
+                const page=await context.newPage();
+                const consoleErrors=[],pageErrors=[],requestFailed=[];
+                page.on('console',m=>{ if(m.type()==='error') consoleErrors.push(m.text()) });
+                page.on('pageerror',e=>pageErrors.push(String(e)));
+                page.on('requestfailed',r=>requestFailed.push({url:r.url(),failure:r.failure()}));
+
+                let response;
+                try{
+                  response=await page.goto(BASE+pth,{waitUntil:'domcontentloaded',timeout:30000});
+                  await page.waitForTimeout(250);
+                }catch(e){
+                  report.errors.push({vp:vpName,page:pth,type:'navigation',detail:String(e)});
+                  await page.close(); continue;
+                }
+
+                const audit=await page.evaluate(() => {
+                  const visible=el=>!!(el&&(el.offsetWidth||el.offsetHeight||el.getClientRects().length));
+                  const css=el=>getComputedStyle(el);
+                  const imgs=[...document.images];
+                  const header=document.querySelector('.site-header');
+                  const menuBtn=document.querySelector('.menu-btn');
+                  const h1=document.querySelector('h1');
+                  const paras=[...document.querySelectorAll('main p')].filter(visible);
+                  const duplicates=[...document.querySelectorAll('[id]')].map(e=>e.id).filter((id,i,a)=>id&&a.indexOf(id)!==i);
+
+                  const tiny=[...document.querySelectorAll('main p, main li, main a, .btn, .menu-group a, .footer-card a, .footer-card p')]
+                    .filter(visible)
+                    .map(el=>({text:(el.textContent||'').trim().slice(0,70),size:parseFloat(css(el).fontSize),tag:el.tagName,cls:el.className||''}))
+                    .filter(x=>x.text&&x.size<11.5)
+                    .slice(0,20);
+
+                  const overflow=[...document.querySelectorAll('body *')].filter(visible).map(el=>{
+                    const r=el.getBoundingClientRect(); return {el,r};
+                  }).filter(x=>x.r.left<-3||x.r.right>innerWidth+3).slice(0,20).map(x=>({
+                    tag:x.el.tagName,id:x.el.id||'',cls:String(x.el.className||'').slice(0,100),left:x.r.left,right:x.r.right
+                  }));
+
+                  const tapSmall=[...document.querySelectorAll('.btn,.menu-btn,.menu-close,.header-line-cta,.floating-line-cta')]
+                    .filter(visible).map(el=>{const r=el.getBoundingClientRect();return {text:(el.textContent||'').trim().slice(0,50),w:r.width,h:r.height,cls:el.className||''}})
+                    .filter(x=>x.w<40||x.h<40).slice(0,20);
+
+                  const contrastWarnings=[];
+                  for(const el of [...document.querySelectorAll('main h1,main h2,main h3,main p,main li,.btn,.site-header a,.site-header button,.footer-card p,.footer-card a,.footer-card h3')]){
+                    if(!visible(el)) continue;
+                    const s=css(el), fg=s.color;
+                    let node=el,bg=null,gradient=false;
+                    for(let i=0;i<5&&node;i++,node=node.parentElement){
+                      const ns=css(node);
+                      if(ns.backgroundImage && ns.backgroundImage!=='none') gradient=true;
+                      const c=ns.backgroundColor;
+                      if(c && !c.endsWith(', 0)') && c!=='rgba(0, 0, 0, 0)' && c!=='transparent'){bg=c;break}
+                    }
+                    if(gradient||!bg) continue;
+                    const fm=fg.match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)/), bm=bg.match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)/);
+                    if(!fm||!bm) continue;
+                    const fc={r:+fm[1],g:+fm[2],b:+fm[3]}, bc={r:+bm[1],g:+bm[2],b:+bm[3]};
+                    const cv=(c=>{const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};return .2126*f(c.r)+.7152*f(c.g)+.0722*f(c.b)})(fc);
+                    const bv=(c=>{const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};return .2126*f(c.r)+.7152*f(c.g)+.0722*f(c.b)})(bc);
+                    const ratio=(Math.max(cv,bv)+.05)/(Math.min(cv,bv)+.05);
+                    const large=parseFloat(s.fontSize)>=24 || (parseFloat(s.fontSize)>=18.66 && parseInt(s.fontWeight)>=700);
+                    if(ratio<(large?3:4.5)) contrastWarnings.push({text:(el.textContent||'').trim().slice(0,70),tag:el.tagName,cls:el.className||'',fg,bg,ratio:+ratio.toFixed(2),size:s.fontSize});
+                    if(contrastWarnings.length>=20) break;
+                  }
+
+                  return {
+                    title:document.title,
+                    w:innerWidth,h:innerHeight,
+                    scrollWidth:document.documentElement.scrollWidth,
+                    scrollHeight:document.documentElement.scrollHeight,
+                    overflowX:document.documentElement.scrollWidth>innerWidth+3,
+                    header:header?{position:css(header).position,top:header.getBoundingClientRect().top,height:header.getBoundingClientRect().height,z:css(header).zIndex}:null,
+                    menuBtn:menuBtn?{visible:visible(menuBtn),w:menuBtn.getBoundingClientRect().width,h:menuBtn.getBoundingClientRect().height}:null,
+                    h1:h1?{size:parseFloat(css(h1).fontSize),color:css(h1).color,text:h1.textContent.trim().slice(0,90)}:null,
+                    bodyFont:parseFloat(css(document.body).fontSize),
+                    paragraphFont:paras.length?Math.min(...paras.slice(0,30).map(x=>parseFloat(css(x).fontSize))):null,
+                    brokenImages:imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),
+                    missingAlt:imgs.filter(i=>!i.alt).map(i=>i.src),
+                    duplicateIds:[...new Set(duplicates)],
+                    tiny,overflow,tapSmall,contrastWarnings
+                  };
+                });
+
+                // Header/選單實際互動測試
+                let menuTest=null;
+                if(vpName!=='desktop'){
+                  try{
+                    await page.evaluate(()=>window.scrollTo(0,Math.min(document.body.scrollHeight*.58,2200)));
+                    await page.waitForTimeout(120);
+                    const fixed=await page.locator('.site-header').evaluate(el=>({top:el.getBoundingClientRect().top,position:getComputedStyle(el).position}));
+                    const menu=page.locator('.menu-btn');
+                    if(await menu.isVisible()){
+                      await menu.click();
+                      await page.waitForTimeout(100);
+                      const opened=await page.evaluate(()=>({
+                        aria:document.querySelector('.menu-btn')?.getAttribute('aria-expanded'),
+                        bodyClass:document.body.className,
+                        menuClass:document.querySelector('.site-menu')?.className,
+                        panelVisible:!!document.querySelector('.site-menu__panel')?.getClientRects().length
+                      }));
+                      if(await page.locator('.menu-close').isVisible()) await page.locator('.menu-close').click();
+                      menuTest={fixed,opened};
+                    }else menuTest={fixed,error:'menu button not visible'};
+                  }catch(e){menuTest={error:String(e)}}
+                }else{
+                  menuTest=await page.evaluate(()=>({
+                    headerNavVisible:!!document.querySelector('.header-nav')?.getClientRects().length,
+                    menuVisible:!!document.querySelector('.menu-btn')?.getClientRects().length
+                  }));
+                }
+
+                const status=response?response.status():null;
+                report.viewports[vpName][pth]={status,...audit,menuTest,consoleErrors,pageErrors,requestFailed};
+
+                if(status!==200) report.errors.push({vp:vpName,page:pth,type:'http',detail:status});
+                if(audit.overflowX) report.errors.push({vp:vpName,page:pth,type:'horizontal-overflow',detail:audit.overflow});
+                if(audit.brokenImages.length) report.errors.push({vp:vpName,page:pth,type:'broken-images',detail:audit.brokenImages});
+                if(pageErrors.length) report.errors.push({vp:vpName,page:pth,type:'page-errors',detail:pageErrors});
+                if(requestFailed.length) report.errors.push({vp:vpName,page:pth,type:'request-failed',detail:requestFailed});
+                if(audit.duplicateIds.length) report.errors.push({vp:vpName,page:pth,type:'duplicate-ids',detail:audit.duplicateIds});
+                if(audit.tapSmall.length && vpName!=='desktop') report.errors.push({vp:vpName,page:pth,type:'tap-target-small',detail:audit.tapSmall});
+                if(audit.h1 && audit.h1.size<(vpName==='desktop'?32:30)) report.errors.push({vp:vpName,page:pth,type:'h1-too-small',detail:audit.h1});
+                if(audit.paragraphFont && audit.paragraphFont<14) report.warnings.push({vp:vpName,page:pth,type:'body-text-small',detail:audit.paragraphFont});
+                if(audit.tiny.length) report.warnings.push({vp:vpName,page:pth,type:'tiny-text',detail:audit.tiny});
+                if(audit.contrastWarnings.length) report.warnings.push({vp:vpName,page:pth,type:'contrast-review',detail:audit.contrastWarnings});
+                if(vpName!=='desktop'){
+                  if(menuTest?.error || Math.abs(menuTest?.fixed?.top||0)>2 || menuTest?.fixed?.position!=='fixed' || menuTest?.opened?.aria!=='true'){
+                    report.errors.push({vp:vpName,page:pth,type:'fixed-menu',detail:menuTest});
+                  }
+                }else if(!menuTest?.headerNavVisible){
+                  report.errors.push({vp:vpName,page:pth,type:'desktop-nav-hidden',detail:menuTest});
+                }
+
+                if(keyScreens.has(pth)){
+                  await page.screenshot({path:`responsive-audit-screens/${vpName}-${pth.replace('.html','')}.png`,fullPage:true});
+                }
+                await page.close();
+              }
+              await context.close();
+            }
+
+            await browser.close();
+            fs.writeFileSync('responsive-audit-report.json',JSON.stringify(report,null,2));
+            const lines=[
+              '# 仙加味跨裝置官網驗收',
+              '',
+              `- 產生時間：${report.generatedAt}`,
+              `- 全站頁面：${pages.length}`,
+              `- 裝置：${Object.keys(viewports).join('、')}`,
+              `- 錯誤：${report.errors.length}`,
+              `- 警告：${report.warnings.length}`,
+              '',
+              '## Errors',
+              ...(report.errors.length?report.errors.map(x=>`- [${x.vp}] ${x.page} / ${x.type}: ${JSON.stringify(x.detail).slice(0,500)}`):['- 無']),
+              '',
+              '## Warnings',
+              ...(report.warnings.length?report.warnings.slice(0,100).map(x=>`- [${x.vp}] ${x.page} / ${x.type}: ${JSON.stringify(x.detail).slice(0,500)}`):['- 無'])
+            ];
+            fs.writeFileSync('responsive-audit-summary.md',lines.join('\n'));
+            console.log(lines.join('\n'));
+            if(report.errors.length) process.exit(1);
+          })();
+          NODE
+          node /tmp/xjw-responsive-audit.js
+
+      - name: Upload visual audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-responsive-visual-audit-${{ github.run_id }}
+          path: |
+            responsive-audit-report.json
+            responsive-audit-summary.md
+            responsive-audit-screens/
+          if-no-files-found: warn
+          retention-days: 7
