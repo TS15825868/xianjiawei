@@ -1,26 +1,26 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-09-25 direct real-product media authority v11
+/* 仙加味顧客端產品主視覺｜2026-09-25 verified original-product media authority v12
  * 官網、官網AI/GEO與公開貼文目前六項產品文字知識以 public-product-master.json 為最高權威。
  * 六項皆已有核准正式產品圖；產品主圖、詳細DM、試喝正式海報分開管理。
  * 柒玄茶目前暫不放官網；LINE文字知識與ERP資料由各自正式權威保留。
- * products-v3 為目前核准正式實品身份照片，直接作為官網產品主圖；DM、試喝素材維持分層。
+ * 官網產品主圖直接使用已核對之正式實物照片；不使用海報截圖、DM裁切或重新設計包裝；DM、試喝素材維持分層。
  */
 (function(){
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260925-real-product-v26';
+  const VERSION='20260925-real-original-v27';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const DISPLAY=Object.freeze({
-    'guilu-gao':'images/products-v3/guilu-gao.jpg',
-    'guilu-drink-30':'images/products-v3/guilu-drink-30.jpg',
-    'guilu-drink-180':'images/products-v3/guilu-drink-180.jpg',
-    'guilu-tangkuai':'images/products-v3/guilu-tangkuai.jpg',
-    'guilu-jiao':'images/products-v3/guilu-jiao.jpg',
-    'luerong-fen':'images/products-v3/luerong-fen.jpg'
+    'guilu-gao':'images/guilu-gao.jpg',
+    'guilu-drink-30':'images/guilu-drink-30cc-glass.jpg',
+    'guilu-drink-180':'images/guilu-drink-180cc.jpg',
+    'guilu-tangkuai':'images/products-v2/guilu-tangkuai-open-new.jpg',
+    'guilu-jiao':'images/products-v2/guilu-jiao-open-new.jpg',
+    'luerong-fen':'images/products-v2/luerong-fen.jpeg'
   });
   const TRIAL=Object.freeze({
     mode:'poster',
@@ -82,7 +82,7 @@
         image:displayUrl,imageUrl:displayUrl,image_url:displayUrl,detailImages:[displayUrl],
         officialOriginalImage:identity||product.officialOriginalImage||'',
         imagePolicy:'approved-real-product-identity-photo-direct-display-no-screenshot-no-ai-redraw-no-product-distortion-no-dm-substitution',
-        officialImagePolicy:'products-v3-approved-real-product-main-image-no-redraw',
+        officialImagePolicy:'verified-real-product-original-photo-no-redraw',
         physicalScalePolicy:'depicted-product-must-match-real-approved-product-shape-package-and-proportion'
       };
     });
@@ -96,8 +96,8 @@
       productTextAuthority:'public-product-master.json',
       knowledgeProductCount:6,
       approvedMediaProductCount:6,
-      productMainImageSource:'images/products-v3/',
-      productIdentityReference:'images/products-v3/',
+      productMainImageSource:'verified-direct-real-product-photo-paths',
+      productIdentityReference:'verified-direct-real-product-photo-paths',
       dmSource:'images/dm-final/',
       trialMode:TRIAL.mode,
       trialPoster:`${TRIAL.image}?v=${VERSION}`,
