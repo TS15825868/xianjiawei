@@ -52,7 +52,7 @@
   });
 
   function isDataUrl(value=''){
-    try{return /(?:^|\\/)data\\.json(?:[?#]|$)/i.test(new URL(String(value||''),location.href).pathname)}catch{return false}
+    try{return /(?:^|\/)data\.json(?:[?#]|$)/i.test(new URL(String(value||''),location.href).pathname)}catch{return false}
   }
   function normalize(data){
     if(!data||!Array.isArray(data.products)) return data;
