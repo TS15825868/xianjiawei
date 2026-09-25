@@ -1794,3 +1794,261 @@ main li{
     font-size:13px!important;
   }
 }
+
+
+/* 仙加味｜Master Visual v26｜正式實品圖・品牌流暢度・完整留白 */
+/*
+ * 2026-09-25
+ * 以 products-v3 核准正式實品身份照片為產品主圖。
+ * 產品本體完整等比例顯示；不以網頁截圖、DM裁切圖或聚焦SVG取代產品實品。
+ * 深藍、米白、深紅、金色與深綠維持仙加味正式品牌系統。
+ */
+:root{
+  --xjw26-navy:#082846;
+  --xjw26-navy-soft:#103a60;
+  --xjw26-cream:#f7f4ed;
+  --xjw26-paper:#fffdf8;
+  --xjw26-red:#8f2b31;
+  --xjw26-gold:#c79b4d;
+  --xjw26-green:#244c3b;
+  --xjw26-text:#223142;
+  --xjw26-muted:#5f6b78;
+  --xjw26-line:rgba(199,155,77,.17);
+  --xjw26-shadow:0 14px 34px rgba(8,40,70,.065);
+}
+html{
+  scroll-behavior:smooth!important;
+  scroll-padding-top:88px!important;
+}
+body{
+  color:var(--xjw26-text)!important;
+  background:
+    radial-gradient(circle at 92% 3%,rgba(199,155,77,.055),transparent 23%),
+    linear-gradient(180deg,#fbf8f2 0%,#fffdfa 44%,#f6f1e8 100%)!important;
+}
+main{overflow:clip}
+main p:not(.eyebrow),main li{
+  color:var(--xjw26-text);
+  line-height:1.72!important;
+  letter-spacing:.01em;
+}
+.section{
+  position:relative;
+  padding-block:clamp(50px,6vw,82px)!important;
+}
+.section-heading,.section-title{
+  margin-bottom:clamp(22px,3vw,34px)!important;
+}
+.section-heading>p:last-child,.section-title>p:last-child,.answer-lead{
+  max-width:64ch!important;
+  color:var(--xjw26-muted)!important;
+}
+.card,.panel,.product-card,.faq-list details,.faq-item,.final-cta{
+  border-color:var(--xjw26-line)!important;
+  box-shadow:var(--xjw26-shadow)!important;
+}
+.card,.panel,.product-card,.faq-list details,.faq-item{
+  border-radius:20px!important;
+}
+.btn{
+  min-height:44px;
+  border-radius:999px!important;
+  font-weight:700!important;
+  letter-spacing:.01em;
+}
+.btn-primary{
+  color:#fff!important;
+  background:var(--xjw26-red)!important;
+  border-color:var(--xjw26-red)!important;
+}
+.btn-outline{
+  color:var(--xjw26-navy)!important;
+  background:rgba(255,253,248,.84)!important;
+  border-color:rgba(8,40,70,.24)!important;
+}
+.btn-line{
+  color:#fff!important;
+  background:#03843a!important;
+  border-color:#03843a!important;
+}
+.eyebrow{color:var(--xjw26-red)!important}
+h1,h2,h3{color:var(--xjw26-navy)!important;text-wrap:balance}
+
+/* 正式產品圖：全站產品表面直接完整顯示，不裁、不拉、不遮。 */
+body:not([data-page="dm"]) .product-card__img,
+body:not([data-page="dm"]) .product-detail-hero__media,
+body:not([data-page="dm"]) .home-product-showcase__grid>a,
+body:not([data-page="dm"]) .trial-product-card__media{
+  overflow:visible!important;
+}
+body:not([data-page="dm"]) .product-card__img img,
+body:not([data-page="dm"]) .product-detail-hero__media img,
+body:not([data-page="dm"]) .home-product-showcase__grid img,
+body:not([data-page="dm"]) .trial-product-card__media img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+  filter:none!important;
+  margin:auto!important;
+}
+
+/* 產品總覽：取消「圖被塞在白框裡」的感覺，保留完整外觀與呼吸感。 */
+body[data-page="products"] .product-grid{
+  gap:clamp(18px,2.4vw,28px)!important;
+  align-items:stretch!important;
+}
+body[data-page="products"] .product-card{
+  overflow:hidden!important;
+  background:linear-gradient(180deg,var(--xjw26-paper) 0%,#faf4e9 100%)!important;
+  border:1px solid rgba(199,155,77,.18)!important;
+}
+body[data-page="products"] .product-card__img{
+  width:100%!important;
+  aspect-ratio:4/3!important;
+  margin:0!important;
+  padding:clamp(14px,2vw,22px)!important;
+  border:0!important;
+  border-radius:0!important;
+  background:
+    radial-gradient(circle at 50% 48%,#fff 0%,#fffdf8 60%,#f4ecdf 100%)!important;
+  box-shadow:inset 0 -1px rgba(199,155,77,.10)!important;
+}
+body[data-page="products"] .product-card__body{
+  padding:18px 20px 20px!important;
+}
+body[data-page="products"] .product-card__body h3{
+  color:var(--xjw26-navy)!important;
+  font-size:clamp(17px,1.45vw,20px)!important;
+  line-height:1.35!important;
+}
+body[data-page="products"] .product-card__body .muted{
+  color:var(--xjw26-muted)!important;
+  line-height:1.6!important;
+}
+
+/* 首頁產品：圖片優先，名稱與規格清楚，不把產品硬塞滿。 */
+.home-product-showcase__grid{
+  gap:clamp(14px,2vw,22px)!important;
+}
+.home-product-showcase__grid>a{
+  min-height:210px!important;
+  grid-template-rows:minmax(145px,1fr) auto!important;
+  padding:14px!important;
+  border:1px solid rgba(199,155,77,.15)!important;
+  border-radius:18px!important;
+  background:linear-gradient(180deg,#fffdf9 0%,#f7eee0 100%)!important;
+  box-shadow:0 10px 26px rgba(8,40,70,.055)!important;
+}
+.home-product-showcase__grid img{
+  padding:6px!important;
+}
+
+/* 產品詳細頁：大圖完整顯示，媒體區不做厚重白框。 */
+.product-detail-hero{
+  gap:clamp(24px,4vw,52px)!important;
+  padding:clamp(22px,4vw,46px)!important;
+  background:linear-gradient(135deg,#fffdf8 0%,#f3e7d5 100%)!important;
+  border:1px solid rgba(199,155,77,.20)!important;
+  border-radius:26px!important;
+  box-shadow:0 16px 40px rgba(8,40,70,.07)!important;
+}
+.product-detail-hero__media{
+  aspect-ratio:4/3!important;
+  min-height:0!important;
+  padding:clamp(12px,2vw,24px)!important;
+  border:0!important;
+  border-radius:20px!important;
+  background:
+    radial-gradient(circle at 50% 46%,#fff 0%,#fffdf8 64%,#efe5d6 100%)!important;
+  box-shadow:inset 0 0 0 1px rgba(199,155,77,.08)!important;
+}
+.product-detail-hero__content{
+  align-self:center!important;
+}
+.fact-chips{gap:8px!important}
+.fact-chips span{
+  color:var(--xjw26-navy)!important;
+  background:rgba(255,253,248,.82)!important;
+  border-color:rgba(199,155,77,.20)!important;
+}
+
+/* FAQ、品牌故事、LINE CTA 維持品牌層次，不靠大量白色框堆疊。 */
+.faq-list details,.faq-item{
+  background:rgba(255,253,248,.94)!important;
+}
+.final-cta{
+  background:
+    radial-gradient(circle at 90% 10%,rgba(199,155,77,.15),transparent 27%),
+    linear-gradient(135deg,#fffdf8 0%,#f2e5d1 100%)!important;
+}
+.home-story-card,.footer-card,body[data-page="contact"] .contact-line-card{
+  color:#fff!important;
+  background:
+    radial-gradient(circle at 88% 12%,rgba(199,155,77,.20),transparent 30%),
+    linear-gradient(135deg,var(--xjw26-navy),var(--xjw26-navy-soft))!important;
+  border-color:rgba(199,155,77,.22)!important;
+}
+.home-story-card h2,.home-story-card h3,
+.footer-card h2,.footer-card h3,
+body[data-page="contact"] .contact-line-card h2,
+body[data-page="contact"] .contact-line-card h3{color:#fff!important}
+
+/* 互動流暢但不做浮誇位移；鍵盤使用者保留清楚焦點。 */
+a,button,.btn,.product-card,.faq-list details{
+  transition:
+    color .18s ease,
+    background-color .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    opacity .18s ease!important;
+}
+a:focus-visible,button:focus-visible,.btn:focus-visible{
+  outline:3px solid rgba(199,155,77,.55)!important;
+  outline-offset:3px!important;
+}
+.btn:hover{box-shadow:0 7px 20px rgba(8,40,70,.10)!important}
+.product-card:hover{transform:none!important}
+
+@media(max-width:700px){
+  html{scroll-padding-top:74px!important}
+  .section{padding-block:44px!important}
+  .section-heading,.section-title{margin-bottom:20px!important}
+  body[data-page="products"] .product-card__img{
+    aspect-ratio:4/3!important;
+    padding:12px!important;
+  }
+  body[data-page="products"] .product-card__body{
+    padding:16px!important;
+  }
+  .home-product-showcase__grid>a{
+    min-height:178px!important;
+    grid-template-rows:minmax(118px,1fr) auto!important;
+    padding:10px!important;
+  }
+  .product-detail-hero{
+    padding:16px!important;
+    border-radius:20px!important;
+    gap:18px!important;
+  }
+  .product-detail-hero__media{
+    aspect-ratio:4/3!important;
+    padding:10px!important;
+    border-radius:16px!important;
+  }
+  .answer-lead{font-size:15px!important;line-height:1.7!important}
+}
+@media(max-width:430px){
+  .home-product-showcase__grid{grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .home-product-showcase__grid>a{min-height:164px!important}
+  .home-product-showcase__grid img{padding:4px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
