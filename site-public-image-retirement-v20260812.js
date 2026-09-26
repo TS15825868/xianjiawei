@@ -1,7 +1,7 @@
 "use strict";
 
-/* 仙加味公開網站舊圖退役層｜2026-09-26 v10
- * 一般展示統一使用 products-v3 六項正式主產品圖。
+/* 仙加味公開網站舊圖退役層｜2026-09-26 v11
+ * 一般展示統一使用 dm-v3 六項 DM 風正式主產品圖。
  * 舊雜背景實拍、customer-display 舊檔與 approved-v405 舊產品合成圖若回流，一律導回同一套主圖。
  * dm-final 為完整產品介紹頁詳細圖，不在本層退役。
  */
@@ -9,14 +9,14 @@
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260926-unified-product-main-v32';
+  const VERSION='20260926-dm-style-main-v33';
   const MAIN=Object.freeze({
-    'guilu-gao':`images/products-v3/guilu-gao.jpg?v=${VERSION}`,
-    'guilu-drink-30':`images/products-v3/guilu-drink-30.jpg?v=${VERSION}`,
-    'guilu-drink-180':`images/products-v3/guilu-drink-180.jpg?v=${VERSION}`,
-    'guilu-tangkuai':`images/products-v3/guilu-tangkuai.jpg?v=${VERSION}`,
-    'guilu-jiao':`images/products-v3/guilu-jiao.jpg?v=${VERSION}`,
-    'luerong-fen':`images/products-v3/luerong-fen.jpg?v=${VERSION}`
+    'guilu-gao':`images/dm-v3/guilu-gao.jpg?v=${VERSION}`,
+    'guilu-drink-30':`images/dm-v3/guilu-drink-30.jpg?v=${VERSION}`,
+    'guilu-drink-180':`images/dm-v3/guilu-drink-180.jpg?v=${VERSION}`,
+    'guilu-tangkuai':`images/dm-v3/guilu-tangkuai.jpg?v=${VERSION}`,
+    'guilu-jiao':`images/dm-v3/guilu-jiao.jpg?v=${VERSION}`,
+    'luerong-fen':`images/dm-v3/luerong-fen.jpg?v=${VERSION}`
   });
   const PRODUCT_REPLACEMENTS=Object.freeze({
     'product-guilu-gao-100g.webp':MAIN['guilu-gao'],
