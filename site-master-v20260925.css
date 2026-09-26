@@ -2311,3 +2311,76 @@ body[data-page="products"] .product-card__img{aspect-ratio:4/5!important;padding
 }
 
 /* v32 final authority sync: dm-v3 main / dm-final detail / no-crop responsive audit */
+
+
+/* ===== Master v34｜首頁六項 DM 主圖大圖展示 2026-09-27 =====
+ * 保留正式 dm-v3 圖，不以 AI 重畫產品包裝。
+ * 首頁六項主圖使用完整 4:5 DM 比例，不裁切、不拉伸；
+ * 移除圖片下方重複產品名稱，避免手機六宮格擁擠與黑字壓圖。
+ */
+body[data-page="home"] .home-product-showcase{
+  padding:14px!important;
+  gap:12px!important;
+}
+body[data-page="home"] .home-product-showcase__grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:12px!important;
+  align-items:start!important;
+}
+body[data-page="home"] .home-product-showcase__grid>a{
+  display:block!important;
+  grid-template-rows:none!important;
+  min-height:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(199,155,77,.24)!important;
+  border-radius:16px!important;
+  background:#fffdf8!important;
+  box-shadow:0 9px 24px rgba(8,40,70,.07)!important;
+}
+body[data-page="home"] .home-product-showcase__grid img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  aspect-ratio:4/5!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:15px!important;
+  background:#fffdf8!important;
+  transform:none!important;
+  clip-path:none!important;
+}
+body[data-page="home"] .home-product-showcase__grid span{
+  display:none!important;
+}
+body[data-page="home"] .home-product-showcase figcaption{
+  margin-top:2px!important;
+  padding:0 2px!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+  color:rgba(255,255,255,.76)!important;
+}
+@media(max-width:700px){
+  body[data-page="home"] .home-product-showcase{
+    padding:10px!important;
+    border-radius:20px!important;
+  }
+  body[data-page="home"] .home-product-showcase__grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  body[data-page="home"] .home-product-showcase__grid>a{
+    min-height:0!important;
+    border-radius:13px!important;
+  }
+  body[data-page="home"] .home-product-showcase__grid img{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:4/5!important;
+    border-radius:12px!important;
+  }
+}
