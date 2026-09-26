@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味公開網站舊圖退役層｜2026-09-26 v11
+/* 仙加味公開網站舊圖退役層｜2026-09-27 v12
  * 一般展示統一使用 dm-v3 六項 DM 風正式主產品圖。
  * 舊雜背景實拍、customer-display 舊檔與 approved-v405 舊產品合成圖若回流，一律導回同一套主圖。
  * dm-final 為完整產品介紹頁詳細圖，不在本層退役。
@@ -9,7 +9,7 @@
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260926-dm-style-main-v33';
+  const VERSION='20260927-dm-showcase-v34';
   const MAIN=Object.freeze({
     'guilu-gao':`images/dm-v3/guilu-gao.jpg?v=${VERSION}`,
     'guilu-drink-30':`images/dm-v3/guilu-drink-30.jpg?v=${VERSION}`,
