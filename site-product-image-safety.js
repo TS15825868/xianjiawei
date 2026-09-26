@@ -1,6 +1,6 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-09-26 DM-style product-main safety v13
+/* 官網顧客產品圖片安全層｜2026-09-27 DM-style product-main safety v14
  * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 dm-v3 DM 風正式主圖。
  * dm-final 為完整產品介紹頁詳細圖，不得被主圖守門員覆寫。
  */
@@ -8,7 +8,7 @@
   if(window.__XJW_PRODUCT_IMAGE_SAFETY_V13__)return;
   window.__XJW_PRODUCT_IMAGE_SAFETY_V13__=true;
 
-  const VERSION='20260926-dm-style-main-v33';
+  const VERSION='20260927-dm-showcase-v34';
   const CUSTOMER=Object.freeze({
     gao:`images/dm-v3/guilu-gao.jpg?v=${VERSION}`,
     drink30:`images/dm-v3/guilu-drink-30.jpg?v=${VERSION}`,
