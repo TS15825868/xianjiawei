@@ -15,17 +15,17 @@ NEXT_CYCLE_MEDIA='content/social-next-cycle-media-v20260911.json'
 NEXT_CYCLE_PLAN='content/social-plan-20261015-1031-candidates.json'
 RETIRED_PRODUCT_MEDIA_PREFIX='images/brand/approved-v405/product-'
 FORMAL_PRODUCT_MEDIA={
-    'guilu-gao':'images/customer-display-v20260812/guilu-gao.avif',
-    'guilu-drink-30cc':'images/customer-display-v20260812/guilu-drink-30cc.avif',
-    'guilu-drink-180cc':'images/customer-display-v20260812/guilu-drink-180cc-product.jpg',
-    'guilu-tangkuai':'images/customer-display-v20260812/guilu-tangkuai.avif',
-    'guilu-jiao':'images/customer-display-v20260812/guilu-jiao.avif',
-    'luerong-fen':'images/customer-display-v20260812/luerong-fen.avif',
+    'guilu-gao':'images/dm-v3/guilu-gao.jpg',
+    'guilu-drink-30cc':'images/dm-v3/guilu-drink-30.jpg',
+    'guilu-drink-180cc':'images/dm-v3/guilu-drink-180.jpg',
+    'guilu-tangkuai':'images/dm-v3/guilu-tangkuai.jpg',
+    'guilu-jiao':'images/dm-v3/guilu-jiao.jpg',
+    'luerong-fen':'images/dm-v3/luerong-fen.jpg',
 }
 EXPECTED_NEXT_CYCLE_PRODUCT_MEDIA={
-    '2026-10-16':'images/customer-display-v20260812/guilu-drink-30cc.avif',
-    '2026-10-21':'images/customer-display-v20260812/guilu-drink-180cc-product.jpg',
-    '2026-10-27':'images/customer-display-v20260812/guilu-gao.avif',
+    '2026-10-16':'images/dm-v3/guilu-drink-30.jpg',
+    '2026-10-21':'images/dm-v3/guilu-drink-180.jpg',
+    '2026-10-27':'images/dm-v3/guilu-gao.jpg',
 }
 
 STATIC_PUBLIC_FILES=[
