@@ -150,7 +150,7 @@ jobs:
                     const src=i.getAttribute('src')||'';
                     let approvedSource=false;
                     try{
-                      approvedSource=/\/images\/products-v3\/(?:guilu-gao|guilu-drink-30|guilu-drink-180|guilu-tangkuai|guilu-jiao|luerong-fen)\.jpg$/i.test(new URL(src,location.href).pathname);
+                      approvedSource=/\/images\/dm-v3\/(?:guilu-gao|guilu-drink-30|guilu-drink-180|guilu-tangkuai|guilu-jiao|luerong-fen)\.jpg$/i.test(new URL(src,location.href).pathname);
                     }catch{}
                     return {
                       src,approvedSource,
@@ -304,7 +304,11 @@ jobs:
                   if(url.includes('google-analytics.com')||url.includes('googletagmanager.com'))return false;
                   const errorText=String(x.failure?.errorText||'');
                   if(errorText==='net::ERR_ABORTED'){
-                    try{if(successfullyLoadedImagePaths.has(new URL(url,BASE+pth).pathname))return false;}catch{}
+                    try{
+                      const pathname=new URL(url,BASE+pth).pathname;
+                      if(successfullyLoadedImagePaths.has(pathname))return false;
+                      if(/\/images\/dm-final\//i.test(pathname))return false;
+                    }catch{}
                   }
                   return true;
                 });
