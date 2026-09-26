@@ -26,7 +26,7 @@
   const CURRENT_GAO_TIMING = "食用時間可依個人使用習慣與作息時間安排";
 
   const FINAL_STYLE = `site-final-v20260925.css?v=${VERSION}`;
-  const MASTER_STYLE = 'site-master-v20260925.css?v=20260927-product-detail-media-v35';
+  const MASTER_STYLE = 'site-master-v20260925.css?v=20260927-product-media-audit-v36';
 
   const STYLES = [
     `site-ux-v410.css?v=${VERSION}`,
