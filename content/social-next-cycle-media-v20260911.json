@@ -1,7 +1,7 @@
 {
   "version": "2026-09-12-v7-avif-finalized-github-assets",
   "brand": "仙加味",
-  "status": "eligible-next-cycle-media-pool-with-user-approved-avif",
+  "status": "eligible-next-cycle-media-pool-with-current-dm-v3-main",
   "purpose": "提供2026-10-15之後候選使用，並避免與目前待審核或2026-10-01至10-14正式排程重複用圖。產品教育只採目前正式產品媒體權威；approved-v405僅保留合格生活／品牌場景用途。",
   "sourceAuthority": "data/formal-media-authority-v20260810.json",
   "legacySceneAuthority": "images/brand/approved-v405-manifest.json",
@@ -34,7 +34,7 @@
       "rule": "除非原待審核稿被明確退回／更換圖片，否則不得分配給10/15後另一篇貼文。"
     },
     {
-      "source": "images/customer-display-v20260812/guilu-gao.avif",
+      "source": "images/dm-v3/guilu-gao.jpg",
       "productId": "guilu-gao",
       "allowedPillars": [
         "龜鹿膏100g規格",
@@ -45,7 +45,7 @@
       "status": "eligible-formal-product-education-only"
     },
     {
-      "source": "images/customer-display-v20260812/guilu-drink-30cc.avif",
+      "source": "images/dm-v3/guilu-drink-30.jpg",
       "productId": "guilu-drink-30cc",
       "allowedPillars": [
         "龜鹿飲30cc規格",
@@ -56,7 +56,7 @@
       "status": "eligible-formal-product-education-only"
     },
     {
-      "source": "images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
+      "source": "images/dm-v3/guilu-drink-180.jpg",
       "productId": "guilu-drink-180cc",
       "allowedPillars": [
         "龜鹿飲180cc規格",
@@ -67,7 +67,7 @@
       "status": "eligible-formal-product-education-only"
     },
     {
-      "source": "images/customer-display-v20260812/guilu-tangkuai.avif",
+      "source": "images/dm-v3/guilu-tangkuai.jpg",
       "productId": "guilu-tangkuai",
       "allowedPillars": [
         "龜鹿湯塊75g規格",
@@ -77,7 +77,7 @@
       "status": "eligible-formal-product-education-only"
     },
     {
-      "source": "images/customer-display-v20260812/guilu-jiao.avif",
+      "source": "images/dm-v3/guilu-jiao.jpg",
       "productId": "guilu-jiao",
       "allowedPillars": [
         "龜鹿膠600g規格",
@@ -87,7 +87,7 @@
       "status": "eligible-formal-product-education-only"
     },
     {
-      "source": "images/customer-display-v20260812/luerong-fen.avif",
+      "source": "images/dm-v3/luerong-fen.jpg",
       "productId": "luerong-fen",
       "allowedPillars": [
         "鹿茸粉75g規格",
