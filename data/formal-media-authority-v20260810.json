@@ -1,6 +1,6 @@
 {
-  "runtime": "20260926-dm-style-main-v33",
-  "approval_batch": "20260926-dm-style-main-v33",
+  "runtime": "20260927-dm-showcase-v34",
+  "approval_batch": "20260927-dm-showcase-v34",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
   "principle": "全站六項一般產品展示統一使用 images/dm-v3 DM風正式主產品圖；dm-final 為完整產品介紹頁／明確詳細資訊區使用的正式詳細圖；試喝海報為獨立角色。產品包裝身份與比例不得重畫、拉伸或裁切。",
@@ -150,12 +150,12 @@
     "product_cards_are_not_product_authority": true
   },
   "retired_wrong_role_product_paths": [
-    "/images/customer-display-v20260812/guilu-gao.avif",
-    "/images/customer-display-v20260812/guilu-drink-30cc.avif",
-    "/images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
-    "/images/customer-display-v20260812/guilu-tangkuai.avif",
-    "/images/customer-display-v20260812/guilu-jiao.avif",
-    "/images/customer-display-v20260812/luerong-fen.avif",
+    "/images/dm-v3/guilu-gao.jpg",
+    "/images/dm-v3/guilu-drink-30.jpg",
+    "/images/dm-v3/guilu-drink-180.jpg",
+    "/images/dm-v3/guilu-tangkuai.jpg",
+    "/images/dm-v3/guilu-jiao.jpg",
+    "/images/dm-v3/luerong-fen.jpg",
     "/images/customer-display-v20260812/guilu-drink-180cc.jpg"
   ],
   "image_rules": [
