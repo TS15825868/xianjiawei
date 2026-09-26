@@ -1,64 +1,64 @@
 {
-  "runtime": "20260926-unified-product-main-v32",
-  "approval_batch": "20260926-unified-product-main-v32",
+  "runtime": "20260926-dm-style-main-v33",
+  "approval_batch": "20260926-dm-style-main-v33",
   "products": {
     "guilu-gao": {
       "name": "龜鹿膏",
       "spec": "100g／罐",
-      "path": "/images/products-v3/guilu-gao.jpg",
+      "path": "/images/dm-v3/guilu-gao.jpg",
       "status": "approved_unified_formal_main",
       "format": "jpeg",
-      "binary_status": "verified_current_unified_formal_main",
-      "display_rule": "全站一般展示統一正式主圖；完整等比例、不裁切、不拉伸、不以詳細DM或雜背景實拍替代"
+      "binary_status": "verified_dm_style_formal_main",
+      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
     },
     "guilu-drink-30": {
       "name": "龜鹿飲30cc玻璃罐",
       "spec": "30cc／罐（小玻璃罐）",
-      "path": "/images/products-v3/guilu-drink-30.jpg",
+      "path": "/images/dm-v3/guilu-drink-30.jpg",
       "status": "approved_unified_formal_main",
       "format": "jpeg",
-      "binary_status": "verified_current_unified_formal_main",
-      "display_rule": "全站一般展示統一正式主圖；完整等比例、不裁切、不拉伸、不以詳細DM或雜背景實拍替代"
+      "binary_status": "verified_dm_style_formal_main",
+      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
     },
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
       "spec": "180cc／包（鋁袋）",
-      "path": "/images/products-v3/guilu-drink-180.jpg",
+      "path": "/images/dm-v3/guilu-drink-180.jpg",
       "status": "approved_unified_formal_main",
       "format": "jpeg",
-      "binary_status": "verified_current_unified_formal_main",
-      "display_rule": "全站一般展示統一正式主圖；完整等比例、不裁切、不拉伸、不以詳細DM或雜背景實拍替代"
+      "binary_status": "verified_dm_style_formal_main",
+      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",
       "spec": "75g （2兩）／盒｜8塊裝",
       "detail_unit_approx": "每塊約9.375g",
       "detail_unit_rule": "detail-data-only; do not place on main product image or DM main spec",
-      "path": "/images/products-v3/guilu-tangkuai.jpg",
+      "path": "/images/dm-v3/guilu-tangkuai.jpg",
       "status": "approved_unified_formal_main",
       "format": "jpeg",
-      "binary_status": "verified_current_unified_formal_main",
-      "display_rule": "全站一般展示統一正式主圖；完整等比例、不裁切、不拉伸、不以詳細DM或雜背景實拍替代"
+      "binary_status": "verified_dm_style_formal_main",
+      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
     },
     "guilu-jiao": {
       "name": "龜鹿膠",
       "spec": "600g （1斤）／盒｜32塊裝",
       "detail_unit_approx": "每塊約18.75g",
       "detail_unit_rule": "detail-data-only; do not place on main product image or DM main spec",
-      "path": "/images/products-v3/guilu-jiao.jpg",
+      "path": "/images/dm-v3/guilu-jiao.jpg",
       "status": "approved_unified_formal_main",
       "format": "jpeg",
-      "binary_status": "verified_current_unified_formal_main",
-      "display_rule": "全站一般展示統一正式主圖；完整等比例、不裁切、不拉伸、不以詳細DM或雜背景實拍替代"
+      "binary_status": "verified_dm_style_formal_main",
+      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
     },
     "luerong-fen": {
       "name": "鹿茸粉",
       "spec": "75g／罐",
-      "path": "/images/products-v3/luerong-fen.jpg",
+      "path": "/images/dm-v3/luerong-fen.jpg",
       "status": "approved_unified_formal_main",
       "format": "jpeg",
-      "binary_status": "verified_current_unified_formal_main",
-      "display_rule": "全站一般展示統一正式主圖；完整等比例、不裁切、不拉伸、不以詳細DM或雜背景實拍替代"
+      "binary_status": "verified_dm_style_formal_main",
+      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
     }
   },
   "dm": {
@@ -156,5 +156,9 @@
       "luerong-fen": "/images/products-v3/luerong-fen.jpg"
     }
   },
-  "productsV3Policy": "current unified website main-image authority"
+  "productsV3Policy": "retired from general customer display; retained only as legacy product-identity reference where explicitly needed",
+  "product_authority": "網站六項一般展示主圖統一使用 images/dm-v3；dm-final 詳細圖與試喝素材分層，不得互相代替",
+  "customer_main_visual": "dm-v3 正式DM風主圖用於首頁、產品卡、試喝產品卡、推薦與產品詳頁主圖；dm-final 詳細圖只放完整介紹頁／明確詳細資訊版位",
+  "guard_policy": "驗證 dm-v3 主圖、dm-final 詳細圖、試喝海報與產品身份分層；新版正確路徑優先，拒絕舊 products-v3、customer-display、雜背景實拍、錯誤DM回流",
+  "dmV3Policy": "current unified website DM-style main-image authority"
 }
