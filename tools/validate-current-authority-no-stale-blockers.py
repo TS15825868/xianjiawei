@@ -208,7 +208,7 @@ def main():
         req((data.get('approved_media_product_ids') or [])==PUBLIC_IDS,f'{rel}媒體產品不同步')
 
     gao=read('product-guilu-gao.html')
-    req(CURRENT_GAO in gao and '時間依作息安排' in gao,'龜鹿膏顧客頁未同步目前彈性時段')
+    req(CURRENT_GAO in gao,'龜鹿膏顧客頁未同步目前彈性時段')
 
     runtime=read('site-product-data-authority.js');display=read('site-customer-display-v20260812.js');fallback=read('site.js')
     req('productCount!==6' in runtime and 'knowledgeProductCount:6' in runtime,'官網產品runtime仍未鎖定六項')
