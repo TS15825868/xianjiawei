@@ -2441,3 +2441,70 @@ body[data-page="home"] .home-product-showcase figcaption{
     font-size:12px!important;
   }
 }
+
+
+/* ===== Master v36｜產品圖全站巡檢收尾 2026-09-27 =====
+ * 詳細 DM 固定單欄：完整圖片置中，說明在圖片下方。
+ * 避免 figure / figcaption 舊規則造成圖片與說明左右並排的大空白。
+ */
+.product-detail-media-section .product-detail-dm-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,760px)!important;
+  justify-content:center!important;
+  align-items:start!important;
+  width:100%!important;
+}
+.product-detail-media-section .product-detail-dm-card{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  max-width:760px!important;
+  margin:0 auto!important;
+  padding:clamp(10px,2vw,16px)!important;
+  overflow:hidden!important;
+  border:1px solid rgba(199,155,77,.20)!important;
+  border-radius:20px!important;
+  background:#fffdf8!important;
+  box-shadow:0 12px 30px rgba(8,40,70,.06)!important;
+}
+.product-detail-media-section .product-detail-dm-card>a{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:0!important;
+  flex:none!important;
+}
+.product-detail-media-section .product-detail-dm-card img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  margin:0 auto!important;
+  padding:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  clip-path:none!important;
+}
+.product-detail-media-section .product-detail-dm-caption{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:10px 0 0!important;
+  padding:0!important;
+  color:var(--xjw28-muted,#5f6b78)!important;
+  font-size:13px!important;
+  line-height:1.55!important;
+  text-align:center!important;
+  writing-mode:horizontal-tb!important;
+  white-space:normal!important;
+}
+@media(max-width:700px){
+  .product-detail-media-section .product-detail-dm-grid{grid-template-columns:minmax(0,1fr)!important}
+  .product-detail-media-section .product-detail-dm-card{max-width:100%!important;padding:8px!important;border-radius:15px!important}
+  .product-detail-media-section .product-detail-dm-caption{margin-top:8px!important;font-size:12px!important}
+}
