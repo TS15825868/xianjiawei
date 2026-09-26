@@ -2384,3 +2384,60 @@ body[data-page="home"] .home-product-showcase figcaption{
     border-radius:12px!important;
   }
 }
+
+
+/* ===== Master v35｜產品詳細 DM 圖卡直向完整顯示 2026-09-27 =====
+ * 避免舊 figure/grid 規則把 figcaption 擠到圖片右側。
+ */
+.product-detail-media-section .product-detail-dm-grid{
+  display:grid!important;
+  grid-template-columns:minmax(0,820px)!important;
+  justify-content:center!important;
+  align-items:start!important;
+}
+.product-detail-media-section .product-detail-dm-card{
+  display:block!important;
+  width:100%!important;
+  max-width:820px!important;
+  margin:0 auto!important;
+  padding:clamp(10px,2vw,18px)!important;
+  overflow:visible!important;
+}
+.product-detail-media-section .product-detail-dm-card>a{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:0!important;
+}
+.product-detail-media-section .product-detail-dm-card img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  margin:0 auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+.product-detail-media-section .product-detail-dm-card figcaption{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:10px 0 0!important;
+  padding:0!important;
+  writing-mode:horizontal-tb!important;
+  text-orientation:mixed!important;
+  white-space:normal!important;
+  text-align:center!important;
+  line-height:1.55!important;
+}
+@media(max-width:700px){
+  .product-detail-media-section .product-detail-dm-card{
+    padding:8px!important;
+    border-radius:16px!important;
+  }
+  .product-detail-media-section .product-detail-dm-card figcaption{
+    margin-top:8px!important;
+    font-size:12px!important;
+  }
+}
