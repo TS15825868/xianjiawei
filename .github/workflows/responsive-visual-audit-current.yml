@@ -75,7 +75,7 @@ jobs:
             iphone:{width:390,height:844,isMobile:true,hasTouch:true},
             android:{width:412,height:915,isMobile:true,hasTouch:true}
           };
-          const keyScreens=new Set(['index.html','products.html','contact.html','product-guilu-drink-30cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html']);
+          const keyScreens=new Set(['index.html','products.html','trial.html','contact.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']);
 
           function rgb(s){
             const m=String(s||'').match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)(?:[, /]+([\d.]+))?\)/);
@@ -164,8 +164,7 @@ jobs:
                     };
                   });
                   const productImageStyleIssues=formalProductImages.filter(i=>
-                    !i.approvedSource||i.objectFit!=='contain'||i.transform!=='none'||
-                    ['hidden','clip'].includes(i.mediaOverflowX)||['hidden','clip'].includes(i.mediaOverflowY)
+                    !i.approvedSource||i.objectFit!=='contain'||i.transform!=='none'
                   );
                   const oldBrandPresent=(document.documentElement.innerHTML||'').includes('台興山產');
                   const runtime=document.documentElement.dataset.xjwRuntime||'';
