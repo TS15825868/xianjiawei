@@ -1,25 +1,25 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-09-26 unified formal main product set v13
+/* 仙加味顧客端產品主視覺｜2026-09-26 DM-style formal main product set v14
  * 官網六項產品文字知識以 public-product-master.json 為最高權威。
- * 一般展示統一使用 images/products-v3 六張正式主產品圖；完整介紹頁另使用 dm-final 正式詳細圖。
+ * 一般展示統一使用 images/dm-v3 六張正式主產品圖；完整介紹頁另使用 dm-final 正式詳細圖。
  * 原始實物照片只保留作產品身份／包裝比例參考，不再作一般展示主圖。
  */
 (function(){
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260926-unified-product-main-v32';
+  const VERSION='20260926-dm-style-main-v33';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const DISPLAY=Object.freeze({
-  "guilu-gao": "images/products-v3/guilu-gao.jpg",
-  "guilu-drink-30": "images/products-v3/guilu-drink-30.jpg",
-  "guilu-drink-180": "images/products-v3/guilu-drink-180.jpg",
-  "guilu-tangkuai": "images/products-v3/guilu-tangkuai.jpg",
-  "guilu-jiao": "images/products-v3/guilu-jiao.jpg",
-  "luerong-fen": "images/products-v3/luerong-fen.jpg"
+  "guilu-gao": "images/dm-v3/guilu-gao.jpg",
+  "guilu-drink-30": "images/dm-v3/guilu-drink-30.jpg",
+  "guilu-drink-180": "images/dm-v3/guilu-drink-180.jpg",
+  "guilu-tangkuai": "images/dm-v3/guilu-tangkuai.jpg",
+  "guilu-jiao": "images/dm-v3/guilu-jiao.jpg",
+  "luerong-fen": "images/dm-v3/luerong-fen.jpg"
 });
   const DM=Object.freeze({
   "guilu-gao": "images/dm-final/01_guilu-gao-100g-dm.jpg",
@@ -104,7 +104,7 @@
       productTextAuthority:'public-product-master.json',
       knowledgeProductCount:6,
       approvedMediaProductCount:6,
-      productMainImageSource:'images/products-v3/',
+      productMainImageSource:'images/dm-v3/',
       productIdentityReference:'verified-original-product-photo-paths',
       dmSource:'images/dm-final/',
       detailImagesRole:'complete-product-pages-only',
@@ -116,7 +116,7 @@
       drink30Usage:CURRENT_30_USAGE,
       drink180Usage:'每日一包',
       displayVersion:VERSION,
-      displayRule:'首頁、產品總覽、怎麼選、試喝與推薦等一般展示統一使用 products-v3 六項正式主圖；完整介紹頁主圖相同，詳細區才使用 dm-final；產品包裝與比例不得重畫、拉伸或裁切。'
+      displayRule:'首頁、產品總覽、怎麼選、試喝與推薦等一般展示統一使用 dm-v3 六項 DM 風正式主圖；完整介紹頁主圖相同，詳細區才使用 dm-final；產品包裝與比例不得重畫、拉伸或裁切。'
     };
     return data;
   }
