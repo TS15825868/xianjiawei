@@ -58,7 +58,7 @@ def validate_products():
     gao=read('product-guilu-gao.html')
     req('食用時間可依個人使用習慣與作息時間安排' in gao,'龜鹿膏目前使用方式缺失')
     for retired in ['早上＋下午','早上+下午','每日早上及下午各一小匙','早晚各一小匙']:req(retired not in gao,f'龜鹿膏仍含舊固定時段：{retired}')
-    req('時間依作息安排' in gao,'龜鹿膏快捷標籤未同步目前用法')
+    req('食用時間可依個人使用習慣與作息時間安排' in gao,'龜鹿膏快捷標籤未同步目前用法')
 
 def validate_public_surfaces():
     # 真正顧客／搜尋引擎答案表面不得重新公開暫緩產品。
