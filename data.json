@@ -1,6 +1,6 @@
 {
   "version": "2026-09-26-six-public-products-unified-main-v22",
-  "authorityScope": "目前六項官網公開產品的顧客顯示／相容資料；六項一般展示統一使用 images/products-v3 正式主產品圖，完整介紹頁另使用 dm-final 正式詳細圖；最高文字權威仍為 public-product-master.json。",
+  "authorityScope": "目前六項官網公開產品的顧客顯示／相容資料；六項一般展示統一使用 images/dm-v3 DM 風正式主產品圖，完整介紹頁另使用 dm-final 正式詳細圖；最高文字權威仍為 public-product-master.json。",
   "productDataAuthority": "public-product-master.json",
   "brand": "仙加味",
   "lineId": "@762jybnm",
