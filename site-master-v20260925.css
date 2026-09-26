@@ -2332,7 +2332,7 @@ body[data-page="home"] .home-product-showcase__grid>a{
   grid-template-rows:none!important;
   min-height:0!important;
   padding:0!important;
-  overflow:hidden!important;
+  overflow:visible!important;
   border:1px solid rgba(199,155,77,.24)!important;
   border-radius:16px!important;
   background:#fffdf8!important;
