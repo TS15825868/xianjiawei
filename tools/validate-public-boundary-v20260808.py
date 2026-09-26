@@ -42,7 +42,12 @@ def main():
         for phrase in FORBIDDEN_PUBLIC:assert phrase not in source,f'{page}公開頁出現禁止公司／內部資訊：{phrase}'
         for phrase in DEFERRED:assert phrase not in source,f'{page}重新公開目前暫不放官網的柒玄茶'
         for phrase in ['龜鹿飲30cc玻璃瓶','30cc／瓶','小玻璃瓶']:assert phrase not in source,f'{page}仍含30cc舊稱：{phrase}'
-        if page in MEDIA_PRODUCT_PAGES:\n            assert '<section class="product-detail-hero">' in source,f'{page}缺產品主視覺區'\n            hero=source.split('<section class="product-detail-hero">',1)[1].split('</section>',1)[0]\n            assert 'images/dm-v3/' in hero,f'{page}主視覺未使用目前 dm-v3 正式主圖'\n            assert 'images/dm-final/' not in hero,f'{page}把詳細DM誤用為產品主視覺'\n            assert 'images/dm-final/' in source,f'{page}完整介紹頁缺正式詳細DM'
+        if page in MEDIA_PRODUCT_PAGES:
+            assert '<section class="product-detail-hero">' in source,f'{page}缺產品主視覺區'
+            hero=source.split('<section class="product-detail-hero">',1)[1].split('</section>',1)[0]
+            assert 'images/dm-v3/' in hero,f'{page}主視覺未使用目前 dm-v3 正式主圖'
+            assert 'images/dm-final/' not in hero,f'{page}把詳細DM誤用為產品主視覺'
+            assert 'images/dm-final/' in source,f'{page}完整介紹頁缺正式詳細DM'
         if page=='product-guilu-gao.html':
             assert '食用時間可依個人使用習慣與作息時間安排' in source
             for retired in ['早上＋下午','早上+下午','每日早上及下午各一小匙','早晚各一小匙']:assert retired not in source,f'龜鹿膏詳頁仍含舊固定時段：{retired}'
