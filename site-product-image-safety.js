@@ -1,21 +1,21 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-09-26 unified product-main safety v12
- * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 products-v3 正式主圖。
+/* 官網顧客產品圖片安全層｜2026-09-26 DM-style product-main safety v13
+ * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 dm-v3 DM 風正式主圖。
  * dm-final 為完整產品介紹頁詳細圖，不得被主圖守門員覆寫。
  */
 (function(){
-  if(window.__XJW_PRODUCT_IMAGE_SAFETY_V11__)return;
-  window.__XJW_PRODUCT_IMAGE_SAFETY_V11__=true;
+  if(window.__XJW_PRODUCT_IMAGE_SAFETY_V13__)return;
+  window.__XJW_PRODUCT_IMAGE_SAFETY_V13__=true;
 
-  const VERSION='20260926-unified-product-main-v32';
+  const VERSION='20260926-dm-style-main-v33';
   const CUSTOMER=Object.freeze({
-    gao:`images/products-v3/guilu-gao.jpg?v=${VERSION}`,
-    drink30:`images/products-v3/guilu-drink-30.jpg?v=${VERSION}`,
-    drink180:`images/products-v3/guilu-drink-180.jpg?v=${VERSION}`,
-    tangkuai:`images/products-v3/guilu-tangkuai.jpg?v=${VERSION}`,
-    jiao:`images/products-v3/guilu-jiao.jpg?v=${VERSION}`,
-    luerong:`images/products-v3/luerong-fen.jpg?v=${VERSION}`
+    gao:`images/dm-v3/guilu-gao.jpg?v=${VERSION}`,
+    drink30:`images/dm-v3/guilu-drink-30.jpg?v=${VERSION}`,
+    drink180:`images/dm-v3/guilu-drink-180.jpg?v=${VERSION}`,
+    tangkuai:`images/dm-v3/guilu-tangkuai.jpg?v=${VERSION}`,
+    jiao:`images/dm-v3/guilu-jiao.jpg?v=${VERSION}`,
+    luerong:`images/dm-v3/luerong-fen.jpg?v=${VERSION}`
   });
   const OFFICIAL=Object.freeze({
   "guilu-gao": "images/guilu-gao.jpg",
@@ -48,7 +48,7 @@
   }
   function setStyleIfChanged(node,name,value){if(!node||node.style[name]===value)return false;node.style[name]=value;return true;}
   function alreadyCurrent(value){return Object.values(CUSTOMER).some(url=>sameUrl(value,url));}
-  function isDetailedDm(value){return /\/images\/(?:dm-approved-v20260810|dm-final|dm-v3)\//i.test(String(value||''));}
+  function isDetailedDm(value){return /\/images\/(?:dm-approved-v20260810|dm-final)\//i.test(String(value||''));}
   function isImageHref(value=''){
     const text=String(value||'').trim();
     if(!text||/^#/.test(text)||/\.html(?:[?#]|$)/i.test(text))return false;
@@ -76,7 +76,7 @@
     changed=setStyleIfChanged(node,'maxHeight','100%')||changed;
     changed=setStyleIfChanged(node,'transform','none')||changed;
     changed=setStyleIfChanged(node,'clipPath','none')||changed;
-    node.dataset.xjwCustomerDisplay='unified-formal-product-main-v12';
+    node.dataset.xjwCustomerDisplay='dm-style-formal-product-main-v13';
     node.dataset.xjwProductIdentityAuthority='verified-original-product-reference';
     node.dataset.xjwScalePolicy='uniform-only-contain-no-stretch-no-crop';
     return changed;
