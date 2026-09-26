@@ -2254,7 +2254,7 @@ html body #line.btn{
 }
 
 
-/* ===== Master v32｜全站六項產品主圖統一＋完整介紹詳細圖 2026-09-26 ===== */
+/* ===== Master v33｜全站六項 DM 風主圖統一＋完整介紹詳細圖 2026-09-26 ===== */
 :root{
   --xjw32-product-paper:#fffdf8;
   --xjw32-product-cream:#f7f4ed;
@@ -2310,4 +2310,4 @@ body[data-page="products"] .product-card__img{aspect-ratio:4/5!important;padding
   .product-detail-dm-card a{border-radius:12px}
 }
 
-/* v32 final authority sync: products-v3 main / dm-final detail / no-crop responsive audit */
+/* v32 final authority sync: dm-v3 main / dm-final detail / no-crop responsive audit */
