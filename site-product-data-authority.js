@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味產品資料權威層｜2026-09-26 六項官網公開產品
+/* 仙加味產品資料權威層｜2026-09-27 六項官網公開產品
  * public-product-master.json 是官網、官網AI/GEO與公開貼文目前六項產品文字核心事實的公開權威。
  * data.json 保留六項已有正式產品圖的顧客展示資料與通路欄位。
  * 柒玄茶目前暫不放官網；LINE OA文字知識與ERP資料由各自正式權威保留。
@@ -10,7 +10,7 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260926-dm-style-main-v33';
+  const VERSION='20260927-dm-showcase-v34';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐';
