@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 13,
-  "catalogVersion": "current-six-public-products-20260820-v6",
-  "updatedAt": "2026-08-20",
+  "schemaVersion": 14,
+  "catalogVersion": "current-six-public-products-product-main-20260928-v7",
+  "updatedAt": "2026-09-28",
   "source": {
     "repository": "TS15825868/xianjiawei",
     "branch": "main",
@@ -31,7 +31,7 @@
     "guilu-jiao",
     "luerong-fen"
   ],
-  "productImageVersion": "current-six-dm-style-formal-main-images",
+  "productImageVersion": "current-six-simple-product-main-v3",
   "formalDmApprovalBatch": "20260814-product-modal-media-v3",
   "physicalScalePolicy": {
     "authority": "content/product-physical-scale-authority-v20260809.json",
@@ -87,22 +87,22 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-gao.jpg?v=20260926-dm-style-main-v33",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260926-dm-style-main-v33",
+      "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-gao.svg?v=20260928-product-media-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260928-product-media-v3",
       "knownContainerDimensionsMm": {
         "width": 51,
         "height": 78
       },
-      "imagePolicy": "六項一般展示統一使用 dm-v3 DM風正式主圖；完整介紹頁詳細區使用 dm-final 正式詳細圖；產品包裝與比例不得重設計、拉伸或裁切。",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-gao.jpg?v=20260926-dm-style-main-v33",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-gao.jpg?v=20260926-dm-style-main-v33",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-gao.jpg?v=20260926-dm-style-main-v33",
-      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260926-dm-style-main-v33",
+      "imagePolicy": "一般展示與產品 Hero 只使用 product-main 簡單正式主圖；完整介紹頁詳細圖片區只使用 dm-final；產品實物包裝與比例不得重設計、拉伸或裁切。",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-gao.svg?v=20260928-product-media-v3",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-gao.svg?v=20260928-product-media-v3",
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-gao.jpg?v=20260928-product-media-v3",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260928-product-media-v3",
       "specification": "100g／罐",
       "spec": "100g／罐",
       "usagePrimary": "食用時間可依個人使用習慣與作息時間安排",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260926-dm-style-main-v33"
+        "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260928-product-media-v3"
       ]
     },
     {
@@ -134,23 +134,23 @@
       ],
       "fulfillmentType": "made-to-order-drink",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-drink-30.jpg?v=20260926-dm-style-main-v33",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260926-dm-style-main-v33",
+      "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-drink-30.svg?v=20260928-product-media-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260928-product-media-v3",
       "knownContainerDimensionsMm": {
         "diameter": 42,
         "height": 51
       },
-      "imagePolicy": "六項一般展示統一使用 dm-v3 DM風正式主圖；完整介紹頁詳細區使用 dm-final 正式詳細圖；產品包裝與比例不得重設計、拉伸或裁切。",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-drink-30.jpg?v=20260926-dm-style-main-v33",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-drink-30.jpg?v=20260926-dm-style-main-v33",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-drink-30cc-glass.jpg?v=20260926-dm-style-main-v33",
-      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260926-dm-style-main-v33",
+      "imagePolicy": "一般展示與產品 Hero 只使用 product-main 簡單正式主圖；完整介紹頁詳細圖片區只使用 dm-final；產品實物包裝與比例不得重設計、拉伸或裁切。",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-drink-30.svg?v=20260928-product-media-v3",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-drink-30.svg?v=20260928-product-media-v3",
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-drink-30cc-glass.jpg?v=20260928-product-media-v3",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260928-product-media-v3",
       "specification": "30cc／罐（小玻璃罐）",
       "spec": "30cc／罐（小玻璃罐）",
       "usagePrimary": "每日 1–2 罐",
       "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260926-dm-style-main-v33"
+        "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260928-product-media-v3"
       ]
     },
     {
@@ -182,24 +182,24 @@
       ],
       "fulfillmentType": "made-to-order-drink",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-drink-180.jpg?v=20260926-dm-style-main-v33",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260926-dm-style-main-v33",
+      "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-drink-180.svg?v=20260928-product-media-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260928-product-media-v3",
       "aspectRatioWidthToHeight": {
         "min": 0.6,
         "target": 0.64,
         "max": 0.68
       },
-      "imagePolicy": "六項一般展示統一使用 dm-v3 DM風正式主圖；完整介紹頁詳細區使用 dm-final 正式詳細圖；產品包裝與比例不得重設計、拉伸或裁切。",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-drink-180.jpg?v=20260926-dm-style-main-v33",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-drink-180.jpg?v=20260926-dm-style-main-v33",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-drink-180cc.jpg?v=20260926-dm-style-main-v33",
-      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260926-dm-style-main-v33",
+      "imagePolicy": "一般展示與產品 Hero 只使用 product-main 簡單正式主圖；完整介紹頁詳細圖片區只使用 dm-final；產品實物包裝與比例不得重設計、拉伸或裁切。",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-drink-180.svg?v=20260928-product-media-v3",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-drink-180.svg?v=20260928-product-media-v3",
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-drink-180cc.jpg?v=20260928-product-media-v3",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260928-product-media-v3",
       "specification": "180cc／包（鋁袋）",
       "spec": "180cc／包（鋁袋）",
       "usagePrimary": "每日一包",
       "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260926-dm-style-main-v33"
+        "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260928-product-media-v3"
       ]
     },
     {
@@ -225,19 +225,19 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-tangkuai.jpg?v=20260926-dm-style-main-v33",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260926-dm-style-main-v33",
+      "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-tangkuai.svg?v=20260928-product-media-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260928-product-media-v3",
       "knownContainerDimensionsMm": null,
-      "imagePolicy": "六項一般展示統一使用 dm-v3 DM風正式主圖；完整介紹頁詳細區使用 dm-final 正式詳細圖；產品包裝與比例不得重設計、拉伸或裁切。",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-tangkuai.jpg?v=20260926-dm-style-main-v33",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-tangkuai.jpg?v=20260926-dm-style-main-v33",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v2/guilu-tangkuai-open-new.jpg?v=20260926-dm-style-main-v33",
-      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260926-dm-style-main-v33",
+      "imagePolicy": "一般展示與產品 Hero 只使用 product-main 簡單正式主圖；完整介紹頁詳細圖片區只使用 dm-final；產品實物包裝與比例不得重設計、拉伸或裁切。",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-tangkuai.svg?v=20260928-product-media-v3",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-tangkuai.svg?v=20260928-product-media-v3",
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v2/guilu-tangkuai-open-new.jpg?v=20260928-product-media-v3",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260928-product-media-v3",
       "specification": "75g （2兩）／盒｜8塊裝",
       "spec": "75g （2兩）／盒｜8塊裝",
       "detailUnitApprox": "每塊約9.375g",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260926-dm-style-main-v33"
+        "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260928-product-media-v3"
       ]
     },
     {
@@ -262,19 +262,19 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-jiao.jpg?v=20260926-dm-style-main-v33",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260926-dm-style-main-v33",
+      "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-jiao.svg?v=20260928-product-media-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260928-product-media-v3",
       "knownContainerDimensionsMm": null,
-      "imagePolicy": "六項一般展示統一使用 dm-v3 DM風正式主圖；完整介紹頁詳細區使用 dm-final 正式詳細圖；產品包裝與比例不得重設計、拉伸或裁切。",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-jiao.jpg?v=20260926-dm-style-main-v33",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/dm-v3/guilu-jiao.jpg?v=20260926-dm-style-main-v33",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v2/guilu-jiao-open-new.jpg?v=20260926-dm-style-main-v33",
-      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260926-dm-style-main-v33",
+      "imagePolicy": "一般展示與產品 Hero 只使用 product-main 簡單正式主圖；完整介紹頁詳細圖片區只使用 dm-final；產品實物包裝與比例不得重設計、拉伸或裁切。",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-jiao.svg?v=20260928-product-media-v3",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-jiao.svg?v=20260928-product-media-v3",
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v2/guilu-jiao-open-new.jpg?v=20260928-product-media-v3",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260928-product-media-v3",
       "specification": "600g （1斤）／盒｜32塊裝",
       "spec": "600g （1斤）／盒｜32塊裝",
       "detailUnitApprox": "每塊約18.75g",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260926-dm-style-main-v33"
+        "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260928-product-media-v3"
       ]
     },
     {
@@ -298,27 +298,27 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-luerong-fen.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/dm-v3/luerong-fen.jpg?v=20260926-dm-style-main-v33",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260926-dm-style-main-v33",
+      "image": "https://ts15825868.github.io/xianjiawei/images/product-main/luerong-fen.svg?v=20260928-product-media-v3",
+      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260928-product-media-v3",
       "knownContainerDimensionsMm": null,
-      "imagePolicy": "六項一般展示統一使用 dm-v3 DM風正式主圖；完整介紹頁詳細區使用 dm-final 正式詳細圖；產品包裝與比例不得重設計、拉伸或裁切。",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/dm-v3/luerong-fen.jpg?v=20260926-dm-style-main-v33",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/dm-v3/luerong-fen.jpg?v=20260926-dm-style-main-v33",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v2/luerong-fen.jpeg?v=20260926-dm-style-main-v33",
-      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260926-dm-style-main-v33",
+      "imagePolicy": "一般展示與產品 Hero 只使用 product-main 簡單正式主圖；完整介紹頁詳細圖片區只使用 dm-final；產品實物包裝與比例不得重設計、拉伸或裁切。",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/product-main/luerong-fen.svg?v=20260928-product-media-v3",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/product-main/luerong-fen.svg?v=20260928-product-media-v3",
+      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/lurong.jpg?v=20260928-product-media-v3",
+      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260928-product-media-v3",
       "specification": "75g／罐",
       "spec": "75g／罐",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260926-dm-style-main-v33"
+        "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260928-product-media-v3"
       ]
     }
   ],
   "dmPolicy": {
-    "currentDmStatus": "dm-v3-main-display-and-dm-final-detail-separated",
+    "currentDmStatus": "product-main-general-display-and-dm-final-detail-separated",
     "legacyDmUse": "reference-only",
     "consumerDmMustBeReviewed": true,
     "consumerDmMustMatchCurrentSpecification": true,
-    "productMainImageMustNotUseDm": false,
+    "productMainImageMustNotUseDm": true,
     "dmMustNotRedefineProductIdentity": true,
     "quarantined": {},
     "retiredInvalidPaths": [
@@ -337,5 +337,5 @@
     "guardPolicy": "latest-authority-first-no-legacy-copy-lock",
     "deferredProductPublic": false
   },
-  "productIdentityReference": "verified-original-product-reference-with-dm-v3-display"
+  "productIdentityReference": "verified-original-product-reference-only-never-general-public-main-image"
 }
