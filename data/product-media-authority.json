@@ -1,10 +1,10 @@
 {
-  "version": "20260927-product-media-v2",
+  "version": "20260928-product-media-v3",
   "scope": "website-product-media",
   "rules": {
-    "generalDisplay": "mainImage only",
-    "productDetailHero": "mainImage only",
-    "productDetailMedia": "detailImages only",
+    "generalDisplay": "mainImage only; source must be images/product-main/",
+    "productDetailHero": "mainImage only; source must be images/product-main/",
+    "productDetailMedia": "detailImages only; source must be images/dm-final/",
     "identityReference": "validation/reference only; never general public main image"
   },
   "products": {
