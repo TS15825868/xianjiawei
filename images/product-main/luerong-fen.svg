@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1122" height="1402" viewBox="0 0 1122 1402" role="img" aria-labelledby="t d">
+<title id="t">仙加味鹿茸粉75g正式簡單主圖</title>
+<desc id="d">鹿茸粉75g罐裝；官網一般展示專用漂亮簡單主圖。</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFDF8"/><stop offset="1" stop-color="#F4EBDD"/></linearGradient>
+  <clipPath id="photo"><rect x="230" y="370" width="662" height="720" rx="38"/></clipPath>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#082846" flood-opacity=".10"/></filter>
+</defs>
+<rect width="1122" height="1402" fill="url(#bg)"/>
+<rect x="28" y="28" width="1066" height="1346" rx="46" fill="none" stroke="#C79B4D" stroke-width="3"/>
+<path d="M92 150H380M742 150H1030" stroke="#C79B4D" stroke-width="2"/>
+<text x="561" y="130" text-anchor="middle" font-family="Noto Serif TC,serif" font-size="48" font-weight="700" fill="#8F2B31">仙加味</text>
+<text x="561" y="250" text-anchor="middle" font-family="Noto Serif TC,serif" font-size="96" font-weight="800" letter-spacing="10" fill="#3B2418">鹿茸粉</text>
+<text x="561" y="322" text-anchor="middle" font-family="Noto Serif TC,serif" font-size="42" fill="#9A6B25">75g／罐</text>
+<rect x="205" y="348" width="712" height="764" rx="44" fill="#FFF" stroke="#E6D5B5" stroke-width="2" filter="url(#shadow)"/>
+<image href="../lurong-card.jpg" x="230" y="370" width="662" height="720" preserveAspectRatio="xMidYMid meet" clip-path="url(#photo)"/>
+<path d="M140 1186H385M737 1186H982" stroke="#C79B4D" stroke-width="2"/>
+<text x="561" y="1203" text-anchor="middle" font-family="Noto Serif TC,serif" font-size="38" font-weight="700" fill="#244C3B">日常調飲安排</text>
+<text x="561" y="1280" text-anchor="middle" font-family="Noto Sans TC,sans-serif" font-size="30" fill="#5F6B78">產品完整資訊請至詳細介紹頁查看</text>
+</svg>
