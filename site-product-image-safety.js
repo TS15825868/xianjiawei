@@ -8,7 +8,7 @@
   if(window.__XJW_PRODUCT_IMAGE_SAFETY_V13__)return;
   window.__XJW_PRODUCT_IMAGE_SAFETY_V13__=true;
 
-  const VERSION='20260927-product-media-v1';
+  const VERSION='20260927-product-media-v2';
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const mainImage=(id,fallback)=>`${MEDIA_AUTHORITY?.mainImage?.(id)||fallback}?v=${VERSION}`;
   const CUSTOMER=Object.freeze({

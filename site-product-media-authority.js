@@ -6,7 +6,7 @@
  */
 (function(){
   const DATA={
-  "version": "20260927-product-media-v1",
+  "version": "20260927-product-media-v2",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "mainImage only",

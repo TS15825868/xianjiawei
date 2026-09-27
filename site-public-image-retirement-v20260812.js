@@ -9,7 +9,7 @@
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260927-product-media-v1';
+  const VERSION='20260927-product-media-v2';
   const MAIN=Object.freeze({
     'guilu-gao':`images/product-main/guilu-gao.svg?v=${VERSION}`,
     'guilu-drink-30':`images/product-main/guilu-drink-30.svg?v=${VERSION}`,
