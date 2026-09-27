@@ -1,7 +1,7 @@
 "use strict";
 
 /* 仙加味公開網站舊圖退役層｜2026-09-27 v12
- * 一般展示統一使用 dm-v3 六項 DM 風正式主產品圖。
+ * 一般展示統一使用 product-main 六項漂亮簡單正式主圖。
  * 舊雜背景實拍、customer-display 舊檔與 approved-v405 舊產品合成圖若回流，一律導回同一套主圖。
  * dm-final 為完整產品介紹頁詳細圖，不在本層退役。
  */
@@ -9,14 +9,14 @@
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260927-dm-showcase-v34';
+  const VERSION='20260927-product-media-v1';
   const MAIN=Object.freeze({
-    'guilu-gao':`images/dm-v3/guilu-gao.jpg?v=${VERSION}`,
-    'guilu-drink-30':`images/dm-v3/guilu-drink-30.jpg?v=${VERSION}`,
-    'guilu-drink-180':`images/dm-v3/guilu-drink-180.jpg?v=${VERSION}`,
-    'guilu-tangkuai':`images/dm-v3/guilu-tangkuai.jpg?v=${VERSION}`,
-    'guilu-jiao':`images/dm-v3/guilu-jiao.jpg?v=${VERSION}`,
-    'luerong-fen':`images/dm-v3/luerong-fen.jpg?v=${VERSION}`
+    'guilu-gao':`images/product-main/guilu-gao.svg?v=${VERSION}`,
+    'guilu-drink-30':`images/product-main/guilu-drink-30.svg?v=${VERSION}`,
+    'guilu-drink-180':`images/product-main/guilu-drink-180.svg?v=${VERSION}`,
+    'guilu-tangkuai':`images/product-main/guilu-tangkuai.svg?v=${VERSION}`,
+    'guilu-jiao':`images/product-main/guilu-jiao.svg?v=${VERSION}`,
+    'luerong-fen':`images/product-main/luerong-fen.svg?v=${VERSION}`
   });
   const PRODUCT_REPLACEMENTS=Object.freeze({
     'product-guilu-gao-100g.webp':MAIN['guilu-gao'],
@@ -27,10 +27,15 @@
     'product-luerong-fen-75g.webp':MAIN['luerong-fen'],
     'guilu-gao.jpg':MAIN['guilu-gao'],
     'guilu-drink-30cc-glass.jpg':MAIN['guilu-drink-30'],
+    'guilu-drink-30.jpg':MAIN['guilu-drink-30'],
     'guilu-drink-180cc.jpg':MAIN['guilu-drink-180'],
+    'guilu-drink-180.jpg':MAIN['guilu-drink-180'],
     'guilu-tangkuai-open-new.jpg':MAIN['guilu-tangkuai'],
+    'guilu-tangkuai.jpg':MAIN['guilu-tangkuai'],
     'guilu-jiao-open-new.jpg':MAIN['guilu-jiao'],
+    'guilu-jiao.jpg':MAIN['guilu-jiao'],
     'luerong-fen.jpeg':MAIN['luerong-fen'],
+    'luerong-fen.jpg':MAIN['luerong-fen'],
     'guilu-gao.avif':MAIN['guilu-gao'],
     'guilu-drink-30cc.avif':MAIN['guilu-drink-30'],
     'guilu-drink-180cc-product.jpg':MAIN['guilu-drink-180'],

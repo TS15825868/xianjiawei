@@ -1,21 +1,23 @@
 "use strict";
 
 /* 官網顧客產品圖片安全層｜2026-09-27 DM-style product-main safety v14
- * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 dm-v3 DM 風正式主圖。
+ * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 product-main 漂亮簡單正式主圖。
  * dm-final 為完整產品介紹頁詳細圖，不得被主圖守門員覆寫。
  */
 (function(){
   if(window.__XJW_PRODUCT_IMAGE_SAFETY_V13__)return;
   window.__XJW_PRODUCT_IMAGE_SAFETY_V13__=true;
 
-  const VERSION='20260927-dm-showcase-v34';
+  const VERSION='20260927-product-media-v1';
+  const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
+  const mainImage=(id,fallback)=>`${MEDIA_AUTHORITY?.mainImage?.(id)||fallback}?v=${VERSION}`;
   const CUSTOMER=Object.freeze({
-    gao:`images/dm-v3/guilu-gao.jpg?v=${VERSION}`,
-    drink30:`images/dm-v3/guilu-drink-30.jpg?v=${VERSION}`,
-    drink180:`images/dm-v3/guilu-drink-180.jpg?v=${VERSION}`,
-    tangkuai:`images/dm-v3/guilu-tangkuai.jpg?v=${VERSION}`,
-    jiao:`images/dm-v3/guilu-jiao.jpg?v=${VERSION}`,
-    luerong:`images/dm-v3/luerong-fen.jpg?v=${VERSION}`
+    gao:mainImage("guilu-gao","images/product-main/guilu-gao.svg"),
+    drink30:mainImage("guilu-drink-30","images/product-main/guilu-drink-30.svg"),
+    drink180:mainImage("guilu-drink-180","images/product-main/guilu-drink-180.svg"),
+    tangkuai:mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.svg"),
+    jiao:mainImage("guilu-jiao","images/product-main/guilu-jiao.svg"),
+    luerong:mainImage("luerong-fen","images/product-main/luerong-fen.svg")
   });
   const OFFICIAL=Object.freeze({
   "guilu-gao": "images/guilu-gao.jpg",
@@ -76,7 +78,7 @@
     changed=setStyleIfChanged(node,'maxHeight','100%')||changed;
     changed=setStyleIfChanged(node,'transform','none')||changed;
     changed=setStyleIfChanged(node,'clipPath','none')||changed;
-    node.dataset.xjwCustomerDisplay='dm-style-formal-product-main-v13';
+    node.dataset.xjwCustomerDisplay='simple-formal-product-main-v1';
     node.dataset.xjwProductIdentityAuthority='verified-original-product-reference';
     node.dataset.xjwScalePolicy='uniform-only-contain-no-stretch-no-crop';
     return changed;

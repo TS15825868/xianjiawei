@@ -9,25 +9,28 @@
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260927-dm-showcase-v34';
+  const VERSION='20260927-product-media-v1';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
+  const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
+  const mainImage=(id,fallback)=>MEDIA_AUTHORITY?.mainImage?.(id)||fallback;
+  const detailImage=(id,fallback)=>MEDIA_AUTHORITY?.detailImages?.(id)?.[0]||fallback;
   const DISPLAY=Object.freeze({
-  "guilu-gao": "images/dm-v3/guilu-gao.jpg",
-  "guilu-drink-30": "images/dm-v3/guilu-drink-30.jpg",
-  "guilu-drink-180": "images/dm-v3/guilu-drink-180.jpg",
-  "guilu-tangkuai": "images/dm-v3/guilu-tangkuai.jpg",
-  "guilu-jiao": "images/dm-v3/guilu-jiao.jpg",
-  "luerong-fen": "images/dm-v3/luerong-fen.jpg"
+  "guilu-gao": mainImage("guilu-gao","images/product-main/guilu-gao.svg"),
+  "guilu-drink-30": mainImage("guilu-drink-30","images/product-main/guilu-drink-30.svg"),
+  "guilu-drink-180": mainImage("guilu-drink-180","images/product-main/guilu-drink-180.svg"),
+  "guilu-tangkuai": mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.svg"),
+  "guilu-jiao": mainImage("guilu-jiao","images/product-main/guilu-jiao.svg"),
+  "luerong-fen": mainImage("luerong-fen","images/product-main/luerong-fen.svg")
 });
   const DM=Object.freeze({
-  "guilu-gao": "images/dm-final/01_guilu-gao-100g-dm.jpg",
-  "guilu-drink-30": "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
-  "guilu-drink-180": "images/dm-final/03_guilu-drink-180cc-dm.jpg",
-  "luerong-fen": "images/dm-final/04_luerong-fen-75g-dm.jpg",
-  "guilu-tangkuai": "images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
-  "guilu-jiao": "images/dm-final/06_guilu-jiao-600g-dm.jpg"
+  "guilu-gao": detailImage("guilu-gao","images/dm-final/01_guilu-gao-100g-dm.jpg"),
+  "guilu-drink-30": detailImage("guilu-drink-30","images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg"),
+  "guilu-drink-180": detailImage("guilu-drink-180","images/dm-final/03_guilu-drink-180cc-dm.jpg"),
+  "luerong-fen": detailImage("luerong-fen","images/dm-final/04_luerong-fen-75g-dm.jpg"),
+  "guilu-tangkuai": detailImage("guilu-tangkuai","images/dm-final/05_guilu-tangkuai-75g-dm.jpg"),
+  "guilu-jiao": detailImage("guilu-jiao","images/dm-final/06_guilu-jiao-600g-dm.jpg")
 });
   const IDENTITY=Object.freeze({
   "guilu-gao": "images/guilu-gao.jpg",
