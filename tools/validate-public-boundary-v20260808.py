@@ -45,7 +45,7 @@ def main():
         if page in MEDIA_PRODUCT_PAGES:
             assert '<section class="product-detail-hero">' in source,f'{page}缺產品主視覺區'
             hero=source.split('<section class="product-detail-hero">',1)[1].split('</section>',1)[0]
-            assert 'images/dm-v3/' in hero,f'{page}主視覺未使用目前 dm-v3 正式主圖'
+            assert 'images/product-main/' in hero,f'{page}主視覺未使用目前 product-main 漂亮簡單正式主圖'
             assert 'images/dm-final/' not in hero,f'{page}把詳細DM誤用為產品主視覺'
             assert 'images/dm-final/' in source,f'{page}完整介紹頁缺正式詳細DM'
         if page=='product-guilu-gao.html':

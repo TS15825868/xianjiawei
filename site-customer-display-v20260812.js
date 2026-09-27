@@ -1,8 +1,8 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-09-27 DM-style formal main product set v15
+/* 仙加味顧客端產品主視覺｜2026-09-27 simple formal product-main v16
  * 官網六項產品文字知識以 public-product-master.json 為最高權威。
- * 一般展示統一使用 images/dm-v3 六張正式主產品圖；完整介紹頁另使用 dm-final 正式詳細圖。
+ * 一般展示與產品 Hero 統一使用 images/product-main 六張漂亮簡單正式主圖；完整介紹頁另使用 dm-final 正式詳細圖。
  * 原始實物照片只保留作產品身份／包裝比例參考，不再作一般展示主圖。
  */
 (function(){

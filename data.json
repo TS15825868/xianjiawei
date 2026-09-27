@@ -1,7 +1,8 @@
 {
-  "version": "2026-09-27-six-public-products-unified-main-v23",
-  "authorityScope": "目前六項官網公開產品的顧客顯示／相容資料；六項一般展示統一使用 images/dm-v3 DM 風正式主產品圖，完整介紹頁另使用 dm-final 正式詳細圖；最高文字權威仍為 public-product-master.json。",
+  "version": "2026-09-27-six-public-products-simple-main-v24",
+  "authorityScope": "目前六項官網公開產品顧客顯示／相容資料；一般展示與產品 Hero 統一使用 images/product-main 漂亮簡單正式主圖，完整介紹頁另使用 images/dm-final 正式詳細 DM；圖片權威為 data/product-media-authority.json，最高文字權威仍為 public-product-master.json。",
   "productDataAuthority": "public-product-master.json",
+  "productMediaAuthority": "data/product-media-authority.json",
   "brand": "仙加味",
   "lineId": "@762jybnm",
   "siteUrl": "https://ts15825868.github.io/xianjiawei/",
@@ -65,7 +66,7 @@
         "diameter": 42,
         "height": 51
       },
-      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
+      "imagePolicy": "approved-simple-product-main-plus-detail-dm-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "必須維持30cc小玻璃罐實際小罐感；不可改成瓶型、做高、做胖或放大成接近100g龜鹿膏罐。"
     },
     {
@@ -118,7 +119,7 @@
         "target": 0.64,
         "max": 0.68
       },
-      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
+      "imagePolicy": "approved-simple-product-main-plus-detail-dm-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "狹長直立鋁袋；禁止橫向拉寬、加高或誇張放大。"
     },
     {
@@ -165,7 +166,7 @@
         "width": 51,
         "height": 78
       },
-      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
+      "imagePolicy": "approved-simple-product-main-plus-detail-dm-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "六角玻璃罐只允許等比例縮放，不改罐型、金色蓋或標籤比例。"
     },
     {
@@ -206,7 +207,7 @@
         "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260927-product-media-v1"
       ],
       "knownContainerDimensionsMm": null,
-      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
+      "imagePolicy": "approved-simple-product-main-plus-detail-dm-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "深藍正式盒；盒體毫米尺寸未知時不得自行猜測，只依核准原圖等比例呈現；不得建立其他龜鹿湯塊容量。"
     },
     {
@@ -246,7 +247,7 @@
         "images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260927-product-media-v1"
       ],
       "knownContainerDimensionsMm": null,
-      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
+      "imagePolicy": "approved-simple-product-main-plus-detail-dm-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "淡紫正式盒；毫米尺寸未知時不得自行猜測；不得橫向拉長，也不得縮成與75g湯塊相近尺寸。"
     },
     {
@@ -285,7 +286,7 @@
         "images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260927-product-media-v1"
       ],
       "knownContainerDimensionsMm": null,
-      "imagePolicy": "approved-unified-formal-main-product-visual-no-package-redesign-no-crop-no-stretch",
+      "imagePolicy": "approved-simple-product-main-plus-detail-dm-no-package-redesign-no-crop-no-stretch",
       "physicalScalePolicy": "白色正式塑膠罐；毫米尺寸未知時不得自行猜測，只依核准原圖等比例呈現。"
     }
   ],

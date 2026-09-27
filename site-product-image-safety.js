@@ -1,6 +1,6 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-09-27 DM-style product-main safety v14
+/* 官網顧客產品圖片安全層｜2026-09-27 simple product-main safety v15
  * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 product-main 漂亮簡單正式主圖。
  * dm-final 為完整產品介紹頁詳細圖，不得被主圖守門員覆寫。
  */
