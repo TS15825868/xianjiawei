@@ -10,7 +10,7 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260927-product-media-v2';
+  const VERSION='20260928-product-media-v3';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐';
@@ -18,6 +18,8 @@
   const PUBLIC_PRODUCT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const MEDIA_PRODUCT_IDS=PUBLIC_PRODUCT_IDS;
   const DEFERRED_ID='qixuan-guilu-drink-powder';
+  const mediaAuthority=()=>window.XJW_PRODUCT_MEDIA_AUTHORITY;
+  const versioned=value=>{const base=String(value||'').split('?')[0];return base?`${base}?v=${VERSION}`:'';};
   const nativeFetch=window.fetch.bind(window);
   const state={master:null,error:null};
 
@@ -67,8 +69,15 @@
   function normalizeProduct(product,master){
     const source=productById(master,product?.id);
     if(!source)return product;
-    const image=product.image||product.imageUrl||product.image_url||'';
-    const dm=product.dmImage||image;
+    const media=mediaAuthority();
+    const authorityMain=media?.mainImage?.(product?.id)||'';
+    const authorityDetails=media?.detailImages?.(product?.id)||[];
+    const authorityIdentity=media?.identityReference?.(product?.id)||'';
+    const image=versioned(authorityMain||product.image||product.imageUrl||product.image_url||'');
+    const detailImages=authorityDetails.length
+      ? authorityDetails.map(versioned)
+      : (Array.isArray(product.detailImages)&&product.detailImages.length?product.detailImages.map(versioned):(product.dmImage?[versioned(product.dmImage)]:[]));
+    const dm=detailImages[0]||image;
     const usage=Array.isArray(source.usage)&&source.usage.length?[...source.usage]:product.usage;
     const detail=source.detail||source.detailUnitApprox||product.detailUnitApprox||product.unitApprox||'';
     return {
@@ -94,9 +103,9 @@
       image,
       imageUrl:image,
       image_url:image,
-      detailImages:Array.isArray(product.detailImages)&&product.detailImages.length?product.detailImages:(image?[image]:[]),
+      detailImages,
       dmImage:dm,
-      officialOriginalImage:product.officialOriginalImage||'',
+      officialOriginalImage:authorityIdentity?versioned(authorityIdentity):(product.officialOriginalImage||''),
       imagePolicy:'approved-simple-product-main-plus-detail-dm-no-package-redesign-no-crop-no-stretch',
       physicalScalePolicy:product.physicalScalePolicy||'preserve-real-product-shape-package-and-proportion'
     };
