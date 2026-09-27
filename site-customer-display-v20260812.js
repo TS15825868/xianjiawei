@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-09-27 simple formal product-main v16
+/* 仙加味顧客端產品主視覺｜2026-09-28 simple formal product-main v17
  * 官網六項產品文字知識以 public-product-master.json 為最高權威。
  * 一般展示與產品 Hero 統一使用 images/product-main 六張漂亮簡單正式主圖；完整介紹頁另使用 dm-final 正式詳細圖。
  * 原始實物照片只保留作產品身份／包裝比例參考，不再作一般展示主圖。
@@ -9,7 +9,7 @@
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260927-product-media-v2';
+  const VERSION='20260928-product-media-v3';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
@@ -38,7 +38,7 @@
   "guilu-drink-180": "images/guilu-drink-180cc.jpg",
   "guilu-tangkuai": "images/products-v2/guilu-tangkuai-open-new.jpg",
   "guilu-jiao": "images/products-v2/guilu-jiao-open-new.jpg",
-  "luerong-fen": "images/products-v2/luerong-fen.jpeg"
+  "luerong-fen": "images/lurong.jpg"
 });
   const TRIAL=Object.freeze({
     mode:'poster',
@@ -107,7 +107,7 @@
       productTextAuthority:'public-product-master.json',
       knowledgeProductCount:6,
       approvedMediaProductCount:6,
-      productMainImageSource:'images/dm-v3/',
+      productMainImageSource:'images/product-main/',
       productIdentityReference:'verified-original-product-photo-paths',
       dmSource:'images/dm-final/',
       detailImagesRole:'complete-product-pages-only',
@@ -119,7 +119,7 @@
       drink30Usage:CURRENT_30_USAGE,
       drink180Usage:'每日一包',
       displayVersion:VERSION,
-      displayRule:'首頁、產品總覽、怎麼選、試喝與推薦等一般展示統一使用 dm-v3 六項 DM 風正式主圖；完整介紹頁主圖相同，詳細區才使用 dm-final；產品包裝與比例不得重畫、拉伸或裁切。'
+      displayRule:'首頁、產品總覽、怎麼選、試喝、推薦、產品卡與產品 Hero 統一使用 product-main 六項簡單正式主圖；完整介紹頁詳細圖片區才使用 dm-final；identityReference 只供包裝與比例驗證。'
     };
     return data;
   }
