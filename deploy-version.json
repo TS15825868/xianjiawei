@@ -1,6 +1,6 @@
 {
-  "version": "2026-08-20-current-six-website-product-authority-v13",
-  "updated": "2026-08-20",
+  "version": "2026-09-28-current-six-website-product-authority-v14",
+  "updated": "2026-09-28",
   "status": "current-authority-release",
   "catalog": "six-website-public-products-six-approved-media",
   "contentAuthority": {
@@ -15,7 +15,8 @@
     "aiBrandControl": "content/ai-brand-control-v20260807.json",
     "publishingCenter": "publishing-center.html",
     "postBankAuthority": "content/post-bank-current-authority-v20260809.json",
-    "guardPolicy": "latest-current-authority-first-no-legacy-version-copy-or-count-lock"
+    "guardPolicy": "latest-current-authority-first-no-legacy-version-copy-or-count-lock",
+    "websiteProductMedia": "data/product-media-authority.json"
   },
   "productAuthority": {
     "source": "public-product-master.json",
@@ -39,25 +40,28 @@
     "qixuanChannelScope": "柒玄茶・龜鹿調飲粉目前暫不放官網、官網AI/GEO或公開貼文；LINE OA文字知識與ERP資料依各自正式main保留。"
   },
   "imagePolicy": {
-    "identityReference": "images/products-v3/",
-    "customerProductAuthority": "images/customer-display-v20260812/",
+    "identityReference": "verified-original-product-photos-reference-only",
+    "customerProductAuthority": "images/product-main/",
     "customerDmAuthority": "images/dm-final/",
     "formalMediaAuthority": "data/formal-media-authority-v20260810.json",
     "productDmTrialRolesSeparated": true,
-    "guiluDrink30Product": "images/customer-display-v20260812/guilu-drink-30cc.avif",
+    "guiluDrink30Product": "images/product-main/guilu-drink-30.svg",
     "guiluDrink30Dm": "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
-    "guiluDrink180Product": "images/customer-display-v20260812/guilu-drink-180cc-product.jpg",
+    "guiluDrink180Product": "images/product-main/guilu-drink-180.svg",
     "guiluDrink180Dm": "images/dm-final/03_guilu-drink-180cc-dm.jpg",
     "qixuanWebsiteMediaStatus": "deferred-not-on-website",
     "displayMode": "contain-no-crop-no-stretch",
-    "productMethod": "正式產品圖、詳細DM、試喝元件完全分開；產品本體不得AI重畫包裝、瓶罐、鋁袋、比例或標籤"
+    "productMethod": "一般展示與產品 Hero 只使用 product-main；詳細頁詳細圖片區只使用 dm-final；產品實物照片作身份／比例依據，不得AI重畫包裝、瓶罐、鋁袋、比例或標籤"
   },
   "trialCampaign": {
     "title": "龜鹿飲試喝組｜先試喝，再決定",
     "formalPoster": "images/trial/trial-poster-small-boss-official-v20260814.jpg",
-    "productImage": "images/customer-display-v20260812/guilu-drink-30cc.avif",
+    "productImage": "images/product-main/guilu-drink-30.svg",
     "freeSamples": 3,
-    "shipping": {"7-11店到店":60,"郵局宅配":100},
+    "shipping": {
+      "7-11店到店": 60,
+      "郵局宅配": 100
+    },
     "leadTime": "接單後製作，約5～7個工作天出貨",
     "applyVia": "LINE OA",
     "retiredAssetsMustNotReturn": true
@@ -78,6 +82,10 @@
     "rejectAiRedrawnProduct": true,
     "latestProductAuthorityOverridesLegacy": true
   },
-  "schedule": {"timezone":"Asia/Taipei","immediatePublishBypassesSchedule":true,"liveWeatherRequiresRecheck":true},
+  "schedule": {
+    "timezone": "Asia/Taipei",
+    "immediatePublishBypassesSchedule": true,
+    "liveWeatherRequiresRecheck": true
+  },
   "safety": "current-six-website-products-six-approved-media-flexible-guilu-gao-timing-exact-30cc-daily-1-to-2-current-dm-trial-separated-no-legacy-lock"
 }
