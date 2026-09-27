@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20260927-product-media-v2";
+  const VERSION = "20260928-product-media-v3";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
@@ -27,7 +27,7 @@
   const CURRENT_GAO_TIMING = "食用時間可依個人使用習慣與作息時間安排";
 
   const FINAL_STYLE = `site-final-v20260925.css?v=${VERSION}`;
-  const MASTER_STYLE = 'site-master-v20260925.css?v=20260927-product-media-audit-v36';
+  const MASTER_STYLE = 'site-master-v20260925.css?v=20260928-product-media-audit-v37';
 
   const STYLES = [
     `site-ux-v410.css?v=${VERSION}`,
