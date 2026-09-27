@@ -1,7 +1,7 @@
 name: 仙加味正式內容與圖片守門（手動）
 
 # 全面整理期間只保留手動驗證，不自動阻擋新版正確內容。
-# 以 assets/data/official-products.json 的目前正式資料為規格來源；媒體守門只檢查圖／DM／試喝與比例角色，不鎖舊版規格或舊使用時段。
+# 以最新正式資料為規格來源；官網一般展示固定 product-main、詳細區固定 dm-final；不得用舊 dm-v3 或舊規格阻擋新版正確內容。
 on:
   workflow_dispatch:
 
@@ -54,11 +54,23 @@ jobs:
           must(!/玻璃瓶|30cc／瓶|瓶裝/.test(JSON.stringify(p30)),'30cc又回到瓶字');
           must(local(p30.dm)==='images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg','30cc目前詳細DM錯誤');
           const p180=a.products.find(x=>x.id==='guilu-drink-180cc');
-          must(local(p180.image)==='images/dm-v3/guilu-drink-180.jpg','180cc目前產品圖不是統一正式主圖');
           must(local(p180.image)!==local(p180.dm),'180cc詳細DM被用成產品主圖');
-          must(website.products?.['guilu-drink-30']?.mainImage==='images/product-main/guilu-drink-30.svg','官網30cc簡單主圖權威錯誤');
-          must(website.products?.['guilu-drink-180']?.mainImage==='images/product-main/guilu-drink-180.svg','官網180cc簡單主圖權威錯誤');
-          must(String(website.products?.['guilu-drink-30']?.detailImages?.[0]||'').includes('/dm-final/'),'官網30cc詳細DM角色錯誤');
+          const expectedWebsiteMain={
+            'guilu-gao':'images/product-main/guilu-gao.svg',
+            'guilu-drink-30':'images/product-main/guilu-drink-30.svg',
+            'guilu-drink-180':'images/product-main/guilu-drink-180.svg',
+            'guilu-tangkuai':'images/product-main/guilu-tangkuai.svg',
+            'guilu-jiao':'images/product-main/guilu-jiao.svg',
+            'luerong-fen':'images/product-main/luerong-fen.svg'
+          };
+          for(const [id,main] of Object.entries(expectedWebsiteMain)){
+            const w=website.products?.[id];
+            must(w?.mainImage===main,`官網 ${id} 一般展示主圖不是 product-main`);
+            must(fs.existsSync(main),`官網 ${id} product-main 實體不存在`);
+            must(Array.isArray(w?.detailImages)&&w.detailImages.length>0,`官網 ${id} 缺詳細DM`);
+            must(w.detailImages.every(x=>String(x).startsWith('images/dm-final/')),`官網 ${id} 詳細圖不是 dm-final`);
+            must(String(w.identityReference||'')!==main,`官網 ${id} identityReference 不得直接當一般主圖`);
+          }
           must(String(a.customer_text_spec_policy||'').includes('顧客產品頁'),'顧客完整文字規格政策缺失');
           must(String(a.customer_text_spec_policy||'').includes('不得因此自行加字'),'文字規格政策沒有保護正式產品圖／DM');
           const trial=local(a.trial?.image||a.trial?.path);
