@@ -1,6 +1,6 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-09-27 simple product-main safety v15
+/* 官網顧客產品圖片安全層｜2026-09-28 simple product-main safety v16
  * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 product-main 漂亮簡單正式主圖。
  * dm-final 為完整產品介紹頁詳細圖，不得被主圖守門員覆寫。
  */
@@ -8,7 +8,7 @@
   if(window.__XJW_PRODUCT_IMAGE_SAFETY_V13__)return;
   window.__XJW_PRODUCT_IMAGE_SAFETY_V13__=true;
 
-  const VERSION='20260927-product-media-v2';
+  const VERSION='20260928-product-media-v3';
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const mainImage=(id,fallback)=>`${MEDIA_AUTHORITY?.mainImage?.(id)||fallback}?v=${VERSION}`;
   const CUSTOMER=Object.freeze({
@@ -50,7 +50,7 @@
   }
   function setStyleIfChanged(node,name,value){if(!node||node.style[name]===value)return false;node.style[name]=value;return true;}
   function alreadyCurrent(value){return Object.values(CUSTOMER).some(url=>sameUrl(value,url));}
-  function isDetailedDm(value){return /\/images\/(?:dm-approved-v20260810|dm-final)\//i.test(String(value||''));}
+  function isDetailedDm(value){return /\/images\/dm-final\//i.test(String(value||''));}
   function isImageHref(value=''){
     const text=String(value||'').trim();
     if(!text||/^#/.test(text)||/\.html(?:[?#]|$)/i.test(text))return false;
