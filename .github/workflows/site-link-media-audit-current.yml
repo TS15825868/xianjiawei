@@ -35,7 +35,7 @@ jobs:
           const fs=require('fs');
           const path=require('path');
           const master=JSON.parse(fs.readFileSync('public-product-master.json','utf8'));
-          const media=JSON.parse(fs.readFileSync('data/formal-media-authority-v20260810.json','utf8'));
+          const media=JSON.parse(fs.readFileSync('data/product-media-authority.json','utf8'));
           const errors=[];
           const products=Array.isArray(master.products)?master.products:[];
           if(master.brand?.name!=='仙加味')errors.push('public master brand不是仙加味');
@@ -51,34 +51,25 @@ jobs:
             if(p.id==='guilu-drink-180'&&p.name!=='龜鹿飲180cc鋁袋')errors.push('180cc正式名稱錯誤');
             if(p.id==='guilu-drink-180'&&p.specification!=='180cc／包（鋁袋）')errors.push('180cc正式規格錯誤');
           }
-          const mediaById=new Map((media.products||[]).map(p=>[p.id,p]));
-          // public-product-master 使用精簡產品 id；正式媒體權威保留既有 30cc/180cc 媒體 id。
-          // 兩者都是現行正式資料，驗收時以明確 alias 對照，不因 id 命名差異誤判為缺產品。
-          const mediaIdAlias={
-            'guilu-drink-30':'guilu-drink-30cc',
-            'guilu-drink-180':'guilu-drink-180cc'
-          };
+          const mediaById=new Map(Object.entries(media.products||{}));
           for(const p of products){
-            const mediaId=mediaIdAlias[p.id]||p.id;
-            const m=mediaById.get(mediaId);
-            if(!m)errors.push(`${p.id}: 正式媒體權威缺產品（查找 ${mediaId}）`);
-            else{
-              if(m.status!=='approved_display')errors.push(`${p.id}: 正式主圖未 approved_display`);
-              for(const key of ['image','dm']){
-                const raw=String(m[key]||'').replace(/^\//,'');
-                if(!raw)errors.push(`${p.id}: 缺${key}`);
-                else if(!fs.existsSync(path.resolve(raw)))errors.push(`${p.id}: ${key}實體不存在 ${raw}`);
-              }
+            const m=mediaById.get(p.id);
+            if(!m){errors.push(`${p.id}: 官網產品圖片權威缺產品`);continue}
+            const main=String(m.mainImage||'').replace(/^\//,'');
+            const details=Array.isArray(m.detailImages)?m.detailImages.map(x=>String(x||'').replace(/^\//,'')):[];
+            if(!/^images\/product-main\/.+\.svg$/i.test(main))errors.push(`${p.id}: 一般展示主圖不是 product-main SVG：${main}`);
+            else if(!fs.existsSync(path.resolve(main)))errors.push(`${p.id}: mainImage實體不存在 ${main}`);
+            if(!details.length)errors.push(`${p.id}: 缺 detailImages`);
+            for(const d of details){
+              if(!/^images\/dm-final\//i.test(d))errors.push(`${p.id}: 詳細圖不在 dm-final：${d}`);
+              else if(!fs.existsSync(path.resolve(d)))errors.push(`${p.id}: detailImage實體不存在 ${d}`);
+              if(d===main)errors.push(`${p.id}: mainImage/detailImage角色混用`);
             }
           }
-          if(mediaById.has('guilu-drink-30cc')){
-            const m=mediaById.get('guilu-drink-30cc');
-            if(!String(m.image||'').includes('/images/dm-v3/guilu-drink-30.jpg'))errors.push('30cc主圖不是目前統一正式小玻璃裸罐主圖');
-          }
-          if(mediaById.has('guilu-drink-180cc')){
-            const m=mediaById.get('guilu-drink-180cc');
-            if(!String(m.image||'').includes('/images/dm-v3/guilu-drink-180.jpg'))errors.push('180cc主圖未使用目前統一正式鋁袋主圖');
-          }
+          if(mediaById.get('guilu-drink-30')?.mainImage!=='images/product-main/guilu-drink-30.svg')errors.push('30cc一般展示未使用正式小玻璃裸罐簡單主圖');
+          if(mediaById.get('guilu-drink-180')?.mainImage!=='images/product-main/guilu-drink-180.svg')errors.push('180cc一般展示未使用正式鋁袋簡單主圖');
+          if(!String(mediaById.get('guilu-drink-30')?.detailImages?.[0]||'').includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'))errors.push('30cc詳細頁DM錯誤');
+          if(!String(mediaById.get('guilu-drink-180')?.detailImages?.[0]||'').includes('03_guilu-drink-180cc-dm.jpg'))errors.push('180cc詳細頁DM錯誤');
           if(errors.length){console.error(errors.join('\n'));process.exit(1)}
           console.log(`PASS website product/media authority: ${products.length} products, ${master.version}`);
 
@@ -86,7 +77,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for file in site.js site-core-v410.js site-product-data-authority.js site-customer-display-v20260812.js site-dm-authority-v20260811.js site-media-modal-final-v20260814.js site-product-image-safety.js site-official-product-variants.js site-stability-v20260814.js; do
+          for file in site.js site-core-v410.js site-product-media-authority.js site-product-data-authority.js site-customer-display-v20260812.js site-dm-authority-v20260811.js site-media-modal-final-v20260814.js site-product-image-safety.js site-official-product-variants.js site-stability-v20260814.js; do
             node --check "$file"
           done
           grep -q 'mobile-compare-ready' site-core-v410.js

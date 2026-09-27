@@ -150,7 +150,7 @@ jobs:
                     const src=i.getAttribute('src')||'';
                     let approvedSource=false;
                     try{
-                      approvedSource=/\/images\/dm-v3\/(?:guilu-gao|guilu-drink-30|guilu-drink-180|guilu-tangkuai|guilu-jiao|luerong-fen)\.jpg$/i.test(new URL(src,location.href).pathname);
+                      approvedSource=/\/images\/product-main\/(?:guilu-gao|guilu-drink-30|guilu-drink-180|guilu-tangkuai|guilu-jiao|luerong-fen)\.svg$/i.test(new URL(src,location.href).pathname);
                     }catch{}
                     return {
                       src,approvedSource,
