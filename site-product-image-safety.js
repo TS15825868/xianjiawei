@@ -1,6 +1,6 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-09-28 simple product-main safety v16
+/* 官網顧客產品圖片安全層｜2026-09-28 simple product-main safety v17
  * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 product-main 漂亮簡單正式主圖。
  * dm-final 為完整產品介紹頁詳細圖，不得被主圖守門員覆寫。
  */
@@ -8,7 +8,7 @@
   if(window.__XJW_PRODUCT_IMAGE_SAFETY_V13__)return;
   window.__XJW_PRODUCT_IMAGE_SAFETY_V13__=true;
 
-  const VERSION='20260928-product-media-v4';
+  const VERSION='20260928-product-media-v6';
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const mainImage=(id,fallback)=>`${MEDIA_AUTHORITY?.mainImage?.(id)||fallback}?v=${VERSION}`;
   const CUSTOMER=Object.freeze({

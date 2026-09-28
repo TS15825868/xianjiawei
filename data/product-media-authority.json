@@ -1,5 +1,5 @@
 {
-  "version": "20260928-product-media-v5",
+  "version": "20260928-product-media-v6",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one product, one mainImage; source must be images/product-main/",

@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味公開網站舊圖退役層｜2026-09-28 v14
+/* 仙加味公開網站舊圖退役層｜2026-09-28 v15
  * 一般展示統一使用 product-main 六項漂亮簡單正式主圖。
  * 舊雜背景實拍、customer-display 舊檔與 approved-v405 舊產品合成圖若回流，一律導回同一套主圖。
  * dm-final 為完整產品介紹頁詳細圖，不在本層退役。
@@ -9,7 +9,7 @@
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260928-product-media-v4';
+  const VERSION='20260928-product-media-v6';
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const MAIN_FALLBACK=Object.freeze({
     'guilu-gao':'images/product-main/guilu-gao.svg',

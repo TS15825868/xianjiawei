@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味顧客端產品主視覺｜2026-09-28 simple formal product-main v17
+/* 仙加味顧客端產品主視覺｜2026-09-28 simple formal product-main v18
  * 官網六項產品文字知識以 public-product-master.json 為最高權威。
  * 一般展示與產品 Hero 統一使用 images/product-main 六張漂亮簡單正式主圖；完整介紹頁另使用 dm-final 正式詳細圖。
  * 原始實物照片只保留作產品身份／包裝比例參考，不再作一般展示主圖。
@@ -9,7 +9,7 @@
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260928-product-media-v5';
+  const VERSION='20260928-product-media-v6';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
