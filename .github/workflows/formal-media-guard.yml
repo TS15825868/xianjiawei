@@ -55,21 +55,19 @@ jobs:
           must(local(p30.dm)==='images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg','30cc目前詳細DM錯誤');
           const p180=a.products.find(x=>x.id==='guilu-drink-180cc');
           must(local(p180.image)!==local(p180.dm),'180cc詳細DM被用成產品主圖');
-          const expectedWebsiteMain={
-            'guilu-gao':'images/product-main/guilu-gao.svg',
-            'guilu-drink-30':'images/product-main/guilu-drink-30.svg',
-            'guilu-drink-180':'images/product-main/guilu-drink-180.svg',
-            'guilu-tangkuai':'images/product-main/guilu-tangkuai.svg',
-            'guilu-jiao':'images/product-main/guilu-jiao.svg',
-            'luerong-fen':'images/product-main/luerong-fen.svg'
-          };
-          for(const [id,main] of Object.entries(expectedWebsiteMain)){
-            const w=website.products?.[id];
-            must(w?.mainImage===main,`官網 ${id} 一般展示主圖不是 product-main`);
+          const websiteProducts=website.products||{};
+          const allowedMain=/^images\/product-main\/.+\.(?:svg|webp|avif|png|jpe?g)$/i;
+          must(Object.keys(websiteProducts).length===6,'官網圖片權威不是六項');
+          for(const [id,w] of Object.entries(websiteProducts)){
+            const main=local(w?.mainImage);
+            const identity=local(w?.identityReference);
+            must(allowedMain.test(main),`官網 ${id} 一般展示主圖不在 product-main 或格式不支援：${main}`);
             must(fs.existsSync(main),`官網 ${id} product-main 實體不存在`);
             must(Array.isArray(w?.detailImages)&&w.detailImages.length>0,`官網 ${id} 缺詳細DM`);
             must(w.detailImages.every(x=>String(x).startsWith('images/dm-final/')),`官網 ${id} 詳細圖不是 dm-final`);
-            must(String(w.identityReference||'')!==main,`官網 ${id} identityReference 不得直接當一般主圖`);
+            must(w.detailImages.every(x=>fs.existsSync(local(x))),`官網 ${id} 詳細DM實體不存在`);
+            must(identity&&identity!==main,`官網 ${id} identityReference 不得缺失或直接當一般主圖`);
+            must(fs.existsSync(identity),`官網 ${id} identityReference 實體不存在`);
           }
           must(String(a.customer_text_spec_policy||'').includes('顧客產品頁'),'顧客完整文字規格政策缺失');
           must(String(a.customer_text_spec_policy||'').includes('不得因此自行加字'),'文字規格政策沒有保護正式產品圖／DM');
@@ -93,7 +91,7 @@ jobs:
           const safety=fs.readFileSync('site-product-image-safety.js','utf8');
           must(safety.includes("isDetailedDm")&&safety.includes("objectFit','contain"),'產品圖片安全層缺少DM分離或contain能力');
           const retirement=fs.readFileSync('site-public-image-retirement-v20260812.js','utf8');
-          must(retirement.includes('guilu-drink-180cc-product.jpg')&&retirement.includes('images/product-main/guilu-drink-180.svg'),'舊圖退役層沒有把180cc舊圖導向目前統一正式主圖');
+          must(retirement.includes('guilu-drink-180cc-product.jpg')&&retirement.includes('XJW_PRODUCT_MEDIA_AUTHORITY')&&retirement.includes('images/product-main/'),'舊圖退役層未依目前圖片權威把180cc舊圖導向 product-main');
           const modal=fs.readFileSync('site-media-modal-final-v20260814.js','utf8');
           must(modal.includes('trial-poster-small-boss-official-v20260814.jpg'),'Modal媒體層沒有目前試喝主圖');
           must(modal.includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'),'Modal媒體層沒有目前30cc正式DM');

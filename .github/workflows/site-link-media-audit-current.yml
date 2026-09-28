@@ -37,6 +37,7 @@ jobs:
           const master=JSON.parse(fs.readFileSync('public-product-master.json','utf8'));
           const media=JSON.parse(fs.readFileSync('data/product-media-authority.json','utf8'));
           const errors=[];
+          const mainAsset=/^images\/product-main\/.+\.(?:svg|webp|avif|png|jpe?g)$/i;
           const products=Array.isArray(master.products)?master.products:[];
           if(master.brand?.name!=='仙加味')errors.push('public master brand不是仙加味');
           if(Number(master.productCount)!==products.length)errors.push(`productCount ${master.productCount} != products ${products.length}`);
@@ -57,8 +58,12 @@ jobs:
             if(!m){errors.push(`${p.id}: 官網產品圖片權威缺產品`);continue}
             const main=String(m.mainImage||'').replace(/^\//,'');
             const details=Array.isArray(m.detailImages)?m.detailImages.map(x=>String(x||'').replace(/^\//,'')):[];
-            if(!/^images\/product-main\/.+\.svg$/i.test(main))errors.push(`${p.id}: 一般展示主圖不是 product-main SVG：${main}`);
+            const identity=String(m.identityReference||'').replace(/^\//,'');
+            if(!mainAsset.test(main))errors.push(`${p.id}: 一般展示主圖不在 product-main 或格式不支援：${main}`);
             else if(!fs.existsSync(path.resolve(main)))errors.push(`${p.id}: mainImage實體不存在 ${main}`);
+            if(!identity)errors.push(`${p.id}: 缺 identityReference`);
+            else if(!fs.existsSync(path.resolve(identity)))errors.push(`${p.id}: identityReference實體不存在 ${identity}`);
+            if(identity===main)errors.push(`${p.id}: identityReference 不得直接當一般展示主圖`);
             if(!details.length)errors.push(`${p.id}: 缺 detailImages`);
             for(const d of details){
               if(!/^images\/dm-final\//i.test(d))errors.push(`${p.id}: 詳細圖不在 dm-final：${d}`);
@@ -66,8 +71,8 @@ jobs:
               if(d===main)errors.push(`${p.id}: mainImage/detailImage角色混用`);
             }
           }
-          if(mediaById.get('guilu-drink-30')?.mainImage!=='images/product-main/guilu-drink-30.svg')errors.push('30cc一般展示未使用正式小玻璃裸罐簡單主圖');
-          if(mediaById.get('guilu-drink-180')?.mainImage!=='images/product-main/guilu-drink-180.svg')errors.push('180cc一般展示未使用正式鋁袋簡單主圖');
+          if(!/^images\/product-main\/guilu-drink-30\.(?:svg|webp|avif|png|jpe?g)$/i.test(String(mediaById.get('guilu-drink-30')?.mainImage||'')))errors.push('30cc一般展示未使用正式小玻璃裸罐 product-main 主圖');
+          if(!/^images\/product-main\/guilu-drink-180\.(?:svg|webp|avif|png|jpe?g)$/i.test(String(mediaById.get('guilu-drink-180')?.mainImage||'')))errors.push('180cc一般展示未使用正式鋁袋 product-main 主圖');
           if(!String(mediaById.get('guilu-drink-30')?.detailImages?.[0]||'').includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'))errors.push('30cc詳細頁DM錯誤');
           if(!String(mediaById.get('guilu-drink-180')?.detailImages?.[0]||'').includes('03_guilu-drink-180cc-dm.jpg'))errors.push('180cc詳細頁DM錯誤');
           if(errors.length){console.error(errors.join('\n'));process.exit(1)}
