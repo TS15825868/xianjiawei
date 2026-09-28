@@ -91,7 +91,7 @@ jobs:
           assert 'knowledgeProductCount:6' in display
           assert 'knowledgeProductCount: 6' in fallback
           media=json.loads(Path('data/product-media-authority.json').read_text(encoding='utf-8'))
-          assert media.get('version')=='20260928-product-media-v4'
+          assert media.get('version')=='20260928-product-media-v6'
           for pid,item in media.get('products',{}).items():
               assert str(item.get('mainImage','')).startswith('images/product-main/'), f'product-media-authority general display invalid: {pid}'
               details=item.get('detailImages') or []
