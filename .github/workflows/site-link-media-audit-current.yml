@@ -75,6 +75,28 @@ jobs:
           if(!/^images\/product-main\/guilu-drink-180\.(?:svg|webp|avif|png|jpe?g)$/i.test(String(mediaById.get('guilu-drink-180')?.mainImage||'')))errors.push('180cc一般展示未使用正式鋁袋 product-main 主圖');
           if(!String(mediaById.get('guilu-drink-30')?.detailImages?.[0]||'').includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'))errors.push('30cc詳細頁DM錯誤');
           if(!String(mediaById.get('guilu-drink-180')?.detailImages?.[0]||'').includes('03_guilu-drink-180cc-dm.jpg'))errors.push('180cc詳細頁DM錯誤');
+          // Detail-page Hero / DM role validation: same product-main above, dm-final only in detail section.
+          const detailPages={
+            'guilu-gao':'product-guilu-gao.html',
+            'guilu-drink-30':'product-guilu-drink-30cc.html',
+            'guilu-drink-180':'product-guilu-drink-180cc.html',
+            'guilu-tangkuai':'product-guilu-tangkuai.html',
+            'guilu-jiao':'product-guilu-jiao.html',
+            'luerong-fen':'product-luerong-fen.html'
+          };
+          for(const [id,pageFile] of Object.entries(detailPages)){
+            const m=mediaById.get(id);
+            const pageText=fs.readFileSync(pageFile,'utf8');
+            const marker='product-detail-media-section';
+            const markerAt=pageText.indexOf(marker);
+            const heroPart=markerAt>=0?pageText.slice(0,markerAt):pageText;
+            const detailPart=markerAt>=0?pageText.slice(markerAt):'';
+            const main=String(m?.mainImage||'');
+            if(!main||!heroPart.includes(main))errors.push(`${pageFile}: Hero 未使用該產品唯一 mainImage ${main}`);
+            if(/images\/dm-final\//i.test(heroPart))errors.push(`${pageFile}: Hero／上方區域誤用 dm-final`);
+            const details=Array.isArray(m?.detailImages)?m.detailImages:[];
+            if(!detailPart||!details.every(d=>detailPart.includes(String(d))))errors.push(`${pageFile}: 下方詳細圖片區未使用權威 dm-final`);
+          }
           if(errors.length){console.error(errors.join('\n'));process.exit(1)}
           console.log(`PASS website product/media authority: ${products.length} products, ${master.version}`);
 
