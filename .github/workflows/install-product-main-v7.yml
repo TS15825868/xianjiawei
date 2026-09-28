@@ -1,0 +1,182 @@
+name: 仙加味產品主圖 v7 一次性安裝
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_staging/product-main-v7/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xianjiawei-product-main-v7-installer
+  cancel-in-progress: false
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Check all staged chunks
+        id: ready
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=(
+            guilu-gao.part01.b64 guilu-gao.part02.b64 guilu-gao.part03.b64
+            guilu-drink-30.part01.b64 guilu-drink-30.part02.b64 guilu-drink-30.part03.b64
+            guilu-drink-180.part01.b64 guilu-drink-180.part02.b64 guilu-drink-180.part03.b64
+            guilu-tangkuai.part01.b64 guilu-tangkuai.part02.b64 guilu-tangkuai.part03.b64
+            guilu-jiao.part01.b64 guilu-jiao.part02.b64 guilu-jiao.part03.b64
+            luerong-fen.part01.b64 luerong-fen.part02.b64 luerong-fen.part03.b64
+          )
+          missing=0
+          for f in "${files[@]}"; do
+            if [ ! -s "_staging/product-main-v7/$f" ]; then
+              echo "waiting for $f"
+              missing=1
+            fi
+          done
+          if [ "$missing" -eq 0 ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install six unified product-main images and sync references
+        if: steps.ready.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p images/product-main
+          for name in guilu-gao guilu-drink-30 guilu-drink-180 guilu-tangkuai guilu-jiao luerong-fen; do
+            cat _staging/product-main-v7/"$name".part*.b64 | base64 -d > images/product-main/"$name".webp
+            test -s images/product-main/"$name".webp
+            file images/product-main/"$name".webp
+          done
+
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          root=Path('.')
+          names=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+          replacements={f'images/product-main/{n}.svg':f'images/product-main/{n}.webp' for n in names}
+          text_ext={'.html','.js','.json','.yml','.yaml','.css','.md','.txt','.xml'}
+          skip={'.git','node_modules','_staging'}
+
+          for p in root.rglob('*'):
+            if not p.is_file() or p.suffix.lower() not in text_ext:
+              continue
+            if any(part in skip for part in p.parts):
+              continue
+            try:
+              s=p.read_text(encoding='utf-8')
+            except Exception:
+              continue
+            old=s
+            for a,b in replacements.items():
+              s=s.replace(a,b)
+            s=s.replace('20260928-product-media-v6','20260928-product-media-v7')
+            if s!=old:
+              p.write_text(s,encoding='utf-8')
+
+          media_path=Path('data/product-media-authority.json')
+          media=json.loads(media_path.read_text(encoding='utf-8'))
+          media['version']='20260928-product-media-v7'
+          media.setdefault('rules',{})['generalDisplay']='one product, one mainImage; every general website display must use the same images/product-main/<product>.webp'
+          media['rules']['productDetailHero']='same mainImage as all other general product displays; detailed DM remains separate below'
+          media['rules']['productDetailMedia']='detailImages only; source must remain images/dm-final/'
+          for pid,item in media.get('products',{}).items():
+            if pid in names:
+              item['mainImage']=f'images/product-main/{pid}.webp'
+          media_path.write_text(json.dumps(media,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          data_path=Path('data.json')
+          data=json.loads(data_path.read_text(encoding='utf-8'))
+          data['version']='2026-09-28-six-public-products-unified-main-v26'
+          data['authorityScope']='目前六項官網公開產品採一產品一主圖：首頁、產品總覽、怎麼選、試喝、推薦、產品卡與產品 Hero 一律使用相同 images/product-main WebP 主圖；完整介紹頁詳細圖片區只使用 images/dm-final 正式詳細 DM；identityReference 僅供包裝／比例驗證。'
+          runtime=data.setdefault('runtime',{})
+          runtime['displayVersion']='20260928-product-media-v7'
+          runtime['productMainImageVersion']='20260928-product-media-v7'
+          runtime['productMainImageSource']='images/product-main/'
+          runtime['productDetailImageSource']='images/dm-final/'
+          runtime['productMainImageRule']='一產品一主圖，全站所有一般展示與產品 Hero 使用同一張 product-main WebP；完整介紹頁下方詳細圖片區使用 dm-final。'
+          data['productMainImagePolicy']='six-products-one-main-image-each-webp; all-general-displays-and-hero-use-product-main; detail-dm-only-on-complete-product-pages'
+          data_path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          cat_path=Path('catalog-public.json')
+          cat=json.loads(cat_path.read_text(encoding='utf-8'))
+          cat['schemaVersion']=max(int(cat.get('schemaVersion') or 0),16)
+          cat['catalogVersion']='current-six-public-products-one-main-image-20260928-v9'
+          cat['updatedAt']='2026-09-28'
+          cat['productImageVersion']='current-six-one-main-image-webp-v7'
+          dm=cat.setdefault('dmPolicy',{})
+          dm['currentDmStatus']='product-main-webp-general-display-and-dm-final-detail-separated'
+          dm['productMainImageMustNotUseDm']=True
+          cat['productIdentityReference']='verified-original-product-reference-only-never-general-public-main-image'
+          cat_path.write_text(json.dumps(cat,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          dep_path=Path('deploy-version.json')
+          dep=json.loads(dep_path.read_text(encoding='utf-8'))
+          dep['version']='2026-09-28-product-media-v7'
+          dep['updated']='2026-09-28'
+          ip=dep.setdefault('imagePolicy',{})
+          ip['customerProductAuthority']='images/product-main/'
+          ip['customerDmAuthority']='images/dm-final/'
+          ip['productMethod']='一產品一主圖：全站一般展示與產品 Hero 使用同一張 product-main WebP；完整產品頁下方詳細圖片只使用 dm-final；產品實物外觀與比例不得被 AI 任意改造。'
+          dep_path.write_text(json.dumps(dep,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+          # Ensure six product detail pages still contain dm-final after main-image sync.
+          for pid,page in {
+            'guilu-gao':'product-guilu-gao.html',
+            'guilu-drink-30':'product-guilu-drink-30cc.html',
+            'guilu-drink-180':'product-guilu-drink-180cc.html',
+            'guilu-tangkuai':'product-guilu-tangkuai.html',
+            'guilu-jiao':'product-guilu-jiao.html',
+            'luerong-fen':'product-luerong-fen.html',
+          }.items():
+            text=Path(page).read_text(encoding='utf-8')
+            if f'images/product-main/{pid}.webp' not in text:
+              raise SystemExit(f'{page}: Hero/mainImage 未切到統一 product-main WebP')
+            if 'images/dm-final/' not in text:
+              raise SystemExit(f'{page}: 詳細介紹頁缺 dm-final')
+
+          # General public pages may not use dm-final as their product-main.
+          for page in ['index.html','products.html','choose.html','trial.html']:
+            text=Path(page).read_text(encoding='utf-8')
+            if re.search(r'<img[^>]+src=["\'][^"\']*images/dm-final/',text,re.I):
+              raise SystemExit(f'{page}: 一般展示誤用 dm-final')
+
+          print('PASS: one-product-one-main-image WebP + dm-final detail roles installed.')
+          PY
+
+          node --check site-product-media-authority.js
+          node --check site-customer-display-v20260812.js
+          node --check site-product-image-safety.js
+          node --check site-public-image-retirement-v20260812.js
+          node --check site-product-data-authority.js
+          node --check site.js
+          python -m json.tool data/product-media-authority.json >/dev/null
+          python -m json.tool data.json >/dev/null
+          python -m json.tool catalog-public.json >/dev/null
+          python -m json.tool deploy-version.json >/dev/null
+
+      - name: Commit installed product-main v7
+        if: steps.ready.outputs.ready == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -r _staging/product-main-v7
+          git rm .github/workflows/install-product-main-v7.yml
+          git add -A
+          git commit -m 'feat: install unified product main visuals v7'
+          git pull --rebase origin main
+          git push origin main
