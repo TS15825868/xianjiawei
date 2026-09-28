@@ -1,9 +1,9 @@
 {
-  "version": "20260928-product-media-v6",
+  "version": "20260928-product-media-v7",
   "scope": "website-product-media",
   "rules": {
-    "generalDisplay": "one product, one mainImage; source must be images/product-main/",
-    "productDetailHero": "same mainImage as all other general product displays",
+    "generalDisplay": "one product = one product-main image across all general website surfaces",
+    "productDetailHero": "same product-main image as all other general surfaces",
     "productDetailMedia": "detailImages only; source must be images/dm-final/",
     "identityReference": "validation/reference only; never general public main image"
   },
