@@ -51,7 +51,7 @@
     "guiluDrink180Dm": "images/dm-final/03_guilu-drink-180cc-dm.jpg",
     "qixuanWebsiteMediaStatus": "deferred-not-on-website",
     "displayMode": "contain-no-crop-no-stretch",
-    "productMethod": "一產品一主圖：首頁、產品總覽、怎麼選、試喝／推薦、產品卡與產品 Hero 均使用同一張 product-main；詳細頁下方只使用 dm-final；產品實物不得 AI 重畫或變形。"
+    "productMethod": "一產品一主圖、全站一般展示與產品 Hero 統一使用 product-main；完整介紹頁詳細圖片區使用 dm-final；產品實物照片只作身份與比例依據，不得AI重畫包裝、瓶罐、鋁袋、比例或標籤"
   },
   "trialCampaign": {
     "title": "龜鹿飲試喝組｜先試喝，再決定",
