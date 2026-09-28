@@ -9,7 +9,7 @@
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260928-product-media-v3';
+  const VERSION='20260928-product-media-v4';
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const MAIN_FALLBACK=Object.freeze({
     'guilu-gao':'images/product-main/guilu-gao.svg',
