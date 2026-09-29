@@ -6,7 +6,7 @@
  */
 (function(){
   const DATA={
-  "version": "20260928-product-media-v7",
+  "version": "20260929-product-media-v8",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one product, one mainImage; source must be images/product-main/",
@@ -16,42 +16,42 @@
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/product-main/guilu-gao.svg",
+      "mainImage": "images/product-main/guilu-gao.jpg",
       "detailImages": [
         "images/dm-final/01_guilu-gao-100g-dm.jpg"
       ],
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/product-main/guilu-drink-30.svg",
+      "mainImage": "images/product-main/guilu-drink-30.jpg",
       "detailImages": [
         "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg"
       ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/product-main/guilu-drink-180.svg",
+      "mainImage": "images/product-main/guilu-drink-180.jpg",
       "detailImages": [
         "images/dm-final/03_guilu-drink-180cc-dm.jpg"
       ],
       "identityReference": "images/guilu-drink-180cc.jpg"
     },
     "guilu-tangkuai": {
-      "mainImage": "images/product-main/guilu-tangkuai.svg",
+      "mainImage": "images/product-main/guilu-tangkuai.jpg",
       "detailImages": [
         "images/dm-final/05_guilu-tangkuai-75g-dm.jpg"
       ],
       "identityReference": "images/products-v2/guilu-tangkuai-open-new.jpg"
     },
     "guilu-jiao": {
-      "mainImage": "images/product-main/guilu-jiao.svg",
+      "mainImage": "images/product-main/guilu-jiao.jpg",
       "detailImages": [
         "images/dm-final/06_guilu-jiao-600g-dm.jpg"
       ],
       "identityReference": "images/products-v2/guilu-jiao-open-new.jpg"
     },
     "luerong-fen": {
-      "mainImage": "images/product-main/luerong-fen.svg",
+      "mainImage": "images/product-main/luerong-fen.jpg",
       "detailImages": [
         "images/dm-final/04_luerong-fen-75g-dm.jpg"
       ],
