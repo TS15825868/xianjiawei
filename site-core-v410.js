@@ -794,7 +794,7 @@ function renderMobileCompareCards() {
         <article class="mobile-compare-card">
           <h3>${escapeHtml(name)}</h3>
           <dl>${details}</dl>
-          <a class="btn btn-outline" href="${escapeAttribute(href)}">查看產品</a>
+          <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(href)}">查看介紹</a>
         </article>
       `;
     }).join("");
@@ -810,7 +810,6 @@ function openProductModal(product, sourceElement) {
 
   lastFocusedElement = sourceElement || document.activeElement;
   const name = product.displayName || product.name || "仙加味產品";
-  const image = product.image || product.gallery?.[0] || "images/logo.png";
   const ingredients = Array.isArray(product.ingredients) ? product.ingredients : [];
   const usage = Array.isArray(product.usage) ? product.usage : [];
   const storage = Array.isArray(product.storage) ? product.storage : [];
@@ -822,42 +821,36 @@ function openProductModal(product, sourceElement) {
   const spec = productDisplaySpec(product) || "請見正式產品資訊";
 
   body.innerHTML = `
-    <div class="modal-top">
-      <div class="modal-gallery">
-        <div class="modal-gallery__item">
-          <img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}正式主圖" loading="eager" decoding="async">
-        </div>
-      </div>
-      <div class="modal-copy">
-        <p class="eyebrow">${escapeHtml(product.series || "仙加味")}</p>
-        <h2 id="product-modal-title">${escapeHtml(name)}</h2>
-        ${product.purpose ? `<p class="product-purpose">${escapeHtml(product.purpose)}</p>` : ""}
-        <p>${escapeHtml(product.description || "")}</p>
+    <header class="modal-intro">
+      <p class="eyebrow">${escapeHtml(product.series || "仙加味")}</p>
+      <h2 id="product-modal-title">${escapeHtml(name)}</h2>
+      ${product.purpose ? `<p class="modal-intro__purpose">${escapeHtml(product.purpose)}</p>` : ""}
+      ${product.description ? `<p class="modal-intro__desc">${escapeHtml(product.description)}</p>` : ""}
+    </header>
 
-        <div class="modal-facts">
-          <div class="modal-section"><h3>規格</h3><p><strong>${escapeHtml(spec)}</strong></p></div>
-          ${ingredients.length ? `<div class="modal-section"><h3>成分</h3><p>${escapeHtml(ingredients.join("、"))}</p></div>` : ""}
-          ${usage.length ? `<div class="modal-section modal-section--wide"><h3>一般使用</h3><ul>${usage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
-          ${storage.length ? `<div class="modal-section"><h3>保存方式</h3><ul>${storage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
-          ${fulfillment ? `<div class="modal-section"><h3>出貨說明</h3><p>${escapeHtml(fulfillment)}</p></div>` : ""}
-        </div>
-
-        <div class="modal-actions final-cta__actions">
-          ${lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
-        </div>
-      </div>
+    <div class="modal-facts">
+      <section class="modal-section"><h3>規格</h3><p><strong>${escapeHtml(spec)}</strong></p></section>
+      ${ingredients.length ? `<section class="modal-section"><h3>成分</h3><p>${escapeHtml(ingredients.join("、"))}</p></section>` : ""}
+      ${usage.length ? `<section class="modal-section modal-section--wide"><h3>一般使用</h3><ul>${usage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>` : ""}
+      ${storage.length ? `<section class="modal-section"><h3>保存方式</h3><ul>${storage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>` : ""}
+      ${fulfillment ? `<section class="modal-section"><h3>出貨說明</h3><p>${escapeHtml(fulfillment)}</p></section>` : ""}
     </div>
+
     ${dmImage ? `
-      <section class="modal-detail-media" aria-label="${escapeAttribute(name)}詳細圖">
+      <section class="modal-detail-media" aria-label="${escapeAttribute(name)}正式 DM">
         <div class="modal-detail-media__heading">
-          <p class="eyebrow">產品詳細圖</p>
-          <h3>${escapeHtml(name)}完整資訊 DM</h3>
+          <p class="eyebrow">產品詳細 DM</p>
+          <h3>${escapeHtml(name)}完整資訊</h3>
         </div>
-        <div class="modal-detail-media__frame">
-          <img src="${escapeAttribute(dmImage)}" alt="${escapeAttribute(name)}正式詳細圖／DM" loading="lazy" decoding="async">
-        </div>
+        <figure class="modal-detail-media__frame">
+          <img src="${escapeAttribute(dmImage)}" alt="${escapeAttribute(name)}正式詳細 DM" loading="eager" decoding="async">
+        </figure>
       </section>
     ` : ""}
+
+    <div class="modal-actions">
+      ${lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
+    </div>
   `;
 
   modal.classList.add("show");
