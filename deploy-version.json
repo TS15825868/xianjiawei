@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-30-product-media-v10",
+  "version": "2026-09-30-clean-layout-v11",
   "updated": "2026-09-30",
   "status": "current-authority-release",
   "catalog": "six-website-public-products-six-approved-media",
@@ -51,7 +51,7 @@
     "guiluDrink180Dm": "images/dm-final/03_guilu-drink-180cc-dm.jpg",
     "qixuanWebsiteMediaStatus": "deferred-not-on-website",
     "displayMode": "contain-no-crop-no-stretch",
-    "productMethod": "一產品一主圖：首頁、產品總覽、怎麼選、試喝／推薦、產品卡與六個產品 Hero 使用同一張自包含 product-main SVG；完整產品頁下方詳細圖片只使用 dm-final；30cc 維持小玻璃裸罐無貼紙，180cc 維持正式鋁袋比例；產品實物外觀與比例不得被 AI 任意改造。"
+    "productMethod": "一產品一主圖：首頁、產品總覽、怎麼選、試喝／推薦、產品卡與六個產品 Hero 使用同一張自包含 product-main SVG；產品完整文字與 dm-final 集中在單一「查看介紹」Modal；獨立產品頁前台只保留乾淨 Hero 與 LINE／查看介紹入口，HTML 詳細內容保留作無 JS 備援與搜尋資料來源；30cc 維持小玻璃裸罐無貼紙，180cc 維持正式鋁袋比例。"
   },
   "trialCampaign": {
     "title": "龜鹿飲試喝組｜先試喝，再決定",
@@ -87,5 +87,13 @@
     "immediatePublishBypassesSchedule": true,
     "liveWeatherRequiresRecheck": true
   },
-  "safety": "current-six-website-products-six-approved-media-flexible-guilu-gao-timing-exact-30cc-daily-1-to-2-current-dm-trial-separated-no-legacy-lock"
+  "safety": "current-six-website-products-six-approved-media-flexible-guilu-gao-timing-exact-30cc-daily-1-to-2-current-dm-trial-separated-no-legacy-lock",
+  "uiPolicy": {
+    "productEntryLabel": "查看介紹",
+    "productInfoEntryCount": 1,
+    "productIntroSurface": "modal",
+    "productPageRole": "clean hero + SEO/share/fallback",
+    "modalContent": "product-main + complete text + dm-final + LINE CTA",
+    "duplicateFullPageButton": false
+  }
 }
