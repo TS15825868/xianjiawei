@@ -1,6 +1,6 @@
 {
-  "runtime": "20260926-dm-style-main-v33",
-  "approval_batch": "20260926-dm-style-main-v33",
+  "runtime": "20260930-product-media-v10",
+  "approval_batch": "20260930-product-media-v10",
   "products": {
     "guilu-gao": {
       "name": "龜鹿膏",
@@ -9,7 +9,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
+      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
+      "website_main_path": "/images/product-main/guilu-gao.svg",
+      "website_main_format": "svg",
+      "website_main_status": "approved_self_contained_svg"
     },
     "guilu-drink-30": {
       "name": "龜鹿飲30cc玻璃罐",
@@ -18,7 +21,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
+      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
+      "website_main_path": "/images/product-main/guilu-drink-30.svg",
+      "website_main_format": "svg",
+      "website_main_status": "approved_self_contained_svg"
     },
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
@@ -27,7 +33,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
+      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
+      "website_main_path": "/images/product-main/guilu-drink-180.svg",
+      "website_main_format": "svg",
+      "website_main_status": "approved_self_contained_svg"
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",
@@ -38,7 +47,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
+      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
+      "website_main_path": "/images/product-main/guilu-tangkuai.svg",
+      "website_main_format": "svg",
+      "website_main_status": "approved_self_contained_svg"
     },
     "guilu-jiao": {
       "name": "龜鹿膠",
@@ -49,7 +61,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
+      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
+      "website_main_path": "/images/product-main/guilu-jiao.svg",
+      "website_main_format": "svg",
+      "website_main_status": "approved_self_contained_svg"
     },
     "luerong-fen": {
       "name": "鹿茸粉",
@@ -58,7 +73,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "全站一般展示使用 dm-v3 統一 DM風正式主圖；完整等比例、不裁切、不拉伸；dm-final 詳細圖只放完整介紹頁詳細區，舊雜背景實拍不得替代"
+      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
+      "website_main_path": "/images/product-main/luerong-fen.svg",
+      "website_main_format": "svg",
+      "website_main_status": "approved_self_contained_svg"
     }
   },
   "dm": {
@@ -134,8 +152,8 @@
     "product_cards_are_not_product_authority": true
   },
   "rules": {
-    "product_authority": "網站六項一般展示主圖統一使用 images/products-v3；DM與試喝素材分層，不得互相代替",
-    "customer_main_visual": "products-v3 正式主圖用於首頁、產品卡、試喝產品卡、推薦與產品詳頁主圖；詳細DM只放完整介紹頁／明確DM版位",
+    "product_authority": "官網六項一般展示主圖統一使用 images/product-main/*.svg；DM、試喝、社群靜態相容素材分層，不得互相代替",
+    "customer_main_visual": "product-main 自包含 SVG 用於首頁、產品卡、怎麼選、試喝產品卡、推薦與產品詳頁 Hero；詳細DM只放完整介紹頁／明確DM版位",
     "no_ai_product_redraw": true,
     "no_stretch": true,
     "retired_trial_must_not_return": true,
@@ -145,7 +163,7 @@
     "jiao_main_spec": "600g （1斤）／盒｜32塊裝",
     "piece_weight_policy": "9.375g and 18.75g are approximate detail data only, not product/DM main-image copy",
     "review_after_media_change": 16,
-    "guard_policy": "驗證 products-v3 主圖、dm-final 詳細圖、試喝海報與產品身份分層；新版正確路徑優先，拒絕舊 customer-display、雜背景實拍、錯誤DM回流",
+    "guard_policy": "驗證 product-main SVG、dm-final 詳細圖、試喝海報與產品身份分層；新版正確路徑優先，拒絕舊 JPG／dm-v3 回流官網一般展示",
     "trial_poster_authority": "/images/trial/trial-poster-small-boss-official-v20260814.jpg",
     "verified_main_product_photo_paths": {
       "guilu-gao": "/images/products-v3/guilu-gao.jpg",
@@ -157,8 +175,8 @@
     }
   },
   "productsV3Policy": "retired from general customer display; retained only as legacy product-identity reference where explicitly needed",
-  "product_authority": "網站六項一般展示主圖統一使用 images/dm-v3；dm-final 詳細圖與試喝素材分層，不得互相代替",
-  "customer_main_visual": "dm-v3 正式DM風主圖用於首頁、產品卡、試喝產品卡、推薦與產品詳頁主圖；dm-final 詳細圖只放完整介紹頁／明確詳細資訊版位",
-  "guard_policy": "驗證 dm-v3 主圖、dm-final 詳細圖、試喝海報與產品身份分層；新版正確路徑優先，拒絕舊 products-v3、customer-display、雜背景實拍、錯誤DM回流",
-  "dmV3Policy": "current unified website DM-style main-image authority"
+  "product_authority": "官網六項一般展示主圖統一使用 images/product-main/*.svg；dm-final 詳細圖與試喝素材分層；dm-v3 僅保留社群／靜態相容",
+  "customer_main_visual": "product-main 自包含 SVG 用於官網一般展示；dm-final 詳細圖只放完整介紹頁／明確詳細資訊版位",
+  "guard_policy": "驗證 product-main SVG、dm-final 詳細圖、試喝海報與產品身份分層；新版正確路徑優先，拒絕錯誤 JPG／dm-v3 回流官網一般展示",
+  "dmV3Policy": "social-static-compatibility-only-not-website-main"
 }

@@ -37,16 +37,17 @@ jobs:
           const master=JSON.parse(fs.readFileSync('public-product-master.json','utf8'));
           const media=JSON.parse(fs.readFileSync('data/product-media-authority.json','utf8'));
           const errors=[];
-          const mainAsset=/^images\/product-main\/.+\.jpg$/i;
+          const mainAsset=/^images\/product-main\/.+\.svg$/i;
           const expectedMain={
-            'guilu-gao':'images/product-main/guilu-gao.jpg',
-            'guilu-drink-30':'images/product-main/guilu-drink-30.jpg',
-            'guilu-drink-180':'images/product-main/guilu-drink-180.jpg',
-            'guilu-tangkuai':'images/product-main/guilu-tangkuai.jpg',
-            'guilu-jiao':'images/product-main/guilu-jiao.jpg',
-            'luerong-fen':'images/product-main/luerong-fen.jpg'
+            'guilu-gao':'images/product-main/guilu-gao.svg',
+            'guilu-drink-30':'images/product-main/guilu-drink-30.svg',
+            'guilu-drink-180':'images/product-main/guilu-drink-180.svg',
+            'guilu-tangkuai':'images/product-main/guilu-tangkuai.svg',
+            'guilu-jiao':'images/product-main/guilu-jiao.svg',
+            'luerong-fen':'images/product-main/luerong-fen.svg'
           };
           const validJpeg=p=>{
+          const validMainSvg=p=>{try{const s=fs.readFileSync(p,'utf8');return fs.statSync(p).size>=100000&&/<svg[\s>]/i.test(s)&&/data:image\/jpeg;base64,/i.test(s)&&!/<image[^>]+href=["'](?!data:)/i.test(s)}catch{return false}};
             if(!fs.existsSync(p))return false;
             const b=fs.readFileSync(p);
             return b.length>=50000&&b[0]===0xff&&b[1]===0xd8&&b[b.length-2]===0xff&&b[b.length-1]===0xd9;
@@ -72,9 +73,9 @@ jobs:
             const main=String(m.mainImage||'').replace(/^\//,'');
             const details=Array.isArray(m.detailImages)?m.detailImages.map(x=>String(x||'').replace(/^\//,'')):[];
             const identity=String(m.identityReference||'').replace(/^\//,'');
-            if(!mainAsset.test(main))errors.push(`${p.id}: 一般展示主圖必須是唯一 product-main JPG：${main}`);
+            if(!mainAsset.test(main))errors.push(`${p.id}: 一般展示主圖必須是唯一 product-main SVG：${main}`);
             else if(!fs.existsSync(path.resolve(main)))errors.push(`${p.id}: mainImage實體不存在 ${main}`);
-            else if(!validJpeg(path.resolve(main)))errors.push(`${p.id}: product-main JPG疑似截斷、低畫質或格式錯誤 ${main}`);
+            else if(!validMainSvg(path.resolve(main)))errors.push(`${p.id}: product-main SVG不是自包含高畫質主圖 ${main}`);
             if(main!==expectedMain[p.id])errors.push(`${p.id}: 未使用唯一正式 product-main ${expectedMain[p.id]}`);
             if(!identity)errors.push(`${p.id}: 缺 identityReference`);
             else if(!fs.existsSync(path.resolve(identity)))errors.push(`${p.id}: identityReference實體不存在 ${identity}`);
@@ -86,8 +87,8 @@ jobs:
               if(d===main)errors.push(`${p.id}: mainImage/detailImage角色混用`);
             }
           }
-          if(String(mediaById.get('guilu-drink-30')?.mainImage||'')!==expectedMain['guilu-drink-30'])errors.push('30cc一般展示未使用正式小玻璃裸罐 product-main JPG');
-          if(String(mediaById.get('guilu-drink-180')?.mainImage||'')!==expectedMain['guilu-drink-180'])errors.push('180cc一般展示未使用正式鋁袋 product-main JPG');
+          if(String(mediaById.get('guilu-drink-30')?.mainImage||'')!==expectedMain['guilu-drink-30'])errors.push('30cc一般展示未使用正式小玻璃裸罐 product-main SVG');
+          if(String(mediaById.get('guilu-drink-180')?.mainImage||'')!==expectedMain['guilu-drink-180'])errors.push('180cc一般展示未使用正式鋁袋 product-main SVG');
           if(!String(mediaById.get('guilu-drink-30')?.detailImages?.[0]||'').includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'))errors.push('30cc詳細頁DM錯誤');
           if(!String(mediaById.get('guilu-drink-180')?.detailImages?.[0]||'').includes('03_guilu-drink-180cc-dm.jpg'))errors.push('180cc詳細頁DM錯誤');
           // Detail-page Hero / DM role validation: same product-main above, dm-final only in detail section.
@@ -113,10 +114,10 @@ jobs:
             if(!detailPart||!details.every(d=>detailPart.includes(String(d))))errors.push(`${pageFile}: 下方詳細圖片區未使用權威 dm-final`);
           }
           const publicSurfaces=['index.html','products.html','choose.html','trial.html',...Object.values(detailPages)];
-          const retiredPublicImage=/(?:images\/(?:products-v\d+|customer-display-v20260812|product-focus-v20260925)\/[^"'\s]+|images\/product-main\/[^"'\s]+\.svg)/i;
+          const retiredPublicImage=/(?:images\/(?:products-v\d+|customer-display-v20260812|product-focus-v20260925)\/[^"'\s]+|images\/product-main\/[^"'\s]+\.jpg)/i;
           for(const file of publicSurfaces){
             const text=fs.readFileSync(file,'utf8');
-            if(retiredPublicImage.test(text))errors.push(`${file}: 公開產品主圖仍混用退役圖片或 product-main SVG`);
+            if(retiredPublicImage.test(text))errors.push(`${file}: 公開產品主圖仍混用退役圖片或 product-main JPG`);
           }
           if(errors.length){console.error(errors.join('\n'));process.exit(1)}
           console.log(`PASS website product/media authority: ${products.length} products, ${master.version}`);
