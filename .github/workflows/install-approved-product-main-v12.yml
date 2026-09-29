@@ -1,0 +1,61 @@
+name: Install approved product main v12
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/install-approved-product-main-v12.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install exact user-approved main images
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p images/product-main
+          curl -fL --retry 3 --retry-delay 2 'https://sdmntprkoreacentral.oaiusercontent.com/files/00000000-eeb8-8206-9142-b5a8604bce5a/raw?se=2026-09-29T18%3A07%3A33Z&sp=r&sv=2026-02-06&sr=b&scid=b628b869-1541-591d-b013-fb99c9395326&skoid=1e4bb9ed-6bb5-424a-a3aa-79f21566e722&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-29T15%3A03%3A10Z&ske=2026-09-30T15%3A03%3A10Z&sks=b&skv=2026-02-06&sig=8ooSGEovOR0SfbalblpwYIwttKBBsD4BJImAXryD4lM%3D' -o images/product-main/guilu-gao.jpg
+          curl -fL --retry 3 --retry-delay 2 'https://sdmntprkoreacentral.oaiusercontent.com/files/00000000-5558-8206-a49c-3477c413286b/raw?se=2026-09-29T18%3A07%3A40Z&sp=r&sv=2026-02-06&sr=b&scid=7f12f594-9f0d-5d55-9a3a-6ba49eeb83ad&skoid=1e4bb9ed-6bb5-424a-a3aa-79f21566e722&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-29T03%3A54%3A44Z&ske=2026-09-30T03%3A54%3A44Z&sks=b&skv=2026-02-06&sig=pKfEiVssxOSFXidnGBUgMGG4%2BZw2I5uc0/OcXuwRH4g%3D' -o images/product-main/guilu-drink-30.jpg
+          curl -fL --retry 3 --retry-delay 2 'https://sdmntprkoreacentral.oaiusercontent.com/files/00000000-2884-8206-bcfc-3720eb4e2c6c/raw?se=2026-09-29T18%3A07%3A47Z&sp=r&sv=2026-02-06&sr=b&scid=bc17b63b-20e5-5371-89a7-fbc419c7fcc1&skoid=1e4bb9ed-6bb5-424a-a3aa-79f21566e722&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-29T16%3A42%3A46Z&ske=2026-09-30T16%3A42%3A46Z&sks=b&skv=2026-02-06&sig=6LNKYDM3Uk73lWks05HTdppYvMX8LG5KhAqKLdeff88%3D' -o images/product-main/guilu-drink-180.jpg
+          curl -fL --retry 3 --retry-delay 2 'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-1014-8209-80f9-09a5123fafa4/raw?se=2026-09-29T18%3A06%3A08Z&sp=r&sv=2026-02-06&sr=b&scid=f986758b-2a66-5b0e-b3ec-aab9cffd5c42&skoid=03727f49-62d3-42ac-8350-1c0e6559d238&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-29T04%3A03%3A48Z&ske=2026-09-30T04%3A03%3A48Z&sks=b&skv=2026-02-06&sig=LU3XBWfahxjRMahY05SLMJlV2zyX6sCUjTcL/GmjkQY%3D' -o images/product-main/guilu-tangkuai.jpg
+          curl -fL --retry 3 --retry-delay 2 'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-4808-8209-94b1-8ae0f02f7f7c/raw?se=2026-09-29T18%3A06%3A47Z&sp=r&sv=2026-02-06&sr=b&scid=2222083a-8a33-5833-b7b4-dffccafe119a&skoid=03727f49-62d3-42ac-8350-1c0e6559d238&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-29T04%3A00%3A55Z&ske=2026-09-30T04%3A00%3A55Z&sks=b&skv=2026-02-06&sig=edBrHdbDCwAn6aR4cCRexJUXEFquVVjydrGNxK160Qw%3D' -o images/product-main/guilu-jiao.jpg
+          curl -fL --retry 3 --retry-delay 2 'https://sdmntprjapaneast.oaiusercontent.com/files/00000000-e2e8-8209-be32-645adf6e3bbd/raw?se=2026-09-29T18%3A07%3A27Z&sp=r&sv=2026-02-06&sr=b&scid=b55ef1f0-ee7b-5e65-bacb-2df7c957457c&skoid=03727f49-62d3-42ac-8350-1c0e6559d238&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-29T17%3A54%3A01Z&ske=2026-09-30T17%3A54%3A01Z&sks=b&skv=2026-02-06&sig=fe2P4MZtsal6HGShpgCXzgcC54Yy5vQqifhR/Uo7/No%3D' -o images/product-main/luerong-fen.jpg
+
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          expected = {
+            "images/product-main/guilu-gao.jpg": (512681, "b2d8d2e4610ba41f7c09064fc1ea64eecc6c7a137ca87641ac727c5f054947e6"),
+            "images/product-main/guilu-drink-30.jpg": (460026, "d9efaac53571c450bb57c117dc89a895d43097a840d85899395c846c601824ec"),
+            "images/product-main/guilu-drink-180.jpg": (521703, "07807eff74e707aef52393c1db4d148b77ca059df6b725bbcaaed3d3110fea84"),
+            "images/product-main/guilu-tangkuai.jpg": (507955, "6863c8ba569a1d8cca8e747ed9ba946e773edf7e17c704d486e9c7b4c5f7b3af"),
+            "images/product-main/guilu-jiao.jpg": (498274, "7e533b304c8ca323b847a7f4955e4c4eedea8acae81501bfc5d780d3d48f2c1a"),
+            "images/product-main/luerong-fen.jpg": (475556, "4d51985c99e0a2a8a120882bca4810302e9e06ae791d3246366db99595b4a5ab"),
+          }
+          for name,(size,digest) in expected.items():
+              b=Path(name).read_bytes()
+              assert len(b)==size, (name,len(b),size)
+              assert hashlib.sha256(b).hexdigest()==digest, name
+              assert b[:2]==b"\xff\xd8" and b[-2:]==b"\xff\xd9", name
+          print("PASS exact six user-approved product-main JPEGs")
+          PY
+
+      - name: Commit exact main images and remove installer
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/install-approved-product-main-v12.yml
+          git add images/product-main/guilu-gao.jpg images/product-main/guilu-drink-30.jpg images/product-main/guilu-drink-180.jpg images/product-main/guilu-tangkuai.jpg images/product-main/guilu-jiao.jpg images/product-main/luerong-fen.jpg
+          git commit -m "assets: install approved simple product mains v12"
+          git push origin HEAD:main
