@@ -1,10 +1,9 @@
 "use strict";
 (()=>{
-  const VERSION='20260814-site-refresh-stability-v6';
+  const VERSION='20260930-clean-layout-v11';
   const BASE=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
   const DM30=`${BASE}/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=${VERSION}`;
   const TRIAL=`${BASE}/images/trial/trial-poster-small-boss-official-v20260814.jpg?v=${VERSION}`;
-  const INTRO_LABEL=/查看介紹|完整資料|查看比較|快速查看|查看30cc介紹/;
 
   const cleanFile=value=>String(value||'').split('/').pop().split(/[?#]/)[0];
   const products=()=>{
@@ -15,6 +14,7 @@
     const file=cleanFile(href);
     return products().find(product=>[product.page,product.detailPage].some(value=>cleanFile(value)===file));
   };
+  const currentProduct=()=>findProduct(location.href);
   const findProductByCard=element=>{
     const card=element?.closest?.('[data-product-id]');
     return card?products().find(product=>product.id===card.dataset.productId):null;
@@ -31,10 +31,6 @@
         if(img.hasAttribute('srcset'))img.removeAttribute('srcset');
         Object.assign(img.style,{width:'100%',height:'auto',maxWidth:'100%',maxHeight:'none',objectFit:'contain',objectPosition:'center',transform:'none'});
       }
-    });
-    document.querySelectorAll('.real-product-gallery article').forEach(article=>{
-      const link=[...article.querySelectorAll('a[href*="product-"]')].find(a=>/完整資料|查看介紹/.test(a.textContent||''));
-      if(link){link.textContent='查看介紹';link.dataset.productIntro='1';link.setAttribute('aria-haspopup','dialog');}
     });
     document.documentElement.dataset.dm30Authority='user-approved-v20260814';
   }
@@ -63,18 +59,36 @@
     document.documentElement.dataset.trialMediaMode='official-poster-v20260814';
   }
 
+  function markIntro(anchor,{rename=true}={}){
+    if(!anchor)return;
+    if(rename)anchor.textContent='查看介紹';
+    anchor.dataset.productIntro='1';
+    anchor.setAttribute('aria-haspopup','dialog');
+  }
+
+  function normalizeProductDetailHero(){
+    if(document.body?.dataset?.page!=='product-detail')return;
+    const product=currentProduct();
+    if(!product)return;
+    const button=document.querySelector('.product-detail-hero .hero-actions a[href="#complete-info"],.product-detail-hero .hero-actions a[data-product-intro-current="1"]');
+    if(button){
+      button.href=product.page||product.detailPage||location.pathname;
+      button.dataset.productIntroCurrent='1';
+      markIntro(button,{rename:true});
+    }
+  }
+
   function normalizeIntroActions(root=document){
     root.querySelectorAll('a[href*="product-"]').forEach(anchor=>{
-      const text=(anchor.textContent||'').trim();
-      if(/完整產品頁|查看完整介紹/.test(text))return;
-      if(INTRO_LABEL.test(text)||anchor.dataset.productIntro==='1'){
-        anchor.textContent='查看介紹';anchor.dataset.productIntro='1';anchor.setAttribute('aria-haspopup','dialog');
-      }
+      if(anchor.closest('.breadcrumb'))return;
+      const isButton=anchor.classList.contains('btn')||
+        !!anchor.closest('.product-card__actions,.trial-product-card__actions,.hero-actions,.final-cta__actions');
+      const isProductSurface=!!anchor.closest('.product-card,.trial-product-card,.home-product-showcase__grid');
+      if(isButton)markIntro(anchor,{rename:true});
+      else if(isProductSurface)markIntro(anchor,{rename:false});
     });
-    root.querySelectorAll('[data-quick-view="1"]').forEach(button=>{
-      const actions=button.closest('.product-card__actions');
-      if(actions&&[...actions.querySelectorAll('a,button')].some(el=>/查看介紹/.test(el.textContent||'')))button.remove();
-    });
+    root.querySelectorAll('[data-quick-view="1"]').forEach(button=>button.remove());
+    normalizeProductDetailHero();
   }
 
   function fallbackToPage(element){
@@ -86,6 +100,7 @@
     let product=null;
     if(element.matches?.('a[href]'))product=findProduct(element.getAttribute('href')||'');
     if(!product)product=findProductByCard(element);
+    if(!product&&document.body?.dataset?.page==='product-detail')product=currentProduct();
     if(!product||typeof window.openProductModal!=='function')return false;
     try{
       event?.preventDefault();event?.stopPropagation();
@@ -95,7 +110,7 @@
       if(!modal?.classList.contains('show')||!body?.children?.length)throw new Error('產品跳窗未成功建立');
       return true;
     }catch(error){
-      console.warn('產品介紹跳窗失敗，改回完整產品頁。',error);
+      console.warn('產品介紹跳窗失敗，改回產品頁。',error);
       try{window.closeModal?.();}catch(_){ }
       setTimeout(()=>fallbackToPage(element),0);
       return false;
@@ -103,13 +118,17 @@
   }
 
   document.addEventListener('click',event=>{
-    const target=event.target.closest('[data-product-intro="1"],a[href*="product-"]');
+    const target=event.target.closest('[data-product-intro="1"]');
     if(!target)return;
-    const label=(target.textContent||'').trim();
-    if(target.dataset.productIntro==='1'||INTRO_LABEL.test(label))openIntro(target,event);
+    openIntro(target,event);
   },true);
 
-  function enforce(){fixDm();fixTrial();normalizeIntroActions();document.documentElement.dataset.productIntroMode='modal-v20260814-v6';}
+  function enforce(){
+    fixDm();
+    fixTrial();
+    normalizeIntroActions();
+    document.documentElement.dataset.productIntroMode='single-modal-v11';
+  }
   let queued=false;
   const observer=new MutationObserver(mutations=>{
     if(!mutations.some(m=>m.type==='childList'||(m.type==='attributes'&&['src','srcset'].includes(m.attributeName))))return;
