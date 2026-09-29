@@ -2,14 +2,14 @@
 
 /* 仙加味顧客端產品主視覺｜2026-09-28 simple formal product-main v18
  * 官網六項產品文字知識以 public-product-master.json 為最高權威。
- * 一般展示與產品 Hero 統一使用 images/product-main 六張漂亮簡單正式主圖；「查看介紹」Modal 集中顯示完整文字與 dm-final 正式詳細圖。
+ * 一般展示與產品 Hero 只使用使用者核准的 images/product-main 六張高清 JPG 簡單主圖；「查看介紹」Modal 才顯示完整文字與 dm-final 正式 DM。
  * 原始實物照片只保留作產品身份／包裝比例參考，不再作一般展示主圖。
  */
 (function(){
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260930-clean-layout-v11';
+  const VERSION='20260930-main-dm-v12';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
@@ -17,12 +17,12 @@
   const mainImage=(id,fallback)=>MEDIA_AUTHORITY?.mainImage?.(id)||fallback;
   const detailImage=(id,fallback)=>MEDIA_AUTHORITY?.detailImages?.(id)?.[0]||fallback;
   const DISPLAY=Object.freeze({
-  "guilu-gao": mainImage("guilu-gao","images/product-main/guilu-gao.svg"),
-  "guilu-drink-30": mainImage("guilu-drink-30","images/product-main/guilu-drink-30.svg"),
-  "guilu-drink-180": mainImage("guilu-drink-180","images/product-main/guilu-drink-180.svg"),
-  "guilu-tangkuai": mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.svg"),
-  "guilu-jiao": mainImage("guilu-jiao","images/product-main/guilu-jiao.svg"),
-  "luerong-fen": mainImage("luerong-fen","images/product-main/luerong-fen.svg")
+  "guilu-gao": mainImage("guilu-gao","images/product-main/guilu-gao.jpg"),
+  "guilu-drink-30": mainImage("guilu-drink-30","images/product-main/guilu-drink-30.jpg"),
+  "guilu-drink-180": mainImage("guilu-drink-180","images/product-main/guilu-drink-180.jpg"),
+  "guilu-tangkuai": mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.jpg"),
+  "guilu-jiao": mainImage("guilu-jiao","images/product-main/guilu-jiao.jpg"),
+  "luerong-fen": mainImage("luerong-fen","images/product-main/luerong-fen.jpg")
 });
   const DM=Object.freeze({
   "guilu-gao": detailImage("guilu-gao","images/dm-final/01_guilu-gao-100g-dm.jpg"),
