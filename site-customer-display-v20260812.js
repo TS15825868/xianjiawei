@@ -2,14 +2,14 @@
 
 /* 仙加味顧客端產品主視覺｜2026-09-28 simple formal product-main v18
  * 官網六項產品文字知識以 public-product-master.json 為最高權威。
- * 一般展示與產品 Hero 統一使用 images/product-main 六張漂亮簡單正式主圖；完整介紹頁另使用 dm-final 正式詳細圖。
+ * 一般展示與產品 Hero 統一使用 images/product-main 六張漂亮簡單正式主圖；「查看介紹」Modal 集中顯示完整文字與 dm-final 正式詳細圖。
  * 原始實物照片只保留作產品身份／包裝比例參考，不再作一般展示主圖。
  */
 (function(){
   if(window.__XJW_CUSTOMER_DISPLAY_20260812__) return;
   window.__XJW_CUSTOMER_DISPLAY_20260812__=true;
 
-  const VERSION='20260930-product-media-v10';
+  const VERSION='20260930-clean-layout-v11';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
@@ -110,7 +110,7 @@
       productMainImageSource:'images/product-main/',
       productIdentityReference:'verified-original-product-photo-paths',
       dmSource:'images/dm-final/',
-      detailImagesRole:'complete-product-pages-only',
+      detailImagesRole:'product-intro-modal-and-detail-page-fallback',
       trialMode:TRIAL.mode,
       trialPoster:`${TRIAL.image}?v=${VERSION}`,
       trialProductImage:`${TRIAL.product}?v=${VERSION}`,
@@ -119,7 +119,7 @@
       drink30Usage:CURRENT_30_USAGE,
       drink180Usage:'每日一包',
       displayVersion:VERSION,
-      displayRule:'首頁、產品總覽、怎麼選、試喝、推薦、產品卡與產品 Hero 統一使用 product-main 六項簡單正式主圖；完整介紹頁詳細圖片區才使用 dm-final；identityReference 只供包裝與比例驗證。'
+      displayRule:'首頁、產品總覽、怎麼選、試喝、推薦、產品卡與產品 Hero 統一使用 product-main 六項簡單正式主圖；完整文字與 dm-final 集中到單一「查看介紹」Modal；獨立產品頁只作乾淨 Hero、SEO／分享入口與無 JS 備援；identityReference 只供包裝與比例驗證。'
     };
     return data;
   }
