@@ -102,9 +102,9 @@ body[data-page="products"] .product-card__body .muted{
 /* 產品獨立頁：前台只做乾淨 Hero + 單一查看介紹入口。
  * 完整文字與 DM 仍保留於 HTML / Schema，JS 失效時仍可回退顯示。
  */
-body[data-page="product-detail"] .product-detail-page > #complete-info,
-body[data-page="product-detail"] .product-detail-page > .product-detail-media-section,
-body[data-page="product-detail"] .product-detail-page > .section.section--narrow{
+html[data-product-intro-mode="single-modal-v11"] body[data-page="product-detail"] .product-detail-page > #complete-info,
+html[data-product-intro-mode="single-modal-v11"] body[data-page="product-detail"] .product-detail-page > .product-detail-media-section,
+html[data-product-intro-mode="single-modal-v11"] body[data-page="product-detail"] .product-detail-page > .section.section--narrow{
   display:none!important;
 }
 body[data-page="product-detail"] .product-detail-hero{
