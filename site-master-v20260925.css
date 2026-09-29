@@ -2528,3 +2528,17 @@ img[src*="images/product-main/"]{
   transform:none!important;
   clip-path:none!important;
 }
+
+
+/* ===== Master v38｜聯絡頁 LINE 卡片對比收尾 2026-09-29 =====
+ * contact-line-layout 原本使用淺米底，但後段品牌層把卡片文字統一為白色；
+ * 改為深藍卡片上的半透明內層，保留品牌層次並確保文字對比。
+ */
+html body[data-page="contact"] .contact-line-card .contact-line-layout{
+  background:rgba(255,255,255,.065)!important;
+  border-color:rgba(255,255,255,.16)!important;
+}
+html body[data-page="contact"] .contact-line-card .contact-line-copy p,
+html body[data-page="contact"] .contact-line-card .contact-line-copy strong{
+  color:#fff!important;
+}
