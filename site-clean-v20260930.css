@@ -1,0 +1,352 @@
+/* 仙加味｜Clean Layout 2026-09-30 v11
+ * 目的：前台漂亮乾淨、產品資訊只有一個「查看介紹」入口。
+ * product-main = 第一眼主圖；完整資料 + dm-final = Modal；獨立產品頁保留 SEO / 分享入口。
+ */
+:root{
+  --xjw-clean-max:1200px;
+  --xjw-clean-navy:#082846;
+  --xjw-clean-red:#8f2b31;
+  --xjw-clean-gold:#c79b4d;
+  --xjw-clean-paper:#fffdf8;
+  --xjw-clean-cream:#f7f4ed;
+  --xjw-clean-ink:#223142;
+  --xjw-clean-muted:#647182;
+  --xjw-clean-line:rgba(8,40,70,.105);
+  --xjw-clean-shadow:0 10px 28px rgba(8,40,70,.055);
+}
+html body{
+  color:var(--xjw-clean-ink)!important;
+}
+main.page > .hero,
+main.page > .section,
+main.page > .breadcrumb{
+  width:min(calc(100% - 32px),var(--xjw-clean-max))!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+main.page > .section{
+  padding-left:0!important;
+  padding-right:0!important;
+}
+.hero.hero--compact{
+  margin-top:clamp(14px,2.2vw,26px)!important;
+  margin-bottom:clamp(18px,2.6vw,34px)!important;
+  border-radius:24px!important;
+}
+.hero__content{
+  max-width:760px!important;
+}
+.hero-actions,
+.final-cta__actions,
+.section-actions{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:10px!important;
+  align-items:center!important;
+}
+.btn{
+  min-height:44px!important;
+  border-radius:999px!important;
+}
+.section{
+  padding-top:clamp(38px,5vw,64px)!important;
+  padding-bottom:clamp(38px,5vw,64px)!important;
+}
+.section-heading,.section-title{
+  max-width:760px!important;
+  margin-bottom:clamp(18px,2.6vw,28px)!important;
+}
+.grid{
+  gap:clamp(12px,2vw,18px)!important;
+}
+.card,.panel,.faq-item,.final-cta,.product-card{
+  border:1px solid var(--xjw-clean-line)!important;
+  box-shadow:var(--xjw-clean-shadow)!important;
+}
+.card,.panel,.product-card{
+  border-radius:18px!important;
+}
+.card h2,.card h3,.panel h2,.panel h3{
+  margin-top:0!important;
+}
+.card p:last-child,.panel p:last-child{
+  margin-bottom:0!important;
+}
+
+/* 產品卡：只保留一個資訊入口。 */
+.product-card__actions{
+  display:block!important;
+  margin-top:auto!important;
+}
+.product-card__actions [data-quick-view="1"]{
+  display:none!important;
+}
+.product-card__actions .btn{
+  width:100%!important;
+  justify-content:center!important;
+}
+body[data-page="products"] .product-card{
+  overflow:hidden!important;
+}
+body[data-page="products"] .product-card__img{
+  border-bottom:1px solid rgba(199,155,77,.11)!important;
+}
+body[data-page="products"] .product-card__body{
+  display:flex!important;
+  flex-direction:column!important;
+}
+body[data-page="products"] .product-card__body .muted{
+  margin-top:auto!important;
+}
+
+/* 產品獨立頁：前台只做乾淨 Hero + 單一查看介紹入口。
+ * 完整文字與 DM 仍保留於 HTML / Schema，JS 失效時仍可回退顯示。
+ */
+body[data-page="product-detail"] .product-detail-page > #complete-info,
+body[data-page="product-detail"] .product-detail-page > .product-detail-media-section,
+body[data-page="product-detail"] .product-detail-page > .section.section--narrow{
+  display:none!important;
+}
+body[data-page="product-detail"] .product-detail-hero{
+  margin-top:clamp(14px,2vw,24px)!important;
+  margin-bottom:clamp(24px,3vw,40px)!important;
+  padding:clamp(16px,2.5vw,28px)!important;
+  gap:clamp(18px,3vw,34px)!important;
+  border:1px solid rgba(199,155,77,.18)!important;
+  box-shadow:0 16px 42px rgba(8,40,70,.07)!important;
+}
+body[data-page="product-detail"] .product-detail-hero__content{
+  align-self:center!important;
+}
+body[data-page="product-detail"] .product-detail-hero__content .hero-actions{
+  margin-top:18px!important;
+}
+
+/* Modal = 唯一完整產品介紹。 */
+.product-modal__backdrop{
+  background:rgba(3,20,36,.64)!important;
+  -webkit-backdrop-filter:blur(7px)!important;
+  backdrop-filter:blur(7px)!important;
+}
+.product-modal__scroll{
+  padding:clamp(14px,3vw,34px)!important;
+}
+.product-modal__panel{
+  max-width:980px!important;
+  margin:0 auto!important;
+  padding:18px!important;
+  border:1px solid rgba(199,155,77,.20)!important;
+  border-radius:26px!important;
+  background:linear-gradient(180deg,#fffefa 0%,#fbf6ee 100%)!important;
+  box-shadow:0 30px 90px rgba(3,20,36,.24)!important;
+}
+.product-modal__close{
+  position:sticky!important;
+  top:0!important;
+  z-index:8!important;
+  margin-left:auto!important;
+  min-width:72px!important;
+  min-height:42px!important;
+  border-radius:999px!important;
+  color:var(--xjw-clean-navy)!important;
+  background:rgba(255,255,255,.96)!important;
+  border:1px solid rgba(8,40,70,.14)!important;
+  box-shadow:0 6px 18px rgba(8,40,70,.08)!important;
+}
+.modal-top{
+  display:grid!important;
+  grid-template-columns:minmax(280px,.84fr) minmax(0,1.16fr)!important;
+  gap:clamp(20px,3vw,32px)!important;
+  align-items:start!important;
+  margin-top:10px!important;
+}
+.modal-gallery__item{
+  aspect-ratio:4/5!important;
+  padding:10px!important;
+  overflow:hidden!important;
+  border:1px solid rgba(199,155,77,.15)!important;
+  border-radius:18px!important;
+  background:radial-gradient(circle at 50% 45%,#fff 0%,#fffaf1 70%,#f0e4d1 100%)!important;
+}
+.modal-gallery__item img[src*="images/product-main/"]{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  margin:auto!important;
+}
+.modal-copy h2{
+  margin:2px 0 8px!important;
+  color:var(--xjw-clean-navy)!important;
+}
+.modal-copy > p{
+  color:var(--xjw-clean-ink)!important;
+}
+.modal-facts{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:10px!important;
+  margin:18px 0 0!important;
+}
+.modal-section{
+  margin:0!important;
+  padding:13px 14px!important;
+  border:1px solid rgba(8,40,70,.09)!important;
+  border-radius:14px!important;
+  background:rgba(255,255,255,.72)!important;
+}
+.modal-section h3{
+  margin:0 0 6px!important;
+  font-size:15px!important;
+  color:var(--xjw-clean-navy)!important;
+}
+.modal-section p,.modal-section li{
+  margin-top:0!important;
+  font-size:14px!important;
+  line-height:1.65!important;
+}
+.modal-section ul{
+  margin:0!important;
+  padding-left:1.15em!important;
+}
+.modal-section--wide{
+  grid-column:1 / -1!important;
+}
+.modal-actions{
+  margin-top:16px!important;
+}
+.modal-actions .btn{
+  width:100%!important;
+  justify-content:center!important;
+}
+.modal-detail-media{
+  margin-top:24px!important;
+  padding-top:22px!important;
+  border-top:1px solid rgba(199,155,77,.18)!important;
+}
+.modal-detail-media__heading{
+  margin-bottom:12px!important;
+}
+.modal-detail-media__heading .eyebrow{
+  margin-bottom:4px!important;
+}
+.modal-detail-media__heading h3{
+  margin:0!important;
+  color:var(--xjw-clean-navy)!important;
+}
+.modal-detail-media__frame{
+  max-width:760px!important;
+  margin:0 auto!important;
+  padding:8px!important;
+  overflow:hidden!important;
+  border:1px solid rgba(199,155,77,.16)!important;
+  border-radius:18px!important;
+  background:#fff!important;
+}
+.modal-detail-media__frame img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  filter:none!important;
+}
+
+/* 一般頁：減少「每段都是厚卡片」的視覺噪音。 */
+body[data-page="choose"] .card,
+body[data-page="guide"] .card,
+body[data-page="recipes"] .card,
+body[data-page="knowledge"] .card,
+body[data-page="faq"] .faq-item{
+  box-shadow:none!important;
+}
+.final-cta{
+  border-radius:20px!important;
+}
+body[data-page="contact"] .contact-info-grid{
+  gap:16px!important;
+}
+
+/* 手機：保留乾淨、好按、不卡字。 */
+@media(max-width:700px){
+  main.page > .hero,
+  main.page > .section,
+  main.page > .breadcrumb{
+    width:calc(100% - 20px)!important;
+  }
+  .hero.hero--compact{
+    border-radius:18px!important;
+  }
+  .section{
+    padding-top:30px!important;
+    padding-bottom:34px!important;
+  }
+  .hero-actions,.final-cta__actions,.section-actions{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+  }
+  .hero-actions .btn,.final-cta__actions .btn,.section-actions .btn{
+    width:100%!important;
+    justify-content:center!important;
+  }
+  body[data-page="products"] .product-card__body{
+    padding:12px!important;
+  }
+  .product-modal__scroll{
+    padding:0!important;
+  }
+  .product-modal__panel{
+    min-height:100dvh!important;
+    border-radius:0!important;
+    padding:12px 12px calc(24px + env(safe-area-inset-bottom))!important;
+  }
+  .product-modal__close{
+    top:calc(8px + env(safe-area-inset-top))!important;
+  }
+  .modal-top{
+    grid-template-columns:1fr!important;
+    gap:16px!important;
+  }
+  .modal-gallery{
+    max-width:440px!important;
+    width:100%!important;
+    margin:0 auto!important;
+  }
+  .modal-gallery__item{
+    padding:7px!important;
+    border-radius:15px!important;
+  }
+  .modal-facts{
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+  .modal-section--wide{
+    grid-column:auto!important;
+  }
+  .modal-copy h2{
+    font-size:clamp(26px,8vw,34px)!important;
+  }
+  .modal-detail-media{
+    margin-top:20px!important;
+    padding-top:18px!important;
+  }
+  .modal-detail-media__frame{
+    padding:5px!important;
+    border-radius:14px!important;
+  }
+}
+@media(max-width:360px){
+  body[data-page="products"] .product-grid{
+    grid-template-columns:1fr!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+}
