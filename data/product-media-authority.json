@@ -1,10 +1,10 @@
 {
-  "version": "20260930-product-media-v10",
+  "version": "20260930-clean-layout-v11",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one product = one mainImage across all normal website surfaces; source must be images/product-main/",
     "productDetailHero": "same mainImage as all normal website surfaces; source must be images/product-main/",
-    "productDetailMedia": "detailImages only; source must be images/dm-final/; never replace with mainImage",
+    "productDetailMedia": "detailImages only; show inside the single product-intro modal, with detail-page HTML retained only as fallback; source must be images/dm-final/; never replace with mainImage",
     "identityReference": "validation/reference only; never general public main image"
   },
   "products": {
