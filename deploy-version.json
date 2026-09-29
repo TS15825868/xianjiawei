@@ -1,6 +1,6 @@
 {
-  "version": "2026-09-28-product-media-v6",
-  "updated": "2026-09-28",
+  "version": "2026-09-30-product-media-v10",
+  "updated": "2026-09-30",
   "status": "current-authority-release",
   "catalog": "six-website-public-products-six-approved-media",
   "contentAuthority": {
@@ -41,22 +41,22 @@
   },
   "imagePolicy": {
     "identityReference": "verified-original-product-photos-reference-only",
-    "customerProductAuthority": "images/product-main/",
+    "customerProductAuthority": "images/product-main/*.svg",
     "customerDmAuthority": "images/dm-final/",
     "formalMediaAuthority": "data/formal-media-authority-v20260810.json",
     "productDmTrialRolesSeparated": true,
-    "guiluDrink30Product": "images/product-main/guilu-drink-30.jpg",
+    "guiluDrink30Product": "images/product-main/guilu-drink-30.svg",
     "guiluDrink30Dm": "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg",
-    "guiluDrink180Product": "images/product-main/guilu-drink-180.jpg",
+    "guiluDrink180Product": "images/product-main/guilu-drink-180.svg",
     "guiluDrink180Dm": "images/dm-final/03_guilu-drink-180cc-dm.jpg",
     "qixuanWebsiteMediaStatus": "deferred-not-on-website",
     "displayMode": "contain-no-crop-no-stretch",
-    "productMethod": "一產品一主圖：同一產品在首頁、產品總覽、怎麼選、試喝／推薦、產品卡與產品 Hero 使用完全相同的 product-main；完整產品頁下方詳細圖片只使用 dm-final；產品實物外觀與比例不得被 AI 任意改造。"
+    "productMethod": "一產品一主圖：首頁、產品總覽、怎麼選、試喝／推薦、產品卡與六個產品 Hero 使用同一張自包含 product-main SVG；完整產品頁下方詳細圖片只使用 dm-final；30cc 維持小玻璃裸罐無貼紙，180cc 維持正式鋁袋比例；產品實物外觀與比例不得被 AI 任意改造。"
   },
   "trialCampaign": {
     "title": "龜鹿飲試喝組｜先試喝，再決定",
     "formalPoster": "images/trial/trial-poster-small-boss-official-v20260814.jpg",
-    "productImage": "images/product-main/guilu-drink-30.jpg",
+    "productImage": "images/product-main/guilu-drink-30.svg",
     "freeSamples": 3,
     "shipping": {
       "7-11店到店": 60,
