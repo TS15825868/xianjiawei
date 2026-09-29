@@ -395,8 +395,7 @@ function fillProducts(targetId, products, options = {}) {
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
           <div class="product-card__actions">
-            <a class="btn btn-outline" href="${escapeAttribute(page)}">查看介紹</a>
-            ${!options.compact ? '<button class="btn btn-outline" type="button" data-quick-view="1">快速查看</button>' : ""}
+            <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(page)}">查看介紹</a>
           </div>
         </div>
       </article>
@@ -815,12 +814,18 @@ function openProductModal(product, sourceElement) {
   const ingredients = Array.isArray(product.ingredients) ? product.ingredients : [];
   const usage = Array.isArray(product.usage) ? product.usage : [];
   const storage = Array.isArray(product.storage) ? product.storage : [];
+  const detailImages = Array.isArray(product.detailImages) && product.detailImages.length
+    ? product.detailImages.filter(Boolean)
+    : (product.dmImage ? [product.dmImage] : []);
+  const dmImage = detailImages[0] || "";
+  const fulfillment = String(product.fulfillmentNotice || product.shippingNotice || "").trim();
+  const spec = productDisplaySpec(product) || "請見正式產品資訊";
 
   body.innerHTML = `
     <div class="modal-top">
       <div class="modal-gallery">
         <div class="modal-gallery__item">
-          <img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}" loading="eager" decoding="async">
+          <img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}正式主圖" loading="eager" decoding="async">
         </div>
       </div>
       <div class="modal-copy">
@@ -828,18 +833,31 @@ function openProductModal(product, sourceElement) {
         <h2 id="product-modal-title">${escapeHtml(name)}</h2>
         ${product.purpose ? `<p class="product-purpose">${escapeHtml(product.purpose)}</p>` : ""}
         <p>${escapeHtml(product.description || "")}</p>
-        <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見正式產品資訊")}</p>
 
-        ${ingredients.length ? `<div class="modal-section"><h3>成分</h3><p>${escapeHtml(ingredients.join("、"))}</p></div>` : ""}
-        ${usage.length ? `<div class="modal-section"><h3>使用方式</h3><ul>${usage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
-        ${storage.length ? `<div class="modal-section"><h3>保存方式</h3><ul>${storage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
+        <div class="modal-facts">
+          <div class="modal-section"><h3>規格</h3><p><strong>${escapeHtml(spec)}</strong></p></div>
+          ${ingredients.length ? `<div class="modal-section"><h3>成分</h3><p>${escapeHtml(ingredients.join("、"))}</p></div>` : ""}
+          ${usage.length ? `<div class="modal-section modal-section--wide"><h3>一般使用</h3><ul>${usage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
+          ${storage.length ? `<div class="modal-section"><h3>保存方式</h3><ul>${storage.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul></div>` : ""}
+          ${fulfillment ? `<div class="modal-section"><h3>出貨說明</h3><p>${escapeHtml(fulfillment)}</p></div>` : ""}
+        </div>
 
         <div class="modal-actions final-cta__actions">
-          <a class="btn btn-primary" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">查看完整介紹</a>
-          ${lineButton("LINE 詢問產品", `我想了解${name}的規格與購買方式。`)}
+          ${lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
         </div>
       </div>
     </div>
+    ${dmImage ? `
+      <section class="modal-detail-media" aria-label="${escapeAttribute(name)}詳細圖">
+        <div class="modal-detail-media__heading">
+          <p class="eyebrow">產品詳細圖</p>
+          <h3>${escapeHtml(name)}完整資訊 DM</h3>
+        </div>
+        <div class="modal-detail-media__frame">
+          <img src="${escapeAttribute(dmImage)}" alt="${escapeAttribute(name)}正式詳細圖／DM" loading="lazy" decoding="async">
+        </div>
+      </section>
+    ` : ""}
   `;
 
   modal.classList.add("show");
