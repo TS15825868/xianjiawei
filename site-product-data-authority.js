@@ -4,13 +4,13 @@
  * public-product-master.json 是官網、官網AI/GEO與公開貼文目前六項產品文字核心事實的公開權威。
  * data.json 保留六項已有正式產品圖的顧客展示資料與通路欄位。
  * 柒玄茶目前暫不放官網；LINE OA文字知識與ERP資料由各自正式權威保留。
- * 六項一般展示統一使用 product-main 漂亮簡單正式主圖；完整資料與 dm-final 集中於單一「查看介紹」Modal，獨立產品頁保留 SEO／分享與備援；不得由文字母資料重畫產品包裝。
+ * 六項一般展示只使用 product-main 使用者核准高清 JPG 簡單主圖；完整資料與 dm-final 正式 DM 只集中於單一「查看介紹」Modal；獨立產品頁保留 SEO／分享與備援；不得把 DM 當主圖。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260930-clean-layout-v11';
+  const VERSION='20260930-main-dm-v12';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐';
