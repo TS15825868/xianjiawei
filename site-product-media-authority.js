@@ -1,12 +1,12 @@
 "use strict";
-/* 仙加味官網產品圖片唯一執行權威｜2026-09-29 product-media-v8
+/* 仙加味官網產品圖片唯一執行權威｜2026-09-30 product-media-v10
  * mainImage：首頁／產品總覽／怎麼選／試喝／推薦／產品卡／產品 Hero，只允許 images/product-main/。
  * detailImages：只允許產品完整介紹頁詳細圖片區，只允許 images/dm-final/。
  * identityReference：只供包裝身份與比例檢查，不作一般公開主圖。
  */
 (function(){
   const DATA={
-  "version": "20260930-product-media-v9",
+  "version": "20260930-product-media-v10",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one product, one mainImage; source must be images/product-main/",
@@ -16,42 +16,42 @@
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/product-main/guilu-gao.jpg",
+      "mainImage": "images/product-main/guilu-gao.svg",
       "detailImages": [
         "images/dm-final/01_guilu-gao-100g-dm.jpg"
       ],
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/product-main/guilu-drink-30.jpg",
+      "mainImage": "images/product-main/guilu-drink-30.svg",
       "detailImages": [
         "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg"
       ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/product-main/guilu-drink-180.jpg",
+      "mainImage": "images/product-main/guilu-drink-180.svg",
       "detailImages": [
         "images/dm-final/03_guilu-drink-180cc-dm.jpg"
       ],
       "identityReference": "images/guilu-drink-180cc.jpg"
     },
     "guilu-tangkuai": {
-      "mainImage": "images/product-main/guilu-tangkuai.jpg",
+      "mainImage": "images/product-main/guilu-tangkuai.svg",
       "detailImages": [
         "images/dm-final/05_guilu-tangkuai-75g-dm.jpg"
       ],
       "identityReference": "images/products-v2/guilu-tangkuai-open-new.jpg"
     },
     "guilu-jiao": {
-      "mainImage": "images/product-main/guilu-jiao.jpg",
+      "mainImage": "images/product-main/guilu-jiao.svg",
       "detailImages": [
         "images/dm-final/06_guilu-jiao-600g-dm.jpg"
       ],
       "identityReference": "images/products-v2/guilu-jiao-open-new.jpg"
     },
     "luerong-fen": {
-      "mainImage": "images/product-main/luerong-fen.jpg",
+      "mainImage": "images/product-main/luerong-fen.svg",
       "detailImages": [
         "images/dm-final/04_luerong-fen-75g-dm.jpg"
       ],
