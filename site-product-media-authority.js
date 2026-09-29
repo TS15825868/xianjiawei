@@ -1,17 +1,17 @@
 "use strict";
-/* 仙加味官網產品圖片唯一執行權威｜2026-09-30 product-media-v10
+/* 仙加味官網產品圖片唯一執行權威｜2026-09-30 clean-layout-v11
  * mainImage：首頁／產品總覽／怎麼選／試喝／推薦／產品卡／產品 Hero，只允許 images/product-main/。
- * detailImages：只允許產品完整介紹頁詳細圖片區，只允許 images/dm-final/。
+ * detailImages：只允許「查看介紹」Modal 與獨立產品頁的詳細內容備援使用，只允許 images/dm-final/。
  * identityReference：只供包裝身份與比例檢查，不作一般公開主圖。
  */
 (function(){
   const DATA={
-  "version": "20260930-product-media-v10",
+  "version": "20260930-clean-layout-v11",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one product, one mainImage; source must be images/product-main/",
     "productDetailHero": "same mainImage as all other general product displays",
-    "productDetailMedia": "detailImages only; source must be images/dm-final/",
+    "productDetailMedia": "detailImages only; product-intro modal + detail-page fallback; source must be images/dm-final/",
     "identityReference": "validation/reference only; never general public main image"
   },
   "products": {
