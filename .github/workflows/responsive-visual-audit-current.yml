@@ -118,7 +118,10 @@ jobs:
                 try{
                   response=await page.goto(BASE+pth,{waitUntil:'domcontentloaded',timeout:30000});
                   if(pth!=='trial-line.html'){
-                    await page.waitForFunction(()=>Boolean(document.documentElement.dataset.xjwRuntime),{timeout:8000}).catch(()=>{});
+                    await page.waitForFunction(()=>Boolean(document.documentElement.dataset.xjwRuntime)&&document.body.classList.contains('ux-v410'),{timeout:12000}).catch(()=>{});
+                    if(pth==='products.html'){
+                      await page.waitForFunction(()=>document.querySelectorAll('#product-list .product-card').length===6,{timeout:12000}).catch(()=>{});
+                    }
                   }
                   await page.waitForFunction(() => {
                     const visible=i=>!!(i&&(i.offsetWidth||i.offsetHeight||i.getClientRects().length));

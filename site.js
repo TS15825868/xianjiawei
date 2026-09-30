@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20260930-brand-polish-v17";
+  const VERSION = "20260930-brand-polish-v18";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
@@ -120,7 +120,7 @@
     if(existing)return Promise.resolve({src,ok:true,skipped:true});
     return new Promise(resolve=>{
       const script=document.createElement("script");let settled=false;
-      const finish=ok=>{if(settled)return;settled=true;clearTimeout(timer);resolve({src,ok});};
+      const finish=ok=>{if(settled)return;settled=true;clearTimeout(timer);if(!ok)script.remove();resolve({src,ok});};
       const timer=setTimeout(()=>{console.warn("仙加味資源載入逾時，已略過：",src);finish(false);},timeoutMs);
       script.src=src;script.async=false;script.onload=()=>finish(true);script.onerror=()=>{console.warn("仙加味資源載入失敗，已略過：",src);finish(false);};
       document.head.appendChild(script);
@@ -166,9 +166,13 @@
   async function boot(){
     document.documentElement.dataset.xjwRuntimeLoading=VERSION;
     installFailsafeStyle();loadStyles();installEmergencyHeader();
-    await loadScript(PRODUCT_MEDIA_AUTHORITY);await loadScript(AUTHORITY);await loadScript(PRODUCT_DISPLAY);await loadScript(DM_AUTHORITY);
-    installDataFetchTimeout();await loadScript(CORE);ensureCoreBooted();
-    await Promise.all([loadScript(MEDIA_MODAL),loadScript(SAFETY),loadScript(VARIANTS),loadScript(PUBLIC_CLEANUP),loadScript(IMAGE_RETIREMENT),loadScript(MASCOT),loadScript(STABILITY)]);
+    await Promise.all([loadScript(PRODUCT_MEDIA_AUTHORITY,8000),loadScript(AUTHORITY,8000)]);
+    installDataFetchTimeout();
+    let coreResult=await loadScript(CORE,10000);
+    if(!coreResult.ok) coreResult=await loadScript(`${CORE}&retry=1`,10000);
+    if(!coreResult.ok) throw new Error("仙加味核心程式載入失敗");
+    ensureCoreBooted();
+    await Promise.all([loadScript(PRODUCT_DISPLAY),loadScript(DM_AUTHORITY),loadScript(MEDIA_MODAL),loadScript(SAFETY),loadScript(VARIANTS),loadScript(PUBLIC_CLEANUP),loadScript(IMAGE_RETIREMENT),loadScript(MASCOT),loadScript(STABILITY)]);
     document.documentElement.dataset.xjwRuntime=VERSION;delete document.documentElement.dataset.xjwRuntimeLoading;
     document.querySelectorAll(".reveal").forEach(element=>element.classList.add("show"));
   }
