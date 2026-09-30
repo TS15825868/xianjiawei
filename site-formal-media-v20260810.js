@@ -1,5 +1,5 @@
 (()=>{
-const V='20260930-main-dm-v12';
+const V='20260930-main-dm-v13';
 const pathBase=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
 const LINE_TRIAL='https://line.me/R/oaMessage/%40762jybnm/?%E7%94%B3%E8%AB%8B%E8%A9%A6%E5%96%9D';
 const HD_DM=Object.freeze({
