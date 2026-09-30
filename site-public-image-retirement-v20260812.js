@@ -9,7 +9,7 @@
   if(window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__)return;
   window.__XJW_PUBLIC_IMAGE_RETIREMENT_20260812__=true;
 
-  const VERSION='20260930-main-dm-v12';
+  const VERSION='20260930-main-dm-v13';
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const MAIN_FALLBACK=Object.freeze({
     'guilu-gao':'images/product-main/guilu-gao.jpg',
