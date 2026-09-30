@@ -6,7 +6,7 @@
  */
 (function(){
   const DATA={
-  "version": "20260930-main-dm-v12",
+  "version": "20260930-main-dm-v13",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one product, one mainImage; source must be images/product-main/",
