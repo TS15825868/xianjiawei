@@ -1,6 +1,6 @@
 {
-  "runtime": "20260930-product-media-v10",
-  "approval_batch": "20260930-product-media-v10",
+  "runtime": "20260930-main-dm-v12",
+  "approval_batch": "20260930-main-dm-v12",
   "products": {
     "guilu-gao": {
       "name": "龜鹿膏",
@@ -10,7 +10,7 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/guilu-gao.svg",
+      "website_main_path": "/images/product-main/guilu-gao.jpg",
       "website_main_format": "svg",
       "website_main_status": "approved_self_contained_svg"
     },
@@ -22,7 +22,7 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/guilu-drink-30.svg",
+      "website_main_path": "/images/product-main/guilu-drink-30.jpg",
       "website_main_format": "svg",
       "website_main_status": "approved_self_contained_svg"
     },
@@ -34,7 +34,7 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/guilu-drink-180.svg",
+      "website_main_path": "/images/product-main/guilu-drink-180.jpg",
       "website_main_format": "svg",
       "website_main_status": "approved_self_contained_svg"
     },
@@ -48,7 +48,7 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/guilu-tangkuai.svg",
+      "website_main_path": "/images/product-main/guilu-tangkuai.jpg",
       "website_main_format": "svg",
       "website_main_status": "approved_self_contained_svg"
     },
@@ -62,7 +62,7 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/guilu-jiao.svg",
+      "website_main_path": "/images/product-main/guilu-jiao.jpg",
       "website_main_format": "svg",
       "website_main_status": "approved_self_contained_svg"
     },
@@ -74,7 +74,7 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/luerong-fen.svg",
+      "website_main_path": "/images/product-main/luerong-fen.jpg",
       "website_main_format": "svg",
       "website_main_status": "approved_self_contained_svg"
     }
