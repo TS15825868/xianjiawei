@@ -102,9 +102,9 @@ body[data-page="products"] .product-card__body .muted{
 /* 產品獨立頁：前台只做乾淨 Hero + 單一查看介紹入口。
  * 完整文字與 DM 仍保留於 HTML / Schema，JS 失效時仍可回退顯示。
  */
-html[data-product-intro-mode="single-modal-v12"] body[data-page="product-detail"] .product-detail-page > #complete-info,
-html[data-product-intro-mode="single-modal-v12"] body[data-page="product-detail"] .product-detail-page > .product-detail-media-section,
-html[data-product-intro-mode="single-modal-v12"] body[data-page="product-detail"] .product-detail-page > .section.section--narrow{
+html[data-product-intro-mode="single-modal-v13"] body[data-page="product-detail"] .product-detail-page > #complete-info,
+html[data-product-intro-mode="single-modal-v13"] body[data-page="product-detail"] .product-detail-page > .product-detail-media-section,
+html[data-product-intro-mode="single-modal-v13"] body[data-page="product-detail"] .product-detail-page > .section.section--narrow{
   display:none!important;
 }
 body[data-page="product-detail"] .product-detail-hero{
@@ -352,7 +352,7 @@ body[data-page="contact"] .contact-info-grid{
 }
 
 
-/* ===== v12｜Approved main JPG + DM-only modal ===== */
+/* ===== v13｜Approved main JPG + DM-only modal ===== */
 /* 外層只使用使用者核准的 1122×1402 JPG 主圖；禁止舊 focus 縮放、裁切與濾鏡。 */
 img[src*="images/product-main/"]{
   image-rendering:auto!important;
