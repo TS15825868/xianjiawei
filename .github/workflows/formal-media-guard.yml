@@ -45,7 +45,7 @@ jobs:
             if(current.detail_unit_approx)must(p.detail_unit_approx===current.detail_unit_approx,`每塊約重未跟目前權威同步 ${p.id}`);
             const image=local(p.image),dm=local(p.dm),websiteMain=local(p.website_main);
             must(['jpeg','png','webp','avif'].includes(kind(image)),`產品主圖不可解碼 ${image}`);
-            must(['jpeg','png','webp','avif'].includes(kind(dm)),`DM不可解碼 ${dm}`); must(/^images\/product-main\/.+\.svg$/i.test(websiteMain)&&fs.existsSync(websiteMain),`官網正式主圖未同步 product-main SVG ${p.id}: ${websiteMain}`);
+            must(['jpeg','png','webp','avif'].includes(kind(dm)),`DM不可解碼 ${dm}`); must(/^images\/product-main\/.+\.jpg$/i.test(websiteMain)&&kind(websiteMain)==='jpeg'&&fs.statSync(websiteMain).size>=400000,`官網正式主圖未同步使用者核准高解析 product-main JPG ${p.id}: ${websiteMain}`);
             must(image!==dm,`產品主圖與DM角色混用 ${p.id}`);
             must(local(m.products?.[keys[p.id]]?.path)===image,`manifest社群靜態產品路徑不同步 ${p.id}`); must(local(m.products?.[keys[p.id]]?.website_main_path)===websiteMain,`manifest官網主圖路徑不同步 ${p.id}`);
           }
@@ -56,14 +56,14 @@ jobs:
           const p180=a.products.find(x=>x.id==='guilu-drink-180cc');
           must(local(p180.image)!==local(p180.dm),'180cc詳細DM被用成產品主圖');
           const websiteProducts=website.products||{};
-          const allowedMain=/^images\/product-main\/.+\.svg$/i;
+          const allowedMain=/^images\/product-main\/.+\.jpg$/i;
           must(Object.keys(websiteProducts).length===6,'官網圖片權威不是六項');
           for(const [id,w] of Object.entries(websiteProducts)){
             const main=local(w?.mainImage);
             const identity=local(w?.identityReference);
-            must(allowedMain.test(main),`官網 ${id} 一般展示主圖必須是 product-main 自包含 SVG：${main}`);
+            must(allowedMain.test(main),`官網 ${id} 一般展示主圖必須是使用者核准 product-main JPG：${main}`);
             must(fs.existsSync(main),`官網 ${id} product-main 實體不存在`);
-            const svg=fs.readFileSync(main,'utf8'); must(fs.statSync(main).size>=100000&&/data:image\/jpeg;base64,/i.test(svg)&&!/<image[^>]+href=["'](?!data:)/i.test(svg),`官網 ${id} product-main SVG不是自包含高畫質主圖`);
+            must(kind(main)==='jpeg'&&fs.statSync(main).size>=400000,`官網 ${id} product-main JPG疑似低畫質、截斷或格式錯誤`);
             must(Array.isArray(w?.detailImages)&&w.detailImages.length>0,`官網 ${id} 缺詳細DM`);
             must(w.detailImages.every(x=>String(x).startsWith('images/dm-final/')),`官網 ${id} 詳細圖不是 dm-final`);
             must(w.detailImages.every(x=>fs.existsSync(local(x))),`官網 ${id} 詳細DM實體不存在`);
