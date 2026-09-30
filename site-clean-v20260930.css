@@ -848,3 +848,84 @@ body.ux-v410:not([data-page="dm"]) .product-modal .modal-detail-media__frame img
     overflow:visible!important;
   }
 }
+
+
+/* ===== v17｜品牌高級感精修：減法、留白、閱讀節奏 ===== */
+body.ux-v410 .hero__lead,
+body.ux-v410 .section-heading>p,
+body.ux-v410 .card p,
+body.ux-v410 .product-card p{line-height:1.72!important}
+
+body[data-page="home"] .hero-actions{gap:10px!important}
+body[data-page="home"] .hero-text-link{
+  display:inline-flex!important;align-items:center!important;gap:6px!important;
+  margin-top:12px!important;color:var(--xjw-clean-navy)!important;
+  font-size:14px!important;font-weight:800!important;text-decoration:none!important;
+  border-bottom:1px solid rgba(8,40,70,.24)!important
+}
+body[data-page="home"] .hero-text-link:hover{border-bottom-color:var(--xjw-clean-red)!important}
+body[data-page="home"] .home-trust-row{gap:10px!important}
+body[data-page="home"] .home-intro-section .card,
+body[data-page="home"] .home-choice-card,
+body[data-page="home"] .home-feature-card,
+body[data-page="home"] .home-service-card{
+  box-shadow:none!important;border-color:rgba(8,40,70,.08)!important;
+  background:rgba(255,255,255,.64)!important
+}
+body[data-page="home"] .home-service-card--line{
+  background:linear-gradient(135deg,rgba(241,250,244,.9),rgba(255,253,248,.92))!important;
+  border-color:rgba(6,199,85,.18)!important
+}
+body[data-page="home"] .home-intro-section .card,
+body[data-page="home"] .home-choice-card{padding:20px!important}
+body[data-page="home"] .home-feature-card,
+body[data-page="home"] .home-service-card{padding:24px!important}
+
+body[data-page="products"] .product-card{
+  box-shadow:0 6px 20px rgba(8,40,70,.035)!important;
+  border-color:rgba(8,40,70,.075)!important
+}
+body[data-page="products"] .product-card__body{padding:18px!important;gap:7px!important}
+body[data-page="products"] .product-card__body .product-purpose{font-size:14.5px!important;line-height:1.65!important}
+body[data-page="products"] .product-card__body .muted{font-size:14px!important;line-height:1.6!important}
+
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-section{
+  border-color:rgba(8,40,70,.065)!important;background:rgba(255,255,255,.56)!important;box-shadow:none!important
+}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-section h3{font-size:15px!important;letter-spacing:.02em!important}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-section p,
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-section li{font-size:15px!important;line-height:1.72!important}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-actions{margin-top:18px!important}
+
+body[data-page="trial"] .trial-highlight .card,
+body[data-page="trial"] .trial-steps .card{
+  box-shadow:none!important;border-color:rgba(8,40,70,.08)!important;background:rgba(255,255,255,.68)!important
+}
+body[data-page="trial"] .trial-product-card{
+  box-shadow:0 7px 24px rgba(8,40,70,.04)!important;border-color:rgba(8,40,70,.08)!important
+}
+
+body.ux-v410 .footer-legal{
+  font-size:13px!important;line-height:1.65!important;color:rgba(255,255,255,.72)!important
+}
+body.ux-v410 .floating-line-cta{transition:opacity .2s ease,transform .2s ease!important}
+body.ux-v410 .floating-line-cta.is-hidden{
+  opacity:0!important;transform:translateY(12px)!important;pointer-events:none!important
+}
+
+@media(max-width:700px){
+  body[data-page="home"] .home-choice-card p,
+  body[data-page="home"] .home-feature-card p,
+  body[data-page="home"] .home-service-card p,
+  body[data-page="home"] .home-intro-section .card p{font-size:14px!important;line-height:1.65!important}
+  body[data-page="home"] .home-choice-card h3,
+  body[data-page="home"] .home-feature-card h3,
+  body[data-page="home"] .home-service-card h3{font-size:19px!important;line-height:1.4!important}
+  body[data-page="home"] .home-intro-section .card,
+  body[data-page="home"] .home-choice-card,
+  body[data-page="home"] .home-feature-card,
+  body[data-page="home"] .home-service-card{padding:17px!important}
+  body.ux-v410 .footer-contact{grid-template-columns:1fr!important}
+  body.ux-v410 .footer-contact img{display:none!important}
+  body.ux-v410 .footer-legal{font-size:13px!important;line-height:1.65!important;text-align:left!important}
+}

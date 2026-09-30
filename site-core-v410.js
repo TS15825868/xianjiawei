@@ -252,7 +252,7 @@ function renderFooter() {
       <nav class="footer-nav" aria-label="頁尾導覽">
         <h3>快速前往</h3>
         <div class="footer-nav-links">
-          <a href="products.html">龜鹿系列</a>
+          <a href="products.html">產品總覽</a>
           <a href="choose.html">怎麼選</a>
           <a href="guide.html">使用方式</a>
           <a href="recipes.html">料理搭配</a>
@@ -974,7 +974,7 @@ function syncHeaderScrollState() {
 }
 
 function renderFloatingLineCta() {
-  const allowed = ["products", "product-detail", "choose", "combo", "contact", "dm"];
+  const allowed = ["products", "product-detail", "choose", "combo", "dm"];
   const page = currentPageKey();
   if (!allowed.includes(page) || document.getElementById("floating-line-cta")) return;
 
@@ -987,6 +987,15 @@ function renderFloatingLineCta() {
   link.setAttribute("aria-label", "前往仙加味官方 LINE");
   link.innerHTML = '<span class="floating-line-cta__dot" aria-hidden="true">LINE</span><span>詢問產品</span>';
   document.body.appendChild(link);
+
+  const footer = document.getElementById("site-footer");
+  if (footer && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      const entry = entries[0];
+      link.classList.toggle("is-hidden", Boolean(entry?.isIntersecting));
+    }, { rootMargin: "0px 0px 80px 0px", threshold: 0.01 });
+    observer.observe(footer);
+  }
 }
 
 function initReveal() {
