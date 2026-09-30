@@ -438,7 +438,7 @@ jobs:
                     if(modalAudit.dmFrameBox&&modalAudit.dmBox&&(modalAudit.dmBox.top<modalAudit.dmFrameBox.top-2||modalAudit.dmBox.bottom>modalAudit.dmFrameBox.bottom+2)) report.errors.push({vp:vpName,page:pth,type:'modal-dm-overflow',detail:{id,image:modalAudit.dmBox,frame:modalAudit.dmFrameBox}});
                     if(modalAudit.introBox&&modalAudit.galleryBox&&modalAudit.introBox.bottom>modalAudit.galleryBox.top+2) report.errors.push({vp:vpName,page:pth,type:'modal-intro-overlap',detail:{id,intro:modalAudit.introBox,gallery:modalAudit.galleryBox}});
                     if(modalAudit.galleryBox&&modalAudit.factsBox&&modalAudit.galleryBox.bottom>modalAudit.factsBox.top+2) report.errors.push({vp:vpName,page:pth,type:'modal-gallery-facts-overlap',detail:{id,gallery:modalAudit.galleryBox,facts:modalAudit.factsBox}});
-                    if(vpName==='desktop'||i===0){
+                    if(vpName==='desktop'||vpName==='iphone'||vpName==='android'||i===0){
                       await page.screenshot({path:`responsive-audit-screens/${vpName}-modal-${id}.png`,fullPage:true});
                     }
                     await page.locator('#product-modal-close').click();
