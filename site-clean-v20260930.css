@@ -758,3 +758,93 @@ body[data-page="trial"] .trial-product-card__media img{
 
 /* v14.1 contrast polish｜產品卡次要文字達一般文字 AA 對比 */
 body[data-page="products"] .product-card__body .product-purpose{color:#526172!important;}
+
+
+/* ===== v16｜產品介紹 Modal：正式主圖／DM 禁止舊聚焦縮放與裁切 =====
+ * 舊版產品聚焦規則會依檔名對 guilu-gao / drink / tangkuai / jiao / luerong 套 transform:scale，
+ * 連 dm-final 也會誤中。此區限定 Modal，主圖與正式 DM 一律回到原比例完整顯示。
+ */
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-intro{
+  position:relative!important;
+  z-index:2!important;
+  margin-bottom:16px!important;
+}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-intro__desc{
+  position:relative!important;
+  z-index:2!important;
+  margin:8px auto 0!important;
+  line-height:1.7!important;
+}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-gallery{
+  margin-top:0!important;
+}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-gallery__item{
+  position:relative!important;
+  aspect-ratio:auto!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-gallery__item img[src*="images/product-main/"]{
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-width:100%!important;
+  max-height:none!important;
+  margin:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  transform-origin:center!important;
+  filter:none!important;
+  clip-path:none!important;
+}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-facts{
+  position:relative!important;
+  z-index:1!important;
+  clear:both!important;
+}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-detail-media__frame{
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  overflow:visible!important;
+  margin:0 auto!important;
+  padding:0!important;
+}
+body.ux-v410:not([data-page="dm"]) .product-modal .modal-detail-media__frame img[src*="images/dm-final/"]{
+  display:block!important;
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-width:100%!important;
+  max-height:none!important;
+  margin:0!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  transform:none!important;
+  transform-origin:center!important;
+  filter:none!important;
+  clip-path:none!important;
+}
+@media(max-width:700px){
+  body.ux-v410:not([data-page="dm"]) .product-modal .modal-gallery{
+    width:min(100%,330px)!important;
+  }
+  body.ux-v410:not([data-page="dm"]) .product-modal .modal-gallery__item{
+    border-radius:14px!important;
+  }
+  body.ux-v410:not([data-page="dm"]) .product-modal .modal-detail-media__frame{
+    border-radius:12px!important;
+    overflow:visible!important;
+  }
+}
