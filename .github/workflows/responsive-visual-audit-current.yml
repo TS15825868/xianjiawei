@@ -385,6 +385,11 @@ jobs:
                   report.errors.push({vp:vpName,page:pth,type:'desktop-nav-hidden',detail:menuTest});
                 }
 
+                if(pth==='choose.html'){
+                  const duplicateChoose=await page.locator('#choose-results').count();
+                  if(duplicateChoose) report.errors.push({vp:vpName,page:pth,type:'choose-duplicate-results',detail:{count:duplicateChoose}});
+                }
+
                 if(pth==='products.html'){
                   const productIntroButtons=page.locator('#product-list .product-card [data-product-intro="1"]');
                   const modalExpected={
