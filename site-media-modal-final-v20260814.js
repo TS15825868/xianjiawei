@@ -1,6 +1,6 @@
 "use strict";
 (()=>{
-  const VERSION='20260930-clean-layout-v11';
+  const VERSION='20260930-main-dm-v12';
   const BASE=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
   const DM30=`${BASE}/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=${VERSION}`;
   const TRIAL=`${BASE}/images/trial/trial-poster-small-boss-official-v20260814.jpg?v=${VERSION}`;
@@ -127,7 +127,7 @@
     fixDm();
     fixTrial();
     normalizeIntroActions();
-    document.documentElement.dataset.productIntroMode='single-modal-v11';
+    document.documentElement.dataset.productIntroMode='single-modal-v12';
   }
   let queued=false;
   const observer=new MutationObserver(mutations=>{
