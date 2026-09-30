@@ -635,3 +635,45 @@ body[data-page="trial"] .trial-product-card__media img{
     border-radius:12px!important;
   }
 }
+
+
+/* ===== v13 mobile home product rail ===== */
+/* 手機首頁不再把六張直式主圖擠成 2 欄縮圖；改成大張橫向滑動，保持清晰與留白。 */
+@media(max-width:700px){
+  body[data-page="home"] .home-product-showcase{
+    padding:12px 10px 14px!important;
+    overflow:hidden!important;
+  }
+  body[data-page="home"] .home-product-showcase__grid{
+    display:flex!important;
+    grid-template-columns:none!important;
+    gap:10px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scroll-snap-type:x mandatory!important;
+    -webkit-overflow-scrolling:touch!important;
+    padding:2px 2px 8px!important;
+    scrollbar-width:none!important;
+  }
+  body[data-page="home"] .home-product-showcase__grid::-webkit-scrollbar{
+    display:none!important;
+  }
+  body[data-page="home"] .home-product-showcase__grid>a{
+    flex:0 0 min(78vw,310px)!important;
+    width:min(78vw,310px)!important;
+    scroll-snap-align:center!important;
+    padding:5px!important;
+    border-radius:14px!important;
+  }
+  body[data-page="home"] .home-product-showcase__grid img{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:1122/1402!important;
+    object-fit:contain!important;
+  }
+  body[data-page="home"] .home-product-showcase figcaption{
+    margin-top:3px!important;
+    font-size:12px!important;
+    line-height:1.5!important;
+  }
+}
