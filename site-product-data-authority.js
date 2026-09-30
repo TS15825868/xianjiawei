@@ -10,7 +10,7 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260930-main-dm-v12';
+  const VERSION='20260930-main-dm-v13';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐';
