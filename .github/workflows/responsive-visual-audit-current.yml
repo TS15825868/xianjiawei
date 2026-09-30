@@ -263,6 +263,36 @@ jobs:
                 const status=response?response.status():null;
                 report.viewports[vpName][pth]={status,...audit,menuTest,consoleErrors,pageErrors,requestFailed};
 
+                // 手機首頁產品橫滑必須讓使用者看得出還有下一張，並提供明確提示／查看全部入口。
+                if(pth==='index.html'&&(vpName==='iphone'||vpName==='android')){
+                  const homeProductRail=await page.evaluate(()=>{
+                    const grid=document.querySelector('.home-product-showcase__grid');
+                    const cards=[...document.querySelectorAll('.home-product-showcase__grid>a')];
+                    const hint=document.querySelector('.home-product-swipe-hint');
+                    const allLink=document.querySelector('.home-product-showcase__all');
+                    const shown=el=>!!(el&&(el.offsetWidth||el.offsetHeight||el.getClientRects().length));
+                    if(!grid||cards.length<2)return {count:cards.length,ready:false,hintVisible:shown(hint),allLinkVisible:shown(allLink)};
+                    const gr=grid.getBoundingClientRect();
+                    const first=cards[0].getBoundingClientRect();
+                    const second=cards[1].getBoundingClientRect();
+                    const peek=Math.max(0,Math.min(gr.right,second.right)-Math.max(gr.left,second.left));
+                    return {
+                      count:cards.length,
+                      ready:true,
+                      hintVisible:shown(hint),
+                      allLinkVisible:shown(allLink),
+                      overflowable:grid.scrollWidth>grid.clientWidth+5,
+                      firstWidth:Math.round(first.width),
+                      gridWidth:Math.round(gr.width),
+                      nextPeek:Math.round(peek)
+                    };
+                  });
+                  report.viewports[vpName][pth].homeProductRail=homeProductRail;
+                  if(!homeProductRail.ready||!homeProductRail.hintVisible||!homeProductRail.allLinkVisible||!homeProductRail.overflowable||homeProductRail.nextPeek<24){
+                    report.errors.push({vp:vpName,page:pth,type:'mobile-product-rail-undiscoverable',detail:homeProductRail});
+                  }
+                }
+
                 if(status!==200) report.errors.push({vp:vpName,page:pth,type:'http',detail:status});
                 if(audit.overflowX) report.errors.push({vp:vpName,page:pth,type:'horizontal-overflow',detail:audit.overflow});
                 if(audit.brokenImages.length) report.errors.push({vp:vpName,page:pth,type:'broken-images',detail:audit.brokenImages});
