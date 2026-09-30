@@ -1,10 +1,10 @@
 {
-  "runtime": "20260930-product-media-v10",
-  "approval_batch": "20260930-product-media-v10",
+  "runtime": "20260930-main-dm-v12",
+  "approval_batch": "20260930-main-dm-v12",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
-  "principle": "官網六項一般產品展示唯一使用 images/product-main/ 自包含 SVG；六個產品頁詳細區唯一使用 images/dm-final/。products[].image 的 dm-v3 JPEG 僅保留既有社群／靜態輸出相容來源，不得回流官網一般展示。產品包裝身份與比例不得重畫、拉伸或裁切。",
-  "product_image_authority": "官網：images/product-main/*.svg；產品詳細圖：images/dm-final/*。products[].image 的 images/dm-v3/* 僅供既有社群／靜態輸出相容，不是官網主圖權威。",
+  "principle": "官網六項一般產品展示唯一使用 images/product-main/ 使用者核准高清 JPG；「查看介紹」Modal 只使用 images/dm-final/ 正式 DM。產品主圖與 DM 不得混用；原始實物照只供身份與比例驗證。",
+  "product_image_authority": "官網主圖：images/product-main/*.jpg；查看介紹詳細圖：images/dm-final/*。外層頁面不得使用 DM，Modal 不重複 product-main。",
   "customer_text_spec_policy": "顧客產品頁、FAQ與快速查看可顯示目前完整文字規格與每塊約重；產品主圖、DM與產品包裝本體不得因此自行加字、重畫或改比例。",
   "products": [
     {
@@ -16,8 +16,8 @@
       "status": "approved_display",
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_binary_status": "approved_high_resolution_jpeg",
-      "website_main": "/images/product-main/guilu-gao.svg",
-      "website_main_status": "approved_self_contained_svg"
+      "website_main": "/images/product-main/guilu-gao.jpg",
+      "website_main_status": "approved_exact_high_resolution_jpeg"
     },
     {
       "id": "guilu-drink-30cc",
@@ -36,8 +36,8 @@
       "status": "approved_display",
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_status": "exact_user_approved_jpeg_1122x1402",
-      "website_main": "/images/product-main/guilu-drink-30.svg",
-      "website_main_status": "approved_self_contained_svg"
+      "website_main": "/images/product-main/guilu-drink-30.jpg",
+      "website_main_status": "approved_exact_high_resolution_jpeg"
     },
     {
       "id": "guilu-drink-180cc",
@@ -56,8 +56,8 @@
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_status": "approved_high_resolution_jpeg",
       "sha256": "719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62",
-      "website_main": "/images/product-main/guilu-drink-180.svg",
-      "website_main_status": "approved_self_contained_svg"
+      "website_main": "/images/product-main/guilu-drink-180.jpg",
+      "website_main_status": "approved_exact_high_resolution_jpeg"
     },
     {
       "id": "guilu-tangkuai",
@@ -70,8 +70,8 @@
       "status": "approved_display",
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_status": "approved_high_resolution_jpeg",
-      "website_main": "/images/product-main/guilu-tangkuai.svg",
-      "website_main_status": "approved_self_contained_svg"
+      "website_main": "/images/product-main/guilu-tangkuai.jpg",
+      "website_main_status": "approved_exact_high_resolution_jpeg"
     },
     {
       "id": "guilu-jiao",
@@ -84,8 +84,8 @@
       "status": "approved_display",
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_status": "approved_high_resolution_jpeg",
-      "website_main": "/images/product-main/guilu-jiao.svg",
-      "website_main_status": "approved_self_contained_svg"
+      "website_main": "/images/product-main/guilu-jiao.jpg",
+      "website_main_status": "approved_exact_high_resolution_jpeg"
     },
     {
       "id": "luerong-fen",
@@ -96,8 +96,8 @@
       "status": "approved_display",
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_status": "approved_high_resolution_jpeg",
-      "website_main": "/images/product-main/luerong-fen.svg",
-      "website_main_status": "approved_self_contained_svg"
+      "website_main": "/images/product-main/luerong-fen.jpg",
+      "website_main_status": "approved_exact_high_resolution_jpeg"
     }
   ],
   "dm": {
