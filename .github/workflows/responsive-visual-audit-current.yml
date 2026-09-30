@@ -390,15 +390,34 @@ jobs:
                     await page.waitForTimeout(80);
                     const modalAudit=await page.evaluate(()=>{
                       const modal=document.getElementById('product-modal');
+                      const main=modal?.querySelector('.modal-gallery__item img');
+                      const dm=modal?.querySelector('.modal-detail-media__frame img');
+                      const mainFrame=modal?.querySelector('.modal-gallery__item');
+                      const dmFrame=modal?.querySelector('.modal-detail-media__frame');
+                      const intro=modal?.querySelector('.modal-intro');
+                      const gallery=modal?.querySelector('.modal-gallery');
+                      const facts=modal?.querySelector('.modal-facts');
                       const pathOf=el=>{try{return new URL(el?.getAttribute('src')||'',location.href).pathname}catch{return ''}};
+                      const box=el=>el?.getBoundingClientRect?.().toJSON?.()||null;
+                      const styleOf=el=>el?{transform:getComputedStyle(el).transform,objectFit:getComputedStyle(el).objectFit,objectPosition:getComputedStyle(el).objectPosition}:null;
+                      const ratio=el=>el&&el.naturalWidth&&el.naturalHeight?el.naturalWidth/el.naturalHeight:null;
                       return {
                         visible:Boolean(modal?.classList.contains('show')&&modal?.getAttribute('aria-hidden')==='false'),
-                        main:pathOf(modal?.querySelector('.modal-gallery__item img')),
-                        dm:pathOf(modal?.querySelector('.modal-detail-media__frame img')),
+                        main:pathOf(main),
+                        dm:pathOf(dm),
                         headings:Array.from(modal?.querySelectorAll('.modal-section h3')||[]).map(x=>x.textContent.trim()),
                         line:Boolean(modal?.querySelector('.modal-actions .btn-line')),
-                        mainBox:modal?.querySelector('.modal-gallery__item img')?.getBoundingClientRect?.().toJSON?.()||null,
-                        dmBox:modal?.querySelector('.modal-detail-media__frame img')?.getBoundingClientRect?.().toJSON?.()||null
+                        mainBox:box(main),
+                        mainFrameBox:box(mainFrame),
+                        dmBox:box(dm),
+                        dmFrameBox:box(dmFrame),
+                        introBox:box(intro),
+                        galleryBox:box(gallery),
+                        factsBox:box(facts),
+                        mainStyle:styleOf(main),
+                        dmStyle:styleOf(dm),
+                        mainNaturalRatio:ratio(main),
+                        dmNaturalRatio:ratio(dm)
                       };
                     });
                     const expected=modalExpected[id]||[];
@@ -410,6 +429,15 @@ jobs:
                     if(!modalAudit.line) report.errors.push({vp:vpName,page:pth,type:'modal-line-missing',detail:{id}});
                     if(!modalAudit.mainBox?.width||!modalAudit.mainBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-main-hidden',detail:{id,box:modalAudit.mainBox}});
                     if(!modalAudit.dmBox?.width||!modalAudit.dmBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-dm-hidden',detail:{id,box:modalAudit.dmBox}});
+                    if(modalAudit.mainStyle?.transform!=='none'||modalAudit.mainStyle?.objectFit!=='contain') report.errors.push({vp:vpName,page:pth,type:'modal-main-transform-or-fit',detail:{id,style:modalAudit.mainStyle}});
+                    if(modalAudit.dmStyle?.transform!=='none'||modalAudit.dmStyle?.objectFit!=='contain') report.errors.push({vp:vpName,page:pth,type:'modal-dm-transform-or-fit',detail:{id,style:modalAudit.dmStyle}});
+                    const ratioDiff=(box,natural)=>box?.width&&box?.height&&natural?Math.abs((box.width/box.height)-natural):0;
+                    if(ratioDiff(modalAudit.mainBox,modalAudit.mainNaturalRatio)>.025) report.errors.push({vp:vpName,page:pth,type:'modal-main-ratio-cropped',detail:{id,box:modalAudit.mainBox,naturalRatio:modalAudit.mainNaturalRatio}});
+                    if(ratioDiff(modalAudit.dmBox,modalAudit.dmNaturalRatio)>.025) report.errors.push({vp:vpName,page:pth,type:'modal-dm-ratio-cropped',detail:{id,box:modalAudit.dmBox,naturalRatio:modalAudit.dmNaturalRatio}});
+                    if(modalAudit.mainFrameBox&&modalAudit.mainBox&&(modalAudit.mainBox.top<modalAudit.mainFrameBox.top-2||modalAudit.mainBox.bottom>modalAudit.mainFrameBox.bottom+2)) report.errors.push({vp:vpName,page:pth,type:'modal-main-overflow',detail:{id,image:modalAudit.mainBox,frame:modalAudit.mainFrameBox}});
+                    if(modalAudit.dmFrameBox&&modalAudit.dmBox&&(modalAudit.dmBox.top<modalAudit.dmFrameBox.top-2||modalAudit.dmBox.bottom>modalAudit.dmFrameBox.bottom+2)) report.errors.push({vp:vpName,page:pth,type:'modal-dm-overflow',detail:{id,image:modalAudit.dmBox,frame:modalAudit.dmFrameBox}});
+                    if(modalAudit.introBox&&modalAudit.galleryBox&&modalAudit.introBox.bottom>modalAudit.galleryBox.top+2) report.errors.push({vp:vpName,page:pth,type:'modal-intro-overlap',detail:{id,intro:modalAudit.introBox,gallery:modalAudit.galleryBox}});
+                    if(modalAudit.galleryBox&&modalAudit.factsBox&&modalAudit.galleryBox.bottom>modalAudit.factsBox.top+2) report.errors.push({vp:vpName,page:pth,type:'modal-gallery-facts-overlap',detail:{id,gallery:modalAudit.galleryBox,facts:modalAudit.factsBox}});
                     if(vpName==='desktop'||i===0){
                       await page.screenshot({path:`responsive-audit-screens/${vpName}-modal-${id}.png`,fullPage:true});
                     }
