@@ -8,16 +8,16 @@
   if(window.__XJW_PRODUCT_IMAGE_SAFETY_V13__)return;
   window.__XJW_PRODUCT_IMAGE_SAFETY_V13__=true;
 
-  const VERSION='20260930-product-media-v10';
+  const VERSION='20260930-main-dm-v12';
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const mainImage=(id,fallback)=>`${MEDIA_AUTHORITY?.mainImage?.(id)||fallback}?v=${VERSION}`;
   const CUSTOMER=Object.freeze({
-    gao:mainImage("guilu-gao","images/product-main/guilu-gao.svg"),
-    drink30:mainImage("guilu-drink-30","images/product-main/guilu-drink-30.svg"),
-    drink180:mainImage("guilu-drink-180","images/product-main/guilu-drink-180.svg"),
-    tangkuai:mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.svg"),
-    jiao:mainImage("guilu-jiao","images/product-main/guilu-jiao.svg"),
-    luerong:mainImage("luerong-fen","images/product-main/luerong-fen.svg")
+    gao:mainImage("guilu-gao","images/product-main/guilu-gao.jpg"),
+    drink30:mainImage("guilu-drink-30","images/product-main/guilu-drink-30.jpg"),
+    drink180:mainImage("guilu-drink-180","images/product-main/guilu-drink-180.jpg"),
+    tangkuai:mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.jpg"),
+    jiao:mainImage("guilu-jiao","images/product-main/guilu-jiao.jpg"),
+    luerong:mainImage("luerong-fen","images/product-main/luerong-fen.jpg")
   });
   const OFFICIAL=Object.freeze({
   "guilu-gao": "images/guilu-gao.jpg",
