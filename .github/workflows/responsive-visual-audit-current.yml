@@ -331,6 +331,53 @@ jobs:
                   report.errors.push({vp:vpName,page:pth,type:'desktop-nav-hidden',detail:menuTest});
                 }
 
+                if(pth==='products.html'){
+                  const productIntroButtons=page.locator('#product-list .product-card [data-product-intro="1"]');
+                  const modalExpected={
+                    'guilu-gao':['/images/product-main/guilu-gao.jpg','/images/dm-final/01_guilu-gao-100g-dm.jpg'],
+                    'guilu-drink-30':['/images/product-main/guilu-drink-30.jpg','/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg'],
+                    'guilu-drink-180':['/images/product-main/guilu-drink-180.jpg','/images/dm-final/03_guilu-drink-180cc-dm.jpg'],
+                    'guilu-tangkuai':['/images/product-main/guilu-tangkuai.jpg','/images/dm-final/05_guilu-tangkuai-75g-dm.jpg'],
+                    'guilu-jiao':['/images/product-main/guilu-jiao.jpg','/images/dm-final/06_guilu-jiao-600g-dm.jpg'],
+                    'luerong-fen':['/images/product-main/luerong-fen.jpg','/images/dm-final/04_luerong-fen-75g-dm.jpg']
+                  };
+                  const modalCount=await productIntroButtons.count();
+                  if(modalCount!==6) report.errors.push({vp:vpName,page:pth,type:'product-intro-count',detail:{expected:6,actual:modalCount}});
+                  for(let i=0;i<Math.min(modalCount,6);i++){
+                    const button=productIntroButtons.nth(i);
+                    const id=await button.locator('xpath=ancestor::article[@data-product-id]').getAttribute('data-product-id');
+                    await button.click();
+                    await page.waitForTimeout(80);
+                    const modalAudit=await page.evaluate(()=>{
+                      const modal=document.getElementById('product-modal');
+                      const pathOf=el=>{try{return new URL(el?.getAttribute('src')||'',location.href).pathname}catch{return ''}};
+                      return {
+                        visible:Boolean(modal?.classList.contains('show')&&modal?.getAttribute('aria-hidden')==='false'),
+                        main:pathOf(modal?.querySelector('.modal-gallery__item img')),
+                        dm:pathOf(modal?.querySelector('.modal-detail-media__frame img')),
+                        headings:Array.from(modal?.querySelectorAll('.modal-section h3')||[]).map(x=>x.textContent.trim()),
+                        line:Boolean(modal?.querySelector('.modal-actions .btn-line')),
+                        mainBox:modal?.querySelector('.modal-gallery__item img')?.getBoundingClientRect?.().toJSON?.()||null,
+                        dmBox:modal?.querySelector('.modal-detail-media__frame img')?.getBoundingClientRect?.().toJSON?.()||null
+                      };
+                    });
+                    const expected=modalExpected[id]||[];
+                    if(!modalAudit.visible) report.errors.push({vp:vpName,page:pth,type:'modal-not-visible',detail:{id,modalAudit}});
+                    if(expected[0]&&!modalAudit.main.endsWith(expected[0])) report.errors.push({vp:vpName,page:pth,type:'modal-main-wrong',detail:{id,expected:expected[0],actual:modalAudit.main}});
+                    if(expected[1]&&!modalAudit.dm.endsWith(expected[1])) report.errors.push({vp:vpName,page:pth,type:'modal-dm-wrong',detail:{id,expected:expected[1],actual:modalAudit.dm}});
+                    const requiredHeadings=['規格','成分','一般使用方式','保存／出貨資訊'];
+                    if(requiredHeadings.some((h,idx)=>modalAudit.headings[idx]!==h)) report.errors.push({vp:vpName,page:pth,type:'modal-facts-order',detail:{id,expected:requiredHeadings,actual:modalAudit.headings}});
+                    if(!modalAudit.line) report.errors.push({vp:vpName,page:pth,type:'modal-line-missing',detail:{id}});
+                    if(!modalAudit.mainBox?.width||!modalAudit.mainBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-main-hidden',detail:{id,box:modalAudit.mainBox}});
+                    if(!modalAudit.dmBox?.width||!modalAudit.dmBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-dm-hidden',detail:{id,box:modalAudit.dmBox}});
+                    if(vpName==='desktop'||i===0){
+                      await page.screenshot({path:`responsive-audit-screens/${vpName}-modal-${id}.png`,fullPage:true});
+                    }
+                    await page.locator('#product-modal-close').click();
+                    await page.waitForTimeout(40);
+                  }
+                }
+
                 if(keyScreens.has(pth)){
                   await page.screenshot({path:`responsive-audit-screens/${vpName}-${pth.replace('.html','')}.png`,fullPage:true});
                 }

@@ -6,7 +6,7 @@ let SITE_DATA = null;
 let lastFocusedElement = null;
 let menuScrollY = 0;
 
-const UX_VERSION = "410.0";
+const UX_VERSION = "410.1";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
 const MENU_GROUPS = [
   {
@@ -810,24 +810,73 @@ function openProductModal(product, sourceElement) {
 
   lastFocusedElement = sourceElement || document.activeElement;
   const name = product.displayName || product.name || "仙加味產品";
-  const detailImages = Array.isArray(product.detailImages) && product.detailImages.length
-    ? product.detailImages.filter(Boolean)
-    : (product.dmImage ? [product.dmImage] : []);
+  const mediaAuthority = window.XJW_PRODUCT_MEDIA_AUTHORITY;
+  const authorityMain = mediaAuthority?.mainImage?.(product.id) || "";
+  const authorityDetails = mediaAuthority?.detailImages?.(product.id) || [];
+  const mainImage = authorityMain || product.image || product.gallery?.[0] || "images/logo.png";
+  const detailImages = authorityDetails.length
+    ? [...authorityDetails]
+    : (Array.isArray(product.detailImages) && product.detailImages.length
+      ? product.detailImages.filter(Boolean)
+      : (product.dmImage ? [product.dmImage] : []));
   const dmImage = detailImages[0] || "";
   const spec = productDisplaySpec(product) || "請見正式產品資訊";
+  const ingredients = Array.isArray(product.ingredients) ? product.ingredients.filter(Boolean) : [];
+  const usage = Array.isArray(product.usage) ? product.usage.filter(Boolean) : [];
+  const storage = Array.isArray(product.storage) ? product.storage.filter(Boolean) : [];
+  const fulfillment = String(product.fulfillmentNotice || "出貨與配送時間請透過官方 LINE 確認。").trim();
+  const versionAsset = value => {
+    const raw = String(value || "").trim();
+    if (!raw) return "";
+    return `${raw}${raw.includes("?") ? "&" : "?"}v=${encodeURIComponent(UX_VERSION)}`;
+  };
+  const listMarkup = (items, fallback) => items.length
+    ? `<ul>${items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`
+    : `<p>${escapeHtml(fallback)}</p>`;
 
   body.innerHTML = `
     <header class="modal-intro">
       <p class="eyebrow">${escapeHtml(product.series || "仙加味")}</p>
       <h2 id="product-modal-title">${escapeHtml(name)}</h2>
-      <p class="modal-intro__spec">${escapeHtml(spec)}</p>
       ${product.description ? `<p class="modal-intro__desc">${escapeHtml(product.description)}</p>` : ""}
     </header>
 
+    <div class="modal-gallery" aria-label="${escapeAttribute(name)}正式主圖">
+      <figure class="modal-gallery__item">
+        <img src="${escapeAttribute(versionAsset(mainImage))}" alt="${escapeAttribute(name)}正式主圖" loading="eager" decoding="async">
+      </figure>
+    </div>
+
+    <div class="modal-facts" aria-label="${escapeAttribute(name)}產品資料">
+      <section class="modal-section">
+        <h3>規格</h3>
+        <p><strong>${escapeHtml(spec)}</strong></p>
+      </section>
+      <section class="modal-section">
+        <h3>成分</h3>
+        ${listMarkup(ingredients, "請見正式產品標示。")}
+      </section>
+      <section class="modal-section modal-section--wide">
+        <h3>一般使用方式</h3>
+        ${listMarkup(usage, "請依正式產品說明使用。")}
+      </section>
+      <section class="modal-section modal-section--wide">
+        <h3>保存／出貨資訊</h3>
+        <div class="modal-info-split">
+          <div><strong>保存</strong>${listMarkup(storage, "請依正式產品標示保存。")}</div>
+          <div><strong>出貨</strong><p>${escapeHtml(fulfillment)}</p></div>
+        </div>
+      </section>
+    </div>
+
     ${dmImage ? `
-      <section class="modal-detail-media" aria-label="${escapeAttribute(name)}正式 DM">
+      <section class="modal-detail-media" aria-label="${escapeAttribute(name)}正式完整 DM">
+        <div class="modal-detail-media__heading">
+          <p class="eyebrow">完整產品資訊</p>
+          <h3>正式 DM</h3>
+        </div>
         <figure class="modal-detail-media__frame">
-          <img src="${escapeAttribute(dmImage)}" alt="${escapeAttribute(name)}正式詳細 DM" loading="eager" decoding="async">
+          <img src="${escapeAttribute(versionAsset(dmImage))}" alt="${escapeAttribute(name)}正式詳細 DM" loading="eager" decoding="async">
         </figure>
       </section>
     ` : `<p class="muted">目前沒有可顯示的正式詳細 DM，請透過官方 LINE 詢問。</p>`}

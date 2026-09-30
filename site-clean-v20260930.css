@@ -1,4 +1,4 @@
-/* 仙加味｜Clean Layout 2026-09-30 v12
+/* 仙加味｜Clean Layout 2026-09-30 v14
  * 目的：前台漂亮乾淨、產品資訊只有一個「查看介紹」入口。
  * product-main = 第一眼主圖；完整資料 + dm-final = Modal；獨立產品頁保留 SEO / 分享入口。
  */
@@ -352,7 +352,7 @@ body[data-page="contact"] .contact-info-grid{
 }
 
 
-/* ===== v13｜Approved main JPG + DM-only modal ===== */
+/* ===== v14｜Approved main JPG + complete product-intro modal ===== */
 /* 外層只使用使用者核准的 1122×1402 JPG 主圖；禁止舊 focus 縮放、裁切與濾鏡。 */
 img[src*="images/product-main/"]{
   image-rendering:auto!important;
@@ -553,16 +553,28 @@ body[data-page="trial"] .trial-product-card__media img{
   max-width:680px!important;
   color:var(--xjw-clean-muted)!important;
 }
-.modal-facts,.modal-gallery{
-  display:none!important;
+.modal-gallery{
+  display:block!important;
+  width:min(100%,360px)!important;
+  margin:18px auto 0!important;
+}
+.modal-facts{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+  width:min(100%,820px)!important;
+  margin:18px auto 0!important;
 }
 .modal-detail-media{
-  margin:0!important;
-  padding:0!important;
-  border:0!important;
+  margin:24px auto 0!important;
+  padding-top:22px!important;
+  border-top:1px solid rgba(199,155,77,.18)!important;
+  width:min(100%,820px)!important;
 }
 .modal-detail-media__heading{
-  display:none!important;
+  display:block!important;
+  margin:0 0 12px!important;
+  text-align:left!important;
 }
 .modal-detail-media__frame{
   width:100%!important;
@@ -676,4 +688,38 @@ body[data-page="trial"] .trial-product-card__media img{
     font-size:12px!important;
     line-height:1.5!important;
   }
+}
+
+/* v14 Modal：名稱／定位 → 小型主圖 → 規格／成分／使用／保存出貨 → 完整 DM → LINE */
+.modal-info-split{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:14px!important;
+}
+.modal-info-split>div{
+  min-width:0!important;
+}
+.modal-info-split strong{
+  display:block!important;
+  margin-bottom:6px!important;
+  color:var(--xjw-clean-navy)!important;
+}
+.modal-gallery__item{
+  aspect-ratio:1122/1402!important;
+  padding:0!important;
+  background:var(--xjw-clean-cream)!important;
+  box-shadow:none!important;
+}
+.modal-gallery__item img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+@media(max-width:700px){
+  .modal-gallery{width:min(100%,330px)!important;margin-top:14px!important}
+  .modal-facts{grid-template-columns:1fr!important;margin-top:14px!important}
+  .modal-info-split{grid-template-columns:1fr!important;gap:10px!important}
+  .modal-detail-media{margin-top:18px!important;padding-top:16px!important}
 }
