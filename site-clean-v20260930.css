@@ -723,3 +723,7 @@ body[data-page="trial"] .trial-product-card__media img{
   .modal-info-split{grid-template-columns:1fr!important;gap:10px!important}
   .modal-detail-media{margin-top:18px!important;padding-top:16px!important}
 }
+
+
+/* v14.1 contrast polish｜產品卡次要文字達一般文字 AA 對比 */
+body[data-page="products"] .product-card__body .product-purpose{color:#526172!important;}
