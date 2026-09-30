@@ -929,3 +929,113 @@ body.ux-v410 .floating-line-cta.is-hidden{
   body.ux-v410 .footer-contact img{display:none!important}
   body.ux-v410 .footer-legal{font-size:13px!important;line-height:1.65!important;text-align:left!important}
 }
+
+
+/* ===== v19｜Footer 與全站收尾穩定鎖定 =====
+ * 防止舊快取／舊 card 樣式造成手機 Footer 淺底白字或頁尾黑色斷層。
+ * Footer 改為整段深藍品牌底，內層不再依賴 card 背景。
+ */
+html body.ux-v410{
+  background-color:#F7F4ED!important;
+}
+body.ux-v410 .site-footer,
+.site-footer{
+  margin:0!important;
+  padding:28px 18px calc(30px + env(safe-area-inset-bottom))!important;
+  color:#fff!important;
+  background-color:#082846!important;
+  background-image:
+    radial-gradient(circle at 88% 12%,rgba(199,155,77,.18),transparent 30%),
+    linear-gradient(135deg,#082846 0%,#0d365d 100%)!important;
+}
+body.ux-v410 .site-footer .footer-card.card,
+.site-footer .footer-card.card,
+.site-footer .footer-card{
+  width:min(100%,1180px)!important;
+  margin:0 auto!important;
+  padding:0!important;
+  color:#fff!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.site-footer .footer-brand-block strong,
+.site-footer .footer-nav h3,
+.site-footer .footer-contact h3{
+  color:#f0d397!important;
+}
+.site-footer .footer-brand-block p,
+.site-footer .footer-nav-links a,
+.site-footer .footer-contact p,
+.site-footer .footer-contact strong,
+.site-footer .footer-legal{
+  color:rgba(255,255,255,.90)!important;
+}
+.site-footer .footer-nav-links a{
+  text-decoration:none!important;
+}
+.site-footer .footer-nav-links a:hover,
+.site-footer .footer-nav-links a:focus-visible{
+  color:#fff!important;
+}
+.site-footer .footer-contact{
+  gap:16px!important;
+}
+.site-footer .footer-legal{
+  margin-top:2px!important;
+  padding-top:14px!important;
+  border-top:1px solid rgba(240,211,151,.18)!important;
+  font-size:13px!important;
+  line-height:1.7!important;
+}
+.site-footer .footer-contact img{
+  padding:7px!important;
+  background:#fff!important;
+  border:1px solid rgba(240,211,151,.35)!important;
+  border-radius:14px!important;
+}
+body[data-page="products"] .product-grid{
+  gap:18px!important;
+}
+@media(max-width:700px){
+  body.ux-v410 .site-footer,
+  .site-footer{
+    padding:22px 15px calc(26px + env(safe-area-inset-bottom))!important;
+  }
+  body.ux-v410 .site-footer .footer-card.card,
+  .site-footer .footer-card.card{
+    gap:18px!important;
+    padding:0!important;
+  }
+  .site-footer .footer-nav-links{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px 14px!important;
+  }
+  .site-footer .footer-contact{
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+  }
+  .site-footer .footer-contact img{
+    display:none!important;
+  }
+  .site-footer .footer-contact .btn{
+    width:100%!important;
+    min-height:44px!important;
+    justify-content:center!important;
+  }
+  .site-footer .footer-legal{
+    text-align:left!important;
+    font-size:13px!important;
+    line-height:1.7!important;
+  }
+  body[data-page="products"] .product-grid{
+    gap:14px!important;
+  }
+  body[data-page="products"] .product-card__actions .btn,
+  body[data-page="choose"] #choose-results .btn{
+    min-height:42px!important;
+    font-size:14px!important;
+  }
+}

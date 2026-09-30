@@ -77,7 +77,7 @@ jobs:
             iphone:{width:390,height:844,isMobile:true,hasTouch:true},
             android:{width:412,height:915,isMobile:true,hasTouch:true}
           };
-          const keyScreens=new Set(['index.html','products.html','trial.html','contact.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']);
+          const keyScreens=new Set(['index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']);
 
           function rgb(s){
             const m=String(s||'').match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)(?:[, /]+([\d.]+))?\)/);
@@ -265,6 +265,27 @@ jobs:
 
                 const status=response?response.status():null;
                 report.viewports[vpName][pth]={status,...audit,menuTest,consoleErrors,pageErrors,requestFailed};
+
+                if(pth!=='trial-line.html'){
+                  const footerAudit=await page.evaluate(()=>{
+                    const footer=document.querySelector('.site-footer');
+                    const card=footer?.querySelector('.footer-card');
+                    const sample=card?.querySelector('.footer-brand-block p,.footer-contact p,.footer-nav-links a,.footer-legal');
+                    const css=el=>el?getComputedStyle(el):null;
+                    return {
+                      exists:Boolean(footer&&card&&sample),
+                      backgroundColor:css(footer)?.backgroundColor||'',
+                      backgroundImage:css(footer)?.backgroundImage||'',
+                      textColor:css(sample)?.color||''
+                    };
+                  });
+                  report.viewports[vpName][pth].footerAudit=footerAudit;
+                  const bg=rgb(footerAudit.backgroundColor),fg=rgb(footerAudit.textColor);
+                  const ratio=bg&&fg?contrast(bg,fg):0;
+                  if(!footerAudit.exists) report.errors.push({vp:vpName,page:pth,type:'footer-missing',detail:footerAudit});
+                  else if(!bg||lum(bg)>.22) report.errors.push({vp:vpName,page:pth,type:'footer-not-dark',detail:{...footerAudit,luminance:bg?lum(bg):null}});
+                  else if(!fg||ratio<4.5) report.errors.push({vp:vpName,page:pth,type:'footer-low-contrast',detail:{...footerAudit,contrast:ratio}});
+                }
 
                 // 手機首頁產品橫滑必須讓使用者看得出還有下一張，並提供明確提示／查看全部入口。
                 if(pth==='index.html'&&(vpName==='iphone'||vpName==='android')){
