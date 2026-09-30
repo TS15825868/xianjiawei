@@ -347,6 +347,16 @@ jobs:
                     const button=productIntroButtons.nth(i);
                     const id=await button.locator('xpath=ancestor::article[@data-product-id]').getAttribute('data-product-id');
                     await button.click();
+                    await page.waitForSelector('#product-modal.show[aria-hidden="false"]',{timeout:3000});
+                    await page.waitForFunction(()=>{
+                      const main=document.querySelector('#product-modal .modal-gallery__item img');
+                      const dm=document.querySelector('#product-modal .modal-detail-media__frame img');
+                      return Boolean(main?.complete&&main.naturalWidth>0&&main.naturalHeight>0&&dm?.complete&&dm.naturalWidth>0&&dm.naturalHeight>0);
+                    },{timeout:8000}).catch(()=>{});
+                    await page.evaluate(async()=>{
+                      const imgs=[document.querySelector('#product-modal .modal-gallery__item img'),document.querySelector('#product-modal .modal-detail-media__frame img')].filter(Boolean);
+                      await Promise.all(imgs.map(img=>typeof img.decode==='function'?img.decode().catch(()=>{}):Promise.resolve()));
+                    });
                     await page.waitForTimeout(80);
                     const modalAudit=await page.evaluate(()=>{
                       const modal=document.getElementById('product-modal');
