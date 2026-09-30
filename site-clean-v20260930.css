@@ -649,12 +649,33 @@ body[data-page="trial"] .trial-product-card__media img{
 }
 
 
-/* ===== v13 mobile home product rail ===== */
-/* 手機首頁不再把六張直式主圖擠成 2 欄縮圖；改成大張橫向滑動，保持清晰與留白。 */
+/* ===== v14.2 mobile home product rail ===== */
+/* 手機保留大圖橫滑，但第一屏必須露出下一張並提供滑動提示。 */
+.home-product-swipe-hint{
+  display:none;
+}
+.home-product-showcase__all{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:10px;
+  color:var(--xjw-clean-navy);
+  font-weight:800;
+  text-decoration:none;
+}
 @media(max-width:700px){
   body[data-page="home"] .home-product-showcase{
     padding:12px 10px 14px!important;
     overflow:hidden!important;
+  }
+  body[data-page="home"] .home-product-swipe-hint{
+    display:block!important;
+    margin:6px 0 8px!important;
+    color:#526172!important;
+    font-size:13px!important;
+    font-weight:800!important;
+    letter-spacing:.02em!important;
+    text-align:right!important;
   }
   body[data-page="home"] .home-product-showcase__grid{
     display:flex!important;
@@ -663,17 +684,19 @@ body[data-page="trial"] .trial-product-card__media img{
     overflow-x:auto!important;
     overflow-y:hidden!important;
     scroll-snap-type:x mandatory!important;
+    scroll-padding-inline:2px!important;
     -webkit-overflow-scrolling:touch!important;
-    padding:2px 2px 8px!important;
+    touch-action:pan-x!important;
+    padding:2px 18px 8px 2px!important;
     scrollbar-width:none!important;
   }
   body[data-page="home"] .home-product-showcase__grid::-webkit-scrollbar{
     display:none!important;
   }
   body[data-page="home"] .home-product-showcase__grid>a{
-    flex:0 0 min(78vw,310px)!important;
-    width:min(78vw,310px)!important;
-    scroll-snap-align:center!important;
+    flex:0 0 min(68vw,270px)!important;
+    width:min(68vw,270px)!important;
+    scroll-snap-align:start!important;
     padding:5px!important;
     border-radius:14px!important;
   }
@@ -687,6 +710,14 @@ body[data-page="trial"] .trial-product-card__media img{
     margin-top:3px!important;
     font-size:12px!important;
     line-height:1.5!important;
+  }
+  body[data-page="home"] .home-product-showcase__all{
+    width:100%!important;
+    min-height:44px!important;
+    margin-top:8px!important;
+    border:1px solid rgba(8,40,70,.14)!important;
+    border-radius:999px!important;
+    background:#fff!important;
   }
 }
 
