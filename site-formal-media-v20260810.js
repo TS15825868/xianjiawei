@@ -1,5 +1,5 @@
 (()=>{
-const V='20260925-master-v30';
+const V='20260930-main-dm-v12';
 const pathBase=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
 const LINE_TRIAL='https://line.me/R/oaMessage/%40762jybnm/?%E7%94%B3%E8%AB%8B%E8%A9%A6%E5%96%9D';
 const HD_DM=Object.freeze({
@@ -12,21 +12,8 @@ const HD_DM=Object.freeze({
 });
 const replace=(img,path)=>{if(!path)return;const target=pathBase+path+(path.includes('?')?'&':'?')+'v='+V;let samePath=false;try{samePath=new URL(img.currentSrc||img.src||'',location.href).pathname===new URL(target,location.href).pathname;}catch{}if(!samePath)img.src=target;img.removeAttribute('srcset');img.style.objectFit='contain';img.style.objectPosition='center';img.style.width='100%';img.style.height='auto';img.style.maxWidth='100%';img.style.maxHeight='none';img.style.transform='none';img.removeAttribute('width');img.removeAttribute('height');};
 function fixDmEntry(){
- document.querySelectorAll('a[href="dm.html"],a[href$="/dm.html"]').forEach(a=>{if(/實品照|產品圖|DM/i.test(a.textContent||''))a.textContent='查看產品DM';a.setAttribute('aria-label','查看仙加味目前正式產品DM');});
- if(document.body?.dataset?.page!=='home')return;
- const products=document.getElementById('home-products');
- const actions=products?.nextElementSibling;
- if(!actions?.classList?.contains('section-actions'))return;
- const existing=[...actions.querySelectorAll('a')].find(a=>/^(?:\.\/)?dm\.html(?:[?#]|$)/i.test(a.getAttribute('href')||'')||/\/dm\.html(?:[?#]|$)/i.test(a.getAttribute('href')||''));
- if(existing){
-   existing.dataset.formalDmHomeEntry='true';
-   existing.textContent='查看產品DM';
-   existing.setAttribute('aria-label','查看仙加味目前正式產品DM');
-   actions.querySelectorAll('a[data-formal-dm-home-entry="true"]').forEach(a=>{if(a!==existing)a.remove();});
-   return;
- }
- const link=document.createElement('a');link.className='btn btn-outline';link.href='dm.html';link.textContent='查看產品DM';link.dataset.formalDmHomeEntry='true';link.setAttribute('aria-label','查看仙加味目前正式產品DM');
- const trial=[...actions.querySelectorAll('a')].find(a=>/trial\.html/.test(a.getAttribute('href')||''));if(trial)actions.insertBefore(link,trial);else actions.appendChild(link);
+ if(document.body?.dataset?.page==='dm')return;
+ document.querySelectorAll('a[href="dm.html"],a[href$="/dm.html"]').forEach(a=>a.remove());
 }
 function fixTrialLineEntries(){
  document.querySelectorAll('a[data-line-message],a[href*="lin.ee"],a[href*="line.me/R/oaMessage"]').forEach(a=>{
