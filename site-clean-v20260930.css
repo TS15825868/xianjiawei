@@ -1039,3 +1039,88 @@ body[data-page="products"] .product-grid{
     font-size:14px!important;
   }
 }
+
+
+/* ===== v20｜資訊頁減法與 Footer 結構保險 ===== */
+#site-footer,
+body.ux-v410 #site-footer{
+  margin:0!important;
+  padding:28px 18px calc(30px + env(safe-area-inset-bottom))!important;
+  color:#fff!important;
+  background-color:#082846!important;
+  background-image:
+    radial-gradient(circle at 88% 12%,rgba(199,155,77,.18),transparent 30%),
+    linear-gradient(135deg,#082846 0%,#0d365d 100%)!important;
+}
+#site-footer .footer-card.card,
+#site-footer .footer-card{
+  width:min(100%,1180px)!important;
+  margin:0 auto!important;
+  padding:0!important;
+  color:#fff!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+#site-footer .footer-brand-block strong,
+#site-footer .footer-nav h3,
+#site-footer .footer-contact h3{color:#f0d397!important}
+#site-footer .footer-brand-block p,
+#site-footer .footer-nav-links a,
+#site-footer .footer-contact p,
+#site-footer .footer-contact strong,
+#site-footer .footer-legal{color:rgba(255,255,255,.90)!important}
+
+@media(max-width:700px){
+  /* 使用方式與料理頁改成編輯式清單，減少整頁白色圓角卡堆疊。 */
+  body[data-page="guide"] main.page .guide-card,
+  body[data-page="guide"] main.page #daily-use .card,
+  body[data-page="guide"] main.page .section .cards-3 .card,
+  body[data-page="recipes"] main.page .grid .card{
+    margin:0!important;
+    padding:16px 2px!important;
+    background:transparent!important;
+    background-image:none!important;
+    border:0!important;
+    border-top:1px solid rgba(8,40,70,.10)!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+  }
+  body[data-page="guide"] main.page .guide-card:first-child,
+  body[data-page="guide"] main.page #daily-use .card:first-child,
+  body[data-page="recipes"] main.page .grid .card:first-child{
+    border-top-color:rgba(199,155,77,.28)!important;
+  }
+  body[data-page="guide"] main.page .grid,
+  body[data-page="recipes"] main.page .grid{
+    gap:0!important;
+  }
+  body[data-page="choose"] #choose-results{
+    gap:8px!important;
+  }
+  body[data-page="choose"] #choose-results .card{
+    padding:16px!important;
+    border-color:rgba(8,40,70,.08)!important;
+    box-shadow:none!important;
+    background:rgba(255,255,255,.68)!important;
+  }
+  body[data-page="guide"] main.page .card h3,
+  body[data-page="recipes"] main.page .card h3{
+    margin-bottom:7px!important;
+    font-size:18px!important;
+    line-height:1.4!important;
+  }
+  body[data-page="guide"] main.page .card p,
+  body[data-page="recipes"] main.page .card p{
+    font-size:14.5px!important;
+    line-height:1.7!important;
+  }
+  #site-footer,
+  body.ux-v410 #site-footer{
+    padding:22px 15px calc(26px + env(safe-area-inset-bottom))!important;
+  }
+  #site-footer .footer-card.card{gap:18px!important}
+  #site-footer .footer-contact img{display:none!important}
+}

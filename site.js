@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20261001-site-polish-v19";
+  const VERSION = "20261001-site-polish-v20";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;

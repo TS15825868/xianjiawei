@@ -159,7 +159,10 @@ function buildShell() {
 
   if (header) header.innerHTML = renderHeader();
   if (menuRoot) menuRoot.innerHTML = renderMenu();
-  if (footer) footer.innerHTML = renderFooter();
+  if (footer) {
+    footer.classList.add("site-footer");
+    footer.innerHTML = renderFooter();
+  }
   if (modalRoot) modalRoot.innerHTML = renderModalShell();
 }
 
