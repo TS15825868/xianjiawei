@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-01-line-oa-primary-routing-v9",
+  "version": "2026-10-01-brand-name-v10",
   "authority": "user-confirmed-current",
   "repositoryRole": "公開官網、已核准對外內容與不含私人資料的機器可讀產品資料",
   "internalRepository": "TS15825868/xianjiawei-internal",
@@ -95,7 +95,9 @@
     "oldGuardMayNotRestoreRetiredFacts": true,
     "oldCopyMayNotOverwriteCurrent": true,
     "deferredProductMayNotBeReintroducedPublicly": true,
-    "erpMayRetainDeferredInternalData": true
+    "erpMayRetainDeferredInternalData": true,
+    "doNotAppendGuiluToBrandName": true,
+    "doNotExposeLegacyCompanyNameAsBrand": true
   },
   "workflowPolicy": {
     "publicActionsMayValidateAndDeploy": true,
@@ -131,8 +133,8 @@
       "客戶資料與交易資訊"
     ],
     "lineCommunity": {
-      "name": "仙加味・龜鹿｜日常交流",
-      "role": "選擇性的生活交流社群，不是客服、下單或售後中心",
+      "name": "仙加味｜日常交流",
+      "role": "選擇性的仙加味生活交流社群，不是客服、下單或售後中心",
       "defaultCta": false,
       "neverCollect": [
         "姓名",
@@ -144,5 +146,17 @@
       ],
       "publicPromotionRule": "不作為官網、Google商家、FB、IG、Threads的預設主要導流；只有高度相關的日常交流內容才可自然提及"
     }
+  },
+  "brandNaming": {
+    "publicBrandName": "仙加味",
+    "brandPositioning": "現代漢方生活品牌",
+    "guiluRole": "龜鹿只作為產品／系列名稱，不再綁在品牌名稱後面",
+    "futureProductRule": "未來新增其他漢方生活產品仍統一以「仙加味」作為主品牌",
+    "forbiddenPublicBrandForms": [
+      "仙加味・龜鹿",
+      "仙加味｜台興山產有限公司",
+      "台興山產・仙加味"
+    ],
+    "googleDesiredPublicName": "仙加味"
   }
 }
