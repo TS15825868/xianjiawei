@@ -10,6 +10,7 @@ on:
       - 'public-product-master.json'
       - 'assets/data/official-products.json'
       - 'config/official-products.json'
+      - 'config/public-content-policy.json'
       - 'data/formal-media-authority-v20260810.json'
       - 'images/brand/approved-v405-manifest.json'
       - 'ai-answers.json'
@@ -20,6 +21,7 @@ on:
       - 'products.html'
       - 'guide.html'
       - 'faq.html'
+      - 'contact.html'
       - 'brand-facts.html'
       - 'product-guilu-*.html'
       - 'product-luerong-fen.html'
@@ -58,5 +60,29 @@ jobs:
           python tools/validate-site-production-release-v20260809.py
           python tools/validate-ai-geo-current-v20260820.py
           python tools/validate-public-boundary-v20260808.py
+      - name: Current service-hours authority check
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          policy=json.loads(Path('config/public-content-policy.json').read_text(encoding='utf-8'))
+          hours=policy.get('serviceHours') or {}
+          assert hours.get('storefront')=='週一至週五 10:30－20:00'
+          assert hours.get('closed')=='週六、週日店休'
+          assert hours.get('website')=='24 小時可瀏覽'
+          assert str(hours.get('lineOA','')).startswith('24 小時可留言')
+          current='週一至週五 10:30－20:00'
+          for rel in ['contact.html','faq.html','ai-answers.json']:
+              text=Path(rel).read_text(encoding='utf-8')
+              assert current in text, f'{rel} 缺最新營業時間'
+              for retired in ['週一至週日 09:30','週一至週六 09:30','下一個營業時段','非服務時間一律下一營業日回覆']:
+                  assert retired not in text, f'{rel} 出現退役服務時間／回覆規則：{retired}'
+          ai=json.loads(Path('ai-answers.json').read_text(encoding='utf-8'))
+          assert any(x.get('id')=='business-hours' for x in ai.get('answers',[])), 'AI營業時間問答缺失'
+          print('PASS: current storefront/LINE/website service-hours authority; no stale hours fallback.')
+          PY
+
       - name: Ensure audit is read-only
         run: git diff --exit-code
