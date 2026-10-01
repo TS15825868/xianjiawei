@@ -1124,3 +1124,214 @@ body.ux-v410 #site-footer{
   #site-footer .footer-card.card{gap:18px!important}
   #site-footer .footer-contact img{display:none!important}
 }
+
+
+/* ===== v21｜高級感細修：少一點卡片感，多一點編輯感與留白 ===== */
+body.ux-v410 main .card:not(.product-card):hover{
+  transform:none!important;
+}
+body.ux-v410 .section-heading,
+body.ux-v410 .section-title{
+  max-width:790px!important;
+}
+body.ux-v410 .section-heading .eyebrow,
+body.ux-v410 .section-title .eyebrow{
+  margin-bottom:7px!important;
+  font-size:12px!important;
+  letter-spacing:.15em!important;
+}
+body.ux-v410 .section-heading h2,
+body.ux-v410 .section-title h2{
+  margin-top:0!important;
+  margin-bottom:10px!important;
+  line-height:1.16!important;
+}
+body.ux-v410 .section-heading>p:last-child,
+body.ux-v410 .section-title>p:last-child{
+  line-height:1.78!important;
+}
+
+/* 首頁：把次要資訊改成編輯式區塊，主 CTA 才保留按鈕份量。 */
+body[data-page="home"] .home-intro-section .grid{
+  gap:22px!important;
+}
+body[data-page="home"] .home-intro-section .card{
+  padding:22px 2px 20px!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-top:1px solid rgba(199,155,77,.32)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[data-page="home"] .home-intro-section .card h3{
+  margin-bottom:8px!important;
+}
+body[data-page="home"] .home-choice-card{
+  border-radius:15px!important;
+  background:rgba(255,253,248,.70)!important;
+  border-color:rgba(8,40,70,.075)!important;
+}
+body[data-page="home"] .home-feature-card{
+  border-radius:15px!important;
+  background:transparent!important;
+  border-color:rgba(8,40,70,.085)!important;
+}
+body[data-page="home"] .home-service-card{
+  border-radius:16px!important;
+}
+body[data-page="home"] .home-intro-section .section-actions .btn-outline,
+body[data-page="home"] .home-choice-section .section-actions .btn-outline,
+body[data-page="home"] .home-feature-card .btn-outline,
+body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-outline{
+  width:auto!important;
+  min-height:0!important;
+  padding:5px 0 3px!important;
+  color:#082846!important;
+  background:transparent!important;
+  border:0!important;
+  border-bottom:1px solid rgba(8,40,70,.26)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  font-size:14px!important;
+}
+body[data-page="home"] .home-intro-section .section-actions .btn-outline:hover,
+body[data-page="home"] .home-choice-section .section-actions .btn-outline:hover,
+body[data-page="home"] .home-feature-card .btn-outline:hover,
+body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-outline:hover{
+  color:#8f2b31!important;
+  border-bottom-color:#8f2b31!important;
+  box-shadow:none!important;
+}
+
+/* 品牌故事：保留時間軸，拿掉大量浮起的白框。 */
+body[data-page="brand"] .brand-promise-grid{
+  gap:24px!important;
+}
+body[data-page="brand"] .brand-promise-card{
+  padding:23px 2px 21px!important;
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-top:1px solid rgba(199,155,77,.34)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+body[data-page="brand"] .brand-promise-card h3{
+  margin-bottom:9px!important;
+  line-height:1.34!important;
+}
+body[data-page="brand"] .brand-generation{
+  border-radius:14px!important;
+  border-color:rgba(199,155,77,.18)!important;
+  background:rgba(255,253,248,.78)!important;
+  box-shadow:none!important;
+}
+body[data-page="brand"] .brand-generation__year{
+  letter-spacing:.03em!important;
+}
+body[data-page="brand"] .final-cta{
+  max-width:860px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  box-shadow:none!important;
+  border-color:rgba(199,155,77,.20)!important;
+}
+
+/* 產品：維持正式主圖比例，卡片輪廓再收斂。 */
+body[data-page="products"] .product-card{
+  border-radius:16px!important;
+  box-shadow:none!important;
+  border-color:rgba(8,40,70,.085)!important;
+  background:#fffdf9!important;
+}
+body[data-page="products"] .product-card__img{
+  border-radius:16px 16px 0 0!important;
+}
+body[data-page="products"] .product-card__body{
+  border-top-color:rgba(199,155,77,.11)!important;
+}
+body[data-page="products"] .product-card__actions .btn{
+  border-radius:10px!important;
+  background:rgba(255,255,255,.62)!important;
+  box-shadow:none!important;
+}
+body[data-page="product-detail"] .product-detail-hero{
+  box-shadow:none!important;
+  border-color:rgba(8,40,70,.09)!important;
+}
+
+/* 導覽抽屜：更俐落的層次與轉場。 */
+body.ux-v410 .site-menu__panel{
+  border-left:1px solid rgba(199,155,77,.18)!important;
+  box-shadow:-18px 0 48px rgba(8,40,70,.14)!important;
+  transition:transform .22s ease,opacity .22s ease!important;
+}
+body.ux-v410 .site-menu__backdrop{
+  transition:opacity .22s ease!important;
+}
+
+/* Footer：品牌收尾保持沉穩，區塊之間拉開呼吸感。 */
+#site-footer .footer-card{
+  row-gap:22px!important;
+}
+#site-footer .footer-nav-links{
+  line-height:1.55!important;
+}
+
+@media(max-width:700px){
+  body.ux-v410 .section{
+    padding-top:26px!important;
+    padding-bottom:32px!important;
+  }
+  body.ux-v410 .section-heading,
+  body.ux-v410 .section-title{
+    margin-bottom:17px!important;
+  }
+  body[data-page="home"] .home-intro-section .grid{
+    gap:0!important;
+  }
+  body[data-page="home"] .home-intro-section .card{
+    padding:18px 1px 17px!important;
+  }
+  body[data-page="home"] .home-choice-card{
+    padding:15px!important;
+    border-radius:13px!important;
+  }
+  body[data-page="home"] .home-feature-card{
+    padding:17px 1px!important;
+    border-width:1px 0 0!important;
+    border-radius:0!important;
+    background:transparent!important;
+  }
+  body[data-page="home"] .home-feature-grid{
+    gap:0!important;
+  }
+  body[data-page="brand"] .brand-promise-grid{
+    gap:0!important;
+  }
+  body[data-page="brand"] .brand-promise-card{
+    padding:18px 1px 17px!important;
+  }
+  body[data-page="brand"] .brand-generation{
+    padding:15px 14px!important;
+    border-radius:12px!important;
+    background:rgba(255,253,248,.74)!important;
+  }
+  body[data-page="brand"] .brand-generation h3{
+    font-size:18px!important;
+    line-height:1.38!important;
+  }
+  body[data-page="brand"] .brand-generation p{
+    line-height:1.72!important;
+  }
+  body[data-page="products"] .product-card{
+    border-radius:14px!important;
+  }
+  body[data-page="products"] .product-card__img{
+    border-radius:14px 14px 0 0!important;
+  }
+  #site-footer .footer-card{
+    row-gap:20px!important;
+  }
+}
