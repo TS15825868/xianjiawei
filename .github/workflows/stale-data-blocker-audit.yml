@@ -81,6 +81,7 @@ jobs:
                   assert retired not in text, f'{rel} 出現退役服務時間／回覆規則：{retired}'
           ai=json.loads(Path('ai-answers.json').read_text(encoding='utf-8'))
           assert any(x.get('id')=='business-hours' for x in ai.get('answers',[])), 'AI營業時間問答缺失'
+          routing=policy.get('contactRouting') or {}
           naming=policy.get('brandNaming') or {}
           assert naming.get('publicBrandName')=='仙加味', '主品牌必須是仙加味'
           assert naming.get('googleDesiredPublicName')=='仙加味', 'Google最終公開名稱必須是仙加味'
@@ -91,7 +92,6 @@ jobs:
               text=Path(rel).read_text(encoding='utf-8')
               assert '仙加味・龜鹿' not in text, f'{rel} 品牌主名稱不得綁定龜鹿'
           assert '仙加味｜台興山產有限公司' not in Path('ai-answers.json').read_text(encoding='utf-8'), 'AI公開回答不得把公司名綁進主品牌'
-          routing=policy.get('contactRouting') or {}
           assert routing.get('primaryChannel')=='仙加味官方 LINE OA', '主要客服入口必須是官方LINE OA'
           assert routing.get('lineId')=='@762jybnm', 'LINE OA ID回退'
           assert routing.get('lineUrl')=='https://lin.ee/sHZW7NkR', 'LINE OA URL回退'
