@@ -84,7 +84,9 @@ jobs:
           routing=policy.get('contactRouting') or {}
           naming=policy.get('brandNaming') or {}
           assert naming.get('publicBrandName')=='仙加味', '主品牌必須是仙加味'
-          assert naming.get('googleDesiredPublicName')=='仙加味', 'Google最終公開名稱必須是仙加味'
+          google_name=naming.get('googleBusiness') or {}
+          assert google_name.get('currentName')=='仙加味｜台興山產有限公司', 'Google商家現行名稱必須使用品牌＋法律主體'
+          assert google_name.get('doNotTreatAsMainBrand') is True, 'Google商家例外名稱不得回寫成一般主品牌'
           assert naming.get('guiluRole')=='龜鹿只作為產品／系列名稱，不再綁在品牌名稱後面', '龜鹿角色規則回退'
           assert routing.get('lineCommunity',{}).get('name')=='仙加味｜日常交流', 'LINE社群名稱仍綁定龜鹿'
           active_files=['contact.html','faq.html','ai-answers.json','brand-facts.html','index.html']
