@@ -1351,3 +1351,69 @@ body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-out
   min-height:44px!important;
   padding:9px 0 7px!important;
 }
+
+
+/* v21.2｜按鈕可辨識性：高級感不等於把按鈕藏成文字。 */
+body[data-page="home"] .home-intro-section .section-actions .btn-outline,
+body[data-page="home"] .home-choice-section .section-actions .btn-outline,
+body[data-page="home"] .home-feature-card .btn-outline,
+body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-outline{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  width:auto!important;
+  min-width:44px!important;
+  min-height:44px!important;
+  padding:10px 14px!important;
+  color:#082846!important;
+  background:rgba(255,253,248,.96)!important;
+  border:1px solid rgba(8,40,70,.20)!important;
+  border-radius:12px!important;
+  box-shadow:0 3px 12px rgba(8,40,70,.035)!important;
+  font-size:14px!important;
+  font-weight:800!important;
+  text-decoration:none!important;
+}
+body[data-page="home"] .home-intro-section .section-actions .btn-outline::after,
+body[data-page="home"] .home-choice-section .section-actions .btn-outline::after,
+body[data-page="home"] .home-feature-card .btn-outline::after,
+body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-outline::after{
+  content:"→";
+  display:inline-block;
+  font-size:14px;
+  line-height:1;
+  opacity:.72;
+  transition:transform .18s ease;
+}
+body[data-page="home"] .home-intro-section .section-actions .btn-outline:hover,
+body[data-page="home"] .home-choice-section .section-actions .btn-outline:hover,
+body[data-page="home"] .home-feature-card .btn-outline:hover,
+body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-outline:hover,
+body[data-page="home"] .home-intro-section .section-actions .btn-outline:focus-visible,
+body[data-page="home"] .home-choice-section .section-actions .btn-outline:focus-visible,
+body[data-page="home"] .home-feature-card .btn-outline:focus-visible,
+body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-outline:focus-visible{
+  color:#082846!important;
+  background:#fff!important;
+  border-color:rgba(143,43,49,.42)!important;
+  box-shadow:0 5px 16px rgba(8,40,70,.06)!important;
+}
+body[data-page="home"] .home-intro-section .section-actions .btn-outline:hover::after,
+body[data-page="home"] .home-choice-section .section-actions .btn-outline:hover::after,
+body[data-page="home"] .home-feature-card .btn-outline:hover::after,
+body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-outline:hover::after{
+  transform:translateX(2px);
+}
+@media(max-width:700px){
+  body[data-page="home"] .home-intro-section .section-actions .btn-outline,
+  body[data-page="home"] .home-choice-section .section-actions .btn-outline{
+    width:100%!important;
+  }
+  body[data-page="home"] .home-feature-card .btn-outline{
+    width:auto!important;
+  }
+  body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-outline{
+    width:100%!important;
+  }
+}

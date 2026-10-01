@@ -385,6 +385,20 @@ jobs:
                   report.errors.push({vp:vpName,page:pth,type:'desktop-nav-hidden',detail:menuTest});
                 }
 
+                if(pth==='index.html'){
+                  const affordance=await page.evaluate(()=>{
+                    const els=[...document.querySelectorAll(
+                      '.home-intro-section .section-actions .btn-outline,.home-choice-section .section-actions .btn-outline,.home-feature-card .btn-outline,.home-service-card:not(.home-service-card--line) .btn-outline'
+                    )];
+                    return els.map(el=>{
+                      const s=getComputedStyle(el);
+                      return {text:el.textContent.trim(),borderWidth:s.borderTopWidth,borderStyle:s.borderTopStyle,background:s.backgroundColor,height:el.getBoundingClientRect().height};
+                    });
+                  });
+                  const bad=affordance.filter(x=>parseFloat(x.borderWidth)<1||x.borderStyle==='none'||x.background==='rgba(0, 0, 0, 0)'||x.height<44);
+                  if(bad.length) report.errors.push({vp:vpName,page:pth,type:'home-secondary-button-affordance',detail:bad});
+                }
+
                 if(pth==='choose.html'){
                   const duplicateChoose=await page.locator('#choose-results').count();
                   if(duplicateChoose) report.errors.push({vp:vpName,page:pth,type:'choose-duplicate-results',detail:{count:duplicateChoose}});
