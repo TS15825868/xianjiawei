@@ -81,7 +81,17 @@ jobs:
                   assert retired not in text, f'{rel} 出現退役服務時間／回覆規則：{retired}'
           ai=json.loads(Path('ai-answers.json').read_text(encoding='utf-8'))
           assert any(x.get('id')=='business-hours' for x in ai.get('answers',[])), 'AI營業時間問答缺失'
-          print('PASS: current storefront/LINE/website service-hours authority; no stale hours fallback.')
+          routing=policy.get('contactRouting') or {}
+          assert routing.get('primaryChannel')=='仙加味官方 LINE OA', '主要客服入口必須是官方LINE OA'
+          assert routing.get('lineId')=='@762jybnm', 'LINE OA ID回退'
+          assert routing.get('lineUrl')=='https://lin.ee/sHZW7NkR', 'LINE OA URL回退'
+          community=routing.get('lineCommunity') or {}
+          assert community.get('defaultCta') is False, 'LINE社群不得成為官網預設CTA'
+          contact=Path('contact.html').read_text(encoding='utf-8')
+          assert 'https://lin.ee/sHZW7NkR' in contact, '聯絡頁缺官方LINE OA入口'
+          assert 'line.me/ti/g2' not in contact, '聯絡頁不得把LINE社群當主要客服／交易入口'
+          assert ai.get('officialContact',{}).get('primaryChannel')=='LINE OA', 'AI回答主要聯絡入口不是LINE OA'
+          print('PASS: current service-hours authority + LINE OA primary routing; community is not default transaction CTA.')
           PY
 
       - name: Ensure audit is read-only
