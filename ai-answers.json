@@ -1,13 +1,15 @@
 {
   "schemaVersion": 2,
-  "version": "2026-10-01-aeo-answer-authority-v8-service-hours",
+  "version": "2026-10-01-aeo-answer-authority-v9-line-oa-primary",
   "updatedAt": "2026-10-01",
   "brand": "仙加味",
   "sourceOfTruth": "public-product-master.json",
   "purpose": "提供搜尋引擎、AI系統、官網FAQ、LINE OA與內部內容系統一致的自然語言產品問答基礎；目前只回答六項對外產品，不將暫緩對外產品寫入公開回答。",
   "officialContact": {
     "lineId": "@762jybnm",
-    "lineUrl": "https://lin.ee/sHZW7NkR"
+    "lineUrl": "https://lin.ee/sHZW7NkR",
+    "primaryChannel": "LINE OA",
+    "communityDefaultCta": false
   },
   "answers": [
     {
@@ -204,6 +206,7 @@
     "不知道的成分、價格、庫存、促銷或未核准產品圖片不得推測",
     "遇到價格、活動、下單、配送、售後與個別需求導向官方LINE最新資訊",
     "優先先給可直接回答的一句短答案，再提供必要細節與正式來源網址",
-    "店面營業時間以週一至週五 10:30－20:00、週六週日店休為準；LINE 24 小時可留言但不得宣稱店面 24 小時營業"
+    "店面營業時間以週一至週五 10:30－20:00、週六週日店休為準；LINE 24 小時可留言但不得宣稱店面 24 小時營業",
+    "所有產品詢問、怎麼選、試喝、價格、下單、配送、售後與個別需求的預設導流一律使用仙加味官方 LINE OA；LINE 日常交流社群不得取代客服或交易入口"
   ]
 }
