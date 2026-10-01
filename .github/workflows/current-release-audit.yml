@@ -76,7 +76,7 @@ jobs:
           by={p['id']:p for p in master['products']}
           assert by['guilu-drink-30']['usage'][0]==current
           assert by['guilu-gao']['usage'][0]==gao_current
-          for rel in ['public-product-master.json','ai-answers.json','geo-data.json','llms.txt','llms-full.txt','index.html','products.html','guide.html','faq.html','brand-facts.html','content/public-post-library.json']:
+          for rel in ['public-product-master.json','ai-answers.json','geo-data.json','llms.txt','llms-full.txt','index.html','products.html','guide.html','faq.html','contact.html','brand-facts.html','content/public-post-library.json']:
               text=Path(rel).read_text(encoding='utf-8')
               assert deferred_name not in text, rel
               assert deferred_id not in text, rel
@@ -90,6 +90,19 @@ jobs:
           assert 'productCount!==6' in runtime and 'knowledgeProductCount:6' in runtime
           assert 'knowledgeProductCount:6' in display
           assert 'knowledgeProductCount: 6' in fallback
+          service_hours=json.loads(Path('config/public-content-policy.json').read_text(encoding='utf-8')).get('serviceHours') or {}
+          assert service_hours.get('storefront')=='週一至週五 10:30－20:00'
+          assert service_hours.get('closed')=='週六、週日店休'
+          assert service_hours.get('website')=='24 小時可瀏覽'
+          assert str(service_hours.get('lineOA','')).startswith('24 小時可留言')
+          current_hours='週一至週五 10:30－20:00'
+          for rel in ['contact.html','faq.html','ai-answers.json']:
+              text=Path(rel).read_text(encoding='utf-8')
+              assert current_hours in text, f'{rel} 缺最新營業時間'
+              for retired in ['週一至週日 09:30','週一至週六 09:30','下一個營業時段','非服務時間一律下一營業日回覆']:
+                  assert retired not in text, f'{rel} 出現退役服務時間／回覆規則：{retired}'
+          ai=json.loads(Path('ai-answers.json').read_text(encoding='utf-8'))
+          assert any(x.get('id')=='business-hours' for x in ai.get('answers',[])), 'AI營業時間問答缺失'
           media=json.loads(Path('data/product-media-authority.json').read_text(encoding='utf-8'))
           assert media.get('version')=='20260930-main-dm-v13'
           for pid,item in media.get('products',{}).items():
