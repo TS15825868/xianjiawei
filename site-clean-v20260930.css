@@ -1335,3 +1335,19 @@ body.ux-v410 .site-menu__backdrop{
     row-gap:20px!important;
   }
 }
+
+
+/* v21.1｜次要連結觸控尺寸：維持編輯式外觀，同時保留 44px 可點擊高度。 */
+body[data-page="home"] .home-intro-section .section-actions .btn-outline,
+body[data-page="home"] .home-choice-section .section-actions .btn-outline,
+body[data-page="home"] .home-feature-card .btn-outline,
+body[data-page="home"] .home-service-card:not(.home-service-card--line) .btn-outline{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  align-self:flex-start!important;
+  width:auto!important;
+  min-width:44px!important;
+  min-height:44px!important;
+  padding:9px 0 7px!important;
+}
