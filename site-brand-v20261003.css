@@ -1,0 +1,26 @@
+/* 仙加味正式品牌視覺：保留既有版面與互動，統一色彩和材質。 */
+:root{--brand-cream:#F7F4ED;--brand-red:#682023;--brand-navy:#0B1F3B;--brand-gold:#B08A47;--brand-green:#314B3D;--xjw18-red:#682023;--xjw18-cream:#F7F4ED;--xjw18-gold:#B08A47;--xjw-clean-red:#682023;--xjw-clean-cream:#F7F4ED}
+html{background:#F7F4ED}
+body{background:#F7F4ED!important;color:#172536!important}
+body:not([data-page="home"]) .hero--compact{background:linear-gradient(130deg,#F7F4ED,#fffdf8)!important;border:1px solid rgba(176,138,71,.22)!important}
+body[data-page="home"] .hero__panel{background:linear-gradient(90deg,rgba(247,244,237,.94),rgba(247,244,237,.72)),url('images/brand/landscape-v20261003.svg') center bottom/cover!important;border:1px solid rgba(176,138,71,.27)!important;box-shadow:0 16px 48px rgba(11,31,59,.06)!important}
+.card,.panel,.product-card,.faq-item,.home-choice-card,.home-feature-card{background:#fffdf8!important;border-color:rgba(176,138,71,.20)!important}
+body .btn-primary,body .btn-line,body .home-story-card .btn-primary,body .header-line{background:#682023!important;color:#F7F4ED!important;border:1px solid #B08A47!important;box-shadow:0 5px 16px rgba(104,32,35,.12)!important}
+body .btn-outline{background:#F7F4ED!important;color:#682023!important;border-color:rgba(104,32,35,.34)!important}
+body .home-story-card .btn-outline{background:#F7F4ED!important;color:#682023!important}
+body .home-service-card--line{background:linear-gradient(130deg,#fffdf8,#F7F4ED)!important;border-color:rgba(176,138,71,.32)!important}
+body .eyebrow{color:#682023!important}
+body .home-story-card .eyebrow,body .home-product-showcase .eyebrow{color:#eed9aa!important}
+body .home-hero-brand-lockup__logo,body .brand img,body .menu-brand-mini img{object-fit:contain!important}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #B08A47!important;outline-offset:4px!important}
+body:not([data-page]) .scene{background:linear-gradient(180deg,rgba(247,244,237,.12),rgba(247,244,237,.4) 65%,#F7F4ED),url('images/brand/landscape-v20261003.svg') center bottom/cover no-repeat;min-height:340px;padding-bottom:84px}
+body:not([data-page]) .scene:after{background:linear-gradient(180deg,transparent,#F7F4ED 88%)}
+body:not([data-page]) .content{margin-top:-48px}
+body:not([data-page]) .card{border-radius:22px;box-shadow:0 14px 40px rgba(11,31,59,.07);padding:14px}
+body:not([data-page]) .link{border-radius:14px;background:#F7F4ED;box-shadow:none;min-height:76px}
+body:not([data-page]) .link--primary{background:#682023;color:#F7F4ED;border-color:#B08A47}
+body:not([data-page]) .link--primary .copy strong{color:#F7F4ED}
+body:not([data-page]) .social a{border-radius:12px;background:transparent;box-shadow:none}
+body:not([data-page]) .hours{background:transparent;border-radius:12px}
+@media(max-width:600px){body[data-page="home"] .hero__panel{background:linear-gradient(180deg,rgba(247,244,237,.92),rgba(247,244,237,.65)),url('images/brand/landscape-v20261003.svg') center top/auto 600px!important}body:not([data-page]) .scene{min-height:330px;padding-top:22px}body:not([data-page]) .content{padding-left:14px;padding-right:14px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
