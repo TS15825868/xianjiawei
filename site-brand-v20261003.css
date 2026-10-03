@@ -236,3 +236,237 @@ html body[data-page="brand-origin"] .hero--compact{
     width:56px!important;height:56px!important;right:17%!important;top:18%!important;
   }
 }
+
+
+/* 2026-10-03｜Premium v10：首頁完整品牌舞台，視覺明確對齊連結入口 */
+html body[data-page="home"] .hero{
+  padding-top:14px!important;
+}
+html body[data-page="home"] .hero__panel{
+  display:block!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(176,138,71,.55)!important;
+  border-radius:28px!important;
+  background:#F7F4ED!important;
+  box-shadow:0 24px 62px rgba(11,31,59,.13)!important;
+}
+html body[data-page="home"] .hero__panel:before,
+html body[data-page="home"] .hero__panel:after{
+  display:none!important;
+}
+html body[data-page="home"] .home-brand-stage{
+  position:relative!important;
+  min-height:360px!important;
+  overflow:hidden!important;
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  padding:28px 24px 70px!important;
+  background:
+    radial-gradient(circle at 50% 30%,rgba(255,255,255,.92) 0%,rgba(247,244,237,.74) 34%,rgba(247,244,237,.18) 64%,rgba(247,244,237,0) 79%),
+    linear-gradient(180deg,#FBF8EF 0%,#F7F4ED 100%)!important;
+}
+html body[data-page="home"] .home-brand-stage:after{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;right:0!important;bottom:-1px!important;
+  height:82px!important;
+  z-index:2!important;
+  background:linear-gradient(180deg,rgba(247,244,237,0),#F7F4ED 88%)!important;
+  pointer-events:none!important;
+}
+html body[data-page="home"] .home-brand-stage__center{
+  position:relative!important;
+  z-index:6!important;
+  width:min(100%,390px)!important;
+  text-align:center!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+}
+html body[data-page="home"] .home-brand-stage__center img{
+  width:86px!important;
+  height:auto!important;
+  max-height:158px!important;
+  object-fit:contain!important;
+  margin:0 auto 10px!important;
+  filter:drop-shadow(0 8px 18px rgba(104,32,35,.13))!important;
+}
+html body[data-page="home"] .home-brand-stage__center strong{
+  color:#682023!important;
+  font-size:30px!important;
+  font-weight:950!important;
+  letter-spacing:.10em!important;
+  text-indent:.10em!important;
+  line-height:1.18!important;
+}
+html body[data-page="home"] .home-brand-stage__center span{
+  position:relative!important;
+  margin-top:12px!important;
+  color:#314B3D!important;
+  font-size:13px!important;
+  font-weight:850!important;
+  letter-spacing:.12em!important;
+}
+html body[data-page="home"] .home-brand-stage__center span:before,
+html body[data-page="home"] .home-brand-stage__center span:after{
+  content:""!important;
+  display:inline-block!important;
+  width:44px!important;
+  height:1px!important;
+  margin:0 10px 4px!important;
+  background:#B08A47!important;
+  opacity:.65!important;
+}
+html body[data-page="home"] .home-brand-stage__center em{
+  margin-top:15px!important;
+  color:#7a421f!important;
+  font-size:21px!important;
+  line-height:1.35!important;
+  font-weight:900!important;
+  letter-spacing:.08em!important;
+  font-style:normal!important;
+}
+html body[data-page="home"] .home-brand-stage__center small{
+  margin-top:10px!important;
+  color:#4f5852!important;
+  font-size:12px!important;
+  font-weight:750!important;
+  letter-spacing:.06em!important;
+}
+html body[data-page="home"] .home-brand-stage__mountains,
+html body[data-page="home"] .home-brand-stage__goji,
+html body[data-page="home"] .home-brand-stage__deer,
+html body[data-page="home"] .home-brand-stage__herbs,
+html body[data-page="home"] .home-brand-stage__turtle{
+  position:absolute!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  background-repeat:no-repeat!important;
+  background-size:contain!important;
+}
+html body[data-page="home"] .home-brand-stage__mountains{
+  left:50%!important;bottom:12px!important;width:620px!important;height:255px!important;
+  transform:translateX(-50%)!important;
+  background-image:url('images/brand/decor-v20261003/mountains-center.webp?v=20261003')!important;
+  background-position:center bottom!important;
+  opacity:.58!important;
+}
+html body[data-page="home"] .home-brand-stage__goji{
+  left:-36px!important;top:-20px!important;width:270px!important;height:205px!important;
+  background-image:url('images/brand/decor-v20261003/goji-top.webp?v=20261003')!important;
+  background-position:left top!important;
+  opacity:.94!important;
+}
+html body[data-page="home"] .home-brand-stage__deer{
+  right:-30px!important;top:104px!important;width:285px!important;height:250px!important;
+  background-image:url('images/brand/decor-v20261003/deer-right.webp?v=20261003')!important;
+  background-position:right center!important;
+  opacity:.94!important;
+}
+html body[data-page="home"] .home-brand-stage__herbs{
+  left:-42px!important;bottom:-10px!important;width:280px!important;height:170px!important;
+  background-image:url('images/brand/decor-v20261003/herbs-bottom.webp?v=20261003')!important;
+  background-position:left bottom!important;
+  opacity:.94!important;
+}
+html body[data-page="home"] .home-brand-stage__turtle{
+  right:-28px!important;bottom:-1px!important;width:210px!important;height:145px!important;
+  background-image:url('images/brand/decor-v20261003/turtle-bottom.webp?v=20261003')!important;
+  background-position:right bottom!important;
+  opacity:.94!important;
+}
+html body[data-page="home"] .home-brand-stage__sun{
+  position:absolute!important;
+  z-index:0!important;
+  right:23%!important;top:82px!important;
+  width:88px!important;height:88px!important;border-radius:50%!important;
+  background:radial-gradient(circle at 38% 34%,#ead7a9 0%,#d5b777 48%,#B08A47 100%)!important;
+  opacity:.38!important;
+  box-shadow:0 0 34px rgba(176,138,71,.15)!important;
+}
+html body[data-page="home"] .hero__content{
+  position:relative!important;
+  z-index:8!important;
+  margin:-48px 18px 0!important;
+  padding:22px 22px 19px!important;
+  background:
+    linear-gradient(145deg,rgba(255,253,247,.97),rgba(247,240,222,.94))!important;
+  border:1px solid rgba(176,138,71,.50)!important;
+  border-radius:22px!important;
+  box-shadow:0 14px 34px rgba(61,45,29,.10),inset 0 1px 0 rgba(255,255,255,.95)!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+html body[data-page="home"] .home-hero-brand-lockup--secondary{
+  display:none!important;
+}
+html body[data-page="home"] .hero__content h1{
+  color:#0B1F3B!important;
+  font-size:clamp(28px,4vw,46px)!important;
+  line-height:1.18!important;
+}
+html body[data-page="home"] .hero-actions .btn{
+  min-height:48px!important;
+}
+html body[data-page="home"] .home-product-showcase{
+  margin:18px!important;
+  padding:18px!important;
+  border:1px solid rgba(176,138,71,.34)!important;
+  border-radius:22px!important;
+  background:
+    radial-gradient(circle at 92% 8%,rgba(176,138,71,.08),transparent 24%),
+    linear-gradient(180deg,#fffefa 0%,#fbf4e6 100%)!important;
+  box-shadow:0 10px 26px rgba(61,45,29,.065)!important;
+}
+/* 中段加入淡山水分區，不搶文字 */
+html body[data-page="home"] .home-intro-section,
+html body[data-page="home"] .home-use-section{
+  position:relative!important;
+  border-radius:24px!important;
+  background:
+    linear-gradient(180deg,rgba(247,244,237,.94),rgba(247,244,237,.84)),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/760px auto no-repeat!important;
+}
+html body[data-page="home"] .home-story-section{
+  position:relative!important;
+  border-radius:24px!important;
+  background:
+    linear-gradient(110deg,rgba(247,244,237,.91),rgba(255,253,248,.76)),
+    url('images/brand/decor-v20261003/goji-top.webp?v=20261003') left -55px top -42px/230px auto no-repeat,
+    url('images/brand/decor-v20261003/deer-right.webp?v=20261003') right -45px bottom -20px/240px auto no-repeat,
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/720px auto no-repeat!important;
+  border:1px solid rgba(176,138,71,.20)!important;
+}
+html body[data-page="home"] .home-service-section{
+  position:relative!important;
+  border-radius:24px!important;
+  background:
+    linear-gradient(180deg,rgba(247,244,237,.92),rgba(247,244,237,.82)),
+    url('images/brand/decor-v20261003/turtle-bottom.webp?v=20261003') right -20px bottom -18px/170px auto no-repeat,
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/720px auto no-repeat!important;
+}
+@media(max-width:600px){
+  html body[data-page="home"] .hero{padding-top:8px!important}
+  html body[data-page="home"] .hero__panel{border-radius:22px!important}
+  html body[data-page="home"] .home-brand-stage{min-height:345px!important;padding:22px 12px 92px!important}
+  html body[data-page="home"] .home-brand-stage__center img{width:78px!important;max-height:145px!important}
+  html body[data-page="home"] .home-brand-stage__center strong{font-size:27px!important}
+  html body[data-page="home"] .home-brand-stage__center span{font-size:11.5px!important}
+  html body[data-page="home"] .home-brand-stage__center span:before,
+  html body[data-page="home"] .home-brand-stage__center span:after{width:30px!important;margin-left:7px!important;margin-right:7px!important}
+  html body[data-page="home"] .home-brand-stage__center em{font-size:18px!important;margin-top:13px!important}
+  html body[data-page="home"] .home-brand-stage__mountains{width:440px!important;height:205px!important;bottom:18px!important;opacity:.58!important}
+  html body[data-page="home"] .home-brand-stage__goji{left:-60px!important;top:-15px!important;width:220px!important;height:170px!important}
+  html body[data-page="home"] .home-brand-stage__deer{right:-62px!important;top:116px!important;width:220px!important;height:195px!important}
+  html body[data-page="home"] .home-brand-stage__herbs{left:-58px!important;bottom:-8px!important;width:220px!important;height:145px!important}
+  html body[data-page="home"] .home-brand-stage__turtle{right:-52px!important;bottom:-3px!important;width:168px!important;height:116px!important}
+  html body[data-page="home"] .home-brand-stage__sun{right:17%!important;top:100px!important;width:60px!important;height:60px!important}
+  html body[data-page="home"] .hero__content{margin:-56px 10px 0!important;padding:18px 16px 16px!important;border-radius:18px!important}
+  html body[data-page="home"] .home-product-showcase{margin:14px 10px 16px!important;padding:14px!important;border-radius:18px!important}
+  html body[data-page="home"] .home-intro-section,
+  html body[data-page="home"] .home-story-section,
+  html body[data-page="home"] .home-use-section,
+  html body[data-page="home"] .home-service-section{border-radius:18px!important}
+}
