@@ -1153,3 +1153,164 @@ html body[data-page][data-page][data-page]{
 html body:not([data-page]){
   background-color:#F7F4ED!important;
 }
+
+
+/* 2026-10-03｜Premium v17：內容頁視覺深化，不再過素 */
+html body[data-page] .section-heading .eyebrow,
+html body[data-page] .eyebrow{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:28px!important;
+  padding:5px 10px!important;
+  border:1px solid rgba(176,138,71,.30)!important;
+  border-radius:999px!important;
+  color:#682023!important;
+  background:linear-gradient(135deg,rgba(255,253,248,.96),rgba(247,239,220,.94))!important;
+  box-shadow:0 5px 14px rgba(61,45,29,.04)!important;
+  font-weight:900!important;
+  letter-spacing:.08em!important;
+}
+
+html body[data-page] main.page > .section{
+  overflow:hidden!important;
+}
+html body[data-page] main.page > .section:before{
+  content:""!important;
+  position:absolute!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  opacity:.075!important;
+  filter:saturate(.9)!important;
+}
+html body[data-page] main.page > .section > *{
+  position:relative!important;
+  z-index:1!important;
+}
+
+/* 使用、料理、原料、漢方百科：多一點藥材與山水 */
+html body[data-page="guide"] main.page > .section:nth-of-type(odd):before,
+html body[data-page="recipes"] main.page > .section:nth-of-type(odd):before,
+html body[data-page="ingredients"] main.page > .section:nth-of-type(odd):before,
+html body[data-page="hanfang-baike"] main.page > .section:nth-of-type(odd):before,
+html body[data-page="craft"] main.page > .section:nth-of-type(odd):before{
+  right:-38px!important;
+  bottom:-24px!important;
+  width:240px!important;
+  height:145px!important;
+  background:url('images/brand/decor-v20261003/herbs-bottom.webp?v=20261003') right bottom/contain no-repeat!important;
+}
+html body[data-page="guide"] main.page > .section:nth-of-type(even):before,
+html body[data-page="recipes"] main.page > .section:nth-of-type(even):before,
+html body[data-page="ingredients"] main.page > .section:nth-of-type(even):before,
+html body[data-page="hanfang-baike"] main.page > .section:nth-of-type(even):before,
+html body[data-page="craft"] main.page > .section:nth-of-type(even):before{
+  left:-42px!important;
+  top:-30px!important;
+  width:220px!important;
+  height:155px!important;
+  background:url('images/brand/decor-v20261003/goji-top.webp?v=20261003') left top/contain no-repeat!important;
+}
+
+/* 知識／FAQ／來源／影片：龜與山水 */
+html body[data-page="knowledge"] main.page > .section:before,
+html body[data-page="faq"] main.page > .section:before,
+html body[data-page="sources"] main.page > .section:before,
+html body[data-page="video"] main.page > .section:before{
+  right:-26px!important;
+  bottom:-18px!important;
+  width:190px!important;
+  height:125px!important;
+  background:url('images/brand/decor-v20261003/turtle-bottom.webp?v=20261003') right bottom/contain no-repeat!important;
+}
+
+/* 品質／品牌／起源：鹿與枸杞 */
+html body[data-page="quality"] main.page > .section:nth-of-type(even):before,
+html body[data-page="brand"] main.page > .section:nth-of-type(even):before,
+html body[data-page="brand-origin"] main.page > .section:nth-of-type(even):before,
+html body[data-page="brand-facts"] main.page > .section:nth-of-type(even):before{
+  right:-38px!important;
+  bottom:-22px!important;
+  width:230px!important;
+  height:175px!important;
+  background:url('images/brand/decor-v20261003/deer-right.webp?v=20261003') right bottom/contain no-repeat!important;
+}
+
+/* 表格／清單區塊更像品牌資訊卡 */
+html body[data-page] .table-scroll,
+html body[data-page] .purpose-table-wrap,
+html body[data-page] .knowledge-panel,
+html body[data-page] .faq-list,
+html body[data-page] .contact-info-grid{
+  border-radius:20px!important;
+}
+html body[data-page] .list-check li,
+html body[data-page] .checklist li,
+html body[data-page] .info-list li{
+  position:relative!important;
+  padding-left:16px!important;
+}
+html body[data-page] .list-check li:before,
+html body[data-page] .checklist li:before,
+html body[data-page] .info-list li:before{
+  content:""!important;
+  position:absolute!important;
+  left:0!important;
+  top:.72em!important;
+  width:6px!important;
+  height:6px!important;
+  border-radius:50%!important;
+  background:#B08A47!important;
+  box-shadow:0 0 0 3px rgba(176,138,71,.12)!important;
+}
+
+/* 卡片增加暖色層次，避免一整頁都是同樣白框 */
+html body[data-page] .card:nth-child(3n+1){
+  background:
+    radial-gradient(circle at 96% 4%,rgba(104,32,35,.055),transparent 23%),
+    linear-gradient(180deg,#fffefa 0%,#f9f0df 100%)!important;
+}
+html body[data-page] .card:nth-child(3n+2){
+  background:
+    radial-gradient(circle at 96% 4%,rgba(49,75,61,.055),transparent 23%),
+    linear-gradient(180deg,#fffefa 0%,#f7f1e5 100%)!important;
+}
+html body[data-page] .card:nth-child(3n){
+  background:
+    radial-gradient(circle at 96% 4%,rgba(176,138,71,.075),transparent 23%),
+    linear-gradient(180deg,#fffefa 0%,#fbf3e4 100%)!important;
+}
+
+/* 文字內容中的小標題更有層級 */
+html body[data-page] .card h3,
+html body[data-page] .section h3{
+  color:#0B1F3B!important;
+}
+html body[data-page] .card h3:after,
+html body[data-page] .section h3:after{
+  content:""!important;
+  display:block!important;
+  width:36px!important;
+  height:1px!important;
+  margin-top:8px!important;
+  background:linear-gradient(90deg,#682023,#B08A47,transparent)!important;
+  opacity:.65!important;
+}
+
+/* 手機維持漂亮，但裝飾不壓字 */
+@media(max-width:600px){
+  html body[data-page] main.page > .section:before{
+    opacity:.055!important;
+    transform:scale(.86)!important;
+    transform-origin:center!important;
+  }
+  html body[data-page] .section-heading .eyebrow,
+  html body[data-page] .eyebrow{
+    min-height:26px!important;
+    padding:4px 9px!important;
+    font-size:11px!important;
+  }
+  html body[data-page] .card h3:after,
+  html body[data-page] .section h3:after{
+    width:30px!important;
+  }
+}
