@@ -648,3 +648,25 @@ html body:not([data-page="home"]) .page .btn.btn-outline{
     background-size:auto,430px auto!important;
   }
 }
+
+
+/* 2026-10-03｜Premium v13：全站主 CTA 明確實色，Chrome／Safari 一致 */
+html body a.btn.btn-primary,
+html body button.btn.btn-primary,
+html body a.btn.btn-line,
+html body button.btn.btn-line,
+html body .header-line-cta{
+  color:#F7F4ED!important;
+  background-color:#682023!important;
+  background-image:
+    radial-gradient(circle at 18% 0%,rgba(255,255,255,.15),transparent 32%),
+    linear-gradient(135deg,#902c30 0%,#682023 58%,#501719 100%)!important;
+  border-color:#B08A47!important;
+}
+html body a.btn.btn-primary:hover,
+html body button.btn.btn-primary:hover,
+html body a.btn.btn-line:hover,
+html body button.btn.btn-line:hover,
+html body .header-line-cta:hover{
+  background-color:#682023!important;
+}
