@@ -169,3 +169,70 @@ html body:not([data-page="home"]) .hero--compact{
     background:rgba(255,253,247,.80)!important;
   }
 }
+
+
+/* 2026-10-03｜Premium v9：鹿龜漢方真實裝飾圖層 */
+html body[data-page="home"] .hero__panel{
+  background-image:
+    linear-gradient(90deg,rgba(247,244,237,.96) 0%,rgba(247,244,237,.90) 37%,rgba(247,244,237,.48) 67%,rgba(247,244,237,.20) 100%),
+    url('images/brand/decor-v20261003/goji-top.webp?v=20261003'),
+    url('images/brand/decor-v20261003/deer-right.webp?v=20261003'),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003')!important;
+  background-position:center,left -18px top -22px,right -18px center,58% 73%!important;
+  background-size:auto,250px auto,290px auto,560px auto!important;
+  background-repeat:no-repeat!important;
+  background-color:#F7F4ED!important;
+}
+html body[data-page="home"] .hero__panel:after{
+  content:""!important;
+  position:absolute!important;
+  right:21%!important;top:15%!important;
+  width:72px!important;height:72px!important;border-radius:50%!important;
+  background:radial-gradient(circle at 38% 34%,#d7bd7c,#b08a47 64%,#8e6a32 100%)!important;
+  opacity:.24!important;pointer-events:none!important;
+}
+html body[data-page="home"] .hero__content{
+  background:linear-gradient(135deg,rgba(255,253,247,.88),rgba(247,244,237,.63))!important;
+  border-color:rgba(176,138,71,.26)!important;
+}
+html body .page .btn.btn-outline{
+  background-image:
+    linear-gradient(135deg,rgba(255,254,249,.96),rgba(247,239,220,.92)),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003')!important;
+  background-position:center,88% 55%!important;
+  background-size:auto,300px auto!important;
+  background-repeat:no-repeat!important;
+}
+html body:not([data-page="home"]) .hero--compact{
+  background-image:
+    linear-gradient(110deg,rgba(247,244,237,.96),rgba(255,253,248,.80)),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003')!important;
+  background-position:center,center 52%!important;
+  background-size:auto,620px auto!important;
+  background-repeat:no-repeat!important;
+}
+html body[data-page="brand"] .hero--compact,
+html body[data-page="brand-origin"] .hero--compact{
+  background-image:
+    linear-gradient(110deg,rgba(247,244,237,.94),rgba(255,253,248,.72)),
+    url('images/brand/decor-v20261003/goji-top.webp?v=20261003'),
+    url('images/brand/decor-v20261003/deer-right.webp?v=20261003'),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003')!important;
+  background-position:center,left -25px top -35px,right -15px center,center 62%!important;
+  background-size:auto,210px auto,230px auto,560px auto!important;
+  background-repeat:no-repeat!important;
+}
+@media(max-width:600px){
+  html body[data-page="home"] .hero__panel{
+    background-image:
+      linear-gradient(180deg,rgba(247,244,237,.93) 0%,rgba(247,244,237,.82) 48%,rgba(247,244,237,.48) 100%),
+      url('images/brand/decor-v20261003/goji-top.webp?v=20261003'),
+      url('images/brand/decor-v20261003/deer-right.webp?v=20261003'),
+      url('images/brand/decor-v20261003/mountains-center.webp?v=20261003')!important;
+    background-position:center,left -50px top -20px,right -58px top 118px,center 72%!important;
+    background-size:auto,205px auto,205px auto,430px auto!important;
+  }
+  html body[data-page="home"] .hero__panel:after{
+    width:56px!important;height:56px!important;right:17%!important;top:18%!important;
+  }
+}
