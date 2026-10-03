@@ -32,9 +32,50 @@ window.addEventListener('DOMContentLoaded',()=>{document.getElementById('line').
 <meta name="application-name" content="仙加味"/>
 <meta name="apple-mobile-web-app-title" content="仙加味"/>
 <meta name="theme-color" content="#682023"/>
-<link rel="stylesheet" href="site-brand-v20261003.css?v=20261003-brand-final7"/>
+<link rel="stylesheet" href="site-brand-v20261003.css?v=20261003-brand-final16"/>
+
+<style id="trial-line-premium-v16">
+body[data-page="trial-line"]{
+  min-height:100vh!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:26px 16px!important;
+  background:
+    linear-gradient(180deg,rgba(247,244,237,.74),rgba(247,244,237,.90)),
+    url("images/brand/decor-v20261003/goji-top.webp?v=20261003") left -52px top -32px/220px auto no-repeat,
+    url("images/brand/decor-v20261003/turtle-bottom.webp?v=20261003") right -42px bottom -20px/180px auto no-repeat,
+    url("images/brand/decor-v20261003/mountains-center.webp?v=20261003") center bottom/760px auto no-repeat,
+    #F7F4ED!important;
+}
+body[data-page="trial-line"] .card{
+  width:min(540px,100%)!important;
+  padding:24px!important;
+  border:1px solid rgba(176,138,71,.52)!important;
+  border-top:2px solid rgba(176,138,71,.72)!important;
+  border-radius:26px!important;
+  background:linear-gradient(180deg,rgba(255,254,249,.97),rgba(248,240,222,.95))!important;
+  box-shadow:0 22px 54px rgba(61,45,29,.12)!important;
+}
+body[data-page="trial-line"] .logo{
+  width:72px!important;height:auto!important;border-radius:0!important;filter:drop-shadow(0 7px 14px rgba(104,32,35,.12))!important;
+}
+body[data-page="trial-line"] .poster{
+  border:1px solid rgba(176,138,71,.34)!important;
+  border-radius:18px!important;
+  box-shadow:0 12px 28px rgba(61,45,29,.08)!important;
+}
+body[data-page="trial-line"] .btn{
+  color:#F7F4ED!important;
+  background:linear-gradient(135deg,#902c30,#682023 60%,#501719)!important;
+  border:1px solid #B08A47!important;
+  border-radius:15px!important;
+  box-shadow:0 10px 23px rgba(104,32,35,.18)!important;
+}
+body[data-page="trial-line"] .eyebrow{color:#682023!important}
+body[data-page="trial-line"] h1{color:#0B1F3B!important}
+</style>
 </head>
-<body>
+<body data-page="trial-line">
 <main class="card">
 <img class="logo" src="images/logo.png" alt="仙加味">
 <p class="eyebrow">龜鹿飲30cc試喝組</p>

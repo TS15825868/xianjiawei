@@ -1144,3 +1144,12 @@ html body[data-page],
 html body:not([data-page]){
   background-color:#F7F4ED!important;
 }
+
+
+/* 2026-10-03｜Premium v16：品牌紙色守門修正，不移除既有多層背景 */
+html body[data-page][data-page][data-page]{
+  background-color:#F7F4ED!important;
+}
+html body:not([data-page]){
+  background-color:#F7F4ED!important;
+}
