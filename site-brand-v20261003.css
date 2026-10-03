@@ -1138,3 +1138,9 @@ html body[data-page="craft"] main.page > .section:nth-of-type(even){
     border-radius:19px!important;
   }
 }
+
+/* 2026-10-03｜Premium v13：米白底色明確化，保留多層品牌背景 */
+html body[data-page],
+html body:not([data-page]){
+  background-color:#F7F4ED!important;
+}
