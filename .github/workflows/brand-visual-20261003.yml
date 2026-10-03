@@ -2,10 +2,13 @@ name: 仙加味品牌圖示與 Chrome Safari 視覺驗收
 on:
   push:
     branches: [main]
-    paths: ['**/*.html', '**/*.css', '**/*.webmanifest', '*icon*', 'android-chrome*', 'images/brand/landscape-v20261003.svg', '.github/workflows/brand-visual-20261003.yml']
+    paths: ['tools/audit-brand-visual-20261003.cjs', '**/*.html', '**/*.css', '**/*.webmanifest', '*icon*', 'android-chrome*', 'images/brand/landscape-v20261003.svg', '.github/workflows/brand-visual-20261003.yml']
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: xianjiawei-brand-browser-audit
+  cancel-in-progress: true
 jobs:
   brand-audit:
     runs-on: ubuntu-latest
