@@ -38,3 +38,5 @@ html body[data-page="contact"] article.contact-line-card.card .btn-line{
 html body.ux-v410 .btn.btn-outline,html body.ux-v410 a.btn.btn-outline{color:#682023!important;background:#F7F4ED!important;border-color:rgba(104,32,35,.34)!important}
 html body .site-header .header-line-cta{color:#F7F4ED!important;background:#682023!important;border-color:#B08A47!important}
 html body.ux-v410{background:#F7F4ED!important;color:#172536!important}
+html body[data-page="home"] .home-story-card .btn-primary{color:#F7F4ED!important;background:#682023!important;border-color:#B08A47!important}
+html body[data-page="home"] .home-story-card .btn-outline{color:#682023!important;background:#F7F4ED!important;border-color:rgba(104,32,35,.34)!important}
