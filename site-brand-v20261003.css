@@ -2,8 +2,8 @@
 :root{--brand-cream:#F7F4ED;--brand-red:#682023;--brand-navy:#0B1F3B;--brand-gold:#B08A47;--brand-green:#314B3D;--xjw18-red:#682023;--xjw18-cream:#F7F4ED;--xjw18-gold:#B08A47;--xjw-clean-red:#682023;--xjw-clean-cream:#F7F4ED}
 html{background:#F7F4ED}
 body{background:#F7F4ED!important;color:#172536!important}
-body:not([data-page="home"]) .hero--compact{background:linear-gradient(130deg,#F7F4ED,#fffdf8)!important;border:1px solid rgba(176,138,71,.22)!important}
-body[data-page="home"] .hero__panel{background:linear-gradient(90deg,rgba(247,244,237,.94),rgba(247,244,237,.72)),url('images/brand/landscape-v20261003.svg') center bottom/cover!important;border:1px solid rgba(176,138,71,.27)!important;box-shadow:0 16px 48px rgba(11,31,59,.06)!important}
+body:not([data-page="home"]) .hero--compact{background:linear-gradient(110deg,rgba(247,244,237,.96),rgba(255,253,248,.86)),url('images/brand/links-bg-v20261003.webp') center 52%/cover no-repeat!important;border:1px solid rgba(176,138,71,.30)!important;box-shadow:0 12px 34px rgba(11,31,59,.055)!important}
+body[data-page="home"] .hero__panel{background:linear-gradient(90deg,rgba(247,244,237,.97) 0%,rgba(247,244,237,.91) 42%,rgba(247,244,237,.48) 72%,rgba(247,244,237,.22) 100%),url('images/brand/links-bg-v20261003.webp') center center/cover no-repeat!important;border:1px solid rgba(176,138,71,.42)!important;box-shadow:0 20px 54px rgba(11,31,59,.11)!important}
 .card,.panel,.product-card,.faq-item,.home-choice-card,.home-feature-card{background:#fffdf8!important;border-color:rgba(176,138,71,.20)!important}
 body .btn-primary,body .btn-line,body .home-story-card .btn-primary,body .header-line{background:#682023!important;color:#F7F4ED!important;border:1px solid #B08A47!important;box-shadow:0 5px 16px rgba(104,32,35,.12)!important}
 body .btn-outline{background:#F7F4ED!important;color:#682023!important;border-color:rgba(104,32,35,.34)!important}
@@ -13,16 +13,13 @@ body .eyebrow{color:#682023!important}
 body .home-story-card .eyebrow,body .home-product-showcase .eyebrow{color:#eed9aa!important}
 body .home-hero-brand-lockup__logo,body .brand img,body .menu-brand-mini img{object-fit:contain!important}
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #B08A47!important;outline-offset:4px!important}
-body:not([data-page]) .scene{background:linear-gradient(180deg,rgba(247,244,237,.12),rgba(247,244,237,.4) 65%,#F7F4ED),url('images/brand/landscape-v20261003.svg') center bottom/cover no-repeat;min-height:340px;padding-bottom:84px}
+body:not([data-page]) .scene{background:linear-gradient(180deg,rgba(247,244,237,.12),rgba(247,244,237,.4) 65%,#F7F4ED),url('images/brand/links-bg-v20261003.webp') center bottom/cover no-repeat;min-height:340px;padding-bottom:84px}
 body:not([data-page]) .scene:after{background:linear-gradient(180deg,transparent,#F7F4ED 88%)}
 body:not([data-page]) .content{margin-top:-48px}
 body:not([data-page]) .card{border-radius:22px;box-shadow:0 14px 40px rgba(11,31,59,.07);padding:14px}
-body:not([data-page]) .link{border-radius:14px;background:#F7F4ED;box-shadow:none;min-height:76px}
 body:not([data-page]) .link--primary{background:#682023;color:#F7F4ED;border-color:#B08A47}
 body:not([data-page]) .link--primary .copy strong{color:#F7F4ED}
-body:not([data-page]) .social a{border-radius:12px;background:transparent;box-shadow:none}
-body:not([data-page]) .hours{background:transparent;border-radius:12px}
-@media(max-width:600px){body[data-page="home"] .hero__panel{background:linear-gradient(180deg,rgba(247,244,237,.92),rgba(247,244,237,.65)),url('images/brand/landscape-v20261003.svg') center top/auto 600px!important}body:not([data-page]) .scene{min-height:330px;padding-top:22px}body:not([data-page]) .content{padding-left:14px;padding-right:14px}}
+@media(max-width:600px){body[data-page="home"] .hero__panel{background:linear-gradient(180deg,rgba(247,244,237,.92),rgba(247,244,237,.65)),url('images/brand/links-bg-v20261003.webp') center top/auto 600px!important}body:not([data-page]) .scene{min-height:330px;padding-top:22px}body:not([data-page]) .content{padding-left:14px;padding-right:14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
 
 /* 與既有互動樣式的明確優先順序保持一致。 */
@@ -40,3 +37,55 @@ html body .site-header .header-line-cta{color:#F7F4ED!important;background:#6820
 html body.ux-v410{background:#F7F4ED!important;color:#172536!important}
 html body[data-page="home"] .home-story-card .btn-primary{color:#F7F4ED!important;background:#682023!important;border-color:#B08A47!important}
 html body[data-page="home"] .home-story-card .btn-outline{color:#682023!important;background:#F7F4ED!important;border-color:rgba(104,32,35,.34)!important}
+
+/* 2026-10-03｜正式品牌質感：山水背景 + 金邊紙感 CTA */
+html body .page .btn{
+  border-radius:14px!important;
+  font-weight:850!important;
+  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease!important;
+}
+html body .page .btn.btn-primary,
+html body .page .btn.btn-line{
+  color:#F7F4ED!important;
+  background:
+    radial-gradient(circle at 18% 0%,rgba(255,255,255,.14),transparent 34%),
+    linear-gradient(135deg,#87292c 0%,#682023 62%,#531719 100%)!important;
+  border:1px solid #B08A47!important;
+  box-shadow:0 9px 22px rgba(104,32,35,.18)!important;
+}
+html body .page .btn.btn-outline{
+  color:#682023!important;
+  background:linear-gradient(135deg,#fffdf8 0%,#f6edd9 100%)!important;
+  border:1px solid rgba(176,138,71,.60)!important;
+  box-shadow:0 7px 18px rgba(11,31,59,.055)!important;
+}
+html body .page .btn:hover{
+  transform:translateY(-1px)!important;
+  box-shadow:0 11px 26px rgba(11,31,59,.10)!important;
+}
+html body .card,
+html body .panel,
+html body .faq-item,
+html body .home-choice-card,
+html body .home-feature-card,
+html body .home-service-card{
+  background:
+    radial-gradient(circle at 92% 8%,rgba(176,138,71,.055),transparent 28%),
+    linear-gradient(180deg,#fffefa 0%,#fbf5e8 100%)!important;
+  border-color:rgba(176,138,71,.28)!important;
+  box-shadow:0 9px 24px rgba(11,31,59,.055)!important;
+}
+html body[data-page="home"] .hero__content{
+  background:rgba(247,244,237,.42)!important;
+  border-radius:20px!important;
+  -webkit-backdrop-filter:blur(2px)!important;
+  backdrop-filter:blur(2px)!important;
+}
+@media(max-width:600px){
+  body[data-page="home"] .hero__panel{
+    background:
+      linear-gradient(180deg,rgba(247,244,237,.90) 0%,rgba(247,244,237,.80) 55%,rgba(247,244,237,.52) 100%),
+      url('images/brand/links-bg-v20261003.webp') center top/cover no-repeat!important;
+  }
+  html body .page .btn{border-radius:13px!important}
+}
