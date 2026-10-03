@@ -24,3 +24,15 @@ body:not([data-page]) .social a{border-radius:12px;background:transparent;box-sh
 body:not([data-page]) .hours{background:transparent;border-radius:12px}
 @media(max-width:600px){body[data-page="home"] .hero__panel{background:linear-gradient(180deg,rgba(247,244,237,.92),rgba(247,244,237,.65)),url('images/brand/landscape-v20261003.svg') center top/auto 600px!important}body:not([data-page]) .scene{min-height:330px;padding-top:22px}body:not([data-page]) .content{padding-left:14px;padding-right:14px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}}
+
+/* 與既有互動樣式的明確優先順序保持一致。 */
+html body.ux-v410 .btn.btn-primary,html body.ux-v410 a.btn.btn-primary,
+html body.ux-v410 .btn.btn-line,html body.ux-v410 a.btn.btn-line,
+html body .btn.btn-primary,html body a.btn.btn-primary,
+html body .btn.btn-line,html body a.btn.btn-line,
+html body .menu-quick-actions .btn-line,html body .menu-contact-card .btn-line,
+html body .header-line-cta,html body .floating-line-cta,
+html body[data-page="contact"] article.contact-line-card.card .btn-line{
+ color:#F7F4ED!important;background:#682023!important;border-color:#B08A47!important;
+}
+html body.ux-v410 .btn.btn-outline,html body.ux-v410 a.btn.btn-outline{color:#682023!important;background:#F7F4ED!important;border-color:rgba(104,32,35,.34)!important}

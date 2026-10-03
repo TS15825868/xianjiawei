@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20261001-service-hours-v22";
+  const VERSION = "20261003-brand-final";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
@@ -107,7 +107,13 @@
     cleanLink.href=CLEAN_STYLE;
     document.head.appendChild(cleanLink);
   }
-  function loadStyles(){STYLES.forEach(appendStyle);ensureFinalStyle();ensureMasterStyle();ensureCleanStyle();}
+  function ensureBrandStyle(){
+    const href="site-brand-v20261003.css?v=20261003-brand-final";
+    let link=[...document.querySelectorAll('link[rel="stylesheet"]')].find(item=>cleanAssetPath(item.getAttribute("href"))===cleanAssetPath(href));
+    if(!link){link=document.createElement("link");link.rel="stylesheet";}
+    link.href=href;document.head.appendChild(link);
+  }
+  function loadStyles(){STYLES.forEach(appendStyle);ensureFinalStyle();ensureMasterStyle();ensureCleanStyle();ensureBrandStyle();}
   function installEmergencyHeader(){
     const header=document.getElementById("site-header");
     if(!header||header.children.length)return;
