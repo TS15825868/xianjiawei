@@ -670,3 +670,19 @@ html body button.btn.btn-line:hover,
 html body .header-line-cta:hover{
   background-color:#682023!important;
 }
+
+
+/* 2026-10-03｜Premium v14：涵蓋舊版單 class CTA，所有主 CTA 實際色值一致 */
+html body .btn-primary,
+html body .btn-line,
+html body .header-line-cta{
+  color:#F7F4ED!important;
+  background-color:#682023!important;
+  border-color:#B08A47!important;
+}
+html body .btn-primary:not(:disabled),
+html body .btn-line:not(:disabled){
+  background-image:
+    radial-gradient(circle at 18% 0%,rgba(255,255,255,.15),transparent 32%),
+    linear-gradient(135deg,#902c30 0%,#682023 58%,#501719 100%)!important;
+}
