@@ -89,3 +89,83 @@ html body[data-page="home"] .hero__content{
   }
   html body .page .btn{border-radius:13px!important}
 }
+
+
+/* 2026-10-03｜Premium v8：首頁視覺與按鈕再靠近品牌定稿 */
+html body[data-page="home"] .hero__panel{
+  position:relative!important;
+  overflow:hidden!important;
+  background:
+    linear-gradient(90deg,rgba(247,244,237,.96) 0%,rgba(247,244,237,.90) 37%,rgba(247,244,237,.54) 64%,rgba(247,244,237,.18) 100%),
+    url('images/brand/links-bg-v20261003.webp?v=20261003-premium2') center 48%/cover no-repeat!important;
+  border:1px solid rgba(176,138,71,.52)!important;
+  box-shadow:0 22px 58px rgba(11,31,59,.12)!important;
+}
+html body[data-page="home"] .hero__panel:before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  pointer-events:none!important;
+  background:
+    radial-gradient(circle at 80% 12%,rgba(176,138,71,.12),transparent 26%),
+    linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,0))!important;
+}
+html body[data-page="home"] .hero__content,
+html body[data-page="home"] .home-product-showcase{
+  position:relative!important;
+  z-index:1!important;
+}
+html body[data-page="home"] .hero__content{
+  background:linear-gradient(135deg,rgba(255,253,247,.83),rgba(247,244,237,.60))!important;
+  border:1px solid rgba(176,138,71,.20)!important;
+  border-radius:22px!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.72)!important;
+  -webkit-backdrop-filter:blur(3px)!important;
+  backdrop-filter:blur(3px)!important;
+}
+html body[data-page="home"] .home-hero-brand-lockup__logo{
+  filter:drop-shadow(0 7px 14px rgba(104,32,35,.12))!important;
+}
+html body .page .btn.btn-outline{
+  background:
+    linear-gradient(135deg,rgba(255,254,249,.97),rgba(247,239,220,.94)),
+    url('images/brand/links-bg-v20261003.webp?v=20261003-premium2') 78% 54%/620px auto no-repeat!important;
+  border-color:rgba(176,138,71,.66)!important;
+  box-shadow:inset 0 1px 0 #fff,0 8px 20px rgba(61,45,29,.07)!important;
+}
+html body .page .btn.btn-primary,
+html body .page .btn.btn-line{
+  border-color:#c69d50!important;
+  background:
+    radial-gradient(circle at 18% 0%,rgba(255,255,255,.16),transparent 32%),
+    linear-gradient(135deg,#932d31 0%,#682023 58%,#4f1719 100%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 11px 25px rgba(104,32,35,.20)!important;
+}
+html body .home-choice-card,
+html body .home-feature-card,
+html body .home-service-card,
+html body .card,
+html body .panel,
+html body .faq-item{
+  border-color:rgba(176,138,71,.32)!important;
+  background:
+    radial-gradient(circle at 94% 8%,rgba(176,138,71,.06),transparent 27%),
+    linear-gradient(180deg,#fffefa 0%,#fbf4e6 100%)!important;
+  box-shadow:0 9px 24px rgba(61,45,29,.055)!important;
+}
+html body:not([data-page="home"]) .hero--compact{
+  background:
+    linear-gradient(110deg,rgba(247,244,237,.96),rgba(255,253,248,.78)),
+    url('images/brand/links-bg-v20261003.webp?v=20261003-premium2') center 50%/cover no-repeat!important;
+  border-color:rgba(176,138,71,.36)!important;
+}
+@media(max-width:600px){
+  html body[data-page="home"] .hero__panel{
+    background:
+      linear-gradient(180deg,rgba(247,244,237,.91) 0%,rgba(247,244,237,.78) 52%,rgba(247,244,237,.45) 100%),
+      url('images/brand/links-bg-v20261003.webp?v=20261003-premium2') center top/auto 570px no-repeat!important;
+  }
+  html body[data-page="home"] .hero__content{
+    background:rgba(255,253,247,.80)!important;
+  }
+}
