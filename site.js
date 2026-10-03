@@ -108,7 +108,7 @@
     document.head.appendChild(cleanLink);
   }
   function ensureBrandStyle(){
-    const href="site-brand-v20261003.css?v=20261003-brand-final";
+    const href="site-brand-v20261003.css?v=20261003-brand-final2";
     let link=[...document.querySelectorAll('link[rel="stylesheet"]')].find(item=>cleanAssetPath(item.getAttribute("href"))===cleanAssetPath(href));
     if(!link){link=document.createElement("link");link.rel="stylesheet";}
     link.href=href;document.head.appendChild(link);
