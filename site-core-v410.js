@@ -81,7 +81,6 @@ function fallbackData() {
     lineId: "@762jybnm",
     products: [],
     combos: [],
-    offers: { comboOffers: [] },
     recommend: [],
     recipes: [],
     videos: [],
@@ -404,7 +403,6 @@ function fillProducts(targetId, products, options = {}) {
         <div class="product-card__body">
           <p class="eyebrow">${escapeHtml(product.series || "仙加味")}</p>
           <h3>${escapeHtml(name)}</h3>
-          ${product.purpose ? `<p class="product-purpose">${escapeHtml(product.purpose)}</p>` : ""}
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
           <div class="product-card__actions">
@@ -434,13 +432,7 @@ function renderChoosePage() {
   const target = document.getElementById("choose-results");
   if (!target) return;
 
-  const source = Array.isArray(SITE_DATA?.recommend) && SITE_DATA.recommend.length
-    ? SITE_DATA.recommend
-    : (SITE_DATA?.pageContent?.choose || []).map(item => ({
-        keyword: item.title?.split("｜")[0] || "使用方式",
-        result: item.title?.split("｜")[1] || item.title || "產品方向",
-        desc: item.desc || ""
-      }));
+  const source = Array.isArray(SITE_DATA?.recommend) ? SITE_DATA.recommend : [];
 
   target.innerHTML = source.map(item => `
     <article class="card reveal">
@@ -458,7 +450,7 @@ function renderChoosePage() {
 function renderComboPage() {
   const target = document.getElementById("combo-grid");
   if (!target || target.children.length) return;
-  const combos = SITE_DATA?.offers?.comboOffers || SITE_DATA?.combos || [];
+  const combos = Array.isArray(SITE_DATA?.combos) ? SITE_DATA.combos : [];
   target.innerHTML = combos.map(combo => `
     <article class="card reveal">
       <p class="eyebrow">日常搭配</p>
@@ -486,7 +478,7 @@ function renderGuidePage() {
 function renderRecipesPage() {
   const target = document.getElementById("recipe-grid");
   if (!target) return;
-  const recipes = Array.isArray(SITE_DATA?.recipes) ? SITE_DATA.recipes : (SITE_DATA?.pageContent?.recipes || []);
+  const recipes = Array.isArray(SITE_DATA?.recipes) ? SITE_DATA.recipes : [];
   if (!recipes.length) return;
   target.innerHTML = recipes.map(recipe => `
     <article class="card reveal">
@@ -851,7 +843,6 @@ function openProductModal(product, sourceElement) {
     <header class="modal-intro">
       <p class="eyebrow">${escapeHtml(product.series || "仙加味")}</p>
       <h2 id="product-modal-title">${escapeHtml(name)}</h2>
-      ${product.description ? `<p class="modal-intro__desc">${escapeHtml(product.description)}</p>` : ""}
     </header>
 
     <div class="modal-gallery" aria-label="${escapeAttribute(name)}正式主圖">

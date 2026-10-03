@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味全站穩定啟動器｜2026-09-13 production performance v11
+/* 仙加味全站穩定啟動器｜2026-09-13 production performance v12
  * 正式資料 → 產品圖 → DM → 核心；其餘視覺／守門／Modal 為附加層。
  * 不使用 document.write；單一附加層失敗不阻塞主內容。
  * 已由頁面載入的同一路徑 CSS／JS 不重抓、不重跑，避免版本參數不同造成重複請求。
@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20261004-performance-v20";
+  const VERSION = "20261004-copy-v21";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
@@ -58,7 +58,7 @@
       {id:"guilu-jiao",series:"仙加味・龜鹿",name:"龜鹿膠",displayName:"龜鹿膠",size:"600g （1斤）／盒｜32塊裝",unitApprox:"每塊約18.75g",image:`images/product-main/guilu-jiao.jpg?v=${VERSION}`,description:"600g（1斤）／盒、32塊裝，每塊約18.75g，適合家庭大規格安排。",ingredients:["龜板萃取物","鹿角萃取物"],usage:["取適量以熱水化開","可搭配家常燉湯"],storage:["依實際包裝標示保存"],purpose:"家庭大規格",fit:"偏好家庭大規格或固定備用的人",page:"product-guilu-jiao.html",detailPage:"product-guilu-jiao.html"},
       {id:"luerong-fen",series:"仙加味",name:"鹿茸粉",displayName:"鹿茸粉",size:"75g／罐",image:`images/product-main/luerong-fen.jpg?v=${VERSION}`,description:"75g罐裝鹿茸粉，可依日常習慣自行搭配溫熱飲品。",ingredients:["鹿茸"],usage:["依實際產品說明取用","可搭配溫熱飲品"],storage:["置於陰涼乾燥處","使用後密封保存"],purpose:"粉狀自行搭配",fit:"習慣自行搭配溫熱飲品的人",page:"product-luerong-fen.html",detailPage:"product-luerong-fen.html"}
     ],
-    combos: [], offers: {comboOffers: []}, recommend: [], recipes: [], videos: [], faqs: [], pageContent: {},
+    combos: [], recommend: [], recipes: [], videos: [], faqs: [], pageContent: {},
     runtime:{productTextAuthority:"public-product-master.json",knowledgeProductCount:6,approvedMediaProductCount:6,productMainImageSource:"images/product-main/",productDetailImageSource:"images/dm-final/",deferredWebsiteProduct:"qixuan-guilu-drink-powder",guiluGaoUsageTiming:CURRENT_GAO_TIMING}
   });
 
