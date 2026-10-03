@@ -709,3 +709,432 @@ html body[data-page][data-page] .header-line-cta.header-line-cta{
   border-color:#B08A47!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 9px 22px rgba(104,32,35,.17)!important;
 }
+
+
+/* 2026-10-03｜Premium v12：全站品牌視覺深化，不再過度素白 */
+html body[data-page]:not([data-page="home"]){
+  background:
+    radial-gradient(circle at 8% 10%,rgba(104,32,35,.055),transparent 26%),
+    radial-gradient(circle at 92% 22%,rgba(49,75,61,.055),transparent 27%),
+    linear-gradient(180deg,#FBF8EF 0%,#F7F4ED 56%,#F3EEDF 100%)!important;
+}
+html body[data-page]:not([data-page="home"]) main.page{
+  position:relative!important;
+  isolation:isolate!important;
+}
+html body[data-page]:not([data-page="home"]) main.page:before{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  top:90px!important;left:50%!important;
+  width:min(980px,110vw)!important;height:420px!important;
+  transform:translateX(-50%)!important;
+  background:url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center top/contain no-repeat!important;
+  opacity:.11!important;
+  pointer-events:none!important;
+}
+
+/* 麵包屑改成品牌紙籤 */
+html body[data-page] .breadcrumb{
+  width:max-content!important;
+  max-width:calc(100% - 32px)!important;
+  margin:16px 18px 8px!important;
+  padding:8px 13px!important;
+  border:1px solid rgba(176,138,71,.28)!important;
+  border-radius:999px!important;
+  background:rgba(255,253,248,.78)!important;
+  box-shadow:0 5px 16px rgba(61,45,29,.04)!important;
+  color:#5e625d!important;
+}
+
+/* 一般頁首：不再只有一塊米白 */
+html body[data-page]:not([data-page="home"]) .hero--compact,
+html body[data-page="trial"] .hero--cta{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  min-height:260px!important;
+  margin:16px 18px 24px!important;
+  border-radius:26px!important;
+  border:1px solid rgba(176,138,71,.48)!important;
+  box-shadow:0 18px 46px rgba(11,31,59,.095)!important;
+  background:
+    linear-gradient(105deg,rgba(255,253,248,.97) 0%,rgba(247,244,237,.90) 46%,rgba(247,244,237,.50) 76%,rgba(247,244,237,.20) 100%),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center 62%/720px auto no-repeat!important;
+}
+html body[data-page]:not([data-page="home"]) .hero--compact:before,
+html body[data-page="trial"] .hero--cta:before{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  width:255px!important;height:190px!important;
+  left:-44px!important;top:-42px!important;
+  background:url('images/brand/decor-v20261003/goji-top.webp?v=20261003') left top/contain no-repeat!important;
+  opacity:.72!important;
+  pointer-events:none!important;
+}
+html body[data-page]:not([data-page="home"]) .hero--compact:after,
+html body[data-page="trial"] .hero--cta:after{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  width:235px!important;height:205px!important;
+  right:-48px!important;bottom:-30px!important;
+  background:url('images/brand/decor-v20261003/turtle-bottom.webp?v=20261003') right bottom/contain no-repeat!important;
+  opacity:.60!important;
+  pointer-events:none!important;
+}
+html body[data-page]:not([data-page="home"]) .hero--compact .hero__content,
+html body[data-page="trial"] .hero--cta .hero__content{
+  position:relative!important;
+  z-index:2!important;
+  max-width:760px!important;
+  padding:34px 34px!important;
+}
+html body[data-page]:not([data-page="home"]) .hero--compact h1,
+html body[data-page="trial"] .hero--cta h1{
+  color:#0B1F3B!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.65)!important;
+}
+html body[data-page]:not([data-page="home"]) .hero--compact .hero__content:after,
+html body[data-page="trial"] .hero--cta .hero__content:after{
+  content:""!important;
+  display:block!important;
+  width:62px!important;height:2px!important;
+  margin-top:20px!important;
+  background:linear-gradient(90deg,#682023,#B08A47,transparent)!important;
+  border-radius:999px!important;
+}
+
+/* 各類頁面 hero 的個性 */
+html body[data-page="products"] .hero--compact,
+html body[data-page="choose"] .hero--compact,
+html body[data-page="combo"] .hero--compact{
+  background:
+    linear-gradient(105deg,rgba(255,253,248,.97) 0%,rgba(247,244,237,.88) 45%,rgba(247,244,237,.43) 76%,rgba(247,244,237,.14) 100%),
+    url('images/brand/decor-v20261003/deer-right.webp?v=20261003') right -28px center/285px auto no-repeat,
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center 70%/720px auto no-repeat!important;
+}
+html body[data-page="recipes"] .hero--compact,
+html body[data-page="guide"] .hero--compact,
+html body[data-page="ingredients"] .hero--compact,
+html body[data-page="hanfang-baike"] .hero--compact{
+  background:
+    linear-gradient(105deg,rgba(255,253,248,.97) 0%,rgba(247,244,237,.91) 50%,rgba(247,244,237,.44) 78%,rgba(247,244,237,.16) 100%),
+    url('images/brand/decor-v20261003/herbs-bottom.webp?v=20261003') right -30px bottom -12px/300px auto no-repeat,
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center 72%/720px auto no-repeat!important;
+}
+html body[data-page="knowledge"] .hero--compact,
+html body[data-page="faq"] .hero--compact,
+html body[data-page="sources"] .hero--compact,
+html body[data-page="video"] .hero--compact{
+  background:
+    linear-gradient(105deg,rgba(255,253,248,.97) 0%,rgba(247,244,237,.92) 52%,rgba(247,244,237,.58) 80%,rgba(247,244,237,.22) 100%),
+    url('images/brand/decor-v20261003/turtle-bottom.webp?v=20261003') right -28px bottom -18px/220px auto no-repeat,
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center 70%/760px auto no-repeat!important;
+}
+html body[data-page="contact"] .hero--compact,
+html body[data-page="trial"] .hero--cta{
+  background:
+    linear-gradient(105deg,rgba(255,253,248,.98) 0%,rgba(247,244,237,.90) 48%,rgba(247,244,237,.50) 77%,rgba(247,244,237,.18) 100%),
+    url('images/brand/decor-v20261003/herbs-bottom.webp?v=20261003') right -36px bottom -10px/270px auto no-repeat,
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center 70%/720px auto no-repeat!important;
+}
+html body[data-page="quality"] .hero--compact,
+html body[data-page="craft"] .hero--compact,
+html body[data-page="brand-origin"] .hero--compact,
+html body[data-page="brand-facts"] .hero--compact{
+  background:
+    linear-gradient(105deg,rgba(255,253,248,.97) 0%,rgba(247,244,237,.87) 44%,rgba(247,244,237,.41) 76%,rgba(247,244,237,.14) 100%),
+    url('images/brand/decor-v20261003/deer-right.webp?v=20261003') right -22px center/280px auto no-repeat,
+    url('images/brand/decor-v20261003/goji-top.webp?v=20261003') left -42px top -55px/235px auto no-repeat,
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center 70%/730px auto no-repeat!important;
+}
+
+/* 品牌故事自訂 hero */
+html body[data-page="brand"] .brand-hero-v410__panel{
+  position:relative!important;
+  overflow:hidden!important;
+  border:1px solid rgba(176,138,71,.48)!important;
+  border-radius:28px!important;
+  background:
+    linear-gradient(105deg,rgba(255,253,248,.97),rgba(247,244,237,.84) 52%,rgba(247,244,237,.36)),
+    url('images/brand/decor-v20261003/goji-top.webp?v=20261003') left -38px top -45px/230px auto no-repeat,
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/780px auto no-repeat!important;
+  box-shadow:0 20px 52px rgba(11,31,59,.10)!important;
+}
+html body[data-page="brand"] .brand-hero-v410__copy{
+  position:relative!important;
+  z-index:2!important;
+}
+html body[data-page="brand"] .brand-hero-v410__media{
+  position:relative!important;
+  z-index:2!important;
+  border:1px solid rgba(176,138,71,.26)!important;
+  border-radius:20px!important;
+  overflow:hidden!important;
+  box-shadow:0 12px 30px rgba(61,45,29,.09)!important;
+}
+
+/* 產品詳情：正式產品仍是主角，背景增加品牌層次 */
+html body[data-page="product-detail"] .product-detail-hero{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  border:1px solid rgba(176,138,71,.50)!important;
+  border-radius:28px!important;
+  background:
+    linear-gradient(115deg,rgba(255,253,248,.98) 0%,rgba(248,242,227,.93) 60%,rgba(247,244,237,.72) 100%),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/760px auto no-repeat!important;
+  box-shadow:0 20px 48px rgba(11,31,59,.085)!important;
+}
+html body[data-page="product-detail"] .product-detail-hero:before{
+  content:""!important;
+  position:absolute!important;z-index:-1!important;
+  right:-44px!important;bottom:-32px!important;
+  width:230px!important;height:150px!important;
+  background:url('images/brand/decor-v20261003/herbs-bottom.webp?v=20261003') right bottom/contain no-repeat!important;
+  opacity:.23!important;
+}
+html body[data-page="product-detail"] .product-detail-hero__media{
+  background:
+    radial-gradient(circle at 50% 46%,#fff 0%,#fffaf1 68%,#f1e5d0 100%)!important;
+  border:1px solid rgba(176,138,71,.28)!important;
+  box-shadow:inset 0 0 0 5px rgba(255,255,255,.50),0 10px 26px rgba(61,45,29,.055)!important;
+}
+
+/* 全站 section 交錯：紙感、山水、留白都有 */
+html body[data-page]:not([data-page="home"]) main.page > .section{
+  position:relative!important;
+  margin-top:20px!important;
+  margin-bottom:20px!important;
+  padding-top:clamp(26px,4vw,42px)!important;
+  padding-bottom:clamp(26px,4vw,42px)!important;
+  border-radius:24px!important;
+}
+html body[data-page]:not([data-page="home"]) main.page > .section:nth-of-type(even){
+  border:1px solid rgba(176,138,71,.18)!important;
+  background:
+    linear-gradient(180deg,rgba(255,253,248,.90),rgba(247,244,237,.85)),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/820px auto no-repeat!important;
+}
+html body[data-page]:not([data-page="home"]) main.page > .section:nth-of-type(odd){
+  background:
+    radial-gradient(circle at 96% 8%,rgba(176,138,71,.055),transparent 22%),
+    linear-gradient(180deg,rgba(247,244,237,.20),rgba(247,244,237,.56))!important;
+}
+html body[data-page] .section-heading{
+  position:relative!important;
+  margin-bottom:22px!important;
+}
+html body[data-page] .section-heading:after{
+  content:""!important;
+  display:block!important;
+  width:74px!important;height:2px!important;
+  margin-top:15px!important;
+  border-radius:999px!important;
+  background:linear-gradient(90deg,#682023 0%,#B08A47 70%,transparent 100%)!important;
+}
+
+/* 卡片不再像預設白盒子 */
+html body[data-page] .card,
+html body[data-page] .home-choice-card,
+html body[data-page] .home-feature-card,
+html body[data-page] .home-service-card,
+html body[data-page] .knowledge-panel .card,
+html body[data-page] .contact-info-grid .card{
+  position:relative!important;
+  overflow:hidden!important;
+  border:1px solid rgba(176,138,71,.32)!important;
+  border-top:2px solid rgba(176,138,71,.50)!important;
+  border-radius:20px!important;
+  background:
+    radial-gradient(circle at 96% 4%,rgba(176,138,71,.07),transparent 24%),
+    linear-gradient(180deg,#fffefa 0%,#fbf4e6 100%)!important;
+  box-shadow:0 10px 27px rgba(61,45,29,.065)!important;
+}
+html body[data-page] .card:after,
+html body[data-page] .home-choice-card:after,
+html body[data-page] .home-feature-card:after{
+  content:""!important;
+  position:absolute!important;
+  right:-24px!important;bottom:-28px!important;
+  width:145px!important;height:90px!important;
+  background:url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') right bottom/contain no-repeat!important;
+  opacity:.055!important;
+  pointer-events:none!important;
+}
+
+/* FAQ */
+html body[data-page="faq"] .faq-list details{
+  border:1px solid rgba(176,138,71,.30)!important;
+  border-left:3px solid rgba(104,32,35,.68)!important;
+  border-radius:16px!important;
+  background:linear-gradient(180deg,#fffefa,#fbf4e8)!important;
+  box-shadow:0 7px 19px rgba(61,45,29,.045)!important;
+}
+html body[data-page="faq"] .faq-list details[open]{
+  border-color:rgba(176,138,71,.52)!important;
+  box-shadow:0 10px 24px rgba(61,45,29,.07)!important;
+}
+html body[data-page="faq"] .faq-list summary{
+  color:#0B1F3B!important;
+  font-weight:900!important;
+}
+
+/* 知識 tabs */
+html body[data-page="knowledge"] .knowledge-tabs{
+  padding:8px!important;
+  border:1px solid rgba(176,138,71,.26)!important;
+  border-radius:18px!important;
+  background:rgba(255,253,248,.82)!important;
+  box-shadow:0 7px 19px rgba(61,45,29,.045)!important;
+}
+html body[data-page="knowledge"] .knowledge-tab{
+  border-radius:12px!important;
+}
+html body[data-page="knowledge"] .knowledge-tab.is-active{
+  color:#F7F4ED!important;
+  background:linear-gradient(135deg,#85282b,#682023)!important;
+  box-shadow:0 6px 15px rgba(104,32,35,.16)!important;
+}
+
+/* 表格與列表 */
+html body[data-page] table{
+  overflow:hidden!important;
+  border-radius:14px!important;
+  border:1px solid rgba(176,138,71,.28)!important;
+  background:#fffdf8!important;
+}
+html body[data-page] th{
+  color:#F7F4ED!important;
+  background:linear-gradient(135deg,#7d292c,#682023)!important;
+  border-color:rgba(176,138,71,.35)!important;
+}
+html body[data-page] td{
+  border-color:rgba(176,138,71,.16)!important;
+}
+html body[data-page] tr:nth-child(even) td{
+  background:rgba(247,244,237,.55)!important;
+}
+
+/* 最終 CTA 統一成品牌收尾，而不是一般白卡 */
+html body[data-page] .final-cta{
+  position:relative!important;
+  overflow:hidden!important;
+  color:#F7F4ED!important;
+  border:1px solid #B08A47!important;
+  border-radius:24px!important;
+  background:
+    linear-gradient(120deg,rgba(104,32,35,.98),rgba(79,23,25,.95)),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') right bottom/560px auto no-repeat!important;
+  box-shadow:0 18px 42px rgba(104,32,35,.17)!important;
+}
+html body[data-page] .final-cta:after{
+  content:""!important;
+  position:absolute!important;
+  right:-34px!important;bottom:-22px!important;
+  width:190px!important;height:126px!important;
+  background:url('images/brand/decor-v20261003/turtle-bottom.webp?v=20261003') right bottom/contain no-repeat!important;
+  opacity:.16!important;
+  pointer-events:none!important;
+}
+html body[data-page] .final-cta h2,
+html body[data-page] .final-cta h3{
+  color:#fff7e5!important;
+}
+html body[data-page] .final-cta p{
+  color:rgba(255,247,229,.84)!important;
+}
+html body[data-page] .final-cta .btn-outline{
+  color:#fff7e5!important;
+  border-color:rgba(255,247,229,.58)!important;
+  background:rgba(255,255,255,.08)!important;
+}
+
+/* Contact LINE 卡與試喝卡再提高視覺層級 */
+html body[data-page="contact"] .contact-line-card,
+html body[data-page="trial"] .trial-product-card{
+  border-color:rgba(176,138,71,.52)!important;
+  background:
+    radial-gradient(circle at 94% 8%,rgba(176,138,71,.10),transparent 25%),
+    linear-gradient(145deg,#fffefa,#f6ecd8)!important;
+  box-shadow:0 14px 34px rgba(61,45,29,.085)!important;
+}
+html body[data-page="trial"] .trial-poster{
+  border:1px solid rgba(176,138,71,.36)!important;
+  border-radius:22px!important;
+  overflow:hidden!important;
+  box-shadow:0 16px 38px rgba(61,45,29,.09)!important;
+}
+
+/* 產品卡片 */
+html body[data-page="products"] .product-card{
+  border-color:rgba(176,138,71,.36)!important;
+  border-radius:22px!important;
+  background:
+    radial-gradient(circle at 90% 8%,rgba(176,138,71,.08),transparent 20%),
+    linear-gradient(180deg,#fffefa,#f8f0e2)!important;
+  box-shadow:0 12px 30px rgba(61,45,29,.075)!important;
+}
+html body[data-page="products"] .product-card__img{
+  border-bottom-color:rgba(176,138,71,.20)!important;
+  background:radial-gradient(circle at 50% 44%,#fff 0%,#fffaf1 67%,#efe2cb 100%)!important;
+}
+
+/* 料理、使用、工藝頁可見漢方裝飾，但不壓文字 */
+html body[data-page="recipes"] main.page > .section:nth-of-type(even),
+html body[data-page="guide"] main.page > .section:nth-of-type(even),
+html body[data-page="craft"] main.page > .section:nth-of-type(even){
+  background:
+    linear-gradient(180deg,rgba(255,253,248,.92),rgba(247,244,237,.87)),
+    url('images/brand/decor-v20261003/herbs-bottom.webp?v=20261003') right -35px bottom -20px/220px auto no-repeat,
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/820px auto no-repeat!important;
+}
+
+/* 手機：有視覺，但不讓裝飾壓住內容 */
+@media(max-width:600px){
+  html body[data-page]:not([data-page="home"]) main.page:before{
+    top:72px!important;width:125vw!important;height:330px!important;opacity:.09!important;
+  }
+  html body[data-page]:not([data-page="home"]) .hero--compact,
+  html body[data-page="trial"] .hero--cta{
+    min-height:235px!important;
+    margin:10px 10px 18px!important;
+    border-radius:20px!important;
+  }
+  html body[data-page]:not([data-page="home"]) .hero--compact:before,
+  html body[data-page="trial"] .hero--cta:before{
+    width:180px!important;height:138px!important;left:-62px!important;top:-34px!important;opacity:.56!important;
+  }
+  html body[data-page]:not([data-page="home"]) .hero--compact:after,
+  html body[data-page="trial"] .hero--cta:after{
+    width:150px!important;height:115px!important;right:-48px!important;bottom:-25px!important;opacity:.42!important;
+  }
+  html body[data-page]:not([data-page="home"]) .hero--compact .hero__content,
+  html body[data-page="trial"] .hero--cta .hero__content{
+    padding:25px 20px!important;
+  }
+  html body[data-page]:not([data-page="home"]) .hero--compact h1,
+  html body[data-page="trial"] .hero--cta h1{
+    font-size:31px!important;line-height:1.18!important;
+  }
+  html body[data-page]:not([data-page="home"]) main.page > .section{
+    margin:14px 10px!important;
+    padding:24px 14px!important;
+    border-radius:18px!important;
+  }
+  html body[data-page="product-detail"] .product-detail-hero{
+    margin:12px 10px 16px!important;
+    border-radius:20px!important;
+  }
+  html body[data-page="brand"] .brand-hero-v410__panel{
+    border-radius:20px!important;
+    background:
+      linear-gradient(180deg,rgba(255,253,248,.96),rgba(247,244,237,.82)),
+      url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/470px auto no-repeat!important;
+  }
+  html body[data-page] .final-cta{
+    border-radius:19px!important;
+  }
+}
