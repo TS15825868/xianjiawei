@@ -2,7 +2,7 @@ name: 仙加味品牌圖示與 Chrome Safari 視覺驗收
 on:
   push:
     branches: [main]
-    paths: ['tools/audit-brand-visual-20261003.cjs', '**/*.html', '**/*.css', '**/*.webmanifest', '*icon*', 'android-chrome*', 'images/brand/landscape-v20261003.svg', '.github/workflows/brand-visual-20261003.yml']
+    paths: ['tools/audit-brand-visual-20261003.cjs', '**/*.html', '**/*.css', '**/*.js', '**/*.webmanifest', '*icon*', 'android-chrome*', 'images/brand/**', 'images/product-main/**', '.github/workflows/brand-visual-20261003.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,7 +12,7 @@ concurrency:
 jobs:
   brand-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
