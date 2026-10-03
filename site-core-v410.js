@@ -277,7 +277,7 @@ function renderFooter() {
           <p><strong>LINE：</strong>24 小時可留言；人工回覆時間為週一至週五 10:30–20:00。</p>
           ${lineButton("前往 LINE 詢問", pageLineMessage())}
         </div>
-        <img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code" loading="eager" decoding="async">
+        <img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code" loading="lazy" decoding="async">
       </div>
 
       <div class="footer-legal">仙加味網站內容以產品資訊、日常飲食與漢方飲食文化整理為主；特殊健康狀況請洽專業醫療人員。</div>
@@ -300,6 +300,14 @@ function renderModalShell() {
 }
 
 function hydrateStaticFields() {
+  document.querySelectorAll("[data-line-message]").forEach(element => {
+    const message = element.dataset.lineMessage || pageLineMessage();
+    element.href = buildLineAutoLink(message);
+    element.target = "_blank";
+    element.rel = "noopener noreferrer";
+    element.setAttribute("aria-label", "將開啟仙加味官方 LINE");
+  });
+
   document.querySelectorAll("[data-line-url]").forEach(element => {
     const message = element.dataset.lineMessage || pageLineMessage();
     element.href = buildLineAutoLink(message);

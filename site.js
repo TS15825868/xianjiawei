@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味全站穩定啟動器｜2026-09-13 production performance v9
+/* 仙加味全站穩定啟動器｜2026-09-13 production performance v10
  * 正式資料 → 產品圖 → DM → 核心；其餘視覺／守門／Modal 為附加層。
  * 不使用 document.write；單一附加層失敗不阻塞主內容。
  * 已由頁面載入的同一路徑 CSS／JS 不重抓、不重跑，避免版本參數不同造成重複請求。
@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20261003-brand-final18";
+  const VERSION = "20261003-performance-v19";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
