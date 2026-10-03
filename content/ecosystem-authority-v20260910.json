@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-10-v1",
+  "version": "2026-10-03-v2-social-bio-hub",
   "authority": "user-confirmed-current",
   "dataPrecedence": [
     "使用者目前聊天最新明確指示",
@@ -19,8 +19,17 @@
   "identity": {
     "brandManager": "真人品牌管理者，不等於小老闆角色",
     "mascot": "仙加味固定Q版小老闆，以使用者兒子為品牌角色原型",
-    "mascotCore": ["短黑髮", "大眼睛", "米白中式上衣", "深橄欖綠圍裙", "胸前紅色直式仙加味印章"],
-    "companions": ["小鹿", "小烏龜"],
+    "mascotCore": [
+      "短黑髮",
+      "大眼睛",
+      "米白中式上衣",
+      "深橄欖綠圍裙",
+      "胸前紅色直式仙加味印章"
+    ],
+    "companions": [
+      "小鹿",
+      "小烏龜"
+    ],
     "companionsMustRemainSeparate": true
   },
   "publicProductScope": [
@@ -37,7 +46,11 @@
     "scope": "5～7個工作天僅適用龜鹿飲"
   },
   "funnel": {
-    "socialPlatforms": ["Facebook Page 仙加味", "Instagram @xianjiawei.tw", "Threads @xianjiawei.tw"],
+    "socialPlatforms": [
+      "Facebook Page 仙加味",
+      "Instagram @xianjiawei.tw",
+      "Threads @xianjiawei.tw"
+    ],
     "website": "https://ts15825868.github.io/xianjiawei/",
     "lineCommunity": {
       "name": "仙加味・龜鹿｜日常交流",
@@ -50,9 +63,27 @@
     "lineOA": {
       "id": "@762jybnm",
       "url": "https://lin.ee/sHZW7NkR",
-      "finalHandoffFor": ["產品進一步詢問", "怎麼選", "試喝", "價格", "下單", "配送", "售後", "個別問題", "其他大小事"]
+      "finalHandoffFor": [
+        "產品進一步詢問",
+        "怎麼選",
+        "試喝",
+        "價格",
+        "下單",
+        "配送",
+        "售後",
+        "個別問題",
+        "其他大小事"
+      ]
     },
-    "principle": "社群平台與LINE社群負責認識、交流與養熟；官網負責完整可查證資訊；所有進一步個別與交易需求最後統一由LINE OA一對一處理。"
+    "principle": "Facebook、Instagram、Threads 個人檔案統一先放「仙加味｜連結入口」；完整品牌與產品資訊由官網承接；產品進一步詢問、怎麼選、試喝、價格、下單、配送、售後與個別問題仍統一由LINE OA一對一處理；Google Maps只負責門市導航與商家資訊。",
+    "bioHub": {
+      "name": "仙加味｜連結入口",
+      "url": "https://ts15825868.github.io/xianjiawei/links.html",
+      "role": "Facebook、Instagram、Threads 個人檔案統一入口",
+      "primaryForSocialProfiles": true,
+      "doesNotReplaceWebsite": true,
+      "doesNotReplaceLineOA": true
+    }
   },
   "metaAutomation": {
     "doNotWasteWorkQuota": true,
@@ -64,16 +95,29 @@
       "Facebook Messenger：試喝",
       "LINE OA導流連結與ID顯示"
     ],
-    "configuredAndEnabledAwaitNaturalObservation": ["FAQ按鈕", "Facebook／Instagram 留言轉私訊"],
+    "configuredAndEnabledAwaitNaturalObservation": [
+      "FAQ按鈕",
+      "Facebook／Instagram 留言轉私訊"
+    ],
     "faqKeywordBehavior": "Instagram輸入FAQ會收到一般導引回覆；不等同FAQ按鈕逐題驗收",
     "repairRule": "未來若真實使用發現失敗，只修失敗項目，不動已正常設定；不新增測試貼文、不為重複驗收耗用Work。"
   },
   "socialAutomation": {
-    "primaryProducts": ["龜鹿膏", "龜鹿飲30cc", "龜鹿飲180cc"],
-    "cadence": {"facebook": "約每週2篇", "instagram": "約每週2篇", "threads": "約每週4篇"},
+    "primaryProducts": [
+      "龜鹿膏",
+      "龜鹿飲30cc",
+      "龜鹿飲180cc"
+    ],
+    "cadence": {
+      "facebook": "正常每週3篇",
+      "instagram": "正常每週3篇",
+      "threads": "正常每週3篇"
+    },
     "lineCommunityPromotion": "約每週1次，或只在高度相關生活／料理／品牌／聊天內容自然邀請",
     "lowRiskCompliantContentMayAutoPublish": true,
-    "uncertainContentMustHold": true
+    "uncertainContentMustHold": true,
+    "specialWeekMaxPosts": 4,
+    "cadenceRule": "三平台同篇同日發布；正常每週3篇，特殊週最多4篇，臨時時效內容插播時常青內容順延。"
   },
   "publicContentRules": {
     "noMedicalOrEfficacyClaims": true,
@@ -87,5 +131,12 @@
     "website": "TS15825868/xianjiawei@main",
     "lineOA": "TS15825868/TS-LINE@main",
     "internal": "TS15825868/xianjiawei-internal@main"
+  },
+  "socialProfileRouting": {
+    "facebook": "https://ts15825868.github.io/xianjiawei/links.html",
+    "instagram": "https://ts15825868.github.io/xianjiawei/links.html",
+    "threads": "https://ts15825868.github.io/xianjiawei/links.html",
+    "linkLabel": "仙加味｜連結入口",
+    "directCommercialHandoff": "https://lin.ee/sHZW7NkR"
   }
 }
