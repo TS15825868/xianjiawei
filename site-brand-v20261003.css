@@ -1918,3 +1918,21 @@ html body .site-menu__panel{padding-bottom:env(safe-area-inset-bottom)!important
   html body .product-modal__scroll{padding:12px 8px calc(30px + env(safe-area-inset-bottom))!important}
   html body .product-modal__panel{width:100%!important;max-width:100%!important}
 }
+
+
+/* 2026-10-04｜Layout v23：固定 Header 與第一段內容永久分離 */
+html body[data-page] main.page{
+  box-sizing:border-box!important;
+  padding-top:calc(88px + env(safe-area-inset-top))!important;
+}
+html body[data-page="home"] main.page > .hero{
+  margin-top:0!important;
+}
+@media(max-width:760px){
+  html body[data-page] main.page{
+    padding-top:calc(74px + env(safe-area-inset-top))!important;
+  }
+  html body[data-page="home"] main.page > .hero{
+    margin-top:0!important;
+  }
+}
