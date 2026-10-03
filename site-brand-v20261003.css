@@ -686,3 +686,26 @@ html body .btn-line:not(:disabled){
     radial-gradient(circle at 18% 0%,rgba(255,255,255,.15),transparent 32%),
     linear-gradient(135deg,#902c30 0%,#682023 58%,#501719 100%)!important;
 }
+
+
+/* 2026-10-03｜Premium v15：高 specificity 正式 CTA 收斂 */
+html body[data-page][data-page] main.page a.btn.btn-primary.btn-primary,
+html body[data-page][data-page] main.page a.btn.btn-line.btn-line,
+html body[data-page][data-page] main.page button.btn.btn-primary.btn-primary,
+html body[data-page][data-page] main.page button.btn.btn-line.btn-line,
+html body[data-page][data-page] #site-modal .btn-primary.btn-primary,
+html body[data-page][data-page] #site-modal .btn-line.btn-line,
+html body[data-page][data-page] #site-menu-root .btn-primary.btn-primary,
+html body[data-page][data-page] #site-menu-root .btn-line.btn-line,
+html body[data-page][data-page] .site-header .btn-primary.btn-primary,
+html body[data-page][data-page] .site-header .btn-line.btn-line,
+html body[data-page][data-page] .header-line-cta.header-line-cta{
+  color:#F7F4ED!important;
+  background:#682023!important;
+  background-color:#682023!important;
+  background-image:
+    radial-gradient(circle at 18% 0%,rgba(255,255,255,.15),transparent 32%),
+    linear-gradient(135deg,#902c30 0%,#682023 58%,#501719 100%)!important;
+  border-color:#B08A47!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 9px 22px rgba(104,32,35,.17)!important;
+}
