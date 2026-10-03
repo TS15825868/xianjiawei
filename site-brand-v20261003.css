@@ -1510,3 +1510,391 @@ html body[data-page] main.page:after{
     background-size:430px auto!important;
   }
 }
+
+
+/* 2026-10-03｜Premium v18：從「漂亮」進一步整理成更像正式品牌官網 */
+html body.ux-v410 .site-header{
+  border-bottom-color:rgba(176,138,71,.24)!important;
+  background:rgba(247,244,237,.91)!important;
+  box-shadow:0 8px 28px rgba(11,31,59,.045)!important;
+}
+html body.ux-v410 .site-header.is-scrolled{
+  background:rgba(247,244,237,.96)!important;
+  box-shadow:0 10px 32px rgba(11,31,59,.075)!important;
+}
+html body.ux-v410 .brand-mark img{
+  filter:drop-shadow(0 5px 10px rgba(104,32,35,.10))!important;
+}
+html body.ux-v410 .header-nav a{
+  position:relative!important;
+}
+html body.ux-v410 .header-nav a.is-active:after{
+  content:""!important;
+  position:absolute!important;
+  left:18%!important;right:18%!important;bottom:-7px!important;
+  height:2px!important;border-radius:999px!important;
+  background:linear-gradient(90deg,#682023,#B08A47)!important;
+}
+html body.ux-v410 .menu-btn{
+  border-color:rgba(176,138,71,.52)!important;
+  background:linear-gradient(135deg,#fffdf8,#f5ead3)!important;
+  color:#0B1F3B!important;
+  box-shadow:inset 0 1px 0 #fff,0 7px 18px rgba(61,45,29,.07)!important;
+}
+
+/* 內容頁首屏：同一品牌世界，但不同頁仍有各自節奏 */
+html body[data-page]:not([data-page="home"]) .hero--compact .hero__content,
+html body[data-page="trial"] .hero--cta .hero__content{
+  border:1px solid rgba(176,138,71,.28)!important;
+  background:linear-gradient(135deg,rgba(255,253,248,.90),rgba(247,244,237,.68))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.92)!important;
+}
+html body[data-page]:not([data-page="home"]) .hero--compact h1,
+html body[data-page="trial"] .hero--cta h1{
+  text-wrap:balance!important;
+}
+html body[data-page]:not([data-page="home"]) .hero--compact p:not(.eyebrow),
+html body[data-page="trial"] .hero--cta p:not(.eyebrow){
+  max-width:690px!important;
+}
+
+/* 首頁：縮短重複視覺，讓首屏更快看到產品與行動 */
+html body[data-page="home"] .home-brand-stage{
+  min-height:330px!important;
+  padding-bottom:52px!important;
+}
+html body[data-page="home"] .home-brand-stage__center{
+  transform:translateY(-2px)!important;
+}
+html body[data-page="home"] .hero__content{
+  margin:-34px 22px 0!important;
+  padding:28px 30px!important;
+  border-color:rgba(176,138,71,.38)!important;
+  box-shadow:0 14px 34px rgba(61,45,29,.08),inset 0 1px 0 rgba(255,255,255,.88)!important;
+}
+html body[data-page="home"] .hero__content h1{
+  font-family:"Noto Serif TC","Songti TC","PMingLiU","Microsoft JhengHei",serif!important;
+  letter-spacing:.01em!important;
+}
+html body[data-page="home"] .home-trust-row span{
+  border-color:rgba(176,138,71,.36)!important;
+  background:rgba(255,253,248,.76)!important;
+}
+html body[data-page="home"] .home-product-showcase{
+  margin-top:20px!important;
+  border-top:1px solid rgba(176,138,71,.25)!important;
+}
+html body[data-page="home"] .home-product-showcase__grid a{
+  border-color:rgba(176,138,71,.30)!important;
+  background:linear-gradient(180deg,#fffefa,#f8f0e1)!important;
+  box-shadow:0 10px 24px rgba(61,45,29,.055)!important;
+}
+html body[data-page="home"] .home-product-showcase__grid img{
+  background:radial-gradient(circle at 50% 43%,#fff 0%,#fffaf2 69%,#f1e4cf 100%)!important;
+}
+
+/* 首頁中段：減少「每一塊都是白卡」的感覺 */
+html body[data-page="home"] .home-intro-section,
+html body[data-page="home"] .home-use-section{
+  background:
+    linear-gradient(180deg,rgba(255,253,248,.90),rgba(247,244,237,.78)),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/900px auto no-repeat!important;
+  border:1px solid rgba(176,138,71,.18)!important;
+  border-radius:26px!important;
+}
+html body[data-page="home"] .home-choice-section .home-choice-card{
+  border-top-width:3px!important;
+}
+html body[data-page="home"] .home-choice-section .home-choice-card:nth-child(4n+1){border-top-color:#682023!important}
+html body[data-page="home"] .home-choice-section .home-choice-card:nth-child(4n+2){border-top-color:#314B3D!important}
+html body[data-page="home"] .home-choice-section .home-choice-card:nth-child(4n+3){border-top-color:#B08A47!important}
+html body[data-page="home"] .home-choice-section .home-choice-card:nth-child(4n){border-top-color:#0B1F3B!important}
+
+/* 產品總覽：商品是主角，卡片背景退後 */
+html body[data-page="products"] .product-grid{
+  gap:18px!important;
+}
+html body[data-page="products"] .product-card{
+  overflow:hidden!important;
+  transition:transform .18s ease,box-shadow .18s ease!important;
+}
+html body[data-page="products"] .product-card:hover{
+  transform:translateY(-3px)!important;
+  box-shadow:0 18px 40px rgba(61,45,29,.11)!important;
+}
+html body[data-page="products"] .product-card__img{
+  position:relative!important;
+}
+html body[data-page="products"] .product-card__img:after{
+  content:"正式實品"!important;
+  position:absolute!important;
+  right:12px!important;bottom:12px!important;
+  padding:5px 9px!important;
+  border:1px solid rgba(176,138,71,.50)!important;
+  border-radius:999px!important;
+  color:#682023!important;
+  background:rgba(255,253,248,.90)!important;
+  box-shadow:0 4px 12px rgba(61,45,29,.055)!important;
+  font-size:10px!important;font-weight:900!important;letter-spacing:.08em!important;
+}
+
+/* 產品詳細頁：避免手機第一張商品圖佔滿太久 */
+html body[data-page="product-detail"] .product-detail-hero{
+  border-top:2px solid rgba(176,138,71,.60)!important;
+}
+html body[data-page="product-detail"] .product-detail-hero__media img{
+  object-fit:contain!important;
+}
+html body[data-page="product-detail"] .product-detail-hero__copy h1{
+  font-family:"Noto Serif TC","Songti TC","PMingLiU","Microsoft JhengHei",serif!important;
+}
+html body[data-page="product-detail"] .fact-chips span{
+  border:1px solid rgba(176,138,71,.30)!important;
+  background:linear-gradient(135deg,#fffdf8,#f6ecd9)!important;
+}
+
+/* FAQ：加入清楚序號，快速掃讀 */
+html body[data-page="faq"] .faq-list{
+  counter-reset:xjw-faq!important;
+}
+html body[data-page="faq"] .faq-list details{
+  counter-increment:xjw-faq!important;
+  overflow:hidden!important;
+}
+html body[data-page="faq"] .faq-list summary{
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+html body[data-page="faq"] .faq-list summary:before{
+  content:counter(xjw-faq,decimal-leading-zero)!important;
+  flex:0 0 auto!important;
+  display:grid!important;place-items:center!important;
+  min-width:33px!important;height:25px!important;padding:0 7px!important;
+  border-radius:999px!important;
+  color:#fff8e6!important;
+  background:linear-gradient(135deg,#7f292c,#682023)!important;
+  border:1px solid rgba(176,138,71,.58)!important;
+  font-size:10px!important;font-weight:900!important;letter-spacing:.05em!important;
+}
+html body[data-page="faq"] .faq-list details[open] summary:before{
+  background:linear-gradient(135deg,#314B3D,#23382d)!important;
+}
+
+/* 使用、料理、原料、品質、工藝：資訊改成編輯式閱讀，不只堆白框 */
+html body[data-page="guide"] .cards-3 > .card,
+html body[data-page="recipes"] .grid-2 > .card,
+html body[data-page="ingredients"] .grid-3 > .card,
+html body[data-page="quality"] .grid-3 > .card,
+html body[data-page="craft"] .grid-3 > .card{
+  border-left:3px solid rgba(176,138,71,.62)!important;
+}
+html body[data-page="recipes"] .grid-2 > .card:nth-child(even),
+html body[data-page="ingredients"] .grid-3 > .card:nth-child(3n+2),
+html body[data-page="quality"] .grid-3 > .card:nth-child(3n+2),
+html body[data-page="craft"] .grid-3 > .card:nth-child(3n+2){
+  border-left-color:rgba(49,75,61,.62)!important;
+}
+
+/* 知識頁 tabs 更像正式內容導覽 */
+html body[data-page="knowledge"] .knowledge-tabs{
+  position:sticky!important;
+  top:88px!important;
+  z-index:20!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+  backdrop-filter:blur(12px)!important;
+  background:rgba(255,253,248,.91)!important;
+}
+html body[data-page="knowledge"] .knowledge-tab{
+  min-height:42px!important;
+  font-weight:850!important;
+}
+
+/* 聯絡頁：LINE 仍為主軸，但深藍資訊卡不再突兀 */
+html body[data-page="contact"] .contact-line-card{
+  border-top:3px solid #B08A47!important;
+}
+html body[data-page="contact"] .contact-info-grid .card{
+  border-left:3px solid rgba(49,75,61,.45)!important;
+}
+
+/* Footer 做成品牌結尾，而不是一般資訊卡 */
+html body.ux-v410 .site-footer{
+  position:relative!important;
+  overflow:hidden!important;
+  padding-top:36px!important;
+  background:
+    linear-gradient(180deg,rgba(247,244,237,0) 0%,rgba(11,31,59,.035) 100%)!important;
+}
+html body.ux-v410 .footer-card{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  color:#f8f1df!important;
+  border:1px solid rgba(212,185,120,.42)!important;
+  border-top:2px solid rgba(212,185,120,.72)!important;
+  background:
+    linear-gradient(125deg,rgba(11,31,59,.985),rgba(18,48,64,.97) 58%,rgba(49,75,61,.94))!important;
+  box-shadow:0 20px 48px rgba(11,31,59,.16)!important;
+}
+html body.ux-v410 .footer-card:after{
+  content:""!important;
+  position:absolute!important;z-index:-1!important;
+  right:-55px!important;bottom:-40px!important;
+  width:420px!important;height:250px!important;
+  background:url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') right bottom/contain no-repeat!important;
+  opacity:.12!important;filter:sepia(.3) brightness(1.35)!important;
+}
+html body.ux-v410 .footer-brand-block strong,
+html body.ux-v410 .footer-nav h3,
+html body.ux-v410 .footer-contact h3{
+  color:#fff6df!important;
+}
+html body.ux-v410 .footer-brand-block p,
+html body.ux-v410 .footer-contact p,
+html body.ux-v410 .footer-nav-links a{
+  color:rgba(247,244,237,.78)!important;
+}
+html body.ux-v410 .footer-nav-links a:hover{
+  color:#D4B978!important;
+}
+html body.ux-v410 .footer-legal{
+  color:rgba(247,244,237,.58)!important;
+  border-top-color:rgba(212,185,120,.18)!important;
+}
+html body.ux-v410 .footer-contact img{
+  border-color:rgba(212,185,120,.42)!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.16)!important;
+}
+
+/* 浮動 LINE：維持品牌紅金，不用突兀綠色膠囊 */
+html body.ux-v410 .floating-line-cta{
+  color:#F7F4ED!important;
+  border:1px solid #B08A47!important;
+  background:linear-gradient(135deg,#8c2a2e,#682023 64%,#4f1719)!important;
+  box-shadow:0 13px 30px rgba(104,32,35,.24)!important;
+}
+html body.ux-v410 .floating-line-cta__dot{
+  color:#682023!important;
+  background:#fff8e8!important;
+  border:1px solid rgba(176,138,71,.45)!important;
+}
+
+/* 手機精修 */
+@media(max-width:760px){
+  html body.ux-v410 .header-inner{
+    min-height:62px!important;
+    padding:7px 0!important;
+  }
+  html body.ux-v410 .brand-mark img{
+    width:39px!important;height:39px!important;flex-basis:39px!important;
+  }
+  html body.ux-v410 .brand-mark__name{font-size:15px!important}
+  html body.ux-v410 .brand-mark__tagline{font-size:9.5px!important;margin-top:3px!important}
+  html body.ux-v410 .menu-btn{
+    min-height:40px!important;
+    padding:7px 11px!important;
+    font-size:13px!important;
+  }
+
+  html body[data-page="home"] .hero{padding-top:10px!important}
+  html body[data-page="home"] .home-brand-stage{
+    min-height:286px!important;
+    padding:21px 16px 42px!important;
+  }
+  html body[data-page="home"] .home-brand-stage__center img{
+    width:78px!important;
+  }
+  html body[data-page="home"] .home-brand-stage__center strong{
+    font-size:24px!important;
+  }
+  html body[data-page="home"] .hero__content{
+    margin:-28px 10px 0!important;
+    padding:22px 18px!important;
+    border-radius:19px!important;
+  }
+  html body[data-page="home"] .hero__content h1{
+    font-size:31px!important;
+    line-height:1.15!important;
+  }
+  html body[data-page="home"] .hero__lead{
+    font-size:14.5px!important;
+    line-height:1.75!important;
+  }
+  html body[data-page="home"] .home-product-showcase{
+    margin-top:14px!important;
+  }
+
+  html body[data-page]:not([data-page="home"]) .hero--compact,
+  html body[data-page="trial"] .hero--cta{
+    min-height:210px!important;
+  }
+  html body[data-page]:not([data-page="home"]) .hero--compact .hero__content,
+  html body[data-page="trial"] .hero--cta .hero__content{
+    padding:22px 18px!important;
+  }
+  html body[data-page]:not([data-page="home"]) .hero--compact h1,
+  html body[data-page="trial"] .hero--cta h1{
+    font-size:29px!important;
+    line-height:1.17!important;
+  }
+
+  html body[data-page="product-detail"] .product-detail-hero__media{
+    padding:10px!important;
+  }
+  html body[data-page="product-detail"] .product-detail-hero__media img{
+    max-height:430px!important;
+  }
+
+  html body[data-page="faq"] .faq-list summary{
+    gap:9px!important;
+    line-height:1.45!important;
+  }
+  html body[data-page="faq"] .faq-list summary:before{
+    min-width:30px!important;height:23px!important;padding:0 6px!important;
+  }
+
+  html body[data-page="knowledge"] .knowledge-tabs{
+    top:70px!important;
+    overflow-x:auto!important;
+    flex-wrap:nowrap!important;
+    scrollbar-width:none!important;
+  }
+  html body[data-page="knowledge"] .knowledge-tabs::-webkit-scrollbar{display:none!important}
+
+  html body[data-page="guide"] .cards-3 > .card,
+  html body[data-page="recipes"] .grid-2 > .card,
+  html body[data-page="ingredients"] .grid-3 > .card,
+  html body[data-page="quality"] .grid-3 > .card,
+  html body[data-page="craft"] .grid-3 > .card{
+    border-radius:16px!important;
+    box-shadow:0 7px 18px rgba(61,45,29,.045)!important;
+  }
+
+  html body.ux-v410 .site-footer{
+    padding:22px 10px calc(30px + env(safe-area-inset-bottom))!important;
+  }
+  html body.ux-v410 .footer-card{
+    gap:22px!important;
+    padding:24px 18px!important;
+    border-radius:22px!important;
+  }
+  html body.ux-v410 .footer-card:after{
+    width:300px!important;height:180px!important;opacity:.10!important;
+  }
+  html body.ux-v410 .floating-line-cta{
+    right:12px!important;
+    bottom:max(12px,env(safe-area-inset-bottom))!important;
+    min-height:44px!important;
+    padding:6px 12px!important;
+  }
+  html body.ux-v410 .floating-line-cta__dot{
+    width:29px!important;height:29px!important;
+  }
+}
+
+@media(min-width:761px){
+  html body[data-page="home"] .hero__content{
+    max-width:760px!important;
+  }
+}
