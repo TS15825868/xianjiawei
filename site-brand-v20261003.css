@@ -1898,3 +1898,23 @@ html body.ux-v410 .floating-line-cta__dot{
     max-width:760px!important;
   }
 }
+
+
+/* 2026-10-04｜Layout v22：全站遮擋、固定層與安全區守門 */
+html{scroll-padding-top:calc(88px + env(safe-area-inset-top))!important}
+html body main [id]{scroll-margin-top:calc(96px + env(safe-area-inset-top))!important}
+html body.ux-v410 .site-footer{padding-bottom:calc(94px + env(safe-area-inset-bottom))!important}
+html body.ux-v410 .floating-line-cta{max-width:min(310px,calc(100vw - 24px))!important}
+html body[data-page="knowledge"] .knowledge-tabs{top:calc(88px + env(safe-area-inset-top))!important}
+html body .product-modal__scroll{padding-bottom:calc(34px + env(safe-area-inset-bottom))!important}
+html body .product-modal__panel{width:min(1100px,calc(100vw - 28px))!important;max-width:min(1100px,calc(100vw - 28px))!important}
+html body .site-menu__panel{padding-bottom:env(safe-area-inset-bottom)!important}
+@media(max-width:760px){
+  html{scroll-padding-top:calc(76px + env(safe-area-inset-top))!important}
+  html body main [id]{scroll-margin-top:calc(82px + env(safe-area-inset-top))!important}
+  html body[data-page="knowledge"] .knowledge-tabs{top:calc(70px + env(safe-area-inset-top))!important}
+  html body.ux-v410 .site-footer{padding-bottom:calc(112px + env(safe-area-inset-bottom))!important}
+  html body.ux-v410 .floating-line-cta{max-width:calc(100vw - 24px)!important}
+  html body .product-modal__scroll{padding:12px 8px calc(30px + env(safe-area-inset-bottom))!important}
+  html body .product-modal__panel{width:100%!important;max-width:100%!important}
+}
