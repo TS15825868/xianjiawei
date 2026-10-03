@@ -1,6 +1,6 @@
 "use strict";
 
-/* 仙加味全站穩定啟動器｜2026-09-13 production performance v10
+/* 仙加味全站穩定啟動器｜2026-09-13 production performance v11
  * 正式資料 → 產品圖 → DM → 核心；其餘視覺／守門／Modal 為附加層。
  * 不使用 document.write；單一附加層失敗不阻塞主內容。
  * 已由頁面載入的同一路徑 CSS／JS 不重抓、不重跑，避免版本參數不同造成重複請求。
@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20261003-performance-v19";
+  const VERSION = "20261004-performance-v20";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
@@ -169,16 +169,55 @@
     }
     if(attempt<30)setTimeout(()=>ensureCoreBooted(attempt+1),100);
   }
+  const PAGE=String(document.body?.dataset?.page||location.pathname.split("/").pop()?.replace(/\.html$/i,"")||"home").trim();
+  const PRODUCT_DATA_PAGES=new Set(["products","product-detail","trial","dm"]);
+  const PRODUCT_UI_PAGES=new Set(["products","product-detail","trial","dm"]);
+  const VARIANT_PAGES=new Set(["products","product-detail"]);
+  const MASCOT_PAGES=new Set(["choose","faq"]);
+  const CLEANUP_PAGES=new Set(["home","products","knowledge","video"]);
+  const RETIREMENT_PAGES=new Set(["home","products","product-detail","trial","combo","guide","contact"]);
+  const assetName=src=>String(src||"").split("?")[0].split("/").pop();
+
+  function criticalAddons(page){
+    const scripts=[STABILITY];
+    if(PRODUCT_UI_PAGES.has(page))scripts.push(MEDIA_MODAL,SAFETY);
+    if(VARIANT_PAGES.has(page))scripts.push(VARIANTS);
+    if(MASCOT_PAGES.has(page))scripts.push(MASCOT);
+    return scripts;
+  }
+  function deferredAddons(page){
+    const scripts=[];
+    if(CLEANUP_PAGES.has(page))scripts.push(PUBLIC_CLEANUP);
+    if(RETIREMENT_PAGES.has(page))scripts.push(IMAGE_RETIREMENT);
+    return scripts;
+  }
+  function scheduleDeferredScripts(sources){
+    if(!sources.length)return;
+    const run=()=>Promise.all(sources.map(src=>loadScript(src))).catch(error=>console.warn("仙加味延後模組載入失敗",error));
+    const idle=()=>{"requestIdleCallback" in window?requestIdleCallback(run,{timeout:1800}):run();};
+    const schedule=()=>setTimeout(idle,1500);
+    if(document.readyState==="complete")schedule();
+    else window.addEventListener("load",schedule,{once:true});
+  }
   async function boot(){
     document.documentElement.dataset.xjwRuntimeLoading=VERSION;
+    document.documentElement.dataset.xjwPagePlan=PAGE;
     installFailsafeStyle();loadStyles();installEmergencyHeader();
     await Promise.all([loadScript(PRODUCT_MEDIA_AUTHORITY,8000),loadScript(AUTHORITY,8000)]);
+    const preCore=PRODUCT_DATA_PAGES.has(PAGE)?[PRODUCT_DISPLAY,DM_AUTHORITY]:[];
+    document.documentElement.dataset.xjwPreCoreAddons=preCore.map(assetName).join(",");
+    if(preCore.length)await Promise.all(preCore.map(src=>loadScript(src,8000)));
     installDataFetchTimeout();
     let coreResult=await loadScript(CORE,10000);
     if(!coreResult.ok) coreResult=await loadScript(`${CORE}&retry=1`,10000);
     if(!coreResult.ok) throw new Error("仙加味核心程式載入失敗");
     ensureCoreBooted();
-    await Promise.all([loadScript(PRODUCT_DISPLAY),loadScript(DM_AUTHORITY),loadScript(MEDIA_MODAL),loadScript(SAFETY),loadScript(VARIANTS),loadScript(PUBLIC_CLEANUP),loadScript(IMAGE_RETIREMENT),loadScript(MASCOT),loadScript(STABILITY)]);
+    const critical=criticalAddons(PAGE);
+    const deferred=deferredAddons(PAGE);
+    document.documentElement.dataset.xjwCriticalAddons=critical.map(assetName).join(",");
+    document.documentElement.dataset.xjwDeferredAddons=deferred.map(assetName).join(",");
+    if(critical.length)await Promise.all(critical.map(src=>loadScript(src)));
+    scheduleDeferredScripts(deferred);
     document.documentElement.dataset.xjwRuntime=VERSION;delete document.documentElement.dataset.xjwRuntimeLoading;
     document.querySelectorAll(".reveal").forEach(element=>element.classList.add("show"));
   }
