@@ -1970,3 +1970,130 @@ html body.ux-v410 .site-menu.open .site-menu__panel{
   transform:none!important;
   -webkit-transform:none!important;
 }
+
+
+/* 2026-10-05｜全站手機巡檢修正 v26 */
+/*
+ * 依 2026-10-05 iPhone 實機截圖巡檢：
+ * 1. 資訊卡不再用 CSS 自動加 01/02/03，避免把分類誤解成步驟。
+ * 2. 知識專區手機 tabs 不再 sticky 壓住標題。
+ * 3. 移除 footer 前的裝飾性空白／灰色橫條。
+ * 4. 手機內容區固定高對比米白紙面，避免舊層疊樣式產生深底黑字。
+ * 5. 空的 rich placeholder 不佔版面；若 JS 後續填入內容則正常顯示。
+ */
+
+/* Footer 前的裝飾性收尾曾在手機形成無內容灰色矩形，正式停用。 */
+html body[data-page] main.page:after{
+  content:none!important;
+  display:none!important;
+  width:0!important;
+  height:0!important;
+  margin:0!important;
+  background:none!important;
+}
+
+/* 空的動態內容掛載點不得留下空白區。 */
+html body[data-page] div[data-rich-guide]:empty,
+html body[data-page] div[data-rich-recipes]:empty{
+  display:none!important;
+  min-height:0!important;
+  height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+}
+
+/* 這些是資訊分類卡，不是有先後順序的步驟；取消舊版自動序號。 */
+html body[data-page="guide"] .cards-3,
+html body[data-page="recipes"] .grid-2,
+html body[data-page="ingredients"] .grid-3,
+html body[data-page="quality"] .grid-3,
+html body[data-page="craft"] .grid-3{
+  counter-reset:none!important;
+}
+html body[data-page="guide"] .cards-3 > .card:before,
+html body[data-page="recipes"] .grid-2 > .card:before,
+html body[data-page="ingredients"] .grid-3 > .card:before,
+html body[data-page="quality"] .grid-3 > .card:before,
+html body[data-page="craft"] .grid-3 > .card:before{
+  content:none!important;
+  display:none!important;
+  counter-increment:none!important;
+}
+html body[data-page="guide"] .cards-3 > .card,
+html body[data-page="recipes"] .grid-2 > .card,
+html body[data-page="ingredients"] .grid-3 > .card,
+html body[data-page="quality"] .grid-3 > .card,
+html body[data-page="craft"] .grid-3 > .card{
+  padding-top:22px!important;
+}
+
+/* 知識 tabs 桌機保留內容導覽感；手機改為頁內橫向導覽，不覆蓋正文。 */
+@media(max-width:760px){
+  html body[data-page="knowledge"] .knowledge-tabs{
+    position:relative!important;
+    top:auto!important;
+    left:auto!important;
+    right:auto!important;
+    z-index:2!important;
+    margin:0 0 22px!important;
+    padding:7px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    flex-wrap:nowrap!important;
+    background:rgba(255,253,248,.97)!important;
+    -webkit-backdrop-filter:none!important;
+    backdrop-filter:none!important;
+    box-shadow:0 6px 16px rgba(61,45,29,.055)!important;
+  }
+  html body[data-page="knowledge"] .knowledge-tab{
+    flex:0 0 auto!important;
+    white-space:nowrap!important;
+  }
+  html body[data-page="knowledge"] .knowledge-panel{
+    position:relative!important;
+    z-index:1!important;
+  }
+
+  /* 內頁手機版統一成高對比紙面；舊版山水／色塊只留在 hero 與卡片內。 */
+  html body[data-page]:not([data-page="home"]) main.page > .section{
+    color:#172536!important;
+    border-color:rgba(176,138,71,.20)!important;
+    background:
+      radial-gradient(circle at 96% 3%,rgba(176,138,71,.055),transparent 24%),
+      linear-gradient(180deg,#fffdf9 0%,#f7f2e8 100%)!important;
+    background-color:#fffdf9!important;
+  }
+  html body[data-page]:not([data-page="home"]) main.page > .section:before{
+    content:none!important;
+    display:none!important;
+    background:none!important;
+  }
+  html body[data-page]:not([data-page="home"]) main.page > .section .section-heading h2,
+  html body[data-page]:not([data-page="home"]) main.page > .section h2,
+  html body[data-page]:not([data-page="home"]) main.page > .section h3{
+    color:#0B1F3B!important;
+    text-shadow:none!important;
+  }
+  html body[data-page]:not([data-page="home"]) main.page > .section p,
+  html body[data-page]:not([data-page="home"]) main.page > .section li{
+    color:#374151!important;
+  }
+
+  /* CTA 本身維持品牌紅底白字，不被上面的內容文字守門覆蓋。 */
+  html body[data-page] .final-cta,
+  html body[data-page] .final-cta p,
+  html body[data-page] .final-cta h2,
+  html body[data-page] .final-cta h3{
+    color:#F7F4ED!important;
+  }
+
+  /* 手機資訊卡回到正常起始留白；不再為不存在的序號預留上方空間。 */
+  html body[data-page="guide"] .cards-3 > .card,
+  html body[data-page="recipes"] .grid-2 > .card,
+  html body[data-page="ingredients"] .grid-3 > .card,
+  html body[data-page="quality"] .grid-3 > .card,
+  html body[data-page="craft"] .grid-3 > .card{
+    padding-top:16px!important;
+  }
+}
