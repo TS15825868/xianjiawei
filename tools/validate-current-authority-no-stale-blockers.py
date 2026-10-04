@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1]
 PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
 DEFERRED_ID='qixuan-guilu-drink-powder'
 DEFERRED_NAME='柒玄茶・龜鹿調飲粉'
-CURRENT_30='每日 1–2 罐'
+CURRENT_30='每日 1 罐'
 CURRENT_GAO='食用時間可依個人使用習慣與作息時間安排'
 FORMAL_MEDIA_AUTHORITY='data/formal-media-authority-v20260810.json'
 LEGACY_SCENE_MANIFEST='images/brand/approved-v405-manifest.json'
@@ -195,11 +195,11 @@ def main():
     req(master.get('productCount')==6 and ids==PUBLIC_IDS,'舊七項公開產品模型重新混入')
     req(DEFERRED_ID not in ids and DEFERRED_NAME not in json.dumps(master.get('products') or [],ensure_ascii=False),'暫緩官網產品不得出現在官網六項產品清單')
     by={p['id']:p for p in master['products']}
-    req(by['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc被舊資料回退')
+    req(by['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc被舊每日 1–2 罐資料回退')
     req('小玻璃罐' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定小玻璃罐')
     req('裸罐' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定裸罐')
     req('無貼紙' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定無貼紙')
-    req(by['guilu-gao'].get('usage',[None])[0]==CURRENT_GAO,'龜鹿膏被舊固定時段資料回退')
+    req(by['guilu-tangkuai'].get('specification')=='75g／盒｜8塊裝','龜鹿湯塊被舊 2兩 規格回退')\n    req(by['guilu-gao'].get('usage',[None])[0]==CURRENT_GAO,'龜鹿膏被舊固定時段資料回退')
 
     for rel in ['assets/data/official-products.json','config/official-products.json']:
         data=load(rel);pids=[p.get('id') for p in data.get('products') or []]
@@ -221,6 +221,6 @@ def main():
     assert_static_public_copy()
     assert_social_payloads()
     assert_social_media_authority()
-    print('PASS: six website products; current formal product media authority; approved-v405 product mappings remain historical-only; no retired product-image regression in social candidates; 30cc small glass jar/bare/no sticker; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
+    print('PASS: six website products; current formal product media authority; approved-v405 product mappings remain historical-only; no retired product-image regression in social candidates; 30cc daily 1 can and small glass jar/bare/no sticker; Tangkuai 75g/box 8 pieces; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
 
 if __name__=='__main__': main()
