@@ -2,7 +2,7 @@ name: 仙加味品牌圖示與 Chrome Safari 視覺驗收
 on:
   push:
     branches: [main]
-    paths: ['tools/audit-brand-visual-20261003.cjs', '**/*.html', '**/*.css', '**/*.js', '**/*.webmanifest', '*icon*', 'android-chrome*', 'images/brand/**', 'images/product-main/**', '.github/workflows/brand-visual-20261003.yml']
+    paths: ['tools/audit-brand-visual-20261003.cjs', 'tools/audit-product-authority-20261005.cjs', 'public-product-master.json', 'ai-answers.json', 'geo-data.json', 'llms*.txt', '**/*.html', '**/*.css', '**/*.js', '**/*.webmanifest', '*icon*', 'android-chrome*', 'images/brand/**', 'images/product-main/**', '.github/workflows/brand-visual-20261003.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - run: npm install --no-save --no-package-lock playwright@1.55.0
+      - name: Verify current product authority and public copy\n        run: node tools/audit-product-authority-20261005.cjs\n      - run: npm install --no-save --no-package-lock playwright@1.55.0
       - run: npx playwright install --with-deps chromium webkit
       - run: python3 -m http.server 8765 > /tmp/site-server.log 2>&1 &
       - name: Verify desktop and mobile Chromium and WebKit
