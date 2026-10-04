@@ -77,7 +77,7 @@ jobs:
             iphone:{width:390,height:844,isMobile:true,hasTouch:true},
             android:{width:412,height:915,isMobile:true,hasTouch:true}
           };
-          const keyScreens=new Set(['index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']);
+          const keyScreens=new Set(['index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','why-guilu.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']);
 
           function rgb(s){
             const m=String(s||'').match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)(?:[, /]+([\d.]+))?\)/);
@@ -411,6 +411,25 @@ jobs:
                 if(pth==='choose.html'){
                   const duplicateChoose=await page.locator('#choose-results').count();
                   if(duplicateChoose) report.errors.push({vp:vpName,page:pth,type:'choose-duplicate-results',detail:{count:duplicateChoose}});
+                }
+
+                if(pth==='why-guilu.html'){
+                  const gold=await page.evaluate(()=>{
+                    const section=document.querySelector('#guilu-choose.section--brand-gold');
+                    const h2=section?.querySelector('.section-heading h2');
+                    const p=section?.querySelector('.section-heading > p:last-child');
+                    const css=el=>el?getComputedStyle(el):null;
+                    return {
+                      exists:Boolean(section&&h2&&p),
+                      headingColor:css(h2)?.color||'',
+                      paragraphColor:css(p)?.color||'',
+                      backgroundColor:css(section)?.backgroundColor||''
+                    };
+                  });
+                  report.viewports[vpName][pth].brandGoldSection=gold;
+                  if(!gold.exists||gold.headingColor!=='rgb(255, 248, 232)'||gold.paragraphColor!=='rgb(255, 248, 232)'){
+                    report.errors.push({vp:vpName,page:pth,type:'brand-gold-low-contrast-copy',detail:gold});
+                  }
                 }
 
                 if(pth==='products.html'){
