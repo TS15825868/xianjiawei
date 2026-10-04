@@ -6,12 +6,12 @@ import xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[1]
 BASE='https://ts15825868.github.io/xianjiawei/'
-CURRENT_30='每日 1–2 罐'
+CURRENT_30='每日 1 罐'
 PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
 DEFERRED=('柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder')
 EXPECTED_SPECS={
  'guilu-gao':'100g／罐','guilu-drink-30':'30cc／罐（小玻璃罐）','guilu-drink-180':'180cc／包（鋁袋）',
- 'guilu-tangkuai':'75g （2兩）／盒｜8塊裝','guilu-jiao':'600g （1斤）／盒｜32塊裝','luerong-fen':'75g／罐'
+ 'guilu-tangkuai':'75g／盒｜8塊裝','guilu-jiao':'600g （1斤）／盒｜32塊裝','luerong-fen':'75g／罐'
 }
 MEDIA_PRODUCT_PAGES={'product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html'}
 PRODUCT_PAGE_IDS={
@@ -41,7 +41,7 @@ def main():
     assert master.get('authority')=='user-confirmed-current','公開母資料不是目前使用者確認權威'
     assert master.get('productCount')==6 and list(products)==PUBLIC_IDS,'公開母資料必須是目前六項官網產品'
     for pid,spec in EXPECTED_SPECS.items():assert products[pid].get('specification')==spec,f'{pid}規格未同步'
-    assert products['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc用法不是每日 1–2 罐'
+    assert products['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc用法不是每日 1 罐'
     assert products['guilu-drink-180'].get('usage',[None])[0]=='每日一包','180cc用法不是每日一包'
 
     pages=sitemap_pages();assert pages,'sitemap沒有公開HTML頁'
@@ -68,7 +68,7 @@ def main():
             for retired in ['早上＋下午','早上+下午','每日早上及下午各一小匙','早晚各一小匙']:assert retired not in source,f'龜鹿膏詳頁仍含舊固定時段：{retired}'
             assert '食用時間可依個人使用習慣與作息時間安排' in source,'龜鹿膏目前用法未同步'
         if page=='product-guilu-tangkuai.html':
-            assert '75g （2兩）／盒｜8塊裝' in source and '每塊約9.375g' in source
+            assert '75g／盒｜8塊裝' in source and '每塊約9.375g' in source
             assert '300g／盒' not in source and '600g／盒' not in source
         if page=='product-guilu-jiao.html':assert '600g （1斤）／盒｜32塊裝' in source and re.search(r'每塊約18\.75\s*g',source)
         if page=='product-guilu-drink-30cc.html':
