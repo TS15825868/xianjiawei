@@ -10,10 +10,10 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20260930-main-dm-v13';
+  const VERSION='20261005-product-sync-v14';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
-  const CURRENT_30_USAGE='每日 1–2 罐';
+  const CURRENT_30_USAGE='每日 1 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_PRODUCT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const MEDIA_PRODUCT_IDS=PUBLIC_PRODUCT_IDS;
@@ -43,6 +43,10 @@
       const p30=master.products.find(product=>product.id==='guilu-drink-30');
       if(!Array.isArray(p30?.usage)||p30.usage[0]!==CURRENT_30_USAGE){
         throw new Error(`public-product-master 30cc usage invalid: ${p30?.usage?.[0]||'missing'}`);
+      }
+      const tangkuai=master.products.find(product=>product.id==='guilu-tangkuai');
+      if(tangkuai?.specification!=='75g／盒｜8塊裝'){
+        throw new Error(`public-product-master Guilu Tangkuai specification invalid: ${tangkuai?.specification||'missing'}`);
       }
       const gao=master.products.find(product=>product.id==='guilu-gao');
       if(!Array.isArray(gao?.usage)||gao.usage[0]!==CURRENT_GAO_TIMING){
@@ -207,10 +211,14 @@
     ['每日 1～2 罐',CURRENT_30_USAGE],
     ['每日1–2罐',CURRENT_30_USAGE],
     ['每日 1–2罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
     ['每日早上及下午各一小匙',CURRENT_GAO_TIMING],
     ['早晚各一小匙',CURRENT_GAO_TIMING],
     ['早上＋下午','時間依作息安排'],
     ['早上+下午','時間依作息安排'],
+    ['75g （2兩）／盒｜8塊裝','75g／盒｜8塊裝'],
+    ['75g（2兩）／盒｜8塊裝','75g／盒｜8塊裝'],
+    ['75g（2兩／8塊裝）','75g／盒｜8塊裝'],
     ['600g／盒｜1斤｜32塊裝','600g （1斤）／盒｜32塊裝']
   ]);
 
