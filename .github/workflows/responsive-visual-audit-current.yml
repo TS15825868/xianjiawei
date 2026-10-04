@@ -225,7 +225,7 @@ jobs:
                     h1:h1?{size:parseFloat(css(h1).fontSize),color:css(h1).color,text:h1.textContent.trim().slice(0,90)}:null,
                     bodyFont:parseFloat(css(document.body).fontSize),
                     paragraphFont:paras.length?Math.min(...paras.slice(0,30).map(x=>parseFloat(css(x).fontSize))):null,
-                    brokenImages:imgs.filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src),
+                    brokenImages:imgs.filter(i=>(!i.complete||!i.naturalWidth)&&String(i.loading||'').toLowerCase()!=='lazy').map(i=>i.src),
                     loadedImagePaths:imgs.filter(i=>i.complete&&i.naturalWidth>0).map(i=>{try{return new URL(i.currentSrc||i.src,location.href).pathname}catch{return''}}).filter(Boolean),
                     missingAlt:imgs.filter(i=>visible(i)&&!i.alt).map(i=>i.src),
                     duplicateIds:[...new Set(duplicates)],
