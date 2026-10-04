@@ -2069,24 +2069,8 @@ html body[data-page="craft"] .grid-3 > .card{
     display:none!important;
     background:none!important;
   }
-  html body[data-page]:not([data-page="home"]) main.page > .section .section-heading h2,
-  html body[data-page]:not([data-page="home"]) main.page > .section h2,
-  html body[data-page]:not([data-page="home"]) main.page > .section h3{
-    color:#0B1F3B!important;
-    text-shadow:none!important;
-  }
-  html body[data-page]:not([data-page="home"]) main.page > .section p,
-  html body[data-page]:not([data-page="home"]) main.page > .section li{
-    color:#374151!important;
-  }
-
-  /* CTA 本身維持品牌紅底白字，不被上面的內容文字守門覆蓋。 */
-  html body[data-page] .final-cta,
-  html body[data-page] .final-cta p,
-  html body[data-page] .final-cta h2,
-  html body[data-page] .final-cta h3{
-    color:#F7F4ED!important;
-  }
+  /* 只修正區塊底色與裝飾，不強制覆寫內部元件文字色；
+     深色 CTA、聯絡卡與品牌故事卡繼續沿用各自的高對比文字規則。 */
 
   /* 手機資訊卡回到正常起始留白；不再為不存在的序號預留上方空間。 */
   html body[data-page="guide"] .cards-3 > .card,
