@@ -1305,9 +1305,9 @@ html body[data-page] .section h3:after{
   }
   html body[data-page] .section-heading .eyebrow,
   html body[data-page] .eyebrow{
-    min-height:26px!important;
+    min-height:28px!important;
     padding:4px 9px!important;
-    font-size:11px!important;
+    font-size:12px!important;
   }
   html body[data-page] .card h3:after,
   html body[data-page] .section h3:after{
@@ -1521,6 +1521,24 @@ html body.ux-v410 .site-header{
 html body.ux-v410 .site-header.is-scrolled{
   background:rgba(247,244,237,.96)!important;
   box-shadow:0 10px 32px rgba(11,31,59,.075)!important;
+}
+html body.ux-v410 .site-header .brand-mark,
+html body.ux-v410 .site-header .brand-mark__name{
+  color:#0B1F3B!important;
+}
+html body.ux-v410 .site-header .brand-mark__tagline{
+  color:#62584D!important;
+}
+html body.ux-v410 .site-header .header-nav a{
+  color:#24364C!important;
+}
+html body.ux-v410 .site-header .header-nav a:hover{
+  color:#682023!important;
+  background:rgba(104,32,35,.07)!important;
+}
+html body.ux-v410 .site-header .header-nav a.is-active{
+  color:#682023!important;
+  background:rgba(176,138,71,.16)!important;
 }
 html body.ux-v410 .brand-mark img{
   filter:drop-shadow(0 5px 10px rgba(104,32,35,.10))!important;
@@ -1835,7 +1853,7 @@ html body.ux-v410 .floating-line-cta__dot{
   }
   html body[data-page]:not([data-page="home"]) .hero--compact h1,
   html body[data-page="trial"] .hero--cta h1{
-    font-size:29px!important;
+    font-size:30px!important;
     line-height:1.17!important;
   }
 
