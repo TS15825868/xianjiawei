@@ -339,12 +339,21 @@ jobs:
                     target.hash='';
                     const key=target.toString();
                     if(!linkStatusCache.has(key)){
-                      try{
-                        const r=await context.request.get(key,{timeout:15000,failOnStatusCode:false});
-                        linkStatusCache.set(key,r.status());
-                      }catch(e){
-                        linkStatusCache.set(key,{error:String(e)});
+                      let finalStatus=null;
+                      let finalError=null;
+                      for(let attempt=1;attempt<=3;attempt++){
+                        try{
+                          const r=await context.request.get(key,{timeout:15000,failOnStatusCode:false});
+                          finalStatus=r.status();
+                          finalError=null;
+                          if(finalStatus<500&&finalStatus!==429) break;
+                        }catch(e){
+                          finalError=String(e);
+                        }
+                        if(attempt<3) await page.waitForTimeout(350*attempt);
                       }
+                      if(finalError&&finalStatus===null) linkStatusCache.set(key,{error:finalError});
+                      else linkStatusCache.set(key,finalStatus);
                     }
                     const linkStatus=linkStatusCache.get(key);
                     if(typeof linkStatus==='number'&&linkStatus>=400){
