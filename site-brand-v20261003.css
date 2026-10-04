@@ -2087,6 +2087,7 @@ html body[data-page="craft"] .grid-3 > .card{
 /* 深金色區塊只能搭配高對比淺色標題／說明；卡片本身維持米白紙面與深色文字。 */
 html body[data-page] main.page > .section.section--brand-gold{
   color:#FFF8E8!important;
+  background-color:#7A5929!important;
   border:1px solid rgba(255,248,232,.30)!important;
   background:
     radial-gradient(circle at 92% 7%,rgba(255,255,255,.12),transparent 26%),
