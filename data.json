@@ -36,9 +36,9 @@
         "紅棗",
         "黃耆"
       ],
-      "usagePrimary": "每日 1–2 罐",
+      "usagePrimary": "每日 1 罐",
       "usage": [
-        "每日 1–2 罐",
+        "每日 1 罐",
         "飲用時間可依個人使用習慣與作息時間安排",
         "開罐即可飲用",
         "可隔水加熱或溫熱後飲用",
@@ -172,7 +172,7 @@
       "series": "仙加味・龜鹿",
       "name": "龜鹿湯塊",
       "displayName": "龜鹿湯塊",
-      "size": "75g （2兩）／盒｜8塊裝",
+      "size": "75g／盒｜8塊裝",
       "detailUnitApprox": "每塊約9.375g",
       "image": "images/product-main/guilu-tangkuai.jpg?v=20260930-front-final-v14",
       "dmImage": "images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260930-product-media-v10",
@@ -302,7 +302,7 @@
       "id": "table-pairing",
       "name": "料理搭配組",
       "items": [
-        "龜鹿湯塊75g（2兩／8塊裝） 1 盒",
+        "龜鹿湯塊75g／盒｜8塊裝 1 盒",
         "鹿茸粉75g 1 罐"
       ],
       "desc": "適合想從料理與溫熱飲品一起安排的人。"
@@ -313,7 +313,7 @@
       "items": [
         "龜鹿膏 1 罐",
         "龜鹿飲180cc 5 包",
-        "龜鹿湯塊75g（2兩／8塊裝） 1 盒",
+        "龜鹿湯塊75g／盒｜8塊裝 1 盒",
         "鹿茸粉75g 1 罐"
       ],
       "desc": "適合想一次了解不同型態，再依生活情境安排的人。"
