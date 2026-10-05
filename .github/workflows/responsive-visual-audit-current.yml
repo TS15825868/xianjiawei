@@ -23,6 +23,7 @@ jobs:
   responsive-audit:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         engine: [chromium, webkit]
     env:
@@ -118,6 +119,15 @@ jobs:
 
               for(const pth of pages){
                 const page=await context.newPage();
+                if(pth==='trial-line.html'){
+                  // Validate the live handoff URL, then suspend only automatic external navigation while inspecting its layout.
+                  await page.route(BASE+pth,async route=>{
+                    const response=await route.fetch();
+                    const html=await response.text();
+                    if(!html.includes("const target='https://line.me/R/oaMessage/%40762jybnm/"))throw new Error('Trial handoff is not official LINE OA');
+                    await route.fulfill({response,body:html.replace('setTimeout(()=>location.href=target,650);','/* automatic handoff suspended for layout evidence only */')});
+                  });
+                }
                 const consoleErrors=[],pageErrors=[],requestFailed=[];
                 page.on('console',m=>{ if(m.type()==='error') consoleErrors.push(m.text()) });
                 page.on('pageerror',e=>pageErrors.push(String(e)));
@@ -249,7 +259,9 @@ jobs:
 
                 // Header/選單實際互動測試
                 let menuTest=null;
-                if(vpName!=='desktop'){
+                if(pth==='trial-line.html'){
+                  menuTest={handoff:true};
+                }else if(vpName!=='desktop'){
                   try{
                     await page.evaluate(()=>window.scrollTo(0,Math.min(document.body.scrollHeight*.58,2200)));
                     await page.waitForTimeout(120);
@@ -578,6 +590,17 @@ jobs:
           })();
           NODE
           node xjw-responsive-audit.cjs
+
+      - name: Upload compact audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-visual-report-${{ matrix.engine }}-${{ github.run_id }}
+          path: |
+            responsive-audit-report.json
+            responsive-audit-summary.md
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Upload visual audit evidence
         if: always()
