@@ -199,7 +199,8 @@ def main():
     req('小玻璃罐' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定小玻璃罐')
     req('裸罐' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定裸罐')
     req('無貼紙' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定無貼紙')
-    req(by['guilu-tangkuai'].get('specification')=='75g／盒｜8塊裝','龜鹿湯塊被舊 2兩 規格回退')\n    req(by['guilu-gao'].get('usage',[None])[0]==CURRENT_GAO,'龜鹿膏被舊固定時段資料回退')
+    req(by['guilu-tangkuai'].get('specification')=='75g／盒｜8塊裝','龜鹿湯塊被舊 2兩 規格回退')
+    req(by['guilu-gao'].get('usage',[None])[0]==CURRENT_GAO,'龜鹿膏被舊固定時段資料回退')
 
     for rel in ['assets/data/official-products.json','config/official-products.json']:
         data=load(rel);pids=[p.get('id') for p in data.get('products') or []]
