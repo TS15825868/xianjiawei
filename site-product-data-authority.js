@@ -13,7 +13,7 @@
   const VERSION='20261005-product-sync-v14';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
-  const CURRENT_30_USAGE='每日 1 罐';
+  const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const PUBLIC_PRODUCT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const MEDIA_PRODUCT_IDS=PUBLIC_PRODUCT_IDS;
@@ -203,14 +203,14 @@
     ['30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'],
     ['30cc／瓶','30cc／罐（小玻璃罐）'],
     ['龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'],
-    ['每日 1-2罐',CURRENT_30_USAGE],
-    ['每日1-2罐',CURRENT_30_USAGE],
-    ['每日 1-2 罐',CURRENT_30_USAGE],
-    ['每日 1～2罐',CURRENT_30_USAGE],
-    ['每日1～2罐',CURRENT_30_USAGE],
-    ['每日 1～2 罐',CURRENT_30_USAGE],
-    ['每日1–2罐',CURRENT_30_USAGE],
-    ['每日 1–2罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
     ['每日 1–2 罐',CURRENT_30_USAGE],
     ['每日早上及下午各一小匙',CURRENT_GAO_TIMING],
     ['早晚各一小匙',CURRENT_GAO_TIMING],
