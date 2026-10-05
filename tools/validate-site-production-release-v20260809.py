@@ -74,7 +74,9 @@ def validate_public_surfaces():
         req(DEFERRED[1] in text,f'{rel}缺少柒玄茶暫緩政策')
         req(any(word in text for word in ['暫緩','暫不','不對外','不得公開','隱藏']),f'{rel}未清楚標示柒玄茶目前非公開狀態')
 
-    req('六項' in read('index.html'),'首頁未維持六項官網產品')
+    # 首頁不強制出現「六項」字樣；品牌文案可調整，但實際六個正式產品入口與主圖必須存在。
+    home=read('index.html')
+    req(home.count('images/product-main/')>=6 and home.count('href="product-')>=6,'首頁未維持六項正式產品入口／主圖')
     req('六項' in read('products.html'),'產品總覽未維持六項官網產品')
     req(CURRENT_30 in read('products.html') and CURRENT_30 in read('guide.html') and CURRENT_30 in read('faq.html'),'30cc目前用法未同步公開頁')
 
