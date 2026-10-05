@@ -94,6 +94,6 @@ def validate_media():
 
 def main():
     validate_products();validate_public_surfaces();validate_media()
-    print('PASS production release: six website products, six approved media, 30cc daily 1 can, no retired fixed-time Guilu Gao chip, Qixuan excluded from customer/public answer surfaces while retained as negative policy in llms.')
+    print('PASS production release: six website products, six approved media, 30cc daily 1-2 cans, no retired fixed-time Guilu Gao chip, Qixuan excluded from customer/public answer surfaces while retained as negative policy in llms.')
 
 if __name__=='__main__':main()
