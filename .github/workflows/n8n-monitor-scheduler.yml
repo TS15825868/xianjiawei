@@ -92,7 +92,7 @@ jobs:
           const text=JSON.stringify(d);
           if(text.includes('台興山產')) throw new Error('官網公開產品母資料含舊品牌名');
           const drink30=d.products.find(x=>x.id==='guilu-drink-30');
-          if(!drink30 || !JSON.stringify(drink30.usage).includes('每日 1–2 罐')) throw new Error('30cc最新用法未生效');
+          if(!drink30 || !JSON.stringify(drink30.usage).includes('每日 1 罐')) throw new Error('30cc最新用法未生效');
           if(!String(drink30.package||'').includes('裸罐') || !String(drink30.package||'').includes('無貼紙')) throw new Error('30cc正式包裝規則缺漏');
           const made=[...(d.fulfillmentPolicy?.madeToOrderProducts||[])].sort();
           const expectedMade=['guilu-drink-180','guilu-drink-30'].sort();
@@ -100,14 +100,14 @@ jobs:
           if(d.contact?.lineId!=='@762jybnm' || d.contact?.lineUrl!=='https://lin.ee/sHZW7NkR') throw new Error('LINE 導流資料異常');
           NODE
 
-          # 正式產品圖不可斷鏈；只驗證正式顧客展示來源，不使用舊 approved-v405。
+          # 正式產品主圖不可斷鏈；目前唯一一般展示權威為 images/product-main/。
           product_media=(
-            images/customer-display-v20260812/guilu-gao.avif
-            images/customer-display-v20260812/guilu-drink-30cc.avif
-            images/customer-display-v20260812/guilu-drink-180cc-product.jpg
-            images/customer-display-v20260812/guilu-tangkuai.avif
-            images/customer-display-v20260812/guilu-jiao.avif
-            images/customer-display-v20260812/luerong-fen.avif
+            images/product-main/guilu-gao.jpg
+            images/product-main/guilu-drink-30.jpg
+            images/product-main/guilu-drink-180.jpg
+            images/product-main/guilu-tangkuai.jpg
+            images/product-main/guilu-jiao.jpg
+            images/product-main/luerong-fen.jpg
           )
           for asset in "${product_media[@]}"; do
             key="${asset//[^a-zA-Z0-9]/-}"
