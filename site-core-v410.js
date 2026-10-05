@@ -893,7 +893,7 @@ function openProductModal(product, sourceElement) {
   modal.classList.add("show");
   modal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
-  document.getElementById("product-modal-close")?.focus();
+  document.getElementById("product-modal-close")?.focus({preventScroll:true});
 }
 
 function closeModal() {
@@ -902,7 +902,7 @@ function closeModal() {
   modal.classList.remove("show");
   modal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
-  if (lastFocusedElement?.focus) lastFocusedElement.focus();
+  if (lastFocusedElement?.focus) lastFocusedElement.focus({preventScroll:true});
 }
 
 function openMenu() {

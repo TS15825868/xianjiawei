@@ -489,8 +489,17 @@ jobs:
                   for(let i=0;i<modalCount;i++){
                     const button=productIntroButtons.nth(i);
                     const id=await button.locator('xpath=ancestor::article[@data-product-id]').getAttribute('data-product-id');
+                    await button.scrollIntoViewIfNeeded();
+                    await page.waitForTimeout(150);
                     await button.click();
-                    await page.waitForSelector('#product-modal.show[aria-hidden="false"]',{timeout:3000});
+                    try{
+                      await page.waitForSelector('#product-modal.show[aria-hidden="false"]',{timeout:5000});
+                    }catch(error){
+                      report.errors.push({vp:vpName,page:pth,type:'modal-open-failed',detail:{id,url:page.url(),message:error.message}});
+                      fs.writeFileSync('responsive-audit-report.json',JSON.stringify(report,null,2));
+                      await page.screenshot({path:`responsive-audit-screens/${vpName}-modal-failed-${id}.png`,fullPage:true});
+                      throw error;
+                    }
                     await page.waitForFunction(()=>{
                       const main=document.querySelector('#product-modal .modal-gallery__item img');
                       const dm=document.querySelector('#product-modal .modal-detail-media__frame img');
@@ -559,7 +568,8 @@ jobs:
                       await page.screenshot({path:`responsive-audit-screens/${vpName}-modal-${id}.png`,fullPage:true});
                     }
                     await page.locator('#product-modal-close').click();
-                    await page.waitForTimeout(40);
+                    await page.waitForSelector('#product-modal[aria-hidden="true"]',{state:'attached',timeout:3000});
+                    await page.waitForTimeout(150);
                   }
                 }
 
