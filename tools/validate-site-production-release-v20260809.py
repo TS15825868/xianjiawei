@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-CURRENT_30='每日 1 罐'
+CURRENT_30='每日 1–2 罐'
 PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
 DEFERRED=('qixuan-guilu-drink-powder','柒玄茶・龜鹿調飲粉')
 SPECS={
@@ -16,7 +16,7 @@ PAGE_BY_ID={
  'guilu-gao':'product-guilu-gao.html','guilu-drink-30':'product-guilu-drink-30cc.html','guilu-drink-180':'product-guilu-drink-180cc.html',
  'guilu-tangkuai':'product-guilu-tangkuai.html','guilu-jiao':'product-guilu-jiao.html','luerong-fen':'product-luerong-fen.html'
 }
-LEGACY_30=('每日1-2罐','每日 1-2罐','每日 1-2 罐','每日1～2罐','每日 1～2罐','每日 1～2 罐','每日1–2罐','每日 1–2罐','每日 1–2 罐')
+LEGACY_30=('每日一罐',)
 
 def load(rel): return json.loads((ROOT/rel).read_text(encoding='utf-8'))
 def read(rel): return (ROOT/rel).read_text(encoding='utf-8')
@@ -45,11 +45,11 @@ def validate_products():
     for rel in ['assets/data/official-products.json','config/official-products.json','data.json','catalog-public.json','product-master.json']:
         data=load(rel);pm=product_map(data)
         req(set(pm)==set(PUBLIC_IDS),f'{rel}產品集合不是目前六項官網產品')
-        # 只檢查實際產品輸出。治理／禁止規則可以明確寫出「不得回退成每日 1–2 罐」等退役字樣，
+        # 只檢查實際產品輸出。治理／禁止規則可以描述歷史值，但目前正式權威必須以 public-product-master.json 最新值為準，
         # 不得把負面守門文字誤判成公開產品資料回流。
         active_serialized=json.dumps(list(pm.values()),ensure_ascii=False)
         for marker in DEFERRED:req(marker not in active_serialized,f'{rel}重新混入暫緩產品：{marker}')
-        p30=pm['guilu-drink-30'];req(usage_of(p30)==CURRENT_30,f'{rel} 30cc未同步每日 1 罐')
+        p30=pm['guilu-drink-30'];req(usage_of(p30)==CURRENT_30,f'{rel} 30cc未同步目前正式用法')
         for legacy in LEGACY_30:
             req(legacy not in active_serialized,f'{rel}實際產品資料仍含30cc退役輸出：{legacy}')
 
