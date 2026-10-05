@@ -1,8 +1,8 @@
 "use strict";
 
 /* 仙加味顧客端產品主視覺｜2026-09-28 simple formal product-main v18
- * 官網六項產品文字知識以 public-product-master.json 為最高權威。
- * 一般展示與產品 Hero 只使用使用者核准的 images/product-main 六張高清 JPG 簡單主圖；「查看介紹」Modal 才顯示完整文字與 dm-final 正式 DM。
+ * 官網公開產品文字知識以 public-product-master.json 為最高權威。
+ * 一般展示與產品 Hero 使用各產品目前核准的 images/product-main 正式主圖；「查看介紹」Modal 才顯示完整文字與 dm-final 正式 DM。
  * 原始實物照片只保留作產品身份／包裝比例參考，不再作一般展示主圖。
  */
 (function(){
@@ -12,7 +12,7 @@
   const VERSION='20260930-main-dm-v13';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
-  const PUBLIC_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
+  const CURRENT_MEDIA_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const mainImage=(id,fallback)=>MEDIA_AUTHORITY?.mainImage?.(id)||fallback;
   const detailImage=(id,fallback)=>MEDIA_AUTHORITY?.detailImages?.(id)?.[0]||fallback;
@@ -59,7 +59,7 @@
   }
   function normalize(data){
     if(!data||!Array.isArray(data.products)) return data;
-    data.products=data.products.filter(product=>PUBLIC_IDS.includes(product?.id)).map(product=>{
+    data.products=data.products.map(product=>{
       const display=DISPLAY[product?.id],dm=DM[product?.id],identity=IDENTITY[product?.id];
       if(!display) return product;
       const displayUrl=`${display}?v=${VERSION}`;
@@ -80,7 +80,7 @@
         if(Array.isArray(normalized.usage)&&normalized.usage.length)normalized.usage=['每日一包',...normalized.usage.slice(1)];
       }
       if(product.id==='guilu-tangkuai'){
-        normalized.size='75g （2兩）／盒｜8塊裝';
+        normalized.size='75g／盒｜8塊裝';
         normalized.unitApprox='每塊約9.375g';
       }
       if(product.id==='guilu-jiao'){
@@ -97,16 +97,18 @@
         physicalScalePolicy:'depicted-product-must-match-real-approved-product-shape-package-and-proportion'
       };
     });
-    data.officialProductIds=[...PUBLIC_IDS];
-    data.officialProductCount=6;
-    data.knowledgeProductIds=[...PUBLIC_IDS];
-    data.knowledgeProductCount=6;
-    data.approvedMediaProductCount=6;
+    const publicIds=data.products.map(product=>String(product?.id||'').trim()).filter(Boolean);
+    const approvedMediaCount=data.products.filter(product=>String(product?.image||product?.imageUrl||product?.image_url||'').trim()).length;
+    data.officialProductIds=[...publicIds];
+    data.officialProductCount=publicIds.length;
+    data.knowledgeProductIds=[...publicIds];
+    data.knowledgeProductCount=publicIds.length;
+    data.approvedMediaProductCount=approvedMediaCount;
     data.runtime={
       ...(data.runtime||{}),
       productTextAuthority:'public-product-master.json',
-      knowledgeProductCount:6,
-      approvedMediaProductCount:6,
+      knowledgeProductCount:publicIds.length,
+      approvedMediaProductCount:approvedMediaCount,
       productMainImageSource:'images/product-main/',
       productIdentityReference:'verified-original-product-photo-paths',
       dmSource:'images/dm-final/',
@@ -119,7 +121,7 @@
       drink30Usage:CURRENT_30_USAGE,
       drink180Usage:'每日一包',
       displayVersion:VERSION,
-      displayRule:'首頁、產品總覽、怎麼選、試喝、推薦、產品卡與產品 Hero 統一使用 product-main 六項簡單正式主圖；完整文字與 dm-final 集中到單一「查看介紹」Modal；獨立產品頁只作乾淨 Hero、SEO／分享入口與無 JS 備援；identityReference 只供包裝與比例驗證。'
+      displayRule:'首頁、產品總覽、怎麼選、試喝、推薦、產品卡與產品 Hero 使用各產品目前核准的 product-main 正式主圖；完整文字與 dm-final 集中到單一「查看介紹」Modal；獨立產品頁只作乾淨 Hero、SEO／分享入口與無 JS 備援；identityReference 只供包裝與比例驗證。'
     };
     return data;
   }
@@ -135,5 +137,5 @@
     }catch(error){console.warn('仙加味顧客端正式產品圖套用失敗',error);return response;}
   };
 
-  window.XJWCustomerDisplayAuthority=Object.freeze({version:VERSION,current30Usage:CURRENT_30_USAGE,currentGaoTiming:CURRENT_GAO_TIMING,products:DISPLAY,dm:DM,trial:TRIAL,identity:IDENTITY,normalize});
+  window.XJWCustomerDisplayAuthority=Object.freeze({version:VERSION,current30Usage:CURRENT_30_USAGE,currentGaoTiming:CURRENT_GAO_TIMING,currentMediaIds:CURRENT_MEDIA_IDS,products:DISPLAY,dm:DM,trial:TRIAL,identity:IDENTITY,normalize});
 })();
