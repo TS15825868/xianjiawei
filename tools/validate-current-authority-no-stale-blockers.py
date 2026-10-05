@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+REQUIRED_CURRENT_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
 DEFERRED_ID='qixuan-guilu-drink-powder'
 DEFERRED_NAME='柒玄茶・龜鹿調飲粉'
 CURRENT_30='每日 1–2 罐'
@@ -167,7 +167,7 @@ def assert_social_media_authority():
     req(pool.get('sourceAuthority')==FORMAL_MEDIA_AUTHORITY,f'{NEXT_CYCLE_MEDIA} 未以正式產品媒體檔為產品圖權威')
     product_items=[x for x in pool.get('media') or [] if isinstance(x,dict) and x.get('productId')]
     pool_by={x.get('productId'):str(x.get('source') or '').lstrip('/') for x in product_items}
-    req(set(pool_by)==set(FORMAL_PRODUCT_MEDIA),f'{NEXT_CYCLE_MEDIA} 產品媒體池品項不完整：{sorted(pool_by)}')
+    req(set(FORMAL_PRODUCT_MEDIA).issubset(set(pool_by)),f'{NEXT_CYCLE_MEDIA} 目前核心產品媒體池品項不完整：{sorted(pool_by)}')
     for pid,path in FORMAL_PRODUCT_MEDIA.items():
         req(pool_by.get(pid)==path,f'{NEXT_CYCLE_MEDIA} 的 {pid} 又偏離正式產品圖：{pool_by.get(pid)}')
     for item in pool.get('media') or []:
@@ -192,8 +192,10 @@ def main():
     master=load('public-product-master.json')
     ids=[p.get('id') for p in master.get('products') or []]
     req(master.get('authority')=='user-confirmed-current','目前公開母資料authority錯誤')
-    req(master.get('productCount')==6 and ids==PUBLIC_IDS,'舊七項公開產品模型重新混入')
-    req(DEFERRED_ID not in ids and DEFERRED_NAME not in json.dumps(master.get('products') or [],ensure_ascii=False),'暫緩官網產品不得出現在官網六項產品清單')
+    req(ids and master.get('productCount')==len(ids) and len(ids)==len(set(ids)),'目前公開產品 productCount／ID 清單不一致')
+    req(all(pid in ids for pid in REQUIRED_CURRENT_IDS),'目前核心公開產品缺失')
+    req(DEFERRED_ID not in ids and DEFERRED_NAME not in json.dumps(master.get('products') or [],ensure_ascii=False),'暫緩官網產品不得出現在目前公開產品清單')
+    public_ids=ids
     by={p['id']:p for p in master['products']}
     req(by['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc未同步目前 public-product-master 最新用法')
     req('小玻璃罐' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定小玻璃罐')
@@ -204,24 +206,24 @@ def main():
 
     for rel in ['assets/data/official-products.json','config/official-products.json']:
         data=load(rel);pids=[p.get('id') for p in data.get('products') or []]
-        req(pids==PUBLIC_IDS,f'{rel}不是目前六項官網產品')
-        req((data.get('knowledge_product_ids') or [])==PUBLIC_IDS,f'{rel}知識產品仍是舊模型')
-        req((data.get('approved_media_product_ids') or [])==PUBLIC_IDS,f'{rel}媒體產品不同步')
+        req(pids==public_ids,f'{rel}不是目前官網公開產品清單')
+        req((data.get('knowledge_product_ids') or [])==public_ids,f'{rel}知識產品未跟最新公開母資料同步')
+        req((data.get('approved_media_product_ids') or [])==public_ids,f'{rel}媒體產品未跟最新公開母資料同步')
 
     gao=read('product-guilu-gao.html')
     req(CURRENT_GAO in gao,'龜鹿膏顧客頁未同步目前彈性時段')
 
     runtime=read('site-product-data-authority.js');display=read('site-customer-display-v20260812.js');fallback=read('site.js')
-    req('productCount!==6' in runtime and 'knowledgeProductCount:6' in runtime,'官網產品runtime仍未鎖定六項')
-    req('knowledgeProductCount:7' not in runtime,'官網產品runtime仍有七項硬門')
-    req('knowledgeProductCount:6' in display and 'knowledgeProductCount:7' not in display,'顧客產品圖runtime仍有七項metadata')
-    req('knowledgeProductCount: 6' in fallback,'網站安全備援不是六項')
+    req('Number(master?.productCount)!==ids.length' in runtime and 'knowledgeProductCount:publicIds.length' in runtime,'官網產品runtime未依最新母資料動態計數')
+    req('knowledgeProductCount:6' not in runtime and 'knowledgeProductCount:7' not in runtime,'官網產品runtime仍有固定產品數硬門')
+    req('knowledgeProductCount:publicIds.length' in display and 'knowledgeProductCount:7' not in display,'顧客產品圖runtime未改為動態metadata')
+    req('每日 1 罐' not in fallback and 'usagePrimary:"每日 1 罐"' not in fallback,'網站安全備援仍含30cc舊每日1罐')
     req(CURRENT_30 in read('public-product-master.json'),'缺少30cc目前正式用法')
 
     # llms*.txt 與 policy 欄位可寫「不得公開／不得宣稱」；真正顧客／AI回答／社群 payload 必須通過下列檢查。
     assert_static_public_copy()
     assert_social_payloads()
     assert_social_media_authority()
-    print('PASS: six website products; current formal product media authority; approved-v405 product mappings remain historical-only; no retired product-image regression in social candidates; 30cc daily 1-2 cans and small glass jar/bare/no sticker; Tangkuai 75g/box 8 pieces; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
+    print(f'PASS: {len(public_ids)} current website products; current formal product media authority; approved-v405 mappings historical-only; 30cc daily 1-2 cans and small glass jar/bare/no sticker; Tangkuai 75g/box 8 pieces; flexible timing; no fixed old product-count gate or stale public claim regression.')
 
 if __name__=='__main__': main()
