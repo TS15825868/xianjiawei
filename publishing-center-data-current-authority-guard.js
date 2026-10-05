@@ -4,7 +4,8 @@
   const TARGET='content/public-post-library.json';
   const ASSET_LIBRARY='content/public-asset-library.json';
   const FORMAL_AUTHORITY='data/formal-media-authority-v20260810.json';
-  const RUNTIME='current-authority-media-sanitizer-20260820-v7-six-public-products';
+  const PRODUCT_MASTER='public-product-master.json';
+  const RUNTIME='current-authority-media-sanitizer-20261005-v8-dynamic-public-products';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const DEFERRED_PRODUCT=/柒玄茶|龜鹿調飲粉|qixuan-guilu-drink-powder/i;
   const DISALLOWED_ASSET_STATUSES=new Set(['deprecated-reference-only','preflight-rejected-reference-only','superseded-reference-only']);
@@ -13,6 +14,7 @@
   const normalize=value=>String(value||'').replace(/^https?:\/\/[^/]+\/xianjiawei\//i,'').replace(/^\//,'').split(/[?#]/)[0];
   const assetLibraryPromise=PREV_FETCH(ASSET_LIBRARY+'?authority=20260820-v7',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
   const formalAuthorityPromise=PREV_FETCH(FORMAL_AUTHORITY+'?authority=20260820-v7',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
+  const productMasterPromise=PREV_FETCH(PRODUCT_MASTER+'?authority=20261005-v8',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null);
 
   function productSegments(text,target){
     const source=String(text||''),segments=[];let start=0;
@@ -64,21 +66,22 @@
     for(const segment of productSegments(serialized,'龜鹿湯塊'))if(/(300\s*g|600\s*g)/i.test(segment))return '龜鹿湯塊自己的語境仍含退役容量';
     for(const segment of productSegments(serialized,'龜鹿膠'))if(/300\s*g/i.test(segment))return '龜鹿膠自己的語境仍含錯誤300g容量';
     for(const segment of productSegments(serialized,'龜鹿膏'))if(/(一天一次一小匙|每日一次一小匙|早晚各一小匙|每日早上及下午各一小匙|早上＋下午|早上\+下午)/i.test(segment))return '龜鹿膏仍含退役固定時段；目前為食用時間可依個人使用習慣與作息時間安排';
-    if(String(post?.id||'')==='POST-PRODUCT-OVERVIEW'&&(/七項|第七項|seven[- ]product/i.test(serialized)))return '產品總覽不得重新加入目前暫不放官網的第七項；官網與公開貼文目前為六項產品';
     return'';
   }
 
   window.fetch=async function(input,init){
     const url=typeof input==='string'?input:(input?.url||'');const response=await PREV_FETCH(input,init);if(!url.includes(TARGET)||!response.ok)return response;
     try{
-      const [data,library,formal]=await Promise.all([response.clone().json(),assetLibraryPromise,formalAuthorityPromise]);const retired=retiredPaths(library),currentFormal=currentFormalPaths(formal);
+      const [data,library,formal,master]=await Promise.all([response.clone().json(),assetLibraryPromise,formalAuthorityPromise,productMasterPromise]);const retired=retiredPaths(library),currentFormal=currentFormalPaths(formal);
       const posts=(data.posts||[]).map(post=>{const mediaReason=needsQuarantine(post,retired,currentFormal);if(mediaReason)return ensureGenerationReason(quarantine(post,mediaReason));const copyReason=validateFormalCopy(post);if(copyReason&&post.status!=='published'&&post.status!=='archived')return ensureGenerationReason(quarantine(post,copyReason));return ensureGenerationReason(post)});
       const merged={...data,version:`${String(data.version||'post-bank').replace(/\+current-authority.*$/,'')}+current-authority-20260820-v7`,posts};
-      merged.productAuthority={...(data.productAuthority||{}),textAuthority:'public-product-master.json',knowledgeProducts:6,approvedMediaProducts:6,drink30Usage:CURRENT_30_USAGE,drink180Usage:'每日一包',deferredProductPolicy:'柒玄茶暫不放官網與公開貼文；允許LINE文字知識與ERP內部保留',guardPolicy:'latest-product-authority-first-no-legacy-copy-version-lock'};
+      const publicIds=Array.isArray(master?.products)?master.products.map(product=>String(product?.id||'').trim()).filter(Boolean):[];
+      const approvedMediaIds=Array.isArray(formal?.products)?formal.products.filter(product=>product?.status==='approved_display').map(product=>String(product?.id||'').replace(/cc$/,'').trim()).filter(Boolean):[];
+      merged.productAuthority={...(data.productAuthority||{}),textAuthority:PRODUCT_MASTER,knowledgeProducts:publicIds.length||Number(data.productAuthority?.knowledgeProducts||0),approvedMediaProducts:approvedMediaIds.length||Number(data.productAuthority?.approvedMediaProducts||0),publicProductIds:publicIds,drink30Usage:CURRENT_30_USAGE,drink180Usage:'每日一包',deferredProductPolicy:'柒玄茶暫不放官網與公開貼文；ERP內部資料可保留，未明確重新上架不得自動公開',guardPolicy:'latest-product-authority-first-no-legacy-copy-version-lock'};
       delete merged.productAuthority.sixProductsSixSpecs;
       merged.counts={...(data.counts||{}),total:posts.length,current_authority_regeneration:posts.filter(p=>p.candidate_generation_mode==='current-authority-regeneration-required').length,needs_generation:posts.filter(p=>p.image_status==='needs_generation'&&p.status!=='published'&&!p.campaign_hold).length};
       const headers=new Headers(response.headers);headers.set('content-type','application/json; charset=utf-8');headers.set('cache-control','no-store');headers.set('x-xianjiawei-post-bank-current-authority',RUNTIME);return new Response(JSON.stringify(merged),{status:response.status,statusText:response.statusText,headers});
     }catch{return response}
   };
-  window.XJWCurrentPostMediaAuthority=Object.freeze({runtime:RUNTIME,current30Usage:CURRENT_30_USAGE,assetLibrary:ASSET_LIBRARY,formalAuthority:FORMAL_AUTHORITY,disallowedAssetStatuses:[...DISALLOWED_ASSET_STATUSES],normalize,productSegments,retiredPaths,currentFormalPaths,needsQuarantine,quarantine,ensureGenerationReason,validateFormalCopy});
+  window.XJWCurrentPostMediaAuthority=Object.freeze({runtime:RUNTIME,current30Usage:CURRENT_30_USAGE,assetLibrary:ASSET_LIBRARY,formalAuthority:FORMAL_AUTHORITY,productMaster:PRODUCT_MASTER,disallowedAssetStatuses:[...DISALLOWED_ASSET_STATUSES],normalize,productSegments,retiredPaths,currentFormalPaths,needsQuarantine,quarantine,ensureGenerationReason,validateFormalCopy});
 })();
