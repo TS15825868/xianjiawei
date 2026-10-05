@@ -6,7 +6,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CURRENT_30 = '每日 1–2 罐'
+CURRENT_30 = '每日 1 罐'
 PUBLIC_IDS = ['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
 DEFERRED_ID = 'qixuan-guilu-drink-powder'
 DEFERRED_NAME = '柒玄茶・龜鹿調飲粉'
@@ -70,11 +70,11 @@ def main():
 
     p30 = visible('product-guilu-drink-30cc.html')
     req('30cc／罐（小玻璃罐）' in p30 and '裸罐' in p30 and '無貼紙' in p30, '30cc詳頁包裝事實不完整')
-    req(CURRENT_30 in p30 and CURRENT_30 in faq and CURRENT_30 in guide and CURRENT_30 in products, '30cc每日 1–2 罐未同步產品頁／FAQ／指南／總覽')
+    req(CURRENT_30 in p30 and CURRENT_30 in faq and CURRENT_30 in guide and CURRENT_30 in products, '30cc每日 1 罐未同步產品頁／FAQ／指南／總覽')
     p180 = visible('product-guilu-drink-180cc.html')
     req('180cc／包（鋁袋）' in p180 and '每日一包' in p180, '180cc詳頁規格／使用方式不完整')
 
-    req('75g （2兩）／盒｜8塊裝' in products and '每塊約9.375g' in products, '產品總覽龜鹿湯塊規格不完整')
+    req('75g／盒｜8塊裝' in products and '每塊約9.375g' in products, '產品總覽龜鹿湯塊規格不完整')
     req('600g （1斤）／盒｜32塊裝' in products and '每塊約18.75g' in products, '產品總覽龜鹿膠規格不完整')
 
     dm = visible('dm.html')
