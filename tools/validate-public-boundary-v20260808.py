@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[1]
 BASE='https://ts15825868.github.io/xianjiawei/'
-CURRENT_30='每日 1 罐'
+CURRENT_30='每日 1–2 罐'
 PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
 DEFERRED=('柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder')
 EXPECTED_SPECS={
@@ -41,7 +41,7 @@ def main():
     assert master.get('authority')=='user-confirmed-current','公開母資料不是目前使用者確認權威'
     assert master.get('productCount')==6 and list(products)==PUBLIC_IDS,'公開母資料必須是目前六項官網產品'
     for pid,spec in EXPECTED_SPECS.items():assert products[pid].get('specification')==spec,f'{pid}規格未同步'
-    assert products['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc用法不是每日 1 罐'
+    assert products['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc用法未同步目前正式值'
     assert products['guilu-drink-180'].get('usage',[None])[0]=='每日一包','180cc用法不是每日一包'
 
     pages=sitemap_pages();assert pages,'sitemap沒有公開HTML頁'
