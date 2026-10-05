@@ -2185,3 +2185,59 @@ html body[data-page]:not([data-page="home"]) main.page > .section:not(.section--
 html body[data-page]:not([data-page="home"]) main.page > .section:not(.section--brand-gold) > .section-heading > p:last-child{
   color:#4B5563!important;
 }
+
+
+/* 2026-10-05｜品牌資料頁手機卡片 v29 */
+html body[data-page="brand-facts"] .brand-facts-mobile{
+  display:none;
+}
+html body[data-page="brand-facts"] .facts-table{
+  min-width:760px;
+}
+@media(max-width:760px){
+  html body[data-page="brand-facts"] .table-scroll{
+    display:none!important;
+  }
+  html body[data-page="brand-facts"] .brand-facts-mobile{
+    display:grid!important;
+    gap:12px;
+    margin-top:4px;
+  }
+  html body[data-page="brand-facts"] .brand-fact-card{
+    position:relative;
+    overflow:hidden;
+    padding:18px 17px;
+    border:1px solid rgba(176,138,71,.34);
+    border-radius:18px;
+    background:
+      radial-gradient(circle at 94% 5%,rgba(176,138,71,.07),transparent 28%),
+      linear-gradient(180deg,#FFFDF8 0%,#F8F1E5 100%);
+    box-shadow:0 8px 22px rgba(61,45,29,.07);
+  }
+  html body[data-page="brand-facts"] .brand-fact-card:after{
+    content:"";
+    position:absolute;
+    right:-28px;
+    bottom:-34px;
+    width:120px;
+    height:86px;
+    opacity:.07;
+    background:url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center/contain no-repeat;
+    pointer-events:none;
+  }
+  html body[data-page="brand-facts"] .brand-fact-card .eyebrow{
+    display:inline-flex;
+    margin:0 0 10px;
+  }
+  html body[data-page="brand-facts"] .brand-fact-card h3{
+    margin:0 0 8px;
+    color:#0B1F3B!important;
+    font-size:18px;
+    line-height:1.35;
+  }
+  html body[data-page="brand-facts"] .brand-fact-card p:not(.eyebrow){
+    margin:0;
+    color:#4B5563!important;
+    line-height:1.8;
+  }
+}
