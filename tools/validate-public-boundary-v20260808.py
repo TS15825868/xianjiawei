@@ -75,7 +75,11 @@ def main():
             for phrase in ['30cc／罐','小玻璃罐','裸罐','無貼紙',CURRENT_30]:assert phrase in source,f'30cc正式頁缺：{phrase}'
         if page=='product-guilu-drink-180cc.html':assert '180cc／包' in source and '鋁袋' in source and '每日一包' in source
 
-    for page in ['index.html','products.html','guide.html']:
+    # 首頁允許品牌文案不直接寫「六項」，但六個正式產品入口與 product-main 主圖必須齊全。
+    home=read('index.html')
+    assert home.count('images/product-main/')>=6 and home.count('href="product-')>=6,'index.html未維持目前六項正式產品入口／主圖'
+    for phrase in DEFERRED:assert phrase not in home,f'index.html仍含暫緩產品'
+    for page in ['products.html','guide.html']:
         source=read(page);assert '六項' in source,f'{page}未維持目前六項官網產品'
         for phrase in DEFERRED:assert phrase not in source,f'{page}仍含暫緩產品'
 
