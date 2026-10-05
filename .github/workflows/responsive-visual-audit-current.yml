@@ -539,6 +539,10 @@ jobs:
                     if(expected[1]&&!modalAudit.dm.endsWith(expected[1])) report.errors.push({vp:vpName,page:pth,type:'modal-dm-wrong',detail:{id,expected:expected[1],actual:modalAudit.dm}});
                     const requiredHeadings=['規格','成分','一般使用方式','保存／出貨資訊'];
                     if(requiredHeadings.some((h,idx)=>modalAudit.headings[idx]!==h)) report.errors.push({vp:vpName,page:pth,type:'modal-facts-order',detail:{id,expected:requiredHeadings,actual:modalAudit.headings}});
+                    if(id==='guilu-drink-30'){
+                      const usageText=await page.locator('[role=dialog]').innerText();
+                      for(const phrase of ['每日 1–2 罐','可依個人需求調整','飲用時間可依個人使用習慣與作息時間安排'])if(!usageText.includes(phrase))report.errors.push({vp:vpName,page:pth,type:'modal-current-usage-missing',detail:{id,phrase}});
+                    }
                     if(!modalAudit.line) report.errors.push({vp:vpName,page:pth,type:'modal-line-missing',detail:{id}});
                     if(!modalAudit.mainBox?.width||!modalAudit.mainBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-main-hidden',detail:{id,box:modalAudit.mainBox}});
                     if(!modalAudit.dmBox?.width||!modalAudit.dmBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-dm-hidden',detail:{id,box:modalAudit.dmBox}});
