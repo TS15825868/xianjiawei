@@ -43,7 +43,7 @@ jobs:
 
           public_ids=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
           deferred=['柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder']
-          current_30='每日 1–2 罐'
+          current_30='每日 1 罐'
 
           master=json.loads(Path('public-product-master.json').read_text(encoding='utf-8'))
           master_by={p.get('id'):p for p in master.get('products',[])}
@@ -52,7 +52,7 @@ jobs:
           assert list(master_by)==public_ids
           assert master_by['guilu-drink-30']['usage'][0]==current_30
           assert master_by['guilu-drink-180']['usage'][0]=='每日一包'
-          assert master_by['guilu-tangkuai']['specification']=='75g （2兩）／盒｜8塊裝'
+          assert master_by['guilu-tangkuai']['specification']=='75g／盒｜8塊裝'
           assert master_by['guilu-tangkuai']['detail']=='每塊約9.375g'
           assert master_by['guilu-jiao']['specification']=='600g （1斤）／盒｜32塊裝'
           assert master_by['guilu-jiao']['detail']=='每塊約18.75g'
@@ -114,7 +114,7 @@ jobs:
             for phrase in retired_output:
               assert phrase not in text, f'{rel} 目前輸出仍含退役資料：{phrase}'
 
-          print('PASS: six website/public-post products, six approved media, current 30cc daily 1–2 cans, flexible Guilu Gao timing, no deferred Qixuan website regression.')
+          print('PASS: six website/public-post products, six approved media, current 30cc daily 1 can, flexible Guilu Gao timing, no deferred Qixuan website regression.')
           PY
 
       - name: Audit current authority and stale-data blockers
