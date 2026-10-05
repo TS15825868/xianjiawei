@@ -1,10 +1,10 @@
 "use strict";
 
-/* 仙加味產品資料權威層｜2026-09-27 六項官網公開產品
- * public-product-master.json 是官網、官網AI/GEO與公開貼文目前六項產品文字核心事實的公開權威。
- * data.json 保留六項已有正式產品圖的顧客展示資料與通路欄位。
+/* 仙加味產品資料權威層｜目前官網公開產品
+ * public-product-master.json 是官網、官網AI/GEO與公開貼文目前公開產品文字核心事實的公開權威。
+ * data.json 保留目前公開產品的顧客展示資料、正式媒體與通路欄位。
  * 柒玄茶目前暫不放官網；LINE OA文字知識與ERP資料由各自正式權威保留。
- * 六項一般展示只使用 product-main 使用者核准高清 JPG 簡單主圖；完整資料與 dm-final 正式 DM 只集中於單一「查看介紹」Modal；獨立產品頁保留 SEO／分享與備援；不得把 DM 當主圖。
+ * 一般展示使用各產品目前核准的 product-main 正式主圖；完整資料與 dm-final 正式 DM 只集中於單一「查看介紹」Modal；獨立產品頁保留 SEO／分享與備援；不得把 DM 當主圖。
  */
 (function(){
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
@@ -15,8 +15,7 @@
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
-  const PUBLIC_PRODUCT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
-  const MEDIA_PRODUCT_IDS=PUBLIC_PRODUCT_IDS;
+  const REQUIRED_CURRENT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
   const DEFERRED_ID='qixuan-guilu-drink-powder';
   const mediaAuthority=()=>window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const versioned=value=>{const base=String(value||'').split('?')[0];return base?`${base}?v=${VERSION}`:'';};
@@ -35,10 +34,11 @@
       return response.json();
     })
     .then(master=>{
-      const ids=Array.isArray(master?.products)?master.products.map(product=>product?.id):[];
-      if(master?.authority!=='user-confirmed-current'||master?.productCount!==6||JSON.stringify(ids)!==JSON.stringify(PUBLIC_PRODUCT_IDS)){
+      const ids=Array.isArray(master?.products)?master.products.map(product=>String(product?.id||'').trim()).filter(Boolean):[];
+      if(master?.authority!=='user-confirmed-current'||!ids.length||Number(master?.productCount)!==ids.length||new Set(ids).size!==ids.length){
         throw new Error(`public-product-master authority/productCount invalid: ${master?.productCount||'missing'} [${ids.join(',')}]`);
       }
+      for(const id of REQUIRED_CURRENT_IDS)if(!ids.includes(id))throw new Error(`required current public product missing: ${id}`);
       if(ids.includes(DEFERRED_ID))throw new Error('deferred Qixuan must not be reintroduced into website master');
       const p30=master.products.find(product=>product.id==='guilu-drink-30');
       if(!Array.isArray(p30?.usage)||p30.usage[0]!==CURRENT_30_USAGE){
@@ -57,7 +57,7 @@
     })
     .catch(error=>{
       state.error=error;
-      console.error('仙加味六項官網產品公開母資料載入失敗；暫以既有靜態資料顯示',error);
+      console.error('仙加味官網公開產品母資料載入失敗；暫以既有靜態資料顯示',error);
       return null;
     });
 
@@ -117,14 +117,19 @@
 
   function normalizeData(data,master){
     if(!data||!Array.isArray(data.products)||!master)return data;
+    const publicIds=(master.products||[]).map(product=>String(product?.id||'').trim()).filter(Boolean);
+    const dataIds=new Set(data.products.map(product=>String(product?.id||'').trim()).filter(Boolean));
+    const missing=publicIds.filter(id=>!dataIds.has(id));
+    if(missing.length)throw new Error(`data.json missing current public products: ${missing.join(',')}`);
     const normalized={...data};
-    normalized.products=data.products.filter(product=>MEDIA_PRODUCT_IDS.includes(product.id)).map(product=>normalizeProduct(product,master));
+    normalized.products=data.products.filter(product=>publicIds.includes(product.id)).map(product=>normalizeProduct(product,master));
+    const approvedMediaCount=normalized.products.filter(product=>String(product?.image||product?.imageUrl||product?.image_url||'').trim()).length;
     normalized.fulfillmentPolicy={...(data.fulfillmentPolicy||{}),...(master.fulfillmentPolicy||{})};
-    normalized.officialProductIds=[...PUBLIC_PRODUCT_IDS];
-    normalized.officialProductCount=PUBLIC_PRODUCT_IDS.length;
-    normalized.knowledgeProductIds=[...PUBLIC_PRODUCT_IDS];
-    normalized.knowledgeProductCount=PUBLIC_PRODUCT_IDS.length;
-    normalized.approvedMediaProductCount=MEDIA_PRODUCT_IDS.length;
+    normalized.officialProductIds=[...publicIds];
+    normalized.officialProductCount=publicIds.length;
+    normalized.knowledgeProductIds=[...publicIds];
+    normalized.knowledgeProductCount=publicIds.length;
+    normalized.approvedMediaProductCount=approvedMediaCount;
     normalized.productMasterVersion=master.version;
     normalized.productMasterAuthority=master.authority;
     normalized.publicDisclaimer=master.publicCopyPolicy||data.publicDisclaimer;
@@ -132,10 +137,10 @@
       ...(data.runtime||{}),
       productDataAuthority:'public-product-master.json',
       productMasterVersion:master.version,
-      productMasterMode:'six-website-products-six-approved-media-products',
+      productMasterMode:'current-public-products-with-approved-media',
       productMasterLoaded:true,
-      knowledgeProductCount:6,
-      approvedMediaProductCount:6,
+      knowledgeProductCount:publicIds.length,
+      approvedMediaProductCount:approvedMediaCount,
       deferredWebsiteProduct:DEFERRED_ID
     };
     return normalized;
@@ -160,7 +165,7 @@
       const normalized=normalizeData(data,master);
       return new Response(JSON.stringify(normalized),{status:response.status,statusText:response.statusText,headers:response.headers});
     }catch(error){
-      console.warn('仙加味六項官網產品公開母資料套用失敗',error);
+      console.warn('仙加味官網公開產品母資料套用失敗',error);
       return response;
     }
   };
