@@ -222,6 +222,6 @@ def main():
     assert_static_public_copy()
     assert_social_payloads()
     assert_social_media_authority()
-    print('PASS: six website products; current formal product media authority; approved-v405 product mappings remain historical-only; no retired product-image regression in social candidates; 30cc daily 1 can and small glass jar/bare/no sticker; Tangkuai 75g/box 8 pieces; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
+    print('PASS: six website products; current formal product media authority; approved-v405 product mappings remain historical-only; no retired product-image regression in social candidates; 30cc daily 1-2 cans and small glass jar/bare/no sticker; Tangkuai 75g/box 8 pieces; flexible timing; negative policy may name forbidden items while actual product/customer/AI-answer/social payloads cannot; no stale public brand/product/timing or high-risk claim regression.')
 
 if __name__=='__main__': main()
