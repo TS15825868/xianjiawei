@@ -40,7 +40,7 @@
       const number=Number(match[1]);if(!Number.isFinite(number)||number<50)continue;
       const before=source.slice(Math.max(0,match.index-80),match.index);let pos=-1,label='';
       for(const candidate of labels){const p=before.lastIndexOf(candidate);if(p>pos){pos=p;label=candidate}}
-      if(label==='龜鹿湯塊'&&Math.abs(number-75)>0.001)errors.push(`龜鹿湯塊只能使用75g （2兩）／盒｜8塊裝，目前出現${match[0]}`);
+      if(label==='龜鹿湯塊'&&Math.abs(number-75)>0.001)errors.push(`龜鹿湯塊只能使用75g／盒｜8塊裝，目前出現${match[0]}`);
       if(label==='龜鹿膠'&&Math.abs(number-600)>0.001)errors.push(`龜鹿膠主規格只能使用600g（1斤）／盒｜32塊裝，目前出現${match[0]}`);
     }
     return errors;
@@ -94,7 +94,7 @@
     if(t.includes('180cc'))notes.push('180cc最新正式使用方式為「每日一包」；產品用途使用正式高清鋁袋主圖，詳細DM只在明確DM用途使用，兩者不可互換。');
     if(/試喝|先試喝/.test(t))notes.push(`官網試喝頁目前固定使用最新核准正式試喝海報 ${TRIAL_POSTER}；退役trial素材不得再使用，正式貼文圖仍需完成圖文一致檢查。`);
     if(t.includes('龜鹿膏'))notes.push('龜鹿膏100g／罐維持正式產品圖與獨立詳細DM，產品罐型、標籤與比例不得改。');
-    if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊正式規格75g （2兩）／盒｜8塊裝；每塊約9.375g。');
+    if(t.includes('龜鹿湯塊'))notes.push('龜鹿湯塊正式規格75g／盒｜8塊裝；每塊約9.375g。');
     if(t.includes('龜鹿膠'))notes.push('龜鹿膠正式規格600g （1斤）／盒｜32塊裝；每塊約18.75g。');
     if(t.includes('鹿茸粉'))notes.push('鹿茸粉75g／罐；維持正式產品圖與獨立詳細DM。');
     if(/柒玄茶|龜鹿調飲粉/.test(t))notes.push('柒玄茶・龜鹿調飲粉正式文字規格為2g／小包；20g／包（10小包）；正式成分表與核准產品實物原圖尚未確認前不得自行補寫或生成包裝。');
