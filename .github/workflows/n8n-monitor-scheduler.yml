@@ -92,7 +92,7 @@ jobs:
           const text=JSON.stringify(d);
           if(text.includes('台興山產')) throw new Error('官網公開產品母資料含舊品牌名');
           const drink30=d.products.find(x=>x.id==='guilu-drink-30');
-          if(!drink30 || !JSON.stringify(drink30.usage).includes('每日 1 罐')) throw new Error('30cc最新用法未生效');
+          if(!drink30 || !JSON.stringify(drink30.usage).includes('每日 1–2 罐') || !JSON.stringify(drink30.usage).includes('可依個人需求調整')) throw new Error('30cc最新用法未生效：應為每日 1–2 罐，可依個人需求調整');
           if(!String(drink30.package||'').includes('裸罐') || !String(drink30.package||'').includes('無貼紙')) throw new Error('30cc正式包裝規則缺漏');
           const made=[...(d.fulfillmentPolicy?.madeToOrderProducts||[])].sort();
           const expectedMade=['guilu-drink-180','guilu-drink-30'].sort();
