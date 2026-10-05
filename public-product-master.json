@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "version": "2026-10-05-six-public-product-master-v7",
+  "version": "2026-10-05-six-public-product-master-v8",
   "updatedAt": "2026-10-05",
   "authority": "user-confirmed-current",
   "brand": {
@@ -8,7 +8,13 @@
     "positioning": "現代漢方生活品牌",
     "slogan": "補養，是一種節奏。",
     "origin": "台北萬華",
-    "storyCore": ["萬華起家","四代家族傳承","鹿角與熬膠工藝","漢方飲食文化","以現代、方便、貼近日常的方式呈現"]
+    "storyCore": [
+      "萬華起家",
+      "四代家族傳承",
+      "鹿角與熬膠工藝",
+      "漢方飲食文化",
+      "以現代、方便、貼近日常的方式呈現"
+    ]
   },
   "authorityPriority": [
     "使用者目前聊天最新明確指示",
@@ -20,15 +26,127 @@
   ],
   "productCount": 6,
   "products": [
-    {"id":"guilu-gao","name":"龜鹿膏","series":"仙加味・龜鹿","specification":"100g／罐","form":"膏狀","ingredients":["鹿角萃取物","龜板萃取物","枸杞","紅棗","黃耆","粉光蔘"],"usage":["食用時間可依個人使用習慣與作息時間安排","初次可先從半匙開始","可直接取用或以溫熱水化開"],"page":"https://ts15825868.github.io/xianjiawei/product-guilu-gao.html","mediaStatus":"approved-formal-product-image"},
-    {"id":"guilu-drink-30","name":"龜鹿飲30cc玻璃罐","series":"仙加味・龜鹿","specification":"30cc／罐（小玻璃罐）","form":"液態即飲","package":"小玻璃罐、裸罐、無貼紙；不可更換瓶型、不可任意加標籤、不可放大成一般飲料瓶","ingredients":["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],"usage":["每日 1 罐","可隔水加熱或溫熱飲用","避免冰飲"],"usageTiming":"飲用時間可依個人使用習慣與作息時間安排","fulfillment":"接單後製作，約5～7個工作天出貨","page":"https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html","mediaStatus":"approved-formal-product-image"},
-    {"id":"guilu-drink-180","name":"龜鹿飲180cc鋁袋","series":"仙加味・龜鹿","specification":"180cc／包（鋁袋）","form":"液態即飲","package":"狹長直立鋁袋；維持正式比例，不可生成巨大包裝","ingredients":["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],"usage":["每日一包","可隔水加熱或溫熱飲用","避免冰飲"],"usageTiming":"飲用時間可依個人使用習慣與作息時間安排","fulfillment":"接單後製作，約5～7個工作天出貨","page":"https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html","mediaStatus":"approved-formal-product-image"},
-    {"id":"guilu-tangkuai","name":"龜鹿湯塊","series":"仙加味・龜鹿","specification":"75g／盒｜8塊裝","detail":"每塊約9.375g","form":"塊狀","ingredients":["龜板萃取物","鹿角萃取物"],"page":"https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html","mediaStatus":"approved-formal-product-image"},
-    {"id":"guilu-jiao","name":"龜鹿膠","series":"仙加味・龜鹿","specification":"600g （1斤）／盒｜32塊裝","detail":"每塊約18.75g","form":"塊狀","ingredients":["龜板萃取物","鹿角萃取物"],"page":"https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html","mediaStatus":"approved-formal-product-image"},
-    {"id":"luerong-fen","name":"鹿茸粉","series":"仙加味","specification":"75g／罐","form":"粉末","ingredients":["鹿茸"],"page":"https://ts15825868.github.io/xianjiawei/product-luerong-fen.html","mediaStatus":"approved-formal-product-image"}
+    {
+      "id": "guilu-gao",
+      "name": "龜鹿膏",
+      "series": "仙加味・龜鹿",
+      "specification": "100g／罐",
+      "form": "膏狀",
+      "ingredients": [
+        "鹿角萃取物",
+        "龜板萃取物",
+        "枸杞",
+        "紅棗",
+        "黃耆",
+        "粉光蔘"
+      ],
+      "usage": [
+        "食用時間可依個人使用習慣與作息時間安排",
+        "初次可先從半匙開始",
+        "可直接取用或以溫熱水化開"
+      ],
+      "page": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html",
+      "mediaStatus": "approved-formal-product-image"
+    },
+    {
+      "id": "guilu-drink-30",
+      "name": "龜鹿飲30cc玻璃罐",
+      "series": "仙加味・龜鹿",
+      "specification": "30cc／罐（小玻璃罐）",
+      "form": "液態即飲",
+      "package": "小玻璃罐、裸罐、無貼紙；不可更換瓶型、不可任意加標籤、不可放大成一般飲料瓶",
+      "ingredients": [
+        "水",
+        "龜板萃取物",
+        "鹿角萃取物",
+        "粉光蔘",
+        "枸杞",
+        "紅棗",
+        "黃耆"
+      ],
+      "usage": [
+        "每日 1–2 罐",
+        "可依個人需求調整",
+        "可隔水加熱或溫熱飲用",
+        "避免冰飲"
+      ],
+      "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
+      "fulfillment": "接單後製作，約5～7個工作天出貨",
+      "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
+      "mediaStatus": "approved-formal-product-image"
+    },
+    {
+      "id": "guilu-drink-180",
+      "name": "龜鹿飲180cc鋁袋",
+      "series": "仙加味・龜鹿",
+      "specification": "180cc／包（鋁袋）",
+      "form": "液態即飲",
+      "package": "狹長直立鋁袋；維持正式比例，不可生成巨大包裝",
+      "ingredients": [
+        "水",
+        "龜板萃取物",
+        "鹿角萃取物",
+        "粉光蔘",
+        "枸杞",
+        "紅棗",
+        "黃耆"
+      ],
+      "usage": [
+        "每日一包",
+        "可隔水加熱或溫熱飲用",
+        "避免冰飲"
+      ],
+      "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
+      "fulfillment": "接單後製作，約5～7個工作天出貨",
+      "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html",
+      "mediaStatus": "approved-formal-product-image"
+    },
+    {
+      "id": "guilu-tangkuai",
+      "name": "龜鹿湯塊",
+      "series": "仙加味・龜鹿",
+      "specification": "75g／盒｜8塊裝",
+      "detail": "每塊約9.375g",
+      "form": "塊狀",
+      "ingredients": [
+        "龜板萃取物",
+        "鹿角萃取物"
+      ],
+      "page": "https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html",
+      "mediaStatus": "approved-formal-product-image"
+    },
+    {
+      "id": "guilu-jiao",
+      "name": "龜鹿膠",
+      "series": "仙加味・龜鹿",
+      "specification": "600g （1斤）／盒｜32塊裝",
+      "detail": "每塊約18.75g",
+      "form": "塊狀",
+      "ingredients": [
+        "龜板萃取物",
+        "鹿角萃取物"
+      ],
+      "page": "https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html",
+      "mediaStatus": "approved-formal-product-image"
+    },
+    {
+      "id": "luerong-fen",
+      "name": "鹿茸粉",
+      "series": "仙加味",
+      "specification": "75g／罐",
+      "form": "粉末",
+      "ingredients": [
+        "鹿茸"
+      ],
+      "page": "https://ts15825868.github.io/xianjiawei/product-luerong-fen.html",
+      "mediaStatus": "approved-formal-product-image"
+    }
   ],
   "fulfillmentPolicy": {
-    "madeToOrderProducts": ["guilu-drink-30","guilu-drink-180"],
+    "madeToOrderProducts": [
+      "guilu-drink-30",
+      "guilu-drink-180"
+    ],
     "drinkLeadTime": "約5～7個工作天出貨",
     "scopeRule": "5～7個工作天交期只適用龜鹿飲，不可套用其他產品"
   },
@@ -38,17 +156,20 @@
     "medicalClaims": "不得宣稱疾病治療、預防、改善或保證功效",
     "pricePolicy": "價格與促銷為易變資料，不寫入本固定公開母資料；以官方LINE最新回覆為準",
     "imagePolicy": "提到產品時只可使用正式產品實物外觀；沒有正式原圖就不自創產品圖",
-    "drink30CurrentUsage": "每日 1 罐",
-    "antiRegression": "任何舊文案、舊鏡像、舊守門員、舊衍生同步器不得把龜鹿飲30cc回退成每日 1–2 罐；已暫緩對外的產品不得由舊資料自動重新加入官網"
+    "drink30CurrentUsage": "每日 1–2 罐",
+    "antiRegression": "龜鹿飲30cc最新正式使用方式為每日 1–2 罐，可依個人需求調整；任何舊文案、舊鏡像、舊守門員或舊衍生同步器不得鎖回每日 1 罐；已暫緩對外的產品不得由舊資料自動重新加入官網"
   },
   "machineReadable": {
-    "canonicalBase":"https://ts15825868.github.io/xianjiawei/",
-    "geo":"geo-data.json",
-    "aiAnswers":"ai-answers.json",
-    "llms":"llms.txt",
-    "llmsFull":"llms-full.txt",
-    "sitemap":"sitemap.xml",
-    "lastReviewedAt":"2026-10-05"
+    "canonicalBase": "https://ts15825868.github.io/xianjiawei/",
+    "geo": "geo-data.json",
+    "aiAnswers": "ai-answers.json",
+    "llms": "llms.txt",
+    "llmsFull": "llms-full.txt",
+    "sitemap": "sitemap.xml",
+    "lastReviewedAt": "2026-10-05"
   },
-  "contact": {"lineId":"@762jybnm","lineUrl":"https://lin.ee/sHZW7NkR"}
+  "contact": {
+    "lineId": "@762jybnm",
+    "lineUrl": "https://lin.ee/sHZW7NkR"
+  }
 }
