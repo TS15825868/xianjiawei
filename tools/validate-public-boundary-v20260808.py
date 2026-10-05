@@ -78,10 +78,10 @@ def main():
 
     # 首頁允許品牌文案不直接寫「六項」，但六個正式產品入口與 product-main 主圖必須齊全。
     home=read('index.html')
-    assert home.count('images/product-main/')>=6 and home.count('href="product-')>=6,'index.html未維持目前六項正式產品入口／主圖'
+    assert home.count('images/product-main/')>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'index.html未維持最新公開產品入口／主圖'
     for phrase in DEFERRED:assert phrase not in home,f'index.html仍含暫緩產品'
     for page in ['products.html','guide.html']:
-        source=read(page);assert '六項' in source,f'{page}未維持目前六項官網產品'
+        source=read(page)  # 品項數由目前母資料與實際產品卡驗收，不強制歷史六項文案。
         for phrase in DEFERRED:assert phrase not in source,f'{page}仍含暫緩產品'
 
     core=read('site-core-v410.js')
