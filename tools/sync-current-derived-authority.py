@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1]
 MASTER=ROOT/'public-product-master.json'
 PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
 DEFERRED_ID='qixuan-guilu-drink-powder'
-CURRENT_30='每日 1–2 罐'
+CURRENT_30='每日 1 罐'
 WRITE='--write' in sys.argv
 
 
