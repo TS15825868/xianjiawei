@@ -123,11 +123,14 @@ jobs:
                       await page.waitForFunction(()=>document.querySelectorAll('#product-list .product-card').length===6,{timeout:12000}).catch(()=>{});
                     }
                   }
+                  // 驗收證據必須把 lazy 圖也實際載入，避免 fullPage 截圖出現假性空白卡。
+                  await page.evaluate(()=>{
+                    document.querySelectorAll('img[loading="lazy"]').forEach(img=>{img.loading='eager';});
+                  });
                   await page.waitForFunction(() => {
-                    const visible=i=>!!(i&&(i.offsetWidth||i.offsetHeight||i.getClientRects().length));
-                    return [...document.images].filter(visible).every(i=>i.complete&&i.naturalWidth>0);
-                  },{timeout:1200}).catch(()=>{});
-                  await page.waitForTimeout(220);
+                    return [...document.images].filter(i=>i.getAttribute('src')).every(i=>i.complete&&i.naturalWidth>0);
+                  },{timeout:8000}).catch(()=>{});
+                  await page.waitForTimeout(260);
                 }catch(e){
                   report.errors.push({vp:vpName,page:pth,type:'navigation',detail:String(e)});
                   await page.close(); continue;
@@ -427,7 +430,7 @@ jobs:
                     };
                   });
                   report.viewports[vpName][pth].brandGoldSection=gold;
-                  if(!gold.exists||gold.headingColor!=='rgb(255, 248, 232)'||gold.paragraphColor!=='rgb(255, 248, 232)'){
+                  if(!gold.exists||gold.headingColor!=='rgb(255, 248, 232)'||gold.paragraphColor!=='rgb(255, 248, 232)'||gold.backgroundColor!=='rgb(116, 81, 37)'){
                     report.errors.push({vp:vpName,page:pth,type:'brand-gold-low-contrast-copy',detail:gold});
                   }
                 }
@@ -517,7 +520,7 @@ jobs:
                   }
                 }
 
-                if(keyScreens.has(pth)){
+                if(keyScreens.has(pth)||vpName==='desktop'||vpName==='iphone'){
                   await page.screenshot({path:`responsive-audit-screens/${vpName}-${pth.replace('.html','')}.png`,fullPage:true});
                 }
                 await page.close();
