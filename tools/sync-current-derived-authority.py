@@ -8,7 +8,7 @@ ROOT=Path(__file__).resolve().parents[1]
 MASTER=ROOT/'public-product-master.json'
 PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
 DEFERRED_ID='qixuan-guilu-drink-powder'
-CURRENT_30='每日 1 罐'
+CURRENT_30='每日 1–2 罐'
 WRITE='--write' in sys.argv
 
 
@@ -57,7 +57,7 @@ def main():
         raise SystemExit('public-product-master.json不是目前六項公開產品權威')
     by={p['id']:p for p in master['products']}
     if by['guilu-drink-30'].get('usage',[None])[0]!=CURRENT_30:
-        raise SystemExit('30cc目前正式用法不是每日 1–2 罐')
+        raise SystemExit(f'30cc目前正式用法不是 {CURRENT_30}')
     for rel in ['data.json','catalog-public.json','product-master.json']:
         normalize_file(ROOT/rel,by)
     for rel in ['assets/data/official-products.json','config/official-products.json','ai-answers.json','geo-data.json']:
