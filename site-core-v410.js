@@ -827,7 +827,7 @@ function openProductModal(product, sourceElement) {
   const dmImage = detailImages[0] || "";
   const spec = productDisplaySpec(product) || "請見正式產品資訊";
   const ingredients = Array.isArray(product.ingredients) ? product.ingredients.filter(Boolean) : [];
-  const usage = Array.isArray(product.usage) ? product.usage.filter(Boolean) : [];
+  const usage = [...new Set([...(Array.isArray(product.usage) ? product.usage : []), product.usageAdjustment, product.usageTiming || (['guilu-drink-30','guilu-drink-180'].includes(product.id) ? '飲用時間可依個人使用習慣與作息時間安排' : '')].filter(Boolean))];
   const storage = Array.isArray(product.storage) ? product.storage.filter(Boolean) : [];
   const fulfillment = String(product.fulfillmentNotice || "出貨與配送時間請透過官方 LINE 確認。").trim();
   const versionAsset = value => {
@@ -1041,3 +1041,4 @@ window.closeModal = closeModal;
 window.openProductModal = openProductModal;
 window.buildLineAutoLink = buildLineAutoLink;
 window.lineButton = lineButton;
+

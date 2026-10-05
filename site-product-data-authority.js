@@ -208,15 +208,10 @@
     ['30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'],
     ['30cc／瓶','30cc／罐（小玻璃罐）'],
     ['龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'],
-    ['每日 1–2 罐',CURRENT_30_USAGE],
-    ['每日 1–2 罐',CURRENT_30_USAGE],
-    ['每日 1–2 罐',CURRENT_30_USAGE],
-    ['每日 1–2 罐',CURRENT_30_USAGE],
-    ['每日 1–2 罐',CURRENT_30_USAGE],
-    ['每日 1–2 罐',CURRENT_30_USAGE],
-    ['每日 1–2 罐',CURRENT_30_USAGE],
-    ['每日 1–2 罐',CURRENT_30_USAGE],
-    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1 罐',CURRENT_30_USAGE],
+    ['每日1罐',CURRENT_30_USAGE],
+    ['每日一罐',CURRENT_30_USAGE],
+    ['每日 1-2 罐',CURRENT_30_USAGE],
     ['每日早上及下午各一小匙',CURRENT_GAO_TIMING],
     ['早晚各一小匙',CURRENT_GAO_TIMING],
     ['早上＋下午','時間依作息安排'],
@@ -259,3 +254,4 @@
 
   window.XJWProductDataAuthority=Object.freeze({version:VERSION,masterUrl:MASTER_URL,getMaster:()=>masterPromise,normalizeData,normalizeProduct,normalizeHead,normalizeVisibleCopy,normalizeCustomerView,state});
 })();
+
