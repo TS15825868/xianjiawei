@@ -417,6 +417,24 @@ jobs:
                   if(duplicateChoose) report.errors.push({vp:vpName,page:pth,type:'choose-duplicate-results',detail:{count:duplicateChoose}});
                 }
 
+                if(pth==='brand-facts.html'){
+                  const facts=await page.evaluate(()=>{
+                    const table=document.querySelector('.facts-table');
+                    const wrap=document.querySelector('.table-scroll');
+                    const cards=[...document.querySelectorAll('.brand-facts-mobile .brand-fact-card')];
+                    const visible=e=>!!(e&&(e.offsetWidth||e.offsetHeight||e.getClientRects().length));
+                    return {tableVisible:visible(table)&&visible(wrap),cardCount:cards.length,visibleCards:cards.filter(visible).length};
+                  });
+                  report.viewports[vpName][pth].brandFacts=facts;
+                  const mobile=vpName==='iphone'||vpName==='android';
+                  if(mobile && (facts.cardCount!==6||facts.visibleCards!==6||facts.tableVisible)){
+                    report.errors.push({vp:vpName,page:pth,type:'brand-facts-mobile-cards',detail:facts});
+                  }
+                  if(!mobile && vpName!=='tablet' && !facts.tableVisible){
+                    report.errors.push({vp:vpName,page:pth,type:'brand-facts-desktop-table',detail:facts});
+                  }
+                }
+
                 if(pth==='why-guilu.html'){
                   const gold=await page.evaluate(()=>{
                     const section=document.querySelector('#guilu-choose.section--brand-gold');
