@@ -1,4 +1,5 @@
 name: 仙加味官網跨裝置視覺／功能完整驗收
+# visual audit version: 20261005-v28-final
 
 on:
   push:
