@@ -20,8 +20,8 @@ const master=json("public-product-master.json");
 const ids=["guilu-gao","guilu-drink-30","guilu-drink-180","guilu-tangkuai","guilu-jiao","luerong-fen"];
 assert(master.authority==="user-confirmed-current","master","authority 必須為 user-confirmed-current",master.authority);
 assert(master.brand?.name==="仙加味","master","公開品牌必須只使用仙加味",master.brand?.name);
-assert(master.productCount===master.products.length && new Set(master.products.map(p=>p.id)).size===master.products.length,"master","公開產品數必須為 6",master.productCount);
-assert(ids.every(id=>master.products.some(p=>p.id===id)),"master","六項公開產品順序／ID 不一致",(master.products||[]).map(x=>x.id));
+assert(master.productCount===master.products.length && new Set(master.products.map(p=>p.id)).size===master.products.length,"master","公開產品數必須與最新母資料清單一致",master.productCount);
+assert(ids.every(id=>master.products.some(p=>p.id===id)),"master","目前核心公開產品 ID 缺失",(master.products||[]).map(x=>x.id));
 
 const p30=product(master.products,"guilu-drink-30");
 const p180=product(master.products,"guilu-drink-180");

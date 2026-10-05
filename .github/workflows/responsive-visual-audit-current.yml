@@ -486,7 +486,7 @@ jobs:
                   };
                   const modalCount=await productIntroButtons.count();
                   if(modalCount!==publicCount) report.errors.push({vp:vpName,page:pth,type:'product-intro-count',detail:{expected:publicCount,actual:modalCount}});
-                  for(let i=0;i<Math.min(modalCount,6);i++){
+                  for(let i=0;i<modalCount;i++){
                     const button=productIntroButtons.nth(i);
                     const id=await button.locator('xpath=ancestor::article[@data-product-id]').getAttribute('data-product-id');
                     await button.click();
