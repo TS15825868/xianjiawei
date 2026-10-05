@@ -82,7 +82,9 @@ jobs:
           assert catalog.get('approvedMediaProductCount')==len(public_ids)
           p30=products['guilu-drink-30']
           assert p30.get('usagePrimary')==current_30 or (p30.get('usage') or [None])[0]==current_30
-          assert str(p30.get('dmImage') or '').split('?',1)[0].endswith('/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg')
+          media=json.loads(Path('data/product-media-authority.json').read_text(encoding='utf-8'))
+          current_details=media.get('products',{}).get('guilu-drink-30',{}).get('detailImages') or []
+          assert current_details and str(p30.get('dmImage') or '').split('?',1)[0].endswith(current_details[0])
           for pid,p in products.items():
               main=str(p.get('image') or p.get('imageUrl') or '').split('?',1)[0]
               assert '/images/product-main/' in main, f'{pid} 一般展示未使用 product-main: {main}'
