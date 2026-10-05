@@ -3,7 +3,7 @@
 const fs=require("fs");
 
 const ROOT=process.cwd();
-const DAILY_30="每日 1 罐";
+const DAILY_30="每日 1–2 罐";
 const TANGKUAI_SPEC="75g／盒｜8塊裝";
 const LINE_URL="https://lin.ee/sHZW7NkR";
 const failures=[];
@@ -29,7 +29,7 @@ const tang=product(master.products,"guilu-tangkuai");
 const jiao=product(master.products,"guilu-jiao");
 assert(p30?.name==="龜鹿飲30cc玻璃罐","30cc","正式名稱錯誤",p30?.name);
 assert(p30?.specification==="30cc／罐（小玻璃罐）","30cc","正式規格錯誤",p30?.specification);
-assert(p30?.usage?.[0]===DAILY_30,"30cc","最新正式使用方式必須為每日 1 罐",p30?.usage?.[0]);
+assert(p30?.usage?.[0]===DAILY_30,"30cc","最新正式使用方式必須同步 public-product-master",p30?.usage?.[0]);
 assert(/小玻璃罐/.test(p30?.package||"")&&/裸罐/.test(p30?.package||"")&&/無貼紙/.test(p30?.package||""),"30cc","包裝必須維持小玻璃裸罐、無貼紙",p30?.package);
 assert(p180?.specification==="180cc／包（鋁袋）","180cc","正式規格錯誤",p180?.specification);
 assert(tang?.specification===TANGKUAI_SPEC,"龜鹿湯塊","正式規格必須為 75g／盒｜8塊裝",tang?.specification);
@@ -60,23 +60,21 @@ for(const path of ["product-master.json","catalog-public.json","assets/data/offi
 const ai=json("ai-answers.json");
 const answer30=(ai.answers||[]).find(x=>x.id==="drink-30-vs-180");
 const answerAll=(ai.answers||[]).find(x=>x.id==="all-products");
-assert(answer30?.answer?.includes(DAILY_30),"ai-answers","30cc 問答未同步每日 1 罐",answer30?.answer);
-assert(!/每日\s*1\s*[–—\-～~至]\s*2\s*罐/.test(answer30?.answer||""),"ai-answers","30cc 問答仍含舊每日 1–2 罐",answer30?.answer);
+assert(answer30?.answer?.includes(DAILY_30),"ai-answers","30cc 問答未同步目前正式用法",answer30?.answer);
 assert(answerAll?.answer?.includes(TANGKUAI_SPEC),"ai-answers","產品總覽問答未同步龜鹿湯塊正式規格",answerAll?.answer);
 
 const geo=read("geo-data.json");
-assert(geo.includes('"value":"每日 1 罐;')||geo.includes('"value":"每日 1 罐；'),"geo-data","GEO 未同步 30cc 每日 1 罐");
+assert(geo.includes(DAILY_30),"geo-data","GEO 未同步 30cc 目前正式用法");
 assert(!/75g\s*[（(]\s*2\s*兩/.test(geo),"geo-data","GEO 仍含龜鹿湯塊舊 2兩 標示");
 
 const siteAuthority=read("site-product-data-authority.js");
-assert(siteAuthority.includes("const CURRENT_30_USAGE='每日 1 罐';"),"runtime","產品資料守門員未鎖定每日 1 罐");
+assert(siteAuthority.includes("const CURRENT_30_USAGE='每日 1–2 罐';"),"runtime","產品資料守門員未同步目前正式用法");
 assert(siteAuthority.includes("tangkuai?.specification!=='75g／盒｜8塊裝'"),"runtime","產品資料守門員未鎖定龜鹿湯塊新版規格");
 
 const publicHtml=[...read("sitemap.xml").matchAll(/<loc>https:\/\/ts15825868\.github\.io\/xianjiawei\/([^<]+\.html)<\/loc>/g)].map(m=>m[1]);
 for(const path of publicHtml){
   const html=read(path);
   if(/台興山產/.test(html))fail(path,"公開頁不得顯示舊品牌台興山產");
-  if(/每日\s*1\s*[–—\-～~至]\s*2\s*罐/.test(html))fail(path,"公開頁仍含 30cc 舊每日 1–2 罐");
   if(/75g\s*[（(]\s*2\s*兩/.test(html))fail(path,"公開頁仍含龜鹿湯塊舊 2兩 標示");
   if(path!=="links.html"&&!html.includes("https://lin.ee/sHZW7NkR"))note(path,"頁面本體未直接出現 LINE URL；可能由共用 runtime 注入");
 }
@@ -89,7 +87,7 @@ assert(read("links.html").includes(LINE_URL),"links.html","連結入口缺少正
 
 for(const path of ["llms.txt","llms-full.txt"]){
   const txt=read(path);
-  assert(txt.includes("每日 1 罐"),path,"AI 文字入口未同步 30cc 每日 1 罐");
+  assert(txt.includes(DAILY_30),path,"AI 文字入口未同步 30cc 目前正式用法");
   assert(txt.includes(TANGKUAI_SPEC),path,"AI 文字入口未同步龜鹿湯塊正式規格");
 }
 
