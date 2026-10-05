@@ -2,7 +2,7 @@ name: 仙加味官網目前權威完整驗收（手動）
 
 # 全面整理期間維持手動；目前官網／公開貼文產品為六項。
 # 柒玄茶目前暫不放官網、官網AI/GEO、FAQ或公開貼文；LINE文字知識與ERP資料依各自權威保留。
-# 龜鹿飲30cc最新正式用法為每日 1–2 罐；龜鹿膏不得回退固定早上／下午時段。
+# 龜鹿飲30cc最新正式用法為每日 1 罐；龜鹿膏不得回退固定早上／下午時段。
 on:
   workflow_dispatch:
 
@@ -67,7 +67,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import json
-          current='每日 1–2 罐'
+          current='每日 1 罐'
           gao_current='食用時間可依個人使用習慣與作息時間安排'
           deferred_name='柒玄茶・龜鹿調飲粉'
           deferred_id='qixuan-guilu-drink-powder'
@@ -111,7 +111,7 @@ jobs:
               assert details and all(str(x).startswith('images/dm-final/') for x in details), f'product-media-authority detail invalid: {pid}'
           assert 'knowledgeProductCount:7' not in runtime
           assert 'knowledgeProductCount:7' not in display
-          print('PASS: six website/public-post products; flexible Guilu Gao timing; 30cc daily 1–2 cans; no stale seven-product runtime gate.')
+          print('PASS: six website/public-post products; flexible Guilu Gao timing; 30cc daily 1 can; no stale seven-product runtime gate.')
           PY
 
       - name: Maintenance guard policy check
