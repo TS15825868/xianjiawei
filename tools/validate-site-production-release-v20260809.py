@@ -3,10 +3,11 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from current_product_authority import current_public_ids, current_media_ids
 
 ROOT=Path(__file__).resolve().parents[1]
 CURRENT_30='每日 1–2 罐'
-PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED=('qixuan-guilu-drink-powder','柒玄茶・龜鹿調飲粉')
 SPECS={
  'guilu-gao':'100g／罐','guilu-drink-30':'30cc／罐（小玻璃罐）','guilu-drink-180':'180cc／包（鋁袋）',
@@ -37,7 +38,7 @@ def usage_of(item):
 def validate_products():
     master=load('public-product-master.json');mb=product_map(master)
     req(master.get('authority')=='user-confirmed-current','public-product-master authority錯誤')
-    req(master.get('productCount')==6 and list(mb)==PUBLIC_IDS,'public-product-master必須為目前六項官網產品')
+    req(master.get('productCount')==len(PUBLIC_IDS) and list(mb)==PUBLIC_IDS,'public-product-master必須為目前六項官網產品')
     for pid,spec in SPECS.items():req(spec_of(mb[pid])==spec,f'{pid}公開母資料規格錯誤')
     req(usage_of(mb['guilu-drink-30'])==CURRENT_30,'30cc公開母資料用法錯誤')
     req(usage_of(mb['guilu-drink-180'])=='每日一包','180cc公開母資料用法錯誤')
@@ -76,13 +77,13 @@ def validate_public_surfaces():
 
     # 首頁不強制出現「六項」字樣；品牌文案可調整，但實際六個正式產品入口與主圖必須存在。
     home=read('index.html')
-    req(home.count('images/product-main/')>=6 and home.count('href="product-')>=6,'首頁未維持六項正式產品入口／主圖')
-    req('六項' in read('products.html'),'產品總覽未維持六項官網產品')
+    req(home.count('images/product-main/')>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'首頁未維持六項正式產品入口／主圖')
+    req(all(pid in read('products.html') for pid in PUBLIC_IDS),'產品總覽未維持六項官網產品')
     req(CURRENT_30 in read('products.html') and CURRENT_30 in read('guide.html') and CURRENT_30 in read('faq.html'),'30cc目前用法未同步公開頁')
 
 def validate_media():
     formal=load('data/formal-media-authority-v20260810.json');products=formal.get('products') or []
-    req(len(products)==6,'正式產品媒體必須為六項')
+    req(len(products)==len(PUBLIC_IDS),'正式產品媒體必須符合最新母資料')
     for item in products:
         req(item.get('status')=='approved_display',f"{item.get('id')}正式媒體未核准")
         for key in ['image','dm']:
@@ -97,3 +98,4 @@ def main():
     print('PASS production release: six website products, six approved media, 30cc daily 1-2 cans, no retired fixed-time Guilu Gao chip, Qixuan excluded from customer/public answer surfaces while retained as negative policy in llms.')
 
 if __name__=='__main__':main()
+

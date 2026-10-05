@@ -26,10 +26,12 @@ const imageUrl=post=>String(post?.image_url||'').trim();
 const regenerationRequired=post=>{const status=String(post?.image_status||''),mode=String(post?.candidate_generation_mode||post?.regeneration_mode||'');return status==='needs_generation'||status==='replace-required'||post?.requires_image_generation===true||/chatgpt.*required|chatgpt_handoff|regeneration-required/i.test(mode)};
 const protectedPost=post=>post?.status==='published'||post?.prevent_republish===true||post?.do_not_republish===true;
 const campaignHold=post=>post?.campaign_hold===true||post?.status==='campaign_hold'||Boolean(post?.hold_until);
-function currentProductAuthority(){
+async function currentProductAuthority(){
+ const response=await fetch('public-product-master.json',{cache:'no-store'});if(!response.ok)throw new Error('公開產品母資料讀取失敗');const master=await response.json();
+ if(master.authority!=='user-confirmed-current'||master.productCount!==master.products.length)throw new Error('公開產品母資料無效');
  const authority=window.XJWActualProductPhotoAuthority,version=String(authority?.productImageVersion||'').trim(),map=authority?.map||{},urls=Object.values(map).map(String);
  if(!version)throw new Error('母庫未載入目前 products-v3 產品圖片權威。');
- if(urls.length!==6||urls.some(url=>!/\/images\/products-v3\//.test(url)||/products-v2/.test(url)))throw new Error('產品圖片權威不是六項 products-v3 正式原圖。');
+ if(urls.length!==master.productCount||urls.some(url=>!/\/images\/products-v3\//.test(url)||/products-v2/.test(url)))throw new Error('產品圖片權威未符合最新公開母資料 products-v3 正式原圖。');
  return{version,map};
 }
 function verifyPosts(posts,declaredTotal){
@@ -51,7 +53,7 @@ function verifyPosts(posts,declaredTotal){
 }
 async function run(){
  try{
-  const productAuthority=currentProductAuthority();
+  const productAuthority=await currentProductAuthority();
   const response=await fetch('content/public-post-library.json?authority=current',{cache:'no-store'});if(!response.ok)throw new Error(`母庫讀取失敗 HTTP ${response.status}`);
   const data=await response.json(),posts=Array.isArray(data.posts)?data.posts:[],declaredTotal=Number(data?.counts?.total||posts.length),audit=verifyPosts(posts,declaredTotal);
   const payload={schema:SCHEMA,runtime:RUNTIME,version:data.version||'',generated_at:new Date().toISOString(),authority:'TS15825868/xianjiawei',post_count:posts.length,product_image_version:productAuthority.version,product_image_authority:'images/products-v3/',retired_assets_removed:true,legacy_generation_layers_loaded:false,capabilities:{current_post_count:true,post_count_matches_current_catalog:true,unique_post_ids:true,products_v3_authority:true,products_v2_forbidden:true,current_asset_authority_guard:true,semantic_media_bindings:true,weather_live_check_metadata:true,legacy_generation_layers_disabled:true,regeneration_clears_old_image:true,approval_not_granted_by_exporter:true,schedule_not_granted_by_exporter:true,publish_not_granted_by_exporter:true},known_regeneration:{count:audit.needsGeneration},published_locked_count:audit.publishedLocked,campaign_hold_count:audit.campaignHoldCount,candidate_review_count:audit.candidateReview,live_weather_count:audit.liveWeather,posts,counts:data.counts||{}};

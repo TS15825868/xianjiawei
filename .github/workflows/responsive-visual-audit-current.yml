@@ -22,6 +22,11 @@ concurrency:
 jobs:
   responsive-audit:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        engine: [chromium, webkit]
+    env:
+      XJW_BROWSER_ENGINE: ${{ matrix.engine }}
     timeout-minutes: 18
     steps:
       - uses: actions/checkout@v5
@@ -49,12 +54,12 @@ jobs:
           done
           test "$ok" = '1'
 
-      - name: Install Playwright Chromium
+      - name: Install Playwright browser
         shell: bash
         run: |
           set -euo pipefail
           npm install --no-save --no-package-lock playwright@1.55.0
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps "$XJW_BROWSER_ENGINE"
 
       - name: Audit desktop tablet iPhone Android
         shell: bash
@@ -62,9 +67,12 @@ jobs:
           set -euo pipefail
           cat > xjw-responsive-audit.cjs <<'NODE'
           const fs=require('fs');
-          const { chromium }=require('playwright');
+          const browserType=require('playwright')[process.env.XJW_BROWSER_ENGINE];
 
           const BASE='https://ts15825868.github.io/xianjiawei/';
+          const productMaster=JSON.parse(fs.readFileSync('public-product-master.json','utf8'));
+          const publicCount=productMaster.products.length;
+          if(productMaster.productCount!==publicCount)throw new Error('公開產品數與母資料不一致');
           const mediaAuthority=JSON.parse(fs.readFileSync('data/product-media-authority.json','utf8'));
           const approvedMainPaths=[...new Set(Object.values(mediaAuthority.products||{}).map(item=>new URL(String(item.mainImage||''),BASE).pathname).filter(Boolean))];
           const pages=[
@@ -94,7 +102,7 @@ jobs:
 
           (async()=>{
             fs.mkdirSync('responsive-audit-screens',{recursive:true});
-            const browser=await chromium.launch();
+            const browser=await browserType.launch();
             const report={generatedAt:new Date().toISOString(),base:BASE,viewports:{},errors:[],warnings:[]};
             const linkStatusCache=new Map();
 
@@ -121,7 +129,7 @@ jobs:
                   if(pth!=='trial-line.html'){
                     await page.waitForFunction(()=>Boolean(document.documentElement.dataset.xjwRuntime)&&document.body.classList.contains('ux-v410'),{timeout:12000}).catch(()=>{});
                     if(pth==='products.html'){
-                      await page.waitForFunction(()=>document.querySelectorAll('#product-list .product-card').length===6,{timeout:12000}).catch(()=>{});
+                      await page.waitForFunction(count=>document.querySelectorAll('#product-list .product-card').length===count,publicCount,{timeout:12000}).catch(()=>{});
                     }
                   }
                   // 驗收證據必須把 lazy 圖也實際載入，避免 fullPage 截圖出現假性空白卡。
@@ -427,7 +435,7 @@ jobs:
                   });
                   report.viewports[vpName][pth].brandFacts=facts;
                   const mobile=vpName==='iphone'||vpName==='android';
-                  if(mobile && (facts.cardCount!==6||facts.visibleCards!==6||facts.tableVisible)){
+                  if(mobile && (facts.cardCount!==publicCount||facts.visibleCards!==publicCount||facts.tableVisible)){
                     report.errors.push({vp:vpName,page:pth,type:'brand-facts-mobile-cards',detail:facts});
                   }
                   if(!mobile && vpName!=='tablet' && !facts.tableVisible){
@@ -465,7 +473,7 @@ jobs:
                     'luerong-fen':['/images/product-main/luerong-fen.jpg','/images/dm-final/04_luerong-fen-75g-dm.jpg']
                   };
                   const modalCount=await productIntroButtons.count();
-                  if(modalCount!==6) report.errors.push({vp:vpName,page:pth,type:'product-intro-count',detail:{expected:6,actual:modalCount}});
+                  if(modalCount!==publicCount) report.errors.push({vp:vpName,page:pth,type:'product-intro-count',detail:{expected:publicCount,actual:modalCount}});
                   for(let i=0;i<Math.min(modalCount,6);i++){
                     const button=productIntroButtons.nth(i);
                     const id=await button.locator('xpath=ancestor::article[@data-product-id]').getAttribute('data-product-id');
@@ -575,10 +583,11 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: xianjiawei-responsive-visual-audit-${{ github.run_id }}
+          name: xianjiawei-responsive-visual-audit-${{ matrix.engine }}-${{ github.run_id }}
           path: |
             responsive-audit-report.json
             responsive-audit-summary.md
             responsive-audit-screens/
           if-no-files-found: warn
           retention-days: 7
+

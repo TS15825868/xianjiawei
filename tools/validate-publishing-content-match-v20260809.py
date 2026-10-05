@@ -5,8 +5,10 @@ import json
 import re
 import subprocess
 from pathlib import Path
+from current_product_authority import current_public_ids, current_media_ids
 
 ROOT=Path(__file__).resolve().parents[1]
+PUBLIC_IDS=current_public_ids(ROOT)
 RUNTIME_VALIDATOR=ROOT/'tools/validate-post-bank-runtime-current.mjs'
 CURRENT_30='每日 1–2 罐'
 DEFERRED=('柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder')
@@ -61,7 +63,7 @@ def validate_core_library(approved_products,approved_dms):
     declared=int((data.get('counts') or {}).get('total') or len(posts));req(declared==len(posts),f'公開核心母本宣告張數{declared}與實際{len(posts)}不一致')
     auth=data.get('productAuthority') or {}
     req(auth.get('textAuthority')=='public-product-master.json','貼文文字權威不是public-product-master.json')
-    req(auth.get('knowledgeProducts')==6 and auth.get('approvedMediaProducts')==6,'貼文母庫不是六項公開產品／六項媒體目前模型')
+    req(auth.get('knowledgeProducts')==len(PUBLIC_IDS) and auth.get('approvedMediaProducts')==len(PUBLIC_IDS),'貼文母庫不是六項公開產品／六項媒體目前模型')
     req(auth.get('drink30Usage')==CURRENT_30,'貼文母庫30cc用法不是每日 1–2 罐')
     req(auth.get('drink180Usage')=='每日一包','貼文母庫180cc用法不是每日一包')
     serialized=json.dumps(data,ensure_ascii=False)
@@ -110,7 +112,7 @@ def validate_core_library(approved_products,approved_dms):
             req('不得' in policy and ('等高' in policy or '相對' in policy or '尺寸' in policy),f'{pid} 多產品候選缺相對尺寸安全說明')
 
     overview=str(by['POST-PRODUCT-OVERVIEW'].get('copy') or '')
-    req('六項產品' in overview or '官網公開六項產品' in overview,'產品總覽必須是目前六項公開產品')
+    req(all(p['name'] in overview for p in load('public-product-master.json')['products']),'產品總覽必須符合目前母資料公開產品')
     for marker in DEFERRED:req(marker not in overview,f'產品總覽重新出現暫緩產品：{marker}')
     req(CURRENT_30 in str(by['POST-DRINK-30'].get('copy') or ''),'30cc待審文案缺目前用法')
     req('每日一包' in str(by['POST-DRINK-180'].get('copy') or ''),'180cc待審文案缺目前用法')
@@ -123,9 +125,9 @@ def validate_current_authorities(formal,approved_products,approved_dms,approved_
     assets=load('content/public-asset-library.json');policy=assets.get('policy',{})
     req(policy.get('ownerReviewRequiredBeforePublish') is True,'公開資產庫缺少人工審核門')
     req(len(policy.get('reviewDimensions') or [])==16,'公開資產庫必須維持16項正式審核')
-    req(len(formal.get('products') or [])==6,'目前formal authority應維持六項核准產品媒體')
-    req(len(approved_products)==6 and len(approved_dms)==6,'目前formal authority應包含六產品主圖＋六詳細DM')
-    req(len(approved_formal)>=13,'目前formal authority至少應包含六產品主圖＋六DM＋試喝正式媒體')
+    req(len(formal.get('products') or [])==len(PUBLIC_IDS),'目前formal authority應維持六項核准產品媒體')
+    req(len(approved_products)==len(PUBLIC_IDS) and len(approved_dms)==len(PUBLIC_IDS),'目前formal authority應包含六產品主圖＋六詳細DM')
+    req(len(approved_formal)>=2*len(current_media_ids(ROOT))+1,'目前formal authority至少應包含六產品主圖＋六DM＋試喝正式媒體')
     trial=formal.get('trial') or {};req(trial.get('status') in TRIAL_APPROVED_STATES,'目前試喝媒體不是核准狀態')
     req(normalize(trial.get('image') or trial.get('path'))=='images/trial/trial-poster-small-boss-official-v20260814.jpg','試喝權威不是目前正式海報')
 
@@ -134,11 +136,11 @@ def validate_current_authorities(formal,approved_products,approved_dms,approved_
     v18=(ROOT/'publishing-center-data-v18-content-media-match.js').read_text(encoding='utf-8')
     req('public-asset-library.json' in current_guard and 'formal-media-authority-v20260810.json' in current_guard,'目前貼文守門未連動公開資產／formal media')
     req(CURRENT_30 in current_guard and '柒玄茶' in current_guard,'目前貼文守門缺30cc／暫緩柒玄茶規則')
-    req('knowledgeProducts:6' in current_guard and 'knowledgeProducts:7' not in current_guard,'目前貼文守門仍是舊七項公開產品模型')
+    req('knowledgeProducts:publicIds.length' in current_guard and 'knowledgeProducts:7' not in current_guard,'目前貼文守門仍是舊七項公開產品模型')
     req("if(currentFormal.has(normalized))return''" in current_guard,'目前核准正式媒體不得被舊規則誤擋')
     req('customer-display-v20260812' in v16 and 'products-v3-identity-reference-only' in v16,'v16仍可能把products-v3當顧客產品主圖')
     req('舊ZIP名稱只作來源追溯' in v18 and 'KEEP_NEEDS_GENERATION' in v18,'v18仍可能把舊ZIP當目前權威')
-    req('目前官網六項公開產品文字權威' in v18,'v18尚未改用六項官網公開產品重新生成理由')
+    req('目前官網公開產品文字權威' in v18,'v18尚未改用六項官網公開產品重新生成理由')
     req('目前七項文字產品權威' not in v18,'v18仍含舊七項公開產品理由')
 
 def main():
@@ -150,3 +152,4 @@ def main():
     print(f'PASS publishing content match: {core_count} core posts use six public products, six approved media, current 30cc/Guilu Gao rules, pending-image review flow, weather metadata and no stale seven-product/ZIP/products-v3 gates.')
 
 if __name__=='__main__': main()
+

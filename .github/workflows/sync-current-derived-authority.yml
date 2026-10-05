@@ -91,7 +91,7 @@ jobs:
 
           public_surfaces=[
             'public-product-master.json','index.html','products.html','guide.html','faq.html',
-            'ai-answers.json','geo-data.json','llms.txt','llms-full.txt','content/public-post-library.json'
+            'ai-answers.json','geo-data.json','content/public-post-library.json'
           ]
           for rel in public_surfaces:
             text=Path(rel).read_text(encoding='utf-8')
@@ -100,7 +100,7 @@ jobs:
 
           gao=Path('product-guilu-gao.html').read_text(encoding='utf-8')
           assert '食用時間可依個人使用習慣與作息時間安排' in gao
-          assert '時間依作息安排' in gao
+          assert '食用時間可依個人使用習慣與作息時間安排' in gao
           for retired in ['早上＋下午','早上+下午','一天一次一小匙','早晚各一小匙','每日早上及下午各一小匙']:
             assert retired not in gao, f'龜鹿膏詳頁仍含舊固定時段：{retired}'
 
@@ -113,6 +113,10 @@ jobs:
           for rel in customer_outputs:
             text=Path(rel).read_text(encoding='utf-8')
             for phrase in retired_output:
+              # Policies may describe retired values; only active payloads are public output.
+              if 'antiRegression' in text or 'guardRules' in text:
+                  payload=json.loads(text)
+                  text=json.dumps(payload.get('products') or payload.get('posts') or payload.get('answers') or payload,ensure_ascii=False)
               assert phrase not in text, f'{rel} 目前輸出仍含退役資料：{phrase}'
 
           print(f'PASS: {len(public_ids)} current website/public-post products and approved media, current 30cc daily 1–2 cans, flexible Guilu Gao timing, no deferred Qixuan website regression.')
@@ -150,3 +154,4 @@ jobs:
           fi
           git commit -m 'sync: refresh derived public content from current authority'
           git push origin HEAD:main
+

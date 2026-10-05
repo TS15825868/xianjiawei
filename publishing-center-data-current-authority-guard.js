@@ -57,13 +57,13 @@
   }
   function validateFormalCopy(post){
     const serialized=JSON.stringify(post||{});
-    if(DEFERRED_PRODUCT.test(serialized))return '柒玄茶目前暫不放官網與公開貼文；資料只保留在允許的內部／LINE文字知識層';
+    if(DEFERRED_PRODUCT.test(serialized))return '柒玄茶目前暫不放官網與公開貼文；資料只保留在允許的內部資料層';
     if(/30\s*cc.{0,60}(玻璃瓶|瓶裝|[／/]\s*瓶)/i.test(serialized))return '貼文仍含30cc瓶型退役稱呼';
     if(/30\s*cc/i.test(serialized)){
-      if(/每日一罐|每日1[-～－]2罐|每日\s*1[-～－]2\s*罐/.test(serialized))return `30cc仍含退役使用方式；目前正式使用方式為${CURRENT_30_USAGE}`;
-      if(/使用方式|每日|飲用/.test(serialized)&&!/每日\s*1–2\s*罐/.test(serialized)&&String(post?.id||'')==='POST-DRINK-30')return `30cc產品介紹缺目前正式使用方式：${CURRENT_30_USAGE}`;
+      if(/每日一罐|每日\s*1\s*罐/.test(serialized))return `30cc仍含退役使用方式；目前正式使用方式為${CURRENT_30_USAGE}`;
+      if(/使用方式|每日|飲用/.test(serialized)&&!/每日\s*1\s*[–～－-]\s*2\s*罐/.test(serialized)&&String(post?.id||'')==='POST-DRINK-30')return `30cc產品介紹缺目前正式使用方式：${CURRENT_30_USAGE}`;
     }
-    for(const segment of productSegments(serialized,'龜鹿湯塊'))if(/(300\s*g|600\s*g)/i.test(segment))return '龜鹿湯塊自己的語境仍含退役容量';
+    for(const segment of productSegments(serialized,'龜鹿湯塊'))if(/(300\s*g|600\s*g|2\s*兩)/i.test(segment))return '龜鹿湯塊自己的語境仍含退役容量或2兩標示';
     for(const segment of productSegments(serialized,'龜鹿膠'))if(/300\s*g/i.test(segment))return '龜鹿膠自己的語境仍含錯誤300g容量';
     for(const segment of productSegments(serialized,'龜鹿膏'))if(/(一天一次一小匙|每日一次一小匙|早晚各一小匙|每日早上及下午各一小匙|早上＋下午|早上\+下午)/i.test(segment))return '龜鹿膏仍含退役固定時段；目前為食用時間可依個人使用習慣與作息時間安排';
     return'';
@@ -85,3 +85,4 @@
   };
   window.XJWCurrentPostMediaAuthority=Object.freeze({runtime:RUNTIME,current30Usage:CURRENT_30_USAGE,assetLibrary:ASSET_LIBRARY,formalAuthority:FORMAL_AUTHORITY,productMaster:PRODUCT_MASTER,disallowedAssetStatuses:[...DISALLOWED_ASSET_STATUSES],normalize,productSegments,retiredPaths,currentFormalPaths,needsQuarantine,quarantine,ensureGenerationReason,validateFormalCopy});
 })();
+

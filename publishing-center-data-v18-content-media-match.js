@@ -27,7 +27,7 @@
   function fix(post){
     if(!post||post.status==='published'||post.status==='archived'||post.prevent_republish===true||post.do_not_republish===true)return post;
     if(KEEP_NEEDS_GENERATION.has(post.id)){
-      return{...post,status:'pending_review',image_url:null,image_asset_id:null,image_status:'needs_generation',regeneration_mode:'chatgpt_handoff',candidate_generated:false,owner_review_required:true,approval_required:true,publish_allowed:false,schedule_enabled:false,scheduled_at:null,auto_approve:false,auto_schedule:false,auto_publish:false,image_review_reason:post.image_review_reason||'此篇需要依目前官網六項公開產品文字權威／六項核准媒體重新建立圖文一致候選；舊七項官網模型、舊產品資訊圖與舊ZIP拼圖不得覆蓋。'};
+      return{...post,status:'pending_review',image_url:null,image_asset_id:null,image_status:'needs_generation',regeneration_mode:'chatgpt_handoff',candidate_generated:false,owner_review_required:true,approval_required:true,publish_allowed:false,schedule_enabled:false,scheduled_at:null,auto_approve:false,auto_schedule:false,auto_publish:false,image_review_reason:post.image_review_reason||'此篇需要依目前官網公開產品文字權威／六項核准媒體重新建立圖文一致候選；舊七項官網模型、舊產品資訊圖與舊ZIP拼圖不得覆蓋。'};
     }
     const media=MEDIA[post.id];
     let out=post;
@@ -59,3 +59,4 @@
   };
   window.XJWPostBankV18=Object.freeze({version:VERSION,media:MEDIA,weatherCopy:WEATHER_COPY,keepNeedsGeneration:[...KEEP_NEEDS_GENERATION],fix,countDuplicateLifestyle});
 })();
+

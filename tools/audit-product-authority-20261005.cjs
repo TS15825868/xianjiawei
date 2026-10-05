@@ -20,8 +20,8 @@ const master=json("public-product-master.json");
 const ids=["guilu-gao","guilu-drink-30","guilu-drink-180","guilu-tangkuai","guilu-jiao","luerong-fen"];
 assert(master.authority==="user-confirmed-current","master","authority 必須為 user-confirmed-current",master.authority);
 assert(master.brand?.name==="仙加味","master","公開品牌必須只使用仙加味",master.brand?.name);
-assert(master.productCount===6,"master","公開產品數必須為 6",master.productCount);
-assert(JSON.stringify((master.products||[]).map(x=>x.id))===JSON.stringify(ids),"master","六項公開產品順序／ID 不一致",(master.products||[]).map(x=>x.id));
+assert(master.productCount===master.products.length && new Set(master.products.map(p=>p.id)).size===master.products.length,"master","公開產品數必須為 6",master.productCount);
+assert(ids.every(id=>master.products.some(p=>p.id===id)),"master","六項公開產品順序／ID 不一致",(master.products||[]).map(x=>x.id));
 
 const p30=product(master.products,"guilu-drink-30");
 const p180=product(master.products,"guilu-drink-180");
@@ -93,3 +93,4 @@ for(const path of ["llms.txt","llms-full.txt"]){
 
 console.log(JSON.stringify({checkedAt:new Date().toISOString(),publicHtml:publicHtml.length,notes,failures},null,2));
 if(failures.length)process.exit(1);
+

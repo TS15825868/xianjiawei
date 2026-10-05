@@ -26,9 +26,31 @@
     "社群平台目標與不含憑證的公開發布狀態"
   ],
   "publicConditional": {
-    "pendingReviewCopy": {"allowed":true,"personalDataForbidden":true,"internalNotesForbidden":true,"scheduleForbidden":true,"publishAllowedMustBeFalse":true,"ownerReviewRequiredMustBeTrue":true},
-    "imageGenerationInstructions": {"allowedOnlyWhenPublicSafe":true,"secretValuesForbidden":true,"customerDataForbidden":true,"internalOperationalNotesForbidden":true,"productBodyMustUseApprovedOriginal":true,"productRedrawForbidden":true,"unknownPhysicalScaleGuessingForbidden":true,"websiteDeferredProductGenerationForbidden":true},
-    "prices": {"generalCatalogPricesPublic":false,"priceAndPromotionAreMutable":true,"currentPricingSource":"仙加味官方LINE目前正式銷售資料","fixedPublicMasterMayNotOverride":true,"approvedCampaignAmountsMayBeShownOnlyWhileCurrent":true}
+    "pendingReviewCopy": {
+      "allowed": true,
+      "personalDataForbidden": true,
+      "internalNotesForbidden": true,
+      "scheduleForbidden": true,
+      "publishAllowedMustBeFalse": true,
+      "ownerReviewRequiredMustBeTrue": true
+    },
+    "imageGenerationInstructions": {
+      "allowedOnlyWhenPublicSafe": true,
+      "secretValuesForbidden": true,
+      "customerDataForbidden": true,
+      "internalOperationalNotesForbidden": true,
+      "productBodyMustUseApprovedOriginal": true,
+      "productRedrawForbidden": true,
+      "unknownPhysicalScaleGuessingForbidden": true,
+      "websiteDeferredProductGenerationForbidden": true
+    },
+    "prices": {
+      "generalCatalogPricesPublic": false,
+      "priceAndPromotionAreMutable": true,
+      "currentPricingSource": "仙加味官方LINE目前正式銷售資料",
+      "fixedPublicMasterMayNotOverride": true,
+      "approvedCampaignAmountsMayBeShownOnlyWhileCurrent": true
+    }
   },
   "privateOnly": [
     "客戶姓名、電話、地址、LINE ID與聯絡紀錄",
@@ -53,7 +75,7 @@
       "龜鹿膏 100g／罐",
       "龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）",
       "龜鹿飲180cc鋁袋 180cc／包（鋁袋）",
-      "龜鹿湯塊 75g （2兩）／盒｜8塊裝｜每塊約9.375g",
+      "龜鹿湯塊 75g／盒｜8塊裝｜每塊約9.375g",
       "龜鹿膠 600g （1斤）／盒｜32塊裝｜每塊約18.75g",
       "鹿茸粉 75g／罐"
     ],
@@ -61,19 +83,82 @@
     "drink30Rule": "龜鹿飲30cc玻璃罐；30cc／罐（小玻璃罐）；裸罐、無貼紙；每日 1–2 罐；不得稱瓶、改包裝、改比例或回退成每日一罐／舊格式",
     "drink180Rule": "龜鹿飲180cc鋁袋；180cc／包（鋁袋）；狹長直立；每日一包；不得拉寬或誇張放大",
     "drinkFulfillmentRule": "龜鹿飲30cc與180cc接單後製作，約5～7個工作天出貨；此交期只適用龜鹿飲",
-    "soupBlockRule": "龜鹿湯塊正式規格75g （2兩）／盒｜8塊裝，每塊約9.375g；不得建立300g、600g或其他退役容量",
+    "soupBlockRule": "龜鹿湯塊正式規格75g／盒｜8塊裝，每塊約9.375g；不得建立300g、600g或其他退役容量",
     "guiluJiaoRule": "龜鹿膠正式規格600g （1斤）／盒｜32塊裝，每塊約18.75g；不得與龜鹿湯塊混用",
-    "deferredProductRule": "柒玄茶・龜鹿調飲粉目前暫不放官網、官網FAQ、官網AI/GEO與公開貼文；不得由舊七項官網資料重新加入。LINE OA可依TS-LINE正式main保留文字知識；ERP可保留完整內部／暫緩資料。沒有正式成分表或核准實物圖時不得自行補寫成分、生成或替代產品包裝。"
+    "deferredProductRule": "柒玄茶・龜鹿調飲粉目前暫不放官網、官網FAQ、官網AI/GEO與公開貼文；不得由舊七項官網資料重新加入。LINE OA目前不得公開或主動推薦暫緩產品；ERP可保留完整內部／暫緩資料。沒有正式成分表或核准實物圖時不得自行補寫成分、生成或替代產品包裝。"
   },
   "channelScope": {
-    "website": {"authority":"TS15825868/xianjiawei main","publicProductCount":6,"qixuanVisible":false},
-    "publicPosts": {"publicProductCount":6,"qixuanVisible":false},
-    "lineOA": {"authority":"TS15825868/TS-LINE main","qixuanTextKnowledgeMayRemain":true,"qixuanProductImageMayBeInvented":false,"qixuanIngredientsMayBeInvented":false},
-    "erp": {"authority":"TS15825868/xianjiawei-internal main","retainDeferredProductData":true}
+    "website": {
+      "authority": "TS15825868/xianjiawei main",
+      "publicProductCount": 6,
+      "qixuanVisible": false
+    },
+    "publicPosts": {
+      "publicProductCount": 6,
+      "qixuanVisible": false
+    },
+    "lineOA": {
+      "authority": "TS15825868/TS-LINE main",
+      "qixuanTextKnowledgeMayRemain": true,
+      "qixuanProductImageMayBeInvented": false,
+      "qixuanIngredientsMayBeInvented": false
+    },
+    "erp": {
+      "authority": "TS15825868/xianjiawei-internal main",
+      "retainDeferredProductData": true
+    }
   },
-  "authorityPriority": ["使用者目前聊天最新明確指示","各通路目前正式main權威","目前核准正式媒體權威","LINE OA目前有效價格、促銷與活動資料","相容資料","歷史資料"],
-  "antiRegression": {"latestDataWins":true,"oldVersionMayNotBlock":true,"oldFixedProductCountMayNotBlock":true,"oldZipMayNotBecomeLatestAuthority":true,"oldGuardMayNotRestoreRetiredFacts":true,"oldCopyMayNotOverwriteCurrent":true,"oldMediaMayNotReplaceApprovedCurrentMedia":true,"websiteDeferredProductMayNotBeReintroduced":true,"websiteAuthorityMayNotDeleteLineChannelKnowledge":true,"oldFixedGuiluGaoTimingMayNotReturn":true},
-  "publishedTrialAuthority": {"postId":"XJW-TRIAL-001","assetId":"guilu-drink-trial-final-20260808","manifest":"content/final-published-assets-v20260808.json","ownerPublicationConfirmed":true,"publishAllowed":false,"preventRepublish":true,"doNotRegenerate":true},
-  "erpPolicy": {"repository":"TS15825868/xianjiawei-internal","app":"xianjiawei-internal","role":"保存營運資料、審核、排程、發布結果與暫緩產品內部資料；公開輸出只讀目前六項官網公開產品權威","contentMode":"公開內容與私人營運欄位分離；私人資料不得回寫公開倉庫；公開母資料未包含的正常ERP營運欄位不得被刪除","customerDataPublic":false,"secretDataPublic":false,"inventoryQuantityPublic":false,"internalSchedulePublic":false},
-  "publishingSafety": {"ownerReviewRequiredBeforePublish":true,"autoApprove":false,"autoSchedule":false,"autoPublish":false,"immediatePublishBypassesFixedSchedule":true,"regenerationMode":"chatgpt_handoff","regenerationResultStatus":"pending_review","paidOpenAIApi":false,"lineVoomManualOnly":true,"publishedPostsPreventRepublish":true,"unusableImageAction":"regenerate-to-pending-review","multiProductUnknownScaleAction":"keep-needs-generation-until-reviewed"}
+  "authorityPriority": [
+    "使用者目前聊天最新明確指示",
+    "各通路目前正式main權威",
+    "目前核准正式媒體權威",
+    "LINE OA目前有效價格、促銷與活動資料",
+    "相容資料",
+    "歷史資料"
+  ],
+  "antiRegression": {
+    "latestDataWins": true,
+    "oldVersionMayNotBlock": true,
+    "oldFixedProductCountMayNotBlock": true,
+    "oldZipMayNotBecomeLatestAuthority": true,
+    "oldGuardMayNotRestoreRetiredFacts": true,
+    "oldCopyMayNotOverwriteCurrent": true,
+    "oldMediaMayNotReplaceApprovedCurrentMedia": true,
+    "websiteDeferredProductMayNotBeReintroduced": true,
+    "websiteAuthorityMayNotDeleteLineChannelKnowledge": true,
+    "oldFixedGuiluGaoTimingMayNotReturn": true
+  },
+  "publishedTrialAuthority": {
+    "postId": "XJW-TRIAL-001",
+    "assetId": "guilu-drink-trial-final-20260808",
+    "manifest": "content/final-published-assets-v20260808.json",
+    "ownerPublicationConfirmed": true,
+    "publishAllowed": false,
+    "preventRepublish": true,
+    "doNotRegenerate": true
+  },
+  "erpPolicy": {
+    "repository": "TS15825868/xianjiawei-internal",
+    "app": "xianjiawei-internal",
+    "role": "保存營運資料、審核、排程、發布結果與暫緩產品內部資料；公開輸出只讀目前六項官網公開產品權威",
+    "contentMode": "公開內容與私人營運欄位分離；私人資料不得回寫公開倉庫；公開母資料未包含的正常ERP營運欄位不得被刪除",
+    "customerDataPublic": false,
+    "secretDataPublic": false,
+    "inventoryQuantityPublic": false,
+    "internalSchedulePublic": false
+  },
+  "publishingSafety": {
+    "ownerReviewRequiredBeforePublish": true,
+    "autoApprove": false,
+    "autoSchedule": false,
+    "autoPublish": false,
+    "immediatePublishBypassesFixedSchedule": true,
+    "regenerationMode": "chatgpt_handoff",
+    "regenerationResultStatus": "pending_review",
+    "paidOpenAIApi": false,
+    "lineVoomManualOnly": true,
+    "publishedPostsPreventRepublish": true,
+    "unusableImageAction": "regenerate-to-pending-review",
+    "multiProductUnknownScaleAction": "keep-needs-generation-until-reviewed"
+  }
 }

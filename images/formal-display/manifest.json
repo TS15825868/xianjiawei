@@ -40,7 +40,7 @@
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",
-      "spec": "75g （2兩）／盒｜8塊裝",
+      "spec": "75g／盒｜8塊裝",
       "detail_unit_approx": "每塊約9.375g",
       "detail_unit_rule": "detail-data-only; do not place on main product image or DM main spec",
       "path": "/images/dm-v3/guilu-tangkuai.jpg",
@@ -159,7 +159,7 @@
     "retired_trial_must_not_return": true,
     "drink30": "small bare glass jar, no label, no shape/proportion changes",
     "drink180": "foil pouch, no pouch/proportion changes, no DM poster as main product image",
-    "tangkuai_main_spec": "75g （2兩）／盒｜8塊裝",
+    "tangkuai_main_spec": "75g／盒｜8塊裝",
     "jiao_main_spec": "600g （1斤）／盒｜32塊裝",
     "piece_weight_policy": "9.375g and 18.75g are approximate detail data only, not product/DM main-image copy",
     "review_after_media_change": 16,
@@ -180,3 +180,4 @@
   "guard_policy": "驗證 product-main SVG、dm-final 詳細圖、試喝海報與產品身份分層；新版正確路徑優先，拒絕錯誤 JPG／dm-v3 回流官網一般展示",
   "dmV3Policy": "social-static-compatibility-only-not-website-main"
 }
+

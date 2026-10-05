@@ -2,10 +2,11 @@
 from __future__ import annotations
 import json
 from pathlib import Path
+from current_product_authority import current_public_ids, current_media_ids
 
 ROOT=Path(__file__).resolve().parents[1]
 CURRENT_30='每日 1–2 罐'
-PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED_NAME='柒玄茶・龜鹿調飲粉'
 DEFERRED_ID='qixuan-guilu-drink-powder'
 
@@ -19,9 +20,9 @@ def req(ok,msg):
 def main():
     master=load('public-product-master.json')
     req(master.get('authority')=='user-confirmed-current','public master authority錯誤')
-    req(master.get('productCount')==6,'官網公開產品數必須為6')
+    req(master.get('productCount')==len(PUBLIC_IDS),'官網公開產品數必須為6')
     ids=[p.get('id') for p in master.get('products') or []]
-    req(ids==PUBLIC_IDS,f'官網公開產品必須剛好六項：{ids}')
+    req(ids==PUBLIC_IDS,f'官網公開產品必須跟隨最新母資料：{ids}')
     req(DEFERRED_ID not in ids,'暫緩對外產品不得出現在public master')
     by={p['id']:p for p in master['products']}
     req(by['guilu-drink-30']['usage'][0]==CURRENT_30,'30cc必須同步目前正式用法')
@@ -31,7 +32,7 @@ def main():
     ai=load('ai-answers.json')
     answers=ai.get('answers') or []
     all_answer=next((x for x in answers if x.get('id')=='all-products'),None)
-    req(all_answer and '共6項' in all_answer.get('answer',''),'AI全產品回答必須是6項')
+    req(all_answer and all(p['name'] in all_answer.get('answer','') for p in master['products']),'AI全產品回答必須是6項')
     answer_payload=json.dumps(answers,ensure_ascii=False)
     req(DEFERRED_NAME not in answer_payload and DEFERRED_ID not in answer_payload,'AI真正公開 answers[] 不得含暫緩對外產品')
     drink=next((x for x in answers if x.get('id')=='drink-30-vs-180'),None)
@@ -41,7 +42,7 @@ def main():
     geo_text=json.dumps(geo,ensure_ascii=False)
     req(DEFERRED_NAME not in geo_text and DEFERRED_ID not in geo_text,'GEO不得含暫緩對外產品')
     lists=[x for x in geo.get('@graph') or [] if x.get('@type')=='ItemList']
-    req(lists and lists[0].get('numberOfItems')==6,'GEO ItemList必須6項')
+    req(lists and lists[0].get('numberOfItems')==len(PUBLIC_IDS),'GEO ItemList必須6項')
 
     # 顧客／搜尋結果可見頁不得出現暫緩產品。
     for rel in ['index.html','products.html','faq.html','brand-facts.html']:
@@ -62,3 +63,4 @@ def main():
     print('PASS: six public products only; deferred product absent from customer/AI-answer/GEO payloads while retained as negative llms policy; 30cc remains daily 1-2 cans.')
 
 if __name__=='__main__': main()
+

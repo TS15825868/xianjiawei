@@ -32,14 +32,17 @@ jobs:
           const website=J('data/product-media-authority.json');
           const m=J('images/formal-display/manifest.json');
           const official=J('assets/data/official-products.json');
+          const master=J('public-product-master.json');
+          must(master.productCount===master.products.length&&new Set(master.products.map(p=>p.id)).size===master.products.length,'公開母資料ID／數量不一致');
+          const publicCount=master.productCount;
           const byOfficial=new Map((official.products||[]).map(x=>[x.id,x]));
           const idMap={'guilu-gao':'guilu-gao','guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180','guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'};
           const keys={'guilu-gao':'guilu-gao','guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180','guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'};
           must(a.runtime===m.runtime,'authority/manifest runtime不同步');
-          must(Array.isArray(a.products)&&a.products.length===6,'正式產品不是六項');
-          must(byOfficial.size===6,'目前產品權威不是六項');
+          must(Array.isArray(a.products)&&a.products.length===publicCount,'正式產品不是六項');
+          must(byOfficial.size===publicCount,'目前產品權威不是六項');
           for(const p of a.products){
-            const current=byOfficial.get(idMap[p.id]);
+            const current=byOfficial.get(idMap[p.id]||p.id);
             must(current,`找不到目前產品權威 ${p.id}`);
             must(p.spec===current.specification,`媒體authority規格未跟目前權威同步 ${p.id}: ${p.spec} != ${current.specification}`);
             if(current.detail_unit_approx)must(p.detail_unit_approx===current.detail_unit_approx,`每塊約重未跟目前權威同步 ${p.id}`);
@@ -47,7 +50,7 @@ jobs:
             must(['jpeg','png','webp','avif'].includes(kind(image)),`產品主圖不可解碼 ${image}`);
             must(['jpeg','png','webp','avif'].includes(kind(dm)),`DM不可解碼 ${dm}`); must(/^images\/product-main\/.+\.jpg$/i.test(websiteMain)&&kind(websiteMain)==='jpeg'&&fs.statSync(websiteMain).size>=400000,`官網正式主圖未同步使用者核准高解析 product-main JPG ${p.id}: ${websiteMain}`);
             must(image!==dm,`產品主圖與DM角色混用 ${p.id}`);
-            must(local(m.products?.[keys[p.id]]?.path)===image,`manifest社群靜態產品路徑不同步 ${p.id}`); must(local(m.products?.[keys[p.id]]?.website_main_path)===websiteMain,`manifest官網主圖路徑不同步 ${p.id}`);
+            must(local(m.products?.[keys[p.id]||p.id]?.path)===image,`manifest社群靜態產品路徑不同步 ${p.id}`); must(local(m.products?.[keys[p.id]||p.id]?.website_main_path)===websiteMain,`manifest官網主圖路徑不同步 ${p.id}`);
           }
           const p30=a.products.find(x=>x.id==='guilu-drink-30cc');
           must(p30.name==='龜鹿飲30cc玻璃罐','30cc正式名稱錯誤');
@@ -57,7 +60,7 @@ jobs:
           must(local(p180.image)!==local(p180.dm),'180cc詳細DM被用成產品主圖');
           const websiteProducts=website.products||{};
           const allowedMain=/^images\/product-main\/.+\.jpg$/i;
-          must(Object.keys(websiteProducts).length===6,'官網圖片權威不是六項');
+          must(Object.keys(websiteProducts).length===publicCount,'官網圖片權威不是六項');
           for(const [id,w] of Object.entries(websiteProducts)){
             const main=local(w?.mainImage);
             const identity=local(w?.identityReference);
@@ -106,3 +109,4 @@ jobs:
           if(mode.mode!=='paused_for_full_system_update'||mode.blocking!==false||mode.keep_minimum_safety!==true)throw new Error('maintenance guard mode changed unexpectedly');
           console.log('PASS: guard remains manual-only during full cleanup.');
           NODE
+

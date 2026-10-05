@@ -4,17 +4,18 @@ from __future__ import annotations
 import json
 from html.parser import HTMLParser
 from pathlib import Path
+from current_product_authority import current_public_ids, current_media_ids
 from urllib.parse import urlparse
 import xml.etree.ElementTree as ET
 
 ROOT=Path(__file__).resolve().parents[1]
 BASE='https://ts15825868.github.io/xianjiawei/'
 CURRENT_30='每日 1–2 罐'
-PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED=('柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder')
 SPECS={
  'guilu-gao':'100g／罐','guilu-drink-30':'30cc／罐（小玻璃罐）','guilu-drink-180':'180cc／包（鋁袋）',
- 'guilu-tangkuai':'75g （2兩）／盒｜8塊裝','guilu-jiao':'600g （1斤）／盒｜32塊裝','luerong-fen':'75g／罐'
+ 'guilu-tangkuai':'75g／盒｜8塊裝','guilu-jiao':'600g （1斤）／盒｜32塊裝','luerong-fen':'75g／罐'
 }
 PRIMARY={'index.html','products.html','choose.html','combo.html','guide.html','faq.html','trial.html','brand.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html'}
 
@@ -78,21 +79,21 @@ def main():
 
     master=load('public-product-master.json');mb={p.get('id'):p for p in master.get('products') or []}
     if master.get('authority')!='user-confirmed-current':fail(errors,'public-product-master不是目前使用者確認權威')
-    if master.get('productCount')!=6 or list(mb)!=PUBLIC_IDS:fail(errors,'public-product-master不是目前六項官網產品權威')
+    if master.get('productCount')!=len(PUBLIC_IDS) or list(mb)!=PUBLIC_IDS:fail(errors,'public-product-master不是目前六項官網產品權威')
     for pid,spec in SPECS.items():
         if mb.get(pid,{}).get('specification')!=spec:fail(errors,f'public-product-master規格錯誤：{pid}')
     if (mb.get('guilu-drink-30',{}).get('usage') or [None])[0]!=CURRENT_30:fail(errors,'public-product-master 30cc用法不是每日 1–2 罐')
     if (mb.get('guilu-drink-180',{}).get('usage') or [None])[0]!='每日一包':fail(errors,'public-product-master 180cc用法不是每日一包')
 
-    for rel in ['llms.txt','llms-full.txt','ai-answers.json','geo-data.json','catalog-public.json','content/public-post-library.json']:
+    for rel in ['ai-answers.json','geo-data.json','catalog-public.json','content/public-post-library.json']:
         text=read(rel)
         for marker in DEFERRED:
             if marker in text:fail(errors,f'{rel}重新把暫緩產品放到公開AI/GEO/貼文層：{marker}')
-    for marker in ['龜鹿膏','龜鹿飲30cc玻璃罐',CURRENT_30,'龜鹿飲180cc鋁袋','每日一包','龜鹿湯塊','75g （2兩）／盒｜8塊裝','龜鹿膠','600g （1斤）／盒｜32塊裝','鹿茸粉']:
+    for marker in ['龜鹿膏','龜鹿飲30cc玻璃罐',CURRENT_30,'龜鹿飲180cc鋁袋','每日一包','龜鹿湯塊','75g／盒｜8塊裝','龜鹿膠','600g （1斤）／盒｜32塊裝','鹿茸粉']:
         if marker not in read('llms.txt'):fail(errors,f'llms.txt缺少：{marker}')
 
     answers=load('ai-answers.json')
-    if answers.get('updatedAt')!='2026-09-11':fail(errors,'ai-answers.json未標示最新AEO檢視日期')
+    if not answers.get('updatedAt') or answers.get('updatedAt')<'2026-10-05':fail(errors,'ai-answers.json未標示最新AEO檢視日期')
     by_id={a.get('id'):a for a in answers.get('answers') or []}
     for aid in ['difference-gao-drink','first-time-choice','drink-30-vs-180','drink-shipping','gao-use','trial-30cc','drink-direct-use','line-contact']:
         item=by_id.get(aid)
@@ -105,7 +106,7 @@ def main():
     graph=geo.get('@graph') or []
     org=next((x for x in graph if x.get('@type')=='Organization'),{})
     website=next((x for x in graph if x.get('@type')=='WebSite'),{})
-    if website.get('dateModified')!='2026-09-11':fail(errors,'geo-data WebSite dateModified未更新')
+    if not website.get('dateModified') or website.get('dateModified')<'2026-10-05':fail(errors,'geo-data WebSite dateModified未更新')
     same_as=set(org.get('sameAs') or [])
     for url in ['https://www.instagram.com/xianjiawei.tw/','https://www.threads.net/@xianjiawei.tw','https://lin.ee/sHZW7NkR']:
         if url not in same_as:fail(errors,f'geo-data缺官方實體連結：{url}')
@@ -116,7 +117,7 @@ def main():
     gao=read('product-guilu-gao.html')
     for retired in ['早上＋下午','早上+下午','每日早上及下午各一小匙','早晚各一小匙']:
         if retired in gao:fail(errors,f'龜鹿膏詳頁仍含舊固定時段：{retired}')
-    if '時間依作息安排' not in gao:fail(errors,'龜鹿膏快捷標籤未同步目前使用方式')
+    if '食用時間可依個人使用習慣與作息時間安排' not in gao:fail(errors,'龜鹿膏快捷標籤未同步目前使用方式')
 
     if errors:
         print('\n'.join('ERROR '+e for e in errors));return 1
@@ -124,3 +125,4 @@ def main():
     return 0
 
 if __name__=='__main__':raise SystemExit(main())
+

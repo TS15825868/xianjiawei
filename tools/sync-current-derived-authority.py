@@ -30,6 +30,9 @@ def normalize_product(item,master_by):
     if source.get('usage'):
         out['usage']=list(source['usage'])
         out['usagePrimary']=source['usage'][0]
+        if 'usage_primary' in out: out['usage_primary']=source['usage'][0]
+        adjustment=source.get('usageAdjustment') or next((x for x in source['usage'] if x=='可依個人需求調整'),'')
+        if adjustment: out['usageAdjustment']=adjustment
     if source.get('usageTiming'): out['usageTiming']=source['usageTiming']
     if source.get('detail'): out['detailUnitApprox']=source['detail']
     return out
@@ -39,14 +42,18 @@ def normalize_file(path,master_by,public_ids):
     data=json.loads(path.read_text(encoding='utf-8'))
     products=data.get('products')
     if isinstance(products,list):
-        data['products']=[normalize_product(x,master_by) for x in products if x.get('id') in public_ids]
+        local_by={x.get('id'):x for x in products}
+        data['products']=[normalize_product(local_by.get(pid,{'id':pid}),master_by) for pid in public_ids]
     elif isinstance(products,dict):
-        data['products']={pid:normalize_product({'id':pid,**value},master_by) for pid,value in products.items() if pid in public_ids}
+        data['products']={pid:normalize_product({'id':pid,**products.get(pid,{})},master_by) for pid in public_ids}
     if 'knowledgeProductIds' in data: data['knowledgeProductIds']=list(public_ids)
     if 'knowledgeProductCount' in data: data['knowledgeProductCount']=len(public_ids)
     if 'officialProductIds' in data: data['officialProductIds']=list(public_ids)
     if 'officialProductCount' in data: data['officialProductCount']=len(public_ids)
     if 'productCount' in data: data['productCount']=len(public_ids)
+    if 'knowledge_product_ids' in data: data['knowledge_product_ids']=list(public_ids)
+    if 'approved_media_product_ids' in data: data['approved_media_product_ids']=list(public_ids)
+    if 'approvedMediaProductCount' in data: data['approvedMediaProductCount']=len(public_ids)
     text=dump(path,data)
     if DEFERRED_ID in text: raise SystemExit(f'{path.name}仍含暫緩對外產品')
 
@@ -62,8 +69,26 @@ def main():
     public_ids=ids
     if by['guilu-drink-30'].get('usage',[None])[0]!=CURRENT_30:
         raise SystemExit(f'30cc目前正式用法不是 {CURRENT_30}')
-    for rel in ['data.json','catalog-public.json','product-master.json']:
+    if '可依個人需求調整' not in by['guilu-drink-30'].get('usage',[]):
+        raise SystemExit('30cc缺少目前正式用量調整說明')
+    for rel in ['data.json','catalog-public.json','product-master.json','assets/data/official-products.json','config/official-products.json']:
         normalize_file(ROOT/rel,by,public_ids)
+    # Metadata and public AI overview derive from the same current product list.
+    for rel in ['content/public-post-library.json','content/post-bank-current-authority-v20260809.json','content/public-content-policy.json','content/ai-brand-control-v20260807.json','content/visual-production-spec-current.json']:
+        data=json.loads((ROOT/rel).read_text(encoding='utf-8'))
+        def update_counts(value):
+            if isinstance(value,dict):
+                for key,item in list(value.items()):
+                    if key in ['productCount','knowledgeProductCount','knowledgeProducts','knowledge_product_count']: value[key]=len(public_ids)
+                    elif key in ['approvedMediaProductCount','approvedMediaProducts','approved_media_product_count']: value[key]=len(public_ids)
+                    else: update_counts(item)
+            elif isinstance(value,list):
+                for item in value: update_counts(item)
+        update_counts(data)
+        facts=data.get('productAuthority',{}).get('canonicalFacts',{})
+        if 'guiluDrink30' in facts: facts['guiluDrink30']['usageAdjustment']='可依個人需求調整'
+        if 'guilu-drink-30' in (data.get('products') or {}): data['products']['guilu-drink-30']['usageAdjustment']='可依個人需求調整'
+        dump(ROOT/rel,data)
     for rel in ['assets/data/official-products.json','config/official-products.json','ai-answers.json','geo-data.json']:
         text=(ROOT/rel).read_text(encoding='utf-8')
         if DEFERRED_ID in text: raise SystemExit(f'{rel}仍含暫緩對外產品')

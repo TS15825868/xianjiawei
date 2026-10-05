@@ -65,7 +65,7 @@
       "name": "龜鹿飲30cc玻璃罐",
       "specification": "30cc／罐（小玻璃罐）",
       "form": "液態即飲",
-      "package": "小玻璃罐、裸罐、無貼紙、無外盒、無外袋、金色蓋",
+      "package": "小玻璃罐、裸罐、無貼紙；不可更換瓶型、不可任意加標籤、不可放大成一般飲料瓶",
       "ingredients": [
         "水",
         "龜板萃取物",
@@ -86,7 +86,8 @@
       "fulfillment": "接單後製作，約5～7個工作天出貨",
       "page": "product-guilu-drink-30cc.html",
       "approvedProductImage": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-drink-30cc.avif?v=20260814-product-modal-media-v3",
-      "approvedDm": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260814-product-modal-media-v3"
+      "approvedDm": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260814-product-modal-media-v3",
+      "usageAdjustment": "可依個人需求調整"
     },
     {
       "id": "guilu-drink-180",
@@ -94,7 +95,7 @@
       "name": "龜鹿飲180cc鋁袋",
       "specification": "180cc／包（鋁袋）",
       "form": "液態即飲",
-      "package": "狹長直立鋁袋",
+      "package": "狹長直立鋁袋；維持正式比例，不可生成巨大包裝",
       "ingredients": [
         "水",
         "龜板萃取物",
@@ -129,7 +130,8 @@
       ],
       "page": "product-guilu-tangkuai.html",
       "approvedProductImage": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-tangkuai.avif?v=20260814-product-modal-media-v3",
-      "approvedDm": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260814-product-modal-media-v3"
+      "approvedDm": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260814-product-modal-media-v3",
+      "detailUnitApprox": "每塊約9.375g"
     },
     {
       "id": "guilu-jiao",
@@ -144,7 +146,8 @@
       ],
       "page": "product-guilu-jiao.html",
       "approvedProductImage": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-jiao.avif?v=20260814-product-modal-media-v3",
-      "approvedDm": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260814-product-modal-media-v3"
+      "approvedDm": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260814-product-modal-media-v3",
+      "detailUnitApprox": "每塊約18.75g"
     },
     {
       "id": "luerong-fen",

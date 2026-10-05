@@ -5,8 +5,10 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from current_product_authority import current_public_ids, current_media_ids
 
 ROOT=Path(__file__).resolve().parents[1]
+PUBLIC_IDS=current_public_ids(ROOT)
 CURRENT_30='每日 1–2 罐'
 DEFERRED=('柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder')
 
@@ -21,7 +23,7 @@ def validate_posts()->None:
     req(posts,'公開貼文母庫不得為空')
     ids=[str(p.get('id') or '') for p in posts];req(all(ids) and len(ids)==len(set(ids)),'公開貼文ID不得空白或重複')
     auth=doc.get('productAuthority') or {}
-    req(auth.get('knowledgeProducts')==6 and auth.get('approvedMediaProducts')==6,'公開貼文產品權威必須為六項／六媒體')
+    req(auth.get('knowledgeProducts')==len(PUBLIC_IDS) and auth.get('approvedMediaProducts')==len(PUBLIC_IDS),'公開貼文產品權威必須符合最新母資料／六媒體')
     serialized=json.dumps(doc,ensure_ascii=False)
     for marker in DEFERRED:req(marker not in serialized,f'公開貼文重新出現暫緩產品：{marker}')
     for post in posts:
@@ -62,7 +64,8 @@ def main()->None:
     subprocess.run([sys.executable,str(ROOT/'tools/validate-ai-geo-current-v20260820.py')],check=True)
     subprocess.run([sys.executable,str(ROOT/'tools/validate-public-boundary-v20260808.py')],check=True)
     validate_posts();validate_visual_review_policy();validate_no_retired_writebacks()
-    gao=read('product-guilu-gao.html');req('時間依作息安排' in gao and '早上＋下午' not in gao,'龜鹿膏顧客頁快捷標籤仍未同步')
+    gao=read('product-guilu-gao.html');req('食用時間可依個人使用習慣與作息時間安排' in gao and '早上＋下午' not in gao,'龜鹿膏顧客頁快捷標籤仍未同步')
     print('PASS current site release: six website/public-post products, six approved media, 30cc daily 1–2 cans, flexible Guilu Gao timing, AI/GEO, media and review safety align.')
 
 if __name__=='__main__':main()
+

@@ -7,9 +7,14 @@ const read=path=>fs.readFileSync(new URL(path,root),'utf8');
 const base=JSON.parse(read('content/public-post-library.json'));
 const assets=JSON.parse(read('content/public-asset-library.json'));
 const formal=JSON.parse(read('data/formal-media-authority-v20260810.json'));
+const master=JSON.parse(read('public-product-master.json'));
+const publicCount=master.products.length;
+assert.equal(master.productCount,publicCount);
+const mediaCount=formal.products.filter(p=>p.status==='approved_display').length;
 const CURRENT_30='每日 1–2 罐';
 const DEFERRED=/柒玄茶|龜鹿調飲粉|qixuan-guilu-drink-powder/i;
 const responseFor=url=>{
+  if(url.includes('public-product-master.json'))return new Response(JSON.stringify(master),{status:200});
   if(url.includes('content/public-post-library.json'))return new Response(JSON.stringify(base),{status:200,headers:{'content-type':'application/json'}});
   if(url.includes('content/public-asset-library.json'))return new Response(JSON.stringify(assets),{status:200,headers:{'content-type':'application/json'}});
   if(url.includes('data/formal-media-authority-v20260810.json'))return new Response(JSON.stringify(formal),{status:200,headers:{'content-type':'application/json'}});
@@ -36,15 +41,15 @@ assert.ok(window.XJWCurrentPostMediaAuthority,'未載入目前公開資產權威
 
 const auth=data.productAuthority||{};
 assert.equal(auth.textAuthority,'public-product-master.json','目前貼文文字權威不是public-product-master.json');
-assert.equal(auth.knowledgeProducts,6,'目前公開貼文產品必須為六項');
-assert.equal(auth.approvedMediaProducts,6,'目前核准產品媒體必須為六項');
+assert.equal(auth.knowledgeProducts,publicCount,'目前公開貼文產品必須為六項');
+assert.equal(auth.approvedMediaProducts,mediaCount,'目前核准產品媒體必須為六項');
 assert.equal(auth.drink30Usage,CURRENT_30,'30cc目前用法不是每日 1–2 罐');
 assert.equal(auth.drink180Usage,'每日一包','180cc目前用法不是每日一包');
 assert.match(String(auth.deferredProductPolicy||''),/柒玄茶|暫不放官網|暫緩/,'缺少柒玄茶暫緩公開政策');
 
 const guard=window.XJWCurrentPostMediaAuthority;
 assert.equal(guard.current30Usage,CURRENT_30,'runtime guard沒有鎖定30cc目前用法');
-assert.equal(guard.validateFormalCopy({copy:'龜鹿湯塊75g （2兩）／盒｜8塊裝｜每塊約9.375g'}),'','正式湯塊每塊重量不得被舊守門誤擋');
+assert.equal(guard.validateFormalCopy({copy:'龜鹿湯塊75g／盒｜8塊裝｜每塊約9.375g'}),'','正式湯塊每塊重量不得被舊守門誤擋');
 assert.equal(guard.validateFormalCopy({copy:'龜鹿膠600g （1斤）／盒｜32塊裝｜每塊約18.75g'}),'','正式龜鹿膠每塊重量不得被舊守門誤擋');
 assert.equal(guard.validateFormalCopy({id:'POST-DRINK-30',copy:`龜鹿飲30cc玻璃罐，${CURRENT_30}`}),'','30cc目前正式用法不得被舊守門誤擋');
 assert.equal(guard.validateFormalCopy({id:'POST-PRODUCT-OVERVIEW',copy:'仙加味目前官網公開六項產品：龜鹿膏、龜鹿飲30cc玻璃罐、龜鹿飲180cc鋁袋、龜鹿湯塊、龜鹿膠、鹿茸粉'}),'','六項目前公開產品總覽不得被舊七項守門誤擋');
@@ -79,11 +84,11 @@ for(const post of active){
 }
 
 const by=new Map(posts.map(p=>[p.id,p]));
-assert.match(String(by.get('POST-PRODUCT-OVERVIEW')?.copy||''),/官網公開六項產品|六項產品/,'產品總覽必須是目前六項公開產品');
+assert.match(String(by.get('POST-PRODUCT-OVERVIEW')?.copy||''),/官網公開產品|六項產品/,'產品總覽必須是目前六項公開產品');
 assert.doesNotMatch(String(by.get('POST-PRODUCT-OVERVIEW')?.copy||''),DEFERRED,'產品總覽不得出現暫緩柒玄茶');
 assert.match(String(by.get('POST-DRINK-30')?.copy||''),/每日 1–2 罐/,'30cc待審文案缺目前用法');
 assert.match(String(by.get('POST-DRINK-180')?.copy||''),/每日一包/,'180cc待審文案缺目前用法');
-assert.match(String(by.get('POST-SOUP-75')?.copy||''),/75g （2兩）／盒｜8塊裝.*9\.375g/,'湯塊待審文案規格不完整');
+assert.match(String(by.get('POST-SOUP-75')?.copy||''),/75g／盒｜8塊裝.*9\.375g/,'湯塊待審文案規格不完整');
 assert.match(String(by.get('POST-JIAO-600')?.copy||''),/600g （1斤）／盒｜32塊裝.*18\.75g/,'龜鹿膠待審文案規格不完整');
 
 for(const id of ['POST-PRODUCT-OVERVIEW','POST-CHOOSE','POST-COMBO','POST-GUIDE','POST-CHOOSE-BY-HABIT']){
@@ -105,3 +110,4 @@ const seen=new Map();
 for(const post of active){const image=normalize(post.image_url);if(!image||reusable(image))continue;if(seen.has(image))assert.fail(`生活／情境主圖重複：${post.id} 與 ${seen.get(image)} -> ${image}`);seen.set(image,post.id)}
 assert.equal(Number(data?.counts?.duplicate_primary_images||0),0,'目前runtime不應有生活／情境主圖重複');
 console.log(`PASS current post runtime: ${posts.length} posts, six public products, six approved media products, current 30cc use, no retired fixed-time Guilu Gao chip or stale seven-product gate.`);
+

@@ -5,10 +5,11 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from current_product_authority import current_public_ids, current_media_ids
 
 ROOT=Path(__file__).resolve().parents[1]
 CURRENT_30='每日 1–2 罐'
-PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED=('柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder')
 
 def read(path): return (ROOT/path).read_text(encoding='utf-8')
@@ -44,7 +45,7 @@ def main():
     check_publishing_architecture();check_post_library()
 
     master=load('public-product-master.json');products={p.get('id'):p for p in master.get('products') or []}
-    req(master.get('productCount')==6 and list(products)==PUBLIC_IDS,'目前公開母資料必須為六項官網產品')
+    req(master.get('productCount')==len(PUBLIC_IDS) and list(products)==PUBLIC_IDS,'目前公開母資料必須符合最新母資料官網產品')
     req((products['guilu-drink-30'].get('usage') or [None])[0]==CURRENT_30,'30cc目前用法必須精確為每日 1–2 罐')
     gao=read('product-guilu-gao.html');req('早上＋下午' not in gao and '早上+下午' not in gao,'龜鹿膏詳頁仍有舊固定時段標籤')
     for rel in ['index.html','products.html','guide.html','faq.html','ai-answers.json','geo-data.json']:
@@ -54,3 +55,4 @@ def main():
     print('PASS canonical audit: six website products, six approved media, current 30cc use, no fixed-time Guilu Gao chip, public boundaries and publishing architecture align.')
 
 if __name__=='__main__':main()
+

@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 from pathlib import Path
+from current_product_authority import current_public_ids, current_media_ids
 import json
 import re
 
 ROOT=Path(__file__).resolve().parents[1]
+PUBLIC_IDS=current_public_ids(ROOT)
 V6=ROOT/'publishing-center-data-v6.js'
 V7=ROOT/'publishing-center-data-v7.js'
 MANIFEST=ROOT/'content/post-bank-v6-manifest.json'
@@ -42,7 +44,7 @@ def main():
     require('姿勢依情境自由變化' in combined,'相容母生成器未保留小老闆依情境改變姿勢能力')
     require('不是每張強制出現' in combined,'相容母生成器未保留夥伴依情境出現規則')
 
-    require(len(formal.get('products') or [])==6,'目前formal media authority必須維持六項產品')
+    require(len(formal.get('products') or [])==len(PUBLIC_IDS),'目前formal media authority必須維持六項產品')
     require(all(p.get('status')=='approved_display' for p in formal.get('products') or []),'formal media產品顧客展示必須逐張核准')
     require(formal.get('trial',{}).get('status')=='approved_display','試喝正式媒體必須核准')
     require(str(formal.get('post_catalog') or '').lstrip('/')==zip_path,'相容母庫最新ZIP catalog必須跟目前formal authority一致')
@@ -68,3 +70,4 @@ def main():
     print(f'PASS post-bank compatibility generators: six current products, current formal media, current ZIP ({candidate_count} candidates), products-v3 identity, semantic ZIP-first workflow, needs_binary_sync and 16-item review; historical 300/177/500 counts are documentation only, not release guards.')
 
 if __name__=='__main__':main()
+

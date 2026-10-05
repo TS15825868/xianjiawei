@@ -67,7 +67,7 @@ jobs:
           if(h.ok!==true) throw new Error('LINE healthz ok=false');
           if(h.credentialsConfigured!==true) throw new Error('LINE credentials 尚未配置');
           if(h.orderOpen!==true) throw new Error('LINE 下單狀態未開放');
-          if(Number(h.productCount)!==6) throw new Error('LINE 對外產品數不是6');
+          if(Number(h.productCount)!==JSON.parse(fs.readFileSync('product-master-live.json','utf8')).productCount) throw new Error('LINE 對外產品數不是6');
           console.log('PASS LINE OA live',h.version,h.catalogVersion,h.productCount);
           NODE
 
@@ -112,3 +112,4 @@ jobs:
             n8n-status.txt
           if-no-files-found: error
           retention-days: 7
+

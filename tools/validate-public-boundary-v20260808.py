@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
+from current_product_authority import current_public_ids, current_media_ids
 import json
 import re
 import xml.etree.ElementTree as ET
@@ -7,7 +8,7 @@ import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
 BASE='https://ts15825868.github.io/xianjiawei/'
 CURRENT_30='每日 1–2 罐'
-PUBLIC_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED=('柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder')
 EXPECTED_SPECS={
  'guilu-gao':'100g／罐','guilu-drink-30':'30cc／罐（小玻璃罐）','guilu-drink-180':'180cc／包（鋁袋）',
@@ -39,7 +40,7 @@ def main():
     master=json.loads(read('public-product-master.json'));products={p.get('id'):p for p in master.get('products') or []}
     media=json.loads(read('data/product-media-authority.json'));media_products=media.get('products') or {}
     assert master.get('authority')=='user-confirmed-current','公開母資料不是目前使用者確認權威'
-    assert master.get('productCount')==6 and list(products)==PUBLIC_IDS,'公開母資料必須是目前六項官網產品'
+    assert master.get('productCount')==len(PUBLIC_IDS) and list(products)==PUBLIC_IDS,'公開母資料必須符合目前母資料官網產品'
     for pid,spec in EXPECTED_SPECS.items():assert products[pid].get('specification')==spec,f'{pid}規格未同步'
     assert products['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc用法未同步目前正式值'
     assert products['guilu-drink-180'].get('usage',[None])[0]=='每日一包','180cc用法不是每日一包'
@@ -90,3 +91,4 @@ def main():
     print(f'PASS public boundary: {len(pages)} pages use six website products; product pages keep product-main outside, dm-final only in 查看介紹 modal, and no deferred Qixuan website exposure.')
 
 if __name__=='__main__':main()
+

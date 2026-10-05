@@ -62,9 +62,9 @@
     {
       "id": "guilu-tangkuai",
       "name": "龜鹿湯塊",
-      "spec": "75g （2兩）／盒｜8塊裝",
+      "spec": "75g／盒｜8塊裝",
       "detail_unit_approx": "每塊約9.375g",
-      "detail_unit_rule": "顧客文字頁、FAQ與快速查看可顯示完整規格與每塊約9.375g；產品主圖與DM主規格維持75g （2兩）／盒｜8塊裝，不自行加字",
+      "detail_unit_rule": "顧客文字頁、FAQ與快速查看可顯示完整規格與每塊約9.375g；產品主圖與DM主規格維持75g／盒｜8塊裝，不自行加字",
       "image": "/images/dm-v3/guilu-tangkuai.jpg",
       "dm": "/images/dm-final/05_guilu-tangkuai-75g-dm.jpg",
       "status": "approved_display",
@@ -181,10 +181,11 @@
     "禁止拼貼與黑塊",
     "30cc維持小玻璃裸罐、無貼紙、原比例與原罐型",
     "180cc維持鋁袋、原袋型與原比例；官網主圖使用 product-main 自包含 SVG，dm-final 詳細DM不得替代主圖",
-    "龜鹿湯塊顧客文字可顯示75g （2兩）／盒｜8塊裝與每塊約9.375g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字",
+    "龜鹿湯塊顧客文字可顯示75g／盒｜8塊裝與每塊約9.375g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字",
     "龜鹿膠顧客文字可顯示600g （1斤）／盒｜32塊裝與每塊約18.75 g；產品主圖／DM主規格維持正式原圖與主規格，不自行加字",
     "官網一般產品展示固定使用 product-main 自包含 SVG；JPG／dm-v3／DM不得覆蓋回主圖。"
   ],
   "post_image_policy": "product post copy may include current exact text specifications and unit approximations when relevant; visuals use formal product media; explicit DM posts use current approved detailed DMs; trial content uses the latest approved trial poster; edits return to pending_review and must pass the 16-item review gate",
   "guard_policy": "驗證官網六項 product-main 自包含 SVG、dm-final 詳細圖、試喝海報、產品規格與包裝身份各自角色；dm-v3 僅保留社群／靜態相容，不得回流官網主圖。新版正確媒體優先。"
 }
+

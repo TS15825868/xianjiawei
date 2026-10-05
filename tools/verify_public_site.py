@@ -54,8 +54,9 @@ def main() -> None:
 
     data = json.loads(Path("data.json").read_text(encoding="utf-8"))
     products = data.get("products", [])
-    if len(products) != 6:
-        raise SystemExit(f"產品數量應為 6，目前為 {len(products)}")
+    master=json.loads(Path('public-product-master.json').read_text(encoding='utf-8'))
+    if len(products) != master['productCount'] or {p['id'] for p in products}!={p['id'] for p in master['products']}:
+        raise SystemExit(f"產品數量應符合最新公開母資料，目前為 {len(products)}")
     ids = {product.get("id") for product in products}
     if not {"guilu-drink-30", "guilu-drink-180"} <= ids:
         raise SystemExit("龜鹿飲 30cc／180cc 資料缺漏")
@@ -149,3 +150,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

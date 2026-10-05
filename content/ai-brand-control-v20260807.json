@@ -79,9 +79,10 @@
           "紅棗",
           "黃耆"
         ],
-        "usagePrimary": "每日 1 罐",
+        "usagePrimary": "每日 1–2 罐",
         "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
-        "fulfillment": "接單後製作，約5～7個工作天出貨"
+        "fulfillment": "接單後製作，約5～7個工作天出貨",
+        "usageAdjustment": "可依個人需求調整"
       },
       "guiluDrink180": {
         "ingredients": [
@@ -123,7 +124,7 @@
     "rejectUnknownProductSpecs": true,
     "rejectLegacyProductFacts": true,
     "latestAuthorityWins": true,
-    "drink30Rule": "龜鹿飲30cc最新正式使用方式為每日 1 罐；任何舊文案、舊鏡像、舊守門員或同步器不得回退成每日 1–2 罐或其他舊用法",
+    "drink30Rule": "龜鹿飲30cc最新正式使用方式為每日 1–2 罐；任何舊文案、舊鏡像、舊守門員或同步器不得回退成每日 1 罐或其他舊用法",
     "guiluGaoTimingRule": "龜鹿膏食用時間可依個人使用習慣與作息時間安排；不得回退成早上＋下午、早晚各一小匙或其他固定時段",
     "drinkLeadTimeRule": "約5～7個工作天交期只適用龜鹿飲30cc與180cc",
     "soupBlockRule": "龜鹿湯塊正式規格只有75g／盒｜8塊裝；每塊約9.375g；不得回流舊2兩字樣、建立300g／600g規格，或把龜鹿膠規格套用到龜鹿湯塊",
