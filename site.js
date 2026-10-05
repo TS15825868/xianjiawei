@@ -46,10 +46,10 @@
     authorityScope: "current-website-products-and-approved-media; public-product-master.json is current website text authority",
     brand: "仙加味",
     lineId: "@762jybnm",
-    officialProductIds:["guilu-gao","guilu-drink-30","guilu-drink-180","guilu-tangkuai","guilu-jiao","luerong-fen"],
-    officialProductCount: 6,
-    knowledgeProductCount: 6,
-    approvedMediaProductCount: 6,
+    get officialProductIds(){return this.products.map(product=>product.id);},
+    get officialProductCount(){return this.products.length;},
+    get knowledgeProductCount(){return this.products.length;},
+    get approvedMediaProductCount(){return this.products.filter(product=>product.image).length;},
     products: [
       {id:"guilu-drink-30",series:"仙加味・龜鹿",name:"龜鹿飲30cc玻璃罐",displayName:"龜鹿飲30cc玻璃罐",size:"30cc／罐（小玻璃罐）",image:`images/product-main/guilu-drink-30.jpg?v=${VERSION}`,description:"30cc小玻璃罐，裸罐、無貼紙，適合希望準備步驟少或外出攜帶的人。",ingredients:["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],usage:["每日 1–2 罐","可依個人需求調整","可隔水加熱或溫熱飲用","飲用時間可依個人使用習慣與作息時間安排","避免冰飲"],usagePrimary:"每日 1–2 罐",storage:["未開封置於陰涼乾燥處","開罐後請儘速飲用完畢"],purpose:"輕巧即飲",fit:"希望方便即飲或外出攜帶的人",page:"product-guilu-drink-30cc.html",detailPage:"product-guilu-drink-30cc.html"},
       {id:"guilu-drink-180",series:"仙加味・龜鹿",name:"龜鹿飲180cc鋁袋",displayName:"龜鹿飲180cc鋁袋",size:"180cc／包（鋁袋）",image:`images/product-main/guilu-drink-180.jpg?v=${VERSION}`,description:"180cc鋁袋即飲型態，維持正式狹長鋁袋比例。",ingredients:["水","龜板萃取物","鹿角萃取物","粉光蔘","枸杞","紅棗","黃耆"],usage:["每日一包","可隔水加熱或溫熱飲用","飲用時間可依個人使用習慣與作息時間安排","避免冰飲"],usagePrimary:"每日一包",storage:["未開封置於陰涼乾燥處","開封後請儘速飲用完畢"],purpose:"完整份量即飲",fit:"偏好180cc份量或居家安排的人",page:"product-guilu-drink-180cc.html",detailPage:"product-guilu-drink-180cc.html"},
@@ -59,7 +59,7 @@
       {id:"luerong-fen",series:"仙加味",name:"鹿茸粉",displayName:"鹿茸粉",size:"75g／罐",image:`images/product-main/luerong-fen.jpg?v=${VERSION}`,description:"75g罐裝鹿茸粉，可依日常習慣自行搭配溫熱飲品。",ingredients:["鹿茸"],usage:["依實際產品說明取用","可搭配溫熱飲品"],storage:["置於陰涼乾燥處","使用後密封保存"],purpose:"粉狀自行搭配",fit:"習慣自行搭配溫熱飲品的人",page:"product-luerong-fen.html",detailPage:"product-luerong-fen.html"}
     ],
     combos: [], recommend: [], recipes: [], videos: [], faqs: [], pageContent: {},
-    runtime:{productTextAuthority:"public-product-master.json",knowledgeProductCount:6,approvedMediaProductCount:6,productMainImageSource:"images/product-main/",productDetailImageSource:"images/dm-final/",deferredWebsiteProduct:"qixuan-guilu-drink-powder",guiluGaoUsageTiming:CURRENT_GAO_TIMING}
+    runtime:{productTextAuthority:"public-product-master.json",get knowledgeProductCount(){return SAFE_DATA.products.length;},get approvedMediaProductCount(){return SAFE_DATA.approvedMediaProductCount;},productMainImageSource:"images/product-main/",productDetailImageSource:"images/dm-final/",deferredWebsiteProduct:"qixuan-guilu-drink-powder",guiluGaoUsageTiming:CURRENT_GAO_TIMING}
   });
 
   function cleanAssetPath(value){

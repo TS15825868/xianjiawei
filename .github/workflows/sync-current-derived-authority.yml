@@ -2,7 +2,7 @@ name: 仙加味目前權威衍生資料同步
 
 # MAINTENANCE MODE: manual only until the owner finishes visual/function review.
 # 最新正式資料優先；官網／公開貼文品項由 public-product-master.json 最新清單決定。
-# 柒玄茶目前暫不放官網與公開貼文；LINE文字知識與ERP資料可依各自權威保留。
+# 柒玄茶目前暫不放官網、LINE公開知識與公開貼文；ERP內部資料保留。
 # 同步器不得把新版規格、用法、顧客文字或貼文控制降級回舊守門內容。
 on:
   workflow_dispatch:
@@ -32,7 +32,7 @@ jobs:
         run: echo "PAUSED automatic sync; this run is manual maintenance verification only."
 
       - name: Sync current derived authority files
-        run: python tools/sync-current-derived-authority.py
+        run: python tools/sync-current-derived-authority.py --write
 
       - name: Validate synchronized customer outputs against latest authority
         shell: bash
@@ -154,4 +154,5 @@ jobs:
           fi
           git commit -m 'sync: refresh derived public content from current authority'
           git push origin HEAD:main
+
 

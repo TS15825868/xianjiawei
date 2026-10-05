@@ -41,7 +41,7 @@ def validate_posts()->None:
 
 def validate_visual_review_policy()->None:
     visual=load('content/visual-production-spec-current.json')
-    req(visual.get('knowledge_product_count')==6 and visual.get('approved_media_product_count')==6,'視覺產品權威不是六項／六媒體')
+    req(visual.get('knowledge_product_count')==len(PUBLIC_IDS) and visual.get('approved_media_product_count')==len(current_media_ids(ROOT)),'視覺產品權威與最新公開產品／核准媒體清單不一致')
     req((visual.get('copy_image_match') or {}).get('review_items')==16,'貼文必須維持16項審核')
     policy=visual.get('post_media_policy') or {}
     req(policy.get('regenerate_only_if_no_approved_match') is True,'只有真正沒有核准匹配來源才可重新生成')
@@ -68,4 +68,5 @@ def main()->None:
     print('PASS current site release: six website/public-post products, six approved media, 30cc daily 1–2 cans, flexible Guilu Gao timing, AI/GEO, media and review safety align.')
 
 if __name__=='__main__':main()
+
 
