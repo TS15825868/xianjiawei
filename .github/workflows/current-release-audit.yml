@@ -1,8 +1,8 @@
 name: 仙加味官網目前權威完整驗收（手動）
 
-# 全面整理期間維持手動；目前官網／公開貼文產品為六項。
+# 全面整理期間維持手動；目前公開品項由 public-product-master.json 最新清單決定。
 # 柒玄茶目前暫不放官網、官網AI/GEO、FAQ或公開貼文；LINE文字知識與ERP資料依各自權威保留。
-# 龜鹿飲30cc最新正式用法為每日 1 罐；龜鹿膏不得回退固定早上／下午時段。
+# 龜鹿飲30cc最新正式用法為每日 1–2 罐，可依個人需求調整；龜鹿膏不得回退固定早上／下午時段。
 on:
   workflow_dispatch:
 
@@ -33,7 +33,7 @@ jobs:
             python -m json.tool "$file" >/dev/null
           done
 
-      - name: Validate six-product current authority and public surfaces
+      - name: Validate current product authority and public surfaces
         run: |
           set -euo pipefail
           python tools/validate-current-authority-no-stale-blockers.py
@@ -67,12 +67,14 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import json
-          current='每日 1 罐'
+          current='每日 1–2 罐'
           gao_current='食用時間可依個人使用習慣與作息時間安排'
           deferred_name='柒玄茶・龜鹿調飲粉'
           deferred_id='qixuan-guilu-drink-powder'
           master=json.loads(Path('public-product-master.json').read_text(encoding='utf-8'))
-          assert master['productCount']==6 and len(master['products'])==6
+          ids=[p.get('id') for p in master.get('products',[])]
+          required=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+          assert master['productCount']==len(ids) and len(ids)==len(set(ids)) and all(pid in ids for pid in required)
           by={p['id']:p for p in master['products']}
           assert by['guilu-drink-30']['usage'][0]==current
           assert by['guilu-gao']['usage'][0]==gao_current
@@ -87,9 +89,9 @@ jobs:
           runtime=Path('site-product-data-authority.js').read_text(encoding='utf-8')
           display=Path('site-customer-display-v20260812.js').read_text(encoding='utf-8')
           fallback=Path('site.js').read_text(encoding='utf-8')
-          assert 'productCount!==6' in runtime and 'knowledgeProductCount:6' in runtime
-          assert 'knowledgeProductCount:6' in display
-          assert 'knowledgeProductCount: 6' in fallback
+          assert 'Number(master?.productCount)!==ids.length' in runtime and 'knowledgeProductCount:publicIds.length' in runtime
+          assert 'knowledgeProductCount:publicIds.length' in display
+          assert '每日 1 罐' not in fallback and 'usagePrimary:"每日 1 罐"' not in fallback
           service_hours=json.loads(Path('config/public-content-policy.json').read_text(encoding='utf-8')).get('serviceHours') or {}
           assert service_hours.get('storefront')=='週一至週五 10:30－20:00'
           assert service_hours.get('closed')=='週六、週日店休'
@@ -111,7 +113,7 @@ jobs:
               assert details and all(str(x).startswith('images/dm-final/') for x in details), f'product-media-authority detail invalid: {pid}'
           assert 'knowledgeProductCount:7' not in runtime
           assert 'knowledgeProductCount:7' not in display
-          print('PASS: six website/public-post products; flexible Guilu Gao timing; 30cc daily 1 can; no stale seven-product runtime gate.')
+          print(f'PASS: {len(ids)} current website/public-post products; flexible Guilu Gao timing; 30cc daily 1–2 cans; no fixed old product-count runtime gate.')
           PY
 
       - name: Maintenance guard policy check
