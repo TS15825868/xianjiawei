@@ -59,6 +59,6 @@ def main():
     for rel in ['llms.txt','llms-full.txt','faq.html','products.html','brand-facts.html']:
         req(CURRENT_30 in (ROOT/rel).read_text(encoding='utf-8'),f'{rel}缺少30cc目前用法')
 
-    print('PASS: six public products only; deferred product absent from customer/AI-answer/GEO payloads while retained as negative llms policy; 30cc remains daily 1 can.')
+    print('PASS: six public products only; deferred product absent from customer/AI-answer/GEO payloads while retained as negative llms policy; 30cc remains daily 1-2 cans.')
 
 if __name__=='__main__': main()
