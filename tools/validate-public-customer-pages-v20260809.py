@@ -6,7 +6,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CURRENT_30 = '每日 1 罐'
+CURRENT_30 = '每日 1–2 罐'
 PUBLIC_IDS = ['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
 DEFERRED_ID = 'qixuan-guilu-drink-powder'
 DEFERRED_NAME = '柒玄茶・龜鹿調飲粉'
@@ -18,7 +18,7 @@ PUBLIC_PAGES = [
     'product-guilu-jiao.html','product-luerong-fen.html'
 ]
 TECHNICAL_VISIBLE = ['products-v2','products-v3','GitHub Web','runtime','快取版本','機器可讀產品母本','/mnt/data/','ERP秘密','Token','Secret']
-RETIRED_VISIBLE = ['30cc玻璃瓶','30cc／瓶','30cc瓶裝','一天一次一小匙','早晚各一小匙','每日 1-2罐','每日 1-2 罐','每日 1～2 罐']
+RETIRED_VISIBLE = ['30cc玻璃瓶','30cc／瓶','30cc瓶裝','一天一次一小匙','早晚各一小匙']
 
 class VisibleText(HTMLParser):
     def __init__(self):
@@ -70,7 +70,7 @@ def main():
 
     p30 = visible('product-guilu-drink-30cc.html')
     req('30cc／罐（小玻璃罐）' in p30 and '裸罐' in p30 and '無貼紙' in p30, '30cc詳頁包裝事實不完整')
-    req(CURRENT_30 in p30 and CURRENT_30 in faq and CURRENT_30 in guide and CURRENT_30 in products, '30cc每日 1 罐未同步產品頁／FAQ／指南／總覽')
+    req(CURRENT_30 in p30 and CURRENT_30 in faq and CURRENT_30 in guide and CURRENT_30 in products, '30cc目前正式用法未同步產品頁／FAQ／指南／總覽')
     p180 = visible('product-guilu-drink-180cc.html')
     req('180cc／包（鋁袋）' in p180 and '每日一包' in p180, '180cc詳頁規格／使用方式不完整')
 
