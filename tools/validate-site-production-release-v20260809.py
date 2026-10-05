@@ -45,12 +45,13 @@ def validate_products():
     for rel in ['assets/data/official-products.json','config/official-products.json','data.json','catalog-public.json','product-master.json']:
         data=load(rel);pm=product_map(data)
         req(set(pm)==set(PUBLIC_IDS),f'{rel}產品集合不是目前六項官網產品')
-        serialized=json.dumps(data,ensure_ascii=False)
-        for marker in DEFERRED:req(marker not in serialized,f'{rel}重新混入暫緩產品：{marker}')
-        p30=pm['guilu-drink-30'];req(usage_of(p30)==CURRENT_30 or CURRENT_30 in serialized,f'{rel} 30cc未同步每日 1 罐')
+        # 只檢查實際產品輸出。治理／禁止規則可以明確寫出「不得回退成每日 1–2 罐」等退役字樣，
+        # 不得把負面守門文字誤判成公開產品資料回流。
+        active_serialized=json.dumps(list(pm.values()),ensure_ascii=False)
+        for marker in DEFERRED:req(marker not in active_serialized,f'{rel}重新混入暫緩產品：{marker}')
+        p30=pm['guilu-drink-30'];req(usage_of(p30)==CURRENT_30,f'{rel} 30cc未同步每日 1 罐')
         for legacy in LEGACY_30:
-            if legacy=='每日一罐' and '不得回退成每日一罐' in serialized: continue
-            req(legacy not in serialized,f'{rel}仍含30cc退役輸出：{legacy}')
+            req(legacy not in active_serialized,f'{rel}實際產品資料仍含30cc退役輸出：{legacy}')
 
     for pid,page in PAGE_BY_ID.items():
         source=read(page);req(SPECS[pid] in source,f'{page}缺目前規格')
