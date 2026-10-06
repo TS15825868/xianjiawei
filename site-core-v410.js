@@ -6,7 +6,7 @@ let SITE_DATA = null;
 let lastFocusedElement = null;
 let menuScrollY = 0;
 
-const UX_VERSION = "410.1";
+const UX_VERSION = "20261006-brand-ai-v35";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
 const MENU_GROUPS = [
   {
