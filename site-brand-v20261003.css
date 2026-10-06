@@ -2477,3 +2477,20 @@ html body.ux-v410[data-page] main.page .final-cta .eyebrow{
   background:#FFF8E8!important;
   border-color:rgba(104,32,35,.24)!important;
 }
+
+
+/* 2026-10-06｜實機對比修正 v33
+ * eyebrow 本身有米白膠囊底時，不因父層為深色卡片而改成淡金字。
+ */
+html body.ux-v410[data-page] main.page .eyebrow,
+html body.ux-v410[data-page] main.page .brand-story-intro .eyebrow,
+html body.ux-v410[data-page] main.page .home-story-card .eyebrow,
+html body.ux-v410[data-page] main.page .home-product-showcase .eyebrow,
+html body.ux-v410[data-page] main.page .section--brand-gold .section-heading .eyebrow,
+html body.ux-v410[data-page] main.page .final-cta .eyebrow{
+  color:#682023!important;
+  -webkit-text-fill-color:#682023!important;
+  background:linear-gradient(135deg,#fffdf8 0%,#f6edd9 100%)!important;
+  border-color:rgba(104,32,35,.28)!important;
+  text-shadow:none!important;
+}
