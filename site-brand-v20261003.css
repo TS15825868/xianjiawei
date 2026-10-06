@@ -2494,3 +2494,51 @@ html body.ux-v410[data-page] main.page .final-cta .eyebrow{
   border-color:rgba(104,32,35,.28)!important;
   text-shadow:none!important;
 }
+
+
+/* 2026-10-06｜全站品牌世界背景 v34 */
+html body.ux-v410[data-page]{
+ background-color:#F7F4ED!important;
+ background-image:radial-gradient(circle at 88% 5%,rgba(176,138,71,.075),transparent 24%),linear-gradient(180deg,rgba(255,253,248,.97),rgba(247,244,237,.985))!important;
+}
+html body.ux-v410[data-page] main.page{position:relative!important;isolation:isolate!important}
+html body.ux-v410[data-page] main.page:before{
+ content:""!important;position:fixed!important;inset:72px 0 0!important;z-index:-2!important;pointer-events:none!important;opacity:.115!important;
+ background:url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/880px auto no-repeat!important
+}
+html body.ux-v410[data-page="knowledge"] main.page:after,
+html body.ux-v410[data-page="why-guilu"] main.page:after,
+html body.ux-v410[data-page="hanfang-baike"] main.page:after,
+html body.ux-v410[data-page="video"] main.page:after,
+html body.ux-v410[data-page="sources"] main.page:after{
+ content:""!important;position:fixed!important;inset:90px 0 auto!important;height:440px!important;z-index:-1!important;pointer-events:none!important;opacity:.085!important;
+ background:url('images/brand/decor-v20261003/herbs-bottom.webp?v=20261003') left -70px top 20px/340px auto no-repeat!important
+}
+html body.ux-v410[data-page="brand"] main.page:after,
+html body.ux-v410[data-page="brand-origin"] main.page:after,
+html body.ux-v410[data-page="craft"] main.page:after,
+html body.ux-v410[data-page="quality"] main.page:after,
+html body.ux-v410[data-page="ingredients"] main.page:after,
+html body.ux-v410[data-page="brand-facts"] main.page:after{
+ content:""!important;position:fixed!important;inset:100px 0 auto!important;height:520px!important;z-index:-1!important;pointer-events:none!important;opacity:.09!important;
+ background:url('images/brand/decor-v20261003/deer-right.webp?v=20261003') right -70px top 20px/310px auto no-repeat!important
+}
+html body.ux-v410[data-page="guide"] main.page:after,
+html body.ux-v410[data-page="recipes"] main.page:after,
+html body.ux-v410[data-page="choose"] main.page:after,
+html body.ux-v410[data-page="combo"] main.page:after,
+html body.ux-v410[data-page="faq"] main.page:after,
+html body.ux-v410[data-page="contact"] main.page:after,
+html body.ux-v410[data-page="trial"] main.page:after{
+ content:""!important;position:fixed!important;inset:auto 0 0!important;height:470px!important;z-index:-1!important;pointer-events:none!important;opacity:.075!important;
+ background:url('images/brand/decor-v20261003/turtle-bottom.webp?v=20261003') left -60px bottom -35px/300px auto no-repeat!important
+}
+html body.ux-v410[data-page="products"] main.page:after,
+html body.ux-v410[data-page="product-detail"] main.page:after{
+ content:""!important;position:fixed!important;inset:90px 0 auto!important;height:420px!important;z-index:-1!important;pointer-events:none!important;opacity:.055!important;
+ background:url('images/brand/decor-v20261003/goji-top.webp?v=20261003') right -55px top -35px/280px auto no-repeat!important
+}
+@media(max-width:700px){
+ html body.ux-v410[data-page] main.page:before{opacity:.075!important;background-size:620px auto!important}
+ html body.ux-v410[data-page] main.page:after{opacity:.055!important;background-size:230px auto!important}
+}
