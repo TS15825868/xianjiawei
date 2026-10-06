@@ -2542,3 +2542,24 @@ html body[data-page="product-detail"] main.page:after{
  html body[data-page] main.page:before{opacity:.075!important;background-size:620px auto!important}
  html body[data-page] main.page:after{opacity:.055!important;background-size:230px auto!important}
 }
+
+
+/* 2026-10-06｜v35 正式驗收回歸修正 */
+html body[data-page="why-guilu"] main.page > #guilu-choose.section--brand-gold{
+  color:#FFF8E8!important;
+  background-color:#745125!important;
+  background-image:radial-gradient(circle at 92% 7%,rgba(255,255,255,.12),transparent 26%),linear-gradient(135deg,#976C32 0%,#745125 72%,#583916 100%)!important;
+}
+html body[data-page="why-guilu"] main.page > #guilu-choose.section--brand-gold .section-heading h2,
+html body[data-page="why-guilu"] main.page > #guilu-choose.section--brand-gold .section-heading > p:last-child{
+  color:#FFF8E8!important;
+}
+html body .site-menu.open .site-menu__panel{
+  position:fixed!important;
+  top:0!important;
+  right:0!important;
+  left:auto!important;
+  margin:0!important;
+  transform:none!important;
+  -webkit-transform:none!important;
+}
