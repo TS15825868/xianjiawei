@@ -17,6 +17,7 @@ SPECS={
  'guilu-gao':'100g／罐','guilu-drink-30':'30cc／罐（小玻璃罐）','guilu-drink-180':'180cc／包（鋁袋）',
  'guilu-tangkuai':'75g／盒｜8塊裝','guilu-jiao':'600g （1斤）／盒｜32塊裝','luerong-fen':'75g／罐'
 }
+STRUCTURED={'knowledge.html','hanfang-baike.html','video.html','sources.html','ingredients.html','quality.html','craft.html'}
 PRIMARY={'index.html','products.html','choose.html','combo.html','guide.html','faq.html','trial.html','brand.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html'}
 
 class HeadParser(HTMLParser):
@@ -68,6 +69,7 @@ def main():
         for marker in DEFERRED:
             if marker in source:fail(errors,f'{filename}重新公開暫緩產品：{marker}')
         if '30cc玻璃瓶' in source or '小玻璃瓶' in source or '30cc／瓶' in source:fail(errors,f'{filename}仍含30cc舊稱')
+        if filename in STRUCTURED and not p.jsonld:fail(errors,f'{filename}缺WebPage JSON-LD')
         if filename in PRIMARY:
             if not meta(p,name='ai-summary'):fail(errors,f'{filename}缺ai-summary')
             for label,value in [('og:title',meta(p,prop='og:title')),('og:description',meta(p,prop='og:description')),('og:image',meta(p,prop='og:image'))]:
