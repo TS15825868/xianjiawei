@@ -13,23 +13,32 @@ const MENU_GROUPS = [
     title: "主要內容",
     links: [
       { href: "index.html", label: "首頁", keys: ["home", "404"] },
-      { href: "products.html", label: "龜鹿系列", keys: ["products", "product-detail", "dm"] },
+      { href: "products.html", label: "產品總覽", keys: ["products", "product-detail", "dm"] },
       { href: "choose.html", label: "怎麼選", keys: ["choose", "combo"] },
       { href: "guide.html", label: "使用方式", keys: ["guide"] },
       { href: "recipes.html", label: "料理搭配", keys: ["recipes"] }
     ]
   },
   {
-    title: "知識與品牌",
+    title: "知識專區",
     links: [
-      { href: "knowledge.html", label: "知識專區", keys: ["knowledge", "video", "hanfang-baike", "sources"] },
-      { href: "brand.html", label: "品牌故事", keys: ["brand", "brand-origin", "craft", "quality", "ingredients"] },
-      { href: "faq.html", label: "常見問題", keys: ["faq"] }
+      { href: "knowledge.html", label: "知識專區首頁", keys: ["knowledge"] },
+      { href: "why-guilu.html", label: "龜鹿入門", keys: ["why-guilu"] },
+      { href: "hanfang-baike.html", label: "漢方食材百科", keys: ["hanfang-baike"] },
+      { href: "video.html", label: "知識影音", keys: ["video"] },
+      { href: "sources.html", label: "資料來源", keys: ["sources"] }
+    ]
+  },
+  {
+    title: "品牌",
+    links: [
+      { href: "brand.html", label: "品牌故事", keys: ["brand", "brand-origin", "craft", "quality", "ingredients"] }
     ]
   },
   {
     title: "服務",
     links: [
+      { href: "faq.html", label: "常見問題", keys: ["faq"] },
       { href: "trial.html", label: "申請試喝", keys: ["trial"] },
       { href: "contact.html", label: "聯絡我們", keys: ["contact"] }
     ]
@@ -140,7 +149,10 @@ function pageLineMessage(page = currentPageKey()) {
     guide: "我想詢問仙加味產品的一般使用方式。",
     recipes: "我想了解龜鹿產品的料理搭配。",
     knowledge: "我從知識專區進來，想進一步了解產品。",
+    "why-guilu": "我看了龜鹿入門，想進一步了解產品與怎麼選。",
+    "hanfang-baike": "我看了漢方食材百科，想進一步了解產品。",
     video: "我看了知識影音，想進一步了解產品。",
+    sources: "我看了資料來源，想進一步了解仙加味產品資訊。",
     brand: "我從品牌故事頁進來，想認識仙加味與產品。",
     faq: "我看了常見問題，還有問題想詢問。",
     trial: "我想申請龜鹿飲30cc試喝組。",
@@ -173,8 +185,8 @@ function renderHeader() {
     ["products.html", "產品", ["products", "product-detail", "dm"]],
     ["choose.html", "怎麼選", ["choose", "combo"]],
     ["guide.html", "使用方式", ["guide"]],
-    ["trial.html", "試喝", ["trial"]],
-    ["faq.html", "FAQ", ["faq"]]
+    ["knowledge.html", "知識專區", ["knowledge", "why-guilu", "hanfang-baike", "video", "sources"]],
+    ["trial.html", "試喝", ["trial"]]
   ];
   const nav = links.map(([href, label, keys]) => {
     const active = keys.includes(page);
@@ -258,12 +270,15 @@ function renderFooter() {
           <a href="choose.html">怎麼選</a>
           <a href="guide.html">使用方式</a>
           <a href="recipes.html">料理搭配</a>
-          <a href="knowledge.html">知識專區</a>
+          <a href="knowledge.html">知識專區首頁</a>
+          <a href="why-guilu.html">龜鹿入門</a>
+          <a href="hanfang-baike.html">漢方食材百科</a>
+          <a href="video.html">知識影音</a>
+          <a href="sources.html">資料來源</a>
           <a href="brand.html">品牌故事</a>
           <a href="faq.html">常見問題</a>
           <a href="trial.html">申請試喝</a>
           <a href="contact.html">聯絡我們</a>
-          <a href="sources.html">資料來源</a>
         </div>
       </nav>
 
