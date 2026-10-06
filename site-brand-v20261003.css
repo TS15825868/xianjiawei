@@ -2449,3 +2449,31 @@ html body .site-menu.open .site-menu__panel{
   transform:translate3d(0,0,0)!important;
   -webkit-transform:translate3d(0,0,0)!important;
 }
+
+
+/* 2026-10-06｜全站淺色標籤文字對比守門 v31
+ * 實體 iPhone 巡檢：任何米白／白紙面 eyebrow 都固定深酒紅字；
+ * 只有明確深色容器內的 eyebrow 才使用高對比米白字。
+ */
+html body.ux-v410[data-page] main.page .eyebrow{
+  color:#682023!important;
+  -webkit-text-fill-color:#682023!important;
+  text-shadow:none!important;
+}
+html body.ux-v410[data-page] main.page .brand-story-intro .eyebrow,
+html body.ux-v410[data-page] main.page .home-story-card .eyebrow,
+html body.ux-v410[data-page] main.page .home-product-showcase .eyebrow{
+  color:#FFF4D6!important;
+  -webkit-text-fill-color:#FFF4D6!important;
+}
+html body.ux-v410[data-page] main.page .section--brand-gold .section-heading .eyebrow{
+  color:#682023!important;
+  -webkit-text-fill-color:#682023!important;
+  background:#FFF8E8!important;
+}
+html body.ux-v410[data-page] main.page .final-cta .eyebrow{
+  color:#682023!important;
+  -webkit-text-fill-color:#682023!important;
+  background:#FFF8E8!important;
+  border-color:rgba(104,32,35,.24)!important;
+}
