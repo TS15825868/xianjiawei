@@ -33,7 +33,7 @@
     ],
     "consumerRouting": "仙加味官方LINE",
     "partnerProtection": "一般品牌內容不主動顯示舊公司或商號名稱，對外統一使用仙加味；依法或正式商務文件必須揭露時例外",
-    "productScopeLine": "龜鹿｜漢方生活選品"
+    "productScopeLine": "龜鹿系列與多元日常漢方選擇"
   },
   "productAuthority": {
     "source": "public-product-master.json",
@@ -43,8 +43,11 @@
       "config/official-products.json"
     ],
     "productCount": 6,
+    "productCountPolicy": "current-public-count-only-not-a-permanent-limit; future user-approved products may be added without changing system architecture",
     "knowledgeProductCount": 6,
+    "knowledgeProductCountPolicy": "current-count-only-not-a-permanent-limit",
     "approvedMediaProductCount": 6,
+    "approvedMediaProductCountPolicy": "current-count-only-not-a-permanent-limit; each future product requires approved real-product media before public use",
     "specifications": [
       "龜鹿膏 100g／罐",
       "龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）",
