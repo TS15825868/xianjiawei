@@ -144,3 +144,11 @@ body[data-page="contact"] .footer-contact{
     padding-top:8px!important;
   }
 }
+
+/* 2026-10-08 contact contrast v413 */
+body[data-page="contact"] .contact-hero,body[data-page="contact"] .contact-section-heading{color:#172536!important}
+body[data-page="contact"] .contact-hero h1,body[data-page="contact"] .contact-section-heading h2,body[data-page="contact"] .contact-line-card h2,body[data-page="contact"] .contact-info-card h2,body[data-page="contact"] .contact-note-card h2{color:#0B1F3B!important;-webkit-text-fill-color:#0B1F3B!important}
+body[data-page="contact"] .contact-hero p:not(.eyebrow),body[data-page="contact"] .contact-section-heading>p:last-child,body[data-page="contact"] .contact-line-card p,body[data-page="contact"] .contact-info-card li,body[data-page="contact"] .contact-note-card li{color:#374151!important;-webkit-text-fill-color:#374151!important}
+body[data-page="contact"] .contact-line-card strong,body[data-page="contact"] .contact-info-card strong,body[data-page="contact"] .contact-note-card strong{color:#172536!important;-webkit-text-fill-color:#172536!important}
+body[data-page="contact"] .site-footer,body[data-page="contact"] .footer-card{background:#0B1F3B!important;color:#F7F4ED!important}
+body[data-page="contact"] .site-footer h2,body[data-page="contact"] .site-footer h3,body[data-page="contact"] .site-footer strong,body[data-page="contact"] .site-footer p,body[data-page="contact"] .site-footer a:not(.btn),body[data-page="contact"] .footer-card h2,body[data-page="contact"] .footer-card h3,body[data-page="contact"] .footer-card strong,body[data-page="contact"] .footer-card p,body[data-page="contact"] .footer-card a:not(.btn){color:#F7F4ED!important;-webkit-text-fill-color:#F7F4ED!important}
