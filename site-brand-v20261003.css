@@ -2563,3 +2563,150 @@ html body .site-menu.open .site-menu__panel{
   transform:none!important;
   -webkit-transform:none!important;
 }
+
+
+/* 2026-10-08｜全站可讀性與對比保護 v36
+   最後載入層：避免舊樣式、半透明背景或不同裝置造成文字看不清楚。 */
+html body[data-page]{
+  color:#172536!important;
+}
+html body[data-page] main.page > .section:not(.section--brand-gold),
+html body[data-page] .card,
+html body[data-page] .panel,
+html body[data-page] .faq-item,
+html body[data-page] .product-card,
+html body[data-page] .article-body{
+  color:#172536;
+}
+html body[data-page] main.page > .section:not(.section--brand-gold) p,
+html body[data-page] main.page > .section:not(.section--brand-gold) li,
+html body[data-page] main.page > .section:not(.section--brand-gold) .muted,
+html body[data-page] .faq-item__body{
+  color:#4B5563;
+}
+html body[data-page] main.page > .section:not(.section--brand-gold) h1,
+html body[data-page] main.page > .section:not(.section--brand-gold) h2,
+html body[data-page] main.page > .section:not(.section--brand-gold) h3,
+html body[data-page] .card h2,
+html body[data-page] .card h3,
+html body[data-page] .panel h2,
+html body[data-page] .panel h3,
+html body[data-page] .faq-item summary{
+  color:#0B1F3B;
+}
+html body[data-page] a:not(.btn):focus-visible,
+html body[data-page] button:focus-visible,
+html body[data-page] .btn:focus-visible{
+  outline:3px solid #B08A47!important;
+  outline-offset:3px!important;
+}
+html body[data-page] .btn-primary,
+html body[data-page] .btn-line{
+  color:#FFFFFF!important;
+  background:#7B1E1E!important;
+  border-color:#7B1E1E!important;
+}
+html body[data-page] .btn-primary:hover,
+html body[data-page] .btn-line:hover{
+  color:#FFFFFF!important;
+  background:#682023!important;
+  border-color:#682023!important;
+}
+html body[data-page] .btn-outline{
+  color:#0B1F3B!important;
+  background:#FFFFFF!important;
+  border-color:#0B1F3B!important;
+}
+html body[data-page] .final-cta{
+  color:#FFF8E8!important;
+}
+html body[data-page] .final-cta h1,
+html body[data-page] .final-cta h2,
+html body[data-page] .final-cta h3,
+html body[data-page] .final-cta p{
+  color:#FFF8E8!important;
+}
+html body[data-page] .final-cta .btn-outline{
+  color:#FFF8E8!important;
+  background:rgba(255,255,255,.08)!important;
+  border-color:rgba(255,248,232,.72)!important;
+}
+html body[data-page] main.page > .section.section--brand-gold > .section-heading h1,
+html body[data-page] main.page > .section.section--brand-gold > .section-heading h2,
+html body[data-page] main.page > .section.section--brand-gold > .section-heading h3,
+html body[data-page] main.page > .section.section--brand-gold > .section-heading > p{
+  color:#FFF8E8!important;
+}
+html body[data-page] main.page > .section.section--brand-gold .card,
+html body[data-page] main.page > .section.section--brand-gold .card p,
+html body[data-page] main.page > .section.section--brand-gold .card li{
+  color:#374151!important;
+}
+html body[data-page] main.page > .section.section--brand-gold .card h2,
+html body[data-page] main.page > .section.section--brand-gold .card h3{
+  color:#0B1F3B!important;
+}
+html body[data-page] .site-menu__panel{
+  color:#172536!important;
+  background:#FFFDF9!important;
+}
+html body[data-page] .site-menu__panel .menu-group a:not(.is-active){
+  color:#172536!important;
+}
+html body[data-page] .site-menu__panel .menu-group a.is-active{
+  color:#FFFFFF!important;
+  background:#0B1F3B!important;
+}
+html body[data-page] .purpose-table thead th,
+html body[data-page] .compare-table thead th{
+  color:#FFFFFF!important;
+  background:#0B1F3B!important;
+}
+html body[data-page] .purpose-table tbody td,
+html body[data-page] .compare-table tbody td{
+  color:#172536!important;
+  background:#FFFFFF;
+}
+html body[data-page] .breadcrumb,
+html body[data-page] .breadcrumb a,
+html body[data-page] .breadcrumb span{
+  color:#4B5563!important;
+}
+html body[data-page] .eyebrow{
+  color:#682023!important;
+}
+html body[data-page] .site-footer,
+html body[data-page] .footer-card{
+  color:#F7F4ED!important;
+}
+html body[data-page] .site-footer h2,
+html body[data-page] .site-footer h3,
+html body[data-page] .site-footer strong,
+html body[data-page] .footer-card h2,
+html body[data-page] .footer-card h3,
+html body[data-page] .footer-card strong{
+  color:#FFFFFF!important;
+}
+html body[data-page] .site-footer p,
+html body[data-page] .site-footer a:not(.btn),
+html body[data-page] .footer-card p,
+html body[data-page] .footer-card a:not(.btn),
+html body[data-page] .footer-legal{
+  color:rgba(255,255,255,.88)!important;
+}
+html body[data-page] .site-footer .btn-outline,
+html body[data-page] .footer-card .btn-outline{
+  color:#FFFFFF!important;
+  background:rgba(255,255,255,.08)!important;
+  border-color:rgba(255,255,255,.62)!important;
+}
+@media (max-width:700px){
+  html body[data-page] main.page > .section:not(.section--brand-gold){
+    color:#172536!important;
+    background-color:#FFFDF9!important;
+  }
+  html body[data-page] main.page > .section:not(.section--brand-gold) p,
+  html body[data-page] main.page > .section:not(.section--brand-gold) li{
+    color:#374151!important;
+  }
+}
