@@ -2710,3 +2710,35 @@ html body[data-page] .footer-card .btn-outline{
     color:#374151!important;
   }
 }
+
+
+/* 2026-10-08｜首頁深色故事區實機對比修正 v37 */
+html body[data-page="home"] .home-story-card{
+  color:#FFF8E8!important;
+}
+html body[data-page="home"] .home-story-card h1,
+html body[data-page="home"] .home-story-card h2,
+html body[data-page="home"] .home-story-card h3,
+html body[data-page="home"] .home-story-card p{
+  color:#FFF8E8!important;
+  -webkit-text-fill-color:#FFF8E8!important;
+  text-shadow:0 1px 2px rgba(11,31,59,.30)!important;
+}
+html body[data-page="home"] .home-story-card .eyebrow{
+  color:#682023!important;
+  -webkit-text-fill-color:#682023!important;
+  background:linear-gradient(135deg,#FFFDF8 0%,#F6EDD9 100%)!important;
+  text-shadow:none!important;
+}
+html body[data-page="home"] .home-story-card .btn-primary{
+  color:#FFFFFF!important;
+  -webkit-text-fill-color:#FFFFFF!important;
+  background:#7B1E1E!important;
+}
+html body[data-page="home"] .home-story-card .btn-outline{
+  color:#0B1F3B!important;
+  -webkit-text-fill-color:#0B1F3B!important;
+  background:#FFFFFF!important;
+  border-color:#0B1F3B!important;
+  text-shadow:none!important;
+}
