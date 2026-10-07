@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "version": "2026-10-05-six-public-product-master-v8",
-  "updatedAt": "2026-10-05",
+  "version": "2026-10-08-public-product-master-v9-future-ready",
+  "updatedAt": "2026-10-08",
   "authority": "user-confirmed-current",
   "brand": {
     "name": "仙加味",
@@ -171,5 +171,18 @@
   "contact": {
     "lineId": "@762jybnm",
     "lineUrl": "https://lin.ee/sHZW7NkR"
+  },
+  "sourcePriority": [],
+  "expansionPolicy": {
+    "dynamicPublicCatalog": true,
+    "productCountIsNotPermanentLimit": true,
+    "brandNotLimitedToGuilu": true,
+    "newProductForms": [
+      "膠囊",
+      "粉包",
+      "茶包",
+      "其他正式核准型態"
+    ],
+    "activationRule": "只有使用者核准且正式名稱、規格、資料與正式產品圖符合要求後才加入公開產品清單；新增產品不得被舊產品數量或舊系列守門規則阻擋。"
   }
 }
