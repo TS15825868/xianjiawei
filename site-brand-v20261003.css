@@ -2794,3 +2794,81 @@ html body[data-page] .home-service-card{
   html body[data-page] main.page > .section:not(.section--brand-gold){background-color:transparent!important}
   html body[data-page="contact"] .contact-line-card{background:#FFFDF9!important}
 }
+
+
+/* 2026-10-08｜v39 全站場景化：減少卡片切割、統一仙加味品牌世界 */
+html body[data-page] main.page > .section{
+  position:relative;
+  isolation:isolate;
+}
+html body[data-page] main.page > .section:not(.section--brand-gold)::before{
+  content:"";
+  position:absolute;
+  inset:-1px 0;
+  z-index:-1;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(247,244,237,.12),rgba(255,253,248,.30) 52%,rgba(247,244,237,.10));
+}
+html body[data-page] .section-heading,
+html body[data-page] .hero__content{
+  position:relative;
+  z-index:1;
+}
+html body[data-page] .grid > .card,
+html body[data-page] .product-complete-grid > .card,
+html body[data-page] .contact-info-grid > .card{
+  border-radius:18px!important;
+  box-shadow:0 6px 18px rgba(11,31,59,.045)!important;
+}
+html body[data-page] .section--narrow > .card:not(.contact-line-card),
+html body[data-page] .section > .card:not(.contact-line-card):only-child{
+  background:rgba(255,253,249,.74)!important;
+  border-color:rgba(176,138,71,.16)!important;
+  box-shadow:none!important;
+}
+html body[data-page] .faq-list details{
+  background:rgba(255,253,249,.82)!important;
+  border-color:rgba(176,138,71,.18)!important;
+  box-shadow:none!important;
+}
+html body[data-page] .final-cta{
+  overflow:hidden;
+  border:1px solid rgba(201,165,92,.28)!important;
+  box-shadow:0 16px 38px rgba(11,31,59,.10)!important;
+}
+html body[data-page] .site-footer{
+  border-top:1px solid rgba(201,165,92,.30)!important;
+}
+@media(min-width:901px){
+  html body[data-page] main.page > .section:not(.section--brand-gold):nth-of-type(3n+2)::after{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    right:max(0px,calc((100vw - 1280px)/2));
+    bottom:-42px;
+    width:min(36vw,480px);
+    height:210px;
+    opacity:.13;
+    pointer-events:none;
+    background:url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom/contain no-repeat;
+  }
+}
+@media(max-width:700px){
+  html body[data-page] main.page > .section:not(.section--brand-gold)::before{
+    background:linear-gradient(180deg,rgba(247,244,237,.06),rgba(255,253,248,.22),rgba(247,244,237,.06));
+  }
+  html body[data-page] .grid > .card,
+  html body[data-page] .product-complete-grid > .card,
+  html body[data-page] .contact-info-grid > .card{
+    border-radius:16px!important;
+    box-shadow:0 3px 12px rgba(11,31,59,.035)!important;
+  }
+  html body[data-page] .section--narrow > .card:not(.contact-line-card),
+  html body[data-page] .section > .card:not(.contact-line-card):only-child{
+    background:rgba(255,253,249,.66)!important;
+    border-color:rgba(176,138,71,.13)!important;
+  }
+  html body[data-page] .faq-list details{
+    background:rgba(255,253,249,.78)!important;
+  }
+}
