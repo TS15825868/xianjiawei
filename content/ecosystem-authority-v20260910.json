@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-03-v2-social-bio-hub",
+  "version": "2026-10-07-v3-ai-ip-manual-approval",
   "authority": "user-confirmed-current",
   "dataPrecedence": [
     "使用者目前聊天最新明確指示",
@@ -115,10 +115,13 @@
       "threads": "正常每週3篇"
     },
     "lineCommunityPromotion": "約每週1次，或只在高度相關生活／料理／品牌／聊天內容自然邀請",
-    "lowRiskCompliantContentMayAutoPublish": true,
+    "lowRiskCompliantContentMayAutoPublish": false,
     "uncertainContentMustHold": true,
     "specialWeekMaxPosts": 4,
-    "cadenceRule": "三平台同篇同日發布；正常每週3篇，特殊週最多4篇，臨時時效內容插播時常青內容順延。"
+    "cadenceRule": "三平台同篇同日發布；正常每週3篇，特殊週最多4篇，臨時時效內容插播時常青內容順延。",
+    "manualApprovalRequired": true,
+    "automatedChecksOnlyCreateReviewCandidate": true,
+    "approvalRule": "AI與自動化只可檢查、產生草稿或送待審核；所有公開貼文必須由使用者人工核准後才能排程或立即發布。"
   },
   "publicContentRules": {
     "noMedicalOrEfficacyClaims": true,
@@ -139,5 +142,11 @@
     "threads": "https://ts15825868.github.io/xianjiawei/links.html",
     "linkLabel": "仙加味｜連結入口",
     "directCommercialHandoff": "https://lin.ee/sHZW7NkR"
+  },
+  "aiIpOps": {
+    "authorityRepository": "TS15825868/xianjiawei-internal",
+    "authorityPath": "config/ai-ip-ops-authority.json",
+    "sopPath": "docs/AI-IP-AUTOMATION-SOP.md",
+    "rule": "官網公開資料依本站最新正式母資料；AI/IP營運流程與發布權限依ERP總控，禁止未人工核准的公開發布。"
   }
 }
