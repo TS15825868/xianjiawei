@@ -2748,3 +2748,49 @@ html body[data-page] main.page>.section:not(.section--brand-gold){background-col
 html body[data-page] .card,html body[data-page] .panel,html body[data-page] .faq-item,html body[data-page] .product-card{background-color:rgba(255,253,249,.94)!important}
 html body[data-page] main.page:before{opacity:.13!important;background-size:min(980px,92vw) auto!important}
 @media(max-width:700px){html body[data-page] main.page>.section:not(.section--brand-gold){background-color:transparent!important}html body[data-page] main.page:before{opacity:.10!important;background-size:680px auto!important}html body[data-page] .card,html body[data-page] .panel,html body[data-page] .faq-item,html body[data-page] .product-card{background-color:rgba(255,253,249,.96)!important}}
+
+
+/* 2026-10-08｜v38 實機驗收修正：聯絡頁＋品牌場景 */
+html body[data-page="contact"] .contact-line-card,
+html body[data-page="contact"] .contact-line-card p,
+html body[data-page="contact"] .contact-line-card li,
+html body[data-page="contact"] .contact-line-card strong{
+  color:#172536!important;
+  -webkit-text-fill-color:#172536!important;
+  text-shadow:none!important;
+}
+html body[data-page="contact"] .contact-line-card h1,
+html body[data-page="contact"] .contact-line-card h2,
+html body[data-page="contact"] .contact-line-card h3{
+  color:#0B1F3B!important;
+  -webkit-text-fill-color:#0B1F3B!important;
+}
+html body[data-page]{
+  background-color:#F7F4ED!important;
+  background-image:
+    linear-gradient(180deg,rgba(247,244,237,.90),rgba(255,253,248,.84) 36%,rgba(247,244,237,.94)),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003')!important;
+  background-position:center top,center bottom!important;
+  background-size:cover,1100px auto!important;
+  background-repeat:no-repeat,no-repeat!important;
+}
+html body[data-page] main.page{background:transparent!important}
+html body[data-page] main.page > .section:not(.section--brand-gold){background-color:transparent!important}
+html body[data-page] .card,
+html body[data-page] .panel,
+html body[data-page] .faq-item,
+html body[data-page] .product-card,
+html body[data-page] .home-choice-card,
+html body[data-page] .home-feature-card,
+html body[data-page] .home-service-card{
+  background:rgba(255,253,249,.94)!important;
+  border-color:rgba(176,138,71,.22)!important;
+}
+@media(max-width:700px){
+  html body[data-page]{
+    background-size:auto 100%,700px auto!important;
+    background-position:center top,center bottom!important;
+  }
+  html body[data-page] main.page > .section:not(.section--brand-gold){background-color:transparent!important}
+  html body[data-page="contact"] .contact-line-card{background:#FFFDF9!important}
+}
