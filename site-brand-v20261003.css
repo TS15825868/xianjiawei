@@ -2979,3 +2979,79 @@ html body[data-page="home"] .section-heading{
     padding:28px 20px!important;
   }
 }
+
+
+/* 2026-10-08｜v41 全站去卡片化與品牌場景統一 */
+html body[data-page]:not([data-page="home"]) main.page > .section{
+  border:0!important;
+  box-shadow:none!important;
+}
+html body[data-page]:not([data-page="home"]) main.page > .section:not(.section--brand-gold){
+  background:transparent!important;
+}
+html body[data-page]:not([data-page="home"]) .section-heading{
+  max-width:860px!important;
+}
+html body[data-page]:not([data-page="home"]) .grid:not(.product-grid),
+html body[data-page]:not([data-page="home"]) .product-complete-grid,
+html body[data-page]:not([data-page="home"]) .contact-info-grid{
+  gap:0!important;
+  border-top:1px solid rgba(176,138,71,.20)!important;
+  border-bottom:1px solid rgba(176,138,71,.16)!important;
+}
+html body[data-page]:not([data-page="home"]):not([data-page="products"]):not([data-page="product-detail"]) .grid > .card,
+html body[data-page]:not([data-page="home"]) .product-complete-grid > .card,
+html body[data-page]:not([data-page="home"]) .contact-info-grid > .card{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  border-bottom:1px solid rgba(176,138,71,.14)!important;
+}
+html body[data-page="products"] .product-card,
+html body[data-page="product-detail"] .card,
+html body[data-page="product-detail"] .panel{
+  box-shadow:0 8px 22px rgba(11,31,59,.045)!important;
+  border-color:rgba(176,138,71,.18)!important;
+}
+html body[data-page="faq"] .faq-list details{
+  border-left:0!important;
+  border-right:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+html body[data-page="contact"] .contact-line-card{
+  border-radius:20px!important;
+  border:1px solid rgba(176,138,71,.24)!important;
+  box-shadow:0 10px 28px rgba(11,31,59,.06)!important;
+}
+html body[data-page]:not([data-page="home"]) .hero--compact{
+  border-left:0!important;
+  border-right:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+html body[data-page] .site-footer{
+  background:linear-gradient(120deg,#081A2D,#102C3D 64%,#193B40)!important;
+  border-top:1px solid rgba(201,165,92,.34)!important;
+}
+@media(max-width:700px){
+  html body[data-page]:not([data-page="home"]) main.page > .section{
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+  html body[data-page]:not([data-page="home"]):not([data-page="products"]):not([data-page="product-detail"]) .grid:not(.product-grid){
+    display:block!important;
+  }
+  html body[data-page]:not([data-page="home"]):not([data-page="products"]):not([data-page="product-detail"]) .grid > .card,
+  html body[data-page]:not([data-page="home"]) .product-complete-grid > .card,
+  html body[data-page]:not([data-page="home"]) .contact-info-grid > .card{
+    padding:22px 2px!important;
+  }
+  html body[data-page]:not([data-page="home"]) .hero--compact{
+    margin-left:-20px!important;
+    margin-right:-20px!important;
+    padding-left:20px!important;
+    padding-right:20px!important;
+  }
+}
