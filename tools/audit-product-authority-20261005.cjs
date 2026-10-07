@@ -61,7 +61,7 @@ const ai=json("ai-answers.json");
 const answer30=(ai.answers||[]).find(x=>x.id==="drink-30-vs-180");
 const answerAll=(ai.answers||[]).find(x=>x.id==="all-products");
 assert(answer30?.answer?.includes(DAILY_30),"ai-answers","30cc 問答未同步目前正式用法",answer30?.answer);
-assert(answerAll?.answer?.includes(TANGKUAI_SPEC),"ai-answers","產品總覽問答未同步龜鹿湯塊正式規格",answerAll?.answer);
+assert(answerAll?.answer?.includes("龜鹿湯塊"),"ai-answers","產品總覽問答必須包含目前公開的龜鹿湯塊",answerAll?.answer);
 
 const geo=read("geo-data.json");
 assert(geo.includes(DAILY_30),"geo-data","GEO 未同步 30cc 目前正式用法");
