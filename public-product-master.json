@@ -18,9 +18,9 @@
   },
   "authorityPriority": [
     "使用者目前聊天最新明確指示",
-    "public-product-master.json：目前六項對外產品名稱、規格與AI可讀基礎資料的公開最高權威",
+    "public-product-master.json：目前核准公開產品名稱、規格與AI可讀基礎資料的公開最高權威",
     "assets/data/official-products.json與config/official-products.json：目前正式文字／媒體規則鏡像",
-    "各正式產品頁：六項目前對外產品顧客頁面",
+    "各正式產品頁：目前核准對外產品顧客頁面",
     "catalog-public.json、data.json、product-master.json：相容／衍生／媒體資料，不得覆蓋新版正確產品事實",
     "價格、促銷、庫存與活動：屬易變資料，以仙加味官方LINE當下回覆為準"
   ],
