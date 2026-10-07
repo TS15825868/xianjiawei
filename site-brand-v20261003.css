@@ -2742,3 +2742,9 @@ html body[data-page="home"] .home-story-card .btn-outline{
   border-color:#0B1F3B!important;
   text-shadow:none!important;
 }
+
+/* 2026-10-08 brand scenery v38 */
+html body[data-page] main.page>.section:not(.section--brand-gold){background-color:transparent!important}
+html body[data-page] .card,html body[data-page] .panel,html body[data-page] .faq-item,html body[data-page] .product-card{background-color:rgba(255,253,249,.94)!important}
+html body[data-page] main.page:before{opacity:.13!important;background-size:min(980px,92vw) auto!important}
+@media(max-width:700px){html body[data-page] main.page>.section:not(.section--brand-gold){background-color:transparent!important}html body[data-page] main.page:before{opacity:.10!important;background-size:680px auto!important}html body[data-page] .card,html body[data-page] .panel,html body[data-page] .faq-item,html body[data-page] .product-card{background-color:rgba(255,253,249,.96)!important}}
