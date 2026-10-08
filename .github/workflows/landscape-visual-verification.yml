@@ -16,15 +16,16 @@ jobs:
         engine: [chromium, webkit]
     steps:
       - uses: actions/checkout@v5
-      - run: npm install --no-save --no-package-lock playwright@1.55.0
+      - run: npm install --no-save --no-package-lock playwright@1.55.0 pngjs@7.0.0
       - run: npx playwright install --with-deps ${{ matrix.engine }}
+      - run: sudo apt-get install -y fonts-noto-cjk
       - name: Start preview server
         run: python3 -m http.server 8765 > /tmp/site-server.log 2>&1 &
       - name: Wait for official Pages release
         if: github.ref == 'refs/heads/main'
         run: |
           for attempt in $(seq 1 80); do
-            if curl -fsS "https://ts15825868.github.io/xianjiawei/site.css?release=${{ github.sha }}" | grep -q "20261008-links-scene-v47"; then exit 0; fi
+            if curl -fsS "https://ts15825868.github.io/xianjiawei/site.css?release=${{ github.sha }}" | grep -q "20261008-readable-v48"; then exit 0; fi
             sleep 10
           done
           exit 1
@@ -33,9 +34,16 @@ jobs:
           XJW_BROWSER_ENGINE: ${{ matrix.engine }}
           XJW_AUDIT_BASE: ${{ github.ref == 'refs/heads/main' && 'https://ts15825868.github.io/xianjiawei/' || 'http://127.0.0.1:8765/' }}
         run: node tools/visual-audit.cjs
+      - name: Audit rendered text against landscape pixels and interaction states
+        env:
+          XJW_BROWSER_ENGINE: ${{ matrix.engine }}
+          XJW_AUDIT_BASE: ${{ github.ref == 'refs/heads/main' && 'https://ts15825868.github.io/xianjiawei/' || 'http://127.0.0.1:8765/' }}
+        run: node tools/audit-text-readability.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: landscape-evidence-${{ matrix.engine }}
-          path: visual-evidence-${{ matrix.engine }}/
+          path: |
+            visual-evidence-${{ matrix.engine }}/
+            text-evidence-${{ matrix.engine }}/
           retention-days: 14

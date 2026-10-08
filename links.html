@@ -34,13 +34,13 @@
   --gold:#B08A47;
   --gold2:#D4B978;
   --ink:#172536;
-  --muted:#626B67;
+  --muted:#35413F;
 }
 *{box-sizing:border-box}
 html{color-scheme:light;background:var(--cream);scroll-behavior:smooth}
 body{
   margin:0;min-height:100vh;color:var(--ink);
-  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang TC","Noto Sans TC","Noto Sans CJK TC","Microsoft JhengHei",sans-serif;
   -webkit-font-smoothing:antialiased;
   background:#F7F4ED;
 }
@@ -93,16 +93,16 @@ a{color:inherit}
   content:"";width:48px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))
 }
 .position-row:after{background:linear-gradient(90deg,var(--gold),transparent)}
-.position{margin:0;color:var(--green);font-size:13px;font-weight:800;letter-spacing:.12em}
+.position{margin:0;color:var(--green);font-size:14px;font-weight:800;letter-spacing:.12em}
 .tagline{
   margin:17px 0 0;color:#7b401e;font-size:20px;font-weight:900;letter-spacing:.09em
 }
 .intro{
-  margin:24px auto 0;max-width:360px;color:#303b3a;font-size:12.5px;font-weight:700;
+  margin:24px auto 0;max-width:360px;color:#303b3a;font-size:14px;font-weight:700;
   line-height:1.65;letter-spacing:.04em
 }
 .scope{
-  margin:8px auto 0;max-width:360px;color:var(--navy);font-size:13px;font-weight:850;
+  margin:8px auto 0;max-width:360px;color:var(--navy);font-size:14px;font-weight:850;
   line-height:1.5;letter-spacing:.08em
 }
 .content{
@@ -155,15 +155,15 @@ a{color:inherit}
   display:block;color:var(--navy);font-size:18px;line-height:1.3;font-weight:900;letter-spacing:.015em
 }
 .copy small{
-  display:block;margin-top:5px;color:var(--muted);font-size:12.7px;line-height:1.45;font-weight:650
+  display:block;margin-top:5px;color:var(--muted);font-size:14px;line-height:1.45;font-weight:650
 }
 .link--primary .copy strong{color:#fff;font-size:19px}
-.link--primary .copy small{color:rgba(255,249,237,.84)}
+.link--primary .copy small{color:#fffdf7}
 .chev{flex:none;color:#7d471d;font-size:28px;line-height:1;font-family:Georgia,serif}
 .link--primary .chev{color:#fff7de}
 .section-title{
   display:flex;align-items:center;gap:12px;margin:24px 2px 11px;
-  color:var(--navy);font-size:12px;font-weight:900;letter-spacing:.16em
+  color:var(--navy);font-size:14px;font-weight:900;letter-spacing:.16em
 }
 .section-title:before,.section-title:after{
   content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--gold));opacity:.68
@@ -176,7 +176,7 @@ a{color:inherit}
   border:1.3px solid rgba(176,138,71,.64);
   background:linear-gradient(180deg,rgba(255,254,249,.97),rgba(247,239,220,.94));
   box-shadow:inset 0 1px 0 #fff,0 7px 17px rgba(61,45,29,.08);
-  color:var(--navy);font-size:11.8px;font-weight:850
+  color:var(--navy);font-size:14px;font-weight:850
 }
 .social-mark{
   width:28px;height:28px;display:grid;place-items:center;border-radius:50%;
@@ -190,7 +190,7 @@ a{color:inherit}
   background:linear-gradient(135deg,rgba(255,254,249,.92),rgba(246,237,215,.86));
   border:1.3px solid rgba(176,138,71,.54);
   box-shadow:inset 0 0 0 3px rgba(255,255,255,.48),0 9px 23px rgba(61,45,29,.07);
-  color:var(--muted);font-size:12.4px;line-height:1.7
+  color:var(--muted);font-size:14px;line-height:1.7
 }
 .hours:after{
   content:"";position:absolute;inset:5px;border:1px solid rgba(176,138,71,.20);
@@ -201,10 +201,10 @@ a{color:inherit}
   border:1px solid rgba(176,138,71,.42);border-radius:50%;background:#fffaf0
 }
 .hours-icon svg{width:19px;height:19px}
-.hours strong{color:var(--navy);font-size:13.5px}
+.hours strong{color:var(--navy);font-size:14px}
 .footer{
   position:relative;z-index:2;margin-top:25px;padding-top:11px;text-align:center;
-  color:#6e7169;font-size:11.2px;letter-spacing:.08em
+  color:var(--green);font-size:14px;letter-spacing:.08em
 }
 .footer:before{content:"";display:block;width:38px;height:1px;background:var(--gold);margin:0 auto 10px;opacity:.7}
 @media(max-width:420px){
@@ -213,15 +213,15 @@ a{color:inherit}
   .logo{width:86px;max-height:158px;margin-bottom:10px}
   .brand{font-size:28px}
   .tagline{font-size:18px;margin-top:15px}
-  .intro{margin-top:21px;font-size:11.7px}
+  .intro{margin-top:21px;font-size:14px}
   .content{padding-left:12px;padding-right:12px;margin-top:-68px}
   .link{min-height:78px;padding:14px 14px;border-radius:21px}
   .icon{width:43px;height:43px;flex-basis:43px}
   .copy strong{font-size:16.5px}.link--primary .copy strong{font-size:18px}
-  .copy small{font-size:11.6px}
-  .social a{font-size:10.8px;gap:5px}
-  .social-mark{width:25px;height:25px;font-size:12px}
-  .hours{grid-template-columns:36px 1fr;padding:15px 14px;gap:10px;font-size:11.5px}
+  .copy small{font-size:14px}
+  .social a{font-size:14px;gap:5px}
+  .social-mark{width:25px;height:25px;font-size:14px}
+  .hours{grid-template-columns:36px 1fr;padding:15px 14px;gap:10px;font-size:14px}
   .hours-icon{width:36px;height:36px}
 }
 @media(max-width:350px){
