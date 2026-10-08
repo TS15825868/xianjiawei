@@ -38,7 +38,7 @@
 - [知識影音](https://ts15825868.github.io/xianjiawei/video.html)
 - [資料來源與引用原則](https://ts15825868.github.io/xianjiawei/sources.html)
 
-## 官網目前公開產品：六項
+## 官網目前公開產品：四項
 
 ### 1. 龜鹿膏
 - 正式規格：100g／罐
@@ -62,26 +62,14 @@
 - 交期：接單後製作，約5～7個工作天出貨。
 - 正式頁：https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html
 
-### 4. 龜鹿湯塊
-- 正式規格：75g／盒｜8塊裝
-- 每塊約9.375g
-- 成分：龜板萃取物、鹿角萃取物。
-- 正式頁：https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html
-
-### 5. 龜鹿膠
-- 正式規格：600g （1斤）／盒｜32塊裝
-- 每塊約18.75g
-- 成分：龜板萃取物、鹿角萃取物。
-- 正式頁：https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html
-
-### 6. 鹿茸粉
+### 4. 鹿茸粉
 - 正式規格：75g／罐
 - 成分：鹿茸。
 - 正式頁：https://ts15825868.github.io/xianjiawei/product-luerong-fen.html
 
 ## 暫緩公開產品
 
-- 柒玄茶・龜鹿調飲粉目前暫時隱藏，不屬六項公開產品。
+- 柒玄茶・龜鹿調飲粉目前暫時隱藏，不屬四項公開產品。
 - 不得出現在官網產品卡、LINE OA 公開產品卡、推薦、公開 AI 回答、GEO、FAQ 或公開貼文。
 - ERP 可保留內部資料供日後重新啟用。
 
@@ -106,13 +94,11 @@ Q：龜鹿飲30cc怎麼申請試喝？
 A：先看 `trial.html` 試喝說明，再到官方 LINE 留言「試喝」確認當期規則、配送與申請資格。
 
 Q：第一次接觸仙加味怎麼選？
-A：先依最容易融入日常的產品型態選擇。方便即飲可看龜鹿飲；膏狀取用可看龜鹿膏；料理搭配可看龜鹿湯塊；家庭大規格可看龜鹿膠；粉狀自行搭配可看鹿茸粉。
+A：先依最容易融入日常的產品型態選擇。方便即飲可看龜鹿飲；膏狀取用可看龜鹿膏；粉狀自行搭配可看鹿茸粉。
 
-Q：龜鹿湯塊跟龜鹿膠差在哪？
-A：主要差在規格與份量。龜鹿湯塊75g／盒、8塊裝，每塊約9.375g；龜鹿膠600g（1斤）／盒、32塊裝，每塊約18.75g。
 
 Q：仙加味目前有哪些產品？
-A：官網與 LINE OA 目前公開六項：龜鹿膏、龜鹿飲30cc玻璃罐、龜鹿飲180cc鋁袋、龜鹿湯塊、龜鹿膠、鹿茸粉。
+A：官網與 LINE OA 目前公開四項：龜鹿膏、龜鹿飲30cc玻璃罐、龜鹿飲180cc鋁袋、鹿茸粉。
 
 Q：仙加味官方 LINE 怎麼聯絡？
 A：LINE ID `@762jybnm`，入口 `https://lin.ee/sHZW7NkR`。
@@ -128,7 +114,7 @@ A：LINE ID `@762jybnm`，入口 `https://lin.ee/sHZW7NkR`。
 
 ## 公開資料權威優先順序
 
-1. `public-product-master.json`：目前六項官網公開產品第一權威。
+1. `public-product-master.json`：目前四項官網公開產品第一權威。
 2. `ai-answers.json`：AEO／自然語言問答、簡短答案、來源網址與LINE OA收口。
 3. `geo-data.json`：Organization、WebSite、Product實體關係與官方識別。
 4. 正式產品頁、FAQ、品牌故事、使用方式與來源頁。
