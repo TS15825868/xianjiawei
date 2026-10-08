@@ -1,15 +1,15 @@
 {
   "schemaVersion": 15,
-  "catalogVersion": "current-six-public-products-unified-product-main-20260930-v9",
-  "updatedAt": "2026-09-28",
+  "catalogVersion": "2026-10-08-four-active-products",
+  "updatedAt": "2026-10-08",
   "source": {
     "repository": "TS15825868/xianjiawei",
     "branch": "main",
     "role": "目前六項官網公開產品的顧客媒體相容目錄；最高文字權威為 public-product-master.json，本目錄不得用舊固定產品數、舊用法或暫緩產品覆蓋新版資料"
   },
   "publicTextAuthority": "public-product-master.json",
-  "knowledgeProductCount": 6,
-  "approvedMediaProductCount": 6,
+  "knowledgeProductCount": 4,
+  "approvedMediaProductCount": 4,
   "brand": "仙加味",
   "lineId": "@762jybnm",
   "lineUrl": "https://lin.ee/sHZW7NkR",
@@ -27,8 +27,6 @@
     "guilu-gao",
     "guilu-drink-30",
     "guilu-drink-180",
-    "guilu-tangkuai",
-    "guilu-jiao",
     "luerong-fen"
   ],
   "productImageVersion": "current-six-unified-premium-product-main-v4",
@@ -198,81 +196,6 @@
       "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
       "detailImages": [
         "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260930-product-media-v10"
-      ]
-    },
-    {
-      "id": "guilu-tangkuai",
-      "series": "仙加味・龜鹿",
-      "name": "龜鹿湯塊",
-      "size": "75g／盒｜8塊裝",
-      "pieceCount": 8,
-      "form": "塊狀",
-      "package": "深藍正式盒裝",
-      "ingredients": [
-        "龜板萃取物",
-        "鹿角萃取物"
-      ],
-      "usage": [
-        "使用時間可依個人使用習慣與作息時間安排",
-        "可搭配熱水、保溫壺或家常燉湯",
-        "可加入雞湯或排骨湯燉煮"
-      ],
-      "storage": [
-        "依實際包裝標示保存",
-        "置於陰涼乾燥處並避免高溫潮濕"
-      ],
-      "fulfillmentType": "ready-stock",
-      "page": "https://ts15825868.github.io/xianjiawei/product-guilu-tangkuai.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-tangkuai.svg?v=20260930-product-media-v10",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260930-product-media-v10",
-      "knownContainerDimensionsMm": null,
-      "imagePolicy": "一般展示與產品 Hero 只使用 product-main 簡單正式主圖；完整介紹頁詳細圖片區只使用 dm-final；產品實物包裝與比例不得重設計、拉伸或裁切。",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-tangkuai.svg?v=20260930-product-media-v10",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-tangkuai.svg?v=20260930-product-media-v10",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v2/guilu-tangkuai-open-new.jpg?v=20260930-product-media-v10",
-      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260930-product-media-v10",
-      "specification": "75g／盒｜8塊裝",
-      "spec": "75g／盒｜8塊裝",
-      "detailUnitApprox": "每塊約9.375g",
-      "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/dm-final/05_guilu-tangkuai-75g-dm.jpg?v=20260930-product-media-v10"
-      ]
-    },
-    {
-      "id": "guilu-jiao",
-      "series": "仙加味・龜鹿",
-      "name": "龜鹿膠",
-      "size": "600g （1斤）／盒｜32塊裝",
-      "pieceCount": 32,
-      "form": "塊狀",
-      "package": "淡紫色正式盒裝",
-      "ingredients": [
-        "龜板萃取物",
-        "鹿角萃取物"
-      ],
-      "usage": [
-        "使用時間可依個人使用習慣與作息時間安排",
-        "取適量以熱水化開",
-        "亦可加入雞湯或排骨湯燉煮"
-      ],
-      "storage": [
-        "依實際包裝標示保存"
-      ],
-      "fulfillmentType": "ready-stock",
-      "page": "https://ts15825868.github.io/xianjiawei/product-guilu-jiao.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-jiao.svg?v=20260930-product-media-v10",
-      "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260930-product-media-v10",
-      "knownContainerDimensionsMm": null,
-      "imagePolicy": "一般展示與產品 Hero 只使用 product-main 簡單正式主圖；完整介紹頁詳細圖片區只使用 dm-final；產品實物包裝與比例不得重設計、拉伸或裁切。",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-jiao.svg?v=20260930-product-media-v10",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-jiao.svg?v=20260930-product-media-v10",
-      "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/products-v2/guilu-jiao-open-new.jpg?v=20260930-product-media-v10",
-      "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260930-product-media-v10",
-      "specification": "600g （1斤）／盒｜32塊裝",
-      "spec": "600g （1斤）／盒｜32塊裝",
-      "detailUnitApprox": "每塊約18.75g",
-      "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/dm-final/06_guilu-jiao-600g-dm.jpg?v=20260930-product-media-v10"
       ]
     },
     {
