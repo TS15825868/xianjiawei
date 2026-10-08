@@ -69,7 +69,7 @@ body[data-page="trial-line"]{min-height:100vh;background:var(--cream) url('image
 /* 2026-10-08 | 試喝 LINE 導流頁：山水背景與文字分層，避免手機文字落在插畫上。 */
 body[data-page="trial-line"]{background-color:var(--cream);background-image:linear-gradient(90deg,rgba(247,244,237,.84),rgba(247,244,237,.62),rgba(247,244,237,.84)),url('images/brand/decor-v20261003/mountains-center.webp');background-position:center;background-size:cover;background-attachment:scroll;padding:clamp(20px,4vw,48px) 16px;}
 body[data-page="trial-line"] .line-bridge{position:relative;width:min(100%,570px);padding:clamp(24px,4vw,42px);border:1px solid rgba(176,138,71,.28);border-radius:24px;background:rgba(255,253,247,.96);box-shadow:0 18px 52px rgba(11,31,59,.10);color:var(--ink);}
-body[data-page="trial-line"] .line-bridge h1{color:var(--navy);font-size:clamp(28px,5vw,42px);line-height:1.35;}
+body[data-page="trial-line"] .line-bridge h1{color:var(--navy);font-size:clamp(32px,5vw,42px);line-height:1.35;}
 body[data-page="trial-line"] .line-bridge p{color:var(--ink);}
 body[data-page="trial-line"] .line-bridge .eyebrow{color:var(--red);}
 body[data-page="trial-line"] .line-bridge .sub{color:var(--muted);line-height:1.8;}
