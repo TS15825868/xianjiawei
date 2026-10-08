@@ -2,22 +2,14 @@
 
 /* 仙加味正式產品規格顯示層 v6｜2026-08-14
  * 目前正式主規格：
- * - 龜鹿湯塊 75g／盒｜8塊裝（每塊約9.375g僅詳細資料）
- * - 龜鹿膠 600g （1斤）／盒｜32塊裝（每塊約18.75 g僅詳細資料）
  * 手機比較卡的製作／出貨資訊一律標為「出貨」。
  */
 (function () {
   if (window.__XJW_OFFICIAL_VARIANTS_V6__) return;
   window.__XJW_OFFICIAL_VARIANTS_V6__ = true;
 
-  const SPECS=Object.freeze({
-    'guilu-tangkuai':'75g／盒｜8塊裝',
-    'guilu-jiao':'600g （1斤）／盒｜32塊裝'
-  });
-  const DESCRIPTIONS=Object.freeze({
-    'guilu-tangkuai':'龜鹿湯塊目前正式規格為75g／盒｜8塊裝，可搭配熱水、保溫壺或家常燉湯。',
-    'guilu-jiao':'龜鹿膠目前正式規格為600g （1斤）／盒｜32塊裝，適合家庭大規格安排，可熱水化開或搭配燉湯。'
-  });
+  const SPECS=Object.freeze({});
+  const DESCRIPTIONS=Object.freeze({});
   const FULFILLMENT_PATTERN=/預先製作備貨|接單製作|工作天|現貨|安排出貨|製作加工/;
 
   function setSpec(element,spec,prefix='規格：'){
@@ -42,8 +34,6 @@
 
   function productIdFromModal(modal){
     const title=modal.querySelector('#product-modal-title')?.textContent||'';
-    if(title.includes('龜鹿湯塊'))return'guilu-tangkuai';
-    if(title.includes('龜鹿膠'))return'guilu-jiao';
     return'';
   }
 
@@ -62,8 +52,6 @@
     root.querySelectorAll?.('.mobile-compare-card').forEach(card=>{
       const title=String(card.querySelector('h3')?.textContent||'');
       let id='';
-      if(title.includes('龜鹿湯塊'))id='guilu-tangkuai';
-      if(title.includes('龜鹿膠'))id='guilu-jiao';
       if(id){
         const specTerm=Array.from(card.querySelectorAll('dt')).find(item=>item.textContent.trim()==='規格');
         const spec=specTerm?.nextElementSibling;
