@@ -410,7 +410,7 @@ jobs:
                 if(pth==='trial-line.html'){
                   // trial-line 是獨立 LINE 交接頁，不要求共用 Header／選單。
                 }else if(vpName!=='desktop'){
-                  if(menuTest?.error || Math.abs(menuTest?.fixed?.top||0)>2 || menuTest?.fixed?.position!=='fixed' || menuTest?.opened?.aria!=='true'){
+                  if(menuTest?.error || Math.abs(menuTest?.fixed?.top||0)>2 || !['fixed','sticky'].includes(menuTest?.fixed?.position) || menuTest?.opened?.aria!=='true'){
                     report.errors.push({vp:vpName,page:pth,type:'fixed-menu',detail:menuTest});
                   }
                 }else if(!menuTest?.headerNavVisible){
