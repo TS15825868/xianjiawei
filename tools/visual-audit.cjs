@@ -27,18 +27,19 @@ for(const [device,viewport]of Object.entries(devices)){
    const lum=s=>rgb(s).map(c=>{c/=255;return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4)}).reduce((a,c,i)=>a+c*[.2126,.7152,.0722][i],0);
    const contrast=(a,b)=>{a=lum(a);b=lum(b);return(Math.max(a,b)+.05)/(Math.min(a,b)+.05)};
    const contrastErrors=[...document.querySelectorAll('.btn,.header-line-cta,.site-footer h3,.site-footer p,.site-footer a,.footer-legal')].filter(visible).map(e=>{const s=getComputedStyle(e);let p=e;while(p&&getComputedStyle(p).backgroundColor==='rgba(0, 0, 0, 0)')p=p.parentElement;const bg=p?getComputedStyle(p).backgroundColor:'rgb(247,244,237)';return {text:e.textContent.trim().slice(0,80),ratio:contrast(s.color,bg)}}).filter(e=>e.ratio<4.5);
-   return{width:innerWidth,scroll:document.documentElement.scrollWidth,images:imageErrors,css,productImages,contrastErrors,h1:document.querySelectorAll('h1').length,canonical:!!document.querySelector('link[rel=canonical]'),schema:!!document.querySelector('script[type="application/ld+json"]'),line:[...document.querySelectorAll('a')].some(a=>/line\.me|lin\.ee/.test(a.href)),mainBg:document.querySelector('main')?getComputedStyle(document.querySelector('main')).backgroundImage:''};
+   return{width:innerWidth,scroll:document.documentElement.scrollWidth,images:imageErrors,css,productImages,contrastErrors,h1:document.querySelectorAll('h1').length,canonical:!!document.querySelector('link[rel=canonical]'),schema:!!document.querySelector('script[type="application/ld+json"]'),line:[...document.querySelectorAll('a')].some(a=>/line\.me|lin\.ee/.test(a.href)),mainBg:document.querySelector('.brand-landscape')?getComputedStyle(document.querySelector('.brand-landscape')).backgroundImage:''};
   });
   check(audit.scroll<=audit.width+1,'horizontal-overflow',{file,device,width:audit.width,scroll:audit.scroll});
   check(!audit.images.length,'image-decode',{file,device,images:audit.images});check(audit.h1===1,'heading',{file,device,count:audit.h1});check(audit.canonical,'canonical',{file,device});check(audit.line,'line-link',{file,device});
   if(file!=='links.html'){check(audit.css.length===1&&audit.css[0]==='site.css?v='+release,'single-style-source',{file,device,css:audit.css});check(audit.mainBg.includes('world-landscape'),'continuous-scenery',{file,device});check(!audit.contrastErrors.length,'text-contrast',{file,device,issues:audit.contrastErrors});}
   check(audit.productImages.every(i=>i.fit==='contain'&&i.transform==='none'),'product-original-fit',{file,device,images:audit.productImages});check(!errors.length,'javascript',{file,device,errors});
-  await page.screenshot({path:`${dir}/${device}-${file.replace('.html','')}.png`,fullPage:true});
+  await page.screenshot({type:'jpeg',quality:86,path:`${dir}/${device}-${file.replace('.html','')}.jpg`,fullPage:true});
+  if(file==='index.html'){check(await page.locator('.home-product-showcase__grid a').count()>0,'home-products-preserved',{file,device});}
   if(file==='index.html'&&device==='phone'){
-   await page.locator('#menu-btn').click();check(await page.locator('#menu-drawer').getAttribute('aria-hidden')==='false','menu-open',{file,device});await page.screenshot({path:`${dir}/phone-menu.png`,fullPage:true});await page.locator('#menu-close').click();check(await page.locator('#menu-drawer').getAttribute('aria-hidden')==='true','menu-close',{file,device});
+   await page.locator('#menu-btn').click();check(await page.locator('#menu-drawer').getAttribute('aria-hidden')==='false','menu-open',{file,device});await page.screenshot({type:'jpeg',quality:86,path:`${dir}/phone-menu.jpg`,fullPage:true});await page.locator('#menu-close').click();check(await page.locator('#menu-drawer').getAttribute('aria-hidden')==='true','menu-close',{file,device});
   }
   if(file==='faq.html'){
-   const detail=page.locator('.faq-list details').first();await detail.locator('summary').click();check(await detail.evaluate(e=>e.open),'faq-open',{file,device});await page.screenshot({path:`${dir}/${device}-faq-open.png`,fullPage:true});
+   const detail=page.locator('.faq-list details').first();if(await detail.evaluate(e=>e.open))await detail.locator('summary').click();await detail.locator('summary').click();check(await detail.evaluate(e=>e.open),'faq-open',{file,device});await page.screenshot({type:'jpeg',quality:86,path:`${dir}/${device}-faq-open.jpg`,fullPage:true});
   }
   if(file==='products.html'){
    const buttons=page.locator('[data-product-intro="1"]');const n=await buttons.count();check(n>=6,'six-product-intros',{file,device,count:n});
@@ -47,7 +48,7 @@ for(const [device,viewport]of Object.entries(devices)){
     await page.locator('#product-modal').evaluate(async e=>{await Promise.all([...e.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})))});
     const modal=await page.locator('#product-modal').evaluate(e=>({broken:[...e.querySelectorAll('img')].filter(i=>!i.naturalWidth).length,fit:[...e.querySelectorAll('img')].every(i=>getComputedStyle(i).objectFit==='contain'&&getComputedStyle(i).transform==='none'),title:e.querySelector('h2')?.textContent,line:!!e.querySelector('.btn-line')}));
     check(!modal.broken&&modal.fit&&modal.line,'product-modal',{file,device,index:i,...modal});
-    if(i===0)await page.screenshot({path:`${dir}/${device}-product-modal.png`,fullPage:true});await page.locator('#product-modal-close').click();
+    if(i===0)await page.screenshot({type:'jpeg',quality:86,path:`${dir}/${device}-product-modal.jpg`,fullPage:true});await page.locator('#product-modal-close').click();
    }
   }
   if(file==='knowledge.html'){
