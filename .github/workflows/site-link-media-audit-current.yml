@@ -123,11 +123,11 @@ jobs:
             node --check "$file"
           done
           grep -q 'mobile-compare-ready' site-core-v410.js
-          grep -q 'site-premium-v20260924.css' index.html
+          grep -q 'site.css?v=20261008-landscape-v44' index.html
           grep -q 'site.js' index.html
-          grep -q 'position:fixed!important' site-premium-v20260924.css
-          grep -q '100dvh' site-premium-v20260924.css
-          grep -q 'safe-area-inset-top' site-premium-v20260924.css
+          grep -q '.site-menu{display:none;position:fixed;inset:0' site.css
+          grep -q '.site-menu__panel' site.css
+          grep -q 'safe-area-inset-bottom' site.css
           if grep -R -n 'images/line-qr.jpg' -- *.html site-core-v410.js; then
             echo 'ERROR: 公開頁仍引用舊 LINE QR JPG'
             exit 1
