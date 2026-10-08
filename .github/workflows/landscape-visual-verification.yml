@@ -24,7 +24,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           for attempt in $(seq 1 80); do
-            if curl -fsS "https://ts15825868.github.io/xianjiawei/site.css?release=${{ github.sha }}" | grep -q "20261008-links-scene-v46"; then exit 0; fi
+            if curl -fsS "https://ts15825868.github.io/xianjiawei/site.css?release=${{ github.sha }}" | grep -q "20261008-links-scene-v47"; then exit 0; fi
             sleep 10
           done
           exit 1
