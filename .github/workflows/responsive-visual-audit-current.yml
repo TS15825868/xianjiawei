@@ -37,7 +37,7 @@ jobs:
         run: |
           set -euo pipefail
           url='https://ts15825868.github.io/xianjiawei/index.html'
-          expected="$(grep -o 'site-brand-v20261003.css?v=[^"[:space:]]*' index.html | head -1)"
+          expected="$(grep -o 'site.css?v=[^"[:space:]]*' index.html | head -1)"
           test -n "$expected"
           echo "Waiting for live release marker: $expected"
           ok=0
@@ -45,11 +45,11 @@ jobs:
             code="$(curl -LsS --retry 1 --connect-timeout 10 --max-time 20 -H 'Cache-Control: no-cache' -o live-index.html -w '%{http_code}' "$url?audit=${GITHUB_SHA}" || true)"
             if [ "$code" = "200" ] && [ -s live-index.html ] && grep -Fq "$expected" live-index.html; then
               echo "Latest main is live on attempt $i"
-              grep -o 'site-brand-v20261003.css?v=[^"[:space:]]*' live-index.html | head -1 || true
+              grep -o 'site.css?v=[^"[:space:]]*' live-index.html | head -1 || true
               ok=1
               break
             fi
-            live="$(grep -o 'site-brand-v20261003.css?v=[^"[:space:]]*' live-index.html 2>/dev/null | head -1 || true)"
+            live="$(grep -o 'site.css?v=[^"[:space:]]*' live-index.html 2>/dev/null | head -1 || true)"
             echo "Waiting for latest Pages deployment... $i/36 (HTTP $code, live=$live)"
             sleep 5
           done

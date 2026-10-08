@@ -6,7 +6,7 @@ let SITE_DATA = null;
 let lastFocusedElement = null;
 let menuScrollY = 0;
 
-const UX_VERSION = "20261006-brand-ai-v35";
+const UX_VERSION = "20261008-landscape-v44";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
 const MENU_GROUPS = [
   {
@@ -75,13 +75,9 @@ async function initSite() {
 }
 
 function ensureUxStyle() {
-  if (document.querySelector('link[href*="site-ux-v410.css"]')) return;
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = `site-ux-v410.css?v=${UX_VERSION}`;
-  const finalLink = document.querySelector('link[href*="site-final-v20260925.css"]');
-  if (finalLink) finalLink.before(link);
-  else document.head.appendChild(link);
+  if(document.querySelector('link[href^="site.css"]'))return;
+  const link=document.createElement("link");link.rel="stylesheet";
+  link.href=`site.css?v=${UX_VERSION}`;document.head.appendChild(link);
 }
 
 function fallbackData() {
