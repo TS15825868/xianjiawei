@@ -55,7 +55,9 @@ async function inspect(page,file,device,state){
   if(bad>=5&&bad/Math.max(total,1)>.015)issues.push({...t,rects:t.rects.slice(0,2),min:+min.toFixed(2),badPixels:bad,paintedPixels:total,badFraction:+(bad/total).toFixed(3)});
   const compact= /brand-mark__|header-line-cta|menu-btn|floating-line-cta|video-play/.test(t.class);
   if(t.size<14&&!compact&&/[\p{L}\p{N}]/u.test(t.text))small.push({text:t.text,size:t.size,class:t.class});
-  if(total<3&&t.text.length>2&&t.size>=12&&/[\p{L}\p{N}]/u.test(t.text))noPaint.push({text:t.text,class:t.class,size:t.size});
+  // A line clipped at a scroll boundary may expose spacing without exposing a glyph.
+  // Require a readable line height before treating absent pixels as invisible text.
+  if(total<3&&t.rects.some(r=>r.h>=t.size*.8&&r.w>=t.size)&&t.text.length>2&&t.size>=12&&/[\p{L}\p{N}]/u.test(t.text))noPaint.push({text:t.text,class:t.class,size:t.size});
  }
  const entry={file,device,state,textRuns:text.length,paintedPixels:paintedTotal,contrastIssues:issues,smallText:small,noPaint};report.states.push(entry);
  for(const issue of issues)report.errors.push({type:'rendered-text-contrast',file,device,state,...issue});
@@ -78,7 +80,7 @@ async function inspect(page,file,device,state){
    await page.waitForTimeout(file==='index.html'?2100:300);await inspect(page,file,device,'default');
    if(process.env.XJW_TEXT_SKIP_STATES==='1')continue;
    if(file==='faq.html'){await page.locator('.faq-list details').evaluateAll(es=>es.forEach(e=>e.open=true));await inspect(page,file,device,'expanded');}
-   if(file==='index.html'&&['phone','small','tablet'].includes(device)){await page.locator('#menu-btn').click();await inspect(page,file,device,'menu');await page.locator('#menu-close').click();}
+   if(file==='index.html'&&['phone','small','tablet'].includes(device)){await page.locator('#menu-btn').click();await inspect(page,file,device,'menu');const menu=page.locator('.site-menu.open');const scrollable=await menu.evaluate(e=>[e,...e.querySelectorAll('*')].filter(n=>n.scrollHeight>n.clientHeight+8&&['auto','scroll'].includes(getComputedStyle(n).overflowY)).map(n=>({id:n.id,cls:n.className,step:n.clientHeight*.65,max:n.scrollHeight-n.clientHeight})));for(const item of scrollable){const target=item.id?page.locator('#'+item.id):page.locator('.'+item.cls.trim().split(/\s+/).join('.'));for(let y=item.step;y<item.max+item.step;y+=item.step){const pos=Math.min(y,item.max);await target.evaluate((e,y)=>e.scrollTop=y,pos);await inspect(page,file,device,'menu-scroll-'+Math.round(pos));if(pos===item.max)break;}}await page.locator('#menu-close').click();}
    if(file==='knowledge.html'){const tabs=page.locator('.knowledge-tab');for(let i=1;i<await tabs.count();i++){await tabs.nth(i).click();await inspect(page,file,device,'tab-'+i);}}
    if(file==='products.html'){const buttons=page.locator('[data-product-intro="1"]');for(let i=0;i<await buttons.count();i++){await buttons.nth(i).click();await page.locator('#product-modal.show').waitFor({state:'visible'});await page.locator('#product-modal').evaluate(async e=>{await Promise.all([...e.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})))});await inspect(page,file,device,'modal-'+i);
     const positions=await page.locator('.product-modal__scroll').evaluate(e=>{const step=e.clientHeight*.65,top=e.getBoundingClientRect().top,walker=document.createTreeWalker(e,NodeFilter.SHOW_TEXT),values=new Set([0]);let n;while(n=walker.nextNode()){if(!n.textContent.trim()||n.parentElement.closest('script,style,[aria-hidden="true"]'))continue;const r=document.createRange();r.selectNodeContents(n);for(const b of r.getClientRects())if(b.width&&b.height)values.add(Math.max(0,Math.min(e.scrollHeight-e.clientHeight,Math.floor((b.top-top+e.scrollTop)/step)*step)))}return [...values].sort((a,b)=>a-b)});
