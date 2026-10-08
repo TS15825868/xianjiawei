@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20261006-brand-ai-v35";
+  const VERSION = "20261008-landscape-v44";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
@@ -26,20 +26,7 @@
   const STABILITY = `site-stability-v20260814.js?v=${VERSION}`;
   const CURRENT_GAO_TIMING = "食用時間可依個人使用習慣與作息時間安排";
 
-  const FINAL_STYLE = `site-final-v20260925.css?v=${VERSION}`;
-  const MASTER_STYLE = `site-master-v20260925.css?v=${VERSION}`;
-  const CLEAN_STYLE = `site-clean-v20260930.css?v=${VERSION}`;
-
-  const STYLES = [
-    `site-ux-v410.css?v=${VERSION}`,
-    `site-ux-v4104.css?v=${VERSION}`,
-    `site-formal-v20260809.css?v=${VERSION}`,
-    `site-customer-polish-v20260811.css?v=${VERSION}`,
-    `site-home-final-v20260811.css?v=${VERSION}`,
-    `site-mascot-placement-v20260812.css?v=${VERSION}`,
-    `site-refresh-v20260814.css?v=${VERSION}`,
-    `site-premium-v20260924.css?v=${VERSION}`
-  ];
+  const STYLES = ["site.css?v=20261008-landscape-v44"];
 
   const SAFE_DATA = Object.freeze({
     version: `${VERSION}-fallback`,
@@ -73,47 +60,13 @@
     style.textContent=`.reveal{opacity:1!important;transform:none!important;visibility:visible!important}.site-header:empty{min-height:64px;background:#f7f4ed;border-bottom:1px solid rgba(11,31,59,.08)}`;
     document.head.appendChild(style);
   }
-  function appendStyle(href){
-    const clean=cleanAssetPath(href);
-    const finalLink=document.querySelector('link[href*="site-final-v20260925.css"]');
-    const existing=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>cleanAssetPath(link.getAttribute("href"))===clean);
-    if(existing){
-      const current=existing.getAttribute("href")||"";
-      if(current!==href) existing.setAttribute("href",href);
-      if(finalLink && existing!==finalLink && existing.compareDocumentPosition(finalLink)&Node.DOCUMENT_POSITION_PRECEDING){
-        finalLink.before(existing);
-      }
-      return existing;
-    }
+  function loadStyles(){
+    const href=STYLES[0];
+    const existing=document.querySelector('link[href^="site.css"]');
+    if(existing){existing.href=href;return;}
     const link=document.createElement("link");link.rel="stylesheet";link.href=href;
-    if(finalLink) finalLink.before(link); else document.head.appendChild(link);
-    return link;
+    document.head.appendChild(link);
   }
-  function ensureFinalStyle(){
-    let finalLink=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>cleanAssetPath(link.getAttribute("href"))===cleanAssetPath(FINAL_STYLE));
-    if(!finalLink){finalLink=document.createElement("link");finalLink.rel="stylesheet";}
-    finalLink.href=FINAL_STYLE;
-    document.head.appendChild(finalLink);
-  }
-  function ensureMasterStyle(){
-    let masterLink=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>cleanAssetPath(link.getAttribute("href"))===cleanAssetPath(MASTER_STYLE));
-    if(!masterLink){masterLink=document.createElement("link");masterLink.rel="stylesheet";}
-    masterLink.href=MASTER_STYLE;
-    document.head.appendChild(masterLink);
-  }
-  function ensureCleanStyle(){
-    let cleanLink=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>cleanAssetPath(link.getAttribute("href"))===cleanAssetPath(CLEAN_STYLE));
-    if(!cleanLink){cleanLink=document.createElement("link");cleanLink.rel="stylesheet";}
-    cleanLink.href=CLEAN_STYLE;
-    document.head.appendChild(cleanLink);
-  }
-  function ensureBrandStyle(){
-    const href=`site-brand-v20261003.css?v=${VERSION}`;
-    let link=[...document.querySelectorAll('link[rel="stylesheet"]')].find(item=>cleanAssetPath(item.getAttribute("href"))===cleanAssetPath(href));
-    if(!link){link=document.createElement("link");link.rel="stylesheet";}
-    link.href=href;document.head.appendChild(link);
-  }
-  function loadStyles(){STYLES.forEach(appendStyle);ensureFinalStyle();ensureMasterStyle();ensureCleanStyle();ensureBrandStyle();}
   function installEmergencyHeader(){
     const header=document.getElementById("site-header");
     if(!header||header.children.length)return;

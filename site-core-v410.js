@@ -6,7 +6,7 @@ let SITE_DATA = null;
 let lastFocusedElement = null;
 let menuScrollY = 0;
 
-const UX_VERSION = "20261006-brand-ai-v35";
+const UX_VERSION = "20261008-landscape-v44";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
 const MENU_GROUPS = [
   {
@@ -75,13 +75,9 @@ async function initSite() {
 }
 
 function ensureUxStyle() {
-  if (document.querySelector('link[href*="site-ux-v410.css"]')) return;
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = `site-ux-v410.css?v=${UX_VERSION}`;
-  const finalLink = document.querySelector('link[href*="site-final-v20260925.css"]');
-  if (finalLink) finalLink.before(link);
-  else document.head.appendChild(link);
+  if(document.querySelector('link[href^="site.css"]'))return;
+  const link=document.createElement("link");link.rel="stylesheet";
+  link.href=`site.css?v=${UX_VERSION}`;document.head.appendChild(link);
 }
 
 function fallbackData() {
@@ -360,21 +356,13 @@ function renderCurrentPage() {
 }
 
 function renderHome() {
-  /* 首頁只保留 Hero 內的小型六產品展示。
-   * 舊版、快取版或附加層若插入第二套 product-grid / home-products，一律移除，
-   * 避免實機畫面再次出現六張巨大產品海報。
-   */
-  document.querySelectorAll("#home-products, .home-products-section, .home-product-links").forEach(node => {
-    const section = node.closest("section");
-    if (section && section !== document.querySelector(".hero")) section.remove();
-    else node.remove();
-  });
-  document.querySelectorAll("main .product-grid").forEach(grid => {
-    const section = grid.closest("section");
-    if (section && !section.classList.contains("hero")) section.remove();
-    else grid.remove();
-  });
-  document.querySelector("main")?.classList.add("home-v410");
+  // 依正式產品資料展示，可隨產品新增擴充，不再移除新版首頁產品區。
+  const grid=document.querySelector('.home-product-showcase__grid');
+  const products=Array.isArray(SITE_DATA?.products)?SITE_DATA.products:[];
+  if(grid&&products.length){
+    grid.innerHTML=products.map(product=>`<a href="${escapeAttribute(product.page||product.detailPage||'products.html')}"><img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(product.displayName||product.name)}正式主圖" loading="lazy" decoding="async"><span>${escapeHtml(product.displayName||product.name)}</span></a>`).join('');
+  }
+  document.querySelector('main')?.classList.add('home-v410');
 }
 
 function renderProductsPage() {

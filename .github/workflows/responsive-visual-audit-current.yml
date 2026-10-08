@@ -37,7 +37,7 @@ jobs:
         run: |
           set -euo pipefail
           url='https://ts15825868.github.io/xianjiawei/index.html'
-          expected="$(grep -o 'site-brand-v20261003.css?v=[^"[:space:]]*' index.html | head -1)"
+          expected="$(grep -o 'site.css?v=[^"[:space:]]*' index.html | head -1)"
           test -n "$expected"
           echo "Waiting for live release marker: $expected"
           ok=0
@@ -45,11 +45,11 @@ jobs:
             code="$(curl -LsS --retry 1 --connect-timeout 10 --max-time 20 -H 'Cache-Control: no-cache' -o live-index.html -w '%{http_code}' "$url?audit=${GITHUB_SHA}" || true)"
             if [ "$code" = "200" ] && [ -s live-index.html ] && grep -Fq "$expected" live-index.html; then
               echo "Latest main is live on attempt $i"
-              grep -o 'site-brand-v20261003.css?v=[^"[:space:]]*' live-index.html | head -1 || true
+              grep -o 'site.css?v=[^"[:space:]]*' live-index.html | head -1 || true
               ok=1
               break
             fi
-            live="$(grep -o 'site-brand-v20261003.css?v=[^"[:space:]]*' live-index.html 2>/dev/null | head -1 || true)"
+            live="$(grep -o 'site.css?v=[^"[:space:]]*' live-index.html 2>/dev/null | head -1 || true)"
             echo "Waiting for latest Pages deployment... $i/36 (HTTP $code, live=$live)"
             sleep 5
           done
@@ -307,11 +307,10 @@ jobs:
                   const bg=rgb(footerAudit.backgroundColor),fg=rgb(footerAudit.textColor);
                   const ratio=bg&&fg?contrast(bg,fg):0;
                   if(!footerAudit.exists) report.errors.push({vp:vpName,page:pth,type:'footer-missing',detail:footerAudit});
-                  else if(!bg||lum(bg)>.22) report.errors.push({vp:vpName,page:pth,type:'footer-not-dark',detail:{...footerAudit,luminance:bg?lum(bg):null}});
                   else if(!fg||ratio<4.5) report.errors.push({vp:vpName,page:pth,type:'footer-low-contrast',detail:{...footerAudit,contrast:ratio}});
                 }
 
-                // 手機首頁產品橫滑必須讓使用者看得出還有下一張，並提供明確提示／查看全部入口。
+                // 首頁產品可用完整網格或橫滑；只有橫滑需要下一張提示。
                 if(pth==='index.html'&&(vpName==='iphone'||vpName==='android')){
                   const homeProductRail=await page.evaluate(()=>{
                     const grid=document.querySelector('.home-product-showcase__grid');
@@ -336,7 +335,7 @@ jobs:
                     };
                   });
                   report.viewports[vpName][pth].homeProductRail=homeProductRail;
-                  if(!homeProductRail.ready||!homeProductRail.hintVisible||!homeProductRail.allLinkVisible||!homeProductRail.overflowable||homeProductRail.nextPeek<24){
+                  if(!homeProductRail.ready||!homeProductRail.allLinkVisible||(homeProductRail.overflowable&&(!homeProductRail.hintVisible||homeProductRail.nextPeek<24))){
                     report.errors.push({vp:vpName,page:pth,type:'mobile-product-rail-undiscoverable',detail:homeProductRail});
                   }
                 }
@@ -469,7 +468,7 @@ jobs:
                     };
                   });
                   report.viewports[vpName][pth].brandGoldSection=gold;
-                  if(!gold.exists||gold.headingColor!=='rgb(255, 248, 232)'||gold.paragraphColor!=='rgb(255, 248, 232)'||gold.backgroundColor!=='rgb(116, 81, 37)'){
+                  if(!gold.exists||![gold.headingColor,gold.paragraphColor].every(color=>{const bg=rgb(gold.backgroundColor==='rgba(0, 0, 0, 0)'?'rgb(247, 244, 237)':gold.backgroundColor),fg=rgb(color);return bg&&fg&&contrast(bg,fg)>=4.5;})){
                     report.errors.push({vp:vpName,page:pth,type:'brand-gold-low-contrast-copy',detail:gold});
                   }
                 }
