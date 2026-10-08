@@ -3092,3 +3092,79 @@ html body[data-page] main.page > .section:not(.home-story-section):not(.section-
   background-size:cover,620px auto!important;
 }
 }
+
+/* v44 | links.html 同源場景，真正覆蓋網頁而非卡片 */
+html body[data-page]{
+  background:#F7F4ED!important;
+  color:#172536!important;
+}
+html body[data-page] main.page{
+  max-width:none!important;
+  width:100%!important;
+  background:
+    linear-gradient(180deg,rgba(247,244,237,.10) 0%,rgba(247,244,237,.48) 48%,rgba(247,244,237,.28) 100%),
+    url('images/brand/links-bg-v20261003.webp?v=20261003-premium2') center top / min(100%,1500px) auto repeat-y,
+    #F7F4ED!important;
+}
+html body[data-page] main.page > .hero,
+html body[data-page] main.page > .section{
+  max-width:none!important;
+  width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+html body[data-page] main.page > .section:not(.home-story-section):not(.section--brand-gold){
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body[data-page="home"] .hero__panel{
+  width:100%!important;
+  max-width:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  overflow:visible!important;
+}
+html body[data-page="home"] .home-brand-stage{
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  max-width:none!important;
+}
+html body[data-page="home"] .hero__content{
+  background:rgba(255,253,248,.76)!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body[data-page="home"] .home-product-showcase{
+  background:rgba(255,253,248,.72)!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+html body[data-page] .section-heading,
+html body[data-page] main.page > .section:not(.home-story-section):not(.section--brand-gold) > p{
+  color:#172536!important;
+}
+html body[data-page="home"] .home-story-section{
+  background:linear-gradient(125deg,#0B1F3B,#203E45)!important;
+}
+@media(max-width:700px){
+html body[data-page] main.page{
+  background:
+    linear-gradient(180deg,rgba(247,244,237,.16),rgba(247,244,237,.52) 50%,rgba(247,244,237,.30)),
+    url('images/brand/links-bg-v20261003.webp?v=20261003-premium2') center top/auto 580px repeat-y,
+    #F7F4ED!important;
+}
+html body[data-page="home"] .hero{
+  padding-left:0!important;padding-right:0!important;
+}
+html body[data-page="home"] .hero__panel{
+  padding:0!important;margin:0!important;
+}
+html body[data-page="home"] .home-brand-stage{
+  margin:0!important;
+}
+}
