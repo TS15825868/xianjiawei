@@ -95,8 +95,6 @@ jobs:
             'guilu-gao':'product-guilu-gao.html',
             'guilu-drink-30':'product-guilu-drink-30cc.html',
             'guilu-drink-180':'product-guilu-drink-180cc.html',
-            'guilu-tangkuai':'product-guilu-tangkuai.html',
-            'guilu-jiao':'product-guilu-jiao.html',
             'luerong-fen':'product-luerong-fen.html'
           };
           for(const [id,pageFile] of Object.entries(detailPages)){
