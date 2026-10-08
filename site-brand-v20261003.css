@@ -3057,67 +3057,38 @@ html body[data-page] .site-footer{
 }
 
 
-/* 2026-10-08｜v42 全頁品牌景深：漂亮背景屬於頁面，不屬於卡片 */
-html body[data-page]{
+
+/* v43: 修復 iPhone 黑底與被 stacking context 遮蔽的背景 */
+html body[data-page]{background:#F7F4ED!important;color:#172536!important}
+html body[data-page] main.page{position:relative!important;isolation:auto!important;overflow:visible!important;background:#F7F4ED!important}
+html body[data-page] main.page::before,
+html body[data-page] main.page::after{content:none!important;display:none!important}
+html body[data-page] main.page > .section:not(.home-story-section):not(.section--brand-gold){
   background-color:#F7F4ED!important;
   background-image:
-    radial-gradient(circle at 14% 9%,rgba(104,32,35,.055),transparent 20%),
-    radial-gradient(circle at 88% 25%,rgba(176,138,71,.075),transparent 23%),
-    linear-gradient(180deg,rgba(255,253,248,.35),rgba(247,244,237,.18))!important;
-  background-attachment:scroll!important;
+    linear-gradient(180deg,rgba(247,244,237,.86),rgba(255,253,248,.75),rgba(247,244,237,.87)),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003')!important;
+  background-size:cover,900px auto!important;
+  background-position:center,center bottom!important;
+  background-repeat:no-repeat!important;
+  color:#172536!important;
 }
-html body[data-page] main.page{
-  position:relative!important;
-  isolation:isolate!important;
-  overflow:hidden!important;
-}
-html body[data-page] main.page::before{
-  content:""!important;
-  position:absolute!important;
-  inset:0!important;
-  z-index:-3!important;
-  pointer-events:none!important;
-  background:
-    url('images/brand/decor-v20261003/goji-top.webp?v=20261003') left -34px top 7%/240px auto no-repeat,
-    url('images/brand/decor-v20261003/deer-right.webp?v=20261003') right -44px top 23%/260px auto no-repeat,
-    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center top 35%/1120px auto no-repeat,
-    url('images/brand/decor-v20261003/herbs-bottom.webp?v=20261003') left -40px top 56%/270px auto no-repeat,
-    url('images/brand/decor-v20261003/turtle-bottom.webp?v=20261003') right -30px top 70%/230px auto no-repeat,
-    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom 7%/1050px auto no-repeat!important;
-  opacity:.20!important;
-}
-html body[data-page] main.page::after{
-  content:""!important;
-  position:absolute!important;
-  inset:0!important;
-  z-index:-2!important;
-  pointer-events:none!important;
-  background:
-    linear-gradient(180deg,
-      rgba(247,244,237,.18) 0%,
-      rgba(255,253,248,.54) 13%,
-      rgba(247,244,237,.26) 27%,
-      rgba(255,253,248,.50) 44%,
-      rgba(247,244,237,.20) 61%,
-      rgba(255,253,248,.48) 78%,
-      rgba(247,244,237,.24) 100%)!important;
-}
-html body[data-page] main.page > .section:not(.section--brand-gold)::before{
-  background:transparent!important;
-}
-html body[data-page="home"] .home-intro-section,
-html body[data-page="home"] .home-use-section{
-  background:transparent!important;
-}
+html body[data-page] main.page > .section:not(.home-story-section):not(.section--brand-gold) h2,
+html body[data-page] main.page > .section:not(.home-story-section):not(.section--brand-gold) h3,
+html body[data-page] main.page > .section:not(.home-story-section):not(.section--brand-gold) p{color:#172536!important}
+html body[data-page="home"] .home-story-section,
+html body[data-page="home"] .home-service-card--line{background:#0B1F3B!important;color:#FFF9ED!important}
+html body[data-page="home"] .home-story-section h2,
+html body[data-page="home"] .home-story-section p,
+html body[data-page="home"] .home-service-card--line h3,
+html body[data-page="home"] .home-service-card--line p{color:#FFF9ED!important}
+html body[data-page="home"] .home-story-section .eyebrow,
+html body[data-page="home"] .home-service-card--line .eyebrow{color:#E4C47D!important}
 @media(max-width:700px){
-  html body[data-page] main.page::before{
-    background:
-      url('images/brand/decor-v20261003/goji-top.webp?v=20261003') left -72px top 8%/190px auto no-repeat,
-      url('images/brand/decor-v20261003/deer-right.webp?v=20261003') right -72px top 24%/205px auto no-repeat,
-      url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center top 36%/720px auto no-repeat,
-      url('images/brand/decor-v20261003/herbs-bottom.webp?v=20261003') left -80px top 55%/210px auto no-repeat,
-      url('images/brand/decor-v20261003/turtle-bottom.webp?v=20261003') right -62px top 71%/185px auto no-repeat,
-      url('images/brand/decor-v20261003/mountains-center.webp?v=20261003') center bottom 6%/700px auto no-repeat!important;
-    opacity:.17!important;
-  }
+html body[data-page] main.page > .section:not(.home-story-section):not(.section--brand-gold){
+  background-image:
+    linear-gradient(180deg,rgba(247,244,237,.85),rgba(255,253,248,.74),rgba(247,244,237,.88)),
+    url('images/brand/decor-v20261003/mountains-center.webp?v=20261003')!important;
+  background-size:cover,620px auto!important;
+}
 }
