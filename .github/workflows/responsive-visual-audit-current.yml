@@ -108,7 +108,7 @@ jobs:
             const linkStatusCache=new Map();
 
             for(const [vpName,vp] of Object.entries(viewports)){
-              const context=await browser.newContext({
+              const context=await browser.newContext({reducedMotion:"reduce",
                 viewport:{width:vp.width,height:vp.height},
                 isMobile:vp.isMobile,
                 hasTouch:vp.hasTouch,

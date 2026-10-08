@@ -2,7 +2,7 @@
 const fs=require('fs');const {chromium,webkit}=require('playwright');
 const engine=process.env.XJW_BROWSER_ENGINE||'chromium';
 const base=(process.env.XJW_AUDIT_BASE||'http://127.0.0.1:8765/').replace(/\/?$/,'/');
-const release='20261008-landscape-v44';
+const release='20261008-links-scene-v45';
 const pages=fs.readdirSync('.').filter(p=>p.endsWith('.html')&&(fs.readFileSync(p,'utf8').includes('site.js?v='+release)||p==='links.html'));
 const devices={desktop:{width:1440,height:1000},tablet:{width:820,height:1180},phone:{width:390,height:844}};
 const dir='visual-evidence-'+engine;fs.mkdirSync(dir,{recursive:true});
@@ -10,7 +10,7 @@ const report={engine,base,release,generatedAt:new Date().toISOString(),pages,che
 function check(ok,type,detail){report.checks.push({ok,type,...detail});if(!ok)report.errors.push({type,...detail});}
 (async()=>{const browser=await({chromium,webkit}[engine]).launch({headless:true});
 for(const [device,viewport]of Object.entries(devices)){
- const context=await browser.newContext({viewport,deviceScaleFactor:1,hasTouch:device==='phone',isMobile:device==='phone'});
+ const context=await browser.newContext({viewport,deviceScaleFactor:1,hasTouch:device==='phone',isMobile:device==='phone',reducedMotion:'reduce'});
  for(const file of pages){const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   const response=await page.goto(base+file+'?visual='+release,{waitUntil:'load',timeout:60000});
@@ -27,14 +27,14 @@ for(const [device,viewport]of Object.entries(devices)){
    const lum=s=>rgb(s).map(c=>{c/=255;return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4)}).reduce((a,c,i)=>a+c*[.2126,.7152,.0722][i],0);
    const contrast=(a,b)=>{a=lum(a);b=lum(b);return(Math.max(a,b)+.05)/(Math.min(a,b)+.05)};
    const contrastErrors=[...document.querySelectorAll('.btn,.header-line-cta,.site-footer h3,.site-footer p,.site-footer a,.footer-legal')].filter(visible).map(e=>{const s=getComputedStyle(e);let p=e;while(p&&getComputedStyle(p).backgroundColor==='rgba(0, 0, 0, 0)')p=p.parentElement;const bg=p?getComputedStyle(p).backgroundColor:'rgb(247,244,237)';return {text:e.textContent.trim().slice(0,80),ratio:contrast(s.color,bg)}}).filter(e=>e.ratio<4.5);
-   return{width:innerWidth,scroll:document.documentElement.scrollWidth,images:imageErrors,css,productImages,contrastErrors,h1:document.querySelectorAll('h1').length,canonical:!!document.querySelector('link[rel=canonical]'),schema:!!document.querySelector('script[type="application/ld+json"]'),line:[...document.querySelectorAll('a')].some(a=>/line\.me|lin\.ee/.test(a.href)),mainBg:document.querySelector('.brand-landscape')?getComputedStyle(document.querySelector('.brand-landscape')).backgroundImage:''};
+   return{width:innerWidth,scroll:document.documentElement.scrollWidth,images:imageErrors,css,productImages,contrastErrors,h1:document.querySelectorAll('h1').length,canonical:!!document.querySelector('link[rel=canonical]'),schema:!!document.querySelector('script[type="application/ld+json"]'),line:[...document.querySelectorAll('a')].some(a=>/line\.me|lin\.ee/.test(a.href)),mainBg:document.querySelector('.brand-landscape')?getComputedStyle(document.querySelector('.brand-landscape__mountains')).backgroundImage:''};
   });
   check(audit.scroll<=audit.width+1,'horizontal-overflow',{file,device,width:audit.width,scroll:audit.scroll});
   check(!audit.images.length,'image-decode',{file,device,images:audit.images});check(audit.h1===1,'heading',{file,device,count:audit.h1});check(audit.canonical,'canonical',{file,device});check(audit.line,'line-link',{file,device});
-  if(file!=='links.html'){check(audit.css.length===1&&audit.css[0]==='site.css?v='+release,'single-style-source',{file,device,css:audit.css});check(audit.mainBg.includes('world-landscape'),'continuous-scenery',{file,device});check(!audit.contrastErrors.length,'text-contrast',{file,device,issues:audit.contrastErrors});}
+  if(file!=='links.html'){check(audit.css.length===1&&audit.css[0]==='site.css?v='+release,'single-style-source',{file,device,css:audit.css});check(audit.mainBg.includes('mountains-center'),'continuous-scenery',{file,device});check(!audit.contrastErrors.length,'text-contrast',{file,device,issues:audit.contrastErrors});}
   check(audit.productImages.every(i=>i.fit==='contain'&&i.transform==='none'),'product-original-fit',{file,device,images:audit.productImages});check(!errors.length,'javascript',{file,device,errors});
   await page.screenshot({type:'jpeg',quality:86,path:`${dir}/${device}-${file.replace('.html','')}.jpg`,fullPage:true});
-  if(file==='index.html'){check(await page.locator('.home-product-showcase__grid a').count()>0,'home-products-preserved',{file,device});}
+  if(file==='index.html'){const scenery=await page.locator('.home-hero').evaluate(e=>{const r=e.getBoundingClientRect(),g=e.querySelector('.brand-landscape__goji'),d=e.querySelector('.brand-landscape__deer'),m=e.querySelector('.brand-landscape__mountains');return{gojiTop:g.getBoundingClientRect().top-r.top,deerTop:d.getBoundingClientRect().top-r.top,mountainTop:m.getBoundingClientRect().top-r.top,paddingBottom:parseFloat(getComputedStyle(e).paddingBottom),heroImage:getComputedStyle(e).backgroundImage,assets:[...e.querySelectorAll('.brand-landscape>span')].map(s=>getComputedStyle(s).backgroundImage)}});check(scenery.gojiTop<=0&&scenery.deerTop<=180&&scenery.mountainTop<=220&&scenery.paddingBottom<=140&&scenery.heroImage==='none','hero-scenery-from-top',{file,device,...scenery});check(await page.locator('.home-product-showcase__grid a').count()>0,'home-products-preserved',{file,device});}
   if(file==='index.html'&&device==='phone'){
    await page.locator('#menu-btn').click();check(await page.locator('#menu-drawer').getAttribute('aria-hidden')==='false','menu-open',{file,device});await page.screenshot({type:'jpeg',quality:86,path:`${dir}/phone-menu.jpg`,fullPage:true});await page.locator('#menu-close').click();check(await page.locator('#menu-drawer').getAttribute('aria-hidden')==='true','menu-close',{file,device});
   }

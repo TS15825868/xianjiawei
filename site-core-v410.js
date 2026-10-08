@@ -6,7 +6,7 @@ let SITE_DATA = null;
 let lastFocusedElement = null;
 let menuScrollY = 0;
 
-const UX_VERSION = "20261008-landscape-v44";
+const UX_VERSION = "20261008-links-scene-v45";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
 const MENU_GROUPS = [
   {
