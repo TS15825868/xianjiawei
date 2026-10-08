@@ -20,9 +20,18 @@ jobs:
       - run: npx playwright install --with-deps ${{ matrix.engine }}
       - name: Start preview server
         run: python3 -m http.server 8765 > /tmp/site-server.log 2>&1 &
+      - name: Wait for official Pages release
+        if: github.ref == 'refs/heads/main'
+        run: |
+          for attempt in $(seq 1 80); do
+            if curl -fsS "https://ts15825868.github.io/xianjiawei/site.css?release=${{ github.sha }}" | grep -q "20261008-landscape-v44"; then exit 0; fi
+            sleep 10
+          done
+          exit 1
       - name: Audit full pages and interactions
         env:
           XJW_BROWSER_ENGINE: ${{ matrix.engine }}
+          XJW_AUDIT_BASE: ${{ github.ref == 'refs/heads/main' && 'https://ts15825868.github.io/xianjiawei/' || 'http://127.0.0.1:8765/' }}
         run: node tools/visual-audit.cjs
       - uses: actions/upload-artifact@v4
         if: always()

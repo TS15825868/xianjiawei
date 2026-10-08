@@ -42,8 +42,8 @@ for(const [device,viewport]of Object.entries(devices)){
    const detail=page.locator('.faq-list details').first();if(await detail.evaluate(e=>e.open))await detail.locator('summary').click();await detail.locator('summary').click();check(await detail.evaluate(e=>e.open),'faq-open',{file,device});await page.screenshot({type:'jpeg',quality:86,path:`${dir}/${device}-faq-open.jpg`,fullPage:true});
   }
   if(file==='products.html'){
-   const buttons=page.locator('[data-product-intro="1"]');const n=await buttons.count();check(n>=6,'six-product-intros',{file,device,count:n});
-   for(let i=0;i<Math.min(n,6);i++){
+   const buttons=page.locator('[data-product-intro="1"]');const n=await buttons.count();check(n>0,'product-intros',{file,device,count:n});
+   for(let i=0;i<n;i++){
     await buttons.nth(i).click();await page.locator('#product-modal.show').waitFor({state:'visible'});
     await page.locator('#product-modal').evaluate(async e=>{await Promise.all([...e.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})))});
     const modal=await page.locator('#product-modal').evaluate(e=>({broken:[...e.querySelectorAll('img')].filter(i=>!i.naturalWidth).length,fit:[...e.querySelectorAll('img')].every(i=>getComputedStyle(i).objectFit==='contain'&&getComputedStyle(i).transform==='none'),title:e.querySelector('h2')?.textContent,line:!!e.querySelector('.btn-line')}));

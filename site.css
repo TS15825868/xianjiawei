@@ -1,3 +1,4 @@
+/* release: 20261008-landscape-v44 */
 /* 仙加味｜全站山水設計系統。版面、色彩與互動元件只有一個來源。
    場景在 main 本身繪製，不依賴負 z-index、fixed 背景或卡片遮罩。 */
 :root{color-scheme:light;--cream:#F7F4ED;--paper:#fffdf7;--navy:#0B1F3B;--red:#682023;--gold:#B08A47;--green:#314B3D;--ink:#172536;--muted:#4c5b5b;--rule:rgba(104,80,40,.25);--max:1180px;--bg:var(--cream);--text:var(--ink);--brand:var(--navy);--brand-2:var(--red);--accent:var(--red)}
