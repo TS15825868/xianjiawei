@@ -6,7 +6,7 @@
  */
 (function(){
   const DATA={
-  "version": "20260930-main-dm-v13",
+  "version": "20261008-four-active-media-v1",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one product, one mainImage; source must be images/product-main/",
@@ -35,20 +35,6 @@
         "images/dm-final/03_guilu-drink-180cc-dm.jpg"
       ],
       "identityReference": "images/guilu-drink-180cc.jpg"
-    },
-    "guilu-tangkuai": {
-      "mainImage": "images/product-main/guilu-tangkuai.jpg",
-      "detailImages": [
-        "images/dm-final/05_guilu-tangkuai-75g-dm.jpg"
-      ],
-      "identityReference": "images/products-v2/guilu-tangkuai-open-new.jpg"
-    },
-    "guilu-jiao": {
-      "mainImage": "images/product-main/guilu-jiao.jpg",
-      "detailImages": [
-        "images/dm-final/06_guilu-jiao-600g-dm.jpg"
-      ],
-      "identityReference": "images/products-v2/guilu-jiao-open-new.jpg"
     },
     "luerong-fen": {
       "mainImage": "images/product-main/luerong-fen.jpg",
