@@ -10,12 +10,12 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20261005-product-sync-v14';
+  const VERSION='20261008-four-active-v1';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
-  const REQUIRED_CURRENT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']);
+  const REQUIRED_CURRENT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen']);
   const DEFERRED_ID='qixuan-guilu-drink-powder';
   const mediaAuthority=()=>window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const versioned=value=>{const base=String(value||'').split('?')[0];return base?`${base}?v=${VERSION}`:'';};
@@ -43,10 +43,6 @@
       const p30=master.products.find(product=>product.id==='guilu-drink-30');
       if(!Array.isArray(p30?.usage)||p30.usage[0]!==CURRENT_30_USAGE){
         throw new Error(`public-product-master 30cc usage invalid: ${p30?.usage?.[0]||'missing'}`);
-      }
-      const tangkuai=master.products.find(product=>product.id==='guilu-tangkuai');
-      if(tangkuai?.specification!=='75g／盒｜8塊裝'){
-        throw new Error(`public-product-master Guilu Tangkuai specification invalid: ${tangkuai?.specification||'missing'}`);
       }
       const gao=master.products.find(product=>product.id==='guilu-gao');
       if(!Array.isArray(gao?.usage)||gao.usage[0]!==CURRENT_GAO_TIMING){
