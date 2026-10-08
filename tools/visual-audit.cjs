@@ -51,6 +51,7 @@ for(const [device,viewport]of Object.entries(devices)){
     if(i===0)await page.screenshot({type:'jpeg',quality:86,path:`${dir}/${device}-product-modal.jpg`,fullPage:true});await page.locator('#product-modal-close').click();
    }
   }
+  if(file==='contact.html'){const logo=await page.locator('.footer-line-logo img').boundingBox();check(logo&&logo.width<=60&&logo.height<=120,'contact-logo-size',{file,device,logo});}
   if(file==='knowledge.html'){
    const tabs=page.locator('.knowledge-tab');if(await tabs.count()>1){await tabs.nth(1).click();check((await tabs.nth(1).getAttribute('class')).includes('is-active'),'knowledge-tabs',{file,device});}
   }
