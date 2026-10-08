@@ -123,7 +123,7 @@ jobs:
             node --check "$file"
           done
           grep -q 'mobile-compare-ready' site-core-v410.js
-          grep -q 'site.css?v=20261008-links-scene-v45' index.html
+          grep -q 'site.css?v=20261008-links-scene-v46' index.html
           grep -q 'site.js' index.html
           grep -q '.site-menu{display:none;position:fixed;inset:0' site.css
           grep -q '.site-menu__panel' site.css

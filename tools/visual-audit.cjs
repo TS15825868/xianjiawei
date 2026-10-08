@@ -2,7 +2,7 @@
 const fs=require('fs');const {chromium,webkit}=require('playwright');
 const engine=process.env.XJW_BROWSER_ENGINE||'chromium';
 const base=(process.env.XJW_AUDIT_BASE||'http://127.0.0.1:8765/').replace(/\/?$/,'/');
-const release='20261008-links-scene-v45';
+const release='20261008-links-scene-v46';
 const pages=fs.readdirSync('.').filter(p=>p.endsWith('.html')&&(fs.readFileSync(p,'utf8').includes('site.js?v='+release)||p==='links.html'));
 const devices={desktop:{width:1440,height:1000},tablet:{width:820,height:1180},phone:{width:390,height:844}};
 const dir='visual-evidence-'+engine;fs.mkdirSync(dir,{recursive:true});
