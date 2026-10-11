@@ -63,8 +63,8 @@
   "productAuthority": {
     "source": "public-product-master.json",
     "scope": "website-public-ai-geo-public-posts",
-    "knowledgeProductCount": 6,
-    "approvedMediaProductCount": 6,
+    "knowledgeProductCount": 4,
+    "approvedMediaProductCount": 4,
     "customerProductImageAuthority": "images/customer-display-v20260812/",
     "productIdentityReference": "images/products-v3/",
     "formalDmAuthority": "images/dm-final/",

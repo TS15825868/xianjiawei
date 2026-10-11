@@ -31,8 +31,8 @@
     "post_lifestyle": "目前最新使用者ZIP素材先依文案語意比對；有合格來源但原圖待同步時保持needs_binary_sync；真的沒有合格來源才重新生成",
     "guard": "驗目前authority與能力，不綁歷史版號、舊ZIP名稱、固定候選數、舊固定文案或退役延伸規格"
   },
-  "knowledge_product_count": 6,
-  "approved_media_product_count": 6,
+  "knowledge_product_count": 4,
+  "approved_media_product_count": 4,
   "official_specs": [
     "龜鹿膏 100g／罐",
     "龜鹿飲30cc玻璃罐 30cc／罐（小玻璃罐）",

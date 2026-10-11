@@ -15,7 +15,7 @@ PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED=('柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder')
 SPECS={
  'guilu-gao':'100g／罐','guilu-drink-30':'30cc／罐（小玻璃罐）','guilu-drink-180':'180cc／包（鋁袋）',
- 'guilu-tangkuai':'75g／盒｜8塊裝','guilu-jiao':'600g （1斤）／盒｜32塊裝','luerong-fen':'75g／罐'
+ 'luerong-fen':'75g／罐'
 }
 STRUCTURED={'knowledge.html','hanfang-baike.html','video.html','sources.html','ingredients.html','quality.html','craft.html'}
 PRIMARY={'index.html','products.html','choose.html','combo.html','guide.html','faq.html','trial.html','brand.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html'}
@@ -91,7 +91,7 @@ def main():
         text=read(rel)
         for marker in DEFERRED:
             if marker in text:fail(errors,f'{rel}重新把暫緩產品放到公開AI/GEO/貼文層：{marker}')
-    for marker in ['龜鹿膏','龜鹿飲30cc玻璃罐',CURRENT_30,'龜鹿飲180cc鋁袋','每日一包','龜鹿湯塊','75g／盒｜8塊裝','龜鹿膠','600g （1斤）／盒｜32塊裝','鹿茸粉']:
+    for marker in ['龜鹿膏','龜鹿飲30cc玻璃罐',CURRENT_30,'龜鹿飲180cc鋁袋','每日一包','鹿茸粉']:
         if marker not in read('llms.txt'):fail(errors,f'llms.txt缺少：{marker}')
 
     answers=load('ai-answers.json')

@@ -42,11 +42,11 @@
       "assets/data/official-products.json",
       "config/official-products.json"
     ],
-    "productCount": 6,
+    "productCount": 4,
     "productCountPolicy": "current-public-count-only-not-a-permanent-limit; future user-approved products may be added without changing system architecture",
-    "knowledgeProductCount": 6,
+    "knowledgeProductCount": 4,
     "knowledgeProductCountPolicy": "current-count-only-not-a-permanent-limit",
-    "approvedMediaProductCount": 6,
+    "approvedMediaProductCount": 4,
     "approvedMediaProductCountPolicy": "current-count-only-not-a-permanent-limit; each future product requires approved real-product media before public use",
     "specifications": [
       "龜鹿膏 100g／罐",

@@ -5,8 +5,8 @@
   "purpose": "正式貼文母庫張數跟隨目前公開資料並可持續增加；歷史資料層只作相容組裝。正式判斷依目前產品／媒體／資產權威、ID唯一性與實際runtime能力，不再以歷史固定數量、舊版號、舊檔名或舊ZIP名稱當發布條件。",
   "productAuthority": {
     "textSource": "public-product-master.json",
-    "knowledgeProductCount": 6,
-    "approvedMediaProductCount": 6,
+    "knowledgeProductCount": 4,
+    "approvedMediaProductCount": 4,
     "drink30Usage": "每日 1–2 罐",
     "drink180Usage": "每日一包",
     "drinkLeadTimeScope": "約5～7個工作天只適用龜鹿飲30cc與180cc",

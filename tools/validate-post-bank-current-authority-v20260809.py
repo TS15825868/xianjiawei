@@ -50,7 +50,7 @@ def main():
     req(state.get('formalMediaAuthority')=='data/formal-media-authority-v20260810.json','formal media authority錯誤')
     req(state.get('legacyProductImagesRejected') is True and state.get('unapprovedDmRejected') is True,'舊產品圖／未核准DM必須拒絕')
     req(state.get('deferredProductPublicMediaForbidden') is True,'柒玄茶暫緩期間不得進公開貼文媒體')
-    req(isinstance(formal.get('products'),list) and len(formal.get('products'))==len(PUBLIC_IDS),'目前正式產品媒體必須維持六項')
+    req(isinstance(formal.get('products'),list) and len(current_media_ids(ROOT))==len(PUBLIC_IDS),'正式公開媒體须符合目前清單；歷史素材保留')
 
     post_auth=base.get('productAuthority') or {}
     req(post_auth.get('textAuthority')=='public-product-master.json','公開貼文母庫未綁目前文字權威')

@@ -75,15 +75,14 @@ def main():
     p180 = visible('product-guilu-drink-180cc.html')
     req('180cc／包（鋁袋）' in p180 and '每日一包' in p180, '180cc詳頁規格／使用方式不完整')
 
-    req('75g／盒｜8塊裝' in (ROOT/'products.html').read_text() and '9.375' in json.dumps(master,ensure_ascii=False), '產品總覽龜鹿湯塊規格不完整')
-    req('600g （1斤）／盒｜32塊裝' in (ROOT/'products.html').read_text() and '18.75' in json.dumps(master,ensure_ascii=False), '產品總覽龜鹿膠規格不完整')
+    req(not set(ids) & {'guilu-tangkuai','guilu-jiao'},'暫緩產品回流公開')
 
     dm = visible('dm.html')
     req('DM' in dm, '產品DM頁應維持六項已有核准DM')
     req('待審核' not in dm and '毫米尺寸未知' not in dm, '產品DM頁仍露出內部審核／製圖說明')
 
     formal = load('data/formal-media-authority-v20260810.json')
-    req(len(formal.get('products') or []) ==len(PUBLIC_IDS), '正式產品媒體目前應為六項')
+    req(len(current_media_ids(ROOT)) ==len(PUBLIC_IDS), '正式公開產品媒體须符合目前清單；歷史素材保留')
     trial_authority = formal.get('trial') or {}
     trial_media = local(trial_authority.get('image') or trial_authority.get('path'))
     req(trial_authority.get('status') == 'approved_user_original' and trial_authority.get('render_mode') == 'poster' and trial_media, '目前試喝正式圖權威不完整')
