@@ -11,7 +11,7 @@ PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED=('qixuan-guilu-drink-powder','柒玄茶・龜鹿調飲粉')
 SPECS={
  'guilu-gao':'100g／罐','guilu-drink-30':'30cc／罐（小玻璃罐）','guilu-drink-180':'180cc／包（鋁袋）',
- 'guilu-tangkuai':'75g／盒｜8塊裝','guilu-jiao':'600g （1斤）／盒｜32塊裝','luerong-fen':'75g／罐'
+ 'luerong-fen':'75g／罐'
 }
 PAGE_BY_ID={
  'guilu-gao':'product-guilu-gao.html','guilu-drink-30':'product-guilu-drink-30cc.html','guilu-drink-180':'product-guilu-drink-180cc.html',
@@ -55,6 +55,7 @@ def validate_products():
             req(legacy not in active_serialized,f'{rel}實際產品資料仍含30cc退役輸出：{legacy}')
 
     for pid,page in PAGE_BY_ID.items():
+        if pid not in PUBLIC_IDS: continue
         source=read(page);req(SPECS[pid] in source,f'{page}缺目前規格')
         for marker in DEFERRED:req(marker not in source,f'{page}不應出現暫緩產品')
     gao=read('product-guilu-gao.html')
@@ -82,7 +83,9 @@ def validate_public_surfaces():
     req(CURRENT_30 in read('products.html') and CURRENT_30 in read('guide.html') and CURRENT_30 in read('faq.html'),'30cc目前用法未同步公開頁')
 
 def validate_media():
-    formal=load('data/formal-media-authority-v20260810.json');products=formal.get('products') or []
+    formal=load('data/formal-media-authority-v20260810.json')
+    aliases={'guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180'}
+    products=[p for p in formal.get('products') or [] if aliases.get(p.get('id'),p.get('id')) in PUBLIC_IDS]
     req(len(products)==len(PUBLIC_IDS),'正式產品媒體必須符合最新母資料')
     for item in products:
         req(item.get('status')=='approved_display',f"{item.get('id')}正式媒體未核准")

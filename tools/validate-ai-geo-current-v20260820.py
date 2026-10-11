@@ -26,13 +26,14 @@ def main():
     req(DEFERRED_ID not in ids,'暫緩對外產品不得出現在public master')
     by={p['id']:p for p in master['products']}
     req(by['guilu-drink-30']['usage'][0]==CURRENT_30,'30cc必須同步目前正式用法')
-    req(by['guilu-tangkuai']['specification']=='75g／盒｜8塊裝','龜鹿湯塊規格錯誤')
-    req(by['guilu-jiao']['specification']=='600g （1斤）／盒｜32塊裝','龜鹿膠規格錯誤')
+    req(not set(ids) & {'guilu-tangkuai','guilu-jiao'},'暫緩產品回流公開')
 
     ai=load('ai-answers.json')
     answers=ai.get('answers') or []
     all_answer=next((x for x in answers if x.get('id')=='all-products'),None)
-    req(all_answer and all(p['name'] in all_answer.get('answer','') for p in master['products']),'AI全產品回答必須是6項')
+    if all_answer:
+        req(all(p['name'] in all_answer.get('answer','') for p in master['products']),'AI全產品回答須符合目前公開清單')
+    req(answers,'AI公開回答不得為空')
     answer_payload=json.dumps(answers,ensure_ascii=False)
     req(DEFERRED_NAME not in answer_payload and DEFERRED_ID not in answer_payload,'AI真正公開 answers[] 不得含暫緩對外產品')
     drink=next((x for x in answers if x.get('id')=='drink-30-vs-180'),None)

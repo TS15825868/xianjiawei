@@ -1,7 +1,7 @@
 """Validate current public authority without freezing future product counts."""
 import json
 
-CORE_IDS=('guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen')
+CORE_IDS=('guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen')
 
 def current_public_ids(root):
     master=json.loads((root/'public-product-master.json').read_text(encoding='utf-8'))
@@ -11,6 +11,7 @@ def current_public_ids(root):
     assert ids and all(isinstance(pid,str) and pid.strip() for pid in ids), '公開產品ID空白'
     assert master.get('productCount')==len(ids)==len(set(ids)), '公開產品數或ID不一致'
     assert set(CORE_IDS).issubset(ids), '核心公開產品缺失'
+    assert not set(ids) & {'guilu-jiao','guilu-tangkuai'}, '暫緩產品不得回流公開'
     assert 'qixuan-guilu-drink-powder' not in ids, '柒玄茶暫緩公開'
     return ids
 

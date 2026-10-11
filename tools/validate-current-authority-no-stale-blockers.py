@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
-REQUIRED_CURRENT_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+REQUIRED_CURRENT_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen']
 DEFERRED_ID='qixuan-guilu-drink-powder'
 DEFERRED_NAME='柒玄茶・龜鹿調飲粉'
 CURRENT_30='每日 1–2 罐'
@@ -201,7 +201,7 @@ def main():
     req('小玻璃罐' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定小玻璃罐')
     req('裸罐' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定裸罐')
     req('無貼紙' in by['guilu-drink-30'].get('package',''),'30cc正式包裝未鎖定無貼紙')
-    req(by['guilu-tangkuai'].get('specification')=='75g／盒｜8塊裝','龜鹿湯塊被舊 2兩 規格回退')
+    req(not set(ids) & {'guilu-jiao','guilu-tangkuai'},'暫緩产品不得回流公開')
     req(by['guilu-gao'].get('usage',[None])[0]==CURRENT_GAO,'龜鹿膏被舊固定時段資料回退')
 
     for rel in ['assets/data/official-products.json','config/official-products.json']:

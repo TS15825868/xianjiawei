@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 MASTER=ROOT/'public-product-master.json'
-REQUIRED_CURRENT_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+REQUIRED_CURRENT_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen']
 DEFERRED_ID='qixuan-guilu-drink-powder'
 CURRENT_30='每日 1–2 罐'
 WRITE='--write' in sys.argv
@@ -65,6 +65,7 @@ def main():
     for pid in REQUIRED_CURRENT_IDS:
         if pid not in ids: raise SystemExit(f'目前核心公開產品缺失：{pid}')
     if DEFERRED_ID in ids: raise SystemExit('暫緩產品不得由舊固定產品數重新加入官網')
+    if set(ids) & {'guilu-jiao','guilu-tangkuai'}: raise SystemExit('暫緩產品不得回流公開')
     by={p['id']:p for p in master['products']}
     public_ids=ids
     if by['guilu-drink-30'].get('usage',[None])[0]!=CURRENT_30:
