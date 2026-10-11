@@ -41,7 +41,7 @@ jobs:
           import json
           from pathlib import Path
 
-          required_ids=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+          required_ids=['guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen']
           deferred=['柒玄茶・龜鹿調飲粉','qixuan-guilu-drink-powder']
           current_30='每日 1–2 罐'
 
@@ -53,10 +53,7 @@ jobs:
           assert all(pid in public_ids for pid in required_ids)
           assert master_by['guilu-drink-30']['usage'][0]==current_30
           assert master_by['guilu-drink-180']['usage'][0]=='每日一包'
-          assert master_by['guilu-tangkuai']['specification']=='75g／盒｜8塊裝'
-          assert master_by['guilu-tangkuai']['detail']=='每塊約9.375g'
-          assert master_by['guilu-jiao']['specification']=='600g （1斤）／盒｜32塊裝'
-          assert master_by['guilu-jiao']['detail']=='每塊約18.75g'
+          assert not set(public_ids) & {'guilu-tangkuai','guilu-jiao'}
 
           official=json.loads(Path('assets/data/official-products.json').read_text(encoding='utf-8'))
           official_by={p.get('id'):p for p in official.get('products',[])}

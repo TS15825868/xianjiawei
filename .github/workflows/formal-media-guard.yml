@@ -39,9 +39,11 @@ jobs:
           const idMap={'guilu-gao':'guilu-gao','guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180','guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'};
           const keys={'guilu-gao':'guilu-gao','guilu-drink-30cc':'guilu-drink-30','guilu-drink-180cc':'guilu-drink-180','guilu-tangkuai':'guilu-tangkuai','guilu-jiao':'guilu-jiao','luerong-fen':'luerong-fen'};
           must(a.runtime===m.runtime,'authority/manifest runtime不同步');
-          must(Array.isArray(a.products)&&a.products.length===publicCount,'正式產品不是六項');
+          must(Array.isArray(a.products),'正式媒體清單缺失');
+          const activeMedia=a.products.filter(p=>byOfficial.has(idMap[p.id]||p.id));
+          must(activeMedia.length===publicCount,'正式媒體與目前公開清單不一致');
           must(byOfficial.size===publicCount,'目前產品權威不是六項');
-          for(const p of a.products){
+          for(const p of activeMedia){
             const current=byOfficial.get(idMap[p.id]||p.id);
             must(current,`找不到目前產品權威 ${p.id}`);
             must(p.spec===current.specification,`媒體authority規格未跟目前權威同步 ${p.id}: ${p.spec} != ${current.specification}`);

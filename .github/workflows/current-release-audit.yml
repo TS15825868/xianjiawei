@@ -82,8 +82,9 @@ jobs:
           deferred_id='qixuan-guilu-drink-powder'
           master=json.loads(Path('public-product-master.json').read_text(encoding='utf-8'))
           ids=[p.get('id') for p in master.get('products',[])]
-          required=['guilu-gao','guilu-drink-30','guilu-drink-180','guilu-tangkuai','guilu-jiao','luerong-fen']
+          required=['guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen']
           assert master['productCount']==len(ids) and len(ids)==len(set(ids)) and all(pid in ids for pid in required)
+          assert not set(ids) & {'guilu-jiao','guilu-tangkuai'}
           by={p['id']:p for p in master['products']}
           assert by['guilu-drink-30']['usage'][0]==current
           assert by['guilu-gao']['usage'][0]==gao_current
