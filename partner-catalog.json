@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-danshen-variant-use-storage",
+  "version": "2026-10-15-food-first-compliance-and-product-visual-unity",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -922,6 +922,10 @@
     "merchantsOwnOriginalBranding": true,
     "hiddenDraftProductsNotRendered": true,
     "privatePricesProhibited": true,
-    "duplicatesByBrandAndNameProhibited": true
+    "duplicatesByBrandAndNameProhibited": true,
+    "foodProductPriority": "包裝與原廠資料確認屬食品後，優先使用原廠實物圖與完整標示公開中性商品資訊；不得宣稱療效，價格仍由 LINE 回覆。分類為食品並不自動免除廣告法規檢查。",
+    "medicineProductPolicy": "藥品或中藥製劑應保留ERP資料並核實許可證、品類、藥品廣告與網路交易限制；未完成前不直接放入一般食品商品卡或促銷內容。",
+    "unclearProductPolicy": "分類、原廠、規格或公開圖片尚未確認者保留ERP，先補證據，不以名稱推定可販售資格。",
+    "layoutPolicy": "自有及其他廠牌使用同一張卡片與詳細頁視覺規格；系列產品可共用單卡單頁，照片保持原包裝、比例與原廠標示。"
   }
 }
