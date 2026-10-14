@@ -140,6 +140,25 @@ def main() -> None:
     core = (ROOT / "site-core-v410.js").read_text(encoding="utf-8")
     if "partner-catalog.json" not in core or "fillProducts('partner-product-list'" not in core:
         fail("dynamic partner catalog integration missing")
+
+    # Regression: series cards and modal links must navigate to their full page,
+    # not be renamed/reopened as another copy of the same product modal.
+    modal_router = (ROOT / "site-media-modal-final-v20260814.js").read_text(encoding="utf-8")
+    if not all(token in modal_router for token in (
+        "isGroupedProductLink(anchor)",
+        "anchor.closest('.breadcrumb,#product-modal')",
+        "target.closest('#product-modal')",
+        "anchor.removeAttribute('data-product-intro')",
+    )):
+        fail("grouped tea page or modal navigation can be intercepted by modal router")
+    if not all(token in core for token in (
+        "const isSeries = Array.isArray(product.variants)",
+        'data-product-page-direct="1"',
+        "查看全部款式與照片",
+    )):
+        fail("grouped series cards must offer a direct detail page route")
+    if 'href="product-danshen-tea.html"' not in listing:
+        fail("grouped series static fallback has no direct detail-page link")
     print("PASS multi-brand catalog: "
           + str(len(own)) + " own-brand + "
           + str(len(public_partner)) + " partner products; "
