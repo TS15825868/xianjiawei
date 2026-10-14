@@ -940,6 +940,7 @@ function openProductModal(product, sourceElement) {
     ` : `<p class="muted">目前沒有可顯示的原廠詳細圖片，請向官方 LINE 確認商品資料。</p>`}
 
     <div class="modal-actions">
+      ${(product.page || product.detailPage) ? `<a class="btn btn-outline" data-product-page-direct="1" href="${escapeAttribute(product.page || product.detailPage)}">查看完整商品頁</a>` : ""}
       ${product.informationOnly ? lineButton("LINE 商品與門市諮詢", `我想了解${name}的規格、包裝與門市資訊。`) : lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
     </div>
   `;
