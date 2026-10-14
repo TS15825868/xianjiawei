@@ -88,13 +88,14 @@ def main():
     req(trial_authority.get('status') == 'approved_user_original' and trial_authority.get('render_mode') == 'poster' and trial_media, '目前試喝正式圖權威不完整')
     trial_source = (ROOT/'trial.html').read_text(encoding='utf-8'); trial = visible('trial.html'); trial_compact = compact(trial)
     req('<iframe' not in trial_source.lower(), 'trial.html 不得使用 iframe')
-    req(trial_media in trial_source, 'trial.html 必須使用目前核准試喝圖')
-    for phrase in ['龜鹿飲試喝組','3罐','試喝品免費','運費自付','60元','100元','30cc／罐（小玻璃罐）','180cc／包（鋁袋）','買10送1']:
+    approved_30_main = load('data/product-media-authority.json')['products']['guilu-drink-30']['mainImage']
+    req(trial_media in trial_source or approved_30_main in trial_source, 'trial.html 必須使用已核准試喝圖或正式30cc實物主圖')
+    for phrase in ['龜鹿飲試喝組','3罐','試喝品免費','運費自付','60元','100元','30cc小玻璃罐','180cc／包（鋁袋）']:
         req(phrase in trial, f'trial.html 缺少目前核准資訊：{phrase}')
     for phrase in ['正式售價60元／罐','11罐600元','單包200元','11包2,000元']:
-        req(phrase in trial_compact, f'trial.html 缺少目前核准價格／活動：{phrase}')
+        req(phrase not in trial_compact, f'trial.html 不得公開商品價格：{phrase}')
 
-    print(f'PASS public customer pages: {len(PUBLIC_PAGES)} pages follow six website products, exact 30cc daily 1–2 cans, no retired fixed-time Guilu Gao chip, and current formal media.')
+    print(f'PASS public customer pages: {len(PUBLIC_PAGES)} pages follow current website product authority, exact 30cc daily 1–2 cans, no retired fixed-time Guilu Gao chip, and current formal media.')
 
 if __name__ == '__main__': main()
 
