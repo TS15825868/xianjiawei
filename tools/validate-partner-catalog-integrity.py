@@ -70,6 +70,21 @@ def main() -> None:
             check_image(image, name)
         if product.get("public") is not True and product.get("onlineTransactionEligible") is True:
             fail("unreviewed partner product enables online transaction: " + str(pid))
+    for group in (p for p in all_partner if p.get("public") and p.get("variants")):
+        members = group.get("variants", [])
+        if len(members) < 2:
+            fail("grouped product has fewer than two variants")
+        for member in members:
+            original = next((p for p in all_partner if p.get("id") == member.get("id")), None)
+            if not original or original.get("public") or original.get("groupedIn") != group["id"]:
+                fail("variant is not correctly grouped: " + str(member.get("id")))
+            if not member.get("name") or not member.get("ingredients") or not member.get("image"):
+                fail("grouped variant missing product facts: " + str(member.get("id")))
+            check_image(member["image"], member["name"])
+        group_page = (ROOT / group["page"]).read_text(encoding="utf-8") if (ROOT / group["page"]).is_file() else ""
+        for member in members:
+            if member["name"] not in group_page or member["id"] not in group_page:
+                fail("variant not visible on the consolidated detail page: " + member["id"])
     if not own:
         fail("no approved own-brand products")
     if not public_partner:
@@ -102,8 +117,8 @@ def main() -> None:
             detail = page.read_text(encoding="utf-8")
             if name not in detail or LINE not in detail:
                 fail("incomplete product detail or LINE CTA for " + pid)
-            if brand_group == "partner" and product["brand"] not in detail:
-                fail("partner brand missing on product detail: " + pid)
+            if brand_group == "partner" and product.get("category") not in detail:
+                fail("product category missing on partner detail: " + pid)
 
     listing = (ROOT / "products.html").read_text(encoding="utf-8")
     if "catalog-filters" not in listing or "partner-product-list" not in listing:

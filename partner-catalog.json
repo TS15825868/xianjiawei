@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-14-23-unique-partner-products",
+  "version": "2026-10-15-danshen-tea-grouped-single-page",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -56,6 +56,165 @@
       ]
     },
     {
+      "id": "danshen-tea-collection",
+      "brand": "健逢",
+      "brandType": "partner",
+      "category": "茶飲",
+      "name": "丹參茶包系列",
+      "series": "丹參茶包系列",
+      "size": "3公克／包・10包／盒｜6款",
+      "form": "茶包",
+      "description": "六款丹參茶包集中介紹，查看各款品名、原料、原廠實物照片及規格。",
+      "image": "images/partner-products/tea-rose-fruit-front.webp",
+      "page": "product-danshen-tea.html",
+      "ingredients": [],
+      "usage": [
+        "請參考各款原廠包裝所列沖泡方式及食用注意事項。"
+      ],
+      "storage": [
+        "置於陰涼乾燥處，避免日照及潮濕；開封後盡早使用。"
+      ],
+      "notices": [
+        "照片為商品樣品，出貨效期以實際批次標示為準。",
+        "各款原料與使用條件不同，選購前可先透過 LINE 詢問。"
+      ],
+      "features": [
+        "6款品項集中瀏覽",
+        "各款均為3公克×10包／盒"
+      ],
+      "fulfillmentNotice": "商品資訊與門市諮詢請洽仙加味官方 LINE；交易與交付方式須依商品類別確認。",
+      "informationOnly": true,
+      "public": true,
+      "onlineTransactionEligible": false,
+      "listingMode": "product-information-only",
+      "variants": [
+        {
+          "id": "jianfeng-rose-fruit-tea",
+          "name": "臺灣丹參玫瑰果茶",
+          "flavor": "玫瑰果茶",
+          "image": "images/partner-products/tea-rose-fruit-front.webp",
+          "size": "3公克／包，10包／盒",
+          "ingredients": [
+            "臺灣丹參",
+            "玫瑰",
+            "檸檬",
+            "綠茶",
+            "水果乾"
+          ],
+          "notes": [
+            "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+            "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+          ],
+          "sourceFiles": [
+            "IMG_9963.jpeg"
+          ]
+        },
+        {
+          "id": "jianfeng-leisure-tea",
+          "name": "臺灣丹參懈悠活養生茶",
+          "flavor": "懈悠活養生茶",
+          "image": "images/partner-products/tea-danshen-leisure-front.webp",
+          "size": "3公克／包，10包／盒",
+          "ingredients": [
+            "臺灣丹參",
+            "茶葉"
+          ],
+          "notes": [
+            "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+            "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+          ],
+          "sourceFiles": [
+            "IMG_9964.jpeg"
+          ]
+        },
+        {
+          "id": "jianfeng-wudahan-tea",
+          "name": "武大漢丹參茶",
+          "flavor": "武大漢丹參茶",
+          "image": "images/partner-products/tea-wudahan-front.webp",
+          "size": "3公克／包，10包／盒",
+          "ingredients": [
+            "臺灣丹參",
+            "瑪卡",
+            "紅景天",
+            "刺五加"
+          ],
+          "notes": [
+            "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+            "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+          ],
+          "sourceFiles": [
+            "IMG_9965.jpeg"
+          ]
+        },
+        {
+          "id": "jianfeng-fiber-tea",
+          "name": "臺灣丹參纖體茶",
+          "flavor": "纖體茶",
+          "image": "images/partner-products/tea-danshen-lotus-front.webp",
+          "size": "3公克／包，10包／盒",
+          "ingredients": [
+            "臺灣丹參",
+            "荷葉",
+            "綠茶"
+          ],
+          "notes": [
+            "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+            "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+          ],
+          "sourceFiles": [
+            "IMG_9966.jpeg"
+          ]
+        },
+        {
+          "id": "jianfeng-white-tea",
+          "name": "臺灣白茶丹參飲",
+          "flavor": "白茶丹參飲",
+          "image": "images/partner-products/tea-white-danshen-front.webp",
+          "size": "3公克／包，10包／盒",
+          "ingredients": [
+            "臺灣白茶",
+            "臺灣丹參"
+          ],
+          "notes": [
+            "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+            "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+          ],
+          "sourceFiles": [
+            "IMG_9967.jpeg"
+          ]
+        },
+        {
+          "id": "jianfeng-refresh-tea",
+          "name": "臺灣丹參舒活茶",
+          "flavor": "舒活茶",
+          "image": "images/partner-products/tea-danshen-refresh-front.webp",
+          "size": "3公克／包，10包／盒",
+          "ingredients": [
+            "臺灣丹參",
+            "西洋參",
+            "三七葉",
+            "薄荷"
+          ],
+          "notes": [
+            "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+            "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+          ],
+          "sourceFiles": [
+            "IMG_9968.jpeg"
+          ]
+        }
+      ],
+      "sourceFiles": [
+        "IMG_9963.jpeg",
+        "IMG_9964.jpeg",
+        "IMG_9965.jpeg",
+        "IMG_9966.jpeg",
+        "IMG_9967.jpeg",
+        "IMG_9968.jpeg"
+      ]
+    },
+    {
       "id": "jianfeng-rose-fruit-tea",
       "name": "臺灣丹參玫瑰果茶",
       "brand": "健逢",
@@ -92,7 +251,7 @@
       ],
       "informationOnly": true,
       "onlineTransactionEnabled": false,
-      "public": true,
+      "public": false,
       "sourceFiles": [
         "IMG_9963.jpeg"
       ],
@@ -102,7 +261,10 @@
         "images/partner-products/tea-rose-fruit-front.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
-      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面"
+      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面",
+      "groupedIn": "danshen-tea-collection",
+      "onlineTransactionEligible": false,
+      "publicGroupedListing": true
     },
     {
       "id": "jianfeng-leisure-tea",
@@ -138,7 +300,7 @@
       ],
       "informationOnly": true,
       "onlineTransactionEnabled": false,
-      "public": true,
+      "public": false,
       "sourceFiles": [
         "IMG_9964.jpeg"
       ],
@@ -148,7 +310,10 @@
         "images/partner-products/tea-danshen-leisure-front.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
-      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面"
+      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面",
+      "groupedIn": "danshen-tea-collection",
+      "onlineTransactionEligible": false,
+      "publicGroupedListing": true
     },
     {
       "id": "jianfeng-wudahan-tea",
@@ -186,7 +351,7 @@
       ],
       "informationOnly": true,
       "onlineTransactionEnabled": false,
-      "public": true,
+      "public": false,
       "sourceFiles": [
         "IMG_9965.jpeg"
       ],
@@ -196,7 +361,10 @@
         "images/partner-products/tea-wudahan-front.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
-      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面"
+      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面",
+      "groupedIn": "danshen-tea-collection",
+      "onlineTransactionEligible": false,
+      "publicGroupedListing": true
     },
     {
       "id": "jianfeng-fiber-tea",
@@ -233,7 +401,7 @@
       ],
       "informationOnly": true,
       "onlineTransactionEnabled": false,
-      "public": true,
+      "public": false,
       "sourceFiles": [
         "IMG_9966.jpeg"
       ],
@@ -243,7 +411,10 @@
         "images/partner-products/tea-danshen-lotus-front.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
-      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面"
+      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面",
+      "groupedIn": "danshen-tea-collection",
+      "onlineTransactionEligible": false,
+      "publicGroupedListing": true
     },
     {
       "id": "jianfeng-white-tea",
@@ -279,7 +450,7 @@
       ],
       "informationOnly": true,
       "onlineTransactionEnabled": false,
-      "public": true,
+      "public": false,
       "sourceFiles": [
         "IMG_9967.jpeg"
       ],
@@ -289,7 +460,10 @@
         "images/partner-products/tea-white-danshen-front.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
-      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面"
+      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面",
+      "groupedIn": "danshen-tea-collection",
+      "onlineTransactionEligible": false,
+      "publicGroupedListing": true
     },
     {
       "id": "jianfeng-refresh-tea",
@@ -327,7 +501,7 @@
       ],
       "informationOnly": true,
       "onlineTransactionEnabled": false,
-      "public": true,
+      "public": false,
       "sourceFiles": [
         "IMG_9968.jpeg"
       ],
@@ -337,7 +511,10 @@
         "images/partner-products/tea-danshen-refresh-front.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
-      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面"
+      "imagePolicy": "主圖由原廠實物照裁切保留完整正面包裝、不重繪不換標籤；詳細頁保留原圖正背面",
+      "groupedIn": "danshen-tea-collection",
+      "onlineTransactionEligible": false,
+      "publicGroupedListing": true
     },
     {
       "id": "lian-guilu",

@@ -388,7 +388,6 @@ function renderProductsPage() {
   const filters = [{key:'all',label:'全部商品',test:()=>true},
     {key:'own',label:'仙加味自有品牌',test:p=>p.brandType==='own'},
     ...((partner.length || preservePartnerFallback) ? [{key:'partner',label:'其他廠牌',test:p=>p.brandType==='partner'}] : []),
-    ...[...new Set(partner.map(p=>p.brand))].map(brand=>({key:'brand:'+brand,label:brand,test:p=>p.brand===brand})),
     ...[...new Set(all.map(p=>p.category).filter(Boolean))].map(category=>({key:'type:'+category,label:category,test:p=>p.category===category}))];
   const draw = () => {
     const filter = filters.find(f=>f.key===selected) || filters[0];
@@ -444,7 +443,7 @@ function fillProducts(targetId, products, options = {}) {
           <img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}" loading="lazy" decoding="async">
         </div>
         <div class="product-card__body">
-          <p class="eyebrow">${escapeHtml(product.brand || product.series || "仙加味")}</p>
+          <p class="eyebrow">${escapeHtml(product.brandType === "partner" ? (product.category || "其他商品") : (product.series || product.category || "仙加味"))}</p>
           <h3>${escapeHtml(name)}</h3>
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
@@ -884,7 +883,7 @@ function openProductModal(product, sourceElement) {
 
   body.innerHTML = `
     <header class="modal-intro">
-      <p class="eyebrow">${escapeHtml(product.brand || product.series || "仙加味")}</p>
+      <p class="eyebrow">${escapeHtml(product.brandType === "partner" ? (product.category || "其他商品") : (product.series || "仙加味"))}</p>
       <h2 id="product-modal-title">${escapeHtml(name)}</h2>
     </header>
 
@@ -916,6 +915,11 @@ function openProductModal(product, sourceElement) {
       </section>
     </div>
 
+    ${Array.isArray(product.variants) && product.variants.length ? `
+      <section class="modal-section"><h3>口味與品項・共${product.variants.length}款</h3>
+        <ul>${product.variants.map(item => `<li><a href="${escapeAttribute(product.page || 'products.html')}#${escapeAttribute(item.id)}">${escapeHtml(item.flavor || item.name)}｜${escapeHtml(item.size || '')}</a></li>`).join('')}</ul>
+        <p><a href="${escapeAttribute(product.page || 'products.html')}" class="btn btn-outline">查看全部款式與照片</a></p>
+      </section>` : ''}
     ${(product.notices?.length || product.features?.length) ? `<section class="modal-section"><h3>商品特色</h3>${listMarkup(product.features || [], '請見產品標示。')}<h3>注意事項</h3>${listMarkup(product.notices || [], '請依產品標示。')}</section>` : ''}
     ${dmImage ? `
       <section class="modal-detail-media" aria-label="${escapeAttribute(name)}${product.informationOnly ? "原廠包裝標示" : "正式完整 DM"}">
