@@ -398,7 +398,8 @@ function renderProductsPage() {
     const showPartners = preservePartnerFallback ? (selected === 'all' || selected === 'partner') : visible.some(p=>p.brandType==='partner');
     document.getElementById('partner-brand-catalog').hidden = !showPartners;
     const displayedCount = visible.length + (preservePartnerFallback && showPartners ? staticPartnerCount : 0);
-    if (status) status.textContent = `${filter.label}・${displayedCount} 項商品`;
+    const groupedVariants = visible.filter(p => Array.isArray(p.variants) && p.variants.length > 0).reduce((n,p) => n + p.variants.length, 0);
+    if (status) status.textContent = `${filter.label}・${displayedCount} 個商品入口${groupedVariants ? `（系列內含 ${groupedVariants} 款）` : ''}`;
     nav?.querySelectorAll('button').forEach(b=>{const active=b.dataset.catalogFilter===selected;b.setAttribute('aria-pressed',String(active));b.className='btn '+(active?'btn-primary':'btn-outline');});
   };
   if(nav){

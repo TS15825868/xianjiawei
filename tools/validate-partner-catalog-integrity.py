@@ -121,6 +121,13 @@ def main() -> None:
                 fail("product category missing on partner detail: " + pid)
 
     listing = (ROOT / "products.html").read_text(encoding="utf-8")
+    for group in (p for p in all_partner if p.get("public") and p.get("variants")):
+        if f'data-fallback-product="{group["id"]}"' not in listing:
+            fail("group entry missing from product catalog: " + group["id"])
+        for member in group["variants"]:
+            if f'data-fallback-product="{member["id"]}"' in listing:
+                fail("grouped variant still has a separate public card: " + member["id"])
+
     if "catalog-filters" not in listing or "partner-product-list" not in listing:
         fail("catalog filter or partner section missing")
     for pid in ids:
