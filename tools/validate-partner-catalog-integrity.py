@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+"""Validate public multi-brand product cards without pinning an old product count."""
+from __future__ import annotations
+import json
+import re
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+LINE = "https://lin.ee/sHZW7NkR"
+FORBIDDEN_IMAGE_NAMES = re.compile(
+    r"(?:chat|conversation|screenshot|screen.?record|對話|聊天|報價|客戶資料)",
+    re.IGNORECASE,
+)
+PRIVATE_FIELDS = {
+    "price", "cost", "cost_price", "retail_price", "wholesale_price",
+    "promotional_price", "supplier_cost", "inventory_cost",
+}
+
+def fail(message: str) -> None:
+    raise SystemExit("FAIL public product catalog: " + message)
+
+def load(name: str) -> dict:
+    return json.loads((ROOT / name).read_text(encoding="utf-8"))
+
+def safe_file(value: str) -> Path:
+    if not isinstance(value, str) or not value:
+        fail("missing image/page path")
+    plain = value.split("?", 1)[0]
+    p = Path(plain)
+    if p.is_absolute() or ".." in p.parts or "://" in plain or "\\" in plain:
+        fail("unsafe relative path: " + value)
+    return ROOT / p
+
+def check_image(value: str, name: str) -> None:
+    if FORBIDDEN_IMAGE_NAMES.search(value):
+        fail("conversation or private screenshot as product image: " + value)
+    path = safe_file(value)
+    if not path.is_file() or path.stat().st_size < 4000:
+        fail("missing or invalid product image for " + name + ": " + value)
+    signature = path.read_bytes()[:12]
+    valid = (signature.startswith(b"\xff\xd8\xff")
+             or signature.startswith(b"\x89PNG\r\n\x1a\n")
+             or signature.startswith(b"RIFF") and signature[8:12] == b"WEBP"
+             or signature.lstrip().startswith(b"<svg"))
+    if not valid:
+        fail("unsupported image signature: " + value)
+
+def main() -> None:
+    own = load("data.json").get("products", [])
+    all_partner = load("partner-catalog.json").get("products", [])
+    public_partner = [p for p in all_partner if p.get("public") is True]
+    if not own:
+        fail("no approved own-brand products")
+    if not public_partner:
+        fail("no public partner products (partner area would be empty)")
+
+    ids = set()
+    for brand_group, products in (("own", own), ("partner", public_partner)):
+        for product in products:
+            name = product.get("displayName") or product.get("name")
+            pid = product.get("id")
+            if not (name and pid and product.get("size") and product.get("page") and product.get("image")):
+                fail("missing essential card field in " + brand_group + ": " + str(pid))
+            if pid in ids:
+                fail("duplicate product ID: " + pid)
+            ids.add(pid)
+            if brand_group == "partner":
+                if not product.get("brand") or product.get("brandType") != "partner":
+                    fail("missing original brand attribution for " + pid)
+                public_keys = PRIVATE_FIELDS.intersection(product.keys())
+                if public_keys:
+                    fail("private pricing fields in public catalog: " + pid)
+                for extra in product.get("detailImages", []):
+                    check_image(extra, name)
+                if FORBIDDEN_IMAGE_NAMES.search(" ".join(product.get("sourceFiles", []))):
+                    fail("conversation screenshot included in source list: " + pid)
+            check_image(product["image"], name)
+            page = safe_file(product["page"])
+            if not page.is_file() or page.suffix != ".html":
+                fail("missing product detail page for " + pid)
+            detail = page.read_text(encoding="utf-8")
+            if name not in detail or LINE not in detail:
+                fail("incomplete product detail or LINE CTA for " + pid)
+            if brand_group == "partner" and product["brand"] not in detail:
+                fail("partner brand missing on product detail: " + pid)
+
+    listing = (ROOT / "products.html").read_text(encoding="utf-8")
+    if "catalog-filters" not in listing or "partner-product-list" not in listing:
+        fail("catalog filter or partner section missing")
+    for pid in ids:
+        if f'data-fallback-product="{pid}"' not in listing:
+            fail("non-JavaScript catalog fallback missing " + pid)
+    for product in public_partner:
+        if product["page"] not in listing:
+            fail("partner product missing from search/listing metadata: " + product["id"])
+
+    core = (ROOT / "site-core-v410.js").read_text(encoding="utf-8")
+    if "partner-catalog.json" not in core or "fillProducts('partner-product-list'" not in core:
+        fail("dynamic partner catalog integration missing")
+    print("PASS multi-brand catalog: "
+          + str(len(own)) + " own-brand + "
+          + str(len(public_partner)) + " partner products; "
+          + str(len(ids)) + " static fallback cards, original images, pages and no private pricing.")
+
+if __name__ == "__main__":
+    main()
