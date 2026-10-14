@@ -49,6 +49,27 @@ def main() -> None:
     own = load("data.json").get("products", [])
     all_partner = load("partner-catalog.json").get("products", [])
     public_partner = [p for p in all_partner if p.get("public") is True]
+    seen_partner_names = set()
+    seen_partner_ids = set()
+    for product in all_partner:
+        pid, name, brand = product.get("id"), product.get("name"), product.get("brand")
+        if not (pid and name and brand):
+            fail("incomplete partner SKU or manufacturer attribution")
+        key = (brand.strip().casefold(), name.strip().casefold())
+        if pid in seen_partner_ids or key in seen_partner_names:
+            fail("duplicate third-party product record: " + str(name))
+        seen_partner_ids.add(pid)
+        seen_partner_names.add(key)
+        if PRIVATE_FIELDS.intersection(product.keys()):
+            fail("partner catalog contains internal pricing fields: " + str(pid))
+        if FORBIDDEN_IMAGE_NAMES.search(" ".join(product.get("sourceFiles", []))):
+            fail("private conversation screenshot used in source files: " + str(pid))
+        if product.get("image"):
+            check_image(product["image"], name)
+        for image in product.get("detailImages", []):
+            check_image(image, name)
+        if product.get("public") is not True and product.get("onlineTransactionEligible") is True:
+            fail("unreviewed partner product enables online transaction: " + str(pid))
     if not own:
         fail("no approved own-brand products")
     if not public_partner:
