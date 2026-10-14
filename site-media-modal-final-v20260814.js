@@ -78,9 +78,22 @@
     }
   }
 
+  // 系列商品需進入完整頁；跳窗內所有導覽必須保留原生連結，
+  // 避免「查看全部款式與照片」被改寫成「查看介紹」後重新開同一個跳窗。
+  function isGroupedProductLink(anchor){
+    const href=anchor?.getAttribute?.('href')||'';
+    const product=findProduct(href);
+    return Boolean(product && Array.isArray(product.variants) && product.variants.length)
+      || cleanFile(href)==='product-danshen-tea.html';
+  }
+
   function normalizeIntroActions(root=document){
     root.querySelectorAll('a[href*="product-"]').forEach(anchor=>{
-      if(anchor.closest('.breadcrumb') || anchor.dataset.productPageDirect === '1')return;
+      if(anchor.closest('.breadcrumb,#product-modal') || anchor.dataset.productPageDirect === '1' || isGroupedProductLink(anchor)){
+        anchor.removeAttribute('data-product-intro');
+        anchor.removeAttribute('aria-haspopup');
+        return;
+      }
       const isButton=anchor.classList.contains('btn')||
         !!anchor.closest('.product-card__actions,.trial-product-card__actions,.hero-actions,.final-cta__actions');
       const isProductSurface=!!anchor.closest('.product-card,.trial-product-card,.home-product-showcase__grid');
@@ -120,6 +133,8 @@
   document.addEventListener('click',event=>{
     const target=event.target.closest('[data-product-intro="1"]');
     if(!target)return;
+    // 捕捉階段也要放行系列頁及跳窗內連結，避免舊標記殘留造成重開跳窗。
+    if(target.closest('#product-modal') || target.dataset.productPageDirect === '1' || isGroupedProductLink(target))return;
     openIntro(target,event);
   },true);
 
