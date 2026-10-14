@@ -80,7 +80,7 @@
 
   function normalizeIntroActions(root=document){
     root.querySelectorAll('a[href*="product-"]').forEach(anchor=>{
-      if(anchor.closest('.breadcrumb'))return;
+      if(anchor.closest('.breadcrumb') || anchor.dataset.productPageDirect === '1')return;
       const isButton=anchor.classList.contains('btn')||
         !!anchor.closest('.product-card__actions,.trial-product-card__actions,.hero-actions,.final-cta__actions');
       const isProductSurface=!!anchor.closest('.product-card,.trial-product-card,.home-product-showcase__grid');
