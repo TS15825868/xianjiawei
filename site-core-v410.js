@@ -908,17 +908,17 @@ function openProductModal(product, sourceElement) {
         ${listMarkup(usage, "請依正式產品說明使用。")}
       </section>
       <section class="modal-section modal-section--wide">
-        <h3>保存／出貨資訊</h3>
+        <h3>${product.informationOnly ? "保存／供貨資訊" : "保存／出貨資訊"}</h3>
         <div class="modal-info-split">
           <div><strong>保存</strong>${listMarkup(storage, "請依正式產品標示保存。")}</div>
-          <div><strong>出貨</strong><p>${escapeHtml(fulfillment)}</p></div>
+          <div><strong>${product.informationOnly ? "商品與門市資訊" : "出貨"}</strong><p>${escapeHtml(fulfillment)}</p></div>
         </div>
       </section>
     </div>
 
     ${(product.notices?.length || product.features?.length) ? `<section class="modal-section"><h3>商品特色</h3>${listMarkup(product.features || [], '請見產品標示。')}<h3>注意事項</h3>${listMarkup(product.notices || [], '請依產品標示。')}</section>` : ''}
     ${dmImage ? `
-      <section class="modal-detail-media" aria-label="${escapeAttribute(name)}正式完整 DM">
+      <section class="modal-detail-media" aria-label="${escapeAttribute(name)}${product.informationOnly ? "原廠包裝標示" : "正式完整 DM"}">
         <div class="modal-detail-media__heading">
           <p class="eyebrow">完整產品資訊</p>
           <h3>${escapeHtml(product.detailMediaTitle || "正式 DM")}</h3>
@@ -927,10 +927,10 @@ function openProductModal(product, sourceElement) {
           <img src="${escapeAttribute(versionAsset(dmImage))}" alt="${escapeAttribute(name)}${escapeAttribute(product.detailMediaTitle || "正式詳細 DM")}" loading="eager" decoding="async">
         </figure>
       </section>
-    ` : `<p class="muted">目前沒有可顯示的正式詳細 DM，請透過官方 LINE 詢問。</p>`}
+    ` : `<p class="muted">目前沒有可顯示的原廠詳細圖片，請向官方 LINE 確認商品資料。</p>`}
 
     <div class="modal-actions">
-      ${lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
+      ${product.informationOnly ? lineButton("LINE 商品與門市諮詢", `我想了解${name}的規格、包裝與門市資訊。`) : lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
     </div>
   `;
 
