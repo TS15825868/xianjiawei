@@ -438,6 +438,7 @@ function fillProducts(targetId, products, options = {}) {
     const name = product.displayName || product.name || "仙加味產品";
     const image = product.image || product.gallery?.[0] || "images/logo.png";
     const page = product.page || product.detailPage || "products.html";
+    const isSeries = Array.isArray(product.variants) && product.variants.length > 0;
     return `
       <article class="product-card reveal" data-product-id="${escapeAttribute(product.id || "")}" tabindex="0" role="button" aria-label="查看${escapeAttribute(name)}介紹">
         <div class="product-card__img">
@@ -449,7 +450,7 @@ function fillProducts(targetId, products, options = {}) {
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
           <div class="product-card__actions">
-            <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(page)}">查看介紹</a>
+            <a class="btn btn-outline" ${isSeries ? 'data-product-page-direct="1"' : 'data-product-intro="1" aria-haspopup="dialog"'} href="${escapeAttribute(page)}">${isSeries ? `查看${product.variants.length}款介紹` : '查看介紹'}</a>
           </div>
         </div>
       </article>
