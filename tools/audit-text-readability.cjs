@@ -6,6 +6,8 @@ const pw=require(process.env.XJW_PLAYWRIGHT_MODULE||'playwright');
 const engine=process.env.XJW_BROWSER_ENGINE||'chromium';
 const release=(fs.readFileSync('index.html','utf8').match(/site\.css\?v=([^" ]+)/)||[])[1];
 const pages=process.env.XJW_TEXT_PAGES?.split(',')||fs.readdirSync('.').filter(f=>f.endsWith('.html')&&(f==='links.html'||fs.readFileSync(f,'utf8').includes('site.css?v='+release)));
+const groupedProducts=JSON.parse(fs.readFileSync('partner-catalog.json','utf8')).products.filter(p=>p.public===true&&Array.isArray(p.variants)&&p.variants.length);
+for(const product of groupedProducts)if(!pages.includes(product.page))pages.push(product.page);
 const profiles={desktop:{width:1440,height:1000},tablet:{width:820,height:1180},phone:{width:390,height:844},small:{width:320,height:740}};
 const selected=process.env.XJW_TEXT_VIEWPORTS?.split(',')||Object.keys(profiles);
 const out=process.env.XJW_TEXT_OUTPUT||'text-evidence-'+engine;
@@ -82,7 +84,17 @@ async function inspect(page,file,device,state){
    if(file==='faq.html'){await page.locator('.faq-list details').evaluateAll(es=>es.forEach(e=>e.open=true));await inspect(page,file,device,'expanded');}
    if(file==='index.html'&&['phone','small','tablet'].includes(device)){await page.locator('#menu-btn').click();await inspect(page,file,device,'menu');const menu=page.locator('.site-menu.open');const scrollable=await menu.evaluate(e=>[e,...e.querySelectorAll('*')].filter(n=>n.scrollHeight>n.clientHeight+8&&['auto','scroll'].includes(getComputedStyle(n).overflowY)).map(n=>({id:n.id,cls:n.className,step:n.clientHeight*.65,max:n.scrollHeight-n.clientHeight})));for(const item of scrollable){const target=item.id?page.locator('#'+item.id):page.locator('.'+item.cls.trim().split(/\s+/).join('.'));for(let y=item.step;y<item.max+item.step;y+=item.step){const pos=Math.min(y,item.max);await target.evaluate((e,y)=>e.scrollTop=y,pos);await inspect(page,file,device,'menu-scroll-'+Math.round(pos));if(pos===item.max)break;}}await page.locator('#menu-close').click();}
    if(file==='knowledge.html'){const tabs=page.locator('.knowledge-tab');for(let i=1;i<await tabs.count();i++){await tabs.nth(i).click();await inspect(page,file,device,'tab-'+i);}}
-   if(file==='products.html'){const buttons=page.locator('[data-product-intro="1"]');for(let i=0;i<await buttons.count();i++){await buttons.nth(i).click();await page.locator('#product-modal.show').waitFor({state:'visible'});await page.locator('#product-modal').evaluate(async e=>{await Promise.all([...e.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})))});await inspect(page,file,device,'modal-'+i);
+   if(file==='products.html'){
+    for(const product of groupedProducts){
+      const link=page.locator('[data-product-intro="1"][href="'+product.page+'"]:visible').first();
+      await link.click();await page.waitForURL('**/'+product.page);
+      for(const variant of product.variants)await page.locator('#'+variant.id).waitFor({state:'attached'});
+      await inspect(page,product.page,device,'series-entry');
+      await page.goto(base+'products.html',{waitUntil:'domcontentloaded'});
+      await page.waitForFunction(()=>window.__XJW_SITE_INITIALIZED__&&document.querySelector('#site-footer .footer-card'),null,{timeout:20000});
+    }
+    const groupExclusions=groupedProducts.map(p=>':not([href="'+p.page+'"])').join('');
+    const buttons=page.locator('[data-product-intro="1"]:visible'+groupExclusions);for(let i=0;i<await buttons.count();i++){await buttons.nth(i).click();await page.locator('#product-modal.show').waitFor({state:'visible'});await page.locator('#product-modal').evaluate(async e=>{await Promise.all([...e.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})))});await inspect(page,file,device,'modal-'+i);
     const positions=await page.locator('.product-modal__scroll').evaluate(e=>{const step=e.clientHeight*.65,top=e.getBoundingClientRect().top,walker=document.createTreeWalker(e,NodeFilter.SHOW_TEXT),values=new Set([0]);let n;while(n=walker.nextNode()){if(!n.textContent.trim()||n.parentElement.closest('script,style,[aria-hidden="true"]'))continue;const r=document.createRange();r.selectNodeContents(n);for(const b of r.getClientRects())if(b.width&&b.height)values.add(Math.max(0,Math.min(e.scrollHeight-e.clientHeight,Math.floor((b.top-top+e.scrollTop)/step)*step)))}return [...values].sort((a,b)=>a-b)});
     for(const y of positions.filter(y=>y>0)){await page.locator('.product-modal__scroll').evaluate((e,y)=>e.scrollTop=y,y);await inspect(page,file,device,'modal-'+i+'-scroll-'+Math.round(y));}
     await page.locator('#product-modal-close').click();}}
