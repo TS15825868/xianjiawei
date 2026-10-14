@@ -87,10 +87,10 @@ def main():
         for phrase in DEFERRED:assert phrase not in source,f'{page}仍含暫緩產品'
 
     core=read('site-core-v410.js')
-    for marker in ['modal-gallery__item','modal-facts','modal-detail-media__frame','LINE 詢問／下單']:
+    for marker in ['modal-gallery__item','modal-preview__spec','data-product-page-direct','LINE 詢問／下單']:
         assert marker in core,f'查看介紹Modal缺必要結構：{marker}'
     contact=read('contact.html');assert 'lin.ee/sHZW7NkR' in contact,'聯絡頁缺官方LINE'
-    print(f'PASS public boundary: {len(pages)} pages use six website products; product pages keep product-main outside, dm-final only in 查看介紹 modal, and no deferred Qixuan website exposure.')
+    print(f'PASS public boundary: {len(pages)} pages respect current public product authority, compact previews, direct detail navigation and deferred product boundaries.')
 
 if __name__=='__main__':main()
 

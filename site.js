@@ -16,7 +16,7 @@
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
-  const CORE = `site-core-v410.js?v=20261015-series-linkfix-v3`;
+  const CORE = `site-core-v410.js?v=${VERSION}`;
   const MEDIA_MODAL = `site-media-modal-final-v20260814.js?v=20261015-series-linkfix-v3`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
   const VARIANTS = `site-official-product-variants.js?v=${VERSION}`;
