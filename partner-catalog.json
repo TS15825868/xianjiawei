@@ -10,7 +10,7 @@
       "name": "參仲四物飲",
       "size": "60毫升 × 12入／盒",
       "form": "飲品",
-      "description": "晉安原廠盒裝飲品，每盒12入，每入60毫升；保留原廠包裝與商品標示。",
+      "description": "盒裝漢方飲品，每盒12入，每入60毫升；保留原廠包裝與商品標示。",
       "image": "images/partner-products/jinan-siwuyin-front.jpg",
       "page": "product-jinan-siwuyin.html",
       "ingredients": [
@@ -53,7 +53,8 @@
       "sourceFiles": [
         "IMG_9934.JPG",
         "IMG_9935.JPG"
-      ]
+      ],
+      "informationOnly": true
     },
     {
       "id": "danshen-tea-collection",
