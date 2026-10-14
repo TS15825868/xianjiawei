@@ -86,7 +86,7 @@ async function inspect(page,file,device,state){
    if(file==='knowledge.html'){const tabs=page.locator('.knowledge-tab');for(let i=1;i<await tabs.count();i++){await tabs.nth(i).click();await inspect(page,file,device,'tab-'+i);}}
    if(file==='products.html'){
     for(const product of groupedProducts){
-      const link=page.locator('[data-product-intro="1"][href="'+product.page+'"]:visible').first();
+      const link=page.locator('[data-product-page-direct="1"][href="'+product.page+'"]:visible').first();
       await link.click();await page.waitForURL('**/'+product.page);
       for(const variant of product.variants)await page.locator('#'+variant.id).waitFor({state:'attached'});
       await inspect(page,product.page,device,'series-entry');

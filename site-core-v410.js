@@ -462,10 +462,6 @@ function fillProducts(targetId, products, options = {}) {
       if (event?.target?.closest("a")) return;
       const product = safeProducts.find(item => item.id === card.dataset.productId);
       if (!product) return;
-      if (Array.isArray(product.variants) && product.variants.length && product.page) {
-        window.location.assign(product.page);
-        return;
-      }
       openProductModal(product, card);
     };
     card.addEventListener("click", open);
@@ -866,19 +862,10 @@ function openProductModal(product, sourceElement) {
   const name = product.displayName || product.name || "仙加味產品";
   const mediaAuthority = window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const authorityMain = mediaAuthority?.mainImage?.(product.id) || "";
-  const authorityDetails = mediaAuthority?.detailImages?.(product.id) || [];
   const mainImage = authorityMain || product.image || product.gallery?.[0] || "images/logo.png";
-  const detailImages = authorityDetails.length
-    ? [...authorityDetails]
-    : (Array.isArray(product.detailImages) && product.detailImages.length
-      ? product.detailImages.filter(Boolean)
-      : (product.dmImage ? [product.dmImage] : []));
-  const dmImage = detailImages[0] || "";
   const spec = productDisplaySpec(product) || "請見正式產品資訊";
-  const ingredients = Array.isArray(product.ingredients) ? product.ingredients.filter(Boolean) : [];
-  const usage = [...new Set([...(Array.isArray(product.usage) ? product.usage : []), product.usageAdjustment, product.usageTiming || (['guilu-drink-30','guilu-drink-180'].includes(product.id) ? '飲用時間可依個人使用習慣與作息時間安排' : '')].filter(Boolean))];
-  const storage = Array.isArray(product.storage) ? product.storage.filter(Boolean) : [];
-  const fulfillment = String(product.fulfillmentNotice || "出貨與配送時間請透過官方 LINE 確認。").trim();
+  const features = Array.isArray(product.features) ? [...new Set(product.features.filter(Boolean))].slice(0, 3) : [];
+  const variants = Array.isArray(product.variants) ? product.variants : [];
   const versionAsset = value => {
     const raw = String(value || "").trim();
     if (!raw) return "";
@@ -900,48 +887,15 @@ function openProductModal(product, sourceElement) {
       </figure>
     </div>
 
-    <div class="modal-facts" aria-label="${escapeAttribute(name)}產品資料">
-      <section class="modal-section">
-        <h3>規格</h3>
-        <p><strong>${escapeHtml(spec)}</strong></p>
-      </section>
-      <section class="modal-section">
-        <h3>成分</h3>
-        ${listMarkup(ingredients, "請見正式產品標示。")}
-      </section>
-      <section class="modal-section modal-section--wide">
-        <h3>一般使用方式</h3>
-        ${listMarkup(usage, "請依正式產品說明使用。")}
-      </section>
-      <section class="modal-section modal-section--wide">
-        <h3>${product.informationOnly ? "保存／供貨資訊" : "保存／出貨資訊"}</h3>
-        <div class="modal-info-split">
-          <div><strong>保存</strong>${listMarkup(storage, "請依正式產品標示保存。")}</div>
-          <div><strong>${product.informationOnly ? "商品與門市資訊" : "出貨"}</strong><p>${escapeHtml(fulfillment)}</p></div>
-        </div>
-      </section>
+    <div class="modal-preview">
+      <p class="modal-preview__spec"><strong>規格：</strong>${escapeHtml(spec)}</p>
+      ${product.description ? `<p>${escapeHtml(product.description)}</p>` : ''}
+      ${features.length ? listMarkup(features, '') : ''}
+      ${variants.length ? `<nav class="modal-variant-links" aria-label="六款茶包介紹">${variants.map(item => `<a data-product-page-direct="1" href="${escapeAttribute(product.page)}#${escapeAttribute(item.id)}">${escapeHtml(item.name)}</a>`).join('')}</nav>` : ''}
     </div>
 
-    ${Array.isArray(product.variants) && product.variants.length ? `
-      <section class="modal-section"><h3>口味與品項・共${product.variants.length}款</h3>
-        <ul>${product.variants.map(item => `<li><a href="${escapeAttribute(product.page || 'products.html')}#${escapeAttribute(item.id)}">${escapeHtml(item.flavor || item.name)}｜${escapeHtml(item.size || '')}</a></li>`).join('')}</ul>
-        <p><a href="${escapeAttribute(product.page || 'products.html')}" class="btn btn-outline">查看全部款式與照片</a></p>
-      </section>` : ''}
-    ${(product.notices?.length || product.features?.length) ? `<section class="modal-section"><h3>商品特色</h3>${listMarkup(product.features || [], '請見產品標示。')}<h3>注意事項</h3>${listMarkup(product.notices || [], '請依產品標示。')}</section>` : ''}
-    ${dmImage ? `
-      <section class="modal-detail-media" aria-label="${escapeAttribute(name)}${product.informationOnly ? "原廠包裝標示" : "正式完整 DM"}">
-        <div class="modal-detail-media__heading">
-          <p class="eyebrow">完整產品資訊</p>
-          <h3>${escapeHtml(product.detailMediaTitle || "正式 DM")}</h3>
-        </div>
-        <figure class="modal-detail-media__frame">
-          <img src="${escapeAttribute(versionAsset(dmImage))}" alt="${escapeAttribute(name)}${escapeAttribute(product.detailMediaTitle || "正式詳細 DM")}" loading="eager" decoding="async">
-        </figure>
-      </section>
-    ` : `<p class="muted">目前沒有可顯示的原廠詳細圖片，請向官方 LINE 確認商品資料。</p>`}
-
     <div class="modal-actions">
-      ${(product.page || product.detailPage) ? `<a class="btn btn-outline" data-product-page-direct="1" href="${escapeAttribute(product.page || product.detailPage)}">查看完整商品頁</a>` : ""}
+      ${(product.page || product.detailPage) ? `<a class="btn btn-outline" data-product-page-direct="1" href="${escapeAttribute(product.page || product.detailPage)}">${variants.length ? '查看全部款式與照片' : '查看完整商品頁'}</a>` : ""}
       ${product.informationOnly ? lineButton("LINE 商品與門市諮詢", `我想了解${name}的規格、包裝與門市資訊。`) : lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
     </div>
   `;

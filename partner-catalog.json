@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-food-first-compliance-and-product-visual-unity",
+  "version": "2026-10-15-common-series-information",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -279,7 +279,21 @@
         "IMG_9966.jpeg",
         "IMG_9967.jpeg",
         "IMG_9968.jpeg"
-      ]
+      ],
+      "commonInformation": {
+        "size": "3公克／包，10包／盒",
+        "usage": [
+          "每包以約500cc冷或溫開水浸泡3～5分鐘，依原廠包裝標示"
+        ],
+        "storage": [
+          "置於陰涼乾燥處，避免陽光直射",
+          "拆封後請盡早使用完畢"
+        ],
+        "notices": [
+          "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+          "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+        ]
+      }
     },
     {
       "id": "jianfeng-rose-fruit-tea",
