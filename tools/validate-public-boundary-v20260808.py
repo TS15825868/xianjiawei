@@ -58,7 +58,9 @@ def main():
             assert 'images/product-main/' in hero,f'{page}主視覺未使用目前 product-main 漂亮簡單正式主圖'
             assert 'images/dm-final/' not in hero,f'{page}把詳細DM誤用為產品主視覺'
             assert 'images/dm-final/' not in source,f'{page}外層HTML不得直接嵌入正式詳細DM；DM只可由查看介紹Modal載入'
-            assert '查看介紹' in source and 'data-product-intro' in source,f'{page}缺查看介紹Modal入口'
+            has_modal_intro = '查看介紹' in hero and 'data-product-intro' in hero
+            has_inpage_details = 'href="#complete-info"' in hero and 'id="complete-info"' in source and '查看完整產品資訊' in hero
+            assert has_modal_intro or has_inpage_details,f'{page}缺有效的產品詳情入口（跳窗或頁內資訊）'
             pid=PRODUCT_PAGE_IDS[page]
             media_row=media_products.get(pid) or {}
             assert str(media_row.get('mainImage') or '').startswith('images/product-main/') and str(media_row.get('mainImage') or '').endswith('.jpg'),f'{page}媒體權威主圖不是product-main JPG'
