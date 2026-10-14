@@ -67,15 +67,15 @@
   }
 
   function normalizeProductDetailHero(){
-    if(document.body?.dataset?.page!=='product-detail')return;
-    const product=currentProduct();
-    if(!product)return;
-    const button=document.querySelector('.product-detail-hero .hero-actions a[href="#complete-info"],.product-detail-hero .hero-actions a[data-product-intro-current="1"]');
-    if(button){
-      button.href=product.page||product.detailPage||location.pathname;
-      button.dataset.productIntroCurrent='1';
-      markIntro(button,{rename:true});
-    }
+    if(document.body?.dataset?.page!=='product-detail' || !document.getElementById('complete-info'))return;
+    const button=document.querySelector('.product-detail-hero .hero-actions a[href="#complete-info"],.product-detail-hero .hero-actions a[data-product-intro-current="1"],.product-detail-hero .hero-actions a[data-product-intro="1"]');
+    if(!button)return;
+    // 已在詳細頁時，導向下方完整資訊；不得打開自己的跳窗。
+    button.href='#complete-info';
+    button.textContent='查看完整產品資訊';
+    button.removeAttribute('data-product-intro');
+    button.removeAttribute('data-product-intro-current');
+    button.removeAttribute('aria-haspopup');
   }
 
   // 系列商品需進入完整頁；跳窗內所有導覽必須保留原生連結，
