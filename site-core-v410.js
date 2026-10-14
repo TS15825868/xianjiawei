@@ -147,7 +147,7 @@ function lineButton(label = "前往 LINE 詢問", message = "看產品", extraCl
 function pageLineMessage(page = currentPageKey()) {
   const messages = {
     home: "我從仙加味官網首頁進來，想了解產品與怎麼選。",
-    products: "我想了解仙加味龜鹿系列產品與規格。",
+    products: "我從仙加味商品總覽進來，想了解自有品牌或其他廠牌商品的規格與購買方式。",
     "product-detail": "我正在查看產品詳細介紹，想確認規格與購買方式。",
     choose: "我不確定怎麼選，想請你依我的生活方式幫我整理。",
     combo: "我想詢問產品搭配方式。",
@@ -458,9 +458,9 @@ function fillProducts(targetId, products, options = {}) {
     };
     card.addEventListener("click", open);
     card.addEventListener("keydown", event => {
-      if (!["Enter", " "].includes(event.key)) return;
+      if (event.target !== card || !["Enter", " "].includes(event.key)) return;
       event.preventDefault();
-      open(event);
+      openProductModal(safeProducts.find(item => item.id === card.dataset.productId), card);
     });
   });
 }
