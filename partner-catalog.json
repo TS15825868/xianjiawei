@@ -54,6 +54,254 @@
         "IMG_9934.JPG",
         "IMG_9935.JPG"
       ]
+    },
+    {
+      "id": "jianfeng-rose-fruit-tea",
+      "name": "臺灣丹參玫瑰果茶",
+      "brand": "健逢",
+      "brandType": "partner",
+      "series": "健逢・原廠茶品",
+      "category": "漢方茶飲",
+      "size": "3公克／包，10包／盒",
+      "form": "茶包",
+      "description": "健逢出品原廠盒裝茶包，每包3公克、每盒10包。保留正式品名與原廠包裝資訊，供查閱規格與內容物。",
+      "image": "images/partner-products/tea-rose-fruit-label-source.jpg",
+      "page": "product-jianfeng-rose-fruit-tea.html",
+      "ingredients": [
+        "臺灣丹參",
+        "玫瑰",
+        "檸檬",
+        "綠茶",
+        "水果乾"
+      ],
+      "usage": [
+        "每包以約500cc冷或溫開水浸泡3～5分鐘，依原廠包裝標示"
+      ],
+      "storage": [
+        "置於陰涼乾燥處，避免陽光直射",
+        "拆封後請盡早使用完畢"
+      ],
+      "notices": [
+        "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+        "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+      ],
+      "features": [
+        "10包／盒",
+        "3公克／包",
+        "原廠包裝"
+      ],
+      "informationOnly": true,
+      "onlineTransactionEnabled": false,
+      "public": true,
+      "sourceFiles": [
+        "IMG_9963.jpeg"
+      ],
+      "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。"
+    },
+    {
+      "id": "jianfeng-leisure-tea",
+      "name": "臺灣丹參懈悠活養生茶",
+      "brand": "健逢",
+      "brandType": "partner",
+      "series": "健逢・原廠茶品",
+      "category": "漢方茶飲",
+      "size": "3公克／包，10包／盒",
+      "form": "茶包",
+      "description": "健逢出品原廠盒裝茶包，每包3公克、每盒10包。保留正式品名與原廠包裝資訊，供查閱規格與內容物。",
+      "image": "images/partner-products/tea-danshen-leisure-label-source.jpg",
+      "page": "product-jianfeng-leisure-tea.html",
+      "ingredients": [
+        "臺灣丹參",
+        "茶葉"
+      ],
+      "usage": [
+        "每包以約500cc冷或溫開水浸泡3～5分鐘，依原廠包裝標示"
+      ],
+      "storage": [
+        "置於陰涼乾燥處，避免陽光直射",
+        "拆封後請盡早使用完畢"
+      ],
+      "notices": [
+        "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+        "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+      ],
+      "features": [
+        "10包／盒",
+        "3公克／包",
+        "原廠包裝"
+      ],
+      "informationOnly": true,
+      "onlineTransactionEnabled": false,
+      "public": true,
+      "sourceFiles": [
+        "IMG_9964.jpeg"
+      ],
+      "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。"
+    },
+    {
+      "id": "jianfeng-wudahan-tea",
+      "name": "武大漢丹參茶",
+      "brand": "健逢",
+      "brandType": "partner",
+      "series": "健逢・原廠茶品",
+      "category": "漢方茶飲",
+      "size": "3公克／包，10包／盒",
+      "form": "茶包",
+      "description": "健逢出品原廠盒裝茶包，每包3公克、每盒10包。保留正式品名與原廠包裝資訊，供查閱規格與內容物。",
+      "image": "images/partner-products/tea-wudahan-label-source.jpg",
+      "page": "product-jianfeng-wudahan-tea.html",
+      "ingredients": [
+        "臺灣丹參",
+        "瑪卡",
+        "紅景天",
+        "刺五加"
+      ],
+      "usage": [
+        "每包以約500cc冷或溫開水浸泡3～5分鐘，依原廠包裝標示"
+      ],
+      "storage": [
+        "置於陰涼乾燥處，避免陽光直射",
+        "拆封後請盡早使用完畢"
+      ],
+      "notices": [
+        "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+        "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+      ],
+      "features": [
+        "10包／盒",
+        "3公克／包",
+        "原廠包裝"
+      ],
+      "informationOnly": true,
+      "onlineTransactionEnabled": false,
+      "public": true,
+      "sourceFiles": [
+        "IMG_9965.jpeg"
+      ],
+      "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。"
+    },
+    {
+      "id": "jianfeng-fiber-tea",
+      "name": "臺灣丹參纖體茶",
+      "brand": "健逢",
+      "brandType": "partner",
+      "series": "健逢・原廠茶品",
+      "category": "漢方茶飲",
+      "size": "3公克／包，10包／盒",
+      "form": "茶包",
+      "description": "健逢出品原廠盒裝茶包，每包3公克、每盒10包。保留正式品名與原廠包裝資訊，供查閱規格與內容物。",
+      "image": "images/partner-products/tea-danshen-lotus-label-source.jpg",
+      "page": "product-jianfeng-fiber-tea.html",
+      "ingredients": [
+        "臺灣丹參",
+        "荷葉",
+        "綠茶"
+      ],
+      "usage": [
+        "每包以約500cc冷或溫開水浸泡3～5分鐘，依原廠包裝標示"
+      ],
+      "storage": [
+        "置於陰涼乾燥處，避免陽光直射",
+        "拆封後請盡早使用完畢"
+      ],
+      "notices": [
+        "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+        "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+      ],
+      "features": [
+        "10包／盒",
+        "3公克／包",
+        "原廠包裝"
+      ],
+      "informationOnly": true,
+      "onlineTransactionEnabled": false,
+      "public": true,
+      "sourceFiles": [
+        "IMG_9966.jpeg"
+      ],
+      "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。"
+    },
+    {
+      "id": "jianfeng-white-tea",
+      "name": "臺灣白茶丹參飲",
+      "brand": "健逢",
+      "brandType": "partner",
+      "series": "健逢・原廠茶品",
+      "category": "漢方茶飲",
+      "size": "3公克／包，10包／盒",
+      "form": "茶包",
+      "description": "健逢出品原廠盒裝茶包，每包3公克、每盒10包。保留正式品名與原廠包裝資訊，供查閱規格與內容物。",
+      "image": "images/partner-products/tea-white-danshen-label-source.jpg",
+      "page": "product-jianfeng-white-tea.html",
+      "ingredients": [
+        "臺灣白茶",
+        "臺灣丹參"
+      ],
+      "usage": [
+        "每包以約500cc冷或溫開水浸泡3～5分鐘，依原廠包裝標示"
+      ],
+      "storage": [
+        "置於陰涼乾燥處，避免陽光直射",
+        "拆封後請盡早使用完畢"
+      ],
+      "notices": [
+        "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+        "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+      ],
+      "features": [
+        "10包／盒",
+        "3公克／包",
+        "原廠包裝"
+      ],
+      "informationOnly": true,
+      "onlineTransactionEnabled": false,
+      "public": true,
+      "sourceFiles": [
+        "IMG_9967.jpeg"
+      ],
+      "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。"
+    },
+    {
+      "id": "jianfeng-refresh-tea",
+      "name": "臺灣丹參舒活茶",
+      "brand": "健逢",
+      "brandType": "partner",
+      "series": "健逢・原廠茶品",
+      "category": "漢方茶飲",
+      "size": "3公克／包，10包／盒",
+      "form": "茶包",
+      "description": "健逢出品原廠盒裝茶包，每包3公克、每盒10包。保留正式品名與原廠包裝資訊，供查閱規格與內容物。",
+      "image": "images/partner-products/tea-danshen-refresh-label-source.jpg",
+      "page": "product-jianfeng-refresh-tea.html",
+      "ingredients": [
+        "臺灣丹參",
+        "西洋參",
+        "三七葉",
+        "薄荷"
+      ],
+      "usage": [
+        "每包以約500cc冷或溫開水浸泡3～5分鐘，依原廠包裝標示"
+      ],
+      "storage": [
+        "置於陰涼乾燥處，避免陽光直射",
+        "拆封後請盡早使用完畢"
+      ],
+      "notices": [
+        "展示照片為樣品包裝，實際供貨批次與有效日期以現貨標示為準",
+        "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
+      ],
+      "features": [
+        "10包／盒",
+        "3公克／包",
+        "原廠包裝"
+      ],
+      "informationOnly": true,
+      "onlineTransactionEnabled": false,
+      "public": true,
+      "sourceFiles": [
+        "IMG_9968.jpeg"
+      ],
+      "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。"
     }
   ]
 }
