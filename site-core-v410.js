@@ -104,9 +104,11 @@ async function loadData() {
   if (!catalog.ok) throw new Error(`partner-catalog HTTP ${catalog.status}`);
   const partner = await catalog.json();
   SITE_DATA.partnerProducts = (partner.products || []).filter(p => p.public === true && p.id && p.image && p.page && p.brand);
+  SITE_DATA.partnerCatalogUnavailable = false;
   } catch (error) {
     SITE_DATA.partnerProducts = [];
-    console.error('其他廠牌目錄載入失敗', error);
+    SITE_DATA.partnerCatalogUnavailable = true;
+    console.error('其他廠牌目錄載入失敗，保留 HTML 正式商品備援卡片', error);
   }
   return SITE_DATA;
 }
@@ -377,23 +379,27 @@ function renderHome() {
 function renderProductsPage() {
   const own = (SITE_DATA?.products || []).map(p => ({...p, brand:p.brand || '仙加味', brandType:'own', category:p.category || ({'guilu-gao':'膏品','guilu-drink-30':'漢方飲品','guilu-drink-180':'漢方飲品','luerong-fen':'粉品'}[p.id] || p.form || '其他')}));
   const partner = SITE_DATA?.partnerProducts || [];
+  const staticPartnerCount = document.querySelectorAll('#partner-product-list [data-fallback-product]').length;
+  const preservePartnerFallback = SITE_DATA?.partnerCatalogUnavailable === true && staticPartnerCount > 0;
   const all = [...own, ...partner];
   const nav = document.getElementById('catalog-filters');
   const status = document.getElementById('catalog-result-count');
   let selected = 'all';
   const filters = [{key:'all',label:'全部商品',test:()=>true},
     {key:'own',label:'仙加味自有品牌',test:p=>p.brandType==='own'},
-    ...(partner.length ? [{key:'partner',label:'其他廠牌',test:p=>p.brandType==='partner'}] : []),
+    ...((partner.length || preservePartnerFallback) ? [{key:'partner',label:'其他廠牌',test:p=>p.brandType==='partner'}] : []),
     ...[...new Set(partner.map(p=>p.brand))].map(brand=>({key:'brand:'+brand,label:brand,test:p=>p.brand===brand})),
     ...[...new Set(all.map(p=>p.category).filter(Boolean))].map(category=>({key:'type:'+category,label:category,test:p=>p.category===category}))];
   const draw = () => {
     const filter = filters.find(f=>f.key===selected) || filters[0];
     const visible = all.filter(filter.test);
     fillProducts('product-list', visible.filter(p=>p.brandType==='own'), {compact:false});
-    fillProducts('partner-product-list', visible.filter(p=>p.brandType==='partner'), {compact:false});
+    if (!preservePartnerFallback) fillProducts('partner-product-list', visible.filter(p=>p.brandType==='partner'), {compact:false});
     document.getElementById('own-brand-catalog').hidden = !visible.some(p=>p.brandType==='own');
-    document.getElementById('partner-brand-catalog').hidden = !visible.some(p=>p.brandType==='partner');
-    if (status) status.textContent = `${filter.label}・${visible.length} 項商品`;
+    const showPartners = preservePartnerFallback ? (selected === 'all' || selected === 'partner') : visible.some(p=>p.brandType==='partner');
+    document.getElementById('partner-brand-catalog').hidden = !showPartners;
+    const displayedCount = visible.length + (preservePartnerFallback && showPartners ? staticPartnerCount : 0);
+    if (status) status.textContent = `${filter.label}・${displayedCount} 項商品`;
     nav?.querySelectorAll('button').forEach(b=>{const active=b.dataset.catalogFilter===selected;b.setAttribute('aria-pressed',String(active));b.className='btn '+(active?'btn-primary':'btn-outline');});
   };
   if(nav){
