@@ -882,13 +882,13 @@
       "name": "黑糖仙楂烏梅茶",
       "public": false,
       "publicationStatus": "awaiting-original-package-and-compliance-review",
-      "specificationStatus": "label-transcribed",
+      "specificationStatus": "label-transcribed-portion-count-verified",
       "sourceFiles": [
         "IMG_9959.JPG"
       ],
       "marketingClaimsApproved": false,
       "onlineTransactionEligible": false,
-      "size": "20公克／包（樣品標示）；袋內份數需確認",
+      "size": "20公克±4.5%／包，10份／袋（依樣品標示）",
       "ingredients": [
         "黑糖",
         "仙楂",
@@ -897,7 +897,14 @@
         "己二烯酸（防腐劑）"
       ],
       "image": "images/partner-products/staging/IMG_9959.jpg",
-      "imageSourceStatus": "actual-original-photo-matched"
+      "imageSourceStatus": "actual-original-photo-matched",
+      "storage": [
+        "陰涼乾燥處，避免陽光直射、高溫與潮濕環境"
+      ],
+      "publicationBlockers": [
+        "missing-verified-brewing-instructions",
+        "original-package-physician-image-requires-advertising-review"
+      ]
     }
   ],
   "publicationRules": {
