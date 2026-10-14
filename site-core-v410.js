@@ -460,13 +460,18 @@ function fillProducts(targetId, products, options = {}) {
     const open = event => {
       if (event?.target?.closest("a")) return;
       const product = safeProducts.find(item => item.id === card.dataset.productId);
-      if (product) openProductModal(product, card);
+      if (!product) return;
+      if (Array.isArray(product.variants) && product.variants.length && product.page) {
+        window.location.assign(product.page);
+        return;
+      }
+      openProductModal(product, card);
     };
     card.addEventListener("click", open);
     card.addEventListener("keydown", event => {
       if (event.target !== card || !["Enter", " "].includes(event.key)) return;
       event.preventDefault();
-      openProductModal(safeProducts.find(item => item.id === card.dataset.productId), card);
+      open(event);
     });
   });
 }
