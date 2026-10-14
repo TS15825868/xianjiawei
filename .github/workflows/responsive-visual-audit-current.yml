@@ -75,7 +75,9 @@ jobs:
           const publicCount=productMaster.products.length;
           if(productMaster.productCount!==publicCount)throw new Error('公開產品數與母資料不一致');
           const mediaAuthority=JSON.parse(fs.readFileSync('data/product-media-authority.json','utf8'));
-          const approvedMainPaths=[...new Set(Object.values(mediaAuthority.products||{}).map(item=>new URL(String(item.mainImage||''),BASE).pathname).filter(Boolean))];
+          const partnerCatalog=JSON.parse(fs.readFileSync('partner-catalog.json','utf8'));
+          const approvedPartnerImages=(partnerCatalog.products||[]).filter(p=>p.public===true&&p.id&&p.brand&&p.image&&p.page).map(p=>p.image);
+          const approvedMainPaths=[...new Set([...Object.values(mediaAuthority.products||{}).map(item=>item.mainImage),...approvedPartnerImages].filter(Boolean).map(src=>new URL(src,BASE).pathname))];
           const pages=[
             'index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','dm.html',
             'product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html',
