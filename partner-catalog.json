@@ -1,0 +1,59 @@
+{
+  "version": "2026-10-14",
+  "products": [
+    {
+      "id": "jinan-sisheng-siwuyin",
+      "brand": "晉安",
+      "brandType": "partner",
+      "series": "晉安・其他廠牌商品",
+      "category": "漢方飲品",
+      "name": "參仲四物飲",
+      "size": "60毫升 × 12入／盒",
+      "form": "飲品",
+      "description": "晉安原廠盒裝飲品，每盒12入，每入60毫升；保留原廠包裝與商品標示。",
+      "image": "images/partner-products/jinan-siwuyin-front.jpg",
+      "page": "product-jinan-siwuyin.html",
+      "ingredients": [
+        "純水",
+        "紅棗",
+        "枸杞子",
+        "熟地",
+        "白芍",
+        "當歸",
+        "川芎",
+        "人參",
+        "杜仲葉",
+        "香菇萃取液",
+        "焦磷酸鐵"
+      ],
+      "usage": [
+        "每日一瓶",
+        "飲用前請先搖勻，直接飲用"
+      ],
+      "storage": [
+        "室溫貯存，避免高溫及日照",
+        "開封後請一次飲用完畢"
+      ],
+      "notices": [
+        "請於非生理期使用，孕婦不宜",
+        "天然萃取，如有沉澱為正常現象",
+        "照片為包裝樣品；實際出貨批次與有效日期以收到的商品標示為準"
+      ],
+      "features": [
+        "60毫升單次包裝",
+        "12入盒裝",
+        "全素，依原廠包裝標示"
+      ],
+      "detailImages": [
+        "images/partner-products/jinan-siwuyin-label.jpg"
+      ],
+      "detailMediaTitle": "原廠包裝標示",
+      "fulfillmentNotice": "價格、供貨與配送時間請透過官方 LINE 確認。",
+      "public": true,
+      "sourceFiles": [
+        "IMG_9934.JPG",
+        "IMG_9935.JPG"
+      ]
+    }
+  ]
+}

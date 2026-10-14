@@ -16,8 +16,8 @@
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
-  const CORE = `site-core-v410.js?v=${VERSION}`;
-  const MEDIA_MODAL = `site-media-modal-final-v20260814.js?v=${VERSION}`;
+  const CORE = `site-core-v410.js?v=20261014-multibrand-v1`;
+  const MEDIA_MODAL = `site-media-modal-final-v20260814.js?v=20261014-multibrand-v1`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
   const VARIANTS = `site-official-product-variants.js?v=${VERSION}`;
   const PUBLIC_CLEANUP = `site-public-content-cleanup-v20260809.js?v=${VERSION}`;

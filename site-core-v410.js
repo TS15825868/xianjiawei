@@ -99,6 +99,15 @@ async function loadData() {
   const response = await fetch(`data.json?v=${UX_VERSION}`);
   if (!response.ok) throw new Error(`data.json 載入失敗：${response.status}`);
   SITE_DATA = await response.json();
+  try {
+  const catalog = await fetch(`partner-catalog.json?v=20261014-multibrand-v1`);
+  if (!catalog.ok) throw new Error(`partner-catalog HTTP ${catalog.status}`);
+  const partner = await catalog.json();
+  SITE_DATA.partnerProducts = (partner.products || []).filter(p => p.public === true && p.id && p.image && p.page && p.brand);
+  } catch (error) {
+    SITE_DATA.partnerProducts = [];
+    console.error('其他廠牌目錄載入失敗', error);
+  }
   return SITE_DATA;
 }
 
@@ -366,7 +375,32 @@ function renderHome() {
 }
 
 function renderProductsPage() {
-  fillProducts("product-list", SITE_DATA?.products || [], { compact: false });
+  const own = (SITE_DATA?.products || []).map(p => ({...p, brand:p.brand || '仙加味', brandType:'own', category:p.category || ({'guilu-gao':'膏品','guilu-drink-30':'漢方飲品','guilu-drink-180':'漢方飲品','luerong-fen':'粉品'}[p.id] || p.form || '其他')}));
+  const partner = SITE_DATA?.partnerProducts || [];
+  const all = [...own, ...partner];
+  const nav = document.getElementById('catalog-filters');
+  const status = document.getElementById('catalog-result-count');
+  let selected = 'all';
+  const filters = [{key:'all',label:'全部商品',test:()=>true},
+    {key:'own',label:'仙加味自有品牌',test:p=>p.brandType==='own'},
+    ...(partner.length ? [{key:'partner',label:'其他廠牌',test:p=>p.brandType==='partner'}] : []),
+    ...[...new Set(partner.map(p=>p.brand))].map(brand=>({key:'brand:'+brand,label:brand,test:p=>p.brand===brand})),
+    ...[...new Set(all.map(p=>p.category).filter(Boolean))].map(category=>({key:'type:'+category,label:category,test:p=>p.category===category}))];
+  const draw = () => {
+    const filter = filters.find(f=>f.key===selected) || filters[0];
+    const visible = all.filter(filter.test);
+    fillProducts('product-list', visible.filter(p=>p.brandType==='own'), {compact:false});
+    fillProducts('partner-product-list', visible.filter(p=>p.brandType==='partner'), {compact:false});
+    document.getElementById('own-brand-catalog').hidden = !visible.some(p=>p.brandType==='own');
+    document.getElementById('partner-brand-catalog').hidden = !visible.some(p=>p.brandType==='partner');
+    if (status) status.textContent = `${filter.label}・${visible.length} 項商品`;
+    nav?.querySelectorAll('button').forEach(b=>{const active=b.dataset.catalogFilter===selected;b.setAttribute('aria-pressed',String(active));b.className='btn '+(active?'btn-primary':'btn-outline');});
+  };
+  if(nav){
+    nav.innerHTML=filters.map(f=>`<button type="button" class="btn btn-outline" data-catalog-filter="${escapeAttribute(f.key)}" aria-pressed="false">${escapeHtml(f.label)}</button>`).join('');
+    nav.addEventListener('click',e=>{const button=e.target.closest('[data-catalog-filter]');if(button){selected=button.dataset.catalogFilter;draw();}});
+  }
+  draw();
 
   const compare = document.getElementById("compare-grid");
   if (compare && !compare.children.length) {
@@ -404,7 +438,7 @@ function fillProducts(targetId, products, options = {}) {
           <img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}" loading="lazy" decoding="async">
         </div>
         <div class="product-card__body">
-          <p class="eyebrow">${escapeHtml(product.series || "仙加味")}</p>
+          <p class="eyebrow">${escapeHtml(product.brand || product.series || "仙加味")}</p>
           <h3>${escapeHtml(name)}</h3>
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
@@ -844,7 +878,7 @@ function openProductModal(product, sourceElement) {
 
   body.innerHTML = `
     <header class="modal-intro">
-      <p class="eyebrow">${escapeHtml(product.series || "仙加味")}</p>
+      <p class="eyebrow">${escapeHtml(product.brand || product.series || "仙加味")}</p>
       <h2 id="product-modal-title">${escapeHtml(name)}</h2>
     </header>
 
@@ -876,14 +910,15 @@ function openProductModal(product, sourceElement) {
       </section>
     </div>
 
+    ${(product.notices?.length || product.features?.length) ? `<section class="modal-section"><h3>商品特色</h3>${listMarkup(product.features || [], '請見產品標示。')}<h3>注意事項</h3>${listMarkup(product.notices || [], '請依產品標示。')}</section>` : ''}
     ${dmImage ? `
       <section class="modal-detail-media" aria-label="${escapeAttribute(name)}正式完整 DM">
         <div class="modal-detail-media__heading">
           <p class="eyebrow">完整產品資訊</p>
-          <h3>正式 DM</h3>
+          <h3>${escapeHtml(product.detailMediaTitle || "正式 DM")}</h3>
         </div>
         <figure class="modal-detail-media__frame">
-          <img src="${escapeAttribute(versionAsset(dmImage))}" alt="${escapeAttribute(name)}正式詳細 DM" loading="eager" decoding="async">
+          <img src="${escapeAttribute(versionAsset(dmImage))}" alt="${escapeAttribute(name)}${escapeAttribute(product.detailMediaTitle || "正式詳細 DM")}" loading="eager" decoding="async">
         </figure>
       </section>
     ` : `<p class="muted">目前沒有可顯示的正式詳細 DM，請透過官方 LINE 詢問。</p>`}

@@ -7,7 +7,7 @@
 
   const cleanFile=value=>String(value||'').split('/').pop().split(/[?#]/)[0];
   const products=()=>{
-    try{if(typeof SITE_DATA!=='undefined'&&Array.isArray(SITE_DATA?.products))return SITE_DATA.products;}catch(_){ }
+    try{if(typeof SITE_DATA!=='undefined'&&Array.isArray(SITE_DATA?.products))return [...SITE_DATA.products,...(SITE_DATA.partnerProducts||[])];}catch(_){ }
     return Array.isArray(window.SITE_DATA?.products)?window.SITE_DATA.products:[];
   };
   const findProduct=href=>{
