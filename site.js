@@ -11,13 +11,13 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20261008-readable-v49";
+  const VERSION = "20261015-merch-v1";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
-  const CORE = `site-core-v410.js?v=20261014-multibrand-v1`;
-  const MEDIA_MODAL = `site-media-modal-final-v20260814.js?v=20261014-multibrand-v1`;
+  const CORE = `site-core-v410.js?v=20261015-merch-v1`;
+  const MEDIA_MODAL = `site-media-modal-final-v20260814.js?v=20261015-merch-v1`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
   const VARIANTS = `site-official-product-variants.js?v=${VERSION}`;
   const PUBLIC_CLEANUP = `site-public-content-cleanup-v20260809.js?v=${VERSION}`;
@@ -26,7 +26,7 @@
   const STABILITY = `site-stability-v20260814.js?v=${VERSION}`;
   const CURRENT_GAO_TIMING = "食用時間可依個人使用習慣與作息時間安排";
 
-  const STYLES = ["site.css?v=20261008-readable-v49"];
+  const STYLES = ["site.css?v=20261015-merch-v1"];
 
   const SAFE_DATA = Object.freeze({
     version: `${VERSION}-fallback`,
