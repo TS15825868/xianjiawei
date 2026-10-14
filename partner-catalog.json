@@ -828,7 +828,13 @@
       "detailImages": [
         "images/partner-products/staging/IMG_9957.jpg"
       ],
-      "imageSourceStatus": "actual-original-photo-matched"
+      "imageSourceStatus": "actual-original-photo-matched",
+      "publicationBlockers": [
+        "sample-photo-stamped-expiry-2025-11-02-not-current-sellable-stock",
+        "front-packaging-strength-vitality-marketing-claims-require-food-advertising-review",
+        "official-label-name-and-current-lot-package-reverification-required"
+      ],
+      "internalPhotoReview": "目前 GitHub IMG_9957.jpg 樣品照片顯示 2023/11/03 製造、2025/11/02 有效；不得將樣品效期誤認成現貨效期。IMG_9956.jpg 正面含『滋補強身、增強體力、精神旺盛』字樣；須先依法檢視對外廣告與更新原廠可使用的產品實拍圖片。"
     },
     {
       "id": "jinan-shengxue-tiaojing",
@@ -903,8 +909,10 @@
       ],
       "publicationBlockers": [
         "missing-verified-brewing-instructions",
-        "original-package-physician-image-requires-advertising-review"
-      ]
+        "original-package-physician-image-requires-advertising-review",
+        "sample-photo-includes-physician-endorsement-visual-needs-ad-review-or-approved-product-image"
+      ],
+      "internalPhotoReview": "目前 IMG_9959.jpg 原廠包裝照片另含中醫師宣傳視覺；發布前須確認可依法使用的正式產品圖、正確沖泡方式與最新批次標示。"
     }
   ],
   "publicationRules": {
