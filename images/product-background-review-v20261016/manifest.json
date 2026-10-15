@@ -5,6 +5,10 @@
   "design": "Real photographed product over approved premium mountain/botanical landscape",
   "strictRule": "Never replace authentic packaging, label, manufacturer, or legal product display with generated text",
   "sceneCount": 14,
+  "publicCardCount": 9,
+  "extraGroupedVariantSceneCount": 5,
+  "additionalBrandLetteringOnImages": false,
+  "sourceProductPixelsUnaltered": true,
   "products": [
     {
       "id": "guilu-gao",
