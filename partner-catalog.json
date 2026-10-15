@@ -11,7 +11,7 @@
       "size": "60毫升 × 12入／盒",
       "form": "飲品",
       "description": "盒裝漢方飲品，每盒12入，每入60毫升；保留原廠包裝與商品標示。",
-      "image": "images/partner-products/jinan-siwuyin-front.jpg",
+      "image": "images/partner-products/cutouts-v20261016/jinan-siwuyin-front-cutout.webp",
       "page": "product-jinan-siwuyin.html",
       "ingredients": [
         "純水",
@@ -54,7 +54,8 @@
         "IMG_9934.JPG",
         "IMG_9935.JPG"
       ],
-      "informationOnly": true
+      "informationOnly": true,
+      "mainImageSourceOriginal": "images/partner-products/jinan-siwuyin-front.jpg"
     },
     {
       "id": "danshen-tea-collection",
@@ -809,8 +810,9 @@
       "producerNameFromLabel": "晉安製藥股份有限公司",
       "origin": "臺灣",
       "shelfLife": "二年",
-      "image": "images/partner-products/jinan-vitality-front-original.jpg",
+      "image": "images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",
       "gallery": [
+        "images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",
         "images/partner-products/jinan-vitality-front-original.jpg",
         "images/partner-products/jinan-vitality-jar-original.jpg",
         "images/partner-products/jinan-vitality-label-original.jpg"
@@ -848,7 +850,8 @@
         "sugarGrams": 0.2,
         "sodiumMilligrams": 49
       },
-      "nutritionReference": "IMG_8902(2).jpeg，原廠外盒每份60毫升之營養標示"
+      "nutritionReference": "IMG_8902(2).jpeg，原廠外盒每份60毫升之營養標示",
+      "mainImageSourceOriginal": "images/partner-products/jinan-vitality-front-original.jpg"
     },
     {
       "id": "jinan-huanshaodan",
