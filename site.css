@@ -170,7 +170,7 @@ body[data-page="product-detail"] .product-complete-grid>.card{min-width:0}
 .modal-preview{max-width:640px;margin:0 auto;padding:16px 0 8px;line-height:1.8}
 .modal-preview__spec{color:var(--ink)}
 .modal-variant-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.modal-variant-links a{display:block;padding:8px 12px;border:1px solid var(--rule);border-radius:8px;color:var(--ink);text-decoration:none}
+.modal-variant-links a,.modal-variant-links span{display:block;padding:8px 12px;border:1px solid var(--rule);border-radius:8px;color:var(--ink);text-decoration:none}.modal-variant-links span{background:rgba(247,244,237,.58);cursor:default}
 .modal-variant-links a:hover{border-color:var(--ink)}
 .product-card__body{display:flex;flex-direction:column;flex:1}
 .product-card__actions{margin-top:auto;padding-top:12px}
