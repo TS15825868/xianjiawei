@@ -108,7 +108,15 @@ async function close(page) {
       for(const other of ["trial.html","choose.html","combo.html","recipes.html","dm.html","why-guilu.html"]){
         await ready(page,other);
         const link=page.locator('a[href^="product-"]:visible').first();
-        assert.ok(await link.count(),"頁面缺少應有的商品入口："+other);
+        if(!await link.count()){
+          // 行動版會隱藏表格中的直接產品連結；隱藏項仍不得保留直達詳細頁的 JS 行為。
+          const nonVisible=page.locator('a[href^="product-"]');
+          assert.ok(await nonVisible.count(),"頁面沒有正式商品參考連結："+other);
+          assert.equal(await nonVisible.first().getAttribute("data-product-intro"),"1",
+            "隱藏的商品連結仍應統一標記為跳窗入口："+other);
+          report.checks.push(device+"："+other+" 隱藏對照表入口已正規化");
+          continue;
+        }
         const href=await link.getAttribute("href");
         const current=page.url();
         await link.click();
