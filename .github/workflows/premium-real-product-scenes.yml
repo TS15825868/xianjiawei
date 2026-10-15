@@ -1,0 +1,43 @@
+name: 仙加味｜全商品實拍漢方情境主圖候選素材
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - tools/build_premium_real_product_scenes.py
+      - .github/workflows/premium-real-product-scenes.yml
+permissions:
+  contents: write
+concurrency:
+  group: xjw-premium-real-photo-scene-review
+  cancel-in-progress: false
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install 'pillow>=10,<13'
+      - name: Composite ONLY real photographed product pixels onto approved landscape
+        run: python tools/build_premium_real_product_scenes.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xjw-premium-real-product-scenes-review
+          path: images/product-background-review-v20261016/
+          retention-days: 30
+      - name: Commit candidate assets without publishing into public product catalog
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/product-background-review-v20261016/
+          if git diff --cached --quiet; then echo "No updated candidates"; exit 0; fi
+          git commit -m "assets: stage scenic real-photo product composition candidates [skip ci]"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
