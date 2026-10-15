@@ -2,28 +2,28 @@
   "version": "20260930-main-dm-v13",
   "scope": "website-product-media",
   "rules": {
-    "generalDisplay": "one product = one approved simple JPG mainImage across all normal website surfaces; source must be images/product-main/",
-    "productDetailHero": "same approved simple JPG mainImage as all normal website surfaces; source must be images/product-main/",
+    "generalDisplay": "one product = one approved original-pixel transparent PNG mainImage for current public products across all normal website surfaces; source must be images/product-main/",
+    "productDetailHero": "same approved original-pixel transparent PNG mainImage for current public products as all normal website surfaces; source must be images/product-main/",
     "productDetailMedia": "detailImages = formal DM only; show in the single 查看介紹 modal; source must be images/dm-final/; never use as outer-page product main",
     "identityReference": "validation/reference only; never general public main image"
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/product-main/guilu-gao.jpg",
+      "mainImage": "images/product-main/guilu-gao.png",
       "detailImages": [
         "images/dm-final/01_guilu-gao-100g-dm.jpg"
       ],
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/product-main/guilu-drink-30.jpg",
+      "mainImage": "images/product-main/guilu-drink-30.png",
       "detailImages": [
         "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg"
       ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/product-main/guilu-drink-180.jpg",
+      "mainImage": "images/product-main/guilu-drink-180.png",
       "detailImages": [
         "images/dm-final/03_guilu-drink-180cc-dm.jpg"
       ],
@@ -44,7 +44,7 @@
       "identityReference": "images/products-v2/guilu-jiao-open-new.jpg"
     },
     "luerong-fen": {
-      "mainImage": "images/product-main/luerong-fen.jpg",
+      "mainImage": "images/product-main/luerong-fen.png",
       "detailImages": [
         "images/dm-final/04_luerong-fen-75g-dm.jpg"
       ],

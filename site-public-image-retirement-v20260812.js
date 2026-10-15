@@ -12,12 +12,12 @@
   const VERSION='20260930-main-dm-v13';
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const MAIN_FALLBACK=Object.freeze({
-    'guilu-gao':'images/product-main/guilu-gao.jpg',
-    'guilu-drink-30':'images/product-main/guilu-drink-30.jpg',
-    'guilu-drink-180':'images/product-main/guilu-drink-180.jpg',
+    'guilu-gao':'images/product-main/guilu-gao.png',
+    'guilu-drink-30':'images/product-main/guilu-drink-30.png',
+    'guilu-drink-180':'images/product-main/guilu-drink-180.png',
     'guilu-tangkuai':'images/product-main/guilu-tangkuai.jpg',
     'guilu-jiao':'images/product-main/guilu-jiao.jpg',
-    'luerong-fen':'images/product-main/luerong-fen.jpg'
+    'luerong-fen':'images/product-main/luerong-fen.png'
   });
   const withVersion=(value='')=>value?`${value}${String(value).includes('?')?'&':'?'}v=${VERSION}`:'';
   const MAIN=Object.freeze(Object.fromEntries(

@@ -12,12 +12,12 @@
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const mainImage=(id,fallback)=>`${MEDIA_AUTHORITY?.mainImage?.(id)||fallback}?v=${VERSION}`;
   const CUSTOMER=Object.freeze({
-    gao:mainImage("guilu-gao","images/product-main/guilu-gao.jpg"),
-    drink30:mainImage("guilu-drink-30","images/product-main/guilu-drink-30.jpg"),
-    drink180:mainImage("guilu-drink-180","images/product-main/guilu-drink-180.jpg"),
+    gao:mainImage("guilu-gao","images/product-main/guilu-gao.png"),
+    drink30:mainImage("guilu-drink-30","images/product-main/guilu-drink-30.png"),
+    drink180:mainImage("guilu-drink-180","images/product-main/guilu-drink-180.png"),
     tangkuai:mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.jpg"),
     jiao:mainImage("guilu-jiao","images/product-main/guilu-jiao.jpg"),
-    luerong:mainImage("luerong-fen","images/product-main/luerong-fen.jpg")
+    luerong:mainImage("luerong-fen","images/product-main/luerong-fen.png")
   });
   const OFFICIAL=Object.freeze({
   "guilu-gao": "images/guilu-gao.jpg",

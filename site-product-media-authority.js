@@ -1,6 +1,6 @@
 "use strict";
 /* 仙加味官網產品圖片唯一執行權威｜2026-09-30 main-dm-v12
- * mainImage：首頁／產品總覽／怎麼選／試喝／推薦／產品卡／產品 Hero，只允許使用者核准的 images/product-main/*.jpg 簡單主圖。
+ * mainImage：首頁／產品總覽／怎麼選／試喝／推薦／產品卡／產品 Hero，目前公開四款使用已驗證實物去背 PNG 主圖；保留舊 JPG 為相容與來源對照。
  * detailImages：只允許「查看介紹」Modal 與獨立產品頁的詳細內容備援使用，只允許 images/dm-final/。
  * identityReference：只供包裝身份與比例檢查，不作一般公開主圖。
  */
@@ -16,28 +16,28 @@
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/product-main/guilu-gao.jpg",
+      "mainImage": "images/product-main/guilu-gao.png",
       "detailImages": [
         "images/dm-final/01_guilu-gao-100g-dm.jpg"
       ],
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/product-main/guilu-drink-30.jpg",
+      "mainImage": "images/product-main/guilu-drink-30.png",
       "detailImages": [
         "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg"
       ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/product-main/guilu-drink-180.jpg",
+      "mainImage": "images/product-main/guilu-drink-180.png",
       "detailImages": [
         "images/dm-final/03_guilu-drink-180cc-dm.jpg"
       ],
       "identityReference": "images/guilu-drink-180cc.jpg"
     },
     "luerong-fen": {
-      "mainImage": "images/product-main/luerong-fen.jpg",
+      "mainImage": "images/product-main/luerong-fen.png",
       "detailImages": [
         "images/dm-final/04_luerong-fen-75g-dm.jpg"
       ],
