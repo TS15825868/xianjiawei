@@ -1,0 +1,30 @@
+{
+  "version": "2026-10-16-jinan-two-source-photo-cutouts",
+  "status": "review_only_not_live",
+  "humanImageReviewRequired": true,
+  "noAIPackageRedraw": true,
+  "products": [
+    {
+      "id": "jinan-sisheng-siwuyin",
+      "file": "images/partner-products/cutouts-v20261016/jinan-siwuyin-front-cutout.webp",
+      "sourceFile": "images/partner-products/jinan-siwuyin-front.jpg",
+      "sourceSha256": "07c847e803e2c7094e1d926201e3845640c106add8a228308c8f25f43c09c849",
+      "sourceDimensions": [
+        1477,
+        1108
+      ],
+      "sourcePixelsPreserved": true,
+      "partialHandleInOriginal": true,
+      "notice": "Photo itself cuts off the upper bag handles; crop limitations remain visible."
+    },
+    {
+      "id": "guilu-vitality",
+      "file": "images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",
+      "sourceFile": "images/partner-products/jinan-vitality-front-original.jpg",
+      "sourceSha256": "c7ae1de7262dd2e710ef663a1265b57347b3b9e21a0bb2ad91760eb995fdc934",
+      "intermediateMatteFile": "images/partner-product-design-review/guilu-vitality-cutout.png",
+      "sourcePixelsPreserved": true,
+      "notice": "Earlier foreground segmentation artefacts above burgundy rope are manually masked; must visually inspect."
+    }
+  ]
+}
