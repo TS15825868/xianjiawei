@@ -106,6 +106,18 @@ async function close(page) {
         report.checks.push(device+"："+other+" 商品入口");
       }
 
+      await ready(page,"trial.html");
+      const trialPhotos=page.locator('.trial-product-card__media a[data-product-intro="1"]');
+      assert.equal(await trialPhotos.count(),2,"試喝頁30cc／180cc產品圖都要能開啟跳窗");
+      for(let i=0;i<2;i++){
+        const picture=trialPhotos.nth(i),href=await picture.getAttribute("href");
+        const name=(await picture.locator("img").getAttribute("alt")).includes("30cc")
+          ?"龜鹿飲30cc玻璃罐":"龜鹿飲180cc鋁袋";
+        await picture.locator("img").click();
+        await opened(page,name,href);await close(page);
+      }
+      report.checks.push(device+"：試喝頁兩項實物圖片");
+
       if(device==="desktop"){
         await page.route("**/partner-catalog.json*",route=>route.abort("failed"));
         await ready(page,"products.html");
