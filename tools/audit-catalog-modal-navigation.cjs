@@ -150,7 +150,10 @@ async function close(page) {
         const current=page.url();
         await link.click();
         assert.equal(page.url(),current,"商品連結不可繞過跳窗："+other);
-        await page.locator("#product-modal.show").waitFor({state:"visible"});
+        await page.locator("#product-modal.show").waitFor({state:"visible"}).catch(async error => {
+          const state=await page.evaluate(()=>({url:location.href,modal:document.getElementById("product-modal")?.className,body:document.getElementById("product-modal-body")?.textContent?.slice(0,250),active:document.activeElement?.outerHTML?.slice(0,500)}));
+          throw new Error(device+"："+other+" 商品入口失敗 "+JSON.stringify(state)+" "+error.message);
+        });
         assert.equal(await page.locator('#product-modal .modal-actions a[data-product-page-direct="1"]').getAttribute("href"),href);
         await close(page);
         report.checks.push(device+"："+other+" 商品入口");
