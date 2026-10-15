@@ -346,3 +346,148 @@ body[data-page="product-detail"] .product-complete-grid>.card{min-width:0}
 body[data-page="products"] #catalog-product-grid>.catalog-product-segment{display:contents}
 body[data-page="products"] #catalog-filters{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
 @media(max-width:700px){body[data-page="products"] #catalog-filters{flex-wrap:wrap;overflow-x:visible;padding-bottom:0}body[data-page="products"] #catalog-filters .btn{flex:0 0 auto;white-space:normal;min-height:44px}}
+
+
+/* 2026-10-16 | Premium real-product photograph scenes - source photos untouched */
+/* A photographically honest presentation: actual transparent product pixels
+   float above the existing approved Xianjiawei mountain/botanical landscape.
+   No synthetic packaging, label retouch, or distorted silhouettes. */
+:root {
+  --xjw-product-scene: url("images/brand/world-landscape-v20261008.webp");
+  --xjw-product-scene-overlay: linear-gradient(
+    165deg,rgba(254,252,247,.14) 0%,rgba(249,246,238,.02) 55%,rgba(246,238,223,.18) 100%);
+}
+body[data-page="products"] .product-card__img,
+body[data-page="product-detail"] .product-detail-hero__media,
+.product-modal .modal-gallery__item:first-child,
+body[data-page="product-detail"] .product-variant__photo {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background-color:#f7f4ed;
+  background-image:var(--xjw-product-scene-overlay),var(--xjw-product-scene);
+  background-size:cover,cover;
+  background-position:center,center 58%;
+  background-repeat:no-repeat;
+  border:1px solid rgba(160,122,67,.28);
+  box-shadow:inset 0 0 0 5px rgba(255,251,240,.25);
+}
+body[data-page="products"] .product-card__img {
+  border-radius:16px 16px 0 0;
+  padding:clamp(12px,2vw,26px);
+  background-image:var(--xjw-product-scene-overlay),var(--xjw-product-scene) !important;
+  background-color:#f7f4ed !important;
+}
+body[data-page="product-detail"] .product-detail-hero__media {
+  border-radius:21px;
+  min-height:330px;
+  padding:clamp(18px,3vw,38px);
+  background-position:center,center 63%;
+}
+.product-modal .modal-gallery__item:first-child {
+  border-radius:17px;
+  padding:clamp(14px,3vw,30px);
+  background-position:center,center 60%;
+}
+body[data-page="product-detail"] .product-variant__photo {
+  border-radius:17px;
+  min-height:250px;
+  padding:18px 16px 24px;
+  background-position:center,center 62%;
+}
+body[data-page="products"] .product-card__img::after,
+body[data-page="product-detail"] .product-detail-hero__media::after,
+.product-modal .modal-gallery__item:first-child::after,
+body[data-page="product-detail"] .product-variant__photo::after {
+  content:"";
+  position:absolute;
+  inset:clamp(8px,1.2vw,15px);
+  border-radius:12px;
+  border:1px solid rgba(175,133,70,.47);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.38);
+  pointer-events:none;
+  z-index:3;
+}
+body[data-page="products"] .product-card__img::before,
+body[data-page="product-detail"] .product-detail-hero__media::before,
+.product-modal .modal-gallery__item:first-child::before,
+body[data-page="product-detail"] .product-variant__photo::before {
+  content:"";
+  position:absolute;
+  left:14%;
+  right:14%;
+  bottom:6%;
+  height:10%;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(45,42,30,.20) 0%,rgba(70,63,49,.10) 35%,transparent 72%);
+  filter:blur(12px);
+  pointer-events:none;
+  z-index:0;
+}
+/* Objects remain real, undistorted and at their own native proportions.
+   Only the CSS shadow belongs to the presentation layer. */
+body[data-page="products"] .product-card__img img,
+body[data-page="product-detail"] .product-detail-hero__media img,
+.product-modal .modal-gallery__item:first-child img,
+body[data-page="product-detail"] .product-variant__photo img {
+  box-sizing:border-box;
+  position:relative;
+  z-index:1;
+  object-fit:contain !important;
+  object-position:center !important;
+  transform:none !important;
+  filter:drop-shadow(0 11px 12px rgba(17,29,26,.20)) !important;
+}
+body[data-page="products"] .product-card__img img {
+  padding:3% 4% 8%;
+}
+body[data-page="products"] .product-card__img>a,
+body[data-page="product-detail"] .product-detail-hero__media>a,
+body[data-page="product-detail"] .product-variant__photo>a {
+  position:relative;
+  z-index:1;
+  display:block;
+  min-width:0;
+}
+.product-modal .modal-gallery__item:first-child img {
+  max-width:100%;
+  max-height:min(55vh,490px);
+}
+/* Homepage and product finder share the exact same mountains and soft stage. */
+.home-product-showcase__grid a img,
+.choose-current-card__link img {
+  box-sizing:border-box;
+  background-image:var(--xjw-product-scene-overlay),var(--xjw-product-scene);
+  background-size:cover,cover;
+  background-position:center,center 58%;
+  background-repeat:no-repeat;
+  background-color:#f7f4ed;
+  border-radius:14px;
+  border:1px solid rgba(160,122,67,.32);
+  padding:8px;
+  object-fit:contain !important;
+}
+/* Palette balancing shifts the scenery only, never the real packaging. */
+body[data-page="products"] .product-card[data-product-id="jinan-sisheng-siwuyin"] .product-card__img,
+body[data-page="products"] .product-card[data-fallback-product="jinan-sisheng-siwuyin"] .product-card__img,
+body[data-page="products"] .product-card[data-product-id="guilu-vitality"] .product-card__img,
+body[data-page="products"] .product-card[data-fallback-product="guilu-vitality"] .product-card__img {
+  --xjw-product-scene-overlay:linear-gradient(155deg,rgba(235,245,241,.15),rgba(245,247,240,.02) 52%,rgba(238,230,208,.1));
+}
+@media(max-width:700px){
+  body[data-page="products"] .product-card__img{
+    border-radius:14px 0 0 14px;
+    padding:clamp(9px,2.4vw,16px);
+  }
+  body[data-page="products"] .product-card__img img{
+    padding:1% 1% 5%;
+  }
+  body[data-page="product-detail"] .product-detail-hero__media{
+    min-height:240px;
+    padding:14px;
+  }
+  body[data-page="product-detail"] .product-variant__photo{
+    min-height:210px;
+    padding:12px;
+  }
+}
