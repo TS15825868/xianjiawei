@@ -140,6 +140,21 @@ def main() -> None:
             if brand_group == "partner" and product.get("category") not in detail:
                 fail("product category missing on partner detail: " + pid)
 
+    # Customer-facing content must not leak internal supplier logistics prose.
+    # Keep mandatory producer information in the facts section instead.
+    banned_public_copy = (
+        "本商品由仙加味提供食品供貨",
+        "本頁不直接顯示價格",
+        "本產品由仙加味提供食品供貨",
+    )
+    for product in public_partner:
+        detail_path = ROOT / product["page"]
+        if detail_path.is_file():
+            detail_text = detail_path.read_text(encoding="utf-8")
+            for phrase in banned_public_copy:
+                if phrase in detail_text:
+                    fail("internal-style supplier copy in public page: " + str(product["id"]))
+
     listing = (ROOT / "products.html").read_text(encoding="utf-8")
     for group in (p for p in all_partner if p.get("public") and p.get("variants")):
         if f'data-fallback-product="{group["id"]}"' not in listing:
