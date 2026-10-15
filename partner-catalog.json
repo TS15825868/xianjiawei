@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-four-treasures-live-and-patent-formula-boundary-v5",
+  "version": "2026-10-15-four-treasures-source-verified-nutrition-v2",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -1106,13 +1106,13 @@
       "publicationStatus": "public-food-product-information-reviewed-20261015",
       "specificationStatus": "latest-original-package-label-verified",
       "sourceFiles": [
-        "IMG_9831(3).jpeg",
-        "IMG_9832(3).jpeg",
-        "IMG_9833(2).jpeg",
-        "IMG_9834(2).jpeg",
-        "IMG_9835(1).jpeg"
+        "IMG_9831(4).jpeg",
+        "IMG_9832(4).jpeg",
+        "IMG_9833(3).jpeg",
+        "IMG_9834(3).jpeg",
+        "IMG_9835(2).jpeg"
       ],
-      "marketingClaimsApproved": true,
+      "marketingClaimsApproved": false,
       "onlineTransactionEligible": false,
       "imageSourceStatus": "verified-sealed-original-package-matching-new-photo",
       "publicationBlockers": [],
@@ -1123,12 +1123,12 @@
       "producerNameFromLabel": "御采堂生技食品有限公司",
       "manufacturerNameFromLabel": null,
       "photoEvidence": {
-        "front": "IMG_9834(2).jpeg",
-        "ingredientsAndPackage": "IMG_9833(2).jpeg",
-        "individualPieces": "IMG_9832(3).jpeg",
-        "tray": "IMG_9831(3).jpeg",
-        "overallPackage": "IMG_9835(1).jpeg",
-        "review": "IMG_9833(2).jpeg出品商為『御采堂生技食品有限公司』；官網主圖採先前使用者提供的無忌網站原廠密封實拍，已比對IMG_9834(2).jpeg為相同正式包裝。"
+        "front": "IMG_9834(3).jpeg",
+        "ingredientsAndPackage": "IMG_9833(3).jpeg",
+        "individualPieces": "IMG_9832(4).jpeg",
+        "sealedTray": "IMG_9831(4).jpeg",
+        "overallPackage": "IMG_9835(2).jpeg",
+        "review": "新實拍照片確認御采堂生技食品有限公司出品、紅色四珍寶盒裝食品。官網主圖採使用者先前無忌網站的同款原廠盒裝實拍，保持原樣。"
       },
       "packagingEvidence": {
         "labelProductName": "四珍寶精華膏湯塊",
@@ -1138,7 +1138,7 @@
         "ingredientsFromLabel": [
           "鹿角萃取物",
           "全龜萃取物",
-          "黨參萃取物",
+          "黨蔘萃取物",
           "枸杞",
           "紅棗",
           "葡萄糖胺",
@@ -1146,8 +1146,8 @@
         ],
         "countryOfOrigin": "台灣",
         "shelfLife": "三年",
-        "source": "IMG_9833(2).jpeg",
-        "ingredientStatus": "packaging-photo-transcribed-not-manufacturer-reconfirmed"
+        "source": "IMG_9833(3).jpeg",
+        "ingredientStatus": "read-from-new-user-closeup-20261015"
       },
       "foodLegalCategoryReview": {
         "status": "merchant-confirmed-food",
@@ -1216,15 +1216,15 @@
       "ingredients": [
         "鹿角萃取物",
         "全龜萃取物",
-        "黨參萃取物",
+        "黨蔘萃取物",
         "枸杞",
         "紅棗",
         "葡萄糖胺",
         "鯊魚軟骨素"
       ],
       "usage": [
-        "開封後可加入熱開水食用",
-        "或置入電鍋內加熱溶解，依外盒標示"
+        "開封後加熱開水食用，或置入電鍋內加熱溶解",
+        "燉食亦可酌量增加，每日適量"
       ],
       "storage": [
         "開封後請冷藏或放置陰涼處",
@@ -1242,7 +1242,29 @@
       "fulfillmentNotice": "本商品由仙加味提供食品供貨、價格及購買諮詢，現貨批次及配送時間以官方 LINE 回覆為準。",
       "informationOnly": true,
       "listingMode": "product-information-only",
-      "producerLabelVerified": true
+      "producerLabelVerified": true,
+      "nutritionPerServing": {
+        "servingGrams": 9.3,
+        "servingsPerPackage": 64,
+        "caloriesKcal": 29,
+        "proteinGrams": 6.8,
+        "fatGrams": 0.1,
+        "saturatedFatGrams": 0,
+        "transFatGrams": 0,
+        "carbohydrateGrams": 0.2,
+        "sugarGrams": 0.2,
+        "sodiumMilligrams": 35,
+        "source": "IMG_9833(3).jpeg"
+      },
+      "productLiabilityInsurance": {
+        "insurer": "國泰產物",
+        "sumInsuredLabel": "五千萬元",
+        "source": "IMG_9833(3).jpeg",
+        "note": "原廠盒裝投保標示，非保單驗證；投保額度不等同實際理賠"
+      },
+      "publicNeutralCopyReviewed": true,
+      "publicCopyPolicy": "商品頁不列療效宣稱、原盒售價或保證理賠等內容；僅使用中性事實、食品包裝標示及保險標示的註明",
+      "versionNote": "2026-10-15新實拍覆核後更正黨蔘文字、營養資訊與保險；主圖仍是未變形同款原廠實拍"
     }
   ],
   "publicationRules": {
