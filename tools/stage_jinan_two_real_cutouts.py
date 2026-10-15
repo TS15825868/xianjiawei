@@ -45,42 +45,47 @@ def strip_background_siwuyin():
       "notice":"Photo itself cuts off the upper bag handles; crop limitations remain visible."},cut
 
 def strip_background_vitality():
-    source=REVIEW/"guilu-vitality-cutout.png"
+    # Use the COMPLETE original supplier photo, not the previous rembg mask;
+    # that intermediate mask contained shop clutter above the handle.
     physical=SOURCE/"jinan-vitality-front-original.jpg"
-    im=Image.open(source).convert("RGBA")
+    im=ImageOps.exif_transpose(Image.open(physical)).convert("RGBA")
     w,h=im.size
-    if not 0.8 < w/h < 1.3:
-        raise ValueError(f"Unexpected vitality matte dimensions {w}x{h}")
-    orig_alpha=im.getchannel("A")
-    hard=Image.new("L",(w,h),0)
-    draw=ImageDraw.Draw(hard)
-    # body/lid silhouette on existing rembg foreground; shadows/studio objects
-    # beyond source product are excluded. Coordinates scale with matte crop.
-    coords=[(0,82),(115,69),(220,64),(350,63),(500,72),(620,104),
-           (668,126),(668,485),(565,600),(91,685),(0,385)]
-    draw.polygon([(int(x*w/668),int(y*h/685)) for x,y in coords],fill=255)
-    # Recover dark burgundy rope pixels ABOVE the actual lid only. This is a
-    # selective alpha operation on original photograph pixels, not painting.
-    pix=im.load()
-    top=int(105*h/685)
-    for y in range(top):
-      for x in range(w):
-        if orig_alpha.getpixel((x,y))<70: continue
-        r,g,b,a=pix[x,y]
-        xx=x*668/w; yy=y*685/h
-        is_rope=(130<xx<595 and yy<100 and r>=64 and r>g*1.75 and r>b*1.44 and g<112 and b<125)
-        if is_rope: draw.point((x,y),fill=255)
-    finished=ImageChops.multiply(orig_alpha,hard)
-    im.putalpha(finished)
-    # Keep all true source product bytes beneath alpha; no content painting.
-    bounds=finished.getbbox()
-    if not bounds: raise ValueError("Empty vitality photo matte")
-    im=im.crop(bounds)
+    if not 0.45 < w/h < 0.7:
+        raise ValueError(f"Unexpected vitality photo dimensions {w}x{h}")
+    # Package edges traced at the source's photographed geometry.
+    # Keep original glass/box artwork and dimensions; strip tabletop/photo set.
+    ref_w,ref_h=864,1536
+    body=[(0,176),(145,172),(300,174),(545,165),(719,187),
+          (864,233),(864,322),(736,864),(93,964),(0,355)]
+    pts=[(round(x*w/ref_w),round(y*h/ref_h)) for x,y in body]
+    mask=Image.new("L",(w,h),0)
+    d=ImageDraw.Draw(mask)
+    d.polygon(pts,fill=255)
+    # In the original photo, the burgundy carrying cord arches above the box.
+    # Preserve its original pixels by a tight spatial AND burgundy-hue gate.
+    ribbon_gate=Image.new("1",(w,h),0)
+    rope_points=[(120,182),(144,140),(198,115),(303,111),
+                 (430,133),(552,129),(650,153),(742,193),
+                 (780,258),(729,243),(711,201),(616,171),
+                 (517,153),(418,153),(300,147),(194,153),(144,192)]
+    ImageDraw.Draw(ribbon_gate).polygon([(round(x*w/ref_w),round(y*h/ref_h)) for x,y in rope_points],fill=1)
+    rgba=im.load()
+    for y in range(min(h,round(185*h/ref_h))):
+        for x in range(w):
+            if not ribbon_gate.getpixel((x,y)): continue
+            r,g,b,a=rgba[x,y]
+            if r>=70 and r>g*1.55 and r>b*1.35 and g<120 and b<135:
+                d.point((x,y),fill=255)
+    mask=mask.filter(ImageFilter.GaussianBlur(0.55))
+    box=mask.getbbox()
+    if not box: raise ValueError("Missing vitality foreground")
+    im.putalpha(mask)
+    im=im.crop(box)
     out,cut=save_image(im,"jinan-vitality-front-cutout.webp")
     return {"id":"guilu-vitality","file":str(out.relative_to(ROOT)),
       "sourceFile":str(physical.relative_to(ROOT)),"sourceSha256":hashlib.sha256(physical.read_bytes()).hexdigest(),
-      "intermediateMatteFile":str(source.relative_to(ROOT)),"sourcePixelsPreserved":True,
-      "notice":"Earlier foreground segmentation artefacts above burgundy rope are manually masked; must visually inspect."},cut
+      "sourceDimensions":[w,h],"sourcePixelsPreserved":True,
+      "notice":"Manual original-photo silhouette and cord-color mask; no background model or AI packaging."},cut
 
 def main():
     records=[]
