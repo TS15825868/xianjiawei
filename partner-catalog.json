@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-guilu-vitality-original-photo-public",
+  "version": "2026-10-15-er-zhen-bao-distinct-food-item-staged",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -1337,6 +1337,117 @@
       "publicNeutralCopyReviewed": true,
       "publicCopyPolicy": "商品頁不列療效宣稱、原盒售價或保證理賠等內容；僅使用中性事實、食品包裝標示及保險標示的註明",
       "versionNote": "2026-10-15新實拍覆核後更正黨蔘文字、營養資訊與保險；主圖仍是未變形同款原廠實拍"
+    },
+    {
+      "id": "royalherb-erzhenbao-64",
+      "erpId": "PRD-PARTNER-ROYALHERB-ERZHENBAO-64",
+      "brand": "御漢堂",
+      "brandType": "partner",
+      "name": "二珍寶精華膏湯塊",
+      "displayName": "二珍寶精華膏湯塊",
+      "category": "食品膏湯塊",
+      "series": "御漢堂二珍寶",
+      "businessClassification": "一般食品",
+      "foodStatusSource": "使用者2026-10-15六張紫盒實拍，背標明示「食品」；原廠御漢堂網站將二珍寶列為64片正式品項",
+      "public": false,
+      "publicationStatus": "label-verified-awaiting-hosted-original-product-photo",
+      "publicationBlockers": [
+        "website-product-main-image-upload-not-yet-successful"
+      ],
+      "informationOnly": true,
+      "onlineTransactionEligible": false,
+      "size": "600g±15g／盒｜64塊裝",
+      "description": "御漢堂紫色原廠二珍寶食品膏湯塊，每盒64塊、每份約9.3公克。一般產品與供貨請洽仙加味官方 LINE。",
+      "ingredients": [
+        "全龜萃取物",
+        "馴鹿角萃取物",
+        "水",
+        "葡萄糖胺",
+        "鯊魚軟骨素"
+      ],
+      "usage": [
+        "開封後加熱開水食用，或置入電鍋內加熱溶解",
+        "燉食亦可酌量增加，每日適量"
+      ],
+      "storage": [
+        "開封後請冷藏或放置陰涼處",
+        "避免陽光直射"
+      ],
+      "notices": [
+        "嬰幼兒、孕婦及哺育母乳者，如欲食用請先洽詢醫師及醫療專業人員",
+        "現貨批次、製造與有效日期以實際原廠外盒標示為準"
+      ],
+      "features": [
+        "600g±15g／盒",
+        "64塊裝",
+        "紫色原廠禮盒"
+      ],
+      "producerNameFromLabel": "御漢堂康健股份有限公司",
+      "producerAddressFromLabel": "臺中市烏日區太明路211巷42號",
+      "factoryRegistrationNumberFromLabel": "66-006365",
+      "factoryAddressFromLabel": "臺中市大里區瑞城里中興路一段2巷25弄12號",
+      "countryOfOrigin": "臺灣",
+      "shelfLife": "三年",
+      "nutritionPerServing": {
+        "servingGrams": 9.3,
+        "servings": 64,
+        "caloriesKcal": 38,
+        "proteinGrams": 9.4,
+        "fatGrams": 0,
+        "saturatedFatGrams": 0,
+        "transFatGrams": 0,
+        "carbohydratesGrams": 0.1,
+        "sugarGrams": 0,
+        "sodiumMilligrams": 35,
+        "source": "IMG_9998.jpeg、IMG_0001.jpeg"
+      },
+      "foodInsuranceLabel": {
+        "description": "原廠盒身標示已投保產品責任險新臺幣五千萬元",
+        "status": "package-label-only; no active policy verification",
+        "source": "IMG_9998.jpeg"
+      },
+      "exactIngredientsFromPhoto": true,
+      "originalPhotoSource": [
+        "IMG_9996.jpeg",
+        "IMG_9997.jpeg",
+        "IMG_9998.jpeg",
+        "IMG_9999.jpeg",
+        "IMG_0001.jpeg",
+        "IMG_0002.jpeg"
+      ],
+      "photoRoles": {
+        "front": [
+          "IMG_9997.jpeg",
+          "IMG_9999.jpeg"
+        ],
+        "backLabel": [
+          "IMG_9998.jpeg",
+          "IMG_0001.jpeg"
+        ],
+        "openBox": [
+          "IMG_9996.jpeg",
+          "IMG_0002.jpeg"
+        ]
+      },
+      "imageCandidate": {
+        "url": "https://royalherb.com.tw/wp-content/uploads/2026/08/product-guilu-erxian-jiao-2-main-64-pieces-cover-002.webp",
+        "source": "御漢堂官方網站二珍寶64片產品主圖",
+        "sourcePage": "https://royalherb.com.tw/product/guilu-erxian-jiao-2-main-old-64-pieces/",
+        "repositoryImportTarget": "images/partner-products/er-zhen-bao-royalherb-original.webp",
+        "importStatus": "remote-host-timeout; GitHub image file not present yet",
+        "imageLicenseNote": "圖片屬原廠產品圖；對外使用需維持原圖並確認供應合作素材使用權"
+      },
+      "plannedDetailPage": "product-er-zhen-bao.html",
+      "inquiryAliases": [
+        "二珍寶",
+        "御漢堂二珍寶",
+        "二珍寶64片",
+        "二珍龜鹿膠塊64片",
+        "二珍寶精華膏湯塊"
+      ],
+      "canonicalParentProductDifferentFrom": "uboss-sizhenbao（四珍寶，紅盒、有黨蔘／紅棗／枸杞成分，完全不同SKU）",
+      "compliance": "不沿用外盒療效形容、舊建議售價或不確定的保險理賠保證；上架產品圖務必紫色二珍寶原廠盒裝實物。",
+      "pricePresentation": "LINE詢價（不得顯示實物盒上舊建議售價）"
     }
   ],
   "publicationRules": {
