@@ -122,7 +122,7 @@
   }
   const PAGE=String(document.body?.dataset?.page||location.pathname.split("/").pop()?.replace(/\.html$/i,"")||"home").trim();
   const PRODUCT_DATA_PAGES=new Set(["products","product-detail","trial","dm"]);
-  const PRODUCT_UI_PAGES=new Set(["home","products","product-detail","trial","dm"]);
+  const PRODUCT_UI_PAGES=new Set(["home","products","choose","combo","recipes","why-guilu","product-detail","trial","dm"]);
   const VARIANT_PAGES=new Set(["products","product-detail"]);
   const MASCOT_PAGES=new Set(["choose","faq"]);
   const CLEANUP_PAGES=new Set(["home","products","knowledge","video"]);
