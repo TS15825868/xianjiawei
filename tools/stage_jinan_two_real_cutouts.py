@@ -33,6 +33,20 @@ def strip_background_siwuyin():
     mask=Image.new("L",(w,h),0)
     pts=[(round(x*w/1477),round(y*h/1108)) for x,y in vertices]
     ImageDraw.Draw(mask).polygon(pts,fill=255)
+    # Remove miscellaneous store pixels near an already-clipped bag top.
+    # Only change transparency; the actual printed packaging stays untouched.
+    raw=im.load()
+    mp=mask.load()
+    for yy in range(min(h,round(h*28/1108))):
+        for xx in range(w):
+            if not mp[xx,yy]: continue
+            r,g,b,_=raw[xx,yy]
+            pink=(r>145 and r>g*1.13 and r>b*1.025)
+            rope=(r>65 and r>g*1.45 and r>b*1.25 and g<130)
+            seal=(w*.39<xx<w*.57 and r>110 and g>60
+                  and r>g*1.06 and g>b*1.13 and b<142)
+            if not (pink or rope or seal):
+                mp[xx,yy]=0
     # one-pixel edge feather, RGB never altered
     mask=mask.filter(ImageFilter.GaussianBlur(0.5))
     im.putalpha(mask)
@@ -45,35 +59,52 @@ def strip_background_siwuyin():
       "notice":"Photo itself cuts off the upper bag handles; crop limitations remain visible."},cut
 
 def strip_background_vitality():
+    source=REVIEW/"guilu-vitality-cutout.png"
     physical=SOURCE/"jinan-vitality-front-original.jpg"
-    # Segmentation provided a good silhouette for the actual box and cord,
-    # except isolated shop-colour contamination in the first top rows.
-    # Reuse only that unchanged-pixel candidate; scrub those top rows.
-    intermediate=REVIEW/"guilu-vitality-cutout.png"
-    im=Image.open(intermediate).convert("RGBA")
+    im=Image.open(source).convert("RGBA")
     w,h=im.size
-    if not 0.8<w/h<1.3:
-        raise ValueError(f"Unexpected candidate dimensions {w}x{h}")
-    rgba=im.load()
-    # Keep only verified burgundy-coloured physical rope pixels ABOVE the lid.
-    # All lower pixels retain original rembg alpha unchanged.
-    top=round(44*h/685)
+    if not 0.8 < w/h < 1.3:
+        raise ValueError(f"Unexpected vitality matte dimensions {w}x{h}")
+    orig_alpha=im.getchannel("A")
+    hard=Image.new("L",(w,h),0)
+    draw=ImageDraw.Draw(hard)
+    # body/lid silhouette on existing rembg foreground; shadows/studio objects
+    # beyond source product are excluded. Coordinates scale with matte crop.
+    coords=[(0,82),(115,69),(220,64),(350,63),(500,72),(620,104),
+           (668,126),(668,485),(565,600),(91,685),(0,385)]
+    draw.polygon([(int(x*w/668),int(y*h/685)) for x,y in coords],fill=255)
+    # Recover dark burgundy rope pixels ABOVE the actual lid only. This is a
+    # selective alpha operation on original photograph pixels, not painting.
+    pix=im.load()
+    top=int(105*h/685)
     for y in range(top):
+      for x in range(w):
+        if orig_alpha.getpixel((x,y))<70: continue
+        r,g,b,a=pix[x,y]
+        xx=x*668/w; yy=y*685/h
+        is_rope=(130<xx<595 and yy<100 and r>=64 and r>g*1.75 and r>b*1.44 and g<112 and b<125)
+        if is_rope: draw.point((x,y),fill=255)
+    # The source segmentation included non-product shelf fragments above the
+    # lid. Above the roof only the genuine burgundy rope is allowed.
+    for y in range(min(h,round(h*66/685))):
         for x in range(w):
-            r,g,b,a=rgba[x,y]
-            rope=(150*w/668<x<585*w/668 and r>=70 and
-                  r>g*1.70 and r>b*1.43 and g<100 and b<130)
-            if not rope:
-                rgba[x,y]=(r,g,b,0)
-    alpha=im.getchannel("A")
-    box=alpha.getbbox()
-    if not box: raise ValueError("No vitality foreground after cleanup")
-    im=im.crop(box)
+            if hard.getpixel((x,y))==0: continue
+            r,g,b,_=pix[x,y]
+            xx=x*668/w
+            is_actual_handle=(125<xx<600 and 64<=r<=211 and
+                              r>g*1.80 and r>b*1.48 and g<117 and b<126)
+            if not is_actual_handle: draw.point((x,y),fill=0)
+    finished=ImageChops.multiply(orig_alpha,hard)
+    im.putalpha(finished)
+    # Keep all true source product bytes beneath alpha; no content painting.
+    bounds=finished.getbbox()
+    if not bounds: raise ValueError("Empty vitality photo matte")
+    im=im.crop(bounds)
     out,cut=save_image(im,"jinan-vitality-front-cutout.webp")
     return {"id":"guilu-vitality","file":str(out.relative_to(ROOT)),
       "sourceFile":str(physical.relative_to(ROOT)),"sourceSha256":hashlib.sha256(physical.read_bytes()).hexdigest(),
-      "sourcePixelsPreserved":True,"intermediateMatteFile":str(intermediate.relative_to(ROOT)),
-      "notice":"Source-photo segmentation kept; store clutter removed from upper rows using cord-only hue mask."},cut
+      "intermediateMatteFile":str(source.relative_to(ROOT)),"sourcePixelsPreserved":True,
+      "notice":"Earlier foreground segmentation artefacts above burgundy rope are manually masked; must visually inspect."},cut
 
 def main():
     records=[]
