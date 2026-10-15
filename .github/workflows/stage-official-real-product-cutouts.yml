@@ -1,0 +1,103 @@
+name: 仙加味｜正式實物四款透明去背素材核對
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/stage-official-real-product-cutouts.yml
+permissions:
+  contents: write
+concurrency:
+  group: xjw-official-real-product-cutout-staging
+  cancel-in-progress: false
+jobs:
+  stage-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'pillow>=10,<13'
+      - name: Import only verified original-pixel cutouts from the official internal library
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          from io import BytesIO
+          import hashlib, json, math
+          from PIL import Image, ImageOps, ImageDraw
+          root=Path('images/product-cutout-review')
+          root.mkdir(parents=True, exist_ok=True)
+          sources={
+            'guilu-gao': ('gao.png','龜鹿膏'),
+            'guilu-drink-30': ('drink-30.png','龜鹿飲30cc玻璃罐'),
+            'guilu-drink-180': ('drink-180.png','龜鹿飲180cc鋁袋'),
+            'luerong-fen': ('luerong.png','鹿茸粉'),
+          }
+          base='https://raw.githubusercontent.com/TS15825868/xianjiawei-internal/main/assets/product-photo-cutouts/2026-10-11/'
+          manifest=[]
+          canvas=Image.new('RGB',(900,900),(247,244,237))
+          pen=ImageDraw.Draw(canvas)
+          for i,(key,(filename,label)) in enumerate(sources.items()):
+            url=base+filename
+            with urlopen(Request(url,headers={'User-Agent':'XJW-product-asset-validation'}),timeout=30) as r:
+              data=r.read(8000000)
+            if not data.startswith(b'\\x89PNG\\r\\n\\x1a\\n'):
+              raise ValueError('Missing original PNG signature for '+key)
+            im=Image.open(BytesIO(data))
+            im.load()
+            if im.mode!='RGBA':
+              raise ValueError('Must keep unaltered RGBA source: '+key)
+            w,h=im.size
+            if not (250<=w<=3500 and 250<=h<=3500):
+              raise ValueError('Source dimensions unsafe: '+key)
+            a=im.getchannel('A')
+            lo,hi=a.getextrema()
+            if (lo,hi)!=(0,255):
+              raise ValueError('Not an actual transparent cutout: '+key)
+            hist=a.histogram()
+            solid=sum(hist[240:])/(w*h)
+            transparent=sum(hist[:16])/(w*h)
+            if solid<0.08 or transparent<0.05:
+              raise ValueError('Poor alpha foreground/background separation: '+key)
+            dest=root/(key+'.png')
+            dest.write_bytes(data)
+            obj=im.copy()
+            obj.thumbnail((330,330),Image.Resampling.LANCZOS)
+            x=(i%2)*450+(450-obj.width)//2
+            y=(i//2)*450+(415-obj.height)//2
+            canvas.paste(obj,(x,y),obj)
+            pen.text(((i%2)*450+20,(i//2)*450+417),label,fill=(23,38,49))
+            manifest.append({'id':key,'name':label,'path':str(dest),'source':url,
+               'sourceSha256':hashlib.sha256(data).hexdigest(),'width':w,'height':h,
+               'opaqueRatio':round(solid,4),'transparentRatio':round(transparent,4),
+               'sourcePixelsUnchanged':True,'publicationStatus':'pending_visual_review'})
+          canvas.save(root/'contact-sheet.jpg',quality=92)
+          (root/'manifest.json').write_text(json.dumps({
+             'schemaVersion':1,'role':'candidate-transparent-real-product-photo',
+             'publicationStatus':'review-only-not-live',
+             'rules':['True original packaging only','No AI-redrawn lettering',
+                      'Do not change real-product scale or label','Compare physically before publication'],
+             'products':manifest},ensure_ascii=False,indent=2)+'\\n',encoding='utf-8')
+          print('PASS:',len(manifest),'original-pixel brand product cutouts staged, current public references unchanged')
+          PY
+      - name: Upload contact sheet and transparent source cutouts
+        uses: actions/upload-artifact@v4
+        with:
+          name: xjw-official-four-real-cutout-review
+          path: images/product-cutout-review/
+          retention-days: 30
+      - name: Preserve candidate evidence in main, do not change live product references
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/product-cutout-review/
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "assets: stage four physical-source transparent product cutouts [skip ci]"
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main
