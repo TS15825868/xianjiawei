@@ -85,16 +85,20 @@ async function inspect(page,file,device,state){
    if(file==='index.html'&&['phone','small','tablet'].includes(device)){await page.locator('#menu-btn').click();await inspect(page,file,device,'menu');const menu=page.locator('.site-menu.open');const scrollable=await menu.evaluate(e=>[e,...e.querySelectorAll('*')].filter(n=>n.scrollHeight>n.clientHeight+8&&['auto','scroll'].includes(getComputedStyle(n).overflowY)).map(n=>({id:n.id,cls:n.className,step:n.clientHeight*.65,max:n.scrollHeight-n.clientHeight})));for(const item of scrollable){const target=item.id?page.locator('#'+item.id):page.locator('.'+item.cls.trim().split(/\s+/).join('.'));for(let y=item.step;y<item.max+item.step;y+=item.step){const pos=Math.min(y,item.max);await target.evaluate((e,y)=>e.scrollTop=y,pos);await inspect(page,file,device,'menu-scroll-'+Math.round(pos));if(pos===item.max)break;}}await page.locator('#menu-close').click();}
    if(file==='knowledge.html'){const tabs=page.locator('.knowledge-tab');for(let i=1;i<await tabs.count();i++){await tabs.nth(i).click();await inspect(page,file,device,'tab-'+i);}}
    if(file==='products.html'){
+    // 系列商品與其他商品一樣先開跳窗，只有跳窗「查看詳細」進入系列詳頁。
     for(const product of groupedProducts){
-      const link=page.locator('[data-product-page-direct="1"][href="'+product.page+'"]:visible').first();
-      await link.click();await page.waitForURL('**/'+product.page);
+      const intro=page.locator('[data-product-id="'+product.id+'"] [data-product-intro="1"]:visible').first();
+      await intro.click();
+      await page.locator('#product-modal.show').waitFor({state:'visible'});
+      const detail=page.locator('#product-modal .modal-actions a[data-product-page-direct="1"]');
+      if(await detail.count()!==1)throw Error('系列跳窗缺少唯一查看詳細入口：'+product.id);
+      await detail.click();await page.waitForURL('**/'+product.page);
       for(const variant of product.variants)await page.locator('#'+variant.id).waitFor({state:'attached'});
       await inspect(page,product.page,device,'series-entry');
       await page.goto(base+'products.html',{waitUntil:'domcontentloaded'});
       await page.waitForFunction(()=>window.__XJW_SITE_INITIALIZED__&&document.querySelector('#site-footer .footer-card'),null,{timeout:20000});
     }
-    const groupExclusions=groupedProducts.map(p=>':not([href="'+p.page+'"])').join('');
-    const buttons=page.locator('[data-product-intro="1"]:visible'+groupExclusions);for(let i=0;i<await buttons.count();i++){await buttons.nth(i).click();await page.locator('#product-modal.show').waitFor({state:'visible'});await page.locator('#product-modal').evaluate(async e=>{await Promise.all([...e.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})))});await inspect(page,file,device,'modal-'+i);
+    const buttons=page.locator('#product-list .product-card__actions [data-product-intro="1"]:visible,#partner-product-list .product-card__actions [data-product-intro="1"]:visible');for(let i=0;i<await buttons.count();i++){await buttons.nth(i).click();await page.locator('#product-modal.show').waitFor({state:'visible'});await page.locator('#product-modal').evaluate(async e=>{await Promise.all([...e.querySelectorAll('img')].map(i=>i.decode().catch(()=>{})))});await inspect(page,file,device,'modal-'+i);
     const positions=await page.locator('.product-modal__scroll').evaluate(e=>{const step=e.clientHeight*.65,top=e.getBoundingClientRect().top,walker=document.createTreeWalker(e,NodeFilter.SHOW_TEXT),values=new Set([0]);let n;while(n=walker.nextNode()){if(!n.textContent.trim()||n.parentElement.closest('script,style,[aria-hidden="true"]'))continue;const r=document.createRange();r.selectNodeContents(n);for(const b of r.getClientRects())if(b.width&&b.height)values.add(Math.max(0,Math.min(e.scrollHeight-e.clientHeight,Math.floor((b.top-top+e.scrollTop)/step)*step)))}return [...values].sort((a,b)=>a-b)});
     for(const y of positions.filter(y=>y>0)){await page.locator('.product-modal__scroll').evaluate((e,y)=>e.scrollTop=y,y);await inspect(page,file,device,'modal-'+i+'-scroll-'+Math.round(y));}
     await page.locator('#product-modal-close').click();}}
