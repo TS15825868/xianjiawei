@@ -80,7 +80,7 @@ jobs:
           const approvedMainPaths=[...new Set([...Object.values(mediaAuthority.products||{}).map(item=>item.mainImage),...approvedPartnerImages].filter(Boolean).map(src=>new URL(src,BASE).pathname))];
           const pages=[
             'index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','dm.html',
-            'product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html',
+            'product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-luerong-fen.html','product-jinan-siwuyin.html','product-danshen-tea.html',
             'knowledge.html','why-guilu.html','video.html','sources.html','brand-facts.html','brand-origin.html','craft.html','ingredients.html','quality.html','combo.html','hanfang-baike.html','trial-line.html','404.html'
           ];
           const viewports={
@@ -89,7 +89,7 @@ jobs:
             iphone:{width:390,height:844,isMobile:true,hasTouch:true},
             android:{width:412,height:915,isMobile:true,hasTouch:true}
           };
-          const keyScreens=new Set(['index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','why-guilu.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-guilu-tangkuai.html','product-guilu-jiao.html','product-luerong-fen.html']);
+          const keyScreens=new Set(['index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','why-guilu.html','product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-luerong-fen.html','product-jinan-siwuyin.html','product-danshen-tea.html']);
 
           function rgb(s){
             const m=String(s||'').match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)(?:[, /]+([\d.]+))?\)/);
@@ -478,12 +478,10 @@ jobs:
                 if(pth==='products.html'){
                   const productIntroButtons=page.locator('#product-list .product-card [data-product-intro="1"]');
                   const modalExpected={
-                    'guilu-gao':['/images/product-main/guilu-gao.jpg','/images/dm-final/01_guilu-gao-100g-dm.jpg'],
-                    'guilu-drink-30':['/images/product-main/guilu-drink-30.jpg','/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg'],
-                    'guilu-drink-180':['/images/product-main/guilu-drink-180.jpg','/images/dm-final/03_guilu-drink-180cc-dm.jpg'],
-                    'guilu-tangkuai':['/images/product-main/guilu-tangkuai.jpg','/images/dm-final/05_guilu-tangkuai-75g-dm.jpg'],
-                    'guilu-jiao':['/images/product-main/guilu-jiao.jpg','/images/dm-final/06_guilu-jiao-600g-dm.jpg'],
-                    'luerong-fen':['/images/product-main/luerong-fen.jpg','/images/dm-final/04_luerong-fen-75g-dm.jpg']
+                    'guilu-gao':{main:'/images/product-main/guilu-gao.jpg',page:'/xianjiawei/product-guilu-gao.html'},
+                    'guilu-drink-30':{main:'/images/product-main/guilu-drink-30.jpg',page:'/xianjiawei/product-guilu-drink-30cc.html'},
+                    'guilu-drink-180':{main:'/images/product-main/guilu-drink-180.jpg',page:'/xianjiawei/product-guilu-drink-180cc.html'},
+                    'luerong-fen':{main:'/images/product-main/luerong-fen.jpg',page:'/xianjiawei/product-luerong-fen.html'}
                   };
                   const modalCount=await productIntroButtons.count();
                   if(modalCount!==publicCount) report.errors.push({vp:vpName,page:pth,type:'product-intro-count',detail:{expected:publicCount,actual:modalCount}});
@@ -503,68 +501,45 @@ jobs:
                     }
                     await page.waitForFunction(()=>{
                       const main=document.querySelector('#product-modal .modal-gallery__item img');
-                      const dm=document.querySelector('#product-modal .modal-detail-media__frame img');
-                      return Boolean(main?.complete&&main.naturalWidth>0&&main.naturalHeight>0&&dm?.complete&&dm.naturalWidth>0&&dm.naturalHeight>0);
+                      return Boolean(main?.complete&&main.naturalWidth>0&&main.naturalHeight>0);
                     },{timeout:8000}).catch(()=>{});
-                    await page.evaluate(async()=>{
-                      const imgs=[document.querySelector('#product-modal .modal-gallery__item img'),document.querySelector('#product-modal .modal-detail-media__frame img')].filter(Boolean);
-                      await Promise.all(imgs.map(img=>typeof img.decode==='function'?img.decode().catch(()=>{}):Promise.resolve()));
-                    });
                     await page.waitForTimeout(80);
                     const modalAudit=await page.evaluate(()=>{
                       const modal=document.getElementById('product-modal');
                       const main=modal?.querySelector('.modal-gallery__item img');
-                      const dm=modal?.querySelector('.modal-detail-media__frame img');
                       const mainFrame=modal?.querySelector('.modal-gallery__item');
-                      const dmFrame=modal?.querySelector('.modal-detail-media__frame');
-                      const intro=modal?.querySelector('.modal-intro');
-                      const gallery=modal?.querySelector('.modal-gallery');
-                      const facts=modal?.querySelector('.modal-facts');
+                      const detail=modal?.querySelector('.modal-actions [data-product-page-direct="1"]');
                       const pathOf=el=>{try{return new URL(el?.getAttribute('src')||'',location.href).pathname}catch{return ''}};
+                      const hrefOf=el=>{try{return new URL(el?.getAttribute('href')||'',location.href).pathname}catch{return ''}};
                       const box=el=>el?.getBoundingClientRect?.().toJSON?.()||null;
                       const styleOf=el=>el?{transform:getComputedStyle(el).transform,objectFit:getComputedStyle(el).objectFit,objectPosition:getComputedStyle(el).objectPosition}:null;
                       const ratio=el=>el&&el.naturalWidth&&el.naturalHeight?el.naturalWidth/el.naturalHeight:null;
                       return {
                         visible:Boolean(modal?.classList.contains('show')&&modal?.getAttribute('aria-hidden')==='false'),
                         main:pathOf(main),
-                        dm:pathOf(dm),
-                        headings:Array.from(modal?.querySelectorAll('.modal-section h3')||[]).map(x=>x.textContent.trim()),
+                        detailHref:hrefOf(detail),
+                        detailText:(detail?.textContent||'').trim(),
+                        previewText:(modal?.querySelector('.modal-preview')?.textContent||'').trim(),
                         line:Boolean(modal?.querySelector('.modal-actions .btn-line')),
                         mainBox:box(main),
                         mainFrameBox:box(mainFrame),
-                        dmBox:box(dm),
-                        dmFrameBox:box(dmFrame),
-                        introBox:box(intro),
-                        galleryBox:box(gallery),
-                        factsBox:box(facts),
                         mainStyle:styleOf(main),
-                        dmStyle:styleOf(dm),
-                        mainNaturalRatio:ratio(main),
-                        dmNaturalRatio:ratio(dm)
+                        mainNaturalRatio:ratio(main)
                       };
                     });
-                    const expected=modalExpected[id]||[];
+                    const expected=modalExpected[id];
                     if(!modalAudit.visible) report.errors.push({vp:vpName,page:pth,type:'modal-not-visible',detail:{id,modalAudit}});
-                    if(expected[0]&&!modalAudit.main.endsWith(expected[0])) report.errors.push({vp:vpName,page:pth,type:'modal-main-wrong',detail:{id,expected:expected[0],actual:modalAudit.main}});
-                    if(expected[1]&&!modalAudit.dm.endsWith(expected[1])) report.errors.push({vp:vpName,page:pth,type:'modal-dm-wrong',detail:{id,expected:expected[1],actual:modalAudit.dm}});
-                    const requiredHeadings=['規格','成分','一般使用方式','保存／出貨資訊'];
-                    if(requiredHeadings.some((h,idx)=>modalAudit.headings[idx]!==h)) report.errors.push({vp:vpName,page:pth,type:'modal-facts-order',detail:{id,expected:requiredHeadings,actual:modalAudit.headings}});
-                    if(id==='guilu-drink-30'){
-                      const usageText=await page.locator('[role=dialog]').innerText();
-                      for(const phrase of ['每日 1–2 罐','可依個人需求調整','飲用時間可依個人使用習慣與作息時間安排'])if(!usageText.includes(phrase))report.errors.push({vp:vpName,page:pth,type:'modal-current-usage-missing',detail:{id,phrase}});
-                    }
+                    if(!expected) report.errors.push({vp:vpName,page:pth,type:'modal-unexpected-product',detail:{id}});
+                    if(expected?.main&&!modalAudit.main.endsWith(expected.main)) report.errors.push({vp:vpName,page:pth,type:'modal-main-wrong',detail:{id,expected:expected.main,actual:modalAudit.main}});
+                    if(expected?.page&&!modalAudit.detailHref.endsWith(expected.page)) report.errors.push({vp:vpName,page:pth,type:'modal-detail-link-wrong',detail:{id,expected:expected.page,actual:modalAudit.detailHref}});
+                    if(!modalAudit.previewText.includes('規格：')) report.errors.push({vp:vpName,page:pth,type:'modal-spec-missing',detail:{id,text:modalAudit.previewText}});
+                    if(!modalAudit.detailText.includes('查看完整商品頁')) report.errors.push({vp:vpName,page:pth,type:'modal-detail-action-missing',detail:{id,text:modalAudit.detailText}});
                     if(!modalAudit.line) report.errors.push({vp:vpName,page:pth,type:'modal-line-missing',detail:{id}});
                     if(!modalAudit.mainBox?.width||!modalAudit.mainBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-main-hidden',detail:{id,box:modalAudit.mainBox}});
-                    if(!modalAudit.dmBox?.width||!modalAudit.dmBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-dm-hidden',detail:{id,box:modalAudit.dmBox}});
                     if(modalAudit.mainStyle?.transform!=='none'||modalAudit.mainStyle?.objectFit!=='contain') report.errors.push({vp:vpName,page:pth,type:'modal-main-transform-or-fit',detail:{id,style:modalAudit.mainStyle}});
-                    if(modalAudit.dmStyle?.transform!=='none'||modalAudit.dmStyle?.objectFit!=='contain') report.errors.push({vp:vpName,page:pth,type:'modal-dm-transform-or-fit',detail:{id,style:modalAudit.dmStyle}});
                     const ratioDiff=(box,natural)=>box?.width&&box?.height&&natural?Math.abs((box.width/box.height)-natural):0;
                     if(ratioDiff(modalAudit.mainBox,modalAudit.mainNaturalRatio)>.025) report.errors.push({vp:vpName,page:pth,type:'modal-main-ratio-cropped',detail:{id,box:modalAudit.mainBox,naturalRatio:modalAudit.mainNaturalRatio}});
-                    if(ratioDiff(modalAudit.dmBox,modalAudit.dmNaturalRatio)>.025) report.errors.push({vp:vpName,page:pth,type:'modal-dm-ratio-cropped',detail:{id,box:modalAudit.dmBox,naturalRatio:modalAudit.dmNaturalRatio}});
                     if(modalAudit.mainFrameBox&&modalAudit.mainBox&&(modalAudit.mainBox.top<modalAudit.mainFrameBox.top-2||modalAudit.mainBox.bottom>modalAudit.mainFrameBox.bottom+2)) report.errors.push({vp:vpName,page:pth,type:'modal-main-overflow',detail:{id,image:modalAudit.mainBox,frame:modalAudit.mainFrameBox}});
-                    if(modalAudit.dmFrameBox&&modalAudit.dmBox&&(modalAudit.dmBox.top<modalAudit.dmFrameBox.top-2||modalAudit.dmBox.bottom>modalAudit.dmFrameBox.bottom+2)) report.errors.push({vp:vpName,page:pth,type:'modal-dm-overflow',detail:{id,image:modalAudit.dmBox,frame:modalAudit.dmFrameBox}});
-                    if(modalAudit.introBox&&modalAudit.galleryBox&&modalAudit.introBox.bottom>modalAudit.galleryBox.top+2) report.errors.push({vp:vpName,page:pth,type:'modal-intro-overlap',detail:{id,intro:modalAudit.introBox,gallery:modalAudit.galleryBox}});
-                    if(modalAudit.galleryBox&&modalAudit.factsBox&&modalAudit.galleryBox.bottom>modalAudit.factsBox.top+2) report.errors.push({vp:vpName,page:pth,type:'modal-gallery-facts-overlap',detail:{id,gallery:modalAudit.galleryBox,facts:modalAudit.factsBox}});
                     if(vpName==='desktop'||vpName==='iphone'||vpName==='android'||i===0){
                       await page.screenshot({path:`responsive-audit-screens/${vpName}-modal-${id}.png`,fullPage:true});
                     }
