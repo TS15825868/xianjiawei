@@ -123,7 +123,7 @@ async function close(page) {
 
       await ready(page,"index.html");
       const home=page.locator('.home-product-showcase__grid a[href^="product-"]');
-      assert.equal(await home.count(),own.length,"首頁原有四項正式商品維持一致");
+      assert.equal(await home.count(),expectedCount,"首頁須統一展示全部公開商品");
       for(let i=0;i<await home.count();i++){
         const entry=home.nth(i),href=await entry.getAttribute("href");
         const name=(await entry.locator("span").innerText()).trim();

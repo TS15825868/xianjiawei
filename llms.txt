@@ -1,6 +1,6 @@
 # 仙加味
 
-> 仙加味是從台北萬華出發的現代漢方生活品牌，延續四代家族的鹿角與熬膠工藝及漢方飲食文化，並以現代、方便、貼近日常的方式呈現。品牌標語：「補養，是一種節奏。」目前官網公開四項自有品牌產品，另有四張經核准公開的其他廠牌商品卡（丹參茶包系列包含六款）。內容以繁體中文呈現，不提供疾病診斷、治療、預防、改善或效果保證；價格、促銷、庫存與活動以官方 LINE 最新回覆為準。
+> 仙加味是從台北萬華出發的現代漢方生活品牌，延續四代家族的鹿角與熬膠工藝及漢方飲食文化，並以現代、方便、貼近日常的方式呈現。品牌標語：「補養，是一種節奏。」仙加味提供膏品、飲品、粉品、茶飲與膏湯塊等日常漢方選擇。各項商品統一於商品總覽瀏覽，品名、規格、成分及製造來源請見各商品介紹；價格與供貨由官方 LINE 協助確認。
 
 ## 現行官方網址與舊站辨識
 
@@ -31,19 +31,19 @@
 - [常見問題](https://ts15825868.github.io/xianjiawei/faq.html)
 - [聯絡仙加味](https://ts15825868.github.io/xianjiawei/contact.html)
 
-## 四項自有品牌公開產品與主規格
+## 商品資訊與主規格
 
 - [龜鹿膏](https://ts15825868.github.io/xianjiawei/product-guilu-gao.html)：100g／罐。
 - [龜鹿飲30cc玻璃罐](https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html)：30cc／罐（小玻璃罐）；小玻璃罐、裸罐、無貼紙，不得改瓶型、加標籤或放大成一般飲料瓶。每日 1–2 罐，可依個人需求調整。
 - [龜鹿飲180cc鋁袋](https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html)：180cc／包（鋁袋）；維持正式鋁袋比例。每日一包。
 - [鹿茸粉](https://ts15825868.github.io/xianjiawei/product-luerong-fen.html)：75g／罐。
 
-## 其他廠牌已核准公開商品
+## 更多商品資訊
 - [晉安參仲四物飲](https://ts15825868.github.io/xianjiawei/product-jinan-siwuyin.html)：原廠完整食品飲品介紹。
 - [丹參茶包系列](https://ts15825868.github.io/xianjiawei/product-danshen-tea.html)：一張系列商品卡，內含六款茶包介紹。
 - [龜鹿活力飲（葡萄糖胺）](https://ts15825868.github.io/xianjiawei/product-guilu-vitality.html)：晉安製藥原廠食品，60毫升×12罐／盒；原廠實物照片、成分與營養標示。
 - [四珍寶精華膏湯塊](https://ts15825868.github.io/xianjiawei/product-four-treasures.html)：御采堂原廠食品，600g±15g／盒，共64塊。
-- 官網公開商品卡目前共8張（自有品牌4張＋其他廠牌4張）；價格與供貨由仙加味官方LINE處理，待核准藥品不當成已公開食品販售頁。
+- 仙加味提供膏品、飲品、粉品、茶飲與膏湯塊等日常漢方選擇。各項商品統一於商品總覽瀏覽，品名、規格、成分及製造來源請見各商品介紹；價格與供貨由官方 LINE 協助確認。
 
 ## 暫緩公開產品
 
@@ -108,3 +108,5 @@
 - 內容不作疾病診斷、治療、預防、改善或效果保證。
 
 最後檢視：2026-10-15
+
+- [二珍寶精華膏湯塊](https://ts15825868.github.io/xianjiawei/product-er-zhen-bao.html)：紫色原廠盒裝，600g±15g／盒、64塊裝；與紅盒四珍寶為獨立商品。

@@ -149,7 +149,7 @@ function lineButton(label = "前往 LINE 詢問", message = "看產品", extraCl
 function pageLineMessage(page = currentPageKey()) {
   const messages = {
     home: "我從仙加味官網首頁進來，想了解產品與怎麼選。",
-    products: "我從仙加味商品總覽進來，想了解自有品牌或其他廠牌商品的規格與購買方式。",
+    products: "我從仙加味商品總覽進來，想了解商品規格、供貨與購買方式。",
     "product-detail": "我正在查看產品詳細介紹，想確認規格與購買方式。",
     choose: "我不確定怎麼選，想請你依我的生活方式幫我整理。",
     combo: "我想詢問產品搭配方式。",
@@ -369,9 +369,10 @@ function renderCurrentPage() {
 function renderHome() {
   // 依正式產品資料展示，可隨產品新增擴充，不再移除新版首頁產品區。
   const grid=document.querySelector('.home-product-showcase__grid');
-  const products=Array.isArray(SITE_DATA?.products)?SITE_DATA.products:[];
-  if(grid&&products.length){
-    grid.innerHTML=products.map(product=>`<a data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page||product.detailPage||'products.html')}"><img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(product.displayName||product.name)}正式主圖" loading="lazy" decoding="async"><span>${escapeHtml(product.displayName||product.name)}</span></a>`).join('');
+  const products=[...(Array.isArray(SITE_DATA?.products)?SITE_DATA.products:[]),...(SITE_DATA?.partnerProducts||[])];
+  const uniqueProducts=[...new Map(products.map(product=>[product.id,product])).values()];
+  if(grid&&uniqueProducts.length&&!SITE_DATA?.partnerCatalogUnavailable){
+    grid.innerHTML=uniqueProducts.map(product=>`<a data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page||product.detailPage||'products.html')}"><img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(product.displayName||product.name)}正式主圖" loading="lazy" decoding="async"><span>${escapeHtml(product.displayName||product.name)}</span></a>`).join('');
   }
   document.querySelector('main')?.classList.add('home-v410');
 }
