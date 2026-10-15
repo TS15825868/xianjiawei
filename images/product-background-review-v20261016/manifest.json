@@ -1,0 +1,164 @@
+{
+  "schemaVersion": 1,
+  "reviewStatus": "candidate-only-not-linked-to-live-catalog",
+  "brand": "仙加味",
+  "design": "Real photographed product over approved premium mountain/botanical landscape",
+  "strictRule": "Never replace authentic packaging, label, manufacturer, or legal product display with generated text",
+  "sceneCount": 14,
+  "products": [
+    {
+      "id": "guilu-gao",
+      "source": "images/product-cutout-review/guilu-gao.png",
+      "sourceSHA256": "2c6776f1327691e3c567277d5775c3b3439a3cbd9999a893d574dfc87356a410",
+      "output": "images/product-background-review-v20261016/guilu-gao.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "guilu-drink-30",
+      "source": "images/product-cutout-review/guilu-drink-30.png",
+      "sourceSHA256": "aedd059bd0abfa4c65084e3a6ae6612975782cc0f5cb43f37ba4471c788eafb3",
+      "output": "images/product-background-review-v20261016/guilu-drink-30.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "guilu-drink-180",
+      "source": "images/product-cutout-review/guilu-drink-180.png",
+      "sourceSHA256": "cc417adb35787ed6716536f63e4a3b3821c6ef4495c946cf76516dc2e9f52f46",
+      "output": "images/product-background-review-v20261016/guilu-drink-180.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "luerong-fen",
+      "source": "images/product-cutout-review/luerong-fen.png",
+      "sourceSHA256": "d1ff289ce779cd9d0dead94dde43343156eb39d767aa5d647f38f8ef1f8290b7",
+      "output": "images/product-background-review-v20261016/luerong-fen.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "jinan-sisheng-siwuyin",
+      "source": "images/partner-products/cutouts-v20261016/jinan-siwuyin-front-cutout.webp",
+      "sourceSHA256": "2ea94e8f2b0db6d5aa07f3e717c8d9d75048540c2e01575f84a4f0e686716e31",
+      "output": "images/product-background-review-v20261016/jinan-sisheng-siwuyin.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "danshen-tea-collection",
+      "source": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",
+      "sourceSHA256": "aa5dec855b08ee59c38e2379f15531bb726349cf90fc95d62f940e7993a050d9",
+      "output": "images/product-background-review-v20261016/danshen-tea-collection.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "guilu-vitality",
+      "source": "images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",
+      "sourceSHA256": "5d524280e42b8b0a910f9e0bc9f5e4f7ce810da1360cf3cf7993a059a3615de7",
+      "output": "images/product-background-review-v20261016/guilu-vitality.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "uboss-sizhenbao",
+      "source": "images/partner-products/site-hero-v20261016/four-treasures-front-cutout.webp",
+      "sourceSHA256": "ea898d3625bb68e2cd0962bfde446a517de600f047bef0def47281809ef90d63",
+      "output": "images/product-background-review-v20261016/uboss-sizhenbao.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "royalherb-erzhenbao-64",
+      "source": "images/partner-products/site-hero-v20261016/er-zhen-bao-royalherb-original-cutout.webp",
+      "sourceSHA256": "b206555be3eabbff71cc8aed5a07a3aa5a102fb6296dc478bab217efdc20079d",
+      "output": "images/product-background-review-v20261016/royalherb-erzhenbao-64.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "jianfeng-leisure-tea",
+      "source": "images/partner-products/site-hero-v20261016/tea-danshen-leisure-front-cutout.webp",
+      "sourceSHA256": "7a699e18f30fec06c46f5d29d9b0a16539d5737489aeff67e1d8f9f4e29b01b8",
+      "output": "images/product-background-review-v20261016/jianfeng-leisure-tea.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "jianfeng-wudahan-tea",
+      "source": "images/partner-products/site-hero-v20261016/tea-wudahan-front-cutout.webp",
+      "sourceSHA256": "61097511da8275088d221c7e1463dd46d039f9c45a81046ed4661a2b7c3aaecd",
+      "output": "images/product-background-review-v20261016/jianfeng-wudahan-tea.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "jianfeng-fiber-tea",
+      "source": "images/partner-products/site-hero-v20261016/tea-danshen-lotus-front-cutout.webp",
+      "sourceSHA256": "53a896f94c914e113be7383a54a2da397930694e8361950d5d9f827ce66a6983",
+      "output": "images/product-background-review-v20261016/jianfeng-fiber-tea.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "jianfeng-white-tea",
+      "source": "images/partner-products/site-hero-v20261016/tea-white-danshen-front-cutout.webp",
+      "sourceSHA256": "8fc995981b099f81221369bd1024748ace9d42416092054b59d05cb0fd27fee4",
+      "output": "images/product-background-review-v20261016/jianfeng-white-tea.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    },
+    {
+      "id": "jianfeng-refresh-tea",
+      "source": "images/partner-products/site-hero-v20261016/tea-danshen-refresh-front-cutout.webp",
+      "sourceSHA256": "b529bc90649d05e044ac64399e6f99d5b874f96568de21f6dbbae2f47a79f51a",
+      "output": "images/product-background-review-v20261016/jianfeng-refresh-tea.webp",
+      "sourceMode": "RGBA",
+      "sourceWholeProductPreserved": true,
+      "productRedrawn": false,
+      "sourceAspectRatioPreserved": true,
+      "reviewStatus": "candidate-only"
+    }
+  ]
+}
