@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-food-label-insurance-and-ingredient-classification-v3",
+  "version": "2026-10-15-licensed-chinese-patent-medicine-confirmed",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -602,11 +602,11 @@
       "erpId": "PRD-PARTNER-LIAN-GUILU",
       "brand": "立安",
       "brandType": "partner",
-      "category": "立安系列",
+      "category": "中藥成藥",
       "name": "龜鹿二仙膠",
       "public": false,
-      "publicationStatus": "awaiting-medicine-license-and-public-copy-review",
-      "specificationStatus": "source-package-specified-pending-manufacturer-verification",
+      "publicationStatus": "licensed-medicine-verified-physical-retail-scope-and-public-advertising-distinct",
+      "specificationStatus": "license-and-user-package-cross-checked",
       "sourceFiles": [
         "IMG_9911(1).jpeg",
         "IMG_9912(1).jpeg",
@@ -617,11 +617,45 @@
       "imageSourceStatus": "user-uploaded-original-package-photos-awaiting-approved-site-media",
       "size": "600g／塑膠袋裝（依本次實拍外盒）",
       "publicationBlockers": [
-        "medicine-category-not-general-food",
-        "manufacturer-ingredient-amounts-require-recheck",
-        "new-original-photos-not-yet-reviewed-and-hosted",
-        "medicine-advertising-and-eligible-channel-review-required"
-      ]
+        "confirm-xianjiawei-drug-dealer-permit-registered-retail-scope",
+        "public-medication-information-or-advertising-approval-needs-separate-review",
+        "approved-media-and-medical-claim-safe-public-copy-not-yet-available"
+      ],
+      "officialLicensedName": "「立安」龜鹿二仙膠",
+      "licensedProductType": "成藥",
+      "manufacturer": "立安生物科技製藥股份有限公司",
+      "marketingAndSalesStatus": "依法得經具有適當中藥販賣業登記與營業項目的實體營業處所販售；不能直接視為乙類成藥網購品",
+      "medicalProfessionalConsultation": "僅個別醫療、疾病、用藥或適用性問題時轉中醫師，不強制所有成藥顧客都先轉醫師",
+      "licenseVerification": {
+        "authority": "衛生福利部中醫藥司中藥許可證查詢",
+        "licenseNo": "衛署成製013857",
+        "licenseDisplayNo": "衛署成製字第013857號",
+        "officialUrl": "https://service.mohw.gov.tw/DOCMAP/CusSite/TCMLResultDetail.aspx?LICENUM=013857&LICEWORDID=03",
+        "licenseHolder": "立安生物科技製藥股份有限公司",
+        "issueDate": "2005-10-11",
+        "validUntil": "2030-10-11",
+        "drugCategory": "成藥",
+        "formulation": "膠劑",
+        "approvedPackage": "18～1000公克塑膠袋盒裝",
+        "photoLicenseMatched": true,
+        "checkedAt": "2026-10-15"
+      },
+      "licensedFormulaInputPerFinishedGram": {
+        "龜板": "1515mg",
+        "鹿角": "3030mg",
+        "枸杞子": "303mg",
+        "人參": "152mg",
+        "加水製成膠": "1000mg",
+        "interpretation": "藥品許可證載原料投料與製膠量；不得把原料毫克相加視為1公克成品含量矛盾"
+      },
+      "productSalesEligibility": {
+        "businessDealerStatus": "user-declared-drug-dealer",
+        "businessPermitNumber": "not-supplied-in-this-turn",
+        "allowedStoreScope": "confirm-license-registered-business-items",
+        "physicalRetail": "conditionally-permitted-for-eligible-licensed-drug-dealers",
+        "onlineRetail": "not-eligible-unless-current-product-is-explicitly-approved-as-乙類成藥-and-platform-complies",
+        "note": "本筆「成藥」不得推定等於「乙類成藥」，亦非必須先經中醫師處方之藥品"
+      }
     },
     {
       "id": "guilu-vitality",
@@ -1116,12 +1150,13 @@
     "hiddenDraftProductsNotRendered": true,
     "privatePricesProhibited": true,
     "duplicatesByBrandAndNameProhibited": true,
-    "foodProductPriority": "合格一般食品有原廠品名、成分、營養標示、工廠資料、產品責任保險及實物圖是合理上架基礎；仍須確認產品屬性、批次、原料使用與整體廣告合法性。不得以缺少自有品牌標籤、未取得個別產品許可證（非特定一般食品不一定需個別許可證）或使用附件一通常詞句而不合理退件；可核准時直接上架，價格仍轉 LINE。",
-    "medicineProductPolicy": "僅加上「需洽詢中醫師」不等於取得藥物廣告、藥商及網路交易資格。中藥製劑保留內部母資料與 LINE 人工接待，不列一般官網商品、商品跳窗或可直接購買清單；取得可核實合法資格及核准文案再依最新正確資料更新。",
+    "foodProductPriority": "產品只要添加食品添加物或不是已知固有成方，並不自動成為食品；應逐品依原料使用、配方是否涉及固有成方或其加減方、主管機關產品屬性認定、標示及食品廣告判斷。確認可作為食品販售且照片合格後優先正式上架，不以自有品牌或舊版固定數量阻擋。",
+    "medicineProductPolicy": "不得將已取得有效藥品許可證且可由依法核准藥商販售的中藥成藥，誤列為『無法販售／只能由中醫師出售』。藥商實體販售資格、商品成藥或指示／處方分類、網路零售資格及網頁產品資訊／廣告核准是四個獨立判定欄位。非處方成藥如符合店面藥商營業項目可依法實體販售；個別用藥與疾病適用性轉中醫師。一般網購僅開放符合法規的乙類成藥，不能憑『成藥』一詞視為乙類。廣告宣傳依藥事法第65～67條及相關處理原則；許可證持有人網站的免申請資訊規則不得自動延伸為第三方網站可全部照刊。沒審核好先不公開宣傳頁，但ERP與LINE的人工作業需保留合法實體銷售可能。",
     "unclearProductPolicy": "分類、原廠、規格或公開圖片尚未確認者保留ERP，先補證據，不以名稱推定可販售資格。",
     "layoutPolicy": "自有及其他廠牌使用同一張卡片與詳細頁視覺規格；系列產品可共用單卡單頁，照片保持原包裝、比例與原廠標示。",
     "foodAdvertisementRule": "依現行《食品及相關產品標示宣傳廣告涉及不實誇張易生誤解或醫療效能認定準則》第4條附件一，可使用通常詞句例如調整體質、調節生理機能、滋補強身、增強體力、精神旺盛、養顏美容、青春美麗、產前產後或病後之補養；不得把這些詞本身當成違規退件依據。但仍須確認無疾病療效、宣稱無證據、產品屬性錯誤及整體表現誤導。",
-    "medicineByFormula": "產品外盒印有『食品』、工廠登記、營養標示及產品責任保險屬有利佐證，但不能單獨證明中藥材配方不涉及固有成方或其加減方；最高行政法院113年度上字第261號判決（2025-12-26）將含龜、鹿角、人參、枸杞構成龜鹿二仙膠相關方劑的個案判屬藥品。當配方有龜、鹿角、人參/黨蔘、枸杞等相近組合時，應請原廠提出屬食品之產品屬性核判及合法使用原料資料；可依個案證據更新，不可一律封鎖所有龜鹿食品。"
+    "medicineByFormula": "產品外盒印有『食品』、工廠登記、營養標示及產品責任保險屬有利佐證，但不能單獨證明中藥材配方不涉及固有成方或其加減方；最高行政法院113年度上字第261號判決（2025-12-26）將含龜、鹿角、人參、枸杞構成龜鹿二仙膠相關方劑的個案判屬藥品。當配方有龜、鹿角、人參/黨蔘、枸杞等相近組合時，應請原廠提出屬食品之產品屬性核判及合法使用原料資料；可依個案證據更新，不可一律封鎖所有龜鹿食品。",
+    "drugSellingVsWebPublication": "中藥成藥依法由有相應資格的藥商在實體店販售，不代表第三方官網可直接發布療效宣稱或建立即時線上交易。中性品名／取得途徑資訊是否構成藥物廣告，依實際完整網頁判定；不得僅用『須洽中醫師』取代合法判斷。"
   },
   "updatedAt": "2026-10-15"
 }
