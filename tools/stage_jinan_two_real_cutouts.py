@@ -68,7 +68,7 @@ def strip_background_vitality():
         if orig_alpha.getpixel((x,y))<70: continue
         r,g,b,a=pix[x,y]
         xx=x*668/w; yy=y*685/h
-        is_rope=(128<xx<608 and yy<63 and r>55 and r>g*1.35 and r>b*1.20 and g<145)
+        is_rope=(130<xx<595 and yy<54 and r>=64 and r>g*1.75 and r>b*1.44 and g<112 and b<125)
         if is_rope: draw.point((x,y),fill=255)
     finished=ImageChops.multiply(orig_alpha,hard)
     im.putalpha(finished)
