@@ -12,9 +12,20 @@ const report={engine,expectedCount,checks:[]};
 
 async function ready(page,path) {
   await page.goto(base+path,{waitUntil:"domcontentloaded",timeout:45000});
-  await page.waitForFunction(() => Boolean(window.__XJW_SITE_INITIALIZED__)
-    && document.documentElement.dataset.productIntroMode === "unified-catalog-modal-v1"
-    && Boolean(document.getElementById("product-modal")),null,{timeout:30000});
+  try {
+    await page.waitForFunction(() => Boolean(window.__XJW_SITE_INITIALIZED__)
+      && document.documentElement.dataset.productIntroMode === "unified-catalog-modal-v1"
+      && Boolean(document.getElementById("product-modal")),null,{timeout:30000});
+  } catch(error) {
+    const state=await page.evaluate(() => ({
+      page:document.body?.dataset?.page,
+      runtime:document.documentElement.dataset.xjwRuntime,
+      mode:document.documentElement.dataset.productIntroMode,
+      initialized:Boolean(window.__XJW_SITE_INITIALIZED__),
+      modal:Boolean(document.getElementById("product-modal"))
+    })).catch(() => ({}));
+    throw new Error("商品頁初始化失敗："+path+" "+JSON.stringify(state)+" "+error.message);
+  }
 }
 async function opened(page,name,detailHref) {
   await page.locator("#product-modal.show").waitFor({state:"visible",timeout:10000});
