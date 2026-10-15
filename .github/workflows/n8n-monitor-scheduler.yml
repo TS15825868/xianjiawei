@@ -108,9 +108,16 @@ jobs:
           const d=JSON.parse(fs.readFileSync('/tmp/partnercatalog','utf8'));
           const publicProducts=(d.products||[]).filter(p=>p.public===true);
           const ids=publicProducts.map(p=>p.id);
-          const expected=['jinan-sisheng-siwuyin','danshen-tea-collection'];
-          if(JSON.stringify(ids)!==JSON.stringify(expected)) throw new Error(`其他廠牌公開清單異常 ${JSON.stringify(ids)}`);
+          if(ids.length<1) throw new Error('其他廠牌公開清單空白');
+          if(ids.some(id=>typeof id!=='string'||!id.trim())) throw new Error('其他廠牌公開產品缺合法 ID');
           if(new Set(ids).size!==ids.length) throw new Error('其他廠牌公開產品 ID 重複');
+          // 新版核准商品可持續增加；舊版固定兩品數量不可阻止公開食品更新。
+          // 仍須防止沒有藥品刊播資格的藥物被當成一般食品公開。
+          for(const p of publicProducts){
+            if(/藥品|中藥成藥|中藥製劑/.test(String(p.category||''))&&
+               !(p.licenseVerification?.licenseNo&&p.medicineAdvertisingApproved===true))
+              throw new Error('未核准藥品不應進入一般公開商品卡：'+p.id);
+          }
           for(const p of publicProducts){
             if(!p.page || !p.image) throw new Error(`其他廠牌公開產品缺頁面或主圖：${p.id}`);
             if(p.onlineTransactionEligible===true) throw new Error(`資訊型其他廠牌商品不得誤開線上交易：${p.id}`);
