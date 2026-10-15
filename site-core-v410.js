@@ -371,7 +371,7 @@ function renderHome() {
   const grid=document.querySelector('.home-product-showcase__grid');
   const products=Array.isArray(SITE_DATA?.products)?SITE_DATA.products:[];
   if(grid&&products.length){
-    grid.innerHTML=products.map(product=>`<a href="${escapeAttribute(product.page||product.detailPage||'products.html')}"><img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(product.displayName||product.name)}正式主圖" loading="lazy" decoding="async"><span>${escapeHtml(product.displayName||product.name)}</span></a>`).join('');
+    grid.innerHTML=products.map(product=>`<a data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page||product.detailPage||'products.html')}"><img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(product.displayName||product.name)}正式主圖" loading="lazy" decoding="async"><span>${escapeHtml(product.displayName||product.name)}</span></a>`).join('');
   }
   document.querySelector('main')?.classList.add('home-v410');
 }
@@ -415,7 +415,7 @@ function renderProductsPage() {
         <p class="eyebrow">${escapeHtml(productDisplaySpec(product) || "產品規格")}</p>
         <h3>${escapeHtml(product.displayName || product.name || "產品")}</h3>
         <p>${escapeHtml(product.purpose || product.description || "")}</p>
-        <a class="btn btn-outline" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">查看介紹</a>
+        <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">查看介紹</a>
       </article>
     `).join("");
   }
@@ -438,9 +438,8 @@ function fillProducts(targetId, products, options = {}) {
     const name = product.displayName || product.name || "仙加味產品";
     const image = product.image || product.gallery?.[0] || "images/logo.png";
     const page = product.page || product.detailPage || "products.html";
-    const isSeries = Array.isArray(product.variants) && product.variants.length > 0;
     return `
-      <article class="product-card reveal" data-product-id="${escapeAttribute(product.id || "")}" tabindex="0" role="button" aria-label="查看${escapeAttribute(name)}介紹">
+      <article class="product-card reveal" data-product-id="${escapeAttribute(product.id || "")}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="開啟${escapeAttribute(name)}產品介紹跳窗">
         <div class="product-card__img">
           <img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}" loading="lazy" decoding="async">
         </div>
@@ -450,7 +449,7 @@ function fillProducts(targetId, products, options = {}) {
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
           <div class="product-card__actions">
-            <a class="btn btn-outline" ${isSeries ? 'data-product-page-direct="1"' : 'data-product-intro="1" aria-haspopup="dialog"'} href="${escapeAttribute(page)}">${isSeries ? `查看${product.variants.length}款介紹` : '查看介紹'}</a>
+            <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(page)}">查看介紹</a>
           </div>
         </div>
       </article>
@@ -891,11 +890,11 @@ function openProductModal(product, sourceElement) {
       <p class="modal-preview__spec"><strong>規格：</strong>${escapeHtml(spec)}</p>
       ${product.description ? `<p>${escapeHtml(product.description)}</p>` : ''}
       ${features.length ? listMarkup(features, '') : ''}
-      ${variants.length ? `<nav class="modal-variant-links" aria-label="六款茶包介紹">${variants.map(item => `<a data-product-page-direct="1" href="${escapeAttribute(product.page)}#${escapeAttribute(item.id)}">${escapeHtml(item.name)}</a>`).join('')}</nav>` : ''}
+      ${variants.length ? `<div class="modal-variant-links" aria-label="系列款式">${variants.map(item => `<span>${escapeHtml(item.name)}</span>`).join('')}</div>` : ''}
     </div>
 
     <div class="modal-actions">
-      ${(product.page || product.detailPage) ? `<a class="btn btn-outline" data-product-page-direct="1" href="${escapeAttribute(product.page || product.detailPage)}">${variants.length ? '查看全部款式與照片' : '查看完整商品頁'}</a>` : ""}
+      ${(product.page || product.detailPage) ? `<a class="btn btn-primary" data-product-page-direct="1" href="${escapeAttribute(product.page || product.detailPage)}">查看詳細</a>` : ""}
       ${product.informationOnly ? lineButton("LINE 商品與門市諮詢", `我想了解${name}的規格、包裝與門市資訊。`) : lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
     </div>
   `;
