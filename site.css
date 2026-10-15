@@ -175,3 +175,145 @@ body[data-page="product-detail"] .product-complete-grid>.card{min-width:0}
 .product-card__body{display:flex;flex-direction:column;flex:1}
 .product-card__actions{margin-top:auto;padding-top:12px}
 .product-card__img img{object-fit:contain}
+
+
+/* 仙加味產品跳窗｜山水金線正式視覺：獨立於頁面正文，產品原圖始終維持等比例。 */
+.product-modal__backdrop{
+  background:rgba(9,24,42,.77);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
+}
+.product-modal__panel{
+  isolation:isolate;
+  overflow:hidden;
+  border:1px solid rgba(181,143,74,.64);
+  border-top:5px solid #B08A47;
+  border-radius:22px;
+  background-color:#F7F4ED;
+  background-image:
+    linear-gradient(180deg,rgba(255,253,247,.94) 0%,rgba(247,244,237,.93) 55%,rgba(255,253,248,.97) 100%),
+    url("images/brand/decor-v20261003/mountains-center.webp");
+  background-repeat:no-repeat,no-repeat;
+  background-size:cover,100% auto;
+  background-position:center,center 6%;
+  box-shadow:0 28px 100px rgba(3,16,31,.37),0 0 0 5px rgba(225,209,176,.09);
+}
+.product-modal__panel:before{
+  content:"";
+  display:block;
+  position:absolute;
+  left:clamp(22px,6vw,78px);
+  top:0;
+  width:min(160px,28%);
+  height:4px;
+  background:linear-gradient(90deg,#682023 0%,#B08A47 65%,transparent 100%);
+  pointer-events:none;
+}
+.product-modal__close{
+  background:rgba(255,253,247,.96);
+  border-color:rgba(176,138,71,.52);
+  color:#682023;
+  box-shadow:0 5px 18px rgba(11,31,59,.09);
+}
+.product-modal__close:hover{background:#fff;border-color:#682023;color:#682023}
+.modal-intro{
+  position:relative;
+  padding:6px 0 20px;
+  border-bottom:1px solid rgba(176,138,71,.37);
+  text-align:center;
+}
+.modal-intro:after{
+  content:"";
+  display:block;
+  width:70px;
+  height:2px;
+  margin:17px auto 0;
+  background:linear-gradient(90deg,transparent,#B08A47,transparent);
+}
+.modal-intro .eyebrow{
+  color:#682023;
+  font-size:14px;
+  font-weight:760;
+  letter-spacing:.16em;
+}
+.modal-intro h2{
+  color:#0B1F3B;
+  text-shadow:0 1px 0 rgba(255,255,255,.85);
+  letter-spacing:.02em;
+}
+.modal-gallery{
+  max-width:650px;
+  margin:22px auto 0;
+}
+.modal-gallery__item{
+  position:relative;
+  overflow:hidden;
+  min-height:180px;
+  border:1px solid rgba(176,138,71,.35);
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(252,250,246,.96));
+  box-shadow:0 10px 30px rgba(11,31,59,.07),inset 0 0 0 5px rgba(247,244,237,.60);
+}
+.modal-gallery__item img{
+  position:relative;
+  z-index:1;
+  max-width:100%;
+  object-fit:contain;
+  filter:none;
+  transform:none;
+}
+.modal-preview{
+  max-width:650px;
+  margin:18px auto 0;
+  padding:20px clamp(18px,3vw,30px);
+  border:1px solid rgba(176,138,71,.24);
+  border-radius:16px;
+  background:rgba(255,253,247,.92);
+  box-shadow:0 7px 24px rgba(11,31,59,.04);
+  color:#172536;
+  line-height:1.86;
+  font-size:16px;
+}
+.modal-preview p{color:#253240}
+.modal-preview p:last-child{margin-bottom:0}
+.modal-preview__spec{color:#0B1F3B;font-size:16px}
+.modal-preview__spec strong{color:#682023}
+.modal-variant-links span{background:#F7F4ED;border-color:rgba(176,138,71,.37)}
+.modal-actions{
+  max-width:650px;
+  margin:22px auto 0;
+  padding:22px 0 0;
+  border-top:1px solid rgba(176,138,71,.32);
+}
+.modal-actions .btn{
+  min-height:50px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:760;
+  box-shadow:0 5px 14px rgba(11,31,59,.05);
+}
+.modal-actions .btn-primary{background-color:#682023;color:#fffdf7;border-color:#B08A47}
+.modal-actions .btn-primary:hover{background-color:#54191c}
+.modal-actions .btn-line{background-color:#314B3D;border-color:#B08A47;color:#fffdf7}
+.modal-actions .btn-line:hover{background-color:#203d30}
+@media(max-width:700px){
+  .product-modal__scroll{padding:8px 8px calc(18px + env(safe-area-inset-bottom))}
+  .product-modal__panel{
+    min-height:calc(100dvh - 16px);
+    border-radius:16px;
+    padding:12px 16px 26px;
+    background-size:cover,auto 82%;
+    background-position:center,center top;
+  }
+  .modal-intro{padding:10px 0 15px}
+  .modal-intro h2{font-size:clamp(23px,6.4vw,27px)}
+  .modal-gallery{margin-top:14px}
+  .modal-gallery__item{padding:10px;min-height:170px;border-radius:13px}
+  .modal-gallery__item img{max-height:min(36vh,290px)}
+  .modal-preview{margin-top:14px;padding:16px;font-size:15px;line-height:1.76}
+  .modal-actions{margin-top:18px;padding-top:18px;gap:10px}
+  .modal-actions .btn{min-height:48px;font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  .product-modal__backdrop{-webkit-backdrop-filter:none;backdrop-filter:none}
+}
