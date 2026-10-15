@@ -42,6 +42,14 @@ def run():
         if not 0.12<coverage<0.86:raise ValueError("Unsafe mask coverage: "+name)
         cut=original.crop(box);cut.putalpha(mask.crop(box))
         cut.thumbnail((730,600) if name.startswith("tea-") else (760,665),Image.Resampling.LANCZOS)
+        # Reusable transparent primary-image candidate: original product pixels and
+        # edges only. Do not bake scenery/white borders into transparent image.
+        # This file is for review, not wired into the live catalog automatically.
+        transparent_out=OUT/(p.stem+"-cutout.webp")
+        cut.save(transparent_out,"WEBP",lossless=True,method=6,exact=True)
+        check=Image.open(transparent_out)
+        if check.mode!="RGBA" or check.getchannel("A").getextrema()!=(0,255):
+            raise ValueError("Transparent output is not a genuine alpha cutout: "+name)
         x=(1000-cut.width)//2;y=788-cut.height
         shade=Image.new("RGBA",cut.size,(28,30,36,0))
         shade.putalpha(cut.getchannel("A").point(lambda a:int(a*.28)))
@@ -51,7 +59,7 @@ def run():
         frame.alpha_composite(cut,(x,y))
         out=OUT/(p.stem+"-hero.webp")
         frame.convert("RGB").save(out,"WEBP",quality=91,method=6)
-        records.append({"source":"images/partner-products/"+name,"hero":str(out.relative_to(ROOT)),"sourceSha256":hashlib.sha256(p.read_bytes()).hexdigest(),"originalPackagePixelsPreserved":True,"packageNotAIGenerated":True,"scaledWithAspectRatio":True,"humanReviewRequired":True})
+        records.append({"source":"images/partner-products/"+name,"hero":str(out.relative_to(ROOT)),"sourceSha256":hashlib.sha256(p.read_bytes()).hexdigest(),"originalPackagePixelsPreserved":True,"packageNotAIGenerated":True,"scaledWithAspectRatio":True,"transparentCutout":str(transparent_out.relative_to(ROOT)),"transparentCutoutAlphaVerified":True,"humanReviewRequired":True})
         contact.append((name,frame.convert("RGB")))
     canvas=Image.new("RGB",(4*320,math.ceil(len(contact)/4)*355),(247,244,237));pen=ImageDraw.Draw(canvas)
     for i,(name,pic) in enumerate(contact):
@@ -59,6 +67,6 @@ def run():
         canvas.paste(pic.resize((305,305),Image.Resampling.LANCZOS),(x+7,y+8))
         pen.text((x+8,y+321),name[:39],fill=(27,44,54))
     canvas.save(AUDIT/"site-hero-v20261016-contact.jpg",quality=91)
-    (OUT/"manifest.json").write_text(json.dumps({"reviewState":"visual-candidates-not-yet-linked-to-public-catalog","images":records},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    (OUT/"manifest.json").write_text(json.dumps({"reviewState":"cutout-and-hero-visual-candidates-not-yet-linked-to-public-catalog","images":records},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("Built",len(records),"original-photo candidate heroes; live catalog unaffected.")
 if __name__=="__main__":run()
