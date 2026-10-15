@@ -45,13 +45,16 @@ async function opened(page,name,detailHref) {
     const photo=modal.querySelector(".modal-gallery__item img");
     const intro=modal.querySelector(".modal-intro h2");
     const content=modal.querySelector(".modal-preview");
-    const css=getComputedStyle(panel),photoCss=getComputedStyle(photo),introCss=getComputedStyle(intro);
-    return {background:css.backgroundImage,borderTop:parseFloat(css.borderTopWidth),titleColor:introCss.color,
+    const css=getComputedStyle(panel),ornament=getComputedStyle(panel,'::after'),photoCss=getComputedStyle(photo),introCss=getComputedStyle(intro);
+    return {background:css.backgroundImage,ornament:ornament.backgroundImage,ornamentOpacity:parseFloat(ornament.opacity),borderTop:parseFloat(css.borderTopWidth),titleColor:introCss.color,
       photoFit:photoCss.objectFit,photoLoaded:photo.complete&&photo.naturalWidth>0,
       foreground:getComputedStyle(content).color,contentSize:parseFloat(getComputedStyle(content).fontSize),
       scrollWidth:document.documentElement.scrollWidth,viewport:innerWidth};
   });
   assert.match(artwork.background,/mountains-center\.webp/,"產品跳窗應延續仙加味山水紙感背景");
+  assert.match(artwork.ornament,/goji-top\.webp/,"產品跳窗邊角應使用仙加味既有草本裝飾");
+  assert.match(artwork.ornament,/deer-right\.webp/,"產品跳窗邊角應使用仙加味既有鹿紋裝飾");
+  assert.ok(artwork.ornamentOpacity>0&&artwork.ornamentOpacity<=0.13,"裝飾不得蓋住產品主圖與文字");
   assert.ok(artwork.borderTop>=4,"產品跳窗應有清楚的金色飾線");
   assert.equal(artwork.photoFit,"contain","產品原圖必須等比例完整呈現");
   assert.ok(artwork.photoLoaded,"商品跳窗主圖需正常載入");
