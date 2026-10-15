@@ -22,12 +22,9 @@
       "file": "images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",
       "sourceFile": "images/partner-products/jinan-vitality-front-original.jpg",
       "sourceSha256": "c7ae1de7262dd2e710ef663a1265b57347b3b9e21a0bb2ad91760eb995fdc934",
-      "sourceDimensions": [
-        864,
-        1536
-      ],
       "sourcePixelsPreserved": true,
-      "notice": "Manual original-photo silhouette and cord-color mask; no background model or AI packaging."
+      "intermediateMatteFile": "images/partner-product-design-review/guilu-vitality-cutout.png",
+      "notice": "Source-photo segmentation kept; store clutter removed from upper rows using cord-only hue mask."
     }
   ]
 }
