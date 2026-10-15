@@ -174,6 +174,38 @@ def main() -> None:
         if product["page"] not in listing:
             fail("partner product missing from search/listing metadata: " + product["id"])
 
+    # The homepage must show exactly the CURRENT approved public products.
+    # Do not hard-code an old count: new verified public products should
+    # automatically become required, and retired/internal-only items stay out.
+    homepage = (ROOT / "index.html").read_text(encoding="utf-8")
+    homepage_links = re.findall(
+        r'<a\\b[^>]*\\bhref="(product-[a-z0-9-]+\\.html)"[^>]*>\\s*'
+        r'<img\\b[^>]*\\bsrc="([^"]+)"',
+        homepage,
+    )
+    expected_home = {str(p["page"]): str(p["image"]).split("?", 1)[0]
+                     for p in own + public_partner}
+    observed_home = {}
+    for page, image in homepage_links:
+        if page in observed_home:
+            fail("duplicate homepage product: " + page)
+        observed_home[page] = image.split("?", 1)[0]
+    if set(observed_home) != set(expected_home):
+        missing = sorted(set(expected_home) - set(observed_home))
+        unexpected = sorted(set(observed_home) - set(expected_home))
+        fail("homepage public products differ from latest approved catalog: "
+             + "missing=" + repr(missing) + " retired/unapproved=" + repr(unexpected))
+    for page, image in expected_home.items():
+        if observed_home[page] != image:
+            fail("homepage uses stale/raw product photo instead of current "
+                 "approved source for " + page + ": " + observed_home[page])
+    # The static fallback must neither lose current product cards nor revive
+    # old/retired catalog entries.
+    static_ids = re.findall(r'data-fallback-product="([^"]+)"', listing)
+    if len(static_ids) != len(ids) or set(static_ids) != ids:
+        fail("static catalog has missing, duplicate or retired product cards: "
+             + repr(static_ids))
+
     core = (ROOT / "site-core-v410.js").read_text(encoding="utf-8")
     if "partner-catalog.json" not in core or "fillProducts('partner-product-list'" not in core:
         fail("dynamic partner catalog integration missing")
