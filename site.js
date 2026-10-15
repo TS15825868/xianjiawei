@@ -11,7 +11,7 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20261015-unified-catalog-modal-v6";
+  const VERSION = "20261015-unified-catalog-modal-v7";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
@@ -122,7 +122,7 @@
   }
   const PAGE=String(document.body?.dataset?.page||location.pathname.split("/").pop()?.replace(/\.html$/i,"")||"home").trim();
   const PRODUCT_DATA_PAGES=new Set(["products","product-detail","trial","dm"]);
-  const PRODUCT_UI_PAGES=new Set(["home","products","choose","combo","recipes","why-guilu","product-detail","trial","dm"]);
+  const PRODUCT_UI_PAGES=new Set(["home","products","choose","combo","recipes","why-guilu","product-detail","trial","dm","dm-retired"]);
   const VARIANT_PAGES=new Set(["products","product-detail"]);
   const MASCOT_PAGES=new Set(["choose","faq"]);
   const CLEANUP_PAGES=new Set(["home","products","knowledge","video"]);
