@@ -100,7 +100,7 @@ async function loadData() {
   if (!response.ok) throw new Error(`data.json 載入失敗：${response.status}`);
   SITE_DATA = await response.json();
   try {
-  const catalog = await fetch(`partner-catalog.json?v=20261015-four-treasures-label-v2`);
+  const catalog = await fetch(`partner-catalog.json?v=20261015-vitality-release-v1`);
   if (!catalog.ok) throw new Error(`partner-catalog HTTP ${catalog.status}`);
   const partner = await catalog.json();
   SITE_DATA.partnerProducts = (partner.products || []).filter(p => p.public === true && p.id && p.image && p.page && p.brand);
