@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-er-zhen-bao-distinct-food-item-staged",
+  "version": "2026-10-15-royalherb-erzhenbao-64-public",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -1349,11 +1349,9 @@
       "series": "御漢堂二珍寶",
       "businessClassification": "一般食品",
       "foodStatusSource": "使用者2026-10-15六張紫盒實拍，背標明示「食品」；原廠御漢堂網站將二珍寶列為64片正式品項",
-      "public": false,
-      "publicationStatus": "label-verified-awaiting-hosted-original-product-photo",
-      "publicationBlockers": [
-        "website-product-main-image-upload-not-yet-successful"
-      ],
+      "public": true,
+      "publicationStatus": "published-neutral-food-product-information-20261015",
+      "publicationBlockers": [],
       "informationOnly": true,
       "onlineTransactionEligible": false,
       "size": "600g±15g／盒｜64塊裝",
@@ -1447,7 +1445,16 @@
       ],
       "canonicalParentProductDifferentFrom": "uboss-sizhenbao（四珍寶，紅盒、有黨蔘／紅棗／枸杞成分，完全不同SKU）",
       "compliance": "不沿用外盒療效形容、舊建議售價或不確定的保險理賠保證；上架產品圖務必紫色二珍寶原廠盒裝實物。",
-      "pricePresentation": "LINE詢價（不得顯示實物盒上舊建議售價）"
+      "pricePresentation": "LINE詢價（不得顯示實物盒上舊建議售價）",
+      "page": "product-er-zhen-bao.html",
+      "image": "images/partner-products/er-zhen-bao-royalherb-original.webp",
+      "imageSourceStatus": "verified-original-manufacturer-webp-hosted-on-current-main",
+      "approvedImageGitSha": "b44d0577d2f23046b1e6341f3af7a6d6e3e633dc",
+      "imageFromOriginal": true,
+      "publicNeutralCopyReviewed": true,
+      "publicCopyPolicy": "不使用疾病療效文案及樣品建議售價；僅原廠盒裝食品標示與中性使用資訊",
+      "marketingClaimsApproved": false,
+      "fulfillmentNotice": "售價與供貨由仙加味官方LINE確認；官網不直接線上結帳"
     }
   ],
   "publicationRules": {
