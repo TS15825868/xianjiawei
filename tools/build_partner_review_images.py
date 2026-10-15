@@ -139,7 +139,12 @@ def main():
             name=item["id"]
             full.save(OUT/(name+".png"),optimize=True)
             cut.save(OUT/(name+"-cutout.png"),optimize=True)
-            record.update({"status":"pending_visual_review",
+            # Existing visual inspection found unrelated shop scenery in the
+            # vitality drink foreground; segmentation metrics cannot detect it.
+            # Keep it quarantined even if a later model passes numeric checks.
+            needs_cleanup = name == "guilu-vitality"
+            record.update({"status":("needs_manual_cleanup" if needs_cleanup else "pending_visual_review"),
+              "quality_note":("Previously observed unrelated objects retained above the original product; inspect and clean the real photo without repainting packaging." if needs_cleanup else "Manual product-edge and original-label review required"),
               "sha256_original":hashlib.sha256(photo.read_bytes()).hexdigest(),
               "main_preview":"images/partner-product-design-review/"+name+".png",
               "cutout":"images/partner-product-design-review/"+name+"-cutout.png",
