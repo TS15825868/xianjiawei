@@ -20,6 +20,7 @@
       "opaqueRatio": 0.8967,
       "transparentRatio": 0.0966,
       "sourcePixelsUnchanged": true,
+      "sitePathCandidate": "images/product-main/guilu-gao.png",
       "publicationStatus": "pending_visual_review"
     },
     {
@@ -33,6 +34,7 @@
       "opaqueRatio": 0.7888,
       "transparentRatio": 0.199,
       "sourcePixelsUnchanged": true,
+      "sitePathCandidate": "images/product-main/guilu-drink-30.png",
       "publicationStatus": "pending_visual_review"
     },
     {
@@ -46,6 +48,7 @@
       "opaqueRatio": 0.8796,
       "transparentRatio": 0.1114,
       "sourcePixelsUnchanged": true,
+      "sitePathCandidate": "images/product-main/guilu-drink-180.png",
       "publicationStatus": "pending_visual_review"
     },
     {
@@ -59,6 +62,7 @@
       "opaqueRatio": 0.8404,
       "transparentRatio": 0.1458,
       "sourcePixelsUnchanged": true,
+      "sitePathCandidate": "images/product-main/luerong-fen.png",
       "publicationStatus": "pending_visual_review"
     }
   ]
