@@ -4,7 +4,10 @@
   "rules": [
     "original physical product pixels retained",
     "no packaging redraw, no fake text, no distortion",
-    "transparent background cutouts must be reviewed before use"
+    "transparent background cutouts must be reviewed before use",
+    "product stays sharp; only backdrop/shadow may be softened",
+    "background tone selected to separate actual product color",
+    "label legibility and original product edge quality require human review"
   ],
   "items": [
     {
@@ -27,7 +30,9 @@
       "scaled_size": [
         720,
         650
-      ]
+      ],
+      "background_tone": "cream",
+      "product_median_luminance": 71.2
     },
     {
       "id": "danshen-tea-collection",
@@ -49,7 +54,9 @@
       "scaled_size": [
         718,
         559
-      ]
+      ],
+      "background_tone": "cool",
+      "product_median_luminance": 217.7
     },
     {
       "id": "guilu-vitality",
@@ -71,7 +78,9 @@
       "scaled_size": [
         591,
         685
-      ]
+      ],
+      "background_tone": "warm",
+      "product_median_luminance": 170.2
     },
     {
       "id": "uboss-sizhenbao",
@@ -93,7 +102,9 @@
       "scaled_size": [
         680,
         685
-      ]
+      ],
+      "background_tone": "warm",
+      "product_median_luminance": 136.3
     },
     {
       "id": "royalherb-erzhenbao-64",
@@ -115,7 +126,9 @@
       "scaled_size": [
         621,
         685
-      ]
+      ],
+      "background_tone": "cream",
+      "product_median_luminance": 67.0
     },
     {
       "id": "tea-danshen-leisure",
@@ -137,7 +150,9 @@
       "scaled_size": [
         534,
         554
-      ]
+      ],
+      "background_tone": "cool",
+      "product_median_luminance": 210.1
     },
     {
       "id": "tea-danshen-lotus",
@@ -159,7 +174,9 @@
       "scaled_size": [
         597,
         685
-      ]
+      ],
+      "background_tone": "cool",
+      "product_median_luminance": 208.3
     },
     {
       "id": "tea-danshen-refresh",
@@ -181,7 +198,9 @@
       "scaled_size": [
         545,
         685
-      ]
+      ],
+      "background_tone": "warm",
+      "product_median_luminance": 142.3
     },
     {
       "id": "tea-white-danshen",
@@ -203,7 +222,9 @@
       "scaled_size": [
         575,
         685
-      ]
+      ],
+      "background_tone": "warm",
+      "product_median_luminance": 167.7
     },
     {
       "id": "tea-wudahan",
@@ -225,7 +246,9 @@
       "scaled_size": [
         626,
         550
-      ]
+      ],
+      "background_tone": "cool",
+      "product_median_luminance": 236.7
     }
   ]
 }
