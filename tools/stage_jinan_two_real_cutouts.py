@@ -33,20 +33,6 @@ def strip_background_siwuyin():
     mask=Image.new("L",(w,h),0)
     pts=[(round(x*w/1477),round(y*h/1108)) for x,y in vertices]
     ImageDraw.Draw(mask).polygon(pts,fill=255)
-    # Remove miscellaneous store pixels near an already-clipped bag top.
-    # Only change transparency; the actual printed packaging stays untouched.
-    raw=im.load()
-    mp=mask.load()
-    for yy in range(min(h,round(h*28/1108))):
-        for xx in range(w):
-            if not mp[xx,yy]: continue
-            r,g,b,_=raw[xx,yy]
-            pink=(r>145 and r>g*1.13 and r>b*1.025)
-            rope=(r>65 and r>g*1.45 and r>b*1.25 and g<130)
-            seal=(w*.39<xx<w*.57 and r>110 and g>60
-                  and r>g*1.06 and g>b*1.13 and b<142)
-            if not (pink or rope or seal):
-                mp[xx,yy]=0
     # one-pixel edge feather, RGB never altered
     mask=mask.filter(ImageFilter.GaussianBlur(0.5))
     im.putalpha(mask)
@@ -70,8 +56,8 @@ def strip_background_vitality():
     draw=ImageDraw.Draw(hard)
     # body/lid silhouette on existing rembg foreground; shadows/studio objects
     # beyond source product are excluded. Coordinates scale with matte crop.
-    coords=[(0,94),(115,99),(220,98),(350,97),(500,103),(620,126),
-           (668,142),(668,485),(565,600),(91,685),(0,385)]
+    coords=[(0,82),(115,69),(220,64),(350,63),(500,72),(620,104),
+           (668,126),(668,485),(565,600),(91,685),(0,385)]
     draw.polygon([(int(x*w/668),int(y*h/685)) for x,y in coords],fill=255)
     # Recover dark burgundy rope pixels ABOVE the actual lid only. This is a
     # selective alpha operation on original photograph pixels, not painting.
@@ -84,17 +70,32 @@ def strip_background_vitality():
         xx=x*668/w; yy=y*685/h
         is_rope=(130<xx<595 and yy<100 and r>=64 and r>g*1.75 and r>b*1.44 and g<112 and b<125)
         if is_rope: draw.point((x,y),fill=255)
-    # The source segmentation included non-product shelf fragments above the
-    # lid. Above the roof only the genuine burgundy rope is allowed.
-    for y in range(min(h,round(h*105/685))):
-        for x in range(w):
-            if hard.getpixel((x,y))==0: continue
-            r,g,b,_=pix[x,y]
-            xx=x*668/w
-            is_actual_handle=(125<xx<600 and 64<=r<=211 and
-                              r>g*1.80 and r>b*1.48 and g<117 and b<126)
-            if not is_actual_handle: draw.point((x,y),fill=0)
     finished=ImageChops.multiply(orig_alpha,hard)
+    # Keep the connected product silhouette and attached real carrying cord;
+    # stray disconnected shelf remnants above the lid are discarded.
+    # Mask-only connectivity; RGB printing is preserved exactly.
+    from collections import deque
+    binary=finished.point(lambda n:255 if n>=70 else 0)
+    ww,hh=binary.size
+    mb=binary.load()
+    root=(ww//2,hh*3//5)
+    if mb[root[0],root[1]]==0:
+        raise ValueError("Lost central physical product in alpha")
+    seen=bytearray(ww*hh)
+    todo=deque([root])
+    seen[root[1]*ww+root[0]]=1
+    while todo:
+        xx,yy=todo.popleft()
+        for nx,ny in ((xx-1,yy),(xx+1,yy),(xx,yy-1),(xx,yy+1)):
+            if nx<0 or nx>=ww or ny<0 or ny>=hh: continue
+            i=ny*ww+nx
+            if seen[i] or not mb[nx,ny]: continue
+            seen[i]=1
+            todo.append((nx,ny))
+    fb=finished.load()
+    for yy in range(hh):
+        for xx in range(ww):
+            if not seen[yy*ww+xx]: fb[xx,yy]=0
     im.putalpha(finished)
     # Keep all true source product bytes beneath alpha; no content painting.
     bounds=finished.getbbox()
