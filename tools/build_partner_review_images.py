@@ -96,6 +96,10 @@ def make(original,session):
     coverage=sum(hard.histogram()[1:])/(w*h)
     if not 0.025<coverage<0.88:
         raise ValueError(f"alpha segmentation rejected: coverage {coverage:.3f}")
+    histogram=alpha.histogram()
+    opaque=sum(histogram[236:]) / max(1,sum(histogram[11:]))
+    if opaque < 0.82:
+        raise ValueError(f"alpha edge/detail quality rejected: opaque fraction {opaque:.3f}")
     # Source pixels from the EXACT original photo, never redraw words/packaging.
     cutout=rgb.copy()
     cutout.putalpha(alpha)
@@ -114,14 +118,17 @@ def make(original,session):
     image=Image.alpha_composite(background(tone).copy(),shadow)
     image.alpha_composite(cutout,(x,y))
     return image.convert("RGB"),cutout,{"width":w,"height":h,
-       "alpha_coverage":round(coverage,4),"foreground_box":box,
+       "alpha_coverage":round(coverage,4),"opaque_fraction":round(opaque,4),"foreground_box":box,
        "scaled_size":[cutout.width,cutout.height],
        "background_tone":tone,"product_median_luminance":product_luminance}
 
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
+    # Remove stale first-pass previews if their updated cutout does not pass quality gates.
+    for stale in OUT.glob("*.png"): stale.unlink()
+    if (OUT/"contact-sheet.jpg").exists(): (OUT/"contact-sheet.jpg").unlink()
     current=sources()
-    session=new_session("u2netp")
+    session=new_session("isnet-general-use")
     manifest=[]
     thumbnails=[]
     for item in current:
