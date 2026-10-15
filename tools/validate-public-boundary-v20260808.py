@@ -63,7 +63,7 @@ def main():
             assert has_modal_intro or has_inpage_details,f'{page}缺有效的產品詳情入口（跳窗或頁內資訊）'
             pid=PRODUCT_PAGE_IDS[page]
             media_row=media_products.get(pid) or {}
-            assert str(media_row.get('mainImage') or '').startswith('images/product-main/') and str(media_row.get('mainImage') or '').endswith('.jpg'),f'{page}媒體權威主圖不是product-main JPG'
+            assert str(media_row.get('mainImage') or '').startswith('images/product-main/') and str(media_row.get('mainImage') or '').endswith(('.png','.jpg')) and (ROOT/str(media_row.get('mainImage'))).is_file(),f'{page}媒體權威主圖不是現行有效 product-main PNG／JPG'
             details=media_row.get('detailImages') or []
             assert details and all(str(x).startswith('images/dm-final/') for x in details),f'{page}媒體權威缺正式dm-final詳細圖'
         if page=='product-guilu-gao.html':
