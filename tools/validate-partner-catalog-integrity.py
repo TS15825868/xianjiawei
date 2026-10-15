@@ -106,6 +106,15 @@ def main() -> None:
                 public_keys = PRIVATE_FIELDS.intersection(product.keys())
                 if public_keys:
                     fail("private pricing fields in public catalog: " + pid)
+                # Official public product picture must come from the real manufacturer
+                # photo library. Auto-generated/review-stage composites must never
+                # silently become the production source before human sign-off.
+                official_picture = product["image"].split("?", 1)[0]
+                if not official_picture.startswith("images/partner-products/") or (
+                    "/staging/" in official_picture or
+                    "/partner-product-design-review/" in official_picture
+                ):
+                    fail("public product uses unapproved preview/staging image: " + pid)
                 for extra in product.get("detailImages", []):
                     check_image(extra, name)
                 if FORBIDDEN_IMAGE_NAMES.search(" ".join(product.get("sourceFiles", []))):
