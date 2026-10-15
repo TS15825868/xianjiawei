@@ -78,7 +78,7 @@ def make(original,session):
     hard=alpha.point(lambda a:255 if a>=70 else 0)
     box=hard.getbbox()
     if box is None: raise ValueError("empty cutout")
-    coverage=sum(hard.histogram()[1:])/(255*w*h)
+    coverage=sum(hard.histogram()[1:])/(w*h)
     if not 0.025<coverage<0.88:
         raise ValueError(f"alpha segmentation rejected: coverage {coverage:.3f}")
     # Source pixels from the EXACT original photo, never redraw words/packaging.
