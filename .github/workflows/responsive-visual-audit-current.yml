@@ -533,7 +533,7 @@ jobs:
                     if(expected?.main&&!modalAudit.main.endsWith(expected.main)) report.errors.push({vp:vpName,page:pth,type:'modal-main-wrong',detail:{id,expected:expected.main,actual:modalAudit.main}});
                     if(expected?.page&&!modalAudit.detailHref.endsWith(expected.page)) report.errors.push({vp:vpName,page:pth,type:'modal-detail-link-wrong',detail:{id,expected:expected.page,actual:modalAudit.detailHref}});
                     if(!modalAudit.previewText.includes('規格：')) report.errors.push({vp:vpName,page:pth,type:'modal-spec-missing',detail:{id,text:modalAudit.previewText}});
-                    if(!modalAudit.detailText.includes('查看完整商品頁')) report.errors.push({vp:vpName,page:pth,type:'modal-detail-action-missing',detail:{id,text:modalAudit.detailText}});
+                    if(modalAudit.detailText.trim()!=='查看詳細') report.errors.push({vp:vpName,page:pth,type:'modal-detail-action-missing',detail:{id,text:modalAudit.detailText}});
                     if(!modalAudit.line) report.errors.push({vp:vpName,page:pth,type:'modal-line-missing',detail:{id}});
                     if(!modalAudit.mainBox?.width||!modalAudit.mainBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-main-hidden',detail:{id,box:modalAudit.mainBox}});
                     if(modalAudit.mainStyle?.transform!=='none'||modalAudit.mainStyle?.objectFit!=='contain') report.errors.push({vp:vpName,page:pth,type:'modal-main-transform-or-fit',detail:{id,style:modalAudit.mainStyle}});
