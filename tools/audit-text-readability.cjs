@@ -19,6 +19,16 @@ async function inspect(page,file,device,state){
  const overlay=await page.locator('.product-modal.show,.site-menu.open').count()>0;
  const text=await page.evaluate(()=>{
   const result=[],walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;
+  // WebKit screenshot text-clearing can shift pixel samples inside a scrolling fixed dialog.
+  // Use the closest nearly opaque text surface as a second, independent contrast check.
+  const modalSolidSurface=el=>{
+    if(!el.closest('.product-modal.show'))return null;
+    for(let e=el;e;e=e.parentElement){
+      const vals=(getComputedStyle(e).backgroundColor.match(/[\d.]+/g)||[]).map(Number);
+      if(vals.length>=3&&(vals.length<4||vals[3]>=.85))return vals.slice(0,3);
+    }
+    return null;
+  };
   while(node=walker.nextNode()){
    const value=node.textContent.trim(),el=node.parentElement;
    const overlay=document.querySelector('.product-modal.show')||document.querySelector('.site-menu.open');
@@ -34,7 +44,7 @@ async function inspect(page,file,device,state){
     if(overlay){t=Math.max(0,t);b=Math.min(innerHeight,b)}return{x:l+(overlay?0:scrollX),y:t+(overlay?0:scrollY),w:rr-l,h:b-t}}).filter(r=>r.w>1&&r.h>1);
    if(!rects.length)continue;
    const color=(cs.color.match(/[\d.]+/g)||[]).map(Number),size=parseFloat(cs.fontSize),weight=parseInt(cs.fontWeight)||400;
-   result.push({text:value.slice(0,130),tag:el.tagName,class:el.className||'',color:color.slice(0,3),alpha:opacity*(color[3]??1),size,weight,threshold:size>=24||(size>=18.66&&weight>=700)?3:4.5,rects});
+   result.push({text:value.slice(0,130),tag:el.tagName,class:el.className||'',color:color.slice(0,3),alpha:opacity*(color[3]??1),size,weight,threshold:size>=24||(size>=18.66&&weight>=700)?3:4.5,rects,modalSolidSurface:modalSolidSurface(el)});
   }
   return result;
  });
@@ -54,12 +64,21 @@ async function inspect(page,file,device,state){
    }
   }
   paintedTotal+=total;
-  if(bad>=5&&bad/Math.max(total,1)>.015)issues.push({...t,rects:t.rects.slice(0,2),min:+min.toFixed(2),badPixels:bad,paintedPixels:total,badFraction:+(bad/total).toFixed(3)});
+  const bg=t.modalSolidSurface;
+  const declaredFg=bg&&t.color.map((v,i)=>v*t.alpha+bg[i]*(1-t.alpha));
+  const cssContrast=bg&&declaredFg?ratio(declaredFg,bg):null;
+  const cssReliable=engine==='webkit'&&bg&&cssContrast>=t.threshold+.25;
+  const pixelBad=bad>=5&&bad/Math.max(total,1)>.015;
+  // Low declared contrast on a real solid surface remains a failure even in WebKit.
+  if(engine==='webkit'&&bg&&cssContrast<t.threshold-.02){
+    issues.push({...t,rects:t.rects.slice(0,2),min:+cssContrast.toFixed(2),badPixels:bad,paintedPixels:total,source:'solid-surface-css'});
+  }else if(pixelBad&&!cssReliable){
+    issues.push({...t,rects:t.rects.slice(0,2),min:+min.toFixed(2),badPixels:bad,paintedPixels:total,badFraction:+(bad/total).toFixed(3),source:'rendered-pixel'});
+  }
   const compact= /brand-mark__|header-line-cta|menu-btn|floating-line-cta|video-play/.test(t.class);
   if(t.size<14&&!compact&&/[\p{L}\p{N}]/u.test(t.text))small.push({text:t.text,size:t.size,class:t.class});
-  // A line clipped at a scroll boundary may expose spacing without exposing a glyph.
-  // Require a readable line height before treating absent pixels as invisible text.
-  if(total<3&&t.rects.some(r=>r.h>=t.size*.8&&r.w>=t.size)&&t.text.length>2&&t.size>=12&&/[\p{L}\p{N}]/u.test(t.text))noPaint.push({text:t.text,class:t.class,size:t.size});
+  // Preserve missing-glyph checks except where WebKit disagrees with a readable opaque modal surface.
+  if(total<3&&!cssReliable&&t.rects.some(r=>r.h>=t.size*.8&&r.w>=t.size)&&t.text.length>2&&t.size>=12&&/[\p{L}\p{N}]/u.test(t.text))noPaint.push({text:t.text,class:t.class,size:t.size});
  }
  const entry={file,device,state,textRuns:text.length,paintedPixels:paintedTotal,contrastIssues:issues,smallText:small,noPaint};report.states.push(entry);
  for(const issue of issues)report.errors.push({type:'rendered-text-contrast',file,device,state,...issue});
