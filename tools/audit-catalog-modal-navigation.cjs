@@ -36,8 +36,25 @@ async function opened(page,name,detailHref) {
   assert.equal((await detail.innerText()).trim(),"查看詳細","所有商品的詳細頁按鈕文字需一致");
   assert.equal(await detail.getAttribute("href"),detailHref);
   assert.equal(await page.locator('#product-modal .modal-variant-links a[href]').count(),0,"跳窗內不能藏第二組直通詳細頁入口");
+  const artwork=await page.locator("#product-modal").evaluate(modal=>{
+    const panel=modal.querySelector(".product-modal__panel");
+    const photo=modal.querySelector(".modal-gallery__item img");
+    const intro=modal.querySelector(".modal-intro h2");
+    const content=modal.querySelector(".modal-preview");
+    const css=getComputedStyle(panel),photoCss=getComputedStyle(photo),introCss=getComputedStyle(intro);
+    return {background:css.backgroundImage,borderTop:parseFloat(css.borderTopWidth),titleColor:introCss.color,
+      photoFit:photoCss.objectFit,photoLoaded:photo.complete&&photo.naturalWidth>0,
+      foreground:getComputedStyle(content).color,contentSize:parseFloat(getComputedStyle(content).fontSize),
+      scrollWidth:document.documentElement.scrollWidth,viewport:innerWidth};
+  });
+  assert.match(artwork.background,/mountains-center\.webp/,"產品跳窗應延續仙加味山水紙感背景");
+  assert.ok(artwork.borderTop>=4,"產品跳窗應有清楚的金色飾線");
+  assert.equal(artwork.photoFit,"contain","產品原圖必須等比例完整呈現");
+  assert.ok(artwork.photoLoaded,"商品跳窗主圖需正常載入");
+  assert.ok(artwork.contentSize>=15,"手機與桌機的商品介紹需保持可讀性");
+  assert.ok(artwork.scrollWidth<=artwork.viewport+3,"產品跳窗不得造成橫向溢位");
   assert.ok(await page.locator("#product-modal .modal-gallery img").count()>0,"跳窗需有正式產品主圖");
-  report.checks.push(name+"：跳窗＋唯一查看詳細");
+  report.checks.push(name+"：山水背景、正式主圖與唯一查看詳細");
   return detail;
 }
 async function close(page) {
