@@ -49,13 +49,13 @@ def source_image(relative):
     return path
 
 @lru_cache(maxsize=1)
-def background():
+def background(tone="cream"):
     path=ROOT/"images/brand/world-landscape-v20261008.webp"
     if path.exists():
         base=ImageOps.fit(Image.open(path).convert("RGBA"),(SIZE,SIZE))
-        base=Image.alpha_composite(base,Image.new("RGBA",(SIZE,SIZE),(247,244,237,146)))
+        base=Image.alpha_composite(base,Image.new("RGBA",(SIZE,SIZE),(*({"cream":(247,244,237),"warm":(242,231,215),"cool":(221,231,235)}[tone]),196)))
     else:
-        base=Image.new("RGBA",(SIZE,SIZE),(247,244,237,255))
+        base=Image.new("RGBA",(SIZE,SIZE),(*({"cream":(247,244,237),"warm":(242,231,215),"cool":(221,231,235)}[tone]),255))
     wash=Image.new("RGBA",(SIZE,SIZE))
     d=ImageDraw.Draw(wash)
     # Restrained brand gold/blue-gray scenery; no AI product objects.
@@ -68,6 +68,21 @@ def background():
                             outline=(180,144,82,alpha),width=2)
     wash=wash.filter(ImageFilter.GaussianBlur(3))
     return Image.alpha_composite(base,wash)
+
+def tone_for_product(cutout):
+    """Pick a background whose luminance separates from actual source product pixels."""
+    sample=cutout.copy()
+    sample.thumbnail((150,150))
+    data=[(r,g,b) for r,g,b,a in sample.getdata() if a>=230]
+    if len(data)<60:
+        raise ValueError("not enough opaque product pixels to assess contrast")
+    luminance=sorted(0.2126*r+0.7152*g+0.0722*b for r,g,b in data)
+    mid=luminance[len(luminance)//2]
+    # Very light packages need a visibly darker cool backdrop;
+    # dark products need light warm/cream backdrops.
+    if mid>=174: return "cool",round(mid,1)
+    if mid<=100: return "cream",round(mid,1)
+    return "warm",round(mid,1)
 
 def make(original,session):
     rgb=ImageOps.exif_transpose(original).convert("RGBA")
@@ -88,6 +103,7 @@ def make(original,session):
     cutout=cutout.crop((max(0,box[0]-margin),max(0,box[1]-margin),
                        min(w,box[2]+margin),min(h,box[3]+margin)))
     cutout.thumbnail((720,685),Image.Resampling.LANCZOS)
+    tone,product_luminance=tone_for_product(cutout)
     x=(SIZE-cutout.width)//2
     y=max(128,847-cutout.height)
     dark=Image.new("RGBA",cutout.size,(24,31,34,0))
@@ -95,11 +111,12 @@ def make(original,session):
     shadow=Image.new("RGBA",(SIZE,SIZE))
     shadow.alpha_composite(dark,(x+8,y+18))
     shadow=shadow.filter(ImageFilter.GaussianBlur(19))
-    image=Image.alpha_composite(background().copy(),shadow)
+    image=Image.alpha_composite(background(tone).copy(),shadow)
     image.alpha_composite(cutout,(x,y))
     return image.convert("RGB"),cutout,{"width":w,"height":h,
        "alpha_coverage":round(coverage,4),"foreground_box":box,
-       "scaled_size":[cutout.width,cutout.height]}
+       "scaled_size":[cutout.width,cutout.height],
+       "background_tone":tone,"product_median_luminance":product_luminance}
 
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
@@ -141,7 +158,10 @@ def main():
       "schema_version":1,"publication_status":"review_only_not_live",
       "rules":["original physical product pixels retained",
                "no packaging redraw, no fake text, no distortion",
-               "transparent background cutouts must be reviewed before use"],
+               "transparent background cutouts must be reviewed before use",
+               "product stays sharp; only backdrop/shadow may be softened",
+               "background tone selected to separate actual product color",
+               "label legibility and original product edge quality require human review"],
       "items":manifest},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     ok=sum(x["status"]=="pending_visual_review" for x in manifest)
     print(f"review previews: {ok}/{len(manifest)}")
