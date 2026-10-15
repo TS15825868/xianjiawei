@@ -65,10 +65,10 @@
       "ingredients": [
         "水","鹿角萃取物","龜板萃取物","枸杞","紅棗","黃耆","粉光蔘"
       ],
-      "usagePrimary": "每日 1 罐",
+      "usagePrimary": "每日 1–2 罐",
       "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
       "usage": [
-        "每日 1 罐",
+        "每日 1–2 罐",
         "可依個人需求調整",
         "可隔水加熱或溫熱飲用",
         "避免冰飲"
@@ -127,7 +127,7 @@
     "primaryAuthority": "public-product-master.json",
     "latestDataWins": true,
     "legacyMayNotOverride": true,
-    "drink30Usage": "每日 1 罐",
+    "drink30Usage": "每日 1–2 罐",
     "knowledgeProducts": 6,
     "approvedMediaProducts": 6,
     "deferredProductsInternalOnly": true
