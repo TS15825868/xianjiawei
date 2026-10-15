@@ -105,11 +105,10 @@ def render(pid,source_path,tone):
     if not source.is_file():
         raise ValueError("missing authoritative cutout "+source_path)
     original=Image.open(source)
-    if not original.has_transparency_data:
-        raise ValueError("not a real cutout "+source_path)
+    is_cutout = original.has_transparency_data
     im=ImageOps.exif_transpose(original).convert("RGBA")
     alpha=im.getchannel("A")
-    if alpha.getextrema()!=(0,255):
+    if is_cutout and alpha.getextrema()!=(0,255):
         raise ValueError("unverified alpha for "+source_path)
     fg=alpha.point(lambda x: 255 if x>=26 else 0).getbbox()
     if fg is None: raise ValueError("missing actual product silhouette: "+pid)
@@ -133,17 +132,30 @@ def render(pid,source_path,tone):
     return {"id":pid,"source":source_path,"sourceSHA256":hashlib.sha256(source.read_bytes()).hexdigest(),
             "output":str(out.relative_to(ROOT)),"sourceMode":original.mode,
             "sourceWholeProductPreserved":True,"productRedrawn":False,
-            "sourceAspectRatioPreserved":True,"reviewStatus":"candidate-only"}
+            "sourceAspectRatioPreserved":True,
+            "compositionMode":"transparent-cutout" if is_cutout else "full-original-photograph",
+            "requiresBackgroundCleanup":not is_cutout,
+            "reviewStatus":"candidate-only" if is_cutout else "candidate-only-needs-background-cleanup"}
 
 def main():
     if not LANDSCAPE.is_file(): raise ValueError("missing approved background image")
     OUT.mkdir(parents=True,exist_ok=True)
     products, public_card_count=products_to_render()
     results=[]
+    old_manifest=OUT/"manifest.json"
+    previous=json.loads(old_manifest.read_text(encoding="utf-8")) if old_manifest.is_file() else {}
+    existing={p["id"]:p for p in previous.get("products",[])}
     contact=Image.new("RGB",(4*320,math.ceil(len(products)/4)*357),(247,244,237))
     pen=ImageDraw.Draw(contact)
     for i,(pid,source,tone) in enumerate(products):
-        record=render(pid,source,tone)
+        old=existing.get(pid,{})
+        digest=hashlib.sha256((ROOT/source).read_bytes()).hexdigest()
+        if (old.get("source")==source and old.get("sourceSHA256")==digest
+                and old.get("output") and (ROOT/old["output"]).is_file()):
+            record=dict(old)
+            record["reusedExistingCandidate"]=True
+        else:
+            record=render(pid,source,tone)
         results.append(record)
         pic=Image.open(ROOT/record["output"]).convert("RGB")
         contact.paste(pic.resize((306,306),Image.Resampling.LANCZOS),((i%4)*320+7,(i//4)*357+7))
@@ -158,8 +170,11 @@ def main():
         "extraGroupedVariantSceneCount":len(results)-public_card_count,
         "additionalBrandLetteringOnImages":False,
         "sourceProductPixelsUnaltered":True,
+        "generationSuccessIsNotVisualApproval":True,
+        "needsBackgroundCleanup":[r["id"] for r in results if r.get("requiresBackgroundCleanup")],
         "products":results
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("PASS:",len(results),"real-photo scenic review candidates; public src attributes untouched")
 
 if __name__=="__main__":main()
+
