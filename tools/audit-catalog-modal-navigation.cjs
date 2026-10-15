@@ -36,6 +36,10 @@ async function opened(page,name,detailHref) {
   assert.equal((await detail.innerText()).trim(),"查看詳細","所有商品的詳細頁按鈕文字需一致");
   assert.equal(await detail.getAttribute("href"),detailHref);
   assert.equal(await page.locator('#product-modal .modal-variant-links a[href]').count(),0,"跳窗內不能藏第二組直通詳細頁入口");
+  await page.waitForFunction(() => {
+    const image=document.querySelector("#product-modal.show .modal-gallery__item img");
+    return Boolean(image?.complete && image.naturalWidth>0);
+  },null,{timeout:15000});
   const artwork=await page.locator("#product-modal").evaluate(modal=>{
     const panel=modal.querySelector(".product-modal__panel");
     const photo=modal.querySelector(".modal-gallery__item img");
