@@ -56,19 +56,19 @@ def strip_background_vitality():
     draw=ImageDraw.Draw(hard)
     # body/lid silhouette on existing rembg foreground; shadows/studio objects
     # beyond source product are excluded. Coordinates scale with matte crop.
-    coords=[(0,43),(115,35),(220,34),(350,35),(500,39),(620,71),
-           (668,103),(668,485),(565,600),(91,685),(0,385)]
+    coords=[(0,82),(115,69),(220,64),(350,63),(500,72),(620,104),
+           (668,126),(668,485),(565,600),(91,685),(0,385)]
     draw.polygon([(int(x*w/668),int(y*h/685)) for x,y in coords],fill=255)
     # Recover dark burgundy rope pixels ABOVE the actual lid only. This is a
     # selective alpha operation on original photograph pixels, not painting.
     pix=im.load()
-    top=int(70*h/685)
+    top=int(105*h/685)
     for y in range(top):
       for x in range(w):
         if orig_alpha.getpixel((x,y))<70: continue
         r,g,b,a=pix[x,y]
         xx=x*668/w; yy=y*685/h
-        is_rope=(130<xx<595 and yy<54 and r>=64 and r>g*1.75 and r>b*1.44 and g<112 and b<125)
+        is_rope=(130<xx<595 and yy<100 and r>=64 and r>g*1.75 and r>b*1.44 and g<112 and b<125)
         if is_rope: draw.point((x,y),fill=255)
     finished=ImageChops.multiply(orig_alpha,hard)
     im.putalpha(finished)
