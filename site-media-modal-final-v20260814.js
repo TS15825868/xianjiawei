@@ -1,6 +1,6 @@
 "use strict";
 (()=>{
-  const VERSION='20260930-main-dm-v13';
+  const VERSION='20261015-unified-catalog-modal-v1';
   const BASE=location.pathname.includes('/xianjiawei/')?'/xianjiawei':'';
   const DM30=`${BASE}/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=${VERSION}`;
   const TRIAL=`${BASE}/images/trial/trial-poster-small-boss-official-v20260814.jpg?v=${VERSION}`;
@@ -16,8 +16,26 @@
   };
   const currentProduct=()=>findProduct(location.href);
   const findProductByCard=element=>{
-    const card=element?.closest?.('[data-product-id]');
-    return card?products().find(product=>product.id===card.dataset.productId):null;
+    const card=element?.closest?.('[data-product-id],[data-fallback-product]');
+    if(!card)return null;
+    const id=card.dataset.productId||card.dataset.fallbackProduct;
+    const matched=products().find(product=>product.id===id);
+    if(matched)return matched;
+    // 若動態商品目錄暫時無法讀取，既有經核准的 HTML 備援卡仍可使用同一跳窗。
+    if(!card.dataset.fallbackProduct)return null;
+    const anchor=card.querySelector('.product-card__actions a[href],.product-card__img a[href]');
+    const href=anchor?.getAttribute('href')||'';
+    const verified=href&&findProduct(href);
+    if(verified)return verified;
+    if(!/^product-[a-z0-9-]+\.html$/i.test(href))return null;
+    const name=card.querySelector('h3')?.textContent?.trim()||'';
+    const image=card.querySelector('.product-card__img img')?.getAttribute('src')||'';
+    if(!name||!image)return null;
+    return {id,name,displayName:name,image,page:href,
+      size:card.querySelector('.muted')?.textContent?.replace(/^規格[：:]\s*/,'').trim()||'',
+      category:card.querySelector('.eyebrow')?.textContent?.trim()||'',
+      brandType:card.closest('#partner-brand-catalog')?'partner':'own',
+      informationOnly:!!card.closest('#partner-brand-catalog')};
   };
 
   function fixDm(){
@@ -78,18 +96,11 @@
     button.removeAttribute('aria-haspopup');
   }
 
-  // 系列商品需進入完整頁；跳窗內所有導覽必須保留原生連結，
-  // 避免「查看全部款式與照片」被改寫成「查看介紹」後重新開同一個跳窗。
-  function isGroupedProductLink(anchor){
-    const href=anchor?.getAttribute?.('href')||'';
-    const product=findProduct(href);
-    return Boolean(product && Array.isArray(product.variants) && product.variants.length)
-      || cleanFile(href)==='product-danshen-tea.html';
-  }
+  // 所有商品（包含茶包系列）進入統一跳窗；只有跳窗內「查看詳細」保留前往完整頁。
 
   function normalizeIntroActions(root=document){
     root.querySelectorAll('a[href*="product-"]').forEach(anchor=>{
-      if(anchor.closest('.breadcrumb,#product-modal') || anchor.dataset.productPageDirect === '1' || isGroupedProductLink(anchor)){
+      if(anchor.closest('.breadcrumb,#product-modal') || anchor.dataset.productPageDirect === '1'){
         anchor.removeAttribute('data-product-intro');
         anchor.removeAttribute('aria-haspopup');
         return;
@@ -134,15 +145,34 @@
     const target=event.target.closest('[data-product-intro="1"]');
     if(!target)return;
     // 捕捉階段也要放行系列頁及跳窗內連結，避免舊標記殘留造成重開跳窗。
-    if(target.closest('#product-modal') || target.dataset.productPageDirect === '1' || isGroupedProductLink(target))return;
+    // 跳窗內的「查看詳細」是唯一完整商品頁入口，保持正常跳轉，不重開跳窗。
+    if(target.closest('#product-modal') || target.dataset.productPageDirect === '1')return;
     openIntro(target,event);
+  },true);
+
+  // 未被動態資料取代的備援卡，點主圖、文字區與鍵盤 Enter/Space 也先進跳窗。
+  document.addEventListener('click',event=>{
+    if(event.target.closest('a,button,input,select,textarea'))return;
+    const card=event.target.closest('.product-card[data-fallback-product]');
+    if(card)openIntro(card,event);
+  },true);
+  document.addEventListener('keydown',event=>{
+    if(!['Enter',' '].includes(event.key))return;
+    const card=event.target.closest('.product-card[data-fallback-product]');
+    if(!card||event.target!==card)return;
+    event.preventDefault();
+    openIntro(card,event);
   },true);
 
   function enforce(){
     fixDm();
     fixTrial();
     normalizeIntroActions();
-    document.documentElement.dataset.productIntroMode='single-modal-v13';
+    document.querySelectorAll('.product-card[data-fallback-product]').forEach(card=>{
+      card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-haspopup','dialog');
+      card.setAttribute('aria-label','開啟'+(card.querySelector('h3')?.textContent?.trim()||'商品')+'產品介紹跳窗');
+    });
+    document.documentElement.dataset.productIntroMode='unified-catalog-modal-v1';
   }
   let queued=false;
   const observer=new MutationObserver(mutations=>{
