@@ -9,7 +9,7 @@ on:
       - "images/partner-products/**"
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: xjw-partner-product-physical-photo-review
@@ -51,15 +51,6 @@ jobs:
           path: images/partner-product-design-review/
           if-no-files-found: warn
           retention-days: 30
-      - name: Save images to REVIEW-ONLY area without changing live catalog
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add images/partner-product-design-review/
-          if git diff --cached --quiet; then
-            echo "No review image changes"
-            exit 0
-          fi
-          git commit -m "chore(images): save partner real-photo cutouts for visual review [skip ci]"
-          git pull --rebase origin main
-          git push origin HEAD:main
+      # Intentionally do not commit generated output to main. Images are kept
+      # as review artifacts, protecting the current catalog and avoiding
+      # conflicts with concurrent author updates. Human approval is required.
