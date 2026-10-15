@@ -23,35 +23,40 @@ jobs:
         shell: bash
         run: |
           python3 - <<'PY'
-          import json, pathlib, urllib.request, time
+          import json, pathlib, subprocess
           cfg = json.loads(pathlib.Path("ops/import-royalherb-erzhenbao.json").read_text(encoding="utf-8"))
           url = cfg["image"]["url"]
           dest = cfg["image"]["target"]
           prefix = "https://royalherb.com.tw/wp-content/uploads/2026/08/"
-          assert url.startswith(prefix) and url.endswith(".webp"), "Original manufacturer domain required"
-          assert dest == "images/partner-products/er-zhen-bao-royalherb-original.webp", "Only the approved original path"
-          request = urllib.request.Request(url, headers={"User-Agent":"XianjiaweiOriginalImageImport/1.0"})
+          assert url.startswith(prefix) and url.endswith(".webp"), "Official image source required"
+          assert dest == "images/partner-products/er-zhen-bao-royalherb-original.webp", "Only approved output path"
+          sources = [
+            url,
+            "https://i0.wp.com/" + url.removeprefix("https://")
+          ]
+          tmp = pathlib.Path("/tmp/royalherb-erzhenbao-download.webp")
           payload = None
-          for attempt in range(3):
+          for candidate in sources:
               try:
-                  with urllib.request.urlopen(request, timeout=28) as response:
-                      length = response.headers.get("Content-Length")
-                      if length and int(length) > 9_000_000:
-                          raise ValueError("Oversized original")
-                      payload = response.read(9_000_001)
-                  if len(payload) > 9_000_000 or len(payload) < 8_000:
-                      raise ValueError("Original image size outside bounds")
-                  if payload[:4] != b"RIFF" or payload[8:12] != b"WEBP":
-                      raise ValueError("Not a real WebP; do not commit HTML/placeholder")
+                  subprocess.run(["curl","-4","-fLsS","--connect-timeout","8","--max-time","27",
+                      "-A","Mozilla/5.0 XianjiaweiProductOriginal/1.0",
+                      "--output",str(tmp),candidate],check=True,timeout=33)
+                  data = tmp.read_bytes()
+                  if len(data) < 8000 or len(data)>9_000_000:
+                      raise ValueError("Unexpected original image size")
+                  if data[:4] != b"RIFF" or data[8:12] != b"WEBP":
+                      raise ValueError("Returned content is not the official WebP image")
+                  payload = data
+                  print("Original image obtained using verified source",candidate.split("/")[2])
                   break
-              except Exception:
-                  if attempt == 2:
-                      raise
-                  time.sleep(3)
+              except Exception as exc:
+                  print("Image source unavailable:",candidate.split("/")[2],str(exc)[:220])
+          if payload is None:
+              raise RuntimeError("Manufacturer photo could not be imported; cannot publish without a valid image")
           output = pathlib.Path(dest)
-          output.parent.mkdir(parents=True, exist_ok=True)
+          output.parent.mkdir(parents=True,exist_ok=True)
           output.write_bytes(payload)
-          print("Approved manufacturer original fetched", len(payload), "bytes")
+          print("Original product photo bytes:",len(payload))
           PY
       - name: Commit authenticated manufacturer original
         shell: bash
