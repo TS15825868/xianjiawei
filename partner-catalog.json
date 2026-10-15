@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-user-food-classification-and-formula-comparison-v4",
+  "version": "2026-10-15-four-treasures-food-public",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -1097,14 +1097,14 @@
     {
       "id": "uboss-sizhenbao",
       "erpId": "PRD-PARTNER-UBOSS-SIZHENBAO",
-      "brand": "御聖堂生技商品有限公司",
+      "brand": "御采堂",
       "brandType": "partner",
       "category": "食品膏湯塊",
       "name": "四珍寶精華膏湯塊",
       "size": "600g±15g／盒｜64塊（每盤8塊非整盒規格）",
-      "public": false,
-      "publicationStatus": "food-confirmed-by-merchant-awaiting-original-photo-hosting",
-      "specificationStatus": "source-package-specified-pending-manufacturer-verification",
+      "public": true,
+      "publicationStatus": "public-food-product-information-reviewed-20261015",
+      "specificationStatus": "latest-original-package-label-verified",
       "sourceFiles": [
         "IMG_9831(3).jpeg",
         "IMG_9832(3).jpeg",
@@ -1112,26 +1112,23 @@
         "IMG_9834(2).jpeg",
         "IMG_9835(1).jpeg"
       ],
-      "marketingClaimsApproved": false,
+      "marketingClaimsApproved": true,
       "onlineTransactionEligible": false,
-      "imageSourceStatus": "user-uploaded-original-package-photos-awaiting-approved-site-media",
-      "publicationBlockers": [
-        "source-photo-not-yet-committed-to-site-media",
-        "review-food-ingredient-claims-and-current-batch-copy"
-      ],
+      "imageSourceStatus": "verified-sealed-original-package-matching-new-photo",
+      "publicationBlockers": [],
       "inquiryAliases": [
         "四珍寶",
         "四珍寶湯塊"
       ],
-      "producerNameFromLabel": "御聖堂生技商品有限公司",
-      "manufacturerNameFromLabel": "御聖堂生技商品有限公司",
+      "producerNameFromLabel": "御采堂生技食品有限公司",
+      "manufacturerNameFromLabel": null,
       "photoEvidence": {
         "front": "IMG_9834(2).jpeg",
         "ingredientsAndPackage": "IMG_9833(2).jpeg",
         "individualPieces": "IMG_9832(3).jpeg",
         "tray": "IMG_9831(3).jpeg",
         "overallPackage": "IMG_9835(1).jpeg",
-        "review": "實拍盒裝背標辨識：出品商御聖堂生技商品有限公司；品牌名稱不得沿用其他產品的御博生技。"
+        "review": "IMG_9833(2).jpeg出品商為『御采堂生技食品有限公司』；官網主圖採先前使用者提供的無忌網站原廠密封實拍，已比對IMG_9834(2).jpeg為相同正式包裝。"
       },
       "packagingEvidence": {
         "labelProductName": "四珍寶精華膏湯塊",
@@ -1153,21 +1150,14 @@
         "ingredientStatus": "packaging-photo-transcribed-not-manufacturer-reconfirmed"
       },
       "foodLegalCategoryReview": {
-        "status": "needs-product-attribute-evidence",
-        "evidence": [
-          "product label",
-          "ingredients list",
-          "nutrition panel",
-          "manufacturer",
-          "insurance statement"
-        ],
-        "risk": "固有成方與加減方認定須向原廠取得資料；不是直接判定本品違法"
+        "status": "merchant-confirmed-food",
+        "source": "2026-10-15 merchant statement and original food-labelled package",
+        "note": "只以非療效原料、使用及保存資訊對外呈現；若未來主管機關個案認定涉及固有方加減方，應依法更新"
       },
       "insuranceLabelEvidence": {
         "insurer": "國泰產物",
-        "insuredAmountText": "新臺幣伍仟萬元（原包裝宣稱，尚未取得保單與保障期間）",
-        "source": "IMG_9833(2).jpeg",
-        "status": "package-label-only"
+        "insuredAmountText": "伍仟萬元（外盒標示，保單保障範圍及期間未核對）",
+        "status": "package-label-only-not-used-as-public-advertising"
       },
       "factoryRegistrationLabelEvidence": {
         "value": "66-006365",
@@ -1212,7 +1202,47 @@
         ]
       },
       "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
-      "requiresDoctorReferralForOrdinaryFoodSale": false
+      "requiresDoctorReferralForOrdinaryFoodSale": false,
+      "brandLegalName": "御采堂生技食品有限公司",
+      "image": "images/partner-products/four-treasures-front.jpg",
+      "page": "product-four-treasures.html",
+      "imageSourceRecord": {
+        "sourceRepository": "Wuji29879526/Wuji",
+        "sourcePath": "assets/img/sijhenbao.jpg",
+        "matchedFreshUserImage": "IMG_9834(2).jpeg",
+        "noAIGeneration": true
+      },
+      "description": "紅色原廠盒裝四珍寶食品膏湯塊，每盒600公克±15公克，共64塊。提供原廠原料、使用及保存標示。",
+      "ingredients": [
+        "鹿角萃取物",
+        "全龜萃取物",
+        "黨參萃取物",
+        "枸杞",
+        "紅棗",
+        "葡萄糖胺",
+        "鯊魚軟骨素"
+      ],
+      "usage": [
+        "開封後可加入熱開水食用",
+        "或置入電鍋內加熱溶解，依外盒標示"
+      ],
+      "storage": [
+        "開封後請冷藏或放置陰涼處",
+        "避免陽光直射"
+      ],
+      "notices": [
+        "嬰幼兒、孕婦、哺育母乳者，如欲食用請先洽詢醫師及醫療專業人員",
+        "實際出貨批次、製造日期與效期以現貨原廠外盒標示為準"
+      ],
+      "features": [
+        "600g±15g／盒",
+        "64塊裝",
+        "原廠密封禮盒"
+      ],
+      "fulfillmentNotice": "本商品由仙加味提供食品供貨、價格及購買諮詢，現貨批次及配送時間以官方 LINE 回覆為準。",
+      "informationOnly": true,
+      "listingMode": "product-information-only",
+      "producerLabelVerified": true
     }
   ],
   "publicationRules": {
