@@ -1,4 +1,4 @@
-/* release: 20261008-readable-v49 */
+/* release: 20261015-product-modal-landscape-v50 */
 /* 仙加味｜全站山水設計系統。版面、色彩與互動元件只有一個來源。
    場景在 main 本身繪製，不依賴負 z-index、fixed 背景或卡片遮罩。 */
 :root{color-scheme:light;--cream:#F7F4ED;--paper:#fffdf7;--navy:#0B1F3B;--red:#682023;--gold:#B08A47;--green:#314B3D;--ink:#172536;--muted:#35413f;--rule:rgba(104,80,40,.25);--max:1180px;--bg:var(--cream);--text:var(--ink);--brand:var(--navy);--brand-2:var(--red);--accent:var(--red)}
@@ -191,11 +191,12 @@ body[data-page="product-detail"] .product-complete-grid>.card{min-width:0}
   border-radius:22px;
   background-color:#F7F4ED;
   background-image:
-    linear-gradient(180deg,rgba(255,253,247,.94) 0%,rgba(247,244,237,.93) 55%,rgba(255,253,248,.97) 100%),
+    radial-gradient(ellipse at 82% 8%,rgba(211,174,107,.20),transparent 43%),
+    linear-gradient(180deg,rgba(255,253,247,.92) 0%,rgba(247,244,237,.88) 55%,rgba(255,253,248,.97) 100%),
     url("images/brand/decor-v20261003/mountains-center.webp");
-  background-repeat:no-repeat,no-repeat;
-  background-size:cover,100% auto;
-  background-position:center,center 6%;
+  background-repeat:no-repeat,no-repeat,no-repeat;
+  background-size:cover,cover,100% auto;
+  background-position:center,center,center 6%;
   box-shadow:0 28px 100px rgba(3,16,31,.37),0 0 0 5px rgba(225,209,176,.09);
 }
 .product-modal__panel:before{
@@ -209,6 +210,23 @@ body[data-page="product-detail"] .product-complete-grid>.card{min-width:0}
   background:linear-gradient(90deg,#682023 0%,#B08A47 65%,transparent 100%);
   pointer-events:none;
 }
+/* 山水留在面板背景，花草鹿紋只作淡雅邊飾，文字與產品原圖位於上層。 */
+.product-modal__panel::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:240px;
+  pointer-events:none;
+  z-index:0;
+  opacity:.12;
+  background:
+    url("images/brand/decor-v20261003/goji-top.webp") left -42px top -34px / 230px auto no-repeat,
+    url("images/brand/decor-v20261003/deer-right.webp") right -38px top -8px / 194px auto no-repeat;
+}
+#product-modal-body{position:relative;z-index:1}
+.product-modal__panel .product-modal__close{z-index:4}
 .product-modal__close{
   background:rgba(255,253,247,.96);
   border-color:rgba(176,138,71,.52);
@@ -302,8 +320,14 @@ body[data-page="product-detail"] .product-complete-grid>.card{min-width:0}
     min-height:calc(100dvh - 16px);
     border-radius:16px;
     padding:12px 16px 26px;
-    background-size:cover,auto 82%;
-    background-position:center,center top;
+    background-size:cover,cover,auto 82%;
+    background-position:center,center,center top;
+  }
+  .product-modal__panel::after{
+    height:155px;
+    opacity:.075;
+    background-size:148px auto,130px auto;
+    background-position:left -30px top -20px,right -32px top -6px;
   }
   .modal-intro{padding:10px 0 15px}
   .modal-intro h2{font-size:clamp(23px,6.4vw,27px)}
