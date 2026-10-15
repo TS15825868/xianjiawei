@@ -123,5 +123,5 @@ async function inspect(page,file,device,state){
     await page.locator('#product-modal-close').click();}}
   }catch(e){report.errors.push({type:'exception',file,device,message:e.message});console.error(file,device,e.message)}finally{await page.close()}}
   await context.close();
- }}finally{await browser.close();if(server)await new Promise(r=>server.close(r));fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({engine,states:report.states.length,errors:report.errors.length,warnings:report.warnings.length}));if(report.errors.length)process.exitCode=1;}
+ }}finally{await browser.close();if(server)await new Promise(r=>server.close(r));fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({engine,states:report.states.length,errors:report.errors.length,warnings:report.warnings.length}));if(report.errors.length){console.error(JSON.stringify({validationErrors:report.errors},null,2));process.exitCode=1;}}
 })().catch(e=>{console.error(e);process.exitCode=1});

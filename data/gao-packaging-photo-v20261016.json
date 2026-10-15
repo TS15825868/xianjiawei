@@ -1,0 +1,26 @@
+{
+  "version": "20261016-real-gao-packaging",
+  "productId": "guilu-gao",
+  "sourceArchive": "產品原圖&原物料(10).zip",
+  "originalFilename": "IMG_6137.heic",
+  "source": "images/product-main/gao-packaging-v20261016/box-jar-original.jpg",
+  "composition": "images/product-main/gao-packaging-v20261016/box-jar-scene.webp",
+  "background": "images/product-main/gao-packaging-v20261016/scene-background.webp",
+  "productPixels": "original photograph only, proportional resize, manual alpha outline, no generative product pixels",
+  "sameShotRelativeProportions": true,
+  "placement": {
+    "width": 910,
+    "x": 105,
+    "y": 325,
+    "canvasWidth": 1122,
+    "canvasHeight": 1402
+  },
+  "maskCoordinateSystem": {
+    "width": 2048,
+    "height": 1152
+  },
+  "maskPath": "M524 270 L704 125 L1066 155 L1085 177 L1076 639 L972 784 L628 696 Z M1115 310 C1115 263 1207 215 1309 220 C1410 219 1507 263 1520 316 C1524 351 1510 407 1487 436 L1479 464 L1523 495 L1499 604 L1440 773 Q1436 794 1416 804 L1324 856 Q1310 861 1296 856 L1122 810 Q1112 805 1107 789 L1082 688 L1086 445 L1100 399 L1123 386 Z",
+  "use": "detail-gallery only; existing approved main unchanged",
+  "visualReview": "source compared, text and package retained; full original linked for inspection",
+  "noStandaloneBoxInvented": true
+}
