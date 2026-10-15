@@ -70,8 +70,8 @@ def strip_background_vitality():
     draw=ImageDraw.Draw(hard)
     # body/lid silhouette on existing rembg foreground; shadows/studio objects
     # beyond source product are excluded. Coordinates scale with matte crop.
-    coords=[(0,82),(115,69),(220,64),(350,63),(500,72),(620,104),
-           (668,126),(668,485),(565,600),(91,685),(0,385)]
+    coords=[(0,94),(115,99),(220,98),(350,97),(500,103),(620,126),
+           (668,142),(668,485),(565,600),(91,685),(0,385)]
     draw.polygon([(int(x*w/668),int(y*h/685)) for x,y in coords],fill=255)
     # Recover dark burgundy rope pixels ABOVE the actual lid only. This is a
     # selective alpha operation on original photograph pixels, not painting.
@@ -86,7 +86,7 @@ def strip_background_vitality():
         if is_rope: draw.point((x,y),fill=255)
     # The source segmentation included non-product shelf fragments above the
     # lid. Above the roof only the genuine burgundy rope is allowed.
-    for y in range(min(h,round(h*66/685))):
+    for y in range(min(h,round(h*105/685))):
         for x in range(w):
             if hard.getpixel((x,y))==0: continue
             r,g,b,_=pix[x,y]
