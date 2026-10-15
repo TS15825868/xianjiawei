@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-partner-food-photo-label-evidence-v2",
+  "version": "2026-10-15-food-label-insurance-and-ingredient-classification-v3",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -631,7 +631,7 @@
       "category": "食品飲品",
       "name": "龜鹿活力飲",
       "public": false,
-      "publicationStatus": "awaiting-food-image-and-ad-review",
+      "publicationStatus": "awaiting-food-product-attribute-confirmation-and-image-publication",
       "specificationStatus": "source-package-specified-pending-manufacturer-verification",
       "sourceFiles": [
         "IMG_8899(2).jpeg",
@@ -646,10 +646,9 @@
       "size": "60mL×12罐／盒（依本次實拍外盒）",
       "packagingName": "龜鹿活力飲（葡萄糖胺）",
       "publicationBlockers": [
-        "original-package-claims-must-be-reviewed-under-food-advertising-rules",
-        "front-and-label-photos-not-hosted-as-approved-website-assets",
-        "confirm-current-batch-and-product-name-with-manufacturer",
-        "final-neutral-public-copy-not-yet-approved"
+        "manufacturer-product-attribute-evidence-needed-due-to-cervine-turtle-food-materials",
+        "approved-original-media-not-yet-hosted",
+        "current-batch-and-original-manufacturer-confirmation"
       ],
       "photoEvidence": {
         "front": "IMG_8899(2).jpeg",
@@ -679,6 +678,31 @@
         "observedStampMeaning": "樣品包裝照片顯示，不能視為目前販售批次效期",
         "source": "IMG_8902(2).jpeg",
         "ingredientStatus": "packaging-photo-transcribed-not-manufacturer-reconfirmed"
+      },
+      "foodLegalCategoryReview": {
+        "status": "needs-product-attribute-evidence",
+        "evidence": [
+          "product label",
+          "ingredients list",
+          "nutrition panel",
+          "manufacturer",
+          "insurance statement"
+        ],
+        "risk": "固有成方與加減方認定須向原廠取得資料；不是直接判定本品違法"
+      },
+      "insuranceLabelEvidence": {
+        "insuredAmountText": "新臺幣1000萬元（原包裝宣稱，尚未取得保單與保障期間）",
+        "source": "IMG_8902(2).jpeg",
+        "status": "package-label-only"
+      },
+      "foodAdvertisingPhraseReview": {
+        "annexOneCommonExpressions": [
+          "調整體質",
+          "滋補強身",
+          "增強體力",
+          "養顏美容"
+        ],
+        "status": "generally-allowed-wording-verify-whole-ad-not-auto-block"
       }
     },
     {
@@ -991,7 +1015,7 @@
       "name": "四珍寶精華膏湯塊",
       "size": "600g±15g／盒｜64塊（每盤8塊非整盒規格）",
       "public": false,
-      "publicationStatus": "awaiting-visual-and-ad-review",
+      "publicationStatus": "awaiting-food-product-attribute-confirmation-and-image-publication",
       "specificationStatus": "source-package-specified-pending-manufacturer-verification",
       "sourceFiles": [
         "IMG_9831(3).jpeg",
@@ -1004,10 +1028,9 @@
       "onlineTransactionEligible": false,
       "imageSourceStatus": "user-uploaded-original-package-photos-awaiting-approved-site-media",
       "publicationBlockers": [
-        "full-original-packaging-photo-shows-out-of-policy-food-promotional-claims-requiring-review",
-        "front-photo-not-yet-hosted-as-approved-website-asset",
-        "food-ingredient-label-and-current-batch-need-supplier-confirmation",
-        "missing-verified-compliant-public-image-and-copy"
+        "manufacturer-product-attribute-evidence-needed-due-to-traditional-formula-ingredients",
+        "approved-original-media-not-yet-hosted",
+        "current-batch-and-original-manufacturer-confirmation"
       ],
       "inquiryAliases": [
         "四珍寶",
@@ -1041,6 +1064,39 @@
         "shelfLife": "三年",
         "source": "IMG_9833(2).jpeg",
         "ingredientStatus": "packaging-photo-transcribed-not-manufacturer-reconfirmed"
+      },
+      "foodLegalCategoryReview": {
+        "status": "needs-product-attribute-evidence",
+        "evidence": [
+          "product label",
+          "ingredients list",
+          "nutrition panel",
+          "manufacturer",
+          "insurance statement"
+        ],
+        "risk": "固有成方與加減方認定須向原廠取得資料；不是直接判定本品違法"
+      },
+      "insuranceLabelEvidence": {
+        "insurer": "國泰產物",
+        "insuredAmountText": "新臺幣伍仟萬元（原包裝宣稱，尚未取得保單與保障期間）",
+        "source": "IMG_9833(2).jpeg",
+        "status": "package-label-only"
+      },
+      "factoryRegistrationLabelEvidence": {
+        "value": "66-006365",
+        "source": "IMG_9833(2).jpeg",
+        "status": "package-label-only"
+      },
+      "foodAdvertisingPhraseReview": {
+        "annexOneCommonExpressions": [
+          "調節生理機能",
+          "滋補強身",
+          "增強體力",
+          "養顏美容",
+          "青春美麗",
+          "產前產後或病後之補養"
+        ],
+        "status": "generally-allowed-wording-verify-whole-ad-not-auto-block"
       }
     }
   ],
@@ -1060,10 +1116,12 @@
     "hiddenDraftProductsNotRendered": true,
     "privatePricesProhibited": true,
     "duplicatesByBrandAndNameProhibited": true,
-    "foodProductPriority": "已確認食品須使用正式實物原圖，核實原廠、批次、品名、規格、食品法定標示與圖片整體宣傳內容；舊包裝若出現療效／誇大宣稱，不可只靠正文刪字直接發布該包裝照片。合格食品立即可公開，價格維持 LINE 人工提供。",
+    "foodProductPriority": "合格一般食品有原廠品名、成分、營養標示、工廠資料、產品責任保險及實物圖是合理上架基礎；仍須確認產品屬性、批次、原料使用與整體廣告合法性。不得以缺少自有品牌標籤、未取得個別產品許可證（非特定一般食品不一定需個別許可證）或使用附件一通常詞句而不合理退件；可核准時直接上架，價格仍轉 LINE。",
     "medicineProductPolicy": "僅加上「需洽詢中醫師」不等於取得藥物廣告、藥商及網路交易資格。中藥製劑保留內部母資料與 LINE 人工接待，不列一般官網商品、商品跳窗或可直接購買清單；取得可核實合法資格及核准文案再依最新正確資料更新。",
     "unclearProductPolicy": "分類、原廠、規格或公開圖片尚未確認者保留ERP，先補證據，不以名稱推定可販售資格。",
-    "layoutPolicy": "自有及其他廠牌使用同一張卡片與詳細頁視覺規格；系列產品可共用單卡單頁，照片保持原包裝、比例與原廠標示。"
+    "layoutPolicy": "自有及其他廠牌使用同一張卡片與詳細頁視覺規格；系列產品可共用單卡單頁，照片保持原包裝、比例與原廠標示。",
+    "foodAdvertisementRule": "依現行《食品及相關產品標示宣傳廣告涉及不實誇張易生誤解或醫療效能認定準則》第4條附件一，可使用通常詞句例如調整體質、調節生理機能、滋補強身、增強體力、精神旺盛、養顏美容、青春美麗、產前產後或病後之補養；不得把這些詞本身當成違規退件依據。但仍須確認無疾病療效、宣稱無證據、產品屬性錯誤及整體表現誤導。",
+    "medicineByFormula": "產品外盒印有『食品』、工廠登記、營養標示及產品責任保險屬有利佐證，但不能單獨證明中藥材配方不涉及固有成方或其加減方；最高行政法院113年度上字第261號判決（2025-12-26）將含龜、鹿角、人參、枸杞構成龜鹿二仙膠相關方劑的個案判屬藥品。當配方有龜、鹿角、人參/黨蔘、枸杞等相近組合時，應請原廠提出屬食品之產品屬性核判及合法使用原料資料；可依個案證據更新，不可一律封鎖所有龜鹿食品。"
   },
   "updatedAt": "2026-10-15"
 }
