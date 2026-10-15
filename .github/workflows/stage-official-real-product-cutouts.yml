@@ -46,7 +46,7 @@ jobs:
             url=base+filename
             with urlopen(Request(url,headers={'User-Agent':'XJW-product-asset-validation'}),timeout=30) as r:
               data=r.read(8000000)
-            if not data.startswith(b'\\x89PNG\\r\\n\\x1a\\n'):
+            if not data.startswith(bytes([137,80,78,71,13,10,26,10])):
               raise ValueError('Missing original PNG signature for '+key)
             im=Image.open(BytesIO(data))
             im.load()
@@ -82,7 +82,7 @@ jobs:
              'publicationStatus':'review-only-not-live',
              'rules':['True original packaging only','No AI-redrawn lettering',
                       'Do not change real-product scale or label','Compare physically before publication'],
-             'products':manifest},ensure_ascii=False,indent=2)+'\\n',encoding='utf-8')
+             'products':manifest},ensure_ascii=False,indent=2)+chr(10),encoding='utf-8')
           print('PASS:',len(manifest),'original-pixel brand product cutouts staged, current public references unchanged')
           PY
       - name: Upload contact sheet and transparent source cutouts
