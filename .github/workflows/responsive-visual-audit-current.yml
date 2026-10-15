@@ -80,11 +80,13 @@ jobs:
           const approvedPublicIds=new Set([...productMaster.products.map(p=>p.id),...(partnerCatalog.products||[]).filter(p=>p.public===true&&p.id&&p.brand&&p.image&&p.page).map(p=>p.id)]);
           const approvedPublicCount=approvedPublicIds.size;
           const approvedMainPaths=[...new Set([...Object.values(mediaAuthority.products||{}).map(item=>item.mainImage),...approvedPartnerImages].filter(Boolean).map(src=>new URL(src,BASE).pathname))];
-          const pages=[
+          const pages=[...new Set([
             'index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','dm.html',
             'product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-luerong-fen.html','product-jinan-siwuyin.html','product-danshen-tea.html',
-            'knowledge.html','why-guilu.html','video.html','sources.html','brand-facts.html','brand-origin.html','craft.html','ingredients.html','quality.html','combo.html','hanfang-baike.html','trial-line.html','404.html'
-          ];
+            'knowledge.html','why-guilu.html','video.html','sources.html','brand-facts.html','brand-origin.html','craft.html','ingredients.html','quality.html','combo.html','hanfang-baike.html','trial-line.html','404.html',
+            ...productMaster.products.map(p=>new URL(p.page,BASE).pathname.split('/').pop()),
+            ...(partnerCatalog.products||[]).filter(p=>p.public===true&&p.id&&p.brand&&p.image&&p.page).map(p=>new URL(p.page,BASE).pathname.split('/').pop())
+          ])];
           const viewports={
             desktop:{width:1440,height:1000,isMobile:false,hasTouch:false},
             tablet:{width:820,height:1180,isMobile:false,hasTouch:true},
