@@ -70,32 +70,28 @@ def strip_background_vitality():
         xx=x*668/w; yy=y*685/h
         is_rope=(130<xx<595 and yy<100 and r>=64 and r>g*1.75 and r>b*1.44 and g<112 and b<125)
         if is_rope: draw.point((x,y),fill=255)
+    # Strict upper halo cleanup, leaving the original box lid intact.
+    for y in range(min(h,round(h*54/685))):
+        for x in range(w):
+            if not hard.getpixel((x,y)): continue
+            r,g,b,_=pix[x,y]
+            xx=x*668/w
+            keep_rope=(128<xx<595 and 67<=r<=211 and
+                       r>g*1.79 and r>b*1.48 and g<116 and b<125)
+            if not keep_rope: draw.point((x,y),fill=0)
     finished=ImageChops.multiply(orig_alpha,hard)
-    # Keep the connected product silhouette and attached real carrying cord;
-    # stray disconnected shelf remnants above the lid are discarded.
-    # Mask-only connectivity; RGB printing is preserved exactly.
-    from collections import deque
-    binary=finished.point(lambda n:255 if n>=70 else 0)
-    ww,hh=binary.size
-    mb=binary.load()
-    root=(ww//2,hh*3//5)
-    if mb[root[0],root[1]]==0:
-        raise ValueError("Lost central physical product in alpha")
-    seen=bytearray(ww*hh)
-    todo=deque([root])
-    seen[root[1]*ww+root[0]]=1
-    while todo:
-        xx,yy=todo.popleft()
-        for nx,ny in ((xx-1,yy),(xx+1,yy),(xx,yy-1),(xx,yy+1)):
-            if nx<0 or nx>=ww or ny<0 or ny>=hh: continue
-            i=ny*ww+nx
-            if seen[i] or not mb[nx,ny]: continue
-            seen[i]=1
-            todo.append((nx,ny))
-    fb=finished.load()
-    for yy in range(hh):
-        for xx in range(ww):
-            if not seen[yy*ww+xx]: fb[xx,yy]=0
+    # Restore opacity ONLY to existing warm-red lid pixels accepted by the
+    # manually drawn package boundary; this is alpha-only, no package repaint.
+    original_alpha=orig_alpha.load()
+    final_alpha=finished.load()
+    for y in range(round(h*64/685),min(h,round(h*169/685))):
+        for x in range(w):
+            if not hard.getpixel((x,y)) or original_alpha[x,y]<28: continue
+            r,g,b,_=pix[x,y]
+            red_lid=(r>95 and r>g*1.20 and r>b*1.09
+                     and g<188 and b<172)
+            if red_lid:
+                final_alpha[x,y]=max(final_alpha[x,y],243)
     im.putalpha(finished)
     # Keep all true source product bytes beneath alpha; no content painting.
     bounds=finished.getbbox()
