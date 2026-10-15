@@ -11,13 +11,13 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
-  const VERSION = "20261015-catalog-preview-v5";
+  const VERSION = "20261015-unified-catalog-modal-v6";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
   const PRODUCT_DISPLAY = `site-customer-display-v20260812.js?v=${VERSION}`;
   const DM_AUTHORITY = `site-dm-authority-v20260811.js?v=${VERSION}`;
   const CORE = `site-core-v410.js?v=${VERSION}`;
-  const MEDIA_MODAL = `site-media-modal-final-v20260814.js?v=20261015-series-linkfix-v3`;
+  const MEDIA_MODAL = `site-media-modal-final-v20260814.js?v=${VERSION}`;
   const SAFETY = `site-product-image-safety.js?v=${VERSION}`;
   const VARIANTS = `site-official-product-variants.js?v=${VERSION}`;
   const PUBLIC_CLEANUP = `site-public-content-cleanup-v20260809.js?v=${VERSION}`;
@@ -26,7 +26,7 @@
   const STABILITY = `site-stability-v20260814.js?v=${VERSION}`;
   const CURRENT_GAO_TIMING = "食用時間可依個人使用習慣與作息時間安排";
 
-  const STYLES = ["site.css?v=20261015-merch-v1"];
+  const STYLES = [`site.css?v=${VERSION}`];
 
   const SAFE_DATA = Object.freeze({
     version: `${VERSION}-fallback`,
@@ -122,7 +122,7 @@
   }
   const PAGE=String(document.body?.dataset?.page||location.pathname.split("/").pop()?.replace(/\.html$/i,"")||"home").trim();
   const PRODUCT_DATA_PAGES=new Set(["products","product-detail","trial","dm"]);
-  const PRODUCT_UI_PAGES=new Set(["products","product-detail","trial","dm"]);
+  const PRODUCT_UI_PAGES=new Set(["home","products","product-detail","trial","dm"]);
   const VARIANT_PAGES=new Set(["products","product-detail"]);
   const MASCOT_PAGES=new Set(["choose","faq"]);
   const CLEANUP_PAGES=new Set(["home","products","knowledge","video"]);
