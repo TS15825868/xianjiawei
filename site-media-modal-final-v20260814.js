@@ -100,16 +100,19 @@
 
   function normalizeIntroActions(root=document){
     root.querySelectorAll('a[href*="product-"]').forEach(anchor=>{
-      if(anchor.closest('.breadcrumb,#product-modal') || anchor.dataset.productPageDirect === '1'){
+      if(anchor.closest('.breadcrumb,#product-modal')){
         anchor.removeAttribute('data-product-intro');
         anchor.removeAttribute('aria-haspopup');
         return;
       }
+      // 對外頁面的商品連結都先開跳窗；舊的直接詳細頁旗標不能跳過本規則。
+      anchor.removeAttribute('data-product-page-direct');
+      const isCurrentDetail=document.body?.dataset?.page==='product-detail'
+        &&cleanFile(anchor.getAttribute('href'))===cleanFile(location.href);
+      if(isCurrentDetail)return;
       const isButton=anchor.classList.contains('btn')||
         !!anchor.closest('.product-card__actions,.trial-product-card__actions,.hero-actions,.final-cta__actions');
-      const isProductSurface=!!anchor.closest('.product-card,.trial-product-card,.home-product-showcase__grid');
-      if(isButton)markIntro(anchor,{rename:true});
-      else if(isProductSurface)markIntro(anchor,{rename:false});
+      markIntro(anchor,{rename:isButton});
     });
     root.querySelectorAll('[data-quick-view="1"]').forEach(button=>button.remove());
     normalizeProductDetailHero();
