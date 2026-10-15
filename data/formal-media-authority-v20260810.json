@@ -3,8 +3,8 @@
   "approval_batch": "20260930-main-dm-v13",
   "post_approval_batch": "20260811-latest-user-post-images",
   "post_catalog": "/data/post-library-userzip3-v20260811.json",
-  "principle": "官網六項一般產品展示唯一使用 images/product-main/ 使用者核准高清 JPG；「查看介紹」Modal 只使用 images/dm-final/ 正式 DM。產品主圖與 DM 不得混用；原始實物照只供身份與比例驗證。",
-  "product_image_authority": "官網主圖：images/product-main/*.jpg；查看介紹詳細圖：images/dm-final/*。外層頁面不得使用 DM，Modal 不重複 product-main。",
+  "principle": "目前四項公開產品主圖採用已核對來源、保留實物原始像素的透明 PNG；原有 JPG 僅保留來源／歷史用途，dm-final 僅作完整詳細圖片。",
+  "product_image_authority": "官網目前公開四項使用 images/product-main/*.png 實物去背主圖；dm-final 僅供詳細介紹。",
   "customer_text_spec_policy": "顧客產品頁、FAQ與快速查看可顯示目前完整文字規格與每塊約重；產品主圖、DM與產品包裝本體不得因此自行加字、重畫或改比例。",
   "products": [
     {
@@ -16,8 +16,8 @@
       "status": "approved_display",
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_binary_status": "approved_high_resolution_jpeg",
-      "website_main": "/images/product-main/guilu-gao.jpg",
-      "website_main_status": "approved_exact_high_resolution_jpeg"
+      "website_main": "/images/product-main/guilu-gao.png",
+      "website_main_status": "original-product-real-photo-transparent-cutout"
     },
     {
       "id": "guilu-drink-30cc",
@@ -36,8 +36,8 @@
       "status": "approved_display",
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_status": "exact_user_approved_jpeg_1122x1402",
-      "website_main": "/images/product-main/guilu-drink-30.jpg",
-      "website_main_status": "approved_exact_high_resolution_jpeg"
+      "website_main": "/images/product-main/guilu-drink-30.png",
+      "website_main_status": "original-product-real-photo-transparent-cutout"
     },
     {
       "id": "guilu-drink-180cc",
@@ -56,8 +56,8 @@
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_status": "approved_high_resolution_jpeg",
       "sha256": "719bd0a0823693c17e288ee2e4445874c9730710ce08de722c2d54c66e840e62",
-      "website_main": "/images/product-main/guilu-drink-180.jpg",
-      "website_main_status": "approved_exact_high_resolution_jpeg"
+      "website_main": "/images/product-main/guilu-drink-180.png",
+      "website_main_status": "original-product-real-photo-transparent-cutout"
     },
     {
       "id": "guilu-tangkuai",
@@ -96,8 +96,8 @@
       "status": "approved_display",
       "binary_status": "verified_social_static_jpeg_not_website_main",
       "dm_status": "approved_high_resolution_jpeg",
-      "website_main": "/images/product-main/luerong-fen.jpg",
-      "website_main_status": "approved_exact_high_resolution_jpeg"
+      "website_main": "/images/product-main/luerong-fen.png",
+      "website_main_status": "original-product-real-photo-transparent-cutout"
     }
   ],
   "dm": {
@@ -188,4 +188,3 @@
   "post_image_policy": "product post copy may include current exact text specifications and unit approximations when relevant; visuals use formal product media; explicit DM posts use current approved detailed DMs; trial content uses the latest approved trial poster; edits return to pending_review and must pass the 16-item review gate",
   "guard_policy": "驗證官網六項 product-main 自包含 SVG、dm-final 詳細圖、試喝海報、產品規格與包裝身份各自角色；dm-v3 僅保留社群／靜態相容，不得回流官網主圖。新版正確媒體優先。"
 }
-
