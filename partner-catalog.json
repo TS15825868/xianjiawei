@@ -810,9 +810,9 @@
       "producerNameFromLabel": "晉安製藥股份有限公司",
       "origin": "臺灣",
       "shelfLife": "二年",
-      "image": "images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",
+      "image": "images/partner-products/jinan-vitality-front-original.jpg",
       "gallery": [
-        "images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",
+        "images/partner-products/jinan-vitality-front-original.jpg",
         "images/partner-products/jinan-vitality-front-original.jpg",
         "images/partner-products/jinan-vitality-jar-original.jpg",
         "images/partner-products/jinan-vitality-label-original.jpg"
@@ -1513,3 +1513,4 @@
   },
   "updatedAt": "2026-10-15"
 }
+

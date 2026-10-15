@@ -6,7 +6,7 @@ let SITE_DATA = null;
 let lastFocusedElement = null;
 let menuScrollY = 0;
 
-const UX_VERSION = "20261008-readable-v49";
+const UX_VERSION = "20261016-all-product-photo-frames-v2";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
 const MENU_GROUPS = [
   {
@@ -100,7 +100,7 @@ async function loadData() {
   if (!response.ok) throw new Error(`data.json 載入失敗：${response.status}`);
   SITE_DATA = await response.json();
   try {
-  const catalog = await fetch(`partner-catalog.json?v=20261015-erzhenbao-v1`);
+  const catalog = await fetch(`partner-catalog.json?v=20261016-all-product-photo-frames-v2`);
   if (!catalog.ok) throw new Error(`partner-catalog HTTP ${catalog.status}`);
   const partner = await catalog.json();
   SITE_DATA.partnerProducts = (partner.products || []).filter(p => p.public === true && p.id && p.image && p.page && p.brand);
@@ -1069,4 +1069,5 @@ window.closeModal = closeModal;
 window.openProductModal = openProductModal;
 window.buildLineAutoLink = buildLineAutoLink;
 window.lineButton = lineButton;
+
 

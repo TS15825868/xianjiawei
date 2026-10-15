@@ -7,10 +7,10 @@
   if (!root || !filters || !status) return;
   const lineUrl = "https://lin.ee/sHZW7NkR";
   const ownImage = {
-    "guilu-gao": "images/product-main/guilu-gao.jpg",
-    "guilu-drink-30": "images/product-main/guilu-drink-30.jpg",
-    "guilu-drink-180": "images/product-main/guilu-drink-180.jpg",
-    "luerong-fen": "images/product-main/luerong-fen.jpg"
+    "guilu-gao": "images/product-main/guilu-gao.png",
+    "guilu-drink-30": "images/product-main/guilu-drink-30.png",
+    "guilu-drink-180": "images/product-main/guilu-drink-180.png",
+    "luerong-fen": "images/product-main/luerong-fen.png"
   };
   const categories = [
     ["all", "全部"],
