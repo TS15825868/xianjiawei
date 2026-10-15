@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-royalherb-erzhenbao-64-public",
+  "version": "2026-10-15-erzhenbao-public-original-confirmed-v2",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -1432,8 +1432,11 @@
         "source": "御漢堂官方網站二珍寶64片產品主圖",
         "sourcePage": "https://royalherb.com.tw/product/guilu-erxian-jiao-2-main-old-64-pieces/",
         "repositoryImportTarget": "images/partner-products/er-zhen-bao-royalherb-original.webp",
-        "importStatus": "remote-host-timeout; GitHub image file not present yet",
-        "imageLicenseNote": "圖片屬原廠產品圖；對外使用需維持原圖並確認供應合作素材使用權"
+        "importStatus": "verified-github-main",
+        "imageLicenseNote": "圖片屬原廠產品圖；對外使用需維持原圖並確認供應合作素材使用權",
+        "importedGitBlobSha": "b44d0577d2f23046b1e6341f3af7a6d6e3e633dc",
+        "importMethod": "GitHub Actions: official manufacturer original from WordPress CDN fallback, pixel source manufacturer",
+        "linkedPublicPage": "product-er-zhen-bao.html"
       },
       "plannedDetailPage": "product-er-zhen-bao.html",
       "inquiryAliases": [
