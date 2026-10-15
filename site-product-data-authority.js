@@ -13,7 +13,7 @@
   const VERSION='20261015-drink-30-usage-v2';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
-  const CURRENT_30_USAGE='每日 1 罐';
+  const CURRENT_30_USAGE='每日 1–2 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   const REQUIRED_CURRENT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen']);
   const DEFERRED_ID='qixuan-guilu-drink-powder';
@@ -204,9 +204,9 @@
     ['30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'],
     ['30cc／瓶','30cc／罐（小玻璃罐）'],
     ['龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'],
-    ['每日 1 罐',CURRENT_30_USAGE],
-    ['每日1罐',CURRENT_30_USAGE],
-    ['每日一罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
+    ['每日 1–2 罐',CURRENT_30_USAGE],
     ['每日 1-2 罐',CURRENT_30_USAGE],
     ['每日早上及下午各一小匙',CURRENT_GAO_TIMING],
     ['早晚各一小匙',CURRENT_GAO_TIMING],
