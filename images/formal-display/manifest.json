@@ -9,10 +9,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/guilu-gao.jpg",
-      "website_main_format": "svg",
-      "website_main_status": "approved_self_contained_svg"
+      "display_rule": "官網一般商品主圖採用透明背景之正式實物 PNG，保留原包裝及文字；dm-v3 僅歷史相容、dm-final 只作詳細圖。",
+      "website_main_path": "/images/product-main/guilu-gao.png",
+      "website_main_format": "png",
+      "website_main_status": "provenanced-original-real-product-cutout"
     },
     "guilu-drink-30": {
       "name": "龜鹿飲30cc玻璃罐",
@@ -21,10 +21,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/guilu-drink-30.jpg",
-      "website_main_format": "svg",
-      "website_main_status": "approved_self_contained_svg"
+      "display_rule": "官網一般商品主圖採用透明背景之正式實物 PNG，保留原包裝及文字；dm-v3 僅歷史相容、dm-final 只作詳細圖。",
+      "website_main_path": "/images/product-main/guilu-drink-30.png",
+      "website_main_format": "png",
+      "website_main_status": "provenanced-original-real-product-cutout"
     },
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
@@ -33,10 +33,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/guilu-drink-180.jpg",
-      "website_main_format": "svg",
-      "website_main_status": "approved_self_contained_svg"
+      "display_rule": "官網一般商品主圖採用透明背景之正式實物 PNG，保留原包裝及文字；dm-v3 僅歷史相容、dm-final 只作詳細圖。",
+      "website_main_path": "/images/product-main/guilu-drink-180.png",
+      "website_main_format": "png",
+      "website_main_status": "provenanced-original-real-product-cutout"
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",
@@ -73,10 +73,10 @@
       "status": "approved_unified_formal_main",
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
-      "display_rule": "官網一般展示只使用 website_main_path 的 product-main 自包含 SVG；path 的 dm-v3 JPEG 僅保留既有社群／靜態相容；dm-final 詳細圖只放產品完整介紹頁詳細區。",
-      "website_main_path": "/images/product-main/luerong-fen.jpg",
-      "website_main_format": "svg",
-      "website_main_status": "approved_self_contained_svg"
+      "display_rule": "官網一般商品主圖採用透明背景之正式實物 PNG，保留原包裝及文字；dm-v3 僅歷史相容、dm-final 只作詳細圖。",
+      "website_main_path": "/images/product-main/luerong-fen.png",
+      "website_main_format": "png",
+      "website_main_status": "provenanced-original-real-product-cutout"
     }
   },
   "dm": {
@@ -180,4 +180,3 @@
   "guard_policy": "驗證 product-main SVG、dm-final 詳細圖、試喝海報與產品身份分層；新版正確路徑優先，拒絕錯誤 JPG／dm-v3 回流官網一般展示",
   "dmV3Policy": "social-static-compatibility-only-not-website-main"
 }
-
