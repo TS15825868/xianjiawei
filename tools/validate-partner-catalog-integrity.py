@@ -49,6 +49,17 @@ def main() -> None:
     own = load("data.json").get("products", [])
     all_partner = load("partner-catalog.json").get("products", [])
     public_partner = [p for p in all_partner if p.get("public") is True]
+    # Current user instruction: scientific Chinese medicine powder / concentrated
+    # herbal granules must stay internal-only. Never infer from a generic 粉
+    # character: 鹿茸粉 and food drink powder are separate product categories.
+    held_categories = {"科學中藥粉", "濃縮中藥粉", "科學中藥顆粒", "濃縮中藥顆粒"}
+    for item in all_partner:
+        cls = {str(item.get(k) or "").strip() for k in
+               ("category", "subcategory", "dosageForm", "medicineForm", "productType")}
+        if item.get("isScientificChineseMedicinePowder") is True or cls.intersection(held_categories):
+            if item.get("public") is True or item.get("onlineTransactionEligible") is True:
+                fail("scientific Chinese medicine powder is on publication hold: " + str(item.get("id")))
+
     seen_partner_names = set()
     seen_partner_ids = set()
     for product in all_partner:
