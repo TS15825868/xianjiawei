@@ -45,47 +45,35 @@ def strip_background_siwuyin():
       "notice":"Photo itself cuts off the upper bag handles; crop limitations remain visible."},cut
 
 def strip_background_vitality():
-    # Use the COMPLETE original supplier photo, not the previous rembg mask;
-    # that intermediate mask contained shop clutter above the handle.
     physical=SOURCE/"jinan-vitality-front-original.jpg"
-    im=ImageOps.exif_transpose(Image.open(physical)).convert("RGBA")
+    # Segmentation provided a good silhouette for the actual box and cord,
+    # except isolated shop-colour contamination in the first top rows.
+    # Reuse only that unchanged-pixel candidate; scrub those top rows.
+    intermediate=REVIEW/"guilu-vitality-cutout.png"
+    im=Image.open(intermediate).convert("RGBA")
     w,h=im.size
-    if not 0.45 < w/h < 0.7:
-        raise ValueError(f"Unexpected vitality photo dimensions {w}x{h}")
-    # Package edges traced at the source's photographed geometry.
-    # Keep original glass/box artwork and dimensions; strip tabletop/photo set.
-    ref_w,ref_h=864,1536
-    body=[(0,176),(145,172),(300,174),(545,165),(719,187),
-          (864,233),(864,322),(736,864),(93,964),(0,355)]
-    pts=[(round(x*w/ref_w),round(y*h/ref_h)) for x,y in body]
-    mask=Image.new("L",(w,h),0)
-    d=ImageDraw.Draw(mask)
-    d.polygon(pts,fill=255)
-    # In the original photo, the burgundy carrying cord arches above the box.
-    # Preserve its original pixels by a tight spatial AND burgundy-hue gate.
-    ribbon_gate=Image.new("1",(w,h),0)
-    rope_points=[(120,182),(144,140),(198,115),(303,111),
-                 (430,133),(552,129),(650,153),(742,193),
-                 (780,258),(729,243),(711,201),(616,171),
-                 (517,153),(418,153),(300,147),(194,153),(144,192)]
-    ImageDraw.Draw(ribbon_gate).polygon([(round(x*w/ref_w),round(y*h/ref_h)) for x,y in rope_points],fill=1)
+    if not 0.8<w/h<1.3:
+        raise ValueError(f"Unexpected candidate dimensions {w}x{h}")
     rgba=im.load()
-    for y in range(min(h,round(185*h/ref_h))):
+    # Keep only verified burgundy-coloured physical rope pixels ABOVE the lid.
+    # All lower pixels retain original rembg alpha unchanged.
+    top=round(44*h/685)
+    for y in range(top):
         for x in range(w):
-            if not ribbon_gate.getpixel((x,y)): continue
             r,g,b,a=rgba[x,y]
-            if r>=70 and r>g*1.55 and r>b*1.35 and g<120 and b<135:
-                d.point((x,y),fill=255)
-    mask=mask.filter(ImageFilter.GaussianBlur(0.55))
-    box=mask.getbbox()
-    if not box: raise ValueError("Missing vitality foreground")
-    im.putalpha(mask)
+            rope=(150*w/668<x<585*w/668 and r>=70 and
+                  r>g*1.70 and r>b*1.43 and g<100 and b<130)
+            if not rope:
+                rgba[x,y]=(r,g,b,0)
+    alpha=im.getchannel("A")
+    box=alpha.getbbox()
+    if not box: raise ValueError("No vitality foreground after cleanup")
     im=im.crop(box)
     out,cut=save_image(im,"jinan-vitality-front-cutout.webp")
     return {"id":"guilu-vitality","file":str(out.relative_to(ROOT)),
       "sourceFile":str(physical.relative_to(ROOT)),"sourceSha256":hashlib.sha256(physical.read_bytes()).hexdigest(),
-      "sourceDimensions":[w,h],"sourcePixelsPreserved":True,
-      "notice":"Manual original-photo silhouette and cord-color mask; no background model or AI packaging."},cut
+      "sourcePixelsPreserved":True,"intermediateMatteFile":str(intermediate.relative_to(ROOT)),
+      "notice":"Source-photo segmentation kept; store clutter removed from upper rows using cord-only hue mask."},cut
 
 def main():
     records=[]
