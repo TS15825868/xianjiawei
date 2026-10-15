@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-four-treasures-source-verified-nutrition-v2",
+  "version": "2026-10-15-guilu-vitality-original-photo-public",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -663,9 +663,9 @@
       "brand": "晉安製藥",
       "brandType": "partner",
       "category": "食品飲品",
-      "name": "龜鹿活力飲",
-      "public": false,
-      "publicationStatus": "food-confirmed-by-merchant-awaiting-original-photo-hosting",
+      "name": "龜鹿活力飲（葡萄糖胺）",
+      "public": true,
+      "publicationStatus": "public-food-facts-and-original-photo-20261015",
       "specificationStatus": "source-package-specified-pending-manufacturer-verification",
       "sourceFiles": [
         "IMG_8899(2).jpeg",
@@ -676,13 +676,10 @@
       ],
       "marketingClaimsApproved": false,
       "onlineTransactionEligible": false,
-      "imageSourceStatus": "user-uploaded-original-package-photos-awaiting-approved-site-media",
-      "size": "60mL×12罐／盒（依本次實拍外盒）",
+      "imageSourceStatus": "unchanged-original-user-photos-sha256-matched-and-committed-to-github-main",
+      "size": "60毫升×12罐／盒",
       "packagingName": "龜鹿活力飲（葡萄糖胺）",
-      "publicationBlockers": [
-        "source-photo-not-yet-committed-to-site-media",
-        "review-current-food-label-and-public-facing-claims-for-product-specific-compliance"
-      ],
+      "publicationBlockers": [],
       "photoEvidence": {
         "front": "IMG_8899(2).jpeg",
         "frontWithJar": "IMG_8904(2).jpeg",
@@ -724,9 +721,9 @@
         "risk": "固有成方與加減方認定須向原廠取得資料；不是直接判定本品違法"
       },
       "insuranceLabelEvidence": {
-        "insuredAmountText": "新臺幣1000萬元（原包裝宣稱，尚未取得保單與保障期間）",
-        "source": "IMG_8902(2).jpeg",
-        "status": "package-label-only"
+        "insuredAmountText": "原廠外盒標示產品責任險新臺幣1000萬元（非實際理賠保證）",
+        "status": "original-package-only",
+        "source": "IMG_8902(2).jpeg"
       },
       "foodAdvertisingPhraseReview": {
         "annexOneCommonExpressions": [
@@ -738,7 +735,7 @@
         "status": "generally-allowed-wording-verify-whole-ad-not-auto-block"
       },
       "businessClassification": "一般食品",
-      "foodStatusSource": "使用者於2026-10-15明確確認：廠商作為食品製作並販售；依實物包裝、營養標示及原料比對",
+      "foodStatusSource": "2026-10-15使用者明確確認原廠食品，且產品外盒標示「食品」及營養標示",
       "foodFormulaScreening": {
         "historicalPatentFormula": "龜板、鹿角、人參、枸杞子",
         "present": [
@@ -762,8 +759,83 @@
           "https://judgment.judicial.gov.tw/FJUD/printData.aspx?id=TPAA%2C113%2C%E4%B8%8A%2C261%2C20251226%2C1"
         ]
       },
-      "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
-      "requiresDoctorReferralForOrdinaryFoodSale": false
+      "saleContact": "仙加味 LINE OA @762jybnm（https://lin.ee/sHZW7NkR）處理價格、現貨、配送與下單",
+      "requiresDoctorReferralForOrdinaryFoodSale": false,
+      "displayName": "龜鹿活力飲（葡萄糖胺）",
+      "series": "其他廠牌食品",
+      "form": "60毫升原廠玻璃罐飲品",
+      "description": "晉安製藥原廠玻璃罐食品飲品，60毫升×12罐禮盒；每日一罐，飲用前請先搖勻。",
+      "features": [
+        "60毫升原廠玻璃罐",
+        "12罐禮盒",
+        "原廠標示食品"
+      ],
+      "ingredients": [
+        "純水",
+        "大棗",
+        "黨參",
+        "龜甲",
+        "鹿角萃取液",
+        "葡萄糖胺"
+      ],
+      "usage": [
+        "每日一瓶，食用前先搖勻",
+        "依原廠外盒標示使用"
+      ],
+      "storage": [
+        "室溫貯存，避免高溫及日照",
+        "開封後請一次飲用完畢"
+      ],
+      "notices": [
+        "原廠外盒標示保存期限二年",
+        "實際製造、有效日期依本次出貨批次外盒",
+        "個人體質、疾病或用藥疑問請先洽專業醫療人員"
+      ],
+      "manufacturer": "晉安製藥股份有限公司",
+      "manufacturerNameFromLabel": "晉安製藥股份有限公司",
+      "producerNameFromLabel": "晉安製藥股份有限公司",
+      "origin": "臺灣",
+      "shelfLife": "二年",
+      "image": "images/partner-products/jinan-vitality-front-original.jpg",
+      "gallery": [
+        "images/partner-products/jinan-vitality-front-original.jpg",
+        "images/partner-products/jinan-vitality-jar-original.jpg",
+        "images/partner-products/jinan-vitality-label-original.jpg"
+      ],
+      "page": "product-guilu-vitality.html",
+      "detailPage": "product-guilu-vitality.html",
+      "informationOnly": false,
+      "approvedPublicCopyScope": "原廠包裝之品名、規格、原料、保存、使用方式、營養標示與LINE商品洽詢；不刊載疾病或療效宣稱",
+      "photoSourceOriginals": {
+        "front": {
+          "source": "IMG_8899(2).jpeg",
+          "sha256": "c7ae1de7262dd2e710ef663a1265b57347b3b9e21a0bb2ad91760eb995fdc934",
+          "sitePath": "images/partner-products/jinan-vitality-front-original.jpg"
+        },
+        "jar": {
+          "source": "IMG_8904(2).jpeg",
+          "sha256": "11d337bf46167337583e113d7acd4cb0040cbbcac09d197b2f48a74fea35d37b",
+          "sitePath": "images/partner-products/jinan-vitality-jar-original.jpg"
+        },
+        "label": {
+          "source": "IMG_8902(2).jpeg",
+          "sha256": "99395b0d22f3b8518eac03849147cec625dfda213eb59a6759a41bd7caf2971e",
+          "sitePath": "images/partner-products/jinan-vitality-label-original.jpg"
+        }
+      },
+      "nutritionPerServing": {
+        "servingMilliliters": 60,
+        "servingsPerBox": 12,
+        "caloriesKcal": 61.2,
+        "proteinGrams": 7.2,
+        "fatGrams": 1.2,
+        "saturatedFatGrams": 0,
+        "transFatGrams": 0,
+        "carbohydrateGrams": 5.4,
+        "sugarGrams": 0.2,
+        "sodiumMilligrams": 49
+      },
+      "nutritionReference": "IMG_8902(2).jpeg，原廠外盒每份60毫升之營養標示"
     },
     {
       "id": "jinan-huanshaodan",
