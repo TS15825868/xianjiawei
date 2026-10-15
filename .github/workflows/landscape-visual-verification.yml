@@ -24,10 +24,22 @@ jobs:
       - name: Wait for official Pages release
         if: github.ref == 'refs/heads/main'
         run: |
-          for attempt in $(seq 1 80); do
-            if curl -fsS "https://ts15825868.github.io/xianjiawei/site.css?release=${{ github.sha }}" | grep -q "20261008-readable-v49"; then exit 0; fi
-            sleep 10
+          set -euo pipefail
+          expected="$(sha256sum site.css | cut -d ' ' -f 1)"
+          for attempt in $(seq 1 12); do
+            if curl -fsS --connect-timeout 5 --max-time 10 \
+              "https://ts15825868.github.io/xianjiawei/site.css?release=${{ github.sha }}" \
+              -o /tmp/xjw-live-site.css; then
+              actual="$(sha256sum /tmp/xjw-live-site.css | cut -d ' ' -f 1)"
+              if [ "$actual" = "$expected" ]; then
+                echo "Official Pages CSS matches this checkout."
+                exit 0
+              fi
+            fi
+            echo "Waiting for current CSS: attempt $attempt/12"
+            sleep 5
           done
+          echo "Official Pages CSS differs from current checkout." >&2
           exit 1
       - name: Audit full pages and interactions
         env:
