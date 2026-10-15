@@ -16,22 +16,55 @@ ROOT=Path(__file__).resolve().parents[1]
 LANDSCAPE=ROOT/"images/brand/world-landscape-v20261008.webp"
 OUT=ROOT/"images/product-background-review-v20261016"
 SIZE=1100
-PRODUCTS=[
-("guilu-gao","images/product-cutout-review/guilu-gao.png","warm"),
-("guilu-drink-30","images/product-cutout-review/guilu-drink-30.png","warm"),
-("guilu-drink-180","images/product-cutout-review/guilu-drink-180.png","cool"),
-("luerong-fen","images/product-cutout-review/luerong-fen.png","warm"),
-("jinan-sisheng-siwuyin","images/partner-products/cutouts-v20261016/jinan-siwuyin-front-cutout.webp","cool"),
-("danshen-tea-collection","images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp","warm"),
-("guilu-vitality","images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp","cool"),
-("uboss-sizhenbao","images/partner-products/site-hero-v20261016/four-treasures-front-cutout.webp","warm"),
-("royalherb-erzhenbao-64","images/partner-products/site-hero-v20261016/er-zhen-bao-royalherb-original-cutout.webp","warm"),
-("jianfeng-leisure-tea","images/partner-products/site-hero-v20261016/tea-danshen-leisure-front-cutout.webp","warm"),
-("jianfeng-wudahan-tea","images/partner-products/site-hero-v20261016/tea-wudahan-front-cutout.webp","cool"),
-("jianfeng-fiber-tea","images/partner-products/site-hero-v20261016/tea-danshen-lotus-front-cutout.webp","warm"),
-("jianfeng-white-tea","images/partner-products/site-hero-v20261016/tea-white-danshen-front-cutout.webp","warm"),
-("jianfeng-refresh-tea","images/partner-products/site-hero-v20261016/tea-danshen-refresh-front-cutout.webp","cool"),
-]
+# Render ONLY currently approved public cards and their grouped tea variants.
+# The list is derived each run: retired or private products never get reused.
+TONES = {
+    "guilu-drink-180":"cool",
+    "jinan-sisheng-siwuyin":"cool",
+    "guilu-vitality":"cool",
+    "jianfeng-wudahan-tea":"cool",
+    "jianfeng-refresh-tea":"cool",
+}
+OWN_APPROVED_CUTOUT = {
+    "guilu-gao":"images/product-cutout-review/guilu-gao.png",
+    "guilu-drink-30":"images/product-cutout-review/guilu-drink-30.png",
+    "guilu-drink-180":"images/product-cutout-review/guilu-drink-180.png",
+    "luerong-fen":"images/product-cutout-review/luerong-fen.png",
+}
+def products_to_render():
+    own=json.loads((ROOT/"public-product-master.json").read_text(encoding="utf-8"))["products"]
+    data=json.loads((ROOT/"data.json").read_text(encoding="utf-8"))["products"]
+    by_id={p["id"]:p for p in data}
+    partners=json.loads((ROOT/"partner-catalog.json").read_text(encoding="utf-8"))["products"]
+    approved=[p for p in partners if p.get("public") is True]
+    items=[]
+    for p in own:
+        if p["id"] not in by_id:
+            raise ValueError("Active product without official image data: "+p["id"])
+        source=OWN_APPROVED_CUTOUT.get(p["id"],by_id[p["id"]]["image"].split("?",1)[0])
+        items.append((p["id"],source,TONES.get(p["id"],"warm")))
+    for p in approved:
+        items.append((p["id"],p["image"].split("?",1)[0],TONES.get(p["id"],"warm")))
+    groups={p["id"]:p for p in approved if p.get("variants")}
+    grouped_cover={g["image"].split("?",1)[0] for g in groups.values()}
+    for p in partners:
+        if p.get("public") is not True and p.get("groupedIn") in groups:
+            # A group card can stand in for one identical photographed variant.
+            # Every other actual package gets its own current-source scene.
+            source=p["image"].split("?",1)[0]
+            if source not in grouped_cover:
+                items.append((p["id"],source,TONES.get(p["id"],"warm")))
+    ids=[x[0] for x in items]
+    if len(ids)!=len(set(ids)):
+        raise ValueError("Duplicate public/variant product media identifiers")
+    import re
+    index=(ROOT/"products.html").read_text(encoding="utf-8")
+    fallback=set(re.findall(r'data-fallback-product="([^"]+)"',index))
+    expected={p["id"] for p in own+approved}
+    if fallback!=expected:
+        raise ValueError("Public catalog list changed; refuse to add removed/hidden products")
+    return items, len(expected)
+
 PALETTES={
  "warm":(250,246,237),
  "cool":(236,244,240),
@@ -105,10 +138,11 @@ def render(pid,source_path,tone):
 def main():
     if not LANDSCAPE.is_file(): raise ValueError("missing approved background image")
     OUT.mkdir(parents=True,exist_ok=True)
+    products, public_card_count=products_to_render()
     results=[]
-    contact=Image.new("RGB",(4*320,math.ceil(len(PRODUCTS)/4)*357),(247,244,237))
+    contact=Image.new("RGB",(4*320,math.ceil(len(products)/4)*357),(247,244,237))
     pen=ImageDraw.Draw(contact)
-    for i,(pid,source,tone) in enumerate(PRODUCTS):
+    for i,(pid,source,tone) in enumerate(products):
         record=render(pid,source,tone)
         results.append(record)
         pic=Image.open(ROOT/record["output"]).convert("RGB")
@@ -120,7 +154,11 @@ def main():
         "schemaVersion":1,"reviewStatus":"candidate-only-not-linked-to-live-catalog",
         "brand":"仙加味","design":"Real photographed product over approved premium mountain/botanical landscape",
         "strictRule":"Never replace authentic packaging, label, manufacturer, or legal product display with generated text",
-        "sceneCount":len(results),"products":results
+        "sceneCount":len(results),"publicCardCount":public_card_count,
+        "extraGroupedVariantSceneCount":len(results)-public_card_count,
+        "additionalBrandLetteringOnImages":False,
+        "sourceProductPixelsUnaltered":True,
+        "products":results
     },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("PASS:",len(results),"real-photo scenic review candidates; public src attributes untouched")
 
