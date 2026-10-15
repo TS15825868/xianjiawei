@@ -146,6 +146,14 @@ async function close(page) {
           report.checks.push(device+"："+other+" 隱藏對照表入口已正規化");
           continue;
         }
+        if(other==="why-guilu.html"){
+          const rewrites=await link.evaluate(anchor=>new Promise(resolve=>{
+            let count=0;const observer=new MutationObserver(records=>{count+=records.length});
+            observer.observe(anchor,{subtree:true,childList:true});
+            setTimeout(()=>{observer.disconnect();resolve(count)},250);
+          }));
+          assert.equal(rewrites,0,"商品入口標準化不得反覆重建相同文字，干擾手機點擊");
+        }
         const href=await link.getAttribute("href");
         const current=page.url();
         await link.click();

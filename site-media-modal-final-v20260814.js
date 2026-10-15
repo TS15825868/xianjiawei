@@ -79,7 +79,7 @@
 
   function markIntro(anchor,{rename=true}={}){
     if(!anchor)return;
-    if(rename)anchor.textContent='查看介紹';
+    if(rename&&anchor.textContent!=='查看介紹')anchor.textContent='查看介紹';
     anchor.dataset.productIntro='1';
     anchor.setAttribute('aria-haspopup','dialog');
   }
@@ -90,7 +90,7 @@
     if(!button)return;
     // 已在詳細頁時，導向下方完整資訊；不得打開自己的跳窗。
     button.href='#complete-info';
-    button.textContent='查看完整產品資訊';
+    if(button.textContent!=='查看完整產品資訊')button.textContent='查看完整產品資訊';
     button.removeAttribute('data-product-intro');
     button.removeAttribute('data-product-intro-current');
     button.removeAttribute('aria-haspopup');
