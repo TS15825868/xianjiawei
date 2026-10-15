@@ -1,0 +1,77 @@
+{
+  "reviewState": "visual-candidates-not-yet-linked-to-public-catalog",
+  "images": [
+    {
+      "source": "images/partner-products/four-treasures-front.jpg",
+      "hero": "images/partner-products/site-hero-v20261016/four-treasures-front-hero.webp",
+      "sourceSha256": "1f253b14274b31305f5c3138e4df62130936478944b7feb892bfe18ca23d4bfd",
+      "originalPackagePixelsPreserved": true,
+      "packageNotAIGenerated": true,
+      "scaledWithAspectRatio": true,
+      "humanReviewRequired": true
+    },
+    {
+      "source": "images/partner-products/er-zhen-bao-royalherb-original.webp",
+      "hero": "images/partner-products/site-hero-v20261016/er-zhen-bao-royalherb-original-hero.webp",
+      "sourceSha256": "64a8858099f693bd216a6657c39d0d6df7178033496aaac6bb6ebaa7fab5403e",
+      "originalPackagePixelsPreserved": true,
+      "packageNotAIGenerated": true,
+      "scaledWithAspectRatio": true,
+      "humanReviewRequired": true
+    },
+    {
+      "source": "images/partner-products/tea-danshen-leisure-front.webp",
+      "hero": "images/partner-products/site-hero-v20261016/tea-danshen-leisure-front-hero.webp",
+      "sourceSha256": "9a4f3e1ddd0e0b554ec2a7c0ec1d906961b5cf1381346f59328098e20d4fdb1b",
+      "originalPackagePixelsPreserved": true,
+      "packageNotAIGenerated": true,
+      "scaledWithAspectRatio": true,
+      "humanReviewRequired": true
+    },
+    {
+      "source": "images/partner-products/tea-danshen-lotus-front.webp",
+      "hero": "images/partner-products/site-hero-v20261016/tea-danshen-lotus-front-hero.webp",
+      "sourceSha256": "7d8cbb3ed96d7975e9f68250982c839575a0aa98f353e41eb757ba7fd4f7b8a3",
+      "originalPackagePixelsPreserved": true,
+      "packageNotAIGenerated": true,
+      "scaledWithAspectRatio": true,
+      "humanReviewRequired": true
+    },
+    {
+      "source": "images/partner-products/tea-danshen-refresh-front.webp",
+      "hero": "images/partner-products/site-hero-v20261016/tea-danshen-refresh-front-hero.webp",
+      "sourceSha256": "ede91da3ff7237d0db7307d31494b0682c487b08f5db1c6862b1f6ee01cba75d",
+      "originalPackagePixelsPreserved": true,
+      "packageNotAIGenerated": true,
+      "scaledWithAspectRatio": true,
+      "humanReviewRequired": true
+    },
+    {
+      "source": "images/partner-products/tea-rose-fruit-front.webp",
+      "hero": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-hero.webp",
+      "sourceSha256": "e78b9675bec22809bb101b0c5e65a229b7e64e06b9fc632cef458ffa8982b1d4",
+      "originalPackagePixelsPreserved": true,
+      "packageNotAIGenerated": true,
+      "scaledWithAspectRatio": true,
+      "humanReviewRequired": true
+    },
+    {
+      "source": "images/partner-products/tea-white-danshen-front.webp",
+      "hero": "images/partner-products/site-hero-v20261016/tea-white-danshen-front-hero.webp",
+      "sourceSha256": "9aa7d0ad05b4841af45234008afa6e37105166110c06d600f82b8299acaa0206",
+      "originalPackagePixelsPreserved": true,
+      "packageNotAIGenerated": true,
+      "scaledWithAspectRatio": true,
+      "humanReviewRequired": true
+    },
+    {
+      "source": "images/partner-products/tea-wudahan-front.webp",
+      "hero": "images/partner-products/site-hero-v20261016/tea-wudahan-front-hero.webp",
+      "sourceSha256": "b984dfc59db4faf1a342434ec7336362ccc142e9533d58cd0f8de7801822a624",
+      "originalPackagePixelsPreserved": true,
+      "packageNotAIGenerated": true,
+      "scaledWithAspectRatio": true,
+      "humanReviewRequired": true
+    }
+  ]
+}
