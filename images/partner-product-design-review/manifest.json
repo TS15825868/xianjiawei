@@ -14,49 +14,15 @@
       "id": "jinan-sisheng-siwuyin",
       "name": "參仲四物飲",
       "image": "images/partner-products/jinan-siwuyin-front.jpg",
-      "status": "pending_visual_review",
-      "sha256_original": "07c847e803e2c7094e1d926201e3845640c106add8a228308c8f25f43c09c849",
-      "main_preview": "images/partner-product-design-review/jinan-sisheng-siwuyin.png",
-      "cutout": "images/partner-product-design-review/jinan-sisheng-siwuyin-cutout.png",
-      "width": 1477,
-      "height": 1108,
-      "alpha_coverage": 0.7843,
-      "foreground_box": [
-        139,
-        0,
-        1359,
-        1108
-      ],
-      "scaled_size": [
-        720,
-        650
-      ],
-      "background_tone": "cream",
-      "product_median_luminance": 71.2
+      "status": "failed_quality_gate",
+      "reason": "alpha edge/detail quality rejected: opaque fraction 0.244"
     },
     {
       "id": "danshen-tea-collection",
       "name": "丹參茶包系列",
       "image": "images/partner-products/tea-rose-fruit-front.webp",
-      "status": "pending_visual_review",
-      "sha256_original": "e78b9675bec22809bb101b0c5e65a229b7e64e06b9fc632cef458ffa8982b1d4",
-      "main_preview": "images/partner-product-design-review/danshen-tea-collection.png",
-      "cutout": "images/partner-product-design-review/danshen-tea-collection-cutout.png",
-      "width": 1034,
-      "height": 1451,
-      "alpha_coverage": 0.1739,
-      "foreground_box": [
-        274,
-        438,
-        984,
-        989
-      ],
-      "scaled_size": [
-        718,
-        559
-      ],
-      "background_tone": "cool",
-      "product_median_luminance": 217.7
+      "status": "failed_quality_gate",
+      "reason": "alpha edge/detail quality rejected: opaque fraction 0.277"
     },
     {
       "id": "guilu-vitality",
@@ -68,19 +34,20 @@
       "cutout": "images/partner-product-design-review/guilu-vitality-cutout.png",
       "width": 864,
       "height": 1536,
-      "alpha_coverage": 0.5038,
+      "alpha_coverage": 0.4538,
+      "opaque_fraction": 0.8474,
       "foreground_box": [
         0,
-        0,
+        124,
         864,
-        998
+        1002
       ],
       "scaled_size": [
-        591,
+        668,
         685
       ],
       "background_tone": "warm",
-      "product_median_luminance": 170.2
+      "product_median_luminance": 169.4
     },
     {
       "id": "uboss-sizhenbao",
@@ -92,163 +59,62 @@
       "cutout": "images/partner-product-design-review/uboss-sizhenbao-cutout.png",
       "width": 1108,
       "height": 1477,
-      "alpha_coverage": 0.3044,
+      "alpha_coverage": 0.3001,
+      "opaque_fraction": 0.9797,
       "foreground_box": [
-        181,
-        233,
-        992,
-        1050
+        182,
+        263,
+        991,
+        1046
       ],
       "scaled_size": [
-        680,
+        708,
         685
       ],
       "background_tone": "warm",
-      "product_median_luminance": 136.3
+      "product_median_luminance": 136.4
     },
     {
       "id": "royalherb-erzhenbao-64",
       "name": "二珍寶精華膏湯塊",
       "image": "images/partner-products/er-zhen-bao-royalherb-original.webp",
-      "status": "pending_visual_review",
-      "sha256_original": "64a8858099f693bd216a6657c39d0d6df7178033496aaac6bb6ebaa7fab5403e",
-      "main_preview": "images/partner-product-design-review/royalherb-erzhenbao-64.png",
-      "cutout": "images/partner-product-design-review/royalherb-erzhenbao-64-cutout.png",
-      "width": 1000,
-      "height": 1000,
-      "alpha_coverage": 0.4134,
-      "foreground_box": [
-        146,
-        191,
-        852,
-        971
-      ],
-      "scaled_size": [
-        621,
-        685
-      ],
-      "background_tone": "cream",
-      "product_median_luminance": 67.0
+      "status": "failed_quality_gate",
+      "reason": "alpha edge/detail quality rejected: opaque fraction 0.127"
     },
     {
       "id": "tea-danshen-leisure",
       "name": "丹參茶包系列・原廠款式",
       "image": "images/partner-products/tea-danshen-leisure-front.webp",
-      "status": "pending_visual_review",
-      "sha256_original": "9a4f3e1ddd0e0b554ec2a7c0ec1d906961b5cf1381346f59328098e20d4fdb1b",
-      "main_preview": "images/partner-product-design-review/tea-danshen-leisure.png",
-      "cutout": "images/partner-product-design-review/tea-danshen-leisure-cutout.png",
-      "width": 1034,
-      "height": 1451,
-      "alpha_coverage": 0.1567,
-      "foreground_box": [
-        322,
-        364,
-        848,
-        910
-      ],
-      "scaled_size": [
-        534,
-        554
-      ],
-      "background_tone": "cool",
-      "product_median_luminance": 210.1
+      "status": "failed_quality_gate",
+      "reason": "alpha edge/detail quality rejected: opaque fraction 0.644"
     },
     {
       "id": "tea-danshen-lotus",
       "name": "丹參茶包系列・原廠款式",
       "image": "images/partner-products/tea-danshen-lotus-front.webp",
-      "status": "pending_visual_review",
-      "sha256_original": "7d8cbb3ed96d7975e9f68250982c839575a0aa98f353e41eb757ba7fd4f7b8a3",
-      "main_preview": "images/partner-product-design-review/tea-danshen-lotus.png",
-      "cutout": "images/partner-product-design-review/tea-danshen-lotus-cutout.png",
-      "width": 1034,
-      "height": 1451,
-      "alpha_coverage": 0.1963,
-      "foreground_box": [
-        259,
-        437,
-        895,
-        1168
-      ],
-      "scaled_size": [
-        597,
-        685
-      ],
-      "background_tone": "cool",
-      "product_median_luminance": 208.3
+      "status": "failed_quality_gate",
+      "reason": "alpha edge/detail quality rejected: opaque fraction 0.751"
     },
     {
       "id": "tea-danshen-refresh",
       "name": "丹參茶包系列・原廠款式",
       "image": "images/partner-products/tea-danshen-refresh-front.webp",
-      "status": "pending_visual_review",
-      "sha256_original": "ede91da3ff7237d0db7307d31494b0682c487b08f5db1c6862b1f6ee01cba75d",
-      "main_preview": "images/partner-product-design-review/tea-danshen-refresh.png",
-      "cutout": "images/partner-product-design-review/tea-danshen-refresh-cutout.png",
-      "width": 1034,
-      "height": 1451,
-      "alpha_coverage": 0.5938,
-      "foreground_box": [
-        162,
-        156,
-        1034,
-        1250
-      ],
-      "scaled_size": [
-        545,
-        685
-      ],
-      "background_tone": "warm",
-      "product_median_luminance": 142.3
+      "status": "failed_quality_gate",
+      "reason": "alpha edge/detail quality rejected: opaque fraction 0.209"
     },
     {
       "id": "tea-white-danshen",
       "name": "丹參茶包系列・原廠款式",
       "image": "images/partner-products/tea-white-danshen-front.webp",
-      "status": "pending_visual_review",
-      "sha256_original": "9aa7d0ad05b4841af45234008afa6e37105166110c06d600f82b8299acaa0206",
-      "main_preview": "images/partner-product-design-review/tea-white-danshen.png",
-      "cutout": "images/partner-product-design-review/tea-white-danshen-cutout.png",
-      "width": 1034,
-      "height": 1451,
-      "alpha_coverage": 0.2602,
-      "foreground_box": [
-        164,
-        269,
-        993,
-        1258
-      ],
-      "scaled_size": [
-        575,
-        685
-      ],
-      "background_tone": "warm",
-      "product_median_luminance": 167.7
+      "status": "failed_quality_gate",
+      "reason": "alpha edge/detail quality rejected: opaque fraction 0.534"
     },
     {
       "id": "tea-wudahan",
       "name": "丹參茶包系列・原廠款式",
       "image": "images/partner-products/tea-wudahan-front.webp",
-      "status": "pending_visual_review",
-      "sha256_original": "b984dfc59db4faf1a342434ec7336362ccc142e9533d58cd0f8de7801822a624",
-      "main_preview": "images/partner-product-design-review/tea-wudahan.png",
-      "cutout": "images/partner-product-design-review/tea-wudahan-cutout.png",
-      "width": 1034,
-      "height": 1451,
-      "alpha_coverage": 0.1641,
-      "foreground_box": [
-        231,
-        408,
-        849,
-        950
-      ],
-      "scaled_size": [
-        626,
-        550
-      ],
-      "background_tone": "cool",
-      "product_median_luminance": 236.7
+      "status": "failed_quality_gate",
+      "reason": "alpha edge/detail quality rejected: opaque fraction 0.246"
     }
   ]
 }
