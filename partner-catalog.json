@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-common-series-information",
+  "version": "2026-10-15-source-photo-evidence-review-25",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -605,27 +605,51 @@
       "category": "立安系列",
       "name": "龜鹿二仙膠",
       "public": false,
-      "publicationStatus": "awaiting-original-package-and-compliance-review",
-      "specificationStatus": "missing-confirmed-size",
-      "sourceFiles": [],
+      "publicationStatus": "awaiting-medicine-license-and-public-copy-review",
+      "specificationStatus": "source-package-specified-pending-manufacturer-verification",
+      "sourceFiles": [
+        "IMG_9911(1).jpeg",
+        "IMG_9912(1).jpeg",
+        "IMG_9913(1).jpeg"
+      ],
       "marketingClaimsApproved": false,
       "onlineTransactionEligible": false,
-      "imageSourceStatus": "awaiting-original-product-photo"
+      "imageSourceStatus": "user-uploaded-original-package-photos-awaiting-approved-site-media",
+      "size": "600g／塑膠袋裝（依本次實拍外盒）",
+      "publicationBlockers": [
+        "medicine-category-not-general-food",
+        "manufacturer-ingredient-amounts-require-recheck",
+        "new-original-photos-not-yet-reviewed-and-hosted",
+        "medicine-advertising-and-eligible-channel-review-required"
+      ]
     },
     {
       "id": "guilu-vitality",
       "erpId": "PRD-PARTNER-GUILU-VITALITY",
-      "brand": "原廠待核對",
+      "brand": "晉安製藥",
       "brandType": "partner",
-      "category": "漢方飲品",
+      "category": "食品飲品",
       "name": "龜鹿活力飲",
       "public": false,
-      "publicationStatus": "awaiting-original-package-and-compliance-review",
-      "specificationStatus": "missing-confirmed-size",
-      "sourceFiles": [],
+      "publicationStatus": "awaiting-food-label-and-public-copy-review",
+      "specificationStatus": "source-package-specified-pending-manufacturer-verification",
+      "sourceFiles": [
+        "IMG_8899(2).jpeg",
+        "IMG_8900(2).jpeg",
+        "IMG_8901(1).jpeg",
+        "IMG_8902(2).jpeg",
+        "IMG_8904(2).jpeg"
+      ],
       "marketingClaimsApproved": false,
       "onlineTransactionEligible": false,
-      "imageSourceStatus": "awaiting-original-product-photo"
+      "imageSourceStatus": "user-uploaded-original-package-photos-awaiting-approved-site-media",
+      "size": "60mL×12罐／盒（依本次實拍外盒）",
+      "packagingName": "龜鹿活力飲（葡萄糖胺）",
+      "publicationBlockers": [
+        "packaged-food-claims-require-review",
+        "new-original-photos-not-yet-reviewed-and-hosted",
+        "verify-product-batch-and-sales-eligibility-before-publication"
+      ]
     },
     {
       "id": "jinan-huanshaodan",
@@ -927,6 +951,33 @@
         "sample-photo-includes-physician-endorsement-visual-needs-ad-review-or-approved-product-image"
       ],
       "internalPhotoReview": "目前 IMG_9959.jpg 原廠包裝照片另含中醫師宣傳視覺；發布前須確認可依法使用的正式產品圖、正確沖泡方式與最新批次標示。"
+    },
+    {
+      "id": "uboss-sizhenbao",
+      "erpId": "PRD-PARTNER-UBOSS-SIZHENBAO",
+      "brand": "御博生技",
+      "brandType": "partner",
+      "category": "食品",
+      "name": "四珍寶精華膏湯塊",
+      "size": "600g±15g／盒｜64塊（每盤8塊非整盒規格）",
+      "public": false,
+      "publicationStatus": "awaiting-food-label-and-public-copy-review",
+      "specificationStatus": "source-package-specified-pending-manufacturer-verification",
+      "sourceFiles": [
+        "IMG_9831(3).jpeg",
+        "IMG_9832(3).jpeg",
+        "IMG_9833(2).jpeg",
+        "IMG_9834(2).jpeg",
+        "IMG_9835(1).jpeg"
+      ],
+      "marketingClaimsApproved": false,
+      "onlineTransactionEligible": false,
+      "imageSourceStatus": "user-uploaded-original-package-photos-awaiting-approved-site-media",
+      "publicationBlockers": [
+        "confirm-current-batch-and-packaging",
+        "claims-and-ingredient-verification-required",
+        "original-product-media-not-hosted-and-approved"
+      ]
     }
   ],
   "publicationRules": {
