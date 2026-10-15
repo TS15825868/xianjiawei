@@ -28,7 +28,7 @@
       "id": "guilu-vitality",
       "name": "龜鹿活力飲（葡萄糖胺）",
       "image": "images/partner-products/jinan-vitality-front-original.jpg",
-      "status": "pending_visual_review",
+      "status": "needs_manual_cleanup",
       "sha256_original": "c7ae1de7262dd2e710ef663a1265b57347b3b9e21a0bb2ad91760eb995fdc934",
       "main_preview": "images/partner-product-design-review/guilu-vitality.png",
       "cutout": "images/partner-product-design-review/guilu-vitality-cutout.png",
@@ -47,7 +47,8 @@
         685
       ],
       "background_tone": "warm",
-      "product_median_luminance": 169.4
+      "product_median_luminance": 169.4,
+      "quality_note": "Manual visual review: unrelated shop objects were retained in an earlier composite. Automatic matte passing does not authorize publication."
     },
     {
       "id": "uboss-sizhenbao",
