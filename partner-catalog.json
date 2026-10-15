@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-licensed-chinese-patent-medicine-confirmed",
+  "version": "2026-10-15-user-food-classification-and-formula-comparison-v4",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -665,7 +665,7 @@
       "category": "食品飲品",
       "name": "龜鹿活力飲",
       "public": false,
-      "publicationStatus": "awaiting-food-product-attribute-confirmation-and-image-publication",
+      "publicationStatus": "food-confirmed-by-merchant-awaiting-original-photo-hosting",
       "specificationStatus": "source-package-specified-pending-manufacturer-verification",
       "sourceFiles": [
         "IMG_8899(2).jpeg",
@@ -680,9 +680,8 @@
       "size": "60mL×12罐／盒（依本次實拍外盒）",
       "packagingName": "龜鹿活力飲（葡萄糖胺）",
       "publicationBlockers": [
-        "manufacturer-product-attribute-evidence-needed-due-to-cervine-turtle-food-materials",
-        "approved-original-media-not-yet-hosted",
-        "current-batch-and-original-manufacturer-confirmation"
+        "source-photo-not-yet-committed-to-site-media",
+        "review-current-food-label-and-public-facing-claims-for-product-specific-compliance"
       ],
       "photoEvidence": {
         "front": "IMG_8899(2).jpeg",
@@ -737,7 +736,34 @@
           "養顏美容"
         ],
         "status": "generally-allowed-wording-verify-whole-ad-not-auto-block"
-      }
+      },
+      "businessClassification": "一般食品",
+      "foodStatusSource": "使用者於2026-10-15明確確認：廠商作為食品製作並販售；依實物包裝、營養標示及原料比對",
+      "foodFormulaScreening": {
+        "historicalPatentFormula": "龜板、鹿角、人參、枸杞子",
+        "present": [
+          "龜甲",
+          "鹿角萃取液"
+        ],
+        "missing": [
+          "人參",
+          "枸杞子"
+        ],
+        "different": [
+          "黨參",
+          "大棗",
+          "葡萄糖胺"
+        ],
+        "scope": "商品標示不含原方全部四味；依提供的實物照片與使用者確認，登記為食品。是否涉及固有方減方不能僅看字面或食品添加物，商品原料合法性及廣告仍需維持檢查",
+        "isExactFormula": false,
+        "conclusion": "非與龜鹿二仙膠固有成方完全相同配方（按目前完整包裝可讀資料）；食品管理與原料適法性須個別判定，不能由不同即絕對合法推論",
+        "referenceSources": [
+          "https://foodlabel.fda.gov.tw/FdaFrontEndApp/Law/Edit?SystemId=6bcc94c8-6d64-4950-beb6-fa474e9da8f0",
+          "https://judgment.judicial.gov.tw/FJUD/printData.aspx?id=TPAA%2C113%2C%E4%B8%8A%2C261%2C20251226%2C1"
+        ]
+      },
+      "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
+      "requiresDoctorReferralForOrdinaryFoodSale": false
     },
     {
       "id": "jinan-huanshaodan",
@@ -1010,10 +1036,10 @@
       "erpId": "PRD-PARTNER-BROWN-SUGAR-UME-TEA",
       "brand": "原廠待核對",
       "brandType": "partner",
-      "category": "茶飲",
+      "category": "食品茶飲",
       "name": "黑糖仙楂烏梅茶",
       "public": false,
-      "publicationStatus": "awaiting-original-package-and-compliance-review",
+      "publicationStatus": "food-confirmed-by-merchant-awaiting-physician-packaging-visual-clearance",
       "specificationStatus": "label-transcribed-portion-count-verified",
       "sourceFiles": [
         "IMG_9959.JPG"
@@ -1034,22 +1060,50 @@
         "陰涼乾燥處，避免陽光直射、高溫與潮濕環境"
       ],
       "publicationBlockers": [
-        "missing-verified-brewing-instructions",
-        "original-package-physician-image-requires-advertising-review",
-        "sample-photo-includes-physician-endorsement-visual-needs-ad-review-or-approved-product-image"
+        "physician-portrait-on-original-package-needs-ad-context-and-use-rights-check",
+        "confirm-manufacturer-on-label-before-final-brand-attribution"
       ],
-      "internalPhotoReview": "目前 IMG_9959.jpg 原廠包裝照片另含中醫師宣傳視覺；發布前須確認可依法使用的正式產品圖、正確沖泡方式與最新批次標示。"
+      "internalPhotoReview": "目前 IMG_9959.jpg 原廠包裝照片另含中醫師宣傳視覺；發布前須確認可依法使用的正式產品圖、正確沖泡方式與最新批次標示。",
+      "businessClassification": "一般食品",
+      "foodStatusSource": "使用者於2026-10-15明確確認：廠商作為食品製作並販售；依實物包裝、營養標示及原料比對",
+      "foodFormulaScreening": {
+        "historicalPatentFormula": "龜板、鹿角、人參、枸杞子",
+        "present": [],
+        "missing": [
+          "龜板",
+          "鹿角",
+          "人參",
+          "枸杞子"
+        ],
+        "different": [
+          "黑糖",
+          "仙楂",
+          "烏梅",
+          "香料",
+          "己二烯酸（防腐劑）"
+        ],
+        "scope": "原料不涉及龜鹿二仙膠四味，不能拿龜鹿成方守門規則擋住此一般茶飲食品",
+        "isExactFormula": false,
+        "conclusion": "非與龜鹿二仙膠固有成方完全相同配方（按目前完整包裝可讀資料）；食品管理與原料適法性須個別判定，不能由不同即絕對合法推論",
+        "referenceSources": [
+          "https://foodlabel.fda.gov.tw/FdaFrontEndApp/Law/Edit?SystemId=6bcc94c8-6d64-4950-beb6-fa474e9da8f0",
+          "https://judgment.judicial.gov.tw/FJUD/printData.aspx?id=TPAA%2C113%2C%E4%B8%8A%2C261%2C20251226%2C1"
+        ]
+      },
+      "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
+      "requiresDoctorReferralForOrdinaryFoodSale": false,
+      "usageSourceNotes": "以前無忌網站資料記載『熱水沖泡並靜置3～5分鐘』，須先與現行包裝確認，不能當成最新版原廠標示"
     },
     {
       "id": "uboss-sizhenbao",
       "erpId": "PRD-PARTNER-UBOSS-SIZHENBAO",
       "brand": "御聖堂生技商品有限公司",
       "brandType": "partner",
-      "category": "食品",
+      "category": "食品膏湯塊",
       "name": "四珍寶精華膏湯塊",
       "size": "600g±15g／盒｜64塊（每盤8塊非整盒規格）",
       "public": false,
-      "publicationStatus": "awaiting-food-product-attribute-confirmation-and-image-publication",
+      "publicationStatus": "food-confirmed-by-merchant-awaiting-original-photo-hosting",
       "specificationStatus": "source-package-specified-pending-manufacturer-verification",
       "sourceFiles": [
         "IMG_9831(3).jpeg",
@@ -1062,9 +1116,8 @@
       "onlineTransactionEligible": false,
       "imageSourceStatus": "user-uploaded-original-package-photos-awaiting-approved-site-media",
       "publicationBlockers": [
-        "manufacturer-product-attribute-evidence-needed-due-to-traditional-formula-ingredients",
-        "approved-original-media-not-yet-hosted",
-        "current-batch-and-original-manufacturer-confirmation"
+        "source-photo-not-yet-committed-to-site-media",
+        "review-food-ingredient-claims-and-current-batch-copy"
       ],
       "inquiryAliases": [
         "四珍寶",
@@ -1131,7 +1184,35 @@
           "產前產後或病後之補養"
         ],
         "status": "generally-allowed-wording-verify-whole-ad-not-auto-block"
-      }
+      },
+      "businessClassification": "一般食品",
+      "foodStatusSource": "使用者於2026-10-15明確確認：廠商作為食品製作並販售；依實物包裝、營養標示及原料比對",
+      "foodFormulaScreening": {
+        "historicalPatentFormula": "龜板、鹿角、人參、枸杞子",
+        "present": [
+          "全龜萃取物",
+          "鹿角萃取物",
+          "枸杞"
+        ],
+        "missing": [
+          "人參"
+        ],
+        "different": [
+          "黨蔘萃取物",
+          "紅棗",
+          "葡萄糖胺",
+          "鯊魚軟骨素"
+        ],
+        "scope": "商品標示缺原方人參、含黨蔘及其他原料；記為廠商食品，不因部分龜鹿材料自動改標藥品；完整配方是否屬固有方加減方如有個案疑義依主管機關認定",
+        "isExactFormula": false,
+        "conclusion": "非與龜鹿二仙膠固有成方完全相同配方（按目前完整包裝可讀資料）；食品管理與原料適法性須個別判定，不能由不同即絕對合法推論",
+        "referenceSources": [
+          "https://foodlabel.fda.gov.tw/FdaFrontEndApp/Law/Edit?SystemId=6bcc94c8-6d64-4950-beb6-fa474e9da8f0",
+          "https://judgment.judicial.gov.tw/FJUD/printData.aspx?id=TPAA%2C113%2C%E4%B8%8A%2C261%2C20251226%2C1"
+        ]
+      },
+      "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
+      "requiresDoctorReferralForOrdinaryFoodSale": false
     }
   ],
   "publicationRules": {
@@ -1150,13 +1231,15 @@
     "hiddenDraftProductsNotRendered": true,
     "privatePricesProhibited": true,
     "duplicatesByBrandAndNameProhibited": true,
-    "foodProductPriority": "產品只要添加食品添加物或不是已知固有成方，並不自動成為食品；應逐品依原料使用、配方是否涉及固有成方或其加減方、主管機關產品屬性認定、標示及食品廣告判斷。確認可作為食品販售且照片合格後優先正式上架，不以自有品牌或舊版固定數量阻擋。",
+    "foodProductPriority": "使用者最新確認龜鹿活力飲（葡萄糖胺）、四珍寶精華膏湯塊、黑糖仙楂烏梅茶均為廠商製作販售食品；官網、LINE OA、ERP母資料一律依食品管理，不得因原廠同時為GMP藥廠或含龜鹿字樣自動歸藥品。食品成品仍依原料合法使用、配方是否涉及固有方及其加減方、產品標示、原廠包裝與廣告整體表現個別確認。合格照片及商品頁具備即可依最新版資料上架，不用舊產品數量擋更新。",
     "medicineProductPolicy": "不得將已取得有效藥品許可證且可由依法核准藥商販售的中藥成藥，誤列為『無法販售／只能由中醫師出售』。藥商實體販售資格、商品成藥或指示／處方分類、網路零售資格及網頁產品資訊／廣告核准是四個獨立判定欄位。非處方成藥如符合店面藥商營業項目可依法實體販售；個別用藥與疾病適用性轉中醫師。一般網購僅開放符合法規的乙類成藥，不能憑『成藥』一詞視為乙類。廣告宣傳依藥事法第65～67條及相關處理原則；許可證持有人網站的免申請資訊規則不得自動延伸為第三方網站可全部照刊。沒審核好先不公開宣傳頁，但ERP與LINE的人工作業需保留合法實體銷售可能。",
     "unclearProductPolicy": "分類、原廠、規格或公開圖片尚未確認者保留ERP，先補證據，不以名稱推定可販售資格。",
     "layoutPolicy": "自有及其他廠牌使用同一張卡片與詳細頁視覺規格；系列產品可共用單卡單頁，照片保持原包裝、比例與原廠標示。",
     "foodAdvertisementRule": "依現行《食品及相關產品標示宣傳廣告涉及不實誇張易生誤解或醫療效能認定準則》第4條附件一，可使用通常詞句例如調整體質、調節生理機能、滋補強身、增強體力、精神旺盛、養顏美容、青春美麗、產前產後或病後之補養；不得把這些詞本身當成違規退件依據。但仍須確認無疾病療效、宣稱無證據、產品屬性錯誤及整體表現誤導。",
     "medicineByFormula": "產品外盒印有『食品』、工廠登記、營養標示及產品責任保險屬有利佐證，但不能單獨證明中藥材配方不涉及固有成方或其加減方；最高行政法院113年度上字第261號判決（2025-12-26）將含龜、鹿角、人參、枸杞構成龜鹿二仙膠相關方劑的個案判屬藥品。當配方有龜、鹿角、人參/黨蔘、枸杞等相近組合時，應請原廠提出屬食品之產品屬性核判及合法使用原料資料；可依個案證據更新，不可一律封鎖所有龜鹿食品。",
-    "drugSellingVsWebPublication": "中藥成藥依法由有相應資格的藥商在實體店販售，不代表第三方官網可直接發布療效宣稱或建立即時線上交易。中性品名／取得途徑資訊是否構成藥物廣告，依實際完整網頁判定；不得僅用『須洽中醫師』取代合法判斷。"
+    "drugSellingVsWebPublication": "中藥成藥依法由有相應資格的藥商在實體店販售，不代表第三方官網可直接發布療效宣稱或建立即時線上交易。中性品名／取得途徑資訊是否構成藥物廣告，依實際完整網頁判定；不得僅用『須洽中醫師』取代合法判斷。",
+    "formulaComparisonGuidance": "衛福部許可證龜鹿二仙膠固有成方為龜板、鹿角、人參、枸杞子。食品品名標示原則有『成方比例不同、添加合法食品原料／添加物』的品名條件；此為品名要件，非保證每個改方即當然屬食品。最高行政法院113上261認定含四味加黃耆、茯苓的加方仍屬藥品。各品按真正配方個別核實；人參與黨參不是同一原料，不可用名稱相似推定兩者完全相同。",
+    "manufacturerTypeGuidance": "依法合格藥廠得依相關藥廠兼製食品規定製造食品，食品廠不能僅靠食品工廠登記製造藥品。判斷商品是食品或藥品依產品屬性而非單看生產工廠名稱。"
   },
   "updatedAt": "2026-10-15"
 }
