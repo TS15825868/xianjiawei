@@ -1,0 +1,48 @@
+name: 仙加味商品入口一致性驗收
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site.js'
+      - 'site-core-v410.js'
+      - 'site-media-modal-final-v20260814.js'
+      - 'site.css'
+      - 'index.html'
+      - 'products.html'
+      - 'trial.html'
+      - 'choose.html'
+      - 'combo.html'
+      - 'recipes.html'
+      - 'dm.html'
+      - 'why-guilu.html'
+      - 'partner-catalog.json'
+      - 'tools/audit-catalog-modal-navigation.cjs'
+      - '.github/workflows/catalog-modal-navigation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  modal-consistency:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v5
+      - name: Validate browser scripts
+        run: |
+          node --check site.js
+          node --check site-core-v410.js
+          node --check site-media-modal-final-v20260814.js
+          node --check tools/audit-catalog-modal-navigation.cjs
+      - run: npm install --no-save --no-package-lock playwright@1.55.0
+      - run: npx playwright install --with-deps ${{ matrix.engine }}
+      - name: Start official preview
+        run: python3 -m http.server 8765 > /tmp/xjw-catalog-modal.log 2>&1 &
+      - name: Verify all product image, intro and full detail transitions
+        env:
+          XJW_BROWSER_ENGINE: ${{ matrix.engine }}
+          XJW_AUDIT_BASE: http://127.0.0.1:8765/
+        run: node tools/audit-catalog-modal-navigation.cjs
