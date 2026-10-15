@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "role": "candidate-transparent-real-product-photo",
+  "publicationStatus": "review-only-not-live",
+  "rules": [
+    "True original packaging only",
+    "No AI-redrawn lettering",
+    "Do not change real-product scale or label",
+    "Compare physically before publication"
+  ],
+  "products": [
+    {
+      "id": "guilu-gao",
+      "name": "龜鹿膏",
+      "path": "images/product-cutout-review/guilu-gao.png",
+      "source": "https://raw.githubusercontent.com/TS15825868/xianjiawei-internal/main/assets/product-photo-cutouts/2026-10-11/gao.png",
+      "sourceSha256": "2c6776f1327691e3c567277d5775c3b3439a3cbd9999a893d574dfc87356a410",
+      "width": 825,
+      "height": 1280,
+      "opaqueRatio": 0.8967,
+      "transparentRatio": 0.0966,
+      "sourcePixelsUnchanged": true,
+      "publicationStatus": "pending_visual_review"
+    },
+    {
+      "id": "guilu-drink-30",
+      "name": "龜鹿飲30cc玻璃罐",
+      "path": "images/product-cutout-review/guilu-drink-30.png",
+      "source": "https://raw.githubusercontent.com/TS15825868/xianjiawei-internal/main/assets/product-photo-cutouts/2026-10-11/drink-30.png",
+      "sourceSha256": "aedd059bd0abfa4c65084e3a6ae6612975782cc0f5cb43f37ba4471c788eafb3",
+      "width": 500,
+      "height": 601,
+      "opaqueRatio": 0.7888,
+      "transparentRatio": 0.199,
+      "sourcePixelsUnchanged": true,
+      "publicationStatus": "pending_visual_review"
+    },
+    {
+      "id": "guilu-drink-180",
+      "name": "龜鹿飲180cc鋁袋",
+      "path": "images/product-cutout-review/guilu-drink-180.png",
+      "source": "https://raw.githubusercontent.com/TS15825868/xianjiawei-internal/main/assets/product-photo-cutouts/2026-10-11/drink-180.png",
+      "sourceSha256": "cc417adb35787ed6716536f63e4a3b3821c6ef4495c946cf76516dc2e9f52f46",
+      "width": 715,
+      "height": 1066,
+      "opaqueRatio": 0.8796,
+      "transparentRatio": 0.1114,
+      "sourcePixelsUnchanged": true,
+      "publicationStatus": "pending_visual_review"
+    },
+    {
+      "id": "luerong-fen",
+      "name": "鹿茸粉",
+      "path": "images/product-cutout-review/luerong-fen.png",
+      "source": "https://raw.githubusercontent.com/TS15825868/xianjiawei-internal/main/assets/product-photo-cutouts/2026-10-11/luerong.png",
+      "sourceSha256": "d1ff289ce779cd9d0dead94dde43343156eb39d767aa5d647f38f8ef1f8290b7",
+      "width": 402,
+      "height": 645,
+      "opaqueRatio": 0.8404,
+      "transparentRatio": 0.1458,
+      "sourcePixelsUnchanged": true,
+      "publicationStatus": "pending_visual_review"
+    }
+  ]
+}
