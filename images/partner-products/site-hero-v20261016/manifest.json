@@ -1,5 +1,5 @@
 {
-  "reviewState": "visual-candidates-not-yet-linked-to-public-catalog",
+  "reviewState": "cutout-and-hero-visual-candidates-not-yet-linked-to-public-catalog",
   "images": [
     {
       "source": "images/partner-products/four-treasures-front.jpg",
@@ -8,6 +8,8 @@
       "originalPackagePixelsPreserved": true,
       "packageNotAIGenerated": true,
       "scaledWithAspectRatio": true,
+      "transparentCutout": "images/partner-products/site-hero-v20261016/four-treasures-front-cutout.webp",
+      "transparentCutoutAlphaVerified": true,
       "humanReviewRequired": true
     },
     {
@@ -17,6 +19,8 @@
       "originalPackagePixelsPreserved": true,
       "packageNotAIGenerated": true,
       "scaledWithAspectRatio": true,
+      "transparentCutout": "images/partner-products/site-hero-v20261016/er-zhen-bao-royalherb-original-cutout.webp",
+      "transparentCutoutAlphaVerified": true,
       "humanReviewRequired": true
     },
     {
@@ -26,6 +30,8 @@
       "originalPackagePixelsPreserved": true,
       "packageNotAIGenerated": true,
       "scaledWithAspectRatio": true,
+      "transparentCutout": "images/partner-products/site-hero-v20261016/tea-danshen-leisure-front-cutout.webp",
+      "transparentCutoutAlphaVerified": true,
       "humanReviewRequired": true
     },
     {
@@ -35,6 +41,8 @@
       "originalPackagePixelsPreserved": true,
       "packageNotAIGenerated": true,
       "scaledWithAspectRatio": true,
+      "transparentCutout": "images/partner-products/site-hero-v20261016/tea-danshen-lotus-front-cutout.webp",
+      "transparentCutoutAlphaVerified": true,
       "humanReviewRequired": true
     },
     {
@@ -44,6 +52,8 @@
       "originalPackagePixelsPreserved": true,
       "packageNotAIGenerated": true,
       "scaledWithAspectRatio": true,
+      "transparentCutout": "images/partner-products/site-hero-v20261016/tea-danshen-refresh-front-cutout.webp",
+      "transparentCutoutAlphaVerified": true,
       "humanReviewRequired": true
     },
     {
@@ -53,6 +63,8 @@
       "originalPackagePixelsPreserved": true,
       "packageNotAIGenerated": true,
       "scaledWithAspectRatio": true,
+      "transparentCutout": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",
+      "transparentCutoutAlphaVerified": true,
       "humanReviewRequired": true
     },
     {
@@ -62,6 +74,8 @@
       "originalPackagePixelsPreserved": true,
       "packageNotAIGenerated": true,
       "scaledWithAspectRatio": true,
+      "transparentCutout": "images/partner-products/site-hero-v20261016/tea-white-danshen-front-cutout.webp",
+      "transparentCutoutAlphaVerified": true,
       "humanReviewRequired": true
     },
     {
@@ -71,6 +85,8 @@
       "originalPackagePixelsPreserved": true,
       "packageNotAIGenerated": true,
       "scaledWithAspectRatio": true,
+      "transparentCutout": "images/partner-products/site-hero-v20261016/tea-wudahan-front-cutout.webp",
+      "transparentCutoutAlphaVerified": true,
       "humanReviewRequired": true
     }
   ]
