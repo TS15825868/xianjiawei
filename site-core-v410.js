@@ -381,23 +381,21 @@ function renderProductsPage() {
   const partner = SITE_DATA?.partnerProducts || [];
   const staticPartnerCount = document.querySelectorAll('#partner-product-list [data-fallback-product]').length;
   const preservePartnerFallback = SITE_DATA?.partnerCatalogUnavailable === true && staticPartnerCount > 0;
-  const all = [...own, ...partner];
+  const classify=p=>{const s=String(p.category||p.form||'');if(p.id==='guilu-gao'||/膏品|膏狀/.test(s))return '膏品';if(/茶飲|茶包/.test(s))return '茶飲';if(/飲品|液態即飲/.test(s))return '飲品';if(/膏湯塊|湯塊/.test(s))return '膏湯塊';if(/粉品|粉末/.test(s))return '粉品';return s||'其他';};
+  const all = [...own, ...partner].map(p=>({...p,catalogCategory:classify(p)}));
   const nav = document.getElementById('catalog-filters');
   const status = document.getElementById('catalog-result-count');
   let selected = 'all';
   const filters = [{key:'all',label:'全部商品',test:()=>true},
-    {key:'own',label:'仙加味自有品牌',test:p=>p.brandType==='own'},
-    ...((partner.length || preservePartnerFallback) ? [{key:'partner',label:'其他廠牌',test:p=>p.brandType==='partner'}] : []),
-    ...[...new Set(all.map(p=>p.category).filter(Boolean))].map(category=>({key:'type:'+category,label:category,test:p=>p.category===category}))];
+    ...[...new Set(all.map(p=>p.catalogCategory))].map(category=>({key:'type:'+category,label:category,test:p=>p.catalogCategory===category}))];
   const draw = () => {
     const filter = filters.find(f=>f.key===selected) || filters[0];
     const visible = all.filter(filter.test);
     fillProducts('product-list', visible.filter(p=>p.brandType==='own'), {compact:false});
     if (!preservePartnerFallback) fillProducts('partner-product-list', visible.filter(p=>p.brandType==='partner'), {compact:false});
-    document.getElementById('own-brand-catalog').hidden = !visible.some(p=>p.brandType==='own');
-    const showPartners = preservePartnerFallback ? (selected === 'all' || selected === 'partner') : visible.some(p=>p.brandType==='partner');
-    document.getElementById('partner-brand-catalog').hidden = !showPartners;
-    const displayedCount = visible.length + (preservePartnerFallback && showPartners ? staticPartnerCount : 0);
+    const partnerList=document.getElementById('partner-product-list');
+    if(partnerList)partnerList.hidden=preservePartnerFallback && selected!=='all';
+    const displayedCount = visible.length + (preservePartnerFallback && selected==='all' ? staticPartnerCount : 0);
     const groupedVariants = visible.filter(p => Array.isArray(p.variants) && p.variants.length > 0).reduce((n,p) => n + p.variants.length, 0);
     if (status) status.textContent = `${filter.label}・${displayedCount} 個商品入口${groupedVariants ? `（系列內含 ${groupedVariants} 款）` : ''}`;
     nav?.querySelectorAll('button').forEach(b=>{const active=b.dataset.catalogFilter===selected;b.setAttribute('aria-pressed',String(active));b.className='btn '+(active?'btn-primary':'btn-outline');});
@@ -444,7 +442,7 @@ function fillProducts(targetId, products, options = {}) {
           <img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}" loading="lazy" decoding="async">
         </div>
         <div class="product-card__body">
-          <p class="eyebrow">${escapeHtml(product.brandType === "partner" ? (product.category || "其他商品") : (product.series || product.category || "仙加味"))}</p>
+          <p class="eyebrow">${escapeHtml(product.catalogCategory || product.category || "日常商品")}</p>
           <h3>${escapeHtml(name)}</h3>
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>

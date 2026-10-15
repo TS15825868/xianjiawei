@@ -83,6 +83,11 @@ async function close(page) {
       const cards=page.locator('#product-list .product-card[data-product-id],#partner-product-list .product-card[data-product-id]');
       await page.waitForFunction(count=>document.querySelectorAll('#product-list .product-card[data-product-id],#partner-product-list .product-card[data-product-id]').length===count,expectedCount,{timeout:20000});
       assert.equal(await cards.count(),expectedCount);
+      assert.equal(await page.locator('#all-product-catalog,#catalog-product-grid').count(),2,"全部商品應同屬單一網格");
+      assert.equal(await page.locator('#own-brand-catalog,#partner-brand-catalog').count(),0,"不可依品牌來源拆區");
+      const labels=await page.locator('#catalog-filters button').allTextContents();
+      assert.ok(labels.includes('全部商品')&&!labels.some(v=>/自有品牌|其他廠牌/.test(v)),"篩選應依產品類型");
+      assert.deepEqual(await page.locator('#catalog-product-grid>.catalog-product-segment').evaluateAll(nodes=>nodes.map(node=>getComputedStyle(node).display)),['contents','contents'],"所有商品應排列在同一網格");
       for(let i=0;i<expectedCount;i++){
         const card=cards.nth(i),name=(await card.locator("h3").innerText()).trim();
         const href=await card.locator(".product-card__actions a[href]").getAttribute("href");

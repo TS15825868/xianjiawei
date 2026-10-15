@@ -341,3 +341,8 @@ body[data-page="product-detail"] .product-complete-grid>.card{min-width:0}
 @media(prefers-reduced-motion:reduce){
   .product-modal__backdrop{-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+
+/* 單一公開商品網格：保留各品牌原圖及內部製造/保險紀錄。 */
+body[data-page="products"] #catalog-product-grid>.catalog-product-segment{display:contents}
+body[data-page="products"] #catalog-filters{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+@media(max-width:700px){body[data-page="products"] #catalog-filters{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin}body[data-page="products"] #catalog-filters .btn{flex:0 0 auto;white-space:nowrap;min-height:44px}}

@@ -128,8 +128,10 @@ def main() -> None:
             if f'data-fallback-product="{member["id"]}"' in listing:
                 fail("grouped variant still has a separate public card: " + member["id"])
 
-    if "catalog-filters" not in listing or "partner-product-list" not in listing:
-        fail("catalog filter or partner section missing")
+    if not all(x in listing for x in ("catalog-filters", 'id="all-product-catalog"', 'id="catalog-product-grid"', 'id="product-list"', 'id="partner-product-list"')):
+        fail("unified catalog grid or fallback segments missing")
+    if 'id="own-brand-catalog"' in listing or 'id="partner-brand-catalog"' in listing:
+        fail("obsolete brand-split public catalog returned")
     for pid in ids:
         if f'data-fallback-product="{pid}"' not in listing:
             fail("non-JavaScript catalog fallback missing " + pid)
