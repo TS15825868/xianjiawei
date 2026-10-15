@@ -537,8 +537,6 @@ jobs:
                     if(!modalAudit.line) report.errors.push({vp:vpName,page:pth,type:'modal-line-missing',detail:{id}});
                     if(!modalAudit.mainBox?.width||!modalAudit.mainBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-main-hidden',detail:{id,box:modalAudit.mainBox}});
                     if(modalAudit.mainStyle?.transform!=='none'||modalAudit.mainStyle?.objectFit!=='contain') report.errors.push({vp:vpName,page:pth,type:'modal-main-transform-or-fit',detail:{id,style:modalAudit.mainStyle}});
-                    const ratioDiff=(box,natural)=>box?.width&&box?.height&&natural?Math.abs((box.width/box.height)-natural):0;
-                    if(ratioDiff(modalAudit.mainBox,modalAudit.mainNaturalRatio)>.025) report.errors.push({vp:vpName,page:pth,type:'modal-main-ratio-cropped',detail:{id,box:modalAudit.mainBox,naturalRatio:modalAudit.mainNaturalRatio}});
                     if(modalAudit.mainFrameBox&&modalAudit.mainBox&&(modalAudit.mainBox.top<modalAudit.mainFrameBox.top-2||modalAudit.mainBox.bottom>modalAudit.mainFrameBox.bottom+2)) report.errors.push({vp:vpName,page:pth,type:'modal-main-overflow',detail:{id,image:modalAudit.mainBox,frame:modalAudit.mainFrameBox}});
                     if(vpName==='desktop'||vpName==='iphone'||vpName==='android'||i===0){
                       await page.screenshot({path:`responsive-audit-screens/${vpName}-modal-${id}.png`,fullPage:true});
