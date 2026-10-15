@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-15-source-photo-evidence-review-25",
+  "version": "2026-10-15-partner-food-photo-label-evidence-v2",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -631,7 +631,7 @@
       "category": "食品飲品",
       "name": "龜鹿活力飲",
       "public": false,
-      "publicationStatus": "awaiting-food-label-and-public-copy-review",
+      "publicationStatus": "awaiting-food-image-and-ad-review",
       "specificationStatus": "source-package-specified-pending-manufacturer-verification",
       "sourceFiles": [
         "IMG_8899(2).jpeg",
@@ -646,10 +646,40 @@
       "size": "60mL×12罐／盒（依本次實拍外盒）",
       "packagingName": "龜鹿活力飲（葡萄糖胺）",
       "publicationBlockers": [
-        "packaged-food-claims-require-review",
-        "new-original-photos-not-yet-reviewed-and-hosted",
-        "verify-product-batch-and-sales-eligibility-before-publication"
-      ]
+        "original-package-claims-must-be-reviewed-under-food-advertising-rules",
+        "front-and-label-photos-not-hosted-as-approved-website-assets",
+        "confirm-current-batch-and-product-name-with-manufacturer",
+        "final-neutral-public-copy-not-yet-approved"
+      ],
+      "photoEvidence": {
+        "front": "IMG_8899(2).jpeg",
+        "frontWithJar": "IMG_8904(2).jpeg",
+        "sealedPackage": "IMG_8901(1).jpeg",
+        "ingredientAndNutritionSide": "IMG_8902(2).jpeg",
+        "marketingSide": "IMG_8900(2).jpeg",
+        "review": "原廠金色禮盒12罐、瓶型與側標不可改；金色盒本身有宣傳文字需另作食品廣告檢查。"
+      },
+      "packagingEvidence": {
+        "labelProductName": "龜鹿活力飲（葡萄糖胺）",
+        "size": "60毫升×12罐／盒",
+        "ingredientsFromLabel": [
+          "純水",
+          "大棗",
+          "黨參",
+          "龜甲",
+          "鹿角萃取液",
+          "葡萄糖胺"
+        ],
+        "countryOfOrigin": "台灣",
+        "shelfLife": "二年",
+        "usageFromLabel": "每日一瓶，食用前請先搖勻後飲用",
+        "storageFromLabel": "室溫貯存，避免高溫及日照；開封後請一次飲用完畢",
+        "manufacturer": "晉安製藥股份有限公司",
+        "observedStamp": "20280515",
+        "observedStampMeaning": "樣品包裝照片顯示，不能視為目前販售批次效期",
+        "source": "IMG_8902(2).jpeg",
+        "ingredientStatus": "packaging-photo-transcribed-not-manufacturer-reconfirmed"
+      }
     },
     {
       "id": "jinan-huanshaodan",
@@ -955,13 +985,13 @@
     {
       "id": "uboss-sizhenbao",
       "erpId": "PRD-PARTNER-UBOSS-SIZHENBAO",
-      "brand": "御博生技",
+      "brand": "御聖堂生技商品有限公司",
       "brandType": "partner",
       "category": "食品",
       "name": "四珍寶精華膏湯塊",
       "size": "600g±15g／盒｜64塊（每盤8塊非整盒規格）",
       "public": false,
-      "publicationStatus": "awaiting-food-label-and-public-copy-review",
+      "publicationStatus": "awaiting-visual-and-ad-review",
       "specificationStatus": "source-package-specified-pending-manufacturer-verification",
       "sourceFiles": [
         "IMG_9831(3).jpeg",
@@ -974,14 +1004,44 @@
       "onlineTransactionEligible": false,
       "imageSourceStatus": "user-uploaded-original-package-photos-awaiting-approved-site-media",
       "publicationBlockers": [
-        "confirm-current-batch-and-packaging",
-        "claims-and-ingredient-verification-required",
-        "original-product-media-not-hosted-and-approved"
+        "full-original-packaging-photo-shows-out-of-policy-food-promotional-claims-requiring-review",
+        "front-photo-not-yet-hosted-as-approved-website-asset",
+        "food-ingredient-label-and-current-batch-need-supplier-confirmation",
+        "missing-verified-compliant-public-image-and-copy"
       ],
       "inquiryAliases": [
         "四珍寶",
         "四珍寶湯塊"
-      ]
+      ],
+      "producerNameFromLabel": "御聖堂生技商品有限公司",
+      "manufacturerNameFromLabel": "御聖堂生技商品有限公司",
+      "photoEvidence": {
+        "front": "IMG_9834(2).jpeg",
+        "ingredientsAndPackage": "IMG_9833(2).jpeg",
+        "individualPieces": "IMG_9832(3).jpeg",
+        "tray": "IMG_9831(3).jpeg",
+        "overallPackage": "IMG_9835(1).jpeg",
+        "review": "實拍盒裝背標辨識：出品商御聖堂生技商品有限公司；品牌名稱不得沿用其他產品的御博生技。"
+      },
+      "packagingEvidence": {
+        "labelProductName": "四珍寶精華膏湯塊",
+        "netWeight": "600g±15g／盒",
+        "unitsPerBox": 64,
+        "unitServingGrams": 9.3,
+        "ingredientsFromLabel": [
+          "鹿角萃取物",
+          "全龜萃取物",
+          "黨參萃取物",
+          "枸杞",
+          "紅棗",
+          "葡萄糖胺",
+          "鯊魚軟骨素"
+        ],
+        "countryOfOrigin": "台灣",
+        "shelfLife": "三年",
+        "source": "IMG_9833(2).jpeg",
+        "ingredientStatus": "packaging-photo-transcribed-not-manufacturer-reconfirmed"
+      }
     }
   ],
   "publicationRules": {
@@ -1000,9 +1060,10 @@
     "hiddenDraftProductsNotRendered": true,
     "privatePricesProhibited": true,
     "duplicatesByBrandAndNameProhibited": true,
-    "foodProductPriority": "包裝與原廠資料確認屬食品後，優先使用原廠實物圖與完整標示公開中性商品資訊；不得宣稱療效，價格仍由 LINE 回覆。分類為食品並不自動免除廣告法規檢查。",
-    "medicineProductPolicy": "藥品或中藥製劑應保留ERP資料並核實許可證、品類、藥品廣告與網路交易限制；未完成前不直接放入一般食品商品卡或促銷內容。",
+    "foodProductPriority": "已確認食品須使用正式實物原圖，核實原廠、批次、品名、規格、食品法定標示與圖片整體宣傳內容；舊包裝若出現療效／誇大宣稱，不可只靠正文刪字直接發布該包裝照片。合格食品立即可公開，價格維持 LINE 人工提供。",
+    "medicineProductPolicy": "僅加上「需洽詢中醫師」不等於取得藥物廣告、藥商及網路交易資格。中藥製劑保留內部母資料與 LINE 人工接待，不列一般官網商品、商品跳窗或可直接購買清單；取得可核實合法資格及核准文案再依最新正確資料更新。",
     "unclearProductPolicy": "分類、原廠、規格或公開圖片尚未確認者保留ERP，先補證據，不以名稱推定可販售資格。",
     "layoutPolicy": "自有及其他廠牌使用同一張卡片與詳細頁視覺規格；系列產品可共用單卡單頁，照片保持原包裝、比例與原廠標示。"
-  }
+  },
+  "updatedAt": "2026-10-15"
 }
