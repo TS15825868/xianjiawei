@@ -1,0 +1,22 @@
+name: 仙加味｜新增商品來源照片待辨識清單
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/audit-partner-staging-sources.yml"
+permissions:
+  contents: read
+jobs:
+  archive-original-staging-photos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check all pending original photo files
+        run: |
+          find images/partner-products/staging -type f -maxdepth 1 -print | sort
+          echo "Pending photos must not be published until exact product names, actual package specifications and front/back labels are matched."
+      - uses: actions/upload-artifact@v4
+        with:
+          name: all-unidentified-real-partner-product-photos
+          path: images/partner-products/staging/*.jpg
+          retention-days: 30
