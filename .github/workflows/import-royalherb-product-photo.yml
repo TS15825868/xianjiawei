@@ -1,0 +1,67 @@
+name: 仙加味原廠產品實物照片匯入
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/import-royalherb-product-photo.yml"
+      - "ops/import-royalherb-erzhenbao.json"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xjw-royalherb-official-original
+  cancel-in-progress: false
+jobs:
+  import-official-photo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch unchanged manufacturer original (WebP)
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, urllib.request, time
+          cfg = json.loads(pathlib.Path("ops/import-royalherb-erzhenbao.json").read_text(encoding="utf-8"))
+          url = cfg["image"]["url"]
+          dest = cfg["image"]["target"]
+          prefix = "https://royalherb.com.tw/wp-content/uploads/2026/08/"
+          assert url.startswith(prefix) and url.endswith(".webp"), "Original manufacturer domain required"
+          assert dest == "images/partner-products/er-zhen-bao-royalherb-original.webp", "Only the approved original path"
+          request = urllib.request.Request(url, headers={"User-Agent":"XianjiaweiOriginalImageImport/1.0"})
+          payload = None
+          for attempt in range(3):
+              try:
+                  with urllib.request.urlopen(request, timeout=28) as response:
+                      length = response.headers.get("Content-Length")
+                      if length and int(length) > 9_000_000:
+                          raise ValueError("Oversized original")
+                      payload = response.read(9_000_001)
+                  if len(payload) > 9_000_000 or len(payload) < 8_000:
+                      raise ValueError("Original image size outside bounds")
+                  if payload[:4] != b"RIFF" or payload[8:12] != b"WEBP":
+                      raise ValueError("Not a real WebP; do not commit HTML/placeholder")
+                  break
+              except Exception:
+                  if attempt == 2:
+                      raise
+                  time.sleep(3)
+          output = pathlib.Path(dest)
+          output.parent.mkdir(parents=True, exist_ok=True)
+          output.write_bytes(payload)
+          print("Approved manufacturer original fetched", len(payload), "bytes")
+          PY
+      - name: Commit authenticated manufacturer original
+        shell: bash
+        run: |
+          git add -- images/partner-products/er-zhen-bao-royalherb-original.webp
+          if git diff --cached --quiet; then
+            echo "Original unchanged; no duplicate commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "assets(food): import unchanged Royalherb 二珍寶 original product photography"
+          git push origin HEAD:main
