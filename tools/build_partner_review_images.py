@@ -17,6 +17,21 @@ ORIGINALS=(ROOT/"images/partner-products").resolve()
 OUT=ROOT/"images/partner-product-design-review"
 SIZE=1000
 
+# Coordinate masks measured on the original real product photos, not synthesized.
+# Preserve every original label pixel. Coordinates are tied to source photo sizes.
+MANUAL_PHYSICAL_BOX_MASKS = {
+    "four-treasures-front.jpg": [(198,423),(936,415),(943,995),(196,995)],
+    "er-zhen-bao-royalherb-original.webp": [(150,193),(849,193),(849,756),
+                                              (795,800),(668,839),(572,725),(150,756)],
+    "tea-danshen-leisure-front.webp": [(62,96),(1031,195),(1031,1217),(58,1286)],
+    "tea-danshen-lotus-front.webp": [(0,104),(1029,188),(1029,1280),(3,1300)],
+    "tea-danshen-refresh-front.webp": [(120,160),(1015,195),(1016,1208),(120,1278)],
+    "tea-rose-fruit-front.webp": [(0,102),(998,195),(997,1230),(0,1276)],
+    "tea-white-danshen-front.webp": [(1,145),(1026,186),(1028,1246),(2,1299)],
+    "tea-wudahan-front.webp": [(61,125),(1024,192),(1029,1242),(65,1292)]
+}
+
+
 def sources():
     catalog=json.loads((ROOT/"partner-catalog.json").read_text(encoding="utf-8"))
     items=[]
@@ -84,12 +99,18 @@ def tone_for_product(cutout):
     if mid<=100: return "cream",round(mid,1)
     return "warm",round(mid,1)
 
-def make(original,session):
+def make(original,session,photo_name):
     rgb=ImageOps.exif_transpose(original).convert("RGBA")
     w,h=rgb.size
     if min(w,h)<250: raise ValueError("image too small")
-    bg_removed=remove(rgb,session=session).convert("RGBA")
-    alpha=bg_removed.getchannel("A")
+    if photo_name in MANUAL_PHYSICAL_BOX_MASKS:
+        # Exact original package silhouette: no AI repaint and no shop scenery.
+        alpha=Image.new("L",(w,h),0)
+        ImageDraw.Draw(alpha).polygon(MANUAL_PHYSICAL_BOX_MASKS[photo_name],fill=255)
+        alpha=alpha.filter(ImageFilter.GaussianBlur(1.1))
+    else:
+        bg_removed=remove(rgb,session=session).convert("RGBA")
+        alpha=bg_removed.getchannel("A")
     hard=alpha.point(lambda a:255 if a>=70 else 0)
     box=hard.getbbox()
     if box is None: raise ValueError("empty cutout")
@@ -128,14 +149,14 @@ def main():
     for stale in OUT.glob("*.png"): stale.unlink()
     if (OUT/"contact-sheet.jpg").exists(): (OUT/"contact-sheet.jpg").unlink()
     current=sources()
-    session=new_session("isnet-general-use")
+    session=new_session("u2netp")
     manifest=[]
     thumbnails=[]
     for item in current:
         record=dict(item)
         try:
             photo=source_image(item["image"])
-            full,cut,metrics=make(Image.open(photo),session)
+            full,cut,metrics=make(Image.open(photo),session,photo.name)
             name=item["id"]
             full.save(OUT/(name+".png"),optimize=True)
             cut.save(OUT/(name+"-cutout.png"),optimize=True)
