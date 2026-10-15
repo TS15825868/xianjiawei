@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/partner-product-catalog-integrity.yml'
       - 'tools/validate-partner-catalog-integrity.py'
+      - 'index.html'
       - 'products.html'
       - 'partner-catalog.json'
       - 'data.json'
