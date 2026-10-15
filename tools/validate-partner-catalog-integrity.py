@@ -179,8 +179,8 @@ def main() -> None:
     # automatically become required, and retired/internal-only items stay out.
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
     homepage_links = re.findall(
-        r'<a\\b[^>]*\\bhref="(product-[a-z0-9-]+\\.html)"[^>]*>\\s*'
-        r'<img\\b[^>]*\\bsrc="([^"]+)"',
+        r'<a\b[^>]*\bhref="(product-[a-z0-9-]+\.html)"[^>]*>\s*'
+        r'<img\b[^>]*\bsrc="([^"]+)"',
         homepage,
     )
     expected_home = {str(p["page"]): str(p["image"]).split("?", 1)[0]
