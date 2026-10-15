@@ -141,24 +141,43 @@ def main() -> None:
     if "partner-catalog.json" not in core or "fillProducts('partner-product-list'" not in core:
         fail("dynamic partner catalog integration missing")
 
-    # Regression: series cards and modal links must navigate to their full page,
-    # not be renamed/reopened as another copy of the same product modal.
+    # 最新正式 UX：所有商品（包含系列）都先顯示同一跳窗，
+    # 只有跳窗內「查看詳細」能前往完整頁。不可再使用舊版「系列直達」守門規則。
     modal_router = (ROOT / "site-media-modal-final-v20260814.js").read_text(encoding="utf-8")
     if not all(token in modal_router for token in (
-        "isGroupedProductLink(anchor)",
+        "normalizeIntroActions()", "markIntro(anchor",
         "anchor.closest('.breadcrumb,#product-modal')",
         "target.closest('#product-modal')",
-        "anchor.removeAttribute('data-product-intro')",
+        "openIntro(target,event)",
     )):
-        fail("grouped tea page or modal navigation can be intercepted by modal router")
+        fail("product links no longer consistently enter shared modal")
+    if "isGroupedProductLink(anchor)" in modal_router:
+        fail("obsolete grouped-series direct-page bypass returned")
+
     if not all(token in core for token in (
-        "const isSeries = Array.isArray(product.variants)",
+        'data-product-intro="1" aria-haspopup="dialog"',
         'data-product-page-direct="1"',
-        "查看全部款式與照片",
+        '查看詳細',
     )):
-        fail("grouped series cards must offer a direct detail page route")
+        fail("product modal needs intro links and a sole explicit detail-page CTA")
+    if 'const isSeries = Array.isArray(product.variants)' in core:
+        fail("obsolete grouped-series direct-detail routing returned")
+    if 'data-product-page-direct="1"' in listing:
+        fail("catalog cards must not bypass intro modal")
     if 'href="product-danshen-tea.html"' not in listing:
-        fail("grouped series static fallback has no direct detail-page link")
+        fail("grouped tea series catalog link missing")
+    for product in public_partner:
+        if f'data-fallback-product="{product["id"]}"' not in listing:
+            fail("approved partner fallback card missing: " + product["id"])
+        if product.get("publicationBlockers") and product.get("public") is True:
+            fail("publication blockers remain for visible partner listing: " + product["id"])
+
+    # 「須洽詢中醫師」字樣無法替代合法廣告及交易資格審查。
+    # 核准的新食品可依新版正確資訊上架，不以舊版數量或舊產品名鎖死。
+    for product in all_partner:
+        if product.get("public") is True and product.get("category") in ("中藥製劑", "中藥成藥", "藥品"):
+            if not all(product.get(k) for k in ("medicineLicenseVerified", "medicineAdvertisingApproved", "lawfulSalesChannelVerified")):
+                fail("medicine cannot become public solely by adding a physician-referral note: " + product["id"])
     print("PASS multi-brand catalog: "
           + str(len(own)) + " own-brand + "
           + str(len(public_partner)) + " partner products; "
