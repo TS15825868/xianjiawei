@@ -267,7 +267,7 @@ function renderFooter() {
       <div class="footer-brand-block">
         <strong>${escapeHtml(SITE_DATA?.brand || "仙加味")}</strong>
         <p>補養，是一種節奏。</p>
-        <p>從萬華開始，把四代累積的龜鹿工序整理成清楚的產品資訊與日常使用方式。</p>
+        <p>萬華起家，四代傳承。結合家族經驗、專業製造合作與精選商品，延續漢方飲食文化。</p>
       </div>
 
       <nav class="footer-nav" aria-label="頁尾導覽">
