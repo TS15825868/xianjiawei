@@ -1,0 +1,36 @@
+{
+  "version": "20261016-longfeng-denggu-original-photo-staging",
+  "status": "image-review-pending-unverified-label-facts",
+  "method": "actual source photo original pixels masked onto new simple background, not AI redrawn packaging",
+  "ingredientPolicy": "do not infer from the box front; customer will upload back label later",
+  "products": [
+    {
+      "id": "longfeng-denggu-male-blue",
+      "parentProduct": "longfeng-denggu",
+      "variant": "男方",
+      "packagingColor": "藍色",
+      "printedFrontCount": "12入",
+      "source": "images/partner-products/longfeng-denggu-review-v20261016-v2/male-blue-source.jpg",
+      "sha256": "3ed508ffb6b5f9627485477c868d88a55c8b58af85a0f4284c3e38b1c9a3e4d8",
+      "image": "images/partner-products/longfeng-denggu-review-v20261016-v2/male-blue-main-candidate.webp",
+      "publicationStatus": "candidate-only-until-visible-photo-QA-and-label-facts-reviewed",
+      "ingredients": null,
+      "usage": null,
+      "shelfLife": null
+    },
+    {
+      "id": "longfeng-denggu-female-pink",
+      "parentProduct": "longfeng-denggu",
+      "variant": "女方",
+      "packagingColor": "粉紅色",
+      "printedFrontCount": "12入",
+      "source": "images/partner-products/longfeng-denggu-review-v20261016-v2/female-pink-source.jpg",
+      "sha256": "7d4fb9caacbb2fafe2981f6dada7c22ae9ded7b18e2f3be083b08d053eace6b8",
+      "image": "images/partner-products/longfeng-denggu-review-v20261016-v2/female-pink-main-candidate.webp",
+      "publicationStatus": "candidate-only-until-visible-photo-QA-and-label-facts-reviewed",
+      "ingredients": null,
+      "usage": null,
+      "shelfLife": null
+    }
+  ]
+}
