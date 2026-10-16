@@ -3,7 +3,7 @@
  * mainImage：首頁／產品總覽／怎麼選／試喝／推薦／產品卡／產品 Hero，目前公開四款使用原始像素保真山水情境 WebP；舊透明 PNG 與 JPG 保留為備援和來源核對。
  * detailImages：只允許「查看介紹」Modal 與獨立產品頁的詳細內容備援使用，以真實實物照片的新背景圖為主；DM另行保留，不得混為單品主圖。
  * identityReference：只供包裝身份與比例檢查，不作一般公開主圖。
- * 其他廠牌公開商品只註冊「詳細圖片」保護名單；主圖以 partner-catalog.json 最新資料為準，不鎖死舊主圖。
+ * 已核對合格的其他廠牌主圖可指定；其餘以 partner-catalog.json 最新商品資料為準，不鎖舊版。
  */
 (function(){
   const DATA={
@@ -54,6 +54,7 @@
       ]
     },
     "danshen-tea-collection": {
+      "mainImage": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
       "detailImages": [
             "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
             "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
@@ -78,6 +79,7 @@
       ]
     },
     "uboss-sizhenbao": {
+      "mainImage": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp",
@@ -88,6 +90,7 @@
       ]
     },
     "royalherb-erzhenbao-64": {
+      "mainImage": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp",
         "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-1.webp",
