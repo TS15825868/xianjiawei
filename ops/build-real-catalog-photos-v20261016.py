@@ -192,3 +192,58 @@ manifest["detailImages"]=detail
 manifest["notes"]=["所有輸出使用原實拍像素，沒有重新生成產品","龜鹿膏盒罐同張實拍近似等高","鹿茸粉不呈現內容物","二珍寶內托原照有手部遮擋不假裝完整"]
 (OUT/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 print("Generated",len(manifest["products"]),"main images and",len(detail),"detail images")
+
+# 網站正式替換：只換引用，不覆蓋/重命名任何既有舊照片。
+oldfolder="images/catalog-real-v20261016/"
+newfolder="images/catalog-clean-v20261016/"
+active={i["id"] for i in manifest["products"]}
+site_files=list(ROOT.glob("*.html"))+list(ROOT.glob("*.js"))
+site_files += [ROOT/i for i in ("catalog-public.json","partner-catalog.json",
+  "data/product-media-authority.json","data/formal-media-authority-v20260810.json",
+  "data.json","product-master.json","public-product-master.json",
+  "assets/data/official-products.json","config/official-products.json")
+    if (ROOT/i).exists()]
+changed=[]
+for file in site_files:
+    original=file.read_text(encoding="utf-8")
+    text=original
+    for pid in active:
+        text=text.replace(oldfolder+pid+"-main.webp",newfolder+pid+"-main.webp")
+    if file.name=="product-guilu-gao.html":
+        old="images/product-main/gao-packaging-v20261016/box-jar-scene.webp"
+        text=text.replace('src="'+old+'"','src="'+detail["guilu-gao"]+'"')
+        text=text.replace('href="'+old+'"','href="'+detail["guilu-gao"]+'"')
+    if file.name=="product-guilu-drink-30cc.html":
+        text=text.replace('src="images/guilu-drink-30cc-glass.jpg"','src="'+detail["guilu-drink-30"]+'"')
+    if file.name=="product-guilu-drink-180cc.html":
+        text=text.replace('src="images/guilu-drink-180cc.jpg"','src="'+detail["guilu-drink-180"]+'"')
+    if file.name=="product-guilu-vitality.html":
+        text=text.replace('src="images/partner-products/scenes-v20261016/vitality-jar-scene.webp"','src="'+detail["guilu-vitality-jar"]+'"')
+    if file.name=="product-jinan-siwuyin.html":
+        text=text.replace('src="images/partner-products/scenes-v20261016/siwu-label-scene.webp"','src="'+detail["siwu-label"]+'"')
+    if file.name=="product-four-treasures.html":
+        text=text.replace('src="images/partner-products/supplements-v20261016/four-treasures-tray-back.jpg"','src="'+detail["four-treasures-inner"]+'"')
+    if file.name=="product-danshen-tea.html":
+        for name,stem in tea_map.items():
+            text=text.replace('src="images/partner-products/scenes-v20261016/'+stem+'-front-scene.webp"',
+              'src="'+detail["tea-"+name]+'"')
+            text=text.replace('src="images/partner-products/'+stem+'-label-source.jpg"',
+              'src="'+detail["tea-"+name+"-label"]+'"')
+    if text!=original:
+        # 清除靜態網站快取舊參數，使更新正常生效
+        text=text.replace("20261016-real-physical-packaging-main-v3","20261016-clean-original-main-and-detail-v4")
+        file.write_text(text,encoding="utf-8")
+        changed.append(str(file.relative_to(ROOT)))
+assert "products.html" in changed
+assert "product-guilu-gao.html" in changed
+assert "catalog-public.json" in changed
+assert "partner-catalog.json" in changed
+for page in ROOT.glob("product-*.html"):
+    html=page.read_text(encoding="utf-8")
+    # 任一引用到新圖片的頁面，對應圖像必須確實存在。
+    for name in set(__import__("re").findall(r'images/catalog-clean-v20261016/[\w-]+\.webp',html)):
+        if not (ROOT/name).exists():raise FileNotFoundError(name)
+manifest["updatedSiteFiles"]=changed
+manifest["status"]="completed-new-path-replacements-verified"
+(OUT/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+print("Updated site files",len(changed),":",", ".join(changed))
