@@ -6,7 +6,7 @@ let SITE_DATA = null;
 let lastFocusedElement = null;
 let menuScrollY = 0;
 
-const UX_VERSION = "20261016-calm-catalog-v2";
+const UX_VERSION = "20261016-calm-catalog-v3";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
 const MENU_GROUPS = [
   {
@@ -96,11 +96,11 @@ function fallbackData() {
 
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
-  const response = await fetch(`data.json?v=${UX_VERSION}`);
+  const response = await fetch(`data.json?v=${UX_VERSION}`, {cache:"no-store"});
   if (!response.ok) throw new Error(`data.json 載入失敗：${response.status}`);
   SITE_DATA = await response.json();
   try {
-  const catalog = await fetch(`partner-catalog.json?v=20261016-real-physical-packaging-main-v3`);
+  const catalog = await fetch(`partner-catalog.json?v=${UX_VERSION}`, {cache:"no-store"});
   if (!catalog.ok) throw new Error(`partner-catalog HTTP ${catalog.status}`);
   const partner = await catalog.json();
   SITE_DATA.partnerProducts = (partner.products || []).filter(p => p.public === true && p.id && p.image && p.page && p.brand);
