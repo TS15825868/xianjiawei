@@ -27,7 +27,7 @@
     "guilu-drink-180",
     "luerong-fen"
   ],
-  "productImageVersion": "20261016-original-pixel-clean-main-and-detail-v4",
+  "productImageVersion": "20261016-real-pixel-clean-studio-main-and-detail-v5",
   "formalDmApprovalBatch": "20260814-product-modal-media-v3",
   "physicalScalePolicy": {
     "authority": "content/product-physical-scale-authority-v20260809.json",
@@ -79,22 +79,22 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-gao-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
+      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-gao-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
       "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260930-product-media-v10",
       "knownContainerDimensionsMm": {
         "width": 51,
         "height": 78
       },
       "imagePolicy": "主圖顯示真實外包裝；詳細頁顯示真實罐／袋／內裝與標示；只去背合成，禁止AI重畫商品",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-gao-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-gao-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-gao-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-gao-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
       "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-gao.jpg?v=20260930-product-media-v10",
       "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260930-product-media-v10",
       "specification": "100g／罐",
       "spec": "100g／罐",
       "usagePrimary": "食用時間可依個人使用習慣與作息時間安排",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-gao-box-jar-detail.webp"
+        "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp"
       ]
     },
     {
@@ -125,15 +125,15 @@
       ],
       "fulfillmentType": "made-to-order-drink",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-drink-30-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
+      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-drink-30-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
       "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260930-product-media-v10",
       "knownContainerDimensionsMm": {
         "diameter": 42,
         "height": 51
       },
       "imagePolicy": "主圖顯示真實外包裝；詳細頁顯示真實罐／袋／內裝與標示；只去背合成，禁止AI重畫商品",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-drink-30-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-drink-30-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-drink-30-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-drink-30-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
       "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-drink-30cc-glass.jpg?v=20260930-product-media-v10",
       "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260930-product-media-v10",
       "specification": "30cc／罐（小玻璃罐）",
@@ -141,7 +141,7 @@
       "usagePrimary": "每日 1–2 罐",
       "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-drink-30-closed-detail.webp"
+        "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-drink-30-closed-detail.webp"
       ],
       "usageAdjustment": "可依個人需求調整"
     },
@@ -172,7 +172,7 @@
       ],
       "fulfillmentType": "made-to-order-drink",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-drink-180-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
+      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-drink-180-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
       "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260930-product-media-v10",
       "aspectRatioWidthToHeight": {
         "min": 0.6,
@@ -180,8 +180,8 @@
         "max": 0.68
       },
       "imagePolicy": "主圖顯示真實外包裝；詳細頁顯示真實罐／袋／內裝與標示；只去背合成，禁止AI重畫商品",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-drink-180-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-drink-180-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-drink-180-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-drink-180-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
       "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-drink-180cc.jpg?v=20260930-product-media-v10",
       "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/03_guilu-drink-180cc-dm.jpg?v=20260930-product-media-v10",
       "specification": "180cc／包（鋁袋）",
@@ -189,7 +189,7 @@
       "usagePrimary": "每日一包",
       "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/guilu-drink-180-closed-detail.webp"
+        "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/guilu-drink-180-closed-detail.webp"
       ]
     },
     {
@@ -213,18 +213,18 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-luerong-fen.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/luerong-fen-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
+      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/luerong-fen-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
       "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260930-product-media-v10",
       "knownContainerDimensionsMm": null,
       "imagePolicy": "主圖顯示真實外包裝；詳細頁顯示真實罐／袋／內裝與標示；只去背合成，禁止AI重畫商品",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/luerong-fen-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/luerong-fen-main.webp?v=20261016-original-pixel-clean-main-and-detail-v4",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/luerong-fen-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/luerong-fen-main.webp?v=20261016-real-pixel-clean-studio-main-and-detail-v5",
       "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/lurong.jpg?v=20260930-product-media-v10",
       "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/04_luerong-fen-75g-dm.jpg?v=20260930-product-media-v10",
       "specification": "75g／罐",
       "spec": "75g／罐",
       "detailImages": [
-        "https://ts15825868.github.io/xianjiawei/images/catalog-clean-v20261016/luerong-fen-closed-detail.webp"
+        "https://ts15825868.github.io/xianjiawei/images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
       ]
     }
   ],

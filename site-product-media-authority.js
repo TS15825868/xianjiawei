@@ -6,7 +6,7 @@
  */
 (function(){
   const DATA={
-  "version": "20261016-original-pixel-clean-main-and-detail-v4",
+  "version": "20261016-real-pixel-clean-studio-main-and-detail-v5",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one verified original-photo main per product; images/catalog-real-v20261016; retail box first when sold as complete gift box",
@@ -17,32 +17,32 @@
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/catalog-clean-v20261016/guilu-gao-main.webp",
+      "mainImage": "images/catalog-clean-studio-v20261016-v5/guilu-gao-main.webp",
       "detailImages": [
-        "images/catalog-clean-v20261016/guilu-gao-box-jar-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp"
 ],
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/catalog-clean-v20261016/guilu-drink-30-main.webp",
+      "mainImage": "images/catalog-clean-studio-v20261016-v5/guilu-drink-30-main.webp",
       "detailImages": [
-        "images/catalog-clean-v20261016/guilu-drink-30-closed-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/guilu-drink-30-closed-detail.webp"
 ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/catalog-clean-v20261016/guilu-drink-180-main.webp",
+      "mainImage": "images/catalog-clean-studio-v20261016-v5/guilu-drink-180-main.webp",
       "detailImages": [
-        "images/catalog-clean-v20261016/guilu-drink-180-closed-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/guilu-drink-180-closed-detail.webp"
 ],
       "identityReference": "images/guilu-drink-180cc.jpg"
     },
     "luerong-fen": {
       "visualPolicy": "sealed-original-75g-jar-exterior-only",
       "showContents": false,
-      "mainImage": "images/catalog-clean-v20261016/luerong-fen-main.webp",
+      "mainImage": "images/catalog-clean-studio-v20261016-v5/luerong-fen-main.webp",
       "detailImages": [
-        "images/catalog-clean-v20261016/luerong-fen-closed-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
 ],
       "identityReference": "images/lurong.jpg"
     }
