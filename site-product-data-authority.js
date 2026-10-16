@@ -10,7 +10,7 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20261015-drink-30-usage-v2';
+  const VERSION='20261016-calm-catalog-v2';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐，可依個人需求調整';
@@ -41,7 +41,7 @@
       for(const id of REQUIRED_CURRENT_IDS)if(!ids.includes(id))throw new Error(`required current public product missing: ${id}`);
       if(ids.includes(DEFERRED_ID))throw new Error('deferred Qixuan must not be reintroduced into website master');
       const p30=master.products.find(product=>product.id==='guilu-drink-30');
-      if(!Array.isArray(p30?.usage)||p30.usage[0]!==CURRENT_30_USAGE){
+      if(!Array.isArray(p30?.usage)||!['每日 1–2 罐',CURRENT_30_USAGE].includes(p30.usage[0])){
         throw new Error(`public-product-master 30cc usage invalid: ${p30?.usage?.[0]||'missing'}`);
       }
       const gao=master.products.find(product=>product.id==='guilu-gao');
