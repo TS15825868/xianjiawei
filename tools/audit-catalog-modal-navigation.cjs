@@ -40,6 +40,12 @@ async function opened(page,name,detailHref) {
     const image=document.querySelector("#product-modal.show .modal-gallery__item img");
     return Boolean(image?.complete && image.naturalWidth>0);
   },null,{timeout:15000});
+  // Image-safety normalization can change the cache URL after the first load.
+  // Wait for the final visible image decode before judging the rendered modal.
+  await page.locator('#product-modal.show .modal-gallery__item img').first().evaluate(async image=>{
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    await image.decode();
+  });
   const artwork=await page.locator("#product-modal").evaluate(modal=>{
     const panel=modal.querySelector(".product-modal__panel");
     const photo=modal.querySelector(".modal-gallery__item img");
@@ -57,7 +63,7 @@ async function opened(page,name,detailHref) {
   assert.ok(artwork.ornamentOpacity>0&&artwork.ornamentOpacity<=0.13,"裝飾不得蓋住產品主圖與文字");
   assert.ok(artwork.borderTop>=4,"產品跳窗應有清楚的金色飾線");
   assert.equal(artwork.photoFit,"contain","產品原圖必須等比例完整呈現");
-  assert.ok(artwork.photoLoaded,"商品跳窗主圖需正常載入");
+  assert.ok(artwork.photoLoaded,"商品跳窗主圖需正常載入："+name);
   assert.ok(artwork.contentSize>=15,"手機與桌機的商品介紹需保持可讀性");
   assert.ok(artwork.scrollWidth<=artwork.viewport+3,"產品跳窗不得造成橫向溢位");
   assert.ok(await page.locator("#product-modal .modal-gallery img").count()>0,"跳窗需有正式產品主圖");
