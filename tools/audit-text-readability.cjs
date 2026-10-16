@@ -5,7 +5,7 @@ const {PNG}=require('pngjs');
 const pw=require(process.env.XJW_PLAYWRIGHT_MODULE||'playwright');
 const engine=process.env.XJW_BROWSER_ENGINE||'chromium';
 const release=(fs.readFileSync('index.html','utf8').match(/site\.css\?v=([^" ]+)/)||[])[1];
-const pages=process.env.XJW_TEXT_PAGES?.split(',')||fs.readdirSync('.').filter(f=>f.endsWith('.html')&&(f==='links.html'||fs.readFileSync(f,'utf8').includes('site.css?v='+release)));
+const pages=process.env.XJW_TEXT_PAGES?.split(',')||fs.readdirSync('.').filter(f=>f.endsWith('.html')&&(f==='links.html'||fs.readFileSync(f,'utf8').includes('site.css?v=')));
 const groupedProducts=JSON.parse(fs.readFileSync('partner-catalog.json','utf8')).products.filter(p=>p.public===true&&Array.isArray(p.variants)&&p.variants.length);
 for(const product of groupedProducts)if(!pages.includes(product.page))pages.push(product.page);
 const profiles={desktop:{width:1440,height:1000},tablet:{width:820,height:1180},phone:{width:390,height:844},small:{width:320,height:740}};
