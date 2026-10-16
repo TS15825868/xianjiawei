@@ -121,7 +121,7 @@ async function close(page) {
         assert.ok(await page.locator("h1").count()>0,"查看詳細應載入完整詳細頁："+href);
         if(href==="product-danshen-tea.html"){
           const series=partner.find(p=>p.page===href);
-          assert.equal(await page.locator('.product-variant').count(),series?.variants?.length||0,"系列完整頁保留當期核准款式");
+          assert.equal(await page.locator('article.product-variant[id]').count(),series?.variants?.length||0,"系列完整頁保留當期核准款式");
         }
         report.checks.push(device+"："+name+" 查看詳細");
         await ready(page,"products.html");

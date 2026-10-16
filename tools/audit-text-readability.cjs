@@ -113,6 +113,11 @@ async function inspect(page,file,device,state){
       if(await detail.count()!==1)throw Error('系列跳窗缺少唯一查看詳細入口：'+product.id);
       await detail.click();await page.waitForURL('**/'+product.page);
       for(const variant of product.variants)await page.locator('#'+variant.id).waitFor({state:'attached'});
+      // Direct navigation already settles media above. Modal-to-detail navigation must do the same
+      // before WebKit glyph sampling, especially when a grouped series adds real detail photos.
+      await page.waitForFunction(()=>window.__XJW_SITE_INITIALIZED__&&document.querySelector('#site-footer .footer-card'),null,{timeout:20000});
+      await page.evaluate(async()=>{document.querySelectorAll('img[loading="lazy"]').forEach(i=>i.loading='eager');await Promise.all([...document.images].map(i=>i.decode().catch(()=>{})));await document.fonts.ready;scrollTo(0,0)});
+      await page.waitForTimeout(350);
       await inspect(page,product.page,device,'series-entry');
       await page.goto(base+'products.html',{waitUntil:'domcontentloaded'});
       await page.waitForFunction(()=>window.__XJW_SITE_INITIALIZED__&&document.querySelector('#site-footer .footer-card'),null,{timeout:20000});
