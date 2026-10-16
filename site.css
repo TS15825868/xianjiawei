@@ -851,3 +851,15 @@ body[data-page="product-detail"] .product-detail-hero__media img,
 /* 2026-10-17: original studio-square photograph for the only incomplete JinAn carton source; retain whole visible carton, no invented handle. */
 body[data-page="products"] .product-card[data-product-id="jinan-sisheng-siwuyin"] .product-card__img,
 body[data-page="products"] .product-card[data-fallback-product="jinan-sisheng-siwuyin"] .product-card__img{aspect-ratio:1!important}
+
+/* 20261017-scenic-v1: keep 30cc and 180cc trial images in the same authentic portrait style as the catalog. */
+.trial-product-card__media,.trial-poster,.trial-poster .product-photo-frame{
+  padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;overflow:hidden!important
+}
+.trial-product-card__media img,.trial-poster img{
+  display:block!important;width:100%!important;height:auto!important;aspect-ratio:4/5!important;
+  object-fit:contain!important;object-position:center!important;max-height:none!important;
+  padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important
+}
+.trial-product-card{overflow:hidden!important;background:#fffdf8!important;border:1px solid rgba(103,83,56,.18)!important}
+.trial-product-card__media>a,.trial-poster a{display:block;width:100%}
