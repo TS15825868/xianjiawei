@@ -1,0 +1,64 @@
+name: Genuine product clean studio v5 images
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ops/rebuild-clean-catalog-studio-v5.py'
+      - '.github/workflows/real-photo-full-catalog-studio-v5.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: real-photo-full-catalog-studio-v5
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'Pillow>=10,<13'
+      - name: Rebuild clean scenes and replace existing references
+        run: python ops/rebuild-clean-catalog-studio-v5.py
+      - name: Validate images and references
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          r=Path('.')
+          d=json.loads((r/'images/catalog-clean-studio-v20261016-v5/manifest.json').read_text())
+          assert len(d['main'])==9
+          assert all(d['detail'][p] for p in d['main'])
+          for item in d['items']:
+              file=r/item['file']
+              assert file.is_file(),file
+              with Image.open(file) as im:
+                  assert im.size==(1122,1402)
+          for name in ['site-product-media-authority.js','catalog-public.json','partner-catalog.json','data.json']:
+              assert (r/name).exists()
+          for pid in ['guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen']:
+              assert pid in d['detail']
+          print('validated',len(d['items']),'original-image backed clean assets')
+          PY
+      - name: Commit replacements to formal main, preserve old assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/catalog-clean-studio-v20261016-v5/ \
+            index.html products.html site.js site-product-media-authority.js site-product-data-authority.js \
+            catalog-public.json data.json partner-catalog.json \
+            product-guilu-gao.html product-guilu-drink-30cc.html product-guilu-drink-180cc.html product-luerong-fen.html \
+            product-jinan-siwuyin.html product-guilu-vitality.html product-four-treasures.html \
+            product-er-zhen-bao.html product-danshen-tea.html
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "assets: replace v4 with clean real-pixel studio v5 without modifying old images"
+          git pull --rebase origin main
+          git push origin HEAD:main
