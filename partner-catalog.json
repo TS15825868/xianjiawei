@@ -11,7 +11,7 @@
       "size": "60毫升 × 12入／盒",
       "form": "飲品",
       "description": "盒裝漢方飲品，每盒12入，每入60毫升；保留原廠包裝與商品標示。",
-      "image": "images/product-background-review-v20261016/jinan-sisheng-siwuyin.webp",
+      "image": "images/catalog-calm-v20261016/jinan-sisheng-siwuyin-main.webp",
       "page": "product-jinan-siwuyin.html",
       "ingredients": [
         "純水",
@@ -59,7 +59,7 @@
       "originalDetailImages": [
         "images/partner-products/jinan-siwuyin-label.jpg"
       ],
-      "mainPhotoRole": "actual-complete-box-primary",
+      "mainPhotoRole": "original-carton-front-approved-with-handle-edge-cropped-pending-full-shot",
       "contentsPhotoRole": "detail-page-only"
     },
     {

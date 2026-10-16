@@ -49,7 +49,7 @@
       "identityReference": "images/lurong.jpg"
     },
     "jinan-sisheng-siwuyin": {
-      "mainImage": "images/product-background-review-v20261016/jinan-sisheng-siwuyin.webp",
+      "mainImage": "images/catalog-calm-v20261016/jinan-sisheng-siwuyin-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/siwuyin-real-label-detail.webp"
       ]
@@ -57,12 +57,12 @@
     "danshen-tea-collection": {
       "mainImage": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
       "detailImages": [
-            "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
-            "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
-            "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp",
-            "images/catalog-calm-v20261016/tea-fiber-box-detail.webp",
-            "images/catalog-calm-v20261016/tea-white-box-detail.webp",
-            "images/catalog-calm-v20261016/tea-refresh-box-detail.webp",
+            "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
+            "images/partner-products/scenes-v20261016/tea-danshen-leisure-front-scene.webp",
+            "images/partner-products/scenes-v20261016/tea-wudahan-front-scene.webp",
+            "images/partner-products/scenes-v20261016/tea-danshen-lotus-front-scene.webp",
+            "images/partner-products/scenes-v20261016/tea-white-danshen-front-scene.webp",
+            "images/partner-products/scenes-v20261016/tea-danshen-refresh-front-scene.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",

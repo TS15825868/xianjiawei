@@ -847,3 +847,7 @@ body[data-page="product-detail"] .product-detail-hero__media img,
 .product-label-disclosure figure.card img{display:block;width:100%;height:auto!important;max-height:none!important;object-fit:contain!important}
 .product-label-disclosure figcaption{margin-top:10px;font-size:13px;line-height:1.6}
 @media(max-width:700px){.product-label-disclosure>.grid{grid-template-columns:1fr!important}body[data-page="product-detail"] .product-detail-hero__media img{max-height:none!important}body[data-page="products"] .product-card__body{padding:13px 12px 16px!important}}
+
+/* 2026-10-17: original studio-square photograph for the only incomplete JinAn carton source; retain whole visible carton, no invented handle. */
+body[data-page="products"] .product-card[data-product-id="jinan-sisheng-siwuyin"] .product-card__img,
+body[data-page="products"] .product-card[data-fallback-product="jinan-sisheng-siwuyin"] .product-card__img{aspect-ratio:1!important}

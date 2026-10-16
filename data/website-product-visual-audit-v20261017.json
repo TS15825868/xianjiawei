@@ -8,7 +8,7 @@
     "guilu-drink-30": "images/product-background-review-v20261016/guilu-drink-30.webp",
     "guilu-drink-180": "images/product-background-review-v20261016/guilu-drink-180.webp",
     "luerong-fen": "images/product-background-review-v20261016/luerong-fen.webp",
-    "jinan-sisheng-siwuyin": "images/product-background-review-v20261016/jinan-sisheng-siwuyin.webp",
+    "jinan-sisheng-siwuyin": "images/catalog-calm-v20261016/jinan-sisheng-siwuyin-main.webp",
     "danshen-tea-collection": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
     "guilu-vitality": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
     "uboss-sizhenbao": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
@@ -27,5 +27,6 @@
     "Existing Siwu box photos crop its handle",
     "Vitality 12-pack complete carton photos crop an edge; show the real jar until whole-carton photo is available"
   ],
-  "publishStatus": "Photo references updated; awaiting GitHub Pages live verification"
+  "publishStatus": "Photo references updated; awaiting GitHub Pages live verification",
+  "outstandingNote": "JinAn original carton photo remains the approved studio shot; scenic review-stage composite withheld due unapproved publication evidence."
 }
