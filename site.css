@@ -526,6 +526,15 @@ body[data-page="products"] .product-card[data-fallback-product="guilu-vitality"]
   filter:none!important;
   border-radius:5px;
 }
+.modal-detail-media__frame > .source-note {
+  position:relative;
+  z-index:2;
+  margin:12px 0 0;
+  padding:8px 10px;
+  border-radius:6px;
+  background:#F7F4ED;
+  color:#35413f;
+}
 .product-photo-original {display:block;max-width:100%;min-width:0}
 .product-photo-original:focus-visible,
 .product-label-details summary:focus-visible {outline:3px solid var(--green);outline-offset:4px}
