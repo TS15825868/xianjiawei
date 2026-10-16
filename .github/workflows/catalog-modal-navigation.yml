@@ -16,6 +16,9 @@ on:
       - 'dm.html'
       - 'why-guilu.html'
       - 'partner-catalog.json'
+      - 'site-product-media-authority.js'
+      - 'site-product-image-safety.js'
+      - 'tools/test-registered-detail-media.cjs'
       - 'tools/audit-catalog-modal-navigation.cjs'
       - '.github/workflows/catalog-modal-navigation.yml'
   workflow_dispatch:
