@@ -18,7 +18,7 @@
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/product-main/gao-packaging-v20261016/box-jar-scene.webp",
+      "mainImage": "images/catalog-calm-v20261016/guilu-gao-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp",
         "images/product-main/gao-packaging-v20261016/box-jar-original.jpg"
@@ -26,14 +26,14 @@
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/product-main/guilu-drink-30-scene.webp",
+      "mainImage": "images/catalog-calm-v20261016/guilu-drink-30-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-30-closed-detail.webp"
 ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/product-main/guilu-drink-180-scene.webp",
+      "mainImage": "images/catalog-calm-v20261016/guilu-drink-180-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-180-closed-detail.webp"
 ],
@@ -42,7 +42,7 @@
     "luerong-fen": {
       "visualPolicy": "sealed-original-75g-jar-exterior-only",
       "showContents": false,
-      "mainImage": "images/product-main/luerong-fen-scene.webp",
+      "mainImage": "images/catalog-calm-v20261016/luerong-fen-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
 ],
@@ -54,14 +54,14 @@
       ]
     },
     "danshen-tea-collection": {
-      "mainImage": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
+      "mainImage": "images/catalog-calm-v20261016/danshen-tea-collection-main.webp",
       "detailImages": [
-            "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
-            "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
-            "images/catalog-real-scenic-v20261016-v8/tea-wudahan-real-scenic-detail.webp",
-            "images/catalog-real-scenic-v20261016-v8/tea-fiber-real-scenic-detail.webp",
-            "images/catalog-real-scenic-v20261016-v8/tea-white-real-scenic-detail.webp",
-            "images/catalog-real-scenic-v20261016-v8/tea-refresh-real-scenic-detail.webp",
+            "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-fiber-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-white-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-refresh-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
@@ -79,7 +79,7 @@
       ]
     },
     "uboss-sizhenbao": {
-      "mainImage": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
+      "mainImage": "images/catalog-calm-v20261016/uboss-sizhenbao-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp",
@@ -90,7 +90,7 @@
       ]
     },
     "royalherb-erzhenbao-64": {
-      "mainImage": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp",
+      "mainImage": "images/catalog-calm-v20261016/royalherb-erzhenbao-64-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp",
         "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-1.webp",

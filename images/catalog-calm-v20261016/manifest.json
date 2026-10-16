@@ -1,0 +1,127 @@
+{
+  "version": "20261016-calm-original-photos-v1",
+  "noProductRedraw": true,
+  "noPedestal": true,
+  "items": [
+    {
+      "output": "images/catalog-calm-v20261016/guilu-gao-main.webp",
+      "source": "images/product-main/gao-packaging-v20261016/box-jar-original.jpg",
+      "sha256": "24c955d765a3c7b4b8aeca9569a5e8660a6fc7b3e7a953d5e58568c18f9334d1",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/guilu-gao-main.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/guilu-drink-30-main.webp",
+      "source": "images/product-cutout-review/guilu-drink-30.png",
+      "sha256": "0a3349f96ce627c66582703039191f84590192f450b05eba869156d9f3a39340",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/guilu-drink-30-main.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/guilu-drink-180-main.webp",
+      "source": "images/product-cutout-review/guilu-drink-180.png",
+      "sha256": "f322e6f0bfb04ebf89220b261358be399f9973be893069c34e45110e6206f43d",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/guilu-drink-180-main.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/luerong-fen-main.webp",
+      "source": "images/product-cutout-review/luerong-fen.png",
+      "sha256": "1981e556a38fc3713ea807aec2b6d0375fbd6d04e889ab4af345993ef51dc698",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/luerong-fen-main.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/jinan-sisheng-siwuyin-main.webp",
+      "source": "images/partner-products/cutouts-v20261016/jinan-siwuyin-front-cutout.webp",
+      "sha256": "831f18b4975936457b4379c0546e5a5dfd8fe193753360012b95841d674f0291",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/jinan-sisheng-siwuyin-main.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/danshen-tea-collection-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",
+      "sha256": "a9e0151b0f3d483a637f1d4bfb14ab0c1cff9996b2ae448dd53ca0c0a4698bda",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/danshen-tea-collection-main.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/guilu-vitality-main.webp",
+      "source": "images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",
+      "sha256": "c4d7e0ef15732b9369913b1395dd15bfd9c7d019d7b17cbed3e25fa2da28da37",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/guilu-vitality-main.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/uboss-sizhenbao-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/four-treasures-front-cutout.webp",
+      "sha256": "902d633f490ffad809c03b76e8620f993b5a00027c1408949db6909ccfcad93b",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/uboss-sizhenbao-main.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/royalherb-erzhenbao-64-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/er-zhen-bao-royalherb-original-cutout.webp",
+      "sha256": "8b7207312d7c02bda514159012a9d48f14134cbae6479f47ca8b596e1fbb4e01",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/royalherb-erzhenbao-64-main.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",
+      "sha256": "a9e0151b0f3d483a637f1d4bfb14ab0c1cff9996b2ae448dd53ca0c0a4698bda",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-danshen-leisure-front-cutout.webp",
+      "sha256": "2a5e90f11535bb9f14a3aa5ca13bcef9e4ab5b6e6b852d109f937277b4702c1f",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/tea-leisure-box-detail.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-wudahan-front-cutout.webp",
+      "sha256": "cf0300a262db166c1c1380deab1828c766bd377904d03c2f995b51129bb10a9d",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/tea-fiber-box-detail.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-danshen-lotus-front-cutout.webp",
+      "sha256": "52baebf5bdde0575da2e85dbecf7285e134e6dee12cef4068447be59e233efa3",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/tea-fiber-box-detail.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/tea-white-box-detail.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-white-danshen-front-cutout.webp",
+      "sha256": "afbbbd8f1a562cb9a93846acd4b264d962342034e08d3622d0a151d84234c190",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/tea-white-box-detail.webp"
+    },
+    {
+      "output": "images/catalog-calm-v20261016/tea-refresh-box-detail.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-danshen-refresh-front-cutout.webp",
+      "sha256": "76854fc654d5358273b67aed6ef6b31b7ea19bb06451e0a268aa28ed7b014ed6",
+      "productPixels": "original photo + alpha mask + uniform resize only",
+      "sourceLimitationsPreserved": true,
+      "file": "images/catalog-calm-v20261016/tea-refresh-box-detail.webp"
+    }
+  ]
+}

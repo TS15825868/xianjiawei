@@ -800,3 +800,20 @@ body[data-page="home"] .home-product-showcase__grid>a{
     overflow-wrap:anywhere;
   }
 }
+
+/* 2026-10-16 calm catalog: one photographic stage, no inset frames. */
+:root{--navy:#253447;--ink:#253447;--gold:#B69B70;--paper:#F7F4ED;--muted:#45505b;--rule:rgba(103,83,56,.20)}
+.brand-landscape__mountains{background-repeat:no-repeat!important;opacity:.18;-webkit-mask-image:linear-gradient(180deg,transparent,#000 100px,#000 460px,transparent 900px);mask-image:linear-gradient(180deg,transparent,#000 100px,#000 460px,transparent 900px)}
+.product-card__img:has(img[src*="catalog-calm-v20261016"]){aspect-ratio:1!important;min-height:0!important;height:auto!important;background:none!important;padding:0!important;border:0!important;box-shadow:none!important}
+.product-card__img img[src*="catalog-calm-v20261016"],.home-product-showcase__grid img[src*="catalog-calm-v20261016"]{width:100%!important;height:auto!important;aspect-ratio:1!important;object-fit:contain!important;padding:0!important;margin:0!important;border:0!important;background:none!important;box-shadow:none!important;border-radius:0!important}
+.product-card:has(img[src*="catalog-calm-v20261016"]){background:#F7F4ED!important;border:1px solid rgba(103,83,56,.16)!important;box-shadow:none!important;overflow:hidden}
+.product-card__body{display:flex;flex-direction:column;gap:8px}.product-card__body>p{margin:0}.product-card__actions{margin-top:auto;padding-top:10px}
+.product-detail-hero__media:has(img[src*="catalog-calm-v20261016"]){background:none!important;padding:0!important;border:0!important;box-shadow:none!important}
+.product-detail-hero__media img[src*="catalog-calm-v20261016"]{border-radius:16px!important;object-fit:contain!important}
+.product-photo-frame:has(img[src*="catalog-calm-v20261016"]),.product-variant__photo:has(img[src*="catalog-calm-v20261016"]){background:none!important;border:0!important;padding:0!important;box-shadow:none!important}
+@media(max-width:700px){
+ .catalog-product-grid,.home-product-showcase__grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px 12px!important}
+ .product-card__body{padding:14px 11px!important;gap:8px}.product-card__body h3{font-size:17px!important;line-height:1.5!important;margin:0;word-break:normal!important;overflow-wrap:anywhere}
+ .product-card__body p{font-size:14px!important;line-height:1.65!important}.product-card__body .eyebrow{font-size:12px!important}
+ .product-card__actions .btn{width:100%;padding:10px 8px;font-size:14px;min-height:44px}
+}

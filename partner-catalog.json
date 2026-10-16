@@ -11,7 +11,7 @@
       "size": "60毫升 × 12入／盒",
       "form": "飲品",
       "description": "盒裝漢方飲品，每盒12入，每入60毫升；保留原廠包裝與商品標示。",
-      "image": "images/catalog-clean-studio-v20261016-v5/jinan-sisheng-siwuyin-main.webp",
+      "image": "images/catalog-calm-v20261016/jinan-sisheng-siwuyin-main.webp",
       "page": "product-jinan-siwuyin.html",
       "ingredients": [
         "純水",
@@ -72,7 +72,7 @@
       "size": "3公克／包・10包／盒｜6款",
       "form": "茶包",
       "description": "六款盒裝茶包集中瀏覽，查看各款包裝、原料、規格與使用方式。",
-      "image": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
+      "image": "images/catalog-calm-v20261016/danshen-tea-collection-main.webp",
       "page": "product-danshen-tea.html",
       "ingredients": [],
       "usage": [
@@ -99,7 +99,7 @@
           "id": "jianfeng-rose-fruit-tea",
           "name": "臺灣丹參玫瑰果茶",
           "flavor": "玫瑰果茶",
-          "image": "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
+          "image": "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -128,8 +128,8 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-rose-fruit-front.webp",
           "detailImages": [
-            "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp"
           ]
         },
@@ -137,7 +137,7 @@
           "id": "jianfeng-leisure-tea",
           "name": "臺灣丹參懈悠活養生茶",
           "flavor": "懈悠活養生茶",
-          "image": "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
+          "image": "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -163,8 +163,8 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-danshen-leisure-front.webp",
           "detailImages": [
-            "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-leisure-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp"
           ]
         },
@@ -172,7 +172,7 @@
           "id": "jianfeng-wudahan-tea",
           "name": "武大漢丹參茶",
           "flavor": "武大漢丹參茶",
-          "image": "images/catalog-real-scenic-v20261016-v8/tea-wudahan-real-scenic-detail.webp",
+          "image": "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -200,8 +200,8 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-wudahan-front.webp",
           "detailImages": [
-            "images/catalog-real-scenic-v20261016-v8/tea-wudahan-real-scenic-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-wudahan-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp"
           ]
         },
@@ -209,7 +209,7 @@
           "id": "jianfeng-fiber-tea",
           "name": "臺灣丹參纖體茶",
           "flavor": "纖體茶",
-          "image": "images/catalog-real-scenic-v20261016-v8/tea-fiber-real-scenic-detail.webp",
+          "image": "images/catalog-calm-v20261016/tea-fiber-box-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -236,8 +236,8 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-danshen-lotus-front.webp",
           "detailImages": [
-            "images/catalog-real-scenic-v20261016-v8/tea-fiber-real-scenic-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-fiber-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-fiber-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-fiber-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp"
           ]
         },
@@ -245,7 +245,7 @@
           "id": "jianfeng-white-tea",
           "name": "臺灣白茶丹參飲",
           "flavor": "白茶丹參飲",
-          "image": "images/catalog-real-scenic-v20261016-v8/tea-white-real-scenic-detail.webp",
+          "image": "images/catalog-calm-v20261016/tea-white-box-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣白茶",
@@ -271,8 +271,8 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-white-danshen-front.webp",
           "detailImages": [
-            "images/catalog-real-scenic-v20261016-v8/tea-white-real-scenic-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-white-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-white-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-white-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp"
           ]
         },
@@ -280,7 +280,7 @@
           "id": "jianfeng-refresh-tea",
           "name": "臺灣丹參舒活茶",
           "flavor": "舒活茶",
-          "image": "images/catalog-real-scenic-v20261016-v8/tea-refresh-real-scenic-detail.webp",
+          "image": "images/catalog-calm-v20261016/tea-refresh-box-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -308,8 +308,8 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-danshen-refresh-front.webp",
           "detailImages": [
-            "images/catalog-real-scenic-v20261016-v8/tea-refresh-real-scenic-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-refresh-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-refresh-box-detail.webp",
+            "images/catalog-calm-v20261016/tea-refresh-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp"
           ]
         }
@@ -340,12 +340,12 @@
       "mainPhotoRole": "actual-complete-box-primary",
       "contentsPhotoRole": "detail-page-only",
       "detailImages": [
-        "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
-        "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
-        "images/catalog-real-scenic-v20261016-v8/tea-wudahan-real-scenic-detail.webp",
-        "images/catalog-real-scenic-v20261016-v8/tea-fiber-real-scenic-detail.webp",
-        "images/catalog-real-scenic-v20261016-v8/tea-white-real-scenic-detail.webp",
-        "images/catalog-real-scenic-v20261016-v8/tea-refresh-real-scenic-detail.webp",
+        "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
+        "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
+        "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp",
+        "images/catalog-calm-v20261016/tea-fiber-box-detail.webp",
+        "images/catalog-calm-v20261016/tea-white-box-detail.webp",
+        "images/catalog-calm-v20261016/tea-refresh-box-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
@@ -374,7 +374,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
+      "image": "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
       "page": "product-jianfeng-rose-fruit-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -408,7 +408,7 @@
       "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。",
       "erpId": "PRD-PARTNER-JIANFENG-ROSE",
       "detailImages": [
-        "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
+        "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
@@ -431,7 +431,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
+      "image": "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
       "page": "product-jianfeng-leisure-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -462,7 +462,7 @@
       "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。",
       "erpId": "PRD-PARTNER-JIANFENG-TEA",
       "detailImages": [
-        "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
+        "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
@@ -485,7 +485,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/catalog-real-scenic-v20261016-v8/tea-wudahan-real-scenic-detail.webp",
+      "image": "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp",
       "page": "product-jianfeng-wudahan-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -518,7 +518,7 @@
       "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。",
       "erpId": "PRD-PARTNER-JIANFENG-WUDAHAN",
       "detailImages": [
-        "images/catalog-real-scenic-v20261016-v8/tea-wudahan-real-scenic-detail.webp",
+        "images/catalog-calm-v20261016/tea-wudahan-box-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
@@ -541,7 +541,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/catalog-real-scenic-v20261016-v8/tea-fiber-real-scenic-detail.webp",
+      "image": "images/catalog-calm-v20261016/tea-fiber-box-detail.webp",
       "page": "product-jianfeng-fiber-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -573,7 +573,7 @@
       "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。",
       "erpId": "PRD-PARTNER-JIANFENG-LOTUS",
       "detailImages": [
-        "images/catalog-real-scenic-v20261016-v8/tea-fiber-real-scenic-detail.webp",
+        "images/catalog-calm-v20261016/tea-fiber-box-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
@@ -596,7 +596,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/catalog-real-scenic-v20261016-v8/tea-white-real-scenic-detail.webp",
+      "image": "images/catalog-calm-v20261016/tea-white-box-detail.webp",
       "page": "product-jianfeng-white-tea.html",
       "ingredients": [
         "臺灣白茶",
@@ -627,7 +627,7 @@
       "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。",
       "erpId": "PRD-PARTNER-JIANFENG-WHITE",
       "detailImages": [
-        "images/catalog-real-scenic-v20261016-v8/tea-white-real-scenic-detail.webp",
+        "images/catalog-calm-v20261016/tea-white-box-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
@@ -650,7 +650,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/catalog-real-scenic-v20261016-v8/tea-refresh-real-scenic-detail.webp",
+      "image": "images/catalog-calm-v20261016/tea-refresh-box-detail.webp",
       "page": "product-jianfeng-refresh-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -683,7 +683,7 @@
       "fulfillmentNotice": "本頁僅提供商品資訊。可透過官方 LINE 詢問產品及門市資訊；是否提供配送或其他交易方式，依商品類型及現行規定辦理。",
       "erpId": "PRD-PARTNER-JIANFENG-REFRESH",
       "detailImages": [
-        "images/catalog-real-scenic-v20261016-v8/tea-refresh-real-scenic-detail.webp",
+        "images/catalog-calm-v20261016/tea-refresh-box-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp"
       ],
       "detailMediaTitle": "原廠正面商品實拍",
@@ -895,7 +895,7 @@
       "producerNameFromLabel": "晉安製藥股份有限公司",
       "origin": "臺灣",
       "shelfLife": "二年",
-      "image": "images/catalog-clean-studio-v20261016-v5/guilu-vitality-main.webp",
+      "image": "images/catalog-calm-v20261016/guilu-vitality-main.webp",
       "gallery": [
         "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
         "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
@@ -1389,7 +1389,7 @@
       "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
       "requiresDoctorReferralForOrdinaryFoodSale": false,
       "brandLegalName": "御采堂生技食品有限公司",
-      "image": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
+      "image": "images/catalog-calm-v20261016/uboss-sizhenbao-main.webp",
       "page": "product-four-treasures.html",
       "imageSourceRecord": {
         "sourceRepository": "Wuji29879526/Wuji",
@@ -1574,7 +1574,7 @@
       "compliance": "不沿用外盒療效形容、舊建議售價或不確定的保險理賠保證；上架產品圖務必紫色二珍寶原廠盒裝實物。",
       "pricePresentation": "LINE詢價（不得顯示實物盒上舊建議售價）",
       "page": "product-er-zhen-bao.html",
-      "image": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp",
+      "image": "images/catalog-calm-v20261016/royalherb-erzhenbao-64-main.webp",
       "imageSourceStatus": "verified-original-manufacturer-webp-hosted-on-current-main",
       "approvedImageGitSha": "b44d0577d2f23046b1e6341f3af7a6d6e3e633dc",
       "imageFromOriginal": true,

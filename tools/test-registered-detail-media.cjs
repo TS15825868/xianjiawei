@@ -14,7 +14,8 @@ for(const product of Object.values(context.window.XJW_PRODUCT_MEDIA_AUTHORITY.pr
 const catalog=JSON.parse(fs.readFileSync('partner-catalog.json','utf8'));
 for(const item of catalog.products.filter(x=>x.public===true&&x.image&&Array.isArray(x.detailImages)&&x.detailImages.length)){
  const registered=context.window.XJW_PRODUCT_MEDIA_AUTHORITY.detailImages(item.id);
- assert.equal(context.window.XJW_PRODUCT_MEDIA_AUTHORITY.mainImage(item.id),'','partner main images must remain controlled by latest partner-catalog.json');
+ const main=context.window.XJW_PRODUCT_MEDIA_AUTHORITY.mainImage(item.id);
+ assert(!main || main===item.image.split('?')[0],item.id+' main must agree with latest partner catalog');
  for(const file of item.detailImages){
   assert(registered.includes(file),item.id+' detail is not registered: '+file);
   assert(fs.existsSync(file),item.id+' detail file missing: '+file);
