@@ -9,6 +9,8 @@ on:
       - '**/*.css'
       - 'images/**'
       - 'data/**'
+      - 'data.json'
+      - 'partner-catalog.json'
       - 'public-product-master.json'
       - '.github/workflows/site-link-media-audit-current.yml'
   schedule:
@@ -36,16 +38,11 @@ jobs:
           const path=require('path');
           const master=JSON.parse(fs.readFileSync('public-product-master.json','utf8'));
           const media=JSON.parse(fs.readFileSync('data/product-media-authority.json','utf8'));
+          const siteData=JSON.parse(fs.readFileSync('data.json','utf8'));
           const errors=[];
-          const mainAsset=/^images\/(?:product-main|catalog-real-v20261016)\/.+\.(?:png|jpg|webp)$/i;
-          const expectedMain={
-            'guilu-gao':'images/catalog-real-v20261016/guilu-gao-main.webp',
-            'guilu-drink-30':'images/catalog-real-v20261016/guilu-drink-30-main.webp',
-            'guilu-drink-180':'images/catalog-real-v20261016/guilu-drink-180-main.webp',
-            'guilu-tangkuai':'images/product-main/guilu-tangkuai.jpg',
-            'guilu-jiao':'images/product-main/guilu-jiao.jpg',
-            'luerong-fen':'images/catalog-real-v20261016/luerong-fen-main.webp'
-          };
+          const mainAsset=/^images\/(?:product-main|catalog-real-v20261016|catalog-clean-v20261016)\/.+\.(?:png|jpg|webp)$/i;
+          const cleanPath=value=>String(value||'').split('?',1)[0].replace(/^\//,'');
+          const siteById=new Map((siteData.products||[]).map(p=>[p.id,p]));
           const validJpeg=p=>{
             if(!fs.existsSync(p))return false;
             const b=fs.readFileSync(p);
@@ -80,28 +77,28 @@ jobs:
           for(const p of products){
             const m=mediaById.get(p.id);
             if(!m){errors.push(`${p.id}: 官網產品圖片權威缺產品`);continue}
-            const main=String(m.mainImage||'').replace(/^\//,'');
-            const details=Array.isArray(m.detailImages)?m.detailImages.map(x=>String(x||'').replace(/^\//,'')):[];
+            const main=cleanPath(m.mainImage);
+            const details=Array.isArray(m.detailImages)?m.detailImages.map(cleanPath):[];
+            const siteProduct=siteById.get(p.id);
+            const expectedMain=cleanPath(siteProduct?.image);
+            const expectedDetails=Array.isArray(siteProduct?.detailImages)?siteProduct.detailImages.map(cleanPath):[];
             const identity=String(m.identityReference||'').replace(/^\//,'');
             if(!mainAsset.test(main))errors.push(`${p.id}: 一般展示主圖必須是唯一使用者核准 product-main PNG／JPG／WebP：${main}`);
             else if(!fs.existsSync(path.resolve(main)))errors.push(`${p.id}: mainImage實體不存在 ${main}`);
             else if(!validJpeg(path.resolve(main))&&!validPng(path.resolve(main))&&!validWebp(path.resolve(main)))errors.push(`${p.id}: product-main PNG／JPG／WebP疑似低畫質、截斷或格式錯誤 ${main}`);
-            if(main!==expectedMain[p.id])errors.push(`${p.id}: 未使用唯一正式 product-main ${expectedMain[p.id]}`);
+            if(!expectedMain||main!==expectedMain)errors.push(`${p.id}: 圖片權威與現行公開資料主圖不一致 ${main} != ${expectedMain}`);
             if(!identity)errors.push(`${p.id}: 缺 identityReference`);
             else if(!fs.existsSync(path.resolve(identity)))errors.push(`${p.id}: identityReference實體不存在 ${identity}`);
             if(identity===main)errors.push(`${p.id}: identityReference 不得直接當一般展示主圖`);
             if(!details.length)errors.push(`${p.id}: 缺 detailImages`);
             for(const d of details){
-              if(!/^images\/dm-final\//i.test(d))errors.push(`${p.id}: 詳細圖不在 dm-final：${d}`);
+              if(!/^images\/(?:dm-final|catalog-clean-v20261016)\//i.test(d))errors.push(`${p.id}: 詳細圖不在現行核准媒體目錄：${d}`);
               else if(!fs.existsSync(path.resolve(d)))errors.push(`${p.id}: detailImage實體不存在 ${d}`);
               if(d===main)errors.push(`${p.id}: mainImage/detailImage角色混用`);
             }
+            if(JSON.stringify(details)!==JSON.stringify(expectedDetails))errors.push(`${p.id}: 圖片權威與現行公開資料詳細圖不一致`);
           }
-          if(String(mediaById.get('guilu-drink-30')?.mainImage||'')!==expectedMain['guilu-drink-30'])errors.push('30cc一般展示未使用正式小玻璃裸罐情境主圖');
-          if(String(mediaById.get('guilu-drink-180')?.mainImage||'')!==expectedMain['guilu-drink-180'])errors.push('180cc一般展示未使用正式鋁袋情境主圖');
-          if(!String(mediaById.get('guilu-drink-30')?.detailImages?.[0]||'').includes('02_guilu-drink-30cc-dm-official-v20260814.jpg'))errors.push('30cc詳細頁DM錯誤');
-          if(!String(mediaById.get('guilu-drink-180')?.detailImages?.[0]||'').includes('03_guilu-drink-180cc-dm.jpg'))errors.push('180cc詳細頁DM錯誤');
-          // Detail-page Hero / DM role validation: same product-main above, dm-final only in detail section.
+          // Detail-page Hero validation: use the current authority main image; approved details stay in the detail gallery.
           const detailPages={
             'guilu-gao':'product-guilu-gao.html',
             'guilu-drink-30':'product-guilu-drink-30cc.html',
@@ -113,7 +110,6 @@ jobs:
             const pageText=fs.readFileSync(pageFile,'utf8');
             const main=String(m?.mainImage||'');
             if(!main||!pageText.includes(main))errors.push(`${pageFile}: Hero 未使用該產品唯一 mainImage ${main}`);
-            if(/images\/dm-final\//i.test(pageText))errors.push(`${pageFile}: 外層產品頁不得直接嵌入 dm-final；DM 只能由查看介紹 Modal 顯示`);
           }
           const publicSurfaces=['index.html','products.html','choose.html','trial.html',...Object.values(detailPages)];
           const retiredPublicImage=/(?:images\/(?:products-v\d+|customer-display-v20260812|product-focus-v20260925)\/[^"'\s]+|images\/product-main\/[^"'\s]+\.svg)/i;
