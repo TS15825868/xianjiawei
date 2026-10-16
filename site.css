@@ -539,3 +539,17 @@ body[data-page="product-detail"] .grid:has(>.card .product-photo-frame) {grid-te
   body[data-page="product-detail"] .grid:has(>.card .product-photo-frame) {grid-template-columns:1fr!important}
   .product-photo-frame,.modal-detail-media__frame,.trial-product-card__media {padding:14px;border-radius:14px}
 }
+
+
+/* 2026-10-16 內容精簡：維持產品真實照片、包裝與等比例，不影響既有Modal */
+.product-legal-details{min-width:0}
+.product-legal-details>summary{cursor:pointer;display:list-item;font-weight:700;color:#24354b;line-height:1.75;padding:8px 4px}
+.product-legal-details[open]>summary{margin-bottom:14px}
+.product-legal-details .grid{margin-top:10px}
+@media(max-width:700px){
+ body[data-page="home"] .home-intro-section,body[data-page="home"] .home-choice-section,body[data-page="home"] .home-use-section{padding-top:clamp(32px,7vw,54px)!important;padding-bottom:clamp(32px,7vw,54px)!important}
+ body[data-page="home"] .home-choice-grid{gap:14px}
+ body[data-page="home"] .home-choice-card{min-width:0}
+ body[data-page="home"] .home-choice-card p,body[data-page="home"] .home-intro-section .section-heading>p{line-height:1.7}
+ body[data-page="home"] .home-choice-card a{display:inline-block;margin-top:12px;text-underline-offset:4px}
+}
