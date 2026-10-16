@@ -118,9 +118,14 @@ jobs:
           media=json.loads(Path('data/product-media-authority.json').read_text(encoding='utf-8'))
           assert isinstance(media.get('version'),str) and media['version'].strip(), '目前正式媒體權威缺少版本資訊'
           for pid,item in media.get('products',{}).items():
-              assert str(item.get('mainImage','')).startswith('images/product-main/'), f'product-media-authority general display invalid: {pid}'
-              details=item.get('detailImages') or []
-              assert details and all(str(x).startswith('images/dm-final/') for x in details), f'product-media-authority detail invalid: {pid}'
+              # The verified catalog uses versioned original-photo images; never pin
+              # the safety check to retired images/product-main or images/dm-final.
+              main=Path(str(item.get('mainImage','')))
+              assert main.parts and main.parts[0]=='images' and main.is_file(), f'product-media-authority main missing: {pid}: {main}'
+              assert not any(token in main.stem.lower() for token in ('-label','-back','-detail','-open')), f'detail or label cannot be main: {pid}: {main}'
+              details=[Path(str(x)) for x in (item.get('detailImages') or [])]
+              assert details and all(p.parts and p.parts[0]=='images' and p.is_file() for p in details), f'product-media-authority detail missing: {pid}'
+              assert main not in details, f'product-media-authority main/detail overlap: {pid}'
           print(f'PASS: {len(ids)} current website/public-post products; flexible Guilu Gao timing; 30cc daily 1–2 cans; no fixed old product-count runtime gate.')
           PY
 
