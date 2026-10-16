@@ -49,6 +49,11 @@
     node.setAttribute(name,value);return true;
   }
   function setStyleIfChanged(node,name,value){if(!node||node.style[name]===value)return false;node.style[name]=value;return true;}
+  // Compare registered detail paths without cache query strings. Details are not main-image fallbacks.
+  function isApprovedDetail(value=''){
+    const path=v=>{try{return new URL(String(v),location.href).pathname}catch{return String(v).split(/[?#]/)[0]}};
+    return Object.values(MEDIA_AUTHORITY?.products||{}).some(product=>(product.detailImages||[]).some(image=>path(image)===path(value)));
+  }
   function alreadyCurrent(value){return Object.values(CUSTOMER).some(url=>sameUrl(value,url));}
   function isDetailedDm(value){return /(?:^|\/)images\/dm-final\//i.test(String(value||''));}
   function isImageHref(value=''){
@@ -59,7 +64,7 @@
   }
   function match(value){
     const text=String(value||'');
-    if(alreadyCurrent(text)||isDetailedDm(text))return'';
+    if(alreadyCurrent(text)||isDetailedDm(text)||isApprovedDetail(text))return'';
     for(const rule of RULES){if(rule.tests.some(test=>test.test(text)))return rule.key;}
     return'';
   }
@@ -125,7 +130,7 @@
     if(modal&&modal.classList.contains('show')){
       const key=keyFromModal(modal);
       if(key){
-        modal.querySelectorAll('img').forEach(img=>{if(!isDetailedDm(img.getAttribute('src')||''))forceImage(img,key);});
+        modal.querySelectorAll('img').forEach(img=>{if(!isDetailedDm(img.getAttribute('src')||'')&&!isApprovedDetail(img.getAttribute('src')||''))forceImage(img,key);});
         modal.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href')||'';if(isImageHref(href)&&match(href))setAttrIfChanged(a,'href',CUSTOMER[key]);});
       }
     }
