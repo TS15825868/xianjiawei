@@ -6,7 +6,7 @@
  */
 (function(){
   const DATA={
-  "version": "20261016-original-photo-premium-scene-v1",
+  "version": "20261016-real-physical-packaging-main-v3",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one product, one mainImage; source must be images/product-main/",
@@ -17,21 +17,21 @@
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/product-main/guilu-gao-scene.webp",
+      "mainImage": "images/catalog-real-v20261016/guilu-gao-main.webp",
       "detailImages": [
         "images/dm-final/01_guilu-gao-100g-dm.jpg"
       ],
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/product-main/guilu-drink-30-scene.webp",
+      "mainImage": "images/catalog-real-v20261016/guilu-drink-30-main.webp",
       "detailImages": [
         "images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg"
       ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/product-main/guilu-drink-180-scene.webp",
+      "mainImage": "images/catalog-real-v20261016/guilu-drink-180-main.webp",
       "detailImages": [
         "images/dm-final/03_guilu-drink-180cc-dm.jpg"
       ],
@@ -40,7 +40,7 @@
     "luerong-fen": {
       "visualPolicy": "sealed-original-75g-jar-exterior-only",
       "showContents": false,
-      "mainImage": "images/product-main/luerong-fen-scene.webp",
+      "mainImage": "images/catalog-real-v20261016/luerong-fen-main.webp",
       "detailImages": [
         "images/dm-final/04_luerong-fen-75g-dm.jpg"
       ],
