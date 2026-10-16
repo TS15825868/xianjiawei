@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-16-real-photo-brand-hero-v1",
+  "version": "2026-10-16-real-pixel-scenes-v2",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -45,7 +45,7 @@
         "全素，依原廠包裝標示"
       ],
       "detailImages": [
-        "images/partner-products/jinan-siwuyin-label.jpg"
+        "images/partner-products/scenes-v20261016/siwu-label-scene.webp"
       ],
       "detailMediaTitle": "原廠包裝標示",
       "fulfillmentNotice": "價格、供貨與配送時間請透過官方 LINE 確認。",
@@ -55,7 +55,10 @@
         "IMG_9935.JPG"
       ],
       "informationOnly": true,
-      "mainImageSourceOriginal": "images/partner-products/jinan-siwuyin-front.jpg"
+      "mainImageSourceOriginal": "images/partner-products/jinan-siwuyin-front.jpg",
+      "originalDetailImages": [
+        "images/partner-products/jinan-siwuyin-label.jpg"
+      ]
     },
     {
       "id": "danshen-tea-collection",
@@ -67,7 +70,7 @@
       "size": "3公克／包・10包／盒｜6款",
       "form": "茶包",
       "description": "六款盒裝茶包集中瀏覽，查看各款包裝、原料、規格與使用方式。",
-      "image": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",
+      "image": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
       "page": "product-danshen-tea.html",
       "ingredients": [],
       "usage": [
@@ -94,7 +97,7 @@
           "id": "jianfeng-rose-fruit-tea",
           "name": "臺灣丹參玫瑰果茶",
           "flavor": "玫瑰果茶",
-          "image": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",
+          "image": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -127,7 +130,7 @@
           "id": "jianfeng-leisure-tea",
           "name": "臺灣丹參懈悠活養生茶",
           "flavor": "懈悠活養生茶",
-          "image": "images/partner-products/site-hero-v20261016/tea-danshen-leisure-front-cutout.webp",
+          "image": "images/partner-products/scenes-v20261016/tea-danshen-leisure-front-scene.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -157,7 +160,7 @@
           "id": "jianfeng-wudahan-tea",
           "name": "武大漢丹參茶",
           "flavor": "武大漢丹參茶",
-          "image": "images/partner-products/site-hero-v20261016/tea-wudahan-front-cutout.webp",
+          "image": "images/partner-products/scenes-v20261016/tea-wudahan-front-scene.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -189,7 +192,7 @@
           "id": "jianfeng-fiber-tea",
           "name": "臺灣丹參纖體茶",
           "flavor": "纖體茶",
-          "image": "images/partner-products/site-hero-v20261016/tea-danshen-lotus-front-cutout.webp",
+          "image": "images/partner-products/scenes-v20261016/tea-danshen-lotus-front-scene.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -220,7 +223,7 @@
           "id": "jianfeng-white-tea",
           "name": "臺灣白茶丹參飲",
           "flavor": "白茶丹參飲",
-          "image": "images/partner-products/site-hero-v20261016/tea-white-danshen-front-cutout.webp",
+          "image": "images/partner-products/scenes-v20261016/tea-white-danshen-front-scene.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣白茶",
@@ -250,7 +253,7 @@
           "id": "jianfeng-refresh-tea",
           "name": "臺灣丹參舒活茶",
           "flavor": "舒活茶",
-          "image": "images/partner-products/site-hero-v20261016/tea-danshen-refresh-front-cutout.webp",
+          "image": "images/partner-products/scenes-v20261016/tea-danshen-refresh-front-scene.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -313,7 +316,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",
+      "image": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
       "page": "product-jianfeng-rose-fruit-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -366,7 +369,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/partner-products/site-hero-v20261016/tea-danshen-leisure-front-cutout.webp",
+      "image": "images/partner-products/scenes-v20261016/tea-danshen-leisure-front-scene.webp",
       "page": "product-jianfeng-leisure-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -416,7 +419,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/partner-products/site-hero-v20261016/tea-wudahan-front-cutout.webp",
+      "image": "images/partner-products/scenes-v20261016/tea-wudahan-front-scene.webp",
       "page": "product-jianfeng-wudahan-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -468,7 +471,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/partner-products/site-hero-v20261016/tea-danshen-lotus-front-cutout.webp",
+      "image": "images/partner-products/scenes-v20261016/tea-danshen-lotus-front-scene.webp",
       "page": "product-jianfeng-fiber-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -519,7 +522,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/partner-products/site-hero-v20261016/tea-white-danshen-front-cutout.webp",
+      "image": "images/partner-products/scenes-v20261016/tea-white-danshen-front-scene.webp",
       "page": "product-jianfeng-white-tea.html",
       "ingredients": [
         "臺灣白茶",
@@ -569,7 +572,7 @@
       "size": "3公克／包，10包／盒",
       "form": "茶包",
       "description": "盒裝茶包，每盒10包、每包3公克。查看原料、規格與包裝標示。",
-      "image": "images/partner-products/site-hero-v20261016/tea-danshen-refresh-front-cutout.webp",
+      "image": "images/partner-products/scenes-v20261016/tea-danshen-refresh-front-scene.webp",
       "page": "product-jianfeng-refresh-tea.html",
       "ingredients": [
         "臺灣丹參",
@@ -810,10 +813,10 @@
       "producerNameFromLabel": "晉安製藥股份有限公司",
       "origin": "臺灣",
       "shelfLife": "二年",
-      "image": "images/partner-products/jinan-vitality-front-original.jpg",
+      "image": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
       "gallery": [
-        "images/partner-products/jinan-vitality-front-original.jpg",
-        "images/partner-products/jinan-vitality-front-original.jpg",
+        "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
+        "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
         "images/partner-products/jinan-vitality-jar-original.jpg",
         "images/partner-products/jinan-vitality-label-original.jpg"
       ],
@@ -825,7 +828,7 @@
         "front": {
           "source": "IMG_8899(2).jpeg",
           "sha256": "c7ae1de7262dd2e710ef663a1265b57347b3b9e21a0bb2ad91760eb995fdc934",
-          "sitePath": "images/partner-products/jinan-vitality-front-original.jpg"
+          "sitePath": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp"
         },
         "jar": {
           "source": "IMG_8904(2).jpeg",
@@ -851,7 +854,13 @@
         "sodiumMilligrams": 49
       },
       "nutritionReference": "IMG_8902(2).jpeg，原廠外盒每份60毫升之營養標示",
-      "mainImageSourceOriginal": "images/partner-products/jinan-vitality-front-original.jpg"
+      "mainImageSourceOriginal": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
+      "originalDetailImages": [],
+      "detailImages": [
+        "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
+        "images/partner-products/scenes-v20261016/vitality-label-scene.webp"
+      ],
+      "mainImageDescription": "原廠60毫升玻璃罐實拍去背情境圖；禮盒規格仍為12罐入"
     },
     {
       "id": "jinan-huanshaodan",
@@ -1292,7 +1301,7 @@
       "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
       "requiresDoctorReferralForOrdinaryFoodSale": false,
       "brandLegalName": "御采堂生技食品有限公司",
-      "image": "images/partner-products/site-hero-v20261016/four-treasures-front-cutout.webp",
+      "image": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
       "page": "product-four-treasures.html",
       "imageSourceRecord": {
         "sourceRepository": "Wuji29879526/Wuji",
@@ -1470,7 +1479,7 @@
       "compliance": "不沿用外盒療效形容、舊建議售價或不確定的保險理賠保證；上架產品圖務必紫色二珍寶原廠盒裝實物。",
       "pricePresentation": "LINE詢價（不得顯示實物盒上舊建議售價）",
       "page": "product-er-zhen-bao.html",
-      "image": "images/partner-products/site-hero-v20261016/er-zhen-bao-royalherb-original-cutout.webp",
+      "image": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp",
       "imageSourceStatus": "verified-original-manufacturer-webp-hosted-on-current-main",
       "approvedImageGitSha": "b44d0577d2f23046b1e6341f3af7a6d6e3e633dc",
       "imageFromOriginal": true,
@@ -1513,4 +1522,3 @@
   },
   "updatedAt": "2026-10-15"
 }
-
