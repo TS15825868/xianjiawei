@@ -4,6 +4,7 @@ const fs=require("fs");
 
 const ROOT=process.cwd();
 const DAILY_30="每日 1–2 罐";
+const usage30Matches=value=>[DAILY_30,DAILY_30+"，可依個人需求調整"].includes(value);
 const TANGKUAI_SPEC="75g／盒｜8塊裝";
 const LINE_URL="https://lin.ee/sHZW7NkR";
 const failures=[];
@@ -29,7 +30,7 @@ const tang=product(master.products,"guilu-tangkuai");
 const jiao=product(master.products,"guilu-jiao");
 assert(p30?.name==="龜鹿飲30cc玻璃罐","30cc","正式名稱錯誤",p30?.name);
 assert(p30?.specification==="30cc／罐（小玻璃罐）","30cc","正式規格錯誤",p30?.specification);
-assert(p30?.usage?.[0]===DAILY_30,"30cc","最新正式使用方式必須同步 public-product-master",p30?.usage?.[0]);
+assert(usage30Matches(p30?.usage?.[0]),"30cc","最新正式使用方式必須同步 public-product-master",p30?.usage?.[0]);
 assert(/小玻璃罐/.test(p30?.package||"")&&/裸罐/.test(p30?.package||"")&&/無貼紙/.test(p30?.package||""),"30cc","包裝必須維持小玻璃裸罐、無貼紙",p30?.package);
 assert(p180?.specification==="180cc／包（鋁袋）","180cc","正式規格錯誤",p180?.specification);
 assert(!tang&&!jiao,"master","暫緩產品不得回流公開");
@@ -48,9 +49,9 @@ for(const path of ["product-master.json","catalog-public.json","assets/data/offi
   assert(found.length>0,path,"找不到龜鹿飲30cc鏡像資料");
   for(const item of found){
     for(const key of ["usagePrimary","usage_primary"]){
-      if(item[key]!=null)assert(item[key]===DAILY_30,path,`${key} 不得回退`,item[key]);
+      if(item[key]!=null)assert(usage30Matches(item[key]),path,`${key} 不得回退`,item[key]);
     }
-    if(Array.isArray(item.usage)&&item.usage.length)assert(item.usage[0]===DAILY_30,path,"usage[0] 不得回退",item.usage[0]);
+    if(Array.isArray(item.usage)&&item.usage.length)assert(usage30Matches(item.usage[0]),path,"usage[0] 不得回退",item.usage[0]);
   }
   assert(!/75g\s*[（(]\s*2\s*兩/.test(read(path)),path,"龜鹿湯塊不得回流舊 2兩 標示");
 }
@@ -66,7 +67,7 @@ assert(geo.includes(DAILY_30),"geo-data","GEO 未同步 30cc 目前正式用法"
 assert(!/75g\s*[（(]\s*2\s*兩/.test(geo),"geo-data","GEO 仍含龜鹿湯塊舊 2兩 標示");
 
 const siteAuthority=read("site-product-data-authority.js");
-assert(siteAuthority.includes("const CURRENT_30_USAGE='每日 1–2 罐';"),"runtime","產品資料守門員未同步目前正式用法");
+assert(usage30Matches(siteAuthority.match(/const CURRENT_30_USAGE=['"]([^'"]+)['"]/ )?.[1]),"runtime","產品資料守門員未同步目前正式用法");
 assert(siteAuthority.includes("publicIds.length"),"runtime","產品資料守門員須依目前公開清單計數");
 
 const publicHtml=[...read("sitemap.xml").matchAll(/<loc>https:\/\/ts15825868\.github\.io\/xianjiawei\/([^<]+\.html)<\/loc>/g)].map(m=>m[1]);

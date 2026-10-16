@@ -55,7 +55,7 @@ def main():
         if page in MEDIA_PRODUCT_PAGES:
             assert '<section class="product-detail-hero">' in source,f'{page}缺產品主視覺區'
             hero=source.split('<section class="product-detail-hero">',1)[1].split('</section>',1)[0]
-            assert ('images/product-main/' in hero or 'images/catalog-real-v20261016/' in hero),f'{page}主視覺未使用目前正式原照主圖'
+            assert ('images/product-main/' in hero or 'images/catalog-real-v20261016/' in hero or 'images/catalog-clean-studio-v20261016-v5/' in hero or 'images/catalog-corrections-v20261016-v6/' in hero),f'{page}主視覺未使用目前正式原照主圖'
             assert 'images/dm-final/' not in hero,f'{page}把詳細DM誤用為產品主視覺'
             assert 'images/dm-final/' not in source,f'{page}外層HTML不得直接嵌入正式詳細DM；DM只可由查看介紹Modal載入'
             has_modal_intro = '查看介紹' in hero and 'data-product-intro' in hero
@@ -64,9 +64,9 @@ def main():
             pid=PRODUCT_PAGE_IDS[page]
             media_row=media_products.get(pid) or {}
             main_image=str(media_row.get('mainImage') or '')
-            assert main_image.startswith(('images/product-main/','images/catalog-real-v20261016/')) and main_image.endswith(('.png','.jpg','.webp')) and (ROOT/main_image).is_file(),f'{page}媒體權威主圖不是現行有效原照 PNG／JPG／WebP'
+            assert main_image.startswith(('images/product-main/','images/catalog-real-v20261016/','images/catalog-clean-studio-v20261016-v5/','images/catalog-corrections-v20261016-v6/')) and main_image.endswith(('.png','.jpg','.webp')) and (ROOT/main_image).is_file(),f'{page}媒體權威主圖不是現行有效原照 PNG／JPG／WebP'
             details=media_row.get('detailImages') or []
-            assert details and all(str(x).startswith('images/dm-final/') for x in details),f'{page}媒體權威缺正式dm-final詳細圖'
+            assert details and all(str(x).startswith(('images/dm-final/','images/catalog-clean-studio-v20261016-v5/')) and (ROOT/str(x)).is_file() for x in details),f'{page}媒體權威缺正式dm-final詳細圖'
         if page=='product-guilu-gao.html':
             assert '食用時間可依個人使用習慣與作息時間安排' in source
             for retired in ['早上＋下午','早上+下午','每日早上及下午各一小匙','早晚各一小匙']:assert retired not in source,f'龜鹿膏詳頁仍含舊固定時段：{retired}'
@@ -81,7 +81,7 @@ def main():
 
     # 首頁允許品牌文案不直接寫「六項」，但六個正式產品入口與 product-main 主圖必須齊全。
     home=read('index.html')
-    assert (home.count('images/product-main/')+home.count('images/catalog-real-v20261016/'))>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'index.html未維持最新公開產品入口／主圖'
+    assert (home.count('images/product-main/')+home.count('images/catalog-real-v20261016/')+home.count('images/catalog-clean-studio-v20261016-v5/')+home.count('images/catalog-corrections-v20261016-v6/'))>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'index.html未維持最新公開產品入口／主圖'
     for phrase in DEFERRED:assert phrase not in home,f'index.html仍含暫緩產品'
     for page in ['products.html','guide.html']:
         source=read(page)  # 品項數由目前母資料與實際產品卡驗收，不強制歷史六項文案。

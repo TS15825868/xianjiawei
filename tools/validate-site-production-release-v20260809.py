@@ -7,6 +7,8 @@ from current_product_authority import current_public_ids, current_media_ids
 
 ROOT=Path(__file__).resolve().parents[1]
 CURRENT_30='每日 1–2 罐'
+def usage_30_matches(value):
+    return value in (CURRENT_30, CURRENT_30+'，可依個人需求調整')
 PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED=('qixuan-guilu-drink-powder','柒玄茶・龜鹿調飲粉')
 SPECS={
@@ -40,7 +42,7 @@ def validate_products():
     req(master.get('authority')=='user-confirmed-current','public-product-master authority錯誤')
     req(master.get('productCount')==len(PUBLIC_IDS) and list(mb)==PUBLIC_IDS,'public-product-master必須符合目前公開官網商品')
     for pid,spec in SPECS.items():req(spec_of(mb[pid])==spec,f'{pid}公開母資料規格錯誤')
-    req(usage_of(mb['guilu-drink-30'])==CURRENT_30,'30cc公開母資料用法錯誤')
+    req(usage_30_matches(usage_of(mb['guilu-drink-30'])),'30cc公開母資料用法錯誤')
     req(usage_of(mb['guilu-drink-180'])=='每日一包','180cc公開母資料用法錯誤')
 
     for rel in ['assets/data/official-products.json','config/official-products.json','data.json','catalog-public.json','product-master.json']:
@@ -50,7 +52,7 @@ def validate_products():
         # 不得把負面守門文字誤判成公開產品資料回流。
         active_serialized=json.dumps(list(pm.values()),ensure_ascii=False)
         for marker in DEFERRED:req(marker not in active_serialized,f'{rel}重新混入暫緩產品：{marker}')
-        p30=pm['guilu-drink-30'];req(usage_of(p30)==CURRENT_30,f'{rel} 30cc未同步目前正式用法')
+        p30=pm['guilu-drink-30'];req(usage_30_matches(usage_of(p30)),f'{rel} 30cc未同步目前正式用法')
         for legacy in LEGACY_30:
             req(legacy not in active_serialized,f'{rel}實際產品資料仍含30cc退役輸出：{legacy}')
 
@@ -78,7 +80,7 @@ def validate_public_surfaces():
 
     # 首頁不強制出現「六項」字樣；品牌文案可調整，但實際目前正式產品入口與主圖必須存在。
     home=read('index.html')
-    req((home.count('images/product-main/')+home.count('images/catalog-real-v20261016/'))>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'首頁未維持目前正式產品入口／主圖')
+    req((home.count('images/product-main/')+home.count('images/catalog-real-v20261016/')+home.count('images/catalog-clean-studio-v20261016-v5/')+home.count('images/catalog-corrections-v20261016-v6/'))>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'首頁未維持目前正式產品入口／主圖')
     req(all(pid in read('products.html') for pid in PUBLIC_IDS),'產品總覽未維持目前公開官網商品')
     req(CURRENT_30 in read('products.html') and CURRENT_30 in read('guide.html') and CURRENT_30 in read('faq.html'),'30cc目前用法未同步公開頁')
 
