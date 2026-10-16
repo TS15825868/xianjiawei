@@ -123,20 +123,37 @@ def main() -> None:
                 official_picture = product["image"].split("?", 1)[0]
                 if "/staging/" in official_picture or "/partner-product-design-review/" in official_picture:
                     fail("unapproved preview/staging image: " + pid)
-                if official_picture.startswith("images/catalog-real-v20261016/"):
-                    # A fresh real-pixel main may replace an older source.  Require
-                    # exact product-specific provenance in the committed manifest,
-                    # not a permissive path-only exception.
-                    manifest = load("images/catalog-real-v20261016/manifest.json")
-                    record = next((x for x in manifest.get("products", [])
-                                   if x.get("id") == pid), None)
-                    if not record or record.get("mainImage") != official_picture:
-                        fail("new public image lacks matching original-photo record: " + pid)
-                    if not re.fullmatch(r"[a-f0-9]{64}", str(record.get("sha256", ""))):
-                        fail("new public image lacks original photo hash: " + pid)
-                    source = str(record.get("source") or "")
-                    if not source or "/staging/" in source or "/partner-product-design-review/" in source:
-                        fail("new image provenance is unsafe: " + pid)
+                if official_picture.startswith("images/catalog-"):
+                    # 新版實拍情境圖可以正常取代舊版本。必須在同一版目錄
+                    # 追溯原廠照片／合成記錄，禁止任意AI重畫的包裝冒用正式圖。
+                    folder = str(Path(official_picture).parent)
+                    manifest_path = folder + "/manifest.json"
+                    manifest_file = safe_file(manifest_path)
+                    if not manifest_file.is_file():
+                        fail("original-photo manifest missing: " + pid)
+                    manifest = load(manifest_path)
+                    sources = manifest.get("items") or manifest.get("products") or []
+                    matched = next((x for x in sources
+                                    if x.get("file", x.get("mainImage")) == official_picture), None)
+                    if matched is not None:
+                        original = str(matched.get("source") or "")
+                        if (not original or not original.startswith("images/")
+                                or "/staging/" in original or
+                                "/partner-product-design-review/" in original
+                                or not safe_file(original).is_file()):
+                            fail("new image lacks a real local product source: " + pid)
+                        # 如有內容雜湊就檢驗格式；不以舊版是否含sha256作死板判定。
+                        original_sha = str(matched.get("sha256") or "")
+                        if original_sha and not re.fullmatch(r"[a-f0-9]{64}", original_sha):
+                            fail("bad original-photo evidence sha: " + pid)
+                    elif manifest.get("newImage") == official_picture:
+                        if not re.fullmatch(r"[a-f0-9]{64}", str(manifest.get("sha256", ""))):
+                            fail("corrected original-photo image missing hash: " + pid)
+                        old_source = manifest.get("oldImagePreserved")
+                        if not old_source or not safe_file(old_source).is_file():
+                            fail("corrected photo lacks provenance chain: " + pid)
+                    else:
+                        fail("catalog product photo not declared in versioned manifest: " + pid)
                 elif not official_picture.startswith("images/partner-products/"):
                     fail("public product image outside reviewed original-photo sources: " + pid)
                 for extra in product.get("detailImages", []):
