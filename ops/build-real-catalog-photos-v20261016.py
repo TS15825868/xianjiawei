@@ -120,3 +120,75 @@ for pid,source,ww,hh,note in MAP:
     manifest["products"].append({"id":pid,"mainImage":path,"source":source,"sha256":sha,"display":note})
 (OUT/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 print("GENERATED",len(manifest["products"]),"real-product hero photos")
+
+# 詳細頁：全部從原廠透明去背來源 / 原始實拍裁切，不產生AI產品像素。
+def detail_scene(img,slug,width=860,height=815):
+    img=img.convert("RGBA")
+    bbox=img.getchannel("A").getbbox()
+    if not bbox:raise ValueError("空白詳細圖："+slug)
+    img=img.crop(bbox)
+    scale=min(width/img.width,height/img.height)
+    img=img.resize((max(1,round(img.width*scale)),max(1,round(img.height*scale))),Image.Resampling.LANCZOS)
+    canvas=BASE.copy()
+    x=(canvas.width-img.width)//2
+    y=1070-img.height
+    shadow=Image.new("RGBA",canvas.size,(0,0,0,0))
+    ImageDraw.Draw(shadow).ellipse((x+25,1046,x+img.width-25,1110),fill=(25,25,25,55))
+    canvas.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(18)))
+    canvas.alpha_composite(img,(x,y))
+    f=OUT/(slug+"-detail.webp")
+    canvas.convert("RGB").save(f,"WEBP",quality=92,method=6)
+    return str(f.relative_to(ROOT))
+
+def crop_photo(relpath,poly):
+    im=Image.open(ROOT/relpath).convert("RGBA")
+    w,h=im.size
+    mask=Image.new("L",im.size,0)
+    ImageDraw.Draw(mask).polygon([(round(w*x),round(h*y)) for x,y in poly],fill=255)
+    im.putalpha(mask.filter(ImageFilter.GaussianBlur(.7)))
+    return im
+
+detail={}
+detail["guilu-gao"]=detail_scene(gao,"guilu-gao-box-jar",970,860)
+gjar=crop_photo("images/product-main/gao-packaging-v20261016/box-jar-original.jpg",
+    [(0.53,.29),(0.552,.214),(0.62,.182),(0.70,.201),(0.749,.268),(0.753,.72),(0.696,.766),(0.55,.752),(0.514,.673),(0.512,.40)])
+detail["guilu-gao-jar"]=detail_scene(gjar,"guilu-gao-sealed-100g-jar",720,800)
+for pid,source,ww,hh,note in MAP:
+    if pid=="royalherb-erzhenbao-64":
+        img,_=actual_er_zhen_box()
+    else:
+        img,_=cutout(source)
+    detail[pid]=detail_scene(img,pid, min(900,ww+100),min(850,hh+90))
+
+tea_map={
+    "rose-fruit":"tea-rose-fruit",
+    "leisure":"tea-danshen-leisure",
+    "wudahan":"tea-wudahan",
+    "fiber":"tea-danshen-lotus",
+    "white":"tea-white-danshen",
+    "refresh":"tea-danshen-refresh"
+}
+for name,stem in tea_map.items():
+    front="images/partner-products/site-hero-v20261016/"+stem+"-front-cutout.webp"
+    im,_=cutout(front)
+    detail["tea-"+name]=detail_scene(im,"tea-"+name+"-package",800,780)
+    source="images/partner-products/"+stem+"-label-source.jpg"
+    # 雙面標示完整保存文字原像素，僅去除店內雜亂背景
+    panel=crop_photo(source,[(.013,.09),(.45,.12),(.982,.053),(.988,.936),(.478,.932),(.013,.888)])
+    detail["tea-"+name+"-label"]=detail_scene(panel,"tea-"+name+"-label",950,755)
+siwu=crop_photo("images/partner-products/jinan-siwuyin-label.jpg",
+    [(.012,.01),(.975,.01),(.949,.872),(.135,.904),(.049,.79)])
+detail["siwu-label"]=detail_scene(siwu,"jinan-siwuyin-label",880,850)
+vitality=crop_photo("images/partner-products/jinan-vitality-jar-original.jpg",
+    [(.02,.421),(.08,.38),(.37,.38),(.458,.438),(.465,.63),(.473,.80),(.42,.848),(.15,.847),(.035,.798)])
+detail["guilu-vitality-jar"]=detail_scene(vitality,"guilu-vitality-sealed-jar",690,770)
+four=crop_photo("images/partner-products/supplements-v20261016/four-treasures-tray-back.jpg",
+    [(.005,.57),(.43,.177),(.908,.275),(.954,.51),(.52,.896),(.02,.795)])
+detail["four-treasures-inner"]=detail_scene(four,"four-treasures-actual-pieces",920,830)
+# 二珍寶內托部分實拍被手遮住，不能AI創造遮住的部分；
+# 公開詳細頁僅使用真盒去背展示，原始托盤保留核對來源。
+detail["er-zhen-bao-inner"]=detail["royalherb-erzhenbao-64"]
+manifest["detailImages"]=detail
+manifest["notes"]=["所有輸出使用原實拍像素，沒有重新生成產品","龜鹿膏盒罐同張實拍近似等高","鹿茸粉不呈現內容物","二珍寶內托原照有手部遮擋不假裝完整"]
+(OUT/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+print("Generated",len(manifest["products"]),"main images and",len(detail),"detail images")
