@@ -37,14 +37,14 @@ jobs:
           const master=JSON.parse(fs.readFileSync('public-product-master.json','utf8'));
           const media=JSON.parse(fs.readFileSync('data/product-media-authority.json','utf8'));
           const errors=[];
-          const mainAsset=/^images\/product-main\/.+\.(?:png|jpg)$/i;
+          const mainAsset=/^images\/(?:product-main|catalog-real-v20261016)\/.+\.(?:png|jpg|webp)$/i;
           const expectedMain={
-            'guilu-gao':'images/product-main/guilu-gao-scene.webp',
-            'guilu-drink-30':'images/product-main/guilu-drink-30-scene.webp',
-            'guilu-drink-180':'images/product-main/guilu-drink-180-scene.webp',
+            'guilu-gao':'images/catalog-real-v20261016/guilu-gao-main.webp',
+            'guilu-drink-30':'images/catalog-real-v20261016/guilu-drink-30-main.webp',
+            'guilu-drink-180':'images/catalog-real-v20261016/guilu-drink-180-main.webp',
             'guilu-tangkuai':'images/product-main/guilu-tangkuai.jpg',
             'guilu-jiao':'images/product-main/guilu-jiao.jpg',
-            'luerong-fen':'images/product-main/luerong-fen-scene.webp'
+            'luerong-fen':'images/catalog-real-v20261016/luerong-fen-main.webp'
           };
           const validJpeg=p=>{
             if(!fs.existsSync(p))return false;

@@ -55,7 +55,7 @@ def main():
         if page in MEDIA_PRODUCT_PAGES:
             assert '<section class="product-detail-hero">' in source,f'{page}缺產品主視覺區'
             hero=source.split('<section class="product-detail-hero">',1)[1].split('</section>',1)[0]
-            assert 'images/product-main/' in hero,f'{page}主視覺未使用目前 product-main 漂亮簡單正式主圖'
+            assert ('images/product-main/' in hero or 'images/catalog-real-v20261016/' in hero),f'{page}主視覺未使用目前正式原照主圖'
             assert 'images/dm-final/' not in hero,f'{page}把詳細DM誤用為產品主視覺'
             assert 'images/dm-final/' not in source,f'{page}外層HTML不得直接嵌入正式詳細DM；DM只可由查看介紹Modal載入'
             has_modal_intro = '查看介紹' in hero and 'data-product-intro' in hero
@@ -63,7 +63,8 @@ def main():
             assert has_modal_intro or has_inpage_details,f'{page}缺有效的產品詳情入口（跳窗或頁內資訊）'
             pid=PRODUCT_PAGE_IDS[page]
             media_row=media_products.get(pid) or {}
-            assert str(media_row.get('mainImage') or '').startswith('images/product-main/') and str(media_row.get('mainImage') or '').endswith(('.png','.jpg')) and (ROOT/str(media_row.get('mainImage'))).is_file(),f'{page}媒體權威主圖不是現行有效 product-main PNG／JPG'
+            main_image=str(media_row.get('mainImage') or '')
+            assert main_image.startswith(('images/product-main/','images/catalog-real-v20261016/')) and main_image.endswith(('.png','.jpg','.webp')) and (ROOT/main_image).is_file(),f'{page}媒體權威主圖不是現行有效原照 PNG／JPG／WebP'
             details=media_row.get('detailImages') or []
             assert details and all(str(x).startswith('images/dm-final/') for x in details),f'{page}媒體權威缺正式dm-final詳細圖'
         if page=='product-guilu-gao.html':
@@ -80,7 +81,7 @@ def main():
 
     # 首頁允許品牌文案不直接寫「六項」，但六個正式產品入口與 product-main 主圖必須齊全。
     home=read('index.html')
-    assert home.count('images/product-main/')>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'index.html未維持最新公開產品入口／主圖'
+    assert (home.count('images/product-main/')+home.count('images/catalog-real-v20261016/'))>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'index.html未維持最新公開產品入口／主圖'
     for phrase in DEFERRED:assert phrase not in home,f'index.html仍含暫緩產品'
     for page in ['products.html','guide.html']:
         source=read(page)  # 品項數由目前母資料與實際產品卡驗收，不強制歷史六項文案。
