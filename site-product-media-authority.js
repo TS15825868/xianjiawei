@@ -55,18 +55,20 @@
     },
     "danshen-tea-collection": {
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-box-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-leisure-box-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-wudahan-box-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-fiber-box-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-white-box-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-refresh-box-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp"
+            "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
+            "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
+            "images/catalog-real-scenic-v20261016-v8/tea-wudahan-real-scenic-detail.webp",
+            "images/catalog-real-scenic-v20261016-v8/tea-fiber-real-scenic-detail.webp",
+            "images/catalog-real-scenic-v20261016-v8/tea-white-real-scenic-detail.webp",
+            "images/catalog-real-scenic-v20261016-v8/tea-refresh-real-scenic-detail.webp",
+            "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
+            "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
+            "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
+            "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp",
+            "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp",
+            "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp",
+            "images/catalog-real-scenic-v20261016-v8/tea-bag-pouch-real-scenic-detail.webp",
+            "images/catalog-real-scenic-v20261016-v8/tea-bag-with-string-real-scenic-detail.webp"
       ]
     },
     "guilu-vitality": {
