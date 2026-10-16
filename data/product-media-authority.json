@@ -1,32 +1,32 @@
 {
-  "version": "20261016-original-pixel-clean-main-and-detail-v4",
+  "version": "20261016-real-pixel-clean-studio-main-and-detail-v5",
   "scope": "website-product-media",
   "rules": {
-    "generalDisplay": "one product = one approved original-product-pixel clean-background WebP mainImage from images/catalog-clean-v20261016/; preserve source originals and proportions",
-    "productDetailHero": "same approved original-product-pixel clean-background WebP for all current owned products",
-    "productDetailMedia": "detailImages use approved original-product-pixel clean-background WebP; never AI redraw packaging, labels, missing edges or proportions",
+    "generalDisplay": "one genuine photo per product; newest approved versioned main images are authoritative; no overwrite of originals",
+    "productDetailHero": "same current genuine-product carton-first main as website home/card/catalog; not the historical v4",
+    "productDetailMedia": "sealed physical original and labels, size proportional; 鹿茸粉 remains closed",
     "identityReference": "validation/reference only; never general public main image",
     "display": "實際外盒／完整包裝主圖，詳細頁呈現內裝；鹿茸粉只用密封罐，不展示粉末"
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/catalog-clean-v20261016/guilu-gao-main.webp",
+      "mainImage": "images/catalog-clean-studio-v20261016-v5/guilu-gao-main.webp",
       "detailImages": [
-        "images/catalog-clean-v20261016/guilu-gao-box-jar-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp"
       ],
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/catalog-clean-v20261016/guilu-drink-30-main.webp",
+      "mainImage": "images/catalog-clean-studio-v20261016-v5/guilu-drink-30-main.webp",
       "detailImages": [
-        "images/catalog-clean-v20261016/guilu-drink-30-closed-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/guilu-drink-30-closed-detail.webp"
       ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/catalog-clean-v20261016/guilu-drink-180-main.webp",
+      "mainImage": "images/catalog-clean-studio-v20261016-v5/guilu-drink-180-main.webp",
       "detailImages": [
-        "images/catalog-clean-v20261016/guilu-drink-180-closed-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/guilu-drink-180-closed-detail.webp"
       ],
       "identityReference": "images/guilu-drink-180cc.jpg"
     },
@@ -45,9 +45,9 @@
       "identityReference": "images/products-v2/guilu-jiao-open-new.jpg"
     },
     "luerong-fen": {
-      "mainImage": "images/catalog-clean-v20261016/luerong-fen-main.webp",
+      "mainImage": "images/catalog-clean-studio-v20261016-v5/luerong-fen-main.webp",
       "detailImages": [
-        "images/catalog-clean-v20261016/luerong-fen-closed-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
       ],
       "identityReference": "images/lurong.jpg"
     }
