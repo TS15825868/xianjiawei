@@ -863,3 +863,7 @@ body[data-page="products"] .product-card[data-fallback-product="jinan-sisheng-si
 }
 .trial-product-card{overflow:hidden!important;background:#fffdf8!important;border:1px solid rgba(103,83,56,.18)!important}
 .trial-product-card__media>a,.trial-poster a{display:block;width:100%}
+
+/* 2026-10-17 | JiAn original-photo scene is portrait; maintain uniform image geometry. */
+body[data-page="products"] .product-card[data-product-id="jinan-sisheng-siwuyin"] .product-card__img,
+body[data-page="products"] .product-card[data-fallback-product="jinan-sisheng-siwuyin"] .product-card__img{aspect-ratio:4/5!important}

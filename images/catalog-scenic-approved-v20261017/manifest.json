@@ -27,6 +27,15 @@
       "blobSha": "776705b0a15a77ffcf311e31360d764790bfa983",
       "originalPhotoPixelsPreserved": true,
       "productRedrawn": false
+    },
+    {
+      "file": "images/catalog-scenic-approved-v20261017/jinan-sisheng-siwuyin-main.webp",
+      "source": "images/partner-products/cutouts-v20261016/jinan-siwuyin-front-cutout.webp",
+      "compositeSource": "images/product-background-review-v20261016/jinan-sisheng-siwuyin.webp",
+      "blobSha": "a31589489b3a24ba562b105ef41b0acde41b0628",
+      "sourceLimitations": "Original physical box top handle and outer edge are cut off; missing portions never invented",
+      "originalPhotoPixelsPreserved": true,
+      "productRedrawn": false
     }
   ]
 }

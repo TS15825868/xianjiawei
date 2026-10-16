@@ -49,7 +49,7 @@
       "identityReference": "images/lurong.jpg"
     },
     "jinan-sisheng-siwuyin": {
-      "mainImage": "images/catalog-calm-v20261016/jinan-sisheng-siwuyin-main.webp",
+      "mainImage": "images/catalog-scenic-approved-v20261017/jinan-sisheng-siwuyin-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/siwuyin-real-label-detail.webp"
       ]
