@@ -867,3 +867,14 @@ body[data-page="products"] .product-card[data-fallback-product="jinan-sisheng-si
 /* 2026-10-17 | JiAn original-photo scene is portrait; maintain uniform image geometry. */
 body[data-page="products"] .product-card[data-product-id="jinan-sisheng-siwuyin"] .product-card__img,
 body[data-page="products"] .product-card[data-fallback-product="jinan-sisheng-siwuyin"] .product-card__img{aspect-ratio:4/5!important}
+
+
+/* 2026-10-17 | Mobile catalog legibility and product-answer contrast guard */
+/* Keep the compact two-column mobile catalog, but never reduce product labels
+   or action copy below the visual-audit content threshold. Darken the product
+   answer lead without changing the original photograph or its proportions. */
+@media(max-width:700px){
+  body[data-page="products"] .product-card__body .eyebrow{font-size:14px!important}
+  body[data-page="products"] .product-card__actions .btn{font-size:14px!important}
+}
+body[data-page="product-detail"] .product-detail-hero__content .answer-lead{color:#0B1F3B}
