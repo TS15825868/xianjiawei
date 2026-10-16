@@ -855,7 +855,11 @@
       },
       "nutritionReference": "IMG_8902(2).jpeg，原廠外盒每份60毫升之營養標示",
       "mainImageSourceOriginal": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
-      "originalDetailImages": [],
+      "originalDetailImages": [
+        "images/partner-products/jinan-vitality-front-original.jpg",
+        "images/partner-products/jinan-vitality-jar-original.jpg",
+        "images/partner-products/jinan-vitality-label-original.jpg"
+      ],
       "detailImages": [
         "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
         "images/partner-products/scenes-v20261016/vitality-label-scene.webp"
