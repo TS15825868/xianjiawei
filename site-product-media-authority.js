@@ -7,7 +7,7 @@
  */
 (function(){
   const DATA={
-  "version": "20261016-approved-authentic-scenes-v7",
+  "version": "20261017-scenic-v1",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one verified original-photo main per product; images/catalog-real-v20261016; retail box first when sold as complete gift box",
@@ -18,7 +18,7 @@
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/catalog-calm-v20261016/guilu-gao-main.webp",
+      "mainImage": "images/product-main/gao-packaging-v20261016/box-jar-scene.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp",
         "images/product-main/gao-packaging-v20261016/box-jar-original.jpg"
@@ -26,14 +26,14 @@
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/catalog-calm-v20261016/guilu-drink-30-main.webp",
+      "mainImage": "images/product-background-review-v20261016/guilu-drink-30.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-30-closed-detail.webp"
 ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/catalog-calm-v20261016/guilu-drink-180-main.webp",
+      "mainImage": "images/product-background-review-v20261016/guilu-drink-180.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-180-closed-detail.webp"
 ],
@@ -42,19 +42,20 @@
     "luerong-fen": {
       "visualPolicy": "sealed-original-75g-jar-exterior-only",
       "showContents": false,
-      "mainImage": "images/catalog-calm-v20261016/luerong-fen-main.webp",
+      "mainImage": "images/product-background-review-v20261016/luerong-fen.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
 ],
       "identityReference": "images/lurong.jpg"
     },
     "jinan-sisheng-siwuyin": {
+      "mainImage": "images/product-background-review-v20261016/jinan-sisheng-siwuyin.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/siwuyin-real-label-detail.webp"
       ]
     },
     "danshen-tea-collection": {
-      "mainImage": "images/catalog-calm-v20261016/danshen-tea-collection-main.webp",
+      "mainImage": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
       "detailImages": [
             "images/catalog-calm-v20261016/tea-rose-fruit-box-detail.webp",
             "images/catalog-calm-v20261016/tea-leisure-box-detail.webp",
@@ -73,13 +74,14 @@
       ]
     },
     "guilu-vitality": {
+      "mainImage": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/vitality-real-jar-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/vitality-real-back-detail.webp"
       ]
     },
     "uboss-sizhenbao": {
-      "mainImage": "images/catalog-calm-v20261016/uboss-sizhenbao-main.webp",
+      "mainImage": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp",
@@ -90,7 +92,7 @@
       ]
     },
     "royalherb-erzhenbao-64": {
-      "mainImage": "images/catalog-calm-v20261016/royalherb-erzhenbao-64-main.webp",
+      "mainImage": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp",
         "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-1.webp",
