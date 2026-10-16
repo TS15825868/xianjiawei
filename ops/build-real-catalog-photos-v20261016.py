@@ -8,12 +8,14 @@ import json, hashlib
 from PIL import Image, ImageDraw, ImageFilter
 
 ROOT=Path(__file__).resolve().parent.parent
-OUT=ROOT/"images/catalog-real-v20261016"
+OUT=ROOT/"images/catalog-clean-v20261016"
 OUT.mkdir(parents=True,exist_ok=True)
-BASE=Image.open(ROOT/"images/partner-products/scenes-v20261016/neutral-pedestal-background.webp").convert("RGBA")
+ORIGINAL_BG=Image.open(ROOT/"images/partner-products/scenes-v20261016/neutral-pedestal-background.webp").convert("RGBA")
+# 丟棄舊版複雜背景，採95%暖米白＋淡山霧，無亂物品
+BASE=Image.blend(ORIGINAL_BG,Image.new("RGBA",ORIGINAL_BG.size,"#F7F4ED"),0.95)
 if BASE.size != (1122,1402):
     raise ValueError("未經確認的背景尺寸；停止發布")
-BATCH="20261016-real-physical-box-primary-v2"
+BATCH="20261016-clean-real-photo-products-v4"
 
 # 最新使用者提供：龜鹿膏外盒正面實拍。僅裁切原有盒面像素。
 GAO_BOX_PHOTO="https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/329983d2-3f8e-40a4-8ebd-403e37d18c32.jpg"
@@ -77,6 +79,22 @@ def composite(img,goal_width,goal_height,filename):
     if chk.size!=(1122,1402): raise AssertionError(str(dest))
     return str(dest.relative_to(ROOT))
 
+def actual_box_and_jar():
+    """新主圖真實外盒及100g罐同框，保留原本近似等高的比例。"""
+    path=ROOT/"images/product-main/gao-packaging-v20261016/box-jar-original.jpg"
+    src=Image.open(path).convert("RGBA")
+    w,h=src.size
+    mask=Image.new("L",(w,h),0)
+    polygons=[
+      [(0.255,0.246),(0.325,0.109),(0.535,0.137),(0.543,0.228),(0.504,0.693),(0.31,0.665),(0.255,0.263)],
+      [(0.52,0.273),(0.551,0.207),(0.62,0.182),(0.703,0.198),(0.745,0.268),(0.744,0.403),(0.755,0.69),(0.685,0.77),(0.545,0.752),(0.518,0.645),(0.512,0.404)]
+    ]
+    draw=ImageDraw.Draw(mask)
+    for pts in polygons:
+        draw.polygon([(round(x*w),round(y*h)) for x,y in pts],fill=255)
+    src.putalpha(mask.filter(ImageFilter.GaussianBlur(.75)))
+    return src.crop(src.getchannel("A").getbbox()),hashlib.sha256(path.read_bytes()).hexdigest()
+
 MAP=[
   ("guilu-drink-30","images/product-cutout-review/guilu-drink-30.png",430,495,"30cc玻璃裸罐，沒有外盒"),
   ("guilu-drink-180","images/product-cutout-review/guilu-drink-180.png",510,760,"180cc正式鋁袋"),
@@ -88,9 +106,9 @@ MAP=[
   ("royalherb-erzhenbao-64","images/partner-products/site-hero-v20261016/er-zhen-bao-royalherb-original-cutout.webp",750,760,"原廠二珍寶紫盒"),
 ]
 manifest={"batch":BATCH,"sourcePriority":"real actual-package original pixels only; no AI-generated product","status":"ready-for-page-link-verification","products":[]}
-gao,sha=actual_gao_box()
-path=composite(gao,660,800,"guilu-gao")
-manifest["products"].append({"id":"guilu-gao","mainImage":path,"source":"user supplied 2026-10-16 front package photograph","sha256":sha,"display":"盒子為主，罐身僅於詳細頁"})
+gao,sha=actual_box_and_jar()
+path=composite(gao,880,790,"guilu-gao")
+manifest["products"].append({"id":"guilu-gao","mainImage":path,"source":"user supplied 2026-10-16 front package photograph","sha256":sha,"display":"原實拍盒子為主，100g罐與盒近似等高；同框實際比例不單獨縮放"})
 for pid,source,ww,hh,note in MAP:
     if pid=="royalherb-erzhenbao-64":
         cut,sha=actual_er_zhen_box()
