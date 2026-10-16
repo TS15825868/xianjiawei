@@ -12,7 +12,8 @@
     "generalDisplay": "one product, one mainImage; source must be images/product-main/",
     "productDetailHero": "same mainImage as all other general product displays",
     "productDetailMedia": "detailImages only; product-intro modal + detail-page fallback; source must be images/dm-final/",
-    "identityReference": "validation/reference only; never general public main image"
+    "identityReference": "validation/reference only; never general public main image",
+    "luerongFenVisual": "official 75g jar fully closed and sealed only; never show opened jar, loose powder, spoonfuls, bowls of powder, or mixing drinks in product images"
   },
   "products": {
     "guilu-gao": {
@@ -37,6 +38,8 @@
       "identityReference": "images/guilu-drink-180cc.jpg"
     },
     "luerong-fen": {
+      "visualPolicy": "sealed-original-75g-jar-exterior-only",
+      "showContents": false,
       "mainImage": "images/product-main/luerong-fen-scene.webp",
       "detailImages": [
         "images/dm-final/04_luerong-fen-75g-dm.jpg"
