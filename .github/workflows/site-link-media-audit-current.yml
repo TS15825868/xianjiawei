@@ -40,7 +40,7 @@ jobs:
           const media=JSON.parse(fs.readFileSync('data/product-media-authority.json','utf8'));
           const siteData=JSON.parse(fs.readFileSync('data.json','utf8'));
           const errors=[];
-          const mainAsset=/^images\/(?:product-main|catalog-real-v20261016|catalog-clean-v20261016|catalog-clean-studio-v20261016-v5)\/.+\.(?:png|jpg|webp)$/i;
+          const mainAsset=/^images\/(?:product-main|catalog-[a-z0-9-]+)\/.+\.(?:png|jpg|webp)$/i;
           const cleanPath=value=>String(value||'').split('?',1)[0].replace(/^\//,'');
           const siteById=new Map((siteData.products||[]).map(p=>[p.id,p]));
           const validJpeg=p=>{
@@ -92,7 +92,7 @@ jobs:
             if(identity===main)errors.push(`${p.id}: identityReference 不得直接當一般展示主圖`);
             if(!details.length)errors.push(`${p.id}: 缺 detailImages`);
             for(const d of details){
-              if(!/^images\/(?:dm-final|catalog-clean-v20261016|catalog-clean-studio-v20261016-v5)\//i.test(d))errors.push(`${p.id}: 詳細圖不在現行核准媒體目錄：${d}`);
+              if(!/^images\/(?:dm-final|catalog-[a-z0-9-]+)\//i.test(d))errors.push(`${p.id}: 詳細圖不在現行核准媒體目錄：${d}`);
               else if(!fs.existsSync(path.resolve(d)))errors.push(`${p.id}: detailImage實體不存在 ${d}`);
               if(d===main)errors.push(`${p.id}: mainImage/detailImage角色混用`);
             }

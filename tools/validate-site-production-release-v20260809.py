@@ -80,7 +80,8 @@ def validate_public_surfaces():
 
     # 首頁不強制出現「六項」字樣；品牌文案可調整，但實際目前正式產品入口與主圖必須存在。
     home=read('index.html')
-    req((home.count('images/product-main/')+home.count('images/catalog-real-v20261016/')+home.count('images/catalog-clean-studio-v20261016-v5/')+home.count('images/catalog-corrections-v20261016-v6/'))>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'首頁未維持目前正式產品入口／主圖')
+    media=load('data/product-media-authority.json')['products']
+    req(all(media[pid]['mainImage'] in home and (ROOT/media[pid]['mainImage']).is_file() for pid in PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'首頁未維持目前正式產品入口／主圖')
     req(all(pid in read('products.html') for pid in PUBLIC_IDS),'產品總覽未維持目前公開官網商品')
     req(CURRENT_30 in read('products.html') and CURRENT_30 in read('guide.html') and CURRENT_30 in read('faq.html'),'30cc目前用法未同步公開頁')
 
