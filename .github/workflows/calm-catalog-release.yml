@@ -56,6 +56,10 @@ jobs:
               const geometry=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,cols:getComputedStyle(document.querySelector('#catalog-product-grid')).gridTemplateColumns}));
               assert(!geometry.overflow);
               if(name==='iphone')assert.equal(geometry.cols.split(' ').length,2);
+              for(const img of await page.locator('.product-card img').all()){
+                await img.scrollIntoViewIfNeeded();
+                await img.evaluate(async i=>{await i.decode()});
+              }
               await page.locator('#all-product-catalog').scrollIntoViewIfNeeded();
               await page.screenshot({path:'release-evidence/'+name+'-products.png',fullPage:true});
               report.push({name,page:'products',...geometry});
@@ -69,6 +73,8 @@ jobs:
                     assert.equal(await variantImg.count(),1,variant.id+' detail image');
                     const src=await variantImg.getAttribute('src');
                     assert.equal(src.split('?')[0],variant.image.split('?')[0],variant.id+' detail image must match current authority');
+                    await variantImg.scrollIntoViewIfNeeded();
+                    await variantImg.evaluate(async i=>{await i.decode()});
                     assert(await variantImg.evaluate(i=>i.complete&&i.naturalWidth>0),variant.id+' image load');
                     report.push({name,page:item.page,variant:variant.id,src});
                   }
