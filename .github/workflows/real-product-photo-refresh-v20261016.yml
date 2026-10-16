@@ -1,4 +1,4 @@
-name: Real original-product catalog photography
+name: Real true-photo clean catalog and detail v4
 on:
   push:
     branches: [main]
@@ -11,6 +11,9 @@ permissions:
 jobs:
   refresh-real-packaging:
     runs-on: ubuntu-latest
+    concurrency:
+      group: xianjiawei-clean-photos-v4
+      cancel-in-progress: true
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
@@ -31,8 +34,11 @@ jobs:
           import json
           from pathlib import Path
           from PIL import Image
-          m=json.loads(Path("images/catalog-real-v20261016/manifest.json").read_text())
+          m=json.loads(Path("images/catalog-clean-v20261016/manifest.json").read_text())
           assert len(m["products"])==9
+          assert len(m["detailImages"])>=19
+          assert len(m["updatedSiteFiles"])>=10
+          assert m["status"]=="completed-new-path-replacements-verified"
           ids=[i["id"] for i in m["products"]]
           assert len(set(ids))==9
           for i in m["products"]:
@@ -42,17 +48,17 @@ jobs:
               assert "source" in i and i["sha256"] and len(i["sha256"])==64
           for id in ["guilu-gao","guilu-drink-30","guilu-drink-180","luerong-fen"]:
               assert id in ids
-          print("Nine original-packaging scenes verified")
+          print("Original-package main/detail photos and page references verified")
           PY
       - name: Commit freshly produced asset files without touching old files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add images/catalog-real-v20261016/
+          git add images/catalog-clean-v20261016/ && git add -u
           if git diff --cached --quiet; then
             echo "No photo changes"
             exit 0
           fi
-          git commit -m "assets: add nine provenance-checked real product packaging scenes"
+          git commit -m "assets: replace website original photo main and detail references to clean v4"
           git pull --rebase origin main
           git push origin HEAD:main
