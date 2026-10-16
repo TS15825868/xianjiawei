@@ -84,21 +84,13 @@
       "mainImage": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp",
-        "images/catalog-labels-v20261016-v7/uboss-sizhenbao-label-1.webp",
-        "images/catalog-labels-v20261016-v7/uboss-sizhenbao-label-2.webp",
-        "images/catalog-labels-v20261016-v7/uboss-sizhenbao-label-3.webp",
-        "images/catalog-labels-v20261016-v7/uboss-sizhenbao-label-4.webp"
+        "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp"
       ]
     },
     "royalherb-erzhenbao-64": {
       "mainImage": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp",
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp",
-        "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-1.webp",
-        "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-2.webp",
-        "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-3.webp",
-        "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-4.webp"
+        "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp"
       ]
     }
   }

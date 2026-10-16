@@ -1,0 +1,31 @@
+{
+  "version": "20261017-scenic-v1",
+  "repo": "TS15825868/xianjiawei",
+  "sourceCommit": "606db23d20294649372c80ff9e5bf56a90260c14",
+  "scope": "existing nine public product pages / current media references",
+  "photos": {
+    "guilu-gao": "images/product-main/gao-packaging-v20261016/box-jar-scene.webp",
+    "guilu-drink-30": "images/product-background-review-v20261016/guilu-drink-30.webp",
+    "guilu-drink-180": "images/product-background-review-v20261016/guilu-drink-180.webp",
+    "luerong-fen": "images/product-background-review-v20261016/luerong-fen.webp",
+    "jinan-sisheng-siwuyin": "images/product-background-review-v20261016/jinan-sisheng-siwuyin.webp",
+    "danshen-tea-collection": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
+    "guilu-vitality": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
+    "uboss-sizhenbao": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
+    "royalherb-erzhenbao-64": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp"
+  },
+  "actualPhotoRules": [
+    "Never redraw manufacturer labels or repackaged product pixels",
+    "Preserve 30cc plain glass jar without a label and sealed 180cc pouch",
+    "Preserve 75g sealed deer antler powder jar without loose powder",
+    "Purple two-treasure and red four-treasure labels must remain separate",
+    "Original label crops stay accessible on product detail pages inside a collapsible area"
+  ],
+  "unresolved": [
+    "Full original two-treasure rear package IMG_9998(3).jpeg is not stored as a single public verified image",
+    "Full original four-treasure rear package IMG_9833(4).jpeg is not stored as a single public verified image",
+    "Existing Siwu box photos crop its handle",
+    "Vitality 12-pack complete carton photos crop an edge; show the real jar until whole-carton photo is available"
+  ],
+  "publishStatus": "Photo references updated; awaiting GitHub Pages live verification"
+}
