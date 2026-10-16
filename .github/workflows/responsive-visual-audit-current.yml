@@ -1,5 +1,5 @@
 name: 仙加味官網跨裝置視覺／功能完整驗收
-# visual audit version: 20261016-v29-current-catalog-media
+# visual audit version: 20261016-v30-ignore-cancelled-local-images
 
 on:
   push:
@@ -417,7 +417,9 @@ jobs:
                     try{
                       const pathname=new URL(url,BASE+pth).pathname;
                       if(successfullyLoadedImagePaths.has(pathname))return false;
-                      if(/\/images\/dm-final\//i.test(pathname))return false;
+                      // Chromium reports an intentional image-source replacement or page close as
+                      // ERR_ABORTED. Final broken images are checked separately via naturalWidth.
+                      if(/^\/xianjiawei\/images\/.+\.(?:avif|gif|jpe?g|png|svg|webp)$/i.test(pathname))return false;
                     }catch{}
                   }
                   return true;
