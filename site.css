@@ -745,3 +745,58 @@ body[data-page="product-detail"] .product-variant__photo img,
 @media(max-width:340px){
   body[data-page="home"] .home-product-showcase__grid{grid-template-columns:1fr!important}
 }
+
+
+/* 2026-10-16 | Approved scenic media intrinsic aspect, no crop or framed photos v8 */
+/* Card aspect ratio follows the actual approved canvas instead of putting a
+   tall 1122x1402 scenery inside a short white square. The package remains
+   fully visible: never apply cover/zoom to product silhouettes. */
+body[data-page="products"] .product-card__img:has(img[src*="/scenes-v20261016/"]),
+body[data-page="products"] .product-card__img:has(img[src*="/catalog-real-scenic-v20261016/"]){
+  aspect-ratio:4 / 5!important;
+  height:auto!important;
+  min-height:0!important;
+}
+body[data-page="products"] .product-card__img:has(img[src*="/product-main/"]){
+  aspect-ratio:1 / 1!important;
+  min-height:0!important;
+}
+body[data-page="products"] .product-card__img img{
+  object-fit:contain!important;
+  object-position:50% 50%!important;
+  image-rendering:auto!important;
+}
+body[data-page="home"] .home-product-showcase__grid img[src*="images/product-main/"]{
+  aspect-ratio:1 / 1!important;
+}
+body[data-page="home"] .home-product-showcase__grid img[src*="/scenes-v20261016/"]{
+  aspect-ratio:4 / 5!important;
+}
+body[data-page="product-detail"] .product-detail-hero__media{
+  border:0!important;background:none!important;
+  padding:0!important;overflow:hidden!important;
+  box-shadow:none!important;
+}
+body[data-page="product-detail"] .product-detail-hero__media img{
+  display:block;width:100%;height:auto!important;
+  max-height:610px;object-fit:contain!important;
+  background:none!important;border:0!important;
+}
+/* Photo already contains complete scenery: no second margin, false pedestal,
+   inset frame, or artificial drop-shadow on the raster. */
+body[data-page="products"] .product-card__img,
+body[data-page="home"] .home-product-showcase__grid>a{
+  isolation:auto!important;
+  box-shadow:none!important;
+}
+@media(max-width:700px){
+  body[data-page="products"] .product-card__body h3{
+    line-height:1.4!important;
+    overflow-wrap:break-word;
+    word-break:keep-all;
+  }
+  body[data-page="products"] .product-card__body .muted{
+    min-height:0!important;
+    overflow-wrap:anywhere;
+  }
+}
