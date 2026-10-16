@@ -9,9 +9,9 @@
   "version": "20261016-real-physical-packaging-main-v3",
   "scope": "website-product-media",
   "rules": {
-    "generalDisplay": "one product, one mainImage; source must be images/product-main/",
-    "productDetailHero": "same mainImage as all other general product displays",
-    "productDetailMedia": "detailImages only; product-intro modal + detail-page fallback; source must be images/dm-final/",
+    "generalDisplay": "one verified original-photo main per product; images/catalog-real-v20261016; retail box first when sold as complete gift box",
+    "productDetailHero": "identical original-photo product image for home, product card and detail hero; real outer carton first where available",
+    "productDetailMedia": "details can show real item, actual portions and manufacturer original label; do not redraw packaging; deer-antler powder must remain sealed",
     "identityReference": "validation/reference only; never general public main image",
     "luerongFenVisual": "official 75g jar fully closed and sealed only; never show opened jar, loose powder, spoonfuls, bowls of powder, or mixing drinks in product images"
   },

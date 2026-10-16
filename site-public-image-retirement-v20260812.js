@@ -12,12 +12,12 @@
   const VERSION='20260930-main-dm-v13';
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const MAIN_FALLBACK=Object.freeze({
-    'guilu-gao':'images/product-main/guilu-gao.png',
-    'guilu-drink-30':'images/product-main/guilu-drink-30.png',
-    'guilu-drink-180':'images/product-main/guilu-drink-180.png',
+    'guilu-gao':'images/catalog-real-v20261016/guilu-gao-main.webp',
+    'guilu-drink-30':'images/catalog-real-v20261016/guilu-drink-30-main.webp',
+    'guilu-drink-180':'images/catalog-real-v20261016/guilu-drink-180-main.webp',
     'guilu-tangkuai':'images/product-main/guilu-tangkuai.jpg',
     'guilu-jiao':'images/product-main/guilu-jiao.jpg',
-    'luerong-fen':'images/product-main/luerong-fen.png'
+    'luerong-fen':'images/catalog-real-v20261016/luerong-fen-main.webp'
   });
   const withVersion=(value='')=>value?`${value}${String(value).includes('?')?'&':'?'}v=${VERSION}`:'';
   const MAIN=Object.freeze(Object.fromEntries(
