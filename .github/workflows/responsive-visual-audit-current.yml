@@ -1,5 +1,5 @@
 name: 仙加味官網跨裝置視覺／功能完整驗收
-# visual audit version: 20261005-v28-final
+# visual audit version: 20261016-v29-current-catalog-media
 
 on:
   push:
@@ -76,10 +76,26 @@ jobs:
           if(productMaster.productCount!==publicCount)throw new Error('公開產品數與母資料不一致');
           const mediaAuthority=JSON.parse(fs.readFileSync('data/product-media-authority.json','utf8'));
           const partnerCatalog=JSON.parse(fs.readFileSync('partner-catalog.json','utf8'));
-          const approvedPartnerImages=(partnerCatalog.products||[]).filter(p=>p.public===true&&p.id&&p.brand&&p.image&&p.page).map(p=>p.image);
+          const catalogImages=p=>[
+            p.image,
+            ...(Array.isArray(p.detailImages)?p.detailImages:[]),
+            ...(Array.isArray(p.variants)?p.variants.flatMap(v=>[
+              v.image,
+              v.originalFrontPhoto,
+              ...(Array.isArray(v.detailImages)?v.detailImages:[])
+            ]):[])
+          ].filter(Boolean);
+          const approvedPartnerImages=(partnerCatalog.products||[])
+            .filter(p=>p.public===true&&p.id&&p.brand&&p.image&&p.page)
+            .flatMap(catalogImages);
           const approvedPublicIds=new Set([...productMaster.products.map(p=>p.id),...(partnerCatalog.products||[]).filter(p=>p.public===true&&p.id&&p.brand&&p.image&&p.page).map(p=>p.id)]);
           const approvedPublicCount=approvedPublicIds.size;
-          const approvedMainPaths=[...new Set([...Object.values(mediaAuthority.products||{}).map(item=>item.mainImage),...approvedPartnerImages].filter(Boolean).map(src=>new URL(src,BASE).pathname))];
+          const ownedPublicIds=new Set(productMaster.products.map(p=>p.id));
+          const approvedOwnedImages=Object.entries(mediaAuthority.products||{})
+            .filter(([id])=>ownedPublicIds.has(id))
+            .flatMap(([,item])=>[item.mainImage,...(Array.isArray(item.detailImages)?item.detailImages:[])])
+            .filter(Boolean);
+          const approvedMainPaths=[...new Set([...approvedOwnedImages,...approvedPartnerImages].map(src=>new URL(src,BASE).pathname))];
           const pages=[...new Set([
             'index.html','products.html','choose.html','guide.html','recipes.html','trial.html','faq.html','brand.html','contact.html','dm.html',
             'product-guilu-gao.html','product-guilu-drink-30cc.html','product-guilu-drink-180cc.html','product-luerong-fen.html','product-jinan-siwuyin.html','product-danshen-tea.html',
