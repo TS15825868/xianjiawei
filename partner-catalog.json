@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-16-real-pixel-scenes-v2",
+  "version": "20261016-real-physical-packaging-main-v3",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -11,7 +11,7 @@
       "size": "60毫升 × 12入／盒",
       "form": "飲品",
       "description": "盒裝漢方飲品，每盒12入，每入60毫升；保留原廠包裝與商品標示。",
-      "image": "images/partner-products/cutouts-v20261016/jinan-siwuyin-front-cutout.webp",
+      "image": "images/catalog-real-v20261016/jinan-sisheng-siwuyin-main.webp",
       "page": "product-jinan-siwuyin.html",
       "ingredients": [
         "純水",
@@ -58,7 +58,9 @@
       "mainImageSourceOriginal": "images/partner-products/jinan-siwuyin-front.jpg",
       "originalDetailImages": [
         "images/partner-products/jinan-siwuyin-label.jpg"
-      ]
+      ],
+      "mainPhotoRole": "actual-complete-box-primary",
+      "contentsPhotoRole": "detail-page-only"
     },
     {
       "id": "danshen-tea-collection",
@@ -70,7 +72,7 @@
       "size": "3公克／包・10包／盒｜6款",
       "form": "茶包",
       "description": "六款盒裝茶包集中瀏覽，查看各款包裝、原料、規格與使用方式。",
-      "image": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
+      "image": "images/catalog-real-v20261016/danshen-tea-collection-main.webp",
       "page": "product-danshen-tea.html",
       "ingredients": [],
       "usage": [
@@ -304,7 +306,9 @@
           "商品資訊與可提供的交易方式需依商品法定類別、實際供貨及原廠標示確認"
         ]
       },
-      "originalFrontPhoto": "images/partner-products/tea-rose-fruit-front.webp"
+      "originalFrontPhoto": "images/partner-products/tea-rose-fruit-front.webp",
+      "mainPhotoRole": "actual-complete-box-primary",
+      "contentsPhotoRole": "detail-page-only"
     },
     {
       "id": "jianfeng-rose-fruit-tea",
@@ -813,7 +817,7 @@
       "producerNameFromLabel": "晉安製藥股份有限公司",
       "origin": "臺灣",
       "shelfLife": "二年",
-      "image": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
+      "image": "images/catalog-real-v20261016/guilu-vitality-main.webp",
       "gallery": [
         "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
         "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
@@ -864,7 +868,9 @@
         "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
         "images/partner-products/scenes-v20261016/vitality-label-scene.webp"
       ],
-      "mainImageDescription": "原廠60毫升玻璃罐實拍去背情境圖；禮盒規格仍為12罐入"
+      "mainImageDescription": "原廠60毫升玻璃罐實拍去背情境圖；禮盒規格仍為12罐入",
+      "mainPhotoRole": "actual-complete-box-primary",
+      "contentsPhotoRole": "detail-page-only"
     },
     {
       "id": "jinan-huanshaodan",
@@ -1305,7 +1311,7 @@
       "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
       "requiresDoctorReferralForOrdinaryFoodSale": false,
       "brandLegalName": "御采堂生技食品有限公司",
-      "image": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
+      "image": "images/catalog-real-v20261016/uboss-sizhenbao-main.webp",
       "page": "product-four-treasures.html",
       "imageSourceRecord": {
         "sourceRepository": "Wuji29879526/Wuji",
@@ -1369,7 +1375,9 @@
       "originalFrontPhoto": "images/partner-products/four-treasures-front.jpg",
       "detailImages": [
         "images/partner-products/four-treasures-front.jpg"
-      ]
+      ],
+      "mainPhotoRole": "actual-complete-box-primary",
+      "contentsPhotoRole": "detail-page-only"
     },
     {
       "id": "royalherb-erzhenbao-64",
@@ -1483,7 +1491,7 @@
       "compliance": "不沿用外盒療效形容、舊建議售價或不確定的保險理賠保證；上架產品圖務必紫色二珍寶原廠盒裝實物。",
       "pricePresentation": "LINE詢價（不得顯示實物盒上舊建議售價）",
       "page": "product-er-zhen-bao.html",
-      "image": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp",
+      "image": "images/catalog-real-v20261016/royalherb-erzhenbao-64-main.webp",
       "imageSourceStatus": "verified-original-manufacturer-webp-hosted-on-current-main",
       "approvedImageGitSha": "b44d0577d2f23046b1e6341f3af7a6d6e3e633dc",
       "imageFromOriginal": true,
@@ -1494,7 +1502,9 @@
       "originalFrontPhoto": "images/partner-products/er-zhen-bao-royalherb-original.webp",
       "detailImages": [
         "images/partner-products/er-zhen-bao-royalherb-original.webp"
-      ]
+      ],
+      "mainPhotoRole": "actual-complete-box-primary",
+      "contentsPhotoRole": "detail-page-only"
     }
   ],
   "publicationRules": {
@@ -1524,5 +1534,5 @@
     "manufacturerTypeGuidance": "依法合格藥廠得依相關藥廠兼製食品規定製造食品，食品廠不能僅靠食品工廠登記製造藥品。判斷商品是食品或藥品依產品屬性而非單看生產工廠名稱。",
     "foodIngredientRule": "可供食品使用的龜、鹿相關原料不代表任意組方都自動是食品；實際原料部位、製程、用量及固有成方（含加減方）應個別判斷。符合條件的已確認一般食品可正常上架，不因藥廠兼製食品而分類成藥品。"
   },
-  "updatedAt": "2026-10-15"
+  "updatedAt": "2026-10-16"
 }
