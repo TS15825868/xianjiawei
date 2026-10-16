@@ -46,7 +46,7 @@ jobs:
               const page=await browser.newPage({viewport:{width,height}});
               await page.goto(base+'products.html?release='+process.env.GITHUB_SHA,{waitUntil:'networkidle'});
               await page.locator('.product-card').last().waitFor();
-              assert.equal(await page.locator('.product-card').count(),9);
+              assert.equal(await page.locator('.product-card').count(),items.length,'catalog card count must match current public authority');
               for(const item of items){
                 const img=page.locator('.product-card').filter({has:page.locator('a[href="'+item.page+'"]')}).locator('img');
                 assert.equal(await img.count(),1,item.id);
@@ -61,12 +61,26 @@ jobs:
               report.push({name,page:'products',...geometry});
               for(const item of items){
                 await page.goto(base+item.page+'?release='+process.env.GITHUB_SHA,{waitUntil:'networkidle'});
-                const hero=page.locator('.product-detail-hero__media img').first();
-                const src=await hero.getAttribute('src');
-                assert.equal(src.split('?')[0],item.image.split('?')[0],item.id+' detail hero must match card');
-                assert(await hero.evaluate(i=>i.complete&&i.naturalWidth>0),item.id+' image load');
+                if(Array.isArray(item.variants)&&item.variants.length){
+                  const variants=page.locator('article.product-variant[id]');
+                  assert.equal(await variants.count(),item.variants.length,item.id+' grouped variant count');
+                  for(const variant of item.variants){
+                    const variantImg=page.locator('article.product-variant[id="'+variant.id+'"] img').first();
+                    assert.equal(await variantImg.count(),1,variant.id+' detail image');
+                    const src=await variantImg.getAttribute('src');
+                    assert.equal(src.split('?')[0],variant.image.split('?')[0],variant.id+' detail image must match current authority');
+                    assert(await variantImg.evaluate(i=>i.complete&&i.naturalWidth>0),variant.id+' image load');
+                    report.push({name,page:item.page,variant:variant.id,src});
+                  }
+                }else{
+                  const hero=page.locator('.product-detail-hero__media img').first();
+                  assert.equal(await hero.count(),1,item.id+' detail hero');
+                  const src=await hero.getAttribute('src');
+                  assert.equal(src.split('?')[0],item.image.split('?')[0],item.id+' detail hero must match card');
+                  assert(await hero.evaluate(i=>i.complete&&i.naturalWidth>0),item.id+' image load');
+                  report.push({name,page:item.page,src});
+                }
                 assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),item.id+' horizontal overflow');
-                report.push({name,page:item.page,src});
                 if(['guilu-gao','danshen-tea-collection'].includes(item.id))await page.screenshot({path:'release-evidence/'+name+'-'+item.id+'.png',fullPage:true});
               }
               await page.close();
