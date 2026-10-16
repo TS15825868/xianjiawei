@@ -19,7 +19,8 @@
     "guilu-gao": {
       "mainImage": "images/catalog-clean-studio-v20261016-v5/guilu-gao-main.webp",
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp",
+        "images/product-main/gao-packaging-v20261016/box-jar-original.jpg"
 ],
       "identityReference": "images/guilu-gao.jpg"
     },

@@ -1,0 +1,25 @@
+{
+  "version": "20261016-deferred-real-pixel-v7",
+  "publicationStatus": "internal-media-prepared-not-listed",
+  "method": "polygon alpha clipping of unaltered source pixels; equal aspect resampling; no AI generation",
+  "items": [
+    {
+      "id": "guilu-jiao-open",
+      "image": "images/catalog-deferred-real-v20261016-v7/guilu-jiao-open.webp",
+      "source": "images/products-v2/guilu-jiao-open-new.jpg",
+      "sourceSha256": "598c7025ad351d7fa86f4d0fb9c1d74c028b2a9f8872a53c7eeff251acfaf087",
+      "role": "actual-open-package-detail",
+      "public": false,
+      "note": "Visible tray only; do not infer total box count from visible portions."
+    },
+    {
+      "id": "guilu-tangkuai-open",
+      "image": "images/catalog-deferred-real-v20261016-v7/guilu-tangkuai-open.webp",
+      "source": "images/products-v2/guilu-tangkuai-open-new.jpg",
+      "sourceSha256": "2cbe0243dbe6709c014278bbacd667a003da2084c714e166847b8d7b5e71d53f",
+      "role": "actual-open-package-detail",
+      "public": false,
+      "note": "Visible tray only; do not infer total box count from visible portions."
+    }
+  ]
+}
