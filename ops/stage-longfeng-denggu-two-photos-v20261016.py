@@ -10,12 +10,16 @@ from PIL import Image,ImageDraw,ImageFilter
 from io import BytesIO
 
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/"images/partner-products/longfeng-denggu-review-v20261016"
+OUT=ROOT/"images/partner-products/longfeng-denggu-review-v20261016-v2"
 OUT.mkdir(parents=True,exist_ok=True)
 BG="#F7F4ED"
 SOURCES={
- "male-blue":("https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/a3ed3eca-9096-456a-8064-0ea90de2a853.jpg","男方","藍色"),
- "female-pink":("https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/0d01e4df-a921-4f7a-bb69-8038b4b10b67.jpg","女方","粉紅色"),
+ "male-blue":("https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/73b971f6-3259-4556-82c4-88f34ba8b5a3.jpg","男方","藍色"),
+ "female-pink":("https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/46bbb2cb-79d5-4f89-89cc-9f23415cddd1.jpg","女方","粉紅色"),
+}
+EXPECTED={
+ "male-blue":"3ed508ffb6b5f9627485477c868d88a55c8b58af85a0f4284c3e38b1c9a3e4d8",
+ "female-pink":"7d4fb9caacbb2fafe2981f6dada7c22ae9ded7b18e2f3be083b08d053eace6b8"
 }
 BLUE_BOX=[(120,412),(966,430),(869,1130),(174,1128)]
 PINK_BOX=[(14,382),(1057,377),(984,1205),(175,1204)]
@@ -62,6 +66,7 @@ manifest={"version":"20261016-longfeng-denggu-original-photo-staging","status":"
 for kind,(url,variant,color) in SOURCES.items():
     data=urlopen(Request(url,headers={"User-Agent":"XianjiaweiPhotoAudit/1.0"}),timeout=35).read()
     if len(data)<100000 or len(data)>6_000_000:raise ValueError("unverified original photo size")
+    if hashlib.sha256(data).hexdigest()!=EXPECTED[kind]:raise ValueError("SOURCE PHOTO MISMATCH! Refusing to mix other products with 龍鳳登古飲: "+kind)
     arr,w,h=image_pixels(data)
     # 真實原照保留於獨立版本，去背情境圖不覆蓋舊圖
     (OUT/f"{kind}-source.jpg").write_bytes(data)
