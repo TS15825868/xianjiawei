@@ -8,9 +8,9 @@
   const lineUrl = "https://lin.ee/sHZW7NkR";
   const ownImage = {
     "guilu-gao": "images/product-main/gao-packaging-v20261016/box-jar-scene.webp",
-    "guilu-drink-30": "images/product-background-review-v20261016/guilu-drink-30.webp",
-    "guilu-drink-180": "images/product-background-review-v20261016/guilu-drink-180.webp",
-    "luerong-fen": "images/product-background-review-v20261016/luerong-fen.webp"
+    "guilu-drink-30": "images/catalog-scenic-approved-v20261017/guilu-drink-30-main.webp",
+    "guilu-drink-180": "images/catalog-scenic-approved-v20261017/guilu-drink-180-main.webp",
+    "luerong-fen": "images/catalog-scenic-approved-v20261017/luerong-fen-main.webp"
   };
   const categories = [
     ["all", "全部"],

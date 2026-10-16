@@ -26,14 +26,14 @@
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/product-background-review-v20261016/guilu-drink-30.webp",
+      "mainImage": "images/catalog-scenic-approved-v20261017/guilu-drink-30-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-30-closed-detail.webp"
 ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/product-background-review-v20261016/guilu-drink-180.webp",
+      "mainImage": "images/catalog-scenic-approved-v20261017/guilu-drink-180-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-180-closed-detail.webp"
 ],
@@ -42,7 +42,7 @@
     "luerong-fen": {
       "visualPolicy": "sealed-original-75g-jar-exterior-only",
       "showContents": false,
-      "mainImage": "images/product-background-review-v20261016/luerong-fen.webp",
+      "mainImage": "images/catalog-scenic-approved-v20261017/luerong-fen-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
 ],

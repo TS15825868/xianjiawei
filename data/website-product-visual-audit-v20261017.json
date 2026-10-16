@@ -1,13 +1,13 @@
 {
-  "version": "20261017-scenic-v1",
+  "version": "20261017-authentic-scenic-release-v2",
   "repo": "TS15825868/xianjiawei",
   "sourceCommit": "606db23d20294649372c80ff9e5bf56a90260c14",
   "scope": "existing nine public product pages / current media references",
   "photos": {
     "guilu-gao": "images/product-main/gao-packaging-v20261016/box-jar-scene.webp",
-    "guilu-drink-30": "images/product-background-review-v20261016/guilu-drink-30.webp",
-    "guilu-drink-180": "images/product-background-review-v20261016/guilu-drink-180.webp",
-    "luerong-fen": "images/product-background-review-v20261016/luerong-fen.webp",
+    "guilu-drink-30": "images/catalog-scenic-approved-v20261017/guilu-drink-30-main.webp",
+    "guilu-drink-180": "images/catalog-scenic-approved-v20261017/guilu-drink-180-main.webp",
+    "luerong-fen": "images/catalog-scenic-approved-v20261017/luerong-fen-main.webp",
     "jinan-sisheng-siwuyin": "images/catalog-calm-v20261016/jinan-sisheng-siwuyin-main.webp",
     "danshen-tea-collection": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
     "guilu-vitality": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
@@ -28,5 +28,6 @@
     "Vitality 12-pack complete carton photos crop an edge; show the real jar until whole-carton photo is available"
   ],
   "publishStatus": "Photo references updated; awaiting GitHub Pages live verification",
-  "outstandingNote": "JinAn original carton photo remains the approved studio shot; scenic review-stage composite withheld due unapproved publication evidence."
+  "outstandingNote": "JinAn original carton photo remains the approved studio shot; scenic review-stage composite withheld due unapproved publication evidence.",
+  "releaseEvidence": "Three real-scene composites published with identical asset blobs and traceable existing original photo source; candidate folder retained intact."
 }

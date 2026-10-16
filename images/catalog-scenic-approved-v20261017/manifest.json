@@ -1,0 +1,32 @@
+{
+  "version": "20261017-authentic-scenic-release-v2",
+  "status": "approved-for-website",
+  "scope": "original-pixel-real-scenic",
+  "method": "Byte-identical published scenic candidates composed from authentic original product-photo cutouts and a botanical scene. No package repaint, text rewrite, or generated brand label. Original candidate assets retained.",
+  "items": [
+    {
+      "file": "images/catalog-scenic-approved-v20261017/guilu-drink-30-main.webp",
+      "source": "images/product-cutout-review/guilu-drink-30.png",
+      "compositeSource": "images/product-background-review-v20261016/guilu-drink-30.webp",
+      "blobSha": "0fc0d79ec7adadc5a3a57c0be5d66e06dedfeb5f",
+      "originalPhotoPixelsPreserved": true,
+      "productRedrawn": false
+    },
+    {
+      "file": "images/catalog-scenic-approved-v20261017/guilu-drink-180-main.webp",
+      "source": "images/product-cutout-review/guilu-drink-180.png",
+      "compositeSource": "images/product-background-review-v20261016/guilu-drink-180.webp",
+      "blobSha": "f73c11ea7b38b636b89246ac1b6bbe8d6bc3cc4a",
+      "originalPhotoPixelsPreserved": true,
+      "productRedrawn": false
+    },
+    {
+      "file": "images/catalog-scenic-approved-v20261017/luerong-fen-main.webp",
+      "source": "images/product-cutout-review/luerong-fen.png",
+      "compositeSource": "images/product-background-review-v20261016/luerong-fen.webp",
+      "blobSha": "776705b0a15a77ffcf311e31360d764790bfa983",
+      "originalPhotoPixelsPreserved": true,
+      "productRedrawn": false
+    }
+  ]
+}

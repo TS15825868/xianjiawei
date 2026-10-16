@@ -13,11 +13,11 @@
   const mainImage=(id,fallback)=>`${MEDIA_AUTHORITY?.mainImage?.(id)||fallback}?v=${VERSION}`;
   const CUSTOMER=Object.freeze({
     gao:mainImage("guilu-gao","images/product-main/gao-packaging-v20261016/box-jar-scene.webp"),
-    drink30:mainImage("guilu-drink-30","images/product-background-review-v20261016/guilu-drink-30.webp"),
-    drink180:mainImage("guilu-drink-180","images/product-background-review-v20261016/guilu-drink-180.webp"),
+    drink30:mainImage("guilu-drink-30","images/catalog-scenic-approved-v20261017/guilu-drink-30-main.webp"),
+    drink180:mainImage("guilu-drink-180","images/catalog-scenic-approved-v20261017/guilu-drink-180-main.webp"),
     tangkuai:mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.jpg"),
     jiao:mainImage("guilu-jiao","images/product-main/guilu-jiao.jpg"),
-    luerong:mainImage("luerong-fen","images/product-background-review-v20261016/luerong-fen.webp")
+    luerong:mainImage("luerong-fen","images/catalog-scenic-approved-v20261017/luerong-fen-main.webp")
   });
   const OFFICIAL=Object.freeze({
   "guilu-gao": "images/guilu-gao.jpg",
