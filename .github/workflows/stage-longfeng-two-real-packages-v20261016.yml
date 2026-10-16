@@ -33,7 +33,7 @@ jobs:
           from pathlib import Path
           from PIL import Image
           import json,re
-          base=Path("images/partner-products/longfeng-denggu-review-v20261016")
+          base=Path("images/partner-products/longfeng-denggu-review-v20261016-v2")
           x=json.loads((base/"manifest.json").read_text())
           assert len(x["products"])==2
           assert {p["variant"] for p in x["products"]}=={"男方","女方"}
@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add images/partner-products/longfeng-denggu-review-v20261016/
+          git add images/partner-products/longfeng-denggu-review-v20261016-v2/
           if git diff --cached --quiet; then echo "Images unchanged"; exit 0; fi
           git commit -m "assets: stage two genuine 龍鳳登古飲 package variants for visual review"
           git pull --rebase origin main
