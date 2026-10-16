@@ -1,6 +1,6 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-09-28 simple product-main safety v18
+/* 官網顧客產品圖片安全層｜2026-10-16 original-pixel scenic main image v19
  * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 product-main 漂亮簡單正式主圖。
  * dm-final 為完整產品介紹頁詳細圖，不得被主圖守門員覆寫。
  */
@@ -12,12 +12,12 @@
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const mainImage=(id,fallback)=>`${MEDIA_AUTHORITY?.mainImage?.(id)||fallback}?v=${VERSION}`;
   const CUSTOMER=Object.freeze({
-    gao:mainImage("guilu-gao","images/product-main/guilu-gao.png"),
-    drink30:mainImage("guilu-drink-30","images/product-main/guilu-drink-30.png"),
-    drink180:mainImage("guilu-drink-180","images/product-main/guilu-drink-180.png"),
+    gao:mainImage("guilu-gao","images/product-main/guilu-gao-scene.webp"),
+    drink30:mainImage("guilu-drink-30","images/product-main/guilu-drink-30-scene.webp"),
+    drink180:mainImage("guilu-drink-180","images/product-main/guilu-drink-180-scene.webp"),
     tangkuai:mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.jpg"),
     jiao:mainImage("guilu-jiao","images/product-main/guilu-jiao.jpg"),
-    luerong:mainImage("luerong-fen","images/product-main/luerong-fen.png")
+    luerong:mainImage("luerong-fen","images/product-main/luerong-fen-scene.webp")
   });
   const OFFICIAL=Object.freeze({
   "guilu-gao": "images/guilu-gao.jpg",
