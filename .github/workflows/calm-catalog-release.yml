@@ -1,0 +1,84 @@
+name: Calm catalog official release evidence
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/calm-catalog-release.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v5
+      - run: npm install --no-save --no-package-lock playwright@1.55.0
+      - run: npx playwright install --with-deps ${{ matrix.engine }}
+      - run: sudo apt-get install -y fonts-noto-cjk
+      - name: Wait for official HTML
+        run: |
+          for i in $(seq 1 24); do
+            if curl -fsS --max-time 15 "https://ts15825868.github.io/xianjiawei/products.html?release=${{ github.sha }}" | grep -q 'site.js?v=20261016-calm-catalog-v4'; then exit 0; fi
+            sleep 5
+          done
+          exit 1
+      - name: Check official cards and detail heroes
+        env:
+          ENGINE: ${{ matrix.engine }}
+        run: |
+          mkdir -p release-evidence
+          cat > /tmp/calm-audit.cjs <<'JS'
+          const fs=require('fs'),assert=require('assert/strict');
+          const {createRequire}=require('module');
+          const req=createRequire(process.cwd()+'/package.json');
+          const pw=req('playwright');
+          const base='https://ts15825868.github.io/xianjiawei/';
+          const own=JSON.parse(fs.readFileSync('data.json')).products;
+          const partner=JSON.parse(fs.readFileSync('partner-catalog.json')).products.filter(p=>p.public===true);
+          const items=[...own,...partner],report=[];
+          (async()=>{
+            const browser=await pw[process.env.ENGINE].launch();
+            for(const [name,width,height] of [['desktop',1440,1000],['iphone',390,844]]){
+              const page=await browser.newPage({viewport:{width,height}});
+              await page.goto(base+'products.html?release='+process.env.GITHUB_SHA,{waitUntil:'networkidle'});
+              await page.locator('.product-card').last().waitFor();
+              assert.equal(await page.locator('.product-card').count(),9);
+              for(const item of items){
+                const img=page.locator('.product-card').filter({has:page.locator('a[href="'+item.page+'"]')}).locator('img');
+                assert.equal(await img.count(),1,item.id);
+                const src=await img.getAttribute('src');
+                assert.equal(src.split('?')[0],item.image.split('?')[0],item.id+' card must use current image');
+              }
+              const geometry=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,cols:getComputedStyle(document.querySelector('#catalog-product-grid')).gridTemplateColumns}));
+              assert(!geometry.overflow);
+              if(name==='iphone')assert.equal(geometry.cols.split(' ').length,2);
+              await page.locator('#all-product-catalog').scrollIntoViewIfNeeded();
+              await page.screenshot({path:'release-evidence/'+name+'-products.png',fullPage:true});
+              report.push({name,page:'products',...geometry});
+              for(const item of items){
+                await page.goto(base+item.page+'?release='+process.env.GITHUB_SHA,{waitUntil:'networkidle'});
+                const hero=page.locator('.product-detail-hero__media img').first();
+                const src=await hero.getAttribute('src');
+                assert.equal(src.split('?')[0],item.image.split('?')[0],item.id+' detail hero must match card');
+                assert(await hero.evaluate(i=>i.complete&&i.naturalWidth>0),item.id+' image load');
+                assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),item.id+' horizontal overflow');
+                report.push({name,page:item.page,src});
+                if(['guilu-gao','danshen-tea-collection'].includes(item.id))await page.screenshot({path:'release-evidence/'+name+'-'+item.id+'.png',fullPage:true});
+              }
+              await page.close();
+            }
+            await browser.close();
+            fs.writeFileSync('release-evidence/report.json',JSON.stringify(report,null,2));
+          })().catch(e=>{console.error(e);process.exit(1)});
+          JS
+          node /tmp/calm-audit.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: calm-catalog-${{ matrix.engine }}
+          path: release-evidence/
+          retention-days: 7
