@@ -130,7 +130,7 @@
     if(modal&&modal.classList.contains('show')){
       const key=keyFromModal(modal);
       if(key){
-        modal.querySelectorAll('img').forEach(img=>{if(!isDetailedDm(img.getAttribute('src')||'')&&!isApprovedDetail(img.getAttribute('src')||''))forceImage(img,key);});
+        modal.querySelectorAll('.modal-gallery__item:first-child img').forEach(img=>{if(!isDetailedDm(img.getAttribute('src')||'')&&!isApprovedDetail(img.getAttribute('src')||''))forceImage(img,key);});
         modal.querySelectorAll('a[href]').forEach(a=>{const href=a.getAttribute('href')||'';if(isImageHref(href)&&match(href))setAttrIfChanged(a,'href',CUSTOMER[key]);});
       }
     }
