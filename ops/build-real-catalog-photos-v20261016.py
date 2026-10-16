@@ -17,6 +17,7 @@ BATCH="20261016-real-physical-box-primary-v2"
 
 # 最新使用者提供：龜鹿膏外盒正面實拍。僅裁切原有盒面像素。
 GAO_BOX_PHOTO="https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/329983d2-3f8e-40a4-8ebd-403e37d18c32.jpg"
+ER_ZHEN_BOX_PHOTO="https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/f4b0e9c5-8824-46b8-a6fa-285fe8f0895e.jpg"
 def actual_gao_box():
     req=Request(GAO_BOX_PHOTO,headers={"User-Agent":"Xianjiawei-real-photo-publisher/1.0"})
     with urlopen(req,timeout=35) as r: raw=r.read(4_000_000)
@@ -31,6 +32,20 @@ def actual_gao_box():
     ImageDraw.Draw(mask).polygon(contour,fill=255)
     src.putalpha(mask.filter(ImageFilter.GaussianBlur(0.6)))
     return src.crop((425,89,911,700)),hashlib.sha256(raw).hexdigest()
+
+def actual_er_zhen_box():
+    # 新上傳 IMG_9999 實拍原始完整紫色禮盒（沒有橘色塊）；
+    # 主圖只呈現真盒，內裝留給詳細頁，不得 AI 補字。
+    req=Request(ER_ZHEN_BOX_PHOTO,headers={"User-Agent":"Xianjiawei-real-photo-publisher/1.0"})
+    with urlopen(req,timeout=35) as resp: raw=resp.read(4_000_000)
+    if len(raw)<80000 or len(raw)>3_999_999: raise ValueError("二珍寶原始盒裝下載大小異常")
+    src=Image.open(BytesIO(raw)).convert("RGBA")
+    if src.size!=(1536,1152): raise ValueError("二珍寶原始盒裝尺寸不符")
+    pts=[(225,105),(1402,139),(1306,1077),(208,982)]
+    mask=Image.new("L",src.size,0)
+    ImageDraw.Draw(mask).polygon(pts,fill=255)
+    src.putalpha(mask.filter(ImageFilter.GaussianBlur(0.65)))
+    return src.crop((195,85,1415,1090)),hashlib.sha256(raw).hexdigest()
 
 def cutout(relpath):
     path=ROOT/relpath
@@ -77,7 +92,12 @@ gao,sha=actual_gao_box()
 path=composite(gao,660,800,"guilu-gao")
 manifest["products"].append({"id":"guilu-gao","mainImage":path,"source":"user supplied 2026-10-16 front package photograph","sha256":sha,"display":"盒子為主，罐身僅於詳細頁"})
 for pid,source,ww,hh,note in MAP:
-    cut,sha=cutout(source)
+    if pid=="royalherb-erzhenbao-64":
+        cut,sha=actual_er_zhen_box()
+        source="user supplied actual IMG_9999 original complete purple carton"
+        note="二珍寶原廠紫色外盒完整呈現；實體膏塊僅在詳細頁"
+    else:
+        cut,sha=cutout(source)
     path=composite(cut,ww,hh,pid)
     manifest["products"].append({"id":pid,"mainImage":path,"source":source,"sha256":sha,"display":note})
 (OUT/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
