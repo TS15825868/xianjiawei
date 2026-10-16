@@ -7,7 +7,7 @@
  */
 (function(){
   const DATA={
-  "version": "20261017-scenic-v1",
+  "version": "20261017-authentic-scenic-release-v2",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one verified original-photo main per product; images/catalog-real-v20261016; retail box first when sold as complete gift box",

@@ -10,7 +10,7 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20261017-scenic-v1';
+  const VERSION='20261017-authentic-scenic-release-v2';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐，可依個人需求調整';
