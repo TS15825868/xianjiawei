@@ -1,5 +1,5 @@
 {
-  "runtime": "20260930-main-dm-v13",
+  "runtime": "20261016-real-physical-packaging-main-v3",
   "approval_batch": "20260930-main-dm-v13",
   "products": {
     "guilu-gao": {
@@ -10,9 +10,9 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般商品主圖採用透明背景之正式實物 PNG，保留原包裝及文字；dm-v3 僅歷史相容、dm-final 只作詳細圖。",
-      "website_main_path": "/images/product-main/guilu-gao.png",
-      "website_main_format": "png",
-      "website_main_status": "provenanced-original-real-product-cutout"
+      "website_main_path": "/images/catalog-real-v20261016/guilu-gao-main.webp",
+      "website_main_format": "webp",
+      "website_main_status": "real-source-only-box-first-20261016"
     },
     "guilu-drink-30": {
       "name": "龜鹿飲30cc玻璃罐",
@@ -22,9 +22,9 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般商品主圖採用透明背景之正式實物 PNG，保留原包裝及文字；dm-v3 僅歷史相容、dm-final 只作詳細圖。",
-      "website_main_path": "/images/product-main/guilu-drink-30.png",
-      "website_main_format": "png",
-      "website_main_status": "provenanced-original-real-product-cutout"
+      "website_main_path": "/images/catalog-real-v20261016/guilu-drink-30-main.webp",
+      "website_main_format": "webp",
+      "website_main_status": "real-source-only-box-first-20261016"
     },
     "guilu-drink-180": {
       "name": "龜鹿飲180cc鋁袋",
@@ -34,9 +34,9 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般商品主圖採用透明背景之正式實物 PNG，保留原包裝及文字；dm-v3 僅歷史相容、dm-final 只作詳細圖。",
-      "website_main_path": "/images/product-main/guilu-drink-180.png",
-      "website_main_format": "png",
-      "website_main_status": "provenanced-original-real-product-cutout"
+      "website_main_path": "/images/catalog-real-v20261016/guilu-drink-180-main.webp",
+      "website_main_format": "webp",
+      "website_main_status": "real-source-only-box-first-20261016"
     },
     "guilu-tangkuai": {
       "name": "龜鹿湯塊",
@@ -74,9 +74,9 @@
       "format": "jpeg",
       "binary_status": "verified_dm_style_formal_main",
       "display_rule": "官網一般商品主圖採用透明背景之正式實物 PNG，保留原包裝及文字；dm-v3 僅歷史相容、dm-final 只作詳細圖。",
-      "website_main_path": "/images/product-main/luerong-fen.png",
-      "website_main_format": "png",
-      "website_main_status": "provenanced-original-real-product-cutout"
+      "website_main_path": "/images/catalog-real-v20261016/luerong-fen-main.webp",
+      "website_main_format": "webp",
+      "website_main_status": "real-source-only-box-first-20261016"
     }
   },
   "dm": {
@@ -152,7 +152,7 @@
     "product_cards_are_not_product_authority": true
   },
   "rules": {
-    "product_authority": "官網六項一般展示主圖統一使用 images/product-main/*.svg；DM、試喝、社群靜態相容素材分層，不得互相代替",
+    "product_authority": "新版實物原始像素主圖，外盒優先；無盒以完整密封罐／袋為主，內裝在詳頁，鹿茸粉不呈現粉末。",
     "customer_main_visual": "product-main 自包含 SVG 用於首頁、產品卡、怎麼選、試喝產品卡、推薦與產品詳頁 Hero；詳細DM只放完整介紹頁／明確DM版位",
     "no_ai_product_redraw": true,
     "no_stretch": true,
