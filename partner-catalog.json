@@ -1,5 +1,5 @@
 {
-  "version": "20261016-real-physical-packaging-main-v3",
+  "version": "20261016-original-pixel-clean-main-and-detail-v4",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -11,7 +11,7 @@
       "size": "60毫升 × 12入／盒",
       "form": "飲品",
       "description": "盒裝漢方飲品，每盒12入，每入60毫升；保留原廠包裝與商品標示。",
-      "image": "images/catalog-real-v20261016/jinan-sisheng-siwuyin-main.webp",
+      "image": "images/catalog-clean-v20261016/jinan-sisheng-siwuyin-main.webp",
       "page": "product-jinan-siwuyin.html",
       "ingredients": [
         "純水",
@@ -45,7 +45,7 @@
         "全素，依原廠包裝標示"
       ],
       "detailImages": [
-        "images/partner-products/scenes-v20261016/siwu-label-scene.webp"
+        "images/catalog-clean-v20261016/siwuyin-real-label-detail.webp"
       ],
       "detailMediaTitle": "原廠包裝標示",
       "fulfillmentNotice": "價格、供貨與配送時間請透過官方 LINE 確認。",
@@ -72,7 +72,7 @@
       "size": "3公克／包・10包／盒｜6款",
       "form": "茶包",
       "description": "六款盒裝茶包集中瀏覽，查看各款包裝、原料、規格與使用方式。",
-      "image": "images/catalog-real-v20261016/danshen-tea-collection-main.webp",
+      "image": "images/catalog-clean-v20261016/danshen-tea-collection-main.webp",
       "page": "product-danshen-tea.html",
       "ingredients": [],
       "usage": [
@@ -308,7 +308,21 @@
       },
       "originalFrontPhoto": "images/partner-products/tea-rose-fruit-front.webp",
       "mainPhotoRole": "actual-complete-box-primary",
-      "contentsPhotoRole": "detail-page-only"
+      "contentsPhotoRole": "detail-page-only",
+      "detailImages": [
+        "images/catalog-clean-v20261016/tea-rose-fruit-box-detail.webp",
+        "images/catalog-clean-v20261016/tea-leisure-box-detail.webp",
+        "images/catalog-clean-v20261016/tea-wudahan-box-detail.webp",
+        "images/catalog-clean-v20261016/tea-fiber-box-detail.webp",
+        "images/catalog-clean-v20261016/tea-white-box-detail.webp",
+        "images/catalog-clean-v20261016/tea-refresh-box-detail.webp",
+        "images/catalog-clean-v20261016/tea-rose-fruit-label-detail.webp",
+        "images/catalog-clean-v20261016/tea-leisure-label-detail.webp",
+        "images/catalog-clean-v20261016/tea-wudahan-label-detail.webp",
+        "images/catalog-clean-v20261016/tea-fiber-label-detail.webp",
+        "images/catalog-clean-v20261016/tea-white-label-detail.webp",
+        "images/catalog-clean-v20261016/tea-refresh-label-detail.webp"
+      ]
     },
     {
       "id": "jianfeng-rose-fruit-tea",
@@ -817,7 +831,7 @@
       "producerNameFromLabel": "晉安製藥股份有限公司",
       "origin": "臺灣",
       "shelfLife": "二年",
-      "image": "images/catalog-real-v20261016/guilu-vitality-main.webp",
+      "image": "images/catalog-clean-v20261016/guilu-vitality-main.webp",
       "gallery": [
         "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
         "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
@@ -865,8 +879,8 @@
         "images/partner-products/jinan-vitality-label-original.jpg"
       ],
       "detailImages": [
-        "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
-        "images/partner-products/scenes-v20261016/vitality-label-scene.webp"
+        "images/catalog-clean-v20261016/vitality-real-jar-detail.webp",
+        "images/catalog-clean-v20261016/vitality-real-back-detail.webp"
       ],
       "mainImageDescription": "原廠60毫升玻璃罐實拍去背情境圖；禮盒規格仍為12罐入",
       "mainPhotoRole": "actual-complete-box-primary",
@@ -1311,7 +1325,7 @@
       "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
       "requiresDoctorReferralForOrdinaryFoodSale": false,
       "brandLegalName": "御采堂生技食品有限公司",
-      "image": "images/catalog-real-v20261016/uboss-sizhenbao-main.webp",
+      "image": "images/catalog-clean-v20261016/uboss-sizhenbao-main.webp",
       "page": "product-four-treasures.html",
       "imageSourceRecord": {
         "sourceRepository": "Wuji29879526/Wuji",
@@ -1374,7 +1388,8 @@
       "versionNote": "2026-10-15新實拍覆核後更正黨蔘文字、營養資訊與保險；主圖仍是未變形同款原廠實拍",
       "originalFrontPhoto": "images/partner-products/four-treasures-front.jpg",
       "detailImages": [
-        "images/partner-products/four-treasures-front.jpg"
+        "images/catalog-clean-v20261016/sizhenbao-sealed-tray-detail.webp",
+        "images/catalog-clean-v20261016/sizhenbao-tray-back-detail.webp"
       ],
       "mainPhotoRole": "actual-complete-box-primary",
       "contentsPhotoRole": "detail-page-only"
@@ -1491,7 +1506,7 @@
       "compliance": "不沿用外盒療效形容、舊建議售價或不確定的保險理賠保證；上架產品圖務必紫色二珍寶原廠盒裝實物。",
       "pricePresentation": "LINE詢價（不得顯示實物盒上舊建議售價）",
       "page": "product-er-zhen-bao.html",
-      "image": "images/catalog-real-v20261016/royalherb-erzhenbao-64-main.webp",
+      "image": "images/catalog-clean-v20261016/royalherb-erzhenbao-64-main.webp",
       "imageSourceStatus": "verified-original-manufacturer-webp-hosted-on-current-main",
       "approvedImageGitSha": "b44d0577d2f23046b1e6341f3af7a6d6e3e633dc",
       "imageFromOriginal": true,
@@ -1501,7 +1516,7 @@
       "fulfillmentNotice": "售價與供貨由仙加味官方LINE確認；官網不直接線上結帳",
       "originalFrontPhoto": "images/partner-products/er-zhen-bao-royalherb-original.webp",
       "detailImages": [
-        "images/partner-products/er-zhen-bao-royalherb-original.webp"
+        "images/catalog-clean-v20261016/erzhenbao-sealed-tray-detail.webp"
       ],
       "mainPhotoRole": "actual-complete-box-primary",
       "contentsPhotoRole": "detail-page-only"
