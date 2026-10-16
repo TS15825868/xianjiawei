@@ -38,14 +38,14 @@ def usage_of(item):
 def validate_products():
     master=load('public-product-master.json');mb=product_map(master)
     req(master.get('authority')=='user-confirmed-current','public-product-master authority錯誤')
-    req(master.get('productCount')==len(PUBLIC_IDS) and list(mb)==PUBLIC_IDS,'public-product-master必須為目前六項官網產品')
+    req(master.get('productCount')==len(PUBLIC_IDS) and list(mb)==PUBLIC_IDS,'public-product-master必須符合目前公開官網商品')
     for pid,spec in SPECS.items():req(spec_of(mb[pid])==spec,f'{pid}公開母資料規格錯誤')
     req(usage_of(mb['guilu-drink-30'])==CURRENT_30,'30cc公開母資料用法錯誤')
     req(usage_of(mb['guilu-drink-180'])=='每日一包','180cc公開母資料用法錯誤')
 
     for rel in ['assets/data/official-products.json','config/official-products.json','data.json','catalog-public.json','product-master.json']:
         data=load(rel);pm=product_map(data)
-        req(set(pm)==set(PUBLIC_IDS),f'{rel}產品集合不是目前六項官網產品')
+        req(set(pm)==set(PUBLIC_IDS),f'{rel}產品集合不是目前公開官網商品')
         # 只檢查實際產品輸出。治理／禁止規則可以描述歷史值，但目前正式權威必須以 public-product-master.json 最新值為準，
         # 不得把負面守門文字誤判成公開產品資料回流。
         active_serialized=json.dumps(list(pm.values()),ensure_ascii=False)
@@ -76,10 +76,10 @@ def validate_public_surfaces():
         req(DEFERRED[1] in text,f'{rel}缺少柒玄茶暫緩政策')
         req(any(word in text for word in ['暫緩','暫不','不對外','不得公開','隱藏']),f'{rel}未清楚標示柒玄茶目前非公開狀態')
 
-    # 首頁不強制出現「六項」字樣；品牌文案可調整，但實際六個正式產品入口與主圖必須存在。
+    # 首頁不強制出現「六項」字樣；品牌文案可調整，但實際目前正式產品入口與主圖必須存在。
     home=read('index.html')
-    req(home.count('images/product-main/')>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'首頁未維持六項正式產品入口／主圖')
-    req(all(pid in read('products.html') for pid in PUBLIC_IDS),'產品總覽未維持六項官網產品')
+    req((home.count('images/product-main/')+home.count('images/catalog-real-v20261016/'))>=len(PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'首頁未維持目前正式產品入口／主圖')
+    req(all(pid in read('products.html') for pid in PUBLIC_IDS),'產品總覽未維持目前公開官網商品')
     req(CURRENT_30 in read('products.html') and CURRENT_30 in read('guide.html') and CURRENT_30 in read('faq.html'),'30cc目前用法未同步公開頁')
 
 def validate_media():
@@ -98,7 +98,7 @@ def validate_media():
 
 def main():
     validate_products();validate_public_surfaces();validate_media()
-    print('PASS production release: six website products, six approved media, 30cc daily 1-2 cans, no retired fixed-time Guilu Gao chip, Qixuan excluded from customer/public answer surfaces while retained as negative policy in llms.')
+    print(f'PASS production release: {len(PUBLIC_IDS)} current website products and approved media; 30cc daily 1-2 cans; no retired fixed-time Guilu Gao chip; Qixuan excluded from customer/public answer surfaces while retained as negative policy in llms.')
 
 if __name__=='__main__':main()
 
