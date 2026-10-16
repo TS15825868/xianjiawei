@@ -3,6 +3,7 @@
  * mainImage：首頁／產品總覽／怎麼選／試喝／推薦／產品卡／產品 Hero，目前公開四款使用原始像素保真山水情境 WebP；舊透明 PNG 與 JPG 保留為備援和來源核對。
  * detailImages：只允許「查看介紹」Modal 與獨立產品頁的詳細內容備援使用，以真實實物照片的新背景圖為主；DM另行保留，不得混為單品主圖。
  * identityReference：只供包裝身份與比例檢查，不作一般公開主圖。
+ * 其他廠牌公開商品只註冊「詳細圖片」保護名單；主圖以 partner-catalog.json 最新資料為準，不鎖死舊主圖。
  */
 (function(){
   const DATA={
@@ -46,6 +47,52 @@
         "images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
 ],
       "identityReference": "images/lurong.jpg"
+    },
+    "jinan-sisheng-siwuyin": {
+      "detailImages": [
+        "images/catalog-clean-studio-v20261016-v5/siwuyin-real-label-detail.webp"
+      ]
+    },
+    "danshen-tea-collection": {
+      "detailImages": [
+        "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-box-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-leisure-box-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-wudahan-box-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-fiber-box-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-white-box-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-refresh-box-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp"
+      ]
+    },
+    "guilu-vitality": {
+      "detailImages": [
+        "images/catalog-clean-studio-v20261016-v5/vitality-real-jar-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/vitality-real-back-detail.webp"
+      ]
+    },
+    "uboss-sizhenbao": {
+      "detailImages": [
+        "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp",
+        "images/catalog-labels-v20261016-v7/uboss-sizhenbao-label-1.webp",
+        "images/catalog-labels-v20261016-v7/uboss-sizhenbao-label-2.webp",
+        "images/catalog-labels-v20261016-v7/uboss-sizhenbao-label-3.webp",
+        "images/catalog-labels-v20261016-v7/uboss-sizhenbao-label-4.webp"
+      ]
+    },
+    "royalherb-erzhenbao-64": {
+      "detailImages": [
+        "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp",
+        "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-1.webp",
+        "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-2.webp",
+        "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-3.webp",
+        "images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-4.webp"
+      ]
     }
   }
 };
