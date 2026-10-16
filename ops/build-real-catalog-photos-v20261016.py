@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+"""仙加味商品真實照片主圖：只切割原始實拍像素，絕不生成或改寫包裝文字。"""
+from __future__ import annotations
+from pathlib import Path
+from io import BytesIO
+from urllib.request import Request, urlopen
+import json, hashlib
+from PIL import Image, ImageDraw, ImageFilter
+
+ROOT=Path(__file__).resolve().parent.parent
+OUT=ROOT/"images/catalog-real-v20261016"
+OUT.mkdir(parents=True,exist_ok=True)
+BASE=Image.open(ROOT/"images/partner-products/scenes-v20261016/neutral-pedestal-background.webp").convert("RGBA")
+if BASE.size != (1122,1402):
+    raise ValueError("未經確認的背景尺寸；停止發布")
+BATCH="20261016-real-physical-box-primary-v2"
+
+# 最新使用者提供：龜鹿膏外盒正面實拍。僅裁切原有盒面像素。
+GAO_BOX_PHOTO="https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/329983d2-3f8e-40a4-8ebd-403e37d18c32.jpg"
+def actual_gao_box():
+    req=Request(GAO_BOX_PHOTO,headers={"User-Agent":"Xianjiawei-real-photo-publisher/1.0"})
+    with urlopen(req,timeout=35) as r: raw=r.read(4_000_000)
+    if len(raw)<80000 or len(raw)>3_999_999:
+        raise ValueError("原始實拍下載大小異常")
+    src=Image.open(BytesIO(raw)).convert("RGBA")
+    if src.size!=(1536,864):
+        raise ValueError("原始外盒尺寸不符，不可生成替代包裝")
+    # 新上傳的正面外盒照：頂面＋正面，採實際輪廓去背，不繪畫標籤。
+    contour=[(456,211),(540,128),(853,131),(886,212),(852,676),(501,675),(455,224)]
+    mask=Image.new("L",src.size,0)
+    ImageDraw.Draw(mask).polygon(contour,fill=255)
+    src.putalpha(mask.filter(ImageFilter.GaussianBlur(0.6)))
+    return src.crop((425,89,911,700)),hashlib.sha256(raw).hexdigest()
+
+def cutout(relpath):
+    path=ROOT/relpath
+    if not path.exists():raise FileNotFoundError(str(path))
+    im=Image.open(path).convert("RGBA")
+    alpha=im.getchannel("A")
+    if alpha.getextrema()[0] >= 250:
+        raise ValueError("非透明實拍裁切檔，停止發布："+relpath)
+    bbox=alpha.getbbox()
+    if not bbox:raise ValueError("空白商品："+relpath)
+    return im.crop(bbox),hashlib.sha256(path.read_bytes()).hexdigest()
+
+def composite(img,goal_width,goal_height,filename):
+    scale=min(goal_width/img.width,goal_height/img.height)
+    img=img.resize((max(1,int(img.width*scale)),max(1,int(img.height*scale))),Image.Resampling.LANCZOS)
+    x=(BASE.width-img.width)//2
+    # 在實際石台上放置，不改原包裝比例
+    baseline=1064
+    y=baseline-img.height
+    if y<100:raise ValueError("商品過大，超出安全構圖")
+    canv=BASE.copy()
+    sh=Image.new("RGBA",BASE.size,(0,0,0,0))
+    ImageDraw.Draw(sh).ellipse((x+25,baseline-27,x+img.width-25,baseline+37),fill=(26,24,21,96))
+    canv.alpha_composite(sh.filter(ImageFilter.GaussianBlur(23)))
+    canv.alpha_composite(img,(x,y))
+    dest=OUT/(filename+"-main.webp")
+    canv.convert("RGB").save(dest,"WEBP",quality=92,method=6)
+    chk=Image.open(dest)
+    if chk.size!=(1122,1402): raise AssertionError(str(dest))
+    return str(dest.relative_to(ROOT))
+
+MAP=[
+  ("guilu-drink-30","images/product-cutout-review/guilu-drink-30.png",430,495,"30cc玻璃裸罐，沒有外盒"),
+  ("guilu-drink-180","images/product-cutout-review/guilu-drink-180.png",510,760,"180cc正式鋁袋"),
+  ("luerong-fen","images/product-cutout-review/luerong-fen.png",455,720,"原廠75g密封白罐，禁止粉末入鏡"),
+  ("jinan-sisheng-siwuyin","images/partner-products/cutouts-v20261016/jinan-siwuyin-front-cutout.webp",760,710,"完整原廠粉紅盒"),
+  ("danshen-tea-collection","images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",700,760,"六款系列的真實代表包裝，不捏造六包"),
+  ("guilu-vitality","images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",755,795,"原廠12入禮盒，非單罐主圖"),
+  ("uboss-sizhenbao","images/partner-products/site-hero-v20261016/four-treasures-front-cutout.webp",750,720,"原廠四珍寶紅盒"),
+  ("royalherb-erzhenbao-64","images/partner-products/site-hero-v20261016/er-zhen-bao-royalherb-original-cutout.webp",750,760,"原廠二珍寶紫盒"),
+]
+manifest={"batch":BATCH,"sourcePriority":"real actual-package original pixels only; no AI-generated product","status":"ready-for-page-link-verification","products":[]}
+gao,sha=actual_gao_box()
+path=composite(gao,660,800,"guilu-gao")
+manifest["products"].append({"id":"guilu-gao","mainImage":path,"source":"user supplied 2026-10-16 front package photograph","sha256":sha,"display":"盒子為主，罐身僅於詳細頁"})
+for pid,source,ww,hh,note in MAP:
+    cut,sha=cutout(source)
+    path=composite(cut,ww,hh,pid)
+    manifest["products"].append({"id":pid,"mainImage":path,"source":source,"sha256":sha,"display":note})
+(OUT/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+print("GENERATED",len(manifest["products"]),"real-product hero photos")
