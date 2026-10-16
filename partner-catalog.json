@@ -99,7 +99,7 @@
           "id": "jianfeng-rose-fruit-tea",
           "name": "臺灣丹參玫瑰果茶",
           "flavor": "玫瑰果茶",
-          "image": "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-box-detail.webp",
+          "image": "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -128,6 +128,7 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-rose-fruit-front.webp",
           "detailImages": [
+            "images/catalog-real-scenic-v20261016-v8/tea-rose-fruit-real-scenic-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp"
           ]
@@ -136,7 +137,7 @@
           "id": "jianfeng-leisure-tea",
           "name": "臺灣丹參懈悠活養生茶",
           "flavor": "懈悠活養生茶",
-          "image": "images/catalog-clean-studio-v20261016-v5/tea-leisure-box-detail.webp",
+          "image": "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -162,6 +163,7 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-danshen-leisure-front.webp",
           "detailImages": [
+            "images/catalog-real-scenic-v20261016-v8/tea-leisure-real-scenic-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-leisure-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp"
           ]
@@ -170,7 +172,7 @@
           "id": "jianfeng-wudahan-tea",
           "name": "武大漢丹參茶",
           "flavor": "武大漢丹參茶",
-          "image": "images/catalog-clean-studio-v20261016-v5/tea-wudahan-box-detail.webp",
+          "image": "images/catalog-real-scenic-v20261016-v8/tea-wudahan-real-scenic-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -198,6 +200,7 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-wudahan-front.webp",
           "detailImages": [
+            "images/catalog-real-scenic-v20261016-v8/tea-wudahan-real-scenic-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-wudahan-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp"
           ]
@@ -206,7 +209,7 @@
           "id": "jianfeng-fiber-tea",
           "name": "臺灣丹參纖體茶",
           "flavor": "纖體茶",
-          "image": "images/catalog-clean-studio-v20261016-v5/tea-fiber-box-detail.webp",
+          "image": "images/catalog-real-scenic-v20261016-v8/tea-fiber-real-scenic-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -233,6 +236,7 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-danshen-lotus-front.webp",
           "detailImages": [
+            "images/catalog-real-scenic-v20261016-v8/tea-fiber-real-scenic-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-fiber-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp"
           ]
@@ -241,7 +245,7 @@
           "id": "jianfeng-white-tea",
           "name": "臺灣白茶丹參飲",
           "flavor": "白茶丹參飲",
-          "image": "images/catalog-clean-studio-v20261016-v5/tea-white-box-detail.webp",
+          "image": "images/catalog-real-scenic-v20261016-v8/tea-white-real-scenic-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣白茶",
@@ -267,6 +271,7 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-white-danshen-front.webp",
           "detailImages": [
+            "images/catalog-real-scenic-v20261016-v8/tea-white-real-scenic-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-white-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp"
           ]
@@ -275,7 +280,7 @@
           "id": "jianfeng-refresh-tea",
           "name": "臺灣丹參舒活茶",
           "flavor": "舒活茶",
-          "image": "images/catalog-clean-studio-v20261016-v5/tea-refresh-box-detail.webp",
+          "image": "images/catalog-real-scenic-v20261016-v8/tea-refresh-real-scenic-detail.webp",
           "size": "3公克／包，10包／盒",
           "ingredients": [
             "臺灣丹參",
@@ -303,6 +308,7 @@
           ],
           "originalFrontPhoto": "images/partner-products/tea-danshen-refresh-front.webp",
           "detailImages": [
+            "images/catalog-real-scenic-v20261016-v8/tea-refresh-real-scenic-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-refresh-box-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp"
           ]
