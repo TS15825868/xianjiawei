@@ -121,11 +121,24 @@ def main() -> None:
                 # photo library. Auto-generated/review-stage composites must never
                 # silently become the production source before human sign-off.
                 official_picture = product["image"].split("?", 1)[0]
-                if not official_picture.startswith("images/partner-products/") or (
-                    "/staging/" in official_picture or
-                    "/partner-product-design-review/" in official_picture
-                ):
-                    fail("public product uses unapproved preview/staging image: " + pid)
+                if "/staging/" in official_picture or "/partner-product-design-review/" in official_picture:
+                    fail("unapproved preview/staging image: " + pid)
+                if official_picture.startswith("images/catalog-real-v20261016/"):
+                    # A fresh real-pixel main may replace an older source.  Require
+                    # exact product-specific provenance in the committed manifest,
+                    # not a permissive path-only exception.
+                    manifest = load("images/catalog-real-v20261016/manifest.json")
+                    record = next((x for x in manifest.get("products", [])
+                                   if x.get("id") == pid), None)
+                    if not record or record.get("mainImage") != official_picture:
+                        fail("new public image lacks matching original-photo record: " + pid)
+                    if not re.fullmatch(r"[a-f0-9]{64}", str(record.get("sha256", ""))):
+                        fail("new public image lacks original photo hash: " + pid)
+                    source = str(record.get("source") or "")
+                    if not source or "/staging/" in source or "/partner-product-design-review/" in source:
+                        fail("new image provenance is unsafe: " + pid)
+                elif not official_picture.startswith("images/partner-products/"):
+                    fail("public product image outside reviewed original-photo sources: " + pid)
                 for extra in product.get("detailImages", []):
                     check_image(extra, name)
                 if FORBIDDEN_IMAGE_NAMES.search(" ".join(product.get("sourceFiles", []))):
