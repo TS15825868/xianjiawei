@@ -1,5 +1,5 @@
 {
-  "reviewedAtUtc": "2026-10-17T15:02:01.416446+00:00",
+  "reviewedAtUtc": "2026-10-17T15:04:54.872680+00:00",
   "scope": "網站根目錄所有HTML及最新公開商品資料，不包含隱藏ERP記錄",
   "allHtmlCount": 45,
   "ownApprovedCount": 4,
@@ -90,7 +90,7 @@
     {
       "file": "googlec5c2af289948c263.html",
       "chars": 53,
-      "hidden": false,
+      "hidden": true,
       "images": 0,
       "links": 0
     },
@@ -334,7 +334,7 @@
     }
   ],
   "counts": {
-    "warning": 2
+    "warning": 1
   },
   "findings": [
     {
@@ -342,12 +342,6 @@
       "file": "googlec5c2af289948c263.html",
       "code": "mobile_metadata",
       "detail": "缺繁中lang或viewport"
-    },
-    {
-      "severity": "warning",
-      "file": "googlec5c2af289948c263.html",
-      "code": "missing_h1",
-      "detail": "公開頁無H1"
     }
   ],
   "limitations": [
