@@ -586,7 +586,8 @@ function renderVideoPage() {
   const featured = document.getElementById("video-featured");
   if (!grid || !featured) return;
 
-  const videos = (Array.isArray(SITE_DATA?.videos) ? SITE_DATA.videos : []).filter(video => video?.contentVerification === "verified" && /^https:\/\/(?:www\.)?(?:tiktok\.com|douyin\.com)\//i.test(String(video?.url || "")));
+  // Keep previously supplied source links visible; verification status is displayed separately.
+  const videos = (Array.isArray(SITE_DATA?.videos) ? SITE_DATA.videos : []).filter(video => /^https:\/\/(?:www\.)?(?:tiktok\.com|douyin\.com)\//i.test(String(video?.url || "")));
   const filters = Array.from(document.querySelectorAll("[data-video-filter]"));
   const search = document.getElementById("video-search");
   const count = document.getElementById("video-count");
@@ -648,6 +649,7 @@ function renderVideoPage() {
 function renderFeaturedVideo(video) {
   const title = displayVideoTitle(video);
   const category = video.category || "知識影音";
+  const verificationNote = video.contentVerification === "verified" ? "已核對來源與內容" : "原始連結已收錄，影片內容待核對";
   return `
     <article class="card video-featured reveal">
       <a class="video-featured__cover" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener" aria-label="觀看${escapeAttribute(title)}">
@@ -657,7 +659,7 @@ function renderFeaturedVideo(video) {
       <div class="video-featured__body">
         <p class="eyebrow">公開影音連結</p>
         <h2>${escapeHtml(title)}</h2>
-        <p>原始公開影片連結；影片主題與內容尚待逐支核實，不代表仙加味商品功效或合作背書。</p>
+        <p>${verificationNote}；不代表仙加味商品功效或合作背書。</p>
         <a class="btn btn-outline" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener">觀看原影片</a>
       </div>
     </article>
@@ -674,7 +676,7 @@ function renderVideoCard(video, index) {
         <span class="video-cover-label">${escapeHtml(category)}</span>
       </a>
       <div class="video-card-v410__body">
-        <p class="eyebrow">影音 ${String(index).padStart(2, "0")}</p>
+        <p class="eyebrow">影音 ${String(index).padStart(2, "0")}・${escapeHtml(video.contentVerification === "verified" ? "已核對" : "內容待核對")}</p>
         <h3>${escapeHtml(title)}</h3>
         <a class="btn btn-outline" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener">觀看影片</a>
       </div>
