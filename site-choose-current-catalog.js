@@ -12,18 +12,17 @@
     "guilu-drink-180": "images/catalog-owner-final-v20261017/guilu-drink-180-main.webp",
     "luerong-fen": "images/catalog-owner-final-v20261017/luerong-fen-main.webp"
   };
-  const categories = [
-    ["all", "全部"],
-    ["drink", "即飲"],
-    ["tea", "茶包"],
-    ["paste", "膏品／膏湯塊"],
-    ["powder", "粉狀"]
-  ];
+  // 分類從已審核公開商品即時建立；未來不鎖膠囊、零食、禮盒等新商品型態。
+  const categoryNames = Object.freeze({
+    drink:"飲品",tea:"茶飲",paste:"膏品／膏湯塊",powder:"粉狀",capsule:"膠囊／錠狀",gift:"禮盒／組合",other:"其他商品"
+  });
   function categoryFor(item) {
     const value = [item.name, item.form, item.category].filter(Boolean).join(" ");
     if (/茶包|茶飲|茶/.test(value)) return "tea";
     if (/粉/.test(value)) return "powder";
     if (/膏|塊/.test(value)) return "paste";
+    if (/膠囊|錠狀|錠劑/.test(value)) return "capsule";
+    if (/禮盒|組合|套組/.test(value)) return "gift";
     if (/飲|液態/.test(value)) return "drink";
     return "other";
   }
@@ -39,6 +38,8 @@
     const a = document.createElement("a");
     a.href = item.page;
     a.className = "choose-current-card__link";
+    a.dataset.productIntro = "1";
+    a.setAttribute("aria-haspopup", "dialog");
     const img = document.createElement("img");
     img.src = item.image;
     img.alt = item.name + "正式商品照片";
@@ -61,6 +62,8 @@
     const link = document.createElement("a");
     link.className = "btn btn-outline";
     link.href = item.page;
+    link.dataset.productIntro = "1";
+    link.setAttribute("aria-haspopup", "dialog");
     link.textContent = "查看商品介紹";
     article.append(link);
     return article;
@@ -91,7 +94,8 @@
     if (Array.isArray(own?.products)) {
       for (const p of own.products) {
         const page = safePage(new URL(p.page || "", location.href).pathname.split("/").pop());
-        const image = safeImage(ownImage[p.id]);
+        const latestMedia = window.XJW_PRODUCT_MEDIA_AUTHORITY?.mainImage?.(p.id) || p.mainImage || p.image || p.imageUrl || ownImage[p.id];
+        const image = safeImage(String(latestMedia || "").split("?")[0]);
         if (page && image && p.name) items.push({
           id: p.id, name: p.name, form: p.form || "", spec: p.specification || "",
           page, image, informationOnly: false
@@ -107,9 +111,12 @@
         });
       }
     }
-    const deduped = Array.from(new Map(items.map(item => [item.page, item])).values());
+    // 商品ID是唯一身份；不同正式SKU可共用同一系列頁面，不得因此被誤刪。
+    const deduped = Array.from(new Map(items.map(item => [item.id, item])).values());
     if (!deduped.length) throw new Error("No approved products available");
     filters.replaceChildren();
+    const categoryOrder = ["drink","tea","paste","powder","capsule","gift","other"];
+    const categories = [["all","全部商品"], ...categoryOrder.filter(key => deduped.some(item => categoryFor(item) === key)).map(key => [key,categoryNames[key]])];
     for (const [key, label] of categories) {
       if (key !== "all" && !deduped.some(item => categoryFor(item) === key)) continue;
       const button = document.createElement("button");
