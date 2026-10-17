@@ -1,0 +1,49 @@
+{
+  "version": "20261017-owner-original-actual-products-v1",
+  "method": "manual polygon alpha segmentation of actual uploaded photographs; no product pixels generated or repainted",
+  "public": "only photos stripped of background; non-public source ZIP and pricing labels not committed",
+  "photos": [
+    {
+      "id": "royalherb-erzhenbao-64",
+      "role": "complete carton main",
+      "file": "images/catalog-user-original-v20261017/erzhenbao-actual-complete-box.webp",
+      "originalFilename": "IMG_9999.HEIC",
+      "sourceArchive": "新增商品(2).zip",
+      "originalSha256": "4afd5f322e87b18d5f3d2566ccf5acfe163a9dae5a656cb5ee9dbfe27e85f5b6",
+      "mediaSha256": "2840e58f774b794890f7671eb92d2b3290a048b764776611caa01f28dd359e45"
+    },
+    {
+      "id": "royalherb-erzhenbao-64",
+      "role": "real opened box + interior sealed trays",
+      "file": "images/catalog-user-original-v20261017/erzhenbao-actual-open-trays.webp",
+      "originalFilename": "IMG_0002.HEIC",
+      "sourceArchive": "新增商品(2).zip",
+      "originalSha256": "48275d17d586165d1cde3cf45f917658e66745d3a99235b835cb9098ecdefff1",
+      "mediaSha256": "0446c605e4130ad360201c541b0f2f626f91bca8f039446ff3363a250e22e680"
+    },
+    {
+      "id": "uboss-sizhenbao",
+      "role": "actual eight solid blocks",
+      "file": "images/catalog-user-original-v20261017/sizhenbao-actual-8-blocks.webp",
+      "originalFilename": "IMG_9832.heic",
+      "sourceArchive": "新增商品(2).zip",
+      "originalSha256": "8e12353e9149758ae9e7b06bd885c11d2fcb592b4abf9c12c465793f0e366def",
+      "mediaSha256": "f8fb8211a3bbe001495614b39e270f07ce9aa370207ffe8903962aff476821dc"
+    },
+    {
+      "id": "jianfeng-rose-fruit-tea",
+      "role": "real triangular teabag, string and tag",
+      "file": "images/catalog-user-original-v20261017/rose-fruit-real-teabag.webp",
+      "originalFilename": "IMG_9970.JPG",
+      "sourceArchive": "新增商品(2).zip",
+      "originalSha256": "8a73b49e814c068ad87aeb651ebecd7385068dc004b3de2ff0eeb719e17aaaa6",
+      "mediaSha256": "8d7cd5c508a419eea46d9aa88c520c5307cbe34ac8bb60d8adae6179cee1570c"
+    }
+  ],
+  "constraints": [
+    "Six tea flavors are separate, only rose fruit uses triangular teabag image",
+    "Two treasures purple is never substituted for four treasures red",
+    "Original whole back-panel photos not represented unless available and verified",
+    "Do not insert AI-generated product renderings, labels, or price screenshots"
+  ]
+}

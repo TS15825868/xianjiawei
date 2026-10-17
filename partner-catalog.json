@@ -130,7 +130,7 @@
           "detailImages": [
             "images/partner-products/tea-rose-fruit-front.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
-            "images/catalog-real-contents-v20261017/rose-fruit-real-teabag-mesh.webp"
+            "images/catalog-user-original-v20261017/rose-fruit-real-teabag.webp"
           ]
         },
         {
@@ -345,7 +345,8 @@
         "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp",
+        "images/catalog-user-original-v20261017/rose-fruit-real-teabag.webp"
       ],
       "originalDetailImages": [
         "images/partner-products/tea-rose-fruit-label-source.jpg",
@@ -1444,9 +1445,7 @@
       "versionNote": "2026-10-15新實拍覆核後更正黨蔘文字、營養資訊與保險；主圖仍是未變形同款原廠實拍",
       "originalFrontPhoto": "images/partner-products/four-treasures-front.jpg",
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp",
-        "images/catalog-real-contents-v20261017/four-treasures-sealed-eight-real.webp"
+        "images/catalog-user-original-v20261017/sizhenbao-actual-8-blocks.webp"
       ],
       "mainPhotoRole": "single real physical pack or carton; no surrounding decorative scene; complete visible package, preserve real original pixels",
       "contentsPhotoRole": "detail-page-only",
@@ -1564,7 +1563,7 @@
       "compliance": "不沿用外盒療效形容、舊建議售價或不確定的保險理賠保證；上架產品圖務必紫色二珍寶原廠盒裝實物。",
       "pricePresentation": "LINE詢價（不得顯示實物盒上舊建議售價）",
       "page": "product-er-zhen-bao.html",
-      "image": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp",
+      "image": "images/catalog-user-original-v20261017/erzhenbao-actual-complete-box.webp",
       "imageSourceStatus": "verified-original-manufacturer-webp-hosted-on-current-main",
       "approvedImageGitSha": "b44d0577d2f23046b1e6341f3af7a6d6e3e633dc",
       "imageFromOriginal": true,
@@ -1574,7 +1573,7 @@
       "fulfillmentNotice": "售價與供貨由仙加味官方LINE確認；官網不直接線上結帳",
       "originalFrontPhoto": "images/partner-products/er-zhen-bao-royalherb-original.webp",
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp"
+        "images/catalog-user-original-v20261017/erzhenbao-actual-open-trays.webp"
       ],
       "mainPhotoRole": "single real physical pack or carton; no surrounding decorative scene; complete visible package, preserve real original pixels",
       "contentsPhotoRole": "detail-page-only",

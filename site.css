@@ -1082,3 +1082,17 @@ body[data-page="product-detail"] .product-detail-hero__media img[src*="catalog-p
     aspect-ratio:auto!important;
   }
 }
+
+/* 20261017-owner-original-detail-media: product pixels from uploaded genuine photo, background only erased */
+body[data-page="product-detail"] .product-detail-hero__media img[src*="catalog-user-original-v20261017"],
+.product-modal .modal-gallery__item:first-child img[src*="catalog-user-original-v20261017"]{
+  display:block;width:100%!important;height:auto!important;aspect-ratio:auto!important;
+  object-fit:contain!important;object-position:center!important;max-height:650px!important;
+  background:#F7F4ED!important;box-shadow:none!important;filter:none!important
+}
+@media(max-width:700px){
+  body[data-page="product-detail"] .product-detail-hero__media img[src*="catalog-user-original-v20261017"],
+  .product-modal .modal-gallery__item:first-child img[src*="catalog-user-original-v20261017"]{
+    max-height:none!important;padding:5px!important
+  }
+}
