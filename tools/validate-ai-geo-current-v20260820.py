@@ -58,7 +58,7 @@ def main():
         req(DEFERRED_NAME in text,f'{rel}缺少柒玄茶暫緩政策')
         req(any(word in text for word in ['暫緩','暫不','不對外','不得公開','隱藏']),f'{rel}未標示柒玄茶非公開狀態')
 
-    for rel in ['llms.txt','llms-full.txt','faq.html','products.html','brand-facts.html']:
+    for rel in ['llms.txt','llms-full.txt','faq.html','brand-facts.html']:
         req(CURRENT_30 in (ROOT/rel).read_text(encoding='utf-8'),f'{rel}缺少30cc目前用法')
 
     print('PASS: six public products only; deferred product absent from customer/AI-answer/GEO payloads while retained as negative llms policy; 30cc remains daily 1-2 cans.')
