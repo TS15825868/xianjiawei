@@ -53,8 +53,11 @@ def main():
     req(master.get('authority') == 'user-confirmed-current', '公開產品母資料 authority 錯誤')
     req(master.get('productCount') ==len(PUBLIC_IDS) and ids == PUBLIC_IDS, '官網公開產品必須符合目前母資料')
 
-    # 柒玄茶目前只是不放官網；ERP／LINE可另行保留資料，但官網公開表面不得出現。
-    for rel in ['public-product-master.json','index.html','products.html','guide.html','faq.html','brand-facts.html','ai-answers.json','geo-data.json']:
+    # 尚未核准品項可存在母資料的「排除清單」作內部防呆；
+    # 禁止的是出現在公開 products 名錄／顧客頁，不是禁止記錄其未公開狀態。
+    req(all(p.get('id') != DEFERRED_ID and DEFERRED_NAME not in str(p.get('name') or '')
+                for p in master.get('products') or []), '暫緩品項不得加入正式公開 products')
+    for rel in ['index.html','products.html','guide.html','faq.html','brand-facts.html','ai-answers.json','geo-data.json']:
         raw = (ROOT/rel).read_text(encoding='utf-8')
         req(DEFERRED_ID not in raw and DEFERRED_NAME not in raw, f'{rel} 重新把柒玄茶公開到官網')
 
