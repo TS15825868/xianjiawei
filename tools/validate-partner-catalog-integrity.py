@@ -350,7 +350,7 @@ def main() -> None:
     if not all(token in core for token in (
         'data-product-intro="1" aria-haspopup="dialog"',
         'data-product-page-direct="1"',
-        '查看詳細',
+        '${escapeHtml(name)}｜完整商品資料',
     )):
         fail("product modal needs intro links and a sole explicit detail-page CTA")
     if 'const isSeries = Array.isArray(product.variants)' in core:
