@@ -1,0 +1,53 @@
+name: 仙加味｜正式內容物實拍去背與產品詳細頁同步
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-true-content-cutouts-20261017.yml'
+      - 'tools/publish-true-content-cutouts-v20261017.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xjw-true-photo-content-release
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install deterministic non-generative image segmentation
+        run: python -m pip install 'pillow>=10,<13' 'numpy>=1.26,<3' 'opencv-python-headless>=4.8,<5'
+      - name: Create foreground cuts from exact original camera photographs
+        run: python tools/publish-true-content-cutouts-v20261017.py
+      - name: Verify product catalog, links and genuine packaging
+        run: |
+          python tools/validate-partner-catalog-integrity.py
+          python tools/audit-real-package-background-v20261017.py
+          node tools/audit-pure-product-hero.cjs
+      - name: Store actual photos for visual review
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-authentic-contents-rose-and-four-treasure
+          path: images/catalog-real-contents-v20261017/
+          retention-days: 14
+      - name: Publish approved actual contents to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name xianjiawei-actions
+          git config user.email xianjiawei-actions@users.noreply.github.com
+          git add images/catalog-real-contents-v20261017/ partner-catalog.json product-four-treasures.html product-danshen-tea.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'images: add genuine four-treasure sealed tray and real rose tea bag, no AI pixels'
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi
