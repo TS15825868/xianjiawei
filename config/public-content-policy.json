@@ -109,8 +109,8 @@
     "immediatePublishMustNotBeBlockedByFixedSchedule": true
   },
   "serviceHours": {
-    "storefront": "週一至週五 10:30－20:00",
-    "closed": "週六、週日店休",
+    "storefront": "週一至週五 10:00－20:00",
+    "closed": "週六彈性安排預約取貨、送貨等服務（請先洽 LINE 確認）；週日休息",
     "website": "24 小時可瀏覽",
     "lineOA": "24 小時可留言；店休及非營業時間的訊息，將依實際情況回覆",
     "weekendFulfillment": "週末如有配送、自取需求，可先透過 LINE 詢問，依當天實際情況協調安排",
