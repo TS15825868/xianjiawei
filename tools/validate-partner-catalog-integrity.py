@@ -253,12 +253,12 @@ def main() -> None:
     # after updating its matching website card, structured data and sitemap.
     expected_pages = {str(p["page"]) for p in own + public_partner}
     sitemap_text = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
-    sitemap_pages = set(re.findall(r"/(product-[a-z0-9-]+\\.html)</loc>", sitemap_text))
+    sitemap_pages = set(re.findall(r"/(product-[a-z0-9-]+\.html)</loc>", sitemap_text))
     if sitemap_pages != expected_pages:
         fail("sitemap exposed hidden products or omitted approved products: "
              + repr(sorted(sitemap_pages ^ expected_pages)))
     structured = re.search(
-        r'<script type="application/ld\\+json">([\\s\\S]*?)</script>', listing
+        r'<script type="application/ld\+json">([\s\S]*?)</script>', listing
     )
     if not structured:
         fail("public catalog structured data missing")
