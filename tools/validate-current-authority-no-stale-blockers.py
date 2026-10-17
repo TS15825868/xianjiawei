@@ -115,7 +115,16 @@ def assert_static_public_copy():
             continue
         text=path.read_text(encoding='utf-8')
         policy_bearing = rel in POLICY_BEARING_PRODUCT_JSON or rel in POLICY_BEARING_ANSWER_JSON
-        assert_copy_text(text,rel,claims=not policy_bearing)
+        # 當期暫緩公開清單是「阻止公開」的權威政策，不能拿整份 JSON 的
+        # 字串搜尋當作產品已公開；應檢查真正的 products[]，而非 metadata。
+        public_text = text
+        if rel == 'public-product-master.json':
+            master_meta=json.loads(text)
+            deferred=set(master_meta.get('expansionPolicy',{}).get('temporarilyExcludedProductIds',[]))
+            active={p.get('id') for p in master_meta.get('products',[])}
+            req(not (deferred & active),f'{rel} 暫緩品項出現在已核准公開 products[]')
+            public_text=json.dumps({k:v for k,v in master_meta.items() if k!='expansionPolicy'},ensure_ascii=False)
+        assert_copy_text(public_text,rel,claims=not policy_bearing)
         if rel in POLICY_BEARING_PRODUCT_JSON:
             data=json.loads(text)
             for index,product in enumerate(data.get('products') or []):
