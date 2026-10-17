@@ -602,7 +602,8 @@ function renderVideoPage() {
   const search = document.getElementById("video-search");
   const count = document.getElementById("video-count");
   const empty = document.getElementById("video-empty");
-  let category = new URLSearchParams(location.search).get("category") || "全部";
+  const requestedCategory = new URLSearchParams(location.search).get("category") || "全部";
+  let category = requestedCategory === "全部" || filters.some(button => button.dataset.videoFilter === requestedCategory) ? requestedCategory : "全部";
   let keyword = "";
 
   grid.classList.add("video-grid-v410");
