@@ -71,6 +71,13 @@ def main():
             mark(a, pid, '詳細圖')
         page = p.get('page')
         if page:
+            parts = urlsplit(page)
+            if parts.scheme:
+                if parts.scheme != 'https' or parts.netloc != 'ts15825868.github.io' or not parts.path.startswith('/xianjiawei/'):
+                    raise ValueError('Unexpected external product detail page: ' + page)
+                page = parts.path.removeprefix('/xianjiawei/')
+            if '..' in Path(page).parts or page.startswith('/') or not page.endswith('.html'):
+                raise ValueError('Unsafe product detail page: ' + page)
             if not (ROOT / page).is_file():
                 raise FileNotFoundError('Missing approved own detail page: ' + page)
             parser = Images()
@@ -92,6 +99,13 @@ def main():
                 mark(variant['originalFrontPhoto'], name, '原始正面照片')
         page = p.get('page')
         if page:
+            parts = urlsplit(page)
+            if parts.scheme:
+                if parts.scheme != 'https' or parts.netloc != 'ts15825868.github.io' or not parts.path.startswith('/xianjiawei/'):
+                    raise ValueError('Unexpected external product detail page: ' + page)
+                page = parts.path.removeprefix('/xianjiawei/')
+            if '..' in Path(page).parts or page.startswith('/') or not page.endswith('.html'):
+                raise ValueError('Unsafe product detail page: ' + page)
             if not (ROOT / page).is_file():
                 raise FileNotFoundError('Missing approved partner detail page: ' + page)
             parser = Images()
