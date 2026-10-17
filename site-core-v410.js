@@ -277,18 +277,11 @@ function renderFooter() {
         <h3>快速前往</h3>
         <div class="footer-nav-links">
           <a href="products.html">產品總覽</a>
-          <a href="choose.html">怎麼選</a>
+          <a href="choose.html">商品怎麼選</a>
           <a href="guide.html">使用方式</a>
           <a href="recipes.html">料理搭配</a>
-          <a href="knowledge.html">知識專區首頁</a>
-          <a href="why-guilu.html">龜鹿入門</a>
-          <a href="hanfang-baike.html">漢方食材百科</a>
-          <a href="video.html">知識影音</a>
-          <a href="sources.html">資料來源</a>
+          <a href="knowledge.html">漢方知識</a>
           <a href="brand.html">品牌故事</a>
-          <a href="craft.html">傳統工藝</a>
-          <a href="quality.html">品質與標示</a>
-          <a href="combo.html">搭配比較</a>
           <a href="faq.html">常見問題</a>
           <a href="trial.html">龜鹿飲試喝</a>
           <a href="contact.html">聯絡我們</a>
@@ -299,7 +292,7 @@ function renderFooter() {
         <div>
           <h3>仙加味官方 LINE</h3>
           <p>LINE ID：<strong>${escapeHtml(getLineId())}</strong></p>
-          <p>產品規格、一般使用、配送與購買資訊，皆可透過官方 LINE 詢問。</p>
+          <p>商品規格、庫存、配送及購買資訊，歡迎透過官方 LINE 詢問；各商品使用與保存方式請以正式標示為準。</p>
           <p><strong>店面營業：</strong>週一至週五 10:30–20:00｜週六、週日休息</p>
           <p><strong>LINE：</strong>24 小時可留言；人工回覆時間為週一至週五 10:30–20:00。</p>
           ${lineButton("前往 LINE 詢問", pageLineMessage())}
