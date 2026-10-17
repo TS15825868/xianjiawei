@@ -7,7 +7,7 @@
  */
 (function(){
   const DATA={
-  "version": "20261017-current-approved-full-real-photo-gallery-v2",
+  "version": "20261017-owner-approved-carton-jar-detail-v3",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one real photographed physical package per main image on site's original ivory surface; no additional carton-side contents or decorative scene",
@@ -20,7 +20,7 @@
     "guilu-gao": {
       "mainImage": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp",
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp"
+        "images/catalog-user-original-v20261017/guilu-gao-box-jar-owner-selected-detail-v20261017.webp"
       ],
       "identityReference": "images/guilu-gao.jpg"
     },
