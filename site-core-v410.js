@@ -361,7 +361,6 @@ function renderCurrentPage() {
   if (page === "knowledge") renderKnowledgePage();
   if (page === "video") renderVideoPage();
   if (page === "faq") renderFaqPage();
-  if (page === "brand") renderBrandPage();
   if (page === "contact") renderContactPage();
 }
 
@@ -721,116 +720,6 @@ function renderContactPage() {
   mapLinks.forEach(link => {
     if (SITE_DATA?.store?.mapUrl) link.href = SITE_DATA.store.mapUrl;
   });
-}
-
-function renderBrandPage() {
-  const main = document.querySelector("main.page");
-  if (!main || main.dataset.brandV410 === "true") return;
-  main.dataset.brandV410 = "true";
-  main.className = "page brand-v410";
-
-  main.innerHTML = `
-    <section class="hero brand-hero-v410">
-      <article class="brand-hero-v410__panel reveal">
-        <div class="brand-hero-v410__copy">
-          <p class="eyebrow">仙加味・從萬華開始</p>
-          <h1>四代累積，整理成今天更容易理解的仙加味</h1>
-          <p>我們承接家族長年累積的原料處理、鹿角相關工作與龜鹿熬製經驗，不把傳統停在過去，而是重新整理成清楚的產品型態、正式規格與日常使用方式。</p>
-          <div class="brand-facts" aria-label="品牌重點">
-            <div class="brand-fact"><strong>四代</strong><span>家族經驗累積</span></div>
-            <div class="brand-fact"><strong>萬華</strong><span>品牌故事起點</span></div>
-            <div class="brand-fact"><strong>2008</strong><span>仙加味完成註冊</span></div>
-            <div class="brand-fact"><strong>日常</strong><span>把資訊說清楚</span></div>
-          </div>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#brand-generations">認識四代故事</a>
-            <a class="btn btn-outline" href="products.html">查看龜鹿系列</a>
-          </div>
-        </div>
-        <div class="brand-hero-v410__media">
-          <img src="images/brand/hd-v20260812/brand-story.png?v=${UX_VERSION}" alt="仙加味小老闆與龜鹿系列產品" fetchpriority="high" decoding="async">
-        </div>
-      </article>
-    </section>
-
-    <section class="section">
-      <div class="section-heading reveal">
-        <p class="eyebrow">品牌承諾</p>
-        <h2>不是把內容說得更多，而是把重要的事說得更清楚</h2>
-        <p>仙加味以產品實際型態、正式規格與一般使用資訊為核心，讓第一次接觸龜鹿產品的人也能找到方向。</p>
-      </div>
-      <div class="brand-promise-grid">
-        <article class="card brand-promise-card reveal" data-number="01">
-          <p class="eyebrow">看得懂</p>
-          <h3>原料與成分清楚呈現</h3>
-          <p>以正式產品資訊為準，不用模糊說法混淆不同產品，也不把文化介紹當成個人醫療建議。</p>
-        </article>
-        <article class="card brand-promise-card reveal" data-number="02">
-          <p class="eyebrow">分得清</p>
-          <h3>產品型態與規格各自說明</h3>
-          <p>膏、飲、湯塊、膠與粉，依包裝、份量與使用方式整理，讓客人更容易比較。</p>
-        </article>
-        <article class="card brand-promise-card reveal" data-number="03">
-          <p class="eyebrow">做得到</p>
-          <h3>回到能持續的日常節奏</h3>
-          <p>從固定取用、方便飲用、沖泡燉湯到自行搭配，先選生活裡真正容易做到的方式。</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="brand-generations">
-      <div class="brand-story-panel">
-        <aside class="brand-story-intro reveal">
-          <p class="eyebrow">四代傳承</p>
-          <h2>每一代，都把上一代留下的經驗再往前整理一步</h2>
-          <p>傳承不只是沿用舊方法，也包含因應時代，把原料、工序、規格與使用資訊重新說明。</p>
-        </aside>
-        <div class="brand-timeline">
-          <article class="card brand-generation reveal">
-            <div class="brand-generation__mark">一</div>
-            <div><p class="eyebrow">第一代・扎根</p><h3>從萬華行口與山產買賣開始</h3><p>靠著每天看原料、比品質與累積信用，建立家族最早對產地、交易與原料判斷的理解。</p></div>
-          </article>
-          <article class="card brand-generation reveal">
-            <div class="brand-generation__mark">二</div>
-            <div><p class="eyebrow">第二代・專業</p><h3>祖父「鹿角伯」把工序做成一生的工作</h3><p>從老店現場學起，長年投入鹿角、鹿茸等相關原料的挑選、處理、分級與加工，也累積龜鹿相關實務經驗。</p></div>
-          </article>
-          <article class="card brand-generation reveal">
-            <div class="brand-generation__mark">三</div>
-            <div><p class="eyebrow">第三代・守成</p><h3>把品質與製程穩定延續下來</h3><p>承接日常營運與實際加工工作，持續重視原料、時間、火候與成品穩定度。</p></div>
-          </article>
-          <article class="card brand-generation reveal">
-            <div class="brand-generation__mark">四</div>
-            <div><p class="eyebrow">第四代・整理</p><h3>讓傳統被今天的人重新理解</h3><p>以仙加味為對外品牌，把家族經驗整理成產品頁、正式規格、使用方式、知識內容與 LINE 諮詢流程。</p></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading reveal">
-        <p class="eyebrow">用料與資訊原則</p>
-        <h2>保留傳統的厚度，也保留現代人需要的透明度</h2>
-      </div>
-      <div class="brand-principles">
-        <article class="card brand-principle reveal"><h3>以產品實際標示為準</h3><p>成分、內容量、保存與一般使用方式，以現行產品資訊呈現，避免不同版本互相混用。</p></article>
-        <article class="card brand-principle reveal"><h3>不把食補說成療效</h3><p>網站以日常飲食、產品型態與傳統文化介紹為主；疾病、症狀、孕哺與用藥問題交由專業人員判斷。</p></article>
-        <article class="card brand-principle reveal"><h3>不改變產品真實樣貌</h3><p>產品圖以實際包裝與正式規格呈現，不為了畫面效果任意改變比例、包裝或產品形式。</p></article>
-        <article class="card brand-principle reveal"><h3>讓詢問流程更簡單</h3><p>官網負責把內容說清楚；價格、活動、配送與購買，再由官方 LINE 一對一確認。</p></article>
-      </div>
-    </section>
-
-    <section class="section section--narrow">
-      <article class="final-cta brand-signature reveal">
-        <p class="eyebrow">仙加味</p>
-        <h2>從萬華出發，把傳統整理成今天的日常</h2>
-        <p>我們希望客人不是被複雜名詞推著走，而是先理解產品，再找到適合自己生活節奏的使用方式。</p>
-        <div class="final-cta__actions" style="justify-content:center">
-          <a class="btn btn-primary" href="products.html">查看龜鹿系列</a>
-          <a class="btn btn-outline" href="knowledge.html">前往知識專區</a>
-        </div>
-      </article>
-    </section>
-  `;
 }
 
 function renderMobileCompareCards() {
