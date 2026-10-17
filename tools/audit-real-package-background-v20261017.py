@@ -15,6 +15,9 @@ source_manifest=json.loads((ROOT/"images/catalog-pure-v20261017/manifest.json").
 manifest_sources={x.get("file"):x.get("source") for x in source_manifest.get("items",[])}
 items=[(p["id"],own_media[p["id"]]["mainImage"]) for p in own]
 items += [(p["id"],p["image"]) for p in partner if p.get("public") is True]
+# All six grouped tea products need the same genuine unmodified, background-free packs.
+items += [(v["id"],v["image"]) for p in partner if p.get("public") is True
+          for v in p.get("variants", [])]
 errors=[]
 for pid,name in items:
     filename=name.split("?",1)[0].lstrip("/")
