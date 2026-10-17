@@ -363,10 +363,10 @@
   "officialProductCount": 4,
   "runtime": {
     "productDataAuthority": "public-product-master.json",
-    "productMasterMode": "six-public-product-authority",
-    "knowledgeProductCount": 6,
-    "approvedMediaProductCount": 6,
-    "productMainImageSource": "images/product-main/",
+    "productMasterMode": "current-approved-own-products-plus-dynamic-partner-catalog",
+    "knowledgeProductCount": 4,
+    "approvedMediaProductCount": 4,
+    "productMainImageSource": "site-product-media-authority.js#mainImage",
     "dmFallback": "none-general-display; dm-final-detail-pages-only",
     "productsV3Use": "legacy-reference-only-not-current-main-image",
     "productsV2Use": "legacy-reference-only",
@@ -375,11 +375,12 @@
     "guardPolicy": "latest-authority-first-no-legacy-copy-version-lock",
     "deferredProductPublic": false,
     "productMainImagePolicy": "approved-real-product-identity-photo-inside-simple-product-main-no-ai-redraw-no-product-distortion",
-    "displayVersion": "20260930-product-media-v10",
-    "productDetailImageSource": "images/dm-final/",
-    "productMainImageVersion": "20260930-product-media-v10",
-    "productMainImageRule": "一產品一主圖：首頁、產品總覽、怎麼選、試喝／推薦、產品卡與產品 Hero 一律使用相同 product-main；詳細頁下方才使用 dm-final。",
-    "officialIdentitySource": "verified-original-product-photos-reference-only"
+    "displayVersion": "20261017-owner-approved-photo-main-v4",
+    "productDetailImageSource": "site-product-media-authority.js#detailImages",
+    "productMainImageVersion": "20261017-owner-approved-photo-main-v4",
+    "productMainImageRule": "首頁、產品總覽、商品卡、跳窗與商品詳細頁以最新媒體權威統一；任何新核准商品可依產品ID新增主圖，不以舊固定數量或舊版本阻擋。",
+    "officialIdentitySource": "verified-original-product-photos-reference-only",
+    "futureApprovedCatalog": "public-product-master.json + partner-catalog.json; public=true and verified image/page; hidden ERP data never auto-published"
   },
   "productMainImagePolicy": "one-product-one-main-image-across-all-general-surfaces; detailed-dm-only-on-complete-product-pages"
 }
