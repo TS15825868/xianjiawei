@@ -609,7 +609,15 @@ function renderVideoPage() {
     });
 
     if (count) count.textContent = String(filtered.length);
-    if (empty) empty.hidden = filtered.length > 0;
+    if (empty) {
+      empty.hidden = filtered.length > 0;
+      const heading = empty.querySelector("h3");
+      const message = empty.querySelector("p");
+      if (heading) heading.textContent = videos.length === 0 ? "影音清單正在核對" : "目前沒有符合的影片";
+      if (message) message.textContent = videos.length === 0
+        ? "目前尚無完成來源及內容核實的公開影片可列出。可先查看龜鹿入門、原料與飲食知識，或稍後再回來。"
+        : "可清除搜尋文字，或改選其他分類。";
+    }
 
     if (!filtered.length) {
       featured.innerHTML = "";
