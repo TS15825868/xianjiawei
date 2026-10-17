@@ -176,22 +176,10 @@
     const card=event.target.closest('.product-card[data-fallback-product]');
     if(card)openIntro(card,event);
   },true);
-  document.addEventListener('keydown',event=>{
-    if(!['Enter',' '].includes(event.key))return;
-    const card=event.target.closest('.product-card[data-fallback-product]');
-    if(!card||event.target!==card)return;
-    event.preventDefault();
-    openIntro(card,event);
-  },true);
-
   function enforce(){
     fixDm();
     fixTrial();
     normalizeIntroActions();
-    document.querySelectorAll('.product-card[data-fallback-product]').forEach(card=>{
-      card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-haspopup','dialog');
-      card.setAttribute('aria-label','開啟'+(card.querySelector('h3')?.textContent?.trim()||'商品')+'產品介紹跳窗');
-    });
     document.documentElement.dataset.productIntroMode='unified-catalog-modal-v1';
   }
   let queued=false;
