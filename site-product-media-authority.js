@@ -7,7 +7,7 @@
  */
 (function(){
   const DATA={
-  "version": "20261017-pure-product-v1",
+  "version": "20261017-current-approved-full-real-photo-gallery-v2",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one real photographed physical package per main image on site's original ivory surface; no additional carton-side contents or decorative scene",
@@ -20,23 +20,22 @@
     "guilu-gao": {
       "mainImage": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp",
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp",
-        "images/product-main/gao-packaging-v20261016/box-jar-original.jpg"
-],
+        "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp"
+      ],
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
       "mainImage": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-30-closed-detail.webp"
-],
+      ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
       "mainImage": "images/catalog-pure-v20261017/guilu-drink-180-main.png",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-180-closed-detail.webp"
-],
+      ],
       "identityReference": "images/guilu-drink-180cc.jpg"
     },
     "luerong-fen": {
@@ -45,13 +44,13 @@
       "mainImage": "images/catalog-pure-v20261017/luerong-fen-main.png",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
-],
+      ],
       "identityReference": "images/lurong.jpg"
     },
     "jinan-sisheng-siwuyin": {
       "mainImage": "images/catalog-pure-v20261017/jinan-sisheng-siwuyin-main.webp",
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/siwuyin-real-label-detail.webp"
+        "images/catalog-user-detail-cutouts-v20261017/siwuyin-original-back.webp"
       ]
     },
     "danshen-tea-collection": {
@@ -62,12 +61,12 @@
         "images/catalog-pure-v20261017/tea-fiber-main.webp",
         "images/catalog-pure-v20261017/tea-white-main.webp",
         "images/catalog-pure-v20261017/tea-refresh-main.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-rose-fruit-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-leisure-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-wudahan-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-fiber-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-white-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-refresh-original-back.webp",
         "images/catalog-user-original-v20261017/rose-fruit-real-teabag.webp"
       ]
     },
@@ -75,7 +74,7 @@
       "mainImage": "images/catalog-pure-v20261017/guilu-vitality-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/vitality-real-jar-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/vitality-real-back-detail.webp"
+        "images/catalog-user-detail-cutouts-v20261017/vitality-original-label-closeup.webp"
       ]
     },
     "uboss-sizhenbao": {
@@ -87,7 +86,51 @@
     "royalherb-erzhenbao-64": {
       "mainImage": "images/catalog-user-original-v20261017/erzhenbao-actual-complete-box.webp",
       "detailImages": [
-        "images/catalog-user-original-v20261017/erzhenbao-actual-open-trays.webp"
+        "images/catalog-user-original-v20261017/erzhenbao-open-box-2-trays-owner-v20261017.webp",
+        "images/catalog-user-original-v20261017/erzhenbao-single-tray-8-pieces-owner-v20261017.webp"
+      ]
+    },
+    "jianfeng-rose-fruit-tea": {
+      "mainImage": "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
+      "detailImages": [
+        "images/partner-products/tea-rose-fruit-front.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-rose-fruit-original-back.webp",
+        "images/catalog-user-original-v20261017/rose-fruit-real-teabag.webp"
+      ]
+    },
+    "jianfeng-leisure-tea": {
+      "mainImage": "images/catalog-pure-v20261017/tea-leisure-main.webp",
+      "detailImages": [
+        "images/partner-products/tea-danshen-leisure-front.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-leisure-original-back.webp"
+      ]
+    },
+    "jianfeng-wudahan-tea": {
+      "mainImage": "images/catalog-pure-v20261017/tea-wudahan-main.webp",
+      "detailImages": [
+        "images/partner-products/tea-wudahan-front.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-wudahan-original-back.webp"
+      ]
+    },
+    "jianfeng-fiber-tea": {
+      "mainImage": "images/catalog-pure-v20261017/tea-fiber-main.webp",
+      "detailImages": [
+        "images/partner-products/tea-danshen-lotus-front.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-fiber-original-back.webp"
+      ]
+    },
+    "jianfeng-white-tea": {
+      "mainImage": "images/catalog-pure-v20261017/tea-white-main.webp",
+      "detailImages": [
+        "images/partner-products/tea-white-danshen-front.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-white-original-back.webp"
+      ]
+    },
+    "jianfeng-refresh-tea": {
+      "mainImage": "images/catalog-pure-v20261017/tea-refresh-main.webp",
+      "detailImages": [
+        "images/partner-products/tea-danshen-refresh-front.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-refresh-original-back.webp"
       ]
     }
   }
