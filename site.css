@@ -959,3 +959,41 @@ body[data-page="products"] .product-card[data-product-id="guilu-gao"] .product-c
  aspect-ratio: 1 / 1!important;
  object-fit: contain!important;
 }
+
+/* 2026-10-17 | final pack-only catalog presentation:
+   one original unaltered complete photographed item; no ornamental photo stage.
+   product aspect ratios remain physically accurate, never stretched to the box. */
+body[data-page="products"] .catalog-product-grid .product-card__img,
+body[data-page="products"] #product-list .product-card__img,
+body[data-page="products"] #partner-product-list .product-card__img{
+  aspect-ratio:4/5!important;position:relative!important;
+  display:grid!important;place-items:center!important;background:#F7F4ED!important;
+  padding:0!important;border:0!important;box-shadow:none!important;overflow:hidden!important;
+}
+body[data-page="products"] .product-card__img>a{
+  display:grid!important;place-items:center!important;width:100%!important;height:100%!important;
+  background:transparent!important;
+}
+body[data-page="products"] .product-card__img img,
+body[data-page="home"] .home-product-showcase__grid img{
+  display:block!important;width:100%!important;height:100%!important;
+  max-width:100%!important;max-height:100%!important;aspect-ratio:auto!important;
+  padding:clamp(8px,1.8vw,16px)!important;box-sizing:border-box!important;
+  object-fit:contain!important;object-position:center!important;
+  transform:none!important;filter:none!important;clip-path:none!important;
+  background:transparent!important;border:none!important;box-shadow:none!important;
+}
+body[data-page="products"] .catalog-product-grid .product-card{
+  background:#F7F4ED!important;box-shadow:none!important;min-width:0!important;
+}
+body[data-page="product-detail"] .product-detail-hero__media img,
+.product-modal .modal-gallery__item:first-child img{
+  object-fit:contain!important;object-position:center!important;
+  width:100%!important;max-width:100%!important;height:auto!important;
+  border:0!important;box-shadow:none!important;transform:none!important;
+}
+@media (max-width:700px){
+ body[data-page="products"] .product-card__img img{padding:8px!important}
+ body[data-page="products"] .product-card__body{padding:12px!important}
+ body[data-page="products"] .catalog-product-grid{gap:14px 11px!important}
+}

@@ -1,7 +1,7 @@
 "use strict";
 
-/* 官網顧客產品圖片安全層｜2026-10-16 original-pixel scenic main image v19
- * 產品卡／首頁展示／試喝／推薦／產品詳頁主圖只使用同一套 product-main 漂亮簡單正式主圖。
+/* 官網顧客產品圖片安全層｜2026-10-17 approved original physical pack-only main image v20
+ * 產品卡／首頁展示／試喝／推薦／產品詳頁第一張圖以正式原廠實體盒罐袋為主，僅等比例縮放。
  * dm-final 為完整產品介紹頁詳細圖，不得被主圖守門員覆寫。
  */
 (function(){

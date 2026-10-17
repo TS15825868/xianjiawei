@@ -1,6 +1,6 @@
 {
-  "version": "20261016-longfeng-denggu-original-photo-staging",
-  "status": "image-review-pending-unverified-label-facts",
+  "version": "20261017-verified-real-packages-review-v3",
+  "status": "internal-review-awaiting-full-back-label-and-legal-rights-clearance",
   "method": "actual source photo original pixels masked onto new simple background, not AI redrawn packaging",
   "ingredientPolicy": "do not infer from the box front; customer will upload back label later",
   "products": [
@@ -32,5 +32,16 @@
       "usage": null,
       "shelfLife": null
     }
-  ]
+  ],
+  "presentationChoice": "前面藍色男方／粉紅色女方兩款：真實完整提繩外盒實拍去背優於山水合成包裝；舊候選圖僅供內部校對，不作正式公開主圖。",
+  "packagingDecision": {
+    "male": "true-photo-blue-real-box-with-integral-handle",
+    "female": "true-photo-pink-real-box-with-integral-handle",
+    "public": false,
+    "need": [
+      "完整背面原廠食品標示核對",
+      "正式成分與規格",
+      "代言或醫事人員肖像廣告使用授權"
+    ]
+  }
 }

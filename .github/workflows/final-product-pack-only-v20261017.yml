@@ -1,0 +1,24 @@
+name: Final pack-only product catalog guard
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'products.html'
+      - 'site.css'
+      - 'site-product-media-authority.js'
+      - 'partner-catalog.json'
+      - 'images/catalog-pure-v20261017/**'
+      - 'product-*.html'
+      - 'tools/audit-final-product-pack-only-v20261017.cjs'
+      - '.github/workflows/final-product-pack-only-v20261017.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: node tools/audit-final-product-pack-only-v20261017.cjs
