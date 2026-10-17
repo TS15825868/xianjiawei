@@ -1,5 +1,5 @@
 {
-  "version": "20261017-pure-product-v1",
+  "version": "20261017-final-real-packaging-and-detail-photo-v2",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -45,7 +45,7 @@
         "全素，依原廠包裝標示"
       ],
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/siwuyin-real-label-detail.webp"
+        "images/catalog-user-detail-cutouts-v20261017/siwuyin-original-back.webp"
       ],
       "detailMediaTitle": "原廠包裝標示",
       "fulfillmentNotice": "價格、供貨與配送時間請透過官方 LINE 確認。",
@@ -129,7 +129,7 @@
           "originalFrontPhoto": "images/partner-products/tea-rose-fruit-front.webp",
           "detailImages": [
             "images/partner-products/tea-rose-fruit-front.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
+            "images/catalog-user-detail-cutouts-v20261017/tea-rose-fruit-original-back.webp",
             "images/catalog-user-original-v20261017/rose-fruit-real-teabag.webp"
           ]
         },
@@ -164,7 +164,7 @@
           "originalFrontPhoto": "images/partner-products/tea-danshen-leisure-front.webp",
           "detailImages": [
             "images/partner-products/tea-danshen-leisure-front.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp"
+            "images/catalog-user-detail-cutouts-v20261017/tea-leisure-original-back.webp"
           ]
         },
         {
@@ -200,7 +200,7 @@
           "originalFrontPhoto": "images/partner-products/tea-wudahan-front.webp",
           "detailImages": [
             "images/partner-products/tea-wudahan-front.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp"
+            "images/catalog-user-detail-cutouts-v20261017/tea-wudahan-original-back.webp"
           ]
         },
         {
@@ -235,7 +235,7 @@
           "originalFrontPhoto": "images/partner-products/tea-danshen-lotus-front.webp",
           "detailImages": [
             "images/partner-products/tea-danshen-lotus-front.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp"
+            "images/catalog-user-detail-cutouts-v20261017/tea-fiber-original-back.webp"
           ]
         },
         {
@@ -269,7 +269,7 @@
           "originalFrontPhoto": "images/partner-products/tea-white-danshen-front.webp",
           "detailImages": [
             "images/partner-products/tea-white-danshen-front.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp"
+            "images/catalog-user-detail-cutouts-v20261017/tea-white-original-back.webp"
           ]
         },
         {
@@ -305,7 +305,7 @@
           "originalFrontPhoto": "images/partner-products/tea-danshen-refresh-front.webp",
           "detailImages": [
             "images/partner-products/tea-danshen-refresh-front.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp"
+            "images/catalog-user-detail-cutouts-v20261017/tea-refresh-original-back.webp"
           ]
         }
       ],
@@ -340,12 +340,12 @@
         "images/catalog-pure-v20261017/tea-fiber-main.webp",
         "images/catalog-pure-v20261017/tea-white-main.webp",
         "images/catalog-pure-v20261017/tea-refresh-main.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-rose-fruit-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-leisure-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-wudahan-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-fiber-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-white-original-back.webp",
+        "images/catalog-user-detail-cutouts-v20261017/tea-refresh-original-back.webp",
         "images/catalog-user-original-v20261017/rose-fruit-real-teabag.webp"
       ],
       "originalDetailImages": [
@@ -937,7 +937,7 @@
       ],
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/vitality-real-jar-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/vitality-real-back-detail.webp"
+        "images/catalog-user-detail-cutouts-v20261017/vitality-original-label-closeup.webp"
       ],
       "mainImageDescription": "原廠60毫升玻璃罐實拍去背情境圖；禮盒規格仍為12罐入",
       "mainPhotoRole": "single real physical pack or carton; no surrounding decorative scene; complete visible package, preserve real original pixels",

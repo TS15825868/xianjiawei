@@ -1,0 +1,70 @@
+{
+  "version": "20261017-official-final-back-label-original-only-v1",
+  "visualRule": "Original retail package pixel values retained; product itself never AI generated, painted or geometrically invented",
+  "approvedDetailAssets": [
+    {
+      "file": "images/catalog-user-detail-cutouts-v20261017/tea-rose-fruit-original-back.webp",
+      "originalPhotoSource": "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
+      "sourceSHA256": "b3ebef7eaf0db45f6fb8fb95df55f61245c6d378a757b60901553b1a6f28275c",
+      "outputSHA256": "22598f395cb89201ce4d2c82bde2a72654120083bc44b9e26f13d869cdd6a5cb",
+      "processing": "manual original-photo geometry crop and exterior alpha only",
+      "noArtificialLabels": true
+    },
+    {
+      "file": "images/catalog-user-detail-cutouts-v20261017/tea-leisure-original-back.webp",
+      "originalPhotoSource": "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
+      "sourceSHA256": "8a7dc6a1f00e430001dcbe6ccefd2038e2f714981926a3dfffcb93bd6bf4480e",
+      "outputSHA256": "502792032203df0f6d5d924f07abc44e0ee0c8bb7ee04fbc9f2ddf8e97e7b238",
+      "processing": "manual original-photo geometry crop and exterior alpha only",
+      "noArtificialLabels": true
+    },
+    {
+      "file": "images/catalog-user-detail-cutouts-v20261017/tea-wudahan-original-back.webp",
+      "originalPhotoSource": "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
+      "sourceSHA256": "fd77fca4a2ed92c781b43e5a6df53f53f5da47a2096ce49ef6f56082e8b42aec",
+      "outputSHA256": "e3f8d8719cf2facd9be507ee32a3b793ecfc38b80ef3e7b4cefef265bb4e1596",
+      "processing": "manual original-photo geometry crop and exterior alpha only",
+      "noArtificialLabels": true
+    },
+    {
+      "file": "images/catalog-user-detail-cutouts-v20261017/tea-fiber-original-back.webp",
+      "originalPhotoSource": "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp",
+      "sourceSHA256": "e435c45d67698e160e9fd65af8a27781dbbfbbda130a4ccae334de2123dffe7b",
+      "outputSHA256": "b97e736cf85ce6942ae5bf117beb7f38c905e5cf51399006e133c196dccd1604",
+      "processing": "manual original-photo geometry crop and exterior alpha only",
+      "noArtificialLabels": true
+    },
+    {
+      "file": "images/catalog-user-detail-cutouts-v20261017/tea-white-original-back.webp",
+      "originalPhotoSource": "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp",
+      "sourceSHA256": "6b49d5783c6f7c61598b25cdf32b47fcdc97073a4d824877d7a65717df80d472",
+      "outputSHA256": "6536512cbc13466c715891c7a64e27f4e18fd5bd34f5d8490cff8361e238d4be",
+      "processing": "manual original-photo geometry crop and exterior alpha only",
+      "noArtificialLabels": true
+    },
+    {
+      "file": "images/catalog-user-detail-cutouts-v20261017/tea-refresh-original-back.webp",
+      "originalPhotoSource": "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp",
+      "sourceSHA256": "0c06d20a04190b910fdc3412f2affb149bb35ebea3280f831272c3f966f86e83",
+      "outputSHA256": "58ab303c94bde9861d8473a8238a7b141367c1c1ce8c18d0735e11c415814b42",
+      "processing": "manual original-photo geometry crop and exterior alpha only",
+      "noArtificialLabels": true
+    },
+    {
+      "file": "images/catalog-user-detail-cutouts-v20261017/siwuyin-original-back.webp",
+      "originalPhotoSource": "images/catalog-clean-studio-v20261016-v5/siwuyin-real-label-detail.webp",
+      "sourceSHA256": "03d1cd3594854bdb4a39ca124403d55f037278f9adfdfac92fc47945c90f696e",
+      "outputSHA256": "88b5a9c39a883f911e24e6b69b75874b5c5b5dc358b99195d7b4a981bb5b012e",
+      "processing": "manual original-photo geometry crop and exterior alpha only",
+      "noArtificialLabels": true
+    },
+    {
+      "file": "images/catalog-user-detail-cutouts-v20261017/vitality-original-label-closeup.webp",
+      "originalPhotoSource": "images/catalog-clean-studio-v20261016-v5/vitality-real-back-detail.webp",
+      "sourceSHA256": "bc81c1e85aa1282515b395092739bc18bb249ff8e3c57e0dcc249cd765227c47",
+      "outputSHA256": "09048dde9009b6f89fbecb3141ca786244e979759fc5e8e5398623709b64cbe9",
+      "processing": "manual original-photo geometry crop and exterior alpha only",
+      "noArtificialLabels": true
+    }
+  ]
+}
