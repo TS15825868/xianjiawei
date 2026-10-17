@@ -585,7 +585,7 @@ function renderVideoPage() {
   const featured = document.getElementById("video-featured");
   if (!grid || !featured) return;
 
-  const videos = Array.isArray(SITE_DATA?.videos) ? SITE_DATA.videos : [];
+  const videos = (Array.isArray(SITE_DATA?.videos) ? SITE_DATA.videos : []).filter(video => /^https:\/\/(?:www\.)?(?:tiktok\.com|douyin\.com)\//i.test(String(video?.url || "")));
   const filters = Array.from(document.querySelectorAll("[data-video-filter]"));
   const search = document.getElementById("video-search");
   const count = document.getElementById("video-count");
@@ -643,10 +643,10 @@ function renderFeaturedVideo(video) {
     <article class="card video-featured reveal">
       <a class="video-featured__cover" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener" aria-label="觀看${escapeAttribute(title)}">
         <span class="video-play" aria-hidden="true">▶</span>
-        <span class="video-cover-label">${escapeHtml(category)}・精選</span>
+        <span class="video-cover-label">${escapeHtml(category)}・原平台</span>
       </a>
       <div class="video-featured__body">
-        <p class="eyebrow">知識影音精選</p>
+        <p class="eyebrow">公開影音連結</p>
         <h2>${escapeHtml(title)}</h2>
         <p>頁面不自動播放；點擊後開啟原始公開平台觀看。</p>
         <a class="btn btn-outline" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener">觀看原影片</a>
