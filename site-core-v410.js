@@ -648,7 +648,7 @@ function renderFeaturedVideo(video) {
       <div class="video-featured__body">
         <p class="eyebrow">公開影音連結</p>
         <h2>${escapeHtml(title)}</h2>
-        <p>頁面不自動播放；點擊後開啟原始公開平台觀看。</p>
+        <p>原始公開影片連結；影片主題與內容尚待逐支核實，不代表仙加味商品功效或合作背書。</p>
         <a class="btn btn-outline" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener">觀看原影片</a>
       </div>
     </article>
