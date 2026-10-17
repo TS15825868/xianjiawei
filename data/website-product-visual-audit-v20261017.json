@@ -1,18 +1,18 @@
 {
-  "version": "20261017-authentic-scenic-release-v2",
+  "version": "20261017-pure-product-v1",
   "repo": "TS15825868/xianjiawei",
   "sourceCommit": "606db23d20294649372c80ff9e5bf56a90260c14",
   "scope": "existing nine public product pages / current media references",
   "photos": {
-    "guilu-gao": "images/product-main/gao-packaging-v20261016/box-jar-scene.webp",
-    "guilu-drink-30": "images/catalog-scenic-approved-v20261017/guilu-drink-30-main.webp",
-    "guilu-drink-180": "images/catalog-scenic-approved-v20261017/guilu-drink-180-main.webp",
-    "luerong-fen": "images/catalog-scenic-approved-v20261017/luerong-fen-main.webp",
-    "jinan-sisheng-siwuyin": "images/catalog-scenic-approved-v20261017/jinan-sisheng-siwuyin-main.webp",
-    "danshen-tea-collection": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
-    "guilu-vitality": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
-    "uboss-sizhenbao": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
-    "royalherb-erzhenbao-64": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp"
+    "guilu-gao": "images/catalog-pure-v20261017/guilu-gao-main.webp",
+    "guilu-drink-30": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
+    "guilu-drink-180": "images/catalog-pure-v20261017/guilu-drink-180-main.png",
+    "luerong-fen": "images/catalog-pure-v20261017/luerong-fen-main.png",
+    "jinan-sisheng-siwuyin": "images/catalog-pure-v20261017/jinan-sisheng-siwuyin-main.webp",
+    "danshen-tea-collection": "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
+    "guilu-vitality": "images/catalog-pure-v20261017/guilu-vitality-main.webp",
+    "uboss-sizhenbao": "images/catalog-pure-v20261017/uboss-sizhenbao-main.png",
+    "royalherb-erzhenbao-64": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp"
   },
   "actualPhotoRules": [
     "Never redraw manufacturer labels or repackaged product pixels",
@@ -27,7 +27,7 @@
     "Existing Siwu box photos crop its handle",
     "Vitality 12-pack complete carton photos crop an edge; show the real jar until whole-carton photo is available"
   ],
-  "publishStatus": "Photo references updated; awaiting GitHub Pages live verification",
-  "outstandingNote": "JinAn original box front source crops the handle; the genuine photo was placed onto brand scenery without inventing missing packaging. A new full physical front photo is still needed.",
+  "publishStatus": "Assets staged in official pure-product main image set; deploy & live visual QA follow commit",
+  "outstandingNote": "Two/Four treasures back-of-box full original photos remain in Project Library but cannot be raw-materialized; site retains existing cropped label evidence. JiAn rope edge photo not fully captured. Do not claim all packs physically complete until original-photo checks pass.",
   "releaseEvidence": "Three real-scene composites published with identical asset blobs and traceable existing original photo source; candidate folder retained intact."
 }

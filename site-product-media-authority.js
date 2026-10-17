@@ -7,18 +7,18 @@
  */
 (function(){
   const DATA={
-  "version": "20261017-authentic-scenic-release-v2",
+  "version": "20261017-pure-product-v1",
   "scope": "website-product-media",
   "rules": {
-    "generalDisplay": "one verified original-photo main per product; images/catalog-real-v20261016; retail box first when sold as complete gift box",
-    "productDetailHero": "identical original-photo product image for home, product card and detail hero; real outer carton first where available",
+    "generalDisplay": "one real photographed physical package per main image on site's original ivory surface; no additional carton-side contents or decorative scene",
+    "productDetailHero": "identical intact single product photo on home, card, modal and detail page; full outer carton or primary retail unit",
     "productDetailMedia": "details can show real item, actual portions and manufacturer original label; do not redraw packaging; deer-antler powder must remain sealed",
     "identityReference": "validation/reference only; never general public main image",
     "luerongFenVisual": "official 75g jar fully closed and sealed only; never show opened jar, loose powder, spoonfuls, bowls of powder, or mixing drinks in product images"
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/product-main/gao-packaging-v20261016/box-jar-scene.webp",
+      "mainImage": "images/catalog-pure-v20261017/guilu-gao-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp",
         "images/product-main/gao-packaging-v20261016/box-jar-original.jpg"
@@ -26,14 +26,14 @@
       "identityReference": "images/guilu-gao.jpg"
     },
     "guilu-drink-30": {
-      "mainImage": "images/catalog-scenic-approved-v20261017/guilu-drink-30-main.webp",
+      "mainImage": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-30-closed-detail.webp"
 ],
       "identityReference": "images/guilu-drink-30cc-glass.jpg"
     },
     "guilu-drink-180": {
-      "mainImage": "images/catalog-scenic-approved-v20261017/guilu-drink-180-main.webp",
+      "mainImage": "images/catalog-pure-v20261017/guilu-drink-180-main.png",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-drink-180-closed-detail.webp"
 ],
@@ -42,27 +42,27 @@
     "luerong-fen": {
       "visualPolicy": "sealed-original-75g-jar-exterior-only",
       "showContents": false,
-      "mainImage": "images/catalog-scenic-approved-v20261017/luerong-fen-main.webp",
+      "mainImage": "images/catalog-pure-v20261017/luerong-fen-main.png",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
 ],
       "identityReference": "images/lurong.jpg"
     },
     "jinan-sisheng-siwuyin": {
-      "mainImage": "images/catalog-scenic-approved-v20261017/jinan-sisheng-siwuyin-main.webp",
+      "mainImage": "images/catalog-pure-v20261017/jinan-sisheng-siwuyin-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/siwuyin-real-label-detail.webp"
       ]
     },
     "danshen-tea-collection": {
-      "mainImage": "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
+      "mainImage": "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
       "detailImages": [
-            "images/partner-products/scenes-v20261016/tea-rose-fruit-front-scene.webp",
-            "images/partner-products/scenes-v20261016/tea-danshen-leisure-front-scene.webp",
-            "images/partner-products/scenes-v20261016/tea-wudahan-front-scene.webp",
-            "images/partner-products/scenes-v20261016/tea-danshen-lotus-front-scene.webp",
-            "images/partner-products/scenes-v20261016/tea-white-danshen-front-scene.webp",
-            "images/partner-products/scenes-v20261016/tea-danshen-refresh-front-scene.webp",
+            "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
+            "images/catalog-pure-v20261017/tea-leisure-main.webp",
+            "images/catalog-pure-v20261017/tea-wudahan-main.webp",
+            "images/catalog-pure-v20261017/tea-fiber-main.webp",
+            "images/catalog-pure-v20261017/tea-white-main.webp",
+            "images/catalog-pure-v20261017/tea-refresh-main.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
             "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
@@ -74,21 +74,21 @@
       ]
     },
     "guilu-vitality": {
-      "mainImage": "images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
+      "mainImage": "images/catalog-pure-v20261017/guilu-vitality-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/vitality-real-jar-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/vitality-real-back-detail.webp"
       ]
     },
     "uboss-sizhenbao": {
-      "mainImage": "images/partner-products/scenes-v20261016/four-treasures-front-scene.webp",
+      "mainImage": "images/catalog-pure-v20261017/uboss-sizhenbao-main.png",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp"
       ]
     },
     "royalherb-erzhenbao-64": {
-      "mainImage": "images/partner-products/scenes-v20261016/er-zhen-bao-royalherb-original-scene.webp",
+      "mainImage": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp"
       ]

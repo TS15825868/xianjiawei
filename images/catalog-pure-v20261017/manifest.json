@@ -1,0 +1,145 @@
+{
+  "version": "20261017-pure-product-v1",
+  "state": "release-product-only-main",
+  "method": "reuse the exact existing real package/jar cutout or clean photographed outer-box image; no AI reconstruction, ornamental stage, additional portions, or forged label",
+  "verifiedProductIds": [
+    "guilu-gao",
+    "guilu-drink-30",
+    "guilu-drink-180",
+    "luerong-fen",
+    "jinan-sisheng-siwuyin",
+    "danshen-tea-collection",
+    "guilu-vitality",
+    "uboss-sizhenbao",
+    "royalherb-erzhenbao-64"
+  ],
+  "items": [
+    {
+      "file": "images/catalog-pure-v20261017/guilu-gao-main.webp",
+      "source": "images/catalog-clean-studio-v20261016-v5/guilu-gao-main.webp",
+      "sourceGitBlob": "758770ad642a7e836703dcac24e0f3561831cb0d",
+      "bytes": 74748,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
+      "source": "images/product-cutout-review/guilu-drink-30.png",
+      "sourceGitBlob": "d46d1c788b2bd9edd6522e4524faaec5c478c880",
+      "bytes": 507964,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/guilu-drink-180-main.png",
+      "source": "images/product-cutout-review/guilu-drink-180.png",
+      "sourceGitBlob": "82a167036b026247d1954d6a4491a3aa79e3b914",
+      "bytes": 1275088,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/luerong-fen-main.png",
+      "source": "images/product-cutout-review/luerong-fen.png",
+      "sourceGitBlob": "910f7eee29bfdac73d3f9d4f1a05fc4b5fd9f78e",
+      "bytes": 382072,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/jinan-sisheng-siwuyin-main.webp",
+      "source": "images/partner-products/cutouts-v20261016/jinan-siwuyin-front-cutout.webp",
+      "sourceGitBlob": "e173675d0f4bfbb503bf61e06242370d9a910819",
+      "bytes": 695050,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",
+      "sourceGitBlob": "01ea2dbbdb47094bed6707dd2bcae8212dc60caa",
+      "bytes": 339162,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/guilu-vitality-main.webp",
+      "source": "images/partner-products/cutouts-v20261016/jinan-vitality-front-cutout.webp",
+      "sourceGitBlob": "bc4fcb914894aff8fa61f12abd2d1ba5abf6d6ef",
+      "bytes": 480674,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/uboss-sizhenbao-main.png",
+      "source": "images/partner-product-design-review/uboss-sizhenbao-cutout.png",
+      "sourceGitBlob": "bf5a7e7b84a015f73570ca48f02b9fad9a8f0a79",
+      "bytes": 801764,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp",
+      "source": "images/catalog-corrections-v20261016-v6/royalherb-erzhenbao-64-main.webp",
+      "sourceGitBlob": "f9b45dad351973f25a7a711212732ca57dadd865",
+      "bytes": 145552,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/tea-rose-fruit-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-rose-fruit-front-cutout.webp",
+      "sourceGitBlob": "01ea2dbbdb47094bed6707dd2bcae8212dc60caa",
+      "bytes": 339162,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/tea-leisure-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-danshen-leisure-front-cutout.webp",
+      "sourceGitBlob": "66f9c115df0386231343e64b2cc7cf7a20eeb4e5",
+      "bytes": 348850,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/tea-wudahan-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-wudahan-front-cutout.webp",
+      "sourceGitBlob": "062ae0d1c237958b20e8336429fb239aae7254ff",
+      "bytes": 357198,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/tea-fiber-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-danshen-lotus-front-cutout.webp",
+      "sourceGitBlob": "6f18783338d2f6c67ea4d55082f4e9bacb9fbfd0",
+      "bytes": 358750,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/tea-white-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-white-danshen-front-cutout.webp",
+      "sourceGitBlob": "a8c6883359071a8564fc924c4d8d99cc152de822",
+      "bytes": 363966,
+      "preserved": true,
+      "redrawn": false
+    },
+    {
+      "file": "images/catalog-pure-v20261017/tea-refresh-main.webp",
+      "source": "images/partner-products/site-hero-v20261016/tea-danshen-refresh-front-cutout.webp",
+      "sourceGitBlob": "27a2251d2640d7b3387b4d919218d93280d59f55",
+      "bytes": 360048,
+      "preserved": true,
+      "redrawn": false
+    }
+  ],
+  "evidenceLimitations": {
+    "jinan-sisheng-siwuyin": "The original source photo has partly cropped rope handles.",
+    "guilu-vitality": "Foreground segmentation around gift-box handles has visible original-photo artifact risk; complete original packaging is retained.",
+    "uboss-sizhenbao": "The complete real outer box was cut out including an incidental bag above box top; no pixel inpainting.",
+    "royalherb-erzhenbao-64": "Source is an actual purple box with ivory background rather than transparent matte.",
+    "guilu-gao": "Single original outer carton, rather than carton-plus-jar composition."
+  }
+}

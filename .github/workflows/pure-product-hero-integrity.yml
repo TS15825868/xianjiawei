@@ -1,0 +1,27 @@
+name: Pure real product photo integrity
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'products.html'
+      - 'trial.html'
+      - 'product-*.html'
+      - 'partner-catalog.json'
+      - 'data/product-media-authority.json'
+      - 'site-product-media-authority.js'
+      - 'site.css'
+      - 'images/catalog-pure-v20261017/**'
+      - 'tools/audit-pure-product-hero.cjs'
+      - '.github/workflows/pure-product-hero-integrity.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify no extra packaging/ornamental main image or cropped CSS
+        run: node tools/audit-pure-product-hero.cjs
