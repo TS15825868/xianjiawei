@@ -10,13 +10,13 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20261017-owner-approved-photo-main-v4';
+  const VERSION='20261017-dynamic-current-product-master-v2';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
   const CURRENT_30_USAGE='每日 1–2 罐，可依個人需求調整';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
-  const REQUIRED_CURRENT_IDS=Object.freeze(['guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen']);
-  const DEFERRED_ID='qixuan-guilu-drink-powder';
+  // 核對最新公開母資料，不把曾經的四款商品或暫緩狀態寫成永久限制。
+  // 每次正式新增／暫停都由 public-product-master.json 的明確公開名單及當期停用清單決定。
   const mediaAuthority=()=>window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const versioned=value=>{const base=String(value||'').split('?')[0];return base?`${base}?v=${VERSION}`:'';};
   const nativeFetch=window.fetch.bind(window);
@@ -38,15 +38,17 @@
       if(master?.authority!=='user-confirmed-current'||!ids.length||Number(master?.productCount)!==ids.length||new Set(ids).size!==ids.length){
         throw new Error(`public-product-master authority/productCount invalid: ${master?.productCount||'missing'} [${ids.join(',')}]`);
       }
-      for(const id of REQUIRED_CURRENT_IDS)if(!ids.includes(id))throw new Error(`required current public product missing: ${id}`);
-      if(ids.includes(DEFERRED_ID))throw new Error('deferred Qixuan must not be reintroduced into website master');
-      const p30=master.products.find(product=>product.id==='guilu-drink-30');
-      if(!Array.isArray(p30?.usage)||!['每日 1–2 罐',CURRENT_30_USAGE].includes(p30.usage[0])){
-        throw new Error(`public-product-master 30cc usage invalid: ${p30?.usage?.[0]||'missing'}`);
-      }
-      const gao=master.products.find(product=>product.id==='guilu-gao');
-      if(!Array.isArray(gao?.usage)||gao.usage[0]!==CURRENT_GAO_TIMING){
-        throw new Error(`public-product-master Guilu Gao timing invalid: ${gao?.usage?.[0]||'missing'}`);
+      const activeHoldIds=Array.isArray(master?.expansionPolicy?.temporarilyExcludedProductIds)
+        ? master.expansionPolicy.temporarilyExcludedProductIds : [];
+      const stalePublic=ids.filter(id=>activeHoldIds.includes(id));
+      if(stalePublic.length)throw new Error(`temporarily excluded product in current public master: ${stalePublic.join(',')}`);
+      for(const product of master.products){
+        if(typeof product?.name!=='string'||!product.name.trim()||typeof product?.specification!=='string'||!product.specification.trim()){
+          throw new Error(`public product missing name/specification: ${product?.id||'unknown'}`);
+        }
+        if(product.usage!==undefined&&(!Array.isArray(product.usage)||!product.usage.every(x=>typeof x==='string'&&x.trim()))){
+          throw new Error(`public product has invalid usage: ${product.id}`);
+        }
       }
       state.master=master;
       return master;
@@ -137,7 +139,7 @@
       productMasterLoaded:true,
       knowledgeProductCount:publicIds.length,
       approvedMediaProductCount:approvedMediaCount,
-      deferredWebsiteProduct:DEFERRED_ID
+      temporarilyExcludedProductIds:[...(master?.expansionPolicy?.temporarilyExcludedProductIds||[])]
     };
     return normalized;
   }
@@ -204,14 +206,6 @@
     ['30cc／瓶（玻璃瓶）','30cc／罐（小玻璃罐）'],
     ['30cc／瓶','30cc／罐（小玻璃罐）'],
     ['龜鹿飲30cc玻璃瓶','龜鹿飲30cc玻璃罐'],
-    ['每日 1–2 罐，可依個人需求調整',CURRENT_30_USAGE],
-    ['每日 1–2 罐，可依個人需求調整',CURRENT_30_USAGE],
-    ['每日 1–2 罐，可依個人需求調整',CURRENT_30_USAGE],
-    ['每日 1-2 罐',CURRENT_30_USAGE],
-    ['每日早上及下午各一小匙',CURRENT_GAO_TIMING],
-    ['早晚各一小匙',CURRENT_GAO_TIMING],
-    ['早上＋下午','時間依作息安排'],
-    ['早上+下午','時間依作息安排'],
     ['75g （2兩）／盒｜8塊裝','75g／盒｜8塊裝'],
     ['75g（2兩）／盒｜8塊裝','75g／盒｜8塊裝'],
     ['75g（2兩／8塊裝）','75g／盒｜8塊裝'],
