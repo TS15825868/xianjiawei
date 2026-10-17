@@ -1389,7 +1389,7 @@
       "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
       "requiresDoctorReferralForOrdinaryFoodSale": false,
       "brandLegalName": "御采堂生技食品有限公司",
-      "image": "images/catalog-pure-v20261017/uboss-sizhenbao-main.png",
+      "image": "images/catalog-pure-v20261017/uboss-sizhenbao-main-framed.webp",
       "page": "product-four-treasures.html",
       "imageSourceRecord": {
         "sourceRepository": "Wuji29879526/Wuji",
@@ -1571,7 +1571,7 @@
       "compliance": "不沿用外盒療效形容、舊建議售價或不確定的保險理賠保證；上架產品圖務必紫色二珍寶原廠盒裝實物。",
       "pricePresentation": "LINE詢價（不得顯示實物盒上舊建議售價）",
       "page": "product-er-zhen-bao.html",
-      "image": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp",
+      "image": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp",
       "imageSourceStatus": "verified-original-manufacturer-webp-hosted-on-current-main",
       "approvedImageGitSha": "b44d0577d2f23046b1e6341f3af7a6d6e3e633dc",
       "imageFromOriginal": true,

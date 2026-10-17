@@ -7,7 +7,7 @@
   if (!root || !filters || !status) return;
   const lineUrl = "https://lin.ee/sHZW7NkR";
   const ownImage = {
-    "guilu-gao": "images/catalog-pure-v20261017/guilu-gao-main.webp",
+    "guilu-gao": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp",
     "guilu-drink-30": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
     "guilu-drink-180": "images/catalog-pure-v20261017/guilu-drink-180-main.png",
     "luerong-fen": "images/catalog-pure-v20261017/luerong-fen-main.png"

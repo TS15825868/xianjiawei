@@ -4,15 +4,15 @@
   "sourceCommit": "606db23d20294649372c80ff9e5bf56a90260c14",
   "scope": "existing nine public product pages / current media references",
   "photos": {
-    "guilu-gao": "images/catalog-pure-v20261017/guilu-gao-main.webp",
+    "guilu-gao": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp",
     "guilu-drink-30": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
     "guilu-drink-180": "images/catalog-pure-v20261017/guilu-drink-180-main.png",
     "luerong-fen": "images/catalog-pure-v20261017/luerong-fen-main.png",
     "jinan-sisheng-siwuyin": "images/catalog-pure-v20261017/jinan-sisheng-siwuyin-main.webp",
     "danshen-tea-collection": "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
     "guilu-vitality": "images/catalog-pure-v20261017/guilu-vitality-main.webp",
-    "uboss-sizhenbao": "images/catalog-pure-v20261017/uboss-sizhenbao-main.png",
-    "royalherb-erzhenbao-64": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp"
+    "uboss-sizhenbao": "images/catalog-pure-v20261017/uboss-sizhenbao-main-framed.webp",
+    "royalherb-erzhenbao-64": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp"
   },
   "actualPhotoRules": [
     "Never redraw manufacturer labels or repackaged product pixels",

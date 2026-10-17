@@ -18,7 +18,7 @@
   },
   "products": {
     "guilu-gao": {
-      "mainImage": "images/catalog-pure-v20261017/guilu-gao-main.webp",
+      "mainImage": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/guilu-gao-box-jar-detail.webp",
         "images/product-main/gao-packaging-v20261016/box-jar-original.jpg"
@@ -81,14 +81,14 @@
       ]
     },
     "uboss-sizhenbao": {
-      "mainImage": "images/catalog-pure-v20261017/uboss-sizhenbao-main.png",
+      "mainImage": "images/catalog-pure-v20261017/uboss-sizhenbao-main-framed.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp"
       ]
     },
     "royalherb-erzhenbao-64": {
-      "mainImage": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp",
+      "mainImage": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp"
       ]

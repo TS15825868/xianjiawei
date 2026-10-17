@@ -947,3 +947,15 @@ body[data-page="product-detail"] .product-detail-hero__media img[src*="catalog-p
     padding:10px!important
   }
 }
+
+/* Complete retail carton main-photo controls - authentic primary image only. */
+body[data-page="products"] .product-card[data-product-id="uboss-sizhenbao"] .product-card__img,
+body[data-page="products"] .product-card[data-product-id="royalherb-erzhenbao-64"] .product-card__img,
+body[data-page="products"] .product-card[data-product-id="guilu-gao"] .product-card__img {
+ aspect-ratio: 1 / 1!important;
+}
+.product-detail-hero__media img[src*="main-framed.webp"],
+.product-modal .modal-gallery__item:first-child img[src*="main-framed.webp"] {
+ aspect-ratio: 1 / 1!important;
+ object-fit: contain!important;
+}

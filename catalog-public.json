@@ -79,15 +79,15 @@
       ],
       "fulfillmentType": "ready-stock",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html",
-      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-pure-v20261017/guilu-gao-main.webp?v=20261017-pure-product-v1",
+      "image": "https://ts15825868.github.io/xianjiawei/images/catalog-pure-v20261017/guilu-gao-main-framed.webp?v=20261017-pure-product-v1",
       "dmImage": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260930-product-media-v10",
       "knownContainerDimensionsMm": {
         "width": 51,
         "height": 78
       },
       "imagePolicy": "主圖顯示真實外包裝；詳細頁顯示真實罐／袋／內裝與標示；只去背合成，禁止AI重畫商品",
-      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-pure-v20261017/guilu-gao-main.webp?v=20261017-pure-product-v1",
-      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-pure-v20261017/guilu-gao-main.webp?v=20261017-pure-product-v1",
+      "imageUrl": "https://ts15825868.github.io/xianjiawei/images/catalog-pure-v20261017/guilu-gao-main-framed.webp?v=20261017-pure-product-v1",
+      "image_url": "https://ts15825868.github.io/xianjiawei/images/catalog-pure-v20261017/guilu-gao-main-framed.webp?v=20261017-pure-product-v1",
       "officialOriginalImage": "https://ts15825868.github.io/xianjiawei/images/guilu-gao.jpg?v=20260930-product-media-v10",
       "dm": "https://ts15825868.github.io/xianjiawei/images/dm-final/01_guilu-gao-100g-dm.jpg?v=20260930-product-media-v10",
       "specification": "100g／罐",

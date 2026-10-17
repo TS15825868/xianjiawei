@@ -11,7 +11,7 @@ const names={
  "jinan-sisheng-siwuyin":["product-jinan-siwuyin.html","webp"],
  "danshen-tea-collection":["product-danshen-tea.html","webp"],
  "guilu-vitality":["product-guilu-vitality.html","webp"],
- "uboss-sizhenbao":["product-four-treasures.html","png"],
+ "uboss-sizhenbao":["product-four-treasures.html","webp"],
  "royalherb-erzhenbao-64":["product-er-zhen-bao.html","webp"]
 };
 const version="20261017-pure-product-v1";
@@ -25,7 +25,7 @@ const css=fs.readFileSync("site.css","utf8");
 const errors=[];
 function check(ok,comment){if(!ok)errors.push(comment)}
 for(const [id,[page,ext]] of Object.entries(names)){
- const expected="images/catalog-pure-v20261017/"+id+"-main."+ext;
+ const expected="images/catalog-pure-v20261017/"+id+(["guilu-gao","uboss-sizhenbao","royalherb-erzhenbao-64"].includes(id)?"-main-framed.webp":"-main."+ext);
  const source=manifest.items.find(i=>i.file===expected);
  check(source&&fs.existsSync(source.source),id+" missing physical photo source");
  check(source?.preserved===true&&source?.redrawn===false,id+" source integrity metadata lost");

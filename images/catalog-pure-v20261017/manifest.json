@@ -1,5 +1,5 @@
 {
-  "version": "20261017-pure-product-v1",
+  "version": "20261017-clean-full-boxes-v2",
   "state": "release-product-only-main",
   "method": "reuse the exact existing real package/jar cutout or clean photographed outer-box image; no AI reconstruction, ornamental stage, additional portions, or forged label",
   "verifiedProductIds": [
@@ -15,12 +15,15 @@
   ],
   "items": [
     {
-      "file": "images/catalog-pure-v20261017/guilu-gao-main.webp",
+      "file": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp",
       "source": "images/catalog-clean-studio-v20261016-v5/guilu-gao-main.webp",
       "sourceGitBlob": "758770ad642a7e836703dcac24e0f3561831cb0d",
       "bytes": 74748,
       "preserved": true,
-      "redrawn": false
+      "redrawn": false,
+      "originalMainBeforeFraming": "images/catalog-pure-v20261017/guilu-gao-main.webp",
+      "sourcePreserved": true,
+      "sourceProcessing": "No new product-pixel painting. Crop existing ivory space, or alpha-mask photographed incidental plastic bag above true carton edge."
     },
     {
       "file": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
@@ -71,22 +74,29 @@
       "redrawn": false
     },
     {
-      "file": "images/catalog-pure-v20261017/uboss-sizhenbao-main.png",
+      "file": "images/catalog-pure-v20261017/uboss-sizhenbao-main-framed.webp",
       "source": "images/partner-products/four-treasures-front.jpg",
       "sourceGitBlob": "bf5a7e7b84a015f73570ca48f02b9fad9a8f0a79",
       "bytes": 801764,
       "preserved": true,
       "redrawn": false,
       "matteIntermediate": "images/partner-product-design-review/uboss-sizhenbao-cutout.png",
-      "originalPixelIntegrity": "Original JPEG photographed full outer carton and incidental plastic bag; exported cutout remains byte-identical to staged real-pixel matte"
+      "originalPixelIntegrity": "Original JPEG photographed full outer carton and incidental plastic bag; exported cutout remains byte-identical to staged real-pixel matte",
+      "originalMainBeforeFraming": "images/catalog-pure-v20261017/uboss-sizhenbao-main.png",
+      "sourcePreserved": true,
+      "sourceProcessing": "No new product-pixel painting. Crop existing ivory space, or alpha-mask photographed incidental plastic bag above true carton edge.",
+      "intermediateSource": "images/partner-product-design-review/uboss-sizhenbao-cutout.png"
     },
     {
-      "file": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp",
+      "file": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp",
       "source": "images/catalog-corrections-v20261016-v6/royalherb-erzhenbao-64-main.webp",
       "sourceGitBlob": "f9b45dad351973f25a7a711212732ca57dadd865",
       "bytes": 145552,
       "preserved": true,
-      "redrawn": false
+      "redrawn": false,
+      "originalMainBeforeFraming": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp",
+      "sourcePreserved": true,
+      "sourceProcessing": "No new product-pixel painting. Crop existing ivory space, or alpha-mask photographed incidental plastic bag above true carton edge."
     },
     {
       "file": "images/catalog-pure-v20261017/tea-rose-fruit-main.webp",
@@ -143,5 +153,10 @@
     "uboss-sizhenbao": "The complete real outer box was cut out including an incidental bag above box top; no pixel inpainting.",
     "royalherb-erzhenbao-64": "Source is an actual purple box with ivory background rather than transparent matte.",
     "guilu-gao": "Single original outer carton, rather than carton-plus-jar composition."
+  },
+  "boxPhotoSourceReview": {
+    "uboss-sizhenbao": "Previously supplied real red box IMG_9834(3).jpeg visually verified; this export generated from the matching existing GitHub original",
+    "royalherb-erzhenbao-64": "Previously supplied real purple box IMG_9999.jpeg visually verified; prior verified GitHub original crop used",
+    "guilu-gao": "Use the already approved genuine complete carton, not a carton-plus-jar montage"
   }
 }

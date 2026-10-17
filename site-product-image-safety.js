@@ -12,7 +12,7 @@
   const MEDIA_AUTHORITY=window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const mainImage=(id,fallback)=>`${MEDIA_AUTHORITY?.mainImage?.(id)||fallback}?v=${VERSION}`;
   const CUSTOMER=Object.freeze({
-    gao:mainImage("guilu-gao","images/catalog-pure-v20261017/guilu-gao-main.webp"),
+    gao:mainImage("guilu-gao","images/catalog-pure-v20261017/guilu-gao-main-framed.webp"),
     drink30:mainImage("guilu-drink-30","images/catalog-pure-v20261017/guilu-drink-30-main.png"),
     drink180:mainImage("guilu-drink-180","images/catalog-pure-v20261017/guilu-drink-180-main.png"),
     tangkuai:mainImage("guilu-tangkuai","images/product-main/guilu-tangkuai.jpg"),
