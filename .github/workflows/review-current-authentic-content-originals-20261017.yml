@@ -1,0 +1,32 @@
+name: Inspect authentic content source photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/review-current-authentic-content-originals-20261017.yml'
+permissions:
+  contents: read
+jobs:
+  list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve currently stored original photo sources for visual comparison
+        shell: bash
+        run: |
+          set -eu
+          mkdir -p review-source
+          for image in \
+            images/partner-products/scenes-v20261016/rose-teabag-original.jpg \
+            images/partner-products/supplements-v20261016/erzhenbao-tray-light.jpg \
+            images/partner-products/supplements-v20261016/four-treasures-sealed-tray.jpg \
+            images/partner-products/supplements-v20261016/four-treasures-tray-back.jpg \
+            images/product-background-review-v20261016/royalherb-erzhenbao-64.webp; do
+            test -s "$image"
+            install -D "$image" "review-source/$image"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: owner-authentic-product-detail-source-review
+          path: review-source/
+          retention-days: 3
