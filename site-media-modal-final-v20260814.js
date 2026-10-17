@@ -92,9 +92,10 @@
         'product-luerong-fen.html':'鹿茸粉'
       };
       const name=String(product?.displayName||product?.name||nearby||fallbackNames[page]||'').trim();
-      if(name)anchor.textContent=name+'｜查看介紹';
-      else if(existing==='查看介紹')anchor.textContent='查看商品詳細資料';
-      anchor.setAttribute('aria-label',anchor.textContent.trim());
+      const label=name?name+'｜查看介紹':(existing==='查看介紹'?'查看商品詳細資料':existing);
+      // MutationObserver 會重跑標準化；內容未變時不可重建文字節點，否則手機點擊可能被中斷。
+      if(existing!==label)anchor.textContent=label;
+      if(anchor.getAttribute('aria-label')!==label)anchor.setAttribute('aria-label',label);
     }
     anchor.dataset.productIntro='1';
     anchor.setAttribute('aria-haspopup','dialog');
