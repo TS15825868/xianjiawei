@@ -1,0 +1,26 @@
+name: Genuine transparent product-pack originals
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'images/catalog-pure-v20261017/**'
+      - 'partner-catalog.json'
+      - 'public-product-master.json'
+      - 'data/product-media-authority.json'
+      - 'tools/audit-real-package-background-v20261017.py'
+      - '.github/workflows/real-product-transparent-main-photo-guard.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  review-photo-source-and-transparency:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow
+      - run: python tools/audit-real-package-background-v20261017.py
+      - run: python tools/validate-partner-catalog-integrity.py
