@@ -1,0 +1,358 @@
+{
+  "reviewedAtUtc": "2026-10-17T15:02:01.416446+00:00",
+  "scope": "網站根目錄所有HTML及最新公開商品資料，不包含隱藏ERP記錄",
+  "allHtmlCount": 45,
+  "ownApprovedCount": 4,
+  "partnerApprovedCount": 5,
+  "publishedEntries": 9,
+  "publicIds": [
+    "guilu-gao",
+    "guilu-drink-30",
+    "guilu-drink-180",
+    "luerong-fen",
+    "jinan-sisheng-siwuyin",
+    "danshen-tea-collection",
+    "guilu-vitality",
+    "uboss-sizhenbao",
+    "royalherb-erzhenbao-64"
+  ],
+  "pages": [
+    {
+      "file": "404.html",
+      "chars": 95,
+      "hidden": true,
+      "images": 0,
+      "links": 3
+    },
+    {
+      "file": "brand-facts.html",
+      "chars": 1320,
+      "hidden": false,
+      "images": 0,
+      "links": 20
+    },
+    {
+      "file": "brand-origin.html",
+      "chars": 719,
+      "hidden": true,
+      "images": 0,
+      "links": 5
+    },
+    {
+      "file": "brand.html",
+      "chars": 2091,
+      "hidden": false,
+      "images": 1,
+      "links": 6
+    },
+    {
+      "file": "choose.html",
+      "chars": 462,
+      "hidden": false,
+      "images": 0,
+      "links": 5
+    },
+    {
+      "file": "combo.html",
+      "chars": 365,
+      "hidden": false,
+      "images": 0,
+      "links": 9
+    },
+    {
+      "file": "contact.html",
+      "chars": 571,
+      "hidden": false,
+      "images": 2,
+      "links": 3
+    },
+    {
+      "file": "craft.html",
+      "chars": 792,
+      "hidden": false,
+      "images": 0,
+      "links": 5
+    },
+    {
+      "file": "dm.html",
+      "chars": 372,
+      "hidden": true,
+      "images": 0,
+      "links": 11
+    },
+    {
+      "file": "faq.html",
+      "chars": 1692,
+      "hidden": false,
+      "images": 0,
+      "links": 5
+    },
+    {
+      "file": "googlec5c2af289948c263.html",
+      "chars": 53,
+      "hidden": false,
+      "images": 0,
+      "links": 0
+    },
+    {
+      "file": "guide.html",
+      "chars": 1040,
+      "hidden": false,
+      "images": 0,
+      "links": 6
+    },
+    {
+      "file": "hanfang-baike.html",
+      "chars": 872,
+      "hidden": false,
+      "images": 0,
+      "links": 7
+    },
+    {
+      "file": "index.html",
+      "chars": 1125,
+      "hidden": false,
+      "images": 10,
+      "links": 26
+    },
+    {
+      "file": "ingredients.html",
+      "chars": 674,
+      "hidden": false,
+      "images": 0,
+      "links": 6
+    },
+    {
+      "file": "knowledge.html",
+      "chars": 1107,
+      "hidden": false,
+      "images": 0,
+      "links": 12
+    },
+    {
+      "file": "links.html",
+      "chars": 284,
+      "hidden": false,
+      "images": 1,
+      "links": 7
+    },
+    {
+      "file": "post-bank-export.html",
+      "chars": 121,
+      "hidden": true,
+      "images": 0,
+      "links": 0
+    },
+    {
+      "file": "post-image-guilu-drink.html",
+      "chars": 118,
+      "hidden": true,
+      "images": 2,
+      "links": 2
+    },
+    {
+      "file": "product-danshen-tea.html",
+      "chars": 1023,
+      "hidden": false,
+      "images": 13,
+      "links": 37
+    },
+    {
+      "file": "product-er-zhen-bao.html",
+      "chars": 1076,
+      "hidden": false,
+      "images": 7,
+      "links": 12
+    },
+    {
+      "file": "product-four-treasures.html",
+      "chars": 1152,
+      "hidden": false,
+      "images": 6,
+      "links": 12
+    },
+    {
+      "file": "product-guilu-drink-180cc.html",
+      "chars": 633,
+      "hidden": false,
+      "images": 2,
+      "links": 9
+    },
+    {
+      "file": "product-guilu-drink-30cc.html",
+      "chars": 680,
+      "hidden": false,
+      "images": 2,
+      "links": 9
+    },
+    {
+      "file": "product-guilu-gao.html",
+      "chars": 607,
+      "hidden": false,
+      "images": 2,
+      "links": 9
+    },
+    {
+      "file": "product-guilu-jiao.html",
+      "chars": 40,
+      "hidden": true,
+      "images": 0,
+      "links": 1
+    },
+    {
+      "file": "product-guilu-tangkuai.html",
+      "chars": 40,
+      "hidden": true,
+      "images": 0,
+      "links": 1
+    },
+    {
+      "file": "product-guilu-vitality.html",
+      "chars": 880,
+      "hidden": false,
+      "images": 3,
+      "links": 10
+    },
+    {
+      "file": "product-jianfeng-fiber-tea.html",
+      "chars": 41,
+      "hidden": true,
+      "images": 0,
+      "links": 1
+    },
+    {
+      "file": "product-jianfeng-leisure-tea.html",
+      "chars": 44,
+      "hidden": true,
+      "images": 0,
+      "links": 1
+    },
+    {
+      "file": "product-jianfeng-refresh-tea.html",
+      "chars": 41,
+      "hidden": true,
+      "images": 0,
+      "links": 1
+    },
+    {
+      "file": "product-jianfeng-rose-fruit-tea.html",
+      "chars": 42,
+      "hidden": true,
+      "images": 0,
+      "links": 1
+    },
+    {
+      "file": "product-jianfeng-white-tea.html",
+      "chars": 41,
+      "hidden": true,
+      "images": 0,
+      "links": 1
+    },
+    {
+      "file": "product-jianfeng-wudahan-tea.html",
+      "chars": 40,
+      "hidden": true,
+      "images": 0,
+      "links": 1
+    },
+    {
+      "file": "product-jinan-siwuyin.html",
+      "chars": 503,
+      "hidden": false,
+      "images": 2,
+      "links": 8
+    },
+    {
+      "file": "product-luerong-fen.html",
+      "chars": 539,
+      "hidden": false,
+      "images": 2,
+      "links": 9
+    },
+    {
+      "file": "products.html",
+      "chars": 889,
+      "hidden": false,
+      "images": 9,
+      "links": 23
+    },
+    {
+      "file": "publishing-center.html",
+      "chars": 3,
+      "hidden": true,
+      "images": 0,
+      "links": 0
+    },
+    {
+      "file": "quality.html",
+      "chars": 666,
+      "hidden": false,
+      "images": 0,
+      "links": 5
+    },
+    {
+      "file": "recipes.html",
+      "chars": 723,
+      "hidden": false,
+      "images": 0,
+      "links": 8
+    },
+    {
+      "file": "sources.html",
+      "chars": 831,
+      "hidden": false,
+      "images": 0,
+      "links": 10
+    },
+    {
+      "file": "trial-line.html",
+      "chars": 136,
+      "hidden": true,
+      "images": 2,
+      "links": 1
+    },
+    {
+      "file": "trial.html",
+      "chars": 613,
+      "hidden": false,
+      "images": 3,
+      "links": 12
+    },
+    {
+      "file": "video.html",
+      "chars": 281,
+      "hidden": false,
+      "images": 0,
+      "links": 2
+    },
+    {
+      "file": "why-guilu.html",
+      "chars": 707,
+      "hidden": false,
+      "images": 0,
+      "links": 12
+    }
+  ],
+  "counts": {
+    "warning": 2
+  },
+  "findings": [
+    {
+      "severity": "warning",
+      "file": "googlec5c2af289948c263.html",
+      "code": "mobile_metadata",
+      "detail": "缺繁中lang或viewport"
+    },
+    {
+      "severity": "warning",
+      "file": "googlec5c2af289948c263.html",
+      "code": "missing_h1",
+      "detail": "公開頁無H1"
+    }
+  ],
+  "limitations": [
+    "尚未包含實際 LINE OA 回覆、ERP D1 即時值與社群平台",
+    "關於食品廣告須依法規並結合圖文上下文判斷",
+    "原廠真實包裝不自動改寫；無完整背面照則不假造"
+  ]
+}
