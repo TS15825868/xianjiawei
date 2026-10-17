@@ -1,0 +1,41 @@
+name: True photo transparent retail cartons
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/transparent-real-product-cartons-20261017.yml'
+      - 'ops/refine-authentic-background-only-v20261017.py'
+permissions:
+  contents: write
+jobs:
+  background-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install deterministic image-processing tool
+        run: python -m pip install pillow
+      - name: Erase background from two actual complete retail cartons
+        run: python ops/refine-authentic-background-only-v20261017.py
+      - name: Verify original-photo integrity and all current catalog listings
+        run: |
+          python tools/validate-partner-catalog-integrity.py
+          node tools/audit-pure-product-hero.cjs
+      - name: Commit only two transparent product photographs and manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'xianjiawei-actions'
+          git config user.email 'xianjiawei-actions@users.noreply.github.com'
+          git add images/catalog-pure-v20261017/guilu-gao-main-framed.webp
+          git add images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp
+          git add images/catalog-pure-v20261017/manifest.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix: erase photo backgrounds while preserving genuine package pixels'
+            git push origin HEAD:main
+          fi
