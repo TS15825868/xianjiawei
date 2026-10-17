@@ -22,7 +22,7 @@ jobs:
           from pathlib import Path
           from zipfile import ZipFile, ZIP_DEFLATED
           base=Path(".")
-          output=Path("仙加味_產品正面背面與內容物_20261017.zip")
+          output=Path("仙加味_產品正面背面與內容物_20261017_補全背面版.zip")
           root="仙加味產品圖"
           products=[
             ("01_龜鹿膏","guilu-gao","images/catalog-owner-final-v20261017/guilu-gao-main.webp",[],[("外盒與罐身實拍","images/catalog-user-original-v20261017/guilu-gao-box-jar-owner-selected-detail-v20261017.webp")],[]),
@@ -41,6 +41,28 @@ jobs:
             ("09_二珍寶","royalherb-erzhenbao-64","images/catalog-owner-final-v20261017/royalherb-erzhenbao-64-main.webp",[(f"原廠標示局部{i}","images/catalog-labels-v20261016-v7/royalherb-erzhenbao-64-label-"+str(i)+".webp") for i in range(1,5)],[("單盤八塊實拍","images/catalog-user-original-v20261017/erzhenbao-single-tray-8-pieces-owner-v20261017.webp"),("完整開盒雙盤實拍","images/catalog-user-original-v20261017/erzhenbao-open-box-2-trays-owner-v20261017.webp")],[])
           ]
           assert len(products)==14
+          # Recover whole ORIGINAL back-label photo, while retaining separately
+          # cropped label detail. These files are source photographs with their
+          # original shooting scene; never represent a crop as a whole rear.
+          back_originals={
+            "jinan-sisheng-siwuyin":"images/partner-products/jinan-siwuyin-label.jpg",
+            "jianfeng-rose-fruit-tea":"images/partner-products/tea-rose-fruit-label-source.jpg",
+            "jianfeng-leisure-tea":"images/partner-products/tea-danshen-leisure-label-source.jpg",
+            "jianfeng-wudahan-tea":"images/partner-products/tea-wudahan-label-source.jpg",
+            "jianfeng-fiber-tea":"images/partner-products/tea-danshen-lotus-label-source.jpg",
+            "jianfeng-white-tea":"images/partner-products/tea-white-danshen-label-source.jpg",
+            "jianfeng-refresh-tea":"images/partner-products/tea-danshen-refresh-label-source.jpg",
+            "guilu-vitality":"images/partner-products/jinan-vitality-label-original.jpg"
+          }
+          for folder,id,front,backs,contents,others in products:
+            if id in back_originals:
+              label="原廠整張背面實拍（可能含正面及現場背景）"
+              backs.append((label,back_originals[id]))
+            if id=="uboss-sizhenbao":
+              contents.extend([
+                ("原廠封膜內盤實拍","images/partner-products/supplements-v20261016/four-treasures-sealed-tray.jpg"),
+                ("八塊內盤背面實拍","images/partner-products/supplements-v20261016/four-treasures-tray-back.jpg")
+              ])
           rows=[];missing=[]
           def name_for(role,label,path):
             ext=Path(path).suffix
@@ -76,7 +98,7 @@ jobs:
       - name: Upload user-downloadable ZIP file
         uses: actions/upload-artifact@v4
         with:
-          name: xianjiawei-product-front-back-content-20261017
-          path: 仙加味_產品正面背面與內容物_20261017.zip
+          name: xianjiawei-product-front-back-content-full-back-20261017
+          path: 仙加味_產品正面背面與內容物_20261017_補全背面版.zip
           if-no-files-found: error
           retention-days: 30
