@@ -1,8 +1,7 @@
 {
-  "version": "20261017-public-gallery-verification-v2",
+  "version": "20261017-public-original-photo-content-sync-v3",
   "repo": "TS15825868/xianjiawei",
-  "sourceCommit": "914b3a5de86888c2367609a0b83839bec0496f75",
-  "scope": "nine approved public product cards and detail pages; six tea variants; current publication / sitemap / JSON-LD gate",
+  "scope": "currently approved nine public product cards and details, six distinct tea fronts, real manufacturer contents and labels",
   "photos": {
     "guilu-gao": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp",
     "guilu-drink-30": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
@@ -12,7 +11,7 @@
     "danshen-tea-collection": "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
     "guilu-vitality": "images/catalog-pure-v20261017/guilu-vitality-main.webp",
     "uboss-sizhenbao": "images/catalog-pure-v20261017/uboss-sizhenbao-main-framed.webp",
-    "royalherb-erzhenbao-64": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp"
+    "royalherb-erzhenbao-64": "images/catalog-user-original-v20261017/erzhenbao-actual-complete-box.webp"
   },
   "actualPhotoRules": [
     "Never redraw manufacturer labels or repackaged product pixels",
@@ -22,14 +21,14 @@
     "Original label crops stay accessible on product detail pages inside a collapsible area"
   ],
   "unresolved": [
-    "Full original two-treasure rear package IMG_9998(3).jpeg is not stored as a single public verified image",
-    "Full original four-treasure rear package IMG_9833(4).jpeg is not stored as a single public verified image",
-    "Existing Siwu box photos crop its handle",
-    "Vitality 12-pack complete carton photos crop an edge; show the real jar until whole-carton photo is available"
+    "二珍寶及四珍寶的完整原廠背面尚未有可公開且無誤的整張照片，僅保留已可核對的局部原廠標示",
+    "參仲四物飲禮盒原始照片上緣提繩存在裁切，不能生成缺少部分",
+    "龜鹿活力飲12入外盒的原圖邊緣未完整，仍使用已確認真實正確的既有產品圖",
+    "玫瑰果茶有實物茶包原照，其餘五款茶的內容物必須獨立確認，不能共用玫瑰果茶內容物"
   ],
-  "publishStatus": "Nine current detail pages read successfully on public GitHub Pages; GitHub Pages deploy and partner-catalog integrity passed at 914b3a5. Visual photo-edge completeness requires genuine original-photo review.",
-  "outstandingNote": "未核對完整外盒後面照片的產品保留待補；不以 AI 假造缺失的上緣、提繩、背標或營養資訊。本次 ZIP 不含上述完整新商品照片，勿用早期龜鹿照片包覆蓋現行九款。手機與桌機實際畫面截圖尚未完成。",
-  "releaseEvidence": "Three real-scene composites published with identical asset blobs and traceable existing original photo source; candidate folder retained intact.",
+  "publishStatus": "正式 main：九款主圖、六款茶外盒、二珍寶真實開盒內盤、四珍寶實物膏塊及玫瑰茶包均已匹配各自實際網站頁面，來源檔案經 SHA 驗證。",
+  "outstandingNote": "真實照片去背不是 AI 重新設計包裝；產品背標或盒緣原圖沒有拍完整時只保留已真實存在、可辨識且不失真的部分，不自動補畫。",
+  "releaseEvidence": "最新正式 main 批次出口 ZIP 產生並通過 55 張參照媒體掃描，商品照片來源校驗與 GitHub Pages 重新部署均已成功；圖片主圖與各自內包圖引用跟隨最新正式公開目錄。",
   "verifiedChecks": {
     "livePublicProductCards": 9,
     "liveProductDetailPagesRead": 9,
@@ -37,8 +36,16 @@
     "publicationStates": "4 approved own-brand + 5 approved partner products/groups; unapproved catalog records excluded from live nine-card listing",
     "retiredOwnedProductPages": "guilu-jiao and guilu-tangkuai remain noindex redirect stubs, absent from sitemap",
     "sitemapAndStructuredData": "validated dynamically against approved public products through latest partner catalog integrity workflow",
-    "latestVerifiedDeployCommit": "914b3a5de86888c2367609a0b83839bec0496f75",
+    "latestVerifiedDeployCommit": "bf44a6445d92fd71a6ecfd33795a3923b3d6e40a",
     "latestDeployWorkflowConclusion": "success",
-    "latestPartnerCatalogIntegrityConclusion": "success"
-  }
+    "latestPartnerCatalogIntegrityConclusion": "success",
+    "genuineContentPhotos": [
+      "royalherb-erzhenbao-64/erzhenbao-actual-open-trays.webp",
+      "uboss-sizhenbao/sizhenbao-actual-8-blocks.webp",
+      "jianfeng-rose-fruit-tea/rose-fruit-real-teabag.webp"
+    ],
+    "publicMediaExport": "55 distinct live referenced image assets exported and archive CRC verified at https://github.com/TS15825868/xianjiawei/actions/runs/39029985515",
+    "livePhotoAuthority": "Images derived from currently approved catalog and page refs, not frozen old image path"
+  },
+  "sourceAuthority": "TS15825868/xianjiawei main: public-product-master.json + data/product-media-authority.json + partner-catalog.json"
 }
