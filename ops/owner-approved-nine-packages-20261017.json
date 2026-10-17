@@ -1,0 +1,51 @@
+{
+  "version": "20261017-owner-approved-nine-full-front-packages",
+  "note": "Owner supplied complete originals. Preserve photographed print; do not generate or relabel packaging.",
+  "photos": {
+    "guilu-gao": {
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/f34214db-cc68-4739-86be-0a38ebb89c82.jpg",
+      "sha256": "e57e4afac35f3b4e31c3181c9610765c3773496ff97a325b36071ae3d538c397",
+      "from": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp"
+    },
+    "guilu-drink-30": {
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/b5198a68-55f2-4faa-81dc-969f83f6df00.jpg",
+      "sha256": "41226c2351974c3aa8354ec1a929c5bd1b983ed11e21a1931fb93c2525f10a73",
+      "from": "images/catalog-pure-v20261017/guilu-drink-30-main.png"
+    },
+    "guilu-drink-180": {
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/aa2ebcff-8dd8-4360-828b-f349efc72122.jpg",
+      "sha256": "562c858e24d2159929e9d76bbf6819807708e786110b1e002738b9d6fa7e4a2f",
+      "from": "images/catalog-pure-v20261017/guilu-drink-180-main.png"
+    },
+    "luerong-fen": {
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/72e43927-8661-477a-858b-20b142be2555.jpg",
+      "sha256": "8296cb3d8c4fe50b1656f4132659f42fd90c34fa62bfcd6df4c070b5cdb33e7f",
+      "from": "images/catalog-pure-v20261017/luerong-fen-main.png"
+    },
+    "danshen-tea-collection": {
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/6d7860ef-d894-4879-9556-e48cc6c45b70.jpg",
+      "sha256": "5532805fdcfd99222898b2938a56c5bc57ee38125badc20e09699b8f220b1e20",
+      "from": "images/catalog-pure-v20261017/danshen-tea-collection-main.webp"
+    },
+    "jinan-sisheng-siwuyin": {
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/c115f32f-17f3-4379-bffa-4356f3598afa.jpg",
+      "sha256": "046254196e85528f6e0e95699973c6c881e8ed4764a7b68d746210228328b78f",
+      "from": "images/catalog-pure-v20261017/jinan-sisheng-siwuyin-main.webp"
+    },
+    "guilu-vitality": {
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/7d82f00c-d4c0-4d58-9174-4a9406649769.jpg",
+      "sha256": "6d45f78e2785420b4d3c64d4bc859ee82a92b77bb6d360acdc62a6576c8c4d80",
+      "from": "images/catalog-pure-v20261017/guilu-vitality-main.webp"
+    },
+    "uboss-sizhenbao": {
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/fe33bde2-61df-4b0f-a32c-f135c704e811.jpg",
+      "sha256": "bfb267034794290feaf93552d2d2021b5a691f3026765a86da2e0946872122b3",
+      "from": "images/catalog-pure-v20261017/uboss-sizhenbao-main-framed.webp"
+    },
+    "royalherb-erzhenbao-64": {
+      "url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3I7cZELbKfOMYPcVd2g8GfqVrb4/c012eab5-3a0d-4b53-ac44-bd5bc8740d60.jpg",
+      "sha256": "ac581119448b459e8b363e56be2778de85a6bc6d3a6f9c48c51eba94294cc13f",
+      "from": "images/catalog-user-original-v20261017/erzhenbao-actual-complete-box.webp"
+    }
+  }
+}
