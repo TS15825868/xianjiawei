@@ -1313,3 +1313,24 @@ body[data-page="product-detail"] .product-detail-hero__media img{
     object-fit:contain!important;
   }
 }
+
+/* 2026-10-18 | 全站閱讀層級與留白統一：保留品牌山水、產品原圖及既有功能。 */
+body:not([data-page="publishing-center"]) .section-heading{max-width:860px;margin-inline:auto;text-align:center}
+body:not([data-page="publishing-center"]) .section-heading h2{line-height:1.3;letter-spacing:.015em;text-wrap:balance}
+body:not([data-page="publishing-center"]) .section-heading > p{line-height:1.75}
+body:not([data-page="publishing-center"]) .card{min-width:0}
+body:not([data-page="publishing-center"]) .card p,
+body:not([data-page="publishing-center"]) .card li{overflow-wrap:break-word;line-height:1.8}
+body:not([data-page="publishing-center"]) .card h3{line-height:1.4;text-wrap:balance}
+body:not([data-page="publishing-center"]) .final-cta__actions{gap:12px}
+body:not([data-page="publishing-center"]) .final-cta__actions .btn{white-space:normal;text-align:center;line-height:1.45;min-height:44px}
+body:not([data-page="publishing-center"]) .product-complete-grid .card{align-content:start}
+body:not([data-page="publishing-center"]) .product-complete-grid .list{padding-inline-start:1.25em}
+@media(max-width:700px){
+  body:not([data-page="publishing-center"]) .section-heading{text-align:left}
+  body:not([data-page="publishing-center"]) .section-heading h2{font-size:clamp(1.35rem,5vw,1.8rem)}
+  body:not([data-page="publishing-center"]) .grid{min-width:0}
+  body:not([data-page="publishing-center"]) .final-cta__actions{display:flex;flex-wrap:wrap}
+  body:not([data-page="publishing-center"]) .final-cta__actions .btn{max-width:100%}
+  body:not([data-page="publishing-center"]) .card{overflow-wrap:anywhere}
+}
