@@ -118,9 +118,13 @@ def main():
     if evidence.is_file():
         source = json.loads(evidence.read_text(encoding='utf-8'))
         for entry in source['photos']:
-            if entry['file'] not in owners:
-                raise RuntimeError('An approved new original photo is orphaned: ' + entry['file'])
-            checksum = hashlib.sha256((ROOT / entry['file']).read_bytes()).hexdigest()
+            # Original source photos remain hash-verifiable even after a newer
+            # owner-approved detail image replaces their published gallery use.
+            # The published ZIP still exports ONLY currently referenced images.
+            file_path = ROOT / entry['file']
+            if not file_path.is_file():
+                raise FileNotFoundError('Original photo provenance missing: ' + entry['file'])
+            checksum = hashlib.sha256(file_path.read_bytes()).hexdigest()
             if checksum != entry['mediaSha256']:
                 raise RuntimeError('Altered owner-origin photo: ' + entry['file'])
 
