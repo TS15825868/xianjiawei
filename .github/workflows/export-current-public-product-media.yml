@@ -4,6 +4,12 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/export-current-public-product-media.yml'
+      - 'partner-catalog.json'
+      - 'data/product-media-authority.json'
+      - 'product-*.html'
+      - 'images/catalog-user-detail-cutouts-v20261017/**'
+      - 'images/catalog-user-original-v20261017/**'
+      - 'images/catalog-pure-v20261017/**'
       - 'tools/export-current-public-product-media.py'
   workflow_dispatch:
 permissions:
