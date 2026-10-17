@@ -31,7 +31,7 @@
     back.textContent = "← 返回商品"; back.addEventListener("click",closeViewer);
     const x = document.createElement("button");
     x.type = "button"; x.className = "xjw-photo-viewer__close";
-    x.textContent = "✕ 關閉"; x.setAttribute("aria-label","關閉照片");
+    x.textContent = "✕ 關閉"; x.setAttribute("aria-label","✕ 關閉");
     x.addEventListener("click",closeViewer);
     heading.append(back,x);
     const img = document.createElement("img");
