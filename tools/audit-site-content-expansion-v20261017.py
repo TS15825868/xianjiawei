@@ -47,7 +47,7 @@ for f in sorted(ROOT.glob("*.html")):
     txt=" ".join(p.text)
     hidden=p.noindex or f.name.startswith("googlec") or f.name in ("publishing-center.html","post-bank-export.html","post-image-guilu-drink.html")
     if not hidden and "台興山產" in txt:issue("error",f.name,"deprecated_brand","公開可見內容有舊商號")
-    if not p.lang or not p.viewport:issue("warning",f.name,"mobile_metadata","缺繁中lang或viewport")
+    if not hidden and (not p.lang or not p.viewport):issue("warning",f.name,"mobile_metadata","缺繁中lang或viewport")
     if not hidden and not p.h1:issue("warning",f.name,"missing_h1","公開頁無H1")
     for url in p.links+[x[0] for x in p.images]:
         ref=local(url)
