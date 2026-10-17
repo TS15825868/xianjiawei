@@ -586,7 +586,7 @@ function renderVideoPage() {
   const featured = document.getElementById("video-featured");
   if (!grid || !featured) return;
 
-  const videos = (Array.isArray(SITE_DATA?.videos) ? SITE_DATA.videos : []).filter(video => /^https:\/\/(?:www\.)?(?:tiktok\.com|douyin\.com)\//i.test(String(video?.url || "")));
+  const videos = (Array.isArray(SITE_DATA?.videos) ? SITE_DATA.videos : []).filter(video => video?.contentVerification === "verified" && /^https:\/\/(?:www\.)?(?:tiktok\.com|douyin\.com)\//i.test(String(video?.url || "")));
   const filters = Array.from(document.querySelectorAll("[data-video-filter]"));
   const search = document.getElementById("video-search");
   const count = document.getElementById("video-count");
