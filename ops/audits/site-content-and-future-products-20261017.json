@@ -1,5 +1,5 @@
 {
-  "reviewedAtUtc": "2026-10-17T15:04:54.872680+00:00",
+  "reviewedAtUtc": "2026-10-17T15:06:16.358988+00:00",
   "scope": "網站根目錄所有HTML及最新公開商品資料，不包含隱藏ERP記錄",
   "allHtmlCount": 45,
   "ownApprovedCount": 4,
@@ -333,17 +333,8 @@
       "links": 12
     }
   ],
-  "counts": {
-    "warning": 1
-  },
-  "findings": [
-    {
-      "severity": "warning",
-      "file": "googlec5c2af289948c263.html",
-      "code": "mobile_metadata",
-      "detail": "缺繁中lang或viewport"
-    }
-  ],
+  "counts": {},
+  "findings": [],
   "limitations": [
     "尚未包含實際 LINE OA 回覆、ERP D1 即時值與社群平台",
     "關於食品廣告須依法規並結合圖文上下文判斷",
