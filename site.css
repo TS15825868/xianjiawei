@@ -1275,3 +1275,18 @@ body[data-page="product-detail"] .product-detail-hero__media img{
   padding:0!important;
   margin:0 auto!important;
 }
+
+/* Product photo standard: current and future catalog entries */
+:is(.product-card__img,.product-detail-hero__media,.product-variant__photo,.modal-gallery__item,.home-product-showcase__grid a,.trial-product-card__media) {
+  background:transparent!important;
+  background-image:none!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+:is(.product-card__img,.product-detail-hero__media,.product-variant__photo,.modal-gallery__item,.home-product-showcase__grid a,.trial-product-card__media) img {
+  object-fit:contain!important;
+  object-position:center!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
