@@ -1,0 +1,20 @@
+{
+  "version": "20261017-owner-confirmed-real-erzhenbao-trays-v1",
+  "product": "royalherb-erzhenbao-64",
+  "publishedDetailPhotos": [
+    {
+      "path": "images/catalog-user-original-v20261017/erzhenbao-open-box-2-trays-owner-v20261017.webp",
+      "sourceFilename": "4BB89ABD-5C86-479C-B781-6C937BF0022D(1).jpeg",
+      "sourceSha256": "b37118060205f4673bef8c0efc8c4697ad87d4c4fa06878a694effda87dc84b2"
+    },
+    {
+      "path": "images/catalog-user-original-v20261017/erzhenbao-single-tray-8-pieces-owner-v20261017.webp",
+      "sourceFilename": "97E3BBEF-1E9C-4A53-BF4E-3F09FFF0C68B(1).jpeg",
+      "sourceSha256": "4126f132cb1b85ae83e38bf8e8f46d69c99f23dadcc0a1489c21906f055ca8ab"
+    }
+  ],
+  "photoProcess": "Original user-provided product pixels; white shooting background removed using deterministic photo mask only. No generative packaging modification.",
+  "publicPhotoPlacement": "二珍寶詳細頁，非商品主圖",
+  "totalContents": "64塊／盒；單盤展示8塊。",
+  "mainPhotoUnaffected": "images/catalog-user-original-v20261017/erzhenbao-actual-complete-box.webp"
+}
