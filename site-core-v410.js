@@ -413,7 +413,7 @@ function renderProductsPage() {
         <p class="eyebrow">${escapeHtml(productDisplaySpec(product) || "產品規格")}</p>
         <h3>${escapeHtml(product.displayName || product.name || "產品")}</h3>
         <p>${escapeHtml(product.purpose || product.description || "")}</p>
-        <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">查看介紹</a>
+        <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">${escapeHtml(product.displayName || product.name || "產品")}｜查看介紹</a>
       </article>
     `).join("");
   }
@@ -447,7 +447,7 @@ function fillProducts(targetId, products, options = {}) {
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
           <div class="product-card__actions">
-            <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(page)}">查看介紹</a>
+            <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(page)}">${escapeHtml(name)}｜查看介紹</a>
           </div>
         </div>
       </article>
@@ -841,7 +841,7 @@ function renderMobileCompareCards() {
         <article class="mobile-compare-card">
           <h3>${escapeHtml(name)}</h3>
           <dl>${details}</dl>
-          <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(href)}">查看介紹</a>
+          <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(href)}">${escapeHtml(name)}｜查看介紹</a>
         </article>
       `;
     }).join("");
@@ -892,7 +892,7 @@ function openProductModal(product, sourceElement) {
     </div>
 
     <div class="modal-actions">
-      ${(product.page || product.detailPage) ? `<a class="btn btn-primary" data-product-page-direct="1" href="${escapeAttribute(product.page || product.detailPage)}">查看詳細</a>` : ""}
+      ${(product.page || product.detailPage) ? `<a class="btn btn-primary" data-product-page-direct="1" href="${escapeAttribute(product.page || product.detailPage)}">${escapeHtml(name)}｜完整商品資料</a>` : ""}
       ${product.informationOnly ? lineButton("LINE 商品與門市諮詢", `我想了解${name}的規格、包裝與門市資訊。`) : lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
     </div>
   `;
