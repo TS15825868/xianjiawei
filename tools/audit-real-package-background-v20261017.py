@@ -24,6 +24,15 @@ for pid,name in items:
     photo=ROOT/filename
     if not photo.is_file():
         errors.append(f"{pid}: main image missing {filename}");continue
+    if filename.startswith("images/catalog-user-original-v20261017/"):
+        import hashlib
+        evidence=json.loads((ROOT/"images/catalog-user-original-v20261017/source-integrity.json").read_text(encoding="utf-8"))
+        matched=next((m for m in evidence["photos"] if m["file"]==filename and m["id"]==pid),None)
+        if not matched or hashlib.sha256(photo.read_bytes()).hexdigest()!=matched["mediaSha256"]:
+            errors.append(f"{pid}: source image provenance or published hash mismatch")
+        img=Image.open(photo)
+        if img.mode!="RGBA" or img.getchannel("A").getextrema()!=(0,255):
+            errors.append(f"{pid}: product pack requires real transparent background")
     if filename.startswith("images/catalog-pure-v20261017/"):
         raw=manifest_sources.get(filename)
         if not raw or not (ROOT/raw).is_file():

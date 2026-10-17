@@ -57,20 +57,18 @@
     "danshen-tea-collection": {
       "mainImage": "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
       "detailImages": [
-            "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
-            "images/catalog-pure-v20261017/tea-leisure-main.webp",
-            "images/catalog-pure-v20261017/tea-wudahan-main.webp",
-            "images/catalog-pure-v20261017/tea-fiber-main.webp",
-            "images/catalog-pure-v20261017/tea-white-main.webp",
-            "images/catalog-pure-v20261017/tea-refresh-main.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp",
-            "images/catalog-real-scenic-v20261016-v8/tea-bag-pouch-real-scenic-detail.webp",
-            "images/catalog-real-scenic-v20261016-v8/tea-bag-with-string-real-scenic-detail.webp"
+        "images/catalog-pure-v20261017/tea-leisure-main.webp",
+        "images/catalog-pure-v20261017/tea-wudahan-main.webp",
+        "images/catalog-pure-v20261017/tea-fiber-main.webp",
+        "images/catalog-pure-v20261017/tea-white-main.webp",
+        "images/catalog-pure-v20261017/tea-refresh-main.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-leisure-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-wudahan-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-fiber-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-white-label-detail.webp",
+        "images/catalog-clean-studio-v20261016-v5/tea-refresh-label-detail.webp",
+        "images/catalog-user-original-v20261017/rose-fruit-real-teabag.webp"
       ]
     },
     "guilu-vitality": {
@@ -83,14 +81,13 @@
     "uboss-sizhenbao": {
       "mainImage": "images/catalog-pure-v20261017/uboss-sizhenbao-main-framed.webp",
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp"
+        "images/catalog-user-original-v20261017/sizhenbao-actual-8-blocks.webp"
       ]
     },
     "royalherb-erzhenbao-64": {
-      "mainImage": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp",
+      "mainImage": "images/catalog-user-original-v20261017/erzhenbao-actual-complete-box.webp",
       "detailImages": [
-        "images/catalog-clean-studio-v20261016-v5/erzhenbao-sealed-tray-detail.webp"
+        "images/catalog-user-original-v20261017/erzhenbao-actual-open-trays.webp"
       ]
     }
   }

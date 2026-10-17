@@ -3,6 +3,7 @@
 from __future__ import annotations
 import json
 import re
+import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -141,7 +142,24 @@ def main() -> None:
                 official_picture = product["image"].split("?", 1)[0]
                 if "/staging/" in official_picture or "/partner-product-design-review/" in official_picture:
                     fail("unapproved preview/staging image: " + pid)
-                if official_picture.startswith("images/catalog-"):
+                if official_picture.startswith("images/catalog-user-original-v20261017/"):
+                    # 使用者正式 ZIP 的實拍來源不隨官網公開：依原圖雜湊追溯，
+                    # 但不得為了通過舊守門員而偽稱另一張 GitHub 照片是原始來源。
+                    source_proof = load("images/catalog-user-original-v20261017/source-integrity.json")
+                    matched = next((x for x in source_proof.get("photos", [])
+                                    if x.get("file") == official_picture), None)
+                    if not matched:
+                        fail("owner original-photo source evidence missing: " + pid)
+                    if matched.get("id") != pid or matched.get("sourceArchive") != "新增商品(2).zip":
+                        fail("wrong owner product/source mapping: " + pid)
+                    if not re.fullmatch(r"[a-f0-9]{64}", str(matched.get("originalSha256", ""))):
+                        fail("invalid original file hash: " + pid)
+                    photo_sha = str(matched.get("mediaSha256", ""))
+                    if not re.fullmatch(r"[a-f0-9]{64}", photo_sha):
+                        fail("invalid published image hash: " + pid)
+                    if hashlib.sha256(safe_file(official_picture).read_bytes()).hexdigest() != photo_sha:
+                        fail("published product photo differs from approved real cutout: " + pid)
+                elif official_picture.startswith("images/catalog-"):
                     # 新版實拍情境圖可以正常取代舊版本。必須在同一版目錄
                     # 追溯原廠照片／合成記錄，禁止任意AI重畫的包裝冒用正式圖。
                     folder = str(Path(official_picture).parent)
