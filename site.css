@@ -997,3 +997,66 @@ body[data-page="product-detail"] .product-detail-hero__media img,
  body[data-page="products"] .product-card__body{padding:12px!important}
  body[data-page="products"] .catalog-product-grid{gap:14px 11px!important}
 }
+
+
+
+/* 2026-10-17｜純實拍完整包裝：拍攝環境去背，不對產品包裝重新設計。
+   Cards, finder, homepage, trial, modal and detail use the SAME existing ivory stage.
+   Keep the complete photographed product visible via contain; never cover/crop/zoom. */
+:root{--xjw-product-original-background:#F7F4ED}
+body[data-page="products"] .product-card__img,
+body[data-page="home"] .home-product-showcase__grid a,
+body[data-page="choose"] .choose-current-card__link,
+body[data-page="trial"] .trial-product-card__media,
+body[data-page="product-detail"] .product-detail-hero__media,
+body[data-page="product-detail"] .product-detail-hero__media > a,
+body[data-page="product-detail"] .product-variant__photo,
+.product-modal .modal-gallery__item:first-child,
+.product-modal .modal-gallery__item:first-child > a {
+  background:#F7F4ED!important;
+  background-image:none!important;
+  filter:none!important;
+  box-shadow:none!important;
+}
+body[data-page="products"] .product-card__img img,
+body[data-page="home"] .home-product-showcase__grid img,
+body[data-page="choose"] .choose-current-card__link img,
+body[data-page="trial"] .trial-product-card__media img,
+body[data-page="product-detail"] .product-detail-hero__media img,
+body[data-page="product-detail"] .product-variant__photo img,
+.product-modal .modal-gallery__item:first-child img {
+  background:#F7F4ED!important;
+  background-image:none!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  clip-path:none!important;
+  filter:none!important;
+  transform:none!important;
+  box-shadow:none!important;
+  border:0!important;
+  border-radius:0!important;
+}
+body[data-page="products"] .product-card__img img,
+body[data-page="home"] .home-product-showcase__grid img,
+body[data-page="choose"] .choose-current-card__link img {
+  padding:clamp(4px,1vw,10px)!important;
+}
+body[data-page="products"] .product-card__img:before,
+body[data-page="products"] .product-card__img:after,
+body[data-page="product-detail"] .product-detail-hero__media:before,
+body[data-page="product-detail"] .product-detail-hero__media:after,
+.product-modal .modal-gallery__item:first-child:before,
+.product-modal .modal-gallery__item:first-child:after {
+  content:none!important;display:none!important;
+}
+/* Keep the detail-page actual package prominent, while preserving every box edge. */
+body[data-page="product-detail"] .product-detail-hero__media img[src*="catalog-pure-v20261017"]{
+  padding:clamp(5px,1.5vw,14px)!important;
+  max-height:min(75vh,680px)!important;
+}
+@media(max-width:700px){
+  body[data-page="product-detail"] .product-detail-hero__media img[src*="catalog-pure-v20261017"]{
+    padding:5px!important;
+    max-height:none!important;
+  }
+}
