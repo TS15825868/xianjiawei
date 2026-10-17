@@ -248,6 +248,45 @@ def main() -> None:
         fail("static catalog has missing, duplicate or retired product cards: "
              + repr(static_ids))
 
+    # Public search metadata must reflect only the current approved catalog.
+    # Derive the list dynamically: adding a newly approved product is allowed
+    # after updating its matching website card, structured data and sitemap.
+    expected_pages = {str(p["page"]) for p in own + public_partner}
+    sitemap_text = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    sitemap_pages = set(re.findall(r"/(product-[a-z0-9-]+\\.html)</loc>", sitemap_text))
+    if sitemap_pages != expected_pages:
+        fail("sitemap exposed hidden products or omitted approved products: "
+             + repr(sorted(sitemap_pages ^ expected_pages)))
+    structured = re.search(
+        r'<script type="application/ld\\+json">([\\s\\S]*?)</script>', listing
+    )
+    if not structured:
+        fail("public catalog structured data missing")
+    graph = json.loads(structured.group(1)).get("@graph", [])
+    item_list = next((node for node in graph
+                      if node.get("@type") == "ItemList"), None)
+    if not item_list:
+        fail("public catalog ItemList missing")
+    entries = item_list.get("itemListElement", [])
+    structured_pages = [str(item.get("url", "")).split("/")[-1] for item in entries]
+    if len(structured_pages) != len(expected_pages) or set(structured_pages) != expected_pages:
+        fail("structured-data product list contains a hidden, duplicate or missing SKU")
+    if item_list.get("numberOfItems") != len(expected_pages):
+        fail("structured-data product count differs from approved listings")
+
+    # Historical publicly shared addresses may remain as safe redirect stubs,
+    # but can never re-expose the product, marketing or SEO details.
+    for retired_page in ("product-guilu-jiao.html", "product-guilu-tangkuai.html"):
+        if retired_page in expected_pages:
+            continue  # a genuinely newly approved product is not permanently locked
+        old = ROOT / retired_page
+        if old.exists():
+            old_text = old.read_text(encoding="utf-8")
+            if ('content="noindex,follow"' not in old_text
+                    or 'url=products.html' not in old_text
+                    or "location.replace('products.html')" not in old_text):
+                fail("deferred product URL reverted to public display: " + retired_page)
+
     core = (ROOT / "site-core-v410.js").read_text(encoding="utf-8")
     if "partner-catalog.json" not in core or "fillProducts('partner-product-list'" not in core:
         fail("dynamic partner catalog integration missing")
