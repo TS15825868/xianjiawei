@@ -33,7 +33,7 @@ async function opened(page,name,detailHref) {
   assert.equal((await page.locator("#product-modal-title").innerText()).trim(),name);
   const detail=page.locator('#product-modal .modal-actions a[data-product-page-direct="1"]');
   assert.equal(await detail.count(),1,"跳窗必須只有一個詳細頁入口："+name);
-  assert.equal((await detail.innerText()).trim(),"查看詳細","所有商品的詳細頁按鈕文字需一致");
+  assert.equal((await detail.innerText()).trim(),`${name}｜完整商品資料`,"詳細頁按鈕需標示對應商品名稱與目的地");
   assert.equal(await detail.getAttribute("href"),detailHref);
   assert.equal(await page.locator('#product-modal .modal-variant-links a[href]').count(),0,"跳窗內不能藏第二組直通詳細頁入口");
   await page.waitForFunction(() => {
