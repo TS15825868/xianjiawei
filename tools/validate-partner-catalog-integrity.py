@@ -83,6 +83,10 @@ def main() -> None:
             fail("unreviewed partner product enables online transaction: " + str(pid))
     for group in (p for p in all_partner if p.get("public") and p.get("variants")):
         members = group.get("variants", [])
+        # Render the true package cover once; gallery details must add new angles.
+        gallery = group.get("detailImages", [])
+        if group.get("image") in gallery or len(gallery) != len(set(gallery)):
+            fail("grouped public gallery repeats its cover photo: " + str(group.get("id")))
         if len(members) < 2:
             fail("grouped product has fewer than two variants")
         for member in members:
@@ -95,6 +99,8 @@ def main() -> None:
             # A grouped variant may share its parent card, but its detail
             # gallery must use only its own original retail photographs.
             details = member.get("detailImages", [])
+            if member["image"] in details:
+                fail("grouped variant repeats its cover photo: " + member["id"])
             if len(details) != len(set(details)):
                 fail("duplicate photos in grouped variant detail gallery: " + member["id"])
             original_front = member.get("originalFrontPhoto")
