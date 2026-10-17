@@ -437,7 +437,7 @@ function fillProducts(targetId, products, options = {}) {
     const image = product.image || product.gallery?.[0] || "images/logo.png";
     const page = product.page || product.detailPage || "products.html";
     return `
-      <article class="product-card reveal" data-product-id="${escapeAttribute(product.id || "")}" tabindex="0" role="button" aria-haspopup="dialog" aria-label="開啟${escapeAttribute(name)}產品介紹跳窗">
+      <article class="product-card reveal" data-product-id="${escapeAttribute(product.id || "")}">
         <div class="product-card__img">
           <img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}" loading="lazy" decoding="async">
         </div>
@@ -462,11 +462,6 @@ function fillProducts(targetId, products, options = {}) {
       openProductModal(product, card);
     };
     card.addEventListener("click", open);
-    card.addEventListener("keydown", event => {
-      if (event.target !== card || !["Enter", " "].includes(event.key)) return;
-      event.preventDefault();
-      open(event);
-    });
   });
 }
 
