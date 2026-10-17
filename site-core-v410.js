@@ -214,7 +214,7 @@ function renderHeader() {
       </a>
       <nav class="header-nav" aria-label="主要導覽">${nav}</nav>
       <a class="header-line-cta" href="${buildLineAutoLink(pageLineMessage(page))}" target="_blank" rel="noopener">LINE 諮詢</a>
-      <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-expanded="false">☰ 選單</button>
+      <button id="menu-btn" class="menu-btn" type="button" aria-label="開啟選單" aria-controls="menu-drawer" aria-expanded="false">☰ 選單</button>
     </div>
   `;
 }
@@ -551,6 +551,17 @@ function initKnowledgeTabs() {
   const allowed = tabs.map(tab => tab.dataset.knowledgeTab);
   const requested = new URLSearchParams(location.search).get("tab");
   const initial = allowed.includes(requested) ? requested : allowed[0];
+  tabs.forEach(tab => {
+    const id = tab.dataset.knowledgeTab;
+    const panel = panels.find(item => item.dataset.knowledgePanel === id);
+    if (!panel) return;
+    const tabId = `knowledge-tab-${id}`;
+    const panelId = `knowledge-panel-${id}`;
+    tab.id = tabId;
+    tab.setAttribute("aria-controls", panelId);
+    panel.id = panelId;
+    panel.setAttribute("aria-labelledby", tabId);
+  });
 
   const activate = id => {
     tabs.forEach(tab => {
@@ -972,7 +983,11 @@ function closeMenu() {
   document.body.style.left = "";
   document.body.style.right = "";
   document.body.style.width = "";
-  if (wasOpen) window.scrollTo(0, menuScrollY);
+  if (wasOpen) {
+    window.scrollTo(0, menuScrollY);
+    // Return keyboard focus only when it was inside the closing drawer.
+    if (drawer?.contains(document.activeElement)) button?.focus();
+  }
 }
 
 function syncHeaderScrolledState() {
