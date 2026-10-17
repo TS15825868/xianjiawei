@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Publish owner-selected full retail carton and actual photographed contents.
 
-The RGB pixels inside a carefully traced polygon originate from the source
-picture, never generative repainting. Source ZIPs are NOT committed because
+The RGB pixels inside a carefully traced polygon originate from actual product photographs; never generative repainting. Source ZIPs are NOT committed because
 rear carton photos contain price stickers and unapproved copy.
 """
 from __future__ import annotations
@@ -75,22 +74,7 @@ def figure(src, description, caption):
         'max-height:650px;background:#F7F4ED"></span></a><figcaption class="source-note">'+
         caption+'</figcaption></figure>')
 
-def run(new_zip, product_zip):
-    hero,raw_hero=in_zip(product_zip,"CC4E10E8-E782-4E8A-9652-DB43560A8926.PNG")
-    hero_rel="images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp"
-    # No packaging re-illustration. Preserve the pixels of user's approved
-    # complete, styled box reference. Only its background becomes transparent.
-    image=traced_cutout(hero,(720,900),[(83,260),(192,249),(627,251),
-            (653,260),(651,694),(644,711),(625,728),(83,687)],
-            "royalherb-erzhenbao-selected-carton-reference.webp")
-    (ROOT/image).replace(ROOT/hero_rel)
-    # Save source itself for provenance (it is a selected presentation scene,
-    # NOT a claim that the scene was a camera-original manufacturer photograph).
-    source=ROOT/"images/user-approved-reference-v20261017/royalherb-erzhenbao-selected-scene.webp"
-    source.parent.mkdir(parents=True,exist_ok=True)
-    hero.thumbnail((1600,1600),Image.Resampling.LANCZOS)
-    hero.save(source,"WEBP",quality=88,method=6)
-
+def run(new_zip):
     two,meta_two=in_zip(new_zip,"IMG_0002.HEIC")
     two_path=traced_cutout(two,(675,900),[(101,79),(299,80),(305,77),
         (315,71),(386,77),(394,86),(616,104),(529,448),(541,783),
@@ -138,15 +122,6 @@ def run(new_zip, product_zip):
     rose.thumbnail((1800,1800),Image.Resampling.LANCZOS)
     rose.save(ROOT/rose_path,"WEBP",quality=94,method=6)
 
-    manifest_file=ROOT/"images/catalog-pure-v20261017/manifest.json"
-    manifest=json.loads(manifest_file.read_text(encoding="utf-8"))
-    record=next(x for x in manifest["items"] if x.get("file")==hero_rel)
-    record.update({"source":str(source.relative_to(ROOT)),
-        "processing":"User-selected complete box reference, deterministic alpha cutout only",
-        "sourceWarning":"The submitted styled scene is a selected visual reference, not a manufacturer camera original. Physical information is separately verified against supplied real carton photos.",
-        "aiProductRedrawPerformedByImport":False,"backgroundRemoved":True})
-    manifest_file.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",
-                             encoding="utf-8")
     partner_file=ROOT/"partner-catalog.json"
     partners=json.loads(partner_file.read_text(encoding="utf-8"))
     group={p["id"]:p for p in partners["products"]}
@@ -193,11 +168,9 @@ def run(new_zip, product_zip):
     tea_file.write_text(tea,encoding="utf-8")
 
     metadata={"revision":"20261017-owner-real-contents-v1",
-        "sources":{"royalherb-selected-outer":raw_hero,
-           "royalherb-open-box":meta_two,"uboss-open-blocks":meta_four,
+        "sources":{"royalherb-open-box":meta_two,"uboss-open-blocks":meta_four,
            "rose-fruit-tea-bag":meta_rose},
-        "published":{"royalherb-selected-main":hero_rel,
-           "royalherb-open-box":two_path,"uboss-unwrapped-blocks":four_path,
+        "published":{"royalherb-open-box":two_path,"uboss-unwrapped-blocks":four_path,
            "rose-fruit-bag":rose_path},
         "restrictions":["Do not publish unredacted two/four-treasure back pictures: factory boxes carry price stickers.",
             "Do not use rose-fruit tea bag photo for any of other five tea varieties.",
@@ -210,6 +183,5 @@ def run(new_zip, product_zip):
 if __name__=="__main__":
     ap=argparse.ArgumentParser()
     ap.add_argument("--new-products",required=True)
-    ap.add_argument("--product-gallery",required=True)
     a=ap.parse_args()
-    run(a.new_products,a.product_gallery)
+    run(a.new_products)
