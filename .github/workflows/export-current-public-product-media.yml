@@ -1,0 +1,27 @@
+name: Export current authentic public product images
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/export-current-public-product-media.yml'
+      - 'tools/export-current-public-product-media.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  export-current-approved:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build catalog-derived genuine public product photo ZIP
+        run: python tools/export-current-public-product-media.py
+      - name: Upload actual verified current product images
+        uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-current-approved-product-media-20261017
+          path: dist/xianjiawei-current-approved-product-media-20261017.zip
+          retention-days: 14
