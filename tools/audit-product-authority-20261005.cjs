@@ -80,7 +80,7 @@ for(const path of publicHtml){
 
 for(const path of ["links.html","contact.html"]){
   const html=read(path);
-  assert(/10:30[－–-]20:00/.test(html),path,"營業時間必須為週一至週五 10:30–20:00");
+  assert(/10:00[－–-]20:00/.test(html),path,"營業時間必須為週一至週五 10:00–20:00");
 }
 assert(read("links.html").includes(LINE_URL),"links.html","連結入口缺少正式 LINE URL");
 
