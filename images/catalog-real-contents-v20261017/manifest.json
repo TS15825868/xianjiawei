@@ -1,0 +1,23 @@
+{
+  "version": "20261017-photographic-contents-only",
+  "items": [
+    {
+      "file": "images/catalog-real-contents-v20261017/rose-fruit-real-teabag-mesh.webp",
+      "source": "images/partner-products/scenes-v20261016/rose-teabag-original.jpg",
+      "sha256": "6b363d8da9287b3232767fec3cbbb3dcf10373dea1f4a13337b88ca18ea21011",
+      "scope": "rose-fruit variant only"
+    },
+    {
+      "file": "images/catalog-real-contents-v20261017/four-treasures-sealed-eight-real.webp",
+      "source": "images/partner-products/supplements-v20261016/four-treasures-sealed-tray.jpg",
+      "sha256": "0c6e1fceb9d88f33d4ed6912e4e8aabb11d965807a254e0c0d86f38e0bbced8f",
+      "scope": "four-treasures sealed inner tray"
+    }
+  ],
+  "rules": [
+    "Real photo pixels only; background stripped, package and content unmodified",
+    "Never use rose tea bag for the other five SKUs",
+    "Retain real packaging hero separate from contents gallery",
+    "Do not infer or invent any unphotographed contents"
+  ]
+}

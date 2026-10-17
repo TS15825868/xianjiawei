@@ -129,7 +129,8 @@
           "originalFrontPhoto": "images/partner-products/tea-rose-fruit-front.webp",
           "detailImages": [
             "images/partner-products/tea-rose-fruit-front.webp",
-            "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp"
+            "images/catalog-clean-studio-v20261016-v5/tea-rose-fruit-label-detail.webp",
+            "images/catalog-real-contents-v20261017/rose-fruit-real-teabag-mesh.webp"
           ]
         },
         {
@@ -1444,7 +1445,8 @@
       "originalFrontPhoto": "images/partner-products/four-treasures-front.jpg",
       "detailImages": [
         "images/catalog-clean-studio-v20261016-v5/sizhenbao-sealed-tray-detail.webp",
-        "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp"
+        "images/catalog-clean-studio-v20261016-v5/sizhenbao-tray-back-detail.webp",
+        "images/catalog-real-contents-v20261017/four-treasures-sealed-eight-real.webp"
       ],
       "mainPhotoRole": "single real physical pack or carton; no surrounding decorative scene; complete visible package, preserve real original pixels",
       "contentsPhotoRole": "detail-page-only",
