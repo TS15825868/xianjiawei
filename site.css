@@ -1060,3 +1060,25 @@ body[data-page="product-detail"] .product-detail-hero__media img[src*="catalog-p
     max-height:none!important;
   }
 }
+
+
+
+/* 2026-10-17 | Detail and modal source image must use its OWN physical aspect.
+   Forcing every real retail carton into a portrait frame leaves large blank bars
+   around wide 64-block cartons, making the whole product look artificially small. */
+body[data-page="product-detail"] .product-detail-hero__media img[src*="catalog-pure-v20261017"],
+.product-modal .modal-gallery__item:first-child img[src*="catalog-pure-v20261017"]{
+  aspect-ratio:auto!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:650px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+}
+@media(max-width:700px){
+  body[data-page="product-detail"] .product-detail-hero__media img[src*="catalog-pure-v20261017"],
+  .product-modal .modal-gallery__item:first-child img[src*="catalog-pure-v20261017"]{
+    max-height:none!important;
+    aspect-ratio:auto!important;
+  }
+}
