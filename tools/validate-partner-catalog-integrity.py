@@ -159,6 +159,25 @@ def main() -> None:
                         fail("invalid published image hash: " + pid)
                     if hashlib.sha256(safe_file(official_picture).read_bytes()).hexdigest() != photo_sha:
                         fail("published product photo differs from approved real cutout: " + pid)
+                elif official_picture.startswith("images/catalog-owner-final-v20261017/"):
+                    # 新版經使用者確認的實物主圖具有獨立雜湊權威，
+                    # 不得僅因沒有舊 catalog/manifest.json 就拒絕新版正確照片。
+                    release=load("data/owner-final-product-photo-release-v20261017.json")
+                    evidence=[]
+                    for owner_id,entry in (release.get("photoOriginals") or {}).items():
+                        evidence.append((entry.get("image"),entry.get("publishedSha256"),entry.get("sourceSha256")))
+                    for entry in release.get("fiveTeaRectifications") or []:
+                        evidence.append((entry.get("straightenedMain"),entry.get("publishedSha256"),entry.get("originalSource")))
+                    photo=next((entry for entry in evidence if entry[0]==official_picture),None)
+                    if not photo:
+                        fail("owner-approved new main photo missing from current release evidence: " + pid)
+                    expected=photo[1]
+                    if not re.fullmatch(r"[a-f0-9]{64}",str(expected or "")):
+                        fail("owner-approved image has no valid published SHA256: " + pid)
+                    if hashlib.sha256(safe_file(official_picture).read_bytes()).hexdigest()!=expected:
+                        fail("owner-approved main photo content differs from release SHA256: " + pid)
+                    if photo[2] is None:
+                        fail("owner-approved main photo has no original source identity: " + pid)
                 elif official_picture.startswith("images/catalog-"):
                     # 新版實拍情境圖可以正常取代舊版本。必須在同一版目錄
                     # 追溯原廠照片／合成記錄，禁止任意AI重畫的包裝冒用正式圖。
