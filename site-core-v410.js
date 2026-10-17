@@ -597,9 +597,16 @@ function renderVideoPage() {
   const search = document.getElementById("video-search");
   const count = document.getElementById("video-count");
   const empty = document.getElementById("video-empty");
+  const hasCategory = name => name === "全部" || videos.some(video => video.category === name);
   const requestedCategory = new URLSearchParams(location.search).get("category") || "全部";
-  let category = requestedCategory === "全部" || filters.some(button => button.dataset.videoFilter === requestedCategory) ? requestedCategory : "全部";
+  let category = hasCategory(requestedCategory) ? requestedCategory : "全部";
   let keyword = "";
+  // No empty-category buttons: only show filters with actual recorded videos.
+  filters.forEach(button => {
+    const available = hasCategory(button.dataset.videoFilter);
+    button.hidden = !available;
+    button.disabled = !available;
+  });
 
   grid.classList.add("video-grid-v410");
 
@@ -616,14 +623,14 @@ function renderVideoPage() {
       button.setAttribute("aria-pressed", String(active));
     });
 
-    if (count) count.textContent = String(filtered.length);
+    if (count) count.textContent = `${filtered.length} 支影音入口`;
     if (empty) {
       empty.hidden = filtered.length > 0;
       const heading = empty.querySelector("h3");
       const message = empty.querySelector("p");
-      if (heading) heading.textContent = videos.length === 0 ? "影音清單正在核對" : "目前沒有符合的影片";
+      if (heading) heading.textContent = videos.length === 0 ? "影音清單暫時無法載入" : "目前沒有符合的影片";
       if (message) message.textContent = videos.length === 0
-        ? "目前尚無完成來源及內容核實的公開影片可列出。可先查看龜鹿入門、原料與飲食知識，或稍後再回來。"
+        ? "請稍後再試，或使用上方原始帳號連結查看公開影片。"
         : "可清除搜尋文字，或改選其他分類。";
     }
 
