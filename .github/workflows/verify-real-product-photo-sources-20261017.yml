@@ -1,0 +1,45 @@
+name: Real product-original photo source inspection
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-real-product-photo-sources-20261017.yml'
+permissions:
+  contents: read
+jobs:
+  collect-real-source-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect product original/reference media without modifying it
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p product-source-evidence
+          for p in \
+            images/partner-products/four-treasures-front.jpg \
+            images/catalog-pure-v20261017/uboss-sizhenbao-main-framed.webp \
+            images/partner-product-design-review/uboss-sizhenbao-cutout.png \
+            images/catalog-corrections-v20261016-v6/royalherb-erzhenbao-64-main.webp \
+            images/catalog-pure-v20261017/royalherb-erzhenbao-64-main-framed.webp \
+            images/catalog-pure-v20261017/guilu-gao-main-framed.webp \
+            images/catalog-clean-studio-v20261016-v5/guilu-gao-main.webp \
+            images/partner-products/jinan-siwuyin-front.jpg \
+            images/catalog-pure-v20261017/jinan-sisheng-siwuyin-main.webp \
+            images/partner-products/jinan-vitality-front-original.jpg \
+            images/catalog-pure-v20261017/guilu-vitality-main.webp \
+            images/catalog-pure-v20261017/guilu-drink-30-main.png \
+            images/catalog-pure-v20261017/guilu-drink-180-main.png \
+            images/catalog-pure-v20261017/luerong-fen-main.png \
+            images/catalog-pure-v20261017/danshen-tea-collection-main.webp; do
+            test -s "$p"
+            install -D "$p" "product-source-evidence/$p"
+          done
+          find product-source-evidence -type f -printf '%P %s bytes\n' | sort > product-source-evidence/manifest-sizes.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: official-real-product-source-photo-evidence
+          path: product-source-evidence/
+          retention-days: 4
