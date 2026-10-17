@@ -43,7 +43,7 @@ const verifyPhoto=(id,path)=>{
   if(ownerEntry){
     check(digest===ownerEntry.sha,id+" current owner-approved image SHA mismatch");
     if(ownerEntry.sourceSha){
-      const original=owner.photos[id];
+      const original=owner.photos[ownerEntry.id]; // 丹參系列與玫瑰果品項共用同一張經核准的系列代表實拍
       check(!!original&&original.sha256===ownerEntry.sourceSha,id+" owner-provided source SHA not recorded correctly");
     }else if(ownerEntry.original){
       check(fs.existsSync(ownerEntry.original),id+" prior true photographic tea front no longer present");
