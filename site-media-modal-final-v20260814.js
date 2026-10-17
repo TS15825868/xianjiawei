@@ -79,7 +79,23 @@
 
   function markIntro(anchor,{rename=true}={}){
     if(!anchor)return;
-    if(rename&&anchor.textContent!=='查看介紹')anchor.textContent='查看介紹';
+    if(rename){
+      const product=findProduct(anchor.getAttribute('href')||'')||findProductByCard(anchor);
+      const nearby=anchor.closest('article,.product-card,.trial-product-card')?.querySelector('h3')?.textContent?.trim();
+      const existing=anchor.textContent.trim();
+      const page=cleanFile(anchor.getAttribute('href')||'');
+      const fallbackNames={
+        'product-danshen-tea.html':'丹參茶包六款',
+        'product-guilu-gao.html':'龜鹿膏',
+        'product-guilu-drink-30cc.html':'龜鹿飲30cc玻璃罐',
+        'product-guilu-drink-180cc.html':'龜鹿飲180cc鋁袋',
+        'product-luerong-fen.html':'鹿茸粉'
+      };
+      const name=String(product?.displayName||product?.name||nearby||fallbackNames[page]||'').trim();
+      if(name)anchor.textContent=name+'｜查看介紹';
+      else if(existing==='查看介紹')anchor.textContent='查看商品詳細資料';
+      anchor.setAttribute('aria-label',anchor.textContent.trim());
+    }
     anchor.dataset.productIntro='1';
     anchor.setAttribute('aria-haspopup','dialog');
   }
