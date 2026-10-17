@@ -15,6 +15,7 @@ on:
       - 'site.js'
       - 'product-*.html'
       - 'images/partner-products/**'
+      - 'images/catalog-pure-v20261017/**'
 permissions:
   contents: read
 jobs:
