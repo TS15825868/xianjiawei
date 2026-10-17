@@ -71,7 +71,6 @@ async function initSite() {
   hydrateStaticFields();
   renderCurrentPage();
   renderMobileCompareCards();
-  initKnowledgeTabs();
   bindGlobalEvents();
   initReveal();
   renderFloatingLineCta();
@@ -535,54 +534,6 @@ function renderKnowledgePage() {
     ["最後看怎麼使用", "依固定取用、溫熱飲用、沖泡燉湯或自行搭配，找到容易持續的方式。"]
   ];
   target.innerHTML = items.map(([title, text]) => `<article class="card reveal"><h3>${title}</h3><p>${text}</p></article>`).join("");
-}
-
-function initKnowledgeTabs() {
-  const tabs = Array.from(document.querySelectorAll("[data-knowledge-tab]"));
-  const panels = Array.from(document.querySelectorAll("[data-knowledge-panel]"));
-  if (!tabs.length || !panels.length) return;
-
-  const allowed = tabs.map(tab => tab.dataset.knowledgeTab);
-  const requested = new URLSearchParams(location.search).get("tab");
-  const initial = allowed.includes(requested) ? requested : allowed[0];
-  tabs.forEach(tab => {
-    const id = tab.dataset.knowledgeTab;
-    const panel = panels.find(item => item.dataset.knowledgePanel === id);
-    if (!panel) return;
-    const tabId = `knowledge-tab-${id}`;
-    const panelId = `knowledge-panel-${id}`;
-    tab.id = tabId;
-    tab.setAttribute("aria-controls", panelId);
-    panel.id = panelId;
-    panel.setAttribute("aria-labelledby", tabId);
-  });
-
-  const activate = id => {
-    tabs.forEach(tab => {
-      const active = tab.dataset.knowledgeTab === id;
-      tab.classList.toggle("is-active", active);
-      tab.setAttribute("aria-selected", String(active));
-      tab.tabIndex = active ? 0 : -1;
-    });
-    panels.forEach(panel => {
-      panel.hidden = panel.dataset.knowledgePanel !== id;
-    });
-  };
-
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => activate(tab.dataset.knowledgeTab));
-    tab.addEventListener("keydown", event => {
-      if (!["ArrowLeft", "ArrowRight"].includes(event.key)) return;
-      event.preventDefault();
-      const index = tabs.indexOf(tab);
-      const offset = event.key === "ArrowRight" ? 1 : -1;
-      const next = tabs[(index + offset + tabs.length) % tabs.length];
-      next.focus();
-      activate(next.dataset.knowledgeTab);
-    });
-  });
-
-  activate(initial);
 }
 
 function renderVideoPage() {
