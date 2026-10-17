@@ -72,11 +72,13 @@
     },
     {
       "file": "images/catalog-pure-v20261017/uboss-sizhenbao-main.png",
-      "source": "images/partner-product-design-review/uboss-sizhenbao-cutout.png",
+      "source": "images/partner-products/four-treasures-front.jpg",
       "sourceGitBlob": "bf5a7e7b84a015f73570ca48f02b9fad9a8f0a79",
       "bytes": 801764,
       "preserved": true,
-      "redrawn": false
+      "redrawn": false,
+      "matteIntermediate": "images/partner-product-design-review/uboss-sizhenbao-cutout.png",
+      "originalPixelIntegrity": "Original JPEG photographed full outer carton and incidental plastic bag; exported cutout remains byte-identical to staged real-pixel matte"
     },
     {
       "file": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp",
