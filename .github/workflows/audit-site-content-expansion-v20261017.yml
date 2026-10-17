@@ -1,0 +1,41 @@
+name: 仙加味全站品牌文案與新商品擴充驗收
+on:
+  push:
+    paths:
+      - "tools/audit-site-content-expansion-v20261017.py"
+      - ".github/workflows/audit-site-content-expansion-v20261017.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: xjw-content-catalog-audit-v20261017
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Validate copy, links, product catalog and images
+        run: python3 tools/audit-site-content-expansion-v20261017.py
+      - name: Save complete audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: xjw-website-copy-and-expansion-audit-v20261017
+          path: |
+            ops/audits/site-content-and-future-products-20261017.json
+            ops/audits/site-content-and-future-products-20261017.md
+          if-no-files-found: error
+      - name: Commit evidence report
+        run: |
+          git config user.name "xjw-site-audit[bot]"
+          git config user.email "xjw-site-audit[bot]@users.noreply.github.com"
+          git add ops/audits/site-content-and-future-products-20261017.json ops/audits/site-content-and-future-products-20261017.md
+          if git diff --cached --quiet; then echo 'No report changes'; else
+            git commit -m "audit: record current public copy and future-catalog expansion results"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
