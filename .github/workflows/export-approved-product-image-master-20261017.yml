@@ -1,0 +1,38 @@
+name: Export official physical-product photos and content media
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/export-approved-product-image-master-20261017.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create checked photographed-product asset export
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p approved-image-export
+          for p in \
+            images/catalog-pure-v20261017/ \
+            images/catalog-real-contents-v20261017/ \
+            images/catalog-clean-studio-v20261016-v5/ \
+            images/partner-products/supplements-v20261016/ \
+            images/partner-products/site-hero-v20261016/; do
+            test -d "$p"
+            mkdir -p "approved-image-export/$p"
+            find "$p" -maxdepth 1 -type f \( -iname '*.webp' -o -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -name 'manifest.json' \) -exec cp -t "approved-image-export/$p" {} +
+          done
+          cp data/product-media-authority.json approved-image-export/official-own-product-media.json
+          cp partner-catalog.json approved-image-export/official-partner-catalog.json
+          echo "Authentic image archive from formal current main; keep unverified raw label/price photos internal." > approved-image-export/README.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: xianjiawei-approved-product-image-master-v20261017
+          path: approved-image-export/
+          retention-days: 7
