@@ -1,5 +1,5 @@
 {
-  "version": "20261017-clean-full-boxes-v2",
+  "version": "20261017-authentic-packages-alpha-only-v3",
   "state": "release-product-only-main",
   "method": "reuse the exact existing real package/jar cutout or clean photographed outer-box image; no AI reconstruction, ornamental stage, additional portions, or forged label",
   "verifiedProductIds": [
@@ -23,7 +23,10 @@
       "redrawn": false,
       "originalMainBeforeFraming": "images/catalog-pure-v20261017/guilu-gao-main.webp",
       "sourcePreserved": true,
-      "sourceProcessing": "No new product-pixel painting. Crop existing ivory space, or alpha-mask photographed incidental plastic bag above true carton edge."
+      "sourceProcessing": "Manual full-package exterior alpha mask on the preserved actual retailer/manufacturer photograph; only background pixels outside the true package outline removed. Do not reconstruct any product area.",
+      "backgroundRemoved": true,
+      "aiProductRedraw": false,
+      "backgroundMethod": "precise polygon transparency; original retail pixels remain from photographed source"
     },
     {
       "file": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
@@ -96,7 +99,10 @@
       "redrawn": false,
       "originalMainBeforeFraming": "images/catalog-pure-v20261017/royalherb-erzhenbao-64-main.webp",
       "sourcePreserved": true,
-      "sourceProcessing": "No new product-pixel painting. Crop existing ivory space, or alpha-mask photographed incidental plastic bag above true carton edge."
+      "sourceProcessing": "Manual full-package exterior alpha mask on the preserved actual retailer/manufacturer photograph; only background pixels outside the true package outline removed. Do not reconstruct any product area.",
+      "backgroundRemoved": true,
+      "aiProductRedraw": false,
+      "backgroundMethod": "precise polygon transparency; original retail pixels remain from photographed source"
     },
     {
       "file": "images/catalog-pure-v20261017/tea-rose-fruit-main.webp",
@@ -158,5 +164,6 @@
     "uboss-sizhenbao": "Previously supplied real red box IMG_9834(3).jpeg visually verified; this export generated from the matching existing GitHub original",
     "royalherb-erzhenbao-64": "Previously supplied real purple box IMG_9999.jpeg visually verified; prior verified GitHub original crop used",
     "guilu-gao": "Use the already approved genuine complete carton, not a carton-plus-jar montage"
-  }
+  },
+  "mainPhotoProductionRule": "Use only genuine complete box or sealed physical unit, with transparent image background; existing site ivory provides the stage. Never use full DM posters, AI-rendered carton, invented sides, forged backs, unapproved external product or source composition."
 }
