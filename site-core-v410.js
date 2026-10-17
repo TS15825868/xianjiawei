@@ -14,9 +14,10 @@ const MENU_GROUPS = [
     links: [
       { href: "index.html", label: "首頁", keys: ["home", "404"] },
       { href: "products.html", label: "產品總覽", keys: ["products", "product-detail", "dm"] },
-      { href: "choose.html", label: "怎麼選", keys: ["choose", "combo"] },
+      { href: "choose.html", label: "怎麼選", keys: ["choose"] },
       { href: "guide.html", label: "使用方式", keys: ["guide"] },
-      { href: "recipes.html", label: "料理搭配", keys: ["recipes"] }
+      { href: "recipes.html", label: "料理搭配", keys: ["recipes"] },
+      { href: "combo.html", label: "搭配比較", keys: ["combo"] }
     ]
   },
   {
@@ -32,14 +33,16 @@ const MENU_GROUPS = [
   {
     title: "品牌",
     links: [
-      { href: "brand.html", label: "品牌故事", keys: ["brand", "brand-origin", "craft", "quality", "ingredients"] }
+      { href: "brand.html", label: "品牌故事", keys: ["brand", "brand-origin"] },
+      { href: "craft.html", label: "傳統工藝", keys: ["craft"] },
+      { href: "quality.html", label: "品質與標示", keys: ["quality"] }
     ]
   },
   {
     title: "服務",
     links: [
       { href: "faq.html", label: "常見問題", keys: ["faq"] },
-      { href: "trial.html", label: "申請試喝", keys: ["trial"] },
+      { href: "trial.html", label: "龜鹿飲試喝", keys: ["trial"] },
       { href: "contact.html", label: "聯絡我們", keys: ["contact"] }
     ]
   }
@@ -241,7 +244,7 @@ function renderMenu() {
         </div>
 
         <div class="menu-quick-actions" aria-label="快速入口">
-          <a class="btn btn-line" href="trial.html">試喝</a>
+          <a class="btn btn-line" href="trial.html">龜鹿飲試喝</a>
           <a class="btn btn-outline" href="products.html">查看產品</a>
           <a class="btn btn-outline" href="choose.html">幫我挑選</a>
           <a class="btn btn-outline" href="guide.html">怎麼使用</a>
@@ -283,8 +286,11 @@ function renderFooter() {
           <a href="video.html">知識影音</a>
           <a href="sources.html">資料來源</a>
           <a href="brand.html">品牌故事</a>
+          <a href="craft.html">傳統工藝</a>
+          <a href="quality.html">品質與標示</a>
+          <a href="combo.html">搭配比較</a>
           <a href="faq.html">常見問題</a>
-          <a href="trial.html">申請試喝</a>
+          <a href="trial.html">龜鹿飲試喝</a>
           <a href="contact.html">聯絡我們</a>
         </div>
       </nav>
