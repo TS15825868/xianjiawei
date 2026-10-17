@@ -293,8 +293,8 @@ function renderFooter() {
           <h3>仙加味官方 LINE</h3>
           <p>LINE ID：<strong>${escapeHtml(getLineId())}</strong></p>
           <p>商品規格、庫存、配送及購買資訊，歡迎透過官方 LINE 詢問；各商品使用與保存方式請以正式標示為準。</p>
-          <p><strong>店面營業：</strong>週一至週五 10:30–20:00｜週六、週日休息</p>
-          <p><strong>LINE：</strong>24 小時可留言；人工回覆時間為週一至週五 10:30–20:00。</p>
+          <p><strong>店面營業：</strong>週一至週五 10:00–20:00｜週六彈性預約取貨／配送（請先洽 LINE 確認）｜週日休息</p>
+          <p><strong>LINE：</strong>24 小時可留言；人工回覆以週一至週五 10:00–20:00 為主；其他時間依實際情況回覆。</p>
           ${lineButton("前往 LINE 詢問", pageLineMessage())}
         </div>
         <img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code" loading="lazy" decoding="async">
