@@ -26,6 +26,7 @@ const MENU_GROUPS = [
       { href: "knowledge.html", label: "知識專區首頁", keys: ["knowledge"] },
       { href: "why-guilu.html", label: "龜鹿入門", keys: ["why-guilu"] },
       { href: "hanfang-baike.html", label: "原料與飲食知識", keys: ["hanfang-baike"] },
+      { href: "ingredients.html", label: "選料與產品成分", keys: ["ingredients"] },
       { href: "video.html", label: "知識影音", keys: ["video"] },
       { href: "sources.html", label: "資料來源", keys: ["sources"] }
     ]
@@ -195,7 +196,7 @@ function renderHeader() {
     ["products.html", "產品", ["products", "product-detail", "dm"]],
     ["choose.html", "怎麼選", ["choose", "combo"]],
     ["guide.html", "使用方式", ["guide"]],
-    ["knowledge.html", "知識專區", ["knowledge", "why-guilu", "hanfang-baike", "video", "sources"]],
+    ["knowledge.html", "知識專區", ["knowledge", "why-guilu", "hanfang-baike", "ingredients", "video", "sources"]],
     ["trial.html", "試喝", ["trial"]]
   ];
   const nav = links.map(([href, label, keys]) => {
