@@ -69,11 +69,11 @@ jobs:
           import json
           policy=json.loads(Path('config/public-content-policy.json').read_text(encoding='utf-8'))
           hours=policy.get('serviceHours') or {}
-          assert hours.get('storefront')=='週一至週五 10:30－20:00'
-          assert hours.get('closed')=='週六、週日店休'
+          assert hours.get('storefront')=='週一至週五 10:00－20:00'
+          assert hours.get('closed')=='週六彈性安排預約取貨、送貨等服務（請先洽 LINE 確認）；週日休息'
           assert hours.get('website')=='24 小時可瀏覽'
           assert str(hours.get('lineOA','')).startswith('24 小時可留言')
-          current='週一至週五 10:30－20:00'
+          current='週一至週五 10:00－20:00'
           for rel in ['contact.html','faq.html','ai-answers.json']:
               text=Path(rel).read_text(encoding='utf-8')
               assert current in text, f'{rel} 缺最新營業時間'
