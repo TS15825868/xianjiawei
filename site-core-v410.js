@@ -25,7 +25,7 @@ const MENU_GROUPS = [
     links: [
       { href: "knowledge.html", label: "知識專區首頁", keys: ["knowledge"] },
       { href: "why-guilu.html", label: "龜鹿入門", keys: ["why-guilu"] },
-      { href: "hanfang-baike.html", label: "漢方食材百科", keys: ["hanfang-baike"] },
+      { href: "hanfang-baike.html", label: "原料與飲食知識", keys: ["hanfang-baike"] },
       { href: "video.html", label: "知識影音", keys: ["video"] },
       { href: "sources.html", label: "資料來源", keys: ["sources"] }
     ]
@@ -160,7 +160,7 @@ function pageLineMessage(page = currentPageKey()) {
     recipes: "我想了解龜鹿產品的料理搭配。",
     knowledge: "我從知識專區進來，想進一步了解產品。",
     "why-guilu": "我看了龜鹿入門，想進一步了解產品與怎麼選。",
-    "hanfang-baike": "我看了漢方食材百科，想進一步了解產品。",
+    "hanfang-baike": "我看了原料與飲食知識，想進一步了解產品。",
     video: "我看了知識影音，想進一步了解產品。",
     sources: "我看了資料來源，想進一步了解仙加味產品資訊。",
     brand: "我從品牌故事頁進來，想認識仙加味與產品。",
@@ -280,7 +280,7 @@ function renderFooter() {
           <a href="choose.html">商品怎麼選</a>
           <a href="guide.html">使用方式</a>
           <a href="recipes.html">料理搭配</a>
-          <a href="knowledge.html">漢方知識</a>
+          <a href="knowledge.html">知識專區</a>
           <a href="brand.html">品牌故事</a>
           <a href="faq.html">常見問題</a>
           <a href="trial.html">龜鹿飲試喝</a>
