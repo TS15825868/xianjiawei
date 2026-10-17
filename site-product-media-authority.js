@@ -86,8 +86,8 @@
     "royalherb-erzhenbao-64": {
       "mainImage": "images/catalog-user-original-v20261017/erzhenbao-actual-complete-box.webp",
       "detailImages": [
-        "images/catalog-user-original-v20261017/erzhenbao-open-box-2-trays-owner-v20261017.webp",
-        "images/catalog-user-original-v20261017/erzhenbao-single-tray-8-pieces-owner-v20261017.webp"
+        "images/catalog-user-original-v20261017/erzhenbao-single-tray-8-pieces-owner-v20261017.webp",
+        "images/catalog-user-original-v20261017/erzhenbao-open-box-2-trays-owner-v20261017.webp"
       ]
     },
     "jianfeng-rose-fruit-tea": {
