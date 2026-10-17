@@ -92,6 +92,18 @@ def main() -> None:
             if not member.get("name") or not member.get("ingredients") or not member.get("image"):
                 fail("grouped variant missing product facts: " + str(member.get("id")))
             check_image(member["image"], member["name"])
+            # A grouped variant may share its parent card, but its detail
+            # gallery must use only its own original retail photographs.
+            details = member.get("detailImages", [])
+            if len(details) != len(set(details)):
+                fail("duplicate photos in grouped variant detail gallery: " + member["id"])
+            original_front = member.get("originalFrontPhoto")
+            if original_front:
+                check_image(original_front, member["name"])
+                if original_front not in details:
+                    fail("original product front missing from detail gallery: " + member["id"])
+            for extra in details:
+                check_image(extra, member["name"])
         group_page = (ROOT / group["page"]).read_text(encoding="utf-8") if (ROOT / group["page"]).is_file() else ""
         for member in members:
             if member["name"] not in group_page or member["id"] not in group_page:
