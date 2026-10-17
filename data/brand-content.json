@@ -1,6 +1,6 @@
 {
-  "version": "4.0.0",
-  "updatedAt": "2026-10-15",
+  "version": "4.1.0",
+  "updatedAt": "2026-10-18",
   "brand": "仙加味",
   "publicName": "仙加味",
   "tagline": "補養，是一種節奏。",
@@ -97,5 +97,12 @@
   },
   "summary": "仙加味從台北萬華起家，承襲四代家族與鹿角、熬膠工藝的深厚淵源，結合自有商品、專業製造合作與精選原廠商品，讓漢方飲食文化走進現代生活。",
   "supplyPrinciple": "依商品特性選擇合適的製作與供應方式；製造來源、標示與品質資料逐項確認，不以家族歷史代表所有商品皆自行製造。",
-  "packagingPrinciple": "目前原廠商品保留完整包裝；未來委託製造或自有包裝依適用條件與資料確認後調整。"
+  "packagingPrinciple": "目前原廠商品保留完整包裝；未來委託製造或自有包裝依適用條件與資料確認後調整。",
+  "publicationRules": {
+    "productAuthority": "public-product-master.json",
+    "prices": "公開內容不列固定售價，價格由官方LINE回覆",
+    "drinkLeadTime": "接單後製作約5～7個工作天，僅適用龜鹿飲",
+    "productImages": "僅使用真實正式產品圖與完整包裝",
+    "review": "社群貼文經人工核准後才可發布"
+  }
 }
