@@ -907,6 +907,24 @@ function bindGlobalEvents() {
   });
 
   document.addEventListener("keydown", event => {
+    // Keep keyboard focus inside the open drawer or product dialog.
+    if (event.key === "Tab") {
+      const panel = document.querySelector("#product-modal.show .product-modal__panel")
+        || document.querySelector("#menu-drawer.open .site-menu__panel");
+      if (!panel) return;
+      const focusable = Array.from(panel.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'))
+        .filter(element => element.getClientRects().length && !element.hasAttribute("hidden"));
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !panel.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !panel.contains(document.activeElement))) {
+        event.preventDefault();
+        first.focus();
+      }
+      return;
+    }
     if (event.key !== "Escape") return;
     closeMenu();
     closeModal();
