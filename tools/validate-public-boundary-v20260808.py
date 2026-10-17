@@ -66,7 +66,13 @@ def main():
             main_image=str(media_row.get('mainImage') or '')
             assert main_image.startswith(('images/product-main/','images/catalog-')) and main_image.endswith(('.png','.jpg','.webp')) and (ROOT/main_image).is_file(),f'{page}媒體權威主圖不是現行有效原照 PNG／JPG／WebP'
             details=media_row.get('detailImages') or []
-            assert details and all(str(x).startswith(('images/dm-final/','images/catalog-clean-studio-v20261016-v5/')) and (ROOT/str(x)).is_file() for x in details),f'{page}媒體權威缺正式dm-final詳細圖'
+            assert details and all(
+                str(x).startswith(('images/dm-final/','images/catalog-'))
+                and '..' not in Path(str(x)).parts
+                and Path(str(x)).suffix.lower() in ('.webp','.jpg','.jpeg','.png')
+                and (ROOT/str(x)).is_file()
+                for x in details
+            ),f'{page}媒體權威未登記最新版可追溯原照詳細圖'
         if page=='product-guilu-gao.html':
             assert '食用時間可依個人使用習慣與作息時間安排' in source
             for retired in ['早上＋下午','早上+下午','每日早上及下午各一小匙','早晚各一小匙']:assert retired not in source,f'龜鹿膏詳頁仍含舊固定時段：{retired}'
