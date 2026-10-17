@@ -1,8 +1,8 @@
 {
-  "version": "20261017-pure-product-v1",
+  "version": "20261017-public-gallery-verification-v2",
   "repo": "TS15825868/xianjiawei",
-  "sourceCommit": "606db23d20294649372c80ff9e5bf56a90260c14",
-  "scope": "existing nine public product pages / current media references",
+  "sourceCommit": "914b3a5de86888c2367609a0b83839bec0496f75",
+  "scope": "nine approved public product cards and detail pages; six tea variants; current publication / sitemap / JSON-LD gate",
   "photos": {
     "guilu-gao": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp",
     "guilu-drink-30": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
@@ -27,7 +27,18 @@
     "Existing Siwu box photos crop its handle",
     "Vitality 12-pack complete carton photos crop an edge; show the real jar until whole-carton photo is available"
   ],
-  "publishStatus": "Assets staged in official pure-product main image set; deploy & live visual QA follow commit",
-  "outstandingNote": "Two/Four treasures back-of-box full original photos remain in Project Library but cannot be raw-materialized; site retains existing cropped label evidence. JiAn rope edge photo not fully captured. Do not claim all packs physically complete until original-photo checks pass.",
-  "releaseEvidence": "Three real-scene composites published with identical asset blobs and traceable existing original photo source; candidate folder retained intact."
+  "publishStatus": "Nine current detail pages read successfully on public GitHub Pages; GitHub Pages deploy and partner-catalog integrity passed at 914b3a5. Visual photo-edge completeness requires genuine original-photo review.",
+  "outstandingNote": "未核對完整外盒後面照片的產品保留待補；不以 AI 假造缺失的上緣、提繩、背標或營養資訊。本次 ZIP 不含上述完整新商品照片，勿用早期龜鹿照片包覆蓋現行九款。手機與桌機實際畫面截圖尚未完成。",
+  "releaseEvidence": "Three real-scene composites published with identical asset blobs and traceable existing original photo source; candidate folder retained intact.",
+  "verifiedChecks": {
+    "livePublicProductCards": 9,
+    "liveProductDetailPagesRead": 9,
+    "teaVariantGalleriesDeduplicated": 6,
+    "publicationStates": "4 approved own-brand + 5 approved partner products/groups; unapproved catalog records excluded from live nine-card listing",
+    "retiredOwnedProductPages": "guilu-jiao and guilu-tangkuai remain noindex redirect stubs, absent from sitemap",
+    "sitemapAndStructuredData": "validated dynamically against approved public products through latest partner catalog integrity workflow",
+    "latestVerifiedDeployCommit": "914b3a5de86888c2367609a0b83839bec0496f75",
+    "latestDeployWorkflowConclusion": "success",
+    "latestPartnerCatalogIntegrityConclusion": "success"
+  }
 }
