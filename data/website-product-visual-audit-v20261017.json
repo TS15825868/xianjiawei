@@ -3,15 +3,15 @@
   "repo": "TS15825868/xianjiawei",
   "scope": "currently approved nine public product cards and details, six distinct tea fronts, real manufacturer contents and labels",
   "photos": {
-    "guilu-gao": "images/catalog-pure-v20261017/guilu-gao-main-framed.webp",
-    "guilu-drink-30": "images/catalog-pure-v20261017/guilu-drink-30-main.png",
-    "guilu-drink-180": "images/catalog-pure-v20261017/guilu-drink-180-main.png",
-    "luerong-fen": "images/catalog-pure-v20261017/luerong-fen-main.png",
-    "jinan-sisheng-siwuyin": "images/catalog-pure-v20261017/jinan-sisheng-siwuyin-main.webp",
-    "danshen-tea-collection": "images/catalog-pure-v20261017/danshen-tea-collection-main.webp",
-    "guilu-vitality": "images/catalog-pure-v20261017/guilu-vitality-main.webp",
-    "uboss-sizhenbao": "images/catalog-pure-v20261017/uboss-sizhenbao-main-framed.webp",
-    "royalherb-erzhenbao-64": "images/catalog-user-original-v20261017/erzhenbao-actual-complete-box.webp"
+    "guilu-gao": "images/catalog-owner-final-v20261017/guilu-gao-main.webp",
+    "guilu-drink-30": "images/catalog-owner-final-v20261017/guilu-drink-30-main.webp",
+    "guilu-drink-180": "images/catalog-owner-final-v20261017/guilu-drink-180-main.webp",
+    "luerong-fen": "images/catalog-owner-final-v20261017/luerong-fen-main.webp",
+    "jinan-sisheng-siwuyin": "images/catalog-owner-final-v20261017/jinan-sisheng-siwuyin-main.webp",
+    "danshen-tea-collection": "images/catalog-owner-final-v20261017/danshen-tea-collection-main.webp",
+    "guilu-vitality": "images/catalog-owner-final-v20261017/guilu-vitality-main.webp",
+    "uboss-sizhenbao": "images/catalog-owner-final-v20261017/uboss-sizhenbao-main.webp",
+    "royalherb-erzhenbao-64": "images/catalog-owner-final-v20261017/royalherb-erzhenbao-64-main.webp"
   },
   "actualPhotoRules": [
     "Never redraw manufacturer labels or repackaged product pixels",

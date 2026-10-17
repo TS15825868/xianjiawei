@@ -1,0 +1,137 @@
+{
+  "version": "20261017-owner-approved-photo-main-v4",
+  "photoOriginals": {
+    "guilu-gao": {
+      "sourceSha256": "e57e4afac35f3b4e31c3181c9610765c3773496ff97a325b36071ae3d538c397",
+      "image": "images/catalog-owner-final-v20261017/guilu-gao-main.webp",
+      "publishedSha256": "66090b2dc779dbc6fc0c4832415223a946997dbf456ad2dbdc42c6bd89c0122d",
+      "method": "owner-provided photographed package, background-only white flood segmentation"
+    },
+    "guilu-drink-30": {
+      "sourceSha256": "41226c2351974c3aa8354ec1a929c5bd1b983ed11e21a1931fb93c2525f10a73",
+      "image": "images/catalog-owner-final-v20261017/guilu-drink-30-main.webp",
+      "publishedSha256": "c6a11df2a7d730f9fa5f9234ab6e73c4c16eb91fbb49badb5f3fcc39fe76b3e6",
+      "method": "owner-provided photographed package, background-only white flood segmentation"
+    },
+    "guilu-drink-180": {
+      "sourceSha256": "562c858e24d2159929e9d76bbf6819807708e786110b1e002738b9d6fa7e4a2f",
+      "image": "images/catalog-owner-final-v20261017/guilu-drink-180-main.webp",
+      "publishedSha256": "d7015fd78341f67a7dd3bb38075911d30ed30e6e13eee705433768ae6b780096",
+      "method": "owner-provided photographed package, background-only white flood segmentation"
+    },
+    "luerong-fen": {
+      "sourceSha256": "8296cb3d8c4fe50b1656f4132659f42fd90c34fa62bfcd6df4c070b5cdb33e7f",
+      "image": "images/catalog-owner-final-v20261017/luerong-fen-main.webp",
+      "publishedSha256": "9436e65382641086ae9dcc7d7008788f3a243224201e8480c94dd5b75dbe3685",
+      "method": "owner-provided photographed package, background-only white flood segmentation"
+    },
+    "danshen-tea-collection": {
+      "sourceSha256": "5532805fdcfd99222898b2938a56c5bc57ee38125badc20e09699b8f220b1e20",
+      "image": "images/catalog-owner-final-v20261017/danshen-tea-collection-main.webp",
+      "publishedSha256": "1ffc852a4aa96a5165a9391c71fea7396ddab01cdd3e4c6c204e93d3734b4734",
+      "method": "owner-provided photographed package, background-only white flood segmentation"
+    },
+    "jinan-sisheng-siwuyin": {
+      "sourceSha256": "046254196e85528f6e0e95699973c6c881e8ed4764a7b68d746210228328b78f",
+      "image": "images/catalog-owner-final-v20261017/jinan-sisheng-siwuyin-main.webp",
+      "publishedSha256": "a5704dd41c5fd47182b7f94b78dfe7e393d96b3a96f1cca9db073991545258b7",
+      "method": "owner-provided photographed package, background-only white flood segmentation"
+    },
+    "guilu-vitality": {
+      "sourceSha256": "6d45f78e2785420b4d3c64d4bc859ee82a92b77bb6d360acdc62a6576c8c4d80",
+      "image": "images/catalog-owner-final-v20261017/guilu-vitality-main.webp",
+      "publishedSha256": "168e3c57900f371defa78626ac0cc0894d984fbe474ddc5023107ea04bc6378a",
+      "method": "owner-provided photographed package, background-only white flood segmentation"
+    },
+    "uboss-sizhenbao": {
+      "sourceSha256": "bfb267034794290feaf93552d2d2021b5a691f3026765a86da2e0946872122b3",
+      "image": "images/catalog-owner-final-v20261017/uboss-sizhenbao-main.webp",
+      "publishedSha256": "b1809ef7f3707d1cc05f6ee3053187b10d636132b7ce557ed26b0a488dec3dd5",
+      "method": "owner-provided photographed package, background-only white flood segmentation"
+    },
+    "royalherb-erzhenbao-64": {
+      "sourceSha256": "ac581119448b459e8b363e56be2778de85a6bc6d3a6f9c48c51eba94294cc13f",
+      "image": "images/catalog-owner-final-v20261017/royalherb-erzhenbao-64-main.webp",
+      "publishedSha256": "1d368bca89cc3a900502cd4e270953b16cd4ce4c89ac7b0c80b8fefb4afef14f",
+      "method": "owner-provided photographed package, background-only white flood segmentation"
+    }
+  },
+  "fiveTeaRectifications": [
+    {
+      "product": "tea-leisure",
+      "originalSource": "images/catalog-pure-v20261017/tea-leisure-main.webp",
+      "straightenedMain": "images/catalog-owner-final-v20261017/tea-leisure-main.webp",
+      "publishedSha256": "57c135540c22476f45855a18cbf6baf1d6e3ba4c62540c1a9d80fe1bbe9b801b",
+      "method": "geometric perspective correction of same actual photographic box front"
+    },
+    {
+      "product": "tea-wudahan",
+      "originalSource": "images/catalog-pure-v20261017/tea-wudahan-main.webp",
+      "straightenedMain": "images/catalog-owner-final-v20261017/tea-wudahan-main.webp",
+      "publishedSha256": "664c40f8a2c63b54ae2b4b0c0e6f8d2efadef6502d49a9c8b4738b647e57092b",
+      "method": "geometric perspective correction of same actual photographic box front"
+    },
+    {
+      "product": "tea-fiber",
+      "originalSource": "images/catalog-pure-v20261017/tea-fiber-main.webp",
+      "straightenedMain": "images/catalog-owner-final-v20261017/tea-fiber-main.webp",
+      "publishedSha256": "93752f178b989216465ea5078487d8e5748947095d4681454bc7e7c0ea7063ba",
+      "method": "geometric perspective correction of same actual photographic box front"
+    },
+    {
+      "product": "tea-white",
+      "originalSource": "images/catalog-pure-v20261017/tea-white-main.webp",
+      "straightenedMain": "images/catalog-owner-final-v20261017/tea-white-main.webp",
+      "publishedSha256": "7a7be81123574e2c39c4d17df29e214123a304bc8fbc0a5e16c5cfcefe946e92",
+      "method": "geometric perspective correction of same actual photographic box front"
+    },
+    {
+      "product": "tea-refresh",
+      "originalSource": "images/catalog-pure-v20261017/tea-refresh-main.webp",
+      "straightenedMain": "images/catalog-owner-final-v20261017/tea-refresh-main.webp",
+      "publishedSha256": "89e8e3211d654308d64ee35ade5df9385e2380b92be842315792be6e00011843",
+      "method": "geometric perspective correction of same actual photographic box front"
+    }
+  ],
+  "updatedFiles": [
+    "product-four-treasures.html",
+    "guide.html",
+    "contact.html",
+    "recipes.html",
+    "product-danshen-tea.html",
+    "product-guilu-drink-180cc.html",
+    "trial-line.html",
+    "product-guilu-drink-30cc.html",
+    "product-er-zhen-bao.html",
+    "ingredients.html",
+    "video.html",
+    "craft.html",
+    "brand-facts.html",
+    "product-guilu-vitality.html",
+    "index.html",
+    "product-jinan-siwuyin.html",
+    "product-guilu-gao.html",
+    "choose.html",
+    "faq.html",
+    "hanfang-baike.html",
+    "sources.html",
+    "knowledge.html",
+    "product-luerong-fen.html",
+    "products.html",
+    "combo.html",
+    "quality.html",
+    "trial.html",
+    "brand.html",
+    "why-guilu.html",
+    "site-product-image-safety.js",
+    "site-choose-current-catalog.js",
+    "site-product-data-authority.js",
+    "site-product-media-authority.js",
+    "site.js",
+    "data.json",
+    "catalog-public.json",
+    "partner-catalog.json",
+    "data/product-media-authority.json",
+    "data/website-product-visual-audit-v20261017.json"
+  ]
+}
