@@ -1,0 +1,23 @@
+name: 仙加味｜丹參系列圖片檢視器手機與桌機實際操作驗證
+on:
+  push:
+    paths:
+      - ".github/workflows/verify-product-image-viewer-live-v20261017.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  photo-viewer-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install browser test tools
+        run: npm install --no-save playwright@1.56.1
+      - name: Install Chromium and WebKit runtimes
+        run: npx playwright install --with-deps chromium webkit
+      - name: Verify live product photographs close/back on desktop and mobile
+        run: node tools/verify-product-image-viewer-live-v20261017.cjs
