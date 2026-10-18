@@ -6,12 +6,16 @@ on:
       - "products.html"
       - "images/**"
       - "tools/check-public-product-card-media.cjs"
+      - "site-product-media-authority.js"
+      - "product-*.html"
       - ".github/workflows/product-card-media-integrity.yml"
   pull_request:
     paths:
       - "products.html"
       - "images/**"
       - "tools/check-public-product-card-media.cjs"
+      - "site-product-media-authority.js"
+      - "product-*.html"
       - ".github/workflows/product-card-media-integrity.yml"
   workflow_dispatch:
 jobs:
