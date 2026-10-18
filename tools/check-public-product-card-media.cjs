@@ -4,6 +4,12 @@ const fs = require("node:fs");
 const p = require("node:path");
 const root = p.resolve(__dirname, "..");
 const html = fs.readFileSync(p.join(root, "products.html"), "utf8");
+const vm = require("node:vm");
+const browser = { window: {} };
+vm.runInNewContext(fs.readFileSync(p.join(root, "site-product-media-authority.js"), "utf8"), browser, { timeout: 1000 });
+const mediaAuthority = browser.window.XJW_PRODUCT_MEDIA_AUTHORITY;
+if (!mediaAuthority?.products) throw new Error("正式商品圖片權威無法載入");
+
 const cards = [...html.matchAll(/<article\s+class="product-card"\s+data-fallback-product="([^"]+)"[^>]*>([\s\S]*?)<\/article>/g)];
 const errors = [];
 if (!cards.length) errors.push("商品總覽沒有任何商品卡");
@@ -20,6 +26,10 @@ for (const [, id, markup] of cards) {
       continue;
     }
     if (!fs.existsSync(p.join(root, asset))) errors.push(`${id} 主圖檔案不存在：${asset}`);
+    const approved = mediaAuthority.mainImage(id);
+    if (!approved) errors.push(`${id} 尚未建立正式主圖權威`);
+    else if (approved.split("?")[0] !== asset) errors.push(`${id} 商品卡主圖與正式媒體權威不一致：${asset} / ${approved}`);
+
   }
   if (/NT\$\s*[\d,]+|售價[：:]\s*\d+/.test(markup)) errors.push(`${id} 官網卡片不得直接刊載售價`);
   if (!/data-product-intro="1"/.test(markup)) errors.push(`${id} 缺少開啟商品介紹入口`);
