@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 import json
+import re
 from pathlib import Path
 from current_product_authority import current_public_ids, current_media_ids
 
 ROOT=Path(__file__).resolve().parents[1]
-CURRENT_30='每日 1–2 罐'
+CURRENT_30=re.compile(r'每日\s*1[～–-]2\s*罐')
 PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED_NAME='柒玄茶・龜鹿調飲粉'
 DEFERRED_ID='qixuan-guilu-drink-powder'
@@ -20,12 +21,12 @@ def req(ok,msg):
 def main():
     master=load('public-product-master.json')
     req(master.get('authority')=='user-confirmed-current','public master authority錯誤')
-    req(master.get('productCount')==len(PUBLIC_IDS),'官網公開產品數必須為6')
+    req(master.get('productCount')==len(PUBLIC_IDS),'官網公開產品數必須跟隨最新公開清單')
     ids=[p.get('id') for p in master.get('products') or []]
     req(ids==PUBLIC_IDS,f'官網公開產品必須跟隨最新母資料：{ids}')
     req(DEFERRED_ID not in ids,'暫緩對外產品不得出現在public master')
     by={p['id']:p for p in master['products']}
-    req(by['guilu-drink-30']['usage'][0]==CURRENT_30,'30cc必須同步目前正式用法')
+    req(bool(CURRENT_30.search(by['guilu-drink-30']['usage'][0])),'30cc必須同步目前正式用法')
     req(not set(ids) & {'guilu-tangkuai','guilu-jiao'},'暫緩產品回流公開')
 
     ai=load('ai-answers.json')
@@ -37,13 +38,13 @@ def main():
     answer_payload=json.dumps(answers,ensure_ascii=False)
     req(DEFERRED_NAME not in answer_payload and DEFERRED_ID not in answer_payload,'AI真正公開 answers[] 不得含暫緩對外產品')
     drink=next((x for x in answers if x.get('id')=='drink-30-vs-180'),None)
-    req(drink and CURRENT_30 in drink.get('answer',''),'AI 30cc回答未同步目前正式用法')
+    req(drink and CURRENT_30.search(drink.get('answer','')),'AI 30cc回答未同步目前正式用法')
 
     geo=load('geo-data.json')
     geo_text=json.dumps(geo,ensure_ascii=False)
     req(DEFERRED_NAME not in geo_text and DEFERRED_ID not in geo_text,'GEO不得含暫緩對外產品')
     lists=[x for x in geo.get('@graph') or [] if x.get('@type')=='ItemList']
-    req(lists and lists[0].get('numberOfItems')==len(PUBLIC_IDS),'GEO ItemList必須6項')
+    req(lists and lists[0].get('numberOfItems')==len(PUBLIC_IDS),'GEO ItemList 必須等於最新公開品項數')
 
     # 顧客／搜尋結果可見頁不得出現暫緩產品。
     for rel in ['index.html','products.html','faq.html','brand-facts.html']:
@@ -59,9 +60,9 @@ def main():
         req(any(word in text for word in ['暫緩','暫不','不對外','不得公開','隱藏']),f'{rel}未標示柒玄茶非公開狀態')
 
     for rel in ['llms.txt','llms-full.txt','faq.html','brand-facts.html']:
-        req(CURRENT_30 in (ROOT/rel).read_text(encoding='utf-8'),f'{rel}缺少30cc目前用法')
+        req(CURRENT_30.search((ROOT/rel).read_text(encoding='utf-8')),f'{rel}缺少30cc目前用法')
 
-    print('PASS: six public products only; deferred product absent from customer/AI-answer/GEO payloads while retained as negative llms policy; 30cc remains daily 1-2 cans.')
+    print(f'PASS: {len(PUBLIC_IDS)} current public products; deferred product absent from customer/AI-answer/GEO payloads while retained as negative llms policy; 30cc current usage confirmed.')
 
 if __name__=='__main__': main()
 
