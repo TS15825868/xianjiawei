@@ -71,7 +71,7 @@
       "series": "丹參茶包系列",
       "size": "3公克／包・10包／盒｜6款",
       "form": "茶包",
-      "description": "六款盒裝茶包集中瀏覽，查看各款包裝、原料、規格與使用方式。",
+      "description": "六款不同口味的盒裝茶包集中展示；每盒只選單一款口味、內含 10 小包，不代表六款合裝同盒。可逐款查看正式包裝、原料與規格。",
       "image": "images/catalog-owner-final-v20261017/danshen-tea-collection-main.webp",
       "page": "product-danshen-tea.html",
       "ingredients": [],
@@ -86,8 +86,8 @@
         "各款原料與使用條件不同，選購前可先透過 LINE 詢問。"
       ],
       "features": [
-        "6款品項集中瀏覽",
-        "各款均為3公克×10包／盒"
+        "六款口味分別選擇，非六款合裝",
+        "每盒為單一口味，3公克×10包／盒"
       ],
       "fulfillmentNotice": "商品資訊與門市諮詢請洽仙加味官方 LINE；交易與交付方式須依商品類別確認。",
       "informationOnly": true,
