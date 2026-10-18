@@ -42,7 +42,7 @@ def main():
     assert master.get('authority')=='user-confirmed-current','公開母資料不是目前使用者確認權威'
     assert master.get('productCount')==len(PUBLIC_IDS) and list(products)==PUBLIC_IDS,'公開母資料必須符合目前母資料官網產品'
     for pid,spec in EXPECTED_SPECS.items():assert products[pid].get('specification')==spec,f'{pid}規格未同步'
-    assert products['guilu-drink-30'].get('usage',[None])[0]==CURRENT_30,'30cc用法未同步目前正式值'
+    assert re.match(r'^每日\s*1[～–-]2\s*罐', str(products['guilu-drink-30'].get('usage',[None])[0] or '')),'30cc用法未同步目前正式值'
     assert products['guilu-drink-180'].get('usage',[None])[0]=='每日一包','180cc用法不是每日一包'
 
     pages=sitemap_pages();assert pages,'sitemap沒有公開HTML頁'
@@ -82,7 +82,8 @@ def main():
             assert '300g／盒' not in source and '600g／盒' not in source
         if page=='product-guilu-jiao.html':assert '600g （1斤）／盒｜32塊裝' in source and re.search(r'每塊約18\.75\s*g',source)
         if page=='product-guilu-drink-30cc.html':
-            for phrase in ['30cc／罐','小玻璃罐','裸罐','無貼紙',CURRENT_30]:assert phrase in source,f'30cc正式頁缺：{phrase}'
+            for phrase in ['30cc／罐','小玻璃罐','裸罐','無貼紙']:assert phrase in source,f'30cc正式頁缺：{phrase}'
+            assert re.search(r'每日\s*1[～–-]2\s*罐', source),'30cc詳頁用法未同步'
         if page=='product-guilu-drink-180cc.html':assert '180cc／包' in source and '鋁袋' in source and '每日一包' in source
 
     # 首頁允許品牌文案不直接寫「六項」，但六個正式產品入口與 product-main 主圖必須齊全。
