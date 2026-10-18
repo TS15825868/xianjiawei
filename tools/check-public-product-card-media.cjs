@@ -31,6 +31,22 @@ for (const [, id, markup] of cards) {
     else if (approved.split("?")[0] !== asset) errors.push(`${id} 商品卡主圖與正式媒體權威不一致：${asset} / ${approved}`);
 
   }
+
+  const gallery = mediaAuthority.detailImages(id);
+  if (!Array.isArray(gallery)) errors.push(`${id} 詳細圖片權威格式錯誤`);
+  else {
+    const seenDetails = new Set();
+    for (const url of gallery) {
+      const asset = String(url).split("?")[0];
+      if (!asset.startsWith("images/") || asset.includes("..") || !/\.(?:webp|png|jpe?g)$/i.test(asset)) {
+        errors.push(`${id} 詳細圖片路徑異常：${asset}`);
+      } else if (!fs.existsSync(p.join(root, asset))) {
+        errors.push(`${id} 詳細圖片不存在：${asset}`);
+      }
+      if (seenDetails.has(asset)) errors.push(`${id} 詳細圖重複：${asset}`);
+      seenDetails.add(asset);
+    }
+  }
   if (/NT\$\s*[\d,]+|售價[：:]\s*\d+/.test(markup)) errors.push(`${id} 官網卡片不得直接刊載售價`);
   if (!/data-product-intro="1"/.test(markup)) errors.push(`${id} 缺少開啟商品介紹入口`);
   const links = [...markup.matchAll(/<a\s+[^>]*data-product-intro="1"[^>]*href="([^"]+)"/g)];
