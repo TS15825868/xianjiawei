@@ -84,7 +84,7 @@ def validate_public_surfaces():
     media=load('data/product-media-authority.json')['products']
     req(all(media[pid]['mainImage'] in home and (ROOT/media[pid]['mainImage']).is_file() for pid in PUBLIC_IDS) and home.count('href="product-')>=len(PUBLIC_IDS),'首頁未維持目前正式產品入口／主圖')
     req(all(pid in read('products.html') for pid in PUBLIC_IDS),'產品總覽未維持目前公開官網商品')
-    req(CURRENT_30 in read('guide.html') and CURRENT_30 in read('faq.html'),'30cc目前用法未同步使用指南及FAQ；商品總覽只需提供正確規格與詳細頁入口')
+    req(all(re.search(r'每日\s*1[～–-]2\s*罐', read(page)) for page in ('guide.html','faq.html')),'30cc目前用法未同步使用指南及FAQ；商品總覽只需提供正確規格與詳細頁入口')
 
 def validate_media():
     formal=load('data/formal-media-authority-v20260810.json')
