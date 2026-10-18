@@ -1,11 +1,11 @@
 {
   "schemaVersion": 15,
-  "catalogVersion": "2026-10-08-four-active-products",
-  "updatedAt": "2026-10-08",
+  "catalogVersion": "2026-10-18-current-public-media-catalog",
+  "updatedAt": "2026-10-18",
   "source": {
     "repository": "TS15825868/xianjiawei",
     "branch": "main",
-    "role": "目前六項官網公開產品的顧客媒體相容目錄；最高文字權威為 public-product-master.json，本目錄不得用舊固定產品數、舊用法或暫緩產品覆蓋新版資料"
+    "role": "目前核准公開產品的顧客媒體相容目錄；公開產品數量依 public-product-master.json 動態核對，不得以舊固定數量、舊用法或暫緩產品覆蓋新版資料。"
   },
   "publicTextAuthority": "public-product-master.json",
   "knowledgeProductCount": 4,
