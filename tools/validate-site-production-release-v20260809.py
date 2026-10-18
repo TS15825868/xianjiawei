@@ -2,13 +2,14 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from current_product_authority import current_public_ids, current_media_ids
 
 ROOT=Path(__file__).resolve().parents[1]
-CURRENT_30='每日 1–2 罐'
+CURRENT_30='每日 1～2 罐'
 def usage_30_matches(value):
-    return value in (CURRENT_30, CURRENT_30+'，可依個人需求調整')
+    return bool(re.fullmatch(r'每日\s*1[～–-]2\s*罐(?:，可依個人需求調整)?', str(value or '')))
 PUBLIC_IDS=current_public_ids(ROOT)
 DEFERRED=('qixuan-guilu-drink-powder','柒玄茶・龜鹿調飲粉')
 SPECS={
