@@ -1,0 +1,28 @@
+name: Product card media integrity
+on:
+  push:
+    branches: [main]
+    paths:
+      - "products.html"
+      - "images/**"
+      - "tools/check-public-product-card-media.cjs"
+      - ".github/workflows/product-card-media-integrity.yml"
+  pull_request:
+    paths:
+      - "products.html"
+      - "images/**"
+      - "tools/check-public-product-card-media.cjs"
+      - ".github/workflows/product-card-media-integrity.yml"
+  workflow_dispatch:
+jobs:
+  verify-product-media:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check product card images and unique product identities
+        run: node tools/check-public-product-card-media.cjs
