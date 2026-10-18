@@ -1334,3 +1334,40 @@ body:not([data-page="publishing-center"]) .product-complete-grid .list{padding-i
   body:not([data-page="publishing-center"]) .final-cta__actions .btn{max-width:100%}
   body:not([data-page="publishing-center"]) .card{overflow-wrap:anywhere}
 }
+
+/* 2026-10-18 | 全站正文連結辨識：卡片文字連結、知識頁、產品詳情皆有明確箭頭。 */
+body:not([data-page="publishing-center"]) :is(.section,.product-detail-page,.knowledge-section) :is(.card p,.card li,.source-note,.product-detail-hero__content p) > a[href]:not(.btn):not(.text-link):not([href^="#"]),
+body:not([data-page="publishing-center"]) :is(.section,.product-detail-page,.knowledge-section) .card > a[href]:not(.btn):not(.text-link):not(.product-photo-original):not(:has(img)):not([href^="#"]) {
+  display:inline-flex;
+  align-items:baseline;
+  gap:.35em;
+  color:#682023;
+  font-weight:650;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:.22em;
+  overflow-wrap:anywhere;
+}
+body:not([data-page="publishing-center"]) :is(.section,.product-detail-page,.knowledge-section) :is(.card p,.card li,.source-note,.product-detail-hero__content p) > a[href]:not(.btn):not(.text-link):not([href^="#"])::after,
+body:not([data-page="publishing-center"]) :is(.section,.product-detail-page,.knowledge-section) .card > a[href]:not(.btn):not(.text-link):not(.product-photo-original):not(:has(img)):not([href^="#"])::after {
+  content:"→";
+  display:inline-block;
+  font-size:1em;
+  line-height:1;
+  flex-shrink:0;
+  text-decoration:none;
+}
+body:not([data-page="publishing-center"]) :is(.section,.product-detail-page,.knowledge-section) :is(.card p,.card li,.source-note,.product-detail-hero__content p) > a[href]:not(.btn):not(.text-link):hover,
+body:not([data-page="publishing-center"]) :is(.section,.product-detail-page,.knowledge-section) .card > a[href]:not(.btn):not(.text-link):not(.product-photo-original):hover {
+  color:#8b3437;
+  text-decoration-thickness:2px;
+}
+body:not([data-page="publishing-center"]) :is(.section,.product-detail-page,.knowledge-section) a[href]:focus-visible{
+  outline:3px solid #B08A47;
+  outline-offset:4px;
+  border-radius:3px;
+}
+body:not([data-page="publishing-center"]) .text-link[href]::after{content:" →";font-weight:700}
+@media(max-width:700px){
+ body:not([data-page="publishing-center"]) :is(.section,.product-detail-page,.knowledge-section) :is(.card p,.card li) > a[href]:not(.btn){min-height:36px;align-items:center}
+}
