@@ -102,7 +102,11 @@ async function close(page) {
         assert.equal(await card.locator('[data-product-page-direct="1"]').count(),0);
         const url=page.url();
 
-        await card.locator(".product-card__img img").click();
+        const image=card.locator(".product-card__img img");
+        await card.evaluate(element=>element.scrollIntoView({block:"center",inline:"nearest",behavior:"instant"}));
+        await page.waitForTimeout(180);
+        await image.waitFor({state:"visible",timeout:10000});
+        await image.click();
         assert.equal(page.url(),url,"主圖不可直接跳詳細頁");
         await opened(page,name,href);await close(page);
         report.checks.push(device+"："+name+" 圖片");
