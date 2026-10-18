@@ -1400,7 +1400,7 @@ body:not([data-page="publishing-center"]) .text-link[href]::after{content:" →"
 .video-page-v409 .video-card-v410__body .btn{margin-top:auto;align-self:flex-start}
 .video-page-v409 .video-play{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:rgba(104,32,35,.92);color:#fff;font-size:24px;padding-left:3px;box-shadow:0 8px 22px rgba(20,20,20,.14)}
 .video-page-v409 .video-featured__cover:hover .video-play,.video-page-v409 .video-card-v410__cover:hover .video-play{transform:scale(1.07)}
-.video-page-v409 .video-cover-label{background:rgba(247,244,237,.94);border-radius:999px;padding:5px 10px;bottom:12px;left:12px;font-size:.8rem}
+.video-page-v409 .video-cover-label{background:rgba(247,244,237,.94);border-radius:999px;padding:5px 10px;bottom:12px;left:12px;font-size:.9rem;line-height:1.45}
 .video-page-v409 .video-empty{padding:28px;border:1px dashed var(--rule);border-radius:16px;text-align:center}
 .video-page-v409 .video-disclaimer{padding-top:0}
 .video-page-v409 .video-disclaimer .source-note{font-size:.9rem}
