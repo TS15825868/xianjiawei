@@ -4,7 +4,7 @@ const fs=require("fs");
 
 const ROOT=process.cwd();
 const DAILY_30="每日 1–2 罐";
-const usage30Matches=value=>[DAILY_30,DAILY_30+"，可依個人需求調整"].includes(value);
+const usage30Matches=value=>/^每日\s*1[～–-]2\s*罐(?:，可依個人需求調整)?$/.test(String(value||""));
 const TANGKUAI_SPEC="75g／盒｜8塊裝";
 const LINE_URL="https://lin.ee/sHZW7NkR";
 const failures=[];
