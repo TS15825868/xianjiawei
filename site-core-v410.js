@@ -13,7 +13,12 @@ const MENU_GROUPS = [
     title: "主要內容",
     links: [
       { href: "index.html", label: "首頁", keys: ["home", "404"] },
-      { href: "products.html", label: "產品總覽", keys: ["products", "product-detail", "dm"] },
+      { href: "products.html", label: "產品總覽", keys: ["products", "product-detail", "dm"] }
+    ]
+  },
+  {
+    title: "商品指南",
+    links: [
       { href: "choose.html", label: "怎麼選", keys: ["choose"] },
       { href: "guide.html", label: "使用方式", keys: ["guide"] },
       { href: "recipes.html", label: "料理搭配", keys: ["recipes"] }
