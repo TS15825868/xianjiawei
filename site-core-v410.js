@@ -606,13 +606,21 @@ function renderVideoPage() {
     refresh();
   });
 
+  document.getElementById("video-clear-search")?.addEventListener("click", () => {
+    keyword = "";
+    category = "全部";
+    if (search) search.value = "";
+    refresh();
+    search?.focus();
+  });
+
   refresh();
 }
 
 function renderFeaturedVideo(video) {
   const title = displayVideoTitle(video);
   const category = video.category || "知識影音";
-  const verificationNote = video.contentVerification === "verified" ? "已核對來源與內容" : "原始連結已收錄，影片內容待核對";
+  const verificationNote = video.contentVerification === "verified" ? "影片來源與內容已核對" : "原始連結已收錄，內容待核對";
   return `
     <article class="card video-featured reveal">
       <a class="video-featured__cover" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener" aria-label="觀看${escapeAttribute(title)}">
@@ -620,10 +628,10 @@ function renderFeaturedVideo(video) {
         <span class="video-cover-label">${escapeHtml(category)}・原平台</span>
       </a>
       <div class="video-featured__body">
-        <p class="eyebrow">公開影音連結</p>
+        <p class="eyebrow">精選影音</p>
         <h2>${escapeHtml(title)}</h2>
-        <p>${verificationNote}；不代表仙加味商品功效或合作背書。</p>
-        <a class="btn btn-outline" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener">觀看原影片</a>
+        <p class="video-verification-note">${verificationNote}</p>
+        <a class="btn btn-primary" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener noreferrer">前往觀看 ↗</a>
       </div>
     </article>
   `;
@@ -639,9 +647,9 @@ function renderVideoCard(video, index) {
         <span class="video-cover-label">${escapeHtml(category)}</span>
       </a>
       <div class="video-card-v410__body">
-        <p class="eyebrow">影音 ${String(index).padStart(2, "0")}・${escapeHtml(video.contentVerification === "verified" ? "已核對" : "內容待核對")}</p>
+        <p class="eyebrow">${escapeHtml(category)}・${escapeHtml(video.contentVerification === "verified" ? "已核對" : "待核對")}</p>
         <h3>${escapeHtml(title)}</h3>
-        <a class="btn btn-outline" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener">觀看影片</a>
+        <a class="btn btn-outline" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener noreferrer">觀看影片 ↗</a>
       </div>
     </article>
   `;
