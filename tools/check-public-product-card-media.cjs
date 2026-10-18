@@ -33,6 +33,26 @@ for (const [, id, markup] of cards) {
   }
   if (/NT\$\s*[\d,]+|售價[：:]\s*\d+/.test(markup)) errors.push(`${id} 官網卡片不得直接刊載售價`);
   if (!/data-product-intro="1"/.test(markup)) errors.push(`${id} 缺少開啟商品介紹入口`);
+  const links = [...markup.matchAll(/<a\s+[^>]*data-product-intro="1"[^>]*href="([^"]+)"/g)];
+  if (!links.length) errors.push(`${id} 商品卡沒有商品詳細頁連結`);
+  const uniqueDetailPages = new Set(links.map((x) => x[1].split("?")[0].split("#")[0]));
+  if (uniqueDetailPages.size > 1) errors.push(`${id} 商品卡主圖及介紹按鈕連向不同頁面`);
+  for (const detail of uniqueDetailPages) {
+    if (!/^product-[a-z0-9-]+\.html$/.test(detail)) {
+      errors.push(`${id} 商品詳細頁路徑異常：${detail}`);
+      continue;
+    }
+    const detailPath = p.join(root, detail);
+    if (!fs.existsSync(detailPath)) {
+      errors.push(`${id} 商品詳細頁不存在：${detail}`);
+      continue;
+    }
+    const detailHtml = fs.readFileSync(detailPath, "utf8");
+    if (!/name="viewport"/.test(detailHtml)) errors.push(`${id} 詳細頁缺少行動版 viewport`);
+    if (!/<img\b/i.test(detailHtml)) errors.push(`${id} 詳細頁沒有產品圖片`);
+    if (!/仙加味/.test(detailHtml)) errors.push(`${id} 詳細頁缺少正式品牌名稱`);
+  }
+
 }
 for (const [a,b] of [["uboss-sizhenbao","royalherb-erzhenbao-64"],["guilu-drink-30","guilu-drink-180"]]) {
   const first = cards.find(x => x[1] === a)?.[2] || "";
