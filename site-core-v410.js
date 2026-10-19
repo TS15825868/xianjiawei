@@ -661,7 +661,10 @@ function renderVideoCard(video, index) {
 }
 
 function displayVideoTitle(video) {
-  return String(video?.title || "公開影音")
+  const rawTitle = String(video?.title || "公開影音");
+  // These records are source URLs without verified TikTok titles; do not show arbitrary ID fragments as titles.
+  if (/^章醫師 TikTok｜原始影片 \d+$/u.test(rawTitle)) return "章醫師｜公開影片";
+  return rawTitle
     .replace(/^龜鹿系列日常觀點\s*(\d+)$/u, "龜鹿日常｜第 $1 集")
     .replace(/^鹿茸系列食材觀點\s*(\d+)$/u, "鹿茸食材｜第 $1 集")
     .replace(/^中醫師公開觀點\s*(\d+)$/u, "中醫師觀點｜第 $1 集");
