@@ -26,7 +26,7 @@ for(const id of ["guilu-gao","guilu-drink-30","guilu-drink-180","luerong-fen","j
 }
 for(const id of ["uboss-sizhenbao","royalherb-erzhenbao-64"]){
  const page=fs.readFileSync(pages[id],"utf8");
- if(!page.includes('product-label-disclosure'))errors.push("missing original manufacturer label disclosure for "+id);
+ if(!page.includes(`images/catalog-real-owner-v20261019/${id}-back.png`))errors.push("missing complete manufacturer back photo for "+id);
 }
 if(!fs.readFileSync("site.css","utf8").includes("final pack-only catalog presentation"))errors.push("missing final contain CSS");
 if(errors.length){console.error(errors.join("\n"));process.exitCode=1;}else console.log("PASS nine real-product hero references, clickable fallback cards, labels and no-stretch media");
