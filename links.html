@@ -348,6 +348,25 @@ a{color:inherit}
 }
 @media(max-width:420px) and (min-height:650px){.link{padding:7px 10px}.copy strong,.link--primary .copy strong{font-size:16px}.copy small{font-size:11px}.icon{width:35px;height:35px;flex-basis:35px}}
 @media(max-height:649px){.link{height:43px}.copy strong,.link--primary .copy strong{font-size:14px}.copy small{font-size:10px}}
+/* iPhone 實機截圖調整：加大閱讀字級、點擊面積 */
+@media(min-width:351px) and (min-height:700px){
+ .content{padding-left:12px;padding-right:12px}
+ .stack{gap:clamp(8px,1.25svh,13px)}
+ .link{height:clamp(66px,9.5svh,82px);padding:10px 15px;border-radius:20px}
+ .icon{width:43px;height:43px;flex-basis:43px}.icon svg{width:25px;height:25px}
+ .copy strong,.link--primary .copy strong{font-size:clamp(18px,2.45svh,21px);line-height:1.2}
+ .copy small{font-size:clamp(12px,1.72svh,15px);line-height:1.3;margin-top:3px}
+ .chev{font-size:26px}.section-title{font-size:18px;margin-top:clamp(12px,1.7svh,18px);margin-bottom:9px}
+ .social{gap:8px}.social a{height:clamp(47px,6.7svh,58px);font-size:clamp(13px,1.9svh,16px);border-radius:18px}
+ .social-mark{width:27px;height:27px;font-size:15px}
+ .footer{font-size:13px;margin-top:clamp(10px,1.6svh,16px)}
+}
+@media(min-width:351px) and (max-width:420px) and (min-height:700px){
+ .link{padding:9px 11px}.copy strong,.link--primary .copy strong{font-size:18px}
+ .copy small{font-size:12px}.icon{width:39px;height:39px;flex-basis:39px}
+ .social a{font-size:13px;padding:5px 4px}.social-mark{width:24px;height:24px}
+}
+@media(max-height:760px){.scene{padding-top:5px}.logo{max-height:74px}.intro,.scope{font-size:11px}.stack{gap:6px}}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
