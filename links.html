@@ -531,6 +531,27 @@ a{color:inherit}
  .footer{margin-top:clamp(5px,.8svh,9px)!important;font-size:clamp(11px,1.5svh,13px)!important}
 }
 @media(max-width:350px),(max-height:660px){.page{height:auto!important;min-height:100svh!important;overflow:visible!important}.hub-grid .hub-tile{min-height:96px!important}.hub-social a{min-height:85px!important}}
+
+/* 2026-10-19｜一頁式加大點擊區：依可視高度自適應 */
+@media(min-width:351px) and (max-width:700px) and (min-height:661px){
+ .page{height:100svh!important;overflow:hidden!important}
+ .scene{padding-top:clamp(2px,.4svh,6px)!important;padding-bottom:0!important}
+ .logo{max-height:clamp(48px,7svh,68px)!important}
+ .identity .brand{font-size:clamp(21px,2.8svh,26px)!important}
+ .identity .tagline{font-size:clamp(13px,1.8svh,17px)!important}
+ .identity .intro,.identity .scope{font-size:clamp(9px,1.2svh,11px)!important;line-height:1.1!important}
+ .content{padding-top:0!important;padding-bottom:2px!important}
+ .hub-grid{gap:clamp(7px,1svh,10px)!important}
+ .hub-grid .hub-primary{height:clamp(90px,12svh,116px)!important}
+ .hub-grid .hub-tile{height:clamp(116px,16svh,151px)!important}
+ .hub-grid .hub-tile .icon{width:clamp(44px,6.2svh,58px)!important;height:clamp(44px,6.2svh,58px)!important}
+ .hub-grid .hub-tile .copy strong{font-size:clamp(15px,2.2svh,19px)!important}
+ .section-title{margin-top:clamp(5px,.8svh,8px)!important;margin-bottom:clamp(3px,.5svh,6px)!important}
+ .hub-social{gap:clamp(7px,1svh,10px)!important}
+ .hub-social a{height:clamp(96px,13svh,125px)!important;font-size:clamp(13px,1.9svh,17px)!important}
+ .hub-social .social-mark{width:clamp(38px,5.5svh,50px)!important;height:clamp(38px,5.5svh,50px)!important}
+ .footer{margin-top:clamp(3px,.5svh,6px)!important;font-size:11px!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
