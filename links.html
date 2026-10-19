@@ -628,6 +628,24 @@ a{color:inherit}
  .scene{padding-bottom:12px!important}
  .content{padding-top:8px!important}
 }
+
+/* 2026-10-19｜手機按鈕以下緣為基準：留出上方品牌空間 */
+@media (min-width:351px) and (max-width:700px) and (min-height:780px){
+ .page{display:flex!important;flex-direction:column!important;min-height:100svh!important;height:auto!important}
+ .scene{flex:0 0 auto!important;min-height:0!important;padding-bottom:clamp(12px,1.8svh,20px)!important}
+ .content{
+   flex:1 0 auto!important;
+   display:flex!important;flex-direction:column!important;
+   justify-content:flex-end!important;
+   margin-top:0!important;
+   padding-top:clamp(14px,2svh,24px)!important;
+   padding-bottom:calc(clamp(22px,3svh,36px) + env(safe-area-inset-bottom))!important
+ }
+ .hub-grid{flex:0 0 auto!important}
+ .hub-grid .hub-primary{height:clamp(101px,12.5svh,126px)!important}
+ .hub-grid .hub-tile{height:clamp(129px,16.4svh,163px)!important}
+ .hub-social a{height:clamp(106px,13.4svh,134px)!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
