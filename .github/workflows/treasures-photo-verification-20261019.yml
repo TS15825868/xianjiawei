@@ -1,0 +1,26 @@
+name: Two treasures desktop and iPhone photo verification
+on:
+  push:
+    branches: [main]
+    paths: ['tools/verify-treasures-photos-20261019.cjs', '.github/workflows/treasures-photo-verification-20261019.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm install --no-save --no-package-lock playwright@1.55.0
+      - run: npx playwright install --with-deps chromium webkit
+      - run: python3 -m http.server 8765 > /tmp/site-server.log 2>&1 &
+      - run: node tools/verify-treasures-photos-20261019.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: treasures-photo-verification
+          path: diagnostics/treasures-20261019/
