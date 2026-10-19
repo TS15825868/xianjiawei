@@ -454,6 +454,31 @@ a{color:inherit}
  .footer{font-size:15px!important;margin-top:18px!important}
 }
 @media(max-width:350px){.link{padding:13px 10px!important;gap:9px!important}.icon{width:47px!important;height:47px!important;flex-basis:47px!important}.copy strong{font-size:21px!important}.copy small{font-size:14px!important}.social a{font-size:12px!important}.social-mark{width:26px!important;height:26px!important;flex-basis:26px!important}}
+
+/* 手機正式單頁版：在可用高度內等比例縮放，不裁切內容 */
+@media(max-width:700px){
+ .page{height:100svh!important;min-height:100svh!important;max-height:100svh!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
+ .scene{flex:0 0 auto!important;padding-top:clamp(3px,.6svh,8px)!important;padding-bottom:0!important}
+ .identity{margin-bottom:0!important}
+ .logo{max-height:clamp(58px,9svh,86px)!important;width:auto!important}
+ .brand{font-size:clamp(23px,3.5svh,30px)!important;margin-top:0!important}
+ .position,.tagline{margin-top:clamp(1px,.25svh,4px)!important}
+ .tagline{font-size:clamp(15px,2.3svh,20px)!important}
+ .intro,.scope{font-size:clamp(11px,1.55svh,14px)!important;margin-top:clamp(1px,.2svh,3px)!important}
+ .content{flex:1 1 auto!important;min-height:0!important;padding-top:clamp(4px,.8svh,9px)!important;padding-bottom:clamp(3px,.7svh,8px)!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
+ .card{flex:0 0 auto!important}
+ .stack{gap:clamp(5px,.85svh,10px)!important}
+ .link,.link--primary{height:clamp(65px,9svh,90px)!important;min-height:0!important;padding:clamp(7px,1svh,12px) 12px!important;gap:10px!important;border-radius:19px!important}
+ .icon{width:clamp(38px,5.5svh,51px)!important;height:clamp(38px,5.5svh,51px)!important;flex-basis:clamp(38px,5.5svh,51px)!important}
+ .copy strong,.link--primary .copy strong{font-size:clamp(19px,2.7svh,24px)!important;line-height:1.16!important}
+ .copy small{font-size:clamp(12px,1.75svh,15px)!important;line-height:1.25!important}
+ .section-title{font-size:clamp(17px,2.4svh,22px)!important;margin-top:clamp(5px,.9svh,10px)!important;margin-bottom:clamp(4px,.65svh,8px)!important}
+ .social{gap:6px!important}
+ .social a{height:clamp(43px,6.2svh,57px)!important;min-height:0!important;padding:4px!important;font-size:clamp(12px,1.9svh,16px)!important;gap:4px!important}
+ .social-mark{width:clamp(23px,3.7svh,30px)!important;height:clamp(23px,3.7svh,30px)!important;flex-basis:clamp(23px,3.7svh,30px)!important}
+ .footer{font-size:clamp(11px,1.6svh,14px)!important;margin-top:clamp(5px,.8svh,9px)!important}
+}
+@media(max-width:700px) and (max-height:740px){.logo{max-height:50px!important}.brand{font-size:22px!important}.intro,.scope{font-size:10px!important}.link,.link--primary{height:clamp(54px,8.5svh,64px)!important}.copy strong,.link--primary .copy strong{font-size:18px!important}.copy small{font-size:11px!important}.social a{height:40px!important}.section-title{margin-top:4px!important}}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
