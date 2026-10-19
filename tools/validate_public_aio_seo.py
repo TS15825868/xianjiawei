@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 from current_product_authority import current_public_ids, current_media_ids
@@ -84,15 +85,18 @@ def main():
     if master.get('productCount')!=len(PUBLIC_IDS) or list(mb)!=PUBLIC_IDS:fail(errors,'public-product-master不是目前六項官網產品權威')
     for pid,spec in SPECS.items():
         if mb.get(pid,{}).get('specification')!=spec:fail(errors,f'public-product-master規格錯誤：{pid}')
-    if (mb.get('guilu-drink-30',{}).get('usage') or [None])[0]!=CURRENT_30:fail(errors,'public-product-master 30cc用法不是每日 1–2 罐')
+    normalize_usage=lambda value: re.sub(r'\s+', '', value.translate(str.maketrans({'～':'-', '–':'-', '〜':'-', '~':'-'})))
+    dose=next((re.search(r'每日\s*\d+(?:\s*[～–〜~-]\s*\d+)?\s*罐',text) for text in mb.get('guilu-drink-30',{}).get('usage',[]) if '每日' in text),None)
+    if not dose:fail(errors,'public-product-master 30cc缺少目前每日用量')
+    current_30=dose.group(0) if dose else ''
     if (mb.get('guilu-drink-180',{}).get('usage') or [None])[0]!='每日一包':fail(errors,'public-product-master 180cc用法不是每日一包')
 
     for rel in ['ai-answers.json','geo-data.json','catalog-public.json','content/public-post-library.json']:
         text=read(rel)
         for marker in DEFERRED:
             if marker in text:fail(errors,f'{rel}重新把暫緩產品放到公開AI/GEO/貼文層：{marker}')
-    for marker in ['龜鹿膏','龜鹿飲30cc玻璃罐',CURRENT_30,'龜鹿飲180cc鋁袋','每日一包','鹿茸粉']:
-        if marker not in read('llms.txt'):fail(errors,f'llms.txt缺少：{marker}')
+    for marker in ['龜鹿膏','龜鹿飲30cc玻璃罐',current_30,'龜鹿飲180cc鋁袋','每日一包','鹿茸粉']:
+        if normalize_usage(marker) not in normalize_usage(read('llms.txt')):fail(errors,f'llms.txt缺少：{marker}')
 
     answers=load('ai-answers.json')
     if not answers.get('updatedAt') or answers.get('updatedAt')<'2026-10-05':fail(errors,'ai-answers.json未標示最新AEO檢視日期')

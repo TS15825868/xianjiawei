@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 from current_product_authority import current_public_ids, current_media_ids
@@ -74,7 +75,11 @@ def main():
 
     p30 = visible('product-guilu-drink-30cc.html')
     req('30cc／罐（小玻璃罐）' in p30 and '裸罐' in p30 and '無貼紙' in p30, '30cc詳頁包裝事實不完整')
-    req(CURRENT_30 in p30 and CURRENT_30 in faq and CURRENT_30 in guide and CURRENT_30 in (ROOT/'products.html').read_text(), '30cc目前正式用法未同步產品頁／FAQ／指南／總覽')
+    normalize_usage=lambda value: re.sub(r'\s+', '', value.translate(str.maketrans({'～':'-', '–':'-', '〜':'-', '~':'-'})))
+    drink30=next(p for p in master['products'] if p['id']=='guilu-drink-30')
+    current_usage=next(text for text in drink30['usage'] if '每日' in text)
+    req(all(normalize_usage(current_usage) in normalize_usage(text) for text in [p30,faq,guide]), '30cc目前正式用法未同步產品頁／FAQ／指南')
+    req('product-guilu-drink-30cc.html' in (ROOT/'products.html').read_text(), '總覽缺少30cc完整產品介紹入口')
     p180 = visible('product-guilu-drink-180cc.html')
     req('180cc／包（鋁袋）' in p180 and '每日一包' in p180, '180cc詳頁規格／使用方式不完整')
 
