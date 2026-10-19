@@ -336,6 +336,18 @@ a{color:inherit}
 .section-title{margin:clamp(5px,1.5svh,12px) 2px 5px}.social a{min-height:0;height:clamp(36px,6svh,44px)}.footer{margin-top:clamp(4px,1.3svh,10px);font-size:11px}
 @media(max-height:570px){.intro,.scope{display:none}.social a{height:31px}.link{height:40px}.footer{display:none}}
 @media(max-width:350px){.social{grid-template-columns:repeat(3,1fr)}.social a{padding:3px;font-size:10px}.social-mark{display:none}}
+/* 2026-10-19 字體及按鈕易讀性優化：保留單頁優先 */
+@media(min-height:650px){
+ .link{height:clamp(57px,8.8svh,72px);padding:9px 15px;border-radius:17px}
+ .icon{width:39px;height:39px;flex-basis:39px}.icon svg{width:23px;height:23px}
+ .copy strong,.link--primary .copy strong{font-size:clamp(16px,2.3svh,19px)}
+ .copy small{font-size:clamp(11px,1.65svh,14px);line-height:1.35}
+ .section-title{font-size:clamp(14px,2svh,17px)}
+ .social a{height:clamp(41px,6.4svh,50px);font-size:clamp(12px,1.8svh,15px)}
+ .brand{font-size:clamp(23px,3.3svh,29px)}.tagline{font-size:clamp(15px,2.5svh,19px)}
+}
+@media(max-width:420px) and (min-height:650px){.link{padding:7px 10px}.copy strong,.link--primary .copy strong{font-size:16px}.copy small{font-size:11px}.icon{width:35px;height:35px;flex-basis:35px}}
+@media(max-height:649px){.link{height:43px}.copy strong,.link--primary .copy strong{font-size:14px}.copy small{font-size:10px}}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
