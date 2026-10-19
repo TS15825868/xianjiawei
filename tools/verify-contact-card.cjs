@@ -8,7 +8,9 @@ const fs = require('fs'), assert = require('node:assert/strict');
   ['iphone-safari',webkit,devices['iPhone 13']],
   ['android-chrome',chromium,devices['Pixel 7']],
   ['line-mobile-viewport',chromium,{...devices['iPhone 13'],defaultBrowserType:'chromium',userAgent:devices['iPhone 13'].userAgent+' Line/15.0.0'}],
-  ['desktop-chrome',chromium,{viewport:{width:1440,height:1000}}]
+  ['desktop-chrome',chromium,{viewport:{width:1440,height:900}}],
+  ['small-iphone',webkit,{viewport:{width:320,height:568}}],
+  ['landscape-phone',chromium,{viewport:{width:844,height:390}}]
  ]) {
   const browser=await type.launch();
   const page=await browser.newPage(config);
@@ -17,12 +19,14 @@ const fs = require('fs'), assert = require('node:assert/strict');
   assert.equal(response.status(),200);await page.locator('.logo').waitFor();await page.waitForLoadState('networkidle');
   const state=await page.evaluate(()=>({
    overflow:document.documentElement.scrollWidth>innerWidth,
+   verticalOverflow:document.documentElement.scrollHeight>innerHeight+1,
+   allVisible:[...document.querySelectorAll('.logo,h1,.actions,.detail')].every(e=>{const r=e.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight+1}),
    images:[...document.images].every(i=>i.complete&&i.naturalWidth>0),
    links:[...document.querySelectorAll('.action')].map(a=>a.getAttribute('href')),
    clipped:[...document.querySelectorAll('.action,h1,.role')].some(e=>e.scrollWidth>e.clientWidth),
    logoRatio:document.querySelector('.logo').naturalWidth/document.querySelector('.logo').naturalHeight
   }));
-  assert.equal(state.overflow,false);assert.equal(state.clipped,false);assert.equal(state.images,true);assert.equal(state.links.length,3);
+  assert.equal(state.overflow,false);assert.equal(state.verticalOverflow,false);assert.equal(state.allVisible,true);assert.equal(state.clipped,false);assert.equal(state.images,true);assert.equal(state.links.length,3);
   assert.equal(state.links[0],'https://lin.ee/sHZW7NkR');
   assert.equal(errors.length,0);
   assert(!state.links.some(x=>x.startsWith('tel:')||x.includes('.vcf')||x.includes('~')));
