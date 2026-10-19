@@ -567,6 +567,9 @@ function renderVideoPage() {
   });
 
   grid.classList.add("video-grid-v410");
+  // The HTML direct-link list remains available when JavaScript fails; hide it once interactive cards are ready.
+  const directLinks = document.getElementById("video-direct-links");
+  if (directLinks && videos.length > 0) directLinks.hidden = true;
 
   const refresh = () => {
     const filtered = videos.filter(video => {
