@@ -432,6 +432,28 @@ a{color:inherit}
  .social a{min-height:42px;height:auto}
 }
 @media(max-width:350px){.page{height:auto;overflow:visible}.link{height:auto;min-height:62px}.social a{min-height:42px}}
+
+/* 2026-10-19｜手機大字大按鈕：優先閱讀，內容可自然捲動 */
+@media(max-width:700px){
+ .page{height:auto!important;min-height:100svh!important;overflow:visible!important}
+ .scene{padding-top:clamp(10px,2svh,20px)!important;padding-bottom:8px!important}
+ .content{padding-bottom:28px!important}
+ .stack{gap:12px!important}
+ .link{height:auto!important;min-height:104px!important;padding:16px 16px!important;border-radius:22px!important;gap:14px!important}
+ .link--primary{min-height:118px!important}
+ .icon{width:55px!important;height:55px!important;flex-basis:55px!important}
+ .icon svg{width:72%!important;height:72%!important}
+ .icon--line svg{width:100%!important;height:100%!important}
+ .copy strong,.link--primary .copy strong{font-size:clamp(23px,5.8vw,27px)!important;line-height:1.2!important}
+ .copy small{font-size:clamp(15px,3.8vw,18px)!important;line-height:1.4!important;white-space:normal!important}
+ .chev{font-size:27px!important}
+ .section-title{font-size:24px!important;margin-top:19px!important;margin-bottom:12px!important}
+ .social{gap:9px!important}
+ .social a{height:auto!important;min-height:64px!important;padding:10px 6px!important;font-size:clamp(14px,3.7vw,17px)!important;gap:6px!important}
+ .social-mark{width:32px!important;height:32px!important;flex:0 0 32px!important}
+ .footer{font-size:15px!important;margin-top:18px!important}
+}
+@media(max-width:350px){.link{padding:13px 10px!important;gap:9px!important}.icon{width:47px!important;height:47px!important;flex-basis:47px!important}.copy strong{font-size:21px!important}.copy small{font-size:14px!important}.social a{font-size:12px!important}.social-mark{width:26px!important;height:26px!important;flex-basis:26px!important}}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
