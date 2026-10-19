@@ -367,6 +367,21 @@ a{color:inherit}
  .social a{font-size:13px;padding:5px 4px}.social-mark{width:24px;height:24px}
 }
 @media(max-height:760px){.scene{padding-top:5px}.logo{max-height:74px}.intro,.scope{font-size:11px}.stack{gap:6px}}
+/* iPhone 再放大：優先保留可讀性與按鈕高度 */
+@media(min-width:351px) and (min-height:700px){
+ .link{height:clamp(73px,10.2svh,90px);padding:10px 13px}
+ .copy strong,.link--primary .copy strong{font-size:clamp(20px,2.7svh,23px)}
+ .copy small{font-size:clamp(13px,1.9svh,16px);line-height:1.28}
+ .icon{width:46px;height:46px;flex-basis:46px}.icon svg{width:27px;height:27px}
+ .section-title{font-size:20px}.social a{height:clamp(50px,7svh,62px);font-size:clamp(14px,2svh,17px)}
+ .social-mark{width:29px;height:29px}
+ .brand{font-size:clamp(25px,3.5svh,31px)}.tagline{font-size:clamp(17px,2.7svh,21px)}
+}
+@media(min-width:351px) and (max-width:420px) and (min-height:700px){
+ .copy strong,.link--primary .copy strong{font-size:20px}.copy small{font-size:13px}
+ .icon{width:42px;height:42px;flex-basis:42px}.social a{font-size:14px}
+}
+@media(min-width:351px) and (max-height:810px){.scene{padding-top:4px;padding-bottom:4px}.logo{width:48px;max-height:78px}.intro,.scope{font-size:11px;margin-top:2px}.stack{gap:6px}.link{height:65px}.section-title{margin-top:8px}.footer{margin-top:6px}}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
