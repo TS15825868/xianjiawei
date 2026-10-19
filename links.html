@@ -1162,6 +1162,66 @@ a{color:inherit}
  main.page .content .hub-grid .copy,
  main.page .content .hub-grid .social-copy{min-width:0!important}
 }
+
+/* 2026-10-19｜Android／小米：鎖定品牌亮色，窄螢幕字體與圖示防溢出 */
+:root,html,body{color-scheme:only light!important}
+@media (max-width:700px){
+ main.page .content .hub-grid>a.hub-tile,
+ main.page .content .hub-grid .hub-social>a{
+  background:rgba(255,253,247,.96)!important;
+  background-color:#fffdf7!important;
+  color:#172536!important;
+  border-color:#bca171!important;
+ }
+ main.page .content .hub-grid>a.hub-tile .copy strong,
+ main.page .content .hub-grid .hub-social>a .social-copy strong{color:#10233b!important}
+ main.page .content .hub-grid>a.hub-tile .copy small,
+ main.page .content .hub-grid .hub-social>a .social-copy small{color:#35413f!important}
+ main.page .content .hub-grid>a.hub-primary{
+  background-color:#85282b!important;color:#fffdf7!important;
+ }
+ main.page .content .hub-grid>a.hub-primary .copy strong,
+ main.page .content .hub-grid>a.hub-primary .copy small{color:#fffdf7!important}
+}
+@media (min-width:351px) and (max-width:440px){
+ main.page .content .hub-grid>a.hub-tile,
+ main.page .content .hub-grid .hub-social>a{
+  gap:clamp(4px,1vw,7px)!important;
+  padding-inline:clamp(5px,1.4vw,8px)!important;
+  overflow:hidden!important;
+ }
+ main.page .content .hub-grid>a.hub-tile .icon,
+ main.page .content .hub-grid .hub-social>a .social-mark{
+  width:clamp(32px,9.4vw,43px)!important;
+  height:clamp(32px,9.4vw,43px)!important;
+  min-width:clamp(32px,9.4vw,43px)!important;
+ }
+ main.page .content .hub-grid>a.hub-tile .copy,
+ main.page .content .hub-grid .hub-social>a .social-copy{
+  flex:1 1 auto!important;min-width:0!important;max-width:100%!important;
+  overflow:hidden!important;
+ }
+ main.page .content .hub-grid>a.hub-tile .copy strong,
+ main.page .content .hub-grid .hub-social>a .social-copy strong{
+  display:block!important;font-size:clamp(16px,4.5vw,20px)!important;
+  line-height:1.16!important;letter-spacing:-.04em!important;
+  white-space:nowrap!important;overflow:hidden!important;
+ }
+ main.page .content .hub-grid>a.hub-tile .copy small,
+ main.page .content .hub-grid .hub-social>a .social-copy small{
+  display:block!important;font-size:clamp(11px,3.2vw,14px)!important;
+  line-height:1.22!important;letter-spacing:-.045em!important;
+  white-space:normal!important;overflow-wrap:anywhere!important;
+  word-break:normal!important;max-width:100%!important;
+ }
+ main.page .content .hub-grid>a.hub-primary .copy strong{
+  font-size:clamp(25px,7vw,33px)!important;
+ }
+ main.page .content .hub-grid>a.hub-primary .copy small{
+  font-size:clamp(13px,3.65vw,17px)!important;
+  white-space:normal!important;
+ }
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
