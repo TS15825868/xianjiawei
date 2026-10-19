@@ -685,6 +685,19 @@ a{color:inherit}
  .hub-social a{height:clamp(104px,13.1svh,130px)!important}
  .content{justify-content:flex-end!important;padding-top:clamp(12px,1.6svh,18px)!important}
 }
+
+/* 2026-10-19｜收尾：主要入口只保留名稱，手機單頁閱讀更清楚 */
+@media (min-width:351px) and (max-width:700px){
+ .hub-grid .hub-tile .copy small{display:none!important}
+ .hub-grid .hub-tile .chev{display:none!important}
+ .hub-grid .hub-tile{padding:10px 4px!important;gap:8px!important}
+ .hub-grid .hub-tile .copy{width:100%!important;min-width:0!important}
+ .hub-grid .hub-tile .copy strong{white-space:nowrap!important;word-break:keep-all!important;line-height:1.2!important}
+ .hub-social a{padding:8px 3px!important;gap:7px!important}
+ .hub-grid .hub-primary .copy small{display:block!important}
+ .identity .position-row{margin-top:clamp(7px,1svh,11px)!important}
+ .identity .tagline{margin-top:clamp(9px,1.3svh,14px)!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
