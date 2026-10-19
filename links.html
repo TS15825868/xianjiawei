@@ -957,6 +957,16 @@ a{color:inherit}
  .hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
  .footer{flex:0 0 auto!important}
 }
+
+/* 2026-10-19｜按鈕再加高一階：由品牌區讓出少量空間，保持單頁 */
+@media (min-width:351px) and (max-width:700px) and (min-height:741px){
+ .scene{padding-top:clamp(7px,1.1dvh,12px)!important}
+ .logo{width:clamp(88px,12.4dvh,117px)!important;max-height:13dvh!important;margin-bottom:clamp(3px,.5dvh,6px)!important}
+ .identity .position-row{margin-top:clamp(4px,.6dvh,7px)!important}
+ .identity .tagline{margin-top:clamp(5px,.7dvh,8px)!important}
+ .content{padding-top:4px!important;padding-bottom:calc(clamp(6px,.9dvh,10px) + env(safe-area-inset-bottom))!important}
+ .hub-grid{grid-template-rows:minmax(0,1.38fr) repeat(3,minmax(0,1fr))!important;row-gap:clamp(6px,.8dvh,9px)!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
