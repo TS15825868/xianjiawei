@@ -1131,6 +1131,37 @@ a{color:inherit}
  main.page .content .hub-grid>a.link .copy,
  main.page .content .hub-grid .hub-social>a .social-copy{min-width:0!important}
 }
+
+/* 2026-10-19｜熟齡友善按鈕：放大圖示、標題與備註，不更動版面高度 */
+@media (min-width:351px) and (max-width:700px){
+ main.page .content .hub-grid>a.link .icon{
+  width:clamp(43px,6dvh,57px)!important;height:clamp(43px,6dvh,57px)!important;
+  min-width:clamp(43px,6dvh,57px)!important;flex:0 0 auto!important;
+ }
+ main.page .content .hub-grid>a.hub-primary .icon{
+  width:clamp(67px,9.5dvh,88px)!important;height:clamp(67px,9.5dvh,88px)!important;
+  min-width:clamp(67px,9.5dvh,88px)!important;
+ }
+ main.page .content .hub-grid .hub-social>a .social-mark{
+  width:clamp(43px,6dvh,57px)!important;height:clamp(43px,6dvh,57px)!important;
+  min-width:clamp(43px,6dvh,57px)!important;flex:0 0 auto!important;
+ }
+ main.page .content .hub-grid>a.hub-tile,
+ main.page .content .hub-grid .hub-social>a{gap:clamp(7px,1.2dvw,11px)!important;padding-inline:clamp(8px,1.7dvw,13px)!important}
+ main.page .content .hub-grid>a.hub-tile .copy strong,
+ main.page .content .hub-grid .hub-social>a .social-copy strong{
+  font-size:clamp(19px,2.7dvh,24px)!important;font-weight:800!important;line-height:1.14!important;
+ }
+ main.page .content .hub-grid>a.hub-tile .copy small,
+ main.page .content .hub-grid .hub-social>a .social-copy small{
+  font-size:clamp(14px,1.95dvh,17px)!important;font-weight:700!important;
+  line-height:1.25!important;color:#28363d!important;
+ }
+ main.page .content .hub-grid>a.hub-primary .copy strong{font-size:clamp(29px,3.9dvh,37px)!important}
+ main.page .content .hub-grid>a.hub-primary .copy small{font-size:clamp(16px,2.3dvh,20px)!important;font-weight:700!important}
+ main.page .content .hub-grid .copy,
+ main.page .content .hub-grid .social-copy{min-width:0!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
