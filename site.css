@@ -1466,3 +1466,10 @@ h1{line-height:1.28}h2{line-height:1.38}
  .modal-actions .btn,.product-modal .modal-actions .btn{min-height:54px;font-size:16px}
 }
 @media(prefers-reduced-motion:reduce){.btn{transition:none}}
+
+/* 2026-10-19｜首頁品牌 Logo 與功能圖示按鈕 */
+.btn__brand-logo{display:block;width:27px;height:35px;max-width:none;object-fit:contain;flex:0 0 auto}
+.btn__symbol{display:block;width:23px;height:23px;flex:0 0 auto}
+.btn:has(.btn__brand-logo),.btn:has(.btn__symbol){display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding-inline:18px}
+.btn:has(.btn__brand-logo) span,.btn:has(.btn__symbol) span{min-width:0}
+@media(max-width:700px){.btn:has(.btn__brand-logo),.btn:has(.btn__symbol){min-height:58px;gap:9px;padding-inline:14px}.btn__brand-logo{width:24px;height:33px}.btn__symbol{width:22px;height:22px}}
