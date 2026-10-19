@@ -178,6 +178,12 @@ def main() -> None:
                         fail("owner-approved main photo content differs from release SHA256: " + pid)
                     if photo[2] is None:
                         fail("owner-approved main photo has no original source identity: " + pid)
+                elif official_picture.startswith("images/catalog-real-owner-v20261019/"):
+                    import hashlib
+                    evidence=load("images/catalog-real-owner-v20261019/manifest.json").get("products",{}).get(pid,{})
+                    entry=evidence.get("front",{})
+                    if entry.get("path")!=official_picture or hashlib.sha256(safe_file(official_picture).read_bytes()).hexdigest()!=entry.get("sha256"):
+                        fail("delivered real front photo hash mismatch: "+pid)
                 elif official_picture.startswith("images/catalog-"):
                     # 新版實拍情境圖可以正常取代舊版本。必須在同一版目錄
                     # 追溯原廠照片／合成記錄，禁止任意AI重畫的包裝冒用正式圖。

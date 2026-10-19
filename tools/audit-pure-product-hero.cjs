@@ -37,10 +37,14 @@ const verifyPhoto=(id,path)=>{
   const png=data.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]));
   check(data.length>30000&&(webp||png),id+" main file has invalid image header/size");
   const digest=crypto.createHash("sha256").update(data).digest("hex");
+  const newEvidence=read("images/catalog-real-owner-v20261019/manifest.json").products[id];
+  const delivered=newEvidence && Object.values(newEvidence).find(e=>e.path===image);
   const ownerEntry=approvedOwner.get(image);
   const pureEntry=source.items.find(x=>x.file===image);
   const userEntry=origin.photos.find(x=>x.file===image&&x.id===id);
-  if(ownerEntry){
+  if(delivered){
+    check(digest===delivered.sha256,id+" delivered real photo SHA mismatch");
+  }else if(ownerEntry){
     check(digest===ownerEntry.sha,id+" current owner-approved image SHA mismatch");
     if(ownerEntry.sourceSha){
       const original=owner.photos[ownerEntry.id]; // 丹參系列與玫瑰果品項共用同一張經核准的系列代表實拍

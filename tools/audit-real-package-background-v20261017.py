@@ -24,6 +24,14 @@ for pid,name in items:
     photo=ROOT/filename
     if not photo.is_file():
         errors.append(f"{pid}: main image missing {filename}");continue
+    if filename.startswith("images/catalog-real-owner-v20261019/"):
+        import hashlib
+        entry=json.loads((ROOT/"images/catalog-real-owner-v20261019/manifest.json").read_text())["products"].get(pid,{}).get("front",{})
+        img=Image.open(photo)
+        if entry.get("path")!=filename or hashlib.sha256(photo.read_bytes()).hexdigest()!=entry.get("sha256"):
+            errors.append(f"{pid}: delivered real front photo hash mismatch")
+        if img.mode!="RGBA" or img.getchannel("A").getextrema()!=(0,255):
+            errors.append(f"{pid}: transparent real package required")
     if filename.startswith("images/catalog-user-original-v20261017/"):
         import hashlib
         evidence=json.loads((ROOT/"images/catalog-user-original-v20261017/source-integrity.json").read_text(encoding="utf-8"))
