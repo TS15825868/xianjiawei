@@ -1222,6 +1222,13 @@ a{color:inherit}
   white-space:normal!important;
  }
 }
+
+/* 品牌入口閱讀性：維持正式配置，避免桌機與平板介紹字過小 */
+@media (min-width:701px){
+  main.page .identity .intro,
+  main.page .identity .scope{font-size:16px!important;line-height:1.5!important}
+  main.page .footer{font-size:15px!important;line-height:1.5!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
