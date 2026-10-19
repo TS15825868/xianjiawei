@@ -179,7 +179,6 @@ def main() -> None:
                     if photo[2] is None:
                         fail("owner-approved main photo has no original source identity: " + pid)
                 elif official_picture.startswith("images/catalog-real-owner-v20261019/"):
-                    import hashlib
                     evidence=load("images/catalog-real-owner-v20261019/manifest.json").get("products",{}).get(pid,{})
                     entry=evidence.get("front",{})
                     if entry.get("path")!=official_picture or hashlib.sha256(safe_file(official_picture).read_bytes()).hexdigest()!=entry.get("sha256"):
