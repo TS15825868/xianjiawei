@@ -78,17 +78,12 @@
       ]
     },
     "uboss-sizhenbao": {
-      "mainImage": "images/catalog-owner-final-v20261017/uboss-sizhenbao-main.webp",
-      "detailImages": [
-        "images/catalog-user-original-v20261017/sizhenbao-actual-8-blocks.webp"
-      ]
+      "mainImage": "images/catalog-real-owner-v20261019/uboss-sizhenbao-front.png",
+      "detailImages": ["images/catalog-real-owner-v20261019/uboss-sizhenbao-open.png", "images/catalog-real-owner-v20261019/uboss-sizhenbao-back.png"]
     },
     "royalherb-erzhenbao-64": {
-      "mainImage": "images/catalog-owner-final-v20261017/royalherb-erzhenbao-64-main.webp",
-      "detailImages": [
-        "images/catalog-user-original-v20261017/erzhenbao-single-tray-8-pieces-owner-v20261017.webp",
-        "images/catalog-user-original-v20261017/erzhenbao-open-box-2-trays-owner-v20261017.webp"
-      ]
+      "mainImage": "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-front.png",
+      "detailImages": ["images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-open.png", "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-back.png"]
     },
     "jianfeng-rose-fruit-tea": {
       "mainImage": "images/catalog-owner-final-v20261017/danshen-tea-collection-main.webp",

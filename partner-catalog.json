@@ -1382,7 +1382,7 @@
       "saleContact": "仙加味官方LINE，提供產品價格、供貨及詢問；個人醫療適用性問題另洽專業醫師",
       "requiresDoctorReferralForOrdinaryFoodSale": false,
       "brandLegalName": "御采堂生技食品有限公司",
-      "image": "images/catalog-owner-final-v20261017/uboss-sizhenbao-main.webp",
+      "image": "images/catalog-real-owner-v20261019/uboss-sizhenbao-front.png",
       "page": "product-four-treasures.html",
       "imageSourceRecord": {
         "sourceRepository": "Wuji29879526/Wuji",
@@ -1445,7 +1445,8 @@
       "versionNote": "2026-10-15新實拍覆核後更正黨蔘文字、營養資訊與保險；主圖仍是未變形同款原廠實拍",
       "originalFrontPhoto": "images/partner-products/four-treasures-front.jpg",
       "detailImages": [
-        "images/catalog-user-original-v20261017/sizhenbao-actual-8-blocks.webp"
+        "images/catalog-real-owner-v20261019/uboss-sizhenbao-open.png",
+        "images/catalog-real-owner-v20261019/uboss-sizhenbao-back.png"
       ],
       "mainPhotoRole": "single real physical pack or carton; no surrounding decorative scene; complete visible package, preserve real original pixels",
       "contentsPhotoRole": "detail-page-only",
@@ -1563,7 +1564,7 @@
       "compliance": "不沿用外盒療效形容、舊建議售價或不確定的保險理賠保證；上架產品圖務必紫色二珍寶原廠盒裝實物。",
       "pricePresentation": "官網不公開售價；LINE OA 依使用者最新核准資料顯示建議售價與優惠價，不沿用包裝舊價",
       "page": "product-er-zhen-bao.html",
-      "image": "images/catalog-owner-final-v20261017/royalherb-erzhenbao-64-main.webp",
+      "image": "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-front.png",
       "imageSourceStatus": "verified-original-manufacturer-webp-hosted-on-current-main",
       "approvedImageGitSha": "b44d0577d2f23046b1e6341f3af7a6d6e3e633dc",
       "imageFromOriginal": true,
@@ -1573,8 +1574,8 @@
       "fulfillmentNotice": "售價與供貨由仙加味官方LINE確認；官網不直接線上結帳",
       "originalFrontPhoto": "images/partner-products/er-zhen-bao-royalherb-original.webp",
       "detailImages": [
-        "images/catalog-user-original-v20261017/erzhenbao-single-tray-8-pieces-owner-v20261017.webp",
-        "images/catalog-user-original-v20261017/erzhenbao-open-box-2-trays-owner-v20261017.webp"
+        "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-open.png",
+        "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-back.png"
       ],
       "mainPhotoRole": "single real physical pack or carton; no surrounding decorative scene; complete visible package, preserve real original pixels",
       "contentsPhotoRole": "detail-page-only",

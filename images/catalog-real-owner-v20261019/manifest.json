@@ -1,0 +1,33 @@
+{
+  "version": "20261019",
+  "products": {
+    "royalherb-erzhenbao-64": {
+      "front": {
+        "path": "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-front.png",
+        "sha256": "4cef8f5c5e4ac95c0373e511e6723b5fdc055686476fb6c264e4caab97c6c7af"
+      },
+      "open": {
+        "path": "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-open.png",
+        "sha256": "5c9bc8c652c045aab142dcadf591b3605b635823b99d1d4be7430851a51865f1"
+      },
+      "back": {
+        "path": "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-back.png",
+        "sha256": "f082edd04ced5d8a2400a6287725edfd0ed3c73c78fcf5b8c8aca4835db16b53"
+      }
+    },
+    "uboss-sizhenbao": {
+      "front": {
+        "path": "images/catalog-real-owner-v20261019/uboss-sizhenbao-front.png",
+        "sha256": "ca356cad3a25cf7e4833ee446b7282258100e67e442dd848b32d7d3722349d79"
+      },
+      "open": {
+        "path": "images/catalog-real-owner-v20261019/uboss-sizhenbao-open.png",
+        "sha256": "38c4fc597cc248432546df490612f01707ec118616c6faf28bd56fb25e0a2271"
+      },
+      "back": {
+        "path": "images/catalog-real-owner-v20261019/uboss-sizhenbao-back.png",
+        "sha256": "9778a388a10595239b2978a357278975cf8f072a158f6806d59d77580ded7301"
+      }
+    }
+  }
+}
