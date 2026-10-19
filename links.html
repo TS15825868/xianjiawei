@@ -940,6 +940,23 @@ a{color:inherit}
  .hub-grid .hub-primary{height:clamp(87px,13.2dvh,103px)!important}
  .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(78px,11.8dvh,93px)!important}
 }
+
+/* 2026-10-19｜高度分配定稿：按鈕優先加高兩級，其餘空間給品牌區 */
+@media (min-width:351px) and (max-width:700px) and (min-height:741px){
+ .page{height:100dvh!important;min-height:0!important;overflow:hidden!important}
+ .scene{flex:0 1 auto!important;min-height:0!important}
+ .content{flex:1 1 0!important;min-height:0!important;padding-top:clamp(5px,.8dvh,9px)!important;justify-content:flex-end!important}
+ .content>.card{flex:1 1 auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important}
+ .hub-grid{
+   flex:1 1 auto!important;min-height:0!important;
+   display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+   grid-template-rows:minmax(0,1.32fr) repeat(3,minmax(0,1fr))!important;
+   align-content:stretch!important;row-gap:clamp(6px,.8dvh,9px)!important
+ }
+ .hub-grid .hub-primary{height:100%!important;min-height:0!important;grid-column:1/-1!important}
+ .hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
+ .footer{flex:0 0 auto!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
