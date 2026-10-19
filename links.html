@@ -646,6 +646,26 @@ a{color:inherit}
  .hub-grid .hub-tile{height:clamp(129px,16.4svh,163px)!important}
  .hub-social a{height:clamp(106px,13.4svh,134px)!important}
 }
+
+/* 2026-10-19｜連結入口字級與按鈕尺寸統一：底部對齊、安全不裁切 */
+@media (min-width:351px) and (max-width:700px){
+ .identity .brand{font-size:clamp(27px,3.5svh,34px)!important;line-height:1.12!important}
+ .identity .position{font-size:clamp(13px,1.8svh,16px)!important}
+ .identity .tagline{font-size:clamp(17px,2.3svh,21px)!important;line-height:1.25!important}
+ .identity .intro,.identity .scope{font-size:clamp(12px,1.65svh,15px)!important;line-height:1.35!important}
+ .hub-grid .hub-primary .copy strong{font-size:clamp(24px,3.2svh,30px)!important;line-height:1.12!important}
+ .hub-grid .hub-primary .copy small{font-size:clamp(12px,1.6svh,15px)!important;line-height:1.35!important}
+ .hub-grid .hub-tile .copy strong{font-size:clamp(16px,2.25svh,21px)!important;line-height:1.15!important}
+ .hub-social a{font-size:clamp(14px,1.95svh,18px)!important}
+ .section-title{font-size:clamp(15px,2svh,18px)!important}
+ .footer{font-size:clamp(12px,1.6svh,14px)!important}
+}
+@media (min-width:351px) and (max-width:700px) and (min-height:780px){
+ .hub-grid .hub-primary{height:clamp(108px,13.2svh,134px)!important}
+ .hub-grid .hub-tile{height:clamp(136px,17.2svh,173px)!important}
+ .hub-social a{height:clamp(111px,14svh,140px)!important}
+ .content{padding-bottom:calc(clamp(15px,2svh,24px) + env(safe-area-inset-bottom))!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
