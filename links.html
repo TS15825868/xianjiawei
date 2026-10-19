@@ -1105,6 +1105,32 @@ a{color:inherit}
  main.page .scene .identity h1.brand{margin-top:0!important}
  main.page .scene .identity .intro,main.page .scene .identity .scope{display:block!important}
 }
+
+/* 2026-10-19｜熟齡友善：只放大按鈕內標題與備註，維持已確認版面 */
+@media (min-width:351px) and (max-width:700px){
+ main.page .content .hub-grid>a.link .copy strong{
+  font-size:clamp(19px,2.7dvh,24px)!important;
+  font-weight:800!important;line-height:1.15!important;letter-spacing:-.035em!important;
+ }
+ main.page .content .hub-grid>a.link .copy small{
+  display:block!important;font-size:clamp(14px,1.95dvh,17px)!important;
+  font-weight:650!important;line-height:1.28!important;letter-spacing:-.025em!important;
+  white-space:normal!important;overflow-wrap:normal!important;
+ }
+ main.page .content .hub-grid>a.hub-primary .copy strong{font-size:clamp(27px,3.65dvh,34px)!important}
+ main.page .content .hub-grid>a.hub-primary .copy small{font-size:clamp(16px,2.2dvh,19px)!important}
+ main.page .content .hub-grid .hub-social>a .social-copy strong{
+  font-size:clamp(18px,2.55dvh,23px)!important;font-weight:800!important;
+  line-height:1.15!important;letter-spacing:-.04em!important;
+ }
+ main.page .content .hub-grid .hub-social>a .social-copy small{
+  display:block!important;font-size:clamp(14px,1.95dvh,17px)!important;
+  font-weight:650!important;line-height:1.28!important;letter-spacing:-.03em!important;
+  white-space:normal!important;
+ }
+ main.page .content .hub-grid>a.link .copy,
+ main.page .content .hub-grid .hub-social>a .social-copy{min-width:0!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
