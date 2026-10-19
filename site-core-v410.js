@@ -625,7 +625,7 @@ function renderVideoPage() {
 function renderFeaturedVideo(video) {
   const title = displayVideoTitle(video);
   const category = video.category || "知識影音";
-  const verificationNote = video.contentVerification === "verified" ? "影片來源與內容已核對" : "原始連結已收錄，內容待核對";
+
   return `
     <article class="card video-featured reveal">
       <a class="video-featured__cover" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener" aria-label="觀看${escapeAttribute(title)}">
@@ -635,7 +635,7 @@ function renderFeaturedVideo(video) {
       <div class="video-featured__body">
         <p class="eyebrow">精選影音</p>
         <h2>${escapeHtml(title)}</h2>
-        <p class="video-verification-note">${verificationNote}</p>
+
         <a class="btn btn-primary" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener noreferrer">前往觀看 ↗</a>
       </div>
     </article>
