@@ -652,7 +652,7 @@ function renderVideoCard(video, index) {
         <span class="video-cover-label">${escapeHtml(category)}</span>
       </a>
       <div class="video-card-v410__body">
-        <p class="eyebrow">${escapeHtml(category)}・${escapeHtml(video.contentVerification === "verified" ? "已核對" : "待核對")}</p>
+        <p class="eyebrow">${escapeHtml(category)}・原平台影片</p>
         <h3>${escapeHtml(title)}</h3>
         <a class="btn btn-outline" href="${escapeAttribute(video.url || "#")}" target="_blank" rel="noopener noreferrer">觀看影片 ↗</a>
       </div>
