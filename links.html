@@ -780,6 +780,23 @@ a{color:inherit}
  .hub-grid .hub-primary{height:clamp(65px,11dvh,85px)!important}
  .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(62px,10dvh,80px)!important}
 }
+
+/* 2026-10-19｜LINE 單獨置頂，下方左右兩欄、共三列；底部錨定 */
+@media (max-width:700px){
+ .hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:clamp(5px,.8dvh,9px)!important}
+ .hub-grid .hub-primary{grid-column:1/-1!important;height:clamp(74px,11.5dvh,108px)!important}
+ .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(57px,9.2dvh,83px)!important}
+ .hub-grid .hub-tile{flex-direction:row!important;justify-content:center!important;align-items:center!important;gap:6px!important;padding:6px!important}
+ .hub-grid .hub-tile .icon{width:clamp(26px,3.8dvh,36px)!important;height:clamp(26px,3.8dvh,36px)!important;flex:0 0 auto!important}
+ .hub-grid .hub-tile .copy{width:auto!important}
+ .hub-grid .hub-social a{flex-direction:row!important;gap:6px!important}
+ .hub-grid .hub-social .social-mark{width:clamp(25px,3.6dvh,34px)!important;height:clamp(25px,3.6dvh,34px)!important}
+ .content{justify-content:flex-end!important}
+}
+@media (max-width:700px) and (max-height:740px){
+ .hub-grid .hub-primary{height:clamp(62px,10dvh,78px)!important}
+ .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(50px,8.3dvh,65px)!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
