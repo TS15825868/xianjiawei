@@ -984,6 +984,17 @@ a{color:inherit}
  .hub-grid .hub-primary .copy strong{font-size:clamp(26px,3.6dvh,33px)!important}
  .hub-grid .hub-primary .copy small{font-size:clamp(15px,2.1dvh,18px)!important}
 }
+
+/* 2026-10-19｜手機滿版：收窄左右留白、壓縮品牌與按鈕間空區 */
+@media (min-width:351px) and (max-width:700px) and (min-height:741px){
+ .page{width:100%!important;max-width:none!important;height:100dvh!important;overflow:hidden!important}
+ .scene{padding:clamp(9px,1.3dvh,15px) 9px 0!important}
+ .content{padding:clamp(5px,.7dvh,8px) 9px calc(clamp(5px,.8dvh,9px) + env(safe-area-inset-bottom))!important}
+ .content>.card{width:100%!important;max-width:none!important}
+ .hub-grid{width:100%!important;grid-template-rows:minmax(0,1.48fr) repeat(3,minmax(0,1fr))!important;column-gap:9px!important;row-gap:9px!important}
+ .hub-grid .hub-primary,.hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
+ .footer{margin-top:5px!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
