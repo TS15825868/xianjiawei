@@ -919,6 +919,27 @@ a{color:inherit}
  .hub-grid .hub-primary{height:clamp(84px,12.8dvh,100px)!important}
  .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(75px,11.5dvh,90px)!important}
 }
+
+/* 2026-10-19｜品牌再放大兩級、按鈕加高：以螢幕高度動態適配 */
+@media (min-width:351px) and (max-width:700px) and (min-height:741px){
+ .scene{padding-top:clamp(11px,1.7dvh,18px)!important}
+ .logo{width:clamp(94px,13.4dvh,126px)!important;max-height:14dvh!important;margin-bottom:clamp(5px,.7dvh,9px)!important}
+ .identity .brand{font-size:clamp(38px,5.25dvh,48px)!important}
+ .identity .position{font-size:clamp(16px,2.3dvh,20px)!important}
+ .identity .tagline{font-size:clamp(21px,3dvh,27px)!important}
+ .hub-grid .hub-primary{height:clamp(130px,18.2dvh,170px)!important}
+ .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(115px,16.4dvh,151px)!important}
+ .hub-grid{row-gap:clamp(5px,.7dvh,8px)!important}
+ .content{padding-top:clamp(5px,.8dvh,9px)!important;justify-content:flex-end!important}
+}
+@media (max-width:700px) and (max-height:740px){
+ .logo{width:clamp(55px,8.4dvh,70px)!important}
+ .identity .brand{font-size:clamp(25px,3.8dvh,31px)!important}
+ .identity .position{font-size:12px!important}
+ .identity .tagline{font-size:clamp(15px,2.2dvh,18px)!important}
+ .hub-grid .hub-primary{height:clamp(87px,13.2dvh,103px)!important}
+ .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(78px,11.8dvh,93px)!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
