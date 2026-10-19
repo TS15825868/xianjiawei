@@ -2,7 +2,7 @@ name: Personal contact card verification
 on:
   push:
     branches: [main]
-    paths: ['zheng-tong*', 'images/contact/**', 'tools/verify-contact-card.cjs', '.github/workflows/contact-card-verification.yml']
+    paths: ['business-card*', 'zheng-tong*', 'images/contact/**', 'tools/verify-contact-card.cjs', '.github/workflows/contact-card-verification.yml']
   workflow_dispatch:
 permissions:
   contents: read
