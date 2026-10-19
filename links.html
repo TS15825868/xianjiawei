@@ -967,6 +967,23 @@ a{color:inherit}
  .content{padding-top:4px!important;padding-bottom:calc(clamp(6px,.9dvh,10px) + env(safe-area-inset-bottom))!important}
  .hub-grid{grid-template-rows:minmax(0,1.38fr) repeat(3,minmax(0,1fr))!important;row-gap:clamp(6px,.8dvh,9px)!important}
 }
+
+@media (min-width:351px) and (max-width:700px) and (min-height:741px){
+ .scene{flex:0 0 auto!important;padding-top:12px!important}
+ .logo{width:clamp(102px,14dvh,130px)!important;max-height:15dvh!important}
+ .identity .brand{font-size:clamp(41px,5.6dvh,51px)!important}
+ .identity .position{font-size:clamp(17px,2.4dvh,21px)!important}
+ .identity .tagline{font-size:clamp(22px,3dvh,28px)!important}
+ .content{flex:1 1 0!important;min-height:0!important;padding-top:6px!important}
+ .hub-grid{grid-template-rows:minmax(0,1.42fr) repeat(3,minmax(0,1fr))!important}
+ .hub-grid .hub-primary,.hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
+ .hub-grid .hub-tile .copy strong{font-size:clamp(17px,2.4dvh,21px)!important}
+ .hub-grid .hub-tile .copy small{font-size:clamp(13px,1.85dvh,16px)!important;line-height:1.3!important}
+ .hub-grid .hub-social .social-copy strong{font-size:clamp(16px,2.3dvh,20px)!important}
+ .hub-grid .hub-social .social-copy small{font-size:clamp(13px,1.85dvh,16px)!important;line-height:1.3!important}
+ .hub-grid .hub-primary .copy strong{font-size:clamp(26px,3.6dvh,33px)!important}
+ .hub-grid .hub-primary .copy small{font-size:clamp(15px,2.1dvh,18px)!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
