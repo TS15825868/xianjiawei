@@ -1026,6 +1026,25 @@ a{color:inherit}
  .hub-grid{grid-template-rows:minmax(0,1.45fr) repeat(3,minmax(0,1fr))!important;row-gap:clamp(7px,.9dvh,10px)!important}
  .hub-grid .hub-primary,.hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
 }
+
+/* 2026-10-19｜iPhone 截圖修正：強制覆寫舊高度，單頁滿版與大字 */
+@media (min-width:351px) and (max-width:700px) and (min-height:741px){
+ html,body{height:100%!important;overflow:hidden!important}
+ .page{box-sizing:border-box!important;display:flex!important;flex-direction:column!important;height:100dvh!important;min-height:0!important;max-height:100dvh!important;overflow:hidden!important}
+ .scene{box-sizing:border-box!important;flex:0 0 31%!important;height:31%!important;min-height:0!important;max-height:31%!important;padding:clamp(8px,1dvh,13px) 10px 0!important;justify-content:flex-start!important;align-items:center!important}
+ .identity{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important}
+ .identity .logo{display:block!important;width:auto!important;height:clamp(105px,13dvh,132px)!important;max-height:clamp(105px,13dvh,132px)!important;margin:0 auto 5px!important}
+ .identity .brand{font-size:clamp(41px,5.5dvh,52px)!important;margin:0!important}
+ .identity .position-row{margin-top:5px!important}
+ .identity .position{font-size:clamp(17px,2.25dvh,21px)!important}
+ .identity .tagline{margin-top:7px!important;font-size:clamp(22px,2.85dvh,27px)!important}
+ .content{box-sizing:border-box!important;flex:1 1 0!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0!important;padding:0 10px calc(5px + env(safe-area-inset-bottom))!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important}
+ .content>.card{flex:1 1 0!important;height:auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important}
+ .hub-grid{box-sizing:border-box!important;flex:1 1 0!important;height:100%!important;min-height:0!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:minmax(0,1.36fr) repeat(3,minmax(0,1fr))!important;gap:9px!important}
+ .hub-grid .hub-primary{grid-column:1/-1!important;height:100%!important;min-height:0!important}
+ .hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
+ .footer{flex:0 0 auto!important;margin-top:4px!important;padding:0!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
