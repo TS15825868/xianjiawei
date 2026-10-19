@@ -546,7 +546,7 @@ function renderVideoPage() {
   const featured = document.getElementById("video-featured");
   if (!grid || !featured) return;
 
-  // Keep previously supplied source links visible; verification status is displayed separately.
+  // Preserve original external links; public cards do not expose internal verification fields.
   const videos = (Array.isArray(SITE_DATA?.videos) ? SITE_DATA.videos : []).filter(video => /^https:\/\/(?:www\.)?(?:tiktok\.com|douyin\.com)\//i.test(String(video?.url || "")));
   const filters = Array.from(document.querySelectorAll("[data-video-filter]"));
   const search = document.getElementById("video-search");
@@ -583,9 +583,9 @@ function renderVideoPage() {
       empty.hidden = filtered.length > 0;
       const heading = empty.querySelector("h3");
       const message = empty.querySelector("p");
-      if (heading) heading.textContent = videos.length === 0 ? "影音清單暫時無法載入" : "目前沒有符合的影片";
+      if (heading) heading.textContent = videos.length === 0 ? "目前尚無可顯示的影片" : "目前沒有符合的影片";
       if (message) message.textContent = videos.length === 0
-        ? "請稍後再試，或使用上方原始帳號連結查看公開影片。"
+        ? "可使用上方原始帳號連結查看公開影片。"
         : "可清除搜尋文字，或改選其他分類。";
     }
 
