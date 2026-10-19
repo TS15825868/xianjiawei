@@ -1448,3 +1448,21 @@ body:not([data-page="publishing-center"]) .text-link[href]::after{content:" →"
   .product-modal .modal-gallery__item:first-child img{height:clamp(180px,30vh,260px)!important;max-height:260px!important}
   .product-modal .modal-intro h2{font-size:25px}
 }
+
+/* 2026-10-19｜官網閱讀與操作統一：清楚、典雅、適合手機與長輩 */
+body{font-size:16px;line-height:1.82;letter-spacing:.012em}
+h1,h2,h3,h4{letter-spacing:.015em}
+h1{line-height:1.28}h2{line-height:1.38}
+.btn, a.btn, button.btn{min-height:52px;padding:12px 22px;border-radius:14px;font-size:16px;font-weight:750;line-height:1.45;letter-spacing:.012em;white-space:normal;text-wrap:pretty;box-shadow:0 4px 14px rgba(11,31,59,.07)}
+.btn:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.btn:hover{box-shadow:0 8px 20px rgba(11,31,59,.11)}
+.product-card__actions .btn,body[data-page="products"] .product-card__actions .btn{min-height:50px;font-size:15px!important;border-radius:12px;padding:10px 12px}
+.modal-actions .btn,.product-modal .modal-actions .btn{min-height:52px;font-size:16px;border-radius:13px}
+@media(max-width:700px){
+ body{font-size:16px;line-height:1.8}
+ h1{font-size:clamp(30px,7.5vw,42px)}h2{font-size:clamp(24px,5.5vw,30px)}h3{font-size:clamp(20px,4.6vw,24px)}
+ .btn,a.btn,button.btn{min-height:54px;padding:12px 17px;font-size:16px;border-radius:14px}
+ .product-card__actions .btn,body[data-page="products"] .product-card__actions .btn{min-height:50px;font-size:15px!important}
+ .modal-actions .btn,.product-modal .modal-actions .btn{min-height:54px;font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}}
