@@ -698,6 +698,52 @@ a{color:inherit}
  .identity .position-row{margin-top:clamp(7px,1svh,11px)!important}
  .identity .tagline{margin-top:clamp(9px,1.3svh,14px)!important}
 }
+
+/* 2026-10-19｜全頁固定一屏、按鈕群以底部為錨點：小螢幕同步縮放 */
+@media (max-width:700px){
+ html,body{height:100%!important;min-height:0!important;overflow:hidden!important;overscroll-behavior:none!important}
+ .page{
+   width:100%!important;height:100vh!important;height:100dvh!important;
+   min-height:0!important;max-height:100dvh!important;
+   display:flex!important;flex-direction:column!important;
+   overflow:hidden!important;padding-bottom:0!important
+ }
+ .scene{
+   flex:0 0 auto!important;min-height:0!important;
+   padding:clamp(7px,1.2dvh,13px) 12px 0!important
+ }
+ .logo{width:clamp(44px,7.8dvh,78px)!important;max-height:10dvh!important;margin-bottom:clamp(2px,.5dvh,6px)!important}
+ .identity .brand{font-size:clamp(21px,3dvh,29px)!important;line-height:1.08!important}
+ .identity .position-row{margin-top:clamp(3px,.6dvh,7px)!important}
+ .identity .position{font-size:clamp(11px,1.55dvh,14px)!important}
+ .identity .tagline{margin-top:clamp(5px,.9dvh,9px)!important;font-size:clamp(15px,2.1dvh,19px)!important}
+ .identity .intro,.identity .scope{display:none!important}
+ .content{
+   flex:1 1 0!important;min-height:0!important;
+   margin:0!important;
+   padding:clamp(8px,1.2dvh,13px) 12px calc(clamp(9px,1.4dvh,15px) + env(safe-area-inset-bottom))!important;
+   display:flex!important;flex-direction:column!important;justify-content:flex-end!important;
+   overflow:hidden!important
+ }
+ .hub-grid{gap:clamp(5px,.9dvh,9px)!important}
+ .hub-grid .hub-primary{height:clamp(65px,10.5dvh,98px)!important;min-height:0!important}
+ .hub-grid .hub-tile{height:clamp(75px,12.5dvh,115px)!important;min-height:0!important}
+ .hub-grid .hub-tile .icon{width:clamp(32px,4.8dvh,44px)!important;height:clamp(32px,4.8dvh,44px)!important}
+ .hub-grid .hub-tile .copy strong{font-size:clamp(13px,1.9dvh,17px)!important}
+ .hub-grid .hub-primary .copy strong{font-size:clamp(19px,2.7dvh,24px)!important}
+ .hub-grid .hub-primary .copy small{font-size:clamp(11px,1.6dvh,13px)!important}
+ .section-title{margin:clamp(6px,.9dvh,9px) 2px clamp(4px,.6dvh,7px)!important;font-size:clamp(12px,1.7dvh,15px)!important}
+ .hub-social{gap:clamp(5px,.9dvh,9px)!important}
+ .hub-social a{height:clamp(64px,10.2dvh,94px)!important;min-height:0!important;font-size:clamp(11px,1.65dvh,15px)!important}
+ .hub-social .social-mark{width:clamp(26px,3.8dvh,36px)!important;height:clamp(26px,3.8dvh,36px)!important}
+ .footer{margin-top:clamp(5px,.8dvh,9px)!important;padding-top:0!important;font-size:11px!important}
+ .footer:before{display:none!important}
+}
+@media (max-width:350px){
+ .hub-grid .hub-tile .copy strong{font-size:12px!important}
+ .hub-social{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .hub-social a{padding:3px!important;font-size:10px!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
