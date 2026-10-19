@@ -578,6 +578,12 @@ a{color:inherit}
  .hub-social a{overflow:hidden!important}
  .hub-primary .copy small{display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
 }
+
+/* 2026-10-19 mobile safe viewport: never clip actionable links */
+@media (max-width:700px){
+  .page{overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:contain}
+  .hub-grid .hub-primary,.hub-grid .hub-tile,.hub-social a{touch-action:manipulation}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
