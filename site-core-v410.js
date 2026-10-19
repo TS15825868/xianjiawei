@@ -547,7 +547,7 @@ function renderVideoPage() {
   if (!grid || !featured) return;
 
   // Preserve original external links; public cards do not expose internal verification fields.
-  const videos = (Array.isArray(SITE_DATA?.videos) ? SITE_DATA.videos : []).filter(video => video?.public !== false && /^https:\/\/(?:www\.)?(?:tiktok\.com|douyin\.com)\//i.test(String(video?.url || "")));
+  const videos = (Array.isArray(SITE_DATA?.videos) ? SITE_DATA.videos : []).filter(video => video?.public === true && video?.contentVerification === "verified" && /^https:\/\/(?:www\.)?(?:tiktok\.com|douyin\.com)\//i.test(String(video?.url || "")));
   const filters = Array.from(document.querySelectorAll("[data-video-filter]"));
   const search = document.getElementById("video-search");
   const count = document.getElementById("video-count");
