@@ -26,7 +26,7 @@
   const STABILITY = `site-stability-v20260814.js?v=${VERSION}`;
   const CURRENT_GAO_TIMING = "食用時間可依個人使用習慣與作息時間安排";
 
-  const STYLES = [`site.css?v=${VERSION}`];
+  const STYLES = ["site.css?v=20261019-compact-product-intro-v1"];
 
   const SAFE_DATA = Object.freeze({
     version: `${VERSION}-fallback`,

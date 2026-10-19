@@ -50,3 +50,10 @@ jobs:
           XJW_BROWSER_ENGINE: ${{ matrix.engine }}
           XJW_AUDIT_BASE: http://127.0.0.1:8765/
         run: node tools/audit-catalog-modal-navigation.cjs
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: catalog-usability-${{ matrix.engine }}-${{ github.run_id }}
+          path: diagnostics/catalog-usability-20261019/
+          if-no-files-found: ignore

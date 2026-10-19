@@ -1422,3 +1422,29 @@ body:not([data-page="publishing-center"]) .text-link[href]::after{content:" →"
  .video-page-v409 .video-card-v410__body .btn{padding:9px 12px;min-height:40px}
 }
 @media(max-width:380px){.video-page-v409 .video-card-v410{grid-template-columns:1fr}.video-page-v409 .video-card-v410__cover{aspect-ratio:16/9}}
+
+/* 2026-10-19 | 商品介紹先看清圖片與規格，再選完整資料或 LINE。 */
+.product-modal .product-modal__panel{max-width:960px!important}
+.product-modal .product-modal__close{
+  position:sticky!important;top:12px!important;z-index:3!important;
+  display:block!important;margin:0 0 8px auto!important;min-height:44px;min-width:64px;
+}
+.product-modal #product-modal-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px 28px;align-items:start}
+.product-modal .modal-intro{grid-column:1/-1;padding:0 0 14px!important;margin:0!important}
+.product-modal .modal-intro h2{font-size:clamp(25px,3vw,34px);line-height:1.35;margin:6px 0}
+.product-modal .modal-gallery{grid-column:1;grid-row:2/4;width:100%!important;max-width:100%!important;margin:0!important;align-self:center}
+.product-modal .modal-gallery__item:first-child{min-height:0!important;margin:0!important}
+.product-modal .modal-gallery__item:first-child img{
+  width:100%!important;height:clamp(220px,38vh,380px)!important;
+  max-height:380px!important;aspect-ratio:auto!important;object-fit:contain!important;
+}
+.product-modal .modal-preview{grid-column:2;min-width:0;margin:0!important}
+.product-modal .modal-preview p{font-size:16px;line-height:1.75}
+.product-modal .modal-actions{grid-column:2;display:flex;flex-direction:column;gap:12px;margin:0!important}
+.product-modal .modal-actions .btn{min-height:48px;display:flex;align-items:center;justify-content:center;white-space:normal;text-align:center;line-height:1.5}
+@media(max-width:700px){
+  .product-modal #product-modal-body{grid-template-columns:minmax(0,1fr);gap:12px}
+  .product-modal .modal-intro,.product-modal .modal-gallery,.product-modal .modal-preview,.product-modal .modal-actions{grid-column:1;grid-row:auto}
+  .product-modal .modal-gallery__item:first-child img{height:clamp(180px,30vh,260px)!important;max-height:260px!important}
+  .product-modal .modal-intro h2{font-size:25px}
+}

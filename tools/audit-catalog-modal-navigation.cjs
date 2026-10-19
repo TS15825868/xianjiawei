@@ -67,6 +67,17 @@ async function opened(page,name,detailHref) {
   assert.ok(artwork.contentSize>=15,"手機與桌機的商品介紹需保持可讀性");
   assert.ok(artwork.scrollWidth<=artwork.viewport+3,"產品跳窗不得造成橫向溢位");
   assert.ok(await page.locator("#product-modal .modal-gallery img").count()>0,"跳窗需有正式產品主圖");
+  const usability=await page.locator('#product-modal').evaluate(modal=>{
+    const image=modal.querySelector('.modal-gallery img').getBoundingClientRect();
+    const actions=modal.querySelector('.modal-actions').getBoundingClientRect();
+    return {width:innerWidth,height:innerHeight,imageHeight:image.height,actionsBottom:actions.bottom};
+  });
+  assert.ok(usability.imageHeight<=381,'主圖不得把規格與按鈕推到長畫面下方：'+name);
+  if(usability.width>700)assert.ok(usability.actionsBottom<=usability.height,'桌機跳窗須直接看見完整資料與LINE按鈕：'+name);
+  if(name==='二珍寶精華膏湯塊'){
+    const fs=require('node:fs');fs.mkdirSync('diagnostics/catalog-usability-20261019',{recursive:true});
+    await page.screenshot({path:`diagnostics/catalog-usability-20261019/${engine}-${usability.width}-modal.png`});
+  }
   report.checks.push(name+"：山水背景、正式主圖與唯一查看詳細");
   return detail;
 }
