@@ -552,6 +552,9 @@ function renderVideoPage() {
   const search = document.getElementById("video-search");
   const count = document.getElementById("video-count");
   const empty = document.getElementById("video-empty");
+  // Hide inactive search controls while all third-party videos await content verification.
+  const toolbar = document.querySelector(".video-library__toolbar");
+  if (toolbar) toolbar.hidden = videos.length === 0;
   const hasCategory = name => name === "全部" || videos.some(video => video.category === name);
   const requestedCategory = new URLSearchParams(location.search).get("category") || "全部";
   let category = hasCategory(requestedCategory) ? requestedCategory : "全部";
@@ -578,7 +581,7 @@ function renderVideoPage() {
       button.setAttribute("aria-pressed", String(active));
     });
 
-    if (count) count.textContent = `${filtered.length} 支影音入口`;
+    if (count) count.textContent = videos.length === 0 ? "影片審核中" : `${filtered.length} 支影音入口`;
     if (empty) {
       empty.hidden = filtered.length > 0;
       const heading = empty.querySelector("h3");
