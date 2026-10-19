@@ -744,6 +744,24 @@ a{color:inherit}
  .hub-social{grid-template-columns:repeat(3,minmax(0,1fr))!important}
  .hub-social a{padding:3px!important;font-size:10px!important}
 }
+
+/* 2026-10-19｜LINE 大主按鈕＋下方六入口兩排三欄 */
+@media (max-width:700px){
+ .section-title{display:none!important}
+ .hub-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .hub-grid .hub-primary{grid-column:1/-1!important;height:clamp(90px,14dvh,130px)!important;min-height:0!important}
+ .hub-grid .hub-tile{height:clamp(72px,11dvh,108px)!important;min-height:0!important}
+ .hub-social{grid-template-columns:repeat(3,minmax(0,1fr))!important;margin-top:clamp(6px,1dvh,10px)!important}
+ .hub-social a{height:clamp(72px,11dvh,108px)!important;min-height:0!important}
+ .hub-grid .hub-primary .copy strong{font-size:clamp(22px,3.1dvh,29px)!important}
+ .hub-grid .hub-primary .icon{width:clamp(47px,6.6dvh,62px)!important;height:clamp(47px,6.6dvh,62px)!important;flex:0 0 auto!important}
+ .content{justify-content:flex-end!important}
+}
+@media (max-width:700px) and (max-height:740px){
+ .hub-grid .hub-primary{height:clamp(72px,12dvh,90px)!important}
+ .hub-grid .hub-tile,.hub-social a{height:clamp(60px,10dvh,74px)!important}
+ .hub-social{margin-top:5px!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
