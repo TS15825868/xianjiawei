@@ -1093,6 +1093,18 @@ a{color:inherit}
  main.page .scene .identity .intro,main.page .scene .identity .scope{display:block!important;font-size:clamp(11px,1.65dvh,14px)!important;line-height:1.15!important;margin-top:3px!important}
  main.page>section.content{height:65dvh!important;max-height:65dvh!important}
 }
+
+/* 2026-10-19｜Logo 等比例加大，保留品牌標語及兩行故事 */
+@media (min-width:351px) and (max-width:700px) and (min-height:560px){
+ main.page .scene .identity img.logo{
+  width:auto!important;height:clamp(83px,11.5dvh,118px)!important;
+  max-height:12dvh!important;max-width:100%!important;
+  object-fit:contain!important;object-position:center!important;
+  margin:0 auto 3px!important;flex-shrink:0!important;
+ }
+ main.page .scene .identity h1.brand{margin-top:0!important}
+ main.page .scene .identity .intro,main.page .scene .identity .scope{display:block!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
