@@ -861,6 +861,25 @@ a{color:inherit}
  .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(69px,10.5dvh,84px)!important}
  .hub-grid .hub-tile .copy small,.hub-grid .hub-social .social-copy small{font-size:10px!important;line-height:1.1!important}
 }
+
+/* 2026-10-19｜上方品牌區同步放大；維持底部按鈕錨定 */
+@media (max-width:700px){
+ .scene{padding-top:clamp(12px,2dvh,21px)!important}
+ .logo{width:clamp(74px,11.2dvh,105px)!important;max-height:12dvh!important;margin-bottom:clamp(5px,.8dvh,9px)!important}
+ .identity .brand{font-size:clamp(31px,4.45dvh,40px)!important;line-height:1.1!important}
+ .identity .position-row{margin-top:clamp(7px,1dvh,12px)!important}
+ .identity .position{font-size:clamp(14px,2dvh,17px)!important}
+ .identity .tagline{margin-top:clamp(8px,1.15dvh,13px)!important;font-size:clamp(18px,2.55dvh,23px)!important}
+ .content{justify-content:flex-end!important}
+}
+@media (max-width:700px) and (max-height:740px){
+ .scene{padding-top:clamp(5px,.8dvh,9px)!important}
+ .logo{width:clamp(48px,7.7dvh,64px)!important;max-height:8dvh!important;margin-bottom:3px!important}
+ .identity .brand{font-size:clamp(23px,3.4dvh,29px)!important}
+ .identity .position-row{margin-top:3px!important}
+ .identity .position{font-size:12px!important}
+ .identity .tagline{margin-top:4px!important;font-size:clamp(15px,2.15dvh,18px)!important}
+}
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=20261003"/>
