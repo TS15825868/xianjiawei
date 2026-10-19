@@ -1,0 +1,25 @@
+name: Personal contact card verification
+on:
+  push:
+    branches: [main]
+    paths: ['zheng-tong*', 'images/contact/**', 'tools/verify-contact-card.cjs', '.github/workflows/contact-card-verification.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - run: npm install --no-save --no-package-lock playwright@1.55.0
+      - run: npx playwright install --with-deps chromium webkit
+      - run: sudo apt-get install -y fonts-noto-cjk
+      - run: python3 -m http.server 8765 > /tmp/contact-server.log 2>&1 &
+      - run: node tools/verify-contact-card.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: personal-contact-card-evidence
+          path: contact-evidence/
+          retention-days: 14
