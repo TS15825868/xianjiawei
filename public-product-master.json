@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "version": "2026-10-17-public-master-current-and-expandable",
-  "updatedAt": "2026-10-17",
+  "version": "2026-10-20-public-master-guilu-drink-30-usage",
+  "updatedAt": "2026-10-20",
   "authority": "user-confirmed-current",
   "brand": {
     "name": "仙加味",
@@ -65,12 +65,11 @@
         "粉光蔘"
       ],
       "usage": [
-        "每日 1～2 罐，可依個人需求調整",
-        "可依個人需求調整",
+        "每日 1 罐",
         "可隔水加熱或溫熱飲用",
         "避免冰飲"
       ],
-      "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
+      "usageTiming": "建議白天飲用",
       "fulfillment": "接單後製作，約5～7個工作天出貨",
       "page": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
       "mediaStatus": "approved-formal-product-image"
