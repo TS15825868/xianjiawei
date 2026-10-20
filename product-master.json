@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "version": "2026-10-08-four-active-products",
-  "updatedAt": "2026-10-08",
+  "version": "2026-10-20-compatibility-mirror",
+  "updatedAt": "2026-10-20",
   "authority": "compatibility-mirror-of-public-product-master",
   "authorityScope": "相容資料鏡像；目前公開最高文字權威為 public-product-master.json。官網目前公開六項產品，本檔不得覆蓋 public-product-master.json，也不得由舊固定產品數重新加入暫緩對外產品。",
   "source": {
@@ -63,21 +63,25 @@
       "form": "液態即飲",
       "package": "小玻璃罐、裸罐、無貼紙；不可更換瓶型、不可任意加標籤、不可放大成一般飲料瓶",
       "ingredients": [
-        "水","鹿角萃取物","龜板萃取物","枸杞","紅棗","黃耆","粉光蔘"
+        "水",
+        "鹿角萃取物",
+        "龜板萃取物",
+        "枸杞",
+        "紅棗",
+        "黃耆",
+        "粉光蔘"
       ],
-      "usagePrimary": "每日 1–2 罐",
-      "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
+      "usagePrimary": "每日 1 罐",
+      "usageTiming": "建議白天飲用",
       "usage": [
-        "每日 1–2 罐",
-        "可依個人需求調整",
+        "每日 1 罐",
         "可隔水加熱或溫熱飲用",
         "避免冰飲"
       ],
       "fulfillment": "接單後製作，約5～7個工作天出貨",
       "page": "product-guilu-drink-30cc.html",
       "approvedProductImage": "https://ts15825868.github.io/xianjiawei/images/customer-display-v20260812/guilu-drink-30cc.avif?v=20260814-product-modal-media-v3",
-      "approvedDm": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260814-product-modal-media-v3",
-      "usageAdjustment": "可依個人需求調整"
+      "approvedDm": "https://ts15825868.github.io/xianjiawei/images/dm-final/02_guilu-drink-30cc-dm-official-v20260814.jpg?v=20260814-product-modal-media-v3"
     },
     {
       "id": "guilu-drink-180",
@@ -87,7 +91,13 @@
       "form": "液態即飲",
       "package": "狹長直立鋁袋；維持正式比例，不可生成巨大包裝",
       "ingredients": [
-        "水","鹿角萃取物","龜板萃取物","枸杞","紅棗","黃耆","粉光蔘"
+        "水",
+        "鹿角萃取物",
+        "龜板萃取物",
+        "枸杞",
+        "紅棗",
+        "黃耆",
+        "粉光蔘"
       ],
       "usagePrimary": "每日一包",
       "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
@@ -127,7 +137,7 @@
     "primaryAuthority": "public-product-master.json",
     "latestDataWins": true,
     "legacyMayNotOverride": true,
-    "drink30Usage": "每日 1–2 罐",
+    "drink30Usage": "每日 1 罐",
     "knowledgeProducts": 6,
     "approvedMediaProducts": 6,
     "deferredProductsInternalOnly": true
