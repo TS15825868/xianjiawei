@@ -71,10 +71,10 @@
         "黃耆",
         "粉光蔘"
       ],
-      "usagePrimary": "每日 1 罐",
-      "usageTiming": "建議白天飲用",
+      "usagePrimary": "每日 1～2 罐，可依個人需求調整",
+      "usageTiming": "飲用時間可依個人使用習慣與作息時間安排",
       "usage": [
-        "每日 1 罐",
+        "每日 1～2 罐，可依個人需求調整",
         "可隔水加熱或溫熱飲用",
         "避免冰飲"
       ],
@@ -137,7 +137,7 @@
     "primaryAuthority": "public-product-master.json",
     "latestDataWins": true,
     "legacyMayNotOverride": true,
-    "drink30Usage": "每日 1 罐",
+    "drink30Usage": "每日 1～2 罐，可依個人需求調整",
     "knowledgeProducts": 6,
     "approvedMediaProducts": 6,
     "deferredProductsInternalOnly": true
