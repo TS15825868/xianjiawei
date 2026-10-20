@@ -10,10 +10,10 @@
   if(window.__XJW_PRODUCT_DATA_AUTHORITY__)return;
   window.__XJW_PRODUCT_DATA_AUTHORITY__=true;
 
-  const VERSION='20261017-dynamic-current-product-master-v2';
+  const VERSION='20261020-dynamic-current-product-master-v3';
   const MASTER_URL='public-product-master.json';
   const LINE_URL='https://lin.ee/sHZW7NkR';
-  const CURRENT_30_USAGE='每日 1–2 罐，可依個人需求調整';
+  const CURRENT_30_USAGE='每日 1 罐';
   const CURRENT_GAO_TIMING='食用時間可依個人使用習慣與作息時間安排';
   // 核對最新公開母資料，不把曾經的四款商品或暫緩狀態寫成永久限制。
   // 每次正式新增／暫停都由 public-product-master.json 的明確公開名單及當期停用清單決定。
