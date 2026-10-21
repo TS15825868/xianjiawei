@@ -1502,3 +1502,11 @@ body[data-page^="product"] .product-legal-details .grid{align-items:start!import
 body[data-page^="product"] .product-legal-details .grid>.card{height:auto!important;min-height:0!important;align-self:start}
 body[data-page^="product"] .product-legal-details>summary{padding-block:10px}
 @media(max-width:700px){body[data-page^="product"] .product-complete-grid{grid-template-columns:minmax(0,1fr)!important}body[data-page^="product"] .product-complete-grid>.card{padding:18px!important}body[data-page^="product"] .product-legal-details .grid{grid-template-columns:minmax(0,1fr)!important}}
+
+/* 2026-10-21 | 商品詳細頁：縮減過大段落間距 */
+body[data-page="product-detail"] .section:has(>.product-legal-details){padding-block:clamp(20px,3vw,40px)}
+body[data-page="product-detail"] .section:has(>.product-legal-details)>.section-heading{margin-bottom:12px}
+body[data-page="product-detail"] .product-legal-details .grid>.card{padding:clamp(14px,2vw,20px)}
+body[data-page="product-detail"] .product-legal-details .grid>.card p{margin:0;line-height:1.7}
+body[data-page="product-detail"] .product-legal-details .grid>.card h3{margin:0 0 8px}
+@media(max-width:700px){body[data-page="product-detail"] .section:has(>.product-legal-details){padding-block:18px}body[data-page="product-detail"] .product-legal-details{margin-block:0}body[data-page="product-detail"] .product-legal-details .grid{gap:10px}}
