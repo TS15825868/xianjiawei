@@ -1492,3 +1492,13 @@ body:not([data-page="publishing-center"]) .product-legal-details .card h3{margin
 body:not([data-page="publishing-center"]) .product-legal-details .muted{font-size:14px;line-height:1.8}
 body:not([data-page="publishing-center"]) .final-cta{border-radius:20px}
 @media(max-width:700px){body:not([data-page="publishing-center"]) .section-heading{margin-bottom:18px}body:not([data-page="publishing-center"]) .product-complete-grid{gap:12px}body:not([data-page="publishing-center"]) .product-complete-grid>.card{padding:18px}body:not([data-page="publishing-center"]) .product-legal-details>summary{min-height:56px}body:not([data-page="publishing-center"]) .product-legal-details .grid{grid-template-columns:minmax(0,1fr)}}
+
+/* 2026-10-21 | 商品詳細頁緊湊閱讀與摺疊資訊 */
+/* 商品頁不讓簡短說明卡被等高格線撐出大量空白。 */
+body[data-page^="product"] .product-complete-grid{align-items:start!important}
+body[data-page^="product"] .product-complete-grid>.card{height:auto!important;min-height:0!important;align-self:start}
+body[data-page^="product"] .product-complete-grid>.card p:last-child,body[data-page^="product"] .product-complete-grid>.card ul:last-child{margin-bottom:0}
+body[data-page^="product"] .product-legal-details .grid{align-items:start!important}
+body[data-page^="product"] .product-legal-details .grid>.card{height:auto!important;min-height:0!important;align-self:start}
+body[data-page^="product"] .product-legal-details>summary{padding-block:10px}
+@media(max-width:700px){body[data-page^="product"] .product-complete-grid{grid-template-columns:minmax(0,1fr)!important}body[data-page^="product"] .product-complete-grid>.card{padding:18px!important}body[data-page^="product"] .product-legal-details .grid{grid-template-columns:minmax(0,1fr)!important}}
