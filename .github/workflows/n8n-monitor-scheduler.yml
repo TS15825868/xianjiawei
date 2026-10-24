@@ -53,16 +53,20 @@ jobs:
             local name="$1" url="$2" body="/tmp/${3:-ready}"
             echo "檢查：$name"
             local code='000'
-            for attempt in $(seq 1 12); do
-              code="$(curl -LsS --connect-timeout 20 --max-time 45 -o "$body" -w '%{http_code}' "$url" || true)"
-              echo "$name attempt $attempt/12 -> HTTP $code"
+            # 2026-10-24: 12 x 45s probes repeatedly timed out against the
+            # existing 512 MiB Render n8n, without making it ready.
+            # Keep genuine 5xx/timeout failures visible, but do not spend
+            # eleven minutes probing an unhealthy service. Independent
+            # n8n monitoring and read-only fallback remain in the ERP repo.
+            for attempt in 1 2 3; do
+              code="$(curl -LsS --retry 0 --connect-timeout 7 --max-time 20 -o "$body" -w '%{http_code}' "$url" || true)"
+              echo "$name attempt $attempt/3 -> HTTP $code"
               if [[ "$code" == '200' ]] && [[ -s "$body" ]]; then
                 return 0
               fi
-              sleep 10
+              if [[ "$attempt" -lt 3 ]]; then sleep 5; fi
             done
-            echo "$name 在 Render 喚醒等待後仍未 ready，最後 HTTP $code" >&2
-            cat "$body" 2>/dev/null || true
+            echo "$name 在有限重試後仍未 ready；沒有將故障當作成功（HTTP $code）" >&2
             return 1
           }
 
