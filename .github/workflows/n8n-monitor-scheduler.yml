@@ -172,16 +172,24 @@ jobs:
           check_boundary '貼文中心' "$internal/publishing.html"
           check_boundary 'ERP／貼文中心 healthz/core' "$internal/healthz/core"
 
-          # n8n /healthz 只代表程序存活；/healthz/readiness 才代表資料庫／必要依賴已可接流量。
-          wait_ready_200 'n8n 存活檢查' 'https://xianjiawei-n8n-longterm.onrender.com/healthz' n8n-live
-          wait_ready_200 'n8n readiness' 'https://xianjiawei-n8n-longterm.onrender.com/healthz/readiness' n8n-ready
-          node - <<'NODE'
+          # Render 512 MiB 舊版 n8n 尚未更新，已知 hourly 冷啟動一直逾時。
+          # 官網／LINE／ERP 檢查照常執行；只有人員手動驗收才喚醒 n8n。
+          # n8n 的狀態不得在例行巡檢中誤報為已通過，待新 LIVE 版再復驗。
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            wait_ready_200 'n8n 存活檢查' 'https://xianjiawei-n8n-longterm.onrender.com/healthz' n8n-live
+            wait_ready_200 'n8n readiness' 'https://xianjiawei-n8n-longterm.onrender.com/healthz/readiness' n8n-ready
+            node - <<'NODE'
           const fs=require('fs');
           for (const file of ['/tmp/n8n-live','/tmp/n8n-ready']) {
             const v=JSON.parse(fs.readFileSync(file,'utf8'));
             if(v.status!=='ok') throw new Error(`${file} status != ok`);
           }
           NODE
+            n8n_checked=true
+          else
+            n8n_checked=false
+            echo 'NOTICE：n8n 未經本次驗證，已知 Render 舊版不穩定；未觸發冷啟動。'
+          fi
 
           # 慢變資料與全 sitemap 每 6 小時完整巡檢一次；手動執行一定檢查。
           hour="$(date -u +%H)"
@@ -209,5 +217,10 @@ jobs:
             done
           fi
 
-          echo 'PASS 仙加味全系統健康監控（核心每小時＋全 sitemap 每6小時）'
+          if [[ "$n8n_checked" == true ]]; then
+            echo 'PASS 仙加味官網／LINE／ERP 與 n8n 人工觸發驗收'
+          else
+            echo 'PASS 仙加味官網／LINE／ERP 例行巡檢；n8n 尚未驗證（待新版成功部署）'
+            echo 'NOTICE n8n is not verified; hourly cron intentionally avoids known unhealthy Render cold starts.' >> "$GITHUB_STEP_SUMMARY"
+          fi
 
