@@ -9,6 +9,11 @@ on:
     # GitHub Actions 使用 UTC。每小時第 8 分執行，避開整點高峰。
     - cron: '8 * * * *'
   workflow_dispatch:
+    inputs:
+      probe_n8n:
+        description: '新版已成功部署並需人工診斷時才勾選；預設僅驗證官網、LINE OA、ERP'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -175,7 +180,7 @@ jobs:
           # Render 512 MiB 舊版 n8n 尚未更新，已知 hourly 冷啟動一直逾時。
           # 官網／LINE／ERP 檢查照常執行；只有人員手動驗收才喚醒 n8n。
           # n8n 的狀態不得在例行巡檢中誤報為已通過，待新 LIVE 版再復驗。
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.probe_n8n }}" == "true" ]]; then
             wait_ready_200 'n8n 存活檢查' 'https://xianjiawei-n8n-longterm.onrender.com/healthz' n8n-live
             wait_ready_200 'n8n readiness' 'https://xianjiawei-n8n-longterm.onrender.com/healthz/readiness' n8n-ready
             node - <<'NODE'
