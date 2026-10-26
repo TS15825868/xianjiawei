@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-16-v5-identity-locked-style-flexible",
+  "version": "2026-10-27-fixed-mascot-and-partner-source-reference-v6",
   "status": "locked",
   "brand": "仙加味",
   "masterAssetPath": "assets/reference/mascot-sprite-v20260816.part*",
@@ -8,7 +8,10 @@
   "mascot": {
     "name": "仙加味小老闆",
     "style": "固定同一位小老闆本人；2D與3D Q版皆可",
-    "allowedRendering": ["2D精緻Q版", "3D柔和立體Q版"],
+    "allowedRendering": [
+      "2D精緻Q版",
+      "3D柔和立體Q版"
+    ],
     "renderingRule": "可依平台與情境選2D或3D，但同一張圖的光影、材質與角色系統必須一致；不得因轉換畫風而改臉、改髮型、改年齡感或變成不同人物。",
     "face": "以小老闆本人參考照為準；維持同一張臉與兒童年齡感，不擅自圓臉化、成熟化或換成陌生五官。",
     "hair": "短直黑髮、自然瀏海；以本人參考照為準。",
@@ -24,8 +27,16 @@
   },
   "partners": {
     "requiredEveryImage": false,
-    "characters": ["小鹿", "小烏龜"],
-    "rule": "小鹿與小烏龜必須是彼此分開的固定夥伴，不得融合、合體或變成新動物；依文案決定是否入鏡。"
+    "characters": [
+      "小鹿",
+      "小烏龜"
+    ],
+    "rule": "小鹿與小烏龜必須是彼此分開的固定夥伴，不得融合、合體或變成新動物；依文案決定是否入鏡。",
+    "approvedOriginalReferenceRequiredIfInScene": true,
+    "stableAppearanceAndRelativeScale": true,
+    "twoDifferentCharactersRequired": true,
+    "sameSceneLeftRightPosition": "deer-left-turtle-right",
+    "noNewVariantsWithoutOwnerApproval": true
   },
   "assetPoolPolicy": {
     "website": "官網與公開貼文可使用符合本人辨識的2D或3D小老闆完整情境圖。",
@@ -36,7 +47,19 @@
     "crossUse": "禁止裁切拼貼不同角色版本；跨系統角色本人辨識必須一致。"
   },
   "sceneMatchPolicy": {
-    "required": ["明確生活情境", "仙加味或產品連結", "季節", "氣候", "冷熱", "場合", "地點或環境", "表情", "動作", "文案主題", "產品實物與比例"],
+    "required": [
+      "明確生活情境",
+      "仙加味或產品連結",
+      "季節",
+      "氣候",
+      "冷熱",
+      "場合",
+      "地點或環境",
+      "表情",
+      "動作",
+      "文案主題",
+      "產品實物與比例"
+    ],
     "rule": "先讀文案再選圖或製作新圖；沒有符合文案的圖就重新製作完整單一情境圖，不得拿泛用圖硬套。"
   },
   "productPolicy": {
@@ -59,7 +82,9 @@
     "uniqueCopyPerPost": true,
     "uniqueImagePerPost": true,
     "publishedThemeAngleReuseForbidden": true,
-    "blockedPublicNames": ["台興山產"],
+    "blockedPublicNames": [
+      "台興山產"
+    ],
     "traditionalChineseOnly": true,
     "internalTermsForbidden": true,
     "unsafeClaimForbidden": true
@@ -67,7 +92,10 @@
   "rules": {
     "sameCharacterAcrossSystems": true,
     "approved2DOnly": false,
-    "allowedMascotStyles": ["2D", "3D"],
+    "allowedMascotStyles": [
+      "2D",
+      "3D"
+    ],
     "identityMatchRequired": true,
     "realPersonPhotosPrivateReferenceOnly": true,
     "freePoseAllowed": true,
@@ -82,6 +110,12 @@
     "blockedOldPublicName": "台興山產",
     "noInternalPostNumberOnImage": true,
     "newImagesRequireReview": true,
-    "unusableImageAction": "regenerate-to-pending-review"
+    "unusableImageAction": "regenerate-to-pending-review",
+    "approvedOriginalCharacterAttachmentRequiredBeforeRegeneration": true,
+    "approvedOriginalDeerAttachmentRequiredIfIncluded": true,
+    "approvedOriginalTurtleAttachmentRequiredIfIncluded": true,
+    "imagePromptAloneInsufficient": true,
+    "referenceMissingAction": "stop_generation_keep_draft_or_needs_generation",
+    "approvalWithoutReferenceIdentityComparisonForbidden": true
   }
 }

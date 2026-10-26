@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-09-character-b3-prompts-v1",
+  "version": "2026-08-09-character-b3-prompts-v1-20261027-character-reference-required",
   "batch": "CHAR-B3-FESTIVAL-LOCATION-WANHUA",
   "count": 72,
   "status": "generation-ready",
@@ -18,7 +18,10 @@
     "festival": "節慶日期與即時活動發布前另確認；畫面只使用一般可辨識但不誇張的台灣生活節慶元素",
     "location": "地點必須與原文案一致，不擅自換場景",
     "wanhua": "萬華場景不得誤用其他城市地標；沒有正式店面實拍依據時，不虛構成真實店面照片",
-    "publish": "生成後只進待審核，不自動核准、不自動排程、不自動發布"
+    "publish": "生成後只進待審核，不自動核准、不自動排程、不自動發布",
+    "referencePreflight": "沒有在這次製圖對話實際提供使用者已核准的正式Q版小老闆定稿原圖，不得開始生圖；有小鹿／小烏龜入鏡時，還需分別提供各自核准的夥伴原圖。禁止以文字描述、舊AI候選、看起來相似的角色取代正式身分參考。缺少任何必需原圖時停止產圖並維持needs_generation，禁止自動發布。",
+    "partnerIdentityLock": "小鹿和小烏龜是兩位完全獨立的固定Q版夥伴，外觀、頭身比例、相對小老闆尺寸及左右關係都依同一套正式原圖；不可隨機換鹿或換龜、3D/2D化變成不同角色；同框依定稿小鹿在左、烏龜在右。",
+    "referenceAuthorityNote": "目前只增修已確認的角色原圖附件前置條件，不因舊提示版本不同而回流舊角色造型。"
   },
   "compositionVariants": {
     "1": "較近的生活互動畫面；角色仍完整入鏡，背景保留足夠環境線索。",
@@ -30,5 +33,17 @@
     "節慶": "保留原貼文節慶名稱與家庭／聚餐／陪伴等原始情境，不自行添加未提及的促銷、價格或產品。",
     "地點": "直接依原貼文location與原始image_prompt建立場景；車上休息、辦公室、公園、河濱、餐桌等不可互換。",
     "萬華在地": "保留萬華、西昌街、傳統市場、街區散步、品牌故事等原始主題；如果沒有可驗證實拍，就採插畫式萬華生活氛圍，不偽裝成特定真實店面照片。"
+  },
+  "referenceGate": {
+    "status": "reference-attachments-required-before-image-generation",
+    "userApprovedActualMascotImageRequired": true,
+    "ownerApprovedDeerImageRequiredIfVisible": true,
+    "ownerApprovedTurtleImageRequiredIfVisible": true,
+    "textDescriptionDoesNotEstablishIdentity": true,
+    "priorAIImageIsNotApprovedReference": true,
+    "missingReference": "stop-generation-keep-needs_generation",
+    "afterImageCreation": "candidate-human-review-only",
+    "autoApproval": false,
+    "autoPublish": false
   }
 }
