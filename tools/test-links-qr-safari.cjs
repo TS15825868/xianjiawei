@@ -47,9 +47,9 @@ async function main(){
     assert.equal(await dialog.isVisible(),false,'Escape returns to normal links hub');
     const home=page.getByRole('link',{name:/官方網站/}).first();
     await home.click();
-    // Index loads many decorative assets; URL + DOM readiness is enough for this
-    // interaction test. Do not wait for every nonessential image to finish.
-    await page.waitForURL(/index\\.html/,{waitUntil:'domcontentloaded',timeout:30000});
+    // The home page loads many decorative assets. Verify navigation commits
+    // without waiting for unrelated images; next assertion waits for CTA DOM.
+    await page.waitForURL(/index\\.html/,{waitUntil:'commit',timeout:30000});
     const brandLogo=page.locator('.btn-primary .btn__brand-logo').first();
     await brandLogo.waitFor({state:'visible'});
     const seal=await brandLogo.evaluate(img=>({
