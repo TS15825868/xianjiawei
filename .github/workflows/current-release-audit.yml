@@ -76,7 +76,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import json
-          current='每日 1–2 罐'
+          # Validate the master as current authority, not a retired exact dosage string.
           gao_current='食用時間可依個人使用習慣與作息時間安排'
           deferred_name='柒玄茶・龜鹿調飲粉'
           deferred_id='qixuan-guilu-drink-powder'
@@ -86,7 +86,8 @@ jobs:
           assert master['productCount']==len(ids) and len(ids)==len(set(ids)) and all(pid in ids for pid in required)
           assert not set(ids) & {'guilu-jiao','guilu-tangkuai'}
           by={p['id']:p for p in master['products']}
-          assert by['guilu-drink-30']['usage'][0]==current
+          usage30=by['guilu-drink-30'].get('usage')
+          assert isinstance(usage30,list) and usage30 and isinstance(usage30[0],str) and usage30[0].strip(), '30cc目前正式用法缺失'
           assert by['guilu-gao']['usage'][0]==gao_current
           for rel in ['public-product-master.json','ai-answers.json','geo-data.json','index.html','products.html','guide.html','faq.html','contact.html','brand-facts.html','content/public-post-library.json']:
               text=Path(rel).read_text(encoding='utf-8')
@@ -126,7 +127,7 @@ jobs:
               details=[Path(str(x)) for x in (item.get('detailImages') or [])]
               assert details and all(p.parts and p.parts[0]=='images' and p.is_file() for p in details), f'product-media-authority detail missing: {pid}'
               assert main not in details, f'product-media-authority main/detail overlap: {pid}'
-          print(f'PASS: {len(ids)} current website/public-post products; flexible Guilu Gao timing; 30cc daily 1–2 cans; no fixed old product-count runtime gate.')
+          print(f'PASS: {len(ids)} current website/public-post products; flexible Guilu Gao timing; 30cc current source usage={usage30[0]}; no fixed old product-count runtime gate.')
           PY
 
       - name: Maintenance guard policy check

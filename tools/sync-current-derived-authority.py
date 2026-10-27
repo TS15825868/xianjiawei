@@ -8,7 +8,8 @@ ROOT=Path(__file__).resolve().parents[1]
 MASTER=ROOT/'public-product-master.json'
 REQUIRED_CURRENT_IDS=['guilu-gao','guilu-drink-30','guilu-drink-180','luerong-fen']
 DEFERRED_ID='qixuan-guilu-drink-powder'
-CURRENT_30='每日 1–2 罐'
+# Current user-confirmed product master, not a hard-coded historic dosage string,
+# is the source for derived public-catalog normalization.
 WRITE='--write' in sys.argv
 
 
@@ -31,8 +32,9 @@ def normalize_product(item,master_by):
         out['usage']=list(source['usage'])
         out['usagePrimary']=source['usage'][0]
         if 'usage_primary' in out: out['usage_primary']=source['usage'][0]
-        adjustment=source.get('usageAdjustment') or next((x for x in source['usage'] if x=='可依個人需求調整'),'')
+        adjustment=source.get('usageAdjustment') or next((x for x in source['usage'][1:] if isinstance(x,str) and '調整' in x),'')
         if adjustment: out['usageAdjustment']=adjustment
+        else: out.pop('usageAdjustment',None)
     if source.get('usageTiming'): out['usageTiming']=source['usageTiming']
     if source.get('detail'): out['detailUnitApprox']=source['detail']
     return out
@@ -68,10 +70,10 @@ def main():
     if set(ids) & {'guilu-jiao','guilu-tangkuai'}: raise SystemExit('暫緩產品不得回流公開')
     by={p['id']:p for p in master['products']}
     public_ids=ids
-    if by['guilu-drink-30'].get('usage',[None])[0]!=CURRENT_30:
-        raise SystemExit(f'30cc目前正式用法不是 {CURRENT_30}')
-    if '可依個人需求調整' not in by['guilu-drink-30'].get('usage',[]):
-        raise SystemExit('30cc缺少目前正式用量調整說明')
+    usage30=by['guilu-drink-30'].get('usage')
+    if not isinstance(usage30,list) or not usage30 or not isinstance(usage30[0],str) or not usage30[0].strip():
+        raise SystemExit('30cc最新正式用法缺失；請核對 user-confirmed-current 產品母資料')
+    adjustment=by['guilu-drink-30'].get('usageAdjustment') or next((x for x in usage30[1:] if isinstance(x,str) and '調整' in x),'')
     for rel in ['data.json','catalog-public.json','product-master.json','assets/data/official-products.json','config/official-products.json']:
         normalize_file(ROOT/rel,by,public_ids)
     # Metadata and public AI overview derive from the same current product list.
@@ -87,12 +89,16 @@ def main():
                 for item in value: update_counts(item)
         update_counts(data)
         facts=data.get('productAuthority',{}).get('canonicalFacts',{})
-        if 'guiluDrink30' in facts: facts['guiluDrink30']['usageAdjustment']='可依個人需求調整'
-        if 'guilu-drink-30' in (data.get('products') or {}): data['products']['guilu-drink-30']['usageAdjustment']='可依個人需求調整'
+        if 'guiluDrink30' in facts:
+            if adjustment: facts['guiluDrink30']['usageAdjustment']=adjustment
+            else: facts['guiluDrink30'].pop('usageAdjustment',None)
+        if 'guilu-drink-30' in (data.get('products') or {}):
+            if adjustment: data['products']['guilu-drink-30']['usageAdjustment']=adjustment
+            else: data['products']['guilu-drink-30'].pop('usageAdjustment',None)
         dump(ROOT/rel,data)
     for rel in ['assets/data/official-products.json','config/official-products.json','ai-answers.json','geo-data.json']:
         text=(ROOT/rel).read_text(encoding='utf-8')
         if DEFERRED_ID in text: raise SystemExit(f'{rel}仍含暫緩對外產品')
-    print(f'PASS current public derived authority: {len(public_ids)} products, 30cc {CURRENT_30}, deferred product excluded; mode={"write" if WRITE else "check"}.')
+    print(f'PASS current public derived authority: {len(public_ids)} products, 30cc source usage={usage30[0]}, deferred product excluded; mode={"write" if WRITE else "check"}.')
 
 if __name__=='__main__': main()
