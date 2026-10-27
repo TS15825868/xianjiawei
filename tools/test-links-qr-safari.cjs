@@ -47,7 +47,9 @@ async function main(){
     assert.equal(await dialog.isVisible(),false,'Escape returns to normal links hub');
     const home=page.getByRole('link',{name:/官方網站/}).first();
     await home.click();
-    await page.waitForURL(/index\\.html/);
+    // Index loads many decorative assets; URL + DOM readiness is enough for this
+    // interaction test. Do not wait for every nonessential image to finish.
+    await page.waitForURL(/index\\.html/,{waitUntil:'domcontentloaded',timeout:30000});
     const brandLogo=page.locator('.btn-primary .btn__brand-logo').first();
     await brandLogo.waitFor({state:'visible'});
     const seal=await brandLogo.evaluate(img=>({
