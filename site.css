@@ -1510,3 +1510,23 @@ body[data-page="product-detail"] .product-legal-details .grid>.card{padding:clam
 body[data-page="product-detail"] .product-legal-details .grid>.card p{margin:0;line-height:1.7}
 body[data-page="product-detail"] .product-legal-details .grid>.card h3{margin:0 0 8px}
 @media(max-width:700px){body[data-page="product-detail"] .section:has(>.product-legal-details){padding-block:18px}body[data-page="product-detail"] .product-legal-details{margin-block:0}body[data-page="product-detail"] .product-legal-details .grid{gap:10px}}
+
+/* 2026-10-27: official seal on dark-red CTA needs a light backing.
+   Keep the authentic logo unchanged; prevent maroon-on-maroon invisibility. */
+.btn-primary .btn__brand-logo,
+.btn-line .btn__brand-logo{
+  box-sizing:content-box;
+  width:27px;
+  height:35px;
+  padding:4px 6px;
+  flex:0 0 auto;
+  object-fit:contain;
+  border:1px solid rgba(176,138,71,.72);
+  border-radius:9px;
+  background-color:#FFFDF7;
+  box-shadow:0 2px 5px rgba(11,31,59,.15);
+}
+@media(max-width:700px){
+  .btn-primary .btn__brand-logo,
+  .btn-line .btn__brand-logo{width:24px;height:33px;padding:4px 5px;}
+}
