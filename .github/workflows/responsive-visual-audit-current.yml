@@ -130,7 +130,10 @@ jobs:
             const report={generatedAt:new Date().toISOString(),base:BASE,viewports:{},errors:[],warnings:[]};
             const linkStatusCache=new Map();
 
-            for(const [vpName,vp] of Object.entries(viewports)){
+            // The current brand browser audit also verifies Chromium+WebKit on five viewport sizes.
+            // Keep Chromium's deep interactive audit on desktop and iPhone; WebKit retains all four.
+            const selectedViewports=process.env.XJW_BROWSER_ENGINE==='chromium' ? Object.entries(viewports).filter(([name])=>name==='desktop'||name==='iphone') : Object.entries(viewports);
+            for(const [vpName,vp] of selectedViewports){
               const context=await browser.newContext({reducedMotion:"reduce",
                 viewport:{width:vp.width,height:vp.height},
                 isMobile:vp.isMobile,
@@ -569,10 +572,11 @@ jobs:
                   }
                 }
 
-                if(keyScreens.has(pth)||vpName==='desktop'||vpName==='iphone'){
+                if(keyScreens.has(pth)){
                   await page.screenshot({path:`responsive-audit-screens/${vpName}-${pth.replace('.html','')}.png`,fullPage:true});
                 }
                 await page.close();
+                console.log(`RESPONSIVE ${process.env.XJW_BROWSER_ENGINE} ${vpName} ${pth}: page checked`);
               }
               await context.close();
             }
