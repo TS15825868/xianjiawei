@@ -26,7 +26,7 @@
   const STABILITY = `site-stability-v20260814.js?v=${VERSION}`;
   const CURRENT_GAO_TIMING = "食用時間可依個人使用習慣與作息時間安排";
 
-  const STYLES = ["site.css?v=20261019-compact-product-intro-v1"];
+  const STYLES = ["site.css?v=20261027-contrast-logo-button-v4"];
 
   const SAFE_DATA = Object.freeze({
     version: `${VERSION}-fallback`,
@@ -59,10 +59,16 @@
     document.head.appendChild(style);
   }
   function loadStyles(){
-    const href=STYLES[0];
-    const existing=document.querySelector('link[href^="site.css"]');
-    if(existing){existing.href=href;return;}
-    const link=document.createElement("link");link.rel="stylesheet";link.href=href;
+    // Page HTML is the approved CSS cache authority. Do not silently replace a
+    // newer stylesheet with the bootstrap's emergency fallback on startup.
+    const existing=document.querySelector('link[rel="stylesheet"][href^="site.css"]');
+    if(existing){
+      const declared=existing.getAttribute('href')||'';
+      if(/^site\.css\?v=[A-Za-z0-9._-]+$/.test(declared))return;
+      existing.setAttribute('href',STYLES[0]);
+      return;
+    }
+    const link=document.createElement("link");link.rel="stylesheet";link.href=STYLES[0];
     document.head.appendChild(link);
   }
   function installEmergencyHeader(){
