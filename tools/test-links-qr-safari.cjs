@@ -47,7 +47,7 @@ async function main(){
     assert.equal(await dialog.isVisible(),false,'Escape returns to normal links hub');
     const home=page.getByRole('link',{name:/官方網站/}).first();
     await home.click();
-    await page.waitForURL(/index\\.html/);
+    assert.match(new URL(page.url()).pathname,/\/index\.html$/,'Official website link must open homepage');
     const brandLogo=page.locator('.btn-primary .btn__brand-logo').first();
     await brandLogo.waitFor({state:'visible'});
     const seal=await brandLogo.evaluate(img=>({
