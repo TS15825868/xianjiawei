@@ -28,7 +28,7 @@ const MENU_GROUPS = [
     title: "知識專區",
     links: [
       { href: "knowledge.html", label: "知識專區首頁", keys: ["knowledge"] },
-      { href: "why-guilu.html", label: "龜鹿入門", keys: ["why-guilu"] },
+      { href: "why-guilu.html", label: "龜鹿文化與工藝", keys: ["why-guilu"] },
       { href: "hanfang-baike.html", label: "原料與飲食知識", keys: ["hanfang-baike"] },
       { href: "ingredients.html", label: "選料與產品成分", keys: ["ingredients"] },
       { href: "video.html", label: "知識影音", keys: ["video"] },
