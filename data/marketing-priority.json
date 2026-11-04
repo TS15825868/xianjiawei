@@ -1,5 +1,5 @@
 {
-  "version": "2026-08-04-v3",
+  "version": "2026-11-04-cross-series-homepage-v1",
   "brand": "仙加味",
   "primary_product": {
     "id": "PROD-DRINK-30",
@@ -7,7 +7,8 @@
     "specification": "30cc／罐（小玻璃罐）",
     "role": "方便即飲主打入口",
     "homepage_priority": 1,
-    "message": "不用挖取、不用沖泡，開罐即可飲用；也可依習慣溫熱後飲用。"
+    "message": "不用挖取、不用沖泡，開罐即可飲用；也可依習慣溫熱後飲用。",
+    "legacy_priority_note": "本欄保留原龜鹿飲行銷優先紀錄，不再代表全站首頁唯一主推或排他排序；依新版跨系列首頁示例為準。"
   },
   "convenience_entry": [
     {
@@ -42,14 +43,25 @@
   ],
   "website_rules": {
     "show_prices": false,
-    "primary_cta": "查看方便即飲龜鹿飲",
-    "secondary_cta": "認識龜鹿膏與其他型態",
+    "primary_cta": "查看全部產品",
+    "secondary_cta": "依使用情境認識商品與漢方飲食文化",
     "medical_claims_forbidden": true,
-    "primary_product_must_not_hide_other_products": true
+    "primary_product_must_not_hide_other_products": true,
+    "homepage_examples": [
+      "龜鹿膏100g｜在家日常取用",
+      "丹參茶包系列｜工作空檔茶飲沖泡",
+      "四珍寶精華膏湯塊｜家常料理與溫熱湯品"
+    ],
+    "homepage_examples_are_not_full_catalog": true,
+    "current_approved_products_source": "各產品最新正式資料與官網核准頁；不得由舊四品項數量限制新版公開內容",
+    "heritage_knowledge_link": "龜鹿文化與工藝",
+    "no_automatic_publication": true
   },
   "post_rules": {
     "approval_required": true,
     "publish_before_approval": false,
     "official_product_images_only": true
-  }
+  },
+  "updatedAt": "2026-11-04",
+  "brand_positioning": "仙加味是多元漢方生活品牌；龜鹿是起家工藝與專業，不是唯一販售品項。"
 }
