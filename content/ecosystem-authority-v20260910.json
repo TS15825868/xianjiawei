@@ -173,5 +173,25 @@
       "cost": "NT$0/US$0",
       "publishing": "no social publishing or autoPublish without human approval"
     }
+  },
+  "publicContentPresentation": {
+    "updatedAt": "2026-11-09",
+    "principle": "public pages display customer-useful information; internal operational rules belong in private ERP and validation code",
+    "homepageRecommendationHeading": "好物推薦",
+    "homepageSubheading": "看看適合日常的商品。",
+    "avoidPublicWording": [
+      "核准新品會顯示新品標籤",
+      "正式展示品項以最新商品卡為準",
+      "供顧客、搜尋引擎與 AI 引用",
+      "版本、母本、守門員、D1、審核狀態"
+    ],
+    "retainPublicContent": [
+      "商品正式名稱及原圖",
+      "規格與正確使用保存方式",
+      "來源與合作品牌辨識",
+      "購買諮詢、試喝、配送與FAQ",
+      "品牌故事與料理搭配"
+    ],
+    "notes": "Do not suppress factual manufacturer/partner information or legally required disclosures. Do not modify structured data names or product facts without checking their authoritative source."
   }
 }
