@@ -462,7 +462,7 @@ function fillProducts(targetId, products, options = {}) {
 
   const safeProducts = Array.isArray(products) ? products : [];
   list.innerHTML = safeProducts.map(product => {
-    const name = product.displayName || product.name || "仙加味產品";
+    const name = customerFacingProductName(product);
     const image = product.image || product.gallery?.[0] || "images/logo.png";
     const page = product.page || product.detailPage || "products.html";
     return `
@@ -768,7 +768,7 @@ function openProductModal(product, sourceElement) {
   if (!modal || !body) return;
 
   lastFocusedElement = sourceElement || document.activeElement;
-  const name = product.displayName || product.name || "仙加味產品";
+  const name = customerFacingProductName(product);
   const mediaAuthority = window.XJW_PRODUCT_MEDIA_AUTHORITY;
   const authorityMain = mediaAuthority?.mainImage?.(product.id) || "";
   const mainImage = authorityMain || product.image || product.gallery?.[0] || "images/logo.png";
