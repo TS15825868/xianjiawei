@@ -1342,51 +1342,10 @@ a{color:inherit}
 
     
 
-    <div class="line-qr">
-      <button class="line-qr-trigger" type="button" id="show-line-qr" aria-haspopup="dialog" aria-controls="line-qr-dialog">顯示官方 LINE QR Code</button>
-    </div>
-    <dialog class="line-qr-dialog" id="line-qr-dialog" aria-labelledby="line-qr-title">
-      <h2 id="line-qr-title">仙加味官方 LINE</h2>
-      <img src="images/official-line-qr.svg" width="370" height="370" alt="掃描 QR Code 加入仙加味官方 LINE @762jybnm" loading="lazy"/>
-      <p>商品諮詢、試喝、訂購與合作洽詢。點擊關閉即可回到連結入口，不會改變頁面位置。</p>
-      <a href="https://lin.ee/sHZW7NkR" target="_blank" rel="noopener noreferrer">開啟官方 LINE</a>
-      <button class="line-qr-close" id="close-line-qr" type="button">關閉並返回連結</button>
-    </dialog>
     <div class="hours" aria-label="仙加味營業時間"><span class="hours-icon" aria-hidden="true">◷</span><div><strong>營業時間</strong><div>週一至週五 10:00–20:00</div><div>週六非固定營業，預約取貨／配送請先洽官方 LINE；週日公休。</div></div></div>
     <footer class="footer">仙加味｜補養，是一種節奏。</footer>
   </section>
 </main>
-<script>
-/* Never lock body scroll or change URL/hash: safe with Safari back-forward cache. */
-(function () {
-  'use strict';
-  var trigger=document.getElementById('show-line-qr');
-  var dialog=document.getElementById('line-qr-dialog');
-  var close=document.getElementById('close-line-qr');
-  if(!trigger||!dialog||!close)return;
-  function hide(){
-    if(dialog.open)dialog.close();
-  }
-  trigger.addEventListener('click',function(){
-    if(dialog.open)return;
-    if(typeof dialog.showModal==='function'){
-      try{dialog.showModal();close.focus({preventScroll:true});return;}catch(error){}
-    }
-    /* Old embedded WebViews: use the existing official QR without freezing page layout. */
-    window.open('images/official-line-qr.svg','_blank','noopener,noreferrer');
-  });
-  close.addEventListener('click',hide);
-  dialog.addEventListener('click',function(event){
-    if(event.target!==dialog)return;
-    var b=dialog.getBoundingClientRect();
-    if(event.clientX<b.left+8||event.clientX>b.right-8||
-       event.clientY<b.top+8||event.clientY>b.bottom-8)hide();
-  });
-  dialog.addEventListener('close',function(){
-    if(document.visibilityState==='visible')trigger.focus({preventScroll:true});
-  });
-  window.addEventListener('pageshow',function(){hide();});
-})();
-</script>
+
 </body>
 </html>
