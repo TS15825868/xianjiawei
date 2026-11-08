@@ -1782,3 +1782,8 @@ body[data-page="home"] .home-hero-next:focus-visible{outline:3px solid #78282a;o
   body[data-page="home"] .home-products-section .home-carousel-count{font-size:14px!important}
   .site-footer .footer-legal{padding:16px!important}
 }
+
+/* Minimum mobile reading size for the featured-product introduction, confirmed by Chromium/WebKit pixel audits. */
+@media(max-width:600px){
+  body[data-page="home"] .home-products-section .home-product-showcase__head p{font-size:14px!important;line-height:1.6!important}
+}
