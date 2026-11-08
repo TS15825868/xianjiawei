@@ -327,16 +327,60 @@ function isPublicCatalogProduct(product) {
 function featuredCatalogProducts(products) {
   const visible = [...new Map(products.filter(isPublicCatalogProduct).map(p => [p.id, p])).values()];
   const selected = visible.filter(p => p.featured === true);
-  return (selected.length ? selected : visible.filter(p => p.brandType !== "partner")).slice(0, 4);
+  // 顯示四張為一屏，不等於只能精選四張：超過四張可手動滑動。
+  return (selected.length ? selected : visible.filter(p => p.brandType !== "partner")).slice(0, selected.length ? 8 : 4);
+}
+
+function initHomeProductCarousel(grid) {
+  const previous = document.querySelector('[data-home-carousel-prev]');
+  const next = document.querySelector('[data-home-carousel-next]');
+  const counter = document.querySelector('#home-carousel-count');
+  if (!grid || !previous || !next) return;
+  const cards = () => [...grid.querySelectorAll(':scope > a')];
+  const step = () => {
+    const items = cards();
+    return items.length > 1 ? items[1].offsetLeft - items[0].offsetLeft : (items[0]?.offsetWidth || grid.clientWidth);
+  };
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const update = () => {
+    const count = cards().length;
+    const maximum = Math.max(0, grid.scrollWidth - grid.clientWidth);
+    const canScroll = maximum > 3;
+    previous.hidden = !canScroll;
+    next.hidden = !canScroll;
+    previous.disabled = !canScroll || grid.scrollLeft <= 3;
+    next.disabled = !canScroll || grid.scrollLeft >= maximum - 3;
+    const position = count ? Math.min(count, Math.max(1, Math.round(grid.scrollLeft / Math.max(step(), 1)) + 1)) : 0;
+    if (counter) {
+      const message = canScroll ? `第 ${position} 項／共 ${count} 項・可左右滑動` : `共 ${count} 項精選商品`;
+      if (counter.textContent !== message) counter.textContent = message;
+    }
+  };
+  const move = direction => grid.scrollBy({left: direction * step(), behavior: reduced ? 'auto' : 'smooth'});
+  previous.addEventListener('click', () => move(-1));
+  next.addEventListener('click', () => move(1));
+  grid.addEventListener('keydown', event => {
+    if (event.target !== grid || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    move(event.key === 'ArrowRight' ? 1 : -1);
+  });
+  grid.addEventListener('scroll', update, {passive:true});
+  window.addEventListener('resize', update, {passive:true});
+  requestAnimationFrame(update);
 }
 
 function renderHome() {
-  // 依正式產品資料展示，可隨產品新增擴充，不再移除新版首頁產品區。
+  // 由目前公開資料決定精選，不使用可能已下架的舊版九張靜態卡。
   const grid=document.querySelector('.home-product-showcase__grid');
   const products=[...(Array.isArray(SITE_DATA?.products)?SITE_DATA.products:[]),...(SITE_DATA?.partnerProducts||[])];
   const uniqueProducts=featuredCatalogProducts(products);
-  if(grid&&uniqueProducts.length&&!SITE_DATA?.partnerCatalogUnavailable){
-    grid.innerHTML=uniqueProducts.map(product=>`<a data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page||product.detailPage||'products.html')}"><img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(product.displayName||product.name)}正式主圖" loading="lazy" decoding="async"><span>${escapeHtml(product.displayName||product.name)}</span></a>`).join('');
+  if (grid) {
+    grid.innerHTML = uniqueProducts.length ? uniqueProducts.map(product => {
+      const name = product.displayName || product.name || '仙加味商品';
+      const badge = (product.isNew === true || product.newArrival === true) ? '<em class="home-product-card__new">新品</em>' : '';
+      return `<a data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page||product.detailPage||'products.html')}">${badge}<img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(name)}正式主圖" loading="lazy" decoding="async"><span class="home-product-card__title">${escapeHtml(name)}</span><span class="home-product-card__action">查看商品介紹 →</span></a>`;
+    }).join('') : '<p class="home-product-carousel-empty">目前沒有可公開展示的精選商品，歡迎查看全部商品或透過官方 LINE 詢問。</p>';
+    initHomeProductCarousel(grid);
   }
   document.querySelector('main')?.classList.add('home-v410');
 }
