@@ -442,7 +442,7 @@ function renderProductsPage() {
         <p class="eyebrow">${escapeHtml(productDisplaySpec(product) || "產品規格")}</p>
         <h3>${escapeHtml(customerFacingProductName(product))}</h3>
         <p>${escapeHtml(product.purpose || product.description || "")}</p>
-        <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">${escapeHtml(customerFacingProductName(product))}｜查看介紹</a>
+        <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">${escapeHtml(customerFacingProductName(product))}｜查看介紹 →</a>
       </article>
     `).join("");
   }
@@ -476,7 +476,7 @@ function fillProducts(targetId, products, options = {}) {
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
           <div class="product-card__actions">
-            <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(page)}">${escapeHtml(name)}｜查看介紹</a>
+            <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(page)}">${escapeHtml(name)}｜查看介紹 →</a>
           </div>
         </div>
       </article>
@@ -753,7 +753,7 @@ function renderMobileCompareCards() {
         <article class="mobile-compare-card">
           <h3>${escapeHtml(name)}</h3>
           <dl>${details}</dl>
-          <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(href)}">${escapeHtml(name)}｜查看介紹</a>
+          <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(href)}">${escapeHtml(name)}｜查看介紹 →</a>
         </article>
       `;
     }).join("");
