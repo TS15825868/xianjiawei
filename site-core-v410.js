@@ -325,12 +325,25 @@ function isPublicCatalogProduct(product) {
     !["hidden", "paused", "discontinued"].includes(product.publicationStatus);
 }
 function featuredCatalogProducts(products) {
-  const visible = [...new Map(products.filter(isPublicCatalogProduct).map(p => [p.id, p])).values()];
+  // 任何來源商品都需先通過正式公開條件及基本完整性。
+  const visible = [...new Map(products.filter(isPublicCatalogProduct)
+    .filter(p => p.id && p.image && (p.page || p.detailPage)).map(p => [p.id, p])).values()];
   const selected = visible.filter(p => p.featured === true);
-  // 顯示四張為一屏，不等於只能精選四張：超過四張可手動滑動。
-  // 不限制自有或合作商品；沒有精選設定時，以核准新品優先、再補其他公開商品。
-  const ranked = selected.length ? selected : visible.sort((a,b) => Number(b.isNew === true || b.newArrival === true) - Number(a.isNew === true || a.newArrival === true));
-  return ranked.slice(0, selected.length ? 8 : 4);
+  const rest = visible.filter(p => p.featured !== true);
+  const newArrival = p => p.isNew === true || p.newArrival === true;
+  const balanced = items => {
+    const own = items.filter(p => p.brandType !== 'partner');
+    const partner = items.filter(p => p.brandType === 'partner');
+    const result = [];
+    while (own.length || partner.length) {
+      if (own.length) result.push(own.shift());
+      if (partner.length) result.push(partner.shift());
+    }
+    return result;
+  };
+  // 精選優先；未指定時先核准新品，再交錯展示自有與正式公開合作商品。
+  // 一屏約四張、最多八張可手動左右滑動，不用舊九項固定清單。
+  return [...selected, ...balanced(rest.filter(newArrival)), ...balanced(rest.filter(p => !newArrival(p)))].slice(0, 8);
 }
 
 function initHomeProductCarousel(grid) {

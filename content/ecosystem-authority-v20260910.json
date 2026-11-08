@@ -152,11 +152,11 @@
   "homepagePresentation": {
     "updatedAt": "2026-11-09",
     "authority": "user-confirmed-display-rules; does not override product facts or public approval",
-    "quickEntry": "首頁三個快速入口採精簡卡片；手機短文字與明顯可點擊按鈕；不與頁首或商品區重複",
+    "quickEntry": "首頁三個快速入口縮成單排短版快捷列，標題僅「快速前往」；手機保留三格可點選，最小觸控高度48px；避免大型重複卡片與多餘說明",
     "featuredCatalog": {
       "source": "existing public catalog and product authority; no new product master",
       "eligibleBrands": "approved own-brand and approved partner products",
-      "featuredRule": "featured===true prioritized; if no featured items, approved new products first, then other approved public items",
+      "featuredRule": "正式公開且featured===true先顯示，不限自有或合作商品；未標記精選時，正式核准新品優先，其餘自有與正式公開合作商品交錯呈現；不憑空指定新品，最多8項、桌機一屏4項、手機手動滑動",
       "newBadge": "isNew===true or newArrival===true only; no invented new labels",
       "publicSafety": "public!==false, publicationApproved!==false, publicationStatus not hidden/paused/discontinued",
       "desktopVisible": 4,
@@ -169,7 +169,7 @@
     },
     "releaseRules": {
       "sourceOfTruth": "read current main before modifying; do not overwrite newest versions",
-      "checks": "update matching runtime, source authority, validation guards and existing scheduled checks for any approved UI or catalog rule change",
+      "checks": "每次正式商品、首頁展示、UI及公開規則更新均同步最新正式母本（本檔與相關商品母資料）、程式、CI守門及既有每日/每小時自動化排程；先讀最新main，不得以舊版本覆蓋",
       "cost": "NT$0/US$0",
       "publishing": "no social publishing or autoPublish without human approval"
     }

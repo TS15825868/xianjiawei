@@ -1654,3 +1654,21 @@ body[data-page="home"] .home-quick-entry__action{min-height:44px;margin-top:5px;
  body[data-page="home"] .home-quick-entry>span:not(.home-quick-entry__label):not(.home-quick-entry__action){display:none}
  body[data-page="home"] .home-quick-entry__action{grid-column:2;grid-row:1/span 2;min-width:108px;min-height:44px;margin:0;padding:7px 9px;text-align:center;font-size:12px}
 }
+
+/* 2026-11-09 正式首頁快捷列：一排短入口，避免高大卡片壓過商品展示。 */
+body[data-page="home"] .home-choice-section{padding-top:18px!important;padding-bottom:17px!important}
+body[data-page="home"] .home-quickbar{display:flex;align-items:center;gap:18px;max-width:1160px;margin-inline:auto}
+body[data-page="home"] .home-quickbar h2{font-size:clamp(15px,1.4vw,19px);font-weight:700;line-height:1.4;white-space:nowrap;margin:0;color:#0b1f3b}
+body[data-page="home"] .home-quickbar .home-quick-entry-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;flex:1;margin:0}
+body[data-page="home"] .home-quickbar .home-quick-entry{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:6px;min-height:52px;padding:10px 15px;border-radius:10px;box-shadow:none;font-size:15px;font-weight:700}
+body[data-page="home"] .home-quickbar .home-quick-entry__title{line-height:1.35}
+body[data-page="home"] .home-quickbar .home-quick-entry span[aria-hidden="true"]{color:#7a3233;font-size:18px}
+body[data-page="home"] .home-quickbar .home-quick-entry:hover,body[data-page="home"] .home-quickbar .home-quick-entry:focus-visible{transform:none;background:#f1e7d6;box-shadow:0 2px 10px rgba(11,31,59,.07)}
+@media(max-width:700px){
+ body[data-page="home"] .home-choice-section{padding-block:15px!important}
+ body[data-page="home"] .home-quickbar{display:block}
+ body[data-page="home"] .home-quickbar h2{font-size:15px;margin:0 0 9px;text-align:left}
+ body[data-page="home"] .home-quickbar .home-quick-entry-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ body[data-page="home"] .home-quickbar .home-quick-entry{min-height:48px;padding:10px 8px;gap:2px;font-size:clamp(12px,3.2vw,14px)}
+ body[data-page="home"] .home-quickbar .home-quick-entry span[aria-hidden="true"]{font-size:15px}
+}
