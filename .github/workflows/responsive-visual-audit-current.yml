@@ -342,6 +342,7 @@ jobs:
                     const grid=document.querySelector('.home-product-showcase__grid');
                     const cards=[...document.querySelectorAll('.home-product-showcase__grid>a')];
                     const hint=document.querySelector('.home-product-swipe-hint');
+                    const nextButton=document.querySelector('[data-home-carousel-next]');
                     const allLink=document.querySelector('.home-product-showcase__all');
                     const shown=el=>!!(el&&(el.offsetWidth||el.offsetHeight||el.getClientRects().length));
                     if(!grid||cards.length<2)return {count:cards.length,ready:false,hintVisible:shown(hint),allLinkVisible:shown(allLink)};
@@ -354,6 +355,8 @@ jobs:
                       ready:true,
                       hintVisible:shown(hint),
                       allLinkVisible:shown(allLink),
+                      nextButtonVisible:shown(nextButton),
+                      nextButtonEnabled:Boolean(nextButton&&!nextButton.disabled),
                       overflowable:grid.scrollWidth>grid.clientWidth+5,
                       firstWidth:Math.round(first.width),
                       gridWidth:Math.round(gr.width),
@@ -361,9 +364,20 @@ jobs:
                     };
                   });
                   report.viewports[vpName][pth].homeProductRail=homeProductRail;
-                  if(!homeProductRail.ready||!homeProductRail.allLinkVisible||(homeProductRail.overflowable&&(!homeProductRail.hintVisible||homeProductRail.nextPeek<24))){
+                  if(!homeProductRail.ready||!homeProductRail.allLinkVisible||(homeProductRail.overflowable&&(!homeProductRail.hintVisible||(homeProductRail.nextPeek<24&&!(homeProductRail.nextButtonVisible&&homeProductRail.nextButtonEnabled))))){
                     report.errors.push({vp:vpName,page:pth,type:'mobile-product-rail-undiscoverable',detail:homeProductRail});
                   }
+                  // The full-width design keeps each product button uncut; verify the explicit next arrow actually scrolls.
+                  if(homeProductRail.ready&&homeProductRail.overflowable&&homeProductRail.nextButtonVisible&&homeProductRail.nextButtonEnabled){
+                    const beforeScroll=await page.locator('.home-product-showcase__grid').evaluate(element=>element.scrollLeft);
+                    try{
+                      await page.locator('[data-home-carousel-next]').click({timeout:5000});
+                      await page.waitForFunction(before=>document.querySelector('.home-product-showcase__grid')?.scrollLeft>before+12,beforeScroll,{timeout:2800});
+                    }catch(error){
+                      report.errors.push({vp:vpName,page:pth,type:'mobile-product-next-button-not-working',detail:{beforeScroll,message:error.message}});
+                    }
+                  }
+
                 }
 
                 if(status!==200) report.errors.push({vp:vpName,page:pth,type:'http',detail:status});
@@ -558,7 +572,7 @@ jobs:
                     if(expected?.main&&!modalAudit.main.endsWith(expected.main)) report.errors.push({vp:vpName,page:pth,type:'modal-main-wrong',detail:{id,expected:expected.main,actual:modalAudit.main}});
                     if(expected?.page&&!modalAudit.detailHref.endsWith(expected.page)) report.errors.push({vp:vpName,page:pth,type:'modal-detail-link-wrong',detail:{id,expected:expected.page,actual:modalAudit.detailHref}});
                     if(!modalAudit.previewText.includes('規格：')) report.errors.push({vp:vpName,page:pth,type:'modal-spec-missing',detail:{id,text:modalAudit.previewText}});
-                    if(!/^(查看詳細|.+｜完整商品資料)$/.test(modalAudit.detailText.trim())) report.errors.push({vp:vpName,page:pth,type:'modal-detail-action-missing',detail:{id,text:modalAudit.detailText}});
+                    if(!/^(查看詳細|.+｜完整商品資料 →)$/.test(modalAudit.detailText.trim())) report.errors.push({vp:vpName,page:pth,type:'modal-detail-action-missing',detail:{id,text:modalAudit.detailText}});
                     if(!modalAudit.line) report.errors.push({vp:vpName,page:pth,type:'modal-line-missing',detail:{id}});
                     if(!modalAudit.mainBox?.width||!modalAudit.mainBox?.height) report.errors.push({vp:vpName,page:pth,type:'modal-main-hidden',detail:{id,box:modalAudit.mainBox}});
                     if(modalAudit.mainStyle?.transform!=='none'||modalAudit.mainStyle?.objectFit!=='contain') report.errors.push({vp:vpName,page:pth,type:'modal-main-transform-or-fit',detail:{id,style:modalAudit.mainStyle}});
