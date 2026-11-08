@@ -328,7 +328,9 @@ function featuredCatalogProducts(products) {
   const visible = [...new Map(products.filter(isPublicCatalogProduct).map(p => [p.id, p])).values()];
   const selected = visible.filter(p => p.featured === true);
   // 顯示四張為一屏，不等於只能精選四張：超過四張可手動滑動。
-  return (selected.length ? selected : visible.filter(p => p.brandType !== "partner")).slice(0, selected.length ? 8 : 4);
+  // 不限制自有或合作商品；沒有精選設定時，以核准新品優先、再補其他公開商品。
+  const ranked = selected.length ? selected : visible.sort((a,b) => Number(b.isNew === true || b.newArrival === true) - Number(a.isNew === true || a.newArrival === true));
+  return ranked.slice(0, selected.length ? 8 : 4);
 }
 
 function initHomeProductCarousel(grid) {
