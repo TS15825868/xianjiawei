@@ -148,5 +148,30 @@
     "authorityPath": "config/ai-ip-ops-authority.json",
     "sopPath": "docs/AI-IP-AUTOMATION-SOP.md",
     "rule": "官網公開資料依本站最新正式母資料；AI/IP營運流程與發布權限依ERP總控，禁止未人工核准的公開發布。"
+  },
+  "homepagePresentation": {
+    "updatedAt": "2026-11-09",
+    "authority": "user-confirmed-display-rules; does not override product facts or public approval",
+    "quickEntry": "首頁三個快速入口採精簡卡片；手機短文字與明顯可點擊按鈕；不與頁首或商品區重複",
+    "featuredCatalog": {
+      "source": "existing public catalog and product authority; no new product master",
+      "eligibleBrands": "approved own-brand and approved partner products",
+      "featuredRule": "featured===true prioritized; if no featured items, approved new products first, then other approved public items",
+      "newBadge": "isNew===true or newArrival===true only; no invented new labels",
+      "publicSafety": "public!==false, publicationApproved!==false, publicationStatus not hidden/paused/discontinued",
+      "desktopVisible": 4,
+      "mobile": "manual horizontal swipe with next card partially visible",
+      "maxFeatured": 8,
+      "autoplay": false,
+      "images": "approved genuine package images only; preserve aspect ratio",
+      "empty": "never show hidden or unapproved products",
+      "stock": "out of stock is independent of publication status"
+    },
+    "releaseRules": {
+      "sourceOfTruth": "read current main before modifying; do not overwrite newest versions",
+      "checks": "update matching runtime, source authority, validation guards and existing scheduled checks for any approved UI or catalog rule change",
+      "cost": "NT$0/US$0",
+      "publishing": "no social publishing or autoPublish without human approval"
+    }
   }
 }
