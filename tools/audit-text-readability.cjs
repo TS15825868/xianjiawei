@@ -117,7 +117,7 @@ async function inspect(page,file,device,state){
        w:Math.min(innerWidth,r.right)-Math.max(0,r.left),
        h:Math.min(innerHeight,r.bottom)-Math.max(0,r.top)
       })).filter(r=>r.w>1&&r.h>1);
-      const color=(cs.color.match(/[\\d.]+/g)||[]).map(Number);
+      const color=(cs.color.match(/[\d.]+/g)||[]).map(Number);
       let alpha=color[3]??1;
       for(let p=el;p;p=p.parentElement)alpha*=Number(getComputedStyle(p).opacity)||0;
       return {rects,color:color.slice(0,3),alpha,threshold:parseFloat(cs.fontSize)>=24?3:4.5};
