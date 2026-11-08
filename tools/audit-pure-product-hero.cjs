@@ -65,9 +65,11 @@ for(const p of current){
   const image=normalized(p.image);
   verifyPhoto(p.id,image);
   const detail=fs.existsSync(p.page)?fs.readFileSync(p.page,"utf8"):"";
-  for(const [name,html] of [["homepage",home],["catalog",listing],["detail",detail],["media authority",authoritySource]]){
+  for(const [name,html] of [["catalog",listing],["detail",detail],["media authority",authoritySource]]){
     check(html.includes(image),p.id+" "+name+" does not show approved full package");
   }
+  // 首頁只需具有核准自有商品的非 JS 備援，合作商品完整性由商品總覽與詳情檢查。
+  if (own.slice(0,4).some(item=>item.id===p.id)) check(home.includes(image),p.id+" approved homepage fallback photo missing");
   check(media.mainImage(p.id)===image,p.id+" runtime catalog mismatch");
 }
 const tea=partner.find(p=>p.id==="danshen-tea-collection");

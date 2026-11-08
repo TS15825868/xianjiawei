@@ -264,31 +264,33 @@ def main() -> None:
         if product["page"] not in listing:
             fail("partner product missing from search/listing metadata: " + product["id"])
 
-    # The homepage must show exactly the CURRENT approved public products.
-    # Do not hard-code an old count: new verified public products should
-    # automatically become required, and retired/internal-only items stay out.
+    # 首頁只顯示自有商品的核准備援（最多四項），其餘經選取的
+    # 精選商品由 JS 依公開狀態動態展示；全部商品則留在商品總覽。
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
     homepage_links = re.findall(
-        r'<a\b[^>]*\bhref="(product-[a-z0-9-]+\.html)"[^>]*>\s*'
-        r'<img\b[^>]*\bsrc="([^"]+)"',
+        r'<a\\b[^>]*\\bhref="(product-[a-z0-9-]+\\.html)"[^>]*>\\s*'
+        r'<img\\b[^>]*\\bsrc="([^"]+)"',
         homepage,
     )
-    expected_home = {str(p["page"]): str(p["image"]).split("?", 1)[0]
-                     for p in own + public_partner}
+    expected_home = {str(item["page"]): str(item["image"]).split("?", 1)[0]
+                     for item in own[:4]}
     observed_home = {}
     for page, image in homepage_links:
         if page in observed_home:
-            fail("duplicate homepage product: " + page)
+            fail("duplicate homepage fallback product: " + page)
         observed_home[page] = image.split("?", 1)[0]
     if set(observed_home) != set(expected_home):
-        missing = sorted(set(expected_home) - set(observed_home))
-        unexpected = sorted(set(observed_home) - set(expected_home))
-        fail("homepage public products differ from latest approved catalog: "
-             + "missing=" + repr(missing) + " retired/unapproved=" + repr(unexpected))
+        fail("homepage fallback does not match approved four own-brand products: "
+             + repr(sorted(set(observed_home) ^ set(expected_home))))
     for page, image in expected_home.items():
         if observed_home[page] != image:
-            fail("homepage uses stale/raw product photo instead of current "
-                 "approved source for " + page + ": " + observed_home[page])
+            fail("homepage fallback uses non-approved product photo: " + page)
+    runtime = (ROOT / "site-core-v410.js").read_text(encoding="utf-8")
+    if "products.filter(isPublicCatalogProduct)" not in runtime or "featured === true" not in runtime:
+        fail("dynamic homepage does not enforce current public/featured policy")
+    if "['hidden', 'paused', 'discontinued']" not in runtime.replace('"', "'"):
+        # Runtime may use double quotes; this is intentionally a normalized check.
+        fail("dynamic homepage does not exclude non-public merchandise")
     # The static fallback must neither lose current product cards nor revive
     # old/retired catalog entries.
     static_ids = re.findall(r'data-fallback-product="([^"]+)"', listing)
