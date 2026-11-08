@@ -248,12 +248,12 @@ function renderFooter() {
         <div>
           <h3>仙加味官方 LINE</h3>
           <p>LINE ID：<strong>${escapeHtml(getLineId())}</strong></p>
-          <p>商品規格、試喝、配送與購買資訊可透過官方 LINE 詢問；使用及保存方式請以正式商品標示為準。</p>
-          <p><strong>店面營業：</strong>週一至週五 10:00–20:00｜週六彈性預約取貨／配送（請先洽 LINE 確認）｜週日休息</p>
-          <p><strong>LINE：</strong>24 小時可留言；人工回覆以週一至週五 10:00–20:00 為主；其他時間依實際情況回覆。</p>
-          ${lineButton("前往 LINE 詢問", pageLineMessage())}
+          <p>商品規格、試喝、配送與購買可洽官方 LINE；使用及保存方式請以正式商品標示為準。</p>
+          <p><strong>營業時間：</strong>週一至週五 10:00–20:00；週六預約取貨／配送（先洽 LINE）；週日休息。</p>
+          <p><strong>LINE：</strong>24 小時可留言；人工回覆主要於週一至週五 10:00–20:00。</p>
+          ${lineButton("LINE 詢問商品與試喝", pageLineMessage())}
         </div>
-        <img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code" loading="lazy" decoding="async">
+        <a class="footer-line-qr-link" href="${buildLineAutoLink(pageLineMessage())}" target="_blank" rel="noopener noreferrer" aria-label="點選開啟仙加味官方 LINE"><img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code，點圖可開啟 LINE" loading="lazy" decoding="async"></a>
       </div>
 
       <div class="footer-legal">仙加味網站內容以產品資訊、日常飲食與漢方飲食文化整理為主；特殊健康狀況請洽專業醫療人員。</div>
@@ -804,7 +804,7 @@ function openProductModal(product, sourceElement) {
     </div>
 
     <div class="modal-actions">
-      ${(product.page || product.detailPage) ? `<a class="btn btn-primary" data-product-page-direct="1" href="${escapeAttribute(product.page || product.detailPage)}">${escapeHtml(name)}｜完整商品資料</a>` : ""}
+      ${(product.page || product.detailPage) ? `<a class="btn btn-primary" data-product-page-direct="1" href="${escapeAttribute(product.page || product.detailPage)}">${escapeHtml(name)}｜完整商品資料 →</a>` : ""}
       ${product.informationOnly ? lineButton("LINE 商品與門市諮詢", `我想了解${name}的規格、包裝與門市資訊。`) : lineButton("LINE 詢問／下單", `我想了解${name}的規格、使用方式與購買配送。`)}
     </div>
   `;
