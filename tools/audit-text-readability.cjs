@@ -80,6 +80,44 @@ async function inspect(page,file,device,state){
   // Preserve missing-glyph checks except where WebKit disagrees with a readable opaque modal surface.
   if(total<3&&!cssReliable&&t.rects.some(r=>r.h>=t.size*.8&&r.w>=t.size)&&t.text.length>2&&t.size>=12&&/[\p{L}\p{N}]/u.test(t.text))noPaint.push({text:t.text,class:t.class,size:t.size});
  }
+ // A full-page Chromium screenshot can race with a late footer repaint on very
+ // tall documents. Recheck missing glyphs against a second real pixel pair,
+ // keeping genuine invisible or low-contrast text as a hard failure.
+ if(noPaint.length&&!overlay){
+  await page.evaluate(async()=>{
+   await document.fonts.ready;
+   await new Promise(done=>requestAnimationFrame(()=>requestAnimationFrame(done)));
+  });
+  const retryOriginal=PNG.sync.read(await page.screenshot({fullPage:true,type:'png',animations:'disabled'}));
+  const retryHide=await page.addStyleTag({content:'*{color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important;caret-color:transparent!important}'});
+  let retryBackdrop;
+  try{retryBackdrop=PNG.sync.read(await page.screenshot({fullPage:true,type:'png',animations:'disabled'}))}
+  finally{await retryHide.evaluate(e=>e.remove())}
+  const missing=[];
+  for(const item of noPaint){
+   const candidate=text.find(t=>t.text===item.text&&t.class===item.class&&t.size===item.size);
+   if(!candidate){missing.push(item);continue}
+   let painted=0;
+   for(const rect of candidate.rects){
+    const x0=Math.max(0,Math.floor(rect.x)),y0=Math.max(0,Math.floor(rect.y));
+    const x1=Math.min(retryOriginal.width,retryBackdrop.width,Math.ceil(rect.x+rect.w));
+    const y1=Math.min(retryOriginal.height,retryBackdrop.height,Math.ceil(rect.y+rect.h));
+    for(let y=y0;y<y1&&painted<3;y++)for(let x=x0;x<x1&&painted<3;x++){
+     const idx=(y*retryOriginal.width+x)*4;
+     const bi=(y*retryBackdrop.width+x)*4;
+     const background=[retryBackdrop.data[bi],retryBackdrop.data[bi+1],retryBackdrop.data[bi+2]];
+     const foreground=[retryOriginal.data[idx],retryOriginal.data[idx+1],retryOriginal.data[idx+2]];
+     const expected=candidate.color.map((c,j)=>c*candidate.alpha+background[j]*(1-candidate.alpha));
+     if(Math.max(...foreground.map((c,j)=>Math.abs(c-expected[j])))<=24
+        &&Math.max(...foreground.map((c,j)=>Math.abs(c-background[j])))>=15
+        &&ratio(expected,background)>=candidate.threshold-.02)painted++;
+    }
+   }
+   if(painted<3)missing.push(item);
+  }
+  if(missing.length<noPaint.length)report.warnings.push({type:'unstable-first-glyph-snapshot',file,device,state,recovered:noPaint.length-missing.length});
+  noPaint.splice(0,noPaint.length,...missing);
+ }
  const entry={file,device,state,textRuns:text.length,paintedPixels:paintedTotal,contrastIssues:issues,smallText:small,noPaint};report.states.push(entry);
  for(const issue of issues)report.errors.push({type:'rendered-text-contrast',file,device,state,...issue});
  for(const issue of small)report.errors.push({type:'small-content-text',file,device,state,...issue});
