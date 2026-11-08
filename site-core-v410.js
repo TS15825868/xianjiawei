@@ -13,21 +13,21 @@ const MENU_GROUPS = [
     title: "主要內容",
     links: [
       { href: "index.html", label: "首頁", keys: ["home", "404"] },
-      { href: "products.html", label: "產品總覽", keys: ["products", "product-detail", "dm"] }
+      { href: "products.html", label: "全部商品", keys: ["products", "product-detail", "dm"] }
     ]
   },
   {
     title: "商品指南",
     links: [
-      { href: "choose.html", label: "怎麼選", keys: ["choose"] },
-      { href: "guide.html", label: "使用方式", keys: ["guide"] },
+      { href: "choose.html", label: "商品怎麼選", keys: ["choose", "combo"] },
+      { href: "guide.html", label: "使用指南", keys: ["guide"] },
       { href: "recipes.html", label: "料理搭配", keys: ["recipes"] }
     ]
   },
   {
     title: "知識專區",
     links: [
-      { href: "knowledge.html", label: "知識專區首頁", keys: ["knowledge"] },
+      { href: "knowledge.html", label: "知識專區", keys: ["knowledge"] },
       { href: "why-guilu.html", label: "龜鹿文化與工藝", keys: ["why-guilu"] },
       { href: "hanfang-baike.html", label: "原料與飲食知識", keys: ["hanfang-baike"] },
       { href: "ingredients.html", label: "選料與產品成分", keys: ["ingredients"] },
@@ -299,9 +299,9 @@ function renderFooter() {
       <nav class="footer-nav" aria-label="頁尾導覽">
         <h3>快速前往</h3>
         <div class="footer-nav-links">
-          <a href="products.html">產品總覽</a>
+          <a href="products.html">全部商品</a>
           <a href="choose.html">商品怎麼選</a>
-          <a href="guide.html">使用方式</a>
+          <a href="guide.html">使用指南</a>
           <a href="recipes.html">料理搭配</a>
           <a href="knowledge.html">知識專區</a>
           <a href="brand.html">品牌故事</a>
