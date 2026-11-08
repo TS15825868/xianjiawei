@@ -268,8 +268,8 @@ def main() -> None:
     # 精選商品由 JS 依公開狀態動態展示；全部商品則留在商品總覽。
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
     homepage_links = re.findall(
-        r'<a\\b[^>]*\\bhref="(product-[a-z0-9-]+\\.html)"[^>]*>\\s*'
-        r'<img\\b[^>]*\\bsrc="([^"]+)"',
+        r'<a\b[^>]*\bhref="(product-[a-z0-9-]+\.html)"[^>]*>\s*'
+        r'<img\b[^>]*\bsrc="([^"]+)"',
         homepage,
     )
     expected_home = {str(item["page"]): str(item["image"]).split("?", 1)[0]
