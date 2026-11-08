@@ -1541,4 +1541,4 @@ body[data-page="product-detail"] .product-legal-details .grid>.card h3{margin:0 
 .home-product-showcase__grid span{line-height:1.6;overflow-wrap:anywhere}
 .btn:hover{box-shadow:0 3px 10px rgba(104,32,35,.08);transform:translateY(-1px)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:hover{transform:none}}
-@media(max-width:380px){.header-inner{gap:10px;padding-inline:16px}.home-hero-copy h1{font-size:30px}.home-trust-row{font-size:12px;gap:8px}.home-trust-row span+span{padding-left:8px}}
+@media(max-width:380px){.header-inner{gap:10px;padding-inline:16px}.home-hero-copy h1{font-size:30px}.home-trust-row{font-size:14px;gap:8px}.home-trust-row span+span{padding-left:8px}}
