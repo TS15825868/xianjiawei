@@ -1561,3 +1561,12 @@ body[data-page="product-detail"] .product-legal-details .grid>.card h3{margin:0 
 .home-quick-entry:focus-visible{outline:3px solid #6e2227;outline-offset:3px}
 @media(max-width:800px){.home-quick-entry-grid{grid-template-columns:1fr;gap:12px}.home-quick-entry{min-height:0;padding:18px 20px}.home-quick-entry__action{margin-top:4px;width:100%;justify-content:space-between}}
 @media(prefers-reduced-motion:reduce){.home-quick-entry{transition:none}.home-quick-entry:hover{transform:none}}
+
+/* FAQ navigation: make actionable links unmistakable and touch-friendly. */
+.faq-quick-links{display:flex;flex-wrap:wrap;gap:10px}
+.faq-quick-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 15px;border:1px solid #b39a70;border-radius:10px;background:#fffdf8;color:#0b1f3b;font-weight:700;text-decoration:none;line-height:1.45}
+.faq-quick-links a:hover,.faq-quick-links a:focus-visible{background:#f1e7d6;border-color:#78282a;text-decoration:underline}
+.faq-quick-links a:focus-visible{outline:3px solid #78282a;outline-offset:2px}
+.faq-list details a:not(.btn){color:#6e2227;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;font-weight:650}
+.faq-list details a:not(.btn):focus-visible{outline:2px solid #78282a;outline-offset:3px}
+@media(max-width:600px){.faq-quick-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.faq-quick-links a{padding:10px 8px;text-align:center}.faq-quick-links a:last-child:nth-child(odd){grid-column:1/-1}}
