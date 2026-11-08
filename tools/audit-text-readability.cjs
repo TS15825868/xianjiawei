@@ -80,43 +80,76 @@ async function inspect(page,file,device,state){
   // Preserve missing-glyph checks except where WebKit disagrees with a readable opaque modal surface.
   if(total<3&&!cssReliable&&t.rects.some(r=>r.h>=t.size*.8&&r.w>=t.size)&&t.text.length>2&&t.size>=12&&/[\p{L}\p{N}]/u.test(t.text))noPaint.push({text:t.text,class:t.class,size:t.size});
  }
- // A full-page Chromium screenshot can race with a late footer repaint on very
- // tall documents. Recheck missing glyphs against a second real pixel pair,
- // keeping genuine invisible or low-contrast text as a hard failure.
+ // Very tall Chromium full-page captures can miss glyphs after layout/scroll
+ // changes. Validate only questionable runs again in a true visible viewport:
+ // scroll the actual text into view and compare painted glyph pixels against
+ // a separate text-hidden screenshot. Never waive missing or poor contrast.
  if(noPaint.length&&!overlay){
-  await page.evaluate(async()=>{
-   await document.fonts.ready;
-   await new Promise(done=>requestAnimationFrame(()=>requestAnimationFrame(done)));
-  });
-  const retryOriginal=PNG.sync.read(await page.screenshot({fullPage:true,type:'png',animations:'disabled'}));
-  const retryHide=await page.addStyleTag({content:'*{color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important;caret-color:transparent!important}'});
-  let retryBackdrop;
-  try{retryBackdrop=PNG.sync.read(await page.screenshot({fullPage:true,type:'png',animations:'disabled'}))}
-  finally{await retryHide.evaluate(e=>e.remove())}
-  const missing=[];
-  for(const item of noPaint){
-   const candidate=text.find(t=>t.text===item.text&&t.class===item.class&&t.size===item.size);
-   if(!candidate){missing.push(item);continue}
-   let painted=0;
-   for(const rect of candidate.rects){
-    const x0=Math.max(0,Math.floor(rect.x)),y0=Math.max(0,Math.floor(rect.y));
-    const x1=Math.min(retryOriginal.width,retryBackdrop.width,Math.ceil(rect.x+rect.w));
-    const y1=Math.min(retryOriginal.height,retryBackdrop.height,Math.ceil(rect.y+rect.h));
-    for(let y=y0;y<y1&&painted<3;y++)for(let x=x0;x<x1&&painted<3;x++){
-     const idx=(y*retryOriginal.width+x)*4;
-     const bi=(y*retryBackdrop.width+x)*4;
-     const background=[retryBackdrop.data[bi],retryBackdrop.data[bi+1],retryBackdrop.data[bi+2]];
-     const foreground=[retryOriginal.data[idx],retryOriginal.data[idx+1],retryOriginal.data[idx+2]];
-     const expected=candidate.color.map((c,j)=>c*candidate.alpha+background[j]*(1-candidate.alpha));
-     if(Math.max(...foreground.map((c,j)=>Math.abs(c-expected[j])))<=24
-        &&Math.max(...foreground.map((c,j)=>Math.abs(c-background[j])))>=15
-        &&ratio(expected,background)>=candidate.threshold-.02)painted++;
+  const initialScroll=await page.evaluate(()=>({x:scrollX,y:scrollY}));
+  const stillMissing=[];
+  try{
+   for(const item of noPaint){
+    const target=await page.evaluate(({text,className})=>{
+     const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+     let node;
+     while(node=walker.nextNode()){
+      const el=node.parentElement,value=node.textContent.trim();
+      if(!el||!value||value.slice(0,130)!==text||String(el.className||'').trim()!==String(className||'').trim())continue;
+      el.scrollIntoView({behavior:'instant',block:'center',inline:'nearest'});
+      return true;
+     }
+     return false;
+    },{text:item.text,className:item.class});
+    if(!target){stillMissing.push(item);continue}
+    await page.evaluate(async()=>{
+     await document.fonts.ready;
+     await new Promise(done=>requestAnimationFrame(()=>requestAnimationFrame(done)));
+    });
+    const sample=await page.evaluate(({text,className})=>{
+     const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+     let node;
+     while(node=walker.nextNode()){
+      const el=node.parentElement,value=node.textContent.trim();
+      if(!el||!value||value.slice(0,130)!==text||String(el.className||'').trim()!==String(className||'').trim())continue;
+      const cs=getComputedStyle(el),range=document.createRange();range.selectNodeContents(node);
+      const rects=[...range.getClientRects()].map(r=>({
+       x:Math.max(0,r.left),y:Math.max(0,r.top),
+       w:Math.min(innerWidth,r.right)-Math.max(0,r.left),
+       h:Math.min(innerHeight,r.bottom)-Math.max(0,r.top)
+      })).filter(r=>r.w>1&&r.h>1);
+      const color=(cs.color.match(/[\\d.]+/g)||[]).map(Number);
+      let alpha=color[3]??1;
+      for(let p=el;p;p=p.parentElement)alpha*=Number(getComputedStyle(p).opacity)||0;
+      return {rects,color:color.slice(0,3),alpha,threshold:parseFloat(cs.fontSize)>=24?3:4.5};
+     }
+     return null;
+    },{text:item.text,className:item.class});
+    if(!sample||!sample.rects.length){stillMissing.push(item);continue}
+    const painted=PNG.sync.read(await page.screenshot({fullPage:false,type:'png',animations:'disabled'}));
+    const hideAgain=await page.addStyleTag({content:'*{color:transparent!important;-webkit-text-fill-color:transparent!important;text-shadow:none!important;caret-color:transparent!important}'});
+    let emptyPaint;
+    try{emptyPaint=PNG.sync.read(await page.screenshot({fullPage:false,type:'png',animations:'disabled'}))}
+    finally{await hideAgain.evaluate(node=>node.remove())}
+    let visiblePixels=0;
+    for(const rect of sample.rects){
+     const x0=Math.max(0,Math.floor(rect.x)),y0=Math.max(0,Math.floor(rect.y));
+     const x1=Math.min(painted.width,emptyPaint.width,Math.ceil(rect.x+rect.w));
+     const y1=Math.min(painted.height,emptyPaint.height,Math.ceil(rect.y+rect.h));
+     for(let y=y0;y<y1&&visiblePixels<3;y++)for(let x=x0;x<x1&&visiblePixels<3;x++){
+      const i=(y*painted.width+x)*4,j=(y*emptyPaint.width+x)*4;
+      const bg=[emptyPaint.data[j],emptyPaint.data[j+1],emptyPaint.data[j+2]];
+      const fg=[painted.data[i],painted.data[i+1],painted.data[i+2]];
+      const expected=sample.color.map((c,k)=>c*sample.alpha+bg[k]*(1-sample.alpha));
+      if(Math.max(...fg.map((v,k)=>Math.abs(v-expected[k])))<=24
+         &&Math.max(...fg.map((v,k)=>Math.abs(v-bg[k])))>=15
+         &&ratio(expected,bg)>=sample.threshold-.02)visiblePixels++;
+     }
     }
+    if(visiblePixels<3)stillMissing.push(item);
    }
-   if(painted<3)missing.push(item);
-  }
-  if(missing.length<noPaint.length)report.warnings.push({type:'unstable-first-glyph-snapshot',file,device,state,recovered:noPaint.length-missing.length});
-  noPaint.splice(0,noPaint.length,...missing);
+  }finally{await page.evaluate(pos=>scrollTo(pos.x,pos.y),initialScroll)}
+  if(stillMissing.length<noPaint.length)report.warnings.push({type:'fullpage-glyph-snapshot-mismatch',file,device,state,verifiedInViewport:noPaint.length-stillMissing.length});
+  noPaint.splice(0,noPaint.length,...stillMissing);
  }
  const entry={file,device,state,textRuns:text.length,paintedPixels:paintedTotal,contrastIssues:issues,smallText:small,noPaint};report.states.push(entry);
  for(const issue of issues)report.errors.push({type:'rendered-text-contrast',file,device,state,...issue});
