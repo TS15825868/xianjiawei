@@ -222,12 +222,7 @@ function renderMenu() {
           ${lineButton("LINE 詢問／申請試喝", "我想了解仙加味產品或申請龜鹿飲試喝。")}
         </div>
 
-        <div class="menu-contact-card">
-          <p class="eyebrow">官方 LINE</p>
-          <strong>產品規格、使用與購買資訊</strong>
-          <p class="muted">LINE ID：${escapeHtml(getLineId())}</p>
-          ${lineButton("前往 LINE 詢問", pageLineMessage(page))}
-        </div>
+
       </aside>
     </nav>
   `;
@@ -245,15 +240,7 @@ function renderFooter() {
       <nav class="footer-nav" aria-label="頁尾導覽">
         <h3>快速前往</h3>
         <div class="footer-nav-links">
-          <a href="products.html">全部商品</a>
-          <a href="choose.html">商品怎麼選</a>
-          <a href="guide.html">使用指南</a>
-          <a href="recipes.html">料理搭配</a>
-          <a href="knowledge.html">知識專區</a>
-          <a href="brand.html">品牌故事</a>
-          <a href="faq.html">常見問題</a>
-          <a href="trial.html">龜鹿飲試喝</a>
-          <a href="contact.html">聯絡我們</a>
+          ${NAV_ITEMS.map(({href,label}) => `<a href="${href}">${escapeHtml(label)}</a>`).join("")}
         </div>
       </nav>
 
@@ -261,7 +248,7 @@ function renderFooter() {
         <div>
           <h3>仙加味官方 LINE</h3>
           <p>LINE ID：<strong>${escapeHtml(getLineId())}</strong></p>
-          <p>商品規格、庫存、配送及購買資訊，歡迎透過官方 LINE 詢問；各商品使用與保存方式請以正式標示為準。</p>
+          <p>商品規格、試喝、配送與購買資訊可透過官方 LINE 詢問；使用及保存方式請以正式商品標示為準。</p>
           <p><strong>店面營業：</strong>週一至週五 10:00–20:00｜週六彈性預約取貨／配送（請先洽 LINE 確認）｜週日休息</p>
           <p><strong>LINE：</strong>24 小時可留言；人工回覆以週一至週五 10:00–20:00 為主；其他時間依實際情況回覆。</p>
           ${lineButton("前往 LINE 詢問", pageLineMessage())}
