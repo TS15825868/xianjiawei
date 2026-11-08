@@ -8,49 +8,13 @@ let menuScrollY = 0;
 
 const UX_VERSION = "20261016-calm-catalog-v3";
 const LINE_FALLBACK = "https://lin.ee/sHZW7NkR";
-const MENU_GROUPS = [
-  {
-    title: "主要內容",
-    links: [
-      { href: "index.html", label: "首頁", keys: ["home", "404"] },
-      { href: "products.html", label: "全部商品", keys: ["products", "product-detail", "dm"] }
-    ]
-  },
-  {
-    title: "商品指南",
-    links: [
-      { href: "choose.html", label: "商品怎麼選", keys: ["choose", "combo"] },
-      { href: "guide.html", label: "使用指南", keys: ["guide"] },
-      { href: "recipes.html", label: "料理搭配", keys: ["recipes"] }
-    ]
-  },
-  {
-    title: "知識專區",
-    links: [
-      { href: "knowledge.html", label: "知識專區", keys: ["knowledge"] },
-      { href: "why-guilu.html", label: "龜鹿文化與工藝", keys: ["why-guilu"] },
-      { href: "hanfang-baike.html", label: "原料與飲食知識", keys: ["hanfang-baike"] },
-      { href: "ingredients.html", label: "選料與產品成分", keys: ["ingredients"] },
-      { href: "video.html", label: "知識影音", keys: ["video"] },
-      { href: "sources.html", label: "資料來源", keys: ["sources"] }
-    ]
-  },
-  {
-    title: "品牌",
-    links: [
-      { href: "brand.html", label: "品牌故事", keys: ["brand", "brand-origin"] },
-      { href: "craft.html", label: "傳統工藝", keys: ["craft"] },
-      { href: "quality.html", label: "品質與標示", keys: ["quality"] }
-    ]
-  },
-  {
-    title: "服務",
-    links: [
-      { href: "faq.html", label: "常見問題", keys: ["faq"] },
-      { href: "trial.html", label: "龜鹿飲試喝", keys: ["trial"] },
-      { href: "contact.html", label: "聯絡我們", keys: ["contact"] }
-    ]
-  }
+const NAV_ITEMS = [
+  { href: "index.html", label: "首頁", keys: ["home", "404"] },
+  { href: "products.html", label: "全部商品", keys: ["products", "product-detail", "dm"] },
+  { href: "choose.html", label: "商品怎麼選", keys: ["choose", "combo"] },
+  { href: "knowledge.html", label: "使用與知識", keys: ["knowledge", "guide", "recipes", "faq", "why-guilu", "hanfang-baike", "ingredients", "video", "sources"] },
+  { href: "brand.html", label: "品牌故事", keys: ["brand", "brand-origin", "craft", "quality"] },
+  { href: "contact.html", label: "聯絡我們", keys: ["contact", "trial"] }
 ];
 
 ensureUxStyle();
@@ -213,15 +177,7 @@ function buildShell() {
 function renderHeader() {
   const brand = SITE_DATA?.brand || "仙加味";
   const page = currentPageKey();
-  const links = [
-    ["index.html", "首頁", ["home"]],
-    ["products.html", "全部商品", ["products", "product-detail", "dm"]],
-    ["choose.html", "商品怎麼選", ["choose", "combo"]],
-    ["guide.html", "使用與料理", ["guide", "recipes"]],
-    ["brand.html", "品牌故事", ["brand", "brand-origin", "craft", "quality"]],
-    ["contact.html", "聯絡我們", ["contact"]]
-  ];
-  const nav = links.map(([href, label, keys]) => {
+  const nav = NAV_ITEMS.map(({ href, label, keys }) => {
     const active = keys.includes(page);
     return `<a class="${active ? "is-active" : ""}" href="${href}" ${active ? 'aria-current="page"' : ""}>${escapeHtml(label)}</a>`;
   }).join("");
@@ -244,15 +200,10 @@ function renderHeader() {
 
 function renderMenu() {
   const page = currentPageKey();
-  const groups = MENU_GROUPS.map(group => `
-    <div class="menu-group">
-      <h4>${escapeHtml(group.title)}</h4>
-      ${group.links.map(link => {
-        const active = link.keys.includes(page);
-        return `<a class="${active ? "is-active" : ""}" href="${link.href}" ${active ? 'aria-current="page"' : ""}>${escapeHtml(link.label)}</a>`;
-      }).join("")}
-    </div>
-  `).join("");
+  const links = NAV_ITEMS.map(({ href, label, keys }) => {
+    const active = keys.includes(page);
+    return `<a class="${active ? "is-active" : ""}" href="${href}" ${active ? 'aria-current="page"' : ""}>${escapeHtml(label)}</a>`;
+  }).join("");
 
   return `
     <nav id="menu-drawer" class="site-menu" aria-hidden="true">
@@ -266,15 +217,10 @@ function renderMenu() {
           <button id="menu-close" class="menu-close" type="button" aria-label="關閉選單">✕</button>
         </div>
 
-        <div class="menu-quick-actions" aria-label="快速入口">
-          <a class="btn btn-line" href="trial.html">龜鹿飲試喝</a>
-          <a class="btn btn-outline" href="products.html">查看產品</a>
-          <a class="btn btn-outline" href="choose.html">幫我挑選</a>
-          <a class="btn btn-outline" href="guide.html">怎麼使用</a>
-          ${lineButton("LINE 詢問", "我想了解仙加味產品。")}
+        <div class="menu-group" aria-label="主要選單">${links}</div>
+        <div class="menu-quick-actions" aria-label="官方服務">
+          ${lineButton("LINE 詢問／申請試喝", "我想了解仙加味產品或申請龜鹿飲試喝。")}
         </div>
-
-        ${groups}
 
         <div class="menu-contact-card">
           <p class="eyebrow">官方 LINE</p>
