@@ -144,10 +144,16 @@ async function close(page) {
 
       await ready(page,"index.html");
       const home=page.locator('.home-product-showcase__grid a[href^="product-"]');
-      assert.equal(await home.count(),expectedCount,"首頁須統一展示全部公開商品");
+      // 首頁是精選滑動列，商品總覽才需展示全部核准公開商品。
+      const homepageItems = await home.count();
+      assert.ok(homepageItems >= 1 && homepageItems <= 8, "首頁精選商品應介於 1 至 8 項");
+      const hrefs = await home.evaluateAll(nodes => nodes.map(n => n.getAttribute("href")));
+      const approvedPages = new Set([...own, ...partner].map(p => p.page?.split("/").pop()));
+      assert.equal(new Set(hrefs).size, hrefs.length, "首頁精選商品不得重複");
+      assert.ok(hrefs.every(href => approvedPages.has(href)), "首頁精選僅能顯示已核准公開商品");
       for(let i=0;i<await home.count();i++){
         const entry=home.nth(i),href=await entry.getAttribute("href");
-        const name=(await entry.locator("span").innerText()).trim();
+        const name=(await entry.locator(".home-product-card__title").innerText()).trim();
         const before=page.url();
         await entry.locator("img").click();
         assert.equal(page.url(),before,"首頁主圖不可直接跳詳細頁");
