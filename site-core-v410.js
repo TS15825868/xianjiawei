@@ -62,9 +62,8 @@ if (document.readyState === "loading") {
 }
 
 async function initSite() {
-  if (window.__XJW_SITE_INITIALIZED__) return;
-  window.__XJW_SITE_INITIALIZED__ = true;
-  document.body.classList.add("ux-v410");
+  if (window.__XJW_SITE_INITIALIZED__ || window.__XJW_SITE_INITIALIZING__) return;
+  window.__XJW_SITE_INITIALIZING__ = true;
   try {
     await loadData();
   } catch (error) {
@@ -79,6 +78,9 @@ async function initSite() {
   bindGlobalEvents();
   initReveal();
   renderFloatingLineCta();
+  document.body.classList.add("ux-v410");
+  window.__XJW_SITE_INITIALIZED__ = true;
+  window.__XJW_SITE_INITIALIZING__ = false;
 }
 
 function ensureUxStyle() {
@@ -101,15 +103,32 @@ function fallbackData() {
   };
 }
 
+// Optional catalog fetch and body parsing share one bounded deadline.
+async function loadPartnerCatalog(timeoutMs = 4000) {
+  const controller = new AbortController();
+  let timer;
+  try {
+    return await Promise.race([
+      (async () => {
+        const response = await fetch(`partner-catalog.json?v=${UX_VERSION}`, {cache:"no-store", signal:controller.signal});
+        if (!response.ok) throw new Error(`partner-catalog HTTP ${response.status}`);
+        return response.json();
+      })(),
+      new Promise((_, reject) => { timer = setTimeout(() => {
+        controller.abort();
+        reject(new Error("partner-catalog timeout"));
+      }, timeoutMs); })
+    ]);
+  } finally { clearTimeout(timer); }
+}
+
 async function loadData() {
   if (SITE_DATA) return SITE_DATA;
   const response = await fetch(`data.json?v=${UX_VERSION}`, {cache:"no-store"});
   if (!response.ok) throw new Error(`data.json 載入失敗：${response.status}`);
   SITE_DATA = await response.json();
   try {
-  const catalog = await fetch(`partner-catalog.json?v=${UX_VERSION}`, {cache:"no-store"});
-  if (!catalog.ok) throw new Error(`partner-catalog HTTP ${catalog.status}`);
-  const partner = await catalog.json();
+  const partner = await loadPartnerCatalog();
   SITE_DATA.partnerProducts = (partner.products || []).filter(p => p.public === true && p.id && p.image && p.page && p.brand);
   SITE_DATA.partnerCatalogUnavailable = false;
   } catch (error) {
