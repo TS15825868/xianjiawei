@@ -320,11 +320,21 @@ function renderCurrentPage() {
   if (page === "contact") renderContactPage();
 }
 
+function isPublicCatalogProduct(product) {
+  return product.public !== false && product.publicationApproved !== false &&
+    !["hidden", "paused", "discontinued"].includes(product.publicationStatus);
+}
+function featuredCatalogProducts(products) {
+  const visible = [...new Map(products.filter(isPublicCatalogProduct).map(p => [p.id, p])).values()];
+  const selected = visible.filter(p => p.featured === true);
+  return (selected.length ? selected : visible.filter(p => p.brandType !== "partner")).slice(0, 4);
+}
+
 function renderHome() {
   // 依正式產品資料展示，可隨產品新增擴充，不再移除新版首頁產品區。
   const grid=document.querySelector('.home-product-showcase__grid');
   const products=[...(Array.isArray(SITE_DATA?.products)?SITE_DATA.products:[]),...(SITE_DATA?.partnerProducts||[])];
-  const uniqueProducts=[...new Map(products.map(product=>[product.id,product])).values()];
+  const uniqueProducts=featuredCatalogProducts(products);
   if(grid&&uniqueProducts.length&&!SITE_DATA?.partnerCatalogUnavailable){
     grid.innerHTML=uniqueProducts.map(product=>`<a data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page||product.detailPage||'products.html')}"><img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(product.displayName||product.name)}正式主圖" loading="lazy" decoding="async"><span>${escapeHtml(product.displayName||product.name)}</span></a>`).join('');
   }
@@ -337,7 +347,7 @@ function renderProductsPage() {
   const staticPartnerCount = document.querySelectorAll('#partner-product-list [data-fallback-product]').length;
   const preservePartnerFallback = SITE_DATA?.partnerCatalogUnavailable === true && staticPartnerCount > 0;
   const classify=p=>{const s=String(p.category||p.form||'');if(p.id==='guilu-gao'||/膏品|膏狀/.test(s))return '膏品';if(/茶飲|茶包/.test(s))return '茶飲';if(/飲品|液態即飲/.test(s))return '飲品';if(/膏湯塊|湯塊/.test(s))return '膏湯塊';if(/粉品|粉末/.test(s))return '粉品';return s||'其他';};
-  const all = [...own, ...partner].map(p=>({...p,catalogCategory:classify(p)}));
+  const all = [...own, ...partner].filter(isPublicCatalogProduct).map(p=>({...p,catalogCategory:classify(p)}));
   const nav = document.getElementById('catalog-filters');
   const status = document.getElementById('catalog-result-count');
   let selected = 'all';
