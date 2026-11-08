@@ -1542,3 +1542,10 @@ body[data-page="product-detail"] .product-legal-details .grid>.card h3{margin:0 
 .btn:hover{box-shadow:0 3px 10px rgba(104,32,35,.08);transform:translateY(-1px)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}.btn:hover{transform:none}}
 @media(max-width:380px){.header-inner{gap:10px;padding-inline:16px}.home-hero-copy h1{font-size:30px}.home-trust-row{font-size:14px;gap:8px}.home-trust-row span+span{padding-left:8px}}
+
+/* Clearly actionable secondary reading links: 2026-11-09 */
+.knowledge-more-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.knowledge-more-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 16px;border:1px solid #a78d67;border-radius:10px;background:#fffdf8;color:#0b1f3b;font-weight:700;text-decoration:none;line-height:1.5;transition:background-color .15s,border-color .15s}
+.knowledge-more-actions a:hover,.knowledge-more-actions a:focus-visible{background:#f1e7d6;border-color:#78282a;text-decoration:underline}
+.knowledge-more-actions a:focus-visible{outline:3px solid #78282a;outline-offset:2px}
+@media(max-width:480px){.knowledge-more-actions{flex-direction:column}.knowledge-more-actions a{justify-content:space-between;width:100%}}
