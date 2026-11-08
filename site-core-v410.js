@@ -196,11 +196,11 @@ function renderHeader() {
   const page = currentPageKey();
   const links = [
     ["index.html", "首頁", ["home"]],
-    ["products.html", "產品", ["products", "product-detail", "dm"]],
-    ["choose.html", "怎麼選", ["choose", "combo"]],
-    ["guide.html", "使用方式", ["guide"]],
-    ["knowledge.html", "知識專區", ["knowledge", "why-guilu", "hanfang-baike", "ingredients", "video", "sources"]],
-    ["trial.html", "試喝", ["trial"]]
+    ["products.html", "全部商品", ["products", "product-detail", "dm"]],
+    ["choose.html", "商品怎麼選", ["choose", "combo"]],
+    ["guide.html", "使用與料理", ["guide", "recipes"]],
+    ["brand.html", "品牌故事", ["brand", "brand-origin", "craft", "quality"]],
+    ["contact.html", "聯絡我們", ["contact"]]
   ];
   const nav = links.map(([href, label, keys]) => {
     const active = keys.includes(page);
