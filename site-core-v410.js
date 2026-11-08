@@ -384,6 +384,11 @@ function initHomeProductCarousel(grid) {
   requestAnimationFrame(update);
 }
 
+function customerFacingProductName(product = {}) {
+  const raw = String(product.displayName || product.name || '商品').trim();
+  return raw.replace(/^仙加味(?:精選)?\s*[｜|・]\s*/, '') || raw;
+}
+
 function renderHome() {
   // 由目前公開資料決定精選，不使用可能已下架的舊版九張靜態卡。
   const grid=document.querySelector('.home-product-showcase__grid');
@@ -391,7 +396,7 @@ function renderHome() {
   const uniqueProducts=featuredCatalogProducts(products);
   if (grid) {
     grid.innerHTML = uniqueProducts.length ? uniqueProducts.map(product => {
-      const name = product.displayName || product.name || '仙加味商品';
+      const name = customerFacingProductName(product);
       const badge = (product.isNew === true || product.newArrival === true) ? '<em class="home-product-card__new">新品</em>' : '';
       return `<a data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page||product.detailPage||'products.html')}">${badge}<img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(name)}正式主圖" loading="lazy" decoding="async"><span class="home-product-card__title">${escapeHtml(name)}</span><span class="home-product-card__action">查看商品介紹 →</span></a>`;
     }).join('') : '<p class="home-product-carousel-empty">目前沒有可公開展示的精選商品，歡迎查看全部商品或透過官方 LINE 詢問。</p>';
@@ -435,9 +440,9 @@ function renderProductsPage() {
     compare.innerHTML = (SITE_DATA?.products || []).map(product => `
       <article class="card reveal">
         <p class="eyebrow">${escapeHtml(productDisplaySpec(product) || "產品規格")}</p>
-        <h3>${escapeHtml(product.displayName || product.name || "產品")}</h3>
+        <h3>${escapeHtml(customerFacingProductName(product))}</h3>
         <p>${escapeHtml(product.purpose || product.description || "")}</p>
-        <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">${escapeHtml(product.displayName || product.name || "產品")}｜查看介紹</a>
+        <a class="btn btn-outline" data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page || product.detailPage || "products.html")}">${escapeHtml(customerFacingProductName(product))}｜查看介紹</a>
       </article>
     `).join("");
   }
