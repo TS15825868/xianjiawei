@@ -1549,3 +1549,15 @@ body[data-page="product-detail"] .product-legal-details .grid>.card h3{margin:0 
 .knowledge-more-actions a:hover,.knowledge-more-actions a:focus-visible{background:#f1e7d6;border-color:#78282a;text-decoration:underline}
 .knowledge-more-actions a:focus-visible{outline:3px solid #78282a;outline-offset:2px}
 @media(max-width:480px){.knowledge-more-actions{flex-direction:column}.knowledge-more-actions a{justify-content:space-between;width:100%}}
+
+/* Homepage: obvious, full-card quick entries; no duplicate product teaser cards. */
+.home-quick-entry-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.home-quick-entry{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:210px;padding:24px;border:1px solid rgba(176,138,71,.48);border-radius:16px;background:#fffdf8;color:#0b1f3b;text-decoration:none;box-shadow:0 4px 16px rgba(11,31,59,.05);transition:box-shadow .18s,transform .18s,border-color .18s}
+.home-quick-entry__label{font-size:.88rem;letter-spacing:.05em;color:#7a3233;font-weight:700}
+.home-quick-entry strong{font-size:1.18rem;line-height:1.45}
+.home-quick-entry>span:not(.home-quick-entry__label):not(.home-quick-entry__action){line-height:1.65}
+.home-quick-entry__action{display:inline-flex;align-items:center;min-height:44px;margin-top:auto;padding:9px 14px;border-radius:9px;background:#6e2227;color:#fff;font-weight:700}
+.home-quick-entry:hover,.home-quick-entry:focus-visible{border-color:#6e2227;box-shadow:0 8px 22px rgba(11,31,59,.12);transform:translateY(-2px)}
+.home-quick-entry:focus-visible{outline:3px solid #6e2227;outline-offset:3px}
+@media(max-width:800px){.home-quick-entry-grid{grid-template-columns:1fr;gap:12px}.home-quick-entry{min-height:0;padding:18px 20px}.home-quick-entry__action{margin-top:4px;width:100%;justify-content:space-between}}
+@media(prefers-reduced-motion:reduce){.home-quick-entry{transition:none}.home-quick-entry:hover{transform:none}}
