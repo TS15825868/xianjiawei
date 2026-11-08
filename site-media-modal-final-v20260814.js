@@ -91,7 +91,7 @@
         'product-guilu-drink-180cc.html':'龜鹿飲180cc鋁袋',
         'product-luerong-fen.html':'鹿茸粉'
       };
-      const name=String(product?.displayName||product?.name||nearby||fallbackNames[page]||'').trim();
+      const name=String(product?.displayName||product?.name||nearby||fallbackNames[page]||'').trim().replace(/^仙加味(?:精選)?\s*[｜|・]\s*/, '');
       const label=name?name+'｜查看介紹':(existing==='查看介紹'?'查看商品詳細資料':existing);
       // MutationObserver 會重跑標準化；內容未變時不可重建文字節點，否則手機點擊可能被中斷。
       if(existing!==label)anchor.textContent=label;
