@@ -619,6 +619,12 @@ jobs:
           NODE
           node xjw-responsive-audit.cjs
 
+      - name: Audit standalone brand entrance and legacy redirects
+        env:
+          XJW_BROWSER_ENGINE: ${{ matrix.engine }}
+          XJW_AUDIT_BASE: https://ts15825868.github.io/xianjiawei/
+        run: node tools/audit-standalone-entrypoints.cjs
+
       - name: Upload compact audit report
         if: always()
         uses: actions/upload-artifact@v4
@@ -627,6 +633,7 @@ jobs:
           path: |
             responsive-audit-report.json
             responsive-audit-summary.md
+            standalone-audit-report.json
           if-no-files-found: warn
           retention-days: 7
 
@@ -639,6 +646,8 @@ jobs:
             responsive-audit-report.json
             responsive-audit-summary.md
             responsive-audit-screens/
+            standalone-audit-report.json
+            standalone-screens/
           if-no-files-found: warn
           retention-days: 7
 
