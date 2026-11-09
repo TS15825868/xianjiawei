@@ -167,6 +167,11 @@ jobs:
                     if(pth==='products.html'){
                       await page.waitForFunction(count=>document.querySelectorAll('#product-list .product-card').length===count,publicCount,{timeout:12000}).catch(()=>{});
                     }
+                    if(pth==='choose.html'){
+                      // Wait for the asynchronous nine-product catalog rather than capturing empty placeholder cards.
+                      const expectedChooseCount=(productMaster.products||[]).length+(partnerCatalog.products||[]).filter(p=>p.public===true&&p.name&&p.page&&p.image).length;
+                      await page.waitForFunction(count=>document.querySelectorAll('#choose-current-products .choose-current-card').length===count,expectedChooseCount,{timeout:15000});
+                    }
                   }
                   // 驗收證據必須把 lazy 圖也實際載入，避免 fullPage 截圖出現假性空白卡。
                   await page.evaluate(()=>{
@@ -175,6 +180,12 @@ jobs:
                   await page.waitForFunction(() => {
                     return [...document.images].filter(i=>i.getAttribute('src')).every(i=>i.complete&&i.naturalWidth>0);
                   },{timeout:8000}).catch(()=>{});
+                  if(pth==='choose.html'){
+                    await page.evaluate(async()=>{
+                      const images=[...document.querySelectorAll('#choose-current-products img')];
+                      await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+                    });
+                  }
                   await page.waitForTimeout(260);
                 }catch(e){
                   report.errors.push({vp:vpName,page:pth,type:'navigation',detail:String(e)});

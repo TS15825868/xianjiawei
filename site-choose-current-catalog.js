@@ -46,8 +46,8 @@
     const img = document.createElement("img");
     img.src = item.image;
     img.alt = item.name + "正式商品照片";
-    img.loading = "lazy";
-    img.decoding = "async";
+    img.loading = "eager";
+    img.decoding = "sync";
     media.append(img);
     const body = document.createElement("span");
     body.className = "choose-current-card__body";
