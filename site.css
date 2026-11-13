@@ -1789,11 +1789,12 @@ body[data-page="home"] .home-hero-next:focus-visible{outline:3px solid #78282a;o
 }
 
 @media (max-width: 700px) {
-  body[data-page="products"] .product-card__body .muted,
-  body[data-page="product-detail"] .product-detail-hero h1 {
-    min-width: 0;
-    white-space: normal;
+  body[data-page="products"] .product-card__body .muted {
+    font-size: 13px !important;
     overflow-wrap: anywhere;
-    line-break: anywhere;
+  }
+  body[data-page="product-detail"] .product-detail-hero h1 {
+    font-size: clamp(26px, 7vw, 30px) !important;
+    overflow-wrap: anywhere;
   }
 }
