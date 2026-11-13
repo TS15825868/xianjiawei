@@ -397,8 +397,7 @@ function renderHome() {
   if (grid) {
     grid.innerHTML = uniqueProducts.length ? uniqueProducts.map(product => {
       const name = customerFacingProductName(product);
-      const badge = (product.isNew === true || product.newArrival === true) ? '<em class="home-product-card__new">新品</em>' : '';
-      return `<a data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page||product.detailPage||'products.html')}">${badge}<img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(name)}正式主圖" loading="lazy" decoding="async"><span class="home-product-card__title">${escapeHtml(name)}</span><span class="home-product-card__action">查看商品介紹 →</span></a>`;
+      return `<a data-product-intro="1" aria-haspopup="dialog" href="${escapeAttribute(product.page||product.detailPage||'products.html')}"><img src="${escapeAttribute(product.image||'images/logo.png')}" alt="${escapeAttribute(name)}正式主圖" loading="lazy" decoding="async"><span class="home-product-card__title">${escapeHtml(name)}</span><span class="home-product-card__action">查看商品介紹 →</span></a>`;
     }).join('') : '<p class="home-product-carousel-empty">目前沒有可公開展示的精選商品，歡迎查看全部商品或透過官方 LINE 詢問。</p>';
     initHomeProductCarousel(grid);
   }
@@ -471,7 +470,7 @@ function fillProducts(targetId, products, options = {}) {
           <img src="${escapeAttribute(image)}" alt="${escapeAttribute(name)}" loading="lazy" decoding="async">
         </div>
         <div class="product-card__body">
-          <p class="eyebrow">${escapeHtml(product.catalogCategory || product.category || "日常商品")}</p>
+          ${(product.catalogCategory || product.category) === "休閒食品" ? "" : `<p class="eyebrow">${escapeHtml(product.catalogCategory || product.category || "日常商品")}</p>`}
           <h3>${escapeHtml(name)}</h3>
           ${!options.compact && product.description ? `<p>${escapeHtml(product.description)}</p>` : ""}
           <p class="muted">規格：${escapeHtml(productDisplaySpec(product) || "請見產品介紹")}</p>
@@ -786,7 +785,7 @@ function openProductModal(product, sourceElement) {
 
   body.innerHTML = `
     <header class="modal-intro">
-      <p class="eyebrow">${escapeHtml(product.brandType === "partner" ? (product.category || "其他商品") : (product.series || "仙加味"))}</p>
+      ${product.category === "休閒食品" ? "" : `<p class="eyebrow">${escapeHtml(product.brandType === "partner" ? (product.category || "其他商品") : (product.series || "仙加味"))}</p>`}
       <h2 id="product-modal-title">${escapeHtml(name)}</h2>
     </header>
 
