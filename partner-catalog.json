@@ -1,5 +1,5 @@
 {
-  "version": "20261017-final-real-packaging-and-detail-photo-v2",
+  "version": "2026-11-13-owner-ginseng-chews-v1",
   "products": [
     {
       "id": "jinan-sisheng-siwuyin",
@@ -1588,6 +1588,169 @@
       "contentsPhotoRole": "detail-page-only",
       "detailMediaTitle": "真實開盒雙盤及單盤八塊實物去背照片",
       "selectionBranding": "仙加味精選"
+    },
+    {
+      "brandType": "partner",
+      "category": "休閒食品",
+      "size": "30g／包｜12包／盒",
+      "public": true,
+      "publicationStatus": "owner-confirmed-food-20261113",
+      "publicationBlockers": [],
+      "businessClassification": "一般食品",
+      "informationOnly": true,
+      "onlineTransactionEligible": false,
+      "marketingClaimsApproved": false,
+      "publicNeutralCopyReviewed": true,
+      "selectionBranding": "仙加味精選",
+      "storage": [
+        "陰涼乾燥處，避免日光直射，勿擠壓"
+      ],
+      "countryOfOrigin": "台灣",
+      "shelfLife": "2年",
+      "producerNameFromLabel": "上裕興業有限公司",
+      "notices": [
+        "含動物來源明膠，非素食",
+        "製程設備或管線亦處理大豆、麩質、芒果、羊牛奶、蛋、魚類、花生、芝麻、堅果類及其製品，過敏者請留意原廠標示",
+        "三歲以下幼童及年長者（或吞嚥困難者），請於成人監護下食用",
+        "有效日期以實際出貨原廠包裝為準"
+      ],
+      "fulfillmentNotice": "商品價格、現貨與配送請洽仙加味官方 LINE。",
+      "features": [
+        "30g單包",
+        "12包／盒",
+        "花旗參原料來自美國威斯康辛州（依包裝標示）"
+      ],
+      "imageSourceStatus": "owner-supplied-original-photographs-20261113",
+      "foodStatusSource": "使用者2026-11-13確認可販售，原廠食品包裝及營養標示",
+      "pricePresentation": "官網不公開售價，官方LINE詢問",
+      "id": "baumann-ginseng-loquat",
+      "erpId": "PRD-PARTNER-BAUMANN-GINSENG-LOQUAT",
+      "brand": "寶曼 BAUMANN",
+      "name": "寶曼花旗參枇杷爽喉軟糖",
+      "displayName": "寶曼花旗參枇杷軟糖",
+      "description": "枇杷風味花旗參軟糖，30g單包，12包／盒。含動物來源明膠。",
+      "ingredients": [
+        "砂糖",
+        "麥芽糖",
+        "椰子油",
+        "明膠（動物來源）",
+        "植物萃取物（枇杷葉、桔梗、茯苓、陳皮、蓮子、羅漢果、生薑）",
+        "花旗參",
+        "蜂蜜",
+        "香料",
+        "焦糖色素",
+        "薄荷",
+        "棕櫚蠟"
+      ],
+      "nutritionPerServing": {
+        "servingGrams": 30,
+        "caloriesKcal": 122.4,
+        "proteinGrams": 0.4,
+        "fatGrams": 1.6,
+        "saturatedFatGrams": 1.6,
+        "transFatGrams": 0,
+        "carbohydrateGrams": 26.8,
+        "sugarGrams": 20.6,
+        "sodiumMilligrams": 13.8
+      },
+      "barcode": "4719886820188",
+      "sourceFiles": [
+        "IMG_0593.jpeg",
+        "IMG_0594.jpeg"
+      ],
+      "inquiryAliases": [
+        "寶曼花旗參枇杷爽喉軟糖",
+        "寶曼花旗參枇杷軟糖",
+        "花旗參枇杷軟糖",
+        "枇杷軟糖"
+      ],
+      "page": "product-baumann-ginseng-loquat.html",
+      "image": "images/partner-products/20261113/baumann-ginseng-loquat-front.jpg",
+      "detailImages": [
+        "images/partner-products/20261113/baumann-ginseng-loquat-back.jpg"
+      ]
+    },
+    {
+      "brandType": "partner",
+      "category": "休閒食品",
+      "size": "30g／包｜12包／盒",
+      "public": true,
+      "publicationStatus": "owner-confirmed-food-20261113",
+      "publicationBlockers": [],
+      "businessClassification": "一般食品",
+      "informationOnly": true,
+      "onlineTransactionEligible": false,
+      "marketingClaimsApproved": false,
+      "publicNeutralCopyReviewed": true,
+      "selectionBranding": "仙加味精選",
+      "storage": [
+        "陰涼乾燥處，避免日光直射，勿擠壓"
+      ],
+      "countryOfOrigin": "台灣",
+      "shelfLife": "2年",
+      "producerNameFromLabel": "上裕興業有限公司",
+      "notices": [
+        "含動物來源明膠，非素食",
+        "製程設備或管線亦處理大豆、麩質、芒果、羊牛奶、蛋、魚類、花生、芝麻、堅果類及其製品，過敏者請留意原廠標示",
+        "三歲以下幼童及年長者（或吞嚥困難者），請於成人監護下食用",
+        "有效日期以實際出貨原廠包裝為準"
+      ],
+      "fulfillmentNotice": "商品價格、現貨與配送請洽仙加味官方 LINE。",
+      "features": [
+        "30g單包",
+        "12包／盒",
+        "花旗參原料來自美國威斯康辛州（依包裝標示）"
+      ],
+      "imageSourceStatus": "owner-supplied-original-photographs-20261113",
+      "foodStatusSource": "使用者2026-11-13確認可販售，原廠食品包裝及營養標示",
+      "pricePresentation": "官網不公開售價，官方LINE詢問",
+      "id": "sun-e-ginseng-citrus",
+      "erpId": "PRD-PARTNER-SUN-E-GINSENG-CITRUS",
+      "brand": "上裕 SUN E.",
+      "name": "上裕花旗參冰橙檸檬爽喉軟糖",
+      "displayName": "上裕花旗參冰橙檸檬軟糖",
+      "description": "冰橙檸檬風味花旗參軟糖，30g單包，12包／盒。含動物來源明膠。",
+      "ingredients": [
+        "砂糖",
+        "麥芽糖",
+        "椰子油",
+        "明膠（動物來源）",
+        "檸檬酸",
+        "花旗參",
+        "檸檬濃縮果汁",
+        "柳橙濃縮果汁",
+        "香料",
+        "焦糖色素",
+        "薄荷",
+        "棕櫚蠟"
+      ],
+      "nutritionPerServing": {
+        "servingGrams": 30,
+        "caloriesKcal": 123.8,
+        "proteinGrams": 0.4,
+        "fatGrams": 1.7,
+        "saturatedFatGrams": 1.7,
+        "transFatGrams": 0,
+        "carbohydrateGrams": 26.9,
+        "sugarGrams": 22.1,
+        "sodiumMilligrams": 9.6
+      },
+      "barcode": "4719886820164",
+      "sourceFiles": [
+        "IMG_0595.jpeg",
+        "IMG_0596.jpeg"
+      ],
+      "inquiryAliases": [
+        "上裕花旗參冰橙檸檬爽喉軟糖",
+        "上裕花旗參冰橙檸檬軟糖",
+        "花旗參冰橙檸檬軟糖",
+        "冰橙檸檬軟糖"
+      ],
+      "page": "product-sun-e-ginseng-citrus.html",
+      "image": "images/partner-products/20261113/sun-e-ginseng-citrus-front.jpg",
+      "detailImages": [
+        "images/partner-products/20261113/sun-e-ginseng-citrus-back.jpg"
+      ]
     }
   ],
   "publicationRules": {
@@ -1617,6 +1780,6 @@
     "manufacturerTypeGuidance": "依法合格藥廠得依相關藥廠兼製食品規定製造食品，食品廠不能僅靠食品工廠登記製造藥品。判斷商品是食品或藥品依產品屬性而非單看生產工廠名稱。",
     "foodIngredientRule": "可供食品使用的龜、鹿相關原料不代表任意組方都自動是食品；實際原料部位、製程、用量及固有成方（含加減方）應個別判斷。符合條件的已確認一般食品可正常上架，不因藥廠兼製食品而分類成藥品。"
   },
-  "updatedAt": "2026-10-17",
+  "updatedAt": "2026-11-13",
   "selectedProductNamingPolicy": "非自行製作的公開商品使用仙加味精選作顧客顯示前綴；name與brand保留原廠資料；不自動公開未核准商品。"
 }

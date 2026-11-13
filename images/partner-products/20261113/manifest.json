@@ -1,0 +1,33 @@
+{
+  "source": "user original photographs 2026-11-13",
+  "files": [
+    {
+      "path": "images/partner-products/20261113/baumann-ginseng-loquat-front.jpg",
+      "gitBlob": "fbf0c3ecc3a302e9b9bee42d9a92a19710e30584",
+      "sha256": "f46fd7522df7faaf4b68cc2ec7b784853dcb7b618f9b17b8fa2f16dffe5bb40d",
+      "original": "IMG_0593.jpeg",
+      "unchanged": true
+    },
+    {
+      "path": "images/partner-products/20261113/baumann-ginseng-loquat-back.jpg",
+      "gitBlob": "3fa28d9a5a593ad238aef7603d5d70050a976488",
+      "sha256": "6463dd2391fb57292dc76729e6616fa67bbf50b3bd22908bfb4826535ae11acb",
+      "original": "IMG_0594.jpeg",
+      "unchanged": true
+    },
+    {
+      "path": "images/partner-products/20261113/sun-e-ginseng-citrus-front.jpg",
+      "gitBlob": "7eb35b820e41c94f3ccdd6790618d16212859a26",
+      "sha256": "789dccf53260cf8c8916609a85a155980cbef8ebad16e6fa1761476a6a8b5a05",
+      "original": "IMG_0595.jpeg",
+      "unchanged": true
+    },
+    {
+      "path": "images/partner-products/20261113/sun-e-ginseng-citrus-back.jpg",
+      "gitBlob": "bc00d81fd2fad0fac38491fd21da9ccdb0d1f3f2",
+      "sha256": "17ffe6724f98451f654afe0b6f70115b5d2ff07515bb143e17f7360f9f235b11",
+      "original": "IMG_0596.jpeg",
+      "unchanged": true
+    }
+  ]
+}
