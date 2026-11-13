@@ -1,5 +1,5 @@
 {
-  "version": "20261017-pure-product-v1",
+  "version": "20261113-owner-ginseng-chews-v1",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "single complete physical package as hero on the existing ivory site color; keep the original manufacturing label unchanged",
@@ -50,6 +50,22 @@
         "images/catalog-clean-studio-v20261016-v5/luerong-fen-closed-detail.webp"
       ],
       "identityReference": "images/lurong.jpg"
+    },
+    "baumann-ginseng-loquat": {
+      "mainImage": "images/partner-products/20261113/baumann-ginseng-loquat-main.webp",
+      "detailImages": [
+        "images/partner-products/20261113/baumann-ginseng-loquat-back.jpg",
+        "images/partner-products/20261113/baumann-ginseng-loquat-front.jpg"
+      ],
+      "identityReference": "images/partner-products/20261113/baumann-ginseng-loquat-front.jpg"
+    },
+    "sun-e-ginseng-citrus": {
+      "mainImage": "images/partner-products/20261113/sun-e-ginseng-citrus-main.webp",
+      "detailImages": [
+        "images/partner-products/20261113/sun-e-ginseng-citrus-back.jpg",
+        "images/partner-products/20261113/sun-e-ginseng-citrus-front.jpg"
+      ],
+      "identityReference": "images/partner-products/20261113/sun-e-ginseng-citrus-front.jpg"
     }
   }
 }

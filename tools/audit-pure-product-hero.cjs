@@ -44,6 +44,11 @@ const verifyPhoto=(id,path)=>{
   const userEntry=origin.photos.find(x=>x.file===image&&x.id===id);
   if(delivered){
     check(digest===delivered.sha256,id+" delivered real photo SHA mismatch");
+  }else if(image.startsWith("images/partner-products/20261113/")){
+    const m=read("images/partner-products/20261113/manifest.json");
+    const e=m.derivatives.find(x=>x.id===id&&x.path===image);
+    check(!!e&&e.packagePixelsPreserved===true&&e.redrawn===false&&digest===e.sha256&&fs.existsSync(e.source),id+" current original photo derivative evidence missing");
+    if(e&&fs.existsSync(e.source))check(crypto.createHash("sha256").update(fs.readFileSync(e.source)).digest("hex")===e.sourceSha256,id+" actual original source hash differs");
   }else if(ownerEntry){
     check(digest===ownerEntry.sha,id+" current owner-approved image SHA mismatch");
     if(ownerEntry.sourceSha){

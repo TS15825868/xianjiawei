@@ -29,5 +29,27 @@
       "original": "IMG_0596.jpeg",
       "unchanged": true
     }
+  ],
+  "derivatives": [
+    {
+      "id": "baumann-ginseng-loquat",
+      "path": "images/partner-products/20261113/baumann-ginseng-loquat-main.webp",
+      "source": "images/partner-products/20261113/baumann-ginseng-loquat-front.jpg",
+      "sha256": "72c4cb5be73318ee9513616d966a704d27ae9e253010042be279aed1de479491",
+      "sourceSha256": "f46fd7522df7faaf4b68cc2ec7b784853dcb7b618f9b17b8fa2f16dffe5bb40d",
+      "method": "manual mask of photographed packaging, proportional scaling on ivory, no generative redraw or text edits",
+      "packagePixelsPreserved": true,
+      "redrawn": false
+    },
+    {
+      "id": "sun-e-ginseng-citrus",
+      "path": "images/partner-products/20261113/sun-e-ginseng-citrus-main.webp",
+      "source": "images/partner-products/20261113/sun-e-ginseng-citrus-front.jpg",
+      "sha256": "2993833bbb408de907bf892e04163e1f5efa5bdddc3ea2b993ed3d41bf88e772",
+      "sourceSha256": "789dccf53260cf8c8916609a85a155980cbef8ebad16e6fa1761476a6a8b5a05",
+      "method": "manual mask of photographed packaging, proportional scaling on ivory, no generative redraw or text edits",
+      "packagePixelsPreserved": true,
+      "redrawn": false
+    }
   ]
 }

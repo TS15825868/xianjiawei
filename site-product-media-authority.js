@@ -7,7 +7,7 @@
  */
 (function(){
   const DATA={
-  "version": "20261017-owner-approved-carton-jar-detail-v3",
+  "version": "20261113-owner-ginseng-chews-v1",
   "scope": "website-product-media",
   "rules": {
     "generalDisplay": "one real photographed physical package per main image on site's original ivory surface; no additional carton-side contents or decorative scene",
@@ -79,11 +79,17 @@
     },
     "uboss-sizhenbao": {
       "mainImage": "images/catalog-real-owner-v20261019/uboss-sizhenbao-front.png",
-      "detailImages": ["images/catalog-real-owner-v20261019/uboss-sizhenbao-open.png", "images/catalog-real-owner-v20261019/uboss-sizhenbao-back.png"]
+      "detailImages": [
+        "images/catalog-real-owner-v20261019/uboss-sizhenbao-open.png",
+        "images/catalog-real-owner-v20261019/uboss-sizhenbao-back.png"
+      ]
     },
     "royalherb-erzhenbao-64": {
       "mainImage": "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-front.png",
-      "detailImages": ["images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-open.png", "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-back.png"]
+      "detailImages": [
+        "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-open.png",
+        "images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-back.png"
+      ]
     },
     "jianfeng-rose-fruit-tea": {
       "mainImage": "images/catalog-owner-final-v20261017/danshen-tea-collection-main.webp",
@@ -127,6 +133,22 @@
         "images/partner-products/tea-danshen-refresh-front.webp",
         "images/catalog-user-detail-cutouts-v20261017/tea-refresh-original-back.webp"
       ]
+    },
+    "baumann-ginseng-loquat": {
+      "mainImage": "images/partner-products/20261113/baumann-ginseng-loquat-main.webp",
+      "detailImages": [
+        "images/partner-products/20261113/baumann-ginseng-loquat-back.jpg",
+        "images/partner-products/20261113/baumann-ginseng-loquat-front.jpg"
+      ],
+      "identityReference": "images/partner-products/20261113/baumann-ginseng-loquat-front.jpg"
+    },
+    "sun-e-ginseng-citrus": {
+      "mainImage": "images/partner-products/20261113/sun-e-ginseng-citrus-main.webp",
+      "detailImages": [
+        "images/partner-products/20261113/sun-e-ginseng-citrus-back.jpg",
+        "images/partner-products/20261113/sun-e-ginseng-citrus-front.jpg"
+      ],
+      "identityReference": "images/partner-products/20261113/sun-e-ginseng-citrus-front.jpg"
     }
   }
 };
