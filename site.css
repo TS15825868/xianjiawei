@@ -1794,6 +1794,6 @@ body[data-page="home"] .home-hero-next:focus-visible{outline:3px solid #78282a;o
     min-width: 0;
     white-space: normal;
     overflow-wrap: anywhere;
-    word-break: normal;
+    line-break: anywhere;
   }
 }
