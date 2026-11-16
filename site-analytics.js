@@ -17,14 +17,16 @@
     threads: "threads",
     line: "line",
     google_business: "google_business",
-    chatgpt: "chatgpt",
+    chatgpt: "chatgpt.com",
+    "chatgpt.com": "chatgpt.com",
     bing: "bing"
   };
   const media = new Set(["organic_social", "messaging", "organic", "referral"]);
   const campaigns = new Set(["brand_story", "home_cooking", "trial", "b2b"]);
   const query = new URLSearchParams(location.search);
   const utmSource = query.get("utm_source");
-  const utmMedium = query.get("utm_medium");
+  const utmMedium = query.get("utm_medium") ??
+    (utmSource === "chatgpt.com" ? "referral" : null);
   const utmCampaign = query.get("utm_campaign");
   const attribution = {};
   if (Object.hasOwn(source, utmSource) && media.has(utmMedium)) {
