@@ -286,7 +286,7 @@ jobs:
                     paragraphFont:paras.length?Math.min(...paras.slice(0,30).map(x=>parseFloat(css(x).fontSize))):null,
                     brokenImages:imgs.filter(i=>(!i.complete||!i.naturalWidth)&&String(i.loading||'').toLowerCase()!=='lazy').map(i=>i.src),
                     loadedImagePaths:imgs.filter(i=>i.complete&&i.naturalWidth>0).map(i=>{try{return new URL(i.currentSrc||i.src,location.href).pathname}catch{return''}}).filter(Boolean),
-                    missingAlt:imgs.filter(i=>visible(i)&&!i.alt).map(i=>i.src),
+                    missingAlt:imgs.filter(i=>visible(i)&&!i.alt&&!(i.getAttribute('alt')===''&&i.getAttribute('aria-hidden')==='true')).map(i=>i.src),
                     duplicateIds:[...new Set(duplicates)],
                     rawLinks,badInteractiveLinks,badLineLinks,
                     formalProductImages,productImageStyleIssues,oldBrandPresent,runtime,
