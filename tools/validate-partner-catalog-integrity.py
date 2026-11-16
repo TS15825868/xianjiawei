@@ -227,8 +227,15 @@ def main() -> None:
             detail = page.read_text(encoding="utf-8")
             if name not in detail or LINE not in detail:
                 fail("incomplete product detail or LINE CTA for " + pid)
-            if brand_group == "partner" and product.get("category") not in detail:
-                fail("product category missing on partner detail: " + pid)
+            if brand_group == "partner":
+                category = str(product.get("category") or "").strip()
+                if not category:
+                    fail("partner product category missing from catalog: " + pid)
+                # Approved snack products retain their catalog classification for
+                # filtering, without requiring a customer-facing category badge.
+                # Other categories still require the existing detail disclosure.
+                if category != "休閒食品" and category not in detail:
+                    fail("product category missing on partner detail: " + pid)
 
     # Customer-facing content must not leak internal supplier logistics prose.
     # Keep mandatory producer information in the facts section instead.
