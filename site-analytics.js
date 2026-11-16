@@ -35,6 +35,22 @@
     if (campaigns.has(utmCampaign)) attribution.campaign_name = utmCampaign;
   }
 
+  const referringHosts = new Set([
+    "www.google.com", "www.google.com.tw", "www.bing.com",
+    "facebook.com", "www.facebook.com", "m.facebook.com", "l.facebook.com", "lm.facebook.com",
+    "instagram.com", "www.instagram.com", "l.instagram.com",
+    "threads.com", "www.threads.com", "threads.net", "www.threads.net",
+    "line.me", "liff.line.me", "chatgpt.com", "gemini.google.com",
+    "perplexity.ai", "www.perplexity.ai"
+  ]);
+  let referrer = "";
+  if (document.referrer) {
+    const url = new URL(document.referrer);
+    if (url.protocol === "https:" && !url.port && referringHosts.has(url.hostname)) {
+      referrer = url.origin + "/";
+    }
+  }
+
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
 
@@ -44,12 +60,47 @@
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
     page_location: pageLocation,
-    page_referrer: "",
+    page_referrer: referrer,
     ...attribution
   });
 
-  function track(name) {
-    gtag("event", name, { send_to: measurementId });
+  function track(name, parameters = {}) {
+    gtag("event", name, { ...parameters, send_to: measurementId });
+  }
+
+  async function trackProducts(currentPage) {
+    const readProducts = async (file) => {
+      const response = await fetch(new URL(file, site), { signal: AbortSignal.timeout(5000) });
+      if (!response.ok) return [];
+      const { products } = await response.json();
+      return Array.isArray(products) ? products : [];
+    };
+    const [own, partners] = await Promise.all([
+      readProducts("public-product-master.json").catch(() => []),
+      readProducts("partner-catalog.json").catch(() => [])
+    ]);
+    const catalog = [...own, ...partners.filter(product => product.public === true)];
+    const byId = new Map(catalog.map(product => [product.id, product]));
+    const item = (product) => ({
+      item_id: product.id,
+      item_name: product.name,
+      item_category: product.category || product.form
+    });
+    if (currentPage === "product-detail") {
+      const product = catalog.find(entry => entry.page && new URL(entry.page, site).href === pageLocation);
+      if (product) track("view_item", { items: [item(product)] });
+      return;
+    }
+    const cards = document.querySelectorAll(
+      "#product-list [data-product-id], #product-list [data-fallback-product], " +
+      "#partner-product-list [data-product-id], #partner-product-list [data-fallback-product]"
+    );
+    const ids = new Set(Array.from(cards)
+      .filter(card => !card.closest("[hidden]"))
+      .map(card => card.dataset.productId || card.dataset.fallbackProduct));
+    const items = [...ids].filter(id => byId.has(id))
+      .map((id, index) => ({ ...item(byId.get(id)), index }));
+    if (items.length) track("view_item_list", { item_list_id: "catalog", item_list_name: "商品總覽", items });
   }
 
   const tag = document.createElement("script");
@@ -60,14 +111,13 @@
 
   track("page_view");
   const currentPage = document.body.dataset.page;
-  if (currentPage === "products") track("view_item_list");
-  if (currentPage === "product-detail") track("view_item");
+  if (currentPage === "products" || currentPage === "product-detail") void trackProducts(currentPage);
   if (currentPage === "choose") track("guide_view");
 
   let lastTarget;
   let lastClick = -Infinity;
   document.addEventListener("click", (event) => {
-    const target = event.target.closest?.("a[href], button");
+    const target = event.target?.closest?.("a[href], button");
     if (!target) return;
     const url = target.href ? new URL(target.href) : null;
     const isLine = url?.protocol === "https:" &&
@@ -76,8 +126,8 @@
     let name;
     if (isLine) {
       name = target.hasAttribute("data-b2b-inquiry") ? "b2b_click"
-        : currentPage === "trial" ? "trial_click" : "line_click";
-    } else if (url?.href === site + "trial.html") {
+        : target.dataset.lineMessage === "我想申請龜鹿飲30cc試喝組。" ? "trial_click" : "line_click";
+    } else if (url && url.origin + url.pathname === site + "trial.html") {
       name = "trial_page_click";
     } else if (currentPage === "choose" && target.closest("#choose-current-filters")) {
       name = "guide_filter_click";
