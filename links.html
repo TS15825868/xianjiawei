@@ -313,29 +313,83 @@ a{color:inherit}
 @media(min-width:621px){
   .page{box-shadow:0 0 80px rgba(11,31,59,.08)}
 }
+
+:root,html,body{color-scheme:only light}
+.icon--line{padding:0;background:transparent!important;border:0!important;box-shadow:none!important}
+.icon--line svg{width:100%;height:100%}
+.icon--map svg{color:#314B3D}
+.social-mark--facebook{background:#1877F2!important;color:#fff!important;border-radius:50%;font-family:Arial,sans-serif;font-weight:900}
+.social-mark--instagram{background:linear-gradient(35deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5)!important;color:#fff!important;border-radius:9px}
+.social-mark--threads{background:#111!important;color:#fff!important;border-radius:50%}
+.social-mark svg{display:block;width:65%;height:65%}
+.social-mark--threads svg{width:72%;height:72%}
+
+@media (min-width:701px){
 /* 統一品牌名片：手機一屏優先，山水背景完整延伸 */
 .page{min-height:100svh;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(247,244,237,.78),rgba(247,244,237,.92)),url("images/brand/world-landscape-v20261008.webp?v=20261008-landscape-v44") center/cover no-repeat}
+
 .scene{min-height:0;padding:18px 14px 14px;background:transparent}
+
 .scene:after{display:none}
+
 .logo{width:65px;max-height:105px;margin-bottom:5px}
-.brand{font-size:25px}.position-row{margin-top:5px}.tagline{margin-top:8px;font-size:17px}.intro{margin-top:9px}.scope{margin-top:3px}
+
+.brand{font-size:25px}
+.position-row{margin-top:5px}
+.tagline{margin-top:8px;font-size:17px}
+.intro{margin-top:9px}
+.scope{margin-top:3px}
+
 .content{margin-top:0;padding:0 15px 15px;flex:1;display:flex;flex-direction:column;justify-content:center}
-.stack{gap:7px}.link{min-height:56px;padding:8px 13px;border-radius:16px}.icon{width:34px;height:34px;flex-basis:34px}.icon svg{width:19px;height:19px}.copy strong,.link--primary .copy strong{font-size:15px}.copy small{font-size:12px;margin-top:1px}.chev{font-size:22px}
-.section-title{margin:12px 2px 7px}.social{gap:6px}.social a{min-height:43px;padding:5px;font-size:12px}.social-mark{width:22px;height:22px;font-size:12px}.footer{margin-top:10px;padding-top:5px;font-size:12px}
+
+.stack{gap:7px}
+.link{min-height:56px;padding:8px 13px;border-radius:16px}
+.icon{width:34px;height:34px;flex-basis:34px}
+.icon svg{width:19px;height:19px}
+.copy strong,.link--primary .copy strong{font-size:15px}
+.copy small{font-size:12px;margin-top:1px}
+.chev{font-size:22px}
+
+.section-title{margin:12px 2px 7px}
+.social{gap:6px}
+.social a{min-height:43px;padding:5px;font-size:12px}
+.social-mark{width:22px;height:22px;font-size:12px}
+.footer{margin-top:10px;padding-top:5px;font-size:12px}
+
 .decor--goji,.decor--deer,.decor--herbs,.decor--turtle{opacity:.25}
-@media(max-width:420px){.scene{min-height:0;padding:12px 12px 8px}.logo{width:58px;max-height:92px}.brand{font-size:23px}.tagline{font-size:16px;margin-top:7px}.intro{font-size:12px;margin-top:7px}.scope{font-size:12px}.content{margin-top:0;padding:0 12px 12px}.link{min-height:53px;padding:7px 11px;border-radius:15px}.copy strong,.link--primary .copy strong{font-size:14px}.copy small{font-size:11px}.social a{font-size:11px}}
+
 @media(max-height:690px){.scene{padding-top:7px;padding-bottom:5px}.logo{width:47px;max-height:75px}.intro,.scope{display:none}.link{min-height:46px}.section-title{margin-top:7px}.footer{margin-top:5px}}
+
 @media(max-height:540px){.page{min-height:100svh}.content{justify-content:flex-start}}
+
 /* 一頁式適配：按螢幕高度縮放，不截斷按鈕 */
 .page{height:100svh;min-height:0;overflow:hidden;padding-bottom:0}
+
 .scene{flex:0 0 auto;padding:clamp(5px,1.3svh,13px) 10px clamp(3px,.8svh,8px)}
+
 .logo{width:clamp(39px,8svh,64px);max-height:clamp(55px,12svh,100px)}
-.brand{font-size:clamp(18px,3svh,25px)}.position{font-size:clamp(11px,1.8svh,14px)}.position-row{margin-top:3px}.tagline{font-size:clamp(13px,2.3svh,17px);margin-top:4px}.intro{margin-top:4px;font-size:clamp(11px,1.8svh,13px)}.scope{margin-top:2px;font-size:clamp(11px,1.8svh,13px)}
+
+.brand{font-size:clamp(18px,3svh,25px)}
+.position{font-size:clamp(11px,1.8svh,14px)}
+.position-row{margin-top:3px}
+.tagline{font-size:clamp(13px,2.3svh,17px);margin-top:4px}
+.intro{margin-top:4px;font-size:clamp(11px,1.8svh,13px)}
+.scope{margin-top:2px;font-size:clamp(11px,1.8svh,13px)}
+
 .content{min-height:0;flex:1;justify-content:center;padding:0 12px clamp(5px,1svh,12px)}
-.stack{gap:clamp(3px,.8svh,7px)}.link{min-height:0;height:clamp(43px,8svh,59px);padding:5px 12px}.icon{width:32px;height:32px;flex-basis:32px}.copy strong,.link--primary .copy strong{font-size:clamp(13px,2svh,15px)}.copy small{font-size:clamp(10px,1.6svh,12px)}
-.section-title{margin:clamp(5px,1.5svh,12px) 2px 5px}.social a{min-height:0;height:clamp(36px,6svh,44px)}.footer{margin-top:clamp(4px,1.3svh,10px);font-size:11px}
+
+.stack{gap:clamp(3px,.8svh,7px)}
+.link{min-height:0;height:clamp(43px,8svh,59px);padding:5px 12px}
+.icon{width:32px;height:32px;flex-basis:32px}
+.copy strong,.link--primary .copy strong{font-size:clamp(13px,2svh,15px)}
+.copy small{font-size:clamp(10px,1.6svh,12px)}
+
+.section-title{margin:clamp(5px,1.5svh,12px) 2px 5px}
+.social a{min-height:0;height:clamp(36px,6svh,44px)}
+.footer{margin-top:clamp(4px,1.3svh,10px);font-size:11px}
+
 @media(max-height:570px){.intro,.scope{display:none}.social a{height:31px}.link{height:40px}.footer{display:none}}
-@media(max-width:350px){.social{grid-template-columns:repeat(3,1fr)}.social a{padding:3px;font-size:10px}.social-mark{display:none}}
+
 /* 2026-10-19 字體及按鈕易讀性優化：保留單頁優先 */
 @media(min-height:650px){
  .link{height:clamp(57px,8.8svh,72px);padding:9px 15px;border-radius:17px}
@@ -346,8 +400,9 @@ a{color:inherit}
  .social a{height:clamp(41px,6.4svh,50px);font-size:clamp(12px,1.8svh,15px)}
  .brand{font-size:clamp(23px,3.3svh,29px)}.tagline{font-size:clamp(15px,2.5svh,19px)}
 }
-@media(max-width:420px) and (min-height:650px){.link{padding:7px 10px}.copy strong,.link--primary .copy strong{font-size:16px}.copy small{font-size:11px}.icon{width:35px;height:35px;flex-basis:35px}}
+
 @media(max-height:649px){.link{height:43px}.copy strong,.link--primary .copy strong{font-size:14px}.copy small{font-size:10px}}
+
 /* iPhone 實機截圖調整：加大閱讀字級、點擊面積 */
 @media(min-width:351px) and (min-height:700px){
  .content{padding-left:12px;padding-right:12px}
@@ -361,12 +416,9 @@ a{color:inherit}
  .social-mark{width:27px;height:27px;font-size:15px}
  .footer{font-size:13px;margin-top:clamp(10px,1.6svh,16px)}
 }
-@media(min-width:351px) and (max-width:420px) and (min-height:700px){
- .link{padding:9px 11px}.copy strong,.link--primary .copy strong{font-size:18px}
- .copy small{font-size:12px}.icon{width:39px;height:39px;flex-basis:39px}
- .social a{font-size:13px;padding:5px 4px}.social-mark{width:24px;height:24px}
-}
+
 @media(max-height:760px){.scene{padding-top:5px}.logo{max-height:74px}.intro,.scope{font-size:11px}.stack{gap:6px}}
+
 /* iPhone 再放大：優先保留可讀性與按鈕高度 */
 @media(min-width:351px) and (min-height:700px){
  .link{height:clamp(73px,10.2svh,90px);padding:10px 13px}
@@ -377,11 +429,9 @@ a{color:inherit}
  .social-mark{width:29px;height:29px}
  .brand{font-size:clamp(25px,3.5svh,31px)}.tagline{font-size:clamp(17px,2.7svh,21px)}
 }
-@media(min-width:351px) and (max-width:420px) and (min-height:700px){
- .copy strong,.link--primary .copy strong{font-size:20px}.copy small{font-size:13px}
- .icon{width:42px;height:42px;flex-basis:42px}.social a{font-size:14px}
-}
+
 @media(min-width:351px) and (max-height:810px){.scene{padding-top:4px;padding-bottom:4px}.logo{width:48px;max-height:78px}.intro,.scope{font-size:11px;margin-top:2px}.stack{gap:6px}.link{height:65px}.section-title{margin-top:8px}.footer{margin-top:6px}}
+
 /* 已確認的放大版：品牌入口主按鈕及文字 */
 @media(min-width:351px) and (min-height:700px){
  .link{height:clamp(78px,10.6svh,96px);padding:12px 15px;border-radius:21px}
@@ -391,25 +441,43 @@ a{color:inherit}
  .section-title{font-size:21px}.social a{height:clamp(53px,7.3svh,65px);font-size:clamp(14px,2.1svh,18px)}
  .social-mark{width:30px;height:30px;font-size:16px}
 }
-@media(min-width:351px) and (max-width:420px) and (min-height:700px){.copy strong,.link--primary .copy strong{font-size:21px}.copy small{font-size:14px}.link{padding:9px 11px}}
+
 /* 極短螢幕保持原先緊湊版，避免內容裁切 */
 /* 正式圖示：延續參考圖的清楚辨識度，不使用圖片化假按鈕 */
 .icon svg{display:block;width:70%;height:70%;stroke:none}
+
 .icon--line{padding:0;background:transparent!important;border:0!important;box-shadow:none!important}
+
 .icon--line svg{width:100%;height:100%}
+
 .icon--map svg{color:#314B3D}
+
 .social-mark--facebook{background:#1877F2!important;color:#fff!important;border-radius:50%;font-family:Arial,sans-serif;font-weight:900}
+
 .social-mark--instagram{background:linear-gradient(35deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5)!important;color:#fff!important;border-radius:9px;font-weight:900}
+
 .social-mark--threads{background:#111!important;color:#fff!important;border-radius:50%;font-weight:900}
-.social-mark svg{display:block;width:65%;height:65%}.social-mark--threads svg{width:72%;height:72%}
+
+.social-mark svg{display:block;width:65%;height:65%}
+.social-mark--threads svg{width:72%;height:72%}
+
 /* 2026-10-19｜連結入口收尾：一般手機一頁、短螢幕可捲動不裁字 */
 .page{height:auto;min-height:100svh;overflow:visible;isolation:isolate}
+
 .page>.decor{pointer-events:none}
+
 .scene,.content{position:relative;z-index:2}
+
 .link,.social a{touch-action:manipulation;-webkit-tap-highlight-color:rgba(176,138,71,.15)}
+
 .link:focus-visible,.social a:focus-visible{outline:3px solid #B08A47;outline-offset:3px}
-.copy{min-width:0;flex:1}.copy small{overflow-wrap:anywhere}
-.icon{flex-shrink:0}.chev{flex-shrink:0}
+
+.copy{min-width:0;flex:1}
+.copy small{overflow-wrap:anywhere}
+
+.icon{flex-shrink:0}
+.chev{flex-shrink:0}
+
 @media(min-width:351px) and (min-height:760px){
  .page{height:100svh;overflow:hidden}
  .scene{padding-top:clamp(5px,1svh,10px);padding-bottom:4px}
@@ -422,6 +490,7 @@ a{color:inherit}
  .social a{height:clamp(40px,5.6svh,50px)}
  .footer{margin-top:6px}
 }
+
 @media(max-height:759px){
  .page{height:auto;min-height:100svh;overflow:visible}
  .content{justify-content:flex-start;padding-bottom:16px}
@@ -431,797 +500,11 @@ a{color:inherit}
  .copy small{font-size:12px}
  .social a{min-height:42px;height:auto}
 }
-@media(max-width:350px){.page{height:auto;overflow:visible}.link{height:auto;min-height:62px}.social a{min-height:42px}}
 
-/* 2026-10-19｜手機大字大按鈕：優先閱讀，內容可自然捲動 */
-@media(max-width:700px){
- .page{height:auto!important;min-height:100svh!important;overflow:visible!important}
- .scene{padding-top:clamp(10px,2svh,20px)!important;padding-bottom:8px!important}
- .content{padding-bottom:28px!important}
- .stack{gap:12px!important}
- .link{height:auto!important;min-height:104px!important;padding:16px 16px!important;border-radius:22px!important;gap:14px!important}
- .link--primary{min-height:118px!important}
- .icon{width:55px!important;height:55px!important;flex-basis:55px!important}
- .icon svg{width:72%!important;height:72%!important}
- .icon--line svg{width:100%!important;height:100%!important}
- .copy strong,.link--primary .copy strong{font-size:clamp(23px,5.8vw,27px)!important;line-height:1.2!important}
- .copy small{font-size:clamp(15px,3.8vw,18px)!important;line-height:1.4!important;white-space:normal!important}
- .chev{font-size:27px!important}
- .section-title{font-size:24px!important;margin-top:19px!important;margin-bottom:12px!important}
- .social{gap:9px!important}
- .social a{height:auto!important;min-height:64px!important;padding:10px 6px!important;font-size:clamp(14px,3.7vw,17px)!important;gap:6px!important}
- .social-mark{width:32px!important;height:32px!important;flex:0 0 32px!important}
- .footer{font-size:15px!important;margin-top:18px!important}
-}
-@media(max-width:350px){.link{padding:13px 10px!important;gap:9px!important}.icon{width:47px!important;height:47px!important;flex-basis:47px!important}.copy strong{font-size:21px!important}.copy small{font-size:14px!important}.social a{font-size:12px!important}.social-mark{width:26px!important;height:26px!important;flex-basis:26px!important}}
-
-/* 手機正式單頁版：在可用高度內等比例縮放，不裁切內容 */
-@media(max-width:700px){
- .page{height:100svh!important;min-height:100svh!important;max-height:100svh!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
- .scene{flex:0 0 auto!important;padding-top:clamp(3px,.6svh,8px)!important;padding-bottom:0!important}
- .identity{margin-bottom:0!important}
- .logo{max-height:clamp(58px,9svh,86px)!important;width:auto!important}
- .brand{font-size:clamp(23px,3.5svh,30px)!important;margin-top:0!important}
- .position,.tagline{margin-top:clamp(1px,.25svh,4px)!important}
- .tagline{font-size:clamp(15px,2.3svh,20px)!important}
- .intro,.scope{font-size:clamp(11px,1.55svh,14px)!important;margin-top:clamp(1px,.2svh,3px)!important}
- .content{flex:1 1 auto!important;min-height:0!important;padding-top:clamp(4px,.8svh,9px)!important;padding-bottom:clamp(3px,.7svh,8px)!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
- .card{flex:0 0 auto!important}
- .stack{gap:clamp(5px,.85svh,10px)!important}
- .link,.link--primary{height:clamp(65px,9svh,90px)!important;min-height:0!important;padding:clamp(7px,1svh,12px) 12px!important;gap:10px!important;border-radius:19px!important}
- .icon{width:clamp(38px,5.5svh,51px)!important;height:clamp(38px,5.5svh,51px)!important;flex-basis:clamp(38px,5.5svh,51px)!important}
- .copy strong,.link--primary .copy strong{font-size:clamp(19px,2.7svh,24px)!important;line-height:1.16!important}
- .copy small{font-size:clamp(12px,1.75svh,15px)!important;line-height:1.25!important}
- .section-title{font-size:clamp(17px,2.4svh,22px)!important;margin-top:clamp(5px,.9svh,10px)!important;margin-bottom:clamp(4px,.65svh,8px)!important}
- .social{gap:6px!important}
- .social a{height:clamp(43px,6.2svh,57px)!important;min-height:0!important;padding:4px!important;font-size:clamp(12px,1.9svh,16px)!important;gap:4px!important}
- .social-mark{width:clamp(23px,3.7svh,30px)!important;height:clamp(23px,3.7svh,30px)!important;flex-basis:clamp(23px,3.7svh,30px)!important}
- .footer{font-size:clamp(11px,1.6svh,14px)!important;margin-top:clamp(5px,.8svh,9px)!important}
-}
-@media(max-width:700px) and (max-height:740px){.logo{max-height:50px!important}.brand{font-size:22px!important}.intro,.scope{font-size:10px!important}.link,.link--primary{height:clamp(54px,8.5svh,64px)!important}.copy strong,.link--primary .copy strong{font-size:18px!important}.copy small{font-size:11px!important}.social a{height:40px!important}.section-title{margin-top:4px!important}}
-
-/* 2026-10-19｜一頁式手機連結入口：大按鈕、無頁面捲動 */
-@media(min-width:351px) and (max-width:700px){
- .page{height:100svh!important;min-height:100svh!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
- .scene{flex:0 0 auto!important;padding-top:clamp(3px,.6svh,8px)!important;padding-bottom:2px!important}
- .identity{gap:0!important}
- .logo{max-height:clamp(55px,8.2svh,88px)!important;width:auto!important}
- .brand{font-size:clamp(24px,3.4svh,30px)!important;line-height:1.12!important}
- .position,.tagline{margin-top:1px!important;margin-bottom:1px!important}
- .intro,.scope{font-size:clamp(10px,1.35svh,13px)!important;margin-top:1px!important;line-height:1.2!important}
- .content{flex:1 1 auto!important;min-height:0!important;padding-top:2px!important;padding-bottom:clamp(3px,.6svh,8px)!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important}
- .card{flex:0 1 auto!important;min-height:0!important}
- .stack{gap:clamp(5px,.75svh,9px)!important}
- .link{height:clamp(65px,8.5svh,84px)!important;min-height:0!important;padding:clamp(7px,1svh,11px) 12px!important;gap:11px!important;border-radius:18px!important}
- .link--primary{height:clamp(75px,10svh,98px)!important;min-height:0!important}
- .icon{width:clamp(41px,5.8svh,54px)!important;height:clamp(41px,5.8svh,54px)!important;flex-basis:clamp(41px,5.8svh,54px)!important}
- .copy strong,.link--primary .copy strong{font-size:clamp(20px,2.85svh,25px)!important;line-height:1.15!important}
- .copy small{font-size:clamp(12px,1.8svh,16px)!important;line-height:1.25!important}
- .section-title{flex:0 0 auto!important;font-size:clamp(18px,2.5svh,23px)!important;margin-top:clamp(7px,1svh,12px)!important;margin-bottom:clamp(4px,.6svh,8px)!important}
- .social{flex:0 0 auto!important;gap:7px!important}
- .social a{height:clamp(43px,6svh,58px)!important;min-height:0!important;padding:5px 4px!important;font-size:clamp(12px,1.85svh,16px)!important;gap:5px!important}
- .social-mark{width:clamp(24px,3.7svh,32px)!important;height:clamp(24px,3.7svh,32px)!important;flex:0 0 clamp(24px,3.7svh,32px)!important}
- .footer{flex:0 0 auto!important;font-size:clamp(11px,1.5svh,14px)!important;margin-top:clamp(5px,.8svh,10px)!important}
-}
-
-/* 2026-10-19｜品牌連結圖文選單：LINE 大格＋六格 */
-@media(max-width:700px){
- .page{height:100svh!important;min-height:100svh!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
- .scene{flex:0 0 auto!important;padding-top:clamp(4px,.8svh,10px)!important;padding-bottom:3px!important}
- .logo{max-height:clamp(53px,8svh,78px)!important}
- .identity .brand{font-size:clamp(23px,3.2svh,29px)!important}
- .identity .tagline{font-size:clamp(15px,2.2svh,19px)!important}
- .identity .intro,.identity .scope{font-size:clamp(10px,1.4svh,12px)!important;margin-top:1px!important}
- .content{flex:1 1 auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;padding-top:2px!important;padding-bottom:clamp(4px,.7svh,9px)!important}
- .card{flex:0 0 auto!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important}
- .hub-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:clamp(8px,1.1svh,12px)!important}
- .hub-grid .hub-primary{grid-column:1/-1!important;display:flex!important;flex-direction:row!important;min-height:0!important;height:clamp(82px,11svh,110px)!important;padding:10px 16px!important;border-radius:20px!important;text-align:left!important}
- .hub-grid .hub-primary .icon{width:clamp(48px,6.6svh,62px)!important;height:clamp(48px,6.6svh,62px)!important;flex-basis:clamp(48px,6.6svh,62px)!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(21px,3svh,26px)!important}
- .hub-grid .hub-primary .copy small{font-size:clamp(12px,1.75svh,15px)!important;line-height:1.25!important}
- .hub-grid .hub-tile{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;text-align:center!important;gap:clamp(3px,.5svh,7px)!important;height:clamp(100px,14svh,138px)!important;min-height:0!important;padding:8px 4px!important;border-radius:18px!important}
- .hub-grid .hub-tile .icon{width:clamp(38px,5.5svh,52px)!important;height:clamp(38px,5.5svh,52px)!important;flex-basis:auto!important}
- .hub-grid .hub-tile .copy{flex:0 0 auto!important;width:100%!important;min-width:0!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(14px,2.1svh,18px)!important;line-height:1.2!important;overflow-wrap:anywhere!important}
- .hub-grid .hub-tile .copy small,.hub-grid .hub-tile .chev{display:none!important}
- .section-title{font-size:clamp(16px,2.3svh,20px)!important;margin-top:clamp(7px,1.1svh,12px)!important;margin-bottom:clamp(5px,.7svh,9px)!important}
- .hub-social{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:clamp(8px,1.1svh,12px)!important}
- .hub-social a{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:4px!important;height:clamp(88px,12svh,118px)!important;min-height:0!important;padding:7px 2px!important;border-radius:18px!important;font-size:clamp(12px,1.8svh,16px)!important}
- .hub-social .social-mark{width:clamp(34px,5svh,47px)!important;height:clamp(34px,5svh,47px)!important;flex:0 0 auto!important;font-size:clamp(20px,3svh,27px)!important}
- .footer{margin-top:clamp(5px,.8svh,9px)!important;font-size:clamp(11px,1.5svh,13px)!important}
-}
-@media(max-width:350px),(max-height:660px){.page{height:auto!important;min-height:100svh!important;overflow:visible!important}.hub-grid .hub-tile{min-height:96px!important}.hub-social a{min-height:85px!important}}
-
-/* 2026-10-19｜一頁式加大點擊區：依可視高度自適應 */
-@media(min-width:351px) and (max-width:700px) and (min-height:661px){
- .page{height:100svh!important;overflow:hidden!important}
- .scene{padding-top:clamp(2px,.4svh,6px)!important;padding-bottom:0!important}
- .logo{max-height:clamp(48px,7svh,68px)!important}
- .identity .brand{font-size:clamp(21px,2.8svh,26px)!important}
- .identity .tagline{font-size:clamp(13px,1.8svh,17px)!important}
- .identity .intro,.identity .scope{font-size:clamp(9px,1.2svh,11px)!important;line-height:1.1!important}
- .content{padding-top:0!important;padding-bottom:2px!important}
- .hub-grid{gap:clamp(7px,1svh,10px)!important}
- .hub-grid .hub-primary{height:clamp(90px,12svh,116px)!important}
- .hub-grid .hub-tile{height:clamp(116px,16svh,151px)!important}
- .hub-grid .hub-tile .icon{width:clamp(44px,6.2svh,58px)!important;height:clamp(44px,6.2svh,58px)!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(15px,2.2svh,19px)!important}
- .section-title{margin-top:clamp(5px,.8svh,8px)!important;margin-bottom:clamp(3px,.5svh,6px)!important}
- .hub-social{gap:clamp(7px,1svh,10px)!important}
- .hub-social a{height:clamp(96px,13svh,125px)!important;font-size:clamp(13px,1.9svh,17px)!important}
- .hub-social .social-mark{width:clamp(38px,5.5svh,50px)!important;height:clamp(38px,5.5svh,50px)!important}
- .footer{margin-top:clamp(3px,.5svh,6px)!important;font-size:11px!important}
-}
-
-/* 2026-10-19｜依 iPhone 實際截圖擴大選單：利用下方空白但保持一頁 */
-@media (min-width:351px) and (max-width:700px) and (min-height:661px){
- .hub-grid .hub-primary{height:clamp(108px,14.5svh,145px)!important;padding:12px 18px!important}
- .hub-grid .hub-primary .icon{width:clamp(57px,7.5svh,75px)!important;height:clamp(57px,7.5svh,75px)!important;flex-basis:clamp(57px,7.5svh,75px)!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(23px,3.3svh,30px)!important}
- .hub-grid .hub-tile{height:clamp(138px,19svh,186px)!important}
- .hub-grid .hub-tile .icon{width:clamp(49px,7svh,69px)!important;height:clamp(49px,7svh,69px)!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(16px,2.5svh,22px)!important}
- .hub-social a{height:clamp(118px,16svh,160px)!important;font-size:clamp(14px,2.2svh,19px)!important}
- .hub-social .social-mark{width:clamp(43px,6.5svh,62px)!important;height:clamp(43px,6.5svh,62px)!important}
-}
-@media (min-width:351px) and (max-width:700px) and (min-height:661px) and (max-height:760px){
- .hub-grid .hub-primary{height:12svh!important}
- .hub-grid .hub-tile{height:15svh!important}
- .hub-social a{height:12svh!important}
-}
-
-/* 2026-10-19｜實機截圖：修正長標題斷行與按鈕比例 */
-@media(min-width:351px) and (max-width:700px){
- .hub-grid .hub-tile{padding:10px 3px!important;gap:8px!important;overflow:hidden!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(17px,2.35svh,21px)!important;line-height:1.22!important;word-break:keep-all!important;overflow-wrap:normal!important;white-space:nowrap!important;letter-spacing:-.025em!important}
- .hub-grid .hub-tile .icon{flex-shrink:0!important}
- .hub-social a{overflow:hidden!important}
- .hub-primary .copy small{display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;overflow:hidden!important}
-}
-
-/* 2026-10-19 mobile safe viewport: never clip actionable links */
-@media (max-width:700px){
-  .page{overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior-y:contain}
-  .hub-grid .hub-primary,.hub-grid .hub-tile,.hub-social a{touch-action:manipulation}
-}
-
-/* 2026-10-19｜實機留白優化：加大並下移入口按鈕 */
-@media (min-width:351px) and (max-width:700px) and (min-height:780px){
-  .page{height:100svh!important;min-height:100svh!important;overflow-x:hidden!important;overflow-y:auto!important}
-  .scene{padding-top:clamp(12px,1.8svh,20px)!important;padding-bottom:clamp(8px,1.1svh,13px)!important}
-  .content{
-    flex:1 0 auto!important;min-height:0!important;
-    justify-content:space-evenly!important;
-    padding-top:clamp(8px,1.2svh,14px)!important;
-    padding-bottom:clamp(16px,2.2svh,24px)!important
-  }
-  .hub-grid{gap:clamp(9px,1.25svh,13px)!important}
-  .hub-grid .hub-primary{height:clamp(116px,15svh,150px)!important}
-  .hub-grid .hub-tile{height:clamp(151px,20svh,196px)!important}
-  .hub-grid .hub-tile .icon{width:clamp(53px,7.2svh,72px)!important;height:clamp(53px,7.2svh,72px)!important}
-  .hub-grid .hub-tile .copy strong{font-size:clamp(17px,2.45svh,22px)!important}
-  .hub-social a{height:clamp(123px,16.5svh,160px)!important}
-  .hub-social .social-mark{width:clamp(48px,6.5svh,62px)!important;height:clamp(48px,6.5svh,62px)!important}
-  .section-title{margin-top:clamp(10px,1.4svh,15px)!important;margin-bottom:clamp(7px,.9svh,10px)!important}
-  .footer{margin-top:clamp(10px,1.4svh,16px)!important}
-}
-@media (min-width:351px) and (max-width:700px) and (min-height:780px) and (max-height:850px){
-  .hub-grid .hub-primary{height:13svh!important}
-  .hub-grid .hub-tile{height:17svh!important}
-  .hub-social a{height:13svh!important}
-}
-
-/* 2026-10-19｜品牌文案與圖文選單安全間距：按鈕整組下移 */
-@media (min-width:351px) and (max-width:700px){
- .scene{padding-bottom:clamp(17px,2.6svh,28px)!important}
- .content{padding-top:clamp(8px,1.5svh,17px)!important;justify-content:flex-start!important}
- .hub-grid .hub-primary{margin-top:0!important}
-}
-@media (min-width:351px) and (max-width:700px) and (min-height:780px){
- .scene{padding-bottom:clamp(21px,3.2svh,35px)!important}
- .content{padding-top:clamp(12px,2svh,22px)!important;justify-content:flex-start!important}
- .hub-grid .hub-primary{height:clamp(103px,13.2svh,129px)!important}
- .hub-grid .hub-tile{height:clamp(130px,17.2svh,169px)!important}
- .hub-social a{height:clamp(108px,14svh,137px)!important}
-}
-@media (min-width:351px) and (max-width:700px) and (max-height:779px){
- .scene{padding-bottom:12px!important}
- .content{padding-top:8px!important}
-}
-
-/* 2026-10-19｜手機按鈕以下緣為基準：留出上方品牌空間 */
-@media (min-width:351px) and (max-width:700px) and (min-height:780px){
- .page{display:flex!important;flex-direction:column!important;min-height:100svh!important;height:auto!important}
- .scene{flex:0 0 auto!important;min-height:0!important;padding-bottom:clamp(12px,1.8svh,20px)!important}
- .content{
-   flex:1 0 auto!important;
-   display:flex!important;flex-direction:column!important;
-   justify-content:flex-end!important;
-   margin-top:0!important;
-   padding-top:clamp(14px,2svh,24px)!important;
-   padding-bottom:calc(clamp(22px,3svh,36px) + env(safe-area-inset-bottom))!important
- }
- .hub-grid{flex:0 0 auto!important}
- .hub-grid .hub-primary{height:clamp(101px,12.5svh,126px)!important}
- .hub-grid .hub-tile{height:clamp(129px,16.4svh,163px)!important}
- .hub-social a{height:clamp(106px,13.4svh,134px)!important}
-}
-
-/* 2026-10-19｜連結入口字級與按鈕尺寸統一：底部對齊、安全不裁切 */
-@media (min-width:351px) and (max-width:700px){
- .identity .brand{font-size:clamp(27px,3.5svh,34px)!important;line-height:1.12!important}
- .identity .position{font-size:clamp(13px,1.8svh,16px)!important}
- .identity .tagline{font-size:clamp(17px,2.3svh,21px)!important;line-height:1.25!important}
- .identity .intro,.identity .scope{font-size:clamp(12px,1.65svh,15px)!important;line-height:1.35!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(24px,3.2svh,30px)!important;line-height:1.12!important}
- .hub-grid .hub-primary .copy small{font-size:clamp(12px,1.6svh,15px)!important;line-height:1.35!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(16px,2.25svh,21px)!important;line-height:1.15!important}
- .hub-social a{font-size:clamp(14px,1.95svh,18px)!important}
- .section-title{font-size:clamp(15px,2svh,18px)!important}
- .footer{font-size:clamp(12px,1.6svh,14px)!important}
-}
-@media (min-width:351px) and (max-width:700px) and (min-height:780px){
- .hub-grid .hub-primary{height:clamp(108px,13.2svh,134px)!important}
- .hub-grid .hub-tile{height:clamp(136px,17.2svh,173px)!important}
- .hub-social a{height:clamp(111px,14svh,140px)!important}
- .content{padding-bottom:calc(clamp(15px,2svh,24px) + env(safe-area-inset-bottom))!important}
-}
-
-/* 2026-10-19｜正式簡約版：明確層級、乾淨留白與安全觸控尺寸 */
-@media (min-width:351px) and (max-width:700px){
- .identity .intro,.identity .scope{display:none!important}
- .scene{padding-bottom:clamp(16px,2.2svh,24px)!important}
- .hub-grid,.hub-social{gap:clamp(8px,1.1svh,12px)!important}
- .hub-grid .hub-primary{border-radius:20px!important}
- .hub-grid .hub-tile,.hub-social a{border-radius:17px!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(15px,2.15svh,19px)!important;letter-spacing:-.04em!important}
- .hub-grid .hub-primary .copy small{font-size:clamp(13px,1.75svh,15px)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
- .section-title{margin-top:clamp(12px,1.6svh,18px)!important;margin-bottom:clamp(7px,1svh,11px)!important}
- .footer{font-size:12px!important}
-}
-@media (min-width:351px) and (max-width:700px) and (min-height:780px){
- .hub-grid .hub-primary{height:clamp(100px,12.2svh,124px)!important}
- .hub-grid .hub-tile{height:clamp(128px,16.1svh,158px)!important}
- .hub-social a{height:clamp(104px,13.1svh,130px)!important}
- .content{justify-content:flex-end!important;padding-top:clamp(12px,1.6svh,18px)!important}
-}
-
-/* 2026-10-19｜收尾：主要入口只保留名稱，手機單頁閱讀更清楚 */
-@media (min-width:351px) and (max-width:700px){
- .hub-grid .hub-tile .copy small{display:none!important}
- .hub-grid .hub-tile .chev{display:none!important}
- .hub-grid .hub-tile{padding:10px 4px!important;gap:8px!important}
- .hub-grid .hub-tile .copy{width:100%!important;min-width:0!important}
- .hub-grid .hub-tile .copy strong{white-space:nowrap!important;word-break:keep-all!important;line-height:1.2!important}
- .hub-social a{padding:8px 3px!important;gap:7px!important}
- .hub-grid .hub-primary .copy small{display:block!important}
- .identity .position-row{margin-top:clamp(7px,1svh,11px)!important}
- .identity .tagline{margin-top:clamp(9px,1.3svh,14px)!important}
-}
-
-/* 2026-10-19｜全頁固定一屏、按鈕群以底部為錨點：小螢幕同步縮放 */
-@media (max-width:700px){
- html,body{height:100%!important;min-height:0!important;overflow:hidden!important;overscroll-behavior:none!important}
- .page{
-   width:100%!important;height:100vh!important;height:100dvh!important;
-   min-height:0!important;max-height:100dvh!important;
-   display:flex!important;flex-direction:column!important;
-   overflow:hidden!important;padding-bottom:0!important
- }
- .scene{
-   flex:0 0 auto!important;min-height:0!important;
-   padding:clamp(7px,1.2dvh,13px) 12px 0!important
- }
- .logo{width:clamp(44px,7.8dvh,78px)!important;max-height:10dvh!important;margin-bottom:clamp(2px,.5dvh,6px)!important}
- .identity .brand{font-size:clamp(21px,3dvh,29px)!important;line-height:1.08!important}
- .identity .position-row{margin-top:clamp(3px,.6dvh,7px)!important}
- .identity .position{font-size:clamp(11px,1.55dvh,14px)!important}
- .identity .tagline{margin-top:clamp(5px,.9dvh,9px)!important;font-size:clamp(15px,2.1dvh,19px)!important}
- .identity .intro,.identity .scope{display:none!important}
- .content{
-   flex:1 1 0!important;min-height:0!important;
-   margin:0!important;
-   padding:clamp(8px,1.2dvh,13px) 12px calc(clamp(9px,1.4dvh,15px) + env(safe-area-inset-bottom))!important;
-   display:flex!important;flex-direction:column!important;justify-content:flex-end!important;
-   overflow:hidden!important
- }
- .hub-grid{gap:clamp(5px,.9dvh,9px)!important}
- .hub-grid .hub-primary{height:clamp(65px,10.5dvh,98px)!important;min-height:0!important}
- .hub-grid .hub-tile{height:clamp(75px,12.5dvh,115px)!important;min-height:0!important}
- .hub-grid .hub-tile .icon{width:clamp(32px,4.8dvh,44px)!important;height:clamp(32px,4.8dvh,44px)!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(13px,1.9dvh,17px)!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(19px,2.7dvh,24px)!important}
- .hub-grid .hub-primary .copy small{font-size:clamp(11px,1.6dvh,13px)!important}
- .section-title{margin:clamp(6px,.9dvh,9px) 2px clamp(4px,.6dvh,7px)!important;font-size:clamp(12px,1.7dvh,15px)!important}
- .hub-social{gap:clamp(5px,.9dvh,9px)!important}
- .hub-social a{height:clamp(64px,10.2dvh,94px)!important;min-height:0!important;font-size:clamp(11px,1.65dvh,15px)!important}
- .hub-social .social-mark{width:clamp(26px,3.8dvh,36px)!important;height:clamp(26px,3.8dvh,36px)!important}
- .footer{margin-top:clamp(5px,.8dvh,9px)!important;padding-top:0!important;font-size:11px!important}
- .footer:before{display:none!important}
-}
-@media (max-width:350px){
- .hub-grid .hub-tile .copy strong{font-size:12px!important}
- .hub-social{grid-template-columns:repeat(3,minmax(0,1fr))!important}
- .hub-social a{padding:3px!important;font-size:10px!important}
-}
-
-/* 2026-10-19｜LINE 大主按鈕＋下方六入口兩排三欄 */
-@media (max-width:700px){
- .section-title{display:none!important}
- .hub-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
- .hub-grid .hub-primary{grid-column:1/-1!important;height:clamp(90px,14dvh,130px)!important;min-height:0!important}
- .hub-grid .hub-tile{height:clamp(72px,11dvh,108px)!important;min-height:0!important}
- .hub-social{grid-template-columns:repeat(3,minmax(0,1fr))!important;margin-top:clamp(6px,1dvh,10px)!important}
- .hub-social a{height:clamp(72px,11dvh,108px)!important;min-height:0!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(22px,3.1dvh,29px)!important}
- .hub-grid .hub-primary .icon{width:clamp(47px,6.6dvh,62px)!important;height:clamp(47px,6.6dvh,62px)!important;flex:0 0 auto!important}
- .content{justify-content:flex-end!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .hub-grid .hub-primary{height:clamp(72px,12dvh,90px)!important}
- .hub-grid .hub-tile,.hub-social a{height:clamp(60px,10dvh,74px)!important}
- .hub-social{margin-top:5px!important}
-}
-
-/* 2026-10-19｜六個入口固定兩排三欄；官方 LINE 為大主按鈕 */
-@media (max-width:700px){
- .hub-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:clamp(6px,1dvh,10px)!important}
- .hub-grid .hub-primary{grid-column:1/-1!important;height:clamp(85px,13.2dvh,122px)!important;min-height:0!important}
- .hub-grid .hub-primary .icon{width:clamp(45px,6.5dvh,60px)!important;height:clamp(45px,6.5dvh,60px)!important;flex-basis:clamp(45px,6.5dvh,60px)!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(21px,3dvh,28px)!important}
- .hub-grid .hub-social{display:contents!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(75px,12dvh,110px)!important;min-height:0!important;border-radius:16px!important}
- .hub-grid .hub-social a{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:clamp(3px,.65dvh,7px)!important;font-size:clamp(11px,1.7dvh,15px)!important}
- .hub-grid .hub-social .social-mark{width:clamp(29px,4.5dvh,42px)!important;height:clamp(29px,4.5dvh,42px)!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(12px,1.85dvh,17px)!important}
- .content{justify-content:flex-end!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .hub-grid .hub-primary{height:clamp(65px,11dvh,85px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(62px,10dvh,80px)!important}
-}
-
-/* 2026-10-19｜LINE 單獨置頂，下方左右兩欄、共三列；底部錨定 */
-@media (max-width:700px){
- .hub-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:clamp(5px,.8dvh,9px)!important}
- .hub-grid .hub-primary{grid-column:1/-1!important;height:clamp(74px,11.5dvh,108px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(57px,9.2dvh,83px)!important}
- .hub-grid .hub-tile{flex-direction:row!important;justify-content:center!important;align-items:center!important;gap:6px!important;padding:6px!important}
- .hub-grid .hub-tile .icon{width:clamp(26px,3.8dvh,36px)!important;height:clamp(26px,3.8dvh,36px)!important;flex:0 0 auto!important}
- .hub-grid .hub-tile .copy{width:auto!important}
- .hub-grid .hub-social a{flex-direction:row!important;gap:6px!important}
- .hub-grid .hub-social .social-mark{width:clamp(25px,3.6dvh,34px)!important;height:clamp(25px,3.6dvh,34px)!important}
- .content{justify-content:flex-end!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .hub-grid .hub-primary{height:clamp(62px,10dvh,78px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(50px,8.3dvh,65px)!important}
-}
-
-/* 2026-10-19｜全頁字級定稿：品牌、主要行動、次要入口三層視覺 */
-@media (max-width:700px){
- .identity .brand{font-size:clamp(26px,3.7dvh,34px)!important;line-height:1.12!important;letter-spacing:.09em!important;font-weight:750!important}
- .identity .position{font-size:clamp(12px,1.7dvh,15px)!important;line-height:1.35!important;letter-spacing:.1em!important}
- .identity .tagline{font-size:clamp(16px,2.25dvh,20px)!important;line-height:1.3!important;letter-spacing:.055em!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(22px,3.1dvh,29px)!important;line-height:1.2!important;letter-spacing:.02em!important;font-weight:750!important}
- .hub-grid .hub-primary .copy small{font-size:clamp(12px,1.7dvh,15px)!important;line-height:1.3!important;letter-spacing:.01em!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(14px,2.05dvh,18px)!important;line-height:1.2!important;letter-spacing:0!important;font-weight:700!important}
- .hub-grid .hub-social a{font-size:clamp(13px,1.95dvh,17px)!important;line-height:1.2!important;font-weight:700!important;letter-spacing:0!important}
- .footer{font-size:clamp(10px,1.45dvh,12px)!important;line-height:1.3!important;letter-spacing:.02em!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .identity .brand{font-size:clamp(22px,3.4dvh,27px)!important}
- .identity .position{font-size:11px!important}
- .identity .tagline{font-size:clamp(14px,2.1dvh,16px)!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(19px,2.9dvh,23px)!important}
- .hub-grid .hub-primary .copy small{font-size:11px!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(12px,1.95dvh,15px)!important}
- .hub-grid .hub-social a{font-size:clamp(12px,1.85dvh,14px)!important}
- .footer{font-size:10px!important}
-}
-
-/* 2026-10-19｜兩欄三列加高，保留單頁與底部錨定 */
-@media (max-width:700px){
- .hub-grid{row-gap:clamp(8px,1.15dvh,12px)!important;column-gap:clamp(8px,1.2dvw,12px)!important}
- .hub-grid .hub-primary{height:clamp(91px,13.5dvh,126px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(76px,11.3dvh,106px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{padding-block:clamp(9px,1.2dvh,13px)!important}
- .content{justify-content:flex-end!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .hub-grid{row-gap:clamp(6px,.85dvh,9px)!important}
- .hub-grid .hub-primary{height:clamp(72px,11.3dvh,88px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(63px,9.7dvh,77px)!important}
-}
-
-/* 2026-10-19｜再加高入口卡片，維持底部固定及單頁適配 */
-@media (max-width:700px){
- .hub-grid .hub-primary{height:clamp(100px,15dvh,140px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(86px,13dvh,119px)!important}
- .hub-grid{row-gap:clamp(7px,1dvh,11px)!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .hub-grid .hub-primary{height:clamp(76px,12dvh,92px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(67px,10.5dvh,82px)!important}
-}
-
-/* 2026-10-19｜入口加高與每個按鈕的精簡備註 */
-@media (max-width:700px){
- .hub-grid .hub-primary{height:clamp(106px,15.7dvh,145px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(95px,14.1dvh,128px)!important}
- .hub-grid .hub-tile .copy{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:clamp(3px,.5dvh,6px)!important;min-width:0!important}
- .hub-grid .hub-tile .copy small{display:block!important;font-size:clamp(10px,1.4dvh,12px)!important;line-height:1.25!important;white-space:normal!important;word-break:keep-all!important;text-align:left!important}
- .hub-grid .hub-social a{display:flex!important;flex-direction:row!important;gap:clamp(7px,1dvw,11px)!important;justify-content:center!important;align-items:center!important}
- .hub-grid .hub-social .social-copy{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:clamp(3px,.5dvh,6px)!important;min-width:0!important}
- .hub-grid .hub-social .social-copy strong{font-size:clamp(13px,1.85dvh,17px)!important;line-height:1.2!important}
- .hub-grid .hub-social .social-copy small{display:block!important;font-size:clamp(10px,1.4dvh,12px)!important;line-height:1.25!important;white-space:normal!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .hub-grid .hub-primary{height:clamp(78px,12dvh,96px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(69px,10.5dvh,84px)!important}
- .hub-grid .hub-tile .copy small,.hub-grid .hub-social .social-copy small{font-size:10px!important;line-height:1.1!important}
-}
-
-/* 2026-10-19｜上方品牌區同步放大；維持底部按鈕錨定 */
-@media (max-width:700px){
- .scene{padding-top:clamp(12px,2dvh,21px)!important}
- .logo{width:clamp(74px,11.2dvh,105px)!important;max-height:12dvh!important;margin-bottom:clamp(5px,.8dvh,9px)!important}
- .identity .brand{font-size:clamp(31px,4.45dvh,40px)!important;line-height:1.1!important}
- .identity .position-row{margin-top:clamp(7px,1dvh,12px)!important}
- .identity .position{font-size:clamp(14px,2dvh,17px)!important}
- .identity .tagline{margin-top:clamp(8px,1.15dvh,13px)!important;font-size:clamp(18px,2.55dvh,23px)!important}
- .content{justify-content:flex-end!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .scene{padding-top:clamp(5px,.8dvh,9px)!important}
- .logo{width:clamp(48px,7.7dvh,64px)!important;max-height:8dvh!important;margin-bottom:3px!important}
- .identity .brand{font-size:clamp(23px,3.4dvh,29px)!important}
- .identity .position-row{margin-top:3px!important}
- .identity .position{font-size:12px!important}
- .identity .tagline{margin-top:4px!important;font-size:clamp(15px,2.15dvh,18px)!important}
-}
-
-/* 2026-10-19｜按鈕再加高、標題與備註同步加大 */
-@media (max-width:700px){
- .hub-grid .hub-primary{height:clamp(116px,16.8dvh,155px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(104px,15.1dvh,138px)!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(24px,3.35dvh,31px)!important}
- .hub-grid .hub-primary .copy small{font-size:clamp(14px,1.95dvh,17px)!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(16px,2.3dvh,20px)!important}
- .hub-grid .hub-tile .copy small{font-size:clamp(12px,1.7dvh,14px)!important}
- .hub-grid .hub-social .social-copy strong{font-size:clamp(15px,2.15dvh,19px)!important}
- .hub-grid .hub-social .social-copy small{font-size:clamp(12px,1.7dvh,14px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{padding-inline:clamp(7px,1.5dvw,12px)!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .hub-grid .hub-primary{height:clamp(81px,12.5dvh,98px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(73px,11.2dvh,88px)!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(20px,3dvh,24px)!important}
- .hub-grid .hub-primary .copy small{font-size:12px!important}
- .hub-grid .hub-tile .copy strong,.hub-grid .hub-social .social-copy strong{font-size:clamp(13px,2dvh,16px)!important}
- .hub-grid .hub-tile .copy small,.hub-grid .hub-social .social-copy small{font-size:11px!important}
-}
-
-/* 2026-10-19｜品牌區與入口再放大：底部錨定，矮螢幕保留安全縮放 */
-@media (min-width:351px) and (max-width:700px) and (min-height:741px){
- .scene{padding-top:clamp(13px,2.2dvh,23px)!important}
- .logo{width:clamp(84px,12.2dvh,115px)!important;max-height:13dvh!important;margin-bottom:clamp(6px,.9dvh,10px)!important}
- .identity .brand{font-size:clamp(34px,4.9dvh,44px)!important}
- .identity .position{font-size:clamp(15px,2.15dvh,19px)!important}
- .identity .tagline{font-size:clamp(20px,2.8dvh,25px)!important}
- .hub-grid .hub-primary{height:clamp(124px,17.5dvh,162px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(110px,15.8dvh,145px)!important}
- .hub-grid{row-gap:clamp(6px,.8dvh,10px)!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .logo{width:clamp(52px,8.1dvh,68px)!important}
- .identity .brand{font-size:clamp(24px,3.6dvh,30px)!important}
- .hub-grid .hub-primary{height:clamp(84px,12.8dvh,100px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(75px,11.5dvh,90px)!important}
-}
-
-/* 2026-10-19｜品牌再放大兩級、按鈕加高：以螢幕高度動態適配 */
-@media (min-width:351px) and (max-width:700px) and (min-height:741px){
- .scene{padding-top:clamp(11px,1.7dvh,18px)!important}
- .logo{width:clamp(94px,13.4dvh,126px)!important;max-height:14dvh!important;margin-bottom:clamp(5px,.7dvh,9px)!important}
- .identity .brand{font-size:clamp(38px,5.25dvh,48px)!important}
- .identity .position{font-size:clamp(16px,2.3dvh,20px)!important}
- .identity .tagline{font-size:clamp(21px,3dvh,27px)!important}
- .hub-grid .hub-primary{height:clamp(130px,18.2dvh,170px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(115px,16.4dvh,151px)!important}
- .hub-grid{row-gap:clamp(5px,.7dvh,8px)!important}
- .content{padding-top:clamp(5px,.8dvh,9px)!important;justify-content:flex-end!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .logo{width:clamp(55px,8.4dvh,70px)!important}
- .identity .brand{font-size:clamp(25px,3.8dvh,31px)!important}
- .identity .position{font-size:12px!important}
- .identity .tagline{font-size:clamp(15px,2.2dvh,18px)!important}
- .hub-grid .hub-primary{height:clamp(87px,13.2dvh,103px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:clamp(78px,11.8dvh,93px)!important}
-}
-
-/* 2026-10-19｜高度分配定稿：按鈕優先加高兩級，其餘空間給品牌區 */
-@media (min-width:351px) and (max-width:700px) and (min-height:741px){
- .page{height:100dvh!important;min-height:0!important;overflow:hidden!important}
- .scene{flex:0 1 auto!important;min-height:0!important}
- .content{flex:1 1 0!important;min-height:0!important;padding-top:clamp(5px,.8dvh,9px)!important;justify-content:flex-end!important}
- .content>.card{flex:1 1 auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important}
- .hub-grid{
-   flex:1 1 auto!important;min-height:0!important;
-   display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
-   grid-template-rows:minmax(0,1.32fr) repeat(3,minmax(0,1fr))!important;
-   align-content:stretch!important;row-gap:clamp(6px,.8dvh,9px)!important
- }
- .hub-grid .hub-primary{height:100%!important;min-height:0!important;grid-column:1/-1!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
- .footer{flex:0 0 auto!important}
-}
-
-/* 2026-10-19｜按鈕再加高一階：由品牌區讓出少量空間，保持單頁 */
-@media (min-width:351px) and (max-width:700px) and (min-height:741px){
- .scene{padding-top:clamp(7px,1.1dvh,12px)!important}
- .logo{width:clamp(88px,12.4dvh,117px)!important;max-height:13dvh!important;margin-bottom:clamp(3px,.5dvh,6px)!important}
- .identity .position-row{margin-top:clamp(4px,.6dvh,7px)!important}
- .identity .tagline{margin-top:clamp(5px,.7dvh,8px)!important}
- .content{padding-top:4px!important;padding-bottom:calc(clamp(6px,.9dvh,10px) + env(safe-area-inset-bottom))!important}
- .hub-grid{grid-template-rows:minmax(0,1.38fr) repeat(3,minmax(0,1fr))!important;row-gap:clamp(6px,.8dvh,9px)!important}
-}
-
-@media (min-width:351px) and (max-width:700px) and (min-height:741px){
- .scene{flex:0 0 auto!important;padding-top:12px!important}
- .logo{width:clamp(102px,14dvh,130px)!important;max-height:15dvh!important}
- .identity .brand{font-size:clamp(41px,5.6dvh,51px)!important}
- .identity .position{font-size:clamp(17px,2.4dvh,21px)!important}
- .identity .tagline{font-size:clamp(22px,3dvh,28px)!important}
- .content{flex:1 1 0!important;min-height:0!important;padding-top:6px!important}
- .hub-grid{grid-template-rows:minmax(0,1.42fr) repeat(3,minmax(0,1fr))!important}
- .hub-grid .hub-primary,.hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(17px,2.4dvh,21px)!important}
- .hub-grid .hub-tile .copy small{font-size:clamp(13px,1.85dvh,16px)!important;line-height:1.3!important}
- .hub-grid .hub-social .social-copy strong{font-size:clamp(16px,2.3dvh,20px)!important}
- .hub-grid .hub-social .social-copy small{font-size:clamp(13px,1.85dvh,16px)!important;line-height:1.3!important}
- .hub-grid .hub-primary .copy strong{font-size:clamp(26px,3.6dvh,33px)!important}
- .hub-grid .hub-primary .copy small{font-size:clamp(15px,2.1dvh,18px)!important}
-}
-
-/* 2026-10-19｜手機滿版：收窄左右留白、壓縮品牌與按鈕間空區 */
-@media (min-width:351px) and (max-width:700px) and (min-height:741px){
- .page{width:100%!important;max-width:none!important;height:100dvh!important;overflow:hidden!important}
- .scene{padding:clamp(9px,1.3dvh,15px) 9px 0!important}
- .content{padding:clamp(5px,.7dvh,8px) 9px calc(clamp(5px,.8dvh,9px) + env(safe-area-inset-bottom))!important}
- .content>.card{width:100%!important;max-width:none!important}
- .hub-grid{width:100%!important;grid-template-rows:minmax(0,1.48fr) repeat(3,minmax(0,1fr))!important;column-gap:9px!important;row-gap:9px!important}
- .hub-grid .hub-primary,.hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
- .footer{margin-top:5px!important}
-}
-
-/* 2026-10-19｜熟齡友善：提高標題與備註可讀性、加強對比 */
-@media (max-width:700px){
- .hub-grid .hub-primary .copy strong{font-size:clamp(27px,3.7dvh,35px)!important;font-weight:800!important;line-height:1.18!important}
- .hub-grid .hub-primary .copy small{font-size:clamp(16px,2.15dvh,19px)!important;font-weight:650!important;line-height:1.3!important}
- .hub-grid .hub-tile .copy strong{font-size:clamp(18px,2.45dvh,22px)!important;font-weight:800!important;line-height:1.2!important;color:#18283d!important}
- .hub-grid .hub-tile .copy small{font-size:clamp(14px,1.95dvh,17px)!important;font-weight:650!important;line-height:1.3!important;color:#303c43!important}
- .hub-grid .hub-social .social-copy strong{font-size:clamp(17px,2.35dvh,21px)!important;font-weight:800!important;line-height:1.2!important;color:#18283d!important}
- .hub-grid .hub-social .social-copy small{font-size:clamp(14px,1.95dvh,17px)!important;font-weight:650!important;line-height:1.3!important;color:#303c43!important}
- .hub-grid .hub-tile .copy,.hub-grid .hub-social .social-copy{gap:clamp(4px,.6dvh,7px)!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{overflow:hidden!important}
-}
-@media (max-width:700px) and (max-height:740px){
- .hub-grid .hub-primary .copy strong{font-size:clamp(21px,3dvh,26px)!important}
- .hub-grid .hub-primary .copy small{font-size:clamp(13px,1.9dvh,15px)!important}
- .hub-grid .hub-tile .copy strong,.hub-grid .hub-social .social-copy strong{font-size:clamp(15px,2.1dvh,18px)!important}
- .hub-grid .hub-tile .copy small,.hub-grid .hub-social .social-copy small{font-size:clamp(12px,1.75dvh,14px)!important}
-}
-
-/* 2026-10-19｜依 iPhone 實拍收尾：利用山水留白放大品牌與熟齡按鈕 */
-@media (min-width:351px) and (max-width:700px) and (min-height:741px){
- .scene{flex:0 0 auto!important;padding-top:clamp(9px,1.2dvh,14px)!important}
- .logo{width:clamp(107px,15dvh,139px)!important;max-height:15.5dvh!important;margin-bottom:clamp(5px,.7dvh,9px)!important}
- .identity .brand{font-size:clamp(43px,6dvh,55px)!important}
- .identity .position{font-size:clamp(18px,2.5dvh,22px)!important}
- .identity .tagline{font-size:clamp(23px,3.2dvh,29px)!important}
- .content{flex:1 1 0!important;min-height:0!important;padding-top:clamp(5px,.7dvh,8px)!important}
- .content>.card{flex:1 1 auto!important;min-height:0!important}
- .hub-grid{grid-template-rows:minmax(0,1.45fr) repeat(3,minmax(0,1fr))!important;row-gap:clamp(7px,.9dvh,10px)!important}
- .hub-grid .hub-primary,.hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
-}
-
-/* 2026-10-19｜iPhone 截圖修正：強制覆寫舊高度，單頁滿版與大字 */
-@media (min-width:351px) and (max-width:700px) and (min-height:741px){
- html,body{height:100%!important;overflow:hidden!important}
- .page{box-sizing:border-box!important;display:flex!important;flex-direction:column!important;height:100dvh!important;min-height:0!important;max-height:100dvh!important;overflow:hidden!important}
- .scene{box-sizing:border-box!important;flex:0 0 31%!important;height:31%!important;min-height:0!important;max-height:31%!important;padding:clamp(8px,1dvh,13px) 10px 0!important;justify-content:flex-start!important;align-items:center!important}
- .identity{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important}
- .identity .logo{display:block!important;width:auto!important;height:clamp(105px,13dvh,132px)!important;max-height:clamp(105px,13dvh,132px)!important;margin:0 auto 5px!important}
- .identity .brand{font-size:clamp(41px,5.5dvh,52px)!important;margin:0!important}
- .identity .position-row{margin-top:5px!important}
- .identity .position{font-size:clamp(17px,2.25dvh,21px)!important}
- .identity .tagline{margin-top:7px!important;font-size:clamp(22px,2.85dvh,27px)!important}
- .content{box-sizing:border-box!important;flex:1 1 0!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0!important;padding:0 10px calc(5px + env(safe-area-inset-bottom))!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important}
- .content>.card{flex:1 1 0!important;height:auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;justify-content:flex-end!important}
- .hub-grid{box-sizing:border-box!important;flex:1 1 0!important;height:100%!important;min-height:0!important;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:minmax(0,1.36fr) repeat(3,minmax(0,1fr))!important;gap:9px!important}
- .hub-grid .hub-primary{grid-column:1/-1!important;height:100%!important;min-height:0!important}
- .hub-grid .hub-tile,.hub-grid .hub-social a{height:100%!important;min-height:0!important}
- .footer{flex:0 0 auto!important;margin-top:4px!important;padding:0!important}
-}
-
-/* 2026-10-19｜依 20:50 iPhone 實拍：縮小中央空白，將空間真正分給品牌與七個入口 */
-@media (min-width:351px) and (max-width:700px) and (min-height:741px){
- html,body{height:100%!important;overflow:hidden!important}
- main.page{display:flex!important;flex-direction:column!important;justify-content:stretch!important;box-sizing:border-box!important;height:100dvh!important;min-height:0!important;max-height:100dvh!important;overflow:hidden!important}
- main.page>section.scene{display:flex!important;flex:0 0 29%!important;height:29%!important;min-height:0!important;max-height:29%!important;align-items:flex-start!important;justify-content:center!important;padding:clamp(10px,1.3dvh,15px) 10px 0!important}
- main.page .scene .identity{display:flex!important;flex-direction:column!important;align-items:center!important;gap:0!important}
- main.page .scene .identity img.logo{width:auto!important;height:clamp(112px,14dvh,144px)!important;max-height:14.5dvh!important;object-fit:contain!important;margin:0 auto 4px!important}
- main.page .scene .identity h1.brand{font-size:clamp(43px,5.9dvh,55px)!important;line-height:1.1!important}
- main.page .scene .identity .position{font-size:clamp(17px,2.35dvh,22px)!important;line-height:1.3!important}
- main.page .scene .identity .tagline{font-size:clamp(23px,3.1dvh,29px)!important;line-height:1.3!important}
- main.page>section.content{display:flex!important;flex-direction:column!important;flex:1 1 0!important;height:auto!important;min-height:0!important;max-height:none!important;justify-content:flex-end!important;box-sizing:border-box!important;margin:0!important;padding:0 10px calc(5px + env(safe-area-inset-bottom))!important}
- main.page .content>.card{display:flex!important;flex-direction:column!important;flex:1 1 0!important;min-height:0!important;height:auto!important;padding:0!important;margin:0!important}
- main.page .content .stack.hub-grid{display:grid!important;flex:1 1 0!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:minmax(0,1.35fr) repeat(3,minmax(0,1fr))!important;gap:clamp(7px,.95dvh,11px)!important;align-content:stretch!important}
- main.page .hub-grid .hub-social{display:contents!important}
- main.page .hub-grid>a.hub-primary{grid-column:1/-1!important;height:100%!important;min-height:0!important;max-height:none!important}
- main.page .hub-grid>a.hub-tile,main.page .hub-grid .hub-social>a{height:100%!important;min-height:0!important;max-height:none!important}
- main.page .content .footer{flex:0 0 auto!important;margin:4px 0 0!important;padding:0!important}
-}
-
-/* 2026-10-19｜手機實拍校正：以絕對定位鎖定底部入口，消除中間過大空白 */
-@media (min-width:351px) and (max-width:700px) and (min-height:560px){
- main.page{position:relative!important;display:block!important;height:100dvh!important;min-height:0!important;max-height:100dvh!important;overflow:hidden!important}
- main.page>section.scene{position:absolute!important;z-index:1!important;top:0!important;left:0!important;right:0!important;bottom:auto!important;display:flex!important;width:100%!important;height:30dvh!important;max-height:30dvh!important;min-height:0!important;overflow:hidden!important;padding:clamp(6px,.8dvh,10px) 10px 0!important;box-sizing:border-box!important;justify-content:flex-start!important;align-items:center!important}
- main.page .scene .identity img.logo{height:clamp(65px,11dvh,115px)!important;max-height:11dvh!important;width:auto!important;margin-bottom:5px!important}
- main.page .scene .identity h1.brand{font-size:clamp(35px,5dvh,48px)!important}
- main.page .scene .identity .position{font-size:clamp(15px,2.1dvh,19px)!important}
- main.page .scene .identity .tagline{font-size:clamp(19px,2.7dvh,25px)!important}
- main.page>section.content{position:absolute!important;z-index:2!important;left:0!important;right:0!important;bottom:0!important;top:auto!important;box-sizing:border-box!important;width:100%!important;height:70dvh!important;min-height:0!important;max-height:70dvh!important;display:flex!important;flex-direction:column!important;margin:0!important;padding:0 10px calc(5px + env(safe-area-inset-bottom))!important}
- main.page .content>.card{display:flex!important;flex-direction:column!important;flex:1 1 0!important;height:100%!important;min-height:0!important;max-height:none!important;margin:0!important;padding:0!important}
- main.page .content .stack.hub-grid{display:grid!important;flex:1 1 0!important;width:100%!important;height:100%!important;min-height:0!important;max-height:none!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:minmax(0,1.3fr) repeat(3,minmax(0,1fr))!important;gap:clamp(7px,.9dvh,10px)!important;align-content:stretch!important}
- main.page .hub-grid .hub-social{display:contents!important}
- main.page .hub-grid>a.hub-primary{grid-column:1/-1!important;height:100%!important;min-height:0!important;max-height:none!important}
- main.page .hub-grid>a.hub-tile,main.page .hub-grid .hub-social>a{height:100%!important;min-height:0!important;max-height:none!important}
- main.page .content .footer{flex:0 0 auto!important;margin:4px 0 0!important;padding:0!important}
-}
-
-/* 2026-10-19｜修復品牌標語與故事文字被截斷 */
-@media (min-width:351px) and (max-width:700px) and (min-height:560px){
- main.page>section.scene{height:35dvh!important;max-height:35dvh!important;overflow:visible!important;padding-top:clamp(5px,.7dvh,8px)!important}
- main.page .scene .identity img.logo{height:clamp(65px,9.5dvh,98px)!important;max-height:10dvh!important;margin-bottom:3px!important}
- main.page .scene .identity h1.brand{font-size:clamp(34px,4.7dvh,46px)!important;line-height:1.05!important}
- main.page .scene .identity .position-row{margin-top:3px!important}
- main.page .scene .identity .position{font-size:clamp(14px,2dvh,18px)!important;line-height:1.2!important}
- main.page .scene .identity .tagline{display:block!important;margin-top:5px!important;font-size:clamp(18px,2.5dvh,24px)!important;line-height:1.2!important}
- main.page .scene .identity .intro,main.page .scene .identity .scope{display:block!important;font-size:clamp(11px,1.65dvh,14px)!important;line-height:1.15!important;margin-top:3px!important}
- main.page>section.content{height:65dvh!important;max-height:65dvh!important}
-}
-
-/* 2026-10-19｜Logo 等比例加大，保留品牌標語及兩行故事 */
-@media (min-width:351px) and (max-width:700px) and (min-height:560px){
- main.page .scene .identity img.logo{
-  width:auto!important;height:clamp(83px,11.5dvh,118px)!important;
-  max-height:12dvh!important;max-width:100%!important;
-  object-fit:contain!important;object-position:center!important;
-  margin:0 auto 3px!important;flex-shrink:0!important;
- }
- main.page .scene .identity h1.brand{margin-top:0!important}
- main.page .scene .identity .intro,main.page .scene .identity .scope{display:block!important}
-}
-
-/* 2026-10-19｜熟齡友善：只放大按鈕內標題與備註，維持已確認版面 */
-@media (min-width:351px) and (max-width:700px){
- main.page .content .hub-grid>a.link .copy strong{
-  font-size:clamp(19px,2.7dvh,24px)!important;
-  font-weight:800!important;line-height:1.15!important;letter-spacing:-.035em!important;
- }
- main.page .content .hub-grid>a.link .copy small{
-  display:block!important;font-size:clamp(14px,1.95dvh,17px)!important;
-  font-weight:650!important;line-height:1.28!important;letter-spacing:-.025em!important;
-  white-space:normal!important;overflow-wrap:normal!important;
- }
- main.page .content .hub-grid>a.hub-primary .copy strong{font-size:clamp(27px,3.65dvh,34px)!important}
- main.page .content .hub-grid>a.hub-primary .copy small{font-size:clamp(16px,2.2dvh,19px)!important}
- main.page .content .hub-grid .hub-social>a .social-copy strong{
-  font-size:clamp(18px,2.55dvh,23px)!important;font-weight:800!important;
-  line-height:1.15!important;letter-spacing:-.04em!important;
- }
- main.page .content .hub-grid .hub-social>a .social-copy small{
-  display:block!important;font-size:clamp(14px,1.95dvh,17px)!important;
-  font-weight:650!important;line-height:1.28!important;letter-spacing:-.03em!important;
-  white-space:normal!important;
- }
- main.page .content .hub-grid>a.link .copy,
- main.page .content .hub-grid .hub-social>a .social-copy{min-width:0!important}
-}
-
-/* 2026-10-19｜熟齡友善按鈕：放大圖示、標題與備註，不更動版面高度 */
-@media (min-width:351px) and (max-width:700px){
- main.page .content .hub-grid>a.link .icon{
-  width:clamp(43px,6dvh,57px)!important;height:clamp(43px,6dvh,57px)!important;
-  min-width:clamp(43px,6dvh,57px)!important;flex:0 0 auto!important;
- }
- main.page .content .hub-grid>a.hub-primary .icon{
-  width:clamp(67px,9.5dvh,88px)!important;height:clamp(67px,9.5dvh,88px)!important;
-  min-width:clamp(67px,9.5dvh,88px)!important;
- }
- main.page .content .hub-grid .hub-social>a .social-mark{
-  width:clamp(43px,6dvh,57px)!important;height:clamp(43px,6dvh,57px)!important;
-  min-width:clamp(43px,6dvh,57px)!important;flex:0 0 auto!important;
- }
- main.page .content .hub-grid>a.hub-tile,
- main.page .content .hub-grid .hub-social>a{gap:clamp(7px,1.2dvw,11px)!important;padding-inline:clamp(8px,1.7dvw,13px)!important}
- main.page .content .hub-grid>a.hub-tile .copy strong,
- main.page .content .hub-grid .hub-social>a .social-copy strong{
-  font-size:clamp(19px,2.7dvh,24px)!important;font-weight:800!important;line-height:1.14!important;
- }
- main.page .content .hub-grid>a.hub-tile .copy small,
- main.page .content .hub-grid .hub-social>a .social-copy small{
-  font-size:clamp(14px,1.95dvh,17px)!important;font-weight:700!important;
-  line-height:1.25!important;color:#28363d!important;
- }
- main.page .content .hub-grid>a.hub-primary .copy strong{font-size:clamp(29px,3.9dvh,37px)!important}
- main.page .content .hub-grid>a.hub-primary .copy small{font-size:clamp(16px,2.3dvh,20px)!important;font-weight:700!important}
- main.page .content .hub-grid .copy,
- main.page .content .hub-grid .social-copy{min-width:0!important}
-}
 
 /* 2026-10-19｜Android／小米：鎖定品牌亮色，窄螢幕字體與圖示防溢出 */
 :root,html,body{color-scheme:only light!important}
-@media (max-width:700px){
- main.page .content .hub-grid>a.hub-tile,
- main.page .content .hub-grid .hub-social>a{
-  background:rgba(255,253,247,.96)!important;
-  background-color:#fffdf7!important;
-  color:#172536!important;
-  border-color:#bca171!important;
- }
- main.page .content .hub-grid>a.hub-tile .copy strong,
- main.page .content .hub-grid .hub-social>a .social-copy strong{color:#10233b!important}
- main.page .content .hub-grid>a.hub-tile .copy small,
- main.page .content .hub-grid .hub-social>a .social-copy small{color:#35413f!important}
- main.page .content .hub-grid>a.hub-primary{
-  background-color:#85282b!important;color:#fffdf7!important;
- }
- main.page .content .hub-grid>a.hub-primary .copy strong,
- main.page .content .hub-grid>a.hub-primary .copy small{color:#fffdf7!important}
-}
-@media (min-width:351px) and (max-width:440px){
- main.page .content .hub-grid>a.hub-tile,
- main.page .content .hub-grid .hub-social>a{
-  gap:clamp(4px,1vw,7px)!important;
-  padding-inline:clamp(5px,1.4vw,8px)!important;
-  overflow:hidden!important;
- }
- main.page .content .hub-grid>a.hub-tile .icon,
- main.page .content .hub-grid .hub-social>a .social-mark{
-  width:clamp(32px,9.4vw,43px)!important;
-  height:clamp(32px,9.4vw,43px)!important;
-  min-width:clamp(32px,9.4vw,43px)!important;
- }
- main.page .content .hub-grid>a.hub-tile .copy,
- main.page .content .hub-grid .hub-social>a .social-copy{
-  flex:1 1 auto!important;min-width:0!important;max-width:100%!important;
-  overflow:hidden!important;
- }
- main.page .content .hub-grid>a.hub-tile .copy strong,
- main.page .content .hub-grid .hub-social>a .social-copy strong{
-  display:block!important;font-size:clamp(16px,4.5vw,20px)!important;
-  line-height:1.16!important;letter-spacing:-.04em!important;
-  white-space:nowrap!important;overflow:hidden!important;
- }
- main.page .content .hub-grid>a.hub-tile .copy small,
- main.page .content .hub-grid .hub-social>a .social-copy small{
-  display:block!important;font-size:clamp(11px,3.2vw,14px)!important;
-  line-height:1.22!important;letter-spacing:-.045em!important;
-  white-space:normal!important;overflow-wrap:anywhere!important;
-  word-break:normal!important;max-width:100%!important;
- }
- main.page .content .hub-grid>a.hub-primary .copy strong{
-  font-size:clamp(25px,7vw,33px)!important;
- }
- main.page .content .hub-grid>a.hub-primary .copy small{
-  font-size:clamp(13px,3.65vw,17px)!important;
-  white-space:normal!important;
- }
-}
+
 
 /* 品牌入口閱讀性：維持正式配置，避免桌機與平板介紹字過小 */
 @media (min-width:701px){
@@ -1229,53 +512,57 @@ a{color:inherit}
   main.page .identity .scope{font-size:16px!important;line-height:1.5!important}
   main.page .footer{font-size:15px!important;line-height:1.5!important}
 }
+}
 
-/* 2026-10-20｜跨瀏覽器視覺驗收：修正連結入口次要文字過小。
-   一般手機維持單頁配置；極窄螢幕允許捲動，避免放大文字後裁切。 */
+/* 2026-11-16｜Facebook / Android / iOS：內容自然決定高度，避免固定視窗比例裁切。
+   保留大 LINE、雙欄六入口與原始品牌圖；窄屏／大字可自然捲動。 */
 @media (max-width:700px){
- main.page .identity .intro,
- main.page .identity .scope{font-size:16px!important;line-height:1.3!important}
- main.page .identity .position{font-size:16px!important;line-height:1.3!important}
- main.page .content .hub-grid>a.hub-tile .copy small,
- main.page .content .hub-grid .hub-social>a .social-copy small{
-   font-size:15px!important;line-height:1.3!important;
-   white-space:normal!important;overflow-wrap:anywhere!important
- }
- main.page .content .footer{font-size:15px!important;line-height:1.35!important}
+  html,body{height:auto;min-height:100%;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .page{width:100%;height:auto;min-height:100vh;min-height:100svh;max-height:none;overflow-x:clip;
+    display:flex;flex-direction:column;isolation:isolate;padding-bottom:0;
+    background:linear-gradient(180deg,rgba(247,244,237,.78),rgba(247,244,237,.92)),url("images/brand/world-landscape-v20261008.webp?v=20261008-landscape-v44") center/cover no-repeat}
+  .scene{flex:0 0 auto;min-height:0;height:auto;padding:10px 10px 8px;align-items:flex-start;background:transparent}
+  .scene:after{display:none}
+  .identity{width:100%;max-width:100%;min-width:0}
+  .logo{width:auto;height:clamp(68px,20vw,100px);max-height:none;max-width:100%;margin:0 auto 4px;object-fit:contain}
+  .brand{font-size:clamp(1.8rem,8.4vw,2.6rem);line-height:1.12;margin:0}
+  .position-row{gap:10px;margin-top:4px}
+  .position-row:before,.position-row:after{width:clamp(20px,10vw,48px);flex-shrink:1}
+  .position{font-size:clamp(.85rem,3.7vw,1.1rem);line-height:1.3}
+  .tagline{font-size:clamp(1rem,4.6vw,1.35rem);line-height:1.3;margin-top:6px}
+  .intro,.scope{display:block;max-width:100%;font-size:clamp(1rem,4.6vw,1.2rem);line-height:1.35;margin:4px auto 0;overflow-wrap:anywhere}
+  .content{flex:1 0 auto;min-width:0;min-height:0;height:auto;margin:0;padding:0 10px calc(8px + env(safe-area-inset-bottom));display:flex;flex-direction:column;justify-content:flex-start}
+  .content>.card{flex:0 0 auto;width:100%;height:auto;min-height:0}
+  .stack.hub-grid{display:grid;width:100%;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto;grid-auto-rows:auto;align-items:stretch;gap:7px}
+  .hub-grid .hub-social{display:contents}
+  .hub-grid>a,.hub-grid .hub-social>a{display:flex;flex-direction:row;align-items:center;justify-content:flex-start;text-align:left;min-width:0;height:auto;max-height:none;min-height:56px;gap:6px;padding:6px;border-radius:16px;overflow:visible;touch-action:manipulation}
+  .hub-grid>a.hub-tile,.hub-grid .hub-social>a{background:rgba(255,253,247,.96);border-color:#bca171;color:var(--navy)}
+  .hub-grid>a.hub-primary{grid-column:1/-1;min-height:74px;padding:5px 16px;gap:12px;border-radius:20px}
+  .hub-grid .icon,.hub-grid .social-mark{width:clamp(32px,9.3vw,46px);height:clamp(32px,9.3vw,46px);flex:0 0 auto;min-width:0}
+  .hub-grid .hub-primary .icon{width:clamp(51px,16vw,76px);height:clamp(51px,16vw,76px)}
+  .hub-grid .icon svg{width:70%;height:70%}
+  .hub-grid .icon--line svg{width:100%;height:100%}
+  .hub-grid .social-mark--facebook{font-size:1.65rem}
+  .hub-grid .copy,.hub-grid .social-copy{display:block;flex:1 1 0%;min-width:0;width:auto;max-width:100%;overflow:visible;text-align:left}
+  .hub-grid .copy strong,.hub-grid .social-copy strong{display:block;color:var(--navy);font-size:clamp(1rem,4.5vw,1.25rem);font-weight:800;line-height:1.2;letter-spacing:-.025em;white-space:normal;overflow-wrap:anywhere}
+  .hub-grid .copy small,.hub-grid .social-copy small{display:block;color:var(--ink);font-size:clamp(.78rem,3.5vw,.95rem);font-weight:650;line-height:1.35;margin-top:2px;letter-spacing:-.025em;white-space:normal;overflow-wrap:anywhere;word-break:normal}
+  .hub-grid .hub-primary .copy strong{color:#fff;font-size:clamp(1.5rem,7vw,2.1rem)}
+  .hub-grid .hub-primary .copy small{color:#fffdf7;font-size:clamp(.9rem,3.85vw,1.15rem)}
+  .hub-grid .hub-tile .chev{display:none}
+  .hours{flex:0 0 auto;min-width:0;height:auto;margin-top:18px;padding:15px 12px;grid-template-columns:36px minmax(0,1fr);gap:10px;font-size:clamp(.9rem,3.8vw,1.05rem);line-height:1.65;overflow-wrap:anywhere}
+  .hours>div{min-width:0}
+  .hours-icon{width:36px;height:36px}
+  .hours strong{font-size:1em}
+  .footer{display:block;flex:0 0 auto;margin-top:7px;padding:0;font-size:clamp(.88rem,3.7vw,1rem);line-height:1.4;color:var(--ink);font-weight:600;letter-spacing:.04em}
+  .footer:before{display:none}
+  .decor--goji,.decor--deer,.decor--herbs,.decor--turtle{opacity:.25}
+  .link:focus-visible,.social a:focus-visible{outline:3px solid #B08A47;outline-offset:2px}
 }
 @media (max-width:350px){
- html,body{height:auto!important;overflow-x:hidden!important;overflow-y:auto!important}
- main.page{height:auto!important;min-height:100dvh!important;max-height:none!important;
-   overflow:visible!important;display:flex!important;flex-direction:column!important}
- main.page>section.scene{position:relative!important;inset:auto!important;height:auto!important;
-   max-height:none!important;min-height:0!important;overflow:visible!important;padding:12px 10px 10px!important}
- main.page>section.content{position:relative!important;inset:auto!important;height:auto!important;
-   max-height:none!important;min-height:0!important;flex:1 0 auto!important;
-   padding:8px 10px 18px!important;overflow:visible!important}
- main.page .content>.card{height:auto!important;min-height:0!important;flex:0 0 auto!important}
- main.page .content .stack.hub-grid{height:auto!important;min-height:0!important;
-   grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-template-rows:auto!important;
-   gap:9px!important}
- main.page .content .hub-grid>a.hub-primary{grid-column:1/-1!important;min-height:90px!important}
- main.page .content .hub-grid>a.hub-tile,
- main.page .content .hub-grid .hub-social>a{height:auto!important;min-height:96px!important;
-   padding:9px 7px!important;overflow:visible!important}
- main.page .content .hub-grid>a.hub-tile .copy strong,
- main.page .content .hub-grid .hub-social>a .social-copy strong{
-   white-space:normal!important;overflow-wrap:anywhere!important;overflow:visible!important
- }
- main.page .content .hub-grid>a.hub-tile .copy,
- main.page .content .hub-grid .hub-social>a .social-copy{overflow:visible!important}
- main.page .content .footer{display:block!important}
-}
-
-/* 2026-10-20｜手機實際渲染可讀性修正：補償跨瀏覽器字形縮放並提高山水底圖上的局部對比。 */
-@media (max-width:700px){
- main.page .scene .identity .intro,
- main.page .scene .identity .scope{font-size:19px!important;line-height:1.35!important}
- main.page .content .hub-grid>a.hub-tile .copy small,
- main.page .content .hub-grid .hub-social>a .social-copy small{color:#172536!important}
- main.page .content .footer{color:#172536!important;font-size:16px!important;font-weight:600!important}
+  .stack.hub-grid{grid-template-columns:1fr}
+  .hub-grid>a,.hub-grid .hub-social>a{min-height:56px;padding-inline:10px;gap:9px}
+  .hub-grid .copy strong,.hub-grid .social-copy strong{font-size:1.05rem}
+  .hub-grid .copy small,.hub-grid .social-copy small{font-size:.85rem}
 }
 </style>
 <link rel="icon" href="favicon.ico?v=20261003" sizes="any"/>
