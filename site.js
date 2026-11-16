@@ -11,6 +11,11 @@
   if (window.__XJW_SITE_WRAPPER_V6__) return;
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
+  const analytics = document.createElement("script");
+  analytics.src = new URL("site-analytics.js", document.currentScript.src).href;
+  analytics.async = true;
+  document.head.appendChild(analytics);
+
   const VERSION = "20261109-readable-controls-v11";
   const PRODUCT_MEDIA_AUTHORITY = `site-product-media-authority.js?v=${VERSION}`;
   const AUTHORITY = `site-product-data-authority.js?v=${VERSION}`;
