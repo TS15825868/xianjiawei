@@ -141,7 +141,7 @@ function pageLineMessage(page = currentPageKey()) {
     home: "我從仙加味官網首頁進來，想了解產品與怎麼選。",
     products: "我從仙加味商品總覽進來，想了解商品規格、供貨與購買方式。",
     "product-detail": "我正在查看產品詳細介紹，想確認規格與購買方式。",
-    choose: "我不確定怎麼選，想請你依我的生活方式幫我整理。",
+    choose: "我從仙加味官網怎麼選頁面進來，想請你幫我比較產品。",
     combo: "我想詢問產品搭配方式。",
     guide: "我想詢問仙加味產品的一般使用方式。",
     recipes: "我想了解龜鹿產品的料理搭配。",
@@ -152,7 +152,7 @@ function pageLineMessage(page = currentPageKey()) {
     sources: "我看了資料來源，想進一步了解仙加味產品資訊。",
     brand: "我從品牌故事頁進來，想認識仙加味與產品。",
     faq: "我看了常見問題，還有問題想詢問。",
-    trial: "我想申請龜鹿飲30cc試喝組。",
+    trial: "我從仙加味官網試喝頁進來，想申請龜鹿飲30cc試喝組。",
     contact: "我想聯絡仙加味。",
     dm: "我看了產品圖文整理，想確認規格與購買方式。"
   };
