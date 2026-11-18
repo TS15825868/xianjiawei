@@ -82,7 +82,7 @@ def main():
 
     master=load('public-product-master.json');mb={p.get('id'):p for p in master.get('products') or []}
     if master.get('authority')!='user-confirmed-current':fail(errors,'public-product-master不是目前使用者確認權威')
-    if master.get('productCount')!=len(PUBLIC_IDS) or list(mb)!=PUBLIC_IDS:fail(errors,'public-product-master不是目前六項官網產品權威')
+    if master.get('productCount')!=len(PUBLIC_IDS) or list(mb)!=PUBLIC_IDS:fail(errors,'public-product-master與目前自有品牌公開產品權威不一致')
     for pid,spec in SPECS.items():
         if mb.get(pid,{}).get('specification')!=spec:fail(errors,f'public-product-master規格錯誤：{pid}')
     normalize_usage=lambda value: re.sub(r'\s+', '', value.translate(str.maketrans({'～':'-', '–':'-', '〜':'-', '~':'-'})))
@@ -127,7 +127,7 @@ def main():
 
     if errors:
         print('\n'.join('ERROR '+e for e in errors));return 1
-    print(f'PASS AIO/AEO/SEO/GEO: {len(urls)} sitemap URLs, six website products, direct-answer authority, current social entity graph, OAI Search crawl allowed, current 30cc use, deferred product absent from public AI surfaces.')
+    print(f'PASS AIO/AEO/SEO/GEO: {len(urls)} sitemap URLs, {len(PUBLIC_IDS)} own-brand AI knowledge products, direct-answer authority, current social entity graph, OAI Search crawl allowed, current 30cc use, deferred product absent from public AI surfaces.')
     return 0
 
 if __name__=='__main__':raise SystemExit(main())

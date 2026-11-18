@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urljoin, urlparse
 from urllib.request import Request, urlopen
@@ -9,26 +11,23 @@ import xml.etree.ElementTree as ET
 
 BASE = "https://ts15825868.github.io/xianjiawei/"
 SITEMAP = urljoin(BASE, "sitemap.xml")
-KEY_STATIC_LINKS = {
-    "products.html",
-    "faq.html",
-    "brand.html",
-    "trial.html",
-    "product-guilu-gao.html",
-    "product-guilu-drink-30cc.html",
-    "product-guilu-drink-180cc.html",
-    "product-guilu-tangkuai.html",
-    "product-guilu-jiao.html",
-    "product-luerong-fen.html",
-}
-PRODUCT_LINKS = {
-    "product-guilu-gao.html",
-    "product-guilu-drink-30cc.html",
-    "product-guilu-drink-180cc.html",
-    "product-guilu-tangkuai.html",
-    "product-guilu-jiao.html",
-    "product-luerong-fen.html",
-}
+ROOT = Path(__file__).resolve().parents[1]
+HIDDEN_OWN = {"product-guilu-tangkuai.html", "product-guilu-jiao.html"}
+
+def load_public_pages(master, partners):
+    own = set()
+    for item in master["products"]:
+        page = item["page"]
+        if not page.startswith(BASE):
+            raise ValueError("own page outside canonical base")
+        own.add(page.removeprefix(BASE))
+    public = {item["page"] for item in partners["products"] if item.get("public") is True}
+    hidden = {item["page"] for item in partners["products"] if item.get("public") is False and item.get("page")}
+    if len(own) != master["productCount"] or own & public or (own | public) & (hidden | HIDDEN_OWN):
+        raise ValueError("public page identity or visibility conflict")
+    if any(not page.startswith("product-") or not page.endswith(".html") or "/" in page for page in own | public | hidden):
+        raise ValueError("invalid product page")
+    return own, public, hidden | HIDDEN_OWN
 
 
 class PageParser(HTMLParser):
@@ -102,6 +101,26 @@ def main() -> int:
     if not urls:
         errors.append("sitemap contains no URLs")
 
+    # Compare deployed source-of-truth files with this exact audited Git version.
+    # Partner products are discoverable on the website, but are not forced into
+    # the own-brand AI knowledge master.
+    local_master = json.loads((ROOT / "public-product-master.json").read_text(encoding="utf-8"))
+    local_partners = json.loads((ROOT / "partner-catalog.json").read_text(encoding="utf-8"))
+    own, partner, hidden = load_public_pages(local_master, local_partners)
+    for rel, expected in [("public-product-master.json", local_master), ("partner-catalog.json", local_partners)]:
+        st, _, raw = fetch(urljoin(BASE, rel))
+        if st != 200 or json.loads(raw) != expected:
+            errors.append(f"live authority differs from audited repository: {rel}")
+    public_pages = own | partner
+    sitemap_pages = {normalized_local(u) for u in urls}
+    if public_pages - sitemap_pages:
+        errors.append("sitemap missing public catalog pages: " + ", ".join(sorted(public_pages - sitemap_pages)))
+    if hidden & sitemap_pages:
+        errors.append("sitemap contains hidden pages: " + ", ".join(sorted(hidden & sitemap_pages)))
+    for rel in sorted(hidden):
+        st, _, body = fetch(urljoin(BASE, rel))
+        if st not in (404, 410) and (st != 200 or "noindex" not in parse_page(body).robots):
+            errors.append(f"hidden product page indexable or unavailable unexpectedly: {rel} HTTP {st}")
     html_pages = 0
     for url in urls:
         if not url.startswith(BASE):
@@ -128,7 +147,7 @@ def main() -> int:
     st, _, homepage = fetch(urljoin(BASE, "index.html"))
     if st == 200:
         links = {x for href in parse_page(homepage).hrefs if (x := normalized_local(href))}
-        missing = sorted(KEY_STATIC_LINKS - links)
+        missing = sorted((own | {"products.html", "faq.html", "brand.html", "trial.html"}) - links)
         if missing:
             errors.append("homepage missing static discovery links: " + ", ".join(missing))
     else:
@@ -137,7 +156,9 @@ def main() -> int:
     st, _, products = fetch(urljoin(BASE, "products.html"))
     if st == 200:
         links = {x for href in parse_page(products).hrefs if (x := normalized_local(href))}
-        missing = sorted(PRODUCT_LINKS - links)
+        missing = sorted(public_pages - links)
+        if hidden & links:
+            errors.append("products page links to hidden product pages: " + ", ".join(sorted(hidden & links)))
         if missing:
             errors.append("products page missing static product links: " + ", ".join(missing))
 
@@ -165,7 +186,7 @@ def main() -> int:
             print("ERROR", item)
         return 1
 
-    print(f"PASS free live SEO/AIO/AEO/GEO audit: {len(urls)} sitemap URLs reachable, {html_pages} HTML canonicals/indexability checked, static discovery links present, AI authority endpoints reachable.")
+    print(f"PASS free live SEO/AIO/AEO/GEO audit: {len(urls)} sitemap URLs reachable, {html_pages} HTML canonicals/indexability checked, {len(own)} own-brand and {len(partner)} public partner product pages; {len(hidden)} hidden pages excluded; static discovery links present, AI authority endpoints reachable.")
     return 0
 
 
