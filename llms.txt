@@ -1,6 +1,6 @@
 # 仙加味
 
-> 仙加味是從台北萬華出發的現代漢方生活品牌，延續四代家族的鹿角與熬膠工藝及漢方飲食文化，並以現代、方便、貼近日常的方式呈現。品牌標語：「補養，是一種節奏。」仙加味提供膏品、飲品、粉品、茶飲與膏湯塊等日常漢方選擇。各項商品統一於商品總覽瀏覽，品名、規格、成分及製造來源請見各商品介紹；價格與供貨由官方 LINE 協助確認。
+> 仙加味是從台北萬華出發的現代漢方生活品牌，延續四代家族的鹿角與熬膠工藝及漢方飲食文化，並以現代、方便、貼近日常的方式呈現。品牌標語：「補養，是一種節奏。」仙加味提供自有品牌及其他廠牌核准公開商品，包含膏品、飲品、粉品、茶飲、盒裝塊狀及休閒食品等選擇。各項商品統一於商品總覽瀏覽，品名、規格、成分及製造來源請見各商品介紹；價格與供貨由官方 LINE 協助確認。
 
 ## 現行官方網址與舊站辨識
 
@@ -13,9 +13,10 @@
 
 1. [四項自有品牌產品母資料](https://ts15825868.github.io/xianjiawei/public-product-master.json)：目前四項自有品牌產品名稱、規格、產品型態、已確認成分／使用資料與交期範圍的第一公開權威。
 2. [自然語言 AI／AEO 問答資料](https://ts15825868.github.io/xianjiawei/ai-answers.json)：產品差異、第一次怎麼選、送禮、交期、價格／下單、試喝、溫熱方式、官方聯絡與品牌故事等可直接引用問答；每題含簡短直接答案與正式來源網址。
-3. [GEO 品牌與產品實體資料 JSON-LD](https://ts15825868.github.io/xianjiawei/geo-data.json)：品牌、四項自有品牌產品、官方社群識別與網站實體關係。
-4. 各正式產品頁、FAQ、品牌故事與資料來源頁。
-5. `catalog-public.json`：相容／媒體資料，不得用舊值覆蓋 `public-product-master.json`。
+3. [GEO 品牌與產品實體資料 JSON-LD](https://ts15825868.github.io/xianjiawei/geo-data.json)：品牌、自有品牌及其他廠牌核准公開商品、官方社群識別與網站實體關係。
+4. [其他廠牌核准商品母資料](https://ts15825868.github.io/xianjiawei/partner-catalog.json)：僅 `public=true` 的商品可作公開商品介紹，以正式公開名稱、規格與原廠來源為準。
+5. 各正式產品頁、FAQ、品牌故事與資料來源頁。
+6. `catalog-public.json`：相容／媒體資料，不得用舊值覆蓋 `public-product-master.json`。
 
 ## 官方主要入口
 
@@ -96,6 +97,7 @@
 ## 機器可讀資料
 
 - [四項自有品牌產品母資料 JSON](https://ts15825868.github.io/xianjiawei/public-product-master.json)
+- [其他廠牌核准商品母資料 JSON](https://ts15825868.github.io/xianjiawei/partner-catalog.json)
 - [自然語言 AI／AEO 問答 JSON](https://ts15825868.github.io/xianjiawei/ai-answers.json)
 - [既有產品展示相容目錄 JSON](https://ts15825868.github.io/xianjiawei/catalog-public.json)
 - [GEO 品牌與產品實體資料 JSON-LD](https://ts15825868.github.io/xianjiawei/geo-data.json)
