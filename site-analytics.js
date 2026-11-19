@@ -2,6 +2,33 @@
 
 (function () {
   const site = "https://ts15825868.github.io/xianjiawei/";
+  const trialMessages = new Map([
+    ["我想申請龜鹿飲30cc試喝組。", "standard"],
+    ["我從仙加味官網試喝頁進來，想申請龜鹿飲30cc試喝組。", "standard"],
+    ["我是經親友介紹認識仙加味，想申請龜鹿飲30cc試喝組。", "referral"],
+    ["我想申請試喝，請協助我從試喝方案開始。", "standard"]
+  ]);
+  // Decode the actual destination rather than trusting stale data attributes.
+  // Only fixed event names and variant labels are emitted, never URL queries.
+  function classifyClick(url, isB2b, isGuideFilter) {
+    if (url?.protocol === "https:" && !url.port) {
+      if (url.href === "https://lin.ee/sHZW7NkR") return {name: isB2b ? "b2b_click" : "line_click"};
+      if (url.hostname === "line.me" && /^\/R\/oaMessage\/(?:%40|@)762jybnm\/$/i.test(url.pathname)) {
+        if (isB2b) return {name:"b2b_click"};
+        let message = "";
+        try { message = decodeURIComponent(url.search.slice(1)); } catch {}
+        const variant = trialMessages.get(message);
+        return variant ? {name:"trial_click",parameters:{entry_variant:variant}} : {name:"line_click"};
+      }
+      if (url.origin + url.pathname === site + "trial.html") return {name:"trial_page_click"};
+    }
+    if (isGuideFilter) return {name:"guide_filter_click"};
+    return null;
+  }
+  if (typeof module === "object" && module.exports) {
+    module.exports = {classifyClick};
+    return;
+  }
   if (!location.href.startsWith(site) || window.__XJW_GA4__) return;
   window.__XJW_GA4__ = true;
 
@@ -83,11 +110,11 @@
     const byId = new Map(catalog.map(product => [product.id, product]));
     const item = (product) => ({
       item_id: product.id,
-      item_name: product.name,
+      item_name: product.displayName || product.name,
       item_category: product.category || product.form
     });
     if (currentPage === "product-detail") {
-      const product = catalog.find(entry => entry.page && new URL(entry.page, site).href === pageLocation);
+      const product = catalog.find(entry => (entry.page || entry.detailPage) && new URL(entry.page || entry.detailPage, site).href === pageLocation);
       if (product) track("view_item", { items: [item(product)] });
       return;
     }
@@ -120,23 +147,12 @@
     const target = event.target?.closest?.("a[href], button");
     if (!target) return;
     const url = target.href ? new URL(target.href) : null;
-    const isLine = url?.protocol === "https:" &&
-      (url.href === "https://lin.ee/sHZW7NkR" ||
-        (url.hostname === "line.me" && /^\/R\/oaMessage\/(?:%40|@)762jybnm\/$/i.test(url.pathname)));
-    let name;
-    if (isLine) {
-      name = target.hasAttribute("data-b2b-inquiry") ? "b2b_click"
-        : target.dataset.lineMessage === "我想申請龜鹿飲30cc試喝組。" ? "trial_click" : "line_click";
-    } else if (url && url.origin + url.pathname === site + "trial.html") {
-      name = "trial_page_click";
-    } else if (currentPage === "choose" && target.closest("#choose-current-filters")) {
-      name = "guide_filter_click";
-    }
-
+    const result = classifyClick(url, target.hasAttribute("data-b2b-inquiry"),
+      currentPage === "choose" && Boolean(target.closest("#choose-current-filters")));
     const now = performance.now();
-    if (!name || (target === lastTarget && now - lastClick < 600)) return;
+    if (!result || (target === lastTarget && now - lastClick < 600)) return;
     lastTarget = target;
     lastClick = now;
-    track(name);
+    track(result.name, result.parameters);
   }, true);
 })();

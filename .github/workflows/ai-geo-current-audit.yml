@@ -10,6 +10,9 @@ on:
       - 'tools/free_live_search_audit.py'
       - 'tools/validate_public_aio_seo.py'
       - 'tools/test-ai-geo-catalog-authority.cjs'
+      - 'site-analytics.js'
+      - 'site.js'
+      - 'tools/test-site-analytics.cjs'
       - 'public-product-master.json'
       - 'partner-catalog.json'
       - 'catalog-public.json'
@@ -39,7 +42,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify complete public AI catalog against current source authorities
-        run: node --test tools/test-ai-geo-catalog-authority.cjs
+        run: node --test tools/test-ai-geo-catalog-authority.cjs tools/test-site-analytics.cjs
       - name: Validate current own-brand AI and GEO authority
         run: |
           set -euo pipefail
