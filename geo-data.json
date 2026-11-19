@@ -9,7 +9,7 @@
       "logo": "https://ts15825868.github.io/xianjiawei/images/logo.png",
       "image": "https://ts15825868.github.io/xianjiawei/images/logo.png",
       "slogan": "補養，是一種節奏。",
-      "description": "仙加味是從台北萬華起家的現代漢方生活品牌，延續四代家族的鹿角與熬膠工藝及漢方飲食文化，以現代、方便、貼近日常的方式呈現。目前官網公開產品共四項。",
+      "description": "仙加味是從台北萬華起家的現代漢方生活品牌，延續四代家族的鹿角與熬膠工藝及漢方飲食文化，以現代、方便、貼近日常的方式呈現。公開商品包含自有品牌與已核准其他廠牌商品，完整清單請見商品總覽。",
       "foundingLocation": {
         "@type": "Place",
         "name": "台北萬華"
@@ -52,6 +52,21 @@
           "@type": "WebPage",
           "url": "https://ts15825868.github.io/xianjiawei/faq.html",
           "name": "仙加味常見問題"
+        },
+        {
+          "@type": "WebPage",
+          "url": "https://ts15825868.github.io/xianjiawei/products.html",
+          "name": "仙加味商品總覽"
+        },
+        {
+          "@type": "WebPage",
+          "url": "https://ts15825868.github.io/xianjiawei/trial.html",
+          "name": "龜鹿飲試喝"
+        },
+        {
+          "@type": "WebPage",
+          "url": "https://ts15825868.github.io/xianjiawei/contact.html#business-inquiry",
+          "name": "批發與通路合作"
         }
       ]
     },
@@ -67,15 +82,15 @@
       "about": {
         "@id": "https://ts15825868.github.io/xianjiawei/#organization"
       },
-      "dateModified": "2026-10-15"
+      "dateModified": "2026-11-19"
     },
     {
       "@type": "Dataset",
       "@id": "https://ts15825868.github.io/xianjiawei/geo-data.json#dataset",
-      "name": "仙加味公開商品資訊：四項自有品牌與其他廠牌已核准商品",
-      "description": "提供仙加味品牌、自有品牌四項商品，及其他廠牌經核准公開商品資料；其他廠牌依 partner-catalog.json 的 public=true 商品清單，價格與現貨請洽官方LINE。",
+      "name": "仙加味公開商品資訊：自有品牌與其他廠牌已核准商品",
+      "description": "提供自有品牌及其他廠牌已核准公開商品資料；商品依正式公開母資料及商品總覽為準，價格與供貨請洽官方 LINE。",
       "url": "https://ts15825868.github.io/xianjiawei/geo-data.json",
-      "dateModified": "2026-10-15",
+      "dateModified": "2026-11-19",
       "inLanguage": "zh-Hant-TW",
       "creator": {
         "@id": "https://ts15825868.github.io/xianjiawei/#organization"
@@ -121,7 +136,7 @@
     {
       "@type": "ItemList",
       "@id": "https://ts15825868.github.io/xianjiawei/brand-facts.html#products",
-      "name": "仙加味四項自有品牌公開商品",
+      "name": "仙加味自有品牌公開商品",
       "numberOfItems": 4,
       "itemListElement": [
         {
@@ -133,7 +148,7 @@
             "name": "仙加味・龜鹿膏",
             "sku": "guilu-gao",
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-gao.html",
-            "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-gao.jpg",
+            "image": "https://ts15825868.github.io/xianjiawei/images/catalog-owner-final-v20261017/guilu-gao-main.webp?v=20261017-owner-approved-photo-main-v4",
             "brand": {
               "@id": "https://ts15825868.github.io/xianjiawei/#organization"
             },
@@ -165,7 +180,7 @@
             "name": "仙加味・龜鹿飲30cc玻璃罐",
             "sku": "guilu-drink-30",
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html",
-            "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-drink-30.jpg",
+            "image": "https://ts15825868.github.io/xianjiawei/images/catalog-owner-final-v20261017/guilu-drink-30-main.webp?v=20261017-owner-approved-photo-main-v4",
             "brand": {
               "@id": "https://ts15825868.github.io/xianjiawei/#organization"
             },
@@ -202,7 +217,7 @@
             "name": "仙加味・龜鹿飲180cc鋁袋",
             "sku": "guilu-drink-180",
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-180cc.html",
-            "image": "https://ts15825868.github.io/xianjiawei/images/product-main/guilu-drink-180.jpg",
+            "image": "https://ts15825868.github.io/xianjiawei/images/catalog-owner-final-v20261017/guilu-drink-180-main.webp?v=20261017-owner-approved-photo-main-v4",
             "brand": {
               "@id": "https://ts15825868.github.io/xianjiawei/#organization"
             },
@@ -239,7 +254,7 @@
             "name": "仙加味・鹿茸粉",
             "sku": "luerong-fen",
             "url": "https://ts15825868.github.io/xianjiawei/product-luerong-fen.html",
-            "image": "https://ts15825868.github.io/xianjiawei/images/product-main/luerong-fen.jpg",
+            "image": "https://ts15825868.github.io/xianjiawei/images/catalog-owner-final-v20261017/luerong-fen-main.webp?v=20261017-owner-approved-photo-main-v4",
             "brand": {
               "@id": "https://ts15825868.github.io/xianjiawei/#organization"
             },
@@ -258,7 +273,7 @@
       "@type": "ItemList",
       "@id": "https://ts15825868.github.io/xianjiawei/products.html#partner-products",
       "name": "仙加味其他廠牌正式公開商品",
-      "numberOfItems": 4,
+      "numberOfItems": 7,
       "itemListElement": [
         {
           "@type": "ListItem",
@@ -269,7 +284,7 @@
             "name": "參仲四物飲",
             "sku": "jinan-sisheng-siwuyin",
             "url": "https://ts15825868.github.io/xianjiawei/product-jinan-siwuyin.html",
-            "image": "https://ts15825868.github.io/xianjiawei/images/partner-products/jinan-siwuyin-front.jpg",
+            "image": "https://ts15825868.github.io/xianjiawei/images/catalog-owner-final-v20261017/jinan-sisheng-siwuyin-main.webp",
             "category": "漢方飲品",
             "brand": {
               "@type": "Brand",
@@ -294,7 +309,7 @@
             "name": "丹參茶包系列",
             "sku": "danshen-tea-collection",
             "url": "https://ts15825868.github.io/xianjiawei/product-danshen-tea.html",
-            "image": "https://ts15825868.github.io/xianjiawei/images/partner-products/tea-rose-fruit-front.webp",
+            "image": "https://ts15825868.github.io/xianjiawei/images/catalog-owner-final-v20261017/danshen-tea-collection-main.webp",
             "category": "茶飲",
             "brand": {
               "@type": "Brand",
@@ -319,7 +334,7 @@
             "name": "龜鹿活力飲（葡萄糖胺）",
             "sku": "guilu-vitality",
             "url": "https://ts15825868.github.io/xianjiawei/product-guilu-vitality.html",
-            "image": "https://ts15825868.github.io/xianjiawei/images/partner-products/scenes-v20261016/vitality-jar-scene.webp",
+            "image": "https://ts15825868.github.io/xianjiawei/images/catalog-owner-final-v20261017/guilu-vitality-main.webp",
             "category": "食品飲品",
             "brand": {
               "@type": "Brand",
@@ -341,10 +356,10 @@
           "item": {
             "@type": "Product",
             "@id": "https://ts15825868.github.io/xianjiawei/product-four-treasures.html#product",
-            "name": "四珍寶精華膏湯塊",
+            "name": "四珍寶",
             "sku": "uboss-sizhenbao",
             "url": "https://ts15825868.github.io/xianjiawei/product-four-treasures.html",
-            "image": "https://ts15825868.github.io/xianjiawei/images/partner-products/four-treasures-front.jpg",
+            "image": "https://ts15825868.github.io/xianjiawei/images/catalog-real-owner-v20261019/uboss-sizhenbao-front.png",
             "category": "食品膏湯塊",
             "brand": {
               "@type": "Brand",
@@ -356,6 +371,78 @@
                 "@type": "PropertyValue",
                 "name": "原廠規格",
                 "value": "600g±15g／盒｜64塊（每盤8塊非整盒規格）"
+              }
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "Product",
+            "@id": "https://ts15825868.github.io/xianjiawei/product-er-zhen-bao.html#product",
+            "name": "二珍寶",
+            "sku": "royalherb-erzhenbao-64",
+            "url": "https://ts15825868.github.io/xianjiawei/product-er-zhen-bao.html",
+            "image": "https://ts15825868.github.io/xianjiawei/images/catalog-real-owner-v20261019/royalherb-erzhenbao-64-front.png",
+            "brand": {
+              "@type": "Brand",
+              "name": "御漢堂"
+            },
+            "description": "二珍寶，600g±15g／盒｜64塊裝。原廠標示與商品介紹請見正式商品頁。",
+            "additionalProperty": [
+              {
+                "@type": "PropertyValue",
+                "name": "原廠規格",
+                "value": "600g±15g／盒｜64塊裝"
+              }
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "Product",
+            "@id": "https://ts15825868.github.io/xianjiawei/product-baumann-ginseng-loquat.html#product",
+            "name": "寶曼花旗參枇杷軟糖",
+            "sku": "baumann-ginseng-loquat",
+            "url": "https://ts15825868.github.io/xianjiawei/product-baumann-ginseng-loquat.html",
+            "image": "https://ts15825868.github.io/xianjiawei/images/partner-products/20261113/baumann-ginseng-loquat-main.webp",
+            "brand": {
+              "@type": "Brand",
+              "name": "寶曼 BAUMANN"
+            },
+            "description": "寶曼花旗參枇杷軟糖，30g／包｜12包／盒。原廠標示與商品介紹請見正式商品頁。",
+            "additionalProperty": [
+              {
+                "@type": "PropertyValue",
+                "name": "原廠規格",
+                "value": "30g／包｜12包／盒"
+              }
+            ]
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "Product",
+            "@id": "https://ts15825868.github.io/xianjiawei/product-sun-e-ginseng-citrus.html#product",
+            "name": "上裕花旗參冰橙檸檬軟糖",
+            "sku": "sun-e-ginseng-citrus",
+            "url": "https://ts15825868.github.io/xianjiawei/product-sun-e-ginseng-citrus.html",
+            "image": "https://ts15825868.github.io/xianjiawei/images/partner-products/20261113/sun-e-ginseng-citrus-main.webp",
+            "brand": {
+              "@type": "Brand",
+              "name": "上裕 SUN E."
+            },
+            "description": "上裕花旗參冰橙檸檬軟糖，30g／包｜12包／盒。原廠標示與商品介紹請見正式商品頁。",
+            "additionalProperty": [
+              {
+                "@type": "PropertyValue",
+                "name": "原廠規格",
+                "value": "30g／包｜12包／盒"
               }
             ]
           }
