@@ -5,6 +5,8 @@ import json
 import re
 import hashlib
 from pathlib import Path
+from html.parser import HTMLParser
+from urllib.parse import urlsplit, unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 LINE = "https://lin.ee/sHZW7NkR"
@@ -45,6 +47,32 @@ def check_image(value: str, name: str) -> None:
              or signature.lstrip().startswith(b"<svg"))
     if not valid:
         fail("unsupported image signature: " + value)
+
+class OfficialLineLinkParser(HTMLParser):
+    """Accept the existing official short URL and current explicit opt-in links."""
+    def __init__(self):
+        super().__init__(); self.valid = False
+    def handle_starttag(self, tag, attrs):
+        if tag != 'a': return
+        fields = dict(attrs)
+        href = fields.get('href') or ''
+        if href == LINE:
+            self.valid = True
+            return
+        try:
+            url = urlsplit(href)
+            if (url.scheme != 'https' or url.netloc != 'line.me' or
+                    url.path not in ('/R/oaMessage/%40762jybnm/', '/R/oaMessage/@762jybnm/') or
+                    url.fragment or not url.query or re.search(r'%(?![0-9a-fA-F]{2})', url.query)):
+                return
+            message = unquote(url.query, errors='strict')
+        except (ValueError, UnicodeError):
+            return
+        if message.strip() and ('data-line-message' not in fields or fields['data-line-message'] == message):
+            self.valid = True
+
+def has_official_line_link(html):
+    parser = OfficialLineLinkParser(); parser.feed(html); return parser.valid
 
 def main() -> None:
     own = load("data.json").get("products", [])
@@ -225,7 +253,7 @@ def main() -> None:
             if not page.is_file() or page.suffix != ".html":
                 fail("missing product detail page for " + pid)
             detail = page.read_text(encoding="utf-8")
-            if name not in detail or LINE not in detail:
+            if name not in detail or not has_official_line_link(detail):
                 fail("incomplete product detail or LINE CTA for " + pid)
             if brand_group == "partner":
                 category = str(product.get("category") or "").strip()
