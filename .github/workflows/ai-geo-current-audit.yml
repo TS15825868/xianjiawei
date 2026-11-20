@@ -13,6 +13,8 @@ on:
       - 'site-analytics.js'
       - 'site.js'
       - 'tools/test-site-analytics.cjs'
+      - 'tools/test-partner-product-line-entry.cjs'
+      - 'product-*.html'
       - 'public-product-master.json'
       - 'partner-catalog.json'
       - 'catalog-public.json'
@@ -42,7 +44,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify complete public AI catalog against current source authorities
-        run: node --test tools/test-ai-geo-catalog-authority.cjs tools/test-site-analytics.cjs
+        run: node --test tools/test-ai-geo-catalog-authority.cjs tools/test-site-analytics.cjs tools/test-partner-product-line-entry.cjs
       - name: Validate current own-brand AI and GEO authority
         run: |
           set -euo pipefail
