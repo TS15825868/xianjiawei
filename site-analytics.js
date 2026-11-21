@@ -25,8 +25,45 @@
     if (isGuideFilter) return {name:"guide_filter_click"};
     return null;
   }
+  function classifyCampaign(query) {
+    const source = {
+      facebook: "facebook",
+      instagram: "instagram",
+      threads: "threads",
+      line: "line",
+      google_business: "google_business",
+      chatgpt: "chatgpt.com",
+      "chatgpt.com": "chatgpt.com",
+      bing: "bing"
+    };
+    const media = new Set(["organic_social", "messaging", "organic", "referral"]);
+    const campaigns = new Set(["brand_story", "home_cooking", "trial", "b2b"]);
+    const utmSource = query.get("utm_source");
+    const utmMedium = query.get("utm_medium") ??
+      (utmSource === "chatgpt.com" ? "referral" : null);
+    const utmCampaign = query.get("utm_campaign");
+    const attribution = {};
+    if (Object.hasOwn(source, utmSource) && media.has(utmMedium)) {
+      attribution.campaign_source = source[utmSource];
+      attribution.campaign_medium = utmMedium;
+      if (campaigns.has(utmCampaign)) attribution.campaign_name = utmCampaign;
+      const socialSources = new Set(["facebook", "instagram", "threads"]);
+      const knowledgeCampaign = /^knowledge_20\d{2}(?:0[1-9]|1[0-2])$/;
+      const contentId = /^k-[a-z]+(?:-[a-z]+){0,4}-\d{2}$/;
+      if (socialSources.has(utmSource) && utmMedium === "organic_social" &&
+          query.getAll("utm_campaign").length === 1 && knowledgeCampaign.test(utmCampaign)) {
+        attribution.campaign_name = utmCampaign;
+        const content = query.get("utm_content");
+        if (content && content.length <= 48 && query.getAll("utm_content").length === 1 && contentId.test(content)) {
+          attribution.campaign_content = content;
+        }
+      }
+    }
+    return attribution;
+  }
+
   if (typeof module === "object" && module.exports) {
-    module.exports = {classifyClick};
+    module.exports = {classifyClick, classifyCampaign};
     return;
   }
   if (!location.href.startsWith(site) || window.__XJW_GA4__) return;
@@ -38,29 +75,7 @@
   const pageLocation = page.href.startsWith(site)
     ? page.origin + page.pathname
     : site;
-  const source = {
-    facebook: "facebook",
-    instagram: "instagram",
-    threads: "threads",
-    line: "line",
-    google_business: "google_business",
-    chatgpt: "chatgpt.com",
-    "chatgpt.com": "chatgpt.com",
-    bing: "bing"
-  };
-  const media = new Set(["organic_social", "messaging", "organic", "referral"]);
-  const campaigns = new Set(["brand_story", "home_cooking", "trial", "b2b"]);
-  const query = new URLSearchParams(location.search);
-  const utmSource = query.get("utm_source");
-  const utmMedium = query.get("utm_medium") ??
-    (utmSource === "chatgpt.com" ? "referral" : null);
-  const utmCampaign = query.get("utm_campaign");
-  const attribution = {};
-  if (Object.hasOwn(source, utmSource) && media.has(utmMedium)) {
-    attribution.campaign_source = source[utmSource];
-    attribution.campaign_medium = utmMedium;
-    if (campaigns.has(utmCampaign)) attribution.campaign_name = utmCampaign;
-  }
+  const attribution = classifyCampaign(new URLSearchParams(location.search));
 
   const referringHosts = new Set([
     "www.google.com", "www.google.com.tw", "www.bing.com",

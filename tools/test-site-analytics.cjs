@@ -1,6 +1,6 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
-const {classifyClick}=require('../site-analytics.js');
+const {classifyClick,classifyCampaign}=require('../site-analytics.js');
 const fs=require('node:fs');
 const line=message=>new URL('https://line.me/R/oaMessage/%40762jybnm/?'+encodeURIComponent(message));
 test('current trial, historical trial, and opt-in referral are trial clicks, not orders',()=>{
@@ -28,5 +28,21 @@ test('browser listener uses fixed classification, approved display names and cac
  assert(s.includes('track(result.name, result.parameters)'));
  assert(s.includes('product.displayName || product.name'));
  assert(s.includes('entry.page || entry.detailPage'));
- assert(fs.readFileSync('site.js','utf8').includes('site-analytics.js?v=20261120-trial-events-v2'));
+ assert(fs.readFileSync('site.js','utf8').includes('site-analytics.js?v=20261121-knowledge-attribution-v1'));
+});
+
+test('knowledge attribution is limited to supported organic social sources and public content codes',()=>{
+ const read = query => classifyCampaign(new URLSearchParams(query));
+ const primary = 'utm_source=threads&utm_medium=organic_social&utm_campaign=knowledge_202611';
+ const campaign = {campaign_source:'threads',campaign_medium:'organic_social',campaign_name:'knowledge_202611'};
+ assert.deepEqual(read(primary+'&utm_content=k-tea-steep-01'), {...campaign,campaign_content:'k-tea-steep-01'});
+ for (const value of ['customer%40example.test','123456789','k-jane-doe-123','not-a-public-code']) {
+  assert.deepEqual(read(primary+'&utm_content='+value), campaign);
+ }
+ assert.deepEqual(read(primary+'&utm_content=k-tea-steep-01&utm_content=k-tea-steep-02'),campaign);
+ assert.deepEqual(read(primary.replace('202611','202613')), {campaign_source:'threads',campaign_medium:'organic_social'});
+ assert.deepEqual(read(primary.replace('threads','line')), {campaign_source:'line',campaign_medium:'organic_social'});
+ assert.deepEqual(read(primary.replace('organic_social','referral')), {campaign_source:'threads',campaign_medium:'referral'});
+ assert.deepEqual(read('utm_source=facebook&utm_medium=organic_social&utm_campaign=trial'), {campaign_source:'facebook',campaign_medium:'organic_social',campaign_name:'trial'});
+ assert.deepEqual(read('utm_source=chatgpt.com'), {campaign_source:'chatgpt.com',campaign_medium:'referral'});
 });
