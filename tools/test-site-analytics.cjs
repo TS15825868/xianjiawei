@@ -1,6 +1,6 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
-const {classifyClick,classifyCampaign}=require('../site-analytics.js');
+const {classifyClick,classifyCampaign,resolveCampaignAttribution}=require('../site-analytics.js');
 const fs=require('node:fs');
 const line=message=>new URL('https://line.me/R/oaMessage/%40762jybnm/?'+encodeURIComponent(message));
 test('current trial, historical trial, and opt-in referral are trial clicks, not orders',()=>{
@@ -28,7 +28,7 @@ test('browser listener uses fixed classification, approved display names and cac
  assert(s.includes('track(result.name, result.parameters)'));
  assert(s.includes('product.displayName || product.name'));
  assert(s.includes('entry.page || entry.detailPage'));
- assert(fs.readFileSync('site.js','utf8').includes('site-analytics.js?v=20261121-knowledge-attribution-v1'));
+ assert(fs.readFileSync('site.js','utf8').includes('site-analytics.js?v=20261123-organic-funnel-attribution-v1'));
 });
 
 test('knowledge attribution is limited to supported organic social sources and public content codes',()=>{
@@ -45,4 +45,37 @@ test('knowledge attribution is limited to supported organic social sources and p
  assert.deepEqual(read(primary.replace('organic_social','referral')), {campaign_source:'threads',campaign_medium:'referral'});
  assert.deepEqual(read('utm_source=facebook&utm_medium=organic_social&utm_campaign=trial'), {campaign_source:'facebook',campaign_medium:'organic_social',campaign_name:'trial'});
  assert.deepEqual(read('utm_source=chatgpt.com'), {campaign_source:'chatgpt.com',campaign_medium:'referral'});
+});
+
+
+test('organic campaign attribution is retained for a 30-minute same-tab browse without personal data',()=>{
+ const values=new Map();
+ const storage={setItem:(k,v)=>values.set(k,v),getItem:k=>values.get(k)||null,removeItem:k=>values.delete(k)};
+ const now=1795420800000;
+ const query='utm_source=threads&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-tea-steep-01';
+ const expected={campaign_source:'threads',campaign_medium:'organic_social',campaign_name:'knowledge_202611',campaign_content:'k-tea-steep-01'};
+ assert.deepEqual(resolveCampaignAttribution(new URLSearchParams(query),storage,now),expected);
+ assert.deepEqual(resolveCampaignAttribution(new URLSearchParams(''),storage,now+2*60000),expected);
+ assert.deepEqual(resolveCampaignAttribution(new URLSearchParams(''),storage,now+31*60000),{});
+ assert.equal(values.size,0);
+});
+test('invalid or personal campaign identifiers cannot inherit the previous social source',()=>{
+ const db=new Map();
+ const storage={setItem:(k,v)=>db.set(k,v),getItem:k=>db.get(k)||null,removeItem:k=>db.delete(k)};
+ const now=1795420800000;
+ resolveCampaignAttribution(new URLSearchParams('utm_source=facebook&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-first-choice-01'),storage,now);
+ assert.deepEqual(resolveCampaignAttribution(new URLSearchParams('utm_source=untrusted&utm_content=customer%40mail.test'),storage,now+1000),{});
+ assert.deepEqual(resolveCampaignAttribution(new URLSearchParams(''),storage,now+1200),{});
+ const result=resolveCampaignAttribution(new URLSearchParams('utm_source=instagram&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=phone-0912345678'),storage,now+2000);
+ assert.deepEqual(result,{campaign_source:'instagram',campaign_medium:'organic_social',campaign_name:'knowledge_202611'});
+ assert(!JSON.stringify([...db.values()]).includes('0912345678'));
+});
+test('blocked session storage does not break GA4 or expose raw UTM data',()=>{
+ const blocked={getItem:()=>{throw Error('denied')},setItem:()=>{throw Error('denied')},removeItem:()=>{throw Error('denied')}};
+ const valid=new URLSearchParams('utm_source=facebook&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-first-choice-01');
+ assert.deepEqual(resolveCampaignAttribution(valid,blocked),classifyCampaign(valid));
+ assert.deepEqual(resolveCampaignAttribution(new URLSearchParams(''),blocked),{});
+ const script=fs.readFileSync('site-analytics.js','utf8');
+ assert(script.includes('gtag("event", name, { ...attribution, ...parameters, send_to: measurementId })'));
+ assert(script.includes('const campaignTtlMs = 30 * 60 * 1000'));
 });
