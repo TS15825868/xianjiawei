@@ -62,8 +62,45 @@
     return attribution;
   }
 
+  // A visitor may enter from an approved social link then browse product pages.
+  // Remember only whitelisted, non-personal campaign labels within this tab for
+  // 30 minutes. Never persist raw URLs, LINE messages, names or contact details.
+  const campaignSessionKey = "xjw-public-campaign-v1";
+  const campaignTtlMs = 30 * 60 * 1000;
+  function resolveCampaignAttribution(query, storage, now = Date.now()) {
+    const direct = classifyCampaign(query);
+    const hasCampaignQuery = ["utm_source", "utm_medium", "utm_campaign", "utm_content"]
+      .some(key => query.has(key));
+    if (Object.keys(direct).length) {
+      if (direct.campaign_source && direct.campaign_medium) {
+        try { storage?.setItem(campaignSessionKey, JSON.stringify({at:now, campaign:direct})); } catch {}
+      }
+      return direct;
+    }
+    if (hasCampaignQuery) {
+      try { storage?.removeItem(campaignSessionKey); } catch {}
+      return {};
+    }
+    try {
+      const prior = JSON.parse(storage?.getItem(campaignSessionKey) || "null");
+      if (!prior || !Number.isSafeInteger(prior.at) ||
+          now < prior.at || now - prior.at > campaignTtlMs ||
+          !prior.campaign || typeof prior.campaign !== "object") {
+        storage?.removeItem(campaignSessionKey);
+        return {};
+      }
+      const saved = prior.campaign;
+      const values = new URLSearchParams();
+      if (typeof saved.campaign_source === "string") values.set("utm_source",saved.campaign_source);
+      if (typeof saved.campaign_medium === "string") values.set("utm_medium",saved.campaign_medium);
+      if (typeof saved.campaign_name === "string") values.set("utm_campaign",saved.campaign_name);
+      if (typeof saved.campaign_content === "string") values.set("utm_content",saved.campaign_content);
+      return classifyCampaign(values);
+    } catch { return {}; }
+  }
+
   if (typeof module === "object" && module.exports) {
-    module.exports = {classifyClick, classifyCampaign};
+    module.exports = {classifyClick, classifyCampaign, resolveCampaignAttribution};
     return;
   }
   if (!location.href.startsWith(site) || window.__XJW_GA4__) return;
@@ -75,7 +112,9 @@
   const pageLocation = page.href.startsWith(site)
     ? page.origin + page.pathname
     : site;
-  const attribution = classifyCampaign(new URLSearchParams(location.search));
+  let sessionStore = null;
+  try { sessionStore = window.sessionStorage; } catch {}
+  const attribution = resolveCampaignAttribution(new URLSearchParams(location.search), sessionStore);
 
   const referringHosts = new Set([
     "www.google.com", "www.google.com.tw", "www.bing.com",
@@ -107,7 +146,7 @@
   });
 
   function track(name, parameters = {}) {
-    gtag("event", name, { ...parameters, send_to: measurementId });
+    gtag("event", name, { ...attribution, ...parameters, send_to: measurementId });
   }
 
   async function trackProducts(currentPage) {
