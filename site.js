@@ -12,7 +12,7 @@
   window.__XJW_SITE_WRAPPER_V6__ = true;
 
   const analytics = document.createElement("script");
-  analytics.src = new URL("site-analytics.js?v=20261121-knowledge-attribution-v1", document.currentScript.src).href;
+  analytics.src = new URL("site-analytics.js?v=20261123-organic-funnel-attribution-v1", document.currentScript.src).href;
   analytics.async = true;
   document.head.appendChild(analytics);
 
