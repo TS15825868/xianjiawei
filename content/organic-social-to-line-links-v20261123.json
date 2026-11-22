@@ -1,0 +1,112 @@
+{
+  "schema": "xjw-safe-organic-social-to-site-to-line-links-v1",
+  "version_date": "2026-11-23",
+  "brand": "仙加味",
+  "tagline": "補養，是一種節奏。",
+  "purpose": "既有自然流量知識內容完成正式圖文審核後，才可選用的官網來源辨識連結；不建立貼文、不發文、不排程",
+  "measurement": "既有GA4 site-analytics.js白名單; 所有UTM均為公開代碼不含客戶資料",
+  "placement": {
+    "facebook": "已審核正式貼文可放清楚的官網網址",
+    "threads": "已審核正式貼文可放對應官網網址",
+    "instagram": "貼文文字通常不可直接點擊，使用個人檔案連結、限動連結貼紙等平台支援入口；勿冒稱貼文網址可點擊"
+  },
+  "metrics": "依實際GA4 page_view、trial_page_click、trial_click、line_click與後續LINE自願回報分開計算，LINE按鈕點擊不代表正式詢問／成交",
+  "privacy": {
+    "allow_only_public_nonpersonal_utm": true,
+    "do_not_embed_contact_or_customer_identifier": true,
+    "do_not_store_phone_email_address": true
+  },
+  "publication": {
+    "require_current_official_image": true,
+    "require_original_post_dedup_approval": true,
+    "require_human_or_valid_delegated_authorization": true,
+    "do_not_create_or_publish_posts": true
+  },
+  "no_new_paid_services": true,
+  "entries": [
+    {
+      "id": "k-first-choice-01",
+      "theme": "第一次認識仙加味怎麼選",
+      "landing_path": "choose.html",
+      "angle": "產品型態比較",
+      "visitor_intent": "先看產品型態與生活情境，再由官方 LINE 協助選擇",
+      "landing_is_existing_official_page": true,
+      "post_or_image_approved": false,
+      "links": {
+        "facebook": "https://ts15825868.github.io/xianjiawei/choose.html?utm_source=facebook&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-first-choice-01",
+        "instagram": "https://ts15825868.github.io/xianjiawei/choose.html?utm_source=instagram&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-first-choice-01",
+        "threads": "https://ts15825868.github.io/xianjiawei/choose.html?utm_source=threads&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-first-choice-01"
+      }
+    },
+    {
+      "id": "k-glass-drink-01",
+      "theme": "龜鹿飲30cc玻璃罐的實物包裝",
+      "landing_path": "product-guilu-drink-30cc.html",
+      "angle": "30cc玻璃罐",
+      "visitor_intent": "認識30cc小玻璃裸罐、接單後製作及使用資訊",
+      "landing_is_existing_official_page": true,
+      "post_or_image_approved": false,
+      "links": {
+        "facebook": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html?utm_source=facebook&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-glass-drink-01",
+        "instagram": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html?utm_source=instagram&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-glass-drink-01",
+        "threads": "https://ts15825868.github.io/xianjiawei/product-guilu-drink-30cc.html?utm_source=threads&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-glass-drink-01"
+      }
+    },
+    {
+      "id": "k-tea-steep-01",
+      "theme": "茶飲與溫熱飲用準備",
+      "landing_path": "recipes.html",
+      "angle": "家常茶飲與料理",
+      "visitor_intent": "從實際沖泡與料理方式了解漢方飲食文化",
+      "landing_is_existing_official_page": true,
+      "post_or_image_approved": false,
+      "links": {
+        "facebook": "https://ts15825868.github.io/xianjiawei/recipes.html?utm_source=facebook&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-tea-steep-01",
+        "instagram": "https://ts15825868.github.io/xianjiawei/recipes.html?utm_source=instagram&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-tea-steep-01",
+        "threads": "https://ts15825868.github.io/xianjiawei/recipes.html?utm_source=threads&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-tea-steep-01"
+      }
+    },
+    {
+      "id": "k-brand-wanhua-01",
+      "theme": "萬華家族與傳統工藝",
+      "landing_path": "brand.html",
+      "angle": "四代傳承品牌故事",
+      "visitor_intent": "從品牌故事了解萬華起家與家族工藝",
+      "landing_is_existing_official_page": true,
+      "post_or_image_approved": false,
+      "links": {
+        "facebook": "https://ts15825868.github.io/xianjiawei/brand.html?utm_source=facebook&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-brand-wanhua-01",
+        "instagram": "https://ts15825868.github.io/xianjiawei/brand.html?utm_source=instagram&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-brand-wanhua-01",
+        "threads": "https://ts15825868.github.io/xianjiawei/brand.html?utm_source=threads&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-brand-wanhua-01"
+      }
+    },
+    {
+      "id": "k-soup-cooking-01",
+      "theme": "家常燉湯與料理搭配",
+      "landing_path": "recipes.html",
+      "angle": "家常料理搭配",
+      "visitor_intent": "從既有料理內容認識產品的日常用法",
+      "landing_is_existing_official_page": true,
+      "post_or_image_approved": false,
+      "links": {
+        "facebook": "https://ts15825868.github.io/xianjiawei/recipes.html?utm_source=facebook&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-soup-cooking-01",
+        "instagram": "https://ts15825868.github.io/xianjiawei/recipes.html?utm_source=instagram&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-soup-cooking-01",
+        "threads": "https://ts15825868.github.io/xianjiawei/recipes.html?utm_source=threads&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-soup-cooking-01"
+      }
+    },
+    {
+      "id": "k-trial-first-01",
+      "theme": "初次認識龜鹿飲試喝組",
+      "landing_path": "trial.html",
+      "angle": "30cc試喝組",
+      "visitor_intent": "先看正式試喝條件，再透過官方 LINE 申請",
+      "landing_is_existing_official_page": true,
+      "post_or_image_approved": false,
+      "links": {
+        "facebook": "https://ts15825868.github.io/xianjiawei/trial.html?utm_source=facebook&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-trial-first-01",
+        "instagram": "https://ts15825868.github.io/xianjiawei/trial.html?utm_source=instagram&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-trial-first-01",
+        "threads": "https://ts15825868.github.io/xianjiawei/trial.html?utm_source=threads&utm_medium=organic_social&utm_campaign=knowledge_202611&utm_content=k-trial-first-01"
+      }
+    }
+  ]
+}
