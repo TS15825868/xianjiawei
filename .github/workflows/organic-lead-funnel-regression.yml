@@ -1,0 +1,37 @@
+name: 仙加味自然流量導向LINE與來源標記離線驗收
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/organic-lead-funnel-regression.yml'
+      - 'site-analytics.js'
+      - 'site.js'
+      - 'content/organic-social-to-line-links-v20261123.json'
+      - 'tools/test-site-analytics.cjs'
+      - 'tools/test-organic-social-to-line-links.cjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: xjw-organic-lead-funnel-offline
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate existing GA4 tracking runtime and public source tags
+        run: |
+          node --check site-analytics.js
+          node --check site.js
+          node --test tools/test-site-analytics.cjs tools/test-organic-social-to-line-links.cjs
+      - name: Mark scope and publishing boundary
+        run: |
+          echo 'Only public UTM labels and existing website routes were validated. No posts, schedules, D1 queries, customer details, or LINE messages were sent.' >> "$GITHUB_STEP_SUMMARY"
