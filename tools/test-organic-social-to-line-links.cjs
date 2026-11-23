@@ -52,3 +52,24 @@ test('Instagram caption links are not misrepresented as directly clickable; clic
  assert.equal(pack.privacy.allow_only_public_nonpersonal_utm,true);
  assert.equal(pack.no_new_paid_services,true);
 });
+
+test('brand story and recipes keep exact original LINE self-report without JavaScript',()=>{
+ const pages=[['brand.html',1],['recipes.html',2]];
+ for(const [file,count] of pages){
+   const html=fs.readFileSync(file,'utf8');
+   const anchors=[...html.matchAll(/<a\b[^>]*>/g)]
+     .map(match=>match[0])
+     .filter(tag=>tag.includes('data-line-message='));
+   assert.equal(anchors.length,count,'Unexpected documented topic CTA count: '+file);
+   for(const tag of anchors){
+     const message=tag.match(/data-line-message="([^"]+)"/)?.[1];
+     const href=tag.match(/href="([^"]+)"/)?.[1];
+     assert.ok(message && href,'Missing no-script CTA fields on '+file);
+     assert.equal(href,'https://line.me/R/oaMessage/%40762jybnm/?'+encodeURIComponent(message),
+       'LINE static fallback must preserve topic-specific inquiry text');
+     const parsed=new URL(href);
+     assert.equal(parsed.hostname,'line.me');
+     assert.ok(message.includes('仙加味') || message.includes('官網'),file);
+   }
+ }
+});
