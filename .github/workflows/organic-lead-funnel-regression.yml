@@ -6,6 +6,8 @@ on:
       - '.github/workflows/organic-lead-funnel-regression.yml'
       - 'site-analytics.js'
       - 'site.js'
+      - 'brand.html'
+      - 'recipes.html'
       - 'content/organic-social-to-line-links-v20261123.json'
       - 'tools/test-site-analytics.cjs'
       - 'tools/test-organic-social-to-line-links.cjs'
