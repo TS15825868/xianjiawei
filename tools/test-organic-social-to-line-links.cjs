@@ -73,3 +73,18 @@ test('brand story and recipes keep exact original LINE self-report without JavaS
    }
  }
 });
+
+
+test('both recipes CTA messages match the independently verified LINE source phrase',()=>{
+ const source=fs.readFileSync('recipes.html','utf8');
+ const messages=[...source.matchAll(/data-line-message="([^"]+)"/g)].map(match=>match[1]);
+ assert.equal(messages.length,2);
+ assert.deepEqual(messages,[
+  '我從官網料理頁進來，想詢問產品料理與沖泡方式。',
+  '我從官網料理頁進來，想詢問產品料理與沖泡方式。'
+ ]);
+ for(const message of messages){
+  assert(!message.includes('utm_'));
+  assert(!message.includes('聯絡方式'));
+ }
+});
