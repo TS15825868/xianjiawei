@@ -95,10 +95,10 @@ test('all root HTML pages preserve explicitly declared LINE messages without Jav
  let checked=0;
  for(const {name} of pages){
   const html=fs.readFileSync(name,'utf8');
-  for(const [tag] of html.matchAll(/<a\\b[^>]*>/gi)){
-   if(!/\\bdata-line-message\\s*=/i.test(tag))continue;
-   const message=tag.match(/\\bdata-line-message\\s*=\\s*(["'])(.*?)\\1/i)?.[2];
-   const href=tag.match(/\\bhref\\s*=\\s*(["'])(.*?)\\1/i)?.[2];
+  for(const [tag] of html.matchAll(/<a\b[^>]*>/gi)){
+   if(!/\bdata-line-message\s*=/i.test(tag))continue;
+   const message=tag.match(/\bdata-line-message\s*=\s*(["'])(.*?)\1/i)?.[2];
+   const href=tag.match(/\bhref\s*=\s*(["'])(.*?)\1/i)?.[2];
    assert.ok(message&&href,'Missing static LINE message or URL: '+name);
    assert.equal(href,'https://line.me/R/oaMessage/%40762jybnm/?'+encodeURIComponent(message),'Static LINE inquiry mismatch: '+name);
    checked++;
