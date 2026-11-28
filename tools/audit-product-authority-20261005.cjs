@@ -80,7 +80,8 @@ for(const path of publicHtml){
 
 for(const path of ["links.html","contact.html"]){
   const html=read(path);
-  assert(/10:00[－–-]20:00/.test(html),path,"營業時間必須為週一至週五 10:00–20:00");
+  assert(!/10[:：]00\s*[－–—~～至-]\s*20[:：]00|週六.{0,20}(?:取貨|面交|自取)|週日(?:休息|公休)/u.test(html),path,"不得回流未確認的固定門市服務時間");
+  assert(html.includes(LINE_URL),path,"缺官方 LINE 聯絡入口");
 }
 assert(read("links.html").includes(LINE_URL),"links.html","連結入口缺少正式 LINE URL");
 

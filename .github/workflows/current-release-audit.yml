@@ -18,6 +18,9 @@ on:
       - 'trial-line.html'
       - 'choose.html'
       - 'tools/test-website-entry-source.cjs'
+      - 'tools/validate-public-service-policy.py'
+      - 'tools/validate-public-boundary-v20260808.py'
+      - 'config/public-content-policy.json'
   workflow_dispatch:
 
 permissions:
@@ -111,22 +114,9 @@ jobs:
           assert 'Number(master?.productCount)!==ids.length' in runtime and 'knowledgeProductCount:publicIds.length' in runtime
           assert 'knowledgeProductCount:publicIds.length' in display
           assert '每日 1 罐' not in fallback and 'usagePrimary:"每日 1 罐"' not in fallback
-          service_hours=json.loads(Path('config/public-content-policy.json').read_text(encoding='utf-8')).get('serviceHours') or {}
-          # Today's approved serviceHours, not an obsolete 10:30 / weekend-closed
-          # snapshot, is the sole public-hours authority.
-          current_hours=service_hours.get('storefront')
-          closed=service_hours.get('closed')
-          assert isinstance(current_hours,str) and current_hours.strip(), '正式店面營業時間缺失'
-          assert isinstance(closed,str) and '週六' in closed and '週日' in closed, '正式週末營業安排缺失'
-          assert service_hours.get('website')=='24 小時可瀏覽'
-          assert str(service_hours.get('lineOA','')).startswith('24 小時可留言')
-          for rel in ['contact.html','faq.html','ai-answers.json']:
-              text=Path(rel).read_text(encoding='utf-8')
-              assert current_hours in text, f'{rel} 缺最新營業時間'
-              for retired in ['下一個營業時段','非服務時間一律下一營業日回覆']:
-                  assert retired not in text, f'{rel} 出現退役服務時間／回覆規則：{retired}'
-          ai=json.loads(Path('ai-answers.json').read_text(encoding='utf-8'))
-          assert any(x.get('id')=='business-hours' for x in ai.get('answers',[])), 'AI營業時間問答缺失'
+          # Public-service policy is independent from internal operation hours.
+          import runpy
+          runpy.run_path('tools/validate-public-service-policy.py',run_name='__main__')
           media=json.loads(Path('data/product-media-authority.json').read_text(encoding='utf-8'))
           assert isinstance(media.get('version'),str) and media['version'].strip(), '目前正式媒體權威缺少版本資訊'
           for pid,item in media.get('products',{}).items():

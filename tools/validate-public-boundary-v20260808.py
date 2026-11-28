@@ -23,7 +23,7 @@ PRODUCT_PAGE_IDS={
  'product-guilu-jiao.html':'guilu-jiao',
  'product-luerong-fen.html':'luerong-fen'
 }
-FORBIDDEN_PUBLIC=['台興山產有限公司','統一編號','公司電話','公司地址','台北市萬華區西昌街 52 號','台北市萬華區西昌街52號']
+FORBIDDEN_PUBLIC=['台興山產有限公司','公司電話','公司地址','台北市萬華區西昌街 52 號','台北市萬華區西昌街52號']
 
 def read(rel): return (ROOT/rel).read_text(encoding='utf-8')
 def sitemap_pages():
@@ -45,11 +45,15 @@ def main():
     assert re.match(r'^每日\s*1[～–-]2\s*罐', str(products['guilu-drink-30'].get('usage',[None])[0] or '')),'30cc用法未同步目前正式值'
     assert products['guilu-drink-180'].get('usage',[None])[0]=='每日一包','180cc用法不是每日一包'
 
+    disclosure=json.loads(read('config/public-content-policy.json'))['businessDisclosure']
+    approved_identity=f"{disclosure['salesEntityName']}｜統一編號：{disclosure['uniformBusinessNumber']}"
+    assert approved_identity in read('contact.html'),'聯絡頁缺法定營業人資訊'
     pages=sitemap_pages();assert pages,'sitemap沒有公開HTML頁'
     missing=[p for p in pages if not (ROOT/p).is_file()];assert not missing,f'sitemap指向不存在頁面：{missing}'
     for page in pages:
         source=read(page)
         for phrase in FORBIDDEN_PUBLIC:assert phrase not in source,f'{page}公開頁出現禁止公司／內部資訊：{phrase}'
+        assert '統一編號' not in source.replace(approved_identity,''),f'{page}出現未核對營業人資訊'
         for phrase in DEFERRED:assert phrase not in source,f'{page}重新公開目前暫不放官網的柒玄茶'
         for phrase in ['龜鹿飲30cc玻璃瓶','30cc／瓶','小玻璃瓶']:assert phrase not in source,f'{page}仍含30cc舊稱：{phrase}'
         if page in MEDIA_PRODUCT_PAGES:
