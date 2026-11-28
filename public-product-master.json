@@ -161,6 +161,19 @@
       "guilu-jiao",
       "guilu-tangkuai"
     ],
-    "note": "此清單僅代表目前尚未核准公開；未來使用者正式確認新版時可調整，不得被過去固定產品數量阻擋。"
+    "note": "柒玄茶暫緩公開；自製龜鹿膠、龜鹿湯塊已退出現行銷售推薦，不得因舊資料重新加入。未來產品線變更須由使用者正式確認。"
+  },
+  "currentSupplyPolicy": {
+    "effectiveDate": "2026-11-28",
+    "primaryPromotionProductId": "guilu-gao",
+    "retiredSelfProducedProductIds": [
+      "guilu-jiao",
+      "guilu-tangkuai"
+    ],
+    "demandLedPartnerProductIds": [
+      "royalherb-erzhenbao-64",
+      "uboss-sizhenbao"
+    ],
+    "rule": "龜鹿膏為日常主動推廣核心。自製龜鹿膠、龜鹿膠塊／龜鹿湯塊已停止製作及現行銷售推薦；歷史資料與正式原圖保留，不得自動回流。二珍寶、四珍寶依顧客需求確認原廠供貨與交易條件後批進轉售，不自行生產、不主動大量備貨、不承諾未核實現貨或交期；保留既有公開及交易限制。"
   }
 }
