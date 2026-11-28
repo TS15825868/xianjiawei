@@ -256,7 +256,7 @@ function renderFooter() {
         <a class="footer-line-qr-link" href="${buildLineAutoLink(pageLineMessage())}" target="_blank" rel="noopener noreferrer" aria-label="點選開啟仙加味官方 LINE"><img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code，點圖可開啟 LINE" loading="lazy" decoding="async"></a>
       </div>
 
-      <div class="footer-legal">仙加味網站內容以產品資訊、日常飲食與漢方飲食文化整理為主；特殊健康狀況請洽專業醫療人員。</div>
+      <div class="footer-legal"><p><a href="contact.html#business-identity">仙加味商行｜統一編號：00702569</a></p>仙加味網站內容以產品資訊、日常飲食與漢方飲食文化整理為主；特殊健康狀況請洽專業醫療人員。</div>
     </div>
   `;
 }
