@@ -159,7 +159,7 @@
   },
   "brandNaming": {
     "publicBrandName": "仙加味",
-    "legalEntityName": "台興山產有限公司",
+    "legalEntityName": "仙加味商行",
     "brandPositioning": "現代漢方生活品牌",
     "guiluRole": "龜鹿只作為產品／系列名稱，不再綁在品牌名稱後面",
     "futureProductRule": "未來新增其他漢方生活產品仍統一以「仙加味」作為主品牌",
@@ -173,8 +173,18 @@
       "doNotTreatAsMainBrand": true,
       "doNotForceBrandOnlyUntilEvidenceReady": true,
       "futurePreferredName": "仙加味",
-      "futureCondition": "待仙加味有可被 Google 接受的商業登記、實體招牌或其他一致實際證明後，再評估改為品牌名「仙加味」"
+      "futureCondition": "商業登記已取得；仍須確認實際營業資格、招牌及地址用途，未確認前不變更商家檔案、不新增重複商家。"
     }
+  },
+  "businessDisclosure": {
+    "effectivePolicyDate": "2026-11-28",
+    "publicBrandName": "仙加味",
+    "salesEntityName": "仙加味商行",
+    "uniformBusinessNumber": "00702569",
+    "scope": "品牌行銷、食品批發及零售",
+    "publicDisclosure": "最少必要公開；依法於網路銷售頁面揭露營業人名稱及統編，成交前提供必要交易資訊。",
+    "privacy": "不公開完整登記公文、私人資料或將住宅登記地址當成實體門市。",
+    "invoiceAndSupplierTransactionMode": "待確認；不變更既有開票、收款及廠商交易設定。",
+    "historicalRecords": "保留原營業主體歷史資料，不自動移轉。"
   }
 }
-
