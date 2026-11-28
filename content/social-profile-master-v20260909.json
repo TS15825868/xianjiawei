@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-18-social-profile-master-v6",
+  "version": "2026-11-28-social-profile-master-v7",
   "authority": "user-confirmed-current",
   "brand": {
     "displayName": "仙加味",
@@ -7,8 +7,8 @@
     "tagline": "補養，是一種節奏。",
     "origin": "台北萬華",
     "storyCore": "萬華起家，四代家族延續鹿角與龜鹿相關原料、工序與熬製經驗；以「仙加味」為母品牌，保留未來非龜鹿漢方生活產品的延伸空間，以現代、清楚、方便、貼近日常的方式整理產品與內容。",
-    "productScopeLine": "漢方飲食文化・多元日常選擇",
-    "profileCore": "仙加味｜現代漢方生活品牌\n萬華起家・四代家族傳承\n漢方飲食文化・多元日常選擇\n補養，是一種節奏。"
+    "productScopeLine": "龜鹿系列及漢方食品",
+    "profileCore": "現代漢方生活品牌｜龜鹿系列及漢方食品\n補養，是一種節奏。"
   },
   "marketingFocus": {
     "primaryProducts": [
@@ -35,14 +35,14 @@
     "instagram": {
       "handle": "xianjiawei.tw",
       "displayName": "仙加味",
-      "bio": "仙加味｜現代漢方生活品牌\n萬華起家・四代家族傳承\n漢方飲食文化・多元日常選擇\n補養，是一種節奏。\n仙加味｜連結入口 ↓",
+      "bio": "現代漢方生活品牌｜龜鹿系列及漢方食品\n補養，是一種節奏。",
       "primaryLink": "https://ts15825868.github.io/xianjiawei/links.html",
       "profileGoal": "以視覺與生活情境建立品牌信任；有興趣交流者可進LINE社群，個別詢問、試喝、選購與售後最終進官方LINE OA"
     },
     "threads": {
       "handle": "xianjiawei.tw",
       "displayName": "仙加味",
-      "bio": "仙加味｜現代漢方生活品牌\n萬華起家・四代家族傳承\n漢方飲食文化・多元日常選擇\n補養，是一種節奏。\n仙加味｜連結入口 ↓",
+      "bio": "現代漢方生活品牌｜龜鹿系列及漢方食品\n補養，是一種節奏。",
       "links": [
         "https://ts15825868.github.io/xianjiawei/links.html"
       ],
@@ -51,8 +51,8 @@
     "facebook": {
       "displayName": "仙加味",
       "metricoolNetworkId": "411869648852531",
-      "shortIntro": "仙加味｜現代漢方生活品牌\n萬華起家・四代家族傳承\n漢方飲食文化・多元日常選擇\n補養，是一種節奏。\n仙加味｜連結入口\nhttps://ts15825868.github.io/xianjiawei/links.html",
-      "about": "仙加味從台北萬華起家，承襲四代家族對鹿角、熬膠工藝與漢方飲食文化的經驗。結合自有商品、專業製造合作與精選原廠商品，提供貼近現代生活的多元飲食選擇。產品規格、使用方式與品牌故事請參考官網；價格、試喝、選購及售後請洽官方 LINE。",
+      "shortIntro": "現代漢方生活品牌｜龜鹿系列及漢方食品\n補養，是一種節奏。",
+      "about": "仙加味，源自1978年台北萬華，延續四代家族工藝與漢方飲食文化。\n\n以龜鹿系列及漢方食品，讓傳統補養融入現代日常。\n\n商品諮詢、訂購及配送，歡迎透過官方 LINE 聯繫。\n\n補養，是一種節奏。",
       "primaryLink": "https://ts15825868.github.io/xianjiawei/links.html",
       "profileGoal": "完整資訊、熟客維繫、品牌故事、主打龜鹿膏與龜鹿飲；交流導LINE社群，最終交易與服務導LINE OA"
     }
@@ -75,14 +75,14 @@
     "promotionRule": "不要每篇貼文硬推社群；每週約1次社群邀請或在高度相關的生活／料理／品牌內容自然邀請加入。"
   },
   "funnel": {
-    "primary": "Facebook／Instagram／Threads 個人檔案 → 仙加味｜連結入口 → 官網／LINE OA／Google Maps／官方社群；產品詢問、試喝、價格、下單、配送、售後仍直接由LINE OA處理",
+    "primary": "Facebook／Instagram／Threads 個人檔案 → 仙加味｜連結入口 → 官網及官方 LINE。商品諮詢、試喝、訂購、配送及售後由官方 LINE 個別提供。",
     "website": "https://ts15825868.github.io/xianjiawei/",
     "products": "https://ts15825868.github.io/xianjiawei/products.html",
     "trial": "https://ts15825868.github.io/xianjiawei/trial.html",
     "lineCommunity": "https://line.me/ti/g2/xZwHrwnQH968Ck1KavysQK9JH7l6FxNNlRKw3g?utm_source=invitation&utm_medium=link_copy&utm_campaign=default",
     "lineId": "@762jybnm",
     "lineFallback": "https://lin.ee/sHZW7NkR",
-    "principle": "社群個人檔案統一使用「仙加味｜連結入口」；官網負責完整品牌與產品資訊；LINE OA負責所有個別詢問與交易服務；Google Maps負責門市導航與商家資訊。LINE社群僅作選擇性日常交流，不作主要入口。",
+    "principle": "社群個人檔案統一使用「仙加味｜連結入口」。官網提供品牌及商品資訊。商品諮詢、訂購及配送，歡迎透過官方 LINE 聯繫。",
     "bioHub": "https://ts15825868.github.io/xianjiawei/links.html"
   },
   "publicProductScope": [
