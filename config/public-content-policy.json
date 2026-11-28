@@ -168,12 +168,28 @@
       "台興山產・仙加味"
     ],
     "googleBusiness": {
-      "currentName": "仙加味｜台興山產有限公司",
-      "role": "Google 商家通路例外名稱；仙加味為品牌，台興山產有限公司為目前可供 Google 驗證的法律主體",
+      "currentName": "仙加味（使用者截圖所示，尚待後台讀回）",
+      "role": "原商家身分與招牌待核對；食品業務優先評估食品供應商類別，不將原中藥商家直接轉作新商行。",
       "doNotTreatAsMainBrand": true,
       "doNotForceBrandOnlyUntilEvidenceReady": true,
       "futurePreferredName": "仙加味",
       "futureCondition": "商業登記已取得；仍須確認實際營業資格、招牌及地址用途，未確認前不變更商家檔案、不新增重複商家。"
+    },
+    "publicIntroduction": {
+      "full": "仙加味，源自1978年台北萬華，延續四代家族工藝與漢方飲食文化。\n以龜鹿系列及漢方食品，讓傳統補養融入現代日常。\n補養，是一種節奏。",
+      "short": "現代漢方生活品牌｜龜鹿系列及漢方食品｜補養，是一種節奏。",
+      "channels": [
+        "website",
+        "lineOA",
+        "googleBusiness",
+        "facebook",
+        "instagram",
+        "threads",
+        "erp",
+        "publicPosts",
+        "automation"
+      ],
+      "rule": "對外介紹簡潔、專業、品牌優先、資訊正確；不主動公開非必要內部經營安排，依法應揭露資訊完整保留；不宣稱未確認的門市、自取或製造資格。"
     }
   },
   "businessDisclosure": {
