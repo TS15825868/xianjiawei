@@ -249,8 +249,7 @@ function renderFooter() {
           <h3>仙加味官方 LINE</h3>
           <p>LINE ID：<strong>${escapeHtml(getLineId())}</strong></p>
           <p>商品規格、試喝、配送與購買可洽官方 LINE；使用及保存方式請以正式商品標示為準。</p>
-          <p><strong>營業時間：</strong>週一至週五 10:00–20:00；週六預約取貨／配送（先洽 LINE）；週日休息。</p>
-          <p><strong>LINE：</strong>24 小時可留言；人工回覆主要於週一至週五 10:00–20:00。</p>
+          <p>歡迎透過官方 LINE 留言，我們將依序回覆您的訊息。</p>
           ${lineButton("LINE 詢問商品與試喝", pageLineMessage())}
         </div>
         <a class="footer-line-qr-link" href="${buildLineAutoLink(pageLineMessage())}" target="_blank" rel="noopener noreferrer" aria-label="點選開啟仙加味官方 LINE"><img src="images/line-qr-official.png?v=${UX_VERSION}" alt="仙加味官方 LINE QR Code，點圖可開啟 LINE" loading="lazy" decoding="async"></a>
